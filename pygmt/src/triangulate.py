@@ -173,9 +173,9 @@ class triangulate:  # pylint: disable=invalid-name
 
         Reads in x,y[,z] data and performs Delaunay triangulation, i.e., it
         finds how the points should be connected to give the most equilateral
-        triangulation possible. If a map projection (give *region* and
-        *projection*) is chosen then it is applied before the triangulation is
-        calculated. By setting ``outgrid`` and ``spacing``, a grid will be
+        triangulation possible. If a map projection (give ``region`` and
+        ``projection``) is chosen then it is applied before the triangulation
+        is calculated. By setting ``outgrid`` and ``spacing``, a grid will be
         calculated based on the surface defined by the planar triangles. The
         actual algorithm used in the triangulations is either that of Watson
         [1982] or Shewchuk [1996] [Default is Shewchuk if installed; type
