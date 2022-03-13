@@ -423,33 +423,6 @@ def test_plot3d_scalar_xyz():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_plot3d_sizes.png")
-def test_plot3d_deprecate_sizes_to_size(data, region):
-    """
-    Make sure that the old parameter "sizes" is supported and it reports an
-    warning.
-
-    Modified from the test_plot3d_sizes() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot3d(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            zscale=5,
-            perspective=[225, 30],
-            sizes=0.5 * data[:, 2],
-            region=region,
-            projection="X10c",
-            style="ui",
-            color="blue",
-            frame=["af", "zaf"],
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_plot3d_ogrgmt_file_multipoint_default_style():
     """

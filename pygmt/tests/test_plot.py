@@ -452,30 +452,6 @@ def test_plot_datetime():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
-def test_plot_deprecate_sizes_to_size(data, region):
-    """
-    Make sure that the old parameter "sizes" is supported and it reports a
-    warning.
-
-    Modified from the test_plot_sizes() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot(
-            x=data[:, 0],
-            y=data[:, 1],
-            sizes=0.5 * data[:, 2],
-            region=region,
-            projection="X10c",
-            style="cc",
-            color="blue",
-            frame="af",
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_plot_ogrgmt_file_multipoint_default_style():
     """
