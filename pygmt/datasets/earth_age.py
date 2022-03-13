@@ -26,7 +26,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     registration type (**p** for pixel registration or **g** for gridline
     registration).
 
-    Refer to :gmt-datasets:`earth_age.html` for more details.
+    Refer to :gmt-datasets:`earth-age.html` for more details.
 
     Parameters
     ----------
