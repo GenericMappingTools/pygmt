@@ -198,7 +198,7 @@ def test_figure_shift_origin():
     """
     Test if fig.shift_origin works.
     """
-    kwargs = dict(region=[0, 3, 0, 5], projection="X3c/5c", frame=0)
+    kwargs = dict(region=(0, 3, 0, 5), projection="X3c/5c", frame=0)
     fig = Figure()
     # First call shift_origin without projection and region.
     # Test issue https://github.com/GenericMappingTools/pygmt/issues/514
