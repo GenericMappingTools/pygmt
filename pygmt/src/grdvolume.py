@@ -93,7 +93,14 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     >>> output_array = pygmt.grdvolume(
     ...     grid=grid, contour=[200, 400, 50], output_type="numpy"
     ... )
-    """
+    >>> print(output_dataframe)
+             0             1             2           3
+        0  200  2.144285e+12  7.972228e+14  371.789489
+        1  250  2.104042e+12  6.908183e+14  328.329232
+        2  300  2.014978e+12  5.877195e+14  291.675420
+        3  350  1.892109e+12  4.897545e+14  258.840510
+        4  400  1.744792e+12  3.988316e+14  228.584026
+        """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
             """Must specify format as either numpy, pandas, or file."""
