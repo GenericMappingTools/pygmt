@@ -215,9 +215,7 @@ class grdhisteq:  # pylint: disable=invalid-name
                 output_type = "xarray"
                 outgrid = tmpfile.name
             else:
-                raise GMTInvalidInput(
-                    "Must specify 'outgrid' as a string or None."
-                )
+                raise GMTInvalidInput("Must specify 'outgrid' as a string or None.")
             return grdhisteq._grdhisteq(
                 grid=grid,
                 output_type=output_type,
