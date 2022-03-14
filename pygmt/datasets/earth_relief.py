@@ -62,8 +62,8 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
-    Notes
-    -----
+    Note
+    ----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
     Earth relief data with resolutions of 5 arc-minutes or higher, which are
     stored as smaller tiles.

@@ -56,6 +56,7 @@ from pygmt.src import (
     sphdistance,
     sphinterpolate,
     surface,
+    triangulate,
     which,
     x2sys_cross,
     x2sys_init,

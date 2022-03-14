@@ -73,6 +73,29 @@ def test_basemap_winkel_tripel():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_basemap_utm_projection.png")
+@pytest.mark.parametrize(
+    "projection",
+    [
+        "EPSG_32723 +width=5",
+        "+proj=utm +zone=23 +south +datum=WGS84 +units=m +no_defs +width=5",
+    ],
+)
+def test_basemap_utm_projection(projection):
+    """
+    Create a Universal Transverse Mercator (Zone 23S) basemap plot.
+
+    Also check that providing the projection as an EPSG code or PROJ4 string
+    works.
+    """
+    projection = projection.replace(
+        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
+    )
+    fig = Figure()
+    fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_basemap_rose():
     """
