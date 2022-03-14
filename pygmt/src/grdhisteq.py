@@ -216,7 +216,7 @@ class grdhisteq:  # pylint: disable=invalid-name
                 outgrid = tmpfile.name
             else:
                 raise GMTInvalidInput(
-                    "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
+                    "Must specify 'outgrid' as a string or None."
                 )
             return grdhisteq._grdhisteq(
                 grid=grid,
