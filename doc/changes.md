@@ -7,13 +7,14 @@
 ### Highlights
 
 * 🎉 **Sixth minor release of PyGMT** 🎉
-* New inline examples for 13 functions!
+* New inline examples for 14 functions!
+* Single `pygmt.datasets.load_sample_data` function for loading any sample dataset ([#1685](https://github.com/GenericMappingTools/pygmt/pull/1685))
 * Minimum required GMT version is now 6.3.0 ([#1649](https://github.com/GenericMappingTools/pygmt/pull/1649))
 
 ### New Features
 
+* Wrap triangulate ([#731](https://github.com/GenericMappingTools/pygmt/pull/731))
 * Wrap grdhisteq ([#1433](https://github.com/GenericMappingTools/pygmt/pull/1433))
-* Use a single function for loading any sample dataset ([#1685](https://github.com/GenericMappingTools/pygmt/pull/1685))
 
 ### Enhancements
 
@@ -67,6 +68,7 @@
 * Add inline example for grdtrack ([#1725](https://github.com/GenericMappingTools/pygmt/pull/1725))
 * Add inline example for select ([#1756](https://github.com/GenericMappingTools/pygmt/pull/1756))
 * Add inline example for sph2grd ([#1718](https://github.com/GenericMappingTools/pygmt/pull/1718))
+* Add inline example for xyz2grd ([#1719](https://github.com/GenericMappingTools/pygmt/pull/1719))
 
 ### Maintenance
 
