@@ -149,7 +149,6 @@ class triangulate:  # pylint: disable=invalid-name
 
     @staticmethod
     @fmt_docstring
-    @kwargs_to_strings(R="sequence")
     def regular_grid(  # pylint: disable=too-many-arguments,too-many-locals
         data=None,
         x=None,
@@ -276,7 +275,6 @@ class triangulate:  # pylint: disable=invalid-name
 
     @staticmethod
     @fmt_docstring
-    @kwargs_to_strings(R="sequence")
     def delaunay_triples(  # pylint: disable=too-many-arguments,too-many-locals
         data=None,
         x=None,
