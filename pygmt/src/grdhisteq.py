@@ -202,8 +202,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
 
-        Notes
-        -----
+        Note
+        ----
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
@@ -312,8 +312,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
 
-        Notes
-        -----
+        Note
+        ----
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
