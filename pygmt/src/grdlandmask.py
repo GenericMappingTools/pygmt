@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdlandmask"]
     V="verbose",
     r="registration",
 )
-@kwargs_to_strings(R="sequence", N="sequence", E="sequence")
+@kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
     r"""
     Create a grid file with set values for land and water.

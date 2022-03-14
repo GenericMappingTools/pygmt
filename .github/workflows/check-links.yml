@@ -41,6 +41,7 @@ jobs:
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%3Cmodule-name%3E.html$"
+          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "https://hackmd.io/@pygmt"
           --verbose
           "repository/**/*.rst"
