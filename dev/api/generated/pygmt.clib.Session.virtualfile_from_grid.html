@@ -85,30 +85,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -215,7 +199,7 @@
 <span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">virtualfile_from_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.virtualfile_from_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.virtualfile_from_grid" title="Permalink to this definition"></a></dt>
 <dd><p>Store a grid in a virtual file.</p>
 <p>Use the virtual file name to pass in the data in your grid to a GMT
-module. Grids must be <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instances.</p>
+module. Grids must be <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instances.</p>
 <p>Context manager (use in a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). Yields the virtual file name
 that you can pass as an argument to a GMT module call. Closes the
 virtual file upon exit of the <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p>
@@ -230,7 +214,7 @@ with <a class="reference internal" href="pygmt.clib.Session.create_data.html#pyg
 make sure it is.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The grid that will be included in the virtual file.</p>
+<dd class="field-odd"><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The grid that will be included in the virtual file.</p>
 </dd>
 <dt class="field-even">Yields</dt>
 <dd class="field-even"><p><strong>fname</strong> (<em>str</em>) – The name of virtual file. Pass this as a file name argument to a
@@ -238,17 +222,17 @@ GMT module.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">load_earth_relief</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.helpers.testing</span> <span class="kn">import</span> <span class="n">load_static_earth_relief</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">GMTTempFile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">load_static_earth_relief</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="go">(180, 360)</span>
+<span class="go">(14, 8)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="go">-179.5 179.5</span>
+<span class="go">-54.5 -47.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="go">-89.5 89.5</span>
+<span class="go">-23.5 -10.5</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="go">-8182.0 5651.5</span>
+<span class="go">190.0 981.0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="k">with</span> <span class="n">ses</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
 <span class="gp">... </span>        <span class="c1"># Send the output to a file so that we can read it</span>
@@ -257,7 +241,7 @@ GMT module.</p>
 <span class="gp">... </span>            <span class="n">ses</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;grdinfo&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 <span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">fout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
 <span class="gp">...</span>
-<span class="go">-180 180 -90 90 -8182 5651.5 1 1 360 180 1 1</span>
+<span class="go">-55 -47 -24 -10 190 981 1 1 8 14 1 1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype</span>
 </pre></div>
 </div>
@@ -277,10 +261,10 @@ GMT module.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

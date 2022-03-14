@@ -85,30 +85,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -196,7 +180,7 @@
 <h1>pygmt.config<a class="headerlink" href="#pygmt-config" title="Permalink to this headline"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.config">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.config" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/config.html#config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.config" title="Permalink to this definition"></a></dt>
 <dd><p>Set GMT defaults globally or locally.</p>
 <p>Change GMT defaults globally:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">PARAMETER</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
@@ -233,28 +217,28 @@
 <p><span class="caption-text"><a class="reference internal" href="../../gallery/basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y axes graph</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><figure class="align-default" id="id3">
-<img alt="Configuring PyGMT defaults" src="../../_images/sphx_glr_configuration_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../tutorials/configuration.html#sphx-glr-tutorials-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil..."><figure class="align-default" id="id4">
-<img alt="Plotting datetime charts" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../tutorials/date_time_charts.html#sphx-glr-tutorials-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text."><figure class="align-default" id="id5">
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a map plot. This is handled by pygmt.Figure.text."><figure class="align-default" id="id3">
 <img alt="Plotting text" src="../../_images/sphx_glr_text_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../tutorials/text.html#sphx-glr-tutorials-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><figure class="align-default" id="id4">
+<img alt="Configuring PyGMT defaults" src="../../_images/sphx_glr_configuration_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil..."><figure class="align-default" id="id5">
+<img alt="Plotting datetime charts" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/date_time_charts.html#sphx-glr-tutorials-advanced-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><figure class="align-default" id="id6">
 <img alt="Plotting vectors" src="../../_images/sphx_glr_vectors_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../tutorials/vectors.html#sphx-glr-tutorials-vectors-py"><span class="std std-ref">Plotting vectors</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/vectors.html#sphx-glr-tutorials-advanced-vectors-py"><span class="std std-ref">Plotting vectors</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius *r*)."><figure class="align-default" id="id7">
@@ -278,10 +262,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

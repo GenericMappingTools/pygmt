@@ -82,30 +82,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -278,7 +262,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">meca</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>  <span class="c1"># pylint: disable=unused-argument</span>
+    <span class="bp">self</span><span class="p">,</span>
     <span class="n">spec</span><span class="p">,</span>
     <span class="n">scale</span><span class="p">,</span>
     <span class="n">longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -387,7 +371,7 @@
 <span class="sd">        Set optional parameter pointers based on DataFrame or dict, if those</span>
 <span class="sd">        parameters are present in the DataFrame or dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_pointers</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_pointers</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
                 <span class="c1"># set pointer based on param name</span>
                 <span class="n">data_pointers</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">param</span><span class="p">]</span>
@@ -417,7 +401,16 @@
 
         <span class="n">param_conventions</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;AKI&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike&quot;</span><span class="p">,</span> <span class="s2">&quot;dip&quot;</span><span class="p">,</span> <span class="s2">&quot;rake&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;GCMT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip2&quot;</span><span class="p">,</span> <span class="s2">&quot;rake2&quot;</span><span class="p">,</span> <span class="s2">&quot;mantissa&quot;</span><span class="p">,</span> <span class="s2">&quot;exponent&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;GCMT&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;strike1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dip1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rake1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;strike2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dip2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rake2&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;mantissa&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;exponent&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
             <span class="s2">&quot;MT&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mrr&quot;</span><span class="p">,</span> <span class="s2">&quot;mtt&quot;</span><span class="p">,</span> <span class="s2">&quot;mff&quot;</span><span class="p">,</span> <span class="s2">&quot;mrt&quot;</span><span class="p">,</span> <span class="s2">&quot;mrf&quot;</span><span class="p">,</span> <span class="s2">&quot;mtf&quot;</span><span class="p">,</span> <span class="s2">&quot;exponent&quot;</span><span class="p">],</span>
             <span class="s2">&quot;PARTIAL&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;strike1&quot;</span><span class="p">,</span> <span class="s2">&quot;dip1&quot;</span><span class="p">,</span> <span class="s2">&quot;strike2&quot;</span><span class="p">,</span> <span class="s2">&quot;fault_type&quot;</span><span class="p">,</span> <span class="s2">&quot;magnitude&quot;</span><span class="p">],</span>
             <span class="s2">&quot;PRINCIPAL_AXIS&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -443,27 +436,25 @@
             <span class="s2">&quot;plot_latitude&quot;</span><span class="p">:</span> <span class="n">plot_latitude</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="c1"># make a DataFrame copy to check convention if it contains</span>
-        <span class="c1"># other parameters</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)):</span>
-            <span class="c1"># check if a copy is necessary</span>
-            <span class="n">copy</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">drop_list</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">data_pointers</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
-                    <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="n">drop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pointer</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
-                <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-                <span class="c1"># delete optional parameters from copy for convention check</span>
-                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">drop_list</span><span class="p">:</span>
-                    <span class="k">del</span> <span class="n">spec_conv</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span>
+        <span class="c1"># make a DataFrame copy to check convention if it contains other params</span>
+        <span class="c1"># check if a copy is necessary</span>
+        <span class="n">copy</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">drop_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">data_pointers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pointer</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+                <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">drop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pointer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
+            <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="c1"># delete optional parameters from copy for convention check</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">drop_list</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">spec_conv</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">spec_conv</span> <span class="o">=</span> <span class="n">spec</span>
 
         <span class="c1"># set convention and focal parameters based on spec convention</span>
         <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">param_conventions</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">spec_conv</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">param_conventions</span><span class="p">[</span><span class="n">conv</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">spec_conv</span><span class="p">)</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">param_conventions</span><span class="p">[</span><span class="n">conv</span><span class="p">]):</span>
                 <span class="n">convention</span> <span class="o">=</span> <span class="n">conv</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="n">foc_params</span> <span class="o">=</span> <span class="n">param_conventions</span><span class="p">[</span><span class="n">conv</span><span class="p">]</span>
                 <span class="k">break</span>
@@ -637,10 +628,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

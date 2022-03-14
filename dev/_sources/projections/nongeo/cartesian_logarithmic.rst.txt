@@ -58,11 +58,11 @@ requires **l** after its size argument.
     # Create a list of x values 0-100
     xline = np.arange(0, 101)
     # Create a list of y-values that are the square root of the x-values
-    yline = xline ** 0.5
+    yline = xline**0.5
     # Create a list of x values for every 10 in 0-100
     xpoints = np.arange(0, 101, 10)
     # Create a list of y-values that are the square root of the x-values
-    ypoints = xpoints ** 0.5
+    ypoints = xpoints**0.5
 
     fig = pygmt.Figure()
     fig.plot(
@@ -86,7 +86,7 @@ requires **l** after its size argument.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.030 seconds)
+   **Total running time of the script:** ( 0 minutes  1.185 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_logarithmic.py:

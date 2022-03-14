@@ -31,7 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="External Resources" href="../../external_resources.html" />
+    <link rel="next" title="Projections" href="../../projections/index.html" />
     <link rel="prev" title="Logo" href="logo.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -85,10 +85,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
@@ -110,25 +111,8 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -240,7 +224,7 @@ grdimage [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fe
         <a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">8000</span><span class="p">,</span> <span class="mi">8000</span><span class="p">])</span>
         <span class="c1"># &quot;R?&quot; means Winkel Tripel projection with map width automatically</span>
         <span class="c1"># determined from the subplot width.</span>
-        <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_globe</span></a><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;R?&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_globe</span></a><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;R?&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
         <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a4000f2000&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">])</span>
     <span class="c1"># Activate the second panel so that the colormap created by the makecpt</span>
     <span class="c1"># method is a panel-level CPT</span>
@@ -248,15 +232,13 @@ grdimage [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fe
         <a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;globe&quot;</span><span class="p">,</span> <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">6000</span><span class="p">,</span> <span class="mi">3000</span><span class="p">])</span>
         <span class="c1"># &quot;M?&quot; means Mercator projection with map width also automatically</span>
         <span class="c1"># determined from the subplot width.</span>
-        <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span>
-            <span class="n">grid</span><span class="o">=</span><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_subset</span></a><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M?&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subset_region</span></a><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
+        <a href="../../api/generated/pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">grdimage</span></a><span class="p">(</span><span class="n">grid</span><span class="o">=</span><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_subset</span></a><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M?&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subset_region</span></a><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
         <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;a2000f1000&quot;</span><span class="p">,</span> <span class="s2">&quot;x+lElevation&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm&quot;</span><span class="p">])</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.291 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.689 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbars-multiple-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/40d071e44fa3d77768df6e1280410b77/colorbars_multiple.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbars_multiple.py</span></code></a></p>
@@ -274,16 +256,16 @@ grdimage [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fe
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="logo.html" class="btn btn-neutral float-left" title="Logo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../external_resources.html" class="btn btn-neutral float-right" title="External Resources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../projections/index.html" class="btn btn-neutral float-right" title="Projections" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

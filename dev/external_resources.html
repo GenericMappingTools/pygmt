@@ -31,8 +31,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Frames, ticks, titles, and labels" href="tutorials/frames.html" />
-    <link rel="prev" title="Multiple colormaps" href="gallery/embellishments/colorbars_multiple.html" />
+    <link rel="next" title="API Reference" href="api/index.html" />
+    <link rel="prev" title="Polar" href="projections/nongeo/polar.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -85,34 +85,18 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">Intro to PyGMT</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">External Resources</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#tutorials">Tutorials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#examples-from-publications-and-posters">Examples from Publications and Posters</a></li>
 </ul>
 </li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
-<li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -175,7 +159,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="external-resources">
+  <section id="external-resources">
 <h1>External Resources<a class="headerlink" href="#external-resources" title="Permalink to this headline"></a></h1>
 <p>Below is a curated collection of external PyGMT resources.</p>
 <p><em>To add your contribution to this collection, follow <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md#editing-the-documentation">these instructions</a>
@@ -186,7 +170,8 @@ to submit a pull request with your recommended addition to the
 <h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/liamtoney/gi-pygmt-2021">2021 PyGMT course at the UAF Geophysical Institute</a> by Liam Toney</p></li>
-<li><p><a class="reference external" href="https://www.iris.edu/hq/inclass/lesson/728">Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT</a> by Liam Toney</p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=Zvcy7VDuhiw">2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping</a> by Liam Toney</p></li>
+<li><p><a class="reference external" href="https://www.iris.edu/hq/inclass/lesson/728">2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT</a> by Liam Toney</p></li>
 <li><p><a class="reference external" href="https://github.com/MIGG-NTU/PyGMT2021">PyGMT Tutorial in 2021</a> by MIGG-NTU</p></li>
 <li><p><a class="reference external" href="https://github.com/GenericMappingTools/foss4g2019oceania">PyGMT Workshop at FOSS4G Oceania 2019</a> by Wei Ji Leong</p></li>
 </ul>
@@ -205,17 +190,17 @@ to submit a pull request with your recommended addition to the
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="gallery/embellishments/colorbars_multiple.html" class="btn btn-neutral float-left" title="Multiple colormaps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tutorials/frames.html" class="btn btn-neutral float-right" title="Frames, ticks, titles, and labels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="projections/nongeo/polar.html" class="btn btn-neutral float-left" title="Polar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

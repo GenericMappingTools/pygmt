@@ -85,10 +85,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
@@ -112,25 +113,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -213,12 +197,13 @@ A text symbol can be drawn by passing <strong>l</strong><em>size</em><strong>+t<
 the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter where <em>size</em> defines the size of the text symbol
 (note: the size is only approximate; no individual scaling is done for
 different characters) and <em>string</em> can be a letter or a text string
-(less than 256 characters). Optionally, you can append <strong>+f</strong><em>font</em> to
-select a particular font [Default is <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-FONT_ANNOT_PRIMARY">FONT_ANNOT_PRIMARY</a>] as well as
-<strong>+j</strong><em>justify</em> to change the justification [Default is CM]. Outline
-and fill color of the text symbols can be customized via the <code class="docutils literal notranslate"><span class="pre">pen</span></code>
-and <code class="docutils literal notranslate"><span class="pre">color</span></code> parameters, respectively.</p>
-<p>For all supported octal codes and fonts see the GMT cookbook
+(less than 256 characters). Optionally, you can append
+<strong>+f</strong><em>font,outlinecolor</em> to select a particular font [Default is
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-FONT_ANNOT_PRIMARY">FONT_ANNOT_PRIMARY</a>] and outline color [Default is black] as well
+as <strong>+j</strong><em>justify</em> to change the justification [Default is CM]. The fill
+color of the text symbols can be set with the <code class="docutils literal notranslate"><span class="pre">color</span></code> parameter, and the
+outline width can be customized with the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter.
+For all supported octal codes and fonts see the GMT cookbook
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html">https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html</a> and
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html">https://docs.generic-mapping-tools.org/latest/cookbook/postscript-fonts.html</a>.</p>
 <img src="../../_images/sphx_glr_text_symbols_001.png" srcset="../../_images/sphx_glr_text_symbols_001.png" alt="text symbols" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
@@ -246,13 +231,14 @@ and <code class="docutils literal notranslate"><span class="pre">color</span></c
 <span class="c1"># color fill is set to &quot;gold&quot;</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;l3.5c+ts+fTimes-Italic&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gold&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="p">)</span>
 <span class="c1"># plot the pi symbol (\160 is octal code for pi) of size 3.5c, for this use</span>
-<span class="c1"># the &quot;Symbol&quot; font, color fill is set to &quot;magenta4&quot;</span>
-<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;l3.5c+t</span><span class="se">\160</span><span class="s2">+fSymbol&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;magenta4&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="p">)</span>
+<span class="c1"># the &quot;Symbol&quot; font, the outline color of the symbol is set to</span>
+<span class="c1"># &quot;darkorange&quot;, the color fill is set to &quot;magenta4&quot;</span>
+<a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;l3.5c+t</span><span class="se">\160</span><span class="s2">+fSymbol,darkorange&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;magenta4&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pen</span></a><span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.402 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.630 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-text-symbols-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b7a28a22e1ff599930e8c785736f9eaf/text_symbols.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">text_symbols.py</span></code></a></p>
@@ -276,10 +262,10 @@ and <code class="docutils literal notranslate"><span class="pre">color</span></c
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

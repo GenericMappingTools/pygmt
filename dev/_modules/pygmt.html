@@ -82,30 +82,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -186,8 +170,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">atexit</span> <span class="k">as</span> <span class="nn">_atexit</span>
-
-<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">get_distribution</span>
+<span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">version</span>
 
 <span class="c1"># Import modules to make the high-level GMT Python API</span>
 <span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">datasets</span>
@@ -208,6 +191,7 @@
     <span class="n">grdfill</span><span class="p">,</span>
     <span class="n">grdfilter</span><span class="p">,</span>
     <span class="n">grdgradient</span><span class="p">,</span>
+    <span class="n">grdhisteq</span><span class="p">,</span>
     <span class="n">grdinfo</span><span class="p">,</span>
     <span class="n">grdlandmask</span><span class="p">,</span>
     <span class="n">grdproject</span><span class="p">,</span>
@@ -223,6 +207,7 @@
     <span class="n">sphdistance</span><span class="p">,</span>
     <span class="n">sphinterpolate</span><span class="p">,</span>
     <span class="n">surface</span><span class="p">,</span>
+    <span class="n">triangulate</span><span class="p">,</span>
     <span class="n">which</span><span class="p">,</span>
     <span class="n">x2sys_cross</span><span class="p">,</span>
     <span class="n">x2sys_init</span><span class="p">,</span>
@@ -230,7 +215,7 @@
 <span class="p">)</span>
 
 <span class="c1"># Get semantic version through setuptools-scm</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">get_distribution</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
 <span class="n">__commit__</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;+g&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;+g&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 0ab3cd78</span>
 
 <span class="c1"># Start our global modern mode session</span>
@@ -246,7 +231,7 @@
 <span class="sd">    Includes the GMT version, default values for parameters, the path to the</span>
 <span class="sd">    ``libgmt`` shared library, and GMT directories.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>  <span class="c1"># pylint: disable=import-outside-toplevel</span>
 
     <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">]</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
@@ -262,10 +247,10 @@
 
 <span class="sd">    - PyGMT itself</span>
 <span class="sd">    - System information (Python version, Operating System)</span>
-<span class="sd">    - Core dependency versions (Numpy, Pandas, Xarray, etc)</span>
+<span class="sd">    - Core dependency versions (NumPy, Pandas, Xarray, etc)</span>
 <span class="sd">    - GMT library information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
+    <span class="c1"># pylint: disable=import-outside-toplevel</span>
     <span class="kn">import</span> <span class="nn">importlib</span>
     <span class="kn">import</span> <span class="nn">platform</span>
     <span class="kn">import</span> <span class="nn">subprocess</span>
@@ -302,10 +287,9 @@
 
         <span class="k">for</span> <span class="n">gs_cmd</span> <span class="ow">in</span> <span class="n">cmds</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">version</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+                <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
                     <span class="p">[</span><span class="n">gs_cmd</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="k">return</span> <span class="n">version</span>
             <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
                 <span class="k">continue</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -315,10 +299,9 @@
 <span class="sd">        Get GMT version.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">version</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
+            <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
                 <span class="p">[</span><span class="s2">&quot;gmt&quot;</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
             <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">version</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -376,7 +359,7 @@
 <span class="sd">        If pytest returns a non-zero error code indicating that some tests have</span>
 <span class="sd">        failed.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">pytest</span>
+    <span class="kn">import</span> <span class="nn">pytest</span>  <span class="c1"># pylint: disable=import-outside-toplevel</span>
 
     <span class="n">show_versions</span><span class="p">()</span>
 
@@ -406,10 +389,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

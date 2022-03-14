@@ -71,7 +71,7 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
     # build the contours underlying data with the function z = x^2 + y^2
     X, Y = np.meshgrid(np.linspace(-10, 10, 50), np.linspace(-10, 10, 50))
-    Z = X ** 2 + Y ** 2
+    Z = X**2 + Y**2
     x, y, z = X.flatten(), Y.flatten(), Z.flatten()
 
 
@@ -95,7 +95,7 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.925 seconds)
+   **Total running time of the script:** ( 0 minutes  1.303 seconds)
 
 
 .. _sphx_glr_download_gallery_images_contours.py:

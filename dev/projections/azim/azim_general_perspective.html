@@ -85,16 +85,12 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Projections</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#azimuthal-projections">Azimuthal Projections</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="azim_equidistant.html">Azimuthal Equidistant</a></li>
@@ -112,19 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#projection-table">Projection Table</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -203,18 +187,17 @@ to download the full example code</p>
 <p>The general perspective projection imitates the view of the Earth from a finite
 point in space. In a full view of the earth one third of its surface area can
 be seen.</p>
-<p><strong>g</strong><em>lon0/lat0</em><em>/altitude</em><em>/azimuth</em><em>/tilt</em><em>/twist</em><em>/Width</em><em>/Height</em><em>/scale</em>
-or <strong>G</strong><em>lon0/lat0</em><em>/altitude</em><em>/azimuth</em><em>/tilt</em><em>/twist</em><em>/Width</em><em>/Height</em><em>/width</em></p>
-<p>The projection type is set with <strong>g</strong> or <strong>G</strong>.
-<em>lon0/lat0</em> specifies the projection center and <em>altitude</em> sets the height
-in km of the viewpoint above local sea level (If altitude is less than 10,
-then it is the distance from the center of the earth to the viewpoint in earth
-radii). With <em>azimuth</em> the direction (in degrees) in which you are looking is
-specified, measured clockwise from north. <em>tilt</em> is given in degrees and is the
-viewing angle relative to zenith. A tilt of 0° is looking straight down, 60° is
-looking 30° above horizon. <em>twist</em> is the clockwise rotation of the image (in
-degrees). <em>Width</em> and <em>Height</em> describe the viewport angle in degrees, and
-<em>scale</em> or <em>width</em> determine the size of the figure.</p>
+<p><strong>g</strong><em>lon0/lat0</em><em>/scale</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>] or <strong>G</strong><em>lon0/lat0</em><em>/width</em>[<strong>+a</strong><em>azimuth</em>][<strong>+t</strong><em>tilt</em>][<strong>+v</strong><em>vwidth/vheight</em>][<strong>+w</strong><em>twist</em>][<strong>+z</strong><em>altitude</em>]</p>
+<p>The projection type is set with <strong>g</strong> or <strong>G</strong>. <em>lon0/lat0</em> specifies the
+projection center and <em>scale</em> or <em>width</em> determine the size of the figure.
+With <strong>+a</strong><em>azimuth</em> the direction (in degrees) in which you are looking is
+specified, measured clockwise from north. <strong>+t</strong><em>tilt</em> is given in degrees
+and is the viewing angle relative to zenith. A tilt of 0° is looking straight
+down, 60° is looking 30° above horizon. The viewport angle in degrees is
+described via <strong>+v</strong><em>vwidth/vheight</em> and <strong>+w</strong><em>twist</em> is the clockwise
+rotation of the image (in degrees). <strong>+z</strong><em>altitude</em> sets the height in km
+of the viewpoint above local sea level (If altitude is less than 10, then it is
+the distance from the center of the earth to the viewpoint in earth radii).</p>
 <p>The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.</p>
@@ -233,7 +216,7 @@ coast [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
-    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G4/52/250/30/45/0/60/60/12c&quot;</span><span class="p">,</span>
+    <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;G4/52/12c+a30+t45+v60/60+w0+z250&quot;</span><span class="p">,</span>
     <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span>
     <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x10g10&quot;</span><span class="p">,</span> <span class="s2">&quot;y5g5&quot;</span><span class="p">],</span>
     <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
@@ -241,7 +224,7 @@ coast [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.949 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.467 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-azim-azim-general-perspective-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/632b22f22c9757823995900ae3b5c418/azim_general_perspective.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">azim_general_perspective.py</span></code></a></p>
@@ -265,10 +248,10 @@ coast [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

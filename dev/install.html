@@ -31,7 +31,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Making your first figure" href="tutorials/first_figure.html" />
+    <link rel="next" title="Intro to PyGMT" href="get-started/index.html" />
     <link rel="prev" title="Overview" href="overview.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -99,30 +99,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#finding-the-gmt-shared-library">Finding the GMT shared library</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -187,16 +171,6 @@
              
   <section id="installing">
 <span id="install"></span><h1>Installing<a class="headerlink" href="#installing" title="Permalink to this headline"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>🚨 <strong>This package is in the early stages of design and implementation.</strong> 🚨</p>
-<blockquote>
-<div><p>We welcome any feedback and ideas!
-Let us know by submitting
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on GitHub</a>
-or by posting on our <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a>.</p>
-</div></blockquote>
-</div>
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h2>
 <p>The fastest way to install PyGMT is with the
@@ -227,7 +201,7 @@ want to install the latest development version.</p>
 </section>
 <section id="which-python">
 <h2>Which Python?<a class="headerlink" href="#which-python" title="Permalink to this headline"></a></h2>
-<p>PyGMT is tested to run on <strong>Python 3.7 or greater</strong>.</p>
+<p>PyGMT is tested to run on <strong>Python 3.8 or greater</strong>.</p>
 <p>We recommend using the <a class="reference external" href="https://www.anaconda.com/distribution">Anaconda</a>
 Python distribution to ensure you have all dependencies installed and the
 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a>
@@ -240,7 +214,7 @@ installations on your system.</p>
 <p>PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the
 latest released version that can be found at
 the <a class="reference external" href="https://www.generic-mapping-tools.org">GMT official site</a>.
-We need the latest GMT (&gt;=6.2.0) since there are many changes being made to GMT
+We need the latest GMT (&gt;=6.3.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode">modern execution mode</a>.</p>
 <p>Compiled conda packages of GMT for Linux, macOS and Windows are provided
@@ -255,7 +229,7 @@ anyone who tries.</p>
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h2>
 <p>PyGMT requires the following libraries to be installed:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org">numpy</a> (&gt;= 1.18)</p></li>
+<li><p><a class="reference external" href="https://numpy.org">numpy</a> (&gt;= 1.19)</p></li>
 <li><p><a class="reference external" href="https://pandas.pydata.org">pandas</a></p></li>
 <li><p><a class="reference external" href="https://xarray.pydata.org">xarray</a></p></li>
 <li><p><a class="reference external" href="https://unidata.github.io/netcdf4-python">netCDF4</a></p></li>
@@ -365,16 +339,16 @@ set &quot;GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\&q
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tutorials/first_figure.html" class="btn btn-neutral float-right" title="Making your first figure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="get-started/index.html" class="btn btn-neutral float-right" title="Intro to PyGMT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

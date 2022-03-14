@@ -29,11 +29,10 @@
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.grdlandmask" href="pygmt.grdlandmask.html" />
+    <link rel="next" title="pygmt.grdhisteq" href="pygmt.grdhisteq.html" />
     <link rel="prev" title="pygmt.grdfilter" href="pygmt.grdfilter.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -87,30 +86,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -118,33 +101,25 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plotting">Plotting</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmean.html">pygmt.blockmean</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmedian.html">pygmt.blockmedian</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.blockmode.html">pygmt.blockmode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.nearneighbor.html">pygmt.nearneighbor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.project.html">pygmt.project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.select.html">pygmt.select</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sph2grd.html">pygmt.sph2grd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphdistance.html">pygmt.sphdistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.sphinterpolate.html">pygmt.sphinterpolate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.surface.html">pygmt.surface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.xyz2grd.html">pygmt.xyz2grd</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdfill.html">pygmt.grdfill</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdfilter.html">pygmt.grdfilter</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.grdgradient</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-grdgradient">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#operations-on-tabular-data">Operations on tabular data</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#operations-on-raster-data">Operations on raster data</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdfill.html">pygmt.grdfill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdfilter.html">pygmt.grdfilter</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.grdgradient</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdhisteq.html">pygmt.grdhisteq</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdhisteq.equalize_grid.html">pygmt.grdhisteq.equalize_grid</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdhisteq.compute_bins.html">pygmt.grdhisteq.compute_bins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdlandmask.html">pygmt.grdlandmask</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdproject.html">pygmt.grdproject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdsample.html">pygmt.grdsample</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdlandmask.html">pygmt.grdlandmask</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdproject.html">pygmt.grdproject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdsample.html">pygmt.grdsample</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdtrack.html">pygmt.grdtrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.grdvolume.html">pygmt.grdvolume</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_init.html">pygmt.x2sys_init</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.x2sys_cross.html">pygmt.x2sys_cross</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#crossover-analysis-with-x2sys">Crossover analysis with x2sys</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
@@ -243,8 +218,8 @@ the resulting gradient.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><em>None</em></a>) – The name of the output netCDF file with extension .nc to store the grid
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><em>None</em>) – The name of the output netCDF file with extension .nc to store the grid
 in.</p></li>
 <li><p><strong>azimuth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>azim</em>[/<em>azim2</em>].
 Azimuthal direction for a directional derivative; <em>azim</em> is the
@@ -327,7 +302,7 @@ grid output is not  needed for this run then do not specify
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>. For  subsequent runs,  just use <strong>r</strong> to read these
 values.  Using <strong>R</strong>  will read then delete the statistics file.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
-Specify the <a class="reference internal" href="../../tutorials/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>slope_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of output grid file with scalar magnitudes of gradient vectors.
 Requires <code class="docutils literal notranslate"><span class="pre">direction</span></code> but makes <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> optional.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
@@ -361,13 +336,24 @@ spline used:</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p><strong>ret</strong> (<em>xarray.DataArray or None</em>) – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
 </p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># and a y-range of 15 to 25</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a new grid from an input grid, set the azimuth to 10 degrees,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_grid</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">grdgradient</span><span class="p">(</span><span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <section id="examples-using-pygmt-grdgradient">
@@ -387,16 +373,16 @@ spline used:</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.grdfilter.html" class="btn btn-neutral float-left" title="pygmt.grdfilter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.grdlandmask.html" class="btn btn-neutral float-right" title="pygmt.grdlandmask" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.grdhisteq.html" class="btn btn-neutral float-right" title="pygmt.grdhisteq" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

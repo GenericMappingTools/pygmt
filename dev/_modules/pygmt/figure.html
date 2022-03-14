@@ -82,30 +82,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -171,6 +155,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -297,13 +282,14 @@
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;gs_option&quot;</span><span class="p">,</span>
         <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dpi&quot;</span><span class="p">,</span>
         <span class="n">F</span><span class="o">=</span><span class="s2">&quot;prefix&quot;</span><span class="p">,</span>
-        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;icc_gray&quot;</span><span class="p">,</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;resize&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;bb_style&quot;</span><span class="p">,</span>
         <span class="n">T</span><span class="o">=</span><span class="s2">&quot;fmt&quot;</span><span class="p">,</span>
         <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;anti_aliasing&quot;</span><span class="p">,</span>
         <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">()</span>
-    <span class="k">def</span> <span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icc_gray</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert [E]PS file(s) to other formats.</span>
 
@@ -321,9 +307,14 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        crop : str or bool</span>
-<span class="sd">            Adjust the BoundingBox and HiResBoundingBox to the minimum required</span>
-<span class="sd">            by the image content. Append ``u`` to first remove any GMT-produced</span>
-<span class="sd">            time-stamps. Default is True.</span>
+<span class="sd">            Adjust the BoundingBox and HiResBoundingBox to the minimum</span>
+<span class="sd">            required by the image content. Default is True. Append **+u** to</span>
+<span class="sd">            first remove any GMT-produced time-stamps. Append **+r** to</span>
+<span class="sd">            *round* the HighResBoundingBox instead of using the ``ceil``</span>
+<span class="sd">            function. This is going against Adobe Law but can be useful when</span>
+<span class="sd">            creating very small images where the difference of one pixel</span>
+<span class="sd">            might matter. If ``verbose`` is used we also report the</span>
+<span class="sd">            dimensions of the final illustration.</span>
 <span class="sd">        gs_option : str</span>
 <span class="sd">            Specify a single, custom option that will be passed on to</span>
 <span class="sd">            GhostScript as is.</span>
@@ -335,8 +326,33 @@
 <span class="sd">            using the input names as base, which are appended with an</span>
 <span class="sd">            appropriate extension. Use this option to provide a different name,</span>
 <span class="sd">            but without extension. Extension is still determined automatically.</span>
-<span class="sd">        icc_gray : bool</span>
-<span class="sd">            Enforce gray-shades by using ICC profiles.</span>
+<span class="sd">        resize : str</span>
+<span class="sd">            [**+m**\ *margins*][**+s**\ [**m**]\ *width*\</span>
+<span class="sd">            [/\ *height*]][**+S**\ *scale*] ].</span>
+<span class="sd">            Adjust the BoundingBox and HiResBoundingBox by scaling and/or</span>
+<span class="sd">            adding margins. Append **+m** to specify extra margins to extend</span>
+<span class="sd">            the bounding box. Give either one (uniform), two (x and y) or four</span>
+<span class="sd">            (individual sides) margins; append unit [Default is set by</span>
+<span class="sd">            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the</span>
+<span class="sd">            output image to exactly *width* units. The default unit is set by</span>
+<span class="sd">            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or</span>
+<span class="sd">            impose different width and height (**Note**: This may change the</span>
+<span class="sd">            image aspect ratio). What happens here is that Ghostscript will do</span>
+<span class="sd">            the re-interpolation work and the final image will retain the DPI</span>
+<span class="sd">            resolution set by ``dpi``.  Append **+sm** to set a maximum size</span>
+<span class="sd">            and the new *width* is only imposed if the original figure width</span>
+<span class="sd">            exceeds it. Append /\ *height* to also impose a maximum height in</span>
+<span class="sd">            addition to the width. Alternatively, append **+S**\ *scale* to</span>
+<span class="sd">            scale the image by a constant factor.</span>
+<span class="sd">        bb_style : str</span>
+<span class="sd">            Set optional BoundingBox fill color, fading, or draw the outline</span>
+<span class="sd">            of the BoundingBox. Append **+f**\ *fade* to fade the entire plot</span>
+<span class="sd">            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to</span>
+<span class="sd">            paint the BoundingBox behind the illustration and append **+p**\</span>
+<span class="sd">            [*pen*] to draw the BoundingBox outline (append a pen or accept</span>
+<span class="sd">            the default pen of 0.25p,black). Note: If both **+g** and **+f**</span>
+<span class="sd">            are used then we use paint as the fade color instead of black.</span>
+<span class="sd">            Append **+i** to enforce gray-shades by using ICC profiles.</span>
 <span class="sd">        anti_aliasing : str</span>
 <span class="sd">            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].</span>
 <span class="sd">            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.</span>
@@ -360,10 +376,28 @@
         <span class="c1"># Default cropping the figure to True</span>
         <span class="k">if</span> <span class="s2">&quot;A&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="c1"># allow for spaces in figure name</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span> <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">icc_gray</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;The &#39;icc_gray&#39; parameter has been deprecated since v0.6.0&quot;</span>
+                <span class="s2">&quot; and will be removed in v0.8.0.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+i&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;N&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;+i&quot;</span>
+
+        <span class="c1"># Manually handle prefix -F argument so spaces aren&#39;t converted to \040</span>
+        <span class="c1"># by build_arg_string function. For more information, see</span>
+        <span class="c1"># https://github.com/GenericMappingTools/pygmt/pull/1487</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">prefix_arg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;-F&quot;</span><span class="si">{</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+        <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;The &#39;prefix&#39; must be specified.&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span></div>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix_arg</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Figure.savefig"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig">[docs]</a>    <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
@@ -432,7 +466,7 @@
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Figure.show"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Figure.show"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Display a preview of the figure.</span>
 
@@ -452,7 +486,11 @@
 <span class="sd">        This is useful when running unit tests and building the documentation</span>
 <span class="sd">        in consoles without a Graphical User Interface.</span>
 
-<span class="sd">        Note that the external viewer does not block the current process.</span>
+<span class="sd">        Note that the external viewer does not block the current process, thus</span>
+<span class="sd">        it&#39;s necessary to suspend the execution of the current process for a</span>
+<span class="sd">        short while after launching the external viewer, so that the preview</span>
+<span class="sd">        image won&#39;t be deleted before the external viewer tries to open it. Set</span>
+<span class="sd">        the ``waiting`` parameter to a larger number if your computer is slow.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -466,6 +504,10 @@
 <span class="sd">            - **external**: PDF preview in an external program [default]</span>
 <span class="sd">            - **notebook**: PNG preview [default in Jupyter notebooks]</span>
 <span class="sd">            - **none**: Disable image preview</span>
+<span class="sd">        waiting : float</span>
+<span class="sd">            Suspend the execution of the current process for a given number of</span>
+<span class="sd">            seconds after launching an external viewer.</span>
+<span class="sd">            Only works if ``method=&quot;external&quot;``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Module level variable to know which figures had their show method</span>
         <span class="c1"># called. Needed for the sphinx-gallery scraper.</span>
@@ -497,7 +539,7 @@
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;external&quot;</span><span class="p">:</span>
             <span class="n">pdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span></div>
+            <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="n">waiting</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Figure.shift_origin"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin">[docs]</a>    <span class="k">def</span> <span class="nf">shift_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xshift</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yshift</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -640,10 +682,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

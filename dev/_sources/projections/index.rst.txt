@@ -416,27 +416,6 @@ Cylindric Projections
 
 .. only:: html
 
- .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_3_thumb.png
-     :alt: Oblique Mercator
-
-     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /projections/cyl/cyl_oblique_mercator_3
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
-
-.. only:: html
-
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
      :alt: Oblique Mercator
 
@@ -451,6 +430,27 @@ Cylindric Projections
    :hidden:
 
    /projections/cyl/cyl_oblique_mercator_1
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_3_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_3
 
 .. raw:: html
 
@@ -813,7 +813,8 @@ The below table shows the projection codes for the 31 GMT projections.
      - :doc:`Azimuthal gnomonic </projections/azim/azim_gnomonic>`
    * - **G**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - :doc:`Azimuthal orthographic </projections/azim/azim_orthographic>`
-   * - **G**\ |lon0|/|lat0|/\ *alt*/*azim*/*tilt*/*twist*/*W*/*H*/*width*
+   * - **G**\ |lon0|/|lat0|\ */width*\[**+a**\ *azimuth*]\ [**+t**\ *tilt*]\
+       [**+v**\ *vwidth/vheight*]\ [**+w**\ *twist*]\ [**+z**\ *altitude*]
      - :doc:`General perspective </projections/azim/azim_general_perspective>`
    * - **H**\ [|lon0|/]\ *width*
      - :doc:`Hammer equal area </projections/misc/misc_hammer>`

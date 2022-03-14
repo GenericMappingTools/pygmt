@@ -85,30 +85,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul class="current">
@@ -196,13 +180,13 @@
 <span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">load_dataarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_or_obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/io.html#load_dataarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.load_dataarray" title="Permalink to this definition"></a></dt>
 <dd><p>Open, load into memory, and close a DataArray from a file or file-like
 object containing a single data variable.</p>
-<p>This is a thin wrapper around <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. It differs
-from <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> in that it loads the DataArray into
+<p>This is a thin wrapper around <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. It differs
+from <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> in that it loads the DataArray into
 memory, gets GMT specific metadata about the grid via
 <a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a>, closes the file, and returns the
-DataArray. In contrast, <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> keeps the file
+DataArray. In contrast, <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> keeps the file
 handle open and lazy loads its contents. All parameters are passed directly
-to <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. See that documentation for further
+to <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. See that documentation for further
 details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -218,7 +202,7 @@ objects are opened by scipy.io.netcdf (netCDF3) or h5py (netCDF4/HDF).</p>
 </dl>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a></p>
+<p><a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a></p>
 </div>
 </dd></dl>
 
@@ -236,10 +220,10 @@ objects are opened by scipy.io.netcdf (netCDF3) or h5py (netCDF4/HDF).</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

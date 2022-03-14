@@ -124,6 +124,27 @@ Lines and vectors
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project method can generate points along a great circle whose center and end points c...">
+
+.. only:: html
+
+ .. figure:: /gallery/lines/images/thumb/sphx_glr_great_circles_thumb.png
+     :alt: Generate points along great circles
+
+     :ref:`sphx_glr_gallery_lines_great_circles.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/lines/great_circles
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig...">
 
 .. only:: html
@@ -430,7 +451,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="For all supported octal codes and fonts see the GMT cookbook cookbook/octal-codes.html and cook...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Text symbols">
 
 .. only:: html
 
@@ -739,6 +760,27 @@ Histograms
 ----------
 
 
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Blockmean">
+
+.. only:: html
+
+ .. figure:: /gallery/histograms/images/thumb/sphx_glr_blockm_thumb.png
+     :alt: Blockmean
+
+     :ref:`sphx_glr_gallery_histograms_blockm.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/histograms/blockm
 
 .. raw:: html
 

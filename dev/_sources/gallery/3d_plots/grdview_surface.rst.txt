@@ -69,7 +69,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     # https://en.wikipedia.org/wiki/Ackley_function
     def ackley(x, y):
         return (
-            -20 * np.exp(-0.2 * np.sqrt(0.5 * (x ** 2 + y ** 2)))
+            -20 * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2)))
             - np.exp(0.5 * (np.cos(2 * np.pi * x) + np.cos(2 * np.pi * y)))
             + np.exp(1)
             + 20
@@ -102,7 +102,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.702 seconds)
+   **Total running time of the script:** ( 0 minutes  6.729 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:

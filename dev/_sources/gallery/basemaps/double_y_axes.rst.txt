@@ -69,7 +69,7 @@ x-axis limits, but different y-axis limits.
     # Generate two sample Y data from one common X data
     x = np.linspace(1.0, 9.0, num=9)
     y1 = x
-    y2 = x ** 2 + 110
+    y2 = x**2 + 110
 
     fig = pygmt.Figure()
 
@@ -116,7 +116,7 @@ x-axis limits, but different y-axis limits.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.225 seconds)
+   **Total running time of the script:** ( 0 minutes  2.737 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_double_y_axes.py:

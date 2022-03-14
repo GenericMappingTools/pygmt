@@ -1,0 +1,12 @@
+pygmt.datasets.load\_sample\_data
+=================================
+
+.. currentmodule:: pygmt.datasets
+
+.. autofunction:: load_sample_data
+
+.. include:: backreferences/pygmt.datasets.load_sample_data.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

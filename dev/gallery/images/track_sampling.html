@@ -85,10 +85,11 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/first_figure.html">Making your first figure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Gallery</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
@@ -109,25 +110,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#plot-embellishments">Plot embellishments</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -205,8 +189,8 @@ to download the full example code</p>
 <span id="sphx-glr-gallery-images-track-sampling-py"></span><h1>Sampling along tracks<a class="headerlink" href="#sampling-along-tracks" title="Permalink to this headline"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdtrack</span></code></a> function samples a raster grid’s value along
 specified points. We will need to input a 2D raster to <code class="docutils literal notranslate"><span class="pre">grid</span></code> which can be an
-<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. The argument passed to the <code class="docutils literal notranslate"><span class="pre">points</span></code> parameter can
-be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.3.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the first two columns are x and y
+<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>. The argument passed to the <code class="docutils literal notranslate"><span class="pre">points</span></code> parameter can
+be a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> table where the first two columns are x and y
 (or longitude and latitude). Note also that there is a <code class="docutils literal notranslate"><span class="pre">newcolname</span></code> parameter
 that will be used to name the new column of values sampled from the grid.</p>
 <p>Alternatively, a NetCDF file path can be passed to <code class="docutils literal notranslate"><span class="pre">grid</span></code>. An ASCII file path
@@ -223,7 +207,7 @@ argument needs to be passed to the <code class="docutils literal notranslate"><s
 
 <span class="c1"># Load sample grid and point datasets</span>
 <a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">()</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_ocean_ridge_points.html#pygmt.datasets.load_ocean_ridge_points" title="pygmt.datasets.load_ocean_ridge_points" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_ocean_ridge_points</span></a><span class="p">()</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ocean_ridge_points&quot;</span><span class="p">)</span>
 <span class="c1"># Sample the bathymetry along the world&#39;s ocean ridges at specified track</span>
 <span class="c1"># points</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">track</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack" title="pygmt.grdtrack" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdtrack</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">points</span></a><span class="p">,</span> <a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">newcolname</span><span class="o">=</span><span class="s2">&quot;bathymetry&quot;</span><span class="p">)</span>
@@ -246,7 +230,7 @@ argument needs to be passed to the <code class="docutils literal notranslate"><s
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.936 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.262 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-track-sampling-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/dc9e057426099cc28de6448aae3660a3/track_sampling.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">track_sampling.py</span></code></a></p>
@@ -270,10 +254,10 @@ argument needs to be passed to the <code class="docutils literal notranslate"><s
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 

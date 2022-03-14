@@ -84,30 +84,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/first_figure.html">Making your first figure</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/frames.html">Frames, ticks, titles, and labels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projections/index.html">Projections</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/coastlines.html">Coastlines and borders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/regions.html">Setting the region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/plot.html">Plotting data points</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/lines.html">Plotting lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/vectors.html">Plotting vectors</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/date_time_charts.html">Plotting datetime charts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/text.html">Plotting text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/contour_map.html">Creating a map with contour lines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/earth_relief.html">Plotting Earth relief</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/3d_perspective_image.html">Creating a 3D perspective image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/insets.html">Adding an inset to the figure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/subplots.html">Making subplots</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials/configuration.html">Configuring PyGMT defaults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_resources.html">External Resources</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
 <ul>
@@ -188,7 +172,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section class="tex2jax_ignore mathjax_ignore" id="maintainers-guide">
+  <section id="maintainers-guide">
 <h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Permalink to this headline"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
@@ -262,7 +246,7 @@ build and test the project on Linux, macOS and Windows.
 They rely on the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file to install required dependencies using
 conda and the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> to run the tests and checks.</p>
 <p>There are 11 configuration files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>:</p>
-<ol>
+<ol class="arabic">
 <li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code> (Code lint and style checks)</p>
 <p>This is run on every commit to the <em>main</em> and Pull Request branches.
 It is also scheduled to run daily on the <em>main</em> branch.</p>
@@ -411,7 +395,7 @@ at .github/release-drafter.yml. Configuration settings can be found at
 https://github.com/release-drafter/release-drafter.</p>
 <p>The drafted release notes are not perfect, so we will need to tidy it prior to
 publishing the actual release notes at https://www.pygmt.org/latest/changes.html.</p>
-<ol>
+<ol class="arabic">
 <li><p>Go to https://github.com/GenericMappingTools/pygmt/releases and click on the
 ‘Edit’ button next to the current draft release note. Copy the text of the
 automatically drafted release notes under the ‘Write’ tab to
@@ -480,7 +464,7 @@ and upload them to Zenodo using the previously reserved DOI.</p>
 <p>When a new version is released on PyPI, conda-forge’s bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.</p>
 <p>If changes need to be done manually, you can:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Fork the <a class="reference external" href="https://github.com/conda-forge/pygmt-feedstock">pygmt feedstock repository</a> if
 you haven’t already. If you have a fork, update it.</p></li>
 <li><p>Update the version number and sha256 hash on <code class="docutils literal notranslate"><span class="pre">recipe/meta.yaml</span></code>. You can get the hash
@@ -505,10 +489,10 @@ from the PyPI “Download files” section.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2021, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/9e8a7bd8">9e8a7bd8</a></code>.
+    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Oct 29, 2021.
+      <span class="lastupdated">Last updated on Mar 14, 2022.
       </span></p>
   </div>
 
