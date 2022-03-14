@@ -176,7 +176,7 @@ Developers". Feel free to cite our work in your research using the following Bib
       month        = oct,
       year         = 2021,
       publisher    = {Zenodo},
-      version      = {v0.5.0},
+      version      = {v0.6.0},
       doi          = {10.5281/zenodo.5607255},
       url          = {https://doi.org/10.5281/zenodo.5607255}
     }
