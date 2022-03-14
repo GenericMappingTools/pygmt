@@ -89,7 +89,7 @@
 * [Dongdong Tian](https://github.com/seisman)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Julias Busecke](https://github.com/jbusecke)
+* [Julius Busecke](https://github.com/jbusecke)
 
 ---
 
