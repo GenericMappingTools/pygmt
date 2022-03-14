@@ -306,5 +306,19 @@ def args_in_kwargs(args, kwargs):
     --------
     bool
         If one of the required arguments is in ``kwargs``.
+
+    Examples
+    --------
+
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"C": "xyz"})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": "af"})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": None})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": True})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": False})
+    False
     """
-    return any(arg in kwargs for arg in args)
+    return any(kwargs.get(arg) for arg in args)
