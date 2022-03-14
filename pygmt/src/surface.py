@@ -33,7 +33,7 @@ from pygmt.io import load_dataarray
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def surface(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grids table data using adjustable tension continuous curvature splines.
