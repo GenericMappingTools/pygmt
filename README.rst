@@ -162,8 +162,8 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Leong, Wei Ji and
                       Jones, Meghan and
                       Schlitzer, William and
-                      Toney, Liam and
                       Grund, Michael and
+                      Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
@@ -236,7 +236,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.19
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
+    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_ (latest release)
+      - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
       - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7
