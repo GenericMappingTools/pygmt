@@ -12,7 +12,8 @@ import pygmt
 # Load sample data
 # ----------------
 # Load the sample Earth relief data for a region around Yosemite valley
-# and use :meth:`pygmt.grd2xyz` to create a numpy.ndarray with the z values.
+# and use :meth:`pygmt.grd2xyz` to create a :class:`numpy.ndarray` with the z
+# values.
 region = [-119.825, -119.4, 37.6, 37.825]
 
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
@@ -45,8 +46,8 @@ with fig.subplot(
         fig.histogram(
             data=grid_dist,
             projection="X?",
-            region=[500, 3540, 0, 20],
-            series=[500, 3540, 100],
+            region=[500, 3600, 0, 20],
+            series=[500, 3600, 100],
             frame="wnSE",
             cmap=True,
             histtype=1,
