@@ -124,6 +124,9 @@ Operations on tabular data
     sphdistance
     sphinterpolate
     surface
+    triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
 Operations on raster data
@@ -138,6 +141,9 @@ Operations on raster data
     grdfill
     grdfilter
     grdgradient
+    grdhisteq
+    grdhisteq.equalize_grid
+    grdhisteq.compute_bins
     grdlandmask
     grdproject
     grdsample
@@ -258,7 +264,7 @@ Most calls to the C API happen through the :class:`pygmt.clib.Session` class.
 
     clib.Session
 
-`GMT modules <https://docs.generic-mapping-tools.org/latest/modules.html>`__ are executed through
+:gmt-docs:`GMT modules <modules.html>` are executed through
 the :meth:`~pygmt.clib.Session.call_module` method:
 
 .. autosummary::

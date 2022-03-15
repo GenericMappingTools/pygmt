@@ -14,7 +14,7 @@ authors:
   orcid: https://orcid.org/0000-0001-7967-1197
 - given-names: Wei Ji
   family-names: Leong
-  affiliation: Victoria University of Wellington, New Zealand
+  affiliation: The Ohio State University, USA
   orcid: https://orcid.org/0000-0003-2354-1988
 - given-names: Meghan
   family-names: Jones
@@ -24,14 +24,14 @@ authors:
   family-names: Schlitzer
   affiliation: Unaffiliated
   orcid: https://orcid.org/0000-0002-5843-2282
-- given-names: Liam
-  family-names: Toney
-  affiliation: University of Alaska Fairbanks, USA
-  orcid: https://orcid.org/0000-0003-0167-9433
 - given-names: Michael
   family-names: Grund
   affiliation: Innoplexia GmbH, Germany
   orcid: https://orcid.org/0000-0001-8759-2018
+- given-names: Liam
+  family-names: Toney
+  affiliation: University of Alaska Fairbanks, USA
+  orcid: https://orcid.org/0000-0003-0167-9433
 - given-names: Jiayuan
   family-names: Yao
   affiliation: Nanyang Technological University, Singapore
@@ -64,9 +64,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawai'i at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2021-10-29
-doi: 10.5281/zenodo.5607255
+date-released: 2022-03-14
+doi: 10.5281/zenodo.6349217
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.5.0
+version: 0.6.0

@@ -43,15 +43,17 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
+For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
-Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
-or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
+Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
+visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
-.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
-    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+.. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
+    :alt: Quick Introduction to PyGMT YouTube Video
     :align: center
-    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
+    :target: https://youtu.be/4iPnITXrxVU
+    :width: 80%
 
 About
 -----
@@ -154,14 +156,14 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_5607255,
+    @software{pygmt_2022_6349217,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
                       Jones, Meghan and
                       Schlitzer, William and
-                      Toney, Liam and
                       Grund, Michael and
+                      Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
@@ -171,12 +173,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = oct,
-      year         = 2021,
+      month        = march,
+      year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.5.0},
-      doi          = {10.5281/zenodo.5607255},
-      url          = {https://doi.org/10.5281/zenodo.5607255}
+      version      = {v0.6.0},
+      doi          = {10.5281/zenodo.6349217},
+      url          = {https://doi.org/10.5281/zenodo.6349217}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -234,7 +236,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.19
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_ (latest release)
+    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_ (latest release)
+      - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
       - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7

@@ -1,7 +1,6 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
@@ -26,7 +27,7 @@ from pygmt.io import load_dataarray
     V="verbose",
     r="registration",
 )
-@kwargs_to_strings(R="sequence", N="sequence", E="sequence")
+@kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
     r"""
     Create a grid file with set values for land and water.
@@ -95,12 +96,10 @@ def grdlandmask(**kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Create a landmask grid with an x-range of 125 to 130,
     >>> # and a y-range of 30 to 35
-    >>> landmask = pygmt.grdlandmask(
-    ...     spacing=1, region=[125, 130, 30, 35]
-    ... )  # doctest: +SKIP
+    >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if "I" not in kwargs or "R" not in kwargs:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")

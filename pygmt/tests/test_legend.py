@@ -12,10 +12,6 @@ with clib.Session() as _lib:
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_position():
     """
     Test that plots a position with each of the four legend coordinate systems.
@@ -31,10 +27,6 @@ def test_legend_position():
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_default_position():
     """
     Test using the default legend position.
@@ -51,10 +43,6 @@ def test_legend_default_position():
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_entries():
     """
     Test different marker types/shapes.
@@ -68,7 +56,7 @@ def test_legend_entries():
         pen="faint",
         label="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
     fig.legend(position="JTR+jTR")
 
@@ -76,10 +64,6 @@ def test_legend_entries():
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_specfile():
     """
     Test specfile functionality.
