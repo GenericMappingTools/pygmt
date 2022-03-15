@@ -11,7 +11,13 @@ from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm=False):
+def load_earth_relief(
+    resolution="01d",
+    region=None,
+    registration=None,
+    use_srtm=False,
+    data_source="relief",
+):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
@@ -54,7 +60,17 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         ``'03s'`` and ``'01s'`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15
         arc-second (i.e., ``'15s'``). If True, will only load the original
-        land-only SRTM tiles.
+        land-only SRTM tiles. Only works when `data_source` is set to `relief`.
+
+    data_source : str
+        Select the source for the Earth relief data.
+
+        Available options:
+
+        - **relief** : IGPP Global Earth Relief [Default option]
+
+        - **gebco** : GEBCO Global Earth Relief with only observed relief and
+          inferred relief via altimetric gravity
 
     Returns
     -------
@@ -119,9 +135,12 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         )
 
     # Choose earth relief data prefix
-    earth_relief_prefix = "earth_relief_"
-    if use_srtm and resolution in land_only_srtm_resolutions:
-        earth_relief_prefix = "srtm_relief_"
+    if data_source == "relief":
+        earth_relief_prefix = "earth_relief_"
+        if use_srtm and resolution in land_only_srtm_resolutions:
+            earth_relief_prefix = "srtm_relief_"
+    elif data_source == "gebco":
+        earth_relief_prefix = "earth_gebco_"
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
@@ -131,7 +150,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
             raise GMTInvalidInput(
                 f"'region' is required for Earth relief resolution '{resolution}'."
             )
-        fname = which(f"@earth_relief_{resolution}{reg}", download="a")
+        fname = which(f"@{earth_relief_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")
     else:
         grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
