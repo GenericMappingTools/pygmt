@@ -8,7 +8,11 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_relief_fails():
+@pytest.mark.parametrize(
+    "data_source",
+    ["relief", "gebco"],
+)
+def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
     """
@@ -16,7 +20,7 @@ def test_earth_relief_fails():
     resolutions.append(60)
     for resolution in resolutions:
         with pytest.raises(GMTInvalidInput):
-            load_earth_relief(resolution=resolution)
+            load_earth_relief(resolution=resolution, data_source=data_source)
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
