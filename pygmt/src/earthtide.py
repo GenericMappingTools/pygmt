@@ -42,6 +42,28 @@ def earthtide(**kwargs):
 
     Parameters
     ----------
+    sunmoon : bool
+        Output position of Sun and Moon in geographical coordinates plus
+        distance in meters. Output is a Mx7 matrix where M is the number of
+        times (set by `time`) and columns are time, sun_lon, sun_lat, sun_dist
+        moon_lon, moon_lat, moon_dist
+    location : str or list
+        [*lon/lat*\ ]
+        Geographical coordinate of the location where to compute a
+        time-series. Coordinates are geodetic (ellipsoidal) latitude and
+        longitude. GRS80 ellipsoid is used. (Which can be considered
+        equivalent to the WGS84 ellipsoid at the sub-millimeter level.)
+    time : str
+        [*min/max*\ /]\ *inc*\ [**+i**\|\ **n**] \|\ |-T|\ *file*\|\ *list*.
+        Make evenly spaced time-steps from *min* to *max* by *inc*. Append
+        **+i** to indicate the reciprocal increment was given, or append
+        **+n** to indicate *inc* is the number of *t*-values to produce over
+        the range instead. Append a valid time unit (**d**\|\ **h**\|\
+        **m**\|\ **s**) to the increment. If only *min* is given then we use
+        that date and time for the calculations.  If no `time`` is provided,
+        get current time in UTC from the computer clock. If no `location` is
+        provided then `time`` is interpreted to mean compute a time-series at
+        the location specified. Dates may range from 1901 through 2099.
     {I}
     {R}
     {V}
