@@ -266,7 +266,8 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
    for compatibility updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
-   `CITATION.cff` needs to be updated with any metadata changes. Please follow
+   `CITATION.cff` needs to be updated with any metadata changes, including the
+   DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
    More information about the `CITATION.cff` specification can be found at
    https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
