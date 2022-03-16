@@ -72,7 +72,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -97,7 +97,7 @@ jobs:
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
                         dvc make pytest>=6.0 \
-                        pytest-cov pytest-mpl sphinx-gallery tomli
+                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery tomli
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

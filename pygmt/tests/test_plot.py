@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import xarray as xr
-from pygmt import Figure
+from pygmt import Figure, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
@@ -452,53 +452,6 @@ def test_plot_datetime():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_plot_sizes.png")
-def test_plot_deprecate_sizes_to_size(data, region):
-    """
-    Make sure that the old parameter "sizes" is supported and it reports a
-    warning.
-
-    Modified from the test_plot_sizes() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot(
-            x=data[:, 0],
-            y=data[:, 1],
-            sizes=0.5 * data[:, 2],
-            region=region,
-            projection="X10c",
-            style="cc",
-            color="blue",
-            frame="af",
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_plot_from_file.png")
-def test_plot_deprecate_columns_to_incols(region):
-    """
-    Make sure that the old parameter "columns" is supported and it reports a
-    warning.
-
-    Modified from the test_plot_from_file() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot(
-            data=POINTS_DATA,
-            region=region,
-            projection="X10c",
-            style="d1c",
-            color="yellow",
-            frame=True,
-            columns=[0, 1],
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_plot_ogrgmt_file_multipoint_default_style():
     """
@@ -540,3 +493,31 @@ def test_plot_ogrgmt_file_multipoint_non_default_style():
             style="c0.2c",
         )
         return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_shapefile():
+    """
+    Make sure that plot works for shapefile.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1616.
+    """
+    datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
+    which(fname=datasets, download="a")
+    fig = Figure()
+    fig.plot(data="@RidgeTest.shp", pen="1p")
+    return fig
+
+
+def test_plot_dataframe_incols():
+    """
+    Make sure that the incols parameter works for pandas.DataFrame.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/1440.
+    """
+    data = pd.DataFrame(data={"col1": [-0.5, 0, 0.5], "col2": [-0.75, 0, 0.75]})
+    fig = Figure()
+    fig.plot(
+        data=data, frame=True, region=[-1, 1, -1, 1], projection="X5c", incols=[1, 0]
+    )
+    return fig

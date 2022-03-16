@@ -8,13 +8,14 @@ import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the table data from the sample bathymetry dataset.
     """
     return load_sample_data(name="bathymetry")
 
@@ -65,3 +66,15 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
         assert os.path.exists(path=tmpfile.name)
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
+
+
+def test_xyz2grd_missing_region_spacing(ship_data):
+    """
+    Test xyz2grd raise an exception if region or spacing is missing.
+    """
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data)
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data, region=[245, 255, 20, 30])
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data, spacing=5)
