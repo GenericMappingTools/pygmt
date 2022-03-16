@@ -117,6 +117,7 @@ Operations on tabular data
     blockmean
     blockmedian
     blockmode
+    earthtide
     nearneighbor
     project
     select
