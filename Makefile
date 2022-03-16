@@ -29,7 +29,7 @@ install:
 	pip install --no-deps -e .
 
 package:
-	python setup.py sdist bdist_wheel
+	python -m build --sdist --wheel
 
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version
