@@ -125,7 +125,7 @@ def dimfilter(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    if ("D" not in kwargs) or ("F" not in kwargs) or ("N" not in kwargs):
+    if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         raise GMTInvalidInput(
             """At least one of the following parameters must be specified:
             distance, filters, or sectors."""
