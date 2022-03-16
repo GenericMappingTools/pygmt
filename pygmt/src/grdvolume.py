@@ -100,7 +100,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
         2  300  2.014978e+12  5.877195e+14  291.675420
         3  350  1.892109e+12  4.897545e+14  258.840510
         4  400  1.744792e+12  3.988316e+14  228.584026
-        """
+    """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
             """Must specify format as either numpy, pandas, or file."""
