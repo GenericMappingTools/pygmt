@@ -26,8 +26,8 @@ __doctest_skip__ = ["earthtide"]
     T="time",
     V="verbose",
 )
-@kwargs_to_strings(I="sequence", R="sequence")
-def earthtide(data=None, x=None, y=None, z=None, **kwargs):
+@kwargs_to_strings(I="sequence", L="sequence", R="sequence")
+def earthtide(**kwargs):
     r"""
     Compute grids or time-series of solid Earth tides.
 
@@ -58,6 +58,8 @@ def earthtide(data=None, x=None, y=None, z=None, **kwargs):
     Example
     -------
     >>> import pygmt
+    >>> # Create a grid of Earth tide at 1200 UTC on June 18, 2018
+    >>> grid = pygmt.earthtide(time="2018-06-18T12:00:00")
     """
     if "R" in kwargs and "I" not in kwargs:
         raise GMTInvalidInput("Must specify 'spacing' if 'region' is specified.")
