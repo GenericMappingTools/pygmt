@@ -24,7 +24,7 @@ from pygmt.io import load_dataarray
     R="region",
     V="verbose",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def dimfilter(grid, **kwargs):
     r"""
     Filter a grid by dividing the filter circle.
