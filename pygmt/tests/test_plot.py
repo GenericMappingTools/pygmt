@@ -4,6 +4,7 @@ Tests plot.
 """
 import datetime
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -452,8 +453,11 @@ def test_plot_datetime():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_plot_ogrgmt_file_multipoint_default_style():
+@pytest.mark.mpl_image_compare(
+    filename="test_plot_ogrgmt_file_multipoint_default_style.png"
+)
+@pytest.mark.parametrize("func", [str, Path])
+def test_plot_ogrgmt_file_multipoint_default_style(func):
     """
     Make sure that OGR/GMT files with MultiPoint geometry are plotted as
     squares and not as line (default GMT style).
@@ -467,7 +471,9 @@ def test_plot_ogrgmt_file_multipoint_default_style():
         with open(tmpfile.name, "w", encoding="utf8") as file:
             file.write(gmt_file)
         fig = Figure()
-        fig.plot(data=tmpfile.name, region=[0, 2, 1, 3], projection="X2c", frame=True)
+        fig.plot(
+            data=func(tmpfile.name), region=[0, 2, 1, 3], projection="X2c", frame=True
+        )
         return fig
 
 
