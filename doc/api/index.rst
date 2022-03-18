@@ -124,6 +124,9 @@ Operations on tabular data
     sphdistance
     sphinterpolate
     surface
+    triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
 Operations on raster data
@@ -138,6 +141,9 @@ Operations on raster data
     grdfill
     grdfilter
     grdgradient
+    grdhisteq
+    grdhisteq.equalize_grid
+    grdhisteq.compute_bins
     grdlandmask
     grdproject
     grdsample

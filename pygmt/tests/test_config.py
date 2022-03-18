@@ -65,6 +65,25 @@ def test_config_font_annot():
 
 
 @pytest.mark.mpl_image_compare
+def test_config_format_date_map():
+    """
+    Test that setting FORMAT_DATE_MAP config changes how the output date string
+    is plotted.
+
+    Note the space in 'o dd', this acts as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/247.
+    """
+    fig = Figure()
+    with config(FORMAT_DATE_MAP="o dd"):
+        fig.basemap(
+            region=["1969-7-21T", "1969-7-23T", 0, 1],
+            projection="X2.5c/0.1c",
+            frame=["sxa1D", "S"],
+        )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_config_format_time_map():
     """
     Test that setting FORMAT_TIME_MAP config changes both

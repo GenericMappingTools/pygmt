@@ -120,7 +120,7 @@ def dummy_context(arg):
 
 
 def build_arg_string(kwargs):
-    """
+    r"""
     Transform keyword arguments into a GMT argument string.
 
     Make sure all arguments have been previously converted to a string
@@ -130,6 +130,11 @@ def build_arg_string(kwargs):
     Any lists or tuples left will be interpreted as multiple entries for the
     same command line argument. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
+
+    Note that spaces `` `` in arguments are converted to the equivalent octal
+    code ``\040``, except in the case of -J (projection) arguments where PROJ4
+    strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
+    See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
 
     Parameters
     ----------
@@ -151,7 +156,7 @@ def build_arg_string(kwargs):
     ...             A=True,
     ...             B=False,
     ...             E=200,
-    ...             J="X4c",
+    ...             J="+proj=longlat +datum=WGS84",
     ...             P="",
     ...             R="1/2/3/4",
     ...             X=None,
@@ -160,7 +165,7 @@ def build_arg_string(kwargs):
     ...         )
     ...     )
     ... )
-    -A -E200 -JX4c -P -R1/2/3/4 -Z0
+    -A -E200 -J+proj=longlat+datum=WGS84 -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
@@ -172,20 +177,42 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty  Spaces"',
+    ...             l="'Void Space'",
+    ...         ),
+    ...     )
+    ... )
+    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
     """
     gmt_args = []
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
+
+    for key in kwargs:
+        if len(key) > 2:  # raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if kwargs[key] is None or kwargs[key] is False:
+            pass  # Exclude arguments that are None and False
+        elif is_nonstr_iter(kwargs[key]):
             for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
+                _value = str(value).replace(" ", r"\040")
+                gmt_args.append(rf"-{key}{_value}")
         elif kwargs[key] is True:
             gmt_args.append(f"-{key}")
         else:
-            gmt_args.append(f"-{key}{kwargs[key]}")
+            if key != "J":  # non-projection parameters
+                _value = str(kwargs[key]).replace(" ", r"\040")
+            else:
+                # special handling if key == "J" (projection)
+                # remove any spaces in PROJ4 string
+                _value = str(kwargs[key]).replace(" ", "")
+            gmt_args.append(rf"-{key}{_value}")
     return " ".join(sorted(gmt_args))
 
 

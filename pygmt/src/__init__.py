@@ -17,6 +17,7 @@ from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
 from pygmt.src.grdfilter import grdfilter
 from pygmt.src.grdgradient import grdgradient
+from pygmt.src.grdhisteq import grdhisteq
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
@@ -46,6 +47,7 @@ from pygmt.src.sphinterpolate import sphinterpolate
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"
+from pygmt.src.triangulate import triangulate
 from pygmt.src.velo import velo
 from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle

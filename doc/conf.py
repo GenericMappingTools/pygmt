@@ -46,12 +46,13 @@ napoleon_use_ivar = True
 extlinks = {
     "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
     "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
+    "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
 # intersphinx configuration
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
-    "geopandas": ("https://geopandas.org/", None),
+    "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "xarray": ("https://xarray.pydata.org/en/stable/", None),

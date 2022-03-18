@@ -2,6 +2,7 @@
 xyz2grd - Convert data table to a grid.
 """
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -10,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["xyz2grd"]
 
 
 @fmt_docstring
@@ -30,7 +33,7 @@ from pygmt.io import load_dataarray
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Create a grid file from table data.
@@ -108,7 +111,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         - **f** 4-byte floating point single precision
         - **d** 8-byte floating point double precision
 
-        Default format is scanline orientation of ASCII numbers: **-ZTLa**.
+        [Default format is scanline orientation of ASCII numbers: **La**].
         The difference between **A** and **a** is that the latter can decode
         both *date*\ **T**\ *clock* and *ddd:mm:ss[.xx]* formats but expects
         each input record to have a single value, while the former can handle
@@ -131,7 +134,23 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,
+    >>> # and a y-range of 10.5 to 12.5. The x- and y-spacing are 1.0 and 0.5.
+    >>> x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])
+    >>> z = x**2 + y**2
+    >>> xx, yy, zz = x.flatten(), y.flatten(), z.flatten()
+    >>> grid = pygmt.xyz2grd(
+    ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
+    ... )
     """
+    if "I" not in kwargs or "R" not in kwargs:
+        raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(

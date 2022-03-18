@@ -1,7 +1,6 @@
 """
 grdproject - Forward and inverse map transformation of grids.
 """
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdproject"]
 
 
 @fmt_docstring
@@ -29,7 +30,7 @@ from pygmt.io import load_dataarray
     n="interpolation",
     r="registration",
 )
-@kwargs_to_strings(C="sequence", R="sequence")
+@kwargs_to_strings(C="sequence", D="sequence", R="sequence")
 def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
@@ -100,18 +101,16 @@ def grdproject(grid, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Create a new grid from the input grid, set the projection to
     >>> # Mercator, and set inverse to "True" to change from "geographic"
     >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(
-    ...     grid=grid, projection="M10c", inverse=True
-    ... )  # doctest: +SKIP
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
     """
     if "J" not in kwargs:
         raise GMTInvalidInput("The projection must be specified.")

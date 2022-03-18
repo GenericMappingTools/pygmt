@@ -2,7 +2,6 @@
 Tests plot3d.
 """
 import os
-import sys
 
 import numpy as np
 import pytest
@@ -334,10 +333,6 @@ def test_plot3d_matrix(data, region, color):
     return fig
 
 
-@pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="Wrong plot generated on Windows due to incorrect -i parameter parsing",
-)
 @pytest.mark.mpl_image_compare
 def test_plot3d_matrix_color(data, region):
     """
@@ -425,58 +420,6 @@ def test_plot3d_scalar_xyz():
     fig.plot3d(
         x=1.5, y=-1.5, z=1.5, style="s1c", color="blue", zscale=True, perspective=True
     )
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_plot3d_sizes.png")
-def test_plot3d_deprecate_sizes_to_size(data, region):
-    """
-    Make sure that the old parameter "sizes" is supported and it reports an
-    warning.
-
-    Modified from the test_plot3d_sizes() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot3d(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            zscale=5,
-            perspective=[225, 30],
-            sizes=0.5 * data[:, 2],
-            region=region,
-            projection="X10c",
-            style="ui",
-            color="blue",
-            frame=["af", "zaf"],
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
-def test_plot3d_deprecate_columns_to_incols(data, region):
-    """
-    Make sure that the old parameter "columns" is supported and it reports an
-    warning.
-
-    Modified from the test_plot3d_matrix() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot3d(
-            data,
-            zscale=5,
-            perspective=[225, 30],
-            region=region,
-            projection="M20c",
-            style="c1c",
-            color="#aaaaaa",
-            frame=["a", "za"],
-            columns="0,1,2",
-        )
-        assert len(record) == 1  # check that only one warning was raised
     return fig
 
 
