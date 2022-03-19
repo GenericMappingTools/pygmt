@@ -74,9 +74,9 @@ def dimfilter(grid, **kwargs):
         - **4**\ : grid (x,y) in degrees, *width* in km, Spherical distance
           calculation.
     filter : str
-        **x**\ *width*\ [**+l**\|\ **u**]
+        **x**\ *width*\ [**+l**\|\ **u**].
         Sets the primary filter type. Choose among convolution and
-        non-convolution filters. Append the filter code **x** followed by
+        non-convolution filters. Use the filter code **x** followed by
         the full diameter *width*. Available convolution filters are:
 
         - (**b**) Boxcar: All weights are equal.
@@ -105,7 +105,7 @@ def dimfilter(grid, **kwargs):
           If more than one mode is found we return their average
           value. Append **+l** or **+h** to the sectors if you rather want to
           return the smallest or largest of the modal values.
-    spacing : str
+    spacing : str or list
         *x_inc* [and optionally *y_inc*] is the output Increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
         *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
