@@ -45,6 +45,8 @@ def grdsample(grid, **kwargs):
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
 
+    Full option list at :gmt-docs:`grdsample.html`
+
     {aliases}
 
     Parameters
