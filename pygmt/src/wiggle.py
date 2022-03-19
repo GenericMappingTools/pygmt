@@ -50,7 +50,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Must provide either ``data`` or ``x``/``y``/``z``.
 
-    Full parameter list at :gmt-docs:`wiggle.html`
+    Full option list at :gmt-docs:`wiggle.html`
 
     {aliases}
 
