@@ -119,7 +119,7 @@ def dummy_context(arg):
     yield arg
 
 
-def build_arg_string(kwargs):
+def build_arg_string(kwargs, infile=None, outfile=None):
     r"""
     Transform keyword arguments into a GMT argument string.
 
@@ -213,6 +213,10 @@ def build_arg_string(kwargs):
                 # remove any spaces in PROJ4 string
                 _value = str(kwargs[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
+    if infile:
+        gmt_args.append(str(infile))
+    if outfile:
+        gmt_args.append("->" + str(outfile))
     return " ".join(sorted(gmt_args))
 
 
