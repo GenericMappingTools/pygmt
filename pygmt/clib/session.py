@@ -154,7 +154,8 @@ class Session:
             self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
-                "binary dir": self.get_default("API_BINDIR"),
+                # API_BINDIR points to the directory of the Python interpreter
+                # "binary dir": self.get_default("API_BINDIR"),
                 "share dir": self.get_default("API_SHAREDIR"),
                 # This segfaults for some reason
                 # 'data dir': self.get_default("API_DATADIR"),
