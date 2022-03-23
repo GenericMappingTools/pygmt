@@ -92,8 +92,10 @@ def test_grdfill_dataarray_out(grid, expected_grid):
 )
 def test_grdfill_asymmetric_pad(grid, expected_grid):
     """
-    Test grdfill using a region that boarders the edge of the grid.
-    Regression test for https://github.com/GenericMappingTools/pygmt/issues/1745.
+    Test grdfill using a region that includes the edge of the grid.
+
+    Regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1745.
     """
     result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
     # check information of the output grid
