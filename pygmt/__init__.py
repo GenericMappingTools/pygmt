@@ -160,7 +160,7 @@ def show_versions():
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
 
     print("PyGMT information:")
     print(f"  version: {__version__}")
