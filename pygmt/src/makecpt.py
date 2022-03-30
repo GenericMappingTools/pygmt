@@ -147,11 +147,11 @@ def makecpt(**kwargs):
         ``categorical=True``.
     """
     with Session() as lib:
-        if "W" in kwargs and "Ww" in kwargs:
+        if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
             raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
-        if "H" not in kwargs:  # if no output is set
+        if kwargs.get("H") is None:  # if no output is set
             arg_str = build_arg_string(kwargs)
-        elif "H" in kwargs:  # if output is set
+        elif kwargs.get("H") is not None:  # if output is set
             outfile = kwargs.pop("H")
             if not outfile or not isinstance(outfile, str):
                 raise GMTInvalidInput("'output' should be a proper file name.")
