@@ -223,7 +223,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 lib.call_module(
                     module="x2sys_cross",
                     args=build_arg_string(
-                        kwargs, infile=" ".join(fname), outfile=outfile
+                        kwargs, infile=" ".join(fnames), outfile=outfile
                     ),
                 )
 
