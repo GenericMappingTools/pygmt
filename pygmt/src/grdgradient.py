@@ -164,7 +164,7 @@ def grdgradient(grid, **kwargs):
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        if "Q" in kwargs and "N" not in kwargs:
+        if kwargs.get("Q") is not None and kwargs.get("N") is None:
             raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
             raise GMTInvalidInput(
@@ -174,7 +174,7 @@ def grdgradient(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
+                if kwargs.get("G") is None:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
