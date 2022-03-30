@@ -140,6 +140,10 @@ def build_arg_string(kwargs, infile=None, outfile=None):
     ----------
     kwargs : dict
         Parsed keyword arguments.
+    infile : str or pathlib.Path
+        The input file.
+    outfile : str or pathlib.Path
+        The output file.
 
     Returns
     -------

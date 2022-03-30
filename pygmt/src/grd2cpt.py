@@ -166,12 +166,10 @@ def grd2cpt(grid, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
             if "H" not in kwargs:  # if no output is set
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                arg_str = build_arg_string(kwargs, infile=infile)
             if "H" in kwargs:  # if output is set
-                outfile = kwargs.pop("H")
+                outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), f"-H > {outfile}"]
-                )
+                arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             lib.call_module("grd2cpt", arg_str)

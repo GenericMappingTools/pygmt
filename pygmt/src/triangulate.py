@@ -134,8 +134,9 @@ class triangulate:  # pylint: disable=invalid-name
                 # table output if outgrid is unset, else output to outgrid
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs.update({">": outfile})
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module(module="triangulate", args=arg_str)
+                lib.call_module(
+                    module="triangulate", args=build_arg_string(kwargs, infile=infile)
+                )
 
         if output_type == "file":
             return None

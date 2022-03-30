@@ -266,5 +266,4 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("plot", arg_str)
+            lib.call_module("plot", build_arg_string(kwargs, infile=fname))
