@@ -39,8 +39,8 @@ fig = pygmt.Figure()
 ###############################################################################
 # To add to a plot object (``fig`` in this example), the PyGMT module is used
 # as a method on the class. This example will use the ``coast`` method, which
-# can be used to create a map without any other methods, modules or external 
-# data. The ``coast`` method plots the coastlines, borders, and bodies of water 
+# can be used to create a map without any other methods, modules or external
+# data. The ``coast`` method plots the coastlines, borders, and bodies of water
 # using a database that is included in GMT.
 #
 # First, a region for the figure must be selected. This example will plot some
