@@ -167,7 +167,7 @@ def grd2cpt(grid, **kwargs):
         with file_context as infile:
             if kwargs.get("H") is None:  # if no output is set
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
-            if kwargs.get("H") is not None:  # if output is set
+            else:  # if output is set
                 outfile = kwargs.pop("H")
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")

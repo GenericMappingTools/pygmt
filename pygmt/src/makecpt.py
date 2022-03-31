@@ -151,7 +151,7 @@ def makecpt(**kwargs):
             raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
         if kwargs.get("H") is None:  # if no output is set
             arg_str = build_arg_string(kwargs)
-        elif kwargs.get("H") is not None:  # if output is set
+        else:  # if output is set
             outfile = kwargs.pop("H")
             if not outfile or not isinstance(outfile, str):
                 raise GMTInvalidInput("'output' should be a proper file name.")

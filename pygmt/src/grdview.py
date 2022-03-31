@@ -126,9 +126,8 @@ def grdview(self, grid, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
         with contextlib.ExitStack() as stack:
-            if (
-                kwargs.get("G") is not None
-            ):  # deal with kwargs["G"] if drapegrid is xr.DataArray
+            if kwargs.get("G") is not None:  
+                # deal with kwargs["G"] if drapegrid is xr.DataArray
                 drapegrid = kwargs["G"]
                 if data_kind(drapegrid) in ("file", "grid"):
                     if data_kind(drapegrid) == "grid":
