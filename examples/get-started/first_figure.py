@@ -4,7 +4,7 @@
 
 This tutorial page covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the ``coast`` module for plotting. Later examples will address other PyGMT
+the ``coast`` method for plotting. Later examples will address other PyGMT
 modules.
 """
 
@@ -38,14 +38,14 @@ fig = pygmt.Figure()
 
 ###############################################################################
 # To add to a plot object (``fig`` in this example), the PyGMT module is used
-# as a method on the class. This example will use the module ``coast``, which
-# can be used to create a map without any other modules or external data. The
-# ``coast`` module plots the coastlines, borders, and bodies of water using a
-# database that is included in GMT.
+# as a method on the class. This example will use the ``coast`` method, which
+# can be used to create a map without any other methods, modules or external 
+# data. The ``coast`` method plots the coastlines, borders, and bodies of water 
+# using a database that is included in GMT.
 #
 # First, a region for the figure must be selected. This example will plot some
 # of the coast of Maine in the northeastern US. A Python list can be passed to
-# the ``region`` argument with the minimum and maximum X-values (longitude)
+# the ``region`` parameter with the minimum and maximum X-values (longitude)
 # and the minimum and maximum Y-values (latitude). For this example, the
 # minimum (bottom left) coordinates are (N43.75, W69) and the maximum (top
 # right) coordinates are (N44.75, W68). Negative values can be passed for
