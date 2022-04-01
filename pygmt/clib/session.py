@@ -153,6 +153,7 @@ class Session:
         if not hasattr(self, "_info"):
             self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
+                "binary version": self.get_default("API_BIN_VERSION"),
                 "padding": self.get_default("API_PAD"),
                 # API_BINDIR points to the directory of the Python interpreter
                 # "binary dir": self.get_default("API_BINDIR"),
