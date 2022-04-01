@@ -323,4 +323,6 @@ def args_in_kwargs(args, kwargs):
     >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
     True
     """
-    return any(kwargs.get(arg) for arg in args)
+    return any(
+        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
+    )
