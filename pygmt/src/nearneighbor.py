@@ -141,7 +141,6 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
             with table_context as infile:
                 if (outgrid := kwargs.get("G")) is None: # if outgrid is unset, output to tmpfile
                     kwargs["G"] = outgrid = tmpfile.name
-                outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="nearneighbor", args=arg_str)
 
