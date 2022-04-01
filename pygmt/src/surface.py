@@ -98,9 +98,8 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tmpfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
+                if (outgrid := kwargs.get("G")) is None: # if outgrid is unset, output to tmpfile
+                    kwargs["G"] = outgrid = tmpfile.name
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="surface", args=arg_str)
 
