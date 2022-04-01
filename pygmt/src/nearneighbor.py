@@ -139,8 +139,8 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with table_context as infile:
-                if (outgrid := kwargs.get("G")) is None: # if outgrid is unset, output to tmpfile
-                    kwargs["G"] = outgrid = tmpfile.name
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
                 lib.call_module(module="nearneighbor", args=arg_str)
 
