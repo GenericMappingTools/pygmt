@@ -71,7 +71,7 @@ def grdimage(self, grid, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full parameter list at :gmt-docs:`grdimage.html`
+    Full option list at :gmt-docs:`grdimage.html`
 
     {aliases}
 
