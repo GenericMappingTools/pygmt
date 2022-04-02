@@ -200,7 +200,7 @@ def build_arg_string(kwdict, infile=None, outfile=None):
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
     ...         infile="input.txt",
-    ...         output="output.txt",
+    ...         outfile="output.txt",
     ...     )
     ... )
     input.txt -A0 -B -Crainbow ->output.txt
