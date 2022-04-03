@@ -110,7 +110,7 @@ def grdview(self, grid, **kwargs):
         ambient light). Alternatively, derive an intensity grid from the
         input data grid reliefgrid via a call to ``grdgradient``; append
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that module, or just give
+        azimuth, intensity, and ambient arguments for that method, or just give
         **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {V}
