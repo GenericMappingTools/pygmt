@@ -98,8 +98,13 @@ jobs:
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
         run: |
+          ORIGINAL_BRANCH=$(git branch --show-current)
+          # Pull down GMT 6.4 baseline images from
+          # https://github.com/GenericMappingTools/pygmt/pull/1791
+          git checkout update-baseline-images-for-gmt-dev
           dvc pull
           ls -lhR pygmt/tests/baseline/
+          git checkout ${ORIGINAL_BRANCH}
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
