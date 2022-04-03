@@ -5,7 +5,7 @@
 This tutorial page covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
 the ``coast`` method for plotting. Later examples will address other PyGMT
-modules.
+methods.
 """
 
 ###############################################################################
@@ -21,7 +21,7 @@ modules.
 # Loading the library
 # -------------------
 #
-# The first step is to import ``pygmt``. All modules and figure generation is
+# The first step is to import ``pygmt``. All methods and figure generation is
 # accessible from the :mod:`pygmt` top level package.
 
 # sphinx_gallery_thumbnail_number = 4
