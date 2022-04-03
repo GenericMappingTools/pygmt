@@ -35,7 +35,7 @@ def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
 
-    This module will project a geographical gridded data set onto a
+    This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
     rectangular coordinate system to a geographic system. To obtain the value
     at each new node, its location is inversely projected back onto the input
