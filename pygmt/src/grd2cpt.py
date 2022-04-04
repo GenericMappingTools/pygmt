@@ -160,14 +160,14 @@ def grd2cpt(grid, **kwargs):
         ``categorical=True``.
     {V}
     """
-    if "W" in kwargs and "Ww" in kwargs:
+    if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
-            if "H" not in kwargs:  # if no output is set
+            if kwargs.get("H") is None:  # if no output is set
                 arg_str = build_arg_string(kwargs, infile=infile)
-            if "H" in kwargs:  # if output is set
+            else:  # if output is set
                 outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
