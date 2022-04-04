@@ -50,6 +50,8 @@ def grdproject(grid, **kwargs):
     NaN. The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid file.
 
+    Full option list at :gmt-docs:`grdproject.html`
+
     {aliases}
 
     Parameters
@@ -119,7 +121,6 @@ def grdproject(grid, **kwargs):
                 if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdproject", arg_str)
+                lib.call_module("grdproject", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

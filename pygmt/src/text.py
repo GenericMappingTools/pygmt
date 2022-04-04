@@ -70,7 +70,7 @@ def text_(
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
-    Full parameter list at :gmt-docs:`text.html`
+    Full option list at :gmt-docs:`text.html`
 
     {aliases}
 
@@ -233,5 +233,4 @@ def text_(
                     np.atleast_1d(text).astype(str),
                 )
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("text", arg_str)
+            lib.call_module("text", build_arg_string(kwargs, infile=fname))

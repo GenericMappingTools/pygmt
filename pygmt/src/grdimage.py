@@ -71,7 +71,7 @@ def grdimage(self, grid, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full parameter list at :gmt-docs:`grdimage.html`
+    Full option list at :gmt-docs:`grdimage.html`
 
     {aliases}
 
@@ -171,5 +171,4 @@ def grdimage(self, grid, **kwargs):
                 kwargs["I"] = stack.enter_context(shading_context)
 
             fname = stack.enter_context(file_context)
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("grdimage", arg_str)
+            lib.call_module("grdimage", build_arg_string(kwargs, infile=fname))

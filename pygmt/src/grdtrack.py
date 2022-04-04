@@ -300,10 +300,10 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
                     kwargs.update({"G": grdfile})
                     if outfile is None:  # Output to tmpfile if outfile is not set
                         outfile = tmpfile.name
-                    arg_str = " ".join(
-                        [csvfile, build_arg_string(kwargs), "->" + outfile]
+                    lib.call_module(
+                        module="grdtrack",
+                        args=build_arg_string(kwargs, infile=csvfile, outfile=outfile),
                     )
-                    lib.call_module(module="grdtrack", args=arg_str)
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

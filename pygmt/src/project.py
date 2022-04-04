@@ -93,6 +93,8 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
 
+    Full option list at :gmt-docs:`project.html`
+
     {aliases}
 
     Parameters
@@ -231,11 +233,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
                 # Run project on the temporary (csv) data table
                 with table_context as infile:
-                    arg_str = " ".join(
-                        [infile, build_arg_string(kwargs), "->" + outfile]
-                    )
+                    arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             else:
-                arg_str = " ".join([build_arg_string(kwargs), "->" + outfile])
+                arg_str = build_arg_string(kwargs, outfile=outfile)
             lib.call_module(module="project", args=arg_str)
 
         # if user did not set outfile, return pd.DataFrame

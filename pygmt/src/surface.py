@@ -101,7 +101,8 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
                 if "G" not in kwargs:  # if outgrid is unset, output to tmpfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module(module="surface", args=arg_str)
+                lib.call_module(
+                    module="surface", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

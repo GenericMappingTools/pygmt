@@ -76,7 +76,7 @@ def plot3d(
     polygon outline is drawn or not. If a symbol is selected, ``color`` and
     ``pen`` determines the fill and outline/no outline, respectively.
 
-    Full parameter list at :gmt-docs:`plot3d.html`
+    Full option list at :gmt-docs:`plot3d.html`
 
     {aliases}
 
@@ -242,5 +242,4 @@ def plot3d(
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("plot3d", arg_str)
+            lib.call_module("plot3d", build_arg_string(kwargs, infile=fname))

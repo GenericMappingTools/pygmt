@@ -63,7 +63,8 @@ def sphinterpolate(data, **kwargs):
                 if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("sphinterpolate", arg_str)
+                lib.call_module(
+                    "sphinterpolate", build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
