@@ -110,8 +110,6 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                arg_str = build_arg_string(kwargs)
-                arg_str = " ".join([infile, arg_str])
-                lib.call_module("sphdistance", arg_str)
+                lib.call_module("sphdistance", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

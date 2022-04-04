@@ -109,7 +109,6 @@ def grdlandmask(**kwargs):
             if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                 kwargs.update({"G": tmpfile.name})
             outgrid = kwargs["G"]
-            arg_str = build_arg_string(kwargs)
-            lib.call_module("grdlandmask", arg_str)
+            lib.call_module("grdlandmask", build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

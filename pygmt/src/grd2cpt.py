@@ -33,7 +33,7 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a module that will help you make static color palette tables
+    This is a method that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
@@ -166,12 +166,10 @@ def grd2cpt(grid, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
             if "H" not in kwargs:  # if no output is set
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
+                arg_str = build_arg_string(kwargs, infile=infile)
             if "H" in kwargs:  # if output is set
-                outfile = kwargs.pop("H")
+                outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), f"-H > {outfile}"]
-                )
+                arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             lib.call_module("grd2cpt", arg_str)

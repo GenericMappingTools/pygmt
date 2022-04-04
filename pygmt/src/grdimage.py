@@ -133,7 +133,7 @@ def grdimage(self, grid, **kwargs):
         ambient light). Alternatively, derive an intensity grid from the input
         data grid via a call to :meth:`pygmt.grdgradient`; append
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that module, or just give
+        azimuth, intensity, and ambient arguments for that method, or just give
         **+d** to select the default arguments (``+a-45+nt1+m0``). If you want
         a more specific intensity scenario then run :meth:`pygmt.grdgradient`
         separately first. If we should derive intensities from another file
@@ -171,5 +171,4 @@ def grdimage(self, grid, **kwargs):
                 kwargs["I"] = stack.enter_context(shading_context)
 
             fname = stack.enter_context(file_context)
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("grdimage", arg_str)
+            lib.call_module("grdimage", build_arg_string(kwargs, infile=fname))
