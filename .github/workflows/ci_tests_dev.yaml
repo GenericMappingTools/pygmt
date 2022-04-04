@@ -71,6 +71,14 @@ jobs:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Show job URL
+        uses: peter-evans/create-or-update-comment@v2
+        if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
         uses: conda-incubator/setup-miniconda@v2.1.1
@@ -160,12 +168,3 @@ jobs:
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
           path: tmp-test-dir-with-unique-name
-
-      - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v2
-        if: github.event_name == 'repository_dispatch'
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          reaction-type: hooray
