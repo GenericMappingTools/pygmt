@@ -256,5 +256,4 @@ def velo(self, data=None, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("velo", arg_str)
+            lib.call_module("velo", build_arg_string(kwargs, infile=fname))

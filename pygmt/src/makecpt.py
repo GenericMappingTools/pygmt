@@ -29,7 +29,7 @@ def makecpt(**kwargs):
     r"""
     Make GMT color palette tables.
 
-    This is a module that will help you make static color palette tables
+    This is a method that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
@@ -152,8 +152,8 @@ def makecpt(**kwargs):
         if kwargs.get("H") is None:  # if no output is set
             arg_str = build_arg_string(kwargs)
         else:  # if output is set
-            outfile = kwargs.pop("H")
+            outfile, kwargs["H"] = kwargs.pop("H"), True
             if not outfile or not isinstance(outfile, str):
                 raise GMTInvalidInput("'output' should be a proper file name.")
-            arg_str = " ".join([build_arg_string(kwargs), f"-H > {outfile}"])
+            arg_str = build_arg_string(kwargs, outfile=outfile)
         lib.call_module(module="makecpt", args=arg_str)

@@ -176,7 +176,6 @@ def grdgradient(grid, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdgradient", arg_str)
+                lib.call_module("grdgradient", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
