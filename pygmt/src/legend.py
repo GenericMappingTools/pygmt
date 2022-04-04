@@ -87,5 +87,4 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
             specfile = spec
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        arg_str = " ".join([specfile, build_arg_string(kwargs)])
-        lib.call_module("legend", arg_str)
+        lib.call_module("legend", build_arg_string(kwargs, infile=specfile))
