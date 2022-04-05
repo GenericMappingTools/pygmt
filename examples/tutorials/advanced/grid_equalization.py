@@ -17,7 +17,7 @@ import pygmt
 region = [-119.825, -119.4, 37.6, 37.825]
 
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
-grid_dist = pygmt.grd2xyz(grid=grid, outcols=2, output_type="numpy")[:, 0]
+grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
 
 ###############################################################################
 # Plot the original digital elevation model and data distribution
@@ -68,7 +68,7 @@ fig.show()
 
 divisions = 9
 linear = pygmt.grdhisteq.equalize_grid(grid=grid, divisions=divisions)
-linear_dist = pygmt.grd2xyz(grid=linear, outcols=2, output_type="numpy")[:, 0]
+linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 
 ###############################################################################
 # Calculate the bins used for data transformation
@@ -127,7 +127,7 @@ fig.show()
 # data are continuous rather than discrete.
 
 normal = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
-normal_dist = pygmt.grd2xyz(grid=normal, outcols=2, output_type="numpy")[:, 0]
+normal_dist = pygmt.grd2xyz(grid=normal, output_type="pandas")["z"]
 
 ###############################################################################
 # Plot the normally distributed data
@@ -175,7 +175,7 @@ fig.show()
 quadratic = pygmt.grdhisteq.equalize_grid(
     grid=grid, quadratic=True, divisions=divisions
 )
-quadratic_dist = pygmt.grd2xyz(grid=quadratic, outcols=2, output_type="numpy")[:, 0]
+quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 
 ###############################################################################
 # Calculate the bins used for data transformation
