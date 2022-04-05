@@ -286,23 +286,35 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
+    if points is None and kwargs.get("E") is None:
+        raise GMTInvalidInput("Must give 'points' or set 'profile'.")
+
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=points)
             # Store the xarray.DataArray grid in virtualfile
             grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
-            # Run grdtrack on the temporary (csv) points table
-            # and (netcdf) grid virtualfile
-            with table_context as csvfile:
-                with grid_context as grdfile:
-                    kwargs.update({"G": grdfile})
-                    if outfile is None:  # Output to tmpfile if outfile is not set
-                        outfile = tmpfile.name
+            with grid_context as grdfile:
+                kwargs.update({"G": grdfile})
+                if outfile is None:  # Output to tmpfile if outfile is not set
+                    outfile = tmpfile.name
+
+                if points is not None:
+                    # Choose how data will be passed into the module
+                    table_context = lib.virtualfile_from_data(
+                        check_kind="vector", data=points
+                    )
+                    with table_context as csvfile:
+                        lib.call_module(
+                            module="grdtrack",
+                            args=build_arg_string(
+                                kwargs, infile=csvfile, outfile=outfile
+                            ),
+                        )
+                else:
                     lib.call_module(
                         module="grdtrack",
-                        args=build_arg_string(kwargs, infile=csvfile, outfile=outfile),
+                        args=build_arg_string(kwargs, outfile=outfile),
                     )
 
         # Read temporary csv output to a pandas table
