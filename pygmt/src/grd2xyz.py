@@ -159,7 +159,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
-    if "o" in kwargs and output_type == "pandas":
+    if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
             "If 'outcols' is specified, 'output_type' must be either 'numpy'"
             "or 'file'."

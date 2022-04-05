@@ -94,7 +94,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         to set aside space on more than one side (e.g. ``clearance=['w1c',
         's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
         side). Such space will be left untouched by the main map plotting but
-        can be accessed by modules that plot scales, bars, text, etc.
+        can be accessed by methods that plot scales, bars, text, etc.
     {J}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
@@ -210,7 +210,7 @@ def set_panel(self, panel=None, **kwargs):
         **s**, or **n**. The option is repeatable to set aside space on more
         than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
-        untouched by the main map plotting but can be accessed by modules that
+        untouched by the main map plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
