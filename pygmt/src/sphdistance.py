@@ -108,11 +108,8 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y
             )
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = build_arg_string(kwargs)
-                arg_str = " ".join([infile, arg_str])
-                lib.call_module("sphdistance", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module("sphdistance", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -220,8 +220,12 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 fnames = [stack.enter_context(c) for c in file_contexts]
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([*fnames, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module="x2sys_cross", args=arg_str)
+                lib.call_module(
+                    module="x2sys_cross",
+                    args=build_arg_string(
+                        kwargs, infile=" ".join(fnames), outfile=outfile
+                    ),
+                )
 
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame

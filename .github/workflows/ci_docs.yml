@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
-                        ipython make myst-parser geopandas \
+                        build ipython make myst-parser geopandas \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
@@ -99,7 +99,7 @@ jobs:
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
+          python -m build --sdist
           pip install dist/*
 
       # Build the documentation
