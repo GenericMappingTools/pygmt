@@ -238,8 +238,12 @@ def velo(self, data=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "S" not in kwargs or ("S" in kwargs and not isinstance(kwargs["S"], str)):
-        raise GMTInvalidInput("Spec is a required argument and has to be a string.")
+    if kwargs.get("S") is None or (
+        kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
+    ):
+        raise GMTInvalidInput(
+            "The parameter `spec` is required and has to be a string."
+        )
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
         raise GMTInvalidInput(
