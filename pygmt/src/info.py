@@ -90,7 +90,7 @@ def info(data, **kwargs):
                 )
             result = tmpfile.read()
 
-        if any(arg in kwargs for arg in ["C", "I", "T"]):
+        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
