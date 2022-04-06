@@ -12,11 +12,10 @@ import pygmt
 # Load sample data
 # ----------------
 # Load the sample Earth relief data for a region around Yosemite valley
-# and use :meth:`pygmt.grd2xyz` to create a :class:`numpy.ndarray` with the z
-# values.
-region = [-119.825, -119.4, 37.6, 37.825]
+# and use :meth:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
+# z values.
 
-grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
+grid = pygmt.datasets.load_earth_relief(resolution="03s", region=[-119.825, -119.4, 37.6, 37.825])
 grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
 
 ###############################################################################
@@ -63,8 +62,8 @@ fig.show()
 # z-values representing the position of the original z-values in a given
 # cumulative distribution. By default, it computes the position in a linear
 # distribution. Here, we equalize the grid into nine divisions based on a
-# linear distribution and produce a numpy.ndarray with the z-values for the new
-# grid.
+# linear distribution and produce a pandas.Series with the z-values for the
+# new grid.
 
 divisions = 9
 linear = pygmt.grdhisteq.equalize_grid(grid=grid, divisions=divisions)
@@ -170,7 +169,7 @@ fig.show()
 # used to transform the z-values relative to their position in a quadratic
 # distribution rather than a linear distribution. Here, we equalize the grid
 # into nine divisions based on a quadratic distribution and produce a
-# numpy.ndarray with the z-values for the new grid.
+# pandas.Series with the z-values for the new grid.
 
 quadratic = pygmt.grdhisteq.equalize_grid(
     grid=grid, quadratic=True, divisions=divisions
