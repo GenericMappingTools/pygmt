@@ -24,7 +24,7 @@ grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
 # Plot the original digital elevation model and data distribution
 # ---------------------------------------------------------------
 # For comparison, we will create a map of the original digital elevation
-# model and a histogram showing the distribution of data values.
+# model and a histogram showing the distribution of elevation data values.
 
 # Create an instance of the Figure class
 fig = pygmt.Figure()
@@ -49,7 +49,7 @@ with fig.subplot(
             projection="X?",
             region=[500, 3600, 0, 20],
             series=[500, 3600, 100],
-            frame="wnSE",
+            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -64,8 +64,8 @@ fig.show()
 # z-values representing the position of the original z-values in a given
 # cumulative distribution. By default, it computes the position in a linear
 # distribution. Here, we equalize the grid into nine divisions based on a
-# linear distribution and produce a pandas.Series with the z-values for the
-# new grid.
+# linear distribution and produce a :class:`pandas.Series` with the z-values
+# for the new grid.
 
 divisions = 9
 linear = pygmt.grdhisteq.equalize_grid(grid=grid, divisions=divisions)
@@ -76,7 +76,7 @@ linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 # -----------------------------------------------
 # The :meth:`pygmt.grdhisteq.compute_bins` method reports statistics about the
 # grid equalization. Here, we report the bins that would linearly divide the
-# original data into 9 divisions with equal area. In our new grid produce by
+# original data into 9 divisions with equal area. In our new grid produced by
 # :meth:`pygmt.grdhisteq.equalize_grid`, all the grid cells with values between
 # ``start`` and ``stop`` of ``bin_id=0`` are assigned the value 0, all grid
 # cells with values between ``start`` and ``stop`` of ``bin_id=1`` are assigned
