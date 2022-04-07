@@ -32,8 +32,6 @@ fig = pygmt.Figure()
 pygmt.config(FORMAT_GEO_MAP="ddd.x", MAP_FRAME_TYPE="plain")
 # Define the colormap for the figure
 pygmt.makecpt(series=[500, 3540], cmap="turku")
-# Define the position of the colormap
-cmap_position = "JMR+o1c/0c+w3c/0.3c"
 # Setup subplots with two panels
 with fig.subplot(
     nrows=1, ncols=2, figsize=("13.5c", "4c"), title="Digital Elevation Model"
@@ -54,7 +52,7 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position=cmap_position, frame=True)
+        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -116,7 +114,7 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position=cmap_position, frame=True)
+        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -161,7 +159,7 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position=cmap_position, frame=True)
+        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -219,5 +217,5 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position=cmap_position, frame=True)
+        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
 fig.show()
