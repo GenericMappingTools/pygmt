@@ -100,7 +100,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
-    if "I" not in kwargs or "R" not in kwargs:
+    if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
