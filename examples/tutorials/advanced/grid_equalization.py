@@ -169,7 +169,7 @@ fig.show()
 # used to transform the z-values relative to their position in a quadratic
 # distribution rather than a linear distribution. Here, we equalize the grid
 # into nine divisions based on a quadratic distribution and produce a
-# pandas.Series with the z-values for the new grid.
+# :class:`pandas.Series` with the z-values for the new grid.
 
 quadratic = pygmt.grdhisteq.equalize_grid(
     grid=grid, quadratic=True, divisions=divisions
