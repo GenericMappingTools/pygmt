@@ -52,7 +52,7 @@ with fig.subplot(
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -109,12 +109,12 @@ with fig.subplot(
             projection="X?",
             region=[0, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame="wnSE",
+            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
             cmap=True,
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -154,12 +154,12 @@ with fig.subplot(
             projection="X?",
             region=[-4.5, 4.5, 0, 20],
             series=[-4.5, 4.5, 0.2],
-            frame="wnSE",
+            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
             cmap=True,
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
 ###############################################################################
@@ -212,10 +212,10 @@ with fig.subplot(
             projection="X?",
             region=[0, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame="wnSE",
+            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
             cmap=True,
             histtype=1,
             pen="1p,black",
         )
-        fig.colorbar(position="JMR+o1c/0c+w3c/0.3c", frame=True)
+        fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
