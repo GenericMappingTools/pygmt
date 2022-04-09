@@ -232,7 +232,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.19
-    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_ (latest release)
+    * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_ (latest release)
+      - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
       - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
       - >=6.3.0
       - >=3.8
