@@ -278,6 +278,4 @@ def meca(
         # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            print(arg_str)
-            lib.call_module("meca", arg_str)
+            lib.call_module("meca", build_arg_string(kwargs, infile=fname))

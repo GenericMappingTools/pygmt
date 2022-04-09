@@ -33,7 +33,7 @@ from pygmt.io import load_dataarray
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grid table data using a "Nearest neighbor" algorithm
@@ -139,10 +139,10 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with table_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tmpfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module(module="nearneighbor", args=arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

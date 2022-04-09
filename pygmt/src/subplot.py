@@ -94,7 +94,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         to set aside space on more than one side (e.g. ``clearance=['w1c',
         's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
         side). Such space will be left untouched by the main map plotting but
-        can be accessed by modules that plot scales, bars, text, etc.
+        can be accessed by methods that plot scales, bars, text, etc.
     {J}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
@@ -148,10 +148,6 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     {XY}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # allow for spaces in string without needing double quotes
-    if isinstance(kwargs.get("A"), str):
-        kwargs["A"] = f'"{kwargs.get("A")}"'
-    kwargs["T"] = f'"{kwargs.get("T")}"' if kwargs.get("T") else None
 
     if nrows < 1 or ncols < 1:
         raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
@@ -214,7 +210,7 @@ def set_panel(self, panel=None, **kwargs):
         **s**, or **n**. The option is repeatable to set aside space on more
         than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
-        untouched by the main map plotting but can be accessed by modules that
+        untouched by the main map plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
@@ -222,8 +218,6 @@ def set_panel(self, panel=None, **kwargs):
     {V}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    # allow for spaces in string with needing double quotes
-    kwargs["A"] = f'"{kwargs.get("A")}"' if kwargs.get("A") is not None else None
     # convert tuple or list to comma-separated str
     panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
 

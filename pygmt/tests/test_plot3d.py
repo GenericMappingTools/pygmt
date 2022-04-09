@@ -2,6 +2,7 @@
 Tests plot3d.
 """
 import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -423,60 +424,11 @@ def test_plot3d_scalar_xyz():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_plot3d_sizes.png")
-def test_plot3d_deprecate_sizes_to_size(data, region):
-    """
-    Make sure that the old parameter "sizes" is supported and it reports an
-    warning.
-
-    Modified from the test_plot3d_sizes() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot3d(
-            x=data[:, 0],
-            y=data[:, 1],
-            z=data[:, 2],
-            zscale=5,
-            perspective=[225, 30],
-            sizes=0.5 * data[:, 2],
-            region=region,
-            projection="X10c",
-            style="ui",
-            color="blue",
-            frame=["af", "zaf"],
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
-def test_plot3d_deprecate_columns_to_incols(data, region):
-    """
-    Make sure that the old parameter "columns" is supported and it reports an
-    warning.
-
-    Modified from the test_plot3d_matrix() test.
-    """
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.plot3d(
-            data,
-            zscale=5,
-            perspective=[225, 30],
-            region=region,
-            projection="M20c",
-            style="c1c",
-            color="#aaaaaa",
-            frame=["a", "za"],
-            columns="0,1,2",
-        )
-        assert len(record) == 1  # check that only one warning was raised
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_plot3d_ogrgmt_file_multipoint_default_style():
+@pytest.mark.mpl_image_compare(
+    filename="test_plot3d_ogrgmt_file_multipoint_default_style.png"
+)
+@pytest.mark.parametrize("func", [str, Path])
+def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
     Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
     and not as line (default GMT style).
@@ -492,7 +444,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style():
             file.write(gmt_file)
         fig = Figure()
         fig.plot3d(
-            data=tmpfile.name,
+            data=func(tmpfile.name),
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",
