@@ -1,6 +1,8 @@
 """
 meca - Plot focal mechanisms.
 """
+from readline import insert_text
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
@@ -105,11 +107,11 @@ def meca(
     self,
     spec,
     scale,
+    convention=None,
+    component="full",
     longitude=None,
     latitude=None,
     depth=None,
-    convention=None,
-    component="full",
     plot_longitude=None,
     plot_latitude=None,
     event_name=None,
@@ -119,11 +121,6 @@ def meca(
     Plot focal mechanisms.
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
-
-    Note
-    ----
-        Currently, labeling of beachballs with text strings is only supported
-        via providing a file to `spec` as input.
 
     {aliases}
 
@@ -152,15 +149,6 @@ def meca(
         Adjusts the scaling of the radius of the beachball, which is
         proportional to the magnitude. Scale defines the size for magnitude = 5
         (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
-    longitude: int, float, list, or 1d numpy array
-        Longitude(s) of event location. Will override the longitudes in ``spec``
-        if ``spec`` is a dict or DataFrame.
-    latitude: int, float, list, or 1d numpy array
-        Latitude(s) of event location. Will override the latitudes in ``spec``
-        if ``spec`` is a dict or DataFrame.
-    depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Will override the depths in
-        ``spec`` if ``spec`` is a dict or DataFrame.
     convention: str
         ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"`` (seismic
         moment tensor), ``"partial"`` (partial focal mechanism), or
@@ -170,6 +158,15 @@ def meca(
         The component of the seismic moment tensor to plot. ``"full"`` (the
         full seismic moment tensor), ``"dc"`` (the closest double couple with
         zero trace and zero determinant), ``"deviatoric"`` (zero trace)
+    longitude: int, float, list, or 1d numpy array
+        Longitude(s) of event location. Will override the longitudes in ``spec``
+        if ``spec`` is a dict or DataFrame.
+    latitude: int, float, list, or 1d numpy array
+        Latitude(s) of event location. Will override the latitudes in ``spec``
+        if ``spec`` is a dict or DataFrame.
+    depth: int, float, list, or 1d numpy array
+        Depth(s) of event location in kilometers. Will override the depths in
+        ``spec`` if ``spec`` is a dict or DataFrame.
     plot_longitude: int, float, list, or 1d numpy array
         Longitude(s) at which to place beachball. List must be the length of the
         number of events. Will override the plot_longitude in ``spec`` if
@@ -180,10 +177,10 @@ def meca(
         is a dict or DataFrame.
     offset: bool or str
         Offsets beachballs to the longitude, latitude specified in the last two
-        columns of the input file or array, or by `plot_longitude` and
-        `plot_latitude` if provided. A small circle is plotted at the initial
+        columns of the input file or array, or by ``plot_longitude`` and
+        ``plot_latitude`` if provided. A small circle is plotted at the initial
         location and a line connects the beachball to the circle. Specify pen
-        and optionally append ``+ssize`` to change the line style and/or size
+        and optionally append **+s**\ *size* to change the line style and/or size
         of the circle.
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
@@ -199,7 +196,7 @@ def meca(
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if isinstance(spec, (dict, pd.DataFrame)):
+    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
         param_conventions = {
             "aki": ["strike", "dip", "rake", "magnitude"],
             "gcmt": [
@@ -215,13 +212,13 @@ def meca(
             "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
             "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
             "pricipal_axis": [
-                "t_exponent",
+                "t_value",
                 "t_azimuth",
                 "t_plunge",
-                "n_exponent",
+                "n_value",
                 "n_azimuth",
                 "n_plunge",
-                "p_exponent",
+                "p_value",
                 "p_azimuth",
                 "p_plunge",
                 "exponent",
@@ -233,10 +230,13 @@ def meca(
                 convention = conv
                 break
         else:
-            raise GMTError(
-                "Parameters in spec dictionary do not match known conventions."
-            )
+            if isinstance(spec, dict):
+                msg = "Keys in dict 'spec' do not match known conventions."
+            else:
+                msg = "Columns in pd.DataFrame 'spec' do not match known conventions."
+            raise GMTError(msg)
 
+        print(longitude, latitude, depth)
         # override the values in dict/DataFrame if parameters are explicity specified
         if longitude is not None:
             spec["longitude"] = np.atleast_1d(longitude)
@@ -244,16 +244,19 @@ def meca(
             spec["latitude"] = np.atleast_1d(latitude)
         if depth is not None:
             spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:  # must be string type
+        if plot_longitude is not None:  # must be in string type
             spec["plot_longitude"] = np.atleast_1d(plot_longitude).astype(str)
-        if plot_latitude is not None:  # must be string type
+        if plot_latitude is not None:  # must be in string type
             spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
         if event_name is not None:
             spec["event_name"] = np.atleast_1d(event_name).astype(str)
+        print(spec)
 
-        # convert dict to DataFrame so columns can be reordered
+        # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
             spec = pd.DataFrame(spec)
+
+        print(spec)
 
         # expected columns are:
         # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [event_name]
@@ -266,7 +269,7 @@ def meca(
         # reorder columns in DataFrame
         spec = spec.reindex(newcols, axis=1)
     elif isinstance(spec, np.ndarray) and spec.ndim == 1:
-        # Convert 1d array types into 2d arrays
+        # Convert 1d array into 2d array
         spec = np.atleast_2d(spec)
 
     # determine data_foramt from convection and component
@@ -277,5 +280,7 @@ def meca(
     with Session() as lib:
         # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
+        print(spec)
         with file_context as fname:
+            print(build_arg_string(kwargs, infile=fname))
             lib.call_module("meca", build_arg_string(kwargs, infile=fname))

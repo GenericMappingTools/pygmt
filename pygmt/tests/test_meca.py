@@ -47,7 +47,8 @@ def test_meca_spec_dict_list():
         depth=[12.0, 11.0],
         region=[-125, -122, 47, 49],
         scale="2c",
-        projection="M14c",
+        projection="M8c",
+        frame=True
     )
     return fig
 
@@ -203,9 +204,9 @@ def test_meca_loc_array():
     fig.meca(
         focal_mechanisms,
         scale,
-        longitude,
-        latitude,
-        depth,
+        longitude=longitude,
+        latitude=latitude,
+        depth=depth,
         region=[-125, -122, 47, 49],
         projection="M14c",
     )
