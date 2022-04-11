@@ -1,0 +1,12 @@
+pygmt.grdfilter
+===============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: grdfilter
+
+.. include:: backreferences/pygmt.grdfilter.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

@@ -1,0 +1,12 @@
+pygmt.Figure.subplot
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.subplot
+
+.. include:: backreferences/pygmt.Figure.subplot.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

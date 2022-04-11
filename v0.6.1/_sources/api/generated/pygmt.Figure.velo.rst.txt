@@ -1,0 +1,12 @@
+pygmt.Figure.velo
+=================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.velo
+
+.. include:: backreferences/pygmt.Figure.velo.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
