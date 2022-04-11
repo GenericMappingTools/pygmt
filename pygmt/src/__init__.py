@@ -1,5 +1,5 @@
 """
-Source code for PyGMT modules.
+Source code for PyGMT methods.
 """
 # pylint: disable=import-outside-toplevel
 

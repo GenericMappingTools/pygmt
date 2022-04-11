@@ -29,12 +29,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8', '3.9']
+        python-version: ['3.8', '3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        # Only run one job (Ubuntu + Python 3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
@@ -43,13 +43,13 @@ jobs:
           # - os: ubuntu-latest
           #   python-version: 3.7
           #   isDraft: true
-        # Pair Python 3.8 with NumPy 1.19 and Python 3.9 with NumPy 1.22
-        # Only install optional packages on Python 3.9/NumPy 1.22
+        # Pair Python 3.8 with NumPy 1.19 and Python 3.10 with NumPy 1.22
+        # Only install optional packages on Python 3.10/NumPy 1.22
         include:
           - python-version: '3.8'
             numpy-version: '1.19'
             optional-packages: ''
-          - python-version: '3.9'
+          - python-version: '3.10'
             numpy-version: '1.22'
             optional-packages: 'geopandas ipython'
     timeout-minutes: 30
@@ -147,7 +147,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2.1.0
+        uses: codecov/codecov-action@v3.0.0
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
