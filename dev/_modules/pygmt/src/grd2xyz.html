@@ -311,7 +311,7 @@
     <span class="k">elif</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Must specify &#39;outfile&#39; for ASCII output.&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="s2">&quot;o&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;o&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
             <span class="s2">&quot;If &#39;outcols&#39; is specified, &#39;output_type&#39; must be either &#39;numpy&#39;&quot;</span>
             <span class="s2">&quot;or &#39;file&#39;.&quot;</span>
@@ -330,8 +330,9 @@
             <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-                <span class="n">arg_str</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">infile</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span> <span class="s2">&quot;-&gt;&quot;</span> <span class="o">+</span> <span class="n">outfile</span><span class="p">])</span>
-                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;grd2xyz&quot;</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="s2">&quot;grd2xyz&quot;</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
+                <span class="p">)</span>
 
         <span class="c1"># Read temporary csv output to a pandas table</span>
         <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outfile, return pd.DataFrame</span>
@@ -355,9 +356,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

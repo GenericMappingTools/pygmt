@@ -270,6 +270,27 @@ Advanced
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization">
+
+.. only:: html
+
+ .. figure:: /tutorials/advanced/images/thumb/sphx_glr_grid_equalization_thumb.png
+     :alt: Performing grid histogram equalization
+
+     :ref:`sphx_glr_tutorials_advanced_grid_equalization.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /tutorials/advanced/grid_equalization
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie...">
 
 .. only:: html

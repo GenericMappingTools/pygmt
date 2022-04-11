@@ -8,7 +8,7 @@ Projections
 ===========
 
 PyGMT support many map projections. Use the ``projection`` parameter to specify which
-one you want to use in all plotting modules. The projection is specified by a one
+one you want to use in all plotting methods. The projection is specified by a one
 letter code along with (sometimes optional) reference longitude and latitude and the
 width of the map (for example, **A**\ *lon0/lat0*\ [*/horizon*\ ]\ */width*). The map
 height is determined based on the region and projection.
@@ -416,27 +416,6 @@ Cylindric Projections
 
 .. only:: html
 
- .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
-     :alt: Oblique Mercator
-
-     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /projections/cyl/cyl_oblique_mercator_1
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
-
-.. only:: html
-
  .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_3_thumb.png
      :alt: Oblique Mercator
 
@@ -451,6 +430,27 @@ Cylindric Projections
    :hidden:
 
    /projections/cyl/cyl_oblique_mercator_3
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part...">
+
+.. only:: html
+
+ .. figure:: /projections/cyl/images/thumb/sphx_glr_cyl_oblique_mercator_1_thumb.png
+     :alt: Oblique Mercator
+
+     :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /projections/cyl/cyl_oblique_mercator_1
 
 .. raw:: html
 

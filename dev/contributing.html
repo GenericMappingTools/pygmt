@@ -631,8 +631,8 @@ with [ ] (square brackers) with the prefix “Default is”. Example: [Default i
 <h3>Cross-referencing with Sphinx<a class="headerlink" href="#cross-referencing-with-sphinx" title="Permalink to this headline"></a></h3>
 <p>The API reference is manually assembled in <code class="docutils literal notranslate"><span class="pre">doc/api/index.rst</span></code>.
 The <em>autodoc</em> sphinx extension will automatically create pages for each
-function/class/module listed there.</p>
-<p>You can reference functions, classes, methods, and modules from anywhere
+function/class/module/method listed there.</p>
+<p>You can reference functions, classes, modules, and methods from anywhere
 (including docstrings) using:</p>
 <ul class="simple">
 <li><p><code>:func:`package.module.function`</code></p></li>
@@ -658,7 +658,7 @@ For GMT configuration parameters, an example is
 <code>:gmt-term:`COLOR_FOREGROUND`</code> to link to
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND</a>.</p>
 <p>Sphinx will create a link to the automatically generated page for that
-function/class/module.</p>
+function/class/module/method.</p>
 </section>
 </section>
 <section id="contributing-code">
@@ -716,7 +716,7 @@ existing functionality.
 Tests also help us be confident that we won’t break your code in the future.</p>
 <p>When writing tests, don’t test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-modules, such as <code class="docutils literal notranslate"><span class="pre">plot</span></code> and <code class="docutils literal notranslate"><span class="pre">basemap</span></code>. The highest priority for tests should be the
+methods, such as <code class="docutils literal notranslate"><span class="pre">plot</span></code> and <code class="docutils literal notranslate"><span class="pre">basemap</span></code>. The highest priority for tests should be the
 Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
 mechanism.</p>
 <p>If you’re <strong>new to testing</strong>, see existing test files for examples of things to do.
@@ -888,9 +888,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

@@ -183,8 +183,8 @@ to download the full example code</p>
 <span id="sphx-glr-get-started-first-figure-py"></span><h1>1. Making your first figure<a class="headerlink" href="#making-your-first-figure" title="Permalink to this headline"></a></h1>
 <p>This tutorial page covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the <code class="docutils literal notranslate"><span class="pre">coast</span></code> module for plotting. Later examples will address other PyGMT
-modules.</p>
+the <code class="docutils literal notranslate"><span class="pre">coast</span></code> method for plotting. Later examples will address other PyGMT
+methods.</p>
 <section id="setting-up-the-development-environment">
 <h2>Setting up the development environment<a class="headerlink" href="#setting-up-the-development-environment" title="Permalink to this headline"></a></h2>
 <p>PyGMT can be used in both a Python script and a notebook environment, such
@@ -193,7 +193,7 @@ code will be for a notebook environment.</p>
 </section>
 <section id="loading-the-library">
 <h2>Loading the library<a class="headerlink" href="#loading-the-library" title="Permalink to this headline"></a></h2>
-<p>The first step is to import <code class="docutils literal notranslate"><span class="pre">pygmt</span></code>. All modules and figure generation is
+<p>The first step is to import <code class="docutils literal notranslate"><span class="pre">pygmt</span></code>. All methods and figure generation is
 accessible from the <a class="reference internal" href="../api/index.html#module-pygmt" title="pygmt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt</span></code></a> top level package.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
@@ -207,13 +207,13 @@ Start a new figure by creating an instance of this class:</p>
 </pre></div>
 </div>
 <p>To add to a plot object (<code class="docutils literal notranslate"><span class="pre">fig</span></code> in this example), the PyGMT module is used
-as a method on the class. This example will use the module <code class="docutils literal notranslate"><span class="pre">coast</span></code>, which
-can be used to create a map without any other modules or external data. The
-<code class="docutils literal notranslate"><span class="pre">coast</span></code> module plots the coastlines, borders, and bodies of water using a
-database that is included in GMT.</p>
+as a method on the class. This example will use the <code class="docutils literal notranslate"><span class="pre">coast</span></code> method, which
+can be used to create a map without any other methods, modules or external
+data. The <code class="docutils literal notranslate"><span class="pre">coast</span></code> method plots the coastlines, borders, and bodies of water
+using a database that is included in GMT.</p>
 <p>First, a region for the figure must be selected. This example will plot some
 of the coast of Maine in the northeastern US. A Python list can be passed to
-the <code class="docutils literal notranslate"><span class="pre">region</span></code> argument with the minimum and maximum X-values (longitude)
+the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter with the minimum and maximum X-values (longitude)
 and the minimum and maximum Y-values (latitude). For this example, the
 minimum (bottom left) coordinates are (N43.75, W69) and the maximum (top
 right) coordinates are (N44.75, W68). Negative values can be passed for
@@ -354,7 +354,7 @@ region is set without using a list full of integers or floating numbers,
 the argument needs to be passed as a Python string. Create a 15 centimeter
 map using the Mollwide (“W”) projection.</p></li>
 </ol>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.977 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.212 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-get-started-first-figure-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/639a4d055604b5c5b3c73a9717eb5b44/first_figure.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">first_figure.py</span></code></a></p>
@@ -380,9 +380,9 @@ map using the Mollwide (“W”) projection.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

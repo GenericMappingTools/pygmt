@@ -102,6 +102,17 @@
 <li class="toctree-l3"><a class="reference internal" href="3d_perspective_image.html">Creating a 3D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="subplots.html">Making subplots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#load-sample-data">Load sample data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-original-digital-elevation-model-and-data-distribution">Plot the original digital elevation model and data distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-linear-distribution">Equalize grid based on a linear distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#calculate-the-bins-used-for-data-transformation">Calculate the bins used for data transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-equally-distributed-data">Plot the equally distributed data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#transform-grid-based-on-a-normal-distribution">Transform grid based on a normal distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-normally-distributed-data">Plot the normally distributed data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-quadratic-distribution">Equalize grid based on a quadratic distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#id1">Calculate the bins used for data transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-quadratic-distribution-of-data">Plot the quadratic distribution of data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
@@ -268,7 +279,7 @@ as a context manager is shown below:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.695 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.467 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-configuration-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/099123cf2369bc56b70d474b4f25331c/configuration.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">configuration.py</span></code></a></p>
@@ -294,9 +305,9 @@ as a context manager is shown below:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

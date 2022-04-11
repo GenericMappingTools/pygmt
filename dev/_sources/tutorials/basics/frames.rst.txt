@@ -78,7 +78,7 @@ the coastlines of the world with a Mercator projection:
 .. GENERATED FROM PYTHON SOURCE LINES 24-26
 
 To add the default GMT frame to the plot, use ``frame="f"`` in
-:meth:`pygmt.Figure.basemap` or any other plotting module:
+:meth:`pygmt.Figure.basemap` or any other plotting method:
 
 .. GENERATED FROM PYTHON SOURCE LINES 26-32
 
@@ -315,7 +315,7 @@ labels to be set for geographic maps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.689 seconds)
+   **Total running time of the script:** ( 0 minutes  10.613 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_frames.py:

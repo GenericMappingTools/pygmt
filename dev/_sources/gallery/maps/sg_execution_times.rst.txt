@@ -5,12 +5,12 @@
 
 Computation times
 =================
-**00:04.281** total execution time for **gallery_maps** files:
+**00:04.421** total execution time for **gallery_maps** files:
 
 +------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_borders.py` (``borders.py``)               | 00:01.649 | 0.0 MB |
+| :ref:`sphx_glr_gallery_maps_borders.py` (``borders.py``)               | 00:01.746 | 0.0 MB |
 +------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_shorelines.py` (``shorelines.py``)         | 00:01.335 | 0.0 MB |
+| :ref:`sphx_glr_gallery_maps_shorelines.py` (``shorelines.py``)         | 00:01.368 | 0.0 MB |
 +------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_land_and_water.py` (``land_and_water.py``) | 00:01.296 | 0.0 MB |
+| :ref:`sphx_glr_gallery_maps_land_and_water.py` (``land_and_water.py``) | 00:01.307 | 0.0 MB |
 +------------------------------------------------------------------------+-----------+--------+

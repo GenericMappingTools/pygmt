@@ -217,7 +217,7 @@ value. Interpolation and aliasing is controlled with the
 <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> parameter.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter can be used to select a map region larger or
 smaller than that implied by the extent of the grid.</p>
-<p>Full parameter list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdimage.html">https://docs.generic-mapping-tools.org/latest/grdimage.html</a></p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdimage.html">https://docs.generic-mapping-tools.org/latest/grdimage.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
 <li><p>A = img_out</p></li>
@@ -299,7 +299,7 @@ Give the name of a grid file or a DataArray with intensities in the
 ambient light). Alternatively, derive an intensity grid from the input
 data grid via a call to <a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a>; append
 <strong>+a</strong><em>azimuth</em>, <strong>+n</strong><em>args</em>, and <strong>+m</strong><em>ambient</em> to specify
-azimuth, intensity, and ambient arguments for that module, or just give
+azimuth, intensity, and ambient arguments for that method, or just give
 <strong>+d</strong> to select the default arguments (<code class="docutils literal notranslate"><span class="pre">+a-45+nt1+m0</span></code>). If you want
 a more specific intensity scenario then run <a class="reference internal" href="pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a>
 separately first. If we should derive intensities from another file
@@ -420,10 +420,16 @@ negative number <em>-n</em> to select (all - <em>n</em>) cores (or at least 1 if
 <p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><figure class="align-default" id="id8">
+</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><figure class="align-default" id="id8">
+<img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><figure class="align-default" id="id9">
 <img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth_relief_thumb.png" />
 <figcaption>
-<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+<p><span class="caption-text"><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </div><div style='clear:both'></div></section>
@@ -442,9 +448,9 @@ negative number <em>-n</em> to select (all - <em>n</em>) cores (or at least 1 if
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

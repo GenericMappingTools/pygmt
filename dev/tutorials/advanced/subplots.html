@@ -31,7 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Plotting Earth relief" href="earth_relief.html" />
+    <link rel="next" title="Performing grid histogram equalization" href="grid_equalization.html" />
     <link rel="prev" title="Creating a map with contour lines" href="contour_map.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -103,6 +103,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#advanced-subplot-layouts">Advanced subplot layouts</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#load-sample-data">Load sample data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-original-digital-elevation-model-and-data-distribution">Plot the original digital elevation model and data distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-linear-distribution">Equalize grid based on a linear distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#calculate-the-bins-used-for-data-transformation">Calculate the bins used for data transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-equally-distributed-data">Plot the equally distributed data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#transform-grid-based-on-a-normal-distribution">Transform grid based on a normal distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-normally-distributed-data">Plot the normally distributed data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-quadratic-distribution">Equalize grid based on a quadratic distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#id1">Calculate the bins used for data transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-quadratic-distribution-of-data">Plot the quadratic distribution of data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
@@ -406,7 +417,7 @@ the subplot according to the size of the subplot area.</p>
 example, <code class="docutils literal notranslate"><span class="pre">fig.set_panel(...,</span> <span class="pre">fixedlabel=&quot;b)</span> <span class="pre">Panel</span> <span class="pre">2&quot;)</span></code> which would allow
 you to manually label a single subplot as you wish. This can be useful for
 adding a more descriptive subtitle to individual subplots.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.971 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.256 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-subplots-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a6814ea8c10c4c0ac301f6afe26df0cb/subplots.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">subplots.py</span></code></a></p>
@@ -425,16 +436,16 @@ adding a more descriptive subtitle to individual subplots.</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="contour_map.html" class="btn btn-neutral float-left" title="Creating a map with contour lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="earth_relief.html" class="btn btn-neutral float-right" title="Plotting Earth relief" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="grid_equalization.html" class="btn btn-neutral float-right" title="Performing grid histogram equalization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/60eb5059">60eb5059</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 14, 2022.
+      <span class="lastupdated">Last updated on Apr 11, 2022.
       </span></p>
   </div>
 

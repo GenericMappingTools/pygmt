@@ -229,7 +229,7 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Many modules in PyGMT allow plotting vectors with individual heads and tails. For this purpose,...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,...">
 
 .. only:: html
 
