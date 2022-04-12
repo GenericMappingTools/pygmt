@@ -101,7 +101,7 @@ jobs:
           ORIGINAL_BRANCH=$(git branch --show-current)
           # Pull down GMT 6.4 baseline images from
           # https://github.com/GenericMappingTools/pygmt/pull/1791
-          git checkout update-baseline-images-for-gmt-dev
+          git checkout gmt-6.4
           dvc pull
           ls -lhR pygmt/tests/baseline/
           git checkout ${ORIGINAL_BRANCH}
