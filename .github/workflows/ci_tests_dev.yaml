@@ -99,8 +99,7 @@ jobs:
       - name: Pull baseline image data from dvc remote
         run: |
           ORIGINAL_BRANCH=$(git branch --show-current)
-          # Pull down GMT 6.4 baseline images from
-          # https://github.com/GenericMappingTools/pygmt/pull/1791
+          # Pull down GMT 6.4 baseline images from the gmt-6.4 branch
           git checkout gmt-6.4
           dvc pull
           ls -lhR pygmt/tests/baseline/
