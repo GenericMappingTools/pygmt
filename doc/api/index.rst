@@ -125,6 +125,9 @@ Operations on tabular data
     sphdistance
     sphinterpolate
     surface
+    triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
 Operations on raster data
@@ -133,6 +136,7 @@ Operations on raster data
 .. autosummary::
     :toctree: generated
 
+    dimfilter
     grd2xyz
     grdclip
     grdcut

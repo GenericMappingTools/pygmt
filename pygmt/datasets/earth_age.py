@@ -26,7 +26,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     registration type (**p** for pixel registration or **g** for gridline
     registration).
 
-    Refer to :gmt-datasets:`earth_age.html` for more details.
+    Refer to :gmt-datasets:`earth-age.html` for more details.
 
     Parameters
     ----------
@@ -54,8 +54,8 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         The Earth seafloor crustal age grid. Coordinates are latitude and
         longitude in degrees. Age is in millions of years (Myr).
 
-    Notes
-    -----
+    Note
+    ----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
     Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.

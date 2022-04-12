@@ -112,8 +112,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdhisteq", arg_str)
+                lib.call_module("grdhisteq", build_arg_string(kwargs, infile=infile))
 
         if output_type == "file":
             return None
@@ -141,7 +140,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     def equalize_grid(
         grid,
         *,
-        outgrid=True,
+        outgrid=None,
         divisions=None,
         region=None,
         gaussian=None,
@@ -163,7 +162,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         ----------
         grid : str or xarray.DataArray
             The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or bool or None
+        outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
             grid in.
         divisions : int
@@ -183,7 +182,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         ret: xarray.DataArray or None
             Return type depends on the ``outgrid`` parameter:
 
-            - xarray.DataArray if ``outgrid`` is True or None
+            - xarray.DataArray if ``outgrid`` is None
             - None if ``outgrid`` is a str (grid output is stored in
               ``outgrid``)
 
@@ -202,8 +201,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
 
-        Notes
-        -----
+        Note
+        ----
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
@@ -211,9 +210,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         with GMTTempFile(suffix=".nc") as tmpfile:
             if isinstance(outgrid, str):
                 output_type = "file"
-            else:
+            elif outgrid is None:
                 output_type = "xarray"
                 outgrid = tmpfile.name
+            else:
+                raise GMTInvalidInput("Must specify 'outgrid' as a string or None.")
             return grdhisteq._grdhisteq(
                 grid=grid,
                 output_type=output_type,
@@ -281,12 +282,13 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Returns
         -------
-        ret: pandas.DataFrame or None
-            Return type depends on the ``outfile`` parameter:
+        ret : pandas.DataFrame or numpy.ndarray or None
+            Return type depends on ``outfile`` and ``output_type``:
 
-            - pandas.DataFrame if ``outfile`` is True or None
-            - None if ``outfile`` is a str (file output is stored in
+            - None if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
+            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if
+              ``outfile`` is not set (depends on ``output_type``)
 
         Example
         -------
@@ -312,8 +314,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :meth:`pygmt.grd2cpt`
 
-        Notes
-        -----
+        Note
+        ----
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """

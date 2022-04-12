@@ -66,13 +66,12 @@ def test_equalize_grid_outgrid_file(grid, expected_grid, region):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-@pytest.mark.parametrize("outgrid", [True, None])
-def test_equalize_grid_outgrid(grid, outgrid, expected_grid, region):
+def test_equalize_grid_outgrid(grid, expected_grid, region):
     """
-    Test grdhisteq.equalize_grid with ``outgrid=True`` and ``outgrid=None``.
+    Test grdhisteq.equalize_grid with ``outgrid=None``.
     """
     temp_grid = grdhisteq.equalize_grid(
-        grid=grid, divisions=2, region=region, outgrid=outgrid
+        grid=grid, divisions=2, region=region, outgrid=None
     )
     assert temp_grid.gmt.gtype == 1  # Geographic grid
     assert temp_grid.gmt.registration == 1  # Pixel registration
@@ -135,3 +134,11 @@ def test_compute_bins_invalid_format(grid):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")
+
+
+def test_equalize_grid_invalid_format(grid):
+    """
+    Test that equalize_grid fails with incorrect format.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdhisteq.equalize_grid(grid=grid, outgrid=True)

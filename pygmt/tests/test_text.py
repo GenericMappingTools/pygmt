@@ -337,6 +337,20 @@ def test_text_varying_transparency():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_text_input_single_filename.png")
+@pytest.mark.parametrize("transparency", [None, False, 0])
+def test_text_no_transparency(transparency):
+    """
+    Add text with no transparency set.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1852.
+    """
+    fig = Figure()
+    fig.text(region=[10, 70, -5, 10], textfiles=POINTS_DATA, transparency=transparency)
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_text_nonstr_text():
     """
