@@ -32,7 +32,7 @@ from pygmt.src import (
     blockmean,
     blockmedian,
     blockmode,
-    config,  
+    config,
     dimfilter,
     filter1d,
     grd2cpt,
