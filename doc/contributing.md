@@ -90,14 +90,14 @@ where you can submit general comments and/or questions:
 * For general comments, select *New Topic* from the
   [Lounge Page](https://forum.generic-mapping-tools.org/c/lounge/6).
 * To share your work, select *New Topic* from the
-  [Showcase Page](https://forum.generic-mapping-tools.org/c/Sow-your-nice-example-script/10).
+  [Showcase Page](https://forum.generic-mapping-tools.org/c/Show-your-nice-example-script/10).
 
 ## General Guidelines
 
 ### Resources for New Contributors
 
 Please take a look at these resources to learn about Git and pull requests (don't
-hesitate to [ask questions](#getting-help)):
+hesitate to [ask questions](contributing.md#getting-help)):
 
 * [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).
 * [Git Workflow Tutorial](http://www.asmeurer.com/git-workflow/) by Aaron Meurer.
@@ -161,29 +161,30 @@ To increase the chances of getting your pull request accepted quickly, try to:
   - Write some documentation for your code (docstrings) and leave comments
     explaining the *reason* behind non-obvious things.
   - Write tests for the code you wrote/modified if needed.
-    Please refer to [Testing your code](#testing-your-code) or
-    [Testing plots](#testing-plots).
+    Please refer to [Testing your code](contributing.md#testing-your-code) or
+    [Testing plots](contributing.md#testing-plots).
   - Include an example of new features in the gallery or tutorials.
-    Please refer to [Gallery plots](#gallery-plots) or [Tutorials](#tutorials).
+    Please refer to [Gallery plots](contributing.md#contributing-gallery-plots)
+    or [Tutorials](contributing.md#contributing-tutorials).
 * Have a good coding style
   - Use readable code, as it is better than clever code (even with comments).
   - Follow the [PEP8](http://pep8.org) style guide for code and the
-    [numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
-    for docstrings. Please refer to [Code style](#code-style).
+    [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html)
+    for docstrings. Please refer to [Code style](contributing.md#code-style).
 
 Pull requests will automatically have tests run by GitHub Actions.
 This includes running both the unit tests as well as code linters.
 GitHub will show the status of these checks on the pull request.
 Try to get them all passing (green).
 If you have any trouble, leave a comment in the PR or
-[get in touch](#how-can-i-talk-to-you).
+[get in touch](contributing.md#getting-help).
 
 ## Setting up your Environment
 
 These steps for setting up your environment are necessary for
-[editing the documentation locally](#editing-the-documentation-locally) and
-[contributing code](#contributing-code). A local PyGMT development environment
-is not needed for [editing the documentation on GitHub](#editing-the-documentation-on-github).
+[editing the documentation locally](contributing.md#editing-the-documentation-locally) and
+[contributing code](contributing.md#contributing-code). A local PyGMT development environment
+is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
 We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
 package manager to install and manage your Python packages.
@@ -191,15 +192,23 @@ It will make your life a lot easier!
 
 The repository includes a conda environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
+In particular, these are some of the key development dependencies you will need
+to install to build the documentation and run the unit tests locally:
+
+- git (for cloning the repo and tracking changes in code)
+- dvc (for downloading baseline images used in tests)
+- pytest-mpl (for checking that generated plots match the baseline)
+- sphinx-gallery (for building the gallery example page)
+
 See the [`environment.yml`](https://github.com/GenericMappingTools/pygmt/blob/main/environment.yml)
-file for the list of dependencies and the environment name (`pygmt`).
+file for the full list of dependencies and the environment name (`pygmt`).
 Once you have forked and cloned the repository to your local machine, you can
 use this file to create an isolated environment on which you can work.
 Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-conda env create
+conda env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
@@ -208,7 +217,6 @@ Before building and testing the project, you have to activate the environment
 ```bash
 conda activate pygmt
 ```
-
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 that provides commands for installing, running the tests and coverage analysis,
@@ -244,24 +252,24 @@ There are four main components to PyGMT's documentation:
 The documentation are written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
-[reStructuredText Cheatsheet](https://docs.generic-mapping-tools.org/latest/devdocs/rst-cheatsheet.html)
+{gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
 if you are new to reStructuredText. When contributing documentation, be sure to
-follow the general guidelines in the [pull request workflow](#pull-request-workflow)
+follow the general guidelines in the [pull request workflow](contributing.md#pull-request-workflow)
 section.
 
 There are two primary ways to edit the PyGMT documentation:
 - For simple documentation changes, you can easily
-  [edit the documentation on GitHub](#editing-the-documentation-on-github).
+  [edit the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
   This only requires you to have a GitHub account.
 - For more complicated changes, you can
-  [edit the documentation locally](#editing-the-documentation-locally).
+  [edit the documentation locally](contributing.md#editing-the-documentation-locally).
   In order to build the documentation locally, you first need to
-  [set up your environment](#setting-up-your-environment).
+  [set up your environment](contributing.md#setting-up-your-environment).
 
 ### Editing the Documentation on GitHub
 
 If you're browsing the documentation and notice a typo or something that could be
-improved, please consider letting us know by [creating an issue](#reporting-a-bug) or
+improved, please consider letting us know by [creating an issue](contributing.md#reporting-a-bug) or
 (even better) submitting a fix.
 
 You can submit fixes to the documentation pages completely online without having to
@@ -288,14 +296,14 @@ download and install anything:
 9. Done!
 
 Alternatively, you can make the changes offline to the files in the `doc` folder or the
-example scripts. See [editing the documentation locally](#editing-the-documentation-locally)
+example scripts. See [editing the documentation locally](contributing.md#editing-the-documentation-locally)
 for instructions.
 
 ### Editing the Documentation Locally
 
 For more extensive changes, you can edit the documentation in your cloned repository
 and build the documentation to preview changes before submitting a pull request. First,
-follow the [setting up your environment](#setting-up-your-environment) instructions.
+follow the [setting up your environment](contributing.md#setting-up-your-environment) instructions.
 After making your changes, you can build the HTML files from sources using:
 
 ```bash
@@ -305,7 +313,7 @@ make all
 
 This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
-[pull request workflow](#pull-request-workflow) to submit your changes for review.
+[pull request workflow](contributing.md#pull-request-workflow) to submit your changes for review.
 
 ### Contributing Gallery Plots
 
@@ -313,7 +321,7 @@ The gallery and tutorials are managed by
 [sphinx-gallery](https://sphinx-gallery.readthedocs.io/).
 The source files for the example gallery are `.py` scripts in `examples/gallery/` that
 generate one or more figures. They are executed automatically by sphinx-gallery when
-the [documentation is built](#building-the-documentation). The output is gathered and
+the [documentation is built](contributing.md#editing-the-documentation-locally). The output is gathered and
 assembled into the gallery.
 
 You can **add a new** plot by placing a new `.py` file in one of the folders inside the
@@ -367,7 +375,7 @@ the documentation.
 
 The API documentation is built from the docstrings in the Python `*.py` files under
 the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
-[numpy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
+[NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
@@ -397,9 +405,9 @@ When editing documentation, use the following standards to demonstrate the examp
 
 The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
-function/class/module listed there.
+function/class/module/method listed there.
 
-You can reference functions, classes, methods, and modules from anywhere
+You can reference functions, classes, modules, and methods from anywhere
 (including docstrings) using:
 
 - <code>:func:\`package.module.function\`</code>
@@ -421,14 +429,13 @@ Linking to the GMT documentation and GMT configuration parameters can be done us
 - <code>:gmt-term:\`GMT_PARAMETER\`</code>
 
 An example would be using
-<code>:gmt-docs:\`makecpt.html\`</code> to link to
-[https://docs.generic-mapping-tools.org/latest/makecpt.html](https://docs.generic-mapping-tools.org/latest/makecpt.html).
+<code>:gmt-docs:\`makecpt.html\`</code> to link to {gmt-docs}`makecpt.html`.
 For GMT configuration parameters, an example is
 <code>:gmt-term:\`COLOR_FOREGROUND\`</code> to link to
-[https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND](https://docs.generic-mapping-tools.org/latest/gmt.conf.html#term-COLOR_FOREGROUND).
+{gmt-term}`https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND <COLOR_FOREGROUND>`.
 
 Sphinx will create a link to the automatically generated page for that
-function/class/module.
+function/class/module/method.
 
 ## Contributing Code
 
@@ -436,7 +443,7 @@ function/class/module.
 
 The source code for PyGMT is located in the `pygmt/` directory. When contributing
 code, be sure to follow the general guidelines in the
-[pull request workflow](#pull-request-workflow) section.
+[pull request workflow](contributing.md#pull-request-workflow) section.
 
 ### Code Style
 
@@ -493,7 +500,7 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-modules, such as `plot` and `basemap`. The highest priority for tests should be the
+methods, such as `plot` and `basemap`. The highest priority for tests should be the
 Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
 mechanism.
 
@@ -630,15 +637,15 @@ summarized as follows:
     mv baseline/*.png pygmt/tests/baseline/
 
     # Generate hash for baseline image and stage the *.dvc file in git
-    git rm -r --cached 'pygmt/tests/baseline/test_logo.png'  # only run if migrating existing image from git to dvc
     dvc status  # check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 
     # Commit changes and push to both the git and dvc remotes
     git commit -m "Add test_logo.png into DVC"
+    dvc status --remote upstream  # Report which files will be pushed to the dvc remote
+    dvc push  # Run before git push to enable automated testing with the new images
     git push
-    dvc push
 
 #### Using check_figures_equal
 

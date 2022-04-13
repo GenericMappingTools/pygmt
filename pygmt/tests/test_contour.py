@@ -41,8 +41,8 @@ def test_contour_vec(region):
     )
     x = x.flatten()
     y = y.flatten()
-    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
-    z = np.exp(-z / 10 ** 2 * np.log(2))
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
+    z = np.exp(-z / 10**2 * np.log(2))
     fig.contour(x=x, y=y, z=z, projection="X10c", region=region, frame="a", pen=True)
     return fig
 
@@ -76,10 +76,13 @@ def test_contour_from_file(region):
 
 
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
-def test_contour_deprecate_columns_to_incols(region):
+def test_contour_incols_transposed_data(region):
     """
-    Make sure that the old parameter "columns" is supported and it reports an
-    warning.
+    Make sure that transposing the data matrix still produces a correct result
+    with incols reordering the columns.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1313
 
     Modified from the test_contour_vec() test.
     """
@@ -89,21 +92,19 @@ def test_contour_deprecate_columns_to_incols(region):
     )
     x = x.flatten()
     y = y.flatten()
-    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y ** 2
-    z = np.exp(-z / 10 ** 2 * np.log(2))
+    z = (x - 0.5 * (region[0] + region[1])) ** 2 + 4 * y**2
+    z = np.exp(-z / 10**2 * np.log(2))
 
     # generate dataframe
     # switch x and y from here onwards to simulate different column order
     data = np.array([y, x, z]).T
 
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.contour(
-            data,
-            projection="X10c",
-            region=region,
-            frame="a",
-            pen=True,
-            columns=[1, 0, 2],
-        )
-        assert len(record) == 1  # check that only one warning was raised
+    fig.contour(
+        data,
+        projection="X10c",
+        region=region,
+        frame="a",
+        pen=True,
+        incols=[1, 0, 2],
+    )
     return fig

@@ -11,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["select"]
+
 
 @fmt_docstring
 @use_alias(
@@ -147,6 +149,15 @@ def select(data=None, outfile=None, **kwargs):
         - :class:`pandas.DataFrame` table if ``outfile`` is not set.
         - None if ``outfile`` is set (filtered output will be stored in file
           set by ``outfile``).
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a table of ship observations of bathymetry off Baja California
+    >>> ship_data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Only return the data points that lie within the region between
+    >>> # longitudes 246 and 247 and latitudes 20 and 21
+    >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
 
     with GMTTempFile(suffix=".csv") as tmpfile:
@@ -156,8 +167,10 @@ def select(data=None, outfile=None, **kwargs):
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module="gmtselect", args=arg_str)
+                lib.call_module(
+                    module="gmtselect",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

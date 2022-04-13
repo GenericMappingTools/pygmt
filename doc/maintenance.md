@@ -254,7 +254,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, test updates due to GMT releases, etc).
 5. Sort the items within each section (i.e., New Features, Enhancements, etc.)
    such that similar items are located near each other (e.g., new wrapped
-   modules, gallery examples, API docs changes) and entries within each group
+   modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their
@@ -266,7 +266,8 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
    for compatibility updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
-   `CITATION.cff` needs to be updated with any metadata changes. Please follow
+   `CITATION.cff` needs to be updated with any metadata changes, including the
+   DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
    More information about the `CITATION.cff` specification can be found at
    https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md

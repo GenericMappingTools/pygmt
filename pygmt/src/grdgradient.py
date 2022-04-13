@@ -14,6 +14,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdgradient"]
+
 
 @fmt_docstring
 @use_alias(
@@ -148,9 +150,21 @@ def grdgradient(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
+    >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
-        if "Q" in kwargs and "N" not in kwargs:
+        if kwargs.get("Q") is not None and kwargs.get("N") is None:
             raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
         if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
             raise GMTInvalidInput(
@@ -160,10 +174,8 @@ def grdgradient(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdgradient", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module("grdgradient", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

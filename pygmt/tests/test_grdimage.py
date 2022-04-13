@@ -4,10 +4,14 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -88,6 +92,21 @@ def test_grdimage_file():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_grdimage_slice.png")
+@pytest.mark.parametrize("shading", [None, False])
+def test_grdimage_default_no_shading(grid, shading):
+    """
+    Plot an image with no shading.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1852
+    """
+    grid_ = grid.sel(lat=slice(-30, 30))
+    fig = Figure()
+    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
+    return fig
+
+
 @check_figures_equal()
 @pytest.mark.parametrize(
     "shading",
@@ -125,10 +144,10 @@ def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
-        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid, verbose="i"
+        grid="@earth_relief_01d_g", region="GL", cmap="geo", shading=xrgrid
     )
     fig_ref.colorbar()
-    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid, verbose="i")
+    fig_test.grdimage(grid=grid, region="GL", cmap="geo", shading=xrgrid)
     fig_test.colorbar()
     return fig_ref, fig_test
 

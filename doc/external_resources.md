@@ -11,7 +11,8 @@ to submit a pull request with your recommended addition to the
 ## Tutorials
 
 - [2021 PyGMT course at the UAF Geophysical Institute](https://github.com/liamtoney/gi-pygmt-2021) by Liam Toney
-- [Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT](https://www.iris.edu/hq/inclass/lesson/728) by Liam Toney
+- [2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping](https://www.youtube.com/watch?v=Zvcy7VDuhiw) by Liam Toney
+- [2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT](https://www.iris.edu/hq/inclass/lesson/728) by Liam Toney
 - [PyGMT Tutorial in 2021](https://github.com/MIGG-NTU/PyGMT2021) by MIGG-NTU
 - [PyGMT Workshop at FOSS4G Oceania 2019](https://github.com/GenericMappingTools/foss4g2019oceania) by Wei Ji Leong
 
