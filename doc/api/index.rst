@@ -116,8 +116,8 @@ Operations on tabular data
 
     blockmean
     blockmedian
-    filter1d
     blockmode
+    filter1d
     nearneighbor
     project
     select

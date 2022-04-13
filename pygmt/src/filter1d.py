@@ -110,7 +110,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
           :class:`pandas.DataFrame`])
 
     """
-    if "F" not in kwargs:
+    if kwargs.get("F") is None:
         raise GMTInvalidInput("Pass a required argument to 'filter'.")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
@@ -131,8 +131,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module("filter1d", arg_str)
+                lib.call_module("filter1d", build_arg_string(kwargs, infile=infile, outfile=outfile))
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
