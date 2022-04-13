@@ -12,6 +12,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdcut"]
+
 
 @fmt_docstring
 @use_alias(
@@ -87,15 +89,25 @@ def grdcut(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
+    >>> # and a y-range of 15 to 25
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a new grid from an input grid, with an x-range of 12 to 15,
+    >>> # and a y-range of 21 to 24
+    >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdcut", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module("grdcut", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

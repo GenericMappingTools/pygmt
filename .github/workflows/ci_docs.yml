@@ -13,7 +13,6 @@ on:
       - '*.json'
       - 'LICENSE.txt'
       - '.gitignore'
-      - '.pylintrc'
   release:
     types:
       - published
@@ -25,12 +24,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9']
+        python-version: ['3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        # Only run one job (Ubuntu + Python 3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
@@ -50,7 +49,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -72,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
-                        ipython make myst-parser geopandas \
+                        build ipython make myst-parser geopandas \
                         sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
@@ -81,7 +80,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.16.0
+        uses: dawidd6/action-download-artifact@v2.17.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -100,7 +99,7 @@ jobs:
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
+          python -m build --sdist
           pip install dist/*
 
       # Build the documentation
@@ -108,7 +107,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.0
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

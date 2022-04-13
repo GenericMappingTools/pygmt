@@ -3,12 +3,8 @@ Tests velo.
 """
 import pandas as pd
 import pytest
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="dataframe")

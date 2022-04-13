@@ -181,9 +181,9 @@ class Figure:
             adding margins. Append **+m** to specify extra margins to extend
             the bounding box. Give either one (uniform), two (x and y) or four
             (individual sides) margins; append unit [Default is set by
-            :term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
-            output image to exactly *width* units. The default unit is set
-            by :term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
+            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
+            output image to exactly *width* units. The default unit is set by
+            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
             impose different width and height (**Note**: This may change the
             image aspect ratio). What happens here is that Ghostscript will do
             the re-interpolation work and the final image will retain the DPI
@@ -195,7 +195,7 @@ class Figure:
         bb_style : str
             Set optional BoundingBox fill color, fading, or draw the outline
             of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
-            towards black (100%) [no fading, 0]. Append **+g** \*paint* to
+            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
             the default pen of 0.25p,black). Note: If both **+g** and **+f**
@@ -222,7 +222,7 @@ class Figure:
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if "A" not in kwargs:
+        if kwargs.get("A") is None:
             kwargs["A"] = ""
 
         if icc_gray:
@@ -231,14 +231,21 @@ class Figure:
                 " and will be removed in v0.8.0."
             )
             warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if "N" not in kwargs:
+            if kwargs.get("N") is None:
                 kwargs["N"] = "+i"
             else:
                 kwargs["N"] += "+i"
-        # allow for spaces in figure name
-        kwargs["F"] = f'"{kwargs.get("F")}"' if kwargs.get("F") else None
+
+        # Manually handle prefix -F argument so spaces aren't converted to \040
+        # by build_arg_string function. For more information, see
+        # https://github.com/GenericMappingTools/pygmt/pull/1487
+        try:
+            prefix_arg = f'-F"{kwargs.pop("F")}"'
+        except KeyError as err:
+            raise GMTInvalidInput("The 'prefix' must be specified.") from err
+
         with Session() as lib:
-            lib.call_module("psconvert", build_arg_string(kwargs))
+            lib.call_module("psconvert", f"{prefix_arg} {build_arg_string(kwargs)}")
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs

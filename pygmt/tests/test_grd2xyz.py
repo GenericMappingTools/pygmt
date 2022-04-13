@@ -7,17 +7,17 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import grd2xyz
-from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import load_static_earth_relief
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the grid data from the static_earth_relief file.
     """
-    return load_earth_relief(resolution="01d", region=[-1, 1, 3, 5])
+    return load_static_earth_relief()
 
 
 def test_grd2xyz(grid):
@@ -25,19 +25,19 @@ def test_grd2xyz(grid):
     Make sure grd2xyz works as expected.
     """
     xyz_data = grd2xyz(grid=grid, output_type="numpy")
-    assert xyz_data.shape == (4, 3)
+    assert xyz_data.shape == (112, 3)
 
 
 def test_grd2xyz_format(grid):
     """
     Test that correct formats are returned.
     """
-    lon = -0.5
-    lat = 3.5
+    lon = -50.5
+    lat = -18.5
     orig_val = grid.sel(lon=lon, lat=lat).to_numpy()
     xyz_default = grd2xyz(grid=grid)
     xyz_val = xyz_default[(xyz_default["lon"] == lon) & (xyz_default["lat"] == lat)][
-        "elevation"
+        "z"
     ].to_numpy()
     assert isinstance(xyz_default, pd.DataFrame)
     assert orig_val.size == 1
@@ -45,9 +45,9 @@ def test_grd2xyz_format(grid):
     np.testing.assert_allclose(orig_val, xyz_val)
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, output_type="pandas")
+    xyz_df = grd2xyz(grid=grid, output_type="pandas", outcols=None)
     assert isinstance(xyz_df, pd.DataFrame)
-    assert list(xyz_df.columns) == ["lon", "lat", "elevation"]
+    assert list(xyz_df.columns) == ["lon", "lat", "z"]
 
 
 def test_grd2xyz_file_output(grid):

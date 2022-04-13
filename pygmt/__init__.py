@@ -33,6 +33,7 @@ from pygmt.src import (
     blockmedian,
     blockmode,
     config,
+    dimfilter,
     grd2cpt,
     grd2xyz,
     grdclip,
@@ -40,6 +41,7 @@ from pygmt.src import (
     grdfill,
     grdfilter,
     grdgradient,
+    grdhisteq,
     grdinfo,
     grdlandmask,
     grdproject,
@@ -55,6 +57,7 @@ from pygmt.src import (
     sphdistance,
     sphinterpolate,
     surface,
+    triangulate,
     which,
     x2sys_cross,
     x2sys_init,
@@ -78,7 +81,7 @@ def print_clib_info():
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session
+    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
 
     lines = ["GMT library information:"]
     with Session() as ses:
@@ -94,10 +97,10 @@ def show_versions():
 
     - PyGMT itself
     - System information (Python version, Operating System)
-    - Core dependency versions (Numpy, Pandas, Xarray, etc)
+    - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-
+    # pylint: disable=import-outside-toplevel
     import importlib
     import platform
     import subprocess
@@ -158,7 +161,7 @@ def show_versions():
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
 
     print("PyGMT information:")
     print(f"  version: {__version__}")
@@ -206,7 +209,7 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
         If pytest returns a non-zero error code indicating that some tests have
         failed.
     """
-    import pytest
+    import pytest  # pylint: disable=import-outside-toplevel
 
     show_versions()
 
