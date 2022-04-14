@@ -254,7 +254,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, test updates due to GMT releases, etc).
 5. Sort the items within each section (i.e., New Features, Enhancements, etc.)
    such that similar items are located near each other (e.g., new wrapped
-   modules, gallery examples, API docs changes) and entries within each group
+   modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their

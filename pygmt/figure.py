@@ -222,7 +222,7 @@ class Figure:
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if "A" not in kwargs:
+        if kwargs.get("A") is None:
             kwargs["A"] = ""
 
         if icc_gray:
@@ -231,7 +231,7 @@ class Figure:
                 " and will be removed in v0.8.0."
             )
             warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if "N" not in kwargs:
+            if kwargs.get("N") is None:
                 kwargs["N"] = "+i"
             else:
                 kwargs["N"] += "+i"

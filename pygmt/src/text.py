@@ -184,7 +184,7 @@ def text_(
         raise GMTInvalidInput("Must provide text with x/y pairs or position")
 
     # Build the -F option in gmt text.
-    if "F" not in kwargs and (
+    if kwargs.get("F") is None and (
         (
             position is not None
             or angle is not None
@@ -215,7 +215,7 @@ def text_(
     extra_arrays = []
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+    if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
@@ -233,5 +233,4 @@ def text_(
                     np.atleast_1d(text).astype(str),
                 )
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("text", arg_str)
+            lib.call_module("text", build_arg_string(kwargs, infile=fname))

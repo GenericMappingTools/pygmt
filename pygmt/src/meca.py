@@ -464,5 +464,4 @@ def meca(
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("meca", arg_str)
+            lib.call_module("meca", build_arg_string(kwargs, infile=fname))
