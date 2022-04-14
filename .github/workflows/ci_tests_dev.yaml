@@ -78,6 +78,7 @@ jobs:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
