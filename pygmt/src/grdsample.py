@@ -12,6 +12,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdsample"]
+
 
 @fmt_docstring
 @use_alias(
@@ -42,6 +44,8 @@ def grdsample(grid, **kwargs):
     output grid will be the same as the input grid. Either ``registration`` or
     ``translate`` can be used to change the grid registration. When omitted,
     the output grid will have the same registration as the input grid.
+
+    Full option list at :gmt-docs:`grdsample.html`
 
     {aliases}
 
@@ -76,26 +80,24 @@ def grdsample(grid, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Create a new grid from an input grid, change the registration,
     >>> # and set both x- and y-spacing to 0.5 degrees
     >>> new_grid = pygmt.grdsample(
     ...     grid=grid, translate=True, spacing=[0.5, 0.5]
-    ... )  # doctest: +SKIP
+    ... )
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdsample", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module("grdsample", build_arg_string(kwargs, infile=infile))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

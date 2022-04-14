@@ -31,7 +31,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     the terminators for civil twilight, nautical twilight, or astronomical
     twilight.
 
-    Full parameter list at :gmt-docs:`solar.html`
+    Full option list at :gmt-docs:`solar.html`
 
     {aliases}
 
@@ -66,7 +66,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if "T" in kwargs:
+    if kwargs.get("T") is not None:
         raise GMTInvalidInput(
             "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         )

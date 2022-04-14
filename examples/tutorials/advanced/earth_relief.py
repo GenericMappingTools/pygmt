@@ -13,7 +13,7 @@ import pygmt
 ###############################################################################
 # Load sample Earth relief data for the entire globe at a resolution of 1 arc
 # degree. The other available resolutions are show
-# at :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`.
+# at :gmt-datasets:`earth-relief.html`.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
 ###############################################################################

@@ -15,6 +15,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grd2xyz"]
+
 
 @fmt_docstring
 @use_alias(
@@ -128,17 +130,15 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Create a pandas DataFrame with the xyz data from an input grid
-    >>> xyz_dataframe = pygmt.grd2xyz(
-    ...     grid=grid, output_type="pandas"
-    ... )  # doctest: +SKIP
-    >>> xyz_dataframe.head(n=2)  # doctest: +SKIP
+    >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
+    >>> xyz_dataframe.head(n=2)
          lon    lat  elevation
     0  10.25  24.75      903.5
     1  10.75  24.75      820.0
@@ -159,7 +159,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
-    if "o" in kwargs and output_type == "pandas":
+    if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
             "If 'outcols' is specified, 'output_type' must be either 'numpy'"
             "or 'file'."
@@ -178,8 +178,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module("grd2xyz", arg_str)
+                lib.call_module(
+                    "grd2xyz", build_arg_string(kwargs, infile=infile, outfile=outfile)
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

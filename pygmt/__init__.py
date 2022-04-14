@@ -33,6 +33,7 @@ from pygmt.src import (
     blockmedian,
     blockmode,
     config,
+    dimfilter,
     grd2cpt,
     grd2xyz,
     grdclip,
@@ -40,6 +41,7 @@ from pygmt.src import (
     grdfill,
     grdfilter,
     grdgradient,
+    grdhisteq,
     grdinfo,
     grdlandmask,
     grdproject,
@@ -55,6 +57,7 @@ from pygmt.src import (
     sphdistance,
     sphinterpolate,
     surface,
+    triangulate,
     which,
     x2sys_cross,
     x2sys_init,
@@ -158,7 +161,7 @@ def show_versions():
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
 
     print("PyGMT information:")
     print(f"  version: {__version__}")

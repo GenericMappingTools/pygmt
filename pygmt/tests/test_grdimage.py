@@ -77,11 +77,6 @@ def test_grdimage_slice(grid):
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Grid extension bug affects baseline image; "
-    "fixed in https://github.com/GenericMappingTools/gmt/pull/6175.",
-)
 def test_grdimage_file():
     """
     Plot an image using file input.
@@ -94,6 +89,21 @@ def test_grdimage_file():
         projection="W0/10i",
         shading=True,
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_grdimage_slice.png")
+@pytest.mark.parametrize("shading", [None, False])
+def test_grdimage_default_no_shading(grid, shading):
+    """
+    Plot an image with no shading.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1852
+    """
+    grid_ = grid.sel(lat=slice(-30, 30))
+    fig = Figure()
+    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
     return fig
 
 
