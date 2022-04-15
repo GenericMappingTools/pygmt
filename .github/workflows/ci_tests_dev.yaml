@@ -106,6 +106,7 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
+        if: github.event_name == 'schedule'
         run: |
           ORIGINAL_BRANCH=$(git branch --show-current)
           # Pull down GMT 6.4 baseline images from the gmt-6.4 branch
@@ -113,6 +114,13 @@ jobs:
           dvc pull
           ls -lhR pygmt/tests/baseline/
           git checkout ${ORIGINAL_BRANCH}
+
+      # Pull baseline image data from dvc remote (DAGsHub)
+      - name: Pull baseline image data from dvc remote
+        if: github.event_name != 'schedule'
+        run: |
+          dvc pull
+          ls -lhR pygmt/tests/baseline/
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
