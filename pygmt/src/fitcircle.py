@@ -76,7 +76,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
           :class:`pandas.DataFrame`])
 
     """
-    if "L" not in kwargs:
+    if kwargs.get("L") is None:
         raise GMTInvalidInput("""Pass a required argument to 'normalize'.""")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
@@ -99,7 +99,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module("fitcircle", arg_str)
+                lib.call_module("fitcircle", build_arg_string(kwargs, infile=infile, outfile=outfile)
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
