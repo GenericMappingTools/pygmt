@@ -83,14 +83,13 @@ def earthtide(**kwargs):
     >>> # Create a grid of Earth tide at 1200 UTC on June 18, 2018
     >>> grid = pygmt.earthtide(time="2018-06-18T12:00:00")
     """
-    if "R" in kwargs and "I" not in kwargs:
+    if kwargs.get("R") is not None and kwargs.get("I") is None:
         raise GMTInvalidInput("Must specify 'spacing' if 'region' is specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             if "G" not in kwargs:  # if outgrid is unset, output to tempfile
                 kwargs.update({"G": tmpfile.name})
             outgrid = kwargs["G"]
-            arg_str = build_arg_string(kwargs)
-            lib.call_module("earthtide", arg_str)
+            lib.call_module("earthtide", build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
