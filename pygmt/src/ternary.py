@@ -48,7 +48,9 @@ def ternary(self, data, **kwargs):
         to indicate that positive axes directions be clock-wise
         [Default lets the a, b, c axes be positive in a
         counter-clockwise direction].
-    {R}
+    region : str or list
+        [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
+        Give the min and max limits for each of the three axis **a**, **b**, and **c**.
     {CPT}
     {G}
     style : str
@@ -66,5 +68,4 @@ def ternary(self, data, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
-            arg_str = " ".join([infile, build_arg_string(kwargs)])
-            lib.call_module("ternary", arg_str)
+            lib.call_module("ternary", build_arg_string(kwargs, infile=infile))

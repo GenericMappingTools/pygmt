@@ -43,7 +43,6 @@ def fixture_table():
         [0.22, 0.61, 0.17, 3.666],
         [0.43, 0.39, 0.18, 1.887],
     ]
-
     return np.array(ternary_list)
 
 
