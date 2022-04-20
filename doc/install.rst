@@ -35,7 +35,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.7 or greater**.
+PyGMT is tested to run on **Python 3.8 or greater**.
 
 We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
 Python distribution to ensure you have all dependencies installed and the
@@ -53,7 +53,7 @@ latest released version that can be found at
 the `GMT official site <https://www.generic-mapping-tools.org>`__.
 We need the latest GMT (>=6.3.0) since there are many changes being made to GMT
 itself in response to the development of PyGMT, mainly the new
-`modern execution mode <https://docs.generic-mapping-tools.org/latest/cookbook/introduction.html#modern-and-classic-mode>`__.
+:gmt-docs:`modern execution mode <cookbook/introduction.html#modern-and-classic-mode>`.
 
 Compiled conda packages of GMT for Linux, macOS and Windows are provided
 through `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
@@ -69,7 +69,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__ (>= 1.18)
+* `numpy <https://numpy.org>`__ (>= 1.19)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__

@@ -1,5 +1,5 @@
 """
-Source code for PyGMT modules.
+Source code for PyGMT methods.
 """
 # pylint: disable=import-outside-toplevel
 
@@ -10,6 +10,7 @@ from pygmt.src.coast import coast
 from pygmt.src.colorbar import colorbar
 from pygmt.src.config import config
 from pygmt.src.contour import contour
+from pygmt.src.dimfilter import dimfilter
 from pygmt.src.grd2cpt import grd2cpt
 from pygmt.src.grd2xyz import grd2xyz
 from pygmt.src.grdclip import grdclip
@@ -18,6 +19,7 @@ from pygmt.src.grdcut import grdcut
 from pygmt.src.grdfill import grdfill
 from pygmt.src.grdfilter import grdfilter
 from pygmt.src.grdgradient import grdgradient
+from pygmt.src.grdhisteq import grdhisteq
 from pygmt.src.grdimage import grdimage
 from pygmt.src.grdinfo import grdinfo
 from pygmt.src.grdlandmask import grdlandmask
@@ -47,6 +49,7 @@ from pygmt.src.sphinterpolate import sphinterpolate
 from pygmt.src.subplot import set_panel, subplot
 from pygmt.src.surface import surface
 from pygmt.src.text import text_ as text  # "text" is an argument within "text_"
+from pygmt.src.triangulate import triangulate
 from pygmt.src.velo import velo
 from pygmt.src.which import which
 from pygmt.src.wiggle import wiggle

@@ -8,7 +8,7 @@ import numpy.testing as npt
 import pytest
 import xarray as xr
 from pygmt import nearneighbor
-from pygmt.datasets import load_sample_bathymetry
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 
@@ -16,9 +16,9 @@ from pygmt.helpers import GMTTempFile, data_kind
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
     """
-    Load the data from the sample bathymetry dataset.
+    Load the table data from the sample bathymetry dataset.
     """
-    return load_sample_bathymetry()
+    return load_sample_data(name="bathymetry")
 
 
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])

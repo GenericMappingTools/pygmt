@@ -2,9 +2,13 @@
 Tests for legend.
 """
 import pytest
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.mark.mpl_image_compare
@@ -52,7 +56,7 @@ def test_legend_entries():
         pen="faint",
         label="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
     fig.legend(position="JTR+jTR")
 

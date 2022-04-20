@@ -1,0 +1,4 @@
+outs:
+- md5: bad6889287951b3c888032af6b1fa945
+  size: 7674
+  path: test_plot_dataframe_incols.png

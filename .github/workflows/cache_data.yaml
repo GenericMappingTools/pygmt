@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v3.0.1
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -38,25 +38,23 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 \
-                        numpy pandas xarray netCDF4 packaging matplotlib
+          mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
+                        build
 
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
+          python -m build --sdist
           pip install dist/*
 
       # Download remote files
       - name: Download remote data
         run: |
           python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
-        env:
-          GMT_DATA_SERVER: https://oceania.generic-mapping-tools.org/
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: gmt-cache
           path: |
