@@ -65,7 +65,7 @@ def basemap(self, **kwargs):
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draws a rectangular border around the map inset,
+        If set to ``True``, draws a rectangular border around the
         map scale or rose. Alternatively, specify a different pen with
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
