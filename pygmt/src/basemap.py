@@ -78,7 +78,7 @@ def basemap(self, **kwargs):
         radius. You can override this radius by appending another value.
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
-        [4p/-4p] and shade sets the fill style to use for shading
+        [Default is 4p/-4p] and shade sets the fill style to use for shading
         [default is gray50].
     rose : str
         Draws a map directional rose on the map at the location defined by
