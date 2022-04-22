@@ -21,6 +21,7 @@ from pygmt.helpers import (
     JZ="zsize",
     B="frame",
     L="map_scale",
+    F="box",
     Td="rose",
     Tm="compass",
     U="timestamp",
