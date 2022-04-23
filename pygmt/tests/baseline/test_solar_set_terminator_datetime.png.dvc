@@ -1,4 +1,4 @@
 outs:
-- md5: 0f8baadcf84e0222b6a42a2525277c78
-  size: 25000
+- md5: 76efee7c1a8b5704485216637c5d94df
+  size: 25022
   path: test_solar_set_terminator_datetime.png
