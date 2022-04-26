@@ -1,4 +1,4 @@
 outs:
-- md5: a9840f80a53ccb4cc1728dea1424135b
-  size: 10484
+- md5: e67ec1065197f878282949b8c79a7e2b
+  size: 10506
   path: test_inset_context_manager.png
