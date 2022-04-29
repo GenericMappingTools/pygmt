@@ -52,8 +52,8 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    module=block_method,
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    block_method,
+                    build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

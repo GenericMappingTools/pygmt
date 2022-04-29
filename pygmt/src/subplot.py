@@ -223,5 +223,5 @@ def set_panel(self, panel=None, **kwargs):
 
     with Session() as lib:
         arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)])
-        lib.call_module(module="subplot", args=arg_str)
+        lib.call_module("subplot", arg_str)
         yield

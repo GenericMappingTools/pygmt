@@ -110,4 +110,4 @@ def x2sys_init(tag, **kwargs):
     {j}
     """
     with Session() as lib:
-        lib.call_module(module="x2sys_init", args=build_arg_string(kwargs, infile=tag))
+        lib.call_module("x2sys_init", build_arg_string(kwargs, infile=tag))

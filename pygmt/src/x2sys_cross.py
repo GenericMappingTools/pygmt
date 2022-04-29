@@ -221,10 +221,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    module="x2sys_cross",
-                    args=build_arg_string(
-                        kwargs, infile=" ".join(fnames), outfile=outfile
-                    ),
+                    "x2sys_cross",
+                    build_arg_string(kwargs, infile=" ".join(fnames), outfile=outfile),
                 )
 
             # Read temporary csv output to a pandas table
