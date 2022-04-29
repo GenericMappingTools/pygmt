@@ -112,8 +112,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdhisteq", arg_str)
+                lib.call_module("grdhisteq", build_arg_string(kwargs, infile=infile))
 
         if output_type == "file":
             return None
