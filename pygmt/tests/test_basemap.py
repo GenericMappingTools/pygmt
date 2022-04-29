@@ -8,7 +8,7 @@ from pygmt import Figure
 @pytest.mark.mpl_image_compare
 def test_basemap_required_args():
     """
-    Autmatically set `frame=True` when required arguments are not given.
+    Automatically set `frame=True` when required arguments are not given.
     """
     fig = Figure()
     fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
