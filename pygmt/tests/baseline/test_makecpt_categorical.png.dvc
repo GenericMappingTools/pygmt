@@ -1,4 +1,4 @@
 outs:
-- md5: 49bc3322fbb073626fe5f61b92a473fb
-  size: 4692
+- md5: 703142a6ca0fbf079f82d9287631ad83
+  size: 1955
   path: test_makecpt_categorical.png
