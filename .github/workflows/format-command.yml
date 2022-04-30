@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
 
       # Setup Python environment
-      - uses: actions/setup-python@v3.1.0
+      - uses: actions/setup-python@v3.1.2
 
       # Install formatting tools
       - name: Install formatting tools
