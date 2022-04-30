@@ -1,0 +1,4 @@
+outs:
+- md5: 36f8200a27d23e19951c2a3823a28faa
+  size: 6163
+  path: test_basemap_required_args.png
