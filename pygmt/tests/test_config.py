@@ -46,8 +46,8 @@ def test_config_font_one():
     """
     fig = Figure()
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l")
-    fig.basemap(compass="jBR+w5c+d-4.5+l")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5+l")
+    fig.basemap(compass="jBR+w3.5c+d-4.5+l")
     return fig
 
 
@@ -59,8 +59,8 @@ def test_config_font_annot():
     """
     fig = Figure()
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5")
-    fig.basemap(compass="jBR+w5c+d-4.5")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5")
+    fig.basemap(compass="jBR+w3.5c+d-4.5")
     return fig
 
 
