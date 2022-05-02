@@ -63,10 +63,6 @@ publication quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
 command-line program widely used in the Earth Sciences.
 
-We rely heavily on new features that have been implemented in GMT 6.0. In particular,
-a new *modern execution mode* that greatly simplifies figure creation. **These features
-are not available in the 5.4 version of GMT**.
-
 Project goals
 -------------
 
@@ -156,7 +152,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6349217,
+    @software{pygmt_2022_6426493,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -173,12 +169,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = march,
+      month        = apr,
       year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.6.0},
-      doi          = {10.5281/zenodo.6349217},
-      url          = {https://doi.org/10.5281/zenodo.6349217}
+      version      = {v0.6.1},
+      doi          = {10.5281/zenodo.6426493},
+      url          = {https://doi.org/10.5281/zenodo.6426493}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -236,7 +232,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.19
-    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_ (latest release)
+    * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_ (latest release)
+      - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
       - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
       - >=6.3.0
       - >=3.8

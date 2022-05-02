@@ -33,6 +33,7 @@ from pygmt.src import (
     blockmedian,
     blockmode,
     config,
+    dimfilter,
     earthtide,
     grd2cpt,
     grd2xyz,
@@ -161,7 +162,7 @@ def show_versions():
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
 
     print("PyGMT information:")
     print(f"  version: {__version__}")

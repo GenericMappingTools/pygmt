@@ -2,7 +2,7 @@ r"""
 Vector heads and tails
 ----------------------
 
-Many modules in PyGMT allow plotting vectors with individual
+Many methods in PyGMT allow plotting vectors with individual
 heads and tails. For this purpose, several modifiers may be appended to
 the corresponding vector-producing parameters for specifying the placement
 of vector heads and tails, their shapes, and the justification of the vector.
@@ -21,7 +21,7 @@ The angle of the vector head apex can be set using **+a**\ *angle*
 **+h**\ *shape* (e.g. ``+h0.5``).
 
 For further modifiers see the *Vector Attributes* subsection of the
-corresponding module.
+corresponding method.
 
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with

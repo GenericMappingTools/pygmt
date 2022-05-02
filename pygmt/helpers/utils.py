@@ -119,12 +119,12 @@ def dummy_context(arg):
     yield arg
 
 
-def build_arg_string(kwargs):
+def build_arg_string(kwdict, infile=None, outfile=None):
     r"""
-    Transform keyword arguments into a GMT argument string.
+    Convert a dict and optional input/output files into a GMT argument string.
 
-    Make sure all arguments have been previously converted to a string
-    representation using the ``kwargs_to_strings`` decorator. The only
+    Make sure all values in ``kwdict`` have been previously converted to a
+    string representation using the ``kwargs_to_strings`` decorator. The only
     exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
@@ -138,14 +138,19 @@ def build_arg_string(kwargs):
 
     Parameters
     ----------
-    kwargs : dict
-        Parsed keyword arguments.
+    kwdict : dict
+        A dict containing parsed keyword arguments.
+    infile : str or pathlib.Path
+        The input file.
+    outfile : str or pathlib.Path
+        The output file.
 
     Returns
     -------
     args : str
         The space-delimited argument string with '-' inserted before each
-        keyword. The arguments are sorted alphabetically.
+        keyword. The arguments are sorted alphabetically, with optional input
+        file at the beginning and optional output file at the end.
 
     Examples
     --------
@@ -191,29 +196,42 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
+    ...     )
+    ... )
+    input.txt -A0 -B -Crainbow ->output.txt
     """
     gmt_args = []
 
-    for key in kwargs:
+    for key in kwdict:
         if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
-        if kwargs[key] is None or kwargs[key] is False:
+        if kwdict[key] is None or kwdict[key] is False:
             pass  # Exclude arguments that are None and False
-        elif is_nonstr_iter(kwargs[key]):
-            for value in kwargs[key]:
+        elif is_nonstr_iter(kwdict[key]):
+            for value in kwdict[key]:
                 _value = str(value).replace(" ", r"\040")
                 gmt_args.append(rf"-{key}{_value}")
-        elif kwargs[key] is True:
+        elif kwdict[key] is True:
             gmt_args.append(f"-{key}")
         else:
             if key != "J":  # non-projection parameters
-                _value = str(kwargs[key]).replace(" ", r"\040")
+                _value = str(kwdict[key]).replace(" ", r"\040")
             else:
                 # special handling if key == "J" (projection)
                 # remove any spaces in PROJ4 string
-                _value = str(kwargs[key]).replace(" ", "")
+                _value = str(kwdict[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
-    return " ".join(sorted(gmt_args))
+    gmt_args = sorted(gmt_args)
+    if infile:
+        gmt_args = [str(infile)] + gmt_args
+    if outfile:
+        gmt_args.append("->" + str(outfile))
+    return " ".join(gmt_args)
 
 
 def is_nonstr_iter(value):
@@ -306,5 +324,23 @@ def args_in_kwargs(args, kwargs):
     --------
     bool
         If one of the required arguments is in ``kwargs``.
+
+    Examples
+    --------
+
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"C": "xyz"})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": "af"})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": None})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": True})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": False})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
+    True
     """
-    return any(arg in kwargs for arg in args)
+    return any(
+        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
+    )

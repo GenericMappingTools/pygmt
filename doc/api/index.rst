@@ -136,6 +136,7 @@ Operations on raster data
 .. autosummary::
     :toctree: generated
 
+    dimfilter
     grd2xyz
     grdclip
     grdcut
