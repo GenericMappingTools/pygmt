@@ -87,9 +87,8 @@ def earthtide(**kwargs):
         raise GMTInvalidInput("Must specify 'spacing' if 'region' is specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                kwargs.update({"G": tmpfile.name})
-            outgrid = kwargs["G"]
+            if (outgrid := kwargs.get("G")) is None:
+                kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
             lib.call_module("earthtide", build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
