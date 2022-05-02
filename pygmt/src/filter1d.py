@@ -124,7 +124,9 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                lib.call_module("filter1d", build_arg_string(kwargs, infile=infile, outfile=outfile))
+                lib.call_module(
+                    "filter1d", build_arg_string(kwargs, infile=infile, outfile=outfile)
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
