@@ -13,14 +13,15 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 @use_alias(
     E="end",
     F="filter",
+    N="time_col",
 )
 def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     r"""
     Time domain filtering of 1-D data tables.
 
-    Filter a general time domain for multiple column time
+    A general time domain filter for multiple column time
     series data. The user specifies which column is the time (i.e., the
-    independent variable). The fastest operation
+    independent variable) via ``time_cols``. The fastest operation
     occurs when the input time series are equally spaced and have no gaps or
     outliers and the special options are not needed.
     Read a table and output as a :class:`numpy.ndarray`,
@@ -33,7 +34,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     Parameters
     ----------
     filter : str
-        **type**\ *width*\ [**+l**\|\ **u**].
+        **type**\ *width*\ [**+h**].
         Sets the filter **type**. Choose among convolution and non-convolution
         filters. Append the filter code followed by the full filter
         *width* in same units as time column. By default, this
@@ -42,31 +43,23 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
         Available convolution filter types are:
 
-        (**b**) Boxcar: All weights are equal.
-
-        (**c**) Cosine Arch: Weights follow a cosine arch curve.
-
-        (**g**) Gaussian: Weights are given by the Gaussian function.
-
-        (**f**) Custom: Instead of *width* give name of a one-column file
-        with your own weight coefficients.
+        - (**b**) Boxcar: All weights are equal.
+        - (**c**) Cosine Arch: Weights follow a cosine arch curve.
+        - (**g**) Gaussian: Weights are given by the Gaussian function.
+        - (**f**) Custom: Instead of *width* give name of a one-column file
+          with your own weight coefficients.
 
         Non-convolution filter types are:
 
-        (**m**) Median: Returns median value.
-
-        (**p**) Maximum likelihood probability (a mode estimator): Return
-        modal value. If more than one mode is found we return their average
-        value. Append **+l** or **+u** if you rather want
-        to return the lowermost or uppermost of the modal values.
-
-        (**l**) Lower: Return the minimum of all values.
-
-        (**L**) Lower: Return minimum of all positive values only.
-
-        (**u**) Upper: Return maximum of all values.
-
-        (**U**) Upper: Return maximum of all negative values only.
+        - (**m**) Median: Returns median value.
+        - (**p**) Maximum likelihood probability (a mode estimator): Return
+          modal value. If more than one mode is found we return their average
+          value. Append **+l** or **+u** if you rather want
+          to return the lowermost or uppermost of the modal values.
+        - (**l**) Lower: Return the minimum of all values.
+        - (**L**) Lower: Return minimum of all positive values only.
+        - (**u**) Upper: Return maximum of all values.
+        - (**U**) Upper: Return maximum of all negative values only.
 
         Upper case type **B**, **C**, **G**, **M**, **P**, **F** will use
         robust filter versions: i.e., replace outliers (2.5 L1 scale off
