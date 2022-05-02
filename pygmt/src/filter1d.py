@@ -21,7 +21,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     A general time domain filter for multiple column time
     series data. The user specifies which column is the time (i.e., the
-    independent variable) via ``time_cols``. The fastest operation
+    independent variable) via ``time_col``. The fastest operation
     occurs when the input time series are equally spaced and have no gaps or
     outliers and the special options are not needed.
     Read a table and output as a :class:`numpy.ndarray`,
