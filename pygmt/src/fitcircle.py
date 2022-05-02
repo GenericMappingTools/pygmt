@@ -77,10 +77,10 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
 
     """
     if kwargs.get("L") is None:
-        raise GMTInvalidInput("""Pass a required argument to 'normalize'.""")
+        raise GMTInvalidInput("Pass a required argument to 'normalize'.")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
-            """Must specify format as either numpy, pandas, or file."""
+            "Must specify format as either numpy, pandas, or file."
         )
     if outfile is not None and output_type != "file":
         msg = (
