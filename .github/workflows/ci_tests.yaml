@@ -72,7 +72,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.1
         with:
           # fecth all history so that setuptools-scm works
           fetch-depth: 0
@@ -105,7 +105,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.17.0
+        uses: dawidd6/action-download-artifact@v2.19.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -147,7 +147,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.0.0
+        uses: codecov/codecov-action@v3.1.0
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
