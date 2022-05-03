@@ -236,7 +236,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
                     arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             else:
                 arg_str = build_arg_string(kwargs, outfile=outfile)
-            lib.call_module("project", arg_str)
+            lib.call_module(module="project", args=arg_str)
 
         # if user did not set outfile, return pd.DataFrame
         if outfile == tmpfile.name:

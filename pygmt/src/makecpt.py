@@ -156,4 +156,4 @@ def makecpt(**kwargs):
             if not outfile or not isinstance(outfile, str):
                 raise GMTInvalidInput("'output' should be a proper file name.")
             arg_str = build_arg_string(kwargs, outfile=outfile)
-        lib.call_module("makecpt", arg_str)
+        lib.call_module(module="makecpt", args=arg_str)
