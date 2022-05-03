@@ -142,7 +142,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     >>> # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,
     >>> # and a y-range of 10.5 to 12.5. The x- and y-spacing are 1.0 and 0.5.
     >>> x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])
-    >>> z = x**2 + y**2
+    >>> z = x ** 2 + y ** 2
     >>> xx, yy, zz = x.flatten(), y.flatten(), z.flatten()
     >>> grid = pygmt.xyz2grd(
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
@@ -159,6 +159,8 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module("xyz2grd", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="xyz2grd", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
