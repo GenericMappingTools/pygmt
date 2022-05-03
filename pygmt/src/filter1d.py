@@ -78,7 +78,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         segments.
 
     end : bool
-        Include Ends of time series in output. The default [False] loses
+        Include ends of time series in output. The default [False] loses
         half the filter-width of data at each end.
 
     time_col : int or str
@@ -130,7 +130,8 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    "filter1d", build_arg_string(kwargs, infile=infile, outfile=outfile)
+                    module="filter1d", 
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table
