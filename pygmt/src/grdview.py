@@ -138,4 +138,6 @@ def grdview(self, grid, **kwargs):
                         f"Unrecognized data type for drapegrid: {type(drapegrid)}"
                     )
             fname = stack.enter_context(file_context)
-            lib.call_module("grdview", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="grdview", args=build_arg_string(kwargs, infile=fname)
+            )
