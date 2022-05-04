@@ -43,7 +43,7 @@ __doctest_skip__ = ["grdtrack"]
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
-def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
+def grdtrack(points=None, grid=None, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
 
@@ -288,6 +288,9 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
     if points is None and kwargs.get("E") is None:
         raise GMTInvalidInput("Must give 'points' or set 'profile'.")
+
+    if points is not None and kwargs.get("E") is not None:
+        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
