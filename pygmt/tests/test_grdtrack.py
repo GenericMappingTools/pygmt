@@ -137,3 +137,19 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     """
     with pytest.raises(GMTInvalidInput):
         grdtrack(points=dataframe, grid=dataarray)
+
+
+def test_grdtrack_no_points_and_profile(dataarray):
+    """
+    Run grdtrack but don't set 'points' and 'profile'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdtrack(grid=dataarray)
+
+
+def test_grdtrack_set_points_and_profile(dataarray, dataframe):
+    """
+    Run grdtrack but set both 'points' and 'profile'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdtrack(grid=dataarray, points=dataframe, profile="BL/TR")
