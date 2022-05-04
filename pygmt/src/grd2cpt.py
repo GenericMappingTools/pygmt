@@ -172,4 +172,4 @@ def grd2cpt(grid, **kwargs):
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
                 arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
-            lib.call_module("grd2cpt", arg_str)
+            lib.call_module(module="grd2cpt", args=arg_str)

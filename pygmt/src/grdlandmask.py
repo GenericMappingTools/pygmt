@@ -108,6 +108,6 @@ def grdlandmask(**kwargs):
         with Session() as lib:
             if (outgrid := kwargs.get("G")) is None:
                 kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-            lib.call_module("grdlandmask", build_arg_string(kwargs))
+            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
