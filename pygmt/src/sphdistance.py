@@ -113,7 +113,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     >>> # each point from Voroni polygons
     >>> grid = pygmt.sphdistance(
     ...     data=array, spacing=[1, 2], region=[82, 87, 22, 24]
-    ...)
+    ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
