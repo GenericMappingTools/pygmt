@@ -64,7 +64,7 @@ def sphinterpolate(data, **kwargs):
     >>> # Load a table of Mars with longitude/latitude/radius columns
     >>> mars_shape = pygmt.datasets.load_sample_data(name="mars_shape")
     >>> # Perform Delaunay triangulation on the table data
-    >>> # to produce a grid with a 1m spacing
+    >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
