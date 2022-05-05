@@ -108,8 +108,8 @@ There are 11 configuration files located in `.github/workflows`:
 4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
-   slash command `/test-gmt-dev`. It is also scheduled to run daily on the
-   *main* branch.
+   slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
+   Wednesday and Friday on the *main* branch.
 
 5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
