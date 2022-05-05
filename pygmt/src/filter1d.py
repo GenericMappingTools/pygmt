@@ -12,7 +12,7 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 @fmt_docstring
 @use_alias(
     E="end",
-    F="filter",
+    F="filter_type",
     N="time_col",
 )
 def filter1d(data, output_type="pandas", outfile=None, **kwargs):
@@ -33,7 +33,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
-    filter : str
+    filter_type : str
         **type**\ *width*\ [**+h**].
         Sets the filter **type**. Choose among convolution and non-convolution
         filters. Append the filter code followed by the full filter
@@ -109,7 +109,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     """
     if kwargs.get("F") is None:
-        raise GMTInvalidInput("Pass a required argument to 'filter'.")
+        raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
     if outfile is not None and output_type != "file":
