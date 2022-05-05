@@ -17,9 +17,9 @@ on:
       - '.gitignore'
   repository_dispatch:
     types: [test-gmt-dev-command]
-  # Schedule daily tests
+  # Schedule tests on Monday/Wednesday/Friday
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1,3,5'
 
 jobs:
   test_gmt_dev:
