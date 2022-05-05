@@ -64,4 +64,4 @@ def image(self, imagefile, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        lib.call_module("image", build_arg_string(kwargs, infile=imagefile))
+        lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))
