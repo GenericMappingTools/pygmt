@@ -81,7 +81,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         Include ends of time series in output. The default [False] loses
         half the filter-width of data at each end.
 
-    time_col : int or str
+    time_col : int
         Indicates which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
         [Default is 0].
@@ -130,7 +130,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    module="filter1d", 
+                    module="filter1d",
                     args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 
