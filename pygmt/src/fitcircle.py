@@ -53,7 +53,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     {aliases}
 
     Parameters
-    ----------.
+    ----------
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
@@ -63,6 +63,16 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
+    normalize : float or bool
+        Specify the desired *norm* as **1** or **2**\ , or use ``True``
+        or **3** to see both solutions.
+    small_circle : float
+        Attempt to fit a small circle instead of a great circle. The pole
+        will be constrained to lie on the great circle connecting the pole
+        of the best-fit great circle and the mean location of the data.
+        Optionally append the desired fixed latitude of the small circle
+        [Default will determine the optimal latitude].
+    {V}
 
     Returns
     -------
@@ -79,9 +89,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     if kwargs.get("L") is None:
         raise GMTInvalidInput("Pass a required argument to 'normalize'.")
     if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify format as either numpy, pandas, or file."
-        )
+        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
     if outfile is not None and output_type != "file":
         msg = (
             f"Changing `output_type` of fitcirle from '{output_type}' to 'file' "
