@@ -106,13 +106,13 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     -------
     >>> import numpy as np
     >>> import pygmt
-    >>> # Create an array of lat/lon coordinates
+    >>> # Create an array of longitude/latitude coordinates
     >>> coords_list = [[85.5, 22.3], [82.3, 22.6], [85.8, 22.4], [86.5, 23.3]]
     >>> coords_array = np.array(coords_list)
     >>> # Perform a calculation of the distance to
-    >>> # each point from Voroni polygons
+    >>> # each point from Voronoi polygons
     >>> grid = pygmt.sphdistance(
-    ...     data=array, spacing=[1, 2], region=[82, 87, 22, 24]
+    ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
     ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
