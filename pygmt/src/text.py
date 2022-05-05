@@ -233,4 +233,4 @@ def text_(
                     np.atleast_1d(text).astype(str),
                 )
         with file_context as fname:
-            lib.call_module("text", build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))

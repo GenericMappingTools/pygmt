@@ -63,7 +63,8 @@ def sphinterpolate(data, **kwargs):
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    "sphinterpolate", build_arg_string(kwargs, infile=infile)
+                    module="sphinterpolate",
+                    args=build_arg_string(kwargs, infile=infile),
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -139,6 +139,6 @@ def dimfilter(grid, **kwargs):
                     kwargs.update({"G": tmpfile.name})
                 outgrid = kwargs["G"]
                 arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("dimfilter", arg_str)
+                lib.call_module(module="dimfilter", args=arg_str)
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

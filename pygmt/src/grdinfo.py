@@ -115,8 +115,8 @@ def grdinfo(grid, **kwargs):
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 lib.call_module(
-                    "grdinfo",
-                    build_arg_string(kwargs, infile=infile, outfile=outfile.name),
+                    module="grdinfo",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile.name),
                 )
         result = outfile.read()
     return result
