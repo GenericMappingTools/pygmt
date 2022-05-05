@@ -29,7 +29,7 @@ def test_filter1d_no_outfile(data):
     """
     Test filter1d with no set outgrid.
     """
-    result = filter1d(data=data, filter="g5")
+    result = filter1d(data=data, filter_type="g5")
     assert result.shape == (670, 2)
 
 
@@ -39,7 +39,7 @@ def test_filter1d_file_output(data):
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         result = filter1d(
-            data=data, filter="g5", outfile=tmpfile.name, output_type="file"
+            data=data, filter_type="g5", outfile=tmpfile.name, output_type="file"
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outfile exists
@@ -50,7 +50,7 @@ def test_filter1d_invalid_format(data):
     Test that filter1d fails with an incorrect format for output_type.
     """
     with pytest.raises(GMTInvalidInput):
-        filter1d(data=data, filter="g5", output_type="a")
+        filter1d(data=data, filter_type="g5", output_type="a")
 
 
 def test_filter1d_no_filter(data):
@@ -67,7 +67,7 @@ def test_filter1d_no_outfile_specified(data):
     file name is specified.
     """
     with pytest.raises(GMTInvalidInput):
-        filter1d(data=data, filter="g5", output_type="file")
+        filter1d(data=data, filter_type="g5", output_type="file")
 
 
 def test_filter1d_outfile_incorrect_output_type(data):
@@ -78,7 +78,7 @@ def test_filter1d_outfile_incorrect_output_type(data):
     with pytest.warns(RuntimeWarning):
         with GMTTempFile(suffix=".txt") as tmpfile:
             result = filter1d(
-                data=data, filter="g5", outfile=tmpfile.name, output_type="numpy"
+                data=data, filter_type="g5", outfile=tmpfile.name, output_type="numpy"
             )
             assert result is None  # return value is None
             assert os.path.exists(path=tmpfile.name)  # check that outfile exists
@@ -88,9 +88,9 @@ def test_filter1d_format(data):
     """
     Test that correct formats are returned.
     """
-    time_series_default = filter1d(data=data, filter="g5")
+    time_series_default = filter1d(data=data, filter_type="g5")
     assert isinstance(time_series_default, pd.DataFrame)
-    time_series_array = filter1d(data=data, filter="g5", output_type="numpy")
+    time_series_array = filter1d(data=data, filter_type="g5", output_type="numpy")
     assert isinstance(time_series_array, np.ndarray)
-    time_series_df = filter1d(data=data, filter="g5", output_type="pandas")
+    time_series_df = filter1d(data=data, filter_type="g5", output_type="pandas")
     assert isinstance(time_series_df, pd.DataFrame)
