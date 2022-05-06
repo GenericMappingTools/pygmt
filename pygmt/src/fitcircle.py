@@ -11,7 +11,7 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
 
 @fmt_docstring
 @use_alias(
-    L="normalize",
+    L="norm",
     S="small_circle",
     V="verbose",
 )
@@ -29,7 +29,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     dispersion, the pole to the great circle will be less well determined
     than the mean. Compare both solutions as a qualitative check.
 
-    Setting ``normalize`` to **1** approximates the
+    Setting ``norm`` to **1** approximates the
     minimization of the sum of absolute values of cosines of angular
     distances. This solution finds the mean position as the Fisher average
     of the data, and the pole position as the Fisher average of the
@@ -38,7 +38,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     analogous to the "leverage" of distant points in linear regression in
     the plane.
 
-    Setting ``normalize`` to **2** approximates the
+    Setting ``norm`` to **2** approximates the
     minimization of the sum of squares of cosines of angular distances. It
     creates a 3 by 3 matrix of sums of squares of components of the data
     vectors. The eigenvectors of this matrix give the mean and pole
@@ -63,7 +63,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
-    normalize : float or bool
+    norm : float or bool
         Specify the desired *norm* as **1** or **2**\ , or use ``True``
         or **3** to see both solutions.
     small_circle : float
@@ -87,7 +87,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
 
     """
     if kwargs.get("L") is None:
-        raise GMTInvalidInput("Pass a required argument to 'normalize'.")
+        raise GMTInvalidInput("Pass a required argument to 'norm'.")
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
     if outfile is not None and output_type != "file":
