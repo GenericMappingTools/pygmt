@@ -117,6 +117,7 @@ Operations on tabular data
     blockmean
     blockmedian
     blockmode
+    filter1d
     fitcircle
     nearneighbor
     project

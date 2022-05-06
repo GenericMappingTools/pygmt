@@ -34,6 +34,7 @@ from pygmt.src import (
     blockmode,
     config,
     dimfilter,
+    filter1d,
     fitcircle,
     grd2cpt,
     grd2xyz,
