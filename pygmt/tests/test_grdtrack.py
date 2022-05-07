@@ -99,6 +99,29 @@ def test_grdtrack_input_csvfile_and_ncfile_to_dataframe(expected_array):
     npt.assert_allclose(np.array(output), expected_array)
 
 
+def test_grdtrack_profile(dataarray):
+    """
+    Run grdtrack by passing a profile.
+    """
+    output = grdtrack(grid=dataarray, profile="-51/-17/-54/-19")
+    assert isinstance(output, pd.DataFrame)
+    npt.assert_allclose(
+        np.array(output),
+        np.array(
+            [
+                [-51.0, -17.0, 669.671875],
+                [-51.42430204, -17.28838525, 847.40745877],
+                [-51.85009439, -17.57598444, 885.30534844],
+                [-52.27733766, -17.86273467, 829.85423488],
+                [-52.70599151, -18.14857333, 776.83702212],
+                [-53.13601473, -18.43343819, 631.07867839],
+                [-53.56736521, -18.7172675, 504.28037216],
+                [-54.0, -19.0, 486.10351562],
+            ]
+        ),
+    )
+
+
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
     """
     Run grdtrack using points input that is not a pandas.DataFrame (matrix) or
