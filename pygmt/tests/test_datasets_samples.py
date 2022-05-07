@@ -145,3 +145,18 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+
+
+def test_load_table_5_11():
+    """
+    Check that the @table_5_11.txt dataset loads without errors.
+    """
+    data = load_sample_data("table511")
+    assert data.shape == (52, 3)
+    summary = data.describe()
+    assert summary.loc["min", "x"] == 0.2
+    assert summary.loc["max", "x"] == 6.3
+    assert summary.loc["min", "y"] == 0
+    assert summary.loc["max", "y"] == 6.2
+    assert summary.loc["min", "z"] == 690
+    assert summary.loc["max", "z"] == 960
