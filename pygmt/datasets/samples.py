@@ -358,6 +358,4 @@ def _load_table_5_11(**kwargs):
         The data table with columns "x", "y", and "z".
     """
     fname = which("@Table_5_11.txt", download="c")
-    return pd.read_csv(
-        fname, sep=r"\s+", header=None, names=["x", "y", "z"]
-    )
+    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
