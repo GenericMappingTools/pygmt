@@ -287,6 +287,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     ...     points=points, grid=grid, newcolname="bathymetry"
     ... )
     """
+    # pylint: disable=too-many-branches
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
