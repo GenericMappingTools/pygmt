@@ -150,7 +150,7 @@ def build_arg_string(kwdict, infile=None, outfile=None):
     args : str
         The space-delimited argument string with '-' inserted before each
         keyword. The arguments are sorted alphabetically, with optional input
-        file at the begining and optioanl output file at the end.
+        file at the beginning and optional output file at the end.
 
     Examples
     --------

@@ -189,4 +189,4 @@ def coast(self, **kwargs):
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
-        lib.call_module("coast", build_arg_string(kwargs))
+        lib.call_module(module="coast", args=build_arg_string(kwargs))

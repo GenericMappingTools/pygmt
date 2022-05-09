@@ -282,5 +282,4 @@ def meca(
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
         print(spec)
         with file_context as fname:
-            print(build_arg_string(kwargs, infile=fname))
-            lib.call_module("meca", build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
