@@ -23,6 +23,7 @@ dependencies:
     - black
     - blackdoc
     - docformatter
+    - flakeheaven
     - isort>=5
     - pylint
     # Dev dependencies (unit testing)
@@ -37,5 +38,3 @@ dependencies:
     - sphinx-copybutton
     - sphinx-gallery
     - sphinx_rtd_theme
-    - pip:
-      - flakeheaven
