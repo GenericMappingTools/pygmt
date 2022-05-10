@@ -117,6 +117,7 @@ Operations on tabular data
     blockmean
     blockmedian
     blockmode
+    filter1d
     nearneighbor
     project
     select
@@ -135,6 +136,7 @@ Operations on raster data
 .. autosummary::
     :toctree: generated
 
+    dimfilter
     grd2xyz
     grdclip
     grdcut

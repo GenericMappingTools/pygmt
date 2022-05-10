@@ -60,9 +60,11 @@ def which(fname, **kwargs):
         If the file is not found.
     """
     with GMTTempFile() as tmpfile:
-        arg_str = " ".join([fname, build_arg_string(kwargs), "->" + tmpfile.name])
         with Session() as lib:
-            lib.call_module("which", arg_str)
+            lib.call_module(
+                module="which",
+                args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
+            )
         path = tmpfile.read().strip()
     if not path:
         _fname = fname.replace(" ", "', '")

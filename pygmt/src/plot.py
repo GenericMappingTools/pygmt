@@ -218,15 +218,15 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     kind = data_kind(data, x, y)
 
     extra_arrays = []
-    if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
+    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
     elif (
-        "S" not in kwargs
+        kwargs.get("S") is None
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
         kwargs["S"] = "s0.2c"
-    elif "S" not in kwargs and kind == "file" and data.endswith(".gmt"):
+    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
         # checking that the data is a file path to set default style
         try:
             with open(which(data), mode="r", encoding="utf8") as file:
@@ -236,7 +236,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
                 kwargs["S"] = "s0.2c"
         except FileNotFoundError:
             pass
-    if "G" in kwargs and is_nonstr_iter(kwargs["G"]):
+    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for color if data is matrix or file."
@@ -251,7 +251,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         extra_arrays.append(size)
 
     for flag in ["I", "t"]:
-        if flag in kwargs and is_nonstr_iter(kwargs[flag]):
+        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
@@ -266,5 +266,4 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("plot", arg_str)
+            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))

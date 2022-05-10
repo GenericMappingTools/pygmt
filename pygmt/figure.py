@@ -104,7 +104,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -222,7 +222,7 @@ class Figure:
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if "A" not in kwargs:
+        if kwargs.get("A") is None:
             kwargs["A"] = ""
 
         if icc_gray:
@@ -231,7 +231,7 @@ class Figure:
                 " and will be removed in v0.8.0."
             )
             warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if "N" not in kwargs:
+            if kwargs.get("N") is None:
                 kwargs["N"] = "+i"
             else:
                 kwargs["N"] += "+i"
@@ -245,7 +245,9 @@ class Figure:
             raise GMTInvalidInput("The 'prefix' must be specified.") from err
 
         with Session() as lib:
-            lib.call_module("psconvert", f"{prefix_arg} {build_arg_string(kwargs)}")
+            lib.call_module(
+                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
+            )
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
@@ -421,7 +423,7 @@ class Figure:
             args.append(f"-Y{yshift}")
 
         with Session() as lib:
-            lib.call_module("plot", " ".join(args))
+            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """

@@ -5,7 +5,6 @@ import inspect
 import os
 import string
 
-from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -77,7 +76,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest  # pylint: disable=import-outside-toplevel
+        # pylint: disable=import-outside-toplevel
+        import pytest
+        from matplotlib.testing.compare import compare_images
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
