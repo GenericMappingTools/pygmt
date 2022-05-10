@@ -152,7 +152,7 @@ def test_hotspots():
 
 def test_earth_relief_holes():
     """
-    Check that the @earth_relief_holes.txt dataset loads without errors.
+    Check that the @earth_relief_20m_holes.grd dataset loads without errors.
     """
     grid = load_sample_data("earth_relief_holes")
     assert grid.shape == (30, 30)
