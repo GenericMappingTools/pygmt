@@ -51,8 +51,7 @@ def binstats(data, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in data with L, M, C[L,M], S[L,M] values by
-        providing a file name to an ASCII data table, a 2D
+        A file name of an ASCII data table or a 2D
         {table-classes}.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
