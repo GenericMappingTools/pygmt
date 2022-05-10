@@ -1,8 +1,6 @@
 """
 Test basic functionality for loading sample datasets.
 """
-import math
-
 import numpy.testing as npt
 import pandas as pd
 import pytest
@@ -154,9 +152,9 @@ def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.
     """
-    grid = load_sample_data("earth_relief_holes")
+    grid = load_sample_data(name="earth_relief_holes")
     assert grid.shape == (30, 30)
     npt.assert_allclose(grid.max(), 1878)
     npt.assert_allclose(grid.min(), -4947)
     # Test for the NaN values in the remote file
-    assert math.isnan(grid[2, 19])
+    assert grid[2, 19].isnull()
