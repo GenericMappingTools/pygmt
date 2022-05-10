@@ -95,8 +95,7 @@ def binstats(data, **kwargs):
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="binstats", 
-                    args=build_arg_string(kwargs, infile=infile)
+                    module="binstats", args=build_arg_string(kwargs, infile=infile)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
