@@ -358,6 +358,6 @@ def _load_earth_relief_holes(**kwargs):
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
     """
-    fname = which("@earth_relief_20m_holes.grd", download="a")
+    fname = which("@earth_relief_20m_holes.grd", download="c")
     grid = load_dataarray(fname, engine="netcdf4")
     return grid
