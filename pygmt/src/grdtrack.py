@@ -300,7 +300,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     # Backward compatibility with old parameter order "points, grid".
     # deprecated_version="0.7.0", remove_version="v0.9.0"
     is_a_grid = True
-    if not isinstance(grid, (xr.DataArray, xr.Dataset, str)):
+    if not isinstance(grid, (xr.DataArray, str)):
         is_a_grid = False
     elif isinstance(grid, str):
         try:
