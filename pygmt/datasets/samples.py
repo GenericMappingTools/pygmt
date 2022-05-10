@@ -5,6 +5,7 @@ import warnings
 
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -23,6 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
+        "earth_relief_holes": "Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
@@ -65,6 +67,7 @@ def load_sample_data(name):
 
     load_func = {
         "bathymetry": load_sample_bathymetry,
+        "earth_relief_holes": _load_earth_relief_holes,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
@@ -343,3 +346,18 @@ def load_mars_shape(**kwargs):
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
     )
     return data
+
+
+def _load_earth_relief_holes(**kwargs):
+    """
+    Loads the remote file @earth_relief_20m_holes.grd.
+
+    Returns
+    -------
+    grid : :class:`xarray.DataArray`
+        The Earth relief grid. Coordinates are latitude and longitude in
+        degrees. Relief is in meters.
+    """
+    fname = which("@earth_relief_20m_holes.grd", download="a")
+    grid = load_dataarray(fname, engine="netcdf4")
+    return grid
