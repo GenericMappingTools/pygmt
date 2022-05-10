@@ -14,7 +14,7 @@ from pygmt.io import load_dataarray
 
 @fmt_docstring
 @use_alias(
-    C="compute",
+    C="statistic",
     E="empty",
     G="outgrid",
     I="spacing",
@@ -57,7 +57,7 @@ def binstats(data, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    compute : str
+    statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**
         \|\ **U**\|\ **z**.

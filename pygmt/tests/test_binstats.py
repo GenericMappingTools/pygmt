@@ -17,7 +17,7 @@ def test_binstats_outgrid():
             data="@capitals.gmt",
             outgrid=tmpfile.name,
             spacing=5,
-            compute="z",
+            statistic="z",
             search_radius="1000k",
             colname="2=population",
             region="g",
@@ -33,7 +33,7 @@ def test_sph2grd_no_outgrid():
     temp_grid = binstats(
         data="@capitals.gmt",
         spacing=5,
-        compute="z",
+        statistic="z",
         search_radius="1000k",
         colname="2=population",
         region="g",
