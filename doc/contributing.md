@@ -323,9 +323,13 @@ testing, add the code "__doctest_skip__ = [function name]" to the top of the mod
 
 **Inline code example**
 
+Below the import statements at the top of the file
+
 ``
 __doctest_skip__ = ["module_name"]
 ``
+
+At the end of the function's docstring
 
     Example
     -------
