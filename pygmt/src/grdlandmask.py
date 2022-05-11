@@ -101,15 +101,13 @@ def grdlandmask(**kwargs):
     >>> # and a y-range of 30 to 35
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if "I" not in kwargs or "R" not in kwargs:
+    if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                kwargs.update({"G": tmpfile.name})
-            outgrid = kwargs["G"]
-            arg_str = build_arg_string(kwargs)
-            lib.call_module("grdlandmask", arg_str)
+            if (outgrid := kwargs.get("G")) is None:
+                kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

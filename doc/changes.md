@@ -1,5 +1,42 @@
 # Changelog
 
+## Release v0.6.1 (2022/04/11)
+
+[![Digital Object Identifier for PyGMT v0.6.1](https://zenodo.org/badge/DOI/10.5281/zenodo.6426493.svg)](https://doi.org/10.5281/zenodo.6426493)
+
+### Highlights
+
+* Patch release which allows passing None explicitly to pygmt functions ([#1872](https://github.com/GenericMappingTools/pygmt/pull/1872), [#1862](https://github.com/GenericMappingTools/pygmt/pull/1862), [#1857](https://github.com/GenericMappingTools/pygmt/pull/1857), [#1815](https://github.com/GenericMappingTools/pygmt/pull/1815))
+* A new tutorial for grdhisteq ([#1821](https://github.com/GenericMappingTools/pygmt/pull/1821))
+
+### Bug Fixes
+
+* Fix pathlib support for plot and plot3d ([#1831](https://github.com/GenericMappingTools/pygmt/pull/1831))
+
+### Documentation
+
+* Add inline example for grdvolume ([#1726](https://github.com/GenericMappingTools/pygmt/pull/1726))
+* Format author affiliations in CITATION.cff and AUTHORS.md ([#1844](https://github.com/GenericMappingTools/pygmt/pull/1844))
+
+### Maintenance
+
+* NEP29: Run PyGMT tests and docs build on Python 3.10 ([#1868](https://github.com/GenericMappingTools/pygmt/pull/1868))
+* Let pygmt.show_versions() report geopandas version ([#1846](https://github.com/GenericMappingTools/pygmt/pull/1846))
+* Refactor build_arg_string to also deal with infile and outfile ([#1837](https://github.com/GenericMappingTools/pygmt/pull/1837))
+* Migrate build system settings to pyproject.toml following pep517 and pep518 ([#1845](https://github.com/GenericMappingTools/pygmt/pull/1845))
+* Use the build package to build sdist and wheel distributions ([#1823](https://github.com/GenericMappingTools/pygmt/pull/1823))
+* Let slash command /test-gmt-dev report job URL ([#1866](https://github.com/GenericMappingTools/pygmt/pull/1866))
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Meghan Jones](https://github.com/meghanrjones)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Will Schlitzer](https://github.com/willschlitzer)
+
+---
+
 ## Release v0.6.0 (2022/03/14)
 
 [![Digital Object Identifier for PyGMT v0.6.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6349217.svg)](https://doi.org/10.5281/zenodo.6349217)

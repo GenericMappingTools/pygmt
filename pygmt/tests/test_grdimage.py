@@ -4,14 +4,10 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -89,6 +85,21 @@ def test_grdimage_file():
         projection="W0/10i",
         shading=True,
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_grdimage_slice.png")
+@pytest.mark.parametrize("shading", [None, False])
+def test_grdimage_default_no_shading(grid, shading):
+    """
+    Plot an image with no shading.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1852
+    """
+    grid_ = grid.sel(lat=slice(-30, 30))
+    fig = Figure()
+    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
     return fig
 
 

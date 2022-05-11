@@ -57,7 +57,7 @@ class config:  # pylint: disable=invalid-name
         # call gmt set to change GMT defaults
         arg_str = " ".join([f'{key}="{value}"' for key, value in kwargs.items()])
         with Session() as lib:
-            lib.call_module("set", arg_str)
+            lib.call_module(module="set", args=arg_str)
 
     def __enter__(self):
         return self
@@ -68,4 +68,4 @@ class config:  # pylint: disable=invalid-name
             [f"{key}={value}" for key, value in self.old_defaults.items()]
         )
         with Session() as lib:
-            lib.call_module("set", arg_str)
+            lib.call_module(module="set", args=arg_str)

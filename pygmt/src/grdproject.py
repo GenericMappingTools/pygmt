@@ -35,7 +35,7 @@ def grdproject(grid, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
 
-    This module will project a geographical gridded data set onto a
+    This method will project a geographical gridded data set onto a
     rectangular grid. If ``inverse`` is ``True``, it will project a
     rectangular coordinate system to a geographic system. To obtain the value
     at each new node, its location is inversely projected back onto the input
@@ -112,16 +112,16 @@ def grdproject(grid, **kwargs):
     >>> # to "rectangular"
     >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
     """
-    if "J" not in kwargs:
+    if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdproject", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="grdproject", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
