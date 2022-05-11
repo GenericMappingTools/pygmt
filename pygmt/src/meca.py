@@ -10,7 +10,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 def data_format_code(convention, component="full"):
     """
-    Determine the data format code for meca -S option.
+    Determine the data format code for meca's -S option.
 
     See the meca() method for explanations of the parameters.
 
@@ -52,25 +52,11 @@ def data_format_code(convention, component="full"):
         Invalid component 'invalid' for convention 'mt'.
     """
     # Codes for focal mechanism formats determined by "convention"
-    codes1 = {
-        "aki": "a",
-        "gcmt": "c",
-        "partial": "p",
-    }
-
-    # Codes for focal mechanism formats determined by both "convention" and
-    # "component"
+    codes1 = {"aki": "a", "gcmt": "c", "partial": "p"}
+    # Codes for focal mechanism formats determined by both "convention" and "component"
     codes2 = {
-        "mt": {
-            "deviatoric": "z",
-            "dc": "d",
-            "full": "m",
-        },
-        "principal_axis": {
-            "deviatoric": "t",
-            "dc": "y",
-            "full": "x",
-        },
+        "mt": {"deviatoric": "z", "dc": "d", "full": "m"},
+        "principal_axis": {"deviatoric": "t", "dc": "y", "full": "x"},
     }
 
     if convention in codes1:
