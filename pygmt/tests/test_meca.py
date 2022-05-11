@@ -42,13 +42,13 @@ def test_meca_spec_dict_list():
     )
     fig.meca(
         spec=focal_mechanisms,
-        longitude=[-124.3, -124.4],
-        latitude=[48.1, 48.2],
+        longitude=[-123.5, -124.5],
+        latitude=[47.5, 48.5],
         depth=[12.0, 11.0],
         region=[-125, -122, 47, 49],
         scale="2c",
         projection="M8c",
-        frame=True
+        frame=True,
     )
     return fig
 
