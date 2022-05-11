@@ -110,62 +110,101 @@ def meca(
 
     Parameters
     ----------
-    spec: dict, 1D array, 2D array, pd.DataFrame, or str
-        Either a filename containing focal mechanism parameters as columns, a
-        1- or 2-D array with the same, or a dictionary. If a filename or array,
-        `convention` is required so we know how to interpret the
-        columns/entries. If a dictionary, the following combinations of keys
-        are supported; these determine the convention. Dictionary may contain
-        values for a single focal mechanism or lists of values for many focal
-        mechanisms. A Pandas DataFrame may optionally contain columns latitude,
-        longitude, depth, plot_longitude, plot_latitude, and/or event_name
-        instead of passing them to the meca method.
+    spec: str, 1D array, 2D array, dict, or pd.DataFrame
+        Data that contains focal mechanism parameters.
 
-        - ``"aki"`` — *strike, dip, rake, magnitude*
-        - ``"gcmt"`` — *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,
-          exponent*
-        - ``"mt"`` — *mrr, mtt, mff, mrt, mrf, mtf, exponent*
-        - ``"partial"`` — *strike1, dip1, strike2, fault_type, magnitude*
-        - ``"principal_axis"`` — *t_exponent, t_azimuth, t_plunge, n_exponent,
-          n_azimuth, n_plunge, p_exponent, p_azimuth, p_plunge, exponent*
+        ``spec`` can be specified in either of the following types:
+
+        - ``str``: a file name containing focal mechanism parameters as columns.
+          The meanings of each column is:
+
+          - Columns 1 and 2: event longitude and latitude
+          - Column 3: event depth (in km)
+          - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
+            depends on the choice of ``convection``, which will be described below.
+          - Columns 4+n and 5+n: longitude, latitude at which to place beachball.
+            Using ``0 0`` will plot the beachball at the longitude, latitude given
+            in columns 1 and 2. [optional and requires ``offset=True`` to take effect].
+          - Text string to appear near the beach ball [optional].
+
+        - **1D array**: focal mechanism parameters of a single event. The meanings
+          of columns are the same as above.
+        - **2D array**: focal mechanim parameters of multiple events. The meanings
+          of columns are the same as above.
+        - dict or pd.DataFrame: The dict keys or pd.DataFrame column names determine
+          the focal mechanims convention. For different conventions, the following
+          combination of keys are allowed:
+
+          - ``"aki"``: *strike, dip, rake, magnitude*
+          - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa, exponent*
+          - ``"mt"``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*
+          - ``"partial"``: *strike1, dip1, strike2, fault_type, magnitude*
+          - ``"principal_axis"``: *t_value, t_azimuth, t_plunge, n_value,
+            n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*
+
+          A dict may contain values for a single focal mechanism or lists of values
+          for multiple focal mechanisms.
+
+          Both dict and pd.DataFrame may optionally contain keys/column names:
+          ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
+          and/or ``event_name``.
+
+        For ``spec`` in either a str, a 1D array or a 2D array, the ``convention`` parameter
+        is required so we know how to interpret the columns. For ``spec`` in a dict or
+        a pd.DataFrame, ``convention`` is not needed and is ignored if specified.
 
     scale: str
         Adjusts the scaling of the radius of the beachball, which is
-        proportional to the magnitude. Scale defines the size for magnitude = 5
-        (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm)
+        proportional to the magnitude. *scale* defines the size for magnitude = 5
+        (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention: str
-        ``"aki"`` (Aki & Richards), ``"gcmt"`` (global CMT), ``"mt"`` (seismic
-        moment tensor), ``"partial"`` (partial focal mechanism), or
-        ``"principal_axis"`` (principal axis). Ignored if `spec` is a
-        dictionary or dataframe.
+        Focal mechanism convention. Choose from:
+        - ``"aki"`` (Aki & Richards)
+        - ``"gcmt"`` (global CMT)
+        - ``"mt"`` (seismic moment tensor)
+        - ``"partial"`` (partial focal mechanism)
+        - ``"principal_axis"`` (principal axis).
+
+        Ignored if ``spec`` is a dictionary or pd.DataFrame.
     component: str
-        The component of the seismic moment tensor to plot. ``"full"`` (the
-        full seismic moment tensor), ``"dc"`` (the closest double couple with
-        zero trace and zero determinant), ``"deviatoric"`` (zero trace)
+        The component of the seismic moment tensor to plot.
+
+        - ``"full"``: the full seismic moment tensor
+        - ``"dc"``: the closest double couple defined from the moment tensor
+          (zero trace and zero determinant)
+        - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
     longitude: int, float, list, or 1d numpy array
-        Longitude(s) of event location. Will override the longitudes in ``spec``
-        if ``spec`` is a dict or DataFrame.
+        Longitude(s) of event location. Must be the same length as the
+        number of events. Will override the ``longitude`` values
+        in ``spec`` if ``spec`` is a dict or pd.DataFrame.
     latitude: int, float, list, or 1d numpy array
-        Latitude(s) of event location. Will override the latitudes in ``spec``
-        if ``spec`` is a dict or DataFrame.
+        Latitude(s) of event location. Must be the same length as the
+        number of events. Will override the ``latitude`` values
+        in ``spec`` if ``spec`` is a dict or pd.DataFrame.
     depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Will override the depths in
-        ``spec`` if ``spec`` is a dict or DataFrame.
+        Depth(s) of event location in kilometers. Must be the same length as the
+        number of events. Will override the ``depth`` values in ``spec``
+        if ``spec`` is a dict or pd.DataFrame.
     plot_longitude: int, float, list, or 1d numpy array
-        Longitude(s) at which to place beachball. List must be the length of the
-        number of events. Will override the plot_longitude in ``spec`` if
-        ``spec`` is a dict or DataFrame
+        Longitude(s) at which to place beachball. Must be the same length as the
+        number of events. Will override the ``plot_longitude`` values in ``spec``
+        if ``spec`` is a dict or pd.DataFrame.
     plot_latitude: int, float, list, or 1d numpy array
-        Latitude(s) at which to place beachball. List must be the length of the
-        number of events. Will override the plot_latideu in ``spec`` if ``spec``
-        is a dict or DataFrame.
+        Latitude(s) at which to place beachball. List must be the same length as the
+        number of events. Will override the ``plot_latitude`` values in ``spec``
+        if ``spec`` is a dict or pd.DataFrame.
+    event_name : str or list of str, or 1d numpy array
+        Text strings (e.g., event names) to appear near the beach ball. List must
+        be the same length as the number of events. Will override the ``event_name``
+        values in ``spec`` if ``spec`` is a dict or pd.DataFrame.
     offset: bool or str
+        [**+p**\ *pen*][**+s**\ *size].
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by ``plot_longitude`` and
         ``plot_latitude`` if provided. A small circle is plotted at the initial
-        location and a line connects the beachball to the circle. Specify pen
-        and optionally append **+s**\ *size* to change the line style and/or size
-        of the circle.
+        location and a line connects the beachball to the circle.
+        Use **+s**\ *size* to set the diameter of the circle [Default is no circle].
+        Use **+p**\ *pen* to set the line pen attributes [Default is 0.25p].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
@@ -178,7 +217,6 @@ def meca(
     {p}
     {t}
     """
-
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
         param_conventions = {
