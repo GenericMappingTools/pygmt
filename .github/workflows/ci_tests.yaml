@@ -135,7 +135,7 @@ jobs:
 
       # Run the tests
       - name: Run tests
-        if: github.event_name != 'schedule'
+        if: github.event.schedule != '0 0 * * 3'
         run: make test PYTEST_EXTRA="-r P"
 
       # Run full tests including doctests
