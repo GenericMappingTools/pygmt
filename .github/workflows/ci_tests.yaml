@@ -138,7 +138,7 @@ jobs:
         if: github.event.schedule != '0 0 * * 3'
         run: make test PYTEST_EXTRA="-r P"
 
-      # Run full tests including doctests
+      # Run full tests including doctests on Wednesday
       - name: Run full tests
         if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 3'
         run: make fulltest PYTEST_EXTRA="-r P"
