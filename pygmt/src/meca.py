@@ -101,7 +101,7 @@ def meca(
     event_name=None,
     **kwargs,
 ):
-    """
+    r"""
     Plot focal mechanisms.
 
     Full option list at :gmt-docs:`supplements/seis/meca.html`
@@ -217,6 +217,7 @@ def meca(
     {p}
     {t}
     """
+    # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
         param_conventions = {
@@ -246,7 +247,7 @@ def meca(
                 "exponent",
             ],
         }
-        # determine the convention based on dict keys
+        # determine the convention based on dict keys or pd.DataFrame column names.
         for conv, paras in param_conventions.items():
             if set(paras).issubset(set(spec.keys())):
                 convention = conv
@@ -255,11 +256,10 @@ def meca(
             if isinstance(spec, dict):
                 msg = "Keys in dict 'spec' do not match known conventions."
             else:
-                msg = "Columns in pd.DataFrame 'spec' do not match known conventions."
+                msg = "Column names in pd.DataFrame 'spec' do not match known conventions."
             raise GMTError(msg)
 
-        print(longitude, latitude, depth)
-        # override the values in dict/DataFrame if parameters are explicity specified
+        # override the values in dict/pd.DataFrame if parameters are explicity specified
         if longitude is not None:
             spec["longitude"] = np.atleast_1d(longitude)
         if latitude is not None:
@@ -272,13 +272,10 @@ def meca(
             spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
         if event_name is not None:
             spec["event_name"] = np.atleast_1d(event_name).astype(str)
-        print(spec)
 
         # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
             spec = pd.DataFrame(spec)
-
-        print(spec)
 
         # expected columns are:
         # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [event_name]
@@ -302,6 +299,5 @@ def meca(
     with Session() as lib:
         # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
-        print(spec)
         with file_context as fname:
             lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
