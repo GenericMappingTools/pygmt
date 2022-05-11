@@ -133,7 +133,7 @@ jobs:
           python -m build --sdist
           pip install dist/*
 
-      # Run the tests
+      # Run the regular tests
       - name: Run tests
         if: github.event.schedule != '0 0 * * 3'
         run: make test PYTEST_EXTRA="-r P"
