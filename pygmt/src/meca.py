@@ -53,7 +53,8 @@ def data_format_code(convention, component="full"):
     """
     # Codes for focal mechanism formats determined by "convention"
     codes1 = {"aki": "a", "gcmt": "c", "partial": "p"}
-    # Codes for focal mechanism formats determined by both "convention" and "component"
+    # Codes for focal mechanism formats determined by both "convention" and
+    # "component"
     codes2 = {
         "mt": {"deviatoric": "z", "dc": "d", "full": "m"},
         "principal_axis": {"deviatoric": "t", "dc": "y", "full": "x"},
@@ -115,48 +116,52 @@ def meca(
 
         ``spec`` can be specified in either of the following types:
 
-        - ``str``: a file name containing focal mechanism parameters as columns.
-          The meanings of each column is:
+        - ``str``: a file name containing focal mechanism parameters as
+          columns. The meanings of each column is:
 
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
-          - Columns 4 to 3+n: focal mechanism parameters. The number of columns *n*
-            depends on the choice of ``convection``, which will be described below.
-          - Columns 4+n and 5+n: longitude, latitude at which to place beachball.
-            Using ``0 0`` will plot the beachball at the longitude, latitude given
-            in columns 1 and 2. [optional and requires ``offset=True`` to take effect].
+          - Columns 4 to 3+n: focal mechanism parameters. The number of columns
+            *n* depends on the choice of ``convection``, which will be
+            described below.
+          - Columns 4+n and 5+n: longitude, latitude at which to place
+            beachball. Using ``0 0`` will plot the beachball at the longitude,
+            latitude given in columns 1 and 2. [optional and requires
+            ``offset=True`` to take effect].
           - Text string to appear near the beach ball [optional].
 
-        - **1D array**: focal mechanism parameters of a single event. The meanings
-          of columns are the same as above.
-        - **2D array**: focal mechanim parameters of multiple events. The meanings
-          of columns are the same as above.
-        - dict or pd.DataFrame: The dict keys or pd.DataFrame column names determine
-          the focal mechanims convention. For different conventions, the following
-          combination of keys are allowed:
+        - **1D array**: focal mechanism parameters of a single event.
+          The meanings of columns are the same as above.
+        - **2D array**: focal mechanim parameters of multiple events.
+          The meanings of columns are the same as above.
+        - dict or pd.DataFrame: The dict keys or pd.DataFrame column names
+          determine the focal mechanims convention. For different conventions,
+          the following combination of keys are allowed:
 
           - ``"aki"``: *strike, dip, rake, magnitude*
-          - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa, exponent*
+          - ``"gcmt"``: *strike1, dip1, rake1, strike2, dip2, rake2, mantissa,*
+            *exponent*
           - ``"mt"``: *mrr, mtt, mff, mrt, mrf, mtf, exponent*
           - ``"partial"``: *strike1, dip1, strike2, fault_type, magnitude*
           - ``"principal_axis"``: *t_value, t_azimuth, t_plunge, n_value,
             n_azimuth, n_plunge, p_value, p_azimuth, p_plunge, exponent*
 
-          A dict may contain values for a single focal mechanism or lists of values
-          for multiple focal mechanisms.
+          A dict may contain values for a single focal mechanism or lists of
+          values for multiple focal mechanisms.
 
           Both dict and pd.DataFrame may optionally contain keys/column names:
-          ``latitude``, ``longitude``, ``depth``, ``plot_longitude``, ``plot_latitude``,
-          and/or ``event_name``.
+          ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
+          ``plot_latitude``, and/or ``event_name``.
 
-        For ``spec`` in either a str, a 1D array or a 2D array, the ``convention`` parameter
-        is required so we know how to interpret the columns. For ``spec`` in a dict or
-        a pd.DataFrame, ``convention`` is not needed and is ignored if specified.
+          For ``spec`` in either a str, a 1D array or a 2D array, the
+          ``convention`` parameter is required so we know how to interpret the
+          columns. For ``spec`` in a dict or a pd.DataFrame, ``convention`` is
+          not needed and is ignored if specified.
 
     scale: str
         Adjusts the scaling of the radius of the beachball, which is
-        proportional to the magnitude. *scale* defines the size for magnitude = 5
-        (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
+        proportional to the magnitude. *scale* defines the size for
+        magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention: str
         Focal mechanism convention. Choose from:
         - ``"aki"`` (Aki & Richards)
@@ -182,29 +187,31 @@ def meca(
         number of events. Will override the ``latitude`` values
         in ``spec`` if ``spec`` is a dict or pd.DataFrame.
     depth: int, float, list, or 1d numpy array
-        Depth(s) of event location in kilometers. Must be the same length as the
-        number of events. Will override the ``depth`` values in ``spec``
+        Depth(s) of event location in kilometers. Must be the same length as
+        the number of events. Will override the ``depth`` values in ``spec``
         if ``spec`` is a dict or pd.DataFrame.
     plot_longitude: int, float, list, or 1d numpy array
-        Longitude(s) at which to place beachball. Must be the same length as the
-        number of events. Will override the ``plot_longitude`` values in ``spec``
-        if ``spec`` is a dict or pd.DataFrame.
+        Longitude(s) at which to place beachball. Must be the same length as
+        the number of events. Will override the ``plot_longitude`` values in
+        ``spec`` if ``spec`` is a dict or pd.DataFrame.
     plot_latitude: int, float, list, or 1d numpy array
-        Latitude(s) at which to place beachball. List must be the same length as the
-        number of events. Will override the ``plot_latitude`` values in ``spec``
-        if ``spec`` is a dict or pd.DataFrame.
+        Latitude(s) at which to place beachball. List must be the same length
+        as the number of events. Will override the ``plot_latitude`` values in
+        ``spec`` if ``spec`` is a dict or pd.DataFrame.
     event_name : str or list of str, or 1d numpy array
-        Text strings (e.g., event names) to appear near the beach ball. List must
-        be the same length as the number of events. Will override the ``event_name``
-        values in ``spec`` if ``spec`` is a dict or pd.DataFrame.
+        Text strings (e.g., event names) to appear near the beach ball. List
+        must be the same length as the number of events. Will override the
+        ``event_name`` values in ``spec`` if ``spec`` is a dict or
+        pd.DataFrame.
     offset: bool or str
         [**+p**\ *pen*][**+s**\ *size].
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by ``plot_longitude`` and
         ``plot_latitude`` if provided. A small circle is plotted at the initial
-        location and a line connects the beachball to the circle.
-        Use **+s**\ *size* to set the diameter of the circle [Default is no circle].
-        Use **+p**\ *pen* to set the line pen attributes [Default is 0.25p].
+        location and a line connects the beachball to the circle. Use
+        **+s**\ *size* to set the diameter of the circle [Default is
+        no circle]. Use **+p**\ *pen* to set the line pen attributes [Default
+        is 0.25p].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
@@ -247,7 +254,7 @@ def meca(
                 "exponent",
             ],
         }
-        # determine the convention based on dict keys or pd.DataFrame column names.
+        # determine convention from dict keys or pd.DataFrame column names
         for conv, paras in param_conventions.items():
             if set(paras).issubset(set(spec.keys())):
                 convention = conv
@@ -259,7 +266,8 @@ def meca(
                 msg = "Column names in pd.DataFrame 'spec' do not match known conventions."
             raise GMTError(msg)
 
-        # override the values in dict/pd.DataFrame if parameters are explicity specified
+        # override the values in dict/pd.DataFrame if parameters are explicity
+        # specified
         if longitude is not None:
             spec["longitude"] = np.atleast_1d(longitude)
         if latitude is not None:
@@ -278,7 +286,8 @@ def meca(
             spec = pd.DataFrame(spec)
 
         # expected columns are:
-        # longitude, latitude, depth, focal_parameters, [plot_longitude, plot_latitude] [event_name]
+        # longitude, latitude, depth, focal_parameters,
+        #   [plot_longitude, plot_latitude] [event_name]
         newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
