@@ -130,27 +130,17 @@ def test_meca_spec_2d_array():
     # the GCMT convention but the focal mechanism parameters may be
     # specified any of the available conventions. Since we are not using a
     # dict or dataframe the convention and component should be specified.
-    focal_mechanisms = [
+
+    # longitude, latitude, depth, strike1, rake1, strike2, dip2, rake2,
+    # mantissa, exponent, plot_longitude, plot_latitude
+    focal_mechanisms = np.array(
         [
-            -127.40,  # longitude
-            40.87,  # latitude
-            12,  # depth
-            170,  # strike1
-            20,  # dip1
-            -110,  # rake1
-            11,  # strike2
-            71,  # dip2
-            -83,  # rake2
-            5.1,  # mantissa
-            23,  # exponent
-            0,  # plot_lon, 0 means we want to plot at the event location
-            0,  # plot_lat
-        ],
-        [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
-    ]
-    focal_mechs_array = np.asarray(focal_mechanisms)
+            [-127.40, 40.87, 12, 170, 20, -110, 11, 71, -83, 5.1, 23, 0, 0],
+            [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
+        ]
+    )
     fig.meca(
-        spec=focal_mechs_array,
+        spec=focal_mechanisms,
         convention="gcmt",
         region=[-128, -127, 40, 41],
         scale="2c",
@@ -165,7 +155,6 @@ def test_meca_spec_file():
     Test supplying a file containing focal mechanisms and locations to the spec
     parameter.
     """
-
     fig = Figure()
     focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
     # writes temp file to pass to gmt
