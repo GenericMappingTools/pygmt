@@ -4,17 +4,16 @@ Double Y axes graph
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,
-tick marks, and gridlines. By default, all 4 axes are plotted, along with annotations
-and tick marks (denoted **W**, **S**, **E**, **N**). Lower case versions (**w**, **s**,
-**e**, **n**) can be used to denote to only plot the axes with tick marks. We
-can also only plot the axes without annotations and tick marks using **l**
-(left axis), **r** (right axis), **t** (top axis), **b** (bottom axis).
-When ``frame`` is used to change the frame settings, any axes
-that are not defined using one of these three options are not
-drawn.
+tick marks, and gridlines. By default, all 4 axes are plotted, along with
+annotations and tick marks (denoted **W**, **S**, **E**, **N**). Lower case
+versions (**w**, **s**, **e**, **n**) can be used to denote to only plot the
+axes with tick marks. We can also only plot the axes without annotations and
+tick marks using **l** (left axis), **r** (right axis), **t** (top axis),
+**b** (bottom axis). When ``frame`` is used to change the frame settings, any
+axes that are not defined using one of these three options are not drawn.
 
-To plot a double Y-axes graph using PyGMT, we need to plot at least two base maps
-separately. The base maps should share the same projection parameter and
+To plot a double Y-axes graph using PyGMT, we need to plot at least two base
+maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
@@ -24,7 +23,7 @@ import pygmt
 # Generate two sample Y data from one common X data
 x = np.linspace(1.0, 9.0, num=9)
 y1 = x
-y2 = x ** 2 + 110
+y2 = x**2 + 110
 
 fig = pygmt.Figure()
 

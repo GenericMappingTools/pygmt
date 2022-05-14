@@ -23,14 +23,20 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
+    U="timestamp",
     V="verbose",
     W="pen",
     X="xshift",
     Y="yshift",
+    a="aspatial",
     c="panel",
+    e="find",
     f="coltypes",
+    h="header",
+    i="incols",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(
     R="sequence",
@@ -39,6 +45,7 @@ from pygmt.helpers import (
     font="sequence_comma",
     justify="sequence_comma",
     c="sequence_comma",
+    i="sequence_comma",
     p="sequence",
 )
 def text_(
@@ -62,7 +69,7 @@ def text_(
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
 
-    Full parameter list at :gmt-docs:`text.html`
+    Full option list at :gmt-docs:`text.html`
 
     {aliases}
 
@@ -109,6 +116,7 @@ def text_(
         then the input to ``textfiles`` must have this as a column.
     {J}
     {R}
+        *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
@@ -140,12 +148,20 @@ def text_(
         style = solid].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
+    {U}
     {V}
     {XY}
+    {a}
     {c}
+    {e}
     {f}
+    {h}
+    {i}
     {p}
     {t}
+        *transparency* can also be a 1d array to set varying transparency
+        for texts, but this option is only valid if using x/y/text.
+    {w}
     """
 
     # pylint: disable=too-many-locals
@@ -169,7 +185,7 @@ def text_(
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if "F" not in kwargs.keys() and (
+    if kwargs.get("F") is None and (
         (
             position is not None
             or angle is not None
@@ -195,12 +211,12 @@ def text_(
         kwargs["F"] += f"+j{justify}"
 
     if isinstance(position, str):
-        kwargs["F"] += f'+c{position}+t"{text}"'
+        kwargs["F"] += f"+c{position}+t{text}"
 
     extra_arrays = []
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if "t" in kwargs and is_nonstr_iter(kwargs["t"]):
+    if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
@@ -214,5 +230,4 @@ def text_(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         )
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("text", arg_str)
+            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))

@@ -77,9 +77,9 @@ def grdcontour(self, grid, **kwargs):
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
-        The required parameter controls the placement of labels along the
-        quoted lines. It supports five controlling algorithms. See
-        :gmt-docs:`grdcontour.html#g` for details.
+        Control the placement of labels along the quoted lines. It supports
+        five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
+        details.
     {U}
     {V}
     {W}
@@ -100,5 +100,6 @@ def grdcontour(self, grid, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("grdcontour", arg_str)
+            lib.call_module(
+                module="grdcontour", args=build_arg_string(kwargs, infile=fname)
+            )

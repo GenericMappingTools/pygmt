@@ -52,7 +52,7 @@ def test_legend_entries():
         pen="faint",
         label="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
     fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
     fig.legend(position="JTR+jTR")
 
@@ -93,7 +93,7 @@ T so we may have to adjust the box height to get the right size box.
 """
 
     with GMTTempFile() as specfile:
-        with open(specfile.name, "w") as file:
+        with open(specfile.name, "w", encoding="utf8") as file:
             file.write(specfile_contents)
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)

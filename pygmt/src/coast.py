@@ -65,12 +65,8 @@ def coast(self, **kwargs):
     ----------
     {J}
     {R}
-    area_thresh : int, float, or str
-        *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
-        [**s**\|\ **S**][**+l**\|\ **r**][**+p**\ *percent*].
-        Features with an area smaller than *min_area* in km\ :sup:`2` or of
-        hierarchical level that is lower than *min_level* or higher than
-        *max_level* will not be plotted.
+        *Required if this is the first plot command.*
+    {A}
     {B}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
@@ -193,4 +189,4 @@ def coast(self, **kwargs):
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
-        lib.call_module("coast", build_arg_string(kwargs))
+        lib.call_module(module="coast", args=build_arg_string(kwargs))

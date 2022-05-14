@@ -12,6 +12,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="position",
     F="box",
     M="monochrome",
+    U="timestamp",
     V="verbose",
     X="xshift",
     Y="yshift",
@@ -54,6 +55,7 @@ def image(self, imagefile, **kwargs):
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
+    {U}
     {V}
     {XY}
     {c}
@@ -62,5 +64,4 @@ def image(self, imagefile, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        arg_str = " ".join([imagefile, build_arg_string(kwargs)])
-        lib.call_module("image", arg_str)
+        lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))

@@ -2,6 +2,7 @@
 Utilities and common tasks for wrapping the GMT modules.
 """
 import os
+import pathlib
 import shutil
 import subprocess
 import sys
@@ -14,13 +15,14 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None):
+def data_kind(data, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
     Possible types:
 
     * a file name provided as 'data'
+    * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
     * 1D arrays x and y (and z, optionally)
@@ -30,13 +32,16 @@ def data_kind(data, x=None, y=None, z=None):
 
     Parameters
     ----------
-    data : str, xarray.DataArray, 2d array, or None
-       Data file name, xarray.DataArray or numpy array.
+    data : str or pathlib.Path or xarray.DataArray or {table-like} or None
+        Pass in either a file name or :class:`pathlib.Path` to an ASCII data
+        table, an :class:`xarray.DataArray`, a 1D/2D
+        {table-classes}.
     x/y : 1d arrays or None
         x and y columns as numpy arrays.
     z : 1d array or None
-        z column as numpy array. To be used optionally when x and y
-        are given.
+        z column as numpy array. To be used optionally when x and y are given.
+    required_z : bool
+        State whether the 'z' column is required.
 
     Returns
     -------
@@ -48,11 +53,14 @@ def data_kind(data, x=None, y=None, z=None):
 
     >>> import numpy as np
     >>> import xarray as xr
+    >>> import pathlib
     >>> data_kind(data=None, x=np.array([1, 2, 3]), y=np.array([4, 5, 6]))
     'vectors'
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data="my-data-file.txt", x=None, y=None)
+    'file'
+    >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
@@ -62,13 +70,22 @@ def data_kind(data, x=None, y=None, z=None):
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
     if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provided both x and y.")
+        raise GMTInvalidInput("Must provide both x and y.")
+    if data is None and required_z and z is None:
+        raise GMTInvalidInput("Must provide x, y, and z.")
 
-    if isinstance(data, str):
+    if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
+    elif hasattr(data, "__geo_interface__"):
+        kind = "geojson"
     elif data is not None:
+        if required_z and (
+            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+        ):
+            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
@@ -102,28 +119,38 @@ def dummy_context(arg):
     yield arg
 
 
-def build_arg_string(kwargs):
-    """
-    Transform keyword arguments into a GMT argument string.
+def build_arg_string(kwdict, infile=None, outfile=None):
+    r"""
+    Convert a dict and optional input/output files into a GMT argument string.
 
-    Make sure all arguments have been previously converted to a string
-    representation using the ``kwargs_to_strings`` decorator. The only
+    Make sure all values in ``kwdict`` have been previously converted to a
+    string representation using the ``kwargs_to_strings`` decorator. The only
     exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
     same command line argument. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
 
+    Note that spaces `` `` in arguments are converted to the equivalent octal
+    code ``\040``, except in the case of -J (projection) arguments where PROJ4
+    strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
+    See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
+
     Parameters
     ----------
-    kwargs : dict
-        Parsed keyword arguments.
+    kwdict : dict
+        A dict containing parsed keyword arguments.
+    infile : str or pathlib.Path
+        The input file.
+    outfile : str or pathlib.Path
+        The output file.
 
     Returns
     -------
     args : str
         The space-delimited argument string with '-' inserted before each
-        keyword. The arguments are sorted alphabetically.
+        keyword. The arguments are sorted alphabetically, with optional input
+        file at the beginning and optional output file at the end.
 
     Examples
     --------
@@ -134,7 +161,7 @@ def build_arg_string(kwargs):
     ...             A=True,
     ...             B=False,
     ...             E=200,
-    ...             J="X4c",
+    ...             J="+proj=longlat +datum=WGS84",
     ...             P="",
     ...             R="1/2/3/4",
     ...             X=None,
@@ -143,7 +170,7 @@ def build_arg_string(kwargs):
     ...         )
     ...     )
     ... )
-    -A -E200 -JX4c -P -R1/2/3/4 -Z0
+    -A -E200 -J+proj=longlat+datum=WGS84 -P -R1/2/3/4 -Z0
     >>> print(
     ...     build_arg_string(
     ...         dict(
@@ -155,21 +182,56 @@ def build_arg_string(kwargs):
     ...     )
     ... )
     -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    >>> print(build_arg_string(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty  Spaces"',
+    ...             l="'Void Space'",
+    ...         ),
+    ...     )
+    ... )
+    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
+    >>> print(
+    ...     build_arg_string(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
+    ...     )
+    ... )
+    input.txt -A0 -B -Crainbow ->output.txt
     """
     gmt_args = []
-    # Exclude arguments that are None and False
-    filtered_kwargs = {
-        k: v for k, v in kwargs.items() if (v is not None and v is not False)
-    }
-    for key in filtered_kwargs:
-        if is_nonstr_iter(kwargs[key]):
-            for value in kwargs[key]:
-                gmt_args.append(f"-{key}{value}")
-        elif kwargs[key] is True:
+
+    for key in kwdict:
+        if len(key) > 2:  # raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if kwdict[key] is None or kwdict[key] is False:
+            pass  # Exclude arguments that are None and False
+        elif is_nonstr_iter(kwdict[key]):
+            for value in kwdict[key]:
+                _value = str(value).replace(" ", r"\040")
+                gmt_args.append(rf"-{key}{_value}")
+        elif kwdict[key] is True:
             gmt_args.append(f"-{key}")
         else:
-            gmt_args.append(f"-{key}{kwargs[key]}")
-    return " ".join(sorted(gmt_args))
+            if key != "J":  # non-projection parameters
+                _value = str(kwdict[key]).replace(" ", r"\040")
+            else:
+                # special handling if key == "J" (projection)
+                # remove any spaces in PROJ4 string
+                _value = str(kwdict[key]).replace(" ", "")
+            gmt_args.append(rf"-{key}{_value}")
+    gmt_args = sorted(gmt_args)
+    if infile:
+        gmt_args = [str(infile)] + gmt_args
+    if outfile:
+        gmt_args.append("->" + str(outfile))
+    return " ".join(gmt_args)
 
 
 def is_nonstr_iter(value):
@@ -206,7 +268,7 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname):
+def launch_external_viewer(fname, waiting=0):
     """
     Open a file in an external viewer program.
 
@@ -234,9 +296,10 @@ def launch_external_viewer(fname):
         os.startfile(fname)  # pylint: disable=no-member
     else:
         webbrowser.open_new_tab(f"file://{fname}")
-    # suspend the execution for 0.5 s to avoid the images being deleted
-    # when a Python script exits
-    time.sleep(0.5)
+    if waiting > 0:
+        # suspend the execution for a few seconds to avoid the images being
+        # deleted when a Python script exits
+        time.sleep(waiting)
 
 
 def args_in_kwargs(args, kwargs):
@@ -261,5 +324,23 @@ def args_in_kwargs(args, kwargs):
     --------
     bool
         If one of the required arguments is in ``kwargs``.
+
+    Examples
+    --------
+
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"C": "xyz"})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": "af"})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": None})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": True})
+    True
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": False})
+    False
+    >>> args_in_kwargs(args=["A", "B"], kwargs={"B": 0})
+    True
     """
-    return any(arg in kwargs for arg in args)
+    return any(
+        kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
+    )

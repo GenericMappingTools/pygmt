@@ -6,6 +6,7 @@ on:
     # types: [created, edited]
 jobs:
   slashCommandDispatch:
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
@@ -16,7 +17,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Slash Command Dispatch
-        uses: peter-evans/slash-command-dispatch@v2
+        uses: peter-evans/slash-command-dispatch@v3
         with:
           token: ${{ steps.generate-token.outputs.token }}
           commands: |

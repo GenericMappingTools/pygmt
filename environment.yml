@@ -5,30 +5,35 @@ channels:
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.1.1
-    - numpy>=1.17
+    - gmt=6.3.0
+    - numpy>=1.19
     - pandas
     - xarray
     - netCDF4
     - packaging
-    # Development dependencies
-    - black
-    - blackdoc
-    - codecov
-    - coverage[toml]
-    - docformatter
+    # Optional dependencies
+    - geopandas
+    # Development dependencies (general)
+    - build
     - dvc
-    - flake8
     - ipython
-    - isort>=5
     - jupyter
     - make
-    - matplotlib
-    - myst-parser
+    # Dev dependencies (style checks)
+    - black
+    - blackdoc
+    - docformatter
+    - flake8
+    - isort>=5
     - pylint
+    # Dev dependencies (unit testing)
+    - matplotlib
     - pytest-cov
+    - pytest-doctestplus
     - pytest-mpl
     - pytest>=6.0
+    # Dev dependencies (building documentation)
+    - myst-parser
     - sphinx
     - sphinx-copybutton
     - sphinx-gallery

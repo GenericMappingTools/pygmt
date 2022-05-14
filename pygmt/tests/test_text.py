@@ -284,7 +284,7 @@ def test_text_justify_parsed_from_textfile():
         projection="H90/9i",
         justify=True,
         textfiles=CITIES_DATA,
-        D="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
+        offset="j0.45/0+vred",  # draw red-line from xy point to text label (city name)
     )
     return fig
 
@@ -297,7 +297,7 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w") as tmpfile:
+        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
             tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
         fig.text(
             region=[113, 117.5, -0.5, 3],
@@ -342,6 +342,20 @@ def test_text_varying_transparency():
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
     fig.text(x=x, y=y, text=text, transparency=transparency)
 
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_text_input_single_filename.png")
+@pytest.mark.parametrize("transparency", [None, False, 0])
+def test_text_no_transparency(transparency):
+    """
+    Add text with no transparency set.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1852.
+    """
+    fig = Figure()
+    fig.text(region=[10, 70, -5, 10], textfiles=POINTS_DATA, transparency=transparency)
     return fig
 
 

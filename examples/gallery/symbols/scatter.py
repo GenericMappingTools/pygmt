@@ -2,8 +2,8 @@
 Scatter plots with a legend
 ---------------------------
 
-To create a scatter plot with a legend one may use a loop and create one scatter
-plot per item to appear in the legend and set the label accordingly.
+To create a scatter plot with a legend one may use a loop and create one
+scatter plot per item to appear in the legend and set the label accordingly.
 
 Modified from the matplotlib example:
 https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
@@ -23,13 +23,13 @@ fig.basemap(
 )
 for color in ["gray73", "darkorange", "slateblue"]:
     x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
-    sizes = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
+    size = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
     # plot data points as circles (style="c"), with different sizes
     fig.plot(
         x=x,
         y=y,
         style="c",
-        sizes=sizes,
+        size=size,
         color=color,
         # Set the legend label,
         # and set the symbol size to be 0.25 cm (+S0.25c) in legend

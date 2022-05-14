@@ -1,0 +1,4 @@
+outs:
+- md5: 45d04e159cac6d5cc7f780707748fcca
+  size: 30821
+  path: test_grdview_on_a_plane_with_colored_frontal_facade.png

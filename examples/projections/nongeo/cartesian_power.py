@@ -1,10 +1,11 @@
-"""
+r"""
 Cartesian power
 ===============
 
 **X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the
-*width* of the figure and the optional argument *height*. The axis or axes with a
-logarithmic transformation requires **p** and the power transformation for that axis.
+*width* of the figure and the optional argument *height*. The axis or axes with
+a logarithmic transformation requires **p** and the power transformation for
+that axis.
 """
 import numpy as np
 import pygmt
@@ -12,7 +13,7 @@ import pygmt
 # Create a list of y values 0-10
 yvalues = np.arange(0, 11)
 # Create a list of x-values that are the square of the y-values
-xvalues = yvalues ** 2
+xvalues = yvalues**2
 
 fig = pygmt.Figure()
 fig.plot(

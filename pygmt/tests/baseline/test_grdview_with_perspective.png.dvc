@@ -1,0 +1,4 @@
+outs:
+- md5: f53fdc81b70335b8d7d30261a91969c0
+  size: 27943
+  path: test_grdview_with_perspective.png

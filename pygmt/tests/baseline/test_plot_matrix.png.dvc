@@ -1,4 +1,4 @@
 outs:
-- md5: f7254b2eef71154aec50f24f3d80e216
-  size: 21111
+- md5: 868f554737ce7b116b50e68ea32b6331
+  size: 13639
   path: test_plot_matrix.png

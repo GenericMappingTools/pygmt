@@ -8,7 +8,7 @@ BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
 DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
 LINT_FILES=$(PROJECT) setup.py doc/conf.py
 
 help:
@@ -16,7 +16,8 @@ help:
 	@echo ""
 	@echo "  install   install in editable mode"
 	@echo "  package   build source and wheel distributions"
-	@echo "  test      run the test suite (including doctests) and report coverage"
+	@echo "  test      run the test suite (including some doctests) and report coverage"
+	@echo "  fulltest  run the test suite (including all doctests) and report coverage"
 	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
 	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flake8 and isort)"
 	@echo "  lint      run pylint for a deeper (and slower) quality check"
@@ -28,9 +29,20 @@ install:
 	pip install --no-deps -e .
 
 package:
-	python setup.py sdist bdist_wheel
+	python -m build --sdist --wheel
 
 test:
+	# Run a tmp folder to make sure the tests are run on the installed version
+	mkdir -p $(TESTDIR)
+	@echo ""
+	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
+	@echo ""
+	cd $(TESTDIR); PYGMT_USE_EXTERNAL_DISPLAY="false" pytest $(PYTEST_COV_ARGS) --doctest-plus $(PROJECT)
+	cp $(TESTDIR)/coverage.xml .
+	cp -r $(TESTDIR)/htmlcov .
+	rm -r $(TESTDIR)
+
+fulltest:
 	# Run a tmp folder to make sure the tests are run on the installed version
 	mkdir -p $(TESTDIR)
 	@echo ""

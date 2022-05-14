@@ -5,15 +5,18 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
+    check_data_input_order,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src.which import which
 
 
 @fmt_docstring
+@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -35,15 +38,21 @@ from pygmt.helpers import (
     Y="yshift",
     Z="zvalue",
     a="aspatial",
-    i="columns",
-    l="label",
+    b="binary",
     c="panel",
+    d="nodata",
+    e="find",
     f="coltypes",
+    g="gap",
+    h="header",
+    i="incols",
+    l="label",
     p="perspective",
     t="transparency",
+    w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
+def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -65,21 +74,22 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
     polygon outline is drawn or not. If a symbol is selected, ``color`` and
     ``pen`` determines the fill and outline/no outline, respectively.
 
-    Full parameter list at :gmt-docs:`plot.html`
+    Full option list at :gmt-docs:`plot.html`
 
     {aliases}
 
     Parameters
     ----------
+    data : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
+        Use parameter ``incols`` to choose which columns are x, y, color, and
+        size, respectively.
     x/y : float or 1d arrays
         The x and y coordinates, or arrays of x and y coordinates of the
         data points
-    data : str or 2d array
-        Either a data file name or a 2d numpy array with the tabular data.
-        Use parameter ``columns`` to choose which columns are x, y, color,
-        and size, respectively.
-    sizes : 1d array
-        The sizes of the data points in units specified using ``style``.
+    size : 1d array
+        The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
         If plotting vectors (using ``style='V'`` or ``style='v'``), then
@@ -144,6 +154,8 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {G}
+        *color* can be a 1d array, but it is only valid if using ``x``/``y``
+        and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
@@ -185,45 +197,61 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
+    {b}
     {c}
+    {d}
+    {e}
     {f}
-    columns : str or 1d array
-        Choose which columns are x, y, color, and size, respectively if
-        input is provided via *data*. E.g. ``columns = [0, 1]`` or
-        ``columns = '0,1'`` if the *x* values are stored in the first
-        column and *y* values in the second one. Note: zero-based
-        indexing is used.
-    label : str
-        Add a legend entry for the symbol or line being plotted.
-
+    {g}
+    {h}
+    {i}
+    {l}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
-        for symbols.
+        for symbols, but this option is only valid if using x/y.
+    {w}
     """
+    # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     kind = data_kind(data, x, y)
 
     extra_arrays = []
-    if "S" in kwargs and kwargs["S"][0] in "vV" and direction is not None:
+    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
-    if "G" in kwargs and not isinstance(kwargs["G"], str):
+    elif (
+        kwargs.get("S") is None
+        and kind == "geojson"
+        and data.geom_type.isin(["Point", "MultiPoint"]).all()
+    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
+        kwargs["S"] = "s0.2c"
+    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
+        # checking that the data is a file path to set default style
+        try:
+            with open(which(data), mode="r", encoding="utf8") as file:
+                line = file.readline()
+            if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                # if the file is gmt style and geometry is set to Point
+                kwargs["S"] = "s0.2c"
+        except FileNotFoundError:
+            pass
+    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for color if data is matrix or file."
             )
         extra_arrays.append(kwargs["G"])
         del kwargs["G"]
-    if sizes is not None:
+    if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
-                "Can't use arrays for sizes if data is matrix or file."
+                "Can't use arrays for 'size' if data is a matrix or file."
             )
-        extra_arrays.append(sizes)
+        extra_arrays.append(size)
 
     for flag in ["I", "t"]:
-        if flag in kwargs and is_nonstr_iter(kwargs[flag]):
+        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
@@ -238,5 +266,4 @@ def plot(self, x=None, y=None, data=None, sizes=None, direction=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("plot", arg_str)
+            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))

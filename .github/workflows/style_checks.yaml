@@ -2,7 +2,7 @@ name: Style Checks
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
   # Schedule daily tests
   schedule:
@@ -16,13 +16,13 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3.0.2
 
       # Setup Miniconda
       - name: Set up Python
-        uses: actions/setup-python@v2.2.2
+        uses: actions/setup-python@v3.1.2
         with:
-          python-version: 3.9
+          python-version: '3.10'
 
       - name: Install packages
         run: |

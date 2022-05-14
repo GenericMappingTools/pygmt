@@ -1,4 +1,4 @@
 outs:
-- md5: 2a1b33433bd3921113938b8d7c0a4928
-  size: 11245
+- md5: 27fb1ece45f0dccc0642a87c08165b02
+  size: 8930
   path: test_subplot_clearance_and_shared_xy_axis_layout.png

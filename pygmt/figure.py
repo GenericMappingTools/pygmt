@@ -3,11 +3,12 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
+import warnings
 from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except KeyError:
+except ModuleNotFoundError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -73,13 +74,15 @@ class Figure:
     >>> fig = Figure()
     >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
-    >>> print(", ".join("{:.2f}".format(i) for i in fig.region))
+    >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
     """
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(prefix=self._name + "-preview-")
+        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
+            prefix=f"{self._name}-preview-"
+        )
         self._activate_figure()
 
     def __del__(self):
@@ -101,7 +104,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", "{} {}".format(self._name, fmt))
+            lib.call_module(module="figure", args=f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -127,12 +130,14 @@ class Figure:
         C="gs_option",
         E="dpi",
         F="prefix",
-        I="icc_gray",
+        I="resize",
+        N="bb_style",
         T="fmt",
         Q="anti_aliasing",
+        V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, **kwargs):
+    def psconvert(self, icc_gray=False, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
@@ -150,9 +155,14 @@ class Figure:
         Parameters
         ----------
         crop : str or bool
-            Adjust the BoundingBox and HiResBoundingBox to the minimum required
-            by the image content. Append ``u`` to first remove any GMT-produced
-            time-stamps. Default is True.
+            Adjust the BoundingBox and HiResBoundingBox to the minimum
+            required by the image content. Default is True. Append **+u** to
+            first remove any GMT-produced time-stamps. Append **+r** to
+            *round* the HighResBoundingBox instead of using the ``ceil``
+            function. This is going against Adobe Law but can be useful when
+            creating very small images where the difference of one pixel
+            might matter. If ``verbose`` is used we also report the
+            dimensions of the final illustration.
         gs_option : str
             Specify a single, custom option that will be passed on to
             GhostScript as is.
@@ -164,8 +174,33 @@ class Figure:
             using the input names as base, which are appended with an
             appropriate extension. Use this option to provide a different name,
             but without extension. Extension is still determined automatically.
-        icc_gray : bool
-            Enforce gray-shades by using ICC profiles.
+        resize : str
+            [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
+            [/\ *height*]][**+S**\ *scale*] ].
+            Adjust the BoundingBox and HiResBoundingBox by scaling and/or
+            adding margins. Append **+m** to specify extra margins to extend
+            the bounding box. Give either one (uniform), two (x and y) or four
+            (individual sides) margins; append unit [Default is set by
+            :gmt-term:`PROJ_LENGTH_UNIT`]. Append **+s**\ *width* to resize the
+            output image to exactly *width* units. The default unit is set by
+            :gmt-term:`PROJ_LENGTH_UNIT` but you can append a new unit and/or
+            impose different width and height (**Note**: This may change the
+            image aspect ratio). What happens here is that Ghostscript will do
+            the re-interpolation work and the final image will retain the DPI
+            resolution set by ``dpi``.  Append **+sm** to set a maximum size
+            and the new *width* is only imposed if the original figure width
+            exceeds it. Append /\ *height* to also impose a maximum height in
+            addition to the width. Alternatively, append **+S**\ *scale* to
+            scale the image by a constant factor.
+        bb_style : str
+            Set optional BoundingBox fill color, fading, or draw the outline
+            of the BoundingBox. Append **+f**\ *fade* to fade the entire plot
+            towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
+            paint the BoundingBox behind the illustration and append **+p**\
+            [*pen*] to draw the BoundingBox outline (append a pen or accept
+            the default pen of 0.25p,black). Note: If both **+g** and **+f**
+            are used then we use paint as the fade color instead of black.
+            Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
@@ -183,13 +218,36 @@ class Figure:
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
+        {V}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if "A" not in kwargs:
+        if kwargs.get("A") is None:
             kwargs["A"] = ""
+
+        if icc_gray:
+            msg = (
+                "The 'icc_gray' parameter has been deprecated since v0.6.0"
+                " and will be removed in v0.8.0."
+            )
+            warnings.warn(msg, category=FutureWarning, stacklevel=2)
+            if kwargs.get("N") is None:
+                kwargs["N"] = "+i"
+            else:
+                kwargs["N"] += "+i"
+
+        # Manually handle prefix -F argument so spaces aren't converted to \040
+        # by build_arg_string function. For more information, see
+        # https://github.com/GenericMappingTools/pygmt/pull/1487
+        try:
+            prefix_arg = f'-F"{kwargs.pop("F")}"'
+        except KeyError as err:
+            raise GMTInvalidInput("The 'prefix' must be specified.") from err
+
         with Session() as lib:
-            lib.call_module("psconvert", build_arg_string(kwargs))
+            lib.call_module(
+                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
+            )
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
@@ -235,12 +293,17 @@ class Figure:
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
         if ext not in fmts:
-            raise GMTInvalidInput("Unknown extension '.{}'".format(ext))
+            if ext == "ps":
+                raise GMTInvalidInput(
+                    "Extension '.ps' is not supported. "
+                    "Please use '.eps' or '.pdf' instead."
+                )
+            raise GMTInvalidInput(f"Unknown extension '.{ext}'.")
         fmt = fmts[ext]
         if transparent:
             if fmt != "g":
                 raise GMTInvalidInput(
-                    "Transparency unavailable for '{}', only for png.".format(ext)
+                    f"Transparency unavailable for '{ext}', only for png."
                 )
             fmt = fmt.upper()
         if anti_alias:
@@ -253,7 +316,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None):
+    def show(self, dpi=300, width=500, method=None, waiting=0.5):
         """
         Display a preview of the figure.
 
@@ -273,7 +336,11 @@ class Figure:
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
 
-        Note that the external viewer does not block the current process.
+        Note that the external viewer does not block the current process, thus
+        it's necessary to suspend the execution of the current process for a
+        short while after launching the external viewer, so that the preview
+        image won't be deleted before the external viewer tries to open it. Set
+        the ``waiting`` parameter to a larger number if your computer is slow.
 
         Parameters
         ----------
@@ -287,6 +354,10 @@ class Figure:
             - **external**: PDF preview in an external program [default]
             - **notebook**: PNG preview [default in Jupyter notebooks]
             - **none**: Disable image preview
+        waiting : float
+            Suspend the execution of the current process for a given number of
+            seconds after launching an external viewer.
+            Only works if ``method="external"``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -318,7 +389,7 @@ class Figure:
 
         if method == "external":
             pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
-            launch_external_viewer(pdf)
+            launch_external_viewer(pdf, waiting=waiting)
 
     def shift_origin(self, xshift=None, yshift=None):
         """
@@ -347,12 +418,12 @@ class Figure:
         self._preprocess()
         args = ["-T"]
         if xshift:
-            args.append("-X{}".format(xshift))
+            args.append(f"-X{xshift}")
         if yshift:
-            args.append("-Y{}".format(yshift))
+            args.append(f"-Y{yshift}")
 
         with Session() as lib:
-            lib.call_module("plot", " ".join(args))
+            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
@@ -375,7 +446,7 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, "{}.{}".format(self._name, fmt))
+        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, "rb") as image:
@@ -411,6 +482,7 @@ class Figure:
         grdcontour,
         grdimage,
         grdview,
+        histogram,
         image,
         inset,
         legend,
@@ -423,6 +495,8 @@ class Figure:
         solar,
         subplot,
         text,
+        velo,
+        wiggle,
     )
 
 

@@ -19,6 +19,7 @@ from pygmt.helpers import (
     J="projection",
     D="position",
     F="box",
+    U="timestamp",
     V="verbose",
     X="xshift",
     Y="yshift",
@@ -64,6 +65,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         using :gmt-term:`MAP_FRAME_PEN`. By default, uses
         **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
         1p black pen and adds a white background.
+    {U}
     {V}
     {XY}
     {c}
@@ -72,10 +74,9 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "D" not in kwargs:
+    if kwargs.get("D") is None:
         kwargs["D"] = position
-
-        if "F" not in kwargs:
+        if kwargs.get("F") is None:
             kwargs["F"] = box
 
     with Session() as lib:
@@ -84,6 +85,5 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         elif data_kind(spec) == "file":
             specfile = spec
         else:
-            raise GMTInvalidInput("Unrecognized data type: {}".format(type(spec)))
-        arg_str = " ".join([specfile, build_arg_string(kwargs)])
-        lib.call_module("legend", arg_str)
+            raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
+        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))

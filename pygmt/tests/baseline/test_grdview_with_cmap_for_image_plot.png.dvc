@@ -1,0 +1,4 @@
+outs:
+- md5: 4f8b5d492ab869c552739126a41e838c
+  size: 270012
+  path: test_grdview_with_cmap_for_image_plot.png

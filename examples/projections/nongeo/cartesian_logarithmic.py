@@ -1,10 +1,10 @@
-"""
+r"""
 Cartesian logarithmic
 =====================
 
 **X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and
-the optional *height*. The axis or axes with a logarithmic transformation requires
-**l** after its size argument.
+the optional *height*. The axis or axes with a logarithmic transformation
+requires **l** after its size argument.
 """
 import numpy as np
 import pygmt
@@ -12,11 +12,11 @@ import pygmt
 # Create a list of x values 0-100
 xline = np.arange(0, 101)
 # Create a list of y-values that are the square root of the x-values
-yline = xline ** 0.5
+yline = xline**0.5
 # Create a list of x values for every 10 in 0-100
 xpoints = np.arange(0, 101, 10)
 # Create a list of y-values that are the square root of the x-values
-ypoints = xpoints ** 0.5
+ypoints = xpoints**0.5
 
 fig = pygmt.Figure()
 fig.plot(
@@ -27,7 +27,8 @@ fig.plot(
     frame=["WSne+gbisque", "x2g3", "ya2f1g2"],
     x=xline,
     y=yline,
-    # Set the line thickness to *1p*, the color to *blue*, and the style to *dash*
+    # Set the line thickness to *1p*, the color to *blue*, and the style to
+    # *dash*
     pen="1p,blue,-",
 )
 # Plot square root values as points on the line
