@@ -141,6 +141,8 @@ def test_text_invalid_inputs(region):
         fig.text(
             region=region, projection="x1c", position="MC", text=["text1", "text2"]
         )
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
 @pytest.mark.mpl_image_compare
