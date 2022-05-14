@@ -171,6 +171,8 @@ def text_(
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
+        if (x is not None or y is not None) and textfiles is not None:
+            raise GMTInvalidInput( "Provide either position only, or x/y pairs, or textfiles.")
         kind = data_kind(textfiles, x, y, text)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
@@ -181,7 +183,7 @@ def text_(
             )
         if text is None or is_nonstr_iter(text):
             raise GMTInvalidInput("Text can't be None or array.")
-        kind = "file"
+        kind = ""
         textfiles = ""
 
     # Build the -F option in gmt text.
@@ -220,8 +222,7 @@ def text_(
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
-    # Append text as the last column
-    # text must be in str type, see issue #706
+    # Append text as the last column. Text must be passed in str type.
     if kind == "vectors":
         extra_arrays.append(np.atleast_1d(text).astype(str))
 
