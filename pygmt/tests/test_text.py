@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Tests text.
 """
@@ -15,16 +14,16 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
 
 
-@pytest.fixture(scope="module")
-def projection():
+@pytest.fixture(scope="module", name="projection")
+def fixture_projection():
     """
     The projection system.
     """
     return "x10c"
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
