@@ -322,10 +322,8 @@ def test_text_transparency():
     text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
 
     fig = Figure()
-
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
     fig.text(x=x, y=y, text=text, transparency=50)
-
     return fig
 
 
@@ -342,7 +340,6 @@ def test_text_varying_transparency():
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
     fig.text(x=x, y=y, text=text, transparency=transparency)
-
     return fig
 
 
@@ -366,7 +363,6 @@ def test_text_nonstr_text():
     Input text is in non-string type (e.g., int, float)
     """
     fig = Figure()
-
     fig.text(
         region=[0, 10, 0, 10],
         projection="X10c",
@@ -375,5 +371,4 @@ def test_text_nonstr_text():
         y=[1, 2, 3, 4],
         text=[1, 2, 3.0, 4.0],
     )
-
     return fig
