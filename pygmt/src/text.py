@@ -182,7 +182,7 @@ def text_(
             )
         if text is None or is_nonstr_iter(text):
             raise GMTInvalidInput("Text can't be None or array.")
-        kind = ""
+        kind = None
         textfiles = ""
 
     # Build the -F option in gmt text.
@@ -221,7 +221,7 @@ def text_(
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
-    # Append text as the last column. Text must be passed in str type.
+    # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
         extra_arrays.append(np.atleast_1d(text).astype(str))
 
