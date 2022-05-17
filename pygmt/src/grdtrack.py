@@ -304,7 +304,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         is_a_grid = False
     elif isinstance(grid, str):
         try:
-            xr.open_dataarray(which(grid, download="a"))
+            xr.open_dataarray(which(grid, download="a")).close()
             is_a_grid = True
         except ValueError:
             is_a_grid = False
@@ -312,7 +312,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         msg = (
             "Positional parameters 'points, grid' of pygmt.grdtrack() is changed "
             "to 'grid, points=None' since v0.7.0. It's likely that you're NOT "
-            "passing an valid grid as the first positional argument or "
+            "passing a valid grid as the first positional argument or "
             "passing an invalid grid to the 'grid' parameter. "
             "Please check the order of arguments with the latest documentation. "
             "The warning will be removed in v0.9.0."
