@@ -3,7 +3,16 @@ Vertical or horizontal bar
 --------------------------
 The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
-the ``style`` parameter.
+the ``style`` parameter. To plot multi-band bars, please append
+**+v**|**i**\ *ny* (for verticals bars) or **+v**|**i** \*nx*
+(for horizontal ones), where *ny* or *nx* indicate the total
+number of bands in the bar. Here, **+i** means we must accumulate
+the bar values from the increments *dy* or *dx*, while *+v* means
+we get the complete values relative to base. Normally, the bands
+are plotted as sections of a final single bar. Use **+s** to
+instead split the bar into *ny* or *nx* side-by-side,
+individual and thinner bars. Multi-band bars requires `cmap=True`
+with one color per band.
 """
 
 import pandas as pd
@@ -42,9 +51,9 @@ with fig.subplot(
     data = {
         "x1": [0.25, 1.25],
         "y": [1, 2],
-        "x2": [1, 0.5],
-        "x3": [0.75, 1.25],
-        "x4": [1.25, 0.75],
+        "x2": [0.65, 0.5],
+        "x3": [0.4, 1.25],
+        "x4": [2.25, 0.75],
     }
     df = pd.DataFrame(data=data)
 
@@ -54,6 +63,6 @@ with fig.subplot(
 
     with fig.set_panel(panel=3):
         fig.basemap(region=[0, 4, 0, 3], frame='+t"split bars"')
-        fig.plot(data=data, style="B1c+i4+s4", cmap=True, pen=pen)
+        fig.plot(data=data, style="B1c+v4+s", cmap=True, pen=pen)
 
 fig.show()
