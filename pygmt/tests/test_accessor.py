@@ -1,10 +1,16 @@
 """
 Test the behaviour of the GMTDataArrayAccessor class.
 """
+import os
+
 import pytest
 import xarray as xr
-from pygmt import which
+from packaging.version import Version
+from pygmt import clib, which
 from pygmt.exceptions import GMTInvalidInput
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_accessor_gridline_cartesian():
@@ -66,3 +72,29 @@ def test_accessor_set_non_boolean():
 
     with pytest.raises(GMTInvalidInput):
         grid.gmt.gtype = 2
+
+
+@pytest.mark.skipif(
+    gmt_version < Version("6.4.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
+)
+def test_accessor_sliced_datacube():
+    """
+    Check that a 2D grid which is sliced from an n-dimensional datacube works
+    with accessor methods.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1578.
+    """
+    try:
+        fname = which(
+            "https://github.com/pydata/xarray-data/raw/master/eraint_uvz.nc",
+            download="u",
+        )
+        with xr.open_dataset(fname) as dataset:
+            grid = dataset.sel(level=500, month=1, drop=True).z
+
+        assert grid.gmt.registration == 0  # gridline registration
+        assert grid.gmt.gtype == 1  # geographic coordinate type
+    finally:
+        os.remove(fname)

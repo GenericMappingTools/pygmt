@@ -29,23 +29,17 @@ The development of PyGMT has been supported by NSF grants
 `OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
 `EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
 
+We welcome any feedback and ideas! Let us know by submitting
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
+or by posting on our `Discourse forum
+<https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__.
+
+
 Presentations
 -------------
 
 These are conference presentations about the development of PyGMT (previously
 "GMT/Python"):
-
-* "Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT".
-  2020.
-  Liam Toney.
-  Presented at *ROSES 2020*.
-  url: https://www.iris.edu/hq/inclass/lesson/728
-
-.. figure:: https://img.youtube.com/vi/SSIGJEe0BIk/maxresdefault.jpg
-    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
-    :width: 80%
-    :align: center
-    :alt: ROSES 2020 youtube video
 
 * "PyGMT: Accessing the Generic Mapping Tools from Python".
   2019.

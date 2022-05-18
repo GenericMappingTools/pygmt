@@ -10,6 +10,9 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
+.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+    :alt: Latest version on conda-forge
+    :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
     :alt: GitHub Actions Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests.yaml
@@ -28,7 +31,7 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
-.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg
+.. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
 
@@ -40,31 +43,17 @@ Why PyGMT?
 
 A beautiful map is worth a thousand words.
 To truly understand how powerful PyGMT is, play with it online on `Binder <https://github.com/GenericMappingTools/try-gmt>`__!
-But if you need some convincing first, watch this `1 hour introduction <https://www.youtube.com/watch?v=SSIGJEe0BIk>`__ to PyGMT!
+For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
-Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__
-or visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__.
+Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
+visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
-.. image:: https://user-images.githubusercontent.com/23487320/95393255-c0b72e80-0956-11eb-9471-24429461802b.png
-    :alt: Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+.. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
+    :alt: Quick Introduction to PyGMT YouTube Video
     :align: center
-    :target: https://www.youtube.com/watch?v=SSIGJEe0BIk
-
-
-Disclaimer
-----------
-
-🚨 **This package is still undergoing rapid development.** 🚨
-
-All of the API (functions/classes/interfaces) is subject to change until we reach v1.0.0
-as per the `semantic versioning specification <https://semver.org/spec/v2.0.0.html>`__.
-There may be non-backward compatible changes as we experiment with new design ideas and
-implement new features. **This is not a finished product, use with caution.**
-
-We welcome any feedback and ideas!
-Let us know by submitting
-`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
-or by posting on our `Discourse forum <https://forum.generic-mapping-tools.org>`__.
+    :target: https://youtu.be/4iPnITXrxVU
+    :width: 80%
 
 About
 -----
@@ -74,11 +63,6 @@ publication quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
 command-line program widely used in the Earth Sciences.
 
-We rely heavily on new features that have been implemented in GMT 6.0. In particular,
-a new *modern execution mode* that greatly simplifies figure creation. **These features
-are not available in the 5.4 version of GMT**.
-
-
 Project goals
 -------------
 
@@ -87,8 +71,22 @@ Project goals
 * Interface with the GMT C API directly using ctypes (no system calls).
 * Support for rich display in the Jupyter notebook.
 * Integration with the `PyData <https://pydata.org/>`__ ecosystem:
-  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables and
-  ``xarray.DataArray`` for grids.
+  ``numpy.ndarray`` or ``pandas.DataFrame`` for data tables,
+  ``xarray.DataArray`` for grids and ``geopandas.GeoDataFrame``
+  for geographical data.
+
+
+Quickstart
+----------
+
+Installation
+++++++++++++
+
+Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
+
+For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
 
 Contacting Us
@@ -154,28 +152,29 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2021_5162003,
+    @software{pygmt_2022_6426493,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Schlitzer, William and
-                      Toney, Liam and
-                      Grund, Michael and
                       Jones, Meghan and
+                      Schlitzer, William and
+                      Grund, Michael and
+                      Toney, Liam and
                       Yao, Jiayuan and
+                      Magen, Yohai and
                       Materna, Kathryn and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
-                      Magen, Yohai and
+                      Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = aug,
-      year         = 2021,
+      month        = apr,
+      year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.4.1},
-      doi          = {10.5281/zenodo.5162003},
-      url          = {https://doi.org/10.5281/zenodo.5162003}
+      version      = {v0.6.1},
+      doi          = {10.5281/zenodo.6426493},
+      url          = {https://doi.org/10.5281/zenodo.6426493}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -209,7 +208,7 @@ Related projects
 * `gmtmex <https://github.com/GenericMappingTools/gmtmex>`__: A Matlab/Octave wrapper
   for GMT.
 
-Other Python wrappers for GMT:
+Other Python wrappers for GMT (not maintained):
 
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
@@ -227,13 +226,28 @@ Compatibility with GMT/Python/NumPy versions
       - Documentation
       - GMT
       - Python
-      - Numpy
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/milestone/8>`_ (upcoming release)
+      - NumPy
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_ (latest release)
+      - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
+      - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.19
+    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
+      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7
       - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_ (latest release)
+    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7

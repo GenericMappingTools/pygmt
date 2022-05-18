@@ -1,0 +1,72 @@
+# YAML 1.2
+# Metadata for citation of this software according to the CFF format (https://citation-file-format.github.io/)
+cff-version: 1.2.0
+message: If you use this software, please cite it as follows.
+title: 'PyGMT: A Python interface for the Generic Mapping Tools'
+authors:
+- given-names: Leonardo
+  family-names: Uieda
+  affiliation: University of Liverpool, United Kingdom
+  orcid: https://orcid.org/0000-0001-6123-9515
+- given-names: Dongdong
+  family-names: Tian
+  affiliation: China University of Geosciences, China
+  orcid: https://orcid.org/0000-0001-7967-1197
+- given-names: Wei Ji
+  family-names: Leong
+  affiliation: The Ohio State University, USA
+  orcid: https://orcid.org/0000-0003-2354-1988
+- given-names: Meghan
+  family-names: Jones
+  affiliation: University of Hawai'i at Mānoa, USA
+  orcid: https://orcid.org/0000-0003-0180-8928
+- given-names: William
+  family-names: Schlitzer
+  affiliation: Unaffiliated
+  orcid: https://orcid.org/0000-0002-5843-2282
+- given-names: Michael
+  family-names: Grund
+  affiliation: Innoplexia GmbH, Germany
+  orcid: https://orcid.org/0000-0001-8759-2018
+- given-names: Liam
+  family-names: Toney
+  affiliation: University of Alaska Fairbanks, USA
+  orcid: https://orcid.org/0000-0003-0167-9433
+- given-names: Jiayuan
+  family-names: Yao
+  affiliation: Nanyang Technological University, Singapore
+  orcid: https://orcid.org/0000-0001-7036-4238
+- given-names: Yohai
+  family-names: Magen
+  affiliation: Tel Aviv University, Israel
+  orcid: https://orcid.org/0000-0002-4892-4013
+- given-names: Kathryn
+  family-names: Materna
+  affiliation: US Geological Survey, USA
+  orcid: https://orcid.org/0000-0002-6687-980X
+- given-names: Tyler
+  family-names: Newton
+  affiliation: University of Oregon, USA
+  orcid: https://orcid.org/0000-0002-1560-6553
+- given-names: Abhishek
+  family-names: Anant
+  affiliation: Unaffiliated
+  orcid: https://orcid.org/0000-0002-5751-2010
+- given-names: Malte
+  family-names: Ziebarth
+  affiliation: GFZ German Research Centre for Geosciences, Germany
+  orcid: https://orcid.org/0000-0002-5190-4478
+- given-names: Jamie
+  family-names: Quinn
+  affiliation: University College London, United Kingdom
+  orcid: https://orcid.org/0000-0002-0268-7032
+- given-names: Paul
+  family-names: Wessel
+  affiliation: University of Hawai'i at Mānoa, USA
+  orcid: https://orcid.org/0000-0001-5708-7336
+date-released: 2022-04-11
+doi: 10.5281/zenodo.6426493
+license: BSD-3-Clause
+repository-code: https://github.com/GenericMappingTools/pygmt
+type: software
+version: 0.6.1

@@ -14,6 +14,7 @@ Fixes #
 - [ ] Add tests for new features or tests that would have caught the bug that you're fixing.
 - [ ] Add new public functions/methods/classes to `doc/api/index.rst`.
 - [ ] Write detailed docstrings for all functions/methods.
+- [ ] If wrapping a new module, open a 'Wrap new GMT module' issue and submit reasonably-sized PRs.
 - [ ] If adding new functionality, add an example to docstrings or tutorials.
 
 **Slash Commands**

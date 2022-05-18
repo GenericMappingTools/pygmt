@@ -79,7 +79,8 @@ There are 11 configuration files located in `.github/workflows`:
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and Pull Request branches.
-   It is also scheduled to run daily on the *main* branch.
+   It is also scheduled to run regular tests daily and run full tests
+   (including doctests) on Wednesday on the *main* branch.
    In draft Pull Requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
@@ -108,8 +109,8 @@ There are 11 configuration files located in `.github/workflows`:
 4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
-   slash command `/test-gmt-dev`. It is also scheduled to run daily on the
-   *main* branch.
+   slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
+   Wednesday and Friday on the *main* branch.
 
 5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
@@ -177,8 +178,8 @@ adjusted upward on every major and minor release, but never on a patch release.
 ## Backwards compatibility and deprecation policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
-until the v1.0.0 release.
-
+until the v1.0.0 release. Versioning in PyGMT is based on the
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (e.g. vMAJOR.MINOR.PATCH).
 Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
@@ -254,18 +255,23 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, test updates due to GMT releases, etc).
 5. Sort the items within each section (i.e., New Features, Enhancements, etc.)
    such that similar items are located near each other (e.g., new wrapped
-   modules, gallery examples, API docs changes) and entries within each group
+   modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their
    GitHub account. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `README.rst` with new information on the new release version, namely
-   the BibTeX citation, a vX.Y.Z documentation link, and compatibility with
-   Python and GMT versions. Follow
+8. Update `README.rst` with new information on the new release version,
+   including a vX.Y.Z documentation link, and compatibility with
+   GMT/Python/NumPy versions. Follow
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for compatibility updates. Follow `AUTHORSHIP.md` guidelines for updating
-   the author list in the BibTeX citation.
+   for compatibility updates.
+9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+   `CITATION.cff` needs to be updated with any metadata changes, including the
+   DOI, release date, and version information. Please also follow
+   guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
+   More information about the `CITATION.cff` specification can be found at
+   https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
 
 ### Check the README syntax
 

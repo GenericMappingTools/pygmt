@@ -5,8 +5,8 @@ import inspect
 import os
 import string
 
-from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
+from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -76,7 +76,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
+        # pylint: disable=import-outside-toplevel
         import pytest
+        from matplotlib.testing.compare import compare_images
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
@@ -165,14 +167,24 @@ def download_test_data():
         "@N35E135.earth_relief_03s_g.nc",
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
+        # Earth seafloor age grids
+        "@earth_age_01d_g",
+        "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
         "@EGM96_to_36.txt",
+        "@MaunaLoa_CO2.txt",
+        "@RidgeTest.shp",
+        "@RidgeTest.shx",
+        "@RidgeTest.dbf",
+        "@RidgeTest.prj",
+        "@Table_5_11.txt",
+        "@Table_5_11_mean.xyz",
         "@fractures_06.txt",
         "@hotspots.txt",
         "@ridge.txt",
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
-        "@Table_5_11.txt",
+        "@static_earth_relief.nc",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",
@@ -180,3 +192,16 @@ def download_test_data():
         "@usgs_quakes_22.txt",
     ]
     which(fname=datasets, download="a")
+
+
+def load_static_earth_relief():
+    """
+    Load the static_earth_relief file for internal testing.
+
+    Returns
+    -------
+    data : xarray.DataArray
+        A grid of Earth relief for internal tests.
+    """
+    fname = which("@static_earth_relief.nc", download="c")
+    return load_dataarray(fname)

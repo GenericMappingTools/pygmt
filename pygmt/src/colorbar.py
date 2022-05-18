@@ -107,4 +107,4 @@ def colorbar(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        lib.call_module("colorbar", build_arg_string(kwargs))
+        lib.call_module(module="colorbar", args=build_arg_string(kwargs))
