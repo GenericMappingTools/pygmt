@@ -4,7 +4,7 @@ Vertical or horizontal bar
 The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. To plot multi-band bars, please append
-**+v**|**i** *ny* (for verticals bars) or **+v**|**i** *nx*
+**+v**\|\ **i**\ *ny* (for verticals bars) or **+v**\|\ **i**\ *nx*
 (for horizontal ones), where *ny* or *nx* indicate the total
 number of bands in the bar. Here, **+i** means we must accumulate
 the bar values from the increments *dy* or *dx*, while *+v* means
