@@ -395,7 +395,7 @@ class Figure:
         """
         Shift plot origin in x and/or y directions.
 
-        This method shifts the plot origin relative to the current origin 
+        This method shifts the plot origin relative to the current origin
         by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
         **i**, or **p**).
 
