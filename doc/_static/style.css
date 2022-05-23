@@ -33,24 +33,6 @@ p {
     font-size: 1.05em;
 }
 
-.gmtplot-output {
-    width: 100%;
-    overflow: auto;
-}
-
-.gmtplot-output img {
-    max-width: 700px;
-    width: 100%;
-}
-
-.gmtplot-output pre {
-    color: #888888;
-}
-
-.gmtplot-output-figure {
-    margin-bottom: 50px;
-}
-
 .sidebar-title {
     margin-top: 10px;
     margin-bottom: 0px;

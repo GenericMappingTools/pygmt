@@ -3,7 +3,6 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_string,
@@ -21,6 +20,7 @@ from pygmt.helpers import (
     JZ="zsize",
     B="frame",
     L="map_scale",
+    F="box",
     Td="rose",
     Tm="compass",
     U="timestamp",
@@ -42,9 +42,6 @@ def basemap(self, **kwargs):
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
 
-    At least one of the parameters ``frame``, ``map_scale``, ``rose`` or
-    ``compass`` must be specified.
-
     Full option list at :gmt-docs:`basemap.html`
 
     {aliases}
@@ -61,6 +58,24 @@ def basemap(self, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
         Draws a simple map scale centered on the reference point specified.
+    box : bool or str
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
+        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
+        If set to ``True``, draws a rectangular border around the
+        map scale or rose. Alternatively, specify a different pen with
+        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [default is
+        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
+        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
+        separate in x- and y-direction, or individual side spacings between
+        scale and border. Append **+i** to draw a secondary, inner border as
+        well. We use a uniform gap between borders of 2p and the
+        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
+        **+r** to draw rounded rectangular borders instead, with a 6p corner
+        radius. You can override this radius by appending another value.
+        Finally, append **+s** to draw an offset background shaded region.
+        Here, *dx/dy* indicates the shift relative to the foreground frame
+        [Default is 4p/-4p] and shade sets the fill style to use for shading
+        [default is gray50].
     rose : str
         Draws a map directional rose on the map at the location defined by
         the reference and anchor points.
@@ -77,8 +92,6 @@ def basemap(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
-        raise GMTInvalidInput(
-            "At least one of frame, map_scale, compass, rose, or panel must be specified."
-        )
+        kwargs["B"] = True  # Plotting frames if required arguments not given
     with Session() as lib:
-        lib.call_module("basemap", build_arg_string(kwargs))
+        lib.call_module(module="basemap", args=build_arg_string(kwargs))
