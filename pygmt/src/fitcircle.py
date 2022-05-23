@@ -1,5 +1,6 @@
 """
-fitcircle - Find mean position and great [or small] circle fit to points on sphere.
+fitcircle - Find mean position and great [or small] circle fit to points on
+sphere.
 """
 import warnings
 
@@ -54,6 +55,9 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
+    data : str or list or {table-like}
+        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        {table-classes} containing longitude and latitude values.
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
