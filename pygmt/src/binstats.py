@@ -84,11 +84,7 @@ def binstats(data, **kwargs):
         the computed statistics are written to the ``outgrid``. For **h**,  a
         table with the centers of the hexagons and the computed statistics is
         written to the ouput.  Here, ``spacing`` sets the *y* increment only
-        and the *x*-increment is computed given the geometry. Because the
-        horizontal spacing between hexagon centers in *x* and *y* have
-        a ratio of :math:`\sqrt{3}`, the *xmax* in ``region`` is adjusted to
-        fit a whole number of hexagons. **Note**: Hexagonal tiling requires
-        Cartesian data.
+        and the *x*-increment is computed given the geometry.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
