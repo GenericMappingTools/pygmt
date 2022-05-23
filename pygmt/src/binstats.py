@@ -36,7 +36,7 @@ def binstats(data, **kwargs):
     Bin spatial data and determine statistics per bin.
 
     Reads arbitrarily located (x,y[,z][,w]) points
-    (2-4 columns) from standard input [or ``data``] and for each
+    (2-4 columns) from ``data``] and for each
     node in the specified grid layout determines which points are
     within the given radius.  These point are then used in the
     calculation of the specified statistic. The results may be
