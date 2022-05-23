@@ -34,18 +34,18 @@ def test_fitcircle_no_outfile(data):
     """
     Test fitcircle with no set outfile.
     """
-    result = fitcircle(data=data, normalize=True)
+    result = fitcircle(data=data, norm=True)
     assert result.shape == (7, 3)
     # Test longitude results
-    npt.assert_allclose(result.iloc[:, 0].min(), 52.7434273422)
-    npt.assert_allclose(result.iloc[:, 0].max(), 330.243649573)
-    npt.assert_allclose(result.iloc[:, 0].mean(), 223.078116476)
-    npt.assert_allclose(result.iloc[:, 0].median(), 232.7449849)
+    npt.assert_allclose(result.longitude.min(), 52.7434273422)
+    npt.assert_allclose(result.longitude.max(), 330.243649573)
+    npt.assert_allclose(result.longitude.mean(), 223.078116476)
+    npt.assert_allclose(result.longitude.median(), 232.7449849)
     # Test latitude results
-    npt.assert_allclose(result.iloc[:, 1].min(), -21.2085369093)
-    npt.assert_allclose(result.iloc[:, 1].max(), 21.2085369093)
-    npt.assert_allclose(result.iloc[:, 1].mean(), -7.8863683297)
-    npt.assert_allclose(result.iloc[:, 1].median(), -18.406777)
+    npt.assert_allclose(result.latitude.min(), -21.2085369093)
+    npt.assert_allclose(result.latitude.max(), 21.2085369093)
+    npt.assert_allclose(result.latitude.mean(), -7.8863683297)
+    npt.assert_allclose(result.latitude.median(), -18.406777)
 
 
 def test_fitcircle_file_output(data):
@@ -54,7 +54,7 @@ def test_fitcircle_file_output(data):
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         result = fitcircle(
-            data=data, normalize=True, outfile=tmpfile.name, output_type="file"
+            data=data, norm=True, outfile=tmpfile.name, output_type="file"
         )
         assert result is None  # return value is None
         assert os.path.exists(path=tmpfile.name)  # check that outfile exists
@@ -65,7 +65,7 @@ def test_fitcircle_invalid_format(data):
     Test that fitcircle fails with an incorrect format for output_type.
     """
     with pytest.raises(GMTInvalidInput):
-        fitcircle(data=data, normalize=True, output_type="a")
+        fitcircle(data=data, norm=True, output_type="a")
 
 
 def test_fitcircle_no_normalize(data):
@@ -82,7 +82,7 @@ def test_fitcircle_no_outfile_specified(data):
     file name is specified.
     """
     with pytest.raises(GMTInvalidInput):
-        fitcircle(data=data, normalize=True, output_type="file")
+        fitcircle(data=data, norm=True, output_type="file")
 
 
 def test_filter1d_outfile_incorrect_output_type(data):
@@ -93,7 +93,7 @@ def test_filter1d_outfile_incorrect_output_type(data):
     with pytest.warns(RuntimeWarning):
         with GMTTempFile(suffix=".txt") as tmpfile:
             result = fitcircle(
-                data=data, normalize=True, outfile=tmpfile.name, output_type="numpy"
+                data=data, norm=True, outfile=tmpfile.name, output_type="numpy"
             )
             assert result is None  # return value is None
             assert os.path.exists(path=tmpfile.name)  # check that outfile exists
@@ -103,9 +103,9 @@ def test_fitcircle_format(data):
     """
     Test that correct formats are returned.
     """
-    circle_default = fitcircle(data=data, normalize=True)
+    circle_default = fitcircle(data=data, norm=True)
     assert isinstance(circle_default, pd.DataFrame)
-    circle_array = fitcircle(data=data, normalize=True, output_type="numpy")
+    circle_array = fitcircle(data=data, norm=True, output_type="numpy")
     assert isinstance(circle_array, np.ndarray)
-    circle_df = fitcircle(data=data, normalize=True, output_type="pandas")
+    circle_df = fitcircle(data=data, norm=True, output_type="pandas")
     assert isinstance(circle_df, pd.DataFrame)

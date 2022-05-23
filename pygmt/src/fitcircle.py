@@ -20,7 +20,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
     Find mean position and great [or small] circle fit to points on sphere.
 
     **fitcircle** reads lon,lat [or lat,lon] values from the first two
-    columns on standard input [or *table*]. These are converted to
+    columns of the table. These are converted to
     Cartesian three-vectors on the unit sphere. Then two locations are
     found: the mean of the input positions, and the pole to the great circle
     which best fits the input positions. The user may choose one or both of
@@ -116,7 +116,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
             result = pd.read_csv(
                 tmpfile.name,
                 sep="\t",
-                names=["longitutde", "latitude", "method"],
+                names=["longitude", "latitude", "method"],
                 comment=">",
             )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
