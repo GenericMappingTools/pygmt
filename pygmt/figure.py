@@ -397,7 +397,7 @@ class Figure:
 
         This method shifts the plot origin relative to the current origin
         by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
-        **i**, or **p**).
+        **i**, or **p**). Default unit if not given is **c** for centimeter.
 
         Prepend **a** to shift the origin back to the original position after
         plotting, prepend **c** to center the plot on the center of the paper
