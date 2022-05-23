@@ -24,7 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "earth_relief_holes": "Earth relief grid with holes",
+        "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
@@ -359,5 +359,4 @@ def _load_earth_relief_holes(**kwargs):
         degrees. Relief is in meters.
     """
     fname = which("@earth_relief_20m_holes.grd", download="c")
-    grid = load_dataarray(fname, engine="netcdf4")
-    return grid
+    return load_dataarray(fname, engine="netcdf4")
