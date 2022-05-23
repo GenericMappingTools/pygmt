@@ -89,6 +89,12 @@ def binstats(data, **kwargs):
         a ratio of :math:`\sqrt{3}`, the *xmax* in ``region`` is adjusted to
         fit a whole number of hexagons. **Note**: Hexagonal tiling requires
         Cartesian data.
+    weight : str
+        Input data have an extra column containing observation point weight.
+        If weights are given then weighted statistical quantities will be
+        computed while the count will be the sum of the weights instead of
+        number of points. If tje weights are actually uncertainties
+        (one sigma) then append **+s** and weight = 1/sigma.
     {I}
     {R}
     {V}
