@@ -70,6 +70,8 @@ def binstats(data, **kwargs):
         (append desired quantile in 0-100% range [50]), **r** for the r.m.s.,
         **s** for standard deviation, **u** for maximum (upper),
         **U** for maximum of negative values only, or **z** for the sum.
+    empty : float or int
+        Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
         search *radius* [no normalization].
