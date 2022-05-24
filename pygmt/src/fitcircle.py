@@ -67,7 +67,7 @@ def fitcircle(data, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
-    norm : float or bool
+    norm : int or bool
         Specify the desired *norm* as **1** or **2**\ , or use ``True``
         or **3** to see both solutions.
     small_circle : float
