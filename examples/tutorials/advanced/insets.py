@@ -99,7 +99,7 @@ fig.coast(
 # This does not include an inset fill as it is covered by the inset figure
 with fig.inset(position="jBL+w3c/4c+o0.5c/0.2c", box="+pblack"):
     # Use a plotting function to create a figure inside the inset.
-    # Use '?' when specify the projection width, to automatically
+    # Use '?' when specifying the projection width, to automatically
     # determine the map size from the inset box size.
     fig.coast(
         region=[-80, -65, 35, 50],

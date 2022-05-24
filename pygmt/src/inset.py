@@ -111,7 +111,7 @@ def inset(self, **kwargs):
     >>> # Setting the position to top left and a width of 3.5 centimeters
     >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
     ...     # Map elements under the "with" statement are plotted in the inset.
-    ...     # Use '?' when specify the projection width, to automatically
+    ...     # Use '?' when specifying the projection width, to automatically
     ...     # determine the map size from the inset box size.
     ...     fig.coast(
     ...         region="g",
