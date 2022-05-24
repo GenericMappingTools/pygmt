@@ -348,7 +348,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_earth_relief_holes(**kwargs):
+def _load_earth_relief_holes(**kwargs):  # pylint: disable=unused-argument
     """
     Loads the remote file @earth_relief_20m_holes.grd.
 
