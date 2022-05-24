@@ -110,10 +110,12 @@ def inset(self, **kwargs):
     >>> # Use a "with" statement to initialize the inset context manager
     >>> # Setting the position to top left and a width of 3.5 centimeters
     >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
-    ...     # Map elements under the "with" statement are plotted in the inset
+    ...     # Map elements under the "with" statement are plotted in the inset.
+    ...     # Use '?' when specify the projection width, to automatically
+    ...     # determine the map size from the inset box size.
     ...     fig.coast(
     ...         region="g",
-    ...         projection="G47/-20/3.5c",
+    ...         projection="G47/-20/?",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
