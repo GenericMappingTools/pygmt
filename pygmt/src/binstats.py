@@ -36,13 +36,13 @@ def binstats(data, **kwargs):
     Bin spatial data and determine statistics per bin.
 
     Reads arbitrarily located (x,y[,z][,w]) points
-    (2-4 columns) from ``data``] and for each
+    (2-4 columns) from ``data`` and for each
     node in the specified grid layout determines which points are
     within the given radius.  These point are then used in the
     calculation of the specified statistic. The results may be
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.  Alternatively, select
-    hexagonal tiling instead or a rectangular grid layout.
+    hexagonal tiling instead of a rectangular grid layout.
 
     Full option list at :gmt-docs:`gmtbinstats.html`
 
@@ -98,7 +98,6 @@ def binstats(data, **kwargs):
     {h}
     {i}
     {r}
-    {x}
 
     Returns
     -------
