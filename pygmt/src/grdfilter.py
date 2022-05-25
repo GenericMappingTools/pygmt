@@ -97,7 +97,7 @@ def grdfilter(grid, **kwargs):
         5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
         Spherical distance calculation.
 
-    {I}
+    {spacing}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.

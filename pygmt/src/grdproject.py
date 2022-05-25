@@ -73,7 +73,7 @@ def grdproject(grid, **kwargs):
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
         northings for particular projection zones [0/0].
-    {I}
+    {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str

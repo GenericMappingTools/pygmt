@@ -56,7 +56,7 @@ def grdsample(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
+    {spacing}
     {R}
     translate : bool
         Translate between grid and pixel registration; if the input is

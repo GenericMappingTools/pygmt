@@ -114,7 +114,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
@@ -211,7 +211,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     {R}
 
@@ -299,7 +299,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     {R}
 

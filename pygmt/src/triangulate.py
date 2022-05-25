@@ -88,7 +88,7 @@ class triangulate:  # pylint: disable=invalid-name
             {table-classes}.
         {J}
         {R}
-        {I}
+        {spacing}
         outgrid : bool or str
             The name of the output netCDF file with extension .nc to store the
             grid in. The interpolation is performed in the original
@@ -204,7 +204,7 @@ class triangulate:  # pylint: disable=invalid-name
             {table-classes}.
         {J}
         {R}
-        {I}
+        {spacing}
         outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
             grid in. The interpolation is performed in the original

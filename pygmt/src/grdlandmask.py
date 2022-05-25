@@ -48,7 +48,7 @@ def grdlandmask(**kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
+    {spacing}
     {R}
     {A}
     resolution : str

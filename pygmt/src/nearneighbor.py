@@ -84,7 +84,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     {R}
 

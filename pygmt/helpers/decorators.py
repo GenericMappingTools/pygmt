@@ -14,7 +14,7 @@ import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
-COMMON_OPTIONS = {
+COMMON_DOCSTRINGS = {
     "R": r"""
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
@@ -47,7 +47,7 @@ COMMON_OPTIONS = {
         color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
-    "I": r"""
+    "spacing": r"""
         spacing : str
             *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
@@ -481,7 +481,7 @@ def fmt_docstring(module_func):
         "    tabular data"
     )
 
-    for marker, text in COMMON_OPTIONS.items():
+    for marker, text in COMMON_DOCSTRINGS.items():
         # Remove the indentation and the first line break from the multiline
         # strings so that it doesn't mess up the original docstring
         filler_text[marker] = textwrap.dedent(text.lstrip("\n"))
