@@ -91,7 +91,7 @@ def binstats(data, **kwargs):
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
         computed while the count will be the sum of the weights instead of
-        number of points. If tje weights are actually uncertainties
+        number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
     {I}
     {R}
