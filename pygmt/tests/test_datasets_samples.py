@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading sample datasets.
 """
+import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.datasets import (
@@ -145,3 +146,15 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+
+
+def test_earth_relief_holes():
+    """
+    Check that the @earth_relief_20m_holes.grd dataset loads without errors.
+    """
+    grid = load_sample_data(name="earth_relief_holes")
+    assert grid.shape == (31, 31)
+    npt.assert_allclose(grid.max(), 1601)
+    npt.assert_allclose(grid.min(), -4929.5)
+    # Test for the NaN values in the remote file
+    assert grid[2, 21].isnull()
