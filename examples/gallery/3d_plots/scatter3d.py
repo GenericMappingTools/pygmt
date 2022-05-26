@@ -39,6 +39,16 @@ fig = pygmt.Figure()
 # color_model="+cSetosa,Versicolor,Virginica" to write the discrete color
 # palette "cubhelix" in categorical format and add the species names as
 # annotations for the colorbar
+
+# Please note that by default pandas assigns the categorical number code
+# in a lexical or alphabetical manner to the individual categories.
+# Thus, also the labels for the colorbar have to be given to color_model
+# in alphabetical order.
+# In case you want another or non-alphabetical order, you firstly have
+# to adjust the categorical number code. For handling and manipulating
+# categorical data in pandas you may have a look at:
+# https://pandas.pydata.org/docs/user_guide/categorical.html
+
 pygmt.makecpt(
     cmap="cubhelix", color_model="+cSetosa,Versicolor,Virginica", series=(0, 2, 1)
 )
