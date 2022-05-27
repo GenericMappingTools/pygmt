@@ -11,8 +11,16 @@ __doctest_skip__ = ["inset"]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(
+    D="position",
+    F="box",
+    J="projection",
+    M="margin",
+    N="no_clip",
+    R="region",
+    V="verbose",
+)
+@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(self, **kwargs):
     r"""
     Create an inset figure to be placed within a larger figure.
@@ -98,6 +106,8 @@ def inset(self, **kwargs):
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
         is clip].
+    {R}
+    {J}
     {V}
 
     Examples
@@ -107,20 +117,22 @@ def inset(self, **kwargs):
     >>> # Create the larger figure
     >>> fig = pygmt.Figure()
     >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
-    >>> # Use a "with" statement to initialize the inset context manager
-    >>> # Setting the position to top left and a width of 3.5 centimeters
-    >>> with fig.inset(position="jTL+w3.5c+o0.2c", margin=0, box="+pgreen"):
-    ...     # Map elements under the "with" statement are plotted in the inset.
-    ...     # Use '?' when specifying the projection width, to automatically
-    ...     # determine the map size from the inset box size.
+    >>> # Use a "with" statement to initialize the inset context manager.
+    >>> # Seting the position to top left with an 0.2 cm offset and
+    >>> # draw a green inset box.
+    >>> # The inset size is determined by the region and projection parameters.
+    >>> with fig.inset(
+    ...     position="jTL+o0.2c",
+    ...     margin=0,
+    ...     box="+pgreen",
+    ...     region="g",
+    ...     projection="G47/-20/3.5c",
+    ... ):
     ...     fig.coast(
-    ...         region="g",
-    ...         projection="G47/-20/?",
     ...         land="gray",
     ...         water="white",
     ...         dcw="MG+gred",
     ...     )
-    ...
     >>> # Map elements outside the "with" block are plotted in the main figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()  # doctest: +SKIP
