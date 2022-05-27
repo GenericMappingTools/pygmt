@@ -20,6 +20,10 @@ import pygmt
 # Load sample iris data and convert 'species' column to categorical dtype
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
 df.species = df.species.astype(dtype="category")
+# Make a list of the indiviudal categories of the 'species' column
+# ['setosa', 'versicolor', 'virginica']
+# By default they are in alphabetical order
+labels = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
 # The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
@@ -50,7 +54,12 @@ fig = pygmt.Figure()
 # https://pandas.pydata.org/docs/user_guide/categorical.html
 
 pygmt.makecpt(
-    cmap="cubhelix", color_model="+cSetosa,Versicolor,Virginica", series=(0, 2, 1)
+    cmap="cubhelix",
+	# Use the minum and maximum of the categorical number code
+	# to set the lowest_value and the highest_value of the CPT
+    series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
+	# convert ['setosa', 'versicolor', 'virginica'] to 'setosa,versicolor,virginica'
+    color_model="+c" + ",".join(labels),
 )
 
 fig.plot3d(

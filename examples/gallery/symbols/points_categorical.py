@@ -17,6 +17,10 @@ import pygmt
 # Load sample penguins data and convert 'species' column to categorical dtype
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
 df.species = df.species.astype(dtype="category")
+# Make a list of the indiviudal categories of the 'species' column
+# ['Adelie', 'Chinstrap', 'Gentoo']
+# By default they are in alphabetical order
+labels = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
@@ -58,7 +62,14 @@ fig.basemap(
 # categorical data in pandas you may have a look at:
 # https://pandas.pydata.org/docs/user_guide/categorical.html
 
-pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+cAdelie,Chinstrap,Gentoo")
+pygmt.makecpt(
+    cmap="inferno",
+	# Use the minum and maximum of the categorical number code
+	# to set the lowest_value and the highest_value of the CPT
+    series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
+	# convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
+    color_model="+c" + ",".join(labels),
+)
 
 fig.plot(
     # Use bill length and bill depth as x and y data input, respectively
