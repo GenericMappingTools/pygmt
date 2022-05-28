@@ -147,11 +147,11 @@ def test_hotspots():
     assert isinstance(data, pd.DataFrame)
 
 
-def test_load_table_5_11():
+def test_load_notre_dame_topography():
     """
     Check that the @table_5_11.txt dataset loads without errors.
     """
-    data = load_sample_data("table511")
+    data = load_sample_data(name="notre_dame_topography")
     assert data.shape == (52, 3)
     summary = data.describe()
     assert summary.loc["min", "x"] == 0.2
