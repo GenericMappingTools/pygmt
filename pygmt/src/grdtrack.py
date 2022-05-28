@@ -310,12 +310,12 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
             is_a_grid = False
     if not is_a_grid:
         msg = (
-            "Positional parameters 'points, grid' of pygmt.grdtrack() is changed "
+            "Positional parameters 'points, grid' of pygmt.grdtrack() has changed "
             "to 'grid, points=None' since v0.7.0. It's likely that you're NOT "
             "passing a valid grid as the first positional argument or "
-            "passing an invalid grid to the 'grid' parameter. "
+            "are passing an invalid grid to the 'grid' parameter. "
             "Please check the order of arguments with the latest documentation. "
-            "The warning will be removed in v0.9.0."
+            "This warning will be removed in v0.9.0."
         )
         grid, points = points, grid
         warnings.warn(msg, category=FutureWarning, stacklevel=1)
