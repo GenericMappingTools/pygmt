@@ -363,7 +363,7 @@ def _load_notre_dame_topography(**kwargs):
     fname = which("@Table_5_11.txt", download="c")
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
-  
+
 def _load_earth_relief_holes(**kwargs):  # pylint: disable=unused-argument
     """
     Loads the remote file @earth_relief_20m_holes.grd.

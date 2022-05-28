@@ -162,7 +162,7 @@ def test_load_notre_dame_topography():
     assert summary.loc["min", "z"] == 690
     assert summary.loc["max", "z"] == 960
 
-    
+
 def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.
