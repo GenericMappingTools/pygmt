@@ -150,7 +150,7 @@ def test_hotspots():
 
 def test_load_notre_dame_topography():
     """
-    Check that the @table_5_11.txt dataset loads without errors.
+    Check that the @Table_5_11.txt dataset loads without errors.
     """
     data = load_sample_data(name="notre_dame_topography")
     assert data.shape == (52, 3)

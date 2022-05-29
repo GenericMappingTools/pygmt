@@ -32,7 +32,7 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
-        "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology.",
+        "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -350,10 +350,9 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_notre_dame_topography(**kwargs):
+def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
     """
-    Load Table 5.11 (Table_5_11.txt) in Davis: Statistics and Data Analysis in
-    Geology.
+    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
 
     Returns
     -------
