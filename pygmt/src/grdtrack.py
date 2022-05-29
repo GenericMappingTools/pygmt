@@ -304,9 +304,9 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         is_a_grid = False
     elif isinstance(grid, str):
         try:
-            xr.open_dataarray(which(grid, download="a")).close()
+            xr.open_dataarray(which(grid, download="a"), engine="netcdf4").close()
             is_a_grid = True
-        except ValueError:
+        except ValueError, OSError:
             is_a_grid = False
     if not is_a_grid:
         msg = (
