@@ -49,7 +49,7 @@ Founder
 [@liamtoney](https://github.com/liamtoney)
 ::::
 
-::::{grid-item-card} Meghan Jones
+::::{grid-item-card} Max Jones
 :img-top: https://avatars.githubusercontent.com/u/14077947?v=4
 
 Maintainer
