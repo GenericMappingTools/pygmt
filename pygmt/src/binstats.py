@@ -21,7 +21,6 @@ from pygmt.io import load_dataarray
     N="normalize",
     R="region",
     S="search_radius",
-    T="tiling",
     V="verbose",
     W="weight",
     a="colname",
@@ -41,8 +40,7 @@ def binstats(data, **kwargs):
     within the given radius.  These point are then used in the
     calculation of the specified statistic. The results may be
     presented as is or may be normalized by the circle area to
-    perhaps give density estimates.  Alternatively, select
-    hexagonal tiling instead of a rectangular grid layout.
+    perhaps give density estimates.
 
     Full option list at :gmt-docs:`gmtbinstats.html`
 
@@ -79,14 +77,6 @@ def binstats(data, **kwargs):
         Sets the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
         Not compatible with ``tiling``.
-    tiling : str
-        Instead of circular, possibly overlapping areas, select
-        non-overlapping tiling.  Choose between **r**\ ectangular
-        **h**\ exagonal binning. For **r**, set bin sizes via ``spacing`` and
-        the computed statistics are written to the ``outgrid``. For **h**,  a
-        table with the centers of the hexagons and the computed statistics is
-        written to the ouput.  Here, ``spacing`` sets the *y* increment only
-        and the *x*-increment is computed given the geometry.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
