@@ -317,9 +317,10 @@ Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 
 ### Adding example code
 
-Many of the PyGMT functions have example code in their documentation. To contribute an example, add an "Example header" 
-and put the example code below it. Have all lines begin with ">>>".  To keep this example code from being run during 
-testing, add the code "__doctest_skip__ = [function name]" to the top of the module. 
+Many of the PyGMT functions have example code in their documentation. To contribute an
+example, add an "Example" header and put the example code below it. Have all lines 
+begin with `>>>`.  To keep this example code from being run during testing, add the code
+`__doctest_skip__ = [function name]` to the top of the module. 
 
 **Inline code example**
 
