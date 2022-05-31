@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Tests text.
 """
@@ -15,16 +14,16 @@ POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
 
 
-@pytest.fixture(scope="module")
-def projection():
+@pytest.fixture(scope="module", name="projection")
+def fixture_projection():
     """
     The projection system.
     """
     return "x10c"
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
@@ -124,15 +123,25 @@ def test_text_position(region):
     return fig
 
 
-def test_text_xy_with_position_fails(region):
+def test_text_invalid_inputs(region):
     """
-    Run text by providing both x/y pairs and position arguments.
+    Run text by providing invalid combinations of inputs.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.text(
             region=region, projection="x1c", x=1.2, y=2.4, position="MC", text="text"
         )
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", textfiles="file.txt", text="text")
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", position="MC", text=None)
+    with pytest.raises(GMTInvalidInput):
+        fig.text(
+            region=region, projection="x1c", position="MC", text=["text1", "text2"]
+        )
+    with pytest.raises(GMTInvalidInput):
+        fig.text(region=region, projection="x1c", textfiles="file.txt", x=1.2, y=2.4)
 
 
 @pytest.mark.mpl_image_compare
@@ -313,10 +322,8 @@ def test_text_transparency():
     text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
 
     fig = Figure()
-
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
     fig.text(x=x, y=y, text=text, transparency=50)
-
     return fig
 
 
@@ -333,7 +340,6 @@ def test_text_varying_transparency():
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
     fig.text(x=x, y=y, text=text, transparency=transparency)
-
     return fig
 
 
@@ -357,7 +363,6 @@ def test_text_nonstr_text():
     Input text is in non-string type (e.g., int, float)
     """
     fig = Figure()
-
     fig.text(
         region=[0, 10, 0, 10],
         projection="X10c",
@@ -366,5 +371,4 @@ def test_text_nonstr_text():
         y=[1, 2, 3, 4],
         text=[1, 2, 3.0, 4.0],
     )
-
     return fig
