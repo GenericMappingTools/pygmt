@@ -132,7 +132,7 @@ def select(data=None, outfile=None, **kwargs):
     {binary}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {g}
     {h}
     {i}

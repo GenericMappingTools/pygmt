@@ -85,7 +85,7 @@ def grdcontour(self, grid, **kwargs):
     {W}
     {XY}
     {panel}
-    {f}
+    {coltypes}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the

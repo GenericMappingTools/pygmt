@@ -79,7 +79,7 @@ def grdcut(grid, **kwargs):
         area.
 
     {verbose}
-    {f}
+    {coltypes}
 
     Returns
     -------

@@ -103,7 +103,7 @@ def grdinfo(grid, **kwargs):
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
     {verbose}
-    {f}
+    {coltypes}
 
     Returns
     -------

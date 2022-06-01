@@ -107,7 +107,7 @@ def grdfilter(grid, **kwargs):
         opposite of the input grid. [Default gives the same registration as the
         input grid].
     {verbose}
-    {f}
+    {coltypes}
     {r}
 
     Returns

@@ -171,7 +171,7 @@ def plot3d(
     {panel}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {g}
     {h}
     {i}

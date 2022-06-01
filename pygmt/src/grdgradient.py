@@ -139,7 +139,7 @@ def grdgradient(grid, **kwargs):
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
     {verbose}
-    {f}
+    {coltypes}
     {n}
 
     Returns

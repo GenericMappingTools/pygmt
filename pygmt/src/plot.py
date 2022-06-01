@@ -201,7 +201,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {panel}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {g}
     {h}
     {i}

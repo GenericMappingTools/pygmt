@@ -154,7 +154,7 @@ def text_(
     {aspatial}
     {panel}
     {find}
-    {f}
+    {coltypes}
     {h}
     {i}
     {p}

@@ -96,7 +96,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {panel}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {g}
     {h}
     {i}

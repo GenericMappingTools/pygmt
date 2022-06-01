@@ -69,7 +69,7 @@ def info(data, **kwargs):
     {verbose}
     {aspatial}
     {i}
-    {f}
+    {coltypes}
     {r}
 
     Returns

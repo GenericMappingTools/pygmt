@@ -162,7 +162,7 @@ COMMON_DOCSTRINGS = {
             the *pattern* or *regexp* to instead only pass data expressions
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
-    "f": r"""
+    "coltypes": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or

@@ -113,7 +113,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         Default format is scanline orientation of ASCII numbers: **TLa**.
     {binary}
     {nodata}
-    {f}
+    {coltypes}
     {h}
     {o}
     {s}

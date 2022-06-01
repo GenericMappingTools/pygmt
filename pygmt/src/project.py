@@ -197,7 +197,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
 
-    {f}
+    {coltypes}
 
     Returns
     -------

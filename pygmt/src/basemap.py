@@ -86,7 +86,7 @@ def basemap(self, **kwargs):
     {verbose}
     {XY}
     {panel}
-    {f}
+    {coltypes}
     {p}
     {t}
     """

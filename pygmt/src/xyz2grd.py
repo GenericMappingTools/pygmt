@@ -120,7 +120,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     {binary}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {h}
     {i}
     {r}

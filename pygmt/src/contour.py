@@ -118,7 +118,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {panel}
     {nodata}
     {find}
-    {f}
+    {coltypes}
     {h}
     {i}
     {p}
