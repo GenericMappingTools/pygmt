@@ -209,7 +209,7 @@ COMMON_DOCSTRINGS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
-    "h": r"""
+    "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
             *remark*][**+t**\ *title*].

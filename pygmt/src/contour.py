@@ -119,7 +119,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {nodata}
     {find}
     {coltypes}
-    {h}
+    {header}
     {i}
     {p}
     {t}

@@ -173,7 +173,7 @@ def plot3d(
     {find}
     {coltypes}
     {gap}
-    {h}
+    {header}
     {i}
     {l}
     {p}

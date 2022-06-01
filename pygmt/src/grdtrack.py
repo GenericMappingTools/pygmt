@@ -249,7 +249,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {find}
     {coltypes}
     {gap}
-    {h}
+    {header}
     {i}
     {j}
     {n}

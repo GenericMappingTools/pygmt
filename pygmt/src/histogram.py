@@ -137,7 +137,7 @@ def histogram(self, data, **kwargs):
     {binary}
     {nodata}
     {find}
-    {h}
+    {header}
     {i}
     {l}
     {p}

@@ -98,7 +98,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {find}
     {coltypes}
     {gap}
-    {h}
+    {header}
     {i}
     {p}
     {t}

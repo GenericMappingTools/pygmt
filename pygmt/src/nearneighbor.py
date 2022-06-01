@@ -120,7 +120,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     {find}
     {coltypes}
     {gap}
-    {h}
+    {header}
     {i}
     {r}
     {w}

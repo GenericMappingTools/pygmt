@@ -195,7 +195,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {panel}
     {nodata}
     {find}
-    {h}
+    {header}
     {i}
     {p}
     {t}

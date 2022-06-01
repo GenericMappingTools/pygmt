@@ -203,7 +203,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {find}
     {coltypes}
     {gap}
-    {h}
+    {header}
     {i}
     {l}
     {p}

@@ -155,7 +155,7 @@ def text_(
     {panel}
     {find}
     {coltypes}
-    {h}
+    {header}
     {i}
     {p}
     {t}

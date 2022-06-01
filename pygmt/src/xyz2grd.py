@@ -121,7 +121,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     {nodata}
     {find}
     {coltypes}
-    {h}
+    {header}
     {i}
     {r}
     {w}

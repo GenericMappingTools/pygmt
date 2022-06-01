@@ -91,7 +91,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         {region}
         {verbose}
-        {h}
+        {header}
 
         Returns
         -------
@@ -280,7 +280,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             Perform quadratic equalization [Default is linear].
         {region}
         {verbose}
-        {h}
+        {header}
 
         Returns
         -------

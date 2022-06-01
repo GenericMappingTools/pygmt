@@ -52,7 +52,7 @@ def sph2grd(data, **kwargs):
     {region}
     {verbose}
     {binary}
-    {h}
+    {header}
     {i}
     {r}
     {x}
