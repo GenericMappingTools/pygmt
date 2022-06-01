@@ -138,7 +138,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {incols}
     {coltypes}
     {header}
-    {o}
+    {outcols}
     {r}
     {w}
 
@@ -226,7 +226,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {coltypes}
     {header}
     {incols}
-    {o}
+    {outcols}
     {r}
     {w}
 
@@ -314,7 +314,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {coltypes}
     {header}
     {incols}
-    {o}
+    {outcols}
     {r}
     {w}
 

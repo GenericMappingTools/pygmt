@@ -289,7 +289,7 @@ COMMON_DOCSTRINGS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
-    "o": r"""
+    "outcols": r"""
         outcols : str or 1d array
             *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
