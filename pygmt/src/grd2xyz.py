@@ -116,7 +116,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     {coltypes}
     {header}
     {outcols}
-    {s}
+    {skiprows}
 
     Returns
     -------

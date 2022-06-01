@@ -138,7 +138,7 @@ def select(data=None, outfile=None, **kwargs):
     {incols}
     {outcols}
     {registration}
-    {s}
+    {skiprows}
     {w}
 
     Returns

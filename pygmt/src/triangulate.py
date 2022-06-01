@@ -111,7 +111,7 @@ class triangulate:  # pylint: disable=invalid-name
         {incols}
         {registration}
             Only valid with ``outgrid``.
-        {s}
+        {skiprows}
         {w}
 
         Returns
@@ -220,7 +220,7 @@ class triangulate:  # pylint: disable=invalid-name
         {header}
         {incols}
         {registration}
-        {s}
+        {skiprows}
         {w}
 
         Returns
@@ -338,7 +338,7 @@ class triangulate:  # pylint: disable=invalid-name
         {coltypes}
         {header}
         {incols}
-        {s}
+        {skiprows}
         {w}
 
         Returns

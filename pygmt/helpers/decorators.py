@@ -326,7 +326,7 @@ COMMON_DOCSTRINGS = {
             Force gridline (**g**) or pixel (**p**) node registration.
             [Default is **g**\ (ridline)].
         """,
-    "s": r"""
+    "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
             Suppress output for records whose *z*-value equals NaN [Default
