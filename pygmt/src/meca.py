@@ -202,7 +202,7 @@ def meca(
     {region}
     {frame}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {perspective}
     {transparency}

@@ -100,7 +100,7 @@ def colorbar(self, **kwargs):
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {perspective}
     {transparency}

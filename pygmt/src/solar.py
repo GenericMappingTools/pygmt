@@ -59,7 +59,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         is ``default,black,solid``.
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {perspective}
     {transparency}

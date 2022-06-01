@@ -156,7 +156,7 @@ def plot3d(
     {timestamp}
     {verbose}
     {W}
-    {XY}
+    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

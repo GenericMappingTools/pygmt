@@ -131,7 +131,7 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {XY}
+    {xyshift}
     {timestamp}
     {verbose}
     {binary}

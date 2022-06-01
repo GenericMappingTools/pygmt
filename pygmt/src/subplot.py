@@ -145,7 +145,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {verbose}
-    {XY}
+    {xyshift}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

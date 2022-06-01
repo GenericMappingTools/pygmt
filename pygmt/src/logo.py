@@ -55,7 +55,7 @@ def logo(self, **kwargs):
         - **u** to place the URL to the GMT site
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {transparency}
     """

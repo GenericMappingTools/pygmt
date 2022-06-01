@@ -150,7 +150,7 @@ def text_(
         Do NOT clip text at map boundaries [Default is will clip].
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {aspatial}
     {panel}
     {find}

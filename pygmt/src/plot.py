@@ -186,7 +186,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {W}
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

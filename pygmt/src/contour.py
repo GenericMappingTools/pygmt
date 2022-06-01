@@ -113,7 +113,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         separator for the two labels instead.
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {binary}
     {panel}
     {nodata}

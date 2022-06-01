@@ -114,7 +114,7 @@ def grdview(self, grid, **kwargs):
         **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {coltypes}
     {interpolation}

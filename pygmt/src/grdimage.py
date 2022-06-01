@@ -153,7 +153,7 @@ def grdimage(self, grid, **kwargs):
         3).
     {region}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {coltypes}
     {interpolation}

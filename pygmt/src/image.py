@@ -57,7 +57,7 @@ def image(self, imagefile, **kwargs):
         YIQ-transformation.
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {perspective}
     {transparency}

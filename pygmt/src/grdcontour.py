@@ -83,7 +83,7 @@ def grdcontour(self, grid, **kwargs):
     {timestamp}
     {verbose}
     {W}
-    {XY}
+    {xyshift}
     {panel}
     {coltypes}
     label : str

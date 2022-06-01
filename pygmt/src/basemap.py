@@ -84,7 +84,7 @@ def basemap(self, **kwargs):
         reference and anchor points
     {timestamp}
     {verbose}
-    {XY}
+    {xyshift}
     {panel}
     {coltypes}
     {perspective}

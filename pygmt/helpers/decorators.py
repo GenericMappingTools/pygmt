@@ -93,7 +93,7 @@ COMMON_DOCSTRINGS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "XY": r"""
+    "xyshift": r"""
         xshift : str
             [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
             Shift plot origin in x-direction.
