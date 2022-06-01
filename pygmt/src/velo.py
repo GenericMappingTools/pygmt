@@ -208,7 +208,7 @@ def velo(self, data=None, **kwargs):
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
         by ``region``. [Default plots symbols inside frame only].
-    {U}
+    {timestamp}
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].

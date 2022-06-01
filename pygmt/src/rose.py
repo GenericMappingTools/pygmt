@@ -188,7 +188,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {U}
+    {timestamp}
     {verbose}
     {XY}
     {b}

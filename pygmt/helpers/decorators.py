@@ -35,7 +35,7 @@ COMMON_DOCSTRINGS = {
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "U": """\
+    "timestamp": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
     "CPT": r"""
@@ -396,7 +396,7 @@ def fmt_docstring(module_func):
     * ``{R}``: region (bounding box as west, east, south, north)
     * ``{projection}``: projection (coordinate system to use)
     * ``{B}``: frame (map frame and axes parameters)
-    * ``{U}``: timestamp (insert time stamp logo)
+    * ``{timestamp}``: timestamp (insert time stamp logo)
     * ``{CPT}``: cmap (the color palette table)
     * ``{G}``: color
     * ``{W}``: pen

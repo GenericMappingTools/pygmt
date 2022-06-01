@@ -153,7 +153,7 @@ def plot3d(
         the foreground are plotted after items in the background.
     style : str
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
-    {U}
+    {timestamp}
     {verbose}
     {W}
     {XY}

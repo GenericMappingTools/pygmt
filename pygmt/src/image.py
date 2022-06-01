@@ -55,7 +55,7 @@ def image(self, imagefile, **kwargs):
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {U}
+    {timestamp}
     {verbose}
     {XY}
     {c}

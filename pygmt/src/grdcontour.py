@@ -80,7 +80,7 @@ def grdcontour(self, grid, **kwargs):
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {U}
+    {timestamp}
     {verbose}
     {W}
     {XY}

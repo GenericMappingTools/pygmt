@@ -184,7 +184,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
     {W}
-    {U}
+    {timestamp}
     {verbose}
     {XY}
     zvalue : str

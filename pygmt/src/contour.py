@@ -111,7 +111,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {U}
+    {timestamp}
     {verbose}
     {XY}
     {b}
