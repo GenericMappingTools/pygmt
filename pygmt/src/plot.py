@@ -205,7 +205,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {gap}
     {header}
     {incols}
-    {l}
+    {label}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency

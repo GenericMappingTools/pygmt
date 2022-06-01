@@ -139,7 +139,7 @@ def histogram(self, data, **kwargs):
     {find}
     {header}
     {incols}
-    {l}
+    {label}
     {p}
     {t}
     {w}

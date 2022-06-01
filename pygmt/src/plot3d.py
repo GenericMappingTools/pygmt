@@ -175,7 +175,7 @@ def plot3d(
     {gap}
     {header}
     {incols}
-    {l}
+    {label}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency

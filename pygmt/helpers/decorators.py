@@ -275,7 +275,7 @@ COMMON_DOCSTRINGS = {
             (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
             (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
-    "l": r"""
+    "label": r"""
         label : str
             Add a legend entry for the symbol or line being plotted. Full
             documentation is at :gmt-docs:`gmt.html#l-full`.""",
