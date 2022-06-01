@@ -67,7 +67,7 @@ def info(data, **kwargs):
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
     {verbose}
-    {a}
+    {aspatial}
     {i}
     {f}
     {r}

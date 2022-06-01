@@ -166,7 +166,7 @@ def plot3d(
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {a}
+    {aspatial}
     {b}
     {c}
     {d}

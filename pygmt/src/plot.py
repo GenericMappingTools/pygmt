@@ -196,7 +196,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         polygon in the input data. To apply it to the fill color, use
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {a}
+    {aspatial}
     {b}
     {c}
     {d}

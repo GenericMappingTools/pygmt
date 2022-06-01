@@ -131,7 +131,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         The file name for the output ASCII file.
 
     {verbose}
-    {a}
+    {aspatial}
     {b}
     {d}
     {e}
@@ -219,7 +219,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         The file name for the output ASCII file.
 
     {verbose}
-    {a}
+    {aspatial}
     {b}
     {d}
     {e}
@@ -307,7 +307,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         The file name for the output ASCII file.
 
     {verbose}
-    {a}
+    {aspatial}
     {b}
     {d}
     {e}

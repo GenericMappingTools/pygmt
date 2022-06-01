@@ -102,7 +102,7 @@ COMMON_DOCSTRINGS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
-    "a": r"""
+    "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.

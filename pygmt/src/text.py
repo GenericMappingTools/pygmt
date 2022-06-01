@@ -151,7 +151,7 @@ def text_(
     {timestamp}
     {verbose}
     {XY}
-    {a}
+    {aspatial}
     {c}
     {e}
     {f}

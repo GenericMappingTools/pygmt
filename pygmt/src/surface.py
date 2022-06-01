@@ -72,7 +72,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         to store the grid in.
 
     {verbose}
-    {a}
+    {aspatial}
     {b}
     {d}
     {e}

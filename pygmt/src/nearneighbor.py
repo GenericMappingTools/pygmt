@@ -114,7 +114,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         algorithm instead.
 
     {verbose}
-    {a}
+    {aspatial}
     {b}
     {d}
     {e}
