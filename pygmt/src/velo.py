@@ -228,7 +228,7 @@ def velo(self, data=None, **kwargs):
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {c}
+    {panel}
     {nodata}
     {e}
     {h}

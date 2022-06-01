@@ -101,7 +101,7 @@ def colorbar(self, **kwargs):
         illumination].
     {verbose}
     {XY}
-    {c}
+    {panel}
     {p}
     {t}
     """

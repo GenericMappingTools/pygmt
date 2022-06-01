@@ -177,7 +177,7 @@ def coast(self, **kwargs):
         only list countries in that continent; repeat if more than one
         continent is requested.
     {XY}
-    {c}
+    {panel}
     {p}
     {t}
     {verbose}

@@ -58,7 +58,7 @@ def image(self, imagefile, **kwargs):
     {timestamp}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {p}
     {t}
     """

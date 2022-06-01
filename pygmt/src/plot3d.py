@@ -168,7 +168,7 @@ def plot3d(
         ``pen``.
     {aspatial}
     {binary}
-    {c}
+    {panel}
     {nodata}
     {e}
     {f}

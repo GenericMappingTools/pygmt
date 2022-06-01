@@ -84,7 +84,7 @@ def grdcontour(self, grid, **kwargs):
     {verbose}
     {W}
     {XY}
-    {c}
+    {panel}
     {f}
     label : str
         Add a legend entry for the contour being plotted. Normally, the

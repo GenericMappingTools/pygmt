@@ -56,7 +56,7 @@ def logo(self, **kwargs):
     {timestamp}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

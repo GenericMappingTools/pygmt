@@ -203,7 +203,7 @@ def meca(
     {frame}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {p}
     {t}
     """

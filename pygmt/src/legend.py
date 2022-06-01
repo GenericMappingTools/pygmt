@@ -68,7 +68,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     {timestamp}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {p}
     {t}
     """

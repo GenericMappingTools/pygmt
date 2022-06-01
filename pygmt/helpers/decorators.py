@@ -144,7 +144,7 @@ COMMON_DOCSTRINGS = {
             NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
-    "c": r"""
+    "panel": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
             Select a specific subplot panel. Only allowed when in subplot

@@ -152,7 +152,7 @@ def text_(
     {verbose}
     {XY}
     {aspatial}
-    {c}
+    {panel}
     {e}
     {f}
     {h}

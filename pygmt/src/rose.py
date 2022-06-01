@@ -192,7 +192,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {verbose}
     {XY}
     {binary}
-    {c}
+    {panel}
     {nodata}
     {e}
     {h}

@@ -115,7 +115,7 @@ def grdview(self, grid, **kwargs):
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
     {XY}
-    {c}
+    {panel}
     {f}
     {n}
     {p}

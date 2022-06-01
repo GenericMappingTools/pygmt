@@ -154,7 +154,7 @@ def grdimage(self, grid, **kwargs):
     {region}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {f}
     {n}
     {p}

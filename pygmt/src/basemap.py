@@ -85,7 +85,7 @@ def basemap(self, **kwargs):
     {timestamp}
     {verbose}
     {XY}
-    {c}
+    {panel}
     {f}
     {p}
     {t}

@@ -68,7 +68,7 @@ def histogram(self, data, **kwargs):
     {CPT}
     {G}
     {W}
-    {c}
+    {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents.  Append any of the

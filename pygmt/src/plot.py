@@ -198,7 +198,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         ``pen``.
     {aspatial}
     {binary}
-    {c}
+    {panel}
     {nodata}
     {e}
     {f}
