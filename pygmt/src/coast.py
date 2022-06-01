@@ -179,7 +179,7 @@ def coast(self, **kwargs):
     {XY}
     {panel}
     {perspective}
-    {t}
+    {transparency}
     {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

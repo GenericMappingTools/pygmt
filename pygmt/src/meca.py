@@ -205,7 +205,7 @@ def meca(
     {XY}
     {panel}
     {perspective}
-    {t}
+    {transparency}
     """
 
     # pylint warnings that need to be fixed

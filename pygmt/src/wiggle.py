@@ -101,7 +101,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {header}
     {incols}
     {perspective}
-    {t}
+    {transparency}
     {w}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

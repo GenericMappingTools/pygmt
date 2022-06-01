@@ -234,7 +234,7 @@ def velo(self, data=None, **kwargs):
     {header}
     {incols}
     {perspective}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

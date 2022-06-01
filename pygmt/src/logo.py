@@ -57,7 +57,7 @@ def logo(self, **kwargs):
     {verbose}
     {XY}
     {panel}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

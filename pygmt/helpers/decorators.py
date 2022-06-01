@@ -342,7 +342,7 @@ COMMON_DOCSTRINGS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
-    "t": """\
+    "transparency": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
             Default is 0, i.e., opaque.

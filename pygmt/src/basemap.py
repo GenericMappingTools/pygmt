@@ -88,7 +88,7 @@ def basemap(self, **kwargs):
     {panel}
     {coltypes}
     {perspective}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):

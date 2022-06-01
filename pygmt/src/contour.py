@@ -122,7 +122,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {header}
     {incols}
     {perspective}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

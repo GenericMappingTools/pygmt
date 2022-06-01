@@ -119,7 +119,7 @@ def grdview(self, grid, **kwargs):
     {coltypes}
     {interpolation}
     {perspective}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

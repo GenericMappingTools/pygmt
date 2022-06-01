@@ -158,7 +158,7 @@ def text_(
     {header}
     {incols}
     {perspective}
-    {t}
+    {transparency}
         *transparency* can also be a 1d array to set varying transparency
         for texts, but this option is only valid if using x/y/text.
     {w}

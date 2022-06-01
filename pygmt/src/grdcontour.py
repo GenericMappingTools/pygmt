@@ -94,7 +94,7 @@ def grdcontour(self, grid, **kwargs):
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
     {perspective}
-    {t}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

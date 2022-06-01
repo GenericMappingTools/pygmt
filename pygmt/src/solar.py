@@ -62,7 +62,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     {XY}
     {panel}
     {perspective}
-    {t}
+    {transparency}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
