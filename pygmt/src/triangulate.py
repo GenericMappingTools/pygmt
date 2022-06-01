@@ -109,7 +109,7 @@ class triangulate:  # pylint: disable=invalid-name
         {coltypes}
         {header}
         {incols}
-        {r}
+        {registration}
             Only valid with ``outgrid``.
         {s}
         {w}
@@ -219,7 +219,7 @@ class triangulate:  # pylint: disable=invalid-name
         {coltypes}
         {header}
         {incols}
-        {r}
+        {registration}
         {s}
         {w}
 

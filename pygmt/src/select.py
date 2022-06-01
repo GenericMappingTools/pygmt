@@ -137,7 +137,7 @@ def select(data=None, outfile=None, **kwargs):
     {header}
     {incols}
     {outcols}
-    {r}
+    {registration}
     {s}
     {w}
 

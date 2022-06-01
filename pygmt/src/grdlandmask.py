@@ -83,7 +83,7 @@ def grdlandmask(**kwargs):
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
     {verbose}
-    {r}
+    {registration}
 
     Returns
     -------

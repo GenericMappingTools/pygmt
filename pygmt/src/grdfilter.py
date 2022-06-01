@@ -108,7 +108,7 @@ def grdfilter(grid, **kwargs):
         input grid].
     {verbose}
     {coltypes}
-    {r}
+    {registration}
 
     Returns
     -------

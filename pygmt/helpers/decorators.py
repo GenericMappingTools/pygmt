@@ -320,7 +320,7 @@ COMMON_DOCSTRINGS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "r": r"""
+    "registration": r"""
         registration : str
             **g**\|\ **p**.
             Force gridline (**g**) or pixel (**p**) node registration.

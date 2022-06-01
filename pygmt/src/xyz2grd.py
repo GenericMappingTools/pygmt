@@ -123,7 +123,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     {coltypes}
     {header}
     {incols}
-    {r}
+    {registration}
     {w}
 
     Returns

@@ -70,7 +70,7 @@ def info(data, **kwargs):
     {aspatial}
     {incols}
     {coltypes}
-    {r}
+    {registration}
 
     Returns
     -------

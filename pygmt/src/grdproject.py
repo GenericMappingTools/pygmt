@@ -88,7 +88,7 @@ def grdproject(grid, **kwargs):
         should be the projected measure unit. Cannot be used with ``scaling``.
     {verbose}
     {interpolation}
-    {r}
+    {registration}
 
     Returns
     -------
