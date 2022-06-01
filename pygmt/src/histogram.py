@@ -65,7 +65,7 @@ def histogram(self, data, **kwargs):
     {projection}
     {region}
     {frame}
-    {CPT}
+    {cmap}
     {G}
     {W}
     {panel}

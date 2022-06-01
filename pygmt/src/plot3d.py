@@ -114,7 +114,7 @@ def plot3d(
         respectively. **Note**: The ``straight_line`` parameter requires
         constant *z*-coordinates.
     {frame}
-    {CPT}
+    {cmap}
     offset : str
         *dx*/*dy*\ [/*dz*].
         Offset the plot symbol or line locations by the given amounts

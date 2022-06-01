@@ -162,7 +162,7 @@ def velo(self, data=None, **kwargs):
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
     {frame}
-    {CPT}
+    {cmap}
     rescale : str
         can be used to rescale the uncertainties of velocities (``spec='e'``
         and ``spec='r'``) and rotations (``spec='w'``). Can be combined with

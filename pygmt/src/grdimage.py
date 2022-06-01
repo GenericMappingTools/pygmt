@@ -100,7 +100,7 @@ def grdimage(self, grid, **kwargs):
         syntax translates into a PROJ syntax, otherwise a plain tiff file
         is produced. (2) Any vector elements will be lost.
     {frame}
-    {CPT}
+    {cmap}
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,

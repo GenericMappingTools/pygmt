@@ -47,7 +47,7 @@ def colorbar(self, **kwargs):
     ----------
     frame : str or list
         Set color bar boundary frame, labels, and axes attributes.
-    {CPT}
+    {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\

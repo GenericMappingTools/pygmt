@@ -38,7 +38,7 @@ COMMON_DOCSTRINGS = {
     "timestamp": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
-    "CPT": r"""
+    "cmap": r"""
         cmap : str
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
@@ -397,7 +397,7 @@ def fmt_docstring(module_func):
     * ``{projection}``: projection (coordinate system to use)
     * ``{frame}``: frame (map frame and axes parameters)
     * ``{timestamp}``: timestamp (insert time stamp logo)
-    * ``{CPT}``: cmap (the color palette table)
+    * ``{cmap}``: cmap (the color palette table)
     * ``{G}``: color
     * ``{W}``: pen
     * ``{interpolation}``: interpolation

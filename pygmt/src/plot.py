@@ -110,7 +110,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         stair-case curves that whose first move is along *x* or *y*,
         respectively.
     {frame}
-    {CPT}
+    {cmap}
     offset : str
         *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
