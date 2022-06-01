@@ -634,7 +634,7 @@ def kwargs_to_strings(**conversions):
     ...     )
     ...     print("}")
     ...     if args:
-    ...         print("args:", " ".join(f"{cores}" for x in args))
+    ...         print("args:", " ".join(f"{x}" for x in args))
     >>> module(R=[1, 2, 3, 4])
     {'R': '1/2/3/4'}
     >>> # It's already a string, do nothing
@@ -827,7 +827,7 @@ def check_data_input_order(deprecate_version, remove_version):
     >>> @check_data_input_order("v0.0.0", "v9.9.9")
     ... def module(data=None, x=None, y=None, z=None, **kwargs):
     ...     "A module that prints the arguments it received"
-    ...     print(f"data={data}, x={cores}, y={y}, z={z}")
+    ...     print(f"data={data}, x={x}, y={y}, z={z}")
     >>> module(data="table.txt")
     data=table.txt, x=None, y=None, z=None
     >>> module(x=0, y=1, z=2)

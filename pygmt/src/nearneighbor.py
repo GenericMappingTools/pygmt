@@ -50,7 +50,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
 
     .. math::
         w(r_i) = \frac{{w_i}}{{1 + d(r_i) ^ 2}},
-        \quad d(r) = \frac {{3r}}{{region}},
+        \quad d(r) = \frac {{3r}}{{R}},
         \quad \bar{{z}} = \frac{{\sum_i^n w(r_i) z_i}}{{\sum_i^n w(r_i)}}
 
     where :math:`n` is the number of data points that satisfy the selection
