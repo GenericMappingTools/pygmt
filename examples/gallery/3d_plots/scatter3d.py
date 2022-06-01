@@ -52,10 +52,10 @@ fig = pygmt.Figure()
 # annotations for the colorbar
 pygmt.makecpt(
     cmap="cubhelix",
-	# Use the minum and maximum of the categorical number code
-	# to set the lowest_value and the highest_value of the CPT
+    # Use the minum and maximum of the categorical number code
+    # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
-	# convert ['setosa', 'versicolor', 'virginica'] to 'setosa,versicolor,virginica'
+    # convert ['setosa', 'versicolor', 'virginica'] to 'setosa,versicolor,virginica'
     color_model="+c" + ",".join(labels),
 )
 

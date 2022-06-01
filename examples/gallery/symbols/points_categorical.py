@@ -61,10 +61,10 @@ fig.basemap(
 # annotations for the colorbar
 pygmt.makecpt(
     cmap="inferno",
-	# Use the minum and maximum of the categorical number code
-	# to set the lowest_value and the highest_value of the CPT
+    # Use the minum and maximum of the categorical number code
+    # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
-	# convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
+    # convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
     color_model="+c" + ",".join(labels),
 )
 
