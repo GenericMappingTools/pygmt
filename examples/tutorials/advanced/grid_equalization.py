@@ -1,6 +1,6 @@
 """
 Performing grid histogram equalization
---------------------------------------
+======================================
 The :meth:`pygmt.grdhisteq.equalize_grid` function creates a grid using
 statistics based on a cumulative distribution function.
 """

@@ -79,7 +79,8 @@ There are 11 configuration files located in `.github/workflows`:
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and Pull Request branches.
-   It is also scheduled to run daily on the *main* branch.
+   It is also scheduled to run regular tests daily and run full tests
+   (including doctests) on Wednesday on the *main* branch.
    In draft Pull Requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
