@@ -26,8 +26,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     registration type (**p** for pixel registration or **g** for gridline
     registration).
 
-    Refer to :gmt-docs:`datasets/remote-data.html#global-earth-relief-grids`
-    for more details.
+    Refer to :gmt-datasets:`earth-relief.html` for more details.
 
     Parameters
     ----------
@@ -63,8 +62,8 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         The Earth relief grid. Coordinates are latitude and longitude in
         degrees. Relief is in meters.
 
-    Notes
-    -----
+    Note
+    ----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
     Earth relief data with resolutions of 5 arc-minutes or higher, which are
     stored as smaller tiles.

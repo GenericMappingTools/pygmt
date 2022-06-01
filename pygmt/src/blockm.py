@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["blockmean", "blockmedian", "blockmode"]
+
 
 def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
@@ -49,8 +51,10 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module=block_method, args=arg_str)
+                lib.call_module(
+                    module=block_method,
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
@@ -83,7 +87,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean estimation.
@@ -150,15 +154,13 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mean values within 5 by 5 minute bins
     >>> data_bmean = pygmt.blockmean(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmean", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -182,7 +184,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by median estimation.
@@ -240,15 +242,13 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block median values within 5 by 5 minute bins
     >>> data_bmedian = pygmt.blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmedian", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -272,7 +272,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mode estimation.
@@ -330,15 +330,13 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mode values within 5 by 5 minute bins
     >>> data_bmode = pygmt.blockmode(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs

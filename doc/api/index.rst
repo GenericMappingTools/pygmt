@@ -118,6 +118,7 @@ Operations on tabular data
     blockmean
     blockmedian
     blockmode
+    filter1d
     nearneighbor
     project
     select
@@ -125,6 +126,9 @@ Operations on tabular data
     sphdistance
     sphinterpolate
     surface
+    triangulate
+    triangulate.regular_grid
+    triangulate.delaunay_triples
     xyz2grd
 
 Operations on raster data
@@ -133,12 +137,16 @@ Operations on raster data
 .. autosummary::
     :toctree: generated
 
+    dimfilter
     grd2xyz
     grdclip
     grdcut
     grdfill
     grdfilter
     grdgradient
+    grdhisteq
+    grdhisteq.equalize_grid
+    grdhisteq.compute_bins
     grdlandmask
     grdproject
     grdsample

@@ -8,6 +8,7 @@ import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -41,7 +42,7 @@ def fixture_grid_result():
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
-    Run xyz2grd by passing in an xarray datset or numpy array.
+    Run xyz2grd by passing in an xarray dataset or numpy array.
     """
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)
@@ -65,3 +66,15 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
         assert os.path.exists(path=tmpfile.name)
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
+
+
+def test_xyz2grd_missing_region_spacing(ship_data):
+    """
+    Test xyz2grd raise an exception if region or spacing is missing.
+    """
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data)
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data, region=[245, 255, 20, 30])
+    with pytest.raises(GMTInvalidInput):
+        xyz2grd(data=ship_data, spacing=5)

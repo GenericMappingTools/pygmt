@@ -71,7 +71,7 @@ def grdimage(self, grid, **kwargs):
     The ``region`` parameter can be used to select a map region larger or
     smaller than that implied by the extent of the grid.
 
-    Full parameter list at :gmt-docs:`grdimage.html`
+    Full option list at :gmt-docs:`grdimage.html`
 
     {aliases}
 
@@ -133,7 +133,7 @@ def grdimage(self, grid, **kwargs):
         ambient light). Alternatively, derive an intensity grid from the input
         data grid via a call to :meth:`pygmt.grdgradient`; append
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that module, or just give
+        azimuth, intensity, and ambient arguments for that method, or just give
         **+d** to select the default arguments (``+a-45+nt1+m0``). If you want
         a more specific intensity scenario then run :meth:`pygmt.grdgradient`
         separately first. If we should derive intensities from another file
@@ -166,10 +166,11 @@ def grdimage(self, grid, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with contextlib.ExitStack() as stack:
             # shading using an xr.DataArray
-            if "I" in kwargs and data_kind(kwargs["I"]) == "grid":
+            if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
                 shading_context = lib.virtualfile_from_grid(kwargs["I"])
                 kwargs["I"] = stack.enter_context(shading_context)
 
             fname = stack.enter_context(file_context)
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("grdimage", arg_str)
+            lib.call_module(
+                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+            )
