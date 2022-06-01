@@ -78,7 +78,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     {find}
     {coltypes}
     {header}
-    {i}
+    {incols}
     {r}
     {w}
 

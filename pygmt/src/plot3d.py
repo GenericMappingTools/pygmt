@@ -174,7 +174,7 @@ def plot3d(
     {coltypes}
     {gap}
     {header}
-    {i}
+    {incols}
     {l}
     {p}
     {t}

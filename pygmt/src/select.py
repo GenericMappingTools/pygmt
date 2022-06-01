@@ -135,7 +135,7 @@ def select(data=None, outfile=None, **kwargs):
     {coltypes}
     {gap}
     {header}
-    {i}
+    {incols}
     {o}
     {r}
     {s}

@@ -156,7 +156,7 @@ def text_(
     {find}
     {coltypes}
     {header}
-    {i}
+    {incols}
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency

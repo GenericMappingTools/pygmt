@@ -232,7 +232,7 @@ def velo(self, data=None, **kwargs):
     {nodata}
     {find}
     {header}
-    {i}
+    {incols}
     {p}
     {t}
     """

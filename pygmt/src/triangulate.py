@@ -108,7 +108,7 @@ class triangulate:  # pylint: disable=invalid-name
         {find}
         {coltypes}
         {header}
-        {i}
+        {incols}
         {r}
             Only valid with ``outgrid``.
         {s}
@@ -218,7 +218,7 @@ class triangulate:  # pylint: disable=invalid-name
         {find}
         {coltypes}
         {header}
-        {i}
+        {incols}
         {r}
         {s}
         {w}
@@ -337,7 +337,7 @@ class triangulate:  # pylint: disable=invalid-name
         {find}
         {coltypes}
         {header}
-        {i}
+        {incols}
         {s}
         {w}
 

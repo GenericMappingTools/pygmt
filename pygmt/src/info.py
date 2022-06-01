@@ -68,7 +68,7 @@ def info(data, **kwargs):
 
     {verbose}
     {aspatial}
-    {i}
+    {incols}
     {coltypes}
     {r}
 

@@ -250,7 +250,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {coltypes}
     {gap}
     {header}
-    {i}
+    {incols}
     {j}
     {n}
     {o}

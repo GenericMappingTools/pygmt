@@ -121,7 +121,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     {coltypes}
     {gap}
     {header}
-    {i}
+    {incols}
     {r}
     {w}
 

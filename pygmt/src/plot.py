@@ -204,7 +204,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {coltypes}
     {gap}
     {header}
-    {i}
+    {incols}
     {l}
     {p}
     {t}

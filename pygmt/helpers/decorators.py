@@ -231,7 +231,7 @@ COMMON_DOCSTRINGS = {
                   line-breaks.
 
             Blank lines and lines starting with \# are always skipped.""",
-    "i": r"""
+    "incols": r"""
         incols : str or 1d array
             Specify data columns for primary input in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
