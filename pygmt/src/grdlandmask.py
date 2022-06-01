@@ -50,7 +50,7 @@ def grdlandmask(**kwargs):
         in.
     {spacing}
     {region}
-    {A}
+    {area_thresh}
     resolution : str
         *res*\[\ **+f**\]. Selects the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or

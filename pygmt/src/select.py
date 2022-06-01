@@ -69,7 +69,7 @@ def select(data=None, outfile=None, **kwargs):
         {table-classes}.
     outfile : str
         The file name for the output ASCII file.
-    {A}
+    {area_thresh}
     resolution : str
         *resolution*\ [**+f**].
         Ignored unless **mask** is set. Selects the resolution of the coastline

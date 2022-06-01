@@ -66,7 +66,7 @@ def coast(self, **kwargs):
     {projection}
     {region}
         *Required if this is the first plot command.*
-    {A}
+    {area_thresh}
     {frame}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
