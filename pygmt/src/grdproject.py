@@ -87,7 +87,7 @@ def grdproject(grid, **kwargs):
         Append **c**, **i**, or **p** to indicate that cm, inch, or point
         should be the projected measure unit. Cannot be used with ``scaling``.
     {verbose}
-    {n}
+    {interpolation}
     {r}
 
     Returns

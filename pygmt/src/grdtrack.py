@@ -252,7 +252,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {header}
     {incols}
     {distcalc}
-    {n}
+    {interpolation}
     {o}
     {s}
     {w}

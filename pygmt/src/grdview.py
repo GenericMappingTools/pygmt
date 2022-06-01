@@ -117,7 +117,7 @@ def grdview(self, grid, **kwargs):
     {XY}
     {panel}
     {coltypes}
-    {n}
+    {interpolation}
     {p}
     {t}
     """

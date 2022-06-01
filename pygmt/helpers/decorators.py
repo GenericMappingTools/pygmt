@@ -279,7 +279,7 @@ COMMON_DOCSTRINGS = {
         label : str
             Add a legend entry for the symbol or line being plotted. Full
             documentation is at :gmt-docs:`gmt.html#l-full`.""",
-    "n": r"""
+    "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
             Select interpolation mode for grids. You can select the type of
@@ -400,7 +400,7 @@ def fmt_docstring(module_func):
     * ``{CPT}``: cmap (the color palette table)
     * ``{G}``: color
     * ``{W}``: pen
-    * ``{n}``: interpolation
+    * ``{interpolation}``: interpolation
 
     Parameters
     ----------

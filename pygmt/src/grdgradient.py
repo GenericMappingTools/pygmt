@@ -140,7 +140,7 @@ def grdgradient(grid, **kwargs):
         Requires ``direction`` but makes ``outgrid`` optional.
     {verbose}
     {coltypes}
-    {n}
+    {interpolation}
 
     Returns
     -------
