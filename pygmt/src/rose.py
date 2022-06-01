@@ -197,7 +197,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {find}
     {header}
     {incols}
-    {p}
+    {perspective}
     {t}
     {w}
     """

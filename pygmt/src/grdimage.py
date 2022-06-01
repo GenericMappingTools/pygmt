@@ -157,7 +157,7 @@ def grdimage(self, grid, **kwargs):
     {panel}
     {coltypes}
     {interpolation}
-    {p}
+    {perspective}
     {t}
     {x}
     """

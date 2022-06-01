@@ -87,7 +87,7 @@ def basemap(self, **kwargs):
     {XY}
     {panel}
     {coltypes}
-    {p}
+    {perspective}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

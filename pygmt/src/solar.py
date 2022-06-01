@@ -61,7 +61,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     {verbose}
     {XY}
     {panel}
-    {p}
+    {perspective}
     {t}
     """
 

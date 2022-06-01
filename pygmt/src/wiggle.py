@@ -100,7 +100,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {gap}
     {header}
     {incols}
-    {p}
+    {perspective}
     {t}
     {w}
     """

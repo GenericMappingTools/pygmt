@@ -140,7 +140,7 @@ def histogram(self, data, **kwargs):
     {header}
     {incols}
     {label}
-    {p}
+    {perspective}
     {t}
     {w}
     """

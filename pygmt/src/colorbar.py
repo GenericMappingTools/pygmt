@@ -102,7 +102,7 @@ def colorbar(self, **kwargs):
     {verbose}
     {XY}
     {panel}
-    {p}
+    {perspective}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

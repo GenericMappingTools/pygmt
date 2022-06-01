@@ -176,7 +176,7 @@ def plot3d(
     {header}
     {incols}
     {label}
-    {p}
+    {perspective}
     {t}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y/z.

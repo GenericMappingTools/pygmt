@@ -59,7 +59,7 @@ def image(self, imagefile, **kwargs):
     {verbose}
     {XY}
     {panel}
-    {p}
+    {perspective}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

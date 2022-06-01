@@ -233,7 +233,7 @@ def velo(self, data=None, **kwargs):
     {find}
     {header}
     {incols}
-    {p}
+    {perspective}
     {t}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

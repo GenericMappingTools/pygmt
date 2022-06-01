@@ -178,7 +178,7 @@ def coast(self, **kwargs):
         continent is requested.
     {XY}
     {panel}
-    {p}
+    {perspective}
     {t}
     {verbose}
     """

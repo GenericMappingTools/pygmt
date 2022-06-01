@@ -204,7 +204,7 @@ def meca(
     {verbose}
     {XY}
     {panel}
-    {p}
+    {perspective}
     {t}
     """
 

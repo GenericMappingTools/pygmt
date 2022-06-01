@@ -312,7 +312,7 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. Note: if ``incols`` is also used
               then the columns given to ``outcols`` correspond to the order
               after the ``incols`` selection has taken place.""",
-    "p": r"""
+    "perspective": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
