@@ -108,7 +108,7 @@ COMMON_DOCSTRINGS = {
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
-    "b": r"""
+    "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
             Select native binary input (using ``binary="i"``) or output

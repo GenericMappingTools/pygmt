@@ -115,7 +115,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
 
     {verbose}
     {aspatial}
-    {b}
+    {binary}
     {d}
     {e}
     {f}

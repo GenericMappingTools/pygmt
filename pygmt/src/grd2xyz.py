@@ -111,7 +111,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         * **d** 8-byte floating point double precision
 
         Default format is scanline orientation of ASCII numbers: **TLa**.
-    {b}
+    {binary}
     {d}
     {f}
     {h}

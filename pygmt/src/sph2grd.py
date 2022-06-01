@@ -51,7 +51,7 @@ def sph2grd(data, **kwargs):
     {spacing}
     {region}
     {verbose}
-    {b}
+    {binary}
     {h}
     {i}
     {r}

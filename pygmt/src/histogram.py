@@ -134,7 +134,7 @@ def histogram(self, data, **kwargs):
     {XY}
     {timestamp}
     {verbose}
-    {b}
+    {binary}
     {d}
     {e}
     {h}

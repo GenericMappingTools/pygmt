@@ -197,7 +197,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {aspatial}
-    {b}
+    {binary}
     {c}
     {d}
     {e}

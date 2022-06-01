@@ -92,7 +92,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     pen : str
         Specify outline pen attributes [Default is no outline].
     {XY}
-    {b}
+    {binary}
     {c}
     {d}
     {e}

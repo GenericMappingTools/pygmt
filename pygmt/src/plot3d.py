@@ -167,7 +167,7 @@ def plot3d(
         ``color='+z'``. To apply it to the pen color, append **+z** to
         ``pen``.
     {aspatial}
-    {b}
+    {binary}
     {c}
     {d}
     {e}

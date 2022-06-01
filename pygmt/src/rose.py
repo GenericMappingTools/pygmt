@@ -191,7 +191,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {timestamp}
     {verbose}
     {XY}
-    {b}
+    {binary}
     {c}
     {d}
     {e}
