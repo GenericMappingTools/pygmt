@@ -103,7 +103,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
-    {W}
+    {pen}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the

@@ -90,7 +90,7 @@ COMMON_DOCSTRINGS = {
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
-    "W": """\
+    "pen": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "xyshift": r"""
@@ -399,7 +399,7 @@ def fmt_docstring(module_func):
     * ``{timestamp}``: timestamp (insert time stamp logo)
     * ``{cmap}``: cmap (the color palette table)
     * ``{color}``: color
-    * ``{W}``: pen
+    * ``{pen}``: pen
     * ``{interpolation}``: interpolation
 
     Parameters

@@ -82,7 +82,7 @@ def grdcontour(self, grid, **kwargs):
         details.
     {timestamp}
     {verbose}
-    {W}
+    {pen}
     {xyshift}
     {panel}
     {coltypes}

@@ -155,7 +155,7 @@ def plot3d(
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
     {timestamp}
     {verbose}
-    {W}
+    {pen}
     {xyshift}
     zvalue : str
         *value*\|\ *file*.
