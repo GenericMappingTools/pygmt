@@ -17,12 +17,19 @@ the vertical exaggeration factor.
 import pandas as pd
 import pygmt
 
-# Load sample iris data and convert 'species' column to categorical dtype
+# Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
+# Convert 'species' column to categorical dtype
+# By default pandas assigns the categorical number code in an alphabetical
+# manner to the individual categories. For a non-alphabetical order, you have
+# to adjust the categorical number code. For handling and manipulating
+# categorical data in pandas you may have a look at:
+# https://pandas.pydata.org/docs/user_guide/categorical.html
 df.species = df.species.astype(dtype="category")
-# Make a list of the indiviudal categories of the 'species' column
+# Make a list of the individual categories of the 'species' column
 # ['setosa', 'versicolor', 'virginica']
-# By default they are in alphabetical order
+# They are (corresponding to the categorical number code) by default in
+# alphabetical order and later used for the colorbar labels
 labels = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
@@ -40,19 +47,9 @@ fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval), use
-# color_model="+cSetosa,Versicolor,Virginica" to write the discrete color
+# color_model="+csetosa,versicolor,virginica" to write the discrete color
 # palette "cubhelix" in categorical format and add the species names as
 # annotations for the colorbar
-
-# Please note that by default pandas assigns the categorical number code
-# in a lexical or alphabetical manner to the individual categories.
-# Thus, also the labels for the colorbar have to be given to color_model
-# in alphabetical order.
-# In case you want another or non-alphabetical order, you firstly have
-# to adjust the categorical number code. For handling and manipulating
-# categorical data in pandas you may have a look at:
-# https://pandas.pydata.org/docs/user_guide/categorical.html
-
 pygmt.makecpt(
     cmap="cubhelix",
 	# Use the minum and maximum of the categorical number code
