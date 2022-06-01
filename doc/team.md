@@ -26,8 +26,9 @@ the PyGMT project and have responsibilities detailed in the
 ::::{grid-item-card} Dongdong Tian
 :img-top: https://avatars.githubusercontent.com/u/3974108?v=4
 
-Maintainer
 [@seisman](https://github.com/seisman)
++++
+Maintainer
 ::::
 
 ::::{grid-item-card} Jiayuan Yao
@@ -39,8 +40,9 @@ Maintainer
 ::::{grid-item-card} Leonardo Uieda
 :img-top: https://avatars.githubusercontent.com/u/290082?v=4
 
-Founder
 [@leouieda](https://github.com/leouieda)
++++
+Founder
 ::::
 
 ::::{grid-item-card} Liam Toney
@@ -52,34 +54,40 @@ Founder
 ::::{grid-item-card} Max Jones
 :img-top: https://avatars.githubusercontent.com/u/14077947?v=4
 
-Maintainer
 [@meghanrjones](https://github.com/meghanrjones)
++++
+Maintainer
 ::::
 
 ::::{grid-item-card} Michael Grund
 :img-top: https://avatars.githubusercontent.com/u/23025878?v=4
 
-Maintainer
 [@michaelgrund](https://github.com/michaelgrund)
++++
+Maintainer
 ::::
 
 ::::{grid-item-card} Paul Wessel
 :img-top: https://avatars.githubusercontent.com/u/26473567?v=4
 
-Founder
 [@PaulWessel](https://github.com/PaulWessel)
++++
+Founder
 ::::
 
 ::::{grid-item-card} Wei Ji Leong
 :img-top: https://avatars.githubusercontent.com/u/23487320?v=4
 
-Maintainer
 [@weiji14](https://github.com/weiji14)
++++
+Maintainer
 ::::
+
 ::::{grid-item-card} Will Schlitzer
 :img-top: https://avatars.githubusercontent.com/u/29518865?v=4
 
-Maintainer
 [@willschlitzer](https://github.com/willschlitzer)
++++
+Maintainer
 ::::
 :::::
