@@ -168,7 +168,7 @@ COMMON_DOCSTRINGS = {
             Specify data types of input and/or output columns (time or
             geographical data). Full documentation is at
             :gmt-docs:`gmt.html#f-full`.""",
-    "g": r"""
+    "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
             **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].

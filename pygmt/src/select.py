@@ -133,7 +133,7 @@ def select(data=None, outfile=None, **kwargs):
     {nodata}
     {find}
     {coltypes}
-    {g}
+    {gap}
     {h}
     {i}
     {o}
