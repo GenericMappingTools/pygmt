@@ -49,7 +49,7 @@ def sph2grd(data, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {spacing}
-    {R}
+    {region}
     {verbose}
     {b}
     {h}

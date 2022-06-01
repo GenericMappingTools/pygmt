@@ -46,7 +46,7 @@ def sphinterpolate(data, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {spacing}
-    {R}
+    {region}
     {verbose}
 
     Returns

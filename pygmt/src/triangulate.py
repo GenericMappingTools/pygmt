@@ -87,7 +87,7 @@ class triangulate:  # pylint: disable=invalid-name
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
         {projection}
-        {R}
+        {region}
         {spacing}
         outgrid : bool or str
             The name of the output netCDF file with extension .nc to store the
@@ -203,7 +203,7 @@ class triangulate:  # pylint: disable=invalid-name
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
         {projection}
-        {R}
+        {region}
         {spacing}
         outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
@@ -320,7 +320,7 @@ class triangulate:  # pylint: disable=invalid-name
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
         {projection}
-        {R}
+        {region}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.

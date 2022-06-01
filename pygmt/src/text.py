@@ -115,7 +115,7 @@ def text_(
         left. If no justification is explicitly given (i.e. ``justify=True``),
         then the input to ``textfiles`` must have this as a column.
     {projection}
-    {R}
+    {region}
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].

@@ -65,7 +65,7 @@ def grdproject(grid, **kwargs):
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
     {projection}
-    {R}
+    {region}
     center : str or list
         [*dx*, *dy*].
         Let projected coordinates be relative to projection center [Default

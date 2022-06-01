@@ -153,7 +153,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {R}
+    {region}
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.

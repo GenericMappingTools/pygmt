@@ -65,7 +65,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         **f** to start at 1 (Fortran-style counting). Alternatively, append
         **i** to write just the two columns *index* and *z*, where *index*
         is the 1-D indexing that GMT uses when referring to grid nodes.
-    {R}
+    {region}
         Adding ``region`` will select a subsection of the grid. If this
         subsection exceeds the boundaries of the grid, only the common region
         will be output.

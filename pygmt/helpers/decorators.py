@@ -15,7 +15,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
-    "R": r"""
+    "region": r"""
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
@@ -393,7 +393,7 @@ def fmt_docstring(module_func):
 
     The following are places for common parameter descriptions:
 
-    * ``{R}``: region (bounding box as west, east, south, north)
+    * ``{region}``: region (bounding box as west, east, south, north)
     * ``{projection}``: projection (coordinate system to use)
     * ``{B}``: frame (map frame and axes parameters)
     * ``{timestamp}``: timestamp (insert time stamp logo)
@@ -426,7 +426,7 @@ def fmt_docstring(module_func):
     ...     data : str or {table-like}
     ...         Pass in either a file name to an ASCII data table, a 2D
     ...         {table-classes}.
-    ...     {R}
+    ...     {region}
     ...     {projection}
     ...
     ...     {aliases}

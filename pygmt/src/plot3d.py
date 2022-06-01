@@ -100,7 +100,7 @@ def plot3d(
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {R}
+    {region}
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle

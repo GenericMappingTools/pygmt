@@ -56,7 +56,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {spacing}
-    {R}
+    {region}
     {verbose}
     single_form : bool
         For large data sets you can save some memory (at the expense of more

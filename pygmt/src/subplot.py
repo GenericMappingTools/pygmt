@@ -111,7 +111,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         opposing sides (e.g., east plus west or south plus north margins)
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
-    {R}
+    {region}
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,

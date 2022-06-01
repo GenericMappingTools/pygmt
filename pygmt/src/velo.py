@@ -155,7 +155,7 @@ def velo(self, data=None, **kwargs):
             - **5**: azimuth of eps2 in degrees CW from North.
 
     {projection}
-    {R}
+    {region}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See

@@ -63,7 +63,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
     {projection}
-    {R}
+    {region}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.

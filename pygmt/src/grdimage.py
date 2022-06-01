@@ -151,7 +151,7 @@ def grdimage(self, grid, **kwargs):
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
         3).
-    {R}
+    {region}
     {verbose}
     {XY}
     {c}

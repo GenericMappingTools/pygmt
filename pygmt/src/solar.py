@@ -49,7 +49,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set the UTC date and time of the displayed terminator. It can be
         passed as a string or Python datetime object.
         [Default is the current UTC date and time]
-    {R}
+    {region}
     {projection}
     {B}
     fill : str

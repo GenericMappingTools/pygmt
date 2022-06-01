@@ -63,7 +63,7 @@ def histogram(self, data, **kwargs):
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
     {projection}
-    {R}
+    {region}
     {B}
     {CPT}
     {G}

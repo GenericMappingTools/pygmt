@@ -51,7 +51,7 @@ def basemap(self, **kwargs):
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {R}
+    {region}
         *Required if this is the first plot command.*
     {B}
     map_scale : str

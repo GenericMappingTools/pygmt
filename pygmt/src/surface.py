@@ -65,7 +65,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
 
     {spacing}
 
-    {R}
+    {region}
 
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc

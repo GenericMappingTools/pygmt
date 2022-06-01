@@ -64,7 +64,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
     {projection}
-    {R}
+    {region}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (cm, inch, or point); if no unit

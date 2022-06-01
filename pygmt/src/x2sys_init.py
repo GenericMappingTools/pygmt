@@ -95,7 +95,7 @@ def x2sys_init(tag, **kwargs):
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
 
-    {R}
+    {region}
     {verbose}
 
     gap : str or list

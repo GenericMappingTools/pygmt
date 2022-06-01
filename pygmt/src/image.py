@@ -41,7 +41,7 @@ def image(self, imagefile, **kwargs):
         via GDAL. Note: If GDAL was not configured during GMT installation
         then only EPS files are supported.
     {projection}
-    {R}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\

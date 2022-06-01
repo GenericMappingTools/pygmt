@@ -199,7 +199,7 @@ def meca(
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
     {projection}
-    {R}
+    {region}
     {B}
     {verbose}
     {XY}

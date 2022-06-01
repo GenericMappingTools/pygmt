@@ -101,7 +101,7 @@ def grdfilter(grid, **kwargs):
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
-    {R}
+    {region}
     toggle : bool
         Toggle the node registration for the output grid so as to become the
         opposite of the input grid. [Default gives the same registration as the

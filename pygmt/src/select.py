@@ -108,7 +108,7 @@ def select(data=None, outfile=None, **kwargs):
 
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
         land].
-    {R}
+    {region}
     {verbose}
     z_subregion : str
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].

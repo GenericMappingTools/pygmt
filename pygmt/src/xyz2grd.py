@@ -75,7 +75,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         belong to the same node.
     {spacing}
     {projection}
-    {R}
+    {region}
     {verbose}
     convention : str
         [*flags*].
