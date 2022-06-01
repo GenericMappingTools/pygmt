@@ -43,7 +43,7 @@ COMMON_DOCSTRINGS = {
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "G": """\
+    "color": """\
         color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
@@ -398,7 +398,7 @@ def fmt_docstring(module_func):
     * ``{frame}``: frame (map frame and axes parameters)
     * ``{timestamp}``: timestamp (insert time stamp logo)
     * ``{cmap}``: cmap (the color palette table)
-    * ``{G}``: color
+    * ``{color}``: color
     * ``{W}``: pen
     * ``{interpolation}``: interpolation
 

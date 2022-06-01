@@ -153,7 +153,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
-    {G}
+    {color}
         *color* can be a 1d array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
