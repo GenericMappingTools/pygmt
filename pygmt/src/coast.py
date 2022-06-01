@@ -180,7 +180,7 @@ def coast(self, **kwargs):
     {c}
     {p}
     {t}
-    {V}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):

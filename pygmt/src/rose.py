@@ -189,7 +189,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         https://doi.org/10.18637/jss.v031.i10.
 
     {U}
-    {V}
+    {verbose}
     {XY}
     {b}
     {c}

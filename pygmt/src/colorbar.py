@@ -99,7 +99,7 @@ def colorbar(self, **kwargs):
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
-    {V}
+    {verbose}
     {XY}
     {c}
     {p}

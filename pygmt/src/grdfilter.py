@@ -106,7 +106,7 @@ def grdfilter(grid, **kwargs):
         Toggle the node registration for the output grid so as to become the
         opposite of the input grid. [Default gives the same registration as the
         input grid].
-    {V}
+    {verbose}
     {f}
     {r}
 

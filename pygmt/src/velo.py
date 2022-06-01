@@ -209,7 +209,7 @@ def velo(self, data=None, **kwargs):
         Do NOT skip symbols that fall outside the frame boundary specified
         by ``region``. [Default plots symbols inside frame only].
     {U}
-    {V}
+    {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault

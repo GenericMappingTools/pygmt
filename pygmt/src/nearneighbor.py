@@ -113,7 +113,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {V}
+    {verbose}
     {a}
     {b}
     {d}

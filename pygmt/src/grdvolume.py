@@ -65,7 +65,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
     {R}
-    {V}
+    {verbose}
 
     Returns
     -------

@@ -88,7 +88,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         Draw track [Default is no track]. Append pen attributes to use
         [Default is **0.25p,black,solid**].
     {U}
-    {V}
+    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
     {XY}

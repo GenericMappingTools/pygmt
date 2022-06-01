@@ -102,7 +102,7 @@ def grdinfo(grid, **kwargs):
         minus/plus the max absolute value of the two extremes, append **+s**\ .
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
-    {V}
+    {verbose}
     {f}
 
     Returns

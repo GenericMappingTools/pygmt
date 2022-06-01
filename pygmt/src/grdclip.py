@@ -69,7 +69,7 @@ def grdclip(grid, **kwargs):
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.
-    {V}
+    {verbose}
 
     Returns
     -------

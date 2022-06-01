@@ -58,7 +58,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set pen attributes for lines. The default pen
         is ``default,black,solid``.
     {U}
-    {V}
+    {verbose}
     {XY}
     {c}
     {p}

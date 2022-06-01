@@ -96,7 +96,7 @@ def x2sys_init(tag, **kwargs):
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
 
     {R}
-    {V}
+    {verbose}
 
     gap : str or list
         **t**\|\ **d**\ *gap*.

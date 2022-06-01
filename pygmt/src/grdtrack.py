@@ -240,7 +240,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {V}
+    {verbose}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
     {a}

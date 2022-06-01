@@ -47,7 +47,7 @@ def sphinterpolate(data, **kwargs):
         in.
     {spacing}
     {R}
-    {V}
+    {verbose}
 
     Returns
     -------

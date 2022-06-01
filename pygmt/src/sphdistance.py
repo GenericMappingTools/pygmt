@@ -57,7 +57,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         in.
     {spacing}
     {R}
-    {V}
+    {verbose}
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates

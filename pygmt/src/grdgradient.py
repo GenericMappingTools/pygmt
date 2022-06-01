@@ -138,7 +138,7 @@ def grdgradient(grid, **kwargs):
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {V}
+    {verbose}
     {f}
     {n}
 

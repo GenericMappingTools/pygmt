@@ -201,7 +201,7 @@ def meca(
     {projection}
     {R}
     {B}
-    {V}
+    {verbose}
     {XY}
     {c}
     {p}

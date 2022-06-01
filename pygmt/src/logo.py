@@ -54,7 +54,7 @@ def logo(self, **kwargs):
         - **n** to skip the label placement
         - **u** to place the URL to the GMT site
     {U}
-    {V}
+    {verbose}
     {XY}
     {c}
     {t}

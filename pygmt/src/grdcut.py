@@ -78,7 +78,7 @@ def grdcut(grid, **kwargs):
         considering the range of the core subset for further reduction of the
         area.
 
-    {V}
+    {verbose}
     {f}
 
     Returns

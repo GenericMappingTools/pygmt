@@ -76,7 +76,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     {spacing}
     {projection}
     {R}
-    {V}
+    {verbose}
     convention : str
         [*flags*].
         Read a 1-column ASCII [or binary] table. This assumes that all the

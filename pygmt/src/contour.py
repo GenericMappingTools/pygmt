@@ -112,7 +112,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
     {U}
-    {V}
+    {verbose}
     {XY}
     {b}
     {c}

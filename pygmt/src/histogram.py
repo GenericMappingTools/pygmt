@@ -133,7 +133,7 @@ def histogram(self, data, **kwargs):
         append **+w**.
     {XY}
     {U}
-    {V}
+    {verbose}
     {b}
     {d}
     {e}

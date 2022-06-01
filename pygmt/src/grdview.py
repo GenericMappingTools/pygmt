@@ -113,7 +113,7 @@ def grdview(self, grid, **kwargs):
         azimuth, intensity, and ambient arguments for that method, or just give
         **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
-    {V}
+    {verbose}
     {XY}
     {c}
     {f}

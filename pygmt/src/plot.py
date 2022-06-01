@@ -185,7 +185,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         quoted lines).
     {W}
     {U}
-    {V}
+    {verbose}
     {XY}
     zvalue : str
         *value*\|\ *file*.

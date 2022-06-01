@@ -83,7 +83,7 @@ def basemap(self, **kwargs):
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
     {U}
-    {V}
+    {verbose}
     {XY}
     {c}
     {f}

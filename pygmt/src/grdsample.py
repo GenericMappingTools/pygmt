@@ -64,7 +64,7 @@ def grdsample(grid, **kwargs):
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
-    {V}
+    {verbose}
     {f}
     {n}
     {x}

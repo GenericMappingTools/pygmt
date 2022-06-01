@@ -80,7 +80,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         this by appending **+u**\ *unit*. For such grids, the area
         varies with latitude and also sees special cases for
         gridline-registered layouts at sides, corners, and poles.
-    {V}
+    {verbose}
     convention : str
         [*flags*].
         Write a 1-column ASCII [or binary] table. Output will be organized

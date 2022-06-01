@@ -52,7 +52,7 @@ def grdfill(grid, **kwargs):
         parameter [Default is no tension]).
 
     {R}
-    {V}
+    {verbose}
 
     Returns
     -------

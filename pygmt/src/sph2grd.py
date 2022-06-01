@@ -50,7 +50,7 @@ def sph2grd(data, **kwargs):
         in.
     {spacing}
     {R}
-    {V}
+    {verbose}
     {b}
     {h}
     {i}

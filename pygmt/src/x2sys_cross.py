@@ -170,7 +170,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {V}
+    {verbose}
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover

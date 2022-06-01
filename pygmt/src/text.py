@@ -149,7 +149,7 @@ def text_(
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
     {U}
-    {V}
+    {verbose}
     {XY}
     {a}
     {c}

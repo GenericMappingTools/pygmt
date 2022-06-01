@@ -144,7 +144,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         While individual subplots can have titles (see ``sharex``/``sharey`` or
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
-    {V}
+    {verbose}
     {XY}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
@@ -215,7 +215,7 @@ def set_panel(self, panel=None, **kwargs):
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
 
-    {V}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # convert tuple or list to comma-separated str

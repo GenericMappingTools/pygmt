@@ -78,7 +78,7 @@ COMMON_DOCSTRINGS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
-    "V": """\
+    "verbose": """\
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:

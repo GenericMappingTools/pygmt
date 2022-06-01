@@ -90,7 +90,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             Set the number of divisions of the data range [Default is 16].
 
         {R}
-        {V}
+        {verbose}
         {h}
 
         Returns
@@ -177,7 +177,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         quadratic: bool
             Perform quadratic equalization [Default is linear].
         {R}
-        {V}
+        {verbose}
 
         Returns
         -------
@@ -279,7 +279,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         quadratic : bool
             Perform quadratic equalization [Default is linear].
         {R}
-        {V}
+        {verbose}
         {h}
 
         Returns

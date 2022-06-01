@@ -71,7 +71,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
-    {V}
+    {verbose}
     {a}
     {b}
     {d}

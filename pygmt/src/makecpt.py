@@ -135,7 +135,7 @@ def makecpt(**kwargs):
     continuous : bool
         Force a continuous CPT when building from a list of colors and a list
         of z-values [Default is None, i.e. discrete values].
-    {V}
+    {verbose}
     categorical : bool
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all

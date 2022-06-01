@@ -82,7 +82,7 @@ def grdlandmask(**kwargs):
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
-    {V}
+    {verbose}
     {r}
 
     Returns

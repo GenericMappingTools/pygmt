@@ -102,7 +102,7 @@ class triangulate:  # pylint: disable=invalid-name
         output_type: str
             Determines the output type. Use "file", "xarray", "pandas", or
             "numpy".
-        {V}
+        {verbose}
         {b}
         {d}
         {e}
@@ -212,7 +212,7 @@ class triangulate:  # pylint: disable=invalid-name
             better off projecting all data to a local coordinate system before
             using ``triangulate`` (this is true of all gridding routines) or
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
-        {V}
+        {verbose}
         {b}
         {d}
         {e}
@@ -331,7 +331,7 @@ class triangulate:  # pylint: disable=invalid-name
                 - ``numpy`` - :class:`numpy.ndarray`
                 - ``pandas``- :class:`pandas.DataFrame`
                 - ``file`` - ASCII file (requires ``outfile``)
-        {V}
+        {verbose}
         {b}
         {d}
         {e}

@@ -81,7 +81,7 @@ def grdcontour(self, grid, **kwargs):
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
     {U}
-    {V}
+    {verbose}
     {W}
     {XY}
     {c}
