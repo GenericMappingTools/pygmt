@@ -246,7 +246,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {aspatial}
     {binary}
     {nodata}
-    {e}
+    {find}
     {f}
     {g}
     {h}

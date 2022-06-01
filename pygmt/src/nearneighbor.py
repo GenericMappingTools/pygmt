@@ -117,7 +117,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     {aspatial}
     {binary}
     {nodata}
-    {e}
+    {find}
     {f}
     {g}
     {h}

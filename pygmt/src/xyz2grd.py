@@ -119,7 +119,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         values. Translate incoming *z*-values via the ``incols`` parameter.
     {binary}
     {nodata}
-    {e}
+    {find}
     {f}
     {h}
     {i}

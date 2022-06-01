@@ -105,7 +105,7 @@ class triangulate:  # pylint: disable=invalid-name
         {verbose}
         {binary}
         {nodata}
-        {e}
+        {find}
         {f}
         {h}
         {i}
@@ -215,7 +215,7 @@ class triangulate:  # pylint: disable=invalid-name
         {verbose}
         {binary}
         {nodata}
-        {e}
+        {find}
         {f}
         {h}
         {i}
@@ -334,7 +334,7 @@ class triangulate:  # pylint: disable=invalid-name
         {verbose}
         {binary}
         {nodata}
-        {e}
+        {find}
         {f}
         {h}
         {i}

@@ -230,7 +230,7 @@ def velo(self, data=None, **kwargs):
         the error ellipse or wedge instead, append **+e**.
     {panel}
     {nodata}
-    {e}
+    {find}
     {h}
     {i}
     {p}

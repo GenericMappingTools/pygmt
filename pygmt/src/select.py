@@ -131,7 +131,7 @@ def select(data=None, outfile=None, **kwargs):
         incremented for each new **z_subregion** option, starting with 2.
     {binary}
     {nodata}
-    {e}
+    {find}
     {f}
     {g}
     {h}

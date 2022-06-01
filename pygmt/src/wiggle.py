@@ -95,7 +95,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {binary}
     {panel}
     {nodata}
-    {e}
+    {find}
     {f}
     {g}
     {h}

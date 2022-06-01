@@ -170,7 +170,7 @@ def plot3d(
     {binary}
     {panel}
     {nodata}
-    {e}
+    {find}
     {f}
     {g}
     {h}

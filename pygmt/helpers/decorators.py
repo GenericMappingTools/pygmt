@@ -154,7 +154,7 @@ COMMON_DOCSTRINGS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
-    "e": r"""
+    "find": r"""
         find : str
             [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
             Only pass records that match the given *pattern* or regular
