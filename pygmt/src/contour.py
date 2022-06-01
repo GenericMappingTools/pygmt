@@ -62,7 +62,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         {table-classes}
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    {J}
+    {projection}
     {R}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated

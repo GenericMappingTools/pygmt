@@ -19,7 +19,7 @@ COMMON_DOCSTRINGS = {
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
-    "J": r"""
+    "projection": r"""
         projection : str
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
@@ -394,7 +394,7 @@ def fmt_docstring(module_func):
     The following are places for common parameter descriptions:
 
     * ``{R}``: region (bounding box as west, east, south, north)
-    * ``{J}``: projection (coordinate system to use)
+    * ``{projection}``: projection (coordinate system to use)
     * ``{B}``: frame (map frame and axes parameters)
     * ``{U}``: timestamp (insert time stamp logo)
     * ``{CPT}``: cmap (the color palette table)
@@ -427,7 +427,7 @@ def fmt_docstring(module_func):
     ...         Pass in either a file name to an ASCII data table, a 2D
     ...         {table-classes}.
     ...     {R}
-    ...     {J}
+    ...     {projection}
     ...
     ...     {aliases}
     ...     '''

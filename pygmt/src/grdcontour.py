@@ -71,7 +71,7 @@ def grdcontour(self, grid, **kwargs):
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    {J}
+    {projection}
     {R}
     {B}
     label_placement : str

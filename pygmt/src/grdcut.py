@@ -51,7 +51,7 @@ def grdcut(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {J}
+    {projection}
     {R}
     extend : bool or int or float
         Allow grid to be extended if new ``region`` exceeds existing

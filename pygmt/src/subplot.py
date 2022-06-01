@@ -95,7 +95,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
         side). Such space will be left untouched by the main map plotting but
         can be accessed by methods that plot scales, bars, text, etc.
-    {J}
+    {projection}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick

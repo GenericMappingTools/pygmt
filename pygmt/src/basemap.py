@@ -48,7 +48,7 @@ def basemap(self, **kwargs):
 
     Parameters
     ----------
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
     {R}

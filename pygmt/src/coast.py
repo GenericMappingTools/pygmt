@@ -63,7 +63,7 @@ def coast(self, **kwargs):
 
     Parameters
     ----------
-    {J}
+    {projection}
     {R}
         *Required if this is the first plot command.*
     {A}

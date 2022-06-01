@@ -86,7 +86,7 @@ class triangulate:  # pylint: disable=invalid-name
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
-        {J}
+        {projection}
         {R}
         {spacing}
         outgrid : bool or str
@@ -202,7 +202,7 @@ class triangulate:  # pylint: disable=invalid-name
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
-        {J}
+        {projection}
         {R}
         {spacing}
         outgrid : str or None
@@ -319,7 +319,7 @@ class triangulate:  # pylint: disable=invalid-name
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2D
             {table-classes}.
-        {J}
+        {projection}
         {R}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the

@@ -114,7 +114,7 @@ def text_(
         **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
         left. If no justification is explicitly given (i.e. ``justify=True``),
         then the input to ``textfiles`` must have this as a column.
-    {J}
+    {projection}
     {R}
         *Required if this is the first plot command.*
     clearance : str

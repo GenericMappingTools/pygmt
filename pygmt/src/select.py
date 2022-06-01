@@ -97,7 +97,7 @@ def select(data=None, outfile=None, **kwargs):
           (and **area_thresh**, **resolution**).
         - **z** select records NOT within the range specified by
           **z_subregion**.
-    {J}
+    {projection}
     mask : str or list
         Pass all records whose location is inside specified geographical
         features. Specify if records should be skipped (s) or kept (k) using

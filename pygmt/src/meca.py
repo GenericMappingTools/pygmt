@@ -198,7 +198,7 @@ def meca(
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
-    {J}
+    {projection}
     {R}
     {B}
     {V}

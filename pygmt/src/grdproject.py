@@ -64,7 +64,7 @@ def grdproject(grid, **kwargs):
     inverse : bool
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
-    {J}
+    {projection}
     {R}
     center : str or list
         [*dx*, *dy*].

@@ -96,7 +96,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {J}
+    {projection}
     {R}
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].

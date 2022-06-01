@@ -63,7 +63,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {J}
+    {projection}
     {R}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,

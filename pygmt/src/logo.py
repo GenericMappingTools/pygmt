@@ -36,7 +36,7 @@ def logo(self, **kwargs):
 
     Parameters
     ----------
-    {J}
+    {projection}
     {R}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\

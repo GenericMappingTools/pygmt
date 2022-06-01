@@ -154,7 +154,7 @@ def velo(self, data=None, **kwargs):
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {J}
+    {projection}
     {R}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*

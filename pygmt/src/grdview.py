@@ -65,7 +65,7 @@ def grdview(self, grid, **kwargs):
         When used with ``perspective``, optionally append */zmin/zmax* to
         indicate the range to use for the 3-D axes [Default is the region in
         the input grid].
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
     {B}

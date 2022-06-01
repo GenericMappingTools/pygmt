@@ -74,7 +74,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         *y* as *z* is not consulted). Append **z** to sum multiple values that
         belong to the same node.
     {spacing}
-    {J}
+    {projection}
     {R}
     {V}
     convention : str

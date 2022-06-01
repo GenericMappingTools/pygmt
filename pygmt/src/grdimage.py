@@ -140,7 +140,7 @@ def grdimage(self, grid, **kwargs):
         than grid, specify the file with suitable modifiers [Default is no
         illumination]. Note: If the input data is an *image* then an
         *intensfile* or constant *intensity* must be provided.
-    {J}
+    {projection}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
         transformation. Cannot be used with ``nan_transparent``.

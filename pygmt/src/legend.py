@@ -48,7 +48,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         Either ``None`` [default] for using the automatically generated legend
         specification file, or a *filename* pointing to the legend
         specification file.
-    {J}
+    {projection}
     {R}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\

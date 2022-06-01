@@ -40,7 +40,7 @@ def image(self, imagefile, **kwargs):
         raster file can have a depth of 1, 8, 24, or 32 bits and is read
         via GDAL. Note: If GDAL was not configured during GMT installation
         then only EPS files are supported.
-    {J}
+    {projection}
     {R}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
