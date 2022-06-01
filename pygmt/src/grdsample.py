@@ -67,7 +67,7 @@ def grdsample(grid, **kwargs):
     {verbose}
     {coltypes}
     {interpolation}
-    {x}
+    {cores}
 
     Returns
     -------

@@ -159,7 +159,7 @@ def grdimage(self, grid, **kwargs):
     {interpolation}
     {perspective}
     {transparency}
-    {x}
+    {cores}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
