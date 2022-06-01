@@ -200,7 +200,7 @@ def meca(
         *region* [Default is False, i.e. plot symbols inside map frame only].
     {projection}
     {region}
-    {B}
+    {frame}
     {verbose}
     {XY}
     {c}

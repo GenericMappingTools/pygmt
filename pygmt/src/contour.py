@@ -70,7 +70,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
-    {B}
+    {frame}
     levels : str or int
         Specify the contour lines to generate.
 

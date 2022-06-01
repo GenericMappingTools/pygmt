@@ -53,7 +53,7 @@ def basemap(self, **kwargs):
         Set z-axis scaling or z-axis size.
     {region}
         *Required if this is the first plot command.*
-    {B}
+    {frame}
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.

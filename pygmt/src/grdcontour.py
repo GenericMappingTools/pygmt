@@ -73,7 +73,7 @@ def grdcontour(self, grid, **kwargs):
         Resample smoothing factor.
     {projection}
     {region}
-    {B}
+    {frame}
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.

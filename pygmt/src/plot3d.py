@@ -113,7 +113,7 @@ def plot3d(
         stair-case curves that whose first move is along *x* or *y*,
         respectively. **Note**: The ``straight_line`` parameter requires
         constant *z*-coordinates.
-    {B}
+    {frame}
     {CPT}
     offset : str
         *dx*/*dy*\ [/*dz*].

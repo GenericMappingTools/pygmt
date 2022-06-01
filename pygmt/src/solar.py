@@ -51,7 +51,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         [Default is the current UTC date and time]
     {region}
     {projection}
-    {B}
+    {frame}
     fill : str
         Color or pattern for filling of terminators.
     pen : str

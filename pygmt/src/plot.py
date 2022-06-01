@@ -109,7 +109,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         simply connected, unless you append **x** or **y** to draw
         stair-case curves that whose first move is along *x* or *y*,
         respectively.
-    {B}
+    {frame}
     {CPT}
     offset : str
         *dx*/*dy*.

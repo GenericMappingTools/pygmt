@@ -70,7 +70,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         or **p** to indicate the distance unit (cm, inch, or point); if no unit
         is given we use the default unit that is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT`.
-    {B}
+    {frame}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\

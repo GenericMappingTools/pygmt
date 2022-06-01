@@ -99,7 +99,7 @@ def grdimage(self, grid, **kwargs):
         selected then we will write a GeoTiff image if the GMT projection
         syntax translates into a PROJ syntax, otherwise a plain tiff file
         is produced. (2) Any vector elements will be lost.
-    {B}
+    {frame}
     {CPT}
     img_in : str
         [**r**].

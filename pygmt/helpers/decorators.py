@@ -31,7 +31,7 @@ COMMON_DOCSTRINGS = {
             hierarchical level that is lower than *min_level* or higher than
             *max_level* will not be plotted [Default is 0/0/4 (all
             features)].""",
-    "B": r"""
+    "frame": r"""
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
@@ -395,7 +395,7 @@ def fmt_docstring(module_func):
 
     * ``{region}``: region (bounding box as west, east, south, north)
     * ``{projection}``: projection (coordinate system to use)
-    * ``{B}``: frame (map frame and axes parameters)
+    * ``{frame}``: frame (map frame and axes parameters)
     * ``{timestamp}``: timestamp (insert time stamp logo)
     * ``{CPT}``: cmap (the color palette table)
     * ``{G}``: color

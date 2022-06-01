@@ -83,7 +83,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         typeset your tag numbers using lowercase Roman numerals; use **+R** for
         uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
         tag numbers vertically down columns [horizontally across rows].
-    {B}
+    {frame}
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the

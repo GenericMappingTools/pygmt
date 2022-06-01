@@ -68,7 +68,7 @@ def grdview(self, grid, **kwargs):
     {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {B}
+    {frame}
     cmap : str
         The name of the color palette table to use.
     drapegrid : str or xarray.DataArray

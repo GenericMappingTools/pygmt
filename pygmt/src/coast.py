@@ -67,7 +67,7 @@ def coast(self, **kwargs):
     {region}
         *Required if this is the first plot command.*
     {A}
-    {B}
+    {frame}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The

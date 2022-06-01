@@ -161,7 +161,7 @@ def velo(self, data=None, **kwargs):
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {B}
+    {frame}
     {CPT}
     rescale : str
         can be used to rescale the uncertainties of velocities (``spec='e'``
