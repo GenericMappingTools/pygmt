@@ -148,6 +148,21 @@ def test_hotspots():
     assert isinstance(data, pd.DataFrame)
 
 
+def test_load_notre_dame_topography():
+    """
+    Check that the @Table_5_11.txt dataset loads without errors.
+    """
+    data = load_sample_data(name="notre_dame_topography")
+    assert data.shape == (52, 3)
+    summary = data.describe()
+    assert summary.loc["min", "x"] == 0.2
+    assert summary.loc["max", "x"] == 6.3
+    assert summary.loc["min", "y"] == 0
+    assert summary.loc["max", "y"] == 6.2
+    assert summary.loc["min", "z"] == 690
+    assert summary.loc["max", "z"] == 960
+
+
 def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.
