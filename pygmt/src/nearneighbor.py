@@ -123,7 +123,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     {header}
     {incols}
     {registration}
-    {w}
+    {wrap}
 
     Returns
     -------

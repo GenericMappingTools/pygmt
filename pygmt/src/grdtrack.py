@@ -255,7 +255,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     {interpolation}
     {outcols}
     {skiprows}
-    {w}
+    {wrap}
 
     Returns
     -------

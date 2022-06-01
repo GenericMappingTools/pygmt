@@ -349,7 +349,7 @@ COMMON_DOCSTRINGS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
-    "w": r"""
+    "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
             **c**\ *period*\ [/*phase*][**+c**\ *col*].

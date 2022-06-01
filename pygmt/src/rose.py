@@ -199,7 +199,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {incols}
     {perspective}
     {transparency}
-    {w}
+    {wrap}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

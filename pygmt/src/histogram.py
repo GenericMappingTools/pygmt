@@ -142,7 +142,7 @@ def histogram(self, data, **kwargs):
     {label}
     {perspective}
     {transparency}
-    {w}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
