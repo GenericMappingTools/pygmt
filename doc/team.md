@@ -28,7 +28,7 @@ the PyGMT project and have responsibilities detailed in the
 
 [@seisman](https://github.com/seisman)
 +++
-Maintainer
+{bdg-primary}`Maintainer`
 ::::
 
 ::::{grid-item-card} Jiayuan Yao
@@ -42,7 +42,7 @@ Maintainer
 
 [@leouieda](https://github.com/leouieda)
 +++
-Founder
+{bdg-success}`Founder`
 ::::
 
 ::::{grid-item-card} Liam Toney
@@ -56,7 +56,7 @@ Founder
 
 [@meghanrjones](https://github.com/meghanrjones)
 +++
-Maintainer
+{bdg-primary}`Maintainer`
 ::::
 
 ::::{grid-item-card} Michael Grund
@@ -64,7 +64,7 @@ Maintainer
 
 [@michaelgrund](https://github.com/michaelgrund)
 +++
-Maintainer
+{bdg-primary}`Maintainer`
 ::::
 
 ::::{grid-item-card} Paul Wessel
@@ -72,7 +72,7 @@ Maintainer
 
 [@PaulWessel](https://github.com/PaulWessel)
 +++
-Founder
+{bdg-success}`Founder`
 ::::
 
 ::::{grid-item-card} Wei Ji Leong
@@ -80,7 +80,7 @@ Founder
 
 [@weiji14](https://github.com/weiji14)
 +++
-Maintainer
+{bdg-primary}`Maintainer`
 ::::
 
 ::::{grid-item-card} Will Schlitzer
@@ -88,6 +88,6 @@ Maintainer
 
 [@willschlitzer](https://github.com/willschlitzer)
 +++
-Maintainer
+{bdg-primary}`Maintainer`
 ::::
 :::::
