@@ -319,7 +319,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{incols}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{incols}-{distcalc}" for i, j in zip(x, y)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -334,7 +334,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{incols}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{incols}-{distcalc}" for i, j in zip(x, y)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()

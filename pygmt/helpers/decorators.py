@@ -261,7 +261,7 @@ COMMON_DOCSTRINGS = {
                   [Default is 1].
                 - **+o** to add the given *offset* to the input values [Default
                   is 0].""",
-    "j": r"""
+    "distcalc": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
             Determine how spherical distances are calculated.

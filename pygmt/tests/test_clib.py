@@ -532,7 +532,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
             with GMTTempFile() as outfile:
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{incols}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        expected = "".join(f"{incols}\t{distcalc}\t{k}\n" for i, j, k in zip(x, y, strings))
         assert output == expected
 
 
@@ -553,7 +553,7 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{header}\t{incols}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{header}\t{incols}\t{distcalc} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
         )
         assert output == expected
 
