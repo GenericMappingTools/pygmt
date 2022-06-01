@@ -229,7 +229,7 @@ def velo(self, data=None, **kwargs):
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
     {c}
-    {d}
+    {nodata}
     {e}
     {h}
     {i}

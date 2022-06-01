@@ -104,7 +104,7 @@ class triangulate:  # pylint: disable=invalid-name
             "numpy".
         {verbose}
         {binary}
-        {d}
+        {nodata}
         {e}
         {f}
         {h}
@@ -214,7 +214,7 @@ class triangulate:  # pylint: disable=invalid-name
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         {verbose}
         {binary}
-        {d}
+        {nodata}
         {e}
         {f}
         {h}
@@ -333,7 +333,7 @@ class triangulate:  # pylint: disable=invalid-name
                 - ``file`` - ASCII file (requires ``outfile``)
         {verbose}
         {binary}
-        {d}
+        {nodata}
         {e}
         {f}
         {h}

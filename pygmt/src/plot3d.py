@@ -169,7 +169,7 @@ def plot3d(
     {aspatial}
     {binary}
     {c}
-    {d}
+    {nodata}
     {e}
     {f}
     {g}

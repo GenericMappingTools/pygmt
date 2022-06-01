@@ -245,7 +245,7 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
         Only write out the sampled z-values [Default writes all columns].
     {aspatial}
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {g}

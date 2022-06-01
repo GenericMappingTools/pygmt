@@ -133,7 +133,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {verbose}
     {aspatial}
     {binary}
-    {d}
+    {nodata}
     {e}
     {i}
     {f}
@@ -221,7 +221,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {verbose}
     {aspatial}
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {h}
@@ -309,7 +309,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     {verbose}
     {aspatial}
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {h}

@@ -136,7 +136,7 @@ COMMON_DOCSTRINGS = {
                   be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
-    "d": r"""
+    "nodata": r"""
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For

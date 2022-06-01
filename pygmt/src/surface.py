@@ -74,7 +74,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     {verbose}
     {aspatial}
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {h}

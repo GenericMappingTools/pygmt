@@ -118,7 +118,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         multiple values per record but can only parse regular floating point
         values. Translate incoming *z*-values via the ``incols`` parameter.
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {h}

@@ -199,7 +199,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {aspatial}
     {binary}
     {c}
-    {d}
+    {nodata}
     {e}
     {f}
     {g}

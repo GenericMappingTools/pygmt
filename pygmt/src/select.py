@@ -130,7 +130,7 @@ def select(data=None, outfile=None, **kwargs):
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new **z_subregion** option, starting with 2.
     {binary}
-    {d}
+    {nodata}
     {e}
     {f}
     {g}

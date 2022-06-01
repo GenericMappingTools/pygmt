@@ -116,7 +116,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {XY}
     {binary}
     {c}
-    {d}
+    {nodata}
     {e}
     {f}
     {h}
