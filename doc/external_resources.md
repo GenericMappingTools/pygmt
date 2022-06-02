@@ -10,14 +10,91 @@ to submit a pull request with your recommended addition to the
 
 ## Tutorials
 
-- [2022 EGU SC5.2: Crafting beautiful maps with PyGMT](https://github.com/GenericMappingTools/egu22pygmt) by Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
-- [2021 PyGMT course at the UAF Geophysical Institute](https://github.com/liamtoney/gi-pygmt-2021) by Liam Toney
-- [2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping](https://www.youtube.com/watch?v=Zvcy7VDuhiw) by Liam Toney
-- [2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT](https://www.iris.edu/hq/inclass/lesson/728) by Liam Toney
-- [PyGMT Tutorial in 2021](https://github.com/MIGG-NTU/PyGMT2021) by MIGG-NTU
-- [PyGMT Workshop at FOSS4G Oceania 2019](https://github.com/GenericMappingTools/foss4g2019oceania) by Wei Ji Leong
+:::::{grid} 1 2 2 3
+
+::::{grid-item-card} 2022 EGU SC5.2: Crafting beautiful maps with PyGMT
+:link: https://www.generic-mapping-tools.org/egu22pygmt/
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
+::::
+
+::::{grid-item-card} 2021 PyGMT course at the UAF Geophysical Institute
+:link: https://github.com/liamtoney/gi-pygmt-2021
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Liam Toney
+::::
+
+::::{grid-item-card} 2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping
+:link: https://www.youtube.com/watch?v=Zvcy7VDuhiw
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Liam Toney
+::::
+
+::::{grid-item-card} 2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT
+:link: https://www.iris.edu/hq/inclass/lesson/728
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Liam Toney
+::::
+
+::::{grid-item-card} PyGMT Tutorial in 2021
+:link: https://github.com/MIGG-NTU/PyGMT2021
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+MIGG-NTU
+::::
+
+::::{grid-item-card} PyGMT Workshop at FOSS4G Oceania 2019
+:link: https://github.com/GenericMappingTools/foss4g2019oceania
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Wei Ji Leong
+::::
+:::::
 
 ## Examples from Publications and Posters
 
-- [GMT and PyGMT plotting examples](https://github.com/michaelgrund/GMT-plotting) by Michael Grund
-- [NZ Antarctic Science Conference 2021 poster](https://github.com/weiji14/nzasc2021) by Wei Ji Leong
+:::::{grid} 1 2 2 3
+
+::::{grid-item-card} GMT and PyGMT plotting examples
+:link: https://github.com/michaelgrund/GMT-plotting
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Michael Grund
+::::
+
+::::{grid-item-card} NZ Antarctic Science Conference 2021 poster
+:link: https://github.com/weiji14/nzasc2021
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
++++
+Wei Ji Leong
+::::
+
+:::::
