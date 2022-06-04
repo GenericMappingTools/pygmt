@@ -376,7 +376,7 @@ def meca(
                         len(longitude) != len(depth)
                     ):
                         raise GMTError(
-                            "Unequal number of focal mechanism " "locations supplied."
+                            "Unequal number of focal mechanism locations supplied."
                         )
 
             # values are ok, so build the 2D array
