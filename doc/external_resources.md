@@ -10,6 +10,7 @@ to submit a pull request with your recommended addition to the
 
 ## Tutorials
 
+- [2022 EGU SC5.2: Crafting beautiful maps with PyGMT](https://github.com/GenericMappingTools/egu22pygmt) by Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
 - [2021 PyGMT course at the UAF Geophysical Institute](https://github.com/liamtoney/gi-pygmt-2021) by Liam Toney
 - [2021 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 5 - Mapping](https://www.youtube.com/watch?v=Zvcy7VDuhiw) by Liam Toney
 - [2020 Remote Online Sessions for Emerging Seismologists (ROSES): Unit 8 - PyGMT](https://www.iris.edu/hq/inclass/lesson/728) by Liam Toney
