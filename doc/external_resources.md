@@ -37,7 +37,7 @@ Liam Toney
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/3974108/172055872-b81057b6-aef3-473f-8f42-1cc82a68d188.jpg)
 +++
 Liam Toney
 ::::
@@ -47,7 +47,7 @@ Liam Toney
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/3974108/172055922-8df68c00-4115-42f4-83ae-13a971fef846.png)
 +++
 Liam Toney
 ::::
@@ -82,7 +82,7 @@ Wei Ji Leong
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/3974108/172055991-c0646f6c-d130-474f-b46a-5587483998cb.jpg)
 +++
 Michael Grund
 ::::
@@ -92,7 +92,7 @@ Michael Grund
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/3974108/172056055-35526274-91d6-44b2-80bf-ab510e51c19d.jpg)
 +++
 Wei Ji Leong
 ::::
