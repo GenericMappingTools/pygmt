@@ -57,7 +57,7 @@ Liam Toney
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/23487320/172058757-9b68f7ae-7a3f-4f48-9df6-9a065d6cd448.png)
 +++
 MIGG-NTU
 ::::
