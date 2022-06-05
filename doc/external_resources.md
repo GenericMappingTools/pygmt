@@ -27,7 +27,7 @@ Wei Ji Leong, Leonardo Uieda, Max Jones, Andre Belem
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://user-images.githubusercontent.com/3974108/172042115-3f700c16-0f78-49d3-9e8d-87c77e4c0444.png)
 +++
 Liam Toney
 ::::
