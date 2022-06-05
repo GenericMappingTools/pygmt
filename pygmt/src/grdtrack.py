@@ -288,14 +288,14 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     ... )
     """
     # pylint: disable=too-many-branches
-    if hasattr(points, "columns") and newcolname is None:
-        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
+    if points is not None and kwargs.get("E") is not None:
+        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
 
     if points is None and kwargs.get("E") is None:
         raise GMTInvalidInput("Must give 'points' or set 'profile'.")
 
-    if points is not None and kwargs.get("E") is not None:
-        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
+    if hasattr(points, "columns") and newcolname is None:
+        raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
     # Backward compatibility with old parameter order "points, grid".
     # deprecated_version="0.7.0", remove_version="v0.9.0"
