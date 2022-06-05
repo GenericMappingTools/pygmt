@@ -67,7 +67,7 @@ MIGG-NTU
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/171653272-efaceeb1-a253-44a1-bddc-36bc9498c19b.png)
+![](https://github.com/GenericMappingTools/foss4g2019oceania/releases/download/v1/picton_3d_dsm_view.png)
 +++
 Wei Ji Leong
 ::::
@@ -92,7 +92,7 @@ Michael Grund
 :text-align: center
 :margin: 0 3 0 0
 
-![](https://user-images.githubusercontent.com/3974108/172056055-35526274-91d6-44b2-80bf-ab510e51c19d.jpg)
+![](https://user-images.githubusercontent.com/23487320/107176140-6aa4e580-6a33-11eb-8f30-1a7913788d6c.png)
 +++
 Wei Ji Leong
 ::::
