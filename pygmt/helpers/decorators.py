@@ -391,17 +391,6 @@ def fmt_docstring(module_func):
     * ``{aliases}``: Insert a section listing the parameter aliases defined by
       decorator ``use_alias``.
 
-    The following are places for common parameter descriptions:
-
-    * ``{region}``: region (bounding box as west, east, south, north)
-    * ``{projection}``: projection (coordinate system to use)
-    * ``{frame}``: frame (map frame and axes parameters)
-    * ``{timestamp}``: timestamp (insert time stamp logo)
-    * ``{cmap}``: cmap (the color palette table)
-    * ``{color}``: color
-    * ``{pen}``: pen
-    * ``{interpolation}``: interpolation
-
     Parameters
     ----------
     module_func : function
