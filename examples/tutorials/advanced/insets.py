@@ -97,7 +97,8 @@ fig.coast(
     frame="a",
 )
 # This does not include an inset fill as it is covered by the inset figure
-# Inset width/height are determined by the region and projection parameters.
+# Inset width/height are determined by the ``region`` and ``projection``
+# parameters.
 with fig.inset(
     position="jBL+o0.5c/0.2c",
     box="+pblack",
