@@ -6,9 +6,6 @@ import contextlib
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
-__doctest_skip__ = ["inset"]
-
-
 @fmt_docstring
 @contextlib.contextmanager
 @use_alias(
@@ -47,7 +44,7 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code \ that refers to the (invisible)
+        2-char justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
         coordinates (inches, cm, points, append unit).
@@ -109,34 +106,6 @@ def inset(self, **kwargs):
     {R}
     {J}
     {V}
-
-    Examples
-    --------
-    >>> import pygmt
-    >>>
-    >>> # Create the larger figure
-    >>> fig = pygmt.Figure()
-    >>> fig.coast(region="MG+r2", water="lightblue", shorelines="thin")
-    >>> # Use a "with" statement to initialize the inset context manager.
-    >>> # Seting the position to top left with an 0.2 cm offset and
-    >>> # draw a green inset box.
-    >>> # The inset size is determined by the region and projection parameters.
-    >>> with fig.inset(
-    ...     position="jTL+o0.2c",
-    ...     margin=0,
-    ...     box="+pgreen",
-    ...     region="g",
-    ...     projection="G47/-20/3.5c",
-    ... ):
-    ...     fig.coast(
-    ...         land="gray",
-    ...         water="white",
-    ...         dcw="MG+gred",
-    ...     )
-    >>> # Map elements outside the "with" block are plotted in the main figure
-    >>> fig.logo(position="jBR+o0.2c+w3c")
-    >>> fig.show()  # doctest: +SKIP
-    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
