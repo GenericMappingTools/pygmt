@@ -137,7 +137,7 @@ This installs the latest stable release from
 Alternatively, you can install the latest development version from
 `TestPyPI <https://test.pypi.org/project/pygmt>`__::
 
-    pip install --pre --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple pygmt
+    pip install --pre --extra-index-url https://test.pypi.org/simple/ pygmt
 
 To upgrade the installed stable release or development version to be the latest
 one, just add ``--upgrade`` to the corresponding command above.
