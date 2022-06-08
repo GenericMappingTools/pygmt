@@ -32,6 +32,7 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -73,6 +74,7 @@ def load_sample_data(name):
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
+        "notre_dame_topography": _load_notre_dame_topography,
         "usgs_quakes": load_usgs_quakes,
     }
 
@@ -346,6 +348,19 @@ def load_mars_shape(**kwargs):
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
     )
     return data
+
+
+def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
+    """
+    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "x", "y", and "z".
+    """
+    fname = which("@Table_5_11.txt", download="c")
+    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
 def _load_earth_relief_holes(**kwargs):  # pylint: disable=unused-argument

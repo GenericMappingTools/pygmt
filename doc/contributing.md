@@ -315,6 +315,30 @@ This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 [pull request workflow](contributing.md#pull-request-workflow) to submit your changes for review.
 
+### Adding example code
+
+Many of the PyGMT functions have example code in their documentation. To contribute an
+example, add an "Example" header and put the example code below it. Have all lines 
+begin with `>>>`.  To keep this example code from being run during testing, add the code
+`__doctest_skip__ = [function name]` to the top of the module. 
+
+**Inline code example**
+
+Below the import statements at the top of the file
+
+``
+__doctest_skip__ = ["module_name"]
+``
+
+At the end of the function's docstring
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Comment describing what is happening
+    >>> Code example
+
+
 ### Contributing Gallery Plots
 
 The gallery and tutorials are managed by
