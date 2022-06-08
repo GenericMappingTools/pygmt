@@ -19,7 +19,7 @@ def test_binstats_outgrid():
             spacing=5,
             statistic="z",
             search_radius="1000k",
-            colname="2=population",
+            aspatial="2=population",
             region="g",
         )
         assert result is None  # return value is None
@@ -35,7 +35,7 @@ def test_sph2grd_no_outgrid():
         spacing=5,
         statistic="z",
         search_radius="1000k",
-        colname="2=population",
+        aspatial="2=population",
         region="g",
     )
     assert temp_grid.dims == ("y", "x")

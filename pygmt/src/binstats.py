@@ -23,7 +23,7 @@ from pygmt.io import load_dataarray
     S="search_radius",
     V="verbose",
     W="weight",
-    a="colname",
+    a="aspatial",
     b="binary",
     h="header",
     i="incols",
@@ -86,6 +86,7 @@ def binstats(data, **kwargs):
     {I}
     {R}
     {V}
+    {a}
     {b}
     {h}
     {i}
