@@ -26,7 +26,7 @@ def test_binstats_outgrid():
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
 
 
-def test_sph2grd_no_outgrid():
+def test_binstats_no_outgrid():
     """
     Test binstats with no set outgrid.
     """
