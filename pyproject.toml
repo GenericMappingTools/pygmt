@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
 local_scheme = "node-and-date"
-fallback_version = "unknown"
+fallback_version = "9999.9999.9999"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
