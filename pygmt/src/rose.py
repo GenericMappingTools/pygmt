@@ -211,4 +211,4 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         )
 
         with file_context as fname:
-            lib.call_module("rose", build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="rose", args=build_arg_string(kwargs, infile=fname))

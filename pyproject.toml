@@ -42,7 +42,7 @@ exclude = ["doc"]
 
 [tool.setuptools_scm]
 local_scheme = "node-and-date"
-fallback_version = "unknown"
+fallback_version = "999.999.999+unknown"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]

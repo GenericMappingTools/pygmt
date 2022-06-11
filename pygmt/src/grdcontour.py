@@ -100,4 +100,6 @@ def grdcontour(self, grid, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:
-            lib.call_module("grdcontour", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="grdcontour", args=build_arg_string(kwargs, infile=fname)
+            )

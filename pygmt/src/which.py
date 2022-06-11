@@ -62,7 +62,8 @@ def which(fname, **kwargs):
     with GMTTempFile() as tmpfile:
         with Session() as lib:
             lib.call_module(
-                "which", build_arg_string(kwargs, infile=fname, outfile=tmpfile.name)
+                module="which",
+                args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
             )
         path = tmpfile.read().strip()
     if not path:

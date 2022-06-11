@@ -86,7 +86,8 @@ def info(data, **kwargs):
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 lib.call_module(
-                    "info", build_arg_string(kwargs, infile=fname, outfile=tmpfile.name)
+                    module="info",
+                    args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 

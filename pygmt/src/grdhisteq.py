@@ -40,7 +40,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     which have an equal area in the image [Default is 16 if ``divisions`` is
     not set]. The :class:`pandas.DataFrame` or ASCII file output can be used to
     make a colormap with :meth:`pygmt.makecpt` and an image with
-    :meth:`pygmt.Figure.grdimage` that has all levels of gray occuring
+    :meth:`pygmt.Figure.grdimage` that has all levels of gray occurring
     equally.
 
     :meth:`pygmt.grdhisteq.equalize_grid` provides a way to write a grid with
@@ -112,7 +112,9 @@ class grdhisteq:  # pylint: disable=invalid-name
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                lib.call_module("grdhisteq", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="grdhisteq", args=build_arg_string(kwargs, infile=infile)
+                )
 
         if output_type == "file":
             return None
@@ -254,7 +256,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         ``divisions`` is not set]. The :class:`pandas.DataFrame` or ASCII file
         output can be used to make a colormap with :meth:`pygmt.makecpt` and an
         image with :meth:`pygmt.Figure.grdimage` that has all levels of gray
-        occuring equally.
+        occurring equally.
 
         Full option list at :gmt-docs:`grdhisteq.html`
 

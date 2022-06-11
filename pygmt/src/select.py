@@ -168,7 +168,7 @@ def select(data=None, outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    module="gmtselect",
+                    module="select",
                     args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 

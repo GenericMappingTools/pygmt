@@ -81,6 +81,8 @@ def sph2grd(data, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module("sph2grd", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="sph2grd", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -11,6 +11,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["sphinterpolate"]
+
 
 @fmt_docstring
 @use_alias(
@@ -55,6 +57,15 @@ def sphinterpolate(data, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a table of Mars with longitude/latitude/radius columns
+    >>> mars_shape = pygmt.datasets.load_sample_data(name="mars_shape")
+    >>> # Perform Delaunay triangulation on the table data
+    >>> # to produce a grid with a 1 arc-degree spacing
+    >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -63,7 +74,8 @@ def sphinterpolate(data, **kwargs):
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    "sphinterpolate", build_arg_string(kwargs, infile=infile)
+                    module="sphinterpolate",
+                    args=build_arg_string(kwargs, infile=infile),
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

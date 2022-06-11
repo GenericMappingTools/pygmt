@@ -104,7 +104,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -245,7 +245,9 @@ class Figure:
             raise GMTInvalidInput("The 'prefix' must be specified.") from err
 
         with Session() as lib:
-            lib.call_module("psconvert", f"{prefix_arg} {build_arg_string(kwargs)}")
+            lib.call_module(
+                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
+            )
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
@@ -393,9 +395,9 @@ class Figure:
         """
         Shift plot origin in x and/or y directions.
 
-        This method shifts plot origin relative to the current origin by
-        (*xshift*, *yshift*) and optionally append the length unit (**c**,
-        **i**, or **p**).
+        This method shifts the plot origin relative to the current origin
+        by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
+        **i**, or **p**). Default unit if not given is **c** for centimeter.
 
         Prepend **a** to shift the origin back to the original position after
         plotting, prepend **c** to center the plot on the center of the paper
@@ -421,7 +423,7 @@ class Figure:
             args.append(f"-Y{yshift}")
 
         with Session() as lib:
-            lib.call_module("plot", " ".join(args))
+            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """

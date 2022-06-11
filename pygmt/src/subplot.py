@@ -159,11 +159,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     with Session() as lib:
         try:
             arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
-            lib.call_module("subplot", arg_str)
+            lib.call_module(module="subplot", args=arg_str)
             yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("subplot", f"end {v_arg}")
+            lib.call_module(module="subplot", args=f"end {v_arg}")
 
 
 @fmt_docstring

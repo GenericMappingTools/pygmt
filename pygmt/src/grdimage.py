@@ -171,4 +171,6 @@ def grdimage(self, grid, **kwargs):
                 kwargs["I"] = stack.enter_context(shading_context)
 
             fname = stack.enter_context(file_context)
-            lib.call_module("grdimage", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+            )
