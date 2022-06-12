@@ -318,9 +318,9 @@ Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 ### Adding example code
 
 Many of the PyGMT functions have example code in their documentation. To contribute an
-example, add an "Example" header and put the example code below it. Have all lines 
+example, add an "Example" header and put the example code below it. Have all lines
 begin with `>>>`.  To keep this example code from being run during testing, add the code
-`__doctest_skip__ = [function name]` to the top of the module. 
+`__doctest_skip__ = [function name]` to the top of the module.
 
 **Inline code example**
 
@@ -500,7 +500,7 @@ convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
-[pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
+[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
