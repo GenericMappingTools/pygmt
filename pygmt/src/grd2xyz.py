@@ -179,7 +179,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    "grd2xyz", build_arg_string(kwargs, infile=infile, outfile=outfile)
+                    module="grd2xyz",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

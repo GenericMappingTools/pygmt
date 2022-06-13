@@ -13,6 +13,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["sphdistance"]
+
 
 @fmt_docstring
 @use_alias(
@@ -99,6 +101,19 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # Create an array of longitude/latitude coordinates
+    >>> coords_list = [[85.5, 22.3], [82.3, 22.6], [85.8, 22.4], [86.5, 23.3]]
+    >>> coords_array = np.array(coords_list)
+    >>> # Perform a calculation of the distance to
+    >>> # each point from Voronoi polygons
+    >>> grid = pygmt.sphdistance(
+    ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
+    ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
@@ -110,6 +125,8 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module("sphdistance", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="sphdistance", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -242,4 +242,6 @@ def plot3d(
         )
 
         with file_context as fname:
-            lib.call_module("plot3d", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+            )

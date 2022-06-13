@@ -113,4 +113,6 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         )
 
         with file_context as fname:
-            lib.call_module("wiggle", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="wiggle", args=build_arg_string(kwargs, infile=fname)
+            )

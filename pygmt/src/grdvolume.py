@@ -115,8 +115,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    "grdvolume",
-                    build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    module="grdvolume",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

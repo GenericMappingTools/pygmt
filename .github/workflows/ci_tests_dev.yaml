@@ -17,9 +17,9 @@ on:
       - '.gitignore'
   repository_dispatch:
     types: [test-gmt-dev-command]
-  # Schedule daily tests
+  # Schedule tests on Monday/Wednesday/Friday
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1,3,5'
 
 jobs:
   test_gmt_dev:
@@ -45,10 +45,10 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.1
+        uses: actions/checkout@v3.0.2
         if: github.event_name != 'repository_dispatch'
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Generate token from GenericMappingTools bot
@@ -62,13 +62,13 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v3.0.1
+        uses: actions/checkout@v3.0.2
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       - name: Show job URL
@@ -137,7 +137,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.19.0
+        uses: dawidd6/action-download-artifact@v2.21.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

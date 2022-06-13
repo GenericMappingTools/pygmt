@@ -29,12 +29,14 @@ from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
+    binstats,
     blockmean,
     blockmedian,
     blockmode,
     config,
     dimfilter,
     earthtide,
+    filter1d,
     grd2cpt,
     grd2xyz,
     grdclip,

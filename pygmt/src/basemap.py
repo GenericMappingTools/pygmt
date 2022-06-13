@@ -94,4 +94,4 @@ def basemap(self, **kwargs):
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
         kwargs["B"] = True  # Plotting frames if required arguments not given
     with Session() as lib:
-        lib.call_module("basemap", build_arg_string(kwargs))
+        lib.call_module(module="basemap", args=build_arg_string(kwargs))
