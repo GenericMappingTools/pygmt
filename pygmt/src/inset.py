@@ -127,8 +127,8 @@ def inset(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         try:
-            lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")
             yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("inset", f"end {v_arg}".strip())
+            lib.call_module(module="inset", args=f"end {v_arg}".strip())

@@ -17,9 +17,9 @@ on:
       - '.gitignore'
   repository_dispatch:
     types: [test-gmt-dev-command]
-  # Schedule daily tests
+  # Schedule tests on Monday/Wednesday/Friday
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1,3,5'
 
 jobs:
   test_gmt_dev:
@@ -45,10 +45,10 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         if: github.event_name != 'repository_dispatch'
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Generate token from GenericMappingTools bot
@@ -62,14 +62,23 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.sha }}
-          # fecth all history so that setuptools-scm works
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
+
+      - name: Show job URL
+        uses: peter-evans/create-or-update-comment@v2.0.0
+        if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
@@ -92,11 +101,24 @@ jobs:
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        dvc ipython 'pytest>=6.0' pytest-cov \
+                        build dvc ipython 'pytest>=6.0' pytest-cov \
                         pytest-doctestplus pytest-mpl sphinx-gallery tomli
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
+        if: github.event_name == 'schedule'
+        run: |
+          ORIGINAL_BRANCH=$(git branch --show-current)
+          # Pull down GMT 6.4 baseline images from the gmt-6.4 branch
+          # https://github.com/GenericMappingTools/pygmt/pull/1883
+          git checkout gmt-6.4
+          dvc pull
+          ls -lhR pygmt/tests/baseline/
+          git checkout ${ORIGINAL_BRANCH}
+
+      # Pull baseline image data from dvc remote (DAGsHub)
+      - name: Pull baseline image data from dvc remote
+        if: github.event_name != 'schedule'
         run: |
           dvc pull
           ls -lhR pygmt/tests/baseline/
@@ -115,7 +137,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.17.0
+        uses: dawidd6/action-download-artifact@v2.21.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -131,11 +153,10 @@ jobs:
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
-
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
+          python -m build --sdist
           pip install dist/*
 
       - name: Add GMT's bin to PATH (Linux/macOS)
@@ -156,17 +177,8 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: ${{ failure() }}
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}
           path: tmp-test-dir-with-unique-name
-
-      - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v1
-        if: github.event_name == 'repository_dispatch'
-        with:
-          token: ${{ steps.generate-token.outputs.token }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          reaction-type: hooray

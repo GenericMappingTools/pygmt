@@ -85,13 +85,13 @@ def info(data, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
-                arg_str = " ".join(
-                    [fname, build_arg_string(kwargs), "->" + tmpfile.name]
+                lib.call_module(
+                    module="info",
+                    args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
                 )
-                lib.call_module("info", arg_str)
             result = tmpfile.read()
 
-        if any(arg in kwargs for arg in ["C", "I", "T"]):
+        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1

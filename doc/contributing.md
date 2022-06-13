@@ -315,6 +315,30 @@ This will build the HTML files in `doc/_build/html`.
 Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 [pull request workflow](contributing.md#pull-request-workflow) to submit your changes for review.
 
+### Adding example code
+
+Many of the PyGMT functions have example code in their documentation. To contribute an
+example, add an "Example" header and put the example code below it. Have all lines 
+begin with `>>>`.  To keep this example code from being run during testing, add the code
+`__doctest_skip__ = [function name]` to the top of the module. 
+
+**Inline code example**
+
+Below the import statements at the top of the file
+
+``
+__doctest_skip__ = ["module_name"]
+``
+
+At the end of the function's docstring
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Comment describing what is happening
+    >>> Code example
+
+
 ### Contributing Gallery Plots
 
 The gallery and tutorials are managed by
@@ -405,9 +429,9 @@ When editing documentation, use the following standards to demonstrate the examp
 
 The API reference is manually assembled in `doc/api/index.rst`.
 The *autodoc* sphinx extension will automatically create pages for each
-function/class/module listed there.
+function/class/module/method listed there.
 
-You can reference functions, classes, methods, and modules from anywhere
+You can reference functions, classes, modules, and methods from anywhere
 (including docstrings) using:
 
 - <code>:func:\`package.module.function\`</code>
@@ -435,7 +459,7 @@ For GMT configuration parameters, an example is
 {gmt-term}`https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND <COLOR_FOREGROUND>`.
 
 Sphinx will create a link to the automatically generated page for that
-function/class/module.
+function/class/module/method.
 
 ## Contributing Code
 
@@ -500,7 +524,7 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-modules, such as `plot` and `basemap`. The highest priority for tests should be the
+methods, such as `plot` and `basemap`. The highest priority for tests should be the
 Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
 mechanism.
 

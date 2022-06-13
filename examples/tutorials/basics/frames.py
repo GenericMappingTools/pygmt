@@ -22,7 +22,7 @@ fig.show()
 
 ###############################################################################
 # To add the default GMT frame to the plot, use ``frame="f"`` in
-# :meth:`pygmt.Figure.basemap` or any other plotting module:
+# :meth:`pygmt.Figure.basemap` or any other plotting method:
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")

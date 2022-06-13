@@ -132,5 +132,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("contour", arg_str)
+            lib.call_module(
+                module="contour", args=build_arg_string(kwargs, infile=fname)
+            )

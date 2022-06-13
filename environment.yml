@@ -14,6 +14,7 @@ dependencies:
     # Optional dependencies
     - geopandas
     # Development dependencies (general)
+    - build
     - dvc
     - ipython
     - jupyter
@@ -35,5 +36,6 @@ dependencies:
     - myst-parser
     - sphinx
     - sphinx-copybutton
+    - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme

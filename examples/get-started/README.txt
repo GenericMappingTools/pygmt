@@ -13,5 +13,5 @@ This tutorial assumes that PyGMT has been successfully
 
 This tutorial will progressively cover PyGMT plotting concepts, and later
 examples will use concepts explained in previous examples. It will not
-cover all PyGMT modules.
+cover all PyGMT methods.
 

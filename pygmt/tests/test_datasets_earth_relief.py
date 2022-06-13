@@ -46,7 +46,7 @@ def test_earth_relief_01d_with_region():
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5147)
+    npt.assert_allclose(data.min(), -5154)
     npt.assert_allclose(data.max(), 805.5)
 
 

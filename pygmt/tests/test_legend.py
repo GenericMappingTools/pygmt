@@ -2,13 +2,9 @@
 Tests for legend.
 """
 import pytest
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.mark.mpl_image_compare
