@@ -5,7 +5,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
-    args_in_kwargs,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
