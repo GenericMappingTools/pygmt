@@ -71,7 +71,8 @@ def binstats(data, **kwargs):
         - **n** the number of values
         - **o** for LMS scale
         - **p** for mode (maximum likelihood)
-        - **q** for selected quantile (append desired quantile in 0-100% range [50])
+        - **q** for selected quantile (append desired quantile in
+          0-100% range [50])
         - **r** for the r.m.s.
         - **s** for standard deviation
         - **u** for maximum (upper)
