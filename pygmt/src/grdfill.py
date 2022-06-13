@@ -62,6 +62,17 @@ def grdfill(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a bathymetric grid with missing data
+    >>> earth_relief_holes = pygmt.datasets.load_sample_data(
+    ...     name="earth_relief_holes"
+    ... )
+    >>> # Perform grd filling operations on the sample grid
+    >>> # Set all empty values to "20"
+    >>> filled_grid = pygmt.grdfill(grid=grid, mode="c20")
     """
     if kwargs.get("A") is None and kwargs.get("L") is None:
         raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
