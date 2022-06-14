@@ -66,19 +66,27 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    load_func = {
+    # Dictionary of public load functions for backwards compatibility
+    load_func_old = {
         "bathymetry": load_sample_bathymetry,
-        "earth_relief_holes": _load_earth_relief_holes,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
-        "notre_dame_topography": _load_notre_dame_topography,
         "usgs_quakes": load_usgs_quakes,
     }
 
-    data = load_func[name](suppress_warning=True)
+    # Dictionary of private load functions
+    load_func = {
+        "earth_relief_holes": _load_earth_relief_holes,
+        "notre_dame_topography": _load_notre_dame_topography,
+    }
+
+    if name in load_func_old:
+        data = load_func_old[name](suppress_warning=True)
+    elif name in load_func:
+        data = load_func[name]()
 
     return data
 
@@ -350,7 +358,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
+def _load_notre_dame_topography():
     """
     Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
 
@@ -363,7 +371,7 @@ def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
-def _load_earth_relief_holes(**kwargs):  # pylint: disable=unused-argument
+def _load_earth_relief_holes():
     """
     Loads the remote file @earth_relief_20m_holes.grd.
 
