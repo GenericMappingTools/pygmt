@@ -151,7 +151,7 @@ There are 11 configuration files located in `.github/workflows`:
 
 ## Continuous Documentation
 
-We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
+We use the [ReadtheDocs](https://readthedocs.org/) service to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `vercel.json`, with a list of options to
 change the default behaviour at https://vercel.com/docs/configuration.
