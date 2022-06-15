@@ -380,7 +380,7 @@ def _load_maunaloa_co2():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "data" and "co2_ppm".
+        The data table with columns "date" and "co2_ppm".
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     return pd.read_csv(
