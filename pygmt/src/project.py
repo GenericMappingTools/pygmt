@@ -210,13 +210,13 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           by ``outfile``)
     """
 
-    if "C" not in kwargs:
+    if kwargs.get("C") is None:
         raise GMTInvalidInput("The `center` parameter must be specified.")
-    if "G" not in kwargs and data is None:
+    if kwargs.get("G") is None and data is None:
         raise GMTInvalidInput(
             "The `data` parameter must be specified unless `generate` is used."
         )
-    if "G" in kwargs and "F" in kwargs:
+    if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTInvalidInput(
             "The `convention` parameter is not allowed with `generate`."
         )
@@ -225,7 +225,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         if outfile is None:  # Output to tmpfile if outfile is not set
             outfile = tmpfile.name
         with Session() as lib:
-            if "G" not in kwargs:
+            if kwargs.get("G") is None:
                 # Choose how data will be passed into the module
                 table_context = lib.virtualfile_from_data(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
@@ -233,16 +233,14 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
                 # Run project on the temporary (csv) data table
                 with table_context as infile:
-                    arg_str = " ".join(
-                        [infile, build_arg_string(kwargs), "->" + outfile]
-                    )
+                    arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             else:
-                arg_str = " ".join([build_arg_string(kwargs), "->" + outfile])
+                arg_str = build_arg_string(kwargs, outfile=outfile)
             lib.call_module(module="project", args=arg_str)
 
         # if user did not set outfile, return pd.DataFrame
         if outfile == tmpfile.name:
-            if "G" in kwargs:
+            if kwargs.get("G") is not None:
                 column_names = list("rsp")
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             else:

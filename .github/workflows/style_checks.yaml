@@ -16,11 +16,11 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
 
       # Setup Miniconda
       - name: Set up Python
-        uses: actions/setup-python@v3.0.0
+        uses: actions/setup-python@v4.0.0
         with:
           python-version: '3.10'
 

@@ -2,6 +2,7 @@
 Tests plot3d.
 """
 import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -423,8 +424,11 @@ def test_plot3d_scalar_xyz():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_plot3d_ogrgmt_file_multipoint_default_style():
+@pytest.mark.mpl_image_compare(
+    filename="test_plot3d_ogrgmt_file_multipoint_default_style.png"
+)
+@pytest.mark.parametrize("func", [str, Path])
+def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
     Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
     and not as line (default GMT style).
@@ -440,7 +444,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style():
             file.write(gmt_file)
         fig = Figure()
         fig.plot3d(
-            data=tmpfile.name,
+            data=func(tmpfile.name),
             perspective=[315, 25],
             region=[0, 2, 0, 2, 0, 2],
             projection="X2c",

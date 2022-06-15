@@ -14,6 +14,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["surface"]
+
 
 @fmt_docstring
 @deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
@@ -90,6 +92,16 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a sample table of topography
+    >>> topography = pygmt.datasets.load_sample_data(
+    ...     name="notre_dame_topography"
+    ... )
+    >>> # Perform gridding of topography data
+    >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -98,10 +110,10 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tmpfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module(module="surface", args=arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="surface", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

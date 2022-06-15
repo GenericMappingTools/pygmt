@@ -66,7 +66,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if "T" in kwargs:
+    if kwargs.get("T") is not None:
         raise GMTInvalidInput(
             "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         )
@@ -94,4 +94,4 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
             raise GMTInvalidInput("Unrecognized datetime format.") from verr
         kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
-        lib.call_module("solar", build_arg_string(kwargs))
+        lib.call_module(module="solar", args=build_arg_string(kwargs))

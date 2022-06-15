@@ -57,8 +57,13 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     """
     Test the azimuth and direction parameters for grdgradient with no set
     outgrid.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1807.
     """
-    result = grdgradient(grid=grid, azimuth=10, region=[-53, -49, -20, -17])
+    result = grdgradient(
+        grid=grid, azimuth=10, region=[-53, -49, -20, -17], outgrid=None
+    )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid

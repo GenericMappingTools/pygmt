@@ -14,9 +14,9 @@ def begin():
     """
     prefix = "pygmt-session"
     with Session() as lib:
-        lib.call_module("begin", prefix)
+        lib.call_module(module="begin", args=prefix)
         # pygmt relies on GMT modern mode with GMT_COMPATIBILITY at version 6
-        lib.call_module("set", "GMT_COMPATIBILITY 6")
+        lib.call_module(module="set", args="GMT_COMPATIBILITY 6")
 
 
 def end():
@@ -29,4 +29,4 @@ def end():
     ``pygmt.begin``), and bring the figures to the working directory.
     """
     with Session() as lib:
-        lib.call_module("end", "")
+        lib.call_module(module="end", args="")
