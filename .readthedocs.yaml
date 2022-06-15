@@ -9,6 +9,9 @@ build:
   os: ubuntu-20.04
   tools:
     python: "mambaforge-4.10"
+  jobs:
+    pre_build: # Generate api stub files before building
+      - make -C doc api
 
 # Build documentation in the doc/ directory with Sphinx
 sphinx:
