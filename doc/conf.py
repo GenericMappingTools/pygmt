@@ -142,6 +142,7 @@ rst_epilog = f"""
 .. |year| replace:: {year}
 """
 
+html_baseurl = "https://pygmt.org/latest/"
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"
 html_short_title = "PyGMT"
