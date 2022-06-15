@@ -4,10 +4,9 @@ prune doc*
 prune examples*
 exclude .dvcignore
 exclude .gitignore
+exclude .readthedocs.yaml
 exclude AUTHORSHIP.md
 exclude CONTRIBUTING.md
 exclude Makefile
 exclude environment.yml
-exclude package.json
 exclude requirements.txt
-exclude vercel.json
