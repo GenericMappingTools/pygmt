@@ -736,7 +736,7 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
-        Not at all numpy dtypes are supported, only: int8, int16, int32, int64,
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
         uint8, uint16, uint32, uint64, float32, float64, str\_ and datetime64.
 
         .. warning::
@@ -860,8 +860,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
-        Not at all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_ and datetime64.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
+        uint8, uint16, uint32, uint64, float32 and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
