@@ -34,15 +34,12 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.10) for draft PRs
+        # Only run two jobs (Ubuntu + Python 3.8/3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
-          # - os: ubuntu-latest
-          #   python-version: 3.7
-          #   isDraft: true
         # Pair Python 3.8 with NumPy 1.19 and Python 3.10 with NumPy 1.22
         # Only install optional packages on Python 3.10/NumPy 1.22
         include:

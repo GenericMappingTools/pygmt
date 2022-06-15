@@ -29,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.10']
-        os: [ubuntu-latest, macOS-11.0, windows-2022]
+        os: [ubuntu-22.04, macOS-12, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
