@@ -16,7 +16,7 @@ from pygmt.src import which
 @pytest.fixture(scope="module", name="data")
 def fixture_table():
     """
-    Load the @MaunaLoa_CO2.txt datset as a pandas dataframe.
+    Load the @MaunaLoa_CO2.txt dataset as a pandas dataframe.
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     data = pd.read_csv(
