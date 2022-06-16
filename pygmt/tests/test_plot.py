@@ -52,7 +52,7 @@ def test_plot_red_circles(data, region):
     return fig
 
 
-def test_plot_fail_no_data(data):
+def test_plot_fail_no_data(data, region):
     """
     Plot should raise an exception if no data is given.
     """
@@ -93,7 +93,7 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_1d_array_with_data(data):
+def test_plot_fail_1d_array_with_data(data, region):
     """
     Should raise an exception if array color, size, intensity and transparency
     are used with matrix.
