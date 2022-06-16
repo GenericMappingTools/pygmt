@@ -114,6 +114,7 @@ Operations on tabular data
 .. autosummary::
     :toctree: generated
 
+    binstats
     blockmean
     blockmedian
     blockmode

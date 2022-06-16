@@ -34,15 +34,12 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.10) for draft PRs
+        # Only run two jobs (Ubuntu + Python 3.8/3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
-          # - os: ubuntu-latest
-          #   python-version: 3.7
-          #   isDraft: true
         # Pair Python 3.8 with NumPy 1.19 and Python 3.10 with NumPy 1.22
         # Only install optional packages on Python 3.10/NumPy 1.22
         include:
@@ -74,7 +71,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.2
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
@@ -105,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.19.0
+        uses: dawidd6/action-download-artifact@v2.21.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -133,9 +130,15 @@ jobs:
           python -m build --sdist
           pip install dist/*
 
-      # Run the tests
-      - name: Test with pytest
+      # Run the regular tests
+      - name: Run tests
+        if: github.event.schedule != '0 0 * * 3'
         run: make test PYTEST_EXTRA="-r P"
+
+      # Run full tests including doctests on Wednesday
+      - name: Run full tests
+        if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 3'
+        run: make fulltest PYTEST_EXTRA="-r P"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
