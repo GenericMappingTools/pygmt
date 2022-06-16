@@ -14,7 +14,7 @@ from pygmt.src import which
 
 
 @pytest.fixture(scope="module", name="data")
-def fixture_table():
+def fixture_data():
     """
     Load the grid data from the sample earth_relief file.
     """

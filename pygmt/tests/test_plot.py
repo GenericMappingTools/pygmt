@@ -18,16 +18,16 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
