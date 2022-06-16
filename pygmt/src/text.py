@@ -156,7 +156,12 @@ def text_(
     {e}
     {f}
     {h}
-    {i}
+    incols : str
+        **t**\ *word*.
+        In this method ``incols="t"`` can be used to select a specific word
+        from the trailing text [Default is the entire trailing text].
+        The *word* indicates the word order, with the first word being 0.
+        No numerical columns can be specified.
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
