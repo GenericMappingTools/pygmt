@@ -6,7 +6,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
