@@ -148,6 +148,21 @@ def test_hotspots():
     assert isinstance(data, pd.DataFrame)
 
 
+def test_load_notre_dame_topography():
+    """
+    Check that the @Table_5_11.txt dataset loads without errors.
+    """
+    data = load_sample_data(name="notre_dame_topography")
+    assert data.shape == (52, 3)
+    summary = data.describe()
+    assert summary.loc["min", "x"] == 0.2
+    assert summary.loc["max", "x"] == 6.3
+    assert summary.loc["min", "y"] == 0
+    assert summary.loc["max", "y"] == 6.2
+    assert summary.loc["min", "z"] == 690
+    assert summary.loc["max", "z"] == 960
+
+
 def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.
@@ -158,3 +173,16 @@ def test_earth_relief_holes():
     npt.assert_allclose(grid.min(), -4929.5)
     # Test for the NaN values in the remote file
     assert grid[2, 21].isnull()
+
+
+def test_maunaloa_co2():
+    """
+    Check that the @MaunaLoa_CO2.txt dataset loads without errors.
+    """
+    data = load_sample_data(name="maunaloa_co2")
+    assert data.shape == (730, 2)
+    summary = data.describe()
+    assert summary.loc["min", "date"] == 1958.2027
+    assert summary.loc["max", "date"] == 2019.3699
+    assert summary.loc["min", "co2_ppm"] == 313.2
+    assert summary.loc["max", "co2_ppm"] == 414.83
