@@ -23,7 +23,7 @@ sphinx:
 
 # Optionally declare the Python requirements required to build your docs
 conda:
-  environment: environment.yml
+  environment: .github/workflows/docs_environment.yml
 python:
    install:
    - method: pip

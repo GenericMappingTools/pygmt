@@ -1,0 +1,26 @@
+name: pygmt
+channels:
+    - conda-forge
+    - defaults
+dependencies:
+    # Required dependencies
+    - pip
+    - gmt=6.3.0
+    - numpy>=1.19
+    - pandas
+    - xarray
+    - netCDF4
+    - packaging
+    # Optional dependencies
+    - geopandas
+    # Development dependencies (general)
+    - build
+    - ipython
+    - make
+    # Dev dependencies (building documentation)
+    - myst-parser
+    - sphinx
+    - sphinx-copybutton
+    - sphinx-design
+    - sphinx-gallery
+    - sphinx_rtd_theme
