@@ -71,6 +71,26 @@ MIGG-NTU
 +++
 Wei Ji Leong
 ::::
+
+::::{grid-item-card} Crafting 3D maps of Antarctica with PyGMT and the IBCSO V2
+:link: https://github.com/andrebelem/3D-Antarctic-maps
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/3D-Antarctic-maps/raw/main/3D-Antarctic-Maps.png)
++++
+Andre Belem
+::::
+
+::::{grid-item-card} Planetary Maps (in PyGMT)
+:link: https://github.com/andrebelem/PlanetaryMaps
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/MarsMaps/raw/main/JezeroCrater.png)
++++
+Andre Belem
+::::
 :::::
 
 ## Examples from Publications and Posters
