@@ -32,12 +32,9 @@ def test_wiggle():
 
 
 @pytest.mark.mpl_image_compare(filename="test_wiggle.png")
-def test_wiggle_deprecate_columns_to_incols():
+def test_wiggle_data_incols():
     """
-    Make sure that the old parameter "columns" is supported and it reports a
-    warning.
-
-    Modified from the test_wiggle() test.
+    Make sure that incols works with input data array.
     """
 
     # put data into numpy array and swap x and y columns
@@ -48,17 +45,15 @@ def test_wiggle_deprecate_columns_to_incols():
     data = np.array([y, x, z]).T
 
     fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.wiggle(
-            data,
-            region=[-4, 4, -1, 1],
-            projection="X8c",
-            columns=[1, 0, 2],
-            scale="0.5c",
-            color=["red+p", "gray+n"],
-            pen="1.0p",
-            track="0.5p",
-            position="jRM+w2+lnT",
-        )
-        assert len(record) == 1  # check that only one warning was raised
+    fig.wiggle(
+        data,
+        region=[-4, 4, -1, 1],
+        projection="X8c",
+        incols=[1, 0, 2],
+        scale="0.5c",
+        color=["red+p", "gray+n"],
+        pen="1.0p",
+        track="0.5p",
+        position="jRM+w2+lnT",
+    )
     return fig
