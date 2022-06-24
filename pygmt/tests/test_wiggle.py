@@ -38,7 +38,7 @@ def test_wiggle_data_incols():
     """
 
     # put data into numpy array and swap x and y columns
-    # as the use of the 'columns' parameter will reverse this action
+    # as the use of the 'incols' parameter will reverse this action
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
     z = np.cos(2 * np.pi * x)
