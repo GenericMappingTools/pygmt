@@ -34,7 +34,7 @@ def test_wiggle():
 @pytest.mark.mpl_image_compare(filename="test_wiggle.png")
 def test_wiggle_data_incols():
     """
-    Make sure that incols works with input data array.
+    Make sure that incols parameter works with input data array.
     """
 
     # put data into numpy array and swap x and y columns
