@@ -11,7 +11,6 @@ from pygmt import filter1d
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.src import which
 
 
 @pytest.fixture(scope="module", name="data")
