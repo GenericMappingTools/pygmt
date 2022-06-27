@@ -156,7 +156,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6426493,
+    @software{pygmt_2022_6702566,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -173,12 +173,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = apr,
+      month        = jul,
       year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.6.1},
-      doi          = {10.5281/zenodo.6426493},
-      url          = {https://doi.org/10.5281/zenodo.6426493}
+      version      = {v0.7.0},
+      doi          = {10.5281/zenodo.6702566},
+      url          = {https://doi.org/10.5281/zenodo.6702566}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
