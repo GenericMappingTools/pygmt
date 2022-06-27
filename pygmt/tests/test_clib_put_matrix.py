@@ -11,11 +11,18 @@ from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
 
-def test_put_matrix():
+@pytest.fixture(scope="module", name="dtypes")
+def fixture_dtypes():
+    """
+    List of supported numpy dtypes.
+    """
+    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+
+
+def test_put_matrix(dtypes):
     """
     Check that assigning a numpy 2d array to a dataset works.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (3, 4)
     for dtype in dtypes:
         with clib.Session() as lib:
@@ -57,11 +64,10 @@ def test_put_matrix_fails():
                 lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
 
 
-def test_put_matrix_grid():
+def test_put_matrix_grid(dtypes):
     """
     Check that assigning a numpy 2d array to an ASCII and NetCDF grid works.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     wesn = [10, 15, 30, 40, 0, 0]
     inc = [1, 1]
     shape = ((wesn[3] - wesn[2]) // inc[1] + 1, (wesn[1] - wesn[0]) // inc[0] + 1)

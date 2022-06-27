@@ -8,14 +8,43 @@ Quickstart
 
 The fastest way to install PyGMT is with the
 `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
+or `mamba <https://mamba.readthedocs.io/en/latest/>`__
 package manager which takes care of setting up a virtual environment, as well
-as the installation of GMT and all the dependencies PyGMT depends on::
+as the installation of GMT and all the dependencies PyGMT depends on:
 
-    conda create --name pygmt --channel conda-forge pygmt
+.. tab-set::
 
-To activate the virtual environment, you can do::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda activate pygmt
+        ::
+
+            conda create --name pygmt --channel conda-forge pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba create --name pygmt --channel conda-forge pygmt
+
+To activate the virtual environment, you can do:
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba activate pygmt
 
 After this, check that everything works by running the following in a Python
 interpreter (e.g., in a Jupyter notebook)::
@@ -96,13 +125,41 @@ First, we must configure conda to get packages from the
 
 Now we can create a new conda environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
-want)::
+want):
 
-    conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+.. tab-set::
 
-Activate the environment by running the following (**do not forget this step!**)::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda activate pygmt
+        ::
+
+            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+Activate the environment by running the following (**do not forget this step!**):
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba activate pygmt
 
 From now on, all commands will take place inside the conda virtual environment
 called ``pygmt`` and won't affect your default ``base`` installation.
@@ -114,17 +171,45 @@ Installing PyGMT
 Now that you have GMT installed and your conda virtual environment activated,
 you can install PyGMT using any of the following methods:
 
-Using conda (recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Using conda/mamba (recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This installs the latest stable release of PyGMT from
-`conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
+`conda-forge <https://anaconda.org/conda-forge/pygmt>`__:
 
-    conda install pygmt
+.. tab-set::
 
-This upgrades the installed PyGMT version to be the latest stable release::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda update pygmt
+        ::
+
+            conda install pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba install pygmt
+
+This upgrades the installed PyGMT version to be the latest stable release:
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda update pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba update pygmt
 
 Using pip
 ~~~~~~~~~
