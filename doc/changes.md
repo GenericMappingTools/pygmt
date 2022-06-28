@@ -16,12 +16,13 @@
 
 ### Enhancements
 
-* inset: Add aliases for R and J and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
-* Add a sample dataset MaunaLoa_CO2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
 * Support passing data in numpy int8, int16, uint8 and uint16 dtypes to GMT ([#1963](https://github.com/GenericMappingTools/pygmt/pull/1963))
+* inset: Add aliases for R and J and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
+* basemap: Plotting frames if required parameters are not given ([#1909](https://github.com/GenericMappingTools/pygmt/pull/1909))
+* Added alias for F in basemap ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
+* Add a sample dataset MaunaLoa_CO2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
 * Add a sample dataset notre_dame_topography ([#1920](https://github.com/GenericMappingTools/pygmt/pull/1920))
 * Add earth_relief_holes to load_sample_data() ([#1921](https://github.com/GenericMappingTools/pygmt/pull/1921))
-* basemap: Plotting frames if required parameters are not given ([#1909](https://github.com/GenericMappingTools/pygmt/pull/1909))
 
 ### Deprecations
 
@@ -37,26 +38,25 @@
 ### Documentation
 
 * Add instructions to install PyGMT using mamba ([#1967](https://github.com/GenericMappingTools/pygmt/pull/1967))
-* Add two new PyGMT tutorials to external resources ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971))
+* Improvement of two gallery examples regarding categorical colormaps ([#1934](https://github.com/GenericMappingTools/pygmt/pull/1934))
 * Add inline example to dimfilter ([#1956](https://github.com/GenericMappingTools/pygmt/pull/1956))
 * Add inline example to surface ([#1953](https://github.com/GenericMappingTools/pygmt/pull/1953))
 * Add inline example for grdfill ([#1954](https://github.com/GenericMappingTools/pygmt/pull/1954))
-* Add thumbnail images to the external resources page ([#1941](https://github.com/GenericMappingTools/pygmt/pull/1941))
-* Improvement of two gallery examples regarding categorical colormaps ([#1934](https://github.com/GenericMappingTools/pygmt/pull/1934))
-* Redesign the team gallery using sphinx-design's card directive ([#1937](https://github.com/GenericMappingTools/pygmt/pull/1937))
 * Add inline code examples to contributing guidelines ([#1924](https://github.com/GenericMappingTools/pygmt/pull/1924))
+* Add two new PyGMT tutorials to external resources ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971))
+* Add thumbnail images to the external resources page ([#1941](https://github.com/GenericMappingTools/pygmt/pull/1941))
 * Add EGU 2022 short course to external resources ([#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
-* Added alias for F in basemap ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
+* Redesign the team gallery using sphinx-design's card directive ([#1937](https://github.com/GenericMappingTools/pygmt/pull/1937))
 
 ### Maintenance
 
 * Fix broken 'Improve this page' links using sphinx variable page_source_suffix ([#1969](https://github.com/GenericMappingTools/pygmt/pull/1969))
-* Update GMT Dev Tests workflow to test on macOS-12 and ubuntu-22.04 ([#1918](https://github.com/GenericMappingTools/pygmt/pull/1918))
 * Split up functions for loading datasets ([#1955](https://github.com/GenericMappingTools/pygmt/pull/1955))
 * Set setuptools_scm fallback_version to follow  PEP440 ([#1945](https://github.com/GenericMappingTools/pygmt/pull/1945))
 * Refactor text to use virtualfile_from_data ([#1121](https://github.com/GenericMappingTools/pygmt/pull/1121))
 * Run full tests only on Wednesday scheduled jobs ([#1833](https://github.com/GenericMappingTools/pygmt/pull/1833))
 * Run GMT Dev Tests on Monday, Wednesday and Friday only ([#1922](https://github.com/GenericMappingTools/pygmt/pull/1922))
+* Update GMT Dev Tests workflow to test on macOS-12 and ubuntu-22.04 ([#1918](https://github.com/GenericMappingTools/pygmt/pull/1918))
 
 ### Contributors
 
