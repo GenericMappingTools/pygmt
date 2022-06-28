@@ -8,21 +8,17 @@ import numpy as np
 import pandas as pd
 import pytest
 from pygmt import filter1d
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
-from pygmt.src import which
 
 
 @pytest.fixture(scope="module", name="data")
 def fixture_data():
     """
-    Load the grid data from the sample earth_relief file.
+    Load the @MaunaLoa_CO2.txt dataset as a pandas dataframe.
     """
-    fname = which("@MaunaLoa_CO2.txt", download="c")
-    data = pd.read_csv(
-        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
-    )
-    return data
+    return load_sample_data(name="maunaloa_co2")
 
 
 def test_filter1d_no_outfile(data):
