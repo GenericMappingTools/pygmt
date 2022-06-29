@@ -19,10 +19,10 @@
 * Support passing data in numpy int8, int16, uint8 and uint16 dtypes to GMT ([#1963](https://github.com/GenericMappingTools/pygmt/pull/1963))
 * inset: Add aliases for R and J and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
 * basemap: Plotting frames if required parameters are not given ([#1909](https://github.com/GenericMappingTools/pygmt/pull/1909))
-* Added alias for F in basemap ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
-* Add a sample dataset MaunaLoa_CO2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
+* basemap: Added alias for F ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
+* Add a sample dataset maunaLoa_co2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
 * Add a sample dataset notre_dame_topography ([#1920](https://github.com/GenericMappingTools/pygmt/pull/1920))
-* Add earth_relief_holes to load_sample_data() ([#1921](https://github.com/GenericMappingTools/pygmt/pull/1921))
+* Add a sample dataset earth_relief_holes ([#1921](https://github.com/GenericMappingTools/pygmt/pull/1921))
 
 ### Deprecations
 
@@ -38,14 +38,14 @@
 ### Documentation
 
 * Add instructions to install PyGMT using mamba ([#1967](https://github.com/GenericMappingTools/pygmt/pull/1967))
-* Improvement of two gallery examples regarding categorical colormaps ([#1934](https://github.com/GenericMappingTools/pygmt/pull/1934))
+* Improve two gallery examples regarding categorical colormaps ([#1934](https://github.com/GenericMappingTools/pygmt/pull/1934))
 * Add inline example to dimfilter ([#1956](https://github.com/GenericMappingTools/pygmt/pull/1956))
 * Add inline example to surface ([#1953](https://github.com/GenericMappingTools/pygmt/pull/1953))
-* Add inline example for grdfill ([#1954](https://github.com/GenericMappingTools/pygmt/pull/1954))
+* Add inline example to grdfill ([#1954](https://github.com/GenericMappingTools/pygmt/pull/1954))
 * Add inline code examples to contributing guidelines ([#1924](https://github.com/GenericMappingTools/pygmt/pull/1924))
-* Add two new PyGMT tutorials to external resources ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971))
+* Add two new PyGMT tutorials to external resources page ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971))
 * Add thumbnail images to the external resources page ([#1941](https://github.com/GenericMappingTools/pygmt/pull/1941))
-* Add EGU 2022 short course to external resources ([#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
+* Add EGU 2022 short course to external resources page ([#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
 * Redesign the team gallery using sphinx-design's card directive ([#1937](https://github.com/GenericMappingTools/pygmt/pull/1937))
 
 ### Maintenance
