@@ -6,7 +6,9 @@
 
 ### Highlights
 
-*
+* 🎉 **Seventh minor release of PyGMT** 🎉
+* Wrapped 3 GMT modules
+* Added two new PyGMT tutorials and EGU 2022 short course to external resources page ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971) and [#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
 
 ### New Features
 
@@ -29,6 +31,7 @@
 * Figure.wiggle: Remove parameter 'columns', use 'incols' instead. ([#1977](https://github.com/GenericMappingTools/pygmt/pull/1977))
 * Figure.histogram and pygmt.info: Remove parameter 'table', use 'data' instead ([#1975](https://github.com/GenericMappingTools/pygmt/pull/1975))
 * pygmt.surface: Remove parameter 'outfile', use 'outgrid' instead ([#1976](https://github.com/GenericMappingTools/pygmt/pull/1976))
+* blockm/contour/plot/plot3d/rose/surface/wiggle: Change the parameter order of data array and input arrays
 
 ### Bug Fixes
 
@@ -43,9 +46,7 @@
 * Add inline example to surface ([#1953](https://github.com/GenericMappingTools/pygmt/pull/1953))
 * Add inline example to grdfill ([#1954](https://github.com/GenericMappingTools/pygmt/pull/1954))
 * Add inline code examples to contributing guidelines ([#1924](https://github.com/GenericMappingTools/pygmt/pull/1924))
-* Add two new PyGMT tutorials to external resources page ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971))
 * Add thumbnail images to the external resources page ([#1941](https://github.com/GenericMappingTools/pygmt/pull/1941))
-* Add EGU 2022 short course to external resources page ([#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
 * Redesign the team gallery using sphinx-design's card directive ([#1937](https://github.com/GenericMappingTools/pygmt/pull/1937))
 
 ### Maintenance
