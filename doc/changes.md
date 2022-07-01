@@ -102,7 +102,7 @@
 ### Contributors
 
 * [Dongdong Tian](https://github.com/seisman)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Will Schlitzer](https://github.com/willschlitzer)
@@ -194,7 +194,7 @@
 ### Contributors
 
 * [Will Schlitzer](https://github.com/willschlitzer)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Dongdong Tian](https://github.com/seisman)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -306,7 +306,7 @@
 * [Michael Grund](https://github.com/michaelgrund)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Yohai Magen](https://github.com/yohaimagen)
 * [Amanda Leaman](https://github.com/arleaman)
 * [@daroari](https://github.com/daroari)
@@ -357,7 +357,7 @@
 
 ### Contributors
 
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -477,7 +477,7 @@
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Abhishek Anant](https://github.com/itsabhianant)
@@ -556,7 +556,7 @@
 * [Dongdong Tian](https://github.com/seisman)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Liam Toney](https://github.com/liamtoney)
@@ -666,7 +666,7 @@
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Liam Toney](https://github.com/liamtoney)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 
 ----
 

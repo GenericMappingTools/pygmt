@@ -65,7 +65,7 @@ the PyGMT project and have responsibilities detailed in the
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/14077947?v=4
 
-[@meghanrjones](https://github.com/meghanrjones)
+[@maxrjones](https://github.com/maxrjones)
 +++
 {bdg-primary}`Maintainer`
 ::::
