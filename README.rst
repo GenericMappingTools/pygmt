@@ -160,7 +160,7 @@ Developers". Feel free to cite our work in your research using the following Bib
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Jones, Meghan and
+                      Jones, Max and
                       Schlitzer, William and
                       Grund, Michael and
                       Toney, Liam and
