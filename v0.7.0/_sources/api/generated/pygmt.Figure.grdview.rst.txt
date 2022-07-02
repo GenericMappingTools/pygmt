@@ -1,0 +1,12 @@
+pygmt.Figure.grdview
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.grdview
+
+.. include:: backreferences/pygmt.Figure.grdview.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

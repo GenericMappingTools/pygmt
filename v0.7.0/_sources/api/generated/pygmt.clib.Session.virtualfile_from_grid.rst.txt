@@ -1,0 +1,12 @@
+pygmt.clib.Session.virtualfile\_from\_grid
+==========================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.virtualfile_from_grid
+
+.. include:: backreferences/pygmt.clib.Session.virtualfile_from_grid.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

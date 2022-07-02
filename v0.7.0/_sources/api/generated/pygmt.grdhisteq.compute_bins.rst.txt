@@ -1,0 +1,12 @@
+pygmt.grdhisteq.compute\_bins
+=============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: grdhisteq.compute_bins
+
+.. include:: backreferences/pygmt.grdhisteq.compute_bins.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

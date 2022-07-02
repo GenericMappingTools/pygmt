@@ -1,0 +1,12 @@
+pygmt.Figure.wiggle
+===================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.wiggle
+
+.. include:: backreferences/pygmt.Figure.wiggle.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

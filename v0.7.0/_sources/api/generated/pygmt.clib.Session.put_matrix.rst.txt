@@ -1,0 +1,12 @@
+pygmt.clib.Session.put\_matrix
+==============================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.put_matrix
+
+.. include:: backreferences/pygmt.clib.Session.put_matrix.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

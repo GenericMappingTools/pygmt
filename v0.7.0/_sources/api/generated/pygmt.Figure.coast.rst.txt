@@ -1,0 +1,12 @@
+pygmt.Figure.coast
+==================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.coast
+
+.. include:: backreferences/pygmt.Figure.coast.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
