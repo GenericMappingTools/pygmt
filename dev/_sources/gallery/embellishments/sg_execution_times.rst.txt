@@ -5,20 +5,20 @@
 
 Computation times
 =================
-**00:13.489** total execution time for **gallery_embellishments** files:
+**00:09.568** total execution time for **gallery_embellishments** files:
 
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)         | 00:02.581 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)         | 00:01.861 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)                                   | 00:02.345 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)                                   | 00:01.685 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``) | 00:02.026 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``) | 00:01.437 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)                                   | 00:02.018 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)                                   | 00:01.427 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)                                 | 00:01.707 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)                                 | 00:01.157 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)                             | 00:01.481 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)                             | 00:01.036 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)                                     | 00:01.331 | 0.0 MB |
+| :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)                                     | 00:00.964 | 0.0 MB |
 +--------------------------------------------------------------------------------------------------+-----------+--------+

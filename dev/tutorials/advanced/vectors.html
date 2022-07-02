@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -98,16 +101,6 @@
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#load-sample-data">Load sample data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-original-digital-elevation-model-and-data-distribution">Plot the original digital elevation model and data distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-linear-distribution">Equalize grid based on a linear distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#calculate-the-bins-used-for-data-transformation">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-equally-distributed-data">Plot the equally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#transform-grid-based-on-a-normal-distribution">Transform grid based on a normal distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-normally-distributed-data">Plot the normally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-quadratic-distribution">Equalize grid based on a quadratic distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#id1">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-quadratic-distribution-of-data">Plot the quadratic distribution of data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Plotting vectors</a><ul>
@@ -197,14 +190,14 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-vectors">
-<span id="sphx-glr-tutorials-advanced-vectors-py"></span><h1>Plotting vectors<a class="headerlink" href="#plotting-vectors" title="Permalink to this headline"></a></h1>
+<span id="sphx-glr-tutorials-advanced-vectors-py"></span><h1>Plotting vectors<a class="headerlink" href="#plotting-vectors" title="Permalink to this heading"></a></h1>
 <p>Plotting vectors is handled by <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
 <section id="plot-cartesian-vectors">
-<h2>Plot Cartesian Vectors<a class="headerlink" href="#plot-cartesian-vectors" title="Permalink to this headline"></a></h2>
+<h2>Plot Cartesian Vectors<a class="headerlink" href="#plot-cartesian-vectors" title="Permalink to this heading"></a></h2>
 <p>Create a simple Cartesian vector using a starting point through
 <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">direction</span></code> parameters.
 On the shown figure, the plot is projected on a 10cm X 10cm region,
@@ -415,7 +408,7 @@ this example).</p>
 </pre></div>
 </div>
 <p>Another example of plotting cartesian vectors over a coast plot. This time a
-Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.22)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
+Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
 is used to create 5 vectors with equal stops.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># x values = [36.  37.5 39.  40.5 42. ]</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># y values = [39. 39. 39. 39.]</span>
@@ -453,7 +446,7 @@ is used to create 5 vectors with equal stops.</p>
 </div>
 </section>
 <section id="plot-circular-vectors">
-<h2>Plot Circular Vectors<a class="headerlink" href="#plot-circular-vectors" title="Permalink to this headline"></a></h2>
+<h2>Plot Circular Vectors<a class="headerlink" href="#plot-circular-vectors" title="Permalink to this heading"></a></h2>
 <p>When plotting circular vectors, all of the information for a single vector is
 to be stored in a list. Each circular vector list is structured as:
 <code class="docutils literal notranslate"><span class="pre">[x_start,</span> <span class="pre">y_start,</span> <span class="pre">radius,</span> <span class="pre">degree_start,</span> <span class="pre">degree_stop]</span></code>. The first two
@@ -497,7 +490,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 </div>
 <p>When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter. In this example,
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v1.22)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v1.23)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
 Other numpy objects are used to generate linear values for the <code class="docutils literal notranslate"><span class="pre">radius</span></code>
 parameter and random values for the <code class="docutils literal notranslate"><span class="pre">degree_stop</span></code> parameter discussed in
 the previous example. This is the reason in which each vector has a different
@@ -562,7 +555,7 @@ different measurement unit causes one to be larger than the other.</p>
 </div>
 </section>
 <section id="plot-geographic-vectors">
-<h2>Plot Geographic Vectors<a class="headerlink" href="#plot-geographic-vectors" title="Permalink to this headline"></a></h2>
+<h2>Plot Geographic Vectors<a class="headerlink" href="#plot-geographic-vectors" title="Permalink to this heading"></a></h2>
 <p>On this map,
 <code class="docutils literal notranslate"><span class="pre">point_1</span></code> and <code class="docutils literal notranslate"><span class="pre">point_2</span></code> are coordinate pairs used to set the
 start and end points of the geographic vector.
@@ -670,7 +663,7 @@ locations.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.473 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.157 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-vectors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ce82c322966fbdc815d1c920e745a571/vectors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">vectors.py</span></code></a></p>
@@ -696,9 +689,9 @@ locations.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

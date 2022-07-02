@@ -5,18 +5,18 @@
 
 Computation times
 =================
-**00:11.408** total execution time for **gallery_images** files:
+**00:08.370** total execution time for **gallery_images** files:
 
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdgradient.py` (``grdgradient.py``)       | 00:02.678 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_grdgradient.py` (``grdgradient.py``)       | 00:01.939 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)               | 00:02.353 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)               | 00:01.672 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``) | 00:02.336 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``) | 00:01.639 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdlandmask.py` (``grdlandmask.py``)       | 00:01.578 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_grdlandmask.py` (``grdlandmask.py``)       | 00:01.129 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)             | 00:01.249 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                   | 00:01.060 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                   | 00:01.214 | 0.0 MB |
+| :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)             | 00:00.931 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+

@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script src="_static/design-tabs.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -146,7 +149,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/team"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/team.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -159,7 +162,7 @@
            <div itemprop="articleBody">
              
   <section id="team-gallery">
-<h1>Team Gallery<a class="headerlink" href="#team-gallery" title="Permalink to this headline"></a></h1>
+<h1>Team Gallery<a class="headerlink" href="#team-gallery" title="Permalink to this heading"></a></h1>
 <p>We are an international team dedicated to building a Pythonic API for the
 Generic Mapping Tools (GMT). Our goal is to improve GMT’s accessibility for
 new and experienced users by creating user-friendly interfaces with the GMT
@@ -168,7 +171,7 @@ the PyData ecosystem.</p>
 <p>All are welcome to become involved with the PyGMT project! For more information
 about how to get involved, see the <a class="reference internal" href="contributing.html"><span class="doc">Contributors Guide</span></a>.</p>
 <section id="distinguished-contributors">
-<h2>Distinguished Contributors<a class="headerlink" href="#distinguished-contributors" title="Permalink to this headline"></a></h2>
+<h2>Distinguished Contributors<a class="headerlink" href="#distinguished-contributors" title="Permalink to this heading"></a></h2>
 <p>PyGMT Distinguished Contributors are recognized for their substantial
 contributions to PyGMT, which may include code, documentation, pull request
 review, triaging, forum responses, community building and engagement,
@@ -178,78 +181,122 @@ selected twice per year by those listed below.</p>
 responsibilities. Distinguished Contributors who are also active maintainers of
 the PyGMT project and have responsibilities detailed in the
 <a class="reference internal" href="maintenance.html"><span class="doc">Maintainers Guide</span></a> have ‘Maintainer’ listed below their names.</p>
-    <div class="team-row">
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/3974108?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Dongdong Tian</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7 class="team-card-text"><a href="https://github.com/seisman" >@seisman</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/50591376?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Jiayuan Yao</h6>
-            <h7 class="team-card-text"><a href="https://github.com/core-man" >@core-man</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/290082?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Leonardo Uieda</h6>
-            <h7 class="team-card-text">Founder</h7>
-            <h7 class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/38269494?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Liam Toney</h6>
-            <h7 class="team-card-text"><a href="https://github.com/liamtoney" >@liamtoney</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/14077947?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Meghan Jones</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/meghanrjones" >@meghanrjones</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23025878?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Michael Grund</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/26473567?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Paul Wessel</h6>
-            <h7 class="team-card-text">Founder</h7>
-            <h7class="team-card-text"><a href="https://github.com/PaulWessel" >@PaulWessel</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23487320?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Wei Ji Leong</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/weiji14" >@weiji14</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/29518865?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Will Schlitzer</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <p class="team-card-text"><a href="https://github.com/willschlitzer" >@willschlitzer</a></h7>
-        </div>
-    </div>
-    </div></section>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-4 docutils">
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/3974108?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Dongdong Tian</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/seisman">&#64;seisman</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Maintainer</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/50591376?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Jiayuan Yao</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/core-man">&#64;core-man</a></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/290082?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Leonardo Uieda</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/leouieda">&#64;leouieda</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-success sd-bg-text-success">Founder</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/38269494?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Liam Toney</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/liamtoney">&#64;liamtoney</a></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/14077947?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Max Jones</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/maxrjones">&#64;maxrjones</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Maintainer</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/23025878?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Michael Grund</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/michaelgrund">&#64;michaelgrund</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Maintainer</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/26473567?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Paul Wessel</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/PaulWessel">&#64;PaulWessel</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-success sd-bg-text-success">Founder</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/23487320?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Wei Ji Leong</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/weiji14">&#64;weiji14</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Maintainer</span></p>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row sd-mt-0 sd-mb-3 sd-ml-0 sd-mr-0 docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-text-center docutils">
+<img alt="card-img-top" class="sd-card-img-top" src="https://avatars.githubusercontent.com/u/29518865?v=4" />
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Will Schlitzer</div>
+<p class="sd-card-text"><a class="reference external" href="https://github.com/willschlitzer">&#64;willschlitzer</a></p>
+</div>
+<div class="sd-card-footer docutils">
+<p class="sd-card-text"><span class="sd-sphinx-override sd-badge sd-bg-primary sd-bg-text-primary">Maintainer</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 
@@ -265,9 +312,9 @@ the PyGMT project and have responsibilities detailed in the
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
+        <script src="_static/design-tabs.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -160,7 +163,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/maintenance"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/maintenance.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -173,14 +176,14 @@
            <div itemprop="articleBody">
              
   <section id="maintainers-guide">
-<h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Permalink to this headline"></a></h1>
+<h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Permalink to this heading"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
 <p>If you want to make a contribution to the project, see the
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
 instead.</p>
 <section id="onboarding-access-checklist">
-<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Permalink to this headline"></a></h2>
+<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Added to <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/python-maintainers">python-maintainers</a> team in the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/">GenericMappingTools</a> organization on GitHub (gives ‘maintain’ permissions)</p></li>
 <li><p>Added as collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
@@ -191,7 +194,7 @@ instead.</p>
 </ul>
 </section>
 <section id="branches">
-<h2>Branches<a class="headerlink" href="#branches" title="Permalink to this headline"></a></h2>
+<h2>Branches<a class="headerlink" href="#branches" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p><em>main</em>: Always tested and ready to become a new version. Don’t push directly to this
 branch. Make a new branch and submit a pull request instead.</p></li>
@@ -201,7 +204,7 @@ branch are in the <code class="docutils literal notranslate"><span class="pre">d
 </ul>
 </section>
 <section id="managing-github-issues">
-<h2>Managing GitHub issues<a class="headerlink" href="#managing-github-issues" title="Permalink to this headline"></a></h2>
+<h2>Managing GitHub issues<a class="headerlink" href="#managing-github-issues" title="Permalink to this heading"></a></h2>
 <p>A few guidelines for managing GitHub issues:</p>
 <ul class="simple">
 <li><p>Assign <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/labels">labels</a> and the expected
@@ -218,7 +221,7 @@ consider adding a regression test for serious bugs.</p></li>
 </ul>
 </section>
 <section id="reviewing-and-merging-pull-requests">
-<h2>Reviewing and merging pull requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Permalink to this headline"></a></h2>
+<h2>Reviewing and merging pull requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Permalink to this heading"></a></h2>
 <p>A few guidelines for reviewing:</p>
 <ul class="simple">
 <li><p>Always <strong>be polite</strong> and give constructive feedback.</p></li>
@@ -240,7 +243,7 @@ descriptive.</p></li>
 </ul>
 </section>
 <section id="continuous-integration">
-<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline"></a></h2>
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this heading"></a></h2>
 <p>We use GitHub Actions continuous integration (CI) services to
 build and test the project on Linux, macOS and Windows.
 They rely on the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file to install required dependencies using
@@ -253,7 +256,8 @@ It is also scheduled to run daily on the <em>main</em> branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code> (Tests on Linux/macOS/Windows)</p>
 <p>This is run on every commit to the <em>main</em> and Pull Request branches.
-It is also scheduled to run daily on the <em>main</em> branch.
+It is also scheduled to run regular tests daily and run full tests
+(including doctests) on Wednesday on the <em>main</em> branch.
 In draft Pull Requests, only two jobs on Linux are triggered to save on
 Continuous Integration resources:</p>
 <ul class="simple">
@@ -280,8 +284,8 @@ from the <em>main</em> branch onto the <code class="docutils literal notranslate
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code> (GMT Dev Tests on Linux/macOS/Windows).</p>
 <p>This is triggered when a PR is marked as “ready for review”, or using the
-slash command <code class="docutils literal notranslate"><span class="pre">/test-gmt-dev</span></code>. It is also scheduled to run daily on the
-<em>main</em> branch.</p>
+slash command <code class="docutils literal notranslate"><span class="pre">/test-gmt-dev</span></code>. It is also scheduled to run on Monday,
+Wednesday and Friday on the <em>main</em> branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code> (Caches GMT remote data files needed for GitHub Actions CI)</p>
 <p>This is scheduled to run every Sunday at 12:00 (UTC).
@@ -316,7 +320,7 @@ asset when a release is published.</p>
 </ol>
 </section>
 <section id="continuous-documentation">
-<h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Permalink to this headline"></a></h2>
+<h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Permalink to this heading"></a></h2>
 <p>We use the <a class="reference external" href="https://github.com/apps/vercel">Vercel for GitHub</a> App to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file <code class="docutils literal notranslate"><span class="pre">vercel.json</span></code>, with a list of options to
@@ -326,7 +330,7 @@ build the documentation, copy the files to a ‘public’ folder and deploy that
 see https://vercel.com/docs/build-step.</p>
 </section>
 <section id="dependencies-policy">
-<h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Permalink to this headline"></a></h2>
+<h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Permalink to this heading"></a></h2>
 <p>PyGMT has adopted <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy">NEP29</a>
 alongside the rest of the Scientific Python ecosystem, and therefore supports:</p>
 <ul class="simple">
@@ -340,7 +344,7 @@ supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.</p>
 </section>
 <section id="backwards-compatibility-and-deprecation-policy">
-<h2>Backwards compatibility and deprecation policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this headline"></a></h2>
+<h2>Backwards compatibility and deprecation policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this heading"></a></h2>
 <p>PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
 <a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a> (e.g. vMAJOR.MINOR.PATCH).
@@ -378,14 +382,14 @@ decorator (if those two exists). Here is an example:</p>
 will be fully removed in v0.6.0. The new parameter name is <code class="docutils literal notranslate"><span class="pre">incols</span></code>.</p>
 </section>
 <section id="making-a-release">
-<h2>Making a Release<a class="headerlink" href="#making-a-release" title="Permalink to this headline"></a></h2>
+<h2>Making a Release<a class="headerlink" href="#making-a-release" title="Permalink to this heading"></a></h2>
 <p>We try to automate the release process as much as possible.
 GitHub Actions workflow handles publishing new releases to PyPI and updating the documentation.
 The version number is set automatically using setuptools_scm based information
 obtained from git.
 There are a few steps that still must be done manually, though.</p>
 <section id="updating-the-changelog">
-<h3>Updating the changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this headline"></a></h3>
+<h3>Updating the changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this heading"></a></h3>
 <p>The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
 every time a Pull Request (with a proper label) is merged into the main branch.
@@ -434,7 +438,7 @@ https://github.com/citation-file-format/citation-file-format/blob/main/schema-gu
 </ol>
 </section>
 <section id="check-the-readme-syntax">
-<h3>Check the README syntax<a class="headerlink" href="#check-the-readme-syntax" title="Permalink to this headline"></a></h3>
+<h3>Check the README syntax<a class="headerlink" href="#check-the-readme-syntax" title="Permalink to this heading"></a></h3>
 <p>GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
 So slightly broken RST can cause the PyPI page to not render the correct content. Check
 using the <code class="docutils literal notranslate"><span class="pre">rst2html.py</span></code> script that comes with docutils:</p>
@@ -444,7 +448,7 @@ using the <code class="docutils literal notranslate"><span class="pre">rst2html.
 <p>Open <code class="docutils literal notranslate"><span class="pre">index.html</span></code> and check for any flaws or error messages.</p>
 </section>
 <section id="pushing-to-pypi-and-updating-the-documentation">
-<h3>Pushing to PyPI and updating the documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Permalink to this headline"></a></h3>
+<h3>Pushing to PyPI and updating the documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Permalink to this heading"></a></h3>
 <p>After the changelog is updated, making a release can be done by going to
 https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
 and clicking on publish. A git tag will also be created, make sure that this
@@ -456,12 +460,12 @@ HTML will be pushed to <em>gh-pages</em>, and the <code class="docutils literal 
 this new folder.</p>
 </section>
 <section id="archiving-on-zenodo">
-<h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Permalink to this headline"></a></h3>
+<h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Permalink to this heading"></a></h3>
 <p>Grab both the source code and baseline images zip files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.</p>
 </section>
 <section id="updating-the-conda-package">
-<h3>Updating the conda package<a class="headerlink" href="#updating-the-conda-package" title="Permalink to this headline"></a></h3>
+<h3>Updating the conda package<a class="headerlink" href="#updating-the-conda-package" title="Permalink to this heading"></a></h3>
 <p>When a new version is released on PyPI, conda-forge’s bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.</p>
 <p>If changes need to be done manually, you can:</p>
@@ -491,9 +495,9 @@ from the PyPI “Download files” section.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

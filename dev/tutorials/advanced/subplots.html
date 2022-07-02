@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -104,16 +107,6 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#load-sample-data">Load sample data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-original-digital-elevation-model-and-data-distribution">Plot the original digital elevation model and data distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-linear-distribution">Equalize grid based on a linear distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#calculate-the-bins-used-for-data-transformation">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-equally-distributed-data">Plot the equally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#transform-grid-based-on-a-normal-distribution">Transform grid based on a normal distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-normally-distributed-data">Plot the normally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-quadratic-distribution">Equalize grid based on a quadratic distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#id1">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-quadratic-distribution-of-data">Plot the quadratic distribution of data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="date_time_charts.html">Plotting datetime charts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vectors.html">Plotting vectors</a></li>
@@ -198,7 +191,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="making-subplots">
-<span id="sphx-glr-tutorials-advanced-subplots-py"></span><h1>Making subplots<a class="headerlink" href="#making-subplots" title="Permalink to this headline"></a></h1>
+<span id="sphx-glr-tutorials-advanced-subplots-py"></span><h1>Making subplots<a class="headerlink" href="#making-subplots" title="Permalink to this heading"></a></h1>
 <p>When you’re preparing a figure for a paper, there will often be times when
 you’ll need to put many individual plots into one large figure, and label them
 ‘abcd’. These individual plots are called subplots.</p>
@@ -220,7 +213,7 @@ this is what the tutorial below will cover.</p>
 </pre></div>
 </div>
 <section id="define-subplot-layout">
-<h2>Define subplot layout<a class="headerlink" href="#define-subplot-layout" title="Permalink to this headline"></a></h2>
+<h2>Define subplot layout<a class="headerlink" href="#define-subplot-layout" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a> function is used to set up the layout, size,
 and other attributes of the figure. It divides the whole canvas into regular
 grid areas with <em>n</em> rows and <em>m</em> columns. Each grid area can contain an
@@ -272,7 +265,7 @@ there, you can use the following command:</p>
 </div>
 </section>
 <section id="making-your-first-subplot">
-<h2>Making your first subplot<a class="headerlink" href="#making-your-first-subplot" title="Permalink to this headline"></a></h2>
+<h2>Making your first subplot<a class="headerlink" href="#making-your-first-subplot" title="Permalink to this heading"></a></h2>
 <p>Next, let’s use what we learned above to make a 2 row by 2 column subplot
 figure. We’ll also pick up on some new parameters to configure our subplot.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -337,7 +330,7 @@ before.</p>
 </div>
 </section>
 <section id="shared-x-and-y-axis-labels">
-<h2>Shared X and Y axis labels<a class="headerlink" href="#shared-x-and-y-axis-labels" title="Permalink to this headline"></a></h2>
+<h2>Shared X and Y axis labels<a class="headerlink" href="#shared-x-and-y-axis-labels" title="Permalink to this heading"></a></h2>
 <p>In the example above with the four subplots, the two subplots for each row
 have the same Y-axis range, and the two subplots for each column have the
 same X-axis range. You can use the <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> parameters to set a
@@ -374,7 +367,7 @@ set a different <code class="docutils literal notranslate"><span class="pre">fra
 individually for each subplot.</p>
 </section>
 <section id="advanced-subplot-layouts">
-<h2>Advanced subplot layouts<a class="headerlink" href="#advanced-subplot-layouts" title="Permalink to this headline"></a></h2>
+<h2>Advanced subplot layouts<a class="headerlink" href="#advanced-subplot-layouts" title="Permalink to this heading"></a></h2>
 <p>Nested subplot are currently not supported. If you want to create more
 complex subplot layouts, some manual adjustments are needed.</p>
 <p>The following example draws three subplots in a 2-row, 2-column layout, with
@@ -417,7 +410,7 @@ the subplot according to the size of the subplot area.</p>
 example, <code class="docutils literal notranslate"><span class="pre">fig.set_panel(...,</span> <span class="pre">fixedlabel=&quot;b)</span> <span class="pre">Panel</span> <span class="pre">2&quot;)</span></code> which would allow
 you to manually label a single subplot as you wish. This can be useful for
 adding a more descriptive subtitle to individual subplots.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.256 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.266 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-subplots-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a6814ea8c10c4c0ac301f6afe26df0cb/subplots.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">subplots.py</span></code></a></p>
@@ -443,9 +436,9 @@ adding a more descriptive subtitle to individual subplots.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

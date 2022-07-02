@@ -1,0 +1,12 @@
+pygmt.filter1d
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: filter1d
+
+.. include:: backreferences/pygmt.filter1d.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

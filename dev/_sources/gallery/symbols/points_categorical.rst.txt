@@ -29,7 +29,7 @@ the "species" column directly to the ``color`` parameter via
 ``cmap=True``. A desired colormap can be selected via the :meth:`pygmt.makecpt`
 method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-76
+.. GENERATED FROM PYTHON SOURCE LINES 13-94
 
 
 
@@ -60,9 +60,20 @@ method.
     import pandas as pd
     import pygmt
 
-    # Load sample penguins data and convert 'species' column to categorical dtype
+    # Load sample penguins data
     df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
+    # Convert 'species' column to categorical dtype
+    # By default, pandas sorts the individual categories in an alphabetical order.
+    # For a non-alphabetical order, you have to manually adjust the list of
+    # categories. For handling and manipulating categorical data in pandas,
+    # have a look at:
+    # https://pandas.pydata.org/docs/user_guide/categorical.html
     df.species = df.species.astype(dtype="category")
+    # Make a list of the individual categories of the 'species' column
+    # ['Adelie', 'Chinstrap', 'Gentoo']
+    # They are (corresponding to the categorical number code) by default in
+    # alphabetical order and later used for the colorbar labels
+    labels = list(df.species.cat.categories)
 
     # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
     # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
@@ -94,7 +105,14 @@ method.
     # use color_model="+cAdelie,Chinstrap,Gentoo" to write the discrete color
     # palette "inferno" in categorical format and add the species names as
     # annotations for the colorbar
-    pygmt.makecpt(cmap="inferno", series=(0, 2, 1), color_model="+cAdelie,Chinstrap,Gentoo")
+    pygmt.makecpt(
+        cmap="inferno",
+        # Use the minimum and maximum of the categorical number code
+        # to set the lowest_value and the highest_value of the CPT
+        series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
+        # convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
+        color_model="+c" + ",".join(labels),
+    )
 
     fig.plot(
         # Use bill length and bill depth as x and y data input, respectively
@@ -123,7 +141,7 @@ method.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.982 seconds)
+   **Total running time of the script:** ( 0 minutes  1.596 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_categorical.py:

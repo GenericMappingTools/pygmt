@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script src="../_static/design-tabs.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -213,7 +216,7 @@
            <div itemprop="articleBody">
              
   <section id="projections">
-<span id="sphx-glr-projections"></span><h1>Projections<a class="headerlink" href="#projections" title="Permalink to this headline"></a></h1>
+<span id="sphx-glr-projections"></span><h1>Projections<a class="headerlink" href="#projections" title="Permalink to this heading"></a></h1>
 <p>PyGMT support many map projections. Use the <code class="docutils literal notranslate"><span class="pre">projection</span></code> parameter to specify which
 one you want to use in all plotting methods. The projection is specified by a one
 letter code along with (sometimes optional) reference longitude and latitude and the
@@ -221,7 +224,7 @@ width of the map (for example, <strong>A</strong><em>lon0/lat0</em>[<em>/horizon
 height is determined based on the region and projection.</p>
 <p>These are all the available projections:</p>
 <div class="sphx-glr-clear"></div><section id="azimuthal-projections">
-<span id="sphx-glr-projections-azim"></span><h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-azim"></span><h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Permalink to this heading"></a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><figure class="align-default" id="id1">
 <img alt="Azimuthal Equidistant" src="../_images/sphx_glr_azim_equidistant_thumb.png" />
 <figcaption>
@@ -272,7 +275,7 @@ height is determined based on the region and projection.</p>
 </div>
 <div class="sphx-glr-clear"></div></section>
 <section id="conic-projections">
-<span id="sphx-glr-projections-conic"></span><h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-conic"></span><h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Permalink to this heading"></a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><figure class="align-default" id="id7">
 <img alt="Albers Conic Equal Area" src="../_images/sphx_glr_conic_albers_thumb.png" />
 <figcaption>
@@ -307,7 +310,7 @@ height is determined based on the region and projection.</p>
 </div>
 <div class="sphx-glr-clear"></div></section>
 <section id="cylindric-projections">
-<span id="sphx-glr-projections-cyl"></span><h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-cyl"></span><h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Permalink to this heading"></a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><figure class="align-default" id="id11">
 <img alt="Cassini Cylindrical" src="../_images/sphx_glr_cyl_cassini_thumb.png" />
 <figcaption>
@@ -398,7 +401,7 @@ height is determined based on the region and projection.</p>
 </div>
 <div class="sphx-glr-clear"></div></section>
 <section id="miscellaneous-projections">
-<span id="sphx-glr-projections-misc"></span><h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-misc"></span><h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Permalink to this heading"></a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><figure class="align-default" id="id22">
 <img alt="Eckert IV" src="../_images/sphx_glr_misc_eckertIV_thumb.png" />
 <figcaption>
@@ -465,7 +468,7 @@ height is determined based on the region and projection.</p>
 </div>
 <div class="sphx-glr-clear"></div></section>
 <section id="non-geographic-projections">
-<span id="sphx-glr-projections-nongeo"></span><h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-nongeo"></span><h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Permalink to this heading"></a></h2>
 <div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*."><figure class="align-default" id="id30">
 <img alt="Cartesian linear" src="../_images/sphx_glr_cartesian_linear_thumb.png" />
 <figcaption>
@@ -500,7 +503,7 @@ height is determined based on the region and projection.</p>
 </div>
 <div class="sphx-glr-clear"></div></section>
 <section id="projection-table">
-<span id="sphx-glr-projections-table"></span><h2>Projection Table<a class="headerlink" href="#projection-table" title="Permalink to this headline"></a></h2>
+<span id="sphx-glr-projections-table"></span><h2>Projection Table<a class="headerlink" href="#projection-table" title="Permalink to this heading"></a></h2>
 <p>The below table shows the projection codes for the 31 GMT projections.</p>
 <table class="colwidths-given docutils align-default">
 <colgroup>
@@ -628,9 +631,9 @@ height is determined based on the region and projection.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

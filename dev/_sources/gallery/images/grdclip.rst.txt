@@ -84,7 +84,7 @@ than 0 m (in general the bathymetric part of the grid) to a common value of
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.353 seconds)
+   **Total running time of the script:** ( 0 minutes  1.672 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:

@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -102,6 +105,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#data-processing">Data Processing</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../index.html#operations-on-tabular-data">Operations on tabular data</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="../index.html#operations-on-raster-data">Operations on raster data</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.dimfilter.html">pygmt.dimfilter</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.grd2xyz.html">pygmt.grd2xyz</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.grdclip.html">pygmt.grdclip</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.grdcut.html">pygmt.grdcut</a></li>
@@ -192,7 +196,7 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-grdhisteq">
-<h1>pygmt.grdhisteq<a class="headerlink" href="#pygmt-grdhisteq" title="Permalink to this headline"></a></h1>
+<h1>pygmt.grdhisteq<a class="headerlink" href="#pygmt-grdhisteq" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.grdhisteq">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grdhisteq</span></span><a class="reference internal" href="../../_modules/pygmt/src/grdhisteq.html#grdhisteq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grdhisteq" title="Permalink to this definition"></a></dt>
@@ -211,9 +215,9 @@ graytone will result in most of the image being very dark gray, with the
 mountain being almost white. <a class="reference internal" href="pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code></a> can
 provide a list of data values that divide the data range into divisions
 which have an equal area in the image [Default is 16 if <code class="docutils literal notranslate"><span class="pre">divisions</span></code> is
-not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file output can be used to
+not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file output can be used to
 make a colormap with <a class="reference internal" href="pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a> and an image with
-<a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a> that has all levels of gray occuring
+<a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a> that has all levels of gray occurring
 equally.</p>
 <p><a class="reference internal" href="pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> provides a way to write a grid with
 statistics based on a cumulative distribution function. In this
@@ -252,9 +256,9 @@ their place in the cumulative distribution.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

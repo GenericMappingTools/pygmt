@@ -294,7 +294,7 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-152
+.. GENERATED FROM PYTHON SOURCE LINES 138-149
 
 Add a title
 -----------
@@ -307,11 +307,8 @@ To pass multiple arguments to ``frame``, a list can be used, as shown in the
 example below. This format uses ``frame`` to set both the axes gridlines and
 the figure title.
 
-If the figure title has any spaces, the string to set the title needs to
-be wrapped in single-quotes, while the actual title is set in double quotes
-(e.g. setting the title to "A Title" would use the syntax ``'+t"A Title"'``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-164
+.. GENERATED FROM PYTHON SOURCE LINES 149-161
 
 .. code-block:: default
 
@@ -347,7 +344,7 @@ be wrapped in single-quotes, while the actual title is set in double quotes
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-183
+.. GENERATED FROM PYTHON SOURCE LINES 162-180
 
 Additional exercises
 --------------------
@@ -371,7 +368,7 @@ for the concepts that were discussed:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.212 seconds)
+   **Total running time of the script:** ( 0 minutes  4.389 seconds)
 
 
 .. _sphx_glr_download_get-started_first_figure.py:

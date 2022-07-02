@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -24,9 +25,11 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -155,7 +158,6 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">args_in_kwargs</span><span class="p">,</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
@@ -173,6 +175,7 @@
     <span class="n">JZ</span><span class="o">=</span><span class="s2">&quot;zsize&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
     <span class="n">Td</span><span class="o">=</span><span class="s2">&quot;rose&quot;</span><span class="p">,</span>
     <span class="n">Tm</span><span class="o">=</span><span class="s2">&quot;compass&quot;</span><span class="p">,</span>
     <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
@@ -194,9 +197,6 @@
 <span class="sd">    tick-mark intervals for boundary annotation, ticking, and [optionally]</span>
 <span class="sd">    gridlines. A simple map scale or directional rose may also be plotted.</span>
 
-<span class="sd">    At least one of the parameters ``frame``, ``map_scale``, ``rose`` or</span>
-<span class="sd">    ``compass`` must be specified.</span>
-
 <span class="sd">    Full option list at :gmt-docs:`basemap.html`</span>
 
 <span class="sd">    {aliases}</span>
@@ -213,6 +213,24 @@
 <span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
 <span class="sd">        **+w**\ *length*.</span>
 <span class="sd">        Draws a simple map scale centered on the reference point specified.</span>
+<span class="sd">    box : bool or str</span>
+<span class="sd">        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\</span>
+<span class="sd">        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].</span>
+<span class="sd">        If set to ``True``, draws a rectangular border around the</span>
+<span class="sd">        map scale or rose. Alternatively, specify a different pen with</span>
+<span class="sd">        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [default is</span>
+<span class="sd">        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,</span>
+<span class="sd">        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,</span>
+<span class="sd">        separate in x- and y-direction, or individual side spacings between</span>
+<span class="sd">        scale and border. Append **+i** to draw a secondary, inner border as</span>
+<span class="sd">        well. We use a uniform gap between borders of 2p and the</span>
+<span class="sd">        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append</span>
+<span class="sd">        **+r** to draw rounded rectangular borders instead, with a 6p corner</span>
+<span class="sd">        radius. You can override this radius by appending another value.</span>
+<span class="sd">        Finally, append **+s** to draw an offset background shaded region.</span>
+<span class="sd">        Here, *dx/dy* indicates the shift relative to the foreground frame</span>
+<span class="sd">        [Default is 4p/-4p] and shade sets the fill style to use for shading</span>
+<span class="sd">        [default is gray50].</span>
 <span class="sd">    rose : str</span>
 <span class="sd">        Draws a map directional rose on the map at the location defined by</span>
 <span class="sd">        the reference and anchor points.</span>
@@ -229,11 +247,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;Td&quot;</span><span class="p">,</span> <span class="s2">&quot;Tm&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="s2">&quot;At least one of frame, map_scale, compass, rose, or panel must be specified.&quot;</span>
-        <span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Plotting frames if required arguments not given</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;basemap&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
 </pre></div>
 
            </div>
@@ -245,9 +261,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

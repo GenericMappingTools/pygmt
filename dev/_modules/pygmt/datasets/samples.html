@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -24,9 +25,11 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -157,6 +160,7 @@
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 <span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="n">which</span>
 
 
@@ -175,13 +179,16 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">names</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;bathymetry&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of ship bathymetric observations off Baja California&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">:</span> <span class="s2">&quot;Regional 20 arc-minute Earth relief grid with holes&quot;</span><span class="p">,</span>
         <span class="s2">&quot;fractures&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of hypothetical fracture lengths and azimuths&quot;</span><span class="p">,</span>
         <span class="s2">&quot;hotspots&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of locations, names, and symbol sizes of hotpots from &quot;</span>
         <span class="s2">&quot; Mueller et al., 1993&quot;</span><span class="p">,</span>
         <span class="s2">&quot;japan_quakes&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of earthquakes around Japan from NOAA NGDC database&quot;</span><span class="p">,</span>
         <span class="s2">&quot;mars_shape&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of topographic signature of the hemispheric dichotomy of &quot;</span>
         <span class="s2">&quot; Mars from Smith and Zuber (1996)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maunaloa_co2&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of CO2 readings from Mauna Loa&quot;</span><span class="p">,</span>
         <span class="s2">&quot;ocean_ridge_points&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of ocean ridge points for the entire world&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notre_dame_topography&quot;</span><span class="p">:</span> <span class="s2">&quot;Table 5.11 in Davis: Statistics and Data Analysis in Geology&quot;</span><span class="p">,</span>
         <span class="s2">&quot;usgs_quakes&quot;</span><span class="p">:</span> <span class="s2">&quot;Table of global earthquakes from the USGS&quot;</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">names</span></div>
@@ -215,7 +222,8 @@
     <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid dataset name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
 
-    <span class="n">load_func</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># Dictionary of public load functions for backwards compatibility</span>
+    <span class="n">load_func_old</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;bathymetry&quot;</span><span class="p">:</span> <span class="n">load_sample_bathymetry</span><span class="p">,</span>
         <span class="s2">&quot;fractures&quot;</span><span class="p">:</span> <span class="n">load_fractures_compilation</span><span class="p">,</span>
         <span class="s2">&quot;hotspots&quot;</span><span class="p">:</span> <span class="n">load_hotspots</span><span class="p">,</span>
@@ -225,7 +233,17 @@
         <span class="s2">&quot;usgs_quakes&quot;</span><span class="p">:</span> <span class="n">load_usgs_quakes</span><span class="p">,</span>
     <span class="p">}</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">load_func</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">suppress_warning</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Dictionary of private load functions</span>
+    <span class="n">load_func</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">:</span> <span class="n">_load_earth_relief_holes</span><span class="p">,</span>
+        <span class="s2">&quot;maunaloa_co2&quot;</span><span class="p">:</span> <span class="n">_load_maunaloa_co2</span><span class="p">,</span>
+        <span class="s2">&quot;notre_dame_topography&quot;</span><span class="p">:</span> <span class="n">_load_notre_dame_topography</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">load_func_old</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">load_func_old</span><span class="p">[</span><span class="n">name</span><span class="p">](</span><span class="n">suppress_warning</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">load_func</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">load_func</span><span class="p">[</span><span class="n">name</span><span class="p">]()</span>
 
     <span class="k">return</span> <span class="n">data</span></div>
 
@@ -495,6 +513,48 @@
         <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;radius(m)&quot;</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">data</span></div>
+
+
+<span class="k">def</span> <span class="nf">_load_notre_dame_topography</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with columns &quot;x&quot;, &quot;y&quot;, and &quot;z&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@Table_5_11.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">_load_maunaloa_co2</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of CO2 values from Mauna Loa.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with columns &quot;date&quot; and &quot;co2_ppm&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@MaunaLoa_CO2.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;co2_ppm&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_earth_relief_holes</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads the remote file @earth_relief_20m_holes.grd.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    grid : :class:`xarray.DataArray`</span>
+<span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in</span>
+<span class="sd">        degrees. Relief is in meters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_20m_holes.grd&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;netcdf4&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -506,9 +566,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

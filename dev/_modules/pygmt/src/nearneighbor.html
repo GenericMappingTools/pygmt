@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -24,9 +25,11 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -164,6 +167,8 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nearneighbor&quot;</span><span class="p">]</span>
+
 
 <div class="viewcode-block" id="nearneighbor"><a class="viewcode-back" href="../../../api/generated/pygmt.nearneighbor.html#pygmt.nearneighbor">[docs]</a><span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
@@ -283,6 +288,19 @@
 <span class="sd">        - :class:`xarray.DataArray`: if ``outgrid`` is not set</span>
 <span class="sd">        - None if ``outgrid`` is set (grid output will be stored in file set by</span>
 <span class="sd">          ``outgrid``)</span>
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # Load a sample dataset of bathymetric x, y, and z values</span>
+<span class="sd">    &gt;&gt;&gt; data = pygmt.datasets.load_sample_data(name=&quot;bathymetry&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new grid with 5 arc-minute spacing in the designated region</span>
+<span class="sd">    &gt;&gt;&gt; # Set search_radius to only consider points within 10 arc-minute of a node</span>
+<span class="sd">    &gt;&gt;&gt; output = pygmt.nearneighbor(</span>
+<span class="sd">    ...     data=data,</span>
+<span class="sd">    ...     spacing=&quot;5m&quot;,</span>
+<span class="sd">    ...     region=[245, 255, 20, 30],</span>
+<span class="sd">    ...     search_radius=&quot;10m&quot;,</span>
+<span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -309,9 +327,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
@@ -25,9 +26,11 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -98,16 +101,6 @@
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#load-sample-data">Load sample data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-original-digital-elevation-model-and-data-distribution">Plot the original digital elevation model and data distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-linear-distribution">Equalize grid based on a linear distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#calculate-the-bins-used-for-data-transformation">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-equally-distributed-data">Plot the equally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#transform-grid-based-on-a-normal-distribution">Transform grid based on a normal distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-normally-distributed-data">Plot the normally distributed data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#equalize-grid-based-on-a-quadratic-distribution">Equalize grid based on a quadratic distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#id1">Calculate the bins used for data transformation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="grid_equalization.html#plot-the-quadratic-distribution-of-data">Plot the quadratic distribution of data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Plotting datetime charts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-python-s-datetime">Using Python’s <code class="docutils literal notranslate"><span class="pre">datetime</span></code></a></li>
@@ -202,7 +195,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-datetime-charts">
-<span id="sphx-glr-tutorials-advanced-date-time-charts-py"></span><h1>Plotting datetime charts<a class="headerlink" href="#plotting-datetime-charts" title="Permalink to this headline"></a></h1>
+<span id="sphx-glr-tutorials-advanced-date-time-charts-py"></span><h1>Plotting datetime charts<a class="headerlink" href="#plotting-datetime-charts" title="Permalink to this heading"></a></h1>
 <p>PyGMT accepts a variety of datetime objects to plot data and create charts.
 Aside from the built-in Python <code class="docutils literal notranslate"><span class="pre">datetime</span></code> object, PyGMT supports input using
 ISO formatted strings, <code class="docutils literal notranslate"><span class="pre">pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, as well as <code class="docutils literal notranslate"><span class="pre">numpy</span></code>.
@@ -219,7 +212,7 @@ using the different datetime objects.</p>
 </pre></div>
 </div>
 <section id="using-python-s-datetime">
-<h2>Using Python’s <code class="docutils literal notranslate"><span class="pre">datetime</span></code><a class="headerlink" href="#using-python-s-datetime" title="Permalink to this headline"></a></h2>
+<h2>Using Python’s <code class="docutils literal notranslate"><span class="pre">datetime</span></code><a class="headerlink" href="#using-python-s-datetime" title="Permalink to this heading"></a></h2>
 <p>In this example, Python’s built-in <code class="docutils literal notranslate"><span class="pre">datetime</span></code> module is used
 to create data points stored in list <code class="docutils literal notranslate"><span class="pre">x</span></code>. Additionally,
 dates are passed into the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter in the format
@@ -297,7 +290,7 @@ parameter</p></li>
 </div>
 </section>
 <section id="using-iso-format">
-<h2>Using ISO Format<a class="headerlink" href="#using-iso-format" title="Permalink to this headline"></a></h2>
+<h2>Using ISO Format<a class="headerlink" href="#using-iso-format" title="Permalink to this heading"></a></h2>
 <p>In addition to Python’s <code class="docutils literal notranslate"><span class="pre">datetime</span></code> library, PyGMT also supports passing
 times in ISO format. Basic ISO strings are formatted as <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> with
 each <code class="docutils literal notranslate"><span class="pre">-</span></code> delineated section marking the four digit year value, two digit
@@ -330,7 +323,7 @@ over a horizontal range of one year from 1/1/2016 to 1/1/2017.</p>
 </div>
 </section>
 <section id="mixing-and-matching-python-datetime-and-iso-dates">
-<h2>Mixing and matching Python <code class="docutils literal notranslate"><span class="pre">datetime</span></code> and ISO dates<a class="headerlink" href="#mixing-and-matching-python-datetime-and-iso-dates" title="Permalink to this headline"></a></h2>
+<h2>Mixing and matching Python <code class="docutils literal notranslate"><span class="pre">datetime</span></code> and ISO dates<a class="headerlink" href="#mixing-and-matching-python-datetime-and-iso-dates" title="Permalink to this heading"></a></h2>
 <p>The following example provides context on how both <code class="docutils literal notranslate"><span class="pre">datetime</span></code> and ISO date
 data can be plotted using PyGMT. This can be helpful when dates and times are
 coming from different sources, meaning conversions do not need to take place
@@ -357,15 +350,15 @@ between ISO and datetime in order to create valid plots.</p>
 </div>
 </section>
 <section id="using-pandas-date-range">
-<h2>Using <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.date_range</span></code><a class="headerlink" href="#using-pandas-date-range" title="Permalink to this headline"></a></h2>
-<p>In the following example, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> produces a list of
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a> objects, which gets is used to pass date
+<h2>Using <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.date_range</span></code><a class="headerlink" href="#using-pandas-date-range" title="Permalink to this heading"></a></h2>
+<p>In the following example, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> produces a list of
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a> objects, which gets is used to pass date
 data to the PyGMT figure.
-Specifically <code class="docutils literal notranslate"><span class="pre">x</span></code> contains 7 different <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a>
+Specifically <code class="docutils literal notranslate"><span class="pre">x</span></code> contains 7 different <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.4.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a>
 objects, with the number being manipulated by the <code class="docutils literal notranslate"><span class="pre">periods</span></code> parameter. Each
 period begins at the start of a business quarter as denoted by BQS when
 passed to the <code class="docutils literal notranslate"><span class="pre">periods</span></code> parameter. The initial date is the first argument
-that is passed to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> and it marks the first data point
+that is passed to <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> and it marks the first data point
 in the list <code class="docutils literal notranslate"><span class="pre">x</span></code> that will be plotted.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="pandas.core.indexes.datetimes.DatetimeIndex" class="sphx-glr-backref-module-pandas-core-indexes-datetimes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="pandas.date_range" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span></a><span class="p">(</span><span class="s2">&quot;2018-03-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;BQS&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
@@ -390,12 +383,12 @@ in the list <code class="docutils literal notranslate"><span class="pre">x</span
 </div>
 </section>
 <section id="using-xarray-dataarray">
-<h2>Using <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a><a class="headerlink" href="#using-xarray-dataarray" title="Permalink to this headline"></a></h2>
-<p>In this example, instead of using a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a>, <code class="docutils literal notranslate"><span class="pre">x</span></code> is
+<h2>Using <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a><a class="headerlink" href="#using-xarray-dataarray" title="Permalink to this heading"></a></h2>
+<p>In this example, instead of using a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a>, <code class="docutils literal notranslate"><span class="pre">x</span></code> is
 initialized as a list of <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> objects. This object
 provides a wrapper around regular PyData formats. It also allows the data to
 have labeled dimensions while supporting operations that use various pieces
-of metadata.The following code uses <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> object to fill
+of metadata.The following code uses <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="(in pandas v1.4.3)"><code class="xref py py-func docutils literal notranslate"><span class="pre">pandas.date_range</span></code></a> object to fill
 the DataArray with data, but this is not essential for the creation of a
 valid DataArray.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="pandas.core.indexes.datetimes.DatetimeIndex" class="sphx-glr-backref-module-pandas-core-indexes-datetimes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.DataArray" class="sphx-glr-backref-module-xarray sphx-glr-backref-type-py-class"><span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.date_range.html#pandas.date_range" title="pandas.date_range" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span></a><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;Q&quot;</span><span class="p">))</span>
@@ -421,7 +414,7 @@ valid DataArray.</p>
 </div>
 </section>
 <section id="using-numpy-datetime64">
-<h2>Using <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v1.22)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a><a class="headerlink" href="#using-numpy-datetime64" title="Permalink to this headline"></a></h2>
+<h2>Using <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v1.23)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a><a class="headerlink" href="#using-numpy-datetime64" title="Permalink to this heading"></a></h2>
 <p>In this example, instead of using a <code class="xref py py-func docutils literal notranslate"><span class="pre">pd.date_range</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> is
 initialized as an <code class="docutils literal notranslate"><span class="pre">np.array</span></code> object. Similar to <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
 this wraps the dataset before passing it as a parameter. However,
@@ -450,7 +443,7 @@ datatypes.</p>
 </div>
 </section>
 <section id="generating-an-automatic-region">
-<h2>Generating an automatic region<a class="headerlink" href="#generating-an-automatic-region" title="Permalink to this headline"></a></h2>
+<h2>Generating an automatic region<a class="headerlink" href="#generating-an-automatic-region" title="Permalink to this heading"></a></h2>
 <p>Another way of creating charts involving datetime data can be done
 by automatically generating the region of the plot. This can be done
 by passing the dataframe to <a class="reference internal" href="../../api/generated/pygmt.info.html#pygmt.info" title="pygmt.info"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.info</span></code></a>, which will find
@@ -495,7 +488,7 @@ data points.</p>
 </div>
 </section>
 <section id="setting-primary-and-secondary-time-axes">
-<h2>Setting Primary and Secondary Time Axes<a class="headerlink" href="#setting-primary-and-secondary-time-axes" title="Permalink to this headline"></a></h2>
+<h2>Setting Primary and Secondary Time Axes<a class="headerlink" href="#setting-primary-and-secondary-time-axes" title="Permalink to this heading"></a></h2>
 <p>This example focuses on labeling the axes and setting intervals
 at which the labels are expected to appear. All of these modifications
 are added to the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter and each item in that list modifies
@@ -580,7 +573,7 @@ time formats can be found on the
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.744 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.167 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-date-time-charts-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8936234d1306bb34639e23f0f7373cd9/date_time_charts.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">date_time_charts.py</span></code></a></p>
@@ -606,9 +599,9 @@ time formats can be found on the
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/f6190794">f6190794</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Apr 11, 2022.
+      <span class="lastupdated">Last updated on Jul 02, 2022.
       </span></p>
   </div>
 

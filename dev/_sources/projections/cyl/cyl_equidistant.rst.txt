@@ -74,7 +74,7 @@ The projection is set with **q** or **Q**, and the figure size is set with
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.132 seconds)
+   **Total running time of the script:** ( 0 minutes  0.787 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equidistant.py:

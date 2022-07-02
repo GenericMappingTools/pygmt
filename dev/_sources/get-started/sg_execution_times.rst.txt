@@ -5,8 +5,8 @@
 
 Computation times
 =================
-**00:06.212** total execution time for **get-started** files:
+**00:04.389** total execution time for **get-started** files:
 
 +-------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_get-started_first_figure.py` (``first_figure.py``) | 00:06.212 | 0.0 MB |
+| :ref:`sphx_glr_get-started_first_figure.py` (``first_figure.py``) | 00:04.389 | 0.0 MB |
 +-------------------------------------------------------------------+-----------+--------+

@@ -43,12 +43,6 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
  .. code-block:: none
 
-    /usr/share/miniconda3/envs/pygmt/lib/python3.10/site-packages/geopandas/io/file.py:362: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-      pd.Int64Index,
-    /usr/share/miniconda3/envs/pygmt/lib/python3.10/site-packages/geopandas/io/file.py:362: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-      pd.Int64Index,
-    /usr/share/miniconda3/envs/pygmt/lib/python3.10/site-packages/geopandas/io/file.py:362: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-      pd.Int64Index,
     <IPython.core.display.Image object>
 
 
@@ -97,7 +91,7 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.359 seconds)
+   **Total running time of the script:** ( 0 minutes  3.408 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_roads.py:
