@@ -7,8 +7,8 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    fmt_docstring,
     deprecate_parameter,
+    fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
