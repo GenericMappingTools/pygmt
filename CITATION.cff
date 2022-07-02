@@ -44,6 +44,14 @@ authors:
   family-names: Materna
   affiliation: US Geological Survey, USA
   orcid: https://orcid.org/0000-0002-6687-980X
+- given-names: Yvonne
+  family-names: Fröhlich
+  affiliation: Karlsruhe Institute of Technology, Germany
+  orcid: https://orcid.org/0000-0002-8566-0619
+- given-names: Andre
+  family-names: Belem
+  affiliation: Fluminense Federal University, Brazil
+  orcid: https://orcid.org/0000-0002-8865-6180
 - given-names: Tyler
   family-names: Newton
   affiliation: University of Oregon, USA
@@ -64,9 +72,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawai'i at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2022-04-11
-doi: 10.5281/zenodo.6426493
+date-released: 2022-07-01
+doi: 10.5281/zenodo.6702566
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.6.1
+version: 0.7.0
