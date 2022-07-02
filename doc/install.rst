@@ -98,7 +98,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__ (>= 1.19)
+* `numpy <https://numpy.org>`__ (>= 1.20)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
