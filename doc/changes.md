@@ -18,20 +18,21 @@
 
 ### Enhancements
 
-* Support passing data in numpy int8, int16, uint8 and uint16 dtypes to GMT ([#1963](https://github.com/GenericMappingTools/pygmt/pull/1963))
-* inset: Add aliases for R and J and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
+* Support passing data in NumPy int8, int16, uint8 and uint16 dtypes to GMT ([#1963](https://github.com/GenericMappingTools/pygmt/pull/1963))
+* inset: Add region and projection aliases and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
 * basemap: Plotting frames if required parameters are not given ([#1909](https://github.com/GenericMappingTools/pygmt/pull/1909))
-* basemap: Added alias for F ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
+* basemap: Added box alias for F ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
 * Add a sample dataset maunaLoa_co2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
 * Add a sample dataset notre_dame_topography ([#1920](https://github.com/GenericMappingTools/pygmt/pull/1920))
 * Add a sample dataset earth_relief_holes ([#1921](https://github.com/GenericMappingTools/pygmt/pull/1921))
 
 ### Deprecations
 
+* NEP29: Set minimum required version to NumPy 1.20+ ([#1985](https://github.com/GenericMappingTools/pygmt/pull/1985))
 * Figure.wiggle: Remove parameter 'columns', use 'incols' instead. ([#1977](https://github.com/GenericMappingTools/pygmt/pull/1977))
 * Figure.histogram and pygmt.info: Remove parameter 'table', use 'data' instead ([#1975](https://github.com/GenericMappingTools/pygmt/pull/1975))
 * pygmt.surface: Remove parameter 'outfile', use 'outgrid' instead ([#1976](https://github.com/GenericMappingTools/pygmt/pull/1976))
-* blockm/contour/plot/plot3d/rose/surface/wiggle: Change the parameter order of data array and input arrays
+* blockm/contour/plot/plot3d/rose/surface/wiggle: Change the parameter order of data array and input arrays ([#1978](https://github.com/GenericMappingTools/pygmt/pull/1978))
 
 ### Bug Fixes
 
@@ -66,7 +67,7 @@
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Andre L. Belem](https://github.com/andrebelem)
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
-* [Max Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Jack Beagley](https://github.com/jackbeagley)
 * [Michael Grund](https://github.com/michaelgrund)
 
