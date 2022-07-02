@@ -157,12 +157,10 @@ def text_(
     {e}
     {f}
     {h}
-    use_word : str
-        **t**\ *word*.
-        In this method ``use_word="t"`` can be used to select a specific word
-        from the trailing text [Default is the entire trailing text].
-        The *word* indicates the word order, with the first word being 0.
-        No numerical columns can be specified.
+    use_word : int
+        Select a specific word from the trailing text, with the first
+        word being 0 [Default is the entire trailing text]. No numerical
+        columns can be specified.
     {p}
     {t}
         *transparency* can also be a 1d array to set varying transparency
