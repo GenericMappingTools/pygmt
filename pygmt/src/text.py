@@ -8,6 +8,7 @@ from pygmt.helpers import (
     build_arg_string,
     data_kind,
     fmt_docstring,
+    deprecate_parameter,
     is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
@@ -15,6 +16,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
+@deprecate_parameter("incols", "use_word", "v0.8.0", remove_version="v1.0.0")
 @use_alias(
     R="region",
     J="projection",
