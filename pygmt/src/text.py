@@ -33,7 +33,7 @@ from pygmt.helpers import (
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
+    i="use_word",
     p="perspective",
     t="transparency",
     w="wrap",
@@ -156,9 +156,9 @@ def text_(
     {e}
     {f}
     {h}
-    incols : str
+    use_word : str
         **t**\ *word*.
-        In this method ``incols="t"`` can be used to select a specific word
+        In this method ``use_word="t"`` can be used to select a specific word
         from the trailing text [Default is the entire trailing text].
         The *word* indicates the word order, with the first word being 0.
         No numerical columns can be specified.
