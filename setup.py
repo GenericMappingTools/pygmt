@@ -34,7 +34,7 @@ CLASSIFIERS = [
 ]
 PLATFORMS = "Any"
 PYTHON_REQUIRES = ">=3.8"
-INSTALL_REQUIRES = ["numpy>=1.19", "pandas", "xarray", "netCDF4", "packaging"]
+INSTALL_REQUIRES = ["numpy>=1.20", "pandas", "xarray", "netCDF4", "packaging"]
 
 if __name__ == "__main__":
     setup(

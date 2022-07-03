@@ -44,6 +44,7 @@ jobs:
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
+          --exclude "^https://www.researchgate.net/project/"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"
