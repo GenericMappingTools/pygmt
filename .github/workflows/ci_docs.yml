@@ -43,7 +43,7 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{ github.token }}
 
@@ -51,7 +51,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.2
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
@@ -72,7 +72,7 @@ jobs:
         run: |
           mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
                         build ipython make myst-parser geopandas \
-                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
+                        sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -80,7 +80,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.19.0
+        uses: dawidd6/action-download-artifact@v2.21.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
