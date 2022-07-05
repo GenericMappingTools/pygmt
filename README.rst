@@ -233,7 +233,7 @@ Compatibility with GMT/Python/NumPy versions
       - NumPy
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
-      - >=6.3.0
+      - >=6.4.0
       - >=3.8
       - >=1.20
     * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_ (latest release)

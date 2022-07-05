@@ -38,7 +38,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
                         build
 
       # Install the package that we want to test
