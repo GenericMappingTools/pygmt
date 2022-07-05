@@ -88,8 +88,7 @@ Compiled conda packages of GMT for Linux, macOS and Windows are provided
 through `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
 Advanced users can also
 `build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
-instead, which is not so recommended but we would love to get feedback from
-anyone who tries.
+instead.
 
 We recommend following the instructions further on to install GMT 6.
 
