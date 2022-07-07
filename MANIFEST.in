@@ -1,5 +1,6 @@
 prune .dvc
 prune .github*
+prune ci
 prune doc*
 prune examples*
 exclude .dvcignore
