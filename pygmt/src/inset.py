@@ -11,8 +11,16 @@ __doctest_skip__ = ["inset"]
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(
+    D="position",
+    F="box",
+    J="projection",
+    M="margin",
+    N="no_clip",
+    R="region",
+    V="verbose",
+)
+@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(self, **kwargs):
     r"""
     Create an inset figure to be placed within a larger figure.
@@ -39,7 +47,7 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code \ that refers to the (invisible)
+        2-char justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
         coordinates (inches, cm, points, append unit).
@@ -98,6 +106,8 @@ def inset(self, **kwargs):
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
         is clip].
+    {region}
+    {projection}
     {verbose}
 
     Examples

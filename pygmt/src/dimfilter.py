@@ -13,6 +13,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["dimfilter"]
+
 
 @fmt_docstring
 @use_alias(
@@ -124,6 +126,25 @@ def dimfilter(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of Earth relief data
+    >>> grid = pygmt.datasets.load_earth_relief()
+    >>> # Create a filtered grid from an input grid.
+    >>> filtered_grid = pygmt.dimfilter(
+    ...     grid=grid,
+    ...     # Set filter type to "median" and the diameter width to 600 km
+    ...     filter="m600",
+    ...     # Set grid in degrees, width in km
+    ...     distance=4,
+    ...     # Create 6 sectors and return the lowest values in the sector
+    ...     sectors="l6",
+    ...     # Set the region longitude range from 55W to 51W, and the
+    ...     # latitude range from 24S to 19S
+    ...     region=[-55, -51, -24, -19],
+    ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         raise GMTInvalidInput(

@@ -6,18 +6,16 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    check_data_input_order,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["surface"]
+
 
 @fmt_docstring
-@deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -90,6 +88,16 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a sample table of topography
+    >>> topography = pygmt.datasets.load_sample_data(
+    ...     name="notre_dame_topography"
+    ... )
+    >>> # Perform gridding of topography data
+    >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
