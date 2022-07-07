@@ -146,9 +146,6 @@ fig.show()
 # example below. This format uses ``frame`` to set both the axes gridlines and
 # the figure title.
 #
-# If the figure title has any spaces, the string to set the title needs to
-# be wrapped in single-quotes, while the actual title is set in double quotes
-# (e.g. setting the title to "A Title" would use the syntax ``'+t"A Title"'``.
 
 fig = pygmt.Figure()
 fig.coast(
