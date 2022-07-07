@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - pip
     - gmt=6.3.0
-    - numpy>=1.19
+    - numpy>=1.20
     - pandas
     - xarray
     - netCDF4
@@ -36,5 +36,6 @@ dependencies:
     - myst-parser
     - sphinx
     - sphinx-copybutton
+    - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme

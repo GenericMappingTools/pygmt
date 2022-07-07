@@ -31,6 +31,7 @@ def list_sample_data():
         "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
+        "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
         "usgs_quakes": "Table of global earthquakes from the USGS",
@@ -66,19 +67,28 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    load_func = {
+    # Dictionary of public load functions for backwards compatibility
+    load_func_old = {
         "bathymetry": load_sample_bathymetry,
-        "earth_relief_holes": _load_earth_relief_holes,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
-        "notre_dame_topography": _load_notre_dame_topography,
         "usgs_quakes": load_usgs_quakes,
     }
 
-    data = load_func[name](suppress_warning=True)
+    # Dictionary of private load functions
+    load_func = {
+        "earth_relief_holes": _load_earth_relief_holes,
+        "maunaloa_co2": _load_maunaloa_co2,
+        "notre_dame_topography": _load_notre_dame_topography,
+    }
+
+    if name in load_func_old:
+        data = load_func_old[name](suppress_warning=True)
+    elif name in load_func:
+        data = load_func[name]()
 
     return data
 
@@ -350,7 +360,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
+def _load_notre_dame_topography():
     """
     Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
 
@@ -363,7 +373,22 @@ def _load_notre_dame_topography(**kwargs):  # pylint: disable=unused-argument
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
-def _load_earth_relief_holes(**kwargs):  # pylint: disable=unused-argument
+def _load_maunaloa_co2():
+    """
+    Load a table of CO2 values from Mauna Loa.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "date" and "co2_ppm".
+    """
+    fname = which("@MaunaLoa_CO2.txt", download="c")
+    return pd.read_csv(
+        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
+    )
+
+
+def _load_earth_relief_holes():
     """
     Loads the remote file @earth_relief_20m_holes.grd.
 
