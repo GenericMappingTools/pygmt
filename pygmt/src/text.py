@@ -16,7 +16,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("incols", "use_word", "v0.8.0", remove_version="v1.0.0")
+@deprecate_parameter("incols", "use_word", "v0.8.0", remove_version="v0.10.0")
 @use_alias(
     R="region",
     J="projection",
