@@ -92,7 +92,7 @@ fig.show()
 # ------------------
 #
 # This figure now has its colors set. By default the projection and size
-# of the map is set to ``"JQ15c+``". However, both of these values can be
+# of the map is set to ``"Q15c+du``". However, both of these values can be
 # customized according to the requirements using the ``projection``
 # parameter.
 #
