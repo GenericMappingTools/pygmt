@@ -92,16 +92,18 @@ fig.show()
 # ------------------
 #
 # This figure now has its colors set. By default the projection and size
-# of the map is set to ``"Q15c+du``". However, both of these values can be
-# customized according to the requirements using the ``projection``
-# parameter.
+# of the map is set to ``"Q15c+du"``. Here, ``"Q15c"`` defines that a 
+# cylindrical equidistant map projection with a width of 15 cm is used 
+# and ``"+du"`` selects the minimum map dimension. However, both of 
+# these values can be customized according to the requirements using 
+# the ``projection`` parameter.
 #
 # The appropriate projection varies for the type of map. The available
 # projections are explained in the :doc:`projection </projections/index>`
 # gallery. For this example, the Mercator projection is set using ``"M"``.
-# The width of the figure will be 10 centimeters, as set by ``"10c"``. The map
-# size can also be set in inches using "i" (e.g. a 5 inch wide Mercator
-# projection would use ``"M5i"``).
+# The width of the figure will be 10 centimeters, as set by ``"10c"``. 
+# The map size can also be set in inches using "i" (e.g. a 5 inch wide 
+# Mercator projection would use ``"M5i"``).
 
 fig = pygmt.Figure()
 fig.coast(
