@@ -31,6 +31,7 @@ def list_sample_data():
         "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
+        "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
         "usgs_quakes": "Table of global earthquakes from the USGS",
@@ -80,6 +81,7 @@ def load_sample_data(name):
     # Dictionary of private load functions
     load_func = {
         "earth_relief_holes": _load_earth_relief_holes,
+        "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
     }
 
@@ -369,6 +371,21 @@ def _load_notre_dame_topography():
     """
     fname = which("@Table_5_11.txt", download="c")
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
+
+
+def _load_maunaloa_co2():
+    """
+    Load a table of CO2 values from Mauna Loa.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "date" and "co2_ppm".
+    """
+    fname = which("@MaunaLoa_CO2.txt", download="c")
+    return pd.read_csv(
+        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
+    )
 
 
 def _load_earth_relief_holes():

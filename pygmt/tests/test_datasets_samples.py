@@ -173,3 +173,16 @@ def test_earth_relief_holes():
     npt.assert_allclose(grid.min(), -4929.5)
     # Test for the NaN values in the remote file
     assert grid[2, 21].isnull()
+
+
+def test_maunaloa_co2():
+    """
+    Check that the @MaunaLoa_CO2.txt dataset loads without errors.
+    """
+    data = load_sample_data(name="maunaloa_co2")
+    assert data.shape == (730, 2)
+    summary = data.describe()
+    assert summary.loc["min", "date"] == 1958.2027
+    assert summary.loc["max", "date"] == 2019.3699
+    assert summary.loc["min", "co2_ppm"] == 313.2
+    assert summary.loc["max", "co2_ppm"] == 414.83
