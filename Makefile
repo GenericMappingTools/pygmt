@@ -64,7 +64,7 @@ check:
 	docformatter --check $(DOCFORMATTER_OPTIONS) $(DOCFORMATTER_FILES)
 	black --check $(BLACK_FILES)
 	blackdoc --check $(BLACKDOC_OPTIONS) $(BLACK_FILES)
-	flakeheaven lint $(FLAKEHEAVEN_FILES)
+	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FLAKEHEAVEN_FILES)
 
 lint:
 	pylint $(LINT_FILES)
