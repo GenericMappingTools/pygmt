@@ -14,7 +14,7 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="data")
-def fixture_table():
+def fixture_data():
     """
     Load the @MaunaLoa_CO2.txt dataset as a pandas dataframe.
     """
