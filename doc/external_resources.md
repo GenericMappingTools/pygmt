@@ -2,7 +2,7 @@
 
 Below is a curated collection of external PyGMT resources.
 
-*To add your contribution to this collection, follow [these instructions](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md#editing-the-documentation)
+*To add your contribution to this collection, follow [these instructions](contributing.md#contributing-documentation)
 to submit a pull request with your recommended addition to the
 [External Resources file](https://github.com/GenericMappingTools/pygmt/blob/main/doc/external_resources.md).*
 
@@ -70,6 +70,26 @@ MIGG-NTU
 ![](https://github.com/GenericMappingTools/foss4g2019oceania/releases/download/v1/picton_3d_dsm_view.png)
 +++
 Wei Ji Leong
+::::
+
+::::{grid-item-card} Crafting 3D maps of Antarctica with PyGMT and the IBCSO V2
+:link: https://github.com/andrebelem/3D-Antarctic-maps
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/3D-Antarctic-maps/raw/main/3D-Antarctic-Maps.png)
++++
+Andre Belem
+::::
+
+::::{grid-item-card} Planetary Maps (in PyGMT)
+:link: https://github.com/andrebelem/PlanetaryMaps
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/andrebelem/MarsMaps/raw/main/JezeroCrater.png)
++++
+Andre Belem
 ::::
 :::::
 
