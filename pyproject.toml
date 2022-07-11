@@ -10,10 +10,13 @@ fallback_version = "999.999.999+unknown"
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
 [tool.flakeheaven]
-ignore = ["E203", "E266", "E501", "W503", "F401", "E741"]
 max_line_length = 88
 max_doc_length = 79
 show_source = true
+
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-E266", "-E501", "-W503"]
+pyflakes = ["+*", "-F401"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
