@@ -167,7 +167,9 @@ def grdimage(self, grid, **kwargs):
         with contextlib.ExitStack() as stack:
             # shading using an xr.DataArray
             if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
-                shading_context = lib.virtualfile_from_grid(kwargs["I"])
+                shading_context = lib.virtualfile_from_data(
+                    check_kind="raster", data=kwargs["I"]
+                )
                 kwargs["I"] = stack.enter_context(shading_context)
 
             fname = stack.enter_context(file_context)
