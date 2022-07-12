@@ -107,12 +107,13 @@ with fig.subplot(
         fig.histogram(
             data=linear_dist,
             projection="X?",
-            region=[0, divisions, 0, 40],
+            region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
             frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
+            center=True,
         )
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
@@ -210,12 +211,13 @@ with fig.subplot(
         fig.histogram(
             data=quadratic_dist,
             projection="X?",
-            region=[0, divisions, 0, 40],
+            region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
             frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
+            center=True,
         )
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
