@@ -167,6 +167,8 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
+                      Fröhlich, Yvonne and
+                      Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
