@@ -11,7 +11,7 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdlandmask grid result.
     """

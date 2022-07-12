@@ -12,7 +12,7 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="array")
-def fixture_table():
+def fixture_array():
     """
     Load the table data.
     """
