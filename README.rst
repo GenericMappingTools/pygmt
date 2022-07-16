@@ -167,6 +167,8 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
+                      Fröhlich, Yvonne and
+                      Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
                       Ziebarth, Malte and
@@ -231,7 +233,7 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - NumPy
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.4.0
       - >=3.8
