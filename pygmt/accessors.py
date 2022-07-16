@@ -1,6 +1,8 @@
 """
 GMT accessor methods.
 """
+from pathlib import Path
+
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.src.grdinfo import grdinfo
@@ -29,6 +31,8 @@ class GMTDataArrayAccessor:
         self._obj = xarray_obj
         try:
             self._source = self._obj.encoding["source"]  # filepath to NetCDF source
+            if not Path(self._source).exists():
+                raise ValueError(f"Grid source file {self._source} doesn't exist.")
             # Get grid registration and grid type from the last two columns of
             # the shortened summary information of `grdinfo`.
             self._registration, self._gtype = map(
