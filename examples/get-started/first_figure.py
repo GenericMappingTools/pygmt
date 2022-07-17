@@ -92,9 +92,9 @@ fig.show()
 # ------------------
 #
 # This figure now has its colors set. By default the projection and size
-# of the map is set to ``"Q15c+du"``. Here, ``"Q15c"`` defines that a
-# cylindrical equidistant map projection with a width of 15 cm is used
-# and ``"+du"`` selects the minimum map dimension. However, both of
+# of the map is set to ``"Q15c+du"``. Here, ``"Q"`` defines a
+# cylindrical equidistant map projection, ``"15c+du"`` means setting
+# the maximum (upper) map dimension to 15 cm. However, both of
 # these values can be customized according to the requirements using
 # the ``projection`` parameter.
 #
