@@ -35,7 +35,7 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 10, 0, 15], projection="X15c/10c", frame='+t"Vector heads and tails"'
+    region=[0, 10, 0, 15], projection="X15c/10c", frame="+tVector heads and tails"
 )
 
 x = 1
