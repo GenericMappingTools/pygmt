@@ -24,7 +24,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", 'WSne+t"Colorbars"'])
+fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
 
 ## Create a colorbar designed for seismic tomography - roma
 # Colorbar is placed at bottom center (BC) by default if no position is given
