@@ -91,5 +91,5 @@ fig.plot(
     style="cc",
     pen="black",
 )
-fig.colorbar(frame='af+l"Depth (km)"')
+fig.colorbar(frame="af+lDepth (km)")
 fig.show()
