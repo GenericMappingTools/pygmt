@@ -3,7 +3,7 @@ Frames, ticks, titles, and labels
 =================================
 
 Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
-parameter that all plotting methods of the :class:`pygmt.Figure` class
+parameter that most plotting methods of the :class:`pygmt.Figure` class
 contain.
 """
 # sphinx_gallery_thumbnail_number = 4
@@ -23,7 +23,8 @@ fig.show()
 
 ###############################################################################
 # To add the default GMT frame to the plot, use ``frame="f"`` in
-# :meth:`pygmt.Figure.basemap` or any other plotting method:
+# :meth:`pygmt.Figure.basemap` or another plotting method (which has the
+# ``frame`` parameter, with exception of :meth:`pygmt.Figure.colorbar`):
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
