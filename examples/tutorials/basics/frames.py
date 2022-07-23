@@ -3,7 +3,7 @@ Frames, ticks, titles, and labels
 =================================
 
 Setting the style of the map frames, ticks, etc, is handled by the ``frame``
-parameter that all plotting methods of :class:`pygmt.Figure`.
+parameter that all plotting methods of :class:`pygmt.Figure` contain.
 """
 # sphinx_gallery_thumbnail_number = 4
 
