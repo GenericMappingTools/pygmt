@@ -22,7 +22,7 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.show()
 
 ###############################################################################
-# To add the default GMT frame to the plot, use ``frame="f"`` in
+# To add the default GMT frame style to the plot, use ``frame="f"`` in
 # :meth:`pygmt.Figure.basemap` or another plotting method (which has the
 # ``frame`` parameter, with exception of :meth:`pygmt.Figure.colorbar`):
 
@@ -35,8 +35,8 @@ fig.show()
 # Ticks and grid lines
 # --------------------
 #
-# The automatic frame (``frame=True`` or ``frame="a"``) sets the default GMT
-# style frame and automatically determines tick labels from the plot region.
+# The automatic frame (``frame=True`` or ``frame="a"``) adds the default GMT
+# frame style and automatically determines tick labels from the plot region.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
