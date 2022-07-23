@@ -7,7 +7,7 @@ The project is hosted at the
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**. Everyone must abide by our
-[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
 ## Ways to Contribute
