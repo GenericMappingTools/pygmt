@@ -98,7 +98,7 @@ fig.basemap(
     region=[0, 10, 0, 20],
     projection="X10c/8c",
     # Plot axis with tick marks, tick labels, and axis labels on the
-    # West/left and south/bottom axes
+    # west/left and south/bottom axes
     # Plot axis with tick marks on the north/top and east/right axes
     frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
 )
