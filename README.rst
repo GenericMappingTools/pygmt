@@ -112,7 +112,7 @@ Code of conduct
 +++++++++++++++
 
 Please note that this project is released with a `Contributor Code of Conduct
-<https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md>`__.
+<https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md>`__.
 By participating in this project you agree to abide by its terms.
 
 Contributing Guidelines

@@ -173,7 +173,7 @@ html_context = {
     "menu_links": [
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            f"{repository_url}/blob/main/CODE_OF_CONDUCT.md",
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',
