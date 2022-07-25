@@ -37,6 +37,7 @@ fig.show()
 #
 # The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
 # frame style and automatically determines tick labels from the plot region.
+# In GMT the tick labels are called **a**nnotations.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
@@ -81,23 +82,24 @@ fig.show()
 # Axis labels
 # -----------
 #
-# Axis labels can be set by passing **x+l**\ *label* (or starting with **y** if
+# Axis labels, in GMT simply called labels, can be set by passing
+# **x+l**\ *label* (or starting with **y** if
 # labeling the y-axis) to the ``frame`` parameter of
 # :meth:`pygmt.Figure.basemap`. By default, all 4 map boundaries (or plot axes)
-# are plotted with both tick marks and tick labels. The axes are named as
+# are plotted with both tick marks and annotations. The axes are named as
 # **W** (west/left), **S** (south/bottom), **N** (north/top), and
 # **E** (east/right) sides of a figure. If an upper-case axis name is passed,
-# the axis is plotted with tick marks and tick labels. A lower case axis name
+# the axis is plotted with tick marks and annotations. A lower case axis name
 # plots only the axis with tick marks.
 #
-# The example below uses a Cartesian projection, as GMT does not allow axis
+# The example below uses a Cartesian projection, as GMT does not allow
 # labels to be set for geographic maps.
 
 fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, 0, 20],
     projection="X10c/8c",
-    # Plot axis with tick marks, tick labels, and axis labels on the
+    # Plot axis with tick marks, annotations, and labels on the
     # west/left and south/bottom axes
     # Plot axis with tick marks on the north/top and east/right axes
     frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
