@@ -89,7 +89,7 @@ fig.show()
 # are plotted with both tick marks and annotations. The axes are named as
 # **W** (west/left), **S** (south/bottom), **N** (north/top), and
 # **E** (east/right) sides of a figure. If an upper-case axis name is passed,
-# the axis is plotted with tick marks and annotations. A lower case axis name
+# the axis is plotted with tick marks and annotations. A lower-case axis name
 # plots only the axis with tick marks.
 #
 # The example below uses a Cartesian projection, as GMT does not allow
