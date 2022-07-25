@@ -156,7 +156,7 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# In this example, cartesian vectors are plotted over a Mercator
+# In this example, Cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
 # longitude and y values represent the latitude where the vector starts.
 #
@@ -209,7 +209,7 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# Another example of plotting cartesian vectors over a coast plot. This time a
+# Another example of plotting Cartesian vectors over a coast plot. This time a
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
