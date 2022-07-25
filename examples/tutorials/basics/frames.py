@@ -89,10 +89,11 @@ fig.show()
 # West/west/left (**W**, **w**, **l**), South/south/bottom
 # (**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
 # East/east/right (**E**, **e**, **r**) sides of a figure. If an upper-case
-# axis name is passed, the axis is plotted with tick marks and annotations.
-# A lower-case axis name plots only the axis with tick marks. By default
-# (``frame=True`` or ``frame="af"``), the West and the South axes
-# are plotted with both tick marks and annotations.
+# letter (**W**, **S**, **N**, **E**) is passed, the axis is plotted with
+# tick marks and annotations. The lower-case version (**w**, **s**, **n**, **e**)
+# plots the axis only with tick marks. To only plot the axis pass
+# **l**, **b**, **t**, **r**. By default (``frame=True`` or ``frame="af"``),
+# the West and the South axes are plotted with both tick marks and annotations.
 #
 # The example below uses a Cartesian projection, as GMT does not allow
 # labels to be set for geographic maps.
