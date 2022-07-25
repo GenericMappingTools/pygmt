@@ -201,7 +201,7 @@ When making incompatible changes, we should follow the process:
 
 To rename a function parameter, add the `@deprecate_parameter` decorator near
 the top after the `@fmt_docstring` decorator but before the `@use_alias`
-decorator (if those two exists). Here is an example:
+decorator (if those two exist). Here is an example:
 
 ```
 @fmt_docstring
