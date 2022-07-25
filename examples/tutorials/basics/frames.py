@@ -35,12 +35,12 @@ fig.show()
 # Ticks and grid lines
 # --------------------
 #
-# The automatic frame (``frame=True`` or ``frame="a"``) adds the default GMT
+# The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
 # frame style and automatically determines tick labels from the plot region.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
-fig.basemap(frame="a")
+fig.basemap(frame="af")
 fig.show()
 
 ###############################################################################
