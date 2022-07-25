@@ -86,12 +86,13 @@ fig.show()
 # **x+l**\ *label* (or starting with **y** if
 # labeling the y-axis) to the ``frame`` parameter of
 # :meth:`pygmt.Figure.basemap`. The map boundaries (or plot axes) are named as
-# **W** (west/left), **S** (south/bottom), **N** (north/top), and
-# **E** (east/right) sides of a figure. If an upper-case axis name is passed,
-# the axis is plotted with tick marks and annotations. A lower-case axis name
-# plots only the axis with tick marks. By default (``frame=True`` or
-# ``frame="af"``), the west/left and the south/bottom axes are plotted with
-# both tick marks and annotations.
+# West/west/left (**W**, **w**, **l**), South/south/bottom
+# (**S**, **s**, **b**), North/north/top (**N**, **n**, **t**), and
+# East/east/right (**E**, **e**, **r**) sides of a figure. If an upper-case
+# axis name is passed, the axis is plotted with tick marks and annotations.
+# A lower-case axis name plots only the axis with tick marks. By default
+# (``frame=True`` or ``frame="af"``), the West and the South axes
+# are plotted with both tick marks and annotations.
 #
 # The example below uses a Cartesian projection, as GMT does not allow
 # labels to be set for geographic maps.
@@ -101,8 +102,8 @@ fig.basemap(
     region=[0, 10, 0, 20],
     projection="X10c/8c",
     # Plot axis with tick marks, annotations, and labels on the
-    # west/left and south/bottom axes
-    # Plot axis with tick marks on the north/top and east/right axes
+    # West and South axes
+    # Plot axis with tick marks on the north and east axes
     frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
 )
 fig.show()
