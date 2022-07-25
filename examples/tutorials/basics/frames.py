@@ -37,7 +37,7 @@ fig.show()
 #
 # The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
 # frame style and automatically determines tick labels from the plot region.
-# In GMT the tick labels are called **a**nnotations.
+# In GMT the tick labels are called **a**\ nnotations.
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
