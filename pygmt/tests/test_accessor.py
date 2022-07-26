@@ -2,11 +2,14 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 import os
+from calendar import day_abbr
+from pathlib import Path
 
 import pytest
 import xarray as xr
 from packaging.version import Version
 from pygmt import clib, which
+from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 with clib.Session() as _lib:
@@ -98,3 +101,35 @@ def test_accessor_sliced_datacube():
         assert grid.gmt.gtype == 1  # geographic coordinate type
     finally:
         os.remove(fname)
+
+
+def test_accessor_grid_source_file_not_found():
+    """
+    Check that the accessor fallbacks to the default registration and gtype
+    when grid.encoding["source"] is given but the file is not found.
+
+    Address issue https://github.com/GenericMappingTools/pygmt/issues/1984.
+    """
+    grid = load_earth_relief(
+        resolution="01d", region=[0, 5, -5, 5], registration="pixel"
+    )
+    # check the original grid
+    assert len(grid.encoding["source"]) > 0
+    assert grid.gmt.registration == 1
+    assert grid.gmt.gtype == 1
+
+    # generate a new dataset
+    dataset = grid.to_dataset(name="height")
+    # source file is given but not found
+    assert len(dataset.height.encoding["source"]) > 0
+    assert not Path(dataset.height.encoding["source"]).exists()
+    # fallback to default registration and gtype
+    assert dataset.height.gmt.registration == 0
+    assert dataset.height.gmt.gtype == 0
+
+    # manually set the registration and gtype
+    dataset.height.gmt.registration = 1
+    dataset.height.gmt.gtype = 1
+    # the registration and gtype should be correct now.
+    assert dataset.height.gmt.registration == 1
+    assert dataset.height.gmt.gtype == 1
