@@ -48,7 +48,7 @@ def test_basemap_power_axis():
     fig.basemap(
         region=[0, 100, 0, 5000],
         projection="x1p0.5/-0.001",
-        frame=['x1p+l"Crustal age"', "y500+lDepth"],
+        frame=["x1p+lCrustal age", "y500+lDepth"],
     )
     return fig
 
