@@ -32,13 +32,15 @@ class GMTDataArrayAccessor:
         try:
             self._source = self._obj.encoding["source"]  # filepath to NetCDF source
             if not Path(self._source).exists():
-                raise ValueError(f"Grid source file {self._source} doesn't exist.")
+                raise FileNotFoundError(
+                    f"Grid source file {self._source} doesn't exist."
+                )
             # Get grid registration and grid type from the last two columns of
             # the shortened summary information of `grdinfo`.
             self._registration, self._gtype = map(
                 int, grdinfo(self._source, per_column="n").split()[-2:]
             )
-        except (KeyError, ValueError):
+        except (KeyError, ValueError, FileNotFoundError):
             self._registration = 0  # Default to Gridline registration
             self._gtype = 0  # Default to Cartesian grid type
 
