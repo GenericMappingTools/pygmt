@@ -146,9 +146,8 @@ fig.show()
 # title to "Title" would be ``"+tTitle"``).
 #
 # To pass multiple arguments to ``frame``, a list can be used, as shown in the
-# example below. This format uses ``frame`` to set both the axes gridlines and
-# the figure title.
-#
+# example below. This format uses ``frame`` to set both the axes annotations
+# and the figure title.
 
 fig = pygmt.Figure()
 fig.coast(
