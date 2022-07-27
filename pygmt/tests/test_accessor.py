@@ -2,7 +2,6 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 import os
-from calendar import day_abbr
 from pathlib import Path
 
 import pytest
@@ -130,6 +129,10 @@ def test_accessor_grid_source_file_not_found():
     # manually set the registration and gtype
     dataset.height.gmt.registration = 1
     dataset.height.gmt.gtype = 1
-    # the registration and gtype should be correct now.
-    assert dataset.height.gmt.registration == 1
-    assert dataset.height.gmt.gtype == 1
+    # the registration and gtype still have default values.
+    # Quote from https://docs.xarray.dev/en/stable/internals/extending-xarray.html
+    # > New instances, like those created from arithmetic operations or when
+    # > accessing a DataArray from a Dataset (ex. ds[var_name]), will have
+    # > new accessors created.
+    assert dataset.height.gmt.registration == 0
+    assert dataset.height.gmt.gtype == 0
