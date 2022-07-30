@@ -112,7 +112,7 @@ Code of conduct
 +++++++++++++++
 
 Please note that this project is released with a `Contributor Code of Conduct
-<https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md>`__.
+<https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md>`__.
 By participating in this project you agree to abide by its terms.
 
 Contributing Guidelines
@@ -233,7 +233,7 @@ Compatibility with GMT/Python/NumPy versions
       - GMT
       - Python
       - NumPy
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestone/9>`_ (upcoming release)
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
       - >=3.8

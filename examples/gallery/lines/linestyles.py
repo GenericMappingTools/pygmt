@@ -25,7 +25,7 @@ x = np.array([0, 7])
 y = np.array([9, 9])
 
 fig = pygmt.Figure()
-fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame='+t"Line Styles"')
+fig.basemap(region=[0, 10, 0, 10], projection="X15c/8c", frame="+tLine Styles")
 
 # Plot the line using the default line style
 fig.plot(x=x, y=y)

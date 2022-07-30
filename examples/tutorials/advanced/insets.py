@@ -37,8 +37,8 @@ fig.show()
 # of the inset is set to one of the 9 anchors (bottom-middle-top and
 # left-center-right). In the example below, ``BL`` sets the inset to the bottom
 # left. The ``box`` parameter can set the fill and border of the inset. In the
-# example below, ``+pblack`` sets the border color to black and ``+gred`` sets
-# the fill to red.
+# example below, ``+pblack`` sets the border color to black and ``+glightred``
+# sets the fill to light red.
 
 fig = pygmt.Figure()
 fig.coast(
