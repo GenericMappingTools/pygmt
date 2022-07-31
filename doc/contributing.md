@@ -289,8 +289,8 @@ download and install anything:
   click on the "Propose changes" button to open a pull request.
 7. The pull request will run the GMT automated tests and make a preview deployment.
   You can see how your change looks in the PyGMT documentation by clicking the
-  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
-  after the pull request was created).
+  "Details" button of the "docs/readthedocs.org:pygmt-dev" status check,
+  after the building has finished (usually 10-15 minutes after the pull request was created).
 8. We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 9. Done!
