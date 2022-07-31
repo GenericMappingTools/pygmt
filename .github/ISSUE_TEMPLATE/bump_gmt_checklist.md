@@ -20,6 +20,7 @@ assignees: ''
   - [ ] Update `.github/workflows/cache_data.yaml`
   - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
+  - [ ] Update `ci/requirements/docs.yml`
   - [ ] Update `environment.yml`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
