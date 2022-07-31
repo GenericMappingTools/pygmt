@@ -23,7 +23,7 @@ fig.histogram(
     data=data,
     # define the frame, add title and set background color to
     # lightgray, add annotations for x and y axis
-    frame=['WSne+t"Histogram"+glightgray', 'x+l"Elevation (m)"', 'y+l"Counts"'],
+    frame=["WSne+tHistogram+glightgray", "x+lElevation (m)", "y+lCounts"],
     # generate evenly spaced bins by increments of 5
     series=5,
     # use red3 as color fill for the bars

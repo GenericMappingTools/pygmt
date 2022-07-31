@@ -35,9 +35,9 @@ fig.plot(x=points2.r, y=points2.s, pen="2p,orange")
 # plot individual points as orange inverted triangles atop
 fig.plot(x=points2.r, y=points2.s, style="i.6c", color="orange", pen="1p")
 
-# plot individual points of third great circle as red line
+# plot individual points of third great circle as red3 line
 fig.plot(x=points3.r, y=points3.s, pen="2p,red3")
-# plot individual points as red circles atop
+# plot individual points as red3 circles atop
 fig.plot(x=points3.r, y=points3.s, style="c.3c", color="red3", pen="1p")
 
 fig.show()
