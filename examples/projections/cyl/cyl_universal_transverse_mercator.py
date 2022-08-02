@@ -14,7 +14,7 @@ has been factored into the formulae. This makes the UTM projection a secant
 projection and not a tangent projection like the transverse Mercator above. The
 scale only varies by 1 part in 1,000 from true scale at equator. The
 ellipsoidal projection expressions are accurate for map areas that extend less
-than 10 away from the central meridian.
+than 10° away from the central meridian.
 
 **u**\ *zone/scale* or **U**\ *zone/width*
 
