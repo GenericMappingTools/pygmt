@@ -25,7 +25,7 @@ def fixture_dataarray():
 
 
 @pytest.fixture(scope="module", name="expected_array")
-def fixture_numpy_array():
+def fixture_expected_array():
     """
     Load a numpy array with x, y, and bathymetry data.
     """

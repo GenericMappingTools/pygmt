@@ -7,7 +7,7 @@ The project is hosted at the
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**. Everyone must abide by our
-[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
 ## Ways to Contribute
@@ -289,8 +289,8 @@ download and install anything:
   click on the "Propose changes" button to open a pull request.
 7. The pull request will run the GMT automated tests and make a preview deployment.
   You can see how your change looks in the PyGMT documentation by clicking the
-  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
-  after the pull request was created).
+  "Details" button of the "docs/readthedocs.org:pygmt-dev" status check,
+  after the building has finished (usually 10-15 minutes after the pull request was created).
 8. We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 9. Done!
@@ -318,9 +318,9 @@ Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 ### Adding example code
 
 Many of the PyGMT functions have example code in their documentation. To contribute an
-example, add an "Example" header and put the example code below it. Have all lines 
+example, add an "Example" header and put the example code below it. Have all lines
 begin with `>>>`.  To keep this example code from being run during testing, add the code
-`__doctest_skip__ = [function name]` to the top of the module. 
+`__doctest_skip__ = [function name]` to the top of the module.
 
 **Inline code example**
 
@@ -500,7 +500,7 @@ convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
 We also use [flake8](http://flake8.pycqa.org/en/latest/) and
-[pylint](https://www.pylint.org/) to check the quality of the code and quickly catch
+[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
