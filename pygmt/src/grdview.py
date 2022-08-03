@@ -131,7 +131,9 @@ def grdview(self, grid, **kwargs):
                 drapegrid = kwargs["G"]
                 if data_kind(drapegrid) in ("file", "grid"):
                     if data_kind(drapegrid) == "grid":
-                        drape_context = lib.virtualfile_from_grid(drapegrid)
+                        drape_context = lib.virtualfile_from_data(
+                            check_kind="raster", data=drapegrid
+                        )
                         kwargs["G"] = stack.enter_context(drape_context)
                 else:
                     raise GMTInvalidInput(
