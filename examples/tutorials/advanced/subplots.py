@@ -31,7 +31,7 @@ fig = pygmt.Figure()
 # Define subplot layout
 # ---------------------
 #
-# The :meth:`pygmt.Figure.subplot` function is used to set up the layout, size,
+# The :meth:`pygmt.Figure.subplot` method is used to set up the layout, size,
 # and other attributes of the figure. It divides the whole canvas into regular
 # grid areas with *n* rows and *m* columns. Each grid area can contain an
 # individual subplot. For example:
@@ -62,8 +62,8 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 fig.show()
 
 ###############################################################################
-# The :meth:`pygmt.Figure.set_panel` function activates a specified subplot,
-# and all subsequent plotting functions will take place in that subplot panel.
+# The :meth:`pygmt.Figure.set_panel` method activates a specified subplot,
+# and all subsequent plotting methods will take place in that subplot panel.
 # This is similar to matplotlib's ``plt.sca`` method. In order to specify a
 # subplot, you will need to provide the identifier for that subplot via the
 # ``panel`` parameter. Pass in either the *index* number, or a tuple/list like
@@ -145,7 +145,7 @@ fig.show()
 ###############################################################################
 # .. note::
 #
-#     All plotting functions (e.g. :meth:`pygmt.Figure.coast`,
+#     All plotting methods (e.g. :meth:`pygmt.Figure.coast`,
 #     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` parameter when
 #     in subplot mode. Once a panel is activated using ``panel`` or
 #     :meth:`pygmt.Figure.set_panel`, subsequent plotting commands that don't
