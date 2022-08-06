@@ -422,7 +422,7 @@ When editing documentation, use the following standards to demonstrate the examp
 3. Optional arguments are wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 5. Default arguments for parameters and configuration settings are wrapped
-   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   with [ ] (square brackets) with the prefix "Default is". Example: [Default is
    **p**].
 
 ### Cross-referencing with Sphinx
