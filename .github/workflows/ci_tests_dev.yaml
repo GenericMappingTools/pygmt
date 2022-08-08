@@ -108,13 +108,8 @@ jobs:
       - name: Pull baseline image data from dvc remote
         if: github.event_name == 'schedule'
         run: |
-          ORIGINAL_BRANCH=$(git branch --show-current)
-          # Pull down GMT 6.4 baseline images from the gmt-6.4 branch
-          # https://github.com/GenericMappingTools/pygmt/pull/1883
-          git checkout gmt-6.4
           dvc pull
           ls -lhR pygmt/tests/baseline/
-          git checkout ${ORIGINAL_BRANCH}
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
