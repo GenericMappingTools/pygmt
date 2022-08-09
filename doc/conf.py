@@ -116,6 +116,7 @@ sphinx_gallery_conf = {
     "image_scrapers": (PyGMTScraper(),),
     # Removes configuration comments from scripts
     "remove_config_comments": True,
+    "nested_sections": False,
 }
 
 # Sphinx project configuration
