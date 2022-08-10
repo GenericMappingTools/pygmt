@@ -116,7 +116,7 @@ sphinx_gallery_conf = {
     "image_scrapers": (PyGMTScraper(),),
     # Removes configuration comments from scripts
     "remove_config_comments": True,
-    # Disable "nested _sections" (, default is True), to
+    # Disable "nested_sections" (default is True), to
     # generate only a single index file for the whole gallery.
     # This is a new feature up on Sphinx-Gallery 0.11.0.
     "nested_sections": False,
