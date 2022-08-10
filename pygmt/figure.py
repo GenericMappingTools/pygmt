@@ -145,7 +145,7 @@ class Figure:
         PDF, PNG, PPM, SVG, TIFF) using GhostScript.
 
         If no input files are given, will convert the current active figure
-        (see :func:`pygmt.figure`). In this case, an output name must be given
+        (see :class:`pygmt.figure`). In this case, an output name must be given
         using parameter *prefix*.
 
         Full option list at :gmt-docs:`psconvert.html`
