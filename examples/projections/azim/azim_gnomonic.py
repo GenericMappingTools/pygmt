@@ -3,7 +3,7 @@ Gnomonic
 ========
 
 The point of perspective of the gnomonic projection lies at the center of the
-earth. As a consequence great circles (orthodromes) on the surface of the Earth
+Earth. As a consequence great circles (orthodromes) on the surface of the Earth
 are displayed as straight lines, which makes it suitable for distance
 estimation for navigational purposes. It is neither conformal nor equal-area
 and the distortion increases greatly with distance to the projection center. It

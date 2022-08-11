@@ -142,6 +142,7 @@ rst_epilog = f"""
 .. |year| replace:: {year}
 """
 
+html_baseurl = "https://pygmt.org/latest/"
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"
 html_short_title = "PyGMT"
@@ -173,7 +174,7 @@ html_context = {
     "menu_links": [
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            f"{repository_url}/blob/main/CODE_OF_CONDUCT.md",
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',

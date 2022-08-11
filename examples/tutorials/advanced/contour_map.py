@@ -19,7 +19,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-92.5, -82.5, 
 # It plots annotated contour lines, which are thicker and have the
 # elevation/depth written on them, and unannotated contour lines.
 # In the example below, the default contour line intervals are 500 meters,
-# with an annotated contour line every 1000 meters.
+# with an annotated contour line every 1,000 meters.
 # By default, it plots the map with the
 # equidistant cylindrical projection and with no frame.
 

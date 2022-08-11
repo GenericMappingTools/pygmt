@@ -31,7 +31,7 @@ fig.show()
 # ----------------------------
 #
 # The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of
-# which there are 5 options: ``fancy`` (default, seen above), ``fancy+``,
+# which there are 5 options: ``fancy`` (default, see above), ``fancy+``,
 # ``plain``, ``graph`` (which does not apply to geographical maps) and
 # ``inside``.
 #
