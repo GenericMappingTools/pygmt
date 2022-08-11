@@ -167,7 +167,7 @@ class Figure:
             Specify a single, custom option that will be passed on to
             GhostScript as is.
         dpi : int
-            Set raster resolution in dpi. Default = 720 for PDF, 300 for
+            Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
         prefix : str
             Force the output file name. By default output names are constructed
