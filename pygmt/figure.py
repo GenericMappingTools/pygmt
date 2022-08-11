@@ -198,9 +198,9 @@ class Figure:
             towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of 0.25p,black). Note: If both **+g** and **+f**
-            are used then we use paint as the fade color instead of black.
-            Append **+i** to enforce gray-shades by using ICC profiles.
+            the default pen of 0.25p,black). **Note**: If both **+g** and
+            **+f** are used then we use paint as the fade color instead of
+            black. Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
