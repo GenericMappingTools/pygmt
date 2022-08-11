@@ -176,7 +176,7 @@ class Figure:
             but without extension. Extension is still determined automatically.
         resize : str
             [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
-            [/\ *height*]][**+S**\ *scale*] ].
+            [/\ *height*]][**+S**\ *scale*].
             Adjust the BoundingBox and HiResBoundingBox by scaling and/or
             adding margins. Append **+m** to specify extra margins to extend
             the bounding box. Give either one (uniform), two (x and y) or four
