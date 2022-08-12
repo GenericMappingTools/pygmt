@@ -167,7 +167,7 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
 * All minor versions of NumPy released in the 24 months prior to the project,
   and at minimum the last three minor versions.
 
-In `setup.py`, the `python_requires` variable should be set to the minimum
+In `pyproject.toml`, the `requires-python` key should be set to the minimum
 supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 

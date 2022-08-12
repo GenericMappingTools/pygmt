@@ -4,12 +4,12 @@ TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html \
 			--pyargs ${PYTEST_EXTRA}
-BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
+BLACK_FILES=$(PROJECT) doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
-DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
+DOCFORMATTER_FILES=$(PROJECT) doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
-LINT_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKE8_FILES=$(PROJECT) doc/conf.py examples
+LINT_FILES=$(PROJECT) doc/conf.py
 
 help:
 	@echo "Commands:"
