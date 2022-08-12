@@ -26,7 +26,7 @@ df.species = df.species.astype(dtype="category")
 # Make a list of the individual categories of the 'species' column
 # ['Adelie', 'Chinstrap', 'Gentoo']
 # They are (corresponding to the categorical number code) by default in
-# alphabetical order and later used for the colorbar labels
+# alphabetical order and later used for the colorbar annotations
 labels = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
