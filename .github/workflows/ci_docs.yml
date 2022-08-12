@@ -70,7 +70,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
                         build ipython make myst-parser geopandas \
                         sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
@@ -80,7 +80,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.21.1
+        uses: dawidd6/action-download-artifact@v2.22.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

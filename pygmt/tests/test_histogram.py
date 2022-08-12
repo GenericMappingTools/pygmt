@@ -8,7 +8,7 @@ from pygmt import Figure
 
 
 @pytest.fixture(scope="module", name="data", params=[list, pd.Series])
-def fixture_table(request):
+def fixture_data(request):
     """
     Returns a list of integers to be used in the histogram.
     """

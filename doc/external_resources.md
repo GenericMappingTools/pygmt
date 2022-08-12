@@ -2,7 +2,7 @@
 
 Below is a curated collection of external PyGMT resources.
 
-*To add your contribution to this collection, follow [these instructions](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md#editing-the-documentation)
+*To add your contribution to this collection, follow [these instructions](contributing.md#contributing-documentation)
 to submit a pull request with your recommended addition to the
 [External Resources file](https://github.com/GenericMappingTools/pygmt/blob/main/doc/external_resources.md).*
 

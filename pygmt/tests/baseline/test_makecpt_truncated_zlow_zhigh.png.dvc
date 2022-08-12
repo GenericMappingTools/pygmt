@@ -1,4 +1,4 @@
 outs:
-- md5: 8235d66d1606fce2380f7fd034e874c1
-  size: 2907
+- md5: 0c362a54bfa6db6359c9028393f65c7b
+  size: 2898
   path: test_makecpt_truncated_zlow_zhigh.png

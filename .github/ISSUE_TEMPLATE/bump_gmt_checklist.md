@@ -14,16 +14,23 @@ assignees: ''
 
 <!-- Please add specific checklist items for the tests, xfail pytest markers, and deprecated syntax that need to be updated. -->
 
-**To-Do**:
-- [ ] Bump the minimum required GMT version (1 PR)
+**To-Do for bumping the GMT version in CI**:
+
+- [ ] Bump the GMT version in CI (1 PR)
   - [ ] Update `.github/workflows/cache_data.yaml`
   - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
-  - [ ] Update `doc/install.rst`
+  - [ ] Update `ci/requirements/docs.yml`
   - [ ] Update `environment.yml`
+- [ ] Fix failing tests (1 or more PRs)
+- [ ] Fix [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
+
+**To-Do for bumping the minimum required GMT version**:
+
+- [ ] Bump the minimum required GMT version (1 PR)
+  - [ ] Update `doc/install.rst`
   - [ ] Update `required_version` in `pygmt/clib/session.py`
   - [ ] Update `test_get_default` in `pygmt/tests/test_clib.py`
   - [ ] Update compatibility table in `README.rst`
-- [ ] Fix failing tests (1 or more PRs)
 - [ ] Remove [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)

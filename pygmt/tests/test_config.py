@@ -14,21 +14,21 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", '+t"Blue Annotation"']
+        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", "+tBlue Annotation"]
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
         fig.basemap(
             region=[0, 10, 0, 10],
             projection="X5c/5c",
-            frame=['xaf+l"red label"', "yaf", '+t"red annotation"'],
+            frame=["xaf+lred label", "yaf", "+tred annotation"],
             xshift="7c",
         )
 
     fig.basemap(
         region=[0, 10, 0, 10],
         projection="X5c/5c",
-        frame=["af", '+t"Blue Annotation"'],
+        frame=["af", "+tBlue Annotation"],
         xshift="7c",
     )
     # Revert to default settings in current figure
@@ -46,8 +46,8 @@ def test_config_font_one():
     """
     fig = Figure()
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l")
-    fig.basemap(compass="jBR+w5c+d-4.5+l")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5+l")
+    fig.basemap(compass="jBR+w3.5c+d-4.5+l")
     return fig
 
 
@@ -59,8 +59,8 @@ def test_config_font_annot():
     """
     fig = Figure()
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5")
-    fig.basemap(compass="jBR+w5c+d-4.5")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5")
+    fig.basemap(compass="jBR+w3.5c+d-4.5")
     return fig
 
 

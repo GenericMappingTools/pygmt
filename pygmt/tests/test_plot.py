@@ -18,16 +18,16 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
@@ -52,7 +52,7 @@ def test_plot_red_circles(data, region):
     return fig
 
 
-def test_plot_fail_no_data(data):
+def test_plot_fail_no_data(data, region):
     """
     Plot should raise an exception if no data is given.
     """
@@ -93,7 +93,7 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_1d_array_with_data(data):
+def test_plot_fail_1d_array_with_data(data, region):
     """
     Should raise an exception if array color, size, intensity and transparency
     are used with matrix.
@@ -511,7 +511,7 @@ def test_plot_shapefile():
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
     which(fname=datasets, download="a")
     fig = Figure()
-    fig.plot(data="@RidgeTest.shp", pen="1p")
+    fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig
 
 
