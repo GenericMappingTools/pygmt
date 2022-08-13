@@ -277,7 +277,7 @@ So slightly broken RST can cause the PyPI page to not render the correct content
 using the `rst2html.py` script that comes with docutils:
 
 ```
-python setup.py --long-description | rst2html.py --no-raw > index.html
+rst2html.py --no-raw README.rst > index.html
 ```
 
 Open `index.html` and check for any flaws or error messages.
