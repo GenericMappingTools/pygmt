@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "License :: OSI Approved :: BSD License",
 ]
-dependencies = ["numpy>=1.19", "pandas", "xarray", "netCDF4", "packaging"]
+dependencies = ["numpy>=1.20", "pandas", "xarray", "netCDF4", "packaging"]
 dynamic = ["version"]
 
 [project.urls]
