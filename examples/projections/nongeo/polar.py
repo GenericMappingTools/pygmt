@@ -23,7 +23,7 @@ The following customizing modifiers are available:
   definition); **+a** indicates that the input data is rotated clockwise
   relative to the north direction (geographical azimuth angle).
 
-- **+r**\ *offset*: represents the offset of the r axis. This modifier allows
+- **+r**\ *offset*: represents the offset of the r-axis. This modifier allows
   you to offset the center of the circle from r=0.
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
@@ -37,10 +37,10 @@ The following customizing modifiers are available:
     range of the r-axis should be between 0 and 90.
   - Appending **p** sets the current earth radius (determined by
     :gmt-term:`PROJ_ELLIPSOID`)
-    to the maximum value of the r axis when the r axis is reversed.
-  - Append *radius* to set the maximum value of the r axis.
+    to the maximum value of the r-axis when the r-axis is reversed.
+  - Append *radius* to set the maximum value of the r-axis.
 
-- **+z**: indicates that the r axis is marked as depth instead of radius (e.g.
+- **+z**: indicates that the r-axis is marked as depth instead of radius (e.g.
   *r = radius - z*).
 
   - Append **p** to set radius to the current earth radius.
