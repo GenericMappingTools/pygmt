@@ -34,7 +34,7 @@ The following customizing modifiers are available:
 - **+f**: reverses the radial direction.
 
   - Append **e** to indicate that the r-axis is an elevation angle, and the
-    range of the r-axis should be between 0 and 90.
+    range of the r-axis should be between 0° and 90°.
   - Appending **p** sets the current earth radius (determined by
     :gmt-term:`PROJ_ELLIPSOID`)
     to the maximum value of the r-axis when the r-axis is reversed.
