@@ -23,7 +23,7 @@ dependencies:
     - black
     - blackdoc
     - docformatter
-    - flakeheaven
+    - flakeheaven>=3
     - isort>=5
     - pylint
     # Dev dependencies (unit testing)
