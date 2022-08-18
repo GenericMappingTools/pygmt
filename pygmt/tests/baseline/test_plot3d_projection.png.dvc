@@ -1,4 +1,4 @@
 outs:
-- md5: 7cb09c736bc05fd7a8f0259b818c7190
-  size: 37747
+- md5: 9db4a08f03a39f5ea3106df0c870b0b4
+  size: 37904
   path: test_plot3d_projection.png

@@ -7,7 +7,7 @@ The project is hosted at the
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**. Everyone must abide by our
-[Code of Conduct](https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
 and we encourage all to read it carefully.
 
 ## Ways to Contribute
@@ -289,8 +289,8 @@ download and install anything:
   click on the "Propose changes" button to open a pull request.
 7. The pull request will run the GMT automated tests and make a preview deployment.
   You can see how your change looks in the PyGMT documentation by clicking the
-  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
-  after the pull request was created).
+  "Details" button of the "docs/readthedocs.org:pygmt-dev" status check,
+  after the building has finished (usually 10-15 minutes after the pull request was created).
 8. We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 9. Done!
@@ -422,7 +422,7 @@ When editing documentation, use the following standards to demonstrate the examp
 3. Optional arguments are wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 5. Default arguments for parameters and configuration settings are wrapped
-   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   with [ ] (square brackets) with the prefix "Default is". Example: [Default is
    **p**].
 
 ### Cross-referencing with Sphinx

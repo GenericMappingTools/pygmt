@@ -26,8 +26,8 @@ df.species = df.species.astype(dtype="category")
 # Make a list of the individual categories of the 'species' column
 # ['Adelie', 'Chinstrap', 'Gentoo']
 # They are (corresponding to the categorical number code) by default in
-# alphabetical order and later used for the colorbar labels
-labels = list(df.species.cat.categories)
+# alphabetical order and later used for the colorbar annotations
+cb_annots = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
@@ -48,9 +48,9 @@ fig.basemap(
     region=region,
     projection="X10c/10c",
     frame=[
-        'xafg+l"Bill length (mm)"',
-        'yafg+l"Bill depth (mm)"',
-        'WSen+t"Penguin size at Palmer Station"',
+        "xafg+lBill length (mm)",
+        "yafg+lBill depth (mm)",
+        "WSen+tPenguin size at Palmer Station",
     ],
 )
 
@@ -65,7 +65,7 @@ pygmt.makecpt(
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
     # convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
-    color_model="+c" + ",".join(labels),
+    color_model="+c" + ",".join(cb_annots),
 )
 
 fig.plot(

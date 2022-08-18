@@ -79,10 +79,10 @@ fig.plot3d(
     region=region,
     # Set frame parameters
     frame=[
-        'WsNeZ3+t"Iris flower data set"',  # z axis label positioned on 3rd corner, add title
-        'xafg+l"Petal Width (cm)"',
-        'yafg+l"Sepal Length (cm)"',
-        'zafg+l"Petal Length (cm)"',
+        "WsNeZ3+tIris flower data set",  # z axis label positioned on 3rd corner, add title
+        "xafg+lPetal Width (cm)",
+        "yafg+lSepal Length (cm)",
+        "zafg+lPetal Length (cm)",
     ],
     # Set perspective to azimuth NorthWest (315°), at elevation 25°
     perspective=[315, 25],
