@@ -363,7 +363,7 @@ General guidelines for making a good gallery plot:
 * Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
-* Add comments to explain things aren't obvious from reading the code. Good: *Use a
+* Add comments to explain things that aren't obvious from reading the code. Good: *Use a
   Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
   plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
