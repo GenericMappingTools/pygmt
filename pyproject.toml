@@ -16,7 +16,10 @@ show_source = true
 
 [tool.flakeheaven.plugins]
 pycodestyle = ["+*", "-E501", "-W503"]
-pyflakes = ["+*", "-F401"]
+pyflakes = ["+*"]
+
+[tool.flakeheaven.exceptions."**/__init__.py"]
+pyflakes = ["-F401"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
