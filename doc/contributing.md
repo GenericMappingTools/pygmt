@@ -249,7 +249,7 @@ There are four main components to PyGMT's documentation:
 * Getting started/developer documentation, with source text in ReST `*.rst`
   and markdown `*.md` files under the `doc/` folder.
 
-The documentation are written primarily in
+The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
@@ -363,7 +363,7 @@ General guidelines for making a good gallery plot:
 * Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
-* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
+* Add comments to explain things that aren't obvious from reading the code. Good: *Use a
   Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
   plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
