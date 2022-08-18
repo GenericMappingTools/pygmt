@@ -15,7 +15,7 @@ max_doc_length = 79
 show_source = true
 
 [tool.flakeheaven.plugins]
-pycodestyle = ["+*", "-E266", "-E501", "-W503"]
+pycodestyle = ["+*", "-E501", "-W503"]
 pyflakes = ["+*", "-F401"]
 
 [tool.pytest.ini_options]
