@@ -471,7 +471,7 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to to format the code so we don't have to think about it:
+We use some tools to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
