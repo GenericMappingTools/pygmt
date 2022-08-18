@@ -23,7 +23,7 @@ The following customizing modifiers are available:
   definition); **+a** indicates that the input data is rotated clockwise
   relative to the north direction (geographical azimuth angle).
 
-- **+r**\ *offset*: represents the offset of the r axis. This modifier allows
+- **+r**\ *offset*: represents the offset of the r-axis. This modifier allows
   you to offset the center of the circle from r=0.
 
 - **+t**\ *origin*: sets the angle corresponding to the east direction which is
@@ -34,16 +34,16 @@ The following customizing modifiers are available:
 - **+f**: reverses the radial direction.
 
   - Append **e** to indicate that the r-axis is an elevation angle, and the
-    range of the r-axis should be between 0 and 90.
-  - Appending **p** sets the current earth radius (determined by
+    range of the r-axis should be between 0° and 90°.
+  - Appending **p** sets the current Earth radius (determined by
     :gmt-term:`PROJ_ELLIPSOID`)
-    to the maximum value of the r axis when the r axis is reversed.
-  - Append *radius* to set the maximum value of the r axis.
+    to the maximum value of the r-axis when the r-axis is reversed.
+  - Append *radius* to set the maximum value of the r-axis.
 
-- **+z**: indicates that the r axis is marked as depth instead of radius (e.g.
+- **+z**: indicates that the r-axis is marked as depth instead of radius (e.g.
   *r = radius - z*).
 
-  - Append **p** to set radius to the current earth radius.
+  - Append **p** to set radius to the current Earth radius.
   - Append *radius* to set the value of the radius.
 
 """
@@ -150,7 +150,7 @@ fig.basemap(
     region=[0, 90, 3480, 6371],
     # set map width to 5 cm and interpret input data as geographic azimuth
     # instead of standard angle, rotate coordinate system counterclockwise by
-    # 45 degrees, r axis is marked as depth
+    # 45 degrees, r-axis is marked as depth
     projection="P5c+a+t45+z",
     # set the frame and color
     frame=["xa30f", "ya", "WNse+gbisque"],
