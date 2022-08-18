@@ -12,7 +12,8 @@ not needed to specify the projection for most cases.
 In order to minimize the distortion in any given zone, a scale factor of 0.9996
 has been factored into the formulae (although a standard, you can change this
 with :gmt-term:`PROJ_SCALE_FACTOR`). This makes the UTM projection a *secant*
-projection and not a *tangent* projection like the transverse Mercator above.
+projection and not a *tangent* projection like the
+:doc:`transverse Merctor </projections/cyl/cyl_transverse_mercator>`.
 The scale only varies by 1 part in 1,000 from true scale at equator. The
 ellipsoidal projection expressions are accurate for map areas that extend
 less than 10° away from the central meridian. For larger regions we use the
