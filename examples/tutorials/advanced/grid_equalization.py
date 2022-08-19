@@ -1,7 +1,7 @@
 """
 Performing grid histogram equalization
 ======================================
-The :meth:`pygmt.grdhisteq.equalize_grid` function creates a grid using
+The :meth:`pygmt.grdhisteq.equalize_grid` method creates a grid using
 statistics based on a cumulative distribution function.
 """
 # sphinx_gallery_thumbnail_number = 3
