@@ -471,7 +471,7 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to to format the code so we don't have to think about it:
+We use some tools to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
@@ -491,7 +491,7 @@ For consistency, we also use UNIX-style line endings (`\n`) and file permission
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
-Pull Request to lint the code automatically.
+pull request to lint the code automatically.
 
 When wrapping a new alias, use an underscore to separate words bridged by vowels
 (aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
