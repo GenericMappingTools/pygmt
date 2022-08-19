@@ -126,9 +126,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       # Run the regular tests
       - name: Run tests

@@ -150,9 +150,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       - name: Add GMT's bin to PATH (Linux/macOS)
         run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
