@@ -499,14 +499,14 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flake8](http://flake8.pycqa.org/en/latest/) and
+We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
