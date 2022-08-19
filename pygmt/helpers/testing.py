@@ -158,6 +158,7 @@ def download_test_data():
         "@earth_relief_30m_p",
         "@earth_relief_30m_g",
         "@earth_relief_10m_p",
+        "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
         # List of tiles of 03s srtm data.

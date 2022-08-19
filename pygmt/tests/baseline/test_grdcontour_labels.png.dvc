@@ -1,4 +1,4 @@
 outs:
-- md5: cce113a8d8a9ba54c3bf08827b518287
-  size: 112762
+- md5: 02b542fb2d9149ebc7ab1b339f94c634
+  size: 113001
   path: test_grdcontour_labels.png
