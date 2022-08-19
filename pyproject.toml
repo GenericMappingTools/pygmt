@@ -56,6 +56,18 @@ fallback_version = "999.999.999+unknown"
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
+[tool.flakeheaven]
+max_line_length = 88
+max_doc_length = 79
+show_source = true
+
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-E501", "-W503"]
+pyflakes = ["+*"]
+
+[tool.flakeheaven.exceptions."**/__init__.py"]
+pyflakes = ["-F401"]
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
