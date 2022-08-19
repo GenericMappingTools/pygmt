@@ -16,6 +16,8 @@ not needed to specify the projection for most cases. See Figure
    :width: 700 px
    :align: center
 
+   Universal Transverse Mercator zone layout.
+
 In order to minimize the distortion in any given zone, a scale factor of 0.9996
 has been factored into the formulae (although a standard, you can change this
 with :gmt-term:`PROJ_SCALE_FACTOR`). This makes the UTM projection a *secant*
