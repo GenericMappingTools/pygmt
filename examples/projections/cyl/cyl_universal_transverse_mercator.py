@@ -10,6 +10,12 @@ meridian. Furthermore, each zone is divided into latitude bands but these are
 not needed to specify the projection for most cases. See Figure
 :ref:`Universal Transverse Mercator <GMT_utm_zones>` for all zone designations.
 
+.. _GMT_utm_zones:
+
+.. figure:: /_static/GMT_utm_zones.*
+   :width: 700 px
+   :align: center
+
 In order to minimize the distortion in any given zone, a scale factor of 0.9996
 has been factored into the formulae (although a standard, you can change this
 with :gmt-term:`PROJ_SCALE_FACTOR`). This makes the UTM projection a *secant*
