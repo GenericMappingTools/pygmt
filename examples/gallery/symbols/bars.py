@@ -6,12 +6,13 @@ horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. To plot multi-band bars, please append
 **+v**\|\ **i**\ *ny* (for verticals bars) or **+v**\|\ **i**\ *nx*
 (for horizontal ones), where *ny* or *nx* indicate the total
-number of bands in the bar. Here, **+i** means we must accumulate
-the bar values from the increments *dy* or *dx*, while *+v* means
-we get the complete values relative to base. Normally, the bands
-are plotted as sections of a final single bar. Use **+s** to
-instead split the bar into *ny* or *nx* side-by-side,
-individual and thinner bars. Multi-band bars requires
+number of bands in the bar (and hence the number of values required
+to follow the *x,y* coordinate pair in the input). Here, **+i**
+means we must accumulate the bar values from the increments
+*dy* or *dx*, while *+v* means we get the complete values relative
+to base. Normally, the bands are plotted as sections of a final
+single bar. Use **+s** to instead split the bar into *ny* or *nx*
+side-by-side, individual and thinner bars. Multi-band bars requires
 ``cmap=True`` with one color per band.
 """
 
