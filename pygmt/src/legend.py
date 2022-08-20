@@ -21,8 +21,6 @@ from pygmt.helpers import (
     F="box",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -67,7 +65,6 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         1p black pen and adds a white background.
     {U}
     {V}
-    {XY}
     {c}
     {p}
     {t}
