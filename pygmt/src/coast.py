@@ -30,8 +30,6 @@ from pygmt.helpers import (
     S="water",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -176,7 +174,6 @@ def coast(self, **kwargs):
         (default is no fill). Append **+l**\|\ **+L** to =\ *continent* to
         only list countries in that continent; repeat if more than one
         continent is requested.
-    {XY}
     {c}
     {p}
     {t}

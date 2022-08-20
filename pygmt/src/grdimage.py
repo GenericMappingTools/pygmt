@@ -29,8 +29,6 @@ from pygmt.helpers import (
     R="region",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     n="interpolation",
     c="panel",
     f="coltypes",
@@ -153,7 +151,6 @@ def grdimage(self, grid, **kwargs):
         3).
     {R}
     {V}
-    {XY}
     {c}
     {f}
     {n}

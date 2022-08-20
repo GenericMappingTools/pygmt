@@ -25,8 +25,6 @@ from pygmt.helpers import (
     Tm="compass",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -84,7 +82,6 @@ def basemap(self, **kwargs):
         reference and anchor points
     {U}
     {V}
-    {XY}
     {c}
     {f}
     {p}

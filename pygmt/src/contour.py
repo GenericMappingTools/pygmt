@@ -20,8 +20,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     b="binary",
     c="panel",
     d="nodata",
@@ -106,7 +104,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         separator for the two labels instead.
     {U}
     {V}
-    {XY}
     {b}
     {c}
     {d}

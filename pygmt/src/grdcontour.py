@@ -20,8 +20,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     W="pen",
     l="label",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -83,7 +81,6 @@ def grdcontour(self, grid, **kwargs):
     {U}
     {V}
     {W}
-    {XY}
     {c}
     {f}
     label : str
