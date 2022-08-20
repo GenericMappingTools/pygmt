@@ -1,6 +1,6 @@
 """
-Vertical or horizontal bar
---------------------------
+Vertical or horizontal bars
+---------------------------
 The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. To plot multi-band bars, please append
@@ -9,7 +9,7 @@ the ``style`` parameter. To plot multi-band bars, please append
 number of bands in the bar (and hence the number of values required
 to follow the *x,y* coordinate pair in the input). Here, **+i**
 means we must accumulate the bar values from the increments
-*dy* or *dx*, while *+v* means we get the complete values relative
+*dy* or *dx*, while **+v** means we get the complete values relative
 to base. Normally, the bands are plotted as sections of a final
 single bar. Use **+s** to instead split the bar into *ny* or *nx*
 side-by-side, individual and thinner bars. Multi-band bars requires
@@ -36,14 +36,14 @@ with fig.subplot(
     pen = "1.5p"
     with fig.set_panel(panel=0):
         color = "skyblue"
-        fig.basemap(region=[0, 4, 0, 3], frame="+tvertical")
+        fig.basemap(region=[0, 4, 0, 3], frame="+tvertical bars")
         fig.plot(x=1, y=2, style="b0.5c", color=color, pen=pen)
         fig.plot(x=2, y=2.5, style="b1c", color=color, pen=pen)
         fig.plot(x=3, y=2.5, style="b0.75c+b1", color=color, pen=pen)
 
     with fig.set_panel(panel=1):
         color = "tomato"
-        fig.basemap(region=[0, 4, 0, 3], frame="+thorizontal")
+        fig.basemap(region=[0, 4, 0, 3], frame="+thorizontal bars")
         fig.plot(x=1.5, y=0.5, style="B0.75c", color=color, pen=pen)
         fig.plot(x=3, y=1.5, style="B1c", color=color, pen=pen)
         fig.plot(x=3.5, y=2.5, style="B0.5c+b2", color=color, pen=pen)
@@ -59,11 +59,11 @@ with fig.subplot(
     df = pd.DataFrame(data=data)
 
     with fig.set_panel(panel=2):
-        fig.basemap(region=[0, 4, 0, 3], frame='+t"stacked bars"')
+        fig.basemap(region=[0, 4, 0, 3], frame="+tstacked bars")
         fig.plot(data=data, style="B0.75c+i4", cmap=True, pen=pen)
 
     with fig.set_panel(panel=3):
-        fig.basemap(region=[0, 4, 0, 3], frame='+t"split bars"')
+        fig.basemap(region=[0, 4, 0, 3], frame="+tsplit bars")
         fig.plot(data=data, style="B1c+v4+s", cmap=True, pen=pen)
 
 fig.show()
