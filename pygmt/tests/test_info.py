@@ -31,23 +31,6 @@ def test_info():
     assert output == expected_output
 
 
-def test_info_deprecate_table_to_data():
-    """
-    Make sure that the old parameter "table" is supported and it reports a
-    warning.
-    """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        output = info(table=POINTS_DATA)  # pylint: disable=no-value-for-parameter
-        expected_output = (
-            f"{POINTS_DATA}: N = 20 "
-            "<11.5309/61.7074> "
-            "<-2.9289/7.8648> "
-            "<0.1412/0.9338>\n"
-        )
-        assert output == expected_output
-        assert len(record) == 1  # check that only one warning was raised
-
-
 @pytest.mark.parametrize(
     "table",
     [

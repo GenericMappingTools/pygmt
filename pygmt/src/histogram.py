@@ -2,17 +2,10 @@
 Histogram - Create a histogram
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@deprecate_parameter("table", "data", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="horizontal",
     B="frame",
@@ -50,8 +43,8 @@ from pygmt.helpers import (
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or
-    list, array, or dataframe.
+    Plots a histogram, and can read data from a file or list, array, or
+    dataframe.
 
     Full option list at :gmt-docs:`histogram.html`
 

@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.0.2
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
@@ -38,7 +38,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
                         build
 
       # Install the package that we want to test

@@ -17,9 +17,20 @@ the vertical exaggeration factor.
 import pandas as pd
 import pygmt
 
-# Load sample iris data and convert 'species' column to categorical dtype
+# Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
+# Convert 'species' column to categorical dtype
+# By default, pandas sorts the individual categories in an alphabetical order.
+# For a non-alphabetical order, you have to manually adjust the list of
+# categories. For handling and manipulating categorical data in pandas,
+# have a look at:
+# https://pandas.pydata.org/docs/user_guide/categorical.html
 df.species = df.species.astype(dtype="category")
+# Make a list of the individual categories of the 'species' column
+# ['setosa', 'versicolor', 'virginica']
+# They are (corresponding to the categorical number code) by default in
+# alphabetical order and later used for the colorbar labels
+labels = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax, zmin, zmax)
 # The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
@@ -35,12 +46,18 @@ region = pygmt.info(
 fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
-# new discrete CPT using series=(lowest_value, highest_value, interval), use
-# color_model="+cSetosa,Versicolor,Virginica" to write the discrete color
+# new discrete CPT using series=(lowest_value, highest_value, interval),
+# use color_model="+csetosa,versicolor,virginica" to write the discrete color
 # palette "cubhelix" in categorical format and add the species names as
 # annotations for the colorbar
 pygmt.makecpt(
-    cmap="cubhelix", color_model="+cSetosa,Versicolor,Virginica", series=(0, 2, 1)
+    cmap="cubhelix",
+    # Use the minimum and maximum of the categorical number code
+    # to set the lowest_value and the highest_value of the CPT
+    series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
+    # convert ['setosa', 'versicolor', 'virginica'] to
+    # 'setosa,versicolor,virginica'
+    color_model="+c" + ",".join(labels),
 )
 
 fig.plot3d(
@@ -62,10 +79,10 @@ fig.plot3d(
     region=region,
     # Set frame parameters
     frame=[
-        'WsNeZ3+t"Iris flower data set"',  # z axis label positioned on 3rd corner, add title
-        'xafg+l"Petal Width (cm)"',
-        'yafg+l"Sepal Length (cm)"',
-        'zafg+l"Petal Length (cm)"',
+        "WsNeZ3+tIris flower data set",  # z axis label positioned on 3rd corner, add title
+        "xafg+lPetal Width (cm)",
+        "yafg+lSepal Length (cm)",
+        "zafg+lPetal Length (cm)",
     ],
     # Set perspective to azimuth NorthWest (315°), at elevation 25°
     perspective=[315, 25],

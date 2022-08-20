@@ -11,7 +11,7 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.fixture(scope="module", name="mars")
-def fixture_mars_shape():
+def fixture_mars():
     """
     Load the table data for the shape of Mars.
     """

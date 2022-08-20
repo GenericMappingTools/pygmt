@@ -12,11 +12,18 @@ from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
-def test_put_vector():
+@pytest.fixture(scope="module", name="dtypes")
+def fixture_dtypes():
+    """
+    List of supported numpy dtypes.
+    """
+    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+
+
+def test_put_vector(dtypes):
     """
     Check that assigning a numpy array to a dataset works.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     for dtype in dtypes:
         with clib.Session() as lib:
             dataset = lib.create_data(
@@ -50,13 +57,12 @@ def test_put_vector():
                 npt.assert_allclose(newz, z)
 
 
-def test_put_vector_mixed_dtypes():
+def test_put_vector_mixed_dtypes(dtypes):
     """
     Passing a numpy array of mixed dtypes to a dataset.
 
     See https://github.com/GenericMappingTools/pygmt/issues/255
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     for dtypex, dtypey in itertools.permutations(dtypes, r=2):
         with clib.Session() as lib:
             dataset = lib.create_data(
