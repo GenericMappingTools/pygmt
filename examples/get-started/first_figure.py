@@ -75,7 +75,7 @@ fig.show()
 # When plotting colors in PyGMT, there are multiple
 # :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
 # standard GMT color names (like ``skyblue``), R/G/B levels (like ``0/0/255``),
-# a hex value (like ``#333333``), or a graylevel (like ``50``). For this
+# a hex value (like ``#333333``), or a gray level (like ``50``). For this
 # example, GMT color names are used.
 
 fig = pygmt.Figure()
@@ -102,7 +102,7 @@ fig.show()
 # projections are explained in the :doc:`projection </projections/index>`
 # gallery. For this example, the Mercator projection is set using ``"M"``.
 # The width of the figure will be 10 centimeters, as set by ``"10c"``.
-# The map size can also be set in inches using "i" (e.g. a 5 inch wide
+# The map size can also be set in inches using "i" (e.g. a 5-inch wide
 # Mercator projection would use ``"M5i"``).
 
 fig = pygmt.Figure()
