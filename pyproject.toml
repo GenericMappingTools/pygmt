@@ -1,6 +1,53 @@
 [build-system]
-requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+requires = ["setuptools>=64", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "pygmt"
+description = "A Python interface for the Generic Mapping Tools"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {text = "BSD License"}
+authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
+maintainers = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
+keywords = []
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: BSD License",
+]
+dependencies = [
+    "numpy>=1.20",
+    "pandas",
+    "xarray",
+    "netCDF4",
+    "packaging"
+]
+dynamic = ["version"]
+
+[project.urls]
+homepage = "https://www.pygmt.org"
+documentation = "https://www.pygmt.org"
+repository = "https://github.com/GenericMappingTools/pygmt"
+changelog = "https://www.pygmt.org/latest/changes.html"
+
+[tool.setuptools]
+platforms = ["Any"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["pygmt*"]
+exclude = ["doc"]
+
+[tool.setuptools.package-data]
+tests = ["data/*", "baseline/*"]
 
 [tool.setuptools_scm]
 local_scheme = "node-and-date"
@@ -8,6 +55,18 @@ fallback_version = "999.999.999+unknown"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
+
+[tool.flakeheaven]
+max_line_length = 88
+max_doc_length = 79
+show_source = true
+
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-E501", "-W503"]
+pyflakes = ["+*"]
+
+[tool.flakeheaven.exceptions."**/__init__.py"]
+pyflakes = ["-F401"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

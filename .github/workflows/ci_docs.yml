@@ -10,7 +10,6 @@ on:
     paths-ignore:
       - 'pygmt/tests/**'
       - '*.md'
-      - '*.json'
       - 'LICENSE.txt'
       - '.gitignore'
   release:
@@ -80,7 +79,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.21.1
+        uses: dawidd6/action-download-artifact@v2.22.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
