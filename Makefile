@@ -7,7 +7,6 @@ PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 BLACK_FILES=$(PROJECT) doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
 DOCFORMATTER_FILES=$(PROJECT) doc/conf.py examples
-DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
 FLAKEHEAVEN_FILES=$(PROJECT) doc/conf.py examples
 LINT_FILES=$(PROJECT) doc/conf.py
 
@@ -55,13 +54,13 @@ fulltest:
 
 format:
 	isort .
-	docformatter --in-place $(DOCFORMATTER_OPTIONS) $(DOCFORMATTER_FILES)
+	docformatter --in-place $(DOCFORMATTER_FILES)
 	black $(BLACK_FILES)
 	blackdoc $(BLACKDOC_OPTIONS) $(BLACK_FILES)
 
 check:
 	isort . --check
-	docformatter --check $(DOCFORMATTER_OPTIONS) $(DOCFORMATTER_FILES)
+	docformatter --check $(DOCFORMATTER_FILES)
 	black --check $(BLACK_FILES)
 	blackdoc --check $(BLACKDOC_OPTIONS) $(BLACK_FILES)
 	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FLAKEHEAVEN_FILES)

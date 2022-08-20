@@ -56,6 +56,13 @@ fallback_version = "999.999.999+unknown"
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
+[tool.docformatter]
+recursive = true
+pre-summary-newline = true
+make-summary-multi-line = true
+wrap-summaries = 79
+wrap-descriptions = 79
+
 [tool.flakeheaven]
 max_line_length = 88
 max_doc_length = 79
