@@ -125,6 +125,7 @@ sphinx_gallery_conf = {
 # Sphinx project configuration
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "**.ipynb_checkpoints"]
+execution_show_tb = True
 source_suffix = ".rst"
 needs_sphinx = "1.8"
 # The encoding of source files.
