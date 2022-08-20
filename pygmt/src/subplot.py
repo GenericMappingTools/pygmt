@@ -28,7 +28,7 @@ from pygmt.helpers import (
     SC="sharex",
     SR="sharey",
     T="title",
-    V="verbose"
+    V="verbose",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
