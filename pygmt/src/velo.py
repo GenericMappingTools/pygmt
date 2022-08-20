@@ -26,8 +26,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     c="panel",
     d="nodata",
@@ -218,7 +216,6 @@ def velo(self, data=None, **kwargs):
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill
         only [Default].  Use just **+c** to set both pen and fill color.
-    {XY}
     zvalue : str
         [**m**\|\ **e**\|\ **n**\|\ **u**\ ][**+e**].
         Select the quantity that will be used with the CPT given via ``cmap``

@@ -16,8 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -59,7 +57,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         is ``default,black,solid``.
     {U}
     {V}
-    {XY}
     {c}
     {p}
     {t}

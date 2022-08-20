@@ -28,9 +28,7 @@ from pygmt.helpers import (
     SC="sharex",
     SR="sharey",
     T="title",
-    V="verbose",
-    X="xshift",
-    Y="yshift",
+    V="verbose"
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
@@ -145,7 +143,6 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {V}
-    {XY}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

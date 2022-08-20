@@ -32,8 +32,6 @@ from pygmt.src.which import which
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     a="aspatial",
     b="binary",
@@ -184,7 +182,6 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {W}
     {U}
     {V}
-    {XY}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

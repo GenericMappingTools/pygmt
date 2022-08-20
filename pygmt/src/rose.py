@@ -26,8 +26,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     d="nodata",
@@ -183,7 +181,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     {U}
     {V}
-    {XY}
     {b}
     {c}
     {d}
