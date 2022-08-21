@@ -3,7 +3,6 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     args_in_kwargs,
     build_arg_string,
@@ -91,11 +90,5 @@ def basemap(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
         kwargs["B"] = True  # Plotting frames if required arguments not given
-    if args_in_kwargs(args=["X", "Y"], kwargs=kwargs):
-        raise GMTInvalidInput(
-            """The parameters xshift (X) and yshift (Y) are not supported
-            anymore. Please use shift_origin() instead."""
-        )
-
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_string(kwargs))
