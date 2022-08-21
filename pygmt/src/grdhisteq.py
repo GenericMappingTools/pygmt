@@ -23,7 +23,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     r"""
     Perform histogram equalization for a grid.
 
-    Two common use cases of :meth:`pygmt.grdhisteq` are to find data values
+    Two common use cases of :class:`pygmt.grdhisteq` are to find data values
     that divide a grid into patches of equal area
     (:meth:`pygmt.grdhisteq.compute_bins`) or to write a grid with
     statistics based on some kind of cumulative distribution function
