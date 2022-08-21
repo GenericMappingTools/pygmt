@@ -93,15 +93,6 @@ COMMON_OPTIONS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "XY": r"""
-        xshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
-            Shift plot origin in x-direction.
-        yshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
     "a": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
