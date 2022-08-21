@@ -12,7 +12,7 @@ import pygmt
 # Load sample data
 # ----------------
 # Load the sample Earth relief data for a region around Yosemite valley
-# and use :meth:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
+# and use :func:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
 # z-values.
 
 grid = pygmt.datasets.load_earth_relief(
