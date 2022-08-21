@@ -565,6 +565,14 @@ def use_alias(**aliases):
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
+                if (long_alias in kwargs and long_alias in ["xshift", "yshift"]) or (
+                    short_param in kwargs and short_param in ["X", "Y"]
+                ):
+                    raise GMTInvalidInput(
+                        f"Parameters ({short_param}) and "
+                        f"({long_alias}) are not supported anymore."
+                        f" Please use shift_origin() instead!"
+                    )
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
