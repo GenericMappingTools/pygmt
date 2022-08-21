@@ -26,11 +26,11 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
 
-## Create a colorbar designed for seismic tomography - roma
+# Create a colorbar designed for seismic tomography - roma
 # Colorbar is placed at bottom center (BC) by default if no position is given
 fig.colorbar(cmap="roma", frame=["x+lVelocity", "y+lm/s"])
 
-## Create a colorbar showing the scientific rainbow - batlow
+# Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
     cmap="batlow",
     # Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,
@@ -41,7 +41,7 @@ fig.colorbar(
     scale=100,
 )
 
-## Create a colorbar suitable for surface topography - oleron
+# Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
     cmap="oleron",
     # Colorbar position justified outside map frame (J) at Middle Right (MR),
