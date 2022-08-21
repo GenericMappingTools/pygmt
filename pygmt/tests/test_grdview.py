@@ -222,6 +222,10 @@ def test_grdview_drapegrid_dataarray(xrgrid):
     """
     drapegrid = 1.1 * xrgrid
 
+    # accessor information are lost during xarray multiplication
+    drapegrid.gmt.registration = xrgrid.gmt.registration
+    drapegrid.gmt.gtype = xrgrid.gmt.gtype
+
     fig = Figure()
     fig.grdview(grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c")
     return fig
