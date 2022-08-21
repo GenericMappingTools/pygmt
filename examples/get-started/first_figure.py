@@ -22,7 +22,7 @@ address other PyGMT methods.
 # -------------------
 #
 # The first step is to import :mod:`pygmt`. All methods and figure generation
-# is accessible from the :mod:`pygmt` top level package.
+# are accessible from the :mod:`pygmt` top level package.
 
 # sphinx_gallery_thumbnail_number = 4
 import pygmt
