@@ -39,7 +39,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     provide a list of data values that divide the data range into divisions
     which have an equal area in the image [Default is 16 if ``divisions`` is
     not set]. The :class:`pandas.DataFrame` or ASCII file output can be used to
-    make a colormap with :meth:`pygmt.makecpt` and an image with
+    make a colormap with :func:`pygmt.makecpt` and an image with
     :meth:`pygmt.Figure.grdimage` that has all levels of gray occurring
     equally.
 
@@ -106,7 +106,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
         """
 
         with Session() as lib:
@@ -201,7 +201,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
 
         Note
         ----
@@ -254,7 +254,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         can provide a list of data values that divide the data range into
         divisions which have an equal area in the image [Default is 16 if
         ``divisions`` is not set]. The :class:`pandas.DataFrame` or ASCII file
-        output can be used to make a colormap with :meth:`pygmt.makecpt` and an
+        output can be used to make a colormap with :func:`pygmt.makecpt` and an
         image with :meth:`pygmt.Figure.grdimage` that has all levels of gray
         occurring equally.
 
@@ -314,7 +314,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
 
         Note
         ----
