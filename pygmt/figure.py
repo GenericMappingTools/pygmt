@@ -130,6 +130,7 @@ class Figure:
         C="gs_option",
         E="dpi",
         F="prefix",
+        G="gs_path",
         I="resize",
         N="bb_style",
         T="fmt",
@@ -142,7 +143,7 @@ class Figure:
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, SVG, TIFF) using GhostScript.
+        PDF, PNG, PPM, SVG, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
         (see :func:`pygmt.Figure`). In this case, an output name must be given
@@ -163,9 +164,11 @@ class Figure:
             creating very small images where the difference of one pixel
             might matter. If ``verbose`` is used we also report the
             dimensions of the final illustration.
+        gs_path : str
+            Full path to the Ghostscript executable.
         gs_option : str
             Specify a single, custom option that will be passed on to
-            GhostScript as is.
+            Ghostscript as is.
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
