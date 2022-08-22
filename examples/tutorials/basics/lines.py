@@ -44,7 +44,7 @@ fig.show()
 
 ###############################################################################
 # To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-# additional line. Arguments such as ``region``, ``projection``, and ``frame``
+# additional line. Parameters such as ``region``, ``projection``, and ``frame``
 # do not need to be repeated in subsequent uses.
 
 fig = pygmt.Figure()
