@@ -34,7 +34,8 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
-    "geopandas"
+    "geopandas",
+    "ipython"
 ]
 
 [project.urls]
