@@ -2,6 +2,7 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 import os
+import sys
 
 import pytest
 import xarray as xr
@@ -70,7 +71,11 @@ def test_accessor_set_non_boolean():
         grid.gmt.gtype = 2
 
 
-@pytest.mark.xfail
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="PermissionError on Windows when deleting eraint_uvz.nc file; "
+    "see https://github.com/GenericMappingTools/pygmt/pull/2073",
+)
 def test_accessor_sliced_datacube():
     """
     Check that a 2D grid which is sliced from an n-dimensional datacube works
