@@ -6,8 +6,12 @@ import sys
 
 import pytest
 import xarray as xr
-from pygmt import which
+from packaging.version import Version
+from pygmt import clib, which
 from pygmt.exceptions import GMTInvalidInput
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_accessor_gridline_cartesian():
@@ -71,6 +75,10 @@ def test_accessor_set_non_boolean():
         grid.gmt.gtype = 2
 
 
+@pytest.mark.skipif(
+    gmt_version == Version("6.3.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
+)
 @pytest.mark.xfail(
     condition=sys.platform == "win32",
     reason="PermissionError on Windows when deleting eraint_uvz.nc file; "
