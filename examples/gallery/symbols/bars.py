@@ -60,7 +60,6 @@ with fig.subplot(
         "x3": [0.4, 1.25],
         "x4": [2.25, 0.75],
     }
-    df = pd.DataFrame(data=data)
 
     with fig.set_panel(panel=2):
         fig.basemap(region=[0, 4, 0, 3], frame="+tstacked bars")
