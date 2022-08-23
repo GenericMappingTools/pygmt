@@ -18,7 +18,6 @@ side-by-side, individual and thinner bars. Multi-band bars requires
 ``cmap=True`` with one color per band.
 """
 
-import pandas as pd
 import pygmt
 
 fig = pygmt.Figure()
