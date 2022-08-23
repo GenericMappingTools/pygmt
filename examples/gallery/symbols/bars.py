@@ -51,7 +51,7 @@ with fig.subplot(
         # +b2 means that the bar is starting from x=2 here
         fig.plot(x=3.5, y=2.5, style="B0.5c+b2", color=color, pen=pen)
 
-    # generate dataframe for plotting multi-band bars
+    # generate dictionary for plotting multi-band bars
     data = {
         "x1": [0.25, 1.25],
         "y": [1, 2],
