@@ -40,7 +40,7 @@ fig = pygmt.Figure()
 # To add to a plot object (``fig`` in this example), the PyGMT module is used
 # as a method on the class. This example will use the
 # :meth:`pygmt.Figure.coast` method, which can be used to create a map without
-# any other methods, modules or external data. The :meth:`pygmt.Figure.coast`
+# any other methods or external data. The :meth:`pygmt.Figure.coast`
 # method plots the coastlines, borders, and bodies of water using a database
 # that is included in GMT.
 #
