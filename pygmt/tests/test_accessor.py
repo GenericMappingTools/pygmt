@@ -76,7 +76,7 @@ def test_accessor_set_non_boolean():
 
 
 @pytest.mark.skipif(
-    gmt_version < Version("6.3.0"),
+    gmt_version < Version("6.4.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
 )
 @pytest.mark.xfail(
