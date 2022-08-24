@@ -218,7 +218,7 @@ This installs the latest stable release from
 
     pip install pygmt
 
-.. tips::
+.. tip::
 
    You can also run ``pip install pygmt[all]`` to install pygmt alongside with
    all its optional dependencies.
