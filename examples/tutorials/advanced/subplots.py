@@ -115,7 +115,7 @@ fig.show()
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``autolabel=True``: Each subplot is automatically labelled abcd.
+# - ``autolabel=True``: Each subplot is automatically labelled 'abcd'.
 # - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
 #   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
 #   y-direction.
