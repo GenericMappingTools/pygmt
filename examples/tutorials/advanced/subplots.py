@@ -153,12 +153,12 @@ fig.show()
 #     before.
 
 ###############################################################################
-# Shared X- and Y-axis labels
+# Shared x- and y-axis labels
 # --------------------------
 # In the example above with the four subplots, the two subplots for each row
-# have the same Y-axis range, and the two subplots for each column have the
-# same X-axis range. You can use the ``sharex``/``sharey`` parameters to set a
-# common X-and/or Y-axis between subplots.
+# have the same y-axis range, and the two subplots for each column have the
+# same x-axis range. You can use the ``sharex``/``sharey`` parameters to set a
+# common x-and/or y-axis between subplots.
 
 fig = pygmt.Figure()
 with fig.subplot(
