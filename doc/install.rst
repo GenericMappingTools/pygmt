@@ -218,6 +218,11 @@ This installs the latest stable release from
 
     pip install pygmt
 
+.. tip::
+
+   You can also run ``pip install pygmt[all]`` to install pygmt with
+   all of its optional dependencies.
+
 Alternatively, you can install the latest development version from
 `TestPyPI <https://test.pypi.org/project/pygmt>`__::
 
