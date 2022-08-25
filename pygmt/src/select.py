@@ -77,9 +77,9 @@ def select(data=None, outfile=None, **kwargs):
         or (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append (**+f**) to automatically select a lower
         resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details it is
-        not guaranteed that a point will remain inside [or outside] when a
-        different resolution is selected.
+        if not found]. **Note** that because the coastlines differ in details
+        it is not guaranteed that a point will remain inside [or outside] when
+        a different resolution is selected.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
