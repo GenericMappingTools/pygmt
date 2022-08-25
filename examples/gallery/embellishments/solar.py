@@ -16,7 +16,7 @@ fig = pygmt.Figure()
 # Create a figure showing the global region on a Mollweide projection
 # Land color is set to dark green and water color is set to light blue
 fig.coast(region="d", projection="W0/15c", land="darkgreen", water="lightblue")
-# Set a time for the day-night terminator and twilights, 1700 UTC on
+# Set a time for the day-night terminator and twilights, 17:00 UTC on
 # January 1, 2000
 terminator_datetime = datetime.datetime(
     year=2000, month=1, day=1, hour=17, minute=0, second=0

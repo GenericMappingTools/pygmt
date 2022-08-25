@@ -37,8 +37,8 @@ fig.show()
 # of the inset is set to one of the 9 anchors (bottom-middle-top and
 # left-center-right). In the example below, ``BL`` sets the inset to the bottom
 # left. The ``box`` parameter can set the fill and border of the inset. In the
-# example below, ``+pblack`` sets the border color to black and ``+gred`` sets
-# the fill to red.
+# example below, ``+pblack`` sets the border color to black and ``+glightred``
+# sets the fill to light red.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -97,11 +97,16 @@ fig.coast(
     frame="a",
 )
 # This does not include an inset fill as it is covered by the inset figure
-with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack"):
-    # Use a plotting function to create a figure inside the inset
+# Inset width/height are determined by the ``region`` and ``projection``
+# parameters.
+with fig.inset(
+    position="jBL+o0.5c/0.2c",
+    box="+pblack",
+    region=[-80, -65, 35, 50],
+    projection="M3c",
+):
+    # Use a plotting function to create a figure inside the inset.
     fig.coast(
-        region=[-80, -65, 35, 50],
-        projection="M3c",
         land="gray",
         borders=[1, 2],
         shorelines="1/thin",

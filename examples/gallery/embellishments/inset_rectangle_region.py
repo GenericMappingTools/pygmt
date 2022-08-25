@@ -24,18 +24,22 @@ fig.basemap(region=region, projection="U54S/12c", frame=["WSne", "af"])
 # figure
 fig.coast(land="lightbrown", water="azure1", shorelines="2p", area_thresh=1000)
 
-# Create an inset map, setting the position to bottom right, the width to
-# 3 cm, the height to 3.6 cm, and the x- and y-offsets to
-# 0.1 cm, respectively. Draws a rectangular box around the inset with a fill
-# color of "white" and a pen of "1p".
-with fig.inset(position="jBR+w3c/3.6c+o0.1c", box="+gwhite+p1p"):
-    # Plot the Japan main land in the inset using coast. "U54S/?" means UTM
-    # projection with map width automatically determined from the inset width.
+# Create an inset map, setting the position to bottom right, and the x- and
+# y-offsets to 0.1 cm, respectively.
+# The inset map contains the Japan main land. "U54S/3c" means UTM projection
+# with a map width of 3 cm. The inset width and height are automatically
+# calculated from the specified ``region`` and ``projection`` parameters.
+# Draws a rectangular box around the inset with a fill color of "white" and
+# a pen of "1p".
+with fig.inset(
+    position="jBR+o0.1c",
+    box="+gwhite+p1p",
+    region=[129, 146, 30, 46],
+    projection="U54S/3c",
+):
     # Highlight the Japan area in "lightbrown"
     # and draw its outline with a pen of "0.2p".
     fig.coast(
-        region=[129, 146, 30, 46],
-        projection="U54S/?",
         dcw="JP+glightbrown+p0.2p",
         area_thresh=10000,
     )

@@ -214,6 +214,10 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Generated images are different from the baseline images on three platforms. "
+    "See https://github.com/GenericMappingTools/pygmt/issues/2062#issuecomment-1220680290"
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """

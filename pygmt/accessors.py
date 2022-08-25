@@ -15,7 +15,7 @@ class GMTDataArrayAccessor:
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution="01d")
+    >>> grid = load_earth_relief(resolution="01d", registration="pixel")
 
     >>> # See if grid uses Gridline (0) or Pixel (1) registration
     >>> grid.gmt.registration

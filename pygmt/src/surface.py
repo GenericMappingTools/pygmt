@@ -6,8 +6,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    check_data_input_order,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -18,8 +16,6 @@ __doctest_skip__ = ["surface"]
 
 
 @fmt_docstring
-@deprecate_parameter("outfile", "outgrid", "v0.5.0", remove_version="v0.7.0")
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
