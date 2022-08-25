@@ -153,7 +153,7 @@ fig.show()
 #     before.
 
 ###############################################################################
-# Shared x- and y-axis
+# Shared x- and y-axes
 # --------------------
 # In the example above with the four subplots, the two subplots for each row
 # have the same y-axis range, and the two subplots for each column have the
