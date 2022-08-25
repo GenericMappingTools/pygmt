@@ -184,9 +184,9 @@ fig.show()
 # subplots within a row will share the y-axis, and only the **l**\ eft axis is
 # displayed.
 #
-# Of course, instead of using the ``sharex``/``sharey`` option, you can also
-# set a different ``frame`` for each subplot to control the axis properties
-# individually for each subplot.
+# Of course, instead of using the ``sharex``/``sharey`` parameters, you can
+# also set a different ``frame`` for each subplot to control the axis
+# properties individually for each subplot.
 
 ###############################################################################
 # Advanced subplot layouts
