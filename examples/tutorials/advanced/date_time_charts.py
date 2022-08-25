@@ -107,14 +107,14 @@ fig.show()
 # by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
 # marking the two digit hour value, two digit minute value, and two digit
 # second value respectively. The figure in the following example is plotted
-# over a horizontal range of one year from 1/1/2016 to 1/1/2017.
+# over a horizontal range of one year from 2016-01-01 to 2017-01-01.
 
 x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
 y = [1, 3, 5, 2]
 fig = pygmt.Figure()
 fig.plot(
     projection="X10c/5c",
-    region=["2016-01-01", "2017-01-1", 0, 6],
+    region=["2016-01-01", "2017-01-01", 0, 6],
     frame=["WSen", "afg"],
     x=x,
     y=y,

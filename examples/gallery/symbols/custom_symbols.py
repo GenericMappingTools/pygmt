@@ -15,7 +15,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 8, 0, 3], projection="X12c/4c", frame=True)
 
-# define pen and fontstlye for annotations
+# define pen and fontstyle for annotations
 pen = "1p,black"
 font = "15p,Helvetica-Bold"
 

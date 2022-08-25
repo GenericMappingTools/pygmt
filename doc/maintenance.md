@@ -151,13 +151,10 @@ There are 11 configuration files located in `.github/workflows`:
 
 ## Continuous Documentation
 
-We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
+We use the [ReadtheDocs](https://readthedocs.org/) service to preview changes
 made to our documentation website every time we make a commit in a pull request.
-The service has a configuration file `vercel.json`, with a list of options to
-change the default behaviour at https://vercel.com/docs/configuration.
-The actual script `package.json` is used by Vercel to install the necessary packages,
-build the documentation, copy the files to a 'public' folder and deploy that to the web,
-see https://vercel.com/docs/build-step.
+The service has a configuration file `.readthedocs.yaml`, with a list of options
+to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.
 
 
 ## Dependencies Policy
@@ -170,7 +167,7 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
 * All minor versions of NumPy released in the 24 months prior to the project,
   and at minimum the last three minor versions.
 
-In `setup.py`, the `python_requires` variable should be set to the minimum
+In `pyproject.toml`, the `requires-python` key should be set to the minimum
 supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 
@@ -280,7 +277,7 @@ So slightly broken RST can cause the PyPI page to not render the correct content
 using the `rst2html.py` script that comes with docutils:
 
 ```
-python setup.py --long-description | rst2html.py --no-raw > index.html
+rst2html.py --no-raw README.rst > index.html
 ```
 
 Open `index.html` and check for any flaws or error messages.

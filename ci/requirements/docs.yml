@@ -15,23 +15,8 @@ dependencies:
     - geopandas
     # Development dependencies (general)
     - build
-    - dvc
     - ipython
-    - jupyter
     - make
-    # Dev dependencies (style checks)
-    - black
-    - blackdoc
-    - docformatter
-    - flakeheaven>=3
-    - isort>=5
-    - pylint
-    # Dev dependencies (unit testing)
-    - matplotlib
-    - pytest-cov
-    - pytest-doctestplus
-    - pytest-mpl
-    - pytest>=6.0
     # Dev dependencies (building documentation)
     - myst-parser
     - sphinx

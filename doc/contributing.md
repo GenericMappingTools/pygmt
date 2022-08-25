@@ -249,7 +249,7 @@ There are four main components to PyGMT's documentation:
 * Getting started/developer documentation, with source text in ReST `*.rst`
   and markdown `*.md` files under the `doc/` folder.
 
-The documentation are written primarily in
+The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
@@ -289,8 +289,8 @@ download and install anything:
   click on the "Propose changes" button to open a pull request.
 7. The pull request will run the GMT automated tests and make a preview deployment.
   You can see how your change looks in the PyGMT documentation by clicking the
-  "View deployment" button after the Vercel bot has finished (usually 5-10 minutes
-  after the pull request was created).
+  "Details" button of the "docs/readthedocs.org:pygmt-dev" status check,
+  after the building has finished (usually 10-15 minutes after the pull request was created).
 8. We'll review your pull request, recommend changes if necessary, and then merge
   them in if everything is OK.
 9. Done!
@@ -363,7 +363,7 @@ General guidelines for making a good gallery plot:
 * Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
-* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
+* Add comments to explain things that aren't obvious from reading the code. Good: *Use a
   Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
   plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
@@ -422,7 +422,7 @@ When editing documentation, use the following standards to demonstrate the examp
 3. Optional arguments are wrapped with [ ] (square brackets).
 4. Arguments that are mutually exclusive are separated with a | (bar) to denote "or".
 5. Default arguments for parameters and configuration settings are wrapped
-   with [ ] (square brackers) with the prefix "Default is". Example: [Default is
+   with [ ] (square brackets) with the prefix "Default is". Example: [Default is
    **p**].
 
 ### Cross-referencing with Sphinx
@@ -471,7 +471,7 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to to format the code so we don't have to think about it:
+We use some tools to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
@@ -491,7 +491,7 @@ For consistency, we also use UNIX-style line endings (`\n`) and file permission
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
-Pull Request to lint the code automatically.
+pull request to lint the code automatically.
 
 When wrapping a new alias, use an underscore to separate words bridged by vowels
 (aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
@@ -499,14 +499,14 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flake8](http://flake8.pycqa.org/en/latest/) and
+We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 

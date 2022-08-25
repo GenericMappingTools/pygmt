@@ -1,6 +1,6 @@
 r"""
-Oblique Mercator
-================
+Oblique Mercator, 3: origin and pole
+====================================
 
 Oblique configurations of the cylinder give rise to the oblique Mercator
 projection. It is particularly useful when mapping regions of large lateral
@@ -18,7 +18,7 @@ with *scale* or *width*.
 import pygmt
 
 fig = pygmt.Figure()
-# Using the origin projection pole
+# Using the origin and projection pole
 fig.coast(
     projection="Oc280/25.5/22/69/12c",
     # Set bottom left and top right coordinates of the figure with "+r"

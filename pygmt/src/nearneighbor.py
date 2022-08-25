@@ -38,7 +38,7 @@ __doctest_skip__ = ["nearneighbor"]
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
-    Grid table data using a "Nearest neighbor" algorithm
+    Grid table data using a "Nearest neighbor" algorithm.
 
     **nearneighbor** reads arbitrarily located (*x,y,z*\ [,\ *w*]) triples
     [quadruplets] and uses a nearest neighbor algorithm to assign a weighted
