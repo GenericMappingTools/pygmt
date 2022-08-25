@@ -524,9 +524,9 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-methods, such as `plot` and `basemap`. The highest priority for tests should be the
-Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
-mechanism.
+methods, such as :meth:`pygmt.Figure.plot` and :meth:`pygmt.Figure.basemap`.
+The highest priority for tests should be the Python-specific code, such as numpy,
+pandas, and xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
