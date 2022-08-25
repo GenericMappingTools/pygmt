@@ -117,8 +117,8 @@ fig.show()
 #
 # - ``autolabel=True``: Each subplot is automatically labelled abcd
 # - ``margins=["0.1c", "0.2c"]``: adjusts the space between adjacent subplots.
-#   In this case, it is set as 0.1 cm in the X direction and 0.2 cm in the Y
-#   direction.
+#   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
+#   y-direction.
 # - ``title="My Subplot Heading"``: adds a title on top of the whole figure.
 #
 # Notice that each subplot was set to use a linear projection ``"X?"``.
