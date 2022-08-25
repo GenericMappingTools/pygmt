@@ -52,11 +52,11 @@ def makecpt(**kwargs):
     default behavior can be overruled using the parameters ``background``,
     ``overrule_bg`` or ``no_bg``.
 
-    The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
-    will be the same as specified in the header of the master CPT. When there
-    is no :gmt-term:`COLOR_MODEL` entry in the master CPT, the
-    :gmt-term:`COLOR_MODEL` specified in the :gmt-docs:`gmt.conf <gmt.conf>`
-    file or on the command line will be used.
+    The color model (RGB, HSV or CMYK) of the palette created by
+    :func:`pygmt.makecpt` will be the same as specified in the header of the
+    master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the
+    master CPT, the :gmt-term:`COLOR_MODEL` specified in the
+    :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line will be used.
 
     Full option list at :gmt-docs:`makecpt.html`
 
