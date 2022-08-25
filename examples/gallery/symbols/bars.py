@@ -14,7 +14,7 @@ means we must accumulate the bar values from the increments
 *dy* or *dx*, while **+v** means we get the complete values relative
 to base. Normally, the bands are plotted as sections of a final
 single bar. Use **+s** to instead split the bar into *ny* or *nx*
-side-by-side, individual and thinner bars. Multi-band bars requires
+side-by-side, individual and thinner bars. Multi-band bars require
 ``cmap=True`` with one color per band.
 """
 
