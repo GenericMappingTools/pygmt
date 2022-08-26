@@ -11,7 +11,6 @@ on:
       - 'doc/**'
       - 'examples/**'
       - '*.md'
-      - '*.json'
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
@@ -102,7 +101,7 @@ jobs:
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         build dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
@@ -150,9 +149,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       - name: Add GMT's bin to PATH (Linux/macOS)
         run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
