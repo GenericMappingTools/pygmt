@@ -28,7 +28,7 @@ with fig.subplot(
     nrows=2,
     ncols=2,
     subsize=("8c", "4c"),
-    frame=["ag"],
+    frame="ag",
     sharey=True,
     sharex=True,
     margins=["0.5c", "0.75c"],
