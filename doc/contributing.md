@@ -392,8 +392,8 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the `Figure.show()` function needs to be called for a plot to be inserted into
-the documentation.
+Note that the <code>pygmt.Figure.show</code> function needs to be called for a plot
+to be inserted into the documentation.
 
 ### Editing the API Documentation
 
@@ -524,7 +524,7 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-methods, such as :meth:`pygmt.Figure.plot` and :meth:`pygmt.Figure.basemap`.
+methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
 The highest priority for tests should be the Python-specific code, such as numpy,
 pandas, and xarray objects and the virtualfile mechanism.
 
