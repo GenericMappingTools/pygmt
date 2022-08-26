@@ -392,7 +392,7 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the :meth:`pygmt.Figure.show` method needs to be called for a plot to be inserted into
+Note that the `Figure.show()` method needs to be called for a plot to be inserted into
 the documentation.
 
 ### Editing the API Documentation
