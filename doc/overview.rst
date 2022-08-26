@@ -47,7 +47,7 @@ These are conference presentations about the development of PyGMT (previously
   Presented at *SciPy 2022*.
   doi:`10.6084/m9.figshare.20483793 <https://doi.org/10.6084/m9.figshare.20483793>`__
 
-.. figure:: _static/scipy2022-youtube-thumbnail.png
+.. figure:: _static/scipy2022-youtube-thumbnail.jpg
    :target: https://youtu.be/nCktihu9bWg
    :width: 80%
    :align: center
