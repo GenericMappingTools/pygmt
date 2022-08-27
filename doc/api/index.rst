@@ -84,7 +84,7 @@ Saving and displaying the figure
 Configuring the display settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following module is provided directly through the :mod:`pygmt` top level
+The following function is provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
@@ -95,7 +95,7 @@ package.
 Color palette table generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following modules are provided directly through the :mod:`pygmt` top level
+The following functions are provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
