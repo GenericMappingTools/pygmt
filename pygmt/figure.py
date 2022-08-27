@@ -291,7 +291,8 @@ class Figure:
             others.
         **kwargs : dict
             Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`.
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
         fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
@@ -366,7 +367,8 @@ class Figure:
             Only works if ``method="external"``.
         **kwargs : dict
             Additional keyword arguments passed to
-            :meth:`pygmt.Figure.psconvert`.
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
