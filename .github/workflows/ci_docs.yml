@@ -10,7 +10,6 @@ on:
     paths-ignore:
       - 'pygmt/tests/**'
       - '*.md'
-      - '*.json'
       - 'LICENSE.txt'
       - '.gitignore'
   release:

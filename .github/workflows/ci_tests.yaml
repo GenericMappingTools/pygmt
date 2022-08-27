@@ -11,7 +11,6 @@ on:
       - 'doc/**'
       - 'examples/**'
       - '*.md'
-      - '*.json'
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
@@ -94,7 +93,7 @@ jobs:
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
                         build dvc make pytest>=6.0 \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -126,9 +125,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       # Run the regular tests
       - name: Run tests

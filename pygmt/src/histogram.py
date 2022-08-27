@@ -43,8 +43,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or
-    list, array, or dataframe.
+    Plots a histogram, and can read data from a file or list, array, or
+    dataframe.
 
     Full option list at :gmt-docs:`histogram.html`
 
