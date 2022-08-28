@@ -108,10 +108,10 @@ def grdview(self, grid, **kwargs):
         Provide the name of a grid file with intensities in the (-1,+1)
         range, or a constant intensity to apply everywhere (affects the
         ambient light). Alternatively, derive an intensity grid from the
-        input data grid reliefgrid via a call to ``grdgradient``; append
-        **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that module, or just give
-        **+d** to select the default arguments
+        input data grid reliefgrid via a call to :func:`pygmt.grdgradient`;
+        append **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to
+        specify azimuth, intensity, and ambient arguments for that function,
+        or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {V}
     {XY}
@@ -126,16 +126,20 @@ def grdview(self, grid, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
         with contextlib.ExitStack() as stack:
-            if "G" in kwargs:  # deal with kwargs["G"] if drapegrid is xr.DataArray
+            if kwargs.get("G") is not None:
+                # deal with kwargs["G"] if drapegrid is xr.DataArray
                 drapegrid = kwargs["G"]
                 if data_kind(drapegrid) in ("file", "grid"):
                     if data_kind(drapegrid) == "grid":
-                        drape_context = lib.virtualfile_from_grid(drapegrid)
+                        drape_context = lib.virtualfile_from_data(
+                            check_kind="raster", data=drapegrid
+                        )
                         kwargs["G"] = stack.enter_context(drape_context)
                 else:
                     raise GMTInvalidInput(
                         f"Unrecognized data type for drapegrid: {type(drapegrid)}"
                     )
             fname = stack.enter_context(file_context)
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("grdview", arg_str)
+            lib.call_module(
+                module="grdview", args=build_arg_string(kwargs, infile=fname)
+            )

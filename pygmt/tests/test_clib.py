@@ -28,12 +28,20 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
+
+
+@pytest.fixture(scope="module", name="dtypes")
+def fixture_dtypes():
+    """
+    List of supported numpy dtypes.
+    """
+    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
 @contextmanager
@@ -339,11 +347,10 @@ def test_create_data_fails():
                 )
 
 
-def test_virtual_file():
+def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (5, 3)
     for dtype in dtypes:
         with clib.Session() as lib:
@@ -497,11 +504,10 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             )
 
 
-def test_virtualfile_from_vectors():
+def test_virtualfile_from_vectors(dtypes):
     """
     Test the automation for transforming vectors to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 10
     for dtype in dtypes:
         x = np.arange(size, dtype=dtype)
@@ -588,11 +594,10 @@ def test_virtualfile_from_vectors_diff_size():
                 print("This should have failed")
 
 
-def test_virtualfile_from_matrix():
+def test_virtualfile_from_matrix(dtypes):
     """
     Test transforming a matrix to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
@@ -606,11 +611,10 @@ def test_virtualfile_from_matrix():
             assert output == expected
 
 
-def test_virtualfile_from_matrix_slice():
+def test_virtualfile_from_matrix_slice(dtypes):
     """
     Test transforming a slice of a larger array to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (10, 6)
     for dtype in dtypes:
         full_data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
@@ -627,11 +631,10 @@ def test_virtualfile_from_matrix_slice():
             assert output == expected
 
 
-def test_virtualfile_from_vectors_pandas():
+def test_virtualfile_from_vectors_pandas(dtypes):
     """
     Pass vectors to a dataset using pandas Series.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     size = 13
     for dtype in dtypes:
         data = pd.DataFrame(

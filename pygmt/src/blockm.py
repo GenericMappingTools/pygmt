@@ -6,7 +6,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    check_data_input_order,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -51,8 +50,10 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module=block_method, args=arg_str)
+                lib.call_module(
+                    module=block_method,
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
@@ -68,7 +69,6 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -166,7 +166,6 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -254,7 +253,6 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",

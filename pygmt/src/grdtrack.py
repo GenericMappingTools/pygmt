@@ -1,7 +1,10 @@
 """
 grdtrack - Sample grids at specified (x,y) locations.
 """
+import warnings
+
 import pandas as pd
+import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -11,6 +14,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
+from pygmt.src.which import which
 
 __doctest_skip__ = ["grdtrack"]
 
@@ -43,7 +47,7 @@ __doctest_skip__ = ["grdtrack"]
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
-def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
+def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
 
@@ -67,13 +71,13 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    points : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
-        {table-classes}.
-
     grid : xarray.DataArray or str
         Gridded array from which to sample values from, or a filename (netcdf
         format).
+
+    points : str or {table-like}
+        Pass in either a file name to an ASCII data table, a 2D
+        {table-classes}.
 
     newcolname : str
         Required if ``points`` is a :class:`pandas.DataFrame`. The name for the
@@ -283,27 +287,66 @@ def grdtrack(points, grid, newcolname=None, outfile=None, **kwargs):
     ...     points=points, grid=grid, newcolname="bathymetry"
     ... )
     """
+    # pylint: disable=too-many-branches
+    if points is not None and kwargs.get("E") is not None:
+        raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
+
+    if points is None and kwargs.get("E") is None:
+        raise GMTInvalidInput("Must give 'points' or set 'profile'.")
+
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
+    # Backward compatibility with old parameter order "points, grid".
+    # deprecated_version="0.7.0", remove_version="v0.9.0"
+    is_a_grid = True
+    if not isinstance(grid, (xr.DataArray, str)):
+        is_a_grid = False
+    elif isinstance(grid, str):
+        try:
+            xr.open_dataarray(which(grid, download="a"), engine="netcdf4").close()
+            is_a_grid = True
+        except (ValueError, OSError):
+            is_a_grid = False
+    if not is_a_grid:
+        msg = (
+            "Positional parameters 'points, grid' of pygmt.grdtrack() has changed "
+            "to 'grid, points=None' since v0.7.0. It's likely that you're NOT "
+            "passing a valid grid as the first positional argument or "
+            "are passing an invalid grid to the 'grid' parameter. "
+            "Please check the order of arguments with the latest documentation. "
+            "This warning will be removed in v0.9.0."
+        )
+        grid, points = points, grid
+        warnings.warn(msg, category=FutureWarning, stacklevel=1)
+
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=points)
             # Store the xarray.DataArray grid in virtualfile
             grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
-            # Run grdtrack on the temporary (csv) points table
-            # and (netcdf) grid virtualfile
-            with table_context as csvfile:
-                with grid_context as grdfile:
-                    kwargs.update({"G": grdfile})
-                    if outfile is None:  # Output to tmpfile if outfile is not set
-                        outfile = tmpfile.name
-                    arg_str = " ".join(
-                        [csvfile, build_arg_string(kwargs), "->" + outfile]
+            with grid_context as grdfile:
+                kwargs.update({"G": grdfile})
+                if outfile is None:  # Output to tmpfile if outfile is not set
+                    outfile = tmpfile.name
+
+                if points is not None:
+                    # Choose how data will be passed into the module
+                    table_context = lib.virtualfile_from_data(
+                        check_kind="vector", data=points
                     )
-                    lib.call_module(module="grdtrack", args=arg_str)
+                    with table_context as csvfile:
+                        lib.call_module(
+                            module="grdtrack",
+                            args=build_arg_string(
+                                kwargs, infile=csvfile, outfile=outfile
+                            ),
+                        )
+                else:
+                    lib.call_module(
+                        module="grdtrack",
+                        args=build_arg_string(kwargs, outfile=outfile),
+                    )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

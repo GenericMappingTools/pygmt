@@ -2,19 +2,10 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    check_data_input_order,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.5.0", remove_version="v0.7.0")
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     B="frame",
     D="position",
@@ -113,5 +104,6 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("wiggle", arg_str)
+            lib.call_module(
+                module="wiggle", args=build_arg_string(kwargs, infile=fname)
+            )

@@ -1,5 +1,115 @@
 # Changelog
 
+## Release v0.7.0 (2022/07/01)
+
+[![Digital Object Identifier for PyGMT v0.7.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6702566.svg)](https://doi.org/10.5281/zenodo.6702566)
+
+### Highlights
+
+* 🎉 **Seventh minor release of PyGMT** 🎉
+* Wrapped 3 GMT modules
+* Added two new PyGMT tutorials and EGU 2022 short course to external resources page ([#1971](https://github.com/GenericMappingTools/pygmt/pull/1971) and [#1935](https://github.com/GenericMappingTools/pygmt/pull/1935))
+
+### New Features
+
+* Wrap binstats ([#1652](https://github.com/GenericMappingTools/pygmt/pull/1652))
+* Wrap filter1d ([#1512](https://github.com/GenericMappingTools/pygmt/pull/1512))
+* Wrap dimfilter ([#1492](https://github.com/GenericMappingTools/pygmt/pull/1492))
+
+### Enhancements
+
+* Support passing data in NumPy int8, int16, uint8 and uint16 dtypes to GMT ([#1963](https://github.com/GenericMappingTools/pygmt/pull/1963))
+* inset: Add region and projection aliases and fix two examples ([#1931](https://github.com/GenericMappingTools/pygmt/pull/1931))
+* basemap: Plotting frames if required parameters are not given ([#1909](https://github.com/GenericMappingTools/pygmt/pull/1909))
+* basemap: Added box alias for F ([#1894](https://github.com/GenericMappingTools/pygmt/pull/1894))
+* Add a sample dataset maunaLoa_co2 ([#1961](https://github.com/GenericMappingTools/pygmt/pull/1961))
+* Add a sample dataset notre_dame_topography ([#1920](https://github.com/GenericMappingTools/pygmt/pull/1920))
+* Add a sample dataset earth_relief_holes ([#1921](https://github.com/GenericMappingTools/pygmt/pull/1921))
+
+### Deprecations
+
+* NEP29: Set minimum required version to NumPy 1.20+ ([#1985](https://github.com/GenericMappingTools/pygmt/pull/1985))
+* Figure.wiggle: Remove parameter 'columns', use 'incols' instead. ([#1977](https://github.com/GenericMappingTools/pygmt/pull/1977))
+* Figure.histogram and pygmt.info: Remove parameter 'table', use 'data' instead ([#1975](https://github.com/GenericMappingTools/pygmt/pull/1975))
+* pygmt.surface: Remove parameter 'outfile', use 'outgrid' instead ([#1976](https://github.com/GenericMappingTools/pygmt/pull/1976))
+* blockm/contour/plot/plot3d/rose/surface/wiggle: Change the parameter order of data array and input arrays ([#1978](https://github.com/GenericMappingTools/pygmt/pull/1978))
+
+### Bug Fixes
+
+* grdtrack: Fix the bug when profile is given ([#1867](https://github.com/GenericMappingTools/pygmt/pull/1867))
+* Fix the grid accessor (grid registration and type) for 3D grids ([#1913](https://github.com/GenericMappingTools/pygmt/pull/1913))
+
+### Documentation
+
+* Add instructions to install PyGMT using mamba ([#1967](https://github.com/GenericMappingTools/pygmt/pull/1967))
+* Improve two gallery examples regarding categorical colormaps ([#1934](https://github.com/GenericMappingTools/pygmt/pull/1934))
+* Add inline example to dimfilter ([#1956](https://github.com/GenericMappingTools/pygmt/pull/1956))
+* Add inline example to surface ([#1953](https://github.com/GenericMappingTools/pygmt/pull/1953))
+* Add inline example to grdfill ([#1954](https://github.com/GenericMappingTools/pygmt/pull/1954))
+* Add inline code examples to contributing guidelines ([#1924](https://github.com/GenericMappingTools/pygmt/pull/1924))
+* Add thumbnail images to the external resources page ([#1941](https://github.com/GenericMappingTools/pygmt/pull/1941))
+* Redesign the team gallery using sphinx-design's card directive ([#1937](https://github.com/GenericMappingTools/pygmt/pull/1937))
+
+### Maintenance
+
+* Fix broken 'Improve this page' links using sphinx variable page_source_suffix ([#1969](https://github.com/GenericMappingTools/pygmt/pull/1969))
+* Split up functions for loading datasets ([#1955](https://github.com/GenericMappingTools/pygmt/pull/1955))
+* Set setuptools_scm fallback_version to follow  PEP440 ([#1945](https://github.com/GenericMappingTools/pygmt/pull/1945))
+* Refactor text to use virtualfile_from_data ([#1121](https://github.com/GenericMappingTools/pygmt/pull/1121))
+* Run full tests only on Wednesday scheduled jobs ([#1833](https://github.com/GenericMappingTools/pygmt/pull/1833))
+* Run GMT Dev Tests on Monday, Wednesday and Friday only ([#1922](https://github.com/GenericMappingTools/pygmt/pull/1922))
+* Update GMT Dev Tests workflow to test on macOS-12 and ubuntu-22.04 ([#1918](https://github.com/GenericMappingTools/pygmt/pull/1918))
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Andre L. Belem](https://github.com/andrebelem)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Max Jones](https://github.com/maxrjones)
+* [Jack Beagley](https://github.com/jackbeagley)
+* [Michael Grund](https://github.com/michaelgrund)
+
+---
+
+## Release v0.6.1 (2022/04/11)
+
+[![Digital Object Identifier for PyGMT v0.6.1](https://zenodo.org/badge/DOI/10.5281/zenodo.6426493.svg)](https://doi.org/10.5281/zenodo.6426493)
+
+### Highlights
+
+* Patch release which allows passing None explicitly to pygmt functions ([#1872](https://github.com/GenericMappingTools/pygmt/pull/1872), [#1862](https://github.com/GenericMappingTools/pygmt/pull/1862), [#1857](https://github.com/GenericMappingTools/pygmt/pull/1857), [#1815](https://github.com/GenericMappingTools/pygmt/pull/1815))
+* A new tutorial for grdhisteq ([#1821](https://github.com/GenericMappingTools/pygmt/pull/1821))
+
+### Bug Fixes
+
+* Fix pathlib support for plot and plot3d ([#1831](https://github.com/GenericMappingTools/pygmt/pull/1831))
+
+### Documentation
+
+* Add inline example for grdvolume ([#1726](https://github.com/GenericMappingTools/pygmt/pull/1726))
+* Format author affiliations in CITATION.cff and AUTHORS.md ([#1844](https://github.com/GenericMappingTools/pygmt/pull/1844))
+
+### Maintenance
+
+* NEP29: Run PyGMT tests and docs build on Python 3.10 ([#1868](https://github.com/GenericMappingTools/pygmt/pull/1868))
+* Let pygmt.show_versions() report geopandas version ([#1846](https://github.com/GenericMappingTools/pygmt/pull/1846))
+* Refactor build_arg_string to also deal with infile and outfile ([#1837](https://github.com/GenericMappingTools/pygmt/pull/1837))
+* Migrate build system settings to pyproject.toml following pep517 and pep518 ([#1845](https://github.com/GenericMappingTools/pygmt/pull/1845))
+* Use the build package to build sdist and wheel distributions ([#1823](https://github.com/GenericMappingTools/pygmt/pull/1823))
+* Let slash command /test-gmt-dev report job URL ([#1866](https://github.com/GenericMappingTools/pygmt/pull/1866))
+
+### Contributors
+
+* [Dongdong Tian](https://github.com/seisman)
+* [Max Jones](https://github.com/maxrjones)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Will Schlitzer](https://github.com/willschlitzer)
+
+---
+
 ## Release v0.6.0 (2022/03/14)
 
 [![Digital Object Identifier for PyGMT v0.6.0](https://zenodo.org/badge/DOI/10.5281/zenodo.6349217.svg)](https://doi.org/10.5281/zenodo.6349217)
@@ -85,7 +195,7 @@
 ### Contributors
 
 * [Will Schlitzer](https://github.com/willschlitzer)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Dongdong Tian](https://github.com/seisman)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -197,7 +307,7 @@
 * [Michael Grund](https://github.com/michaelgrund)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Yohai Magen](https://github.com/yohaimagen)
 * [Amanda Leaman](https://github.com/arleaman)
 * [@daroari](https://github.com/daroari)
@@ -248,7 +358,7 @@
 
 ### Contributors
 
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Wei Ji Leong](https://github.com/weiji14)
@@ -368,7 +478,7 @@
 * [Dongdong Tian](https://github.com/seisman)
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Abhishek Anant](https://github.com/itsabhianant)
@@ -447,7 +557,7 @@
 * [Dongdong Tian](https://github.com/seisman)
 * [Jiayuan Yao](https://github.com/core-man)
 * [Wei Ji Leong](https://github.com/weiji14)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Will Schlitzer](https://github.com/willschlitzer)
 * [Liam Toney](https://github.com/liamtoney)
@@ -557,7 +667,7 @@
 * [Wei Ji Leong](https://github.com/weiji14)
 * [Michael Grund](https://github.com/michaelgrund)
 * [Liam Toney](https://github.com/liamtoney)
-* [Meghan Jones](https://github.com/meghanrjones)
+* [Max Jones](https://github.com/maxrjones)
 
 ----
 

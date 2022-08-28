@@ -159,7 +159,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
-    if "o" in kwargs and output_type == "pandas":
+    if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
             "If 'outcols' is specified, 'output_type' must be either 'numpy'"
             "or 'file'."
@@ -178,8 +178,10 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module("grd2xyz", arg_str)
+                lib.call_module(
+                    module="grd2xyz",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

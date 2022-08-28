@@ -74,10 +74,9 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "D" not in kwargs:
+    if kwargs.get("D") is None:
         kwargs["D"] = position
-
-        if "F" not in kwargs:
+        if kwargs.get("F") is None:
             kwargs["F"] = box
 
     with Session() as lib:
@@ -87,5 +86,4 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
             specfile = spec
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        arg_str = " ".join([specfile, build_arg_string(kwargs)])
-        lib.call_module("legend", arg_str)
+        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))

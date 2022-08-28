@@ -5,7 +5,6 @@ import inspect
 import os
 import string
 
-from matplotlib.testing.compare import compare_images
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -77,7 +76,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        import pytest  # pylint: disable=import-outside-toplevel
+        # pylint: disable=import-outside-toplevel
+        import pytest
+        from matplotlib.testing.compare import compare_images
 
         os.makedirs(result_dir, exist_ok=True)
         old_sig = inspect.signature(func)
@@ -157,6 +158,7 @@ def download_test_data():
         "@earth_relief_30m_p",
         "@earth_relief_30m_g",
         "@earth_relief_10m_p",
+        "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
         # List of tiles of 03s srtm data.
@@ -170,6 +172,8 @@ def download_test_data():
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
+        "@capitals.gmt",
+        "@earth_relief_20m_holes.grd",
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
         "@RidgeTest.shp",

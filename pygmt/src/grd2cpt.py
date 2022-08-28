@@ -33,7 +33,7 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a module that will help you make static color palette tables
+    This is a function that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
@@ -61,7 +61,7 @@ def grd2cpt(grid, **kwargs):
     ``overrule_bg`` or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by
-    :meth:`pygmt.grd2cpt` will be the same as specified in the header of the
+    :func:`pygmt.grd2cpt` will be the same as specified in the header of the
     master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the master
     CPT, the :gmt-term:`COLOR_MODEL` specified in the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` option will be
@@ -160,18 +160,16 @@ def grd2cpt(grid, **kwargs):
         ``categorical=True``.
     {V}
     """
-    if "W" in kwargs and "Ww" in kwargs:
+    if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as infile:
-            if "H" not in kwargs:  # if no output is set
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-            if "H" in kwargs:  # if output is set
-                outfile = kwargs.pop("H")
+            if kwargs.get("H") is None:  # if no output is set
+                arg_str = build_arg_string(kwargs, infile=infile)
+            else:  # if output is set
+                outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = " ".join(
-                    [infile, build_arg_string(kwargs), f"-H > {outfile}"]
-                )
-            lib.call_module("grd2cpt", arg_str)
+                arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
+            lib.call_module(module="grd2cpt", args=arg_str)

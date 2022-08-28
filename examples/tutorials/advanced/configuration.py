@@ -14,10 +14,10 @@ import pygmt
 # ----------------------------------
 #
 # Users can override default parameters either temporarily (locally) or
-# permanently (globally) using :meth:`pygmt.config`. The full list of default
+# permanently (globally) using :class:`pygmt.config`. The full list of default
 # parameters that can be changed can be found at :gmt-docs:`gmt.conf.html`.
 #
-# We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
+# We demonstrate the usage of :class:`pygmt.config` by configuring a map plot.
 
 # Start with a basic figure with the default style
 fig = pygmt.Figure()
@@ -31,7 +31,7 @@ fig.show()
 # ----------------------------
 #
 # The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of
-# which there are 5 options: ``fancy`` (default, seen above), ``fancy+``,
+# which there are 5 options: ``fancy`` (default, see above), ``fancy+``,
 # ``plain``, ``graph`` (which does not apply to geographical maps) and
 # ``inside``.
 #

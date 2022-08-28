@@ -45,7 +45,7 @@ def test_grd2xyz_format(grid):
     np.testing.assert_allclose(orig_val, xyz_val)
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, output_type="pandas")
+    xyz_df = grd2xyz(grid=grid, output_type="pandas", outcols=None)
     assert isinstance(xyz_df, pd.DataFrame)
     assert list(xyz_df.columns) == ["lon", "lat", "z"]
 

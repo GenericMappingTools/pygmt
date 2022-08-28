@@ -39,7 +39,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(self, **kwargs):
     r"""
-    Plot continents, shorelines, rivers, and borders on maps
+    Plot continents, shorelines, rivers, and borders on maps.
 
     Plots grayshaded, colored, or textured land-masses [or water-masses] on
     maps and [optionally] draws coastlines, rivers, and political
@@ -189,4 +189,4 @@ def coast(self, **kwargs):
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
-        lib.call_module("coast", build_arg_string(kwargs))
+        lib.call_module(module="coast", args=build_arg_string(kwargs))

@@ -104,7 +104,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module("figure", f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=f"{self._name} {fmt}")
 
     def _preprocess(self, **kwargs):
         """
@@ -130,6 +130,7 @@ class Figure:
         C="gs_option",
         E="dpi",
         F="prefix",
+        G="gs_path",
         I="resize",
         N="bb_style",
         T="fmt",
@@ -142,10 +143,10 @@ class Figure:
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, SVG, TIFF) using GhostScript.
+        PDF, PNG, PPM, SVG, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
-        (see :func:`pygmt.figure`). In this case, an output name must be given
+        (see :class:`pygmt.Figure`). In this case, an output name must be given
         using parameter *prefix*.
 
         Full option list at :gmt-docs:`psconvert.html`
@@ -163,11 +164,13 @@ class Figure:
             creating very small images where the difference of one pixel
             might matter. If ``verbose`` is used we also report the
             dimensions of the final illustration.
+        gs_path : str
+            Full path to the Ghostscript executable.
         gs_option : str
             Specify a single, custom option that will be passed on to
-            GhostScript as is.
+            Ghostscript as is.
         dpi : int
-            Set raster resolution in dpi. Default = 720 for PDF, 300 for
+            Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
         prefix : str
             Force the output file name. By default output names are constructed
@@ -176,7 +179,7 @@ class Figure:
             but without extension. Extension is still determined automatically.
         resize : str
             [**+m**\ *margins*][**+s**\ [**m**]\ *width*\
-            [/\ *height*]][**+S**\ *scale*] ].
+            [/\ *height*]][**+S**\ *scale*].
             Adjust the BoundingBox and HiResBoundingBox by scaling and/or
             adding margins. Append **+m** to specify extra margins to extend
             the bounding box. Give either one (uniform), two (x and y) or four
@@ -198,9 +201,9 @@ class Figure:
             towards black (100%) [no fading, 0]. Append **+g**\ *paint* to
             paint the BoundingBox behind the illustration and append **+p**\
             [*pen*] to draw the BoundingBox outline (append a pen or accept
-            the default pen of 0.25p,black). Note: If both **+g** and **+f**
-            are used then we use paint as the fade color instead of black.
-            Append **+i** to enforce gray-shades by using ICC profiles.
+            the default pen of 0.25p,black). **Note**: If both **+g** and
+            **+f** are used then we use paint as the fade color instead of
+            black. Append **+i** to enforce gray-shades by using ICC profiles.
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
@@ -222,7 +225,7 @@ class Figure:
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
-        if "A" not in kwargs:
+        if kwargs.get("A") is None:
             kwargs["A"] = ""
 
         if icc_gray:
@@ -231,7 +234,7 @@ class Figure:
                 " and will be removed in v0.8.0."
             )
             warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if "N" not in kwargs:
+            if kwargs.get("N") is None:
                 kwargs["N"] = "+i"
             else:
                 kwargs["N"] += "+i"
@@ -245,7 +248,9 @@ class Figure:
             raise GMTInvalidInput("The 'prefix' must be specified.") from err
 
         with Session() as lib:
-            lib.call_module("psconvert", f"{prefix_arg} {build_arg_string(kwargs)}")
+            lib.call_module(
+                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
+            )
 
     def savefig(
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
@@ -393,9 +398,9 @@ class Figure:
         """
         Shift plot origin in x and/or y directions.
 
-        This method shifts plot origin relative to the current origin by
-        (*xshift*, *yshift*) and optionally append the length unit (**c**,
-        **i**, or **p**).
+        This method shifts the plot origin relative to the current origin
+        by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
+        **i**, or **p**). Default unit if not given is **c** for centimeter.
 
         Prepend **a** to shift the origin back to the original position after
         plotting, prepend **c** to center the plot on the center of the paper
@@ -421,7 +426,7 @@ class Figure:
             args.append(f"-Y{yshift}")
 
         with Session() as lib:
-            lib.call_module("plot", " ".join(args))
+            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """

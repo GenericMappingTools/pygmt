@@ -4,12 +4,12 @@ TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html \
 			--pyargs ${PYTEST_EXTRA}
-BLACK_FILES=$(PROJECT) setup.py doc/conf.py examples
+BLACK_FILES=$(PROJECT) doc/conf.py examples
 BLACKDOC_OPTIONS=--line-length 79
-DOCFORMATTER_FILES=$(PROJECT) setup.py doc/conf.py examples
+DOCFORMATTER_FILES=$(PROJECT) doc/conf.py examples
 DOCFORMATTER_OPTIONS=--recursive --pre-summary-newline --make-summary-multi-line --wrap-summaries 79 --wrap-descriptions 79
-FLAKE8_FILES=$(PROJECT) setup.py doc/conf.py examples
-LINT_FILES=$(PROJECT) setup.py doc/conf.py
+FLAKEHEAVEN_FILES=$(PROJECT) doc/conf.py examples
+LINT_FILES=$(PROJECT) doc/conf.py
 
 help:
 	@echo "Commands:"
@@ -19,7 +19,7 @@ help:
 	@echo "  test      run the test suite (including some doctests) and report coverage"
 	@echo "  fulltest  run the test suite (including all doctests) and report coverage"
 	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
-	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flake8 and isort)"
+	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flakeheaven and isort)"
 	@echo "  lint      run pylint for a deeper (and slower) quality check"
 	@echo "  clean     clean up build and generated files"
 	@echo "  distclean clean up build and generated files, including project metadata files"
@@ -64,7 +64,7 @@ check:
 	docformatter --check $(DOCFORMATTER_OPTIONS) $(DOCFORMATTER_FILES)
 	black --check $(BLACK_FILES)
 	blackdoc --check $(BLACKDOC_OPTIONS) $(BLACK_FILES)
-	flake8 $(FLAKE8_FILES)
+	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FLAKEHEAVEN_FILES)
 
 lint:
 	pylint $(LINT_FILES)

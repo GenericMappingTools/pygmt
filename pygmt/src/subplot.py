@@ -37,7 +37,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
     Create multi-panel subplot figures.
 
-    This function is used to split the current figure into a rectangular layout
+    This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
     defining the layout of the entire multi-panel illustration. Several
     parameters are available to specify the systematic layout, labeling,
@@ -94,7 +94,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         to set aside space on more than one side (e.g. ``clearance=['w1c',
         's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
         side). Such space will be left untouched by the main map plotting but
-        can be accessed by modules that plot scales, bars, text, etc.
+        can be accessed by methods that plot scales, bars, text, etc.
     {J}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
@@ -159,11 +159,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     with Session() as lib:
         try:
             arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
-            lib.call_module("subplot", arg_str)
+            lib.call_module(module="subplot", args=arg_str)
             yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("subplot", f"end {v_arg}")
+            lib.call_module(module="subplot", args=f"end {v_arg}")
 
 
 @fmt_docstring
@@ -210,7 +210,7 @@ def set_panel(self, panel=None, **kwargs):
         **s**, or **n**. The option is repeatable to set aside space on more
         than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
-        untouched by the main map plotting but can be accessed by modules that
+        untouched by the main map plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.

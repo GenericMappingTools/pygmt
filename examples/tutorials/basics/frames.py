@@ -22,7 +22,7 @@ fig.show()
 
 ###############################################################################
 # To add the default GMT frame to the plot, use ``frame="f"`` in
-# :meth:`pygmt.Figure.basemap` or any other plotting module:
+# :meth:`pygmt.Figure.basemap` or any other plotting method:
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
@@ -58,21 +58,9 @@ fig.show()
 # ``frame`` can be done by using a list, as show in the example below.
 
 fig = pygmt.Figure()
-# region="IS" specifies Iceland using the ISO country code
-fig.coast(shorelines="1/0.5p", region="IS", projection="M25c")
-fig.basemap(frame=["a", "+tIceland"])
-fig.show()
-
-###############################################################################
-# To use a title with multiple words, the title must be placed inside another
-# set of quotation marks. To prevent the quotation marks from appearing in the
-# figure title, the ``frame`` parameter can be passed in single quotation marks
-# and the title can be passed in double quotation marks.
-
-fig = pygmt.Figure()
-# region="TT" specifies Trinidad and Tobago
+# region="TT" specifies Trinidad and Tobago using the ISO country code
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
-fig.basemap(frame=["a", '+t"Trinidad and Tobago"'])
+fig.basemap(frame=["a", "+tTrinidad and Tobago"])
 fig.show()
 
 ###############################################################################

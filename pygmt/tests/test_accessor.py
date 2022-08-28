@@ -2,11 +2,16 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 import os
+import sys
 
 import pytest
 import xarray as xr
-from pygmt import which
+from packaging.version import Version
+from pygmt import clib, which
 from pygmt.exceptions import GMTInvalidInput
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 def test_accessor_gridline_cartesian():
@@ -70,6 +75,15 @@ def test_accessor_set_non_boolean():
         grid.gmt.gtype = 2
 
 
+@pytest.mark.skipif(
+    gmt_version < Version("6.4.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
+)
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="PermissionError on Windows when deleting eraint_uvz.nc file; "
+    "see https://github.com/GenericMappingTools/pygmt/pull/2073",
+)
 def test_accessor_sliced_datacube():
     """
     Check that a 2D grid which is sliced from an n-dimensional datacube works
@@ -87,6 +101,6 @@ def test_accessor_sliced_datacube():
             grid = dataset.sel(level=500, month=1, drop=True).z
 
         assert grid.gmt.registration == 0  # gridline registration
-        assert grid.gmt.gtype == 0  # cartesian coordinate type
+        assert grid.gmt.gtype == 1  # geographic coordinate type
     finally:
         os.remove(fname)

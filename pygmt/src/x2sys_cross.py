@@ -78,7 +78,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
     ("internal cross-overs") tracks (Cartesian or geographic), and report the
     time, position, distance along track, heading and speed along each track
     segment, and the crossover error (COE) and mean values for all observables.
-    By default, :meth:`pygmt.x2sys_cross` will look for both external and
+    By default, :func:`pygmt.x2sys_cross` will look for both external and
     internal COEs. As an option, you may choose to project all data using one
     of the map projections prior to calculating the COE.
 
@@ -220,8 +220,12 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                 fnames = [stack.enter_context(c) for c in file_contexts]
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([*fnames, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module="x2sys_cross", args=arg_str)
+                lib.call_module(
+                    module="x2sys_cross",
+                    args=build_arg_string(
+                        kwargs, infile=" ".join(fnames), outfile=outfile
+                    ),
+                )
 
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame

@@ -21,7 +21,7 @@ def fixture_ship_data():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected xyz2grd grid result.
     """
@@ -42,7 +42,7 @@ def fixture_grid_result():
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
-    Run xyz2grd by passing in an xarray datset or numpy array.
+    Run xyz2grd by passing in an xarray dataset or numpy array.
     """
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)

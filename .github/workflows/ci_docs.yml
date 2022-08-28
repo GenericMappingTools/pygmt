@@ -10,7 +10,6 @@ on:
     paths-ignore:
       - 'pygmt/tests/**'
       - '*.md'
-      - '*.json'
       - 'LICENSE.txt'
       - '.gitignore'
   release:
@@ -24,12 +23,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9']
+        python-version: ['3.10']
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.9) for draft PRs
+        # Only run one job (Ubuntu + Python 3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
@@ -43,15 +42,15 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
@@ -70,9 +69,9 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 numpy pandas xarray netCDF4 packaging \
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
                         build ipython make myst-parser geopandas \
-                        sphinx sphinx-copybutton sphinx-gallery sphinx_rtd_theme
+                        sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -80,7 +79,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.17.0
+        uses: dawidd6/action-download-artifact@v2.22.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -107,7 +106,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

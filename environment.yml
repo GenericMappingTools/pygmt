@@ -5,8 +5,8 @@ channels:
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.3.0
-    - numpy>=1.19
+    - gmt=6.4.0
+    - numpy>=1.20
     - pandas
     - xarray
     - netCDF4
@@ -23,7 +23,7 @@ dependencies:
     - black
     - blackdoc
     - docformatter
-    - flake8
+    - flakeheaven>=3
     - isort>=5
     - pylint
     # Dev dependencies (unit testing)
@@ -36,5 +36,6 @@ dependencies:
     - myst-parser
     - sphinx
     - sphinx-copybutton
+    - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme

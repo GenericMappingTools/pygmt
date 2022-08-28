@@ -79,7 +79,8 @@ There are 11 configuration files located in `.github/workflows`:
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and Pull Request branches.
-   It is also scheduled to run daily on the *main* branch.
+   It is also scheduled to run regular tests daily and run full tests
+   (including doctests) on Wednesday on the *main* branch.
    In draft Pull Requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
@@ -108,8 +109,8 @@ There are 11 configuration files located in `.github/workflows`:
 4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
-   slash command `/test-gmt-dev`. It is also scheduled to run daily on the
-   *main* branch.
+   slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
+   Wednesday and Friday on the *main* branch.
 
 5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
@@ -150,13 +151,10 @@ There are 11 configuration files located in `.github/workflows`:
 
 ## Continuous Documentation
 
-We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
+We use the [ReadtheDocs](https://readthedocs.org/) service to preview changes
 made to our documentation website every time we make a commit in a pull request.
-The service has a configuration file `vercel.json`, with a list of options to
-change the default behaviour at https://vercel.com/docs/configuration.
-The actual script `package.json` is used by Vercel to install the necessary packages,
-build the documentation, copy the files to a 'public' folder and deploy that to the web,
-see https://vercel.com/docs/build-step.
+The service has a configuration file `.readthedocs.yaml`, with a list of options
+to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.
 
 
 ## Dependencies Policy
@@ -169,7 +167,7 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
 * All minor versions of NumPy released in the 24 months prior to the project,
   and at minimum the last three minor versions.
 
-In `setup.py`, the `python_requires` variable should be set to the minimum
+In `pyproject.toml`, the `requires-python` key should be set to the minimum
 supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 
@@ -200,7 +198,7 @@ When making incompatible changes, we should follow the process:
 
 To rename a function parameter, add the `@deprecate_parameter` decorator near
 the top after the `@fmt_docstring` decorator but before the `@use_alias`
-decorator (if those two exists). Here is an example:
+decorator (if those two exist). Here is an example:
 
 ```
 @fmt_docstring
@@ -254,7 +252,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    typo fixes, CI configuration, test updates due to GMT releases, etc).
 5. Sort the items within each section (i.e., New Features, Enhancements, etc.)
    such that similar items are located near each other (e.g., new wrapped
-   modules, gallery examples, API docs changes) and entries within each group
+   modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their
@@ -279,7 +277,7 @@ So slightly broken RST can cause the PyPI page to not render the correct content
 using the `rst2html.py` script that comes with docutils:
 
 ```
-python setup.py --long-description | rst2html.py --no-raw > index.html
+rst2html.py --no-raw README.rst > index.html
 ```
 
 Open `index.html` and check for any flaws or error messages.

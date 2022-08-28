@@ -4,6 +4,7 @@ Tests plot.
 """
 import datetime
 import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -17,16 +18,16 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
@@ -51,7 +52,7 @@ def test_plot_red_circles(data, region):
     return fig
 
 
-def test_plot_fail_no_data(data):
+def test_plot_fail_no_data(data, region):
     """
     Plot should raise an exception if no data is given.
     """
@@ -92,7 +93,7 @@ def test_plot_fail_no_data(data):
         )
 
 
-def test_plot_fail_1d_array_with_data(data):
+def test_plot_fail_1d_array_with_data(data, region):
     """
     Should raise an exception if array color, size, intensity and transparency
     are used with matrix.
@@ -452,8 +453,11 @@ def test_plot_datetime():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_plot_ogrgmt_file_multipoint_default_style():
+@pytest.mark.mpl_image_compare(
+    filename="test_plot_ogrgmt_file_multipoint_default_style.png"
+)
+@pytest.mark.parametrize("func", [str, Path])
+def test_plot_ogrgmt_file_multipoint_default_style(func):
     """
     Make sure that OGR/GMT files with MultiPoint geometry are plotted as
     squares and not as line (default GMT style).
@@ -467,7 +471,9 @@ def test_plot_ogrgmt_file_multipoint_default_style():
         with open(tmpfile.name, "w", encoding="utf8") as file:
             file.write(gmt_file)
         fig = Figure()
-        fig.plot(data=tmpfile.name, region=[0, 2, 1, 3], projection="X2c", frame=True)
+        fig.plot(
+            data=func(tmpfile.name), region=[0, 2, 1, 3], projection="X2c", frame=True
+        )
         return fig
 
 
@@ -505,7 +511,7 @@ def test_plot_shapefile():
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
     which(fname=datasets, download="a")
     fig = Figure()
-    fig.plot(data="@RidgeTest.shp", pen="1p")
+    fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig
 
 

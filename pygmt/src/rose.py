@@ -3,17 +3,10 @@ rose - Plot windrose diagrams or polar histograms.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    check_data_input_order,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -211,6 +204,4 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-
-            lib.call_module("rose", arg_str)
+            lib.call_module(module="rose", args=build_arg_string(kwargs, infile=fname))
