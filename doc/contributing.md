@@ -392,8 +392,9 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the <code>pygmt.Figure.show</code> function needs to be called for a plot
+Note that the <code>pygmt.Figure.show</code> method needs to be called for a plot
 to be inserted into the documentation.
+
 
 ### Editing the API Documentation
 
@@ -576,7 +577,7 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting function works"
+    "Test that my plotting method works"
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     return fig
@@ -682,7 +683,7 @@ Here's an example:
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting function works"
+  "Test that my plotting method works"
   fig_ref, fig_test = Figure(), Figure()
   fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")

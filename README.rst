@@ -10,7 +10,7 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+.. image:: https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square
     :alt: Latest version on conda-forge
     :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
@@ -31,9 +31,15 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square
+    :alt: GitHub license
+    :target: https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
+.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
+    :alt: Twitter URL
+    :target: https://twitter.com/gmt_dev
 
 .. placeholder-for-doc-index
 
