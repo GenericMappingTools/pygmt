@@ -577,9 +577,9 @@ def use_alias(**aliases):
 
                 if args_in_kwargs(args=["X", "Y"], kwargs=kwargs):
                     raise GMTInvalidInput(
-                        f"Parameters xshift, yshift, X and Y"
-                        f" are not supported anymore."
-                        f" Please use shift_origin() instead!"
+                        """Parameters xshift, yshift, X and Y are not
+                        supported anymore Please use shift_origin()
+                        instead!"""
                     )
 
                 if long_alias in kwargs:
