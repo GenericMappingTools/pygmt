@@ -4,11 +4,9 @@ TESTDIR=tmp-test-dir-with-unique-name
 PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--cov-report=term-missing --cov-report=xml --cov-report=html \
 			--pyargs ${PYTEST_EXTRA}
-BLACK_FILES=$(PROJECT) doc/conf.py examples
-BLACKDOC_OPTIONS=--line-length 79
-DOCFORMATTER_FILES=$(PROJECT) doc/conf.py examples
-FLAKEHEAVEN_FILES=$(PROJECT) doc/conf.py examples
+FORMAT_FILES=$(PROJECT) doc/conf.py examples
 LINT_FILES=$(PROJECT) doc/conf.py
+BLACKDOC_OPTIONS=--line-length 79
 
 help:
 	@echo "Commands:"
@@ -54,16 +52,16 @@ fulltest:
 
 format:
 	isort .
-	docformatter --in-place $(DOCFORMATTER_FILES)
-	black $(BLACK_FILES)
-	blackdoc $(BLACKDOC_OPTIONS) $(BLACK_FILES)
+	docformatter --in-place $(FORMAT_FILES)
+	black $(FORMAT_FILES)
+	blackdoc $(BLACKDOC_OPTIONS) $(FORMAT_FILES)
 
 check:
 	isort . --check
-	docformatter --check $(DOCFORMATTER_FILES)
-	black --check $(BLACK_FILES)
-	blackdoc --check $(BLACKDOC_OPTIONS) $(BLACK_FILES)
-	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FLAKEHEAVEN_FILES)
+	docformatter --check $(FORMAT_FILES)
+	black --check $(FORMAT_FILES)
+	blackdoc --check $(BLACKDOC_OPTIONS) $(FORMAT_FILES)
+	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FORMAT_FILES)
 
 lint:
 	pylint $(LINT_FILES)
