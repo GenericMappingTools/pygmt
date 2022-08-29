@@ -32,6 +32,12 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+all = [
+    "geopandas",
+    "ipython"
+]
+
 [project.urls]
 homepage = "https://www.pygmt.org"
 documentation = "https://www.pygmt.org"

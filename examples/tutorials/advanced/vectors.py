@@ -22,7 +22,7 @@ import pygmt
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
 # The length of the vector uses centimeters by default but
-# could be changed using :meth:`pygmt.config`
+# could be changed using :class:`pygmt.config`
 # (Check the next examples for unit changes).
 #
 # Notice that the ``v`` in the ``style`` parameter stands for

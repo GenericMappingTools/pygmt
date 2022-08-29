@@ -33,7 +33,7 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a method that will help you make static color palette tables
+    This is a function that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
@@ -61,7 +61,7 @@ def grd2cpt(grid, **kwargs):
     ``overrule_bg`` or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by
-    :meth:`pygmt.grd2cpt` will be the same as specified in the header of the
+    :func:`pygmt.grd2cpt` will be the same as specified in the header of the
     master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the master
     CPT, the :gmt-term:`COLOR_MODEL` specified in the
     :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` option will be

@@ -93,7 +93,7 @@ jobs:
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
                         build dvc make pytest>=6.0 \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
