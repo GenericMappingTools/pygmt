@@ -35,7 +35,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
     Create multi-panel subplot figures.
 
-    This function is used to split the current figure into a rectangular layout
+    This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
     defining the layout of the entire multi-panel illustration. Several
     parameters are available to specify the systematic layout, labeling,
