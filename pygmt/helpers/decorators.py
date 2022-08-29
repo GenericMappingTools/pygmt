@@ -12,7 +12,7 @@ from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.utils import is_nonstr_iter
+from pygmt.helpers.utils import args_in_kwargs, is_nonstr_iter
 
 COMMON_OPTIONS = {
     "R": r"""
@@ -93,6 +93,15 @@ COMMON_OPTIONS = {
     "W": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
+    "XY": r"""
+        xshift : str
+            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
+            Shift plot origin in x-direction.
+        yshift : str
+            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
+            Shift plot origin in y-direction. Full documentation is at
+            :gmt-docs:`gmt.html#xy-full`.
+         """,
     "a": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
@@ -565,14 +574,14 @@ def use_alias(**aliases):
                         f"Parameters in short-form ({short_param}) and "
                         f"long-form ({long_alias}) can't coexist."
                     )
-                if (long_alias in kwargs and long_alias in ["xshift", "yshift"]) or (
-                    short_param in kwargs and short_param in ["X", "Y"]
-                ):
+
+                if args_in_kwargs(args=["X", "Y"], kwargs=kwargs):
                     raise GMTInvalidInput(
-                        f"Parameters ({short_param}) and "
-                        f"({long_alias}) are not supported anymore."
+                        f"Parameters xshift, yshift, X and Y"
+                        f" are not supported anymore."
                         f" Please use shift_origin() instead!"
                     )
+
                 if long_alias in kwargs:
                     kwargs[short_param] = kwargs.pop(long_alias)
                 elif short_param in kwargs:
