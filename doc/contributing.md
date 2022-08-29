@@ -399,7 +399,7 @@ to be inserted into the documentation.
 ### Editing the API Documentation
 
 The API documentation is built from the docstrings in the Python `*.py` files under
-the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow the
 [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
