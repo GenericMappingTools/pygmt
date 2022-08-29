@@ -63,7 +63,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use option ``columns`` to choose which columns are length and azimuth,
+        Use parameter ``columns`` to choose which columns are length and azimuth,
         respectively. If a file with only azimuths is given, use ``columns`` to
         indicate the single column with azimuths; then all lengths are set to
         unity (see ``scale = 'u'`` to set actual lengths to unity as well).
