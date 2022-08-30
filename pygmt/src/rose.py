@@ -66,7 +66,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
         ``incols`` to indicate the single column with azimuths; then all
-        lengths are set to unity (see ``scale='u'`` to set actual
+        lengths are set to unity (see ``scale="u"`` to set actual
         lengths to unity as well).
 
     length/azimuth : float or 1d arrays
@@ -94,8 +94,8 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     sector : str
          Gives the sector width in degrees for sector and rose diagram.
-         Default ``'0'`` means windrose diagram. Append **+r** to draw rose
-         diagram instead of sector diagram (e.g. ``'10+r'``).
+         Default ``"0"`` means windrose diagram. Append **+r** to draw rose
+         diagram instead of sector diagram (e.g. ``"10+r"``).
 
     norm : bool
          Normalize input radii (or bin counts if ``sector_width`` is used)
@@ -111,7 +111,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     scale : float or str
          Multiply the data radii by scale. E.g., use ``scale=0.001`` to
          convert your data from m to km. To exclude the radii from
-         consideration, set them all to unity with ``scale='u'``
+         consideration, set them all to unity with ``scale="u"``
          [Default is no scaling].
 
     color : str
@@ -124,16 +124,16 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     pen : str
         Set pen attributes for sector outline or rose plot, e.g.
-        ``pen='0.5p'``. [Default is no outline]. To change pen used to
+        ``pen="0.5p"``. [Default is no outline]. To change pen used to
         draw vector (requires ``vectors``) [Default is same as sector
-        outline] use e.g. ``pen='v0.5p'``.
+        outline] use e.g. ``pen="v0.5p"``.
 
     labels : str
-         ``'wlabel,elabel,slabel,nlabel'``. Specify labels for the 0, 90,
+         ``"wlabel,elabel,slabel,nlabel"``. Specify labels for the 0, 90,
          180, and 270 degree marks. For full-circle plot the default is
          WEST,EAST,SOUTH,NORTH and for half-circle the default is
          90W,90E,-,0. A **-** in any entry disables that label
-         (e.g. ``labels='W,E,-,N'``). Use ``labels=''`` to disable
+         (e.g. ``labels="W,E,-,N"``). Use ``labels=""`` to disable
          all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting
          will affect the words used.
 
@@ -147,13 +147,13 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          (e.g., first sector is centered on 0 degrees).
 
     vectors : str
-          ``vectors='mode_file'``. Plot vectors showing the
+          ``vectors="mode_file"``. Plot vectors showing the
           principal directions given in the *mode_file* file.
           Alternatively, specify ``vectors`` to compute and plot
           mean direction. See ``vector_params`` to control the vector
           attributes. Finally, to instead save the computed mean
           direction and other statistics, use
-          ``vectors='+wmode_file'``. The eight items saved to
+          ``vectors="+wmode_file"``. The eight items saved to
           a single record are: *mean_az*, *mean_r*, *mean_resultant*,
           *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,
           where the last term is 0 or 1 depending on whether the mean
