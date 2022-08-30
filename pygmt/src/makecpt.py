@@ -115,7 +115,7 @@ def makecpt(**kwargs):
     reverse : str
         Set this to True or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
-        z-values in the color table. Note that this change of z-direction
+        z-values in the color table. **Note** that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
         latter must be compatible with the changed *z*-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
@@ -143,7 +143,7 @@ def makecpt(**kwargs):
         a categorical color table, like ``cmap='categorical'``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
-        range. Note that ``cyclic=True`` cannot be set together with
+        range. **Note** that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
     """
     with Session() as lib:
