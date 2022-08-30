@@ -113,7 +113,7 @@ def makecpt(**kwargs):
         file. If not given or False (default), saves the CPT as the session
         current CPT.
     reverse : str
-        Set this to True or **c**\ [Default] to reverse the sense of color
+        Set this to True or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
         z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
