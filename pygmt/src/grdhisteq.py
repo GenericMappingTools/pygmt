@@ -23,7 +23,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     r"""
     Perform histogram equalization for a grid.
 
-    Two common use cases of :meth:`pygmt.grdhisteq` are to find data values
+    Two common use cases of :class:`pygmt.grdhisteq` are to find data values
     that divide a grid into patches of equal area
     (:meth:`pygmt.grdhisteq.compute_bins`) or to write a grid with
     statistics based on some kind of cumulative distribution function
@@ -39,7 +39,7 @@ class grdhisteq:  # pylint: disable=invalid-name
     provide a list of data values that divide the data range into divisions
     which have an equal area in the image [Default is 16 if ``divisions`` is
     not set]. The :class:`pandas.DataFrame` or ASCII file output can be used to
-    make a colormap with :meth:`pygmt.makecpt` and an image with
+    make a colormap with :func:`pygmt.makecpt` and an image with
     :meth:`pygmt.Figure.grdimage` that has all levels of gray occurring
     equally.
 
@@ -106,7 +106,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
         """
 
         with Session() as lib:
@@ -201,7 +201,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
 
         Note
         ----
@@ -254,7 +254,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         can provide a list of data values that divide the data range into
         divisions which have an equal area in the image [Default is 16 if
         ``divisions`` is not set]. The :class:`pandas.DataFrame` or ASCII file
-        output can be used to make a colormap with :meth:`pygmt.makecpt` and an
+        output can be used to make a colormap with :func:`pygmt.makecpt` and an
         image with :meth:`pygmt.Figure.grdimage` that has all levels of gray
         occurring equally.
 
@@ -314,7 +314,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         See Also
         -------
-        :meth:`pygmt.grd2cpt`
+        :func:`pygmt.grd2cpt`
 
         Note
         ----

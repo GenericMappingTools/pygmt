@@ -146,7 +146,7 @@ class Figure:
         PDF, PNG, PPM, SVG, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
-        (see :func:`pygmt.Figure`). In this case, an output name must be given
+        (see :class:`pygmt.Figure`). In this case, an output name must be given
         using parameter *prefix*.
 
         Full option list at :gmt-docs:`psconvert.html`
@@ -289,6 +289,10 @@ class Figure:
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
+        **kwargs : dict
+            Additional keyword arguments passed to
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
         fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
@@ -319,7 +323,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None, waiting=0.5):
+    def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
         """
         Display a preview of the figure.
 
@@ -361,6 +365,10 @@ class Figure:
             Suspend the execution of the current process for a given number of
             seconds after launching an external viewer.
             Only works if ``method="external"``.
+        **kwargs : dict
+            Additional keyword arguments passed to
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -387,11 +395,15 @@ class Figure:
                         "or run the script in a Jupyter notebook."
                     )
                 )
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            png = self._preview(
+                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
+            )
             IPython.display.display(IPython.display.Image(data=png, width=width))
 
         if method == "external":
-            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
+            pdf = self._preview(
+                fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
+            )
             launch_external_viewer(pdf, waiting=waiting)
 
     def shift_origin(self, xshift=None, yshift=None):
