@@ -66,8 +66,8 @@ def makecpt(**kwargs):
     ----------
     transparency : str
         Sets a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the fore-, back-, and nan-colors
-        [Default is no transparency, i.e., 0 (opaque)].
+        Append **+a** to also affect the foreground, background, and NaN
+        colors [Default is no transparency, i.e., 0 (opaque)].
     cmap : str
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
