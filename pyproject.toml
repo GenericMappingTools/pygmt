@@ -59,6 +59,9 @@ tests = ["data/*", "baseline/*"]
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
 
+[tool.blackdoc]
+line-length = 79
+
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
