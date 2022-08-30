@@ -22,7 +22,7 @@ dependencies:
     # Dev dependencies (style checks)
     - black
     - blackdoc
-    - docformatter
+    - docformatter>=1.5.0
     - flakeheaven>=3
     - isort>=5
     - pylint
