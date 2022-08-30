@@ -134,8 +134,8 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          WEST,EAST,SOUTH,NORTH and for half-circle the default is
          90W,90E,-,0. A **-** in any entry disables that label
          (e.g. ``labels="W,E,-,N"``). Use ``labels=""`` to disable
-         all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting
-         will affect the words used.
+         all four labels. **Note** that the :gmt-term:`GMT_LANGUAGE`
+         setting will affect the words used.
 
     no_scale : bool
          Do NOT draw the scale length bar (``no_scale=True``).
@@ -172,10 +172,10 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     alpha : float or str
         Sets the confidence level used to determine if the mean
         resultant is significant (i.e., Lord Rayleigh test for
-        uniformity) [Default is ``alpha=0.05``]. Note: The critical
-        values are approximated [Berens, 2009] and requires at
-        least 10 points; the critical resultants are accurate to at
-        least 3 significant digits. For smaller data sets you
+        uniformity) [Default is ``alpha=0.05``]. **Note**: The
+        critical values are approximated [Berens, 2009] and requires
+        at least 10 points; the critical resultants are accurate to
+        at least 3 significant digits. For smaller data sets you
         should consult exact statistical tables.
 
         Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular
