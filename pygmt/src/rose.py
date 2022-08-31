@@ -135,7 +135,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          West,East,South,North and for half-circle the default is
          90W,90E,-,0. A ``"-"`` in any entry disables that label
          (e.g. ``labels="W,E,-,N"``). Use ``labels=""`` to disable
-         all four labels. **Note** that the :gmt-term:`GMT_LANGUAGE`
+         all four labels. Note that the :gmt-term:`GMT_LANGUAGE`
          setting will affect the words used.
 
     no_scale : bool
