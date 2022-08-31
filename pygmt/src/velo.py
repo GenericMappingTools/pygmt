@@ -79,9 +79,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -112,9 +112,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
