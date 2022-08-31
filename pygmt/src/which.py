@@ -18,15 +18,16 @@ def which(fname, **kwargs):
     r"""
     Find the full path to specified files.
 
-    Reports the full paths to the files given through *fname*. We look for
-    the file in (1) the current directory, (2) in $GMT_USERDIR (if defined),
-    (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR (if defined).
+    Reports the full paths to the files given through ``fname``. We look
+    for the file in (1) the current directory, (2) in $GMT_USERDIR (if
+    defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
+    (if defined).
 
-    *fname* can also be a downloadable file (either a full URL, a
+    ``fname`` can also be a downloadable file (either a full URL, a
     `@file` special file for downloading from the GMT Site Cache, or
-    `@earth_relief_*` topography grids). In these cases, use option *download*
-    to set the desired behavior. If *download* is not used (or False), the file
-    will not be found.
+    `@earth_relief_*` topography grids). In these cases, use option
+    ``download`` to set the desired behavior. If ``download`` is not used
+    (or False), the file will not be found.
 
     Full option list at :gmt-docs:`gmtwhich.html`
 

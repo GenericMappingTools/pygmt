@@ -29,7 +29,7 @@ def makecpt(**kwargs):
     r"""
     Make GMT color palette tables.
 
-    This is a method that will help you make static color palette tables
+    This is a function that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
@@ -48,15 +48,15 @@ def makecpt(**kwargs):
     If the master CPT includes B, F, and N entries, these will be copied into
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
+    :gmt-docs:`gmt.conf <gmt.conf>` file will be used. This
     default behavior can be overruled using the parameters ``background``,
     ``overrule_bg`` or ``no_bg``.
 
-    The color model (RGB, HSV or CMYK) of the palette created by **makecpt**
-    will be the same as specified in the header of the master CPT. When there
-    is no :gmt-term:`COLOR_MODEL` entry in the master CPT, the
-    :gmt-term:`COLOR_MODEL` specified in the :gmt-docs:`gmt.conf <gmt.conf>`
-    file or on the command line will be used.
+    The color model (RGB, HSV or CMYK) of the palette created by
+    :func:`pygmt.makecpt` will be the same as specified in the header of the
+    master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the
+    master CPT, the :gmt-term:`COLOR_MODEL` specified in the
+    :gmt-docs:`gmt.conf <gmt.conf>` file will be used.
 
     Full option list at :gmt-docs:`makecpt.html`
 
@@ -123,14 +123,14 @@ def makecpt(**kwargs):
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
-        the :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line. When
-        combined with **background**, only :gmt-term:`COLOR_NAN` is considered.
+        the :gmt-docs:`gmt.conf <gmt.conf>` file. When combined with
+        ``background``, only :gmt-term:`COLOR_NAN` is considered.
     no_bg : bool
         Do not write out the background, foreground, and NaN-color fields
         [Default will write them, i.e. ``no_bg=False``].
     log : bool
         For logarithmic interpolation scheme with input given as logarithms.
-        Expects input z-values provided via **series** to be log10(*z*),
+        Expects input z-values provided via ``series`` to be log10(*z*),
         assigns colors, and writes out *z*.
     continuous : bool
         Force a continuous CPT when building from a list of colors and a list

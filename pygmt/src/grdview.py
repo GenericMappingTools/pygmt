@@ -108,10 +108,10 @@ def grdview(self, grid, **kwargs):
         Provide the name of a grid file with intensities in the (-1,+1)
         range, or a constant intensity to apply everywhere (affects the
         ambient light). Alternatively, derive an intensity grid from the
-        input data grid reliefgrid via a call to ``grdgradient``; append
-        **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that method, or just give
-        **+d** to select the default arguments
+        input data grid reliefgrid via a call to :func:`pygmt.grdgradient`;
+        append **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to
+        specify azimuth, intensity, and ambient arguments for that function,
+        or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
     {xyshift}

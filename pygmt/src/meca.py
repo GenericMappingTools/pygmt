@@ -204,7 +204,7 @@ def meca(
         ``event_name`` values in ``spec`` if ``spec`` is a dict or
         pd.DataFrame.
     offset: bool or str
-        [**+p**\ *pen*][**+s**\ *size].
+        [**+p**\ *pen*][**+s**\ *size*].
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by ``plot_longitude`` and
         ``plot_latitude`` if provided. A small circle is plotted at the initial

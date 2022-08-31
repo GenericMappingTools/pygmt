@@ -74,7 +74,7 @@ fig.show()
 # even use the new matplotlib colormap "viridis". Here, we first create a
 # continuous colormap ranging from the minimum depth to the maximum depth of
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
-# :func:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
+# :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
 #
 
