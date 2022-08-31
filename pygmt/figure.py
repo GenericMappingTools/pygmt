@@ -147,7 +147,7 @@ class Figure:
 
         If no input files are given, will convert the current active figure
         (see :class:`pygmt.Figure`). In this case, an output name must be given
-        using parameter *prefix*.
+        using parameter ``prefix``.
 
         Full option list at :gmt-docs:`psconvert.html`
 
