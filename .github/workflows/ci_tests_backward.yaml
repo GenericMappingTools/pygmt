@@ -1,4 +1,4 @@
-# This workflow installs PyGMT and runs tests
+# This workflow installs PyGMT and runs tests with old GMT versions
 
 name: GMT Backward Tests
 
