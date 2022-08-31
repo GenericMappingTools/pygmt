@@ -131,7 +131,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     labels : str
          ``"wlabel,elabel,slabel,nlabel"``. Specify labels for the 0, 90,
          180, and 270 degree marks. For full-circle plot the default is
-         WEST,EAST,SOUTH,NORTH and for half-circle the default is
+         West,East,South,North and for half-circle the default is
          90W,90E,-,0. A **-** in any entry disables that label
          (e.g. ``labels="W,E,-,N"``). Use ``labels=""`` to disable
          all four labels. **Note** that the :gmt-term:`GMT_LANGUAGE`
