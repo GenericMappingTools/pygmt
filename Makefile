@@ -6,7 +6,6 @@ PYTEST_COV_ARGS=--cov=$(PROJECT) --cov-config=../pyproject.toml \
 			--pyargs ${PYTEST_EXTRA}
 FORMAT_FILES=$(PROJECT) doc/conf.py examples
 LINT_FILES=$(PROJECT) doc/conf.py
-BLACKDOC_OPTIONS=--line-length 79
 
 help:
 	@echo "Commands:"
@@ -54,13 +53,13 @@ format:
 	isort .
 	docformatter --in-place $(FORMAT_FILES)
 	black $(FORMAT_FILES)
-	blackdoc $(BLACKDOC_OPTIONS) $(FORMAT_FILES)
+	blackdoc $(FORMAT_FILES)
 
 check:
 	isort . --check
 	docformatter --check $(FORMAT_FILES)
 	black --check $(FORMAT_FILES)
-	blackdoc --check $(BLACKDOC_OPTIONS) $(FORMAT_FILES)
+	blackdoc --check $(FORMAT_FILES)
 	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FORMAT_FILES)
 
 lint:
