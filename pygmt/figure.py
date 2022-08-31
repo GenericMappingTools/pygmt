@@ -59,7 +59,8 @@ class Figure:
     Examples
     --------
 
-    >>> fig = Figure()
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
@@ -71,7 +72,8 @@ class Figure:
     The plot region can be specified through ISO country codes (for example,
     ``'JP'`` for Japan):
 
-    >>> fig = Figure()
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
     >>> fig.basemap(region="JP", projection="M3i", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join(f"{i:.2f}" for i in fig.region))
