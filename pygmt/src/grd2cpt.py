@@ -86,10 +86,10 @@ def grd2cpt(grid, **kwargs):
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
-        or ``background='o'``) uses the colors specified in the master file, or
+        or ``background="o"``) uses the colors specified in the master file, or
         those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
-        ``background='i'`` to match the colors for the lowest and highest
+        ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
         [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
@@ -153,7 +153,7 @@ def grd2cpt(grid, **kwargs):
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like ``cmap='categorical'``.
+        a categorical color table, like ``cmap="categorical"``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
