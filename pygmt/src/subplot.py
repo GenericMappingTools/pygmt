@@ -69,9 +69,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         follow sequentially. Surround the number or letter by parentheses on
         any side if these should be typeset as part of the tag. Use
         **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed
-        in the subplot [TL]. Note: **+j** sets the justification of the tag to
-        *refpoint* (suitable for interior tags) while **+J** instead selects
-        the mirror opposite (suitable for exterior tags). Append
+        in the subplot [TL]. **Note**: **+j** sets the justification of the
+        tag to *refpoint* (suitable for interior tags) while **+J** instead
+        selects the mirror opposite (suitable for exterior tags). Append
         **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a
         surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%
         of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to
