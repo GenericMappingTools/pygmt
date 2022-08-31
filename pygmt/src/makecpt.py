@@ -89,9 +89,9 @@ def makecpt(**kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*\[-], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append - to build
-        ranges *start*-*start+1* instead.
+        *start*\[**-**], where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Append **-** to
+        build ranges *start*-*start+1* instead.
     series : list or str
         [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
         Defines the range of the new CPT by giving the lowest and highest
