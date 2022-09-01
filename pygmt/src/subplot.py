@@ -173,13 +173,13 @@ def set_panel(self, panel=None, **kwargs):
     r"""
     Set the current subplot panel to plot on.
 
-    Before you start plotting you must first select the active subplot. Note:
-    If any *projection* option is passed with the question mark **?** as scale
-    or width when plotting subplots, then the dimensions of the map are
-    automatically determined by the subplot size and your region. For Cartesian
-    plots: If you want the scale to apply equally to both dimensions then you
-    must specify ``projection="x"`` [The default ``projection="X"`` will fill
-    the subplot by using unequal scales].
+    Before you start plotting you must first select the active subplot.
+    **Note**: If any *projection* option is passed with the question mark
+    **?** as scale or width when plotting subplots, then the dimensions of
+    the map are automatically determined by the subplot size and your
+    region. For Cartesian plots: If you want the scale to apply equally to
+    both dimensions then you must specify ``projection="x"`` [The default
+    ``projection="X"`` will fill the subplot by using unequal scales].
 
     {aliases}
 
