@@ -101,11 +101,11 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         the interior margins) in addition to the automatic space added for tick
         marks, annotations, and labels. The margins can be specified as either:
 
-        - a single value (for same margin on all sides). E.g. "5c".
+        - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for setting separate horizontal and vertical
-          margins). E.g. ["5c", "3c"].
+          margins). E.g. ``["5c", "3c"]``.
         - a set of four values (for setting separate left, right, bottom, and
-          top margins). E.g. ["1c", "2c", "3c", "4c"].
+          top margins). E.g. ``["1c", "2c", "3c", "4c"]``.
 
         The actual gap created is always a sum of the margins for the two
         opposing sides (e.g., east plus west or south plus north margins)
