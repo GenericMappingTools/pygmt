@@ -92,7 +92,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         **s** and **n**. No *side* means all sides (i.e. ``clearance="1c"``
         would set a clearance of 1 cm on all sides). The option is repeatable
         to set aside space on more than one side (e.g.
-        ``clearance=["w1c","s2c"]`` would set a clearance of 1 cm on west
+        ``clearance=["w1c", "s2c"]`` would set a clearance of 1 cm on west
         side and 2 cm on south side). Such space will be left untouched by
         the main map plotting but can be accessed by methods that plot
         scales, bars, text, etc.
@@ -104,9 +104,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
 
         - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for setting separate horizontal and vertical
-          margins). E.g. ``["5c","3c"]``.
+          margins). E.g. ``["5c", "3c"]``.
         - a set of four values (for setting separate left, right, bottom, and
-          top margins). E.g. ``["1c","2c","3c","4c"]``.
+          top margins). E.g. ``["1c", "2c", "3c", "4c"]``.
 
         The actual gap created is always a sum of the margins for the two
         opposing sides (e.g., east plus west or south plus north margins)
