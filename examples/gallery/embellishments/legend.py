@@ -10,7 +10,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+fig.basemap(projection="x2c", region=[0, 7, 3, 7], frame=True)
 
 fig.plot(
     data="@Table_5_11.txt",
