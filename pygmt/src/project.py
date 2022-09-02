@@ -141,7 +141,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
         Finally, if you append **+h** then we will report the position of
         the pole as part of the segment header [Default is no header].
-        Note: No input is read and the value of ``data``, ``x``, ``y``,
+        **Note**: No input is read and the value of ``data``, ``x``, ``y``,
         and ``z`` is ignored if ``generate`` is used.
 
     length : str or list
