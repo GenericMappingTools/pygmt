@@ -148,8 +148,9 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          (e.g., first sector is centered on 0 degrees).
 
     vectors : str
-          ``vectors="mode_file"``. Plot vectors showing the
-          principal directions given in the *mode_file* file.
+          *mode_file*.
+          Plot vectors showing the principal directions given in
+          the *mode_file* file.
           Alternatively, specify ``vectors`` to compute and plot
           mean direction. See ``vector_params`` to control the vector
           attributes. Finally, to instead save the computed mean
