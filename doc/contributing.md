@@ -579,7 +579,7 @@ returning the `pygmt.Figure` object:
 def test_my_plotting_case():
     "Test that my plotting method works"
     fig = Figure()
-    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
+    fig.basemap(region=[0, 360, -90, 90], projection='W15c', frame=True)
     return fig
 ```
 
