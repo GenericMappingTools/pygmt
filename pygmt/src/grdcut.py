@@ -34,7 +34,7 @@ def grdcut(grid, **kwargs):
     Produce a new ``outgrid`` file which is a subregion of ``grid``. The
     subregion is specified with ``region``; the specified range must not exceed
     the range of ``grid`` (but see ``extend``). If in doubt, run
-    :meth:`pygmt.grdinfo` to check range. Alternatively, define the subregion
+    :func:`pygmt.grdinfo` to check range. Alternatively, define the subregion
     indirectly via a range check on the node values or via distances from a
     given point. Finally, you can give ``projection`` for oblique projections
     to determine the corresponding rectangular ``region`` that will give a grid

@@ -84,7 +84,7 @@ def grdgradient(grid, **kwargs):
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with
-        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The
+        :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The
         Lambertian Reflection assumes an ideal surface that reflects all the
         light that strikes it and the surface appears
         equally bright from all viewing directions. Here, *azim* and *elev* are
