@@ -164,15 +164,15 @@ def velo(self, data=None, **kwargs):
     {B}
     {CPT}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec='e'``
-        and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
+        can be used to rescale the uncertainties of velocities (``spec="e"``
+        and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintycolor : str
         Sets the color or shade used for filling uncertainty wedges
-        (``spec='w'``) or velocity error ellipses (``spec='e'`` or
-        ``spec='r'``). If ``uncertaintycolor`` is not specified, the
+        (``spec="w"``) or velocity error ellipses (``spec="e"`` or
+        ``spec="r"``). If ``uncertaintycolor`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
-        ``zvalue='+e'`` will update the uncertainty fill color based on the
+        ``zvalue="+e"`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
     color : str

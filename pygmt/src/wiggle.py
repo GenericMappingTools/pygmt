@@ -72,7 +72,7 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         [Default is no fill]. Optionally, append **+p** to fill positive areas
         (this is the default behavior). Append **+n** to fill negative areas.
         Append **+n+p** to fill both positive and negative areas with the same
-        fill. Note: You will need to repeat the color parameter to select
+        fill. **Note**: You will need to repeat the color parameter to select
         different fills for the positive and negative wiggles.
 
     track : str

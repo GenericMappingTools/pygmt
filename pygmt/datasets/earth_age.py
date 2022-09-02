@@ -32,7 +32,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree, arc-minute and arc-second. It can be ``"01d"``, ``"30m"``,
+        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
         ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
         ``"03m"``, ``"02m"``, or ``"01m"``.
 

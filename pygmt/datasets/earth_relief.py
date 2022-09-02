@@ -49,7 +49,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
         a gridline-registered grid is returned unless only the pixel-registered
         grid is available.
 
-        **Note:** For GMT 6.3, ``registration=None`` returns a pixel-registered
+        **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
         grid by default unless only the gridline-registered grid is available.
 
     use_srtm : bool
