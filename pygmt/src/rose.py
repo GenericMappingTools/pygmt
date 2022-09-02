@@ -92,9 +92,9 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          Sets the diameter of the rose diagram. If not given,
          then we default to a diameter of 7.5 cm.
 
-    sector : str
+    sector : float or str
          Gives the sector width in degrees for sector and rose diagram.
-         Default ``"0"`` means windrose diagram. Append **+r** to draw rose
+         Default ``0`` means windrose diagram. Append **+r** to draw rose
          diagram instead of sector diagram (e.g. ``"10+r"``).
 
     norm : bool
