@@ -83,10 +83,10 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     region : str or list
         *Required if this is the first plot command*.
         *r0/r1/az0/az1*.
-        Specifies the 'region' of interest in (*r*, *azimuth*) space. Here,
-        *r0* is 0, *r1* is max length in units. For *az0* and *az1*,
-        specify either -90/90 or 0/180 for half circle plot or 0/360 for
-        full circle.
+        Specifies the ``region`` of interest in (*r*, *azimuth*) space.
+        Here, *r0* is 0, *r1* is max length in units. For *az0* and
+        *az1*, specify either -90/90 or 0/180 for half circle plot or
+        0/360 for full circle.
 
     diameter : str
          Sets the diameter of the rose diagram. If not given,
