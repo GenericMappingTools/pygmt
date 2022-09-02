@@ -392,13 +392,14 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the `Figure.show()` function needs to be called for a plot to be inserted into
-the documentation.
+Note that the <code>pygmt.Figure.show</code> method needs to be called for a plot
+to be inserted into the documentation.
+
 
 ### Editing the API Documentation
 
 The API documentation is built from the docstrings in the Python `*.py` files under
-the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow the
 [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
@@ -524,9 +525,9 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-methods, such as `plot` and `basemap`. The highest priority for tests should be the
-Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
-mechanism.
+methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
+The highest priority for tests should be the Python-specific code, such as numpy,
+pandas, and xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
@@ -576,7 +577,7 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting function works"
+    "Test that my plotting method works"
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
     return fig
@@ -682,7 +683,7 @@ Here's an example:
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting function works"
+  "Test that my plotting method works"
   fig_ref, fig_test = Figure(), Figure()
   fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")

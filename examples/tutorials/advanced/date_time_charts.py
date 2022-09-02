@@ -237,7 +237,7 @@ fig.show()
 #
 # Another way of creating charts involving datetime data can be done
 # by automatically generating the region of the plot. This can be done
-# by passing the dataframe to :meth:`pygmt.info`, which will find
+# by passing the dataframe to :func:`pygmt.info`, which will find
 # maximum and minimum values for each column and create a list
 # that could be passed as region. Additionally, the ``spacing`` argument
 # can be passed to increase the range past the maximum and minimum
