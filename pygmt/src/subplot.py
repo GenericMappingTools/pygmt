@@ -69,9 +69,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         follow sequentially. Surround the number or letter by parentheses on
         any side if these should be typeset as part of the tag. Use
         **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed
-        in the subplot [TL]. Note: **+j** sets the justification of the tag to
-        *refpoint* (suitable for interior tags) while **+J** instead selects
-        the mirror opposite (suitable for exterior tags). Append
+        in the subplot [TL]. **Note**: **+j** sets the justification of the
+        tag to *refpoint* (suitable for interior tags) while **+J** instead
+        selects the mirror opposite (suitable for exterior tags). Append
         **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a
         surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%
         of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to
@@ -173,13 +173,13 @@ def set_panel(self, panel=None, **kwargs):
     r"""
     Set the current subplot panel to plot on.
 
-    Before you start plotting you must first select the active subplot. Note:
-    If any *projection* option is passed with the question mark **?** as scale
-    or width when plotting subplots, then the dimensions of the map are
-    automatically determined by the subplot size and your region. For Cartesian
-    plots: If you want the scale to apply equally to both dimensions then you
-    must specify ``projection="x"`` [The default ``projection="X"`` will fill
-    the subplot by using unequal scales].
+    Before you start plotting you must first select the active subplot.
+    **Note**: If any *projection* option is passed with the question mark
+    **?** as scale or width when plotting subplots, then the dimensions of
+    the map are automatically determined by the subplot size and your
+    region. For Cartesian plots: If you want the scale to apply equally to
+    both dimensions then you must specify ``projection="x"`` [The default
+    ``projection="X"`` will fill the subplot by using unequal scales].
 
     {aliases}
 

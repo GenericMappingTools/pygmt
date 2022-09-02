@@ -95,10 +95,10 @@ def grdimage(self, grid, **kwargs):
         drivers. Append a **+c**\ *args* string where *args* is a list
         of one or more concatenated number of GDAL **-co** arguments. For
         example, to write a GeoPDF with the TerraGo format use
-        ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
-        selected then we will write a GeoTiff image if the GMT projection
-        syntax translates into a PROJ syntax, otherwise a plain tiff file
-        is produced. (2) Any vector elements will be lost.
+        ``=PDF+cGEO_ENCODING=OGC_BP``. **Notes**: (1) If a tiff file (.tif)
+        is selected then we will write a GeoTiff image if the GMT
+        projection syntax translates into a PROJ syntax, otherwise a plain
+        tiff file is produced. (2) Any vector elements will be lost.
     {B}
     {CPT}
     img_in : str
@@ -138,9 +138,9 @@ def grdimage(self, grid, **kwargs):
         want a more specific intensity scenario then run
         :func:`pygmt.grdgradient` separately first. If we should derive
         intensities from another file than grid, specify the file with
-        suitable modifiers [Default is no illumination]. Note: If the input
-        data is an *image* then an *intensfile* or constant *intensity* must
-        be provided.
+        suitable modifiers [Default is no illumination]. **Note**: If the
+        input data is an *image* then an *intensfile* or constant *intensity*
+        must be provided.
     {J}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
