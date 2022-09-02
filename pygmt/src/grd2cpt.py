@@ -56,16 +56,16 @@ def grd2cpt(grid, **kwargs):
     If the master CPT includes B, F, and N entries, these will be copied into
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options ``background``,
-    ``overrule_bg`` or ``no_bg``.
+    :gmt-docs:`gmt.conf <gmt.conf>` file will be used. This default behavior
+    can be overruled using the parameters ``background``, ``overrule_bg``
+    or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by
     :func:`pygmt.grd2cpt` will be the same as specified in the header of the
     master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the master
     CPT, the :gmt-term:`COLOR_MODEL` specified in the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` option will be
-    used.
+    :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
+    will be used.
 
     Full option list at :gmt-docs:`grd2cpt.html`
 
@@ -77,8 +77,8 @@ def grd2cpt(grid, **kwargs):
         The file name of the input grid or the grid loaded as a DataArray.
     transparency : int or float or str
         Sets a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the fore-, back-, and nan-colors
-        [Default is no transparency, i.e., 0 (opaque)].
+        Append **+a** to also affect the foreground, background, and NaN
+        colors [Default is no transparency, i.e., 0 (opaque)].
     cmap : str
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
@@ -124,7 +124,7 @@ def grd2cpt(grid, **kwargs):
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional parameter to set the file name with extension .cpt to store
-        the generated CPT file. If not given or False (default), saves the CPT
+        the generated CPT file. If not given or False [Default], saves the CPT
         as the session current CPT.
     reverse : str
         Set this to True or c [Default] to reverse the sense of color
@@ -137,8 +137,8 @@ def grd2cpt(grid, **kwargs):
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
-        the :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line. When
-        combined with ``background``, only :gmt-term:`COLOR_NAN` is considered.
+        the :gmt-docs:`gmt.conf <gmt.conf>` file. When combined with
+        ``background``, only :gmt-term:`COLOR_NAN` is considered.
     no_bg : bool
         Do not write out the background, foreground, and NaN-color fields
         [Default will write them, i.e. ``no_bg=False``].
