@@ -89,23 +89,24 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
         **s**, or **n**; or **x** for both **w** and **e**; or **y** for both
-        **s** and **n**. No *side* means all sides (i.e. ``clearance='1c'``
+        **s** and **n**. No *side* means all sides (i.e. ``clearance="1c"``
         would set a clearance of 1 cm on all sides). The option is repeatable
-        to set aside space on more than one side (e.g. ``clearance=['w1c',
-        's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
-        side). Such space will be left untouched by the main map plotting but
-        can be accessed by methods that plot scales, bars, text, etc.
+        to set aside space on more than one side (e.g.
+        ``clearance=["w1c", "s2c"]`` would set a clearance of 1 cm on west
+        side and 2 cm on south side). Such space will be left untouched by
+        the main map plotting but can be accessed by methods that plot
+        scales, bars, text, etc.
     {J}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
         marks, annotations, and labels. The margins can be specified as either:
 
-        - a single value (for same margin on all sides). E.g. '5c'.
+        - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for setting separate horizontal and vertical
-          margins). E.g. ['5c', '3c'].
+          margins). E.g. ``["5c", "3c"]``.
         - a set of four values (for setting separate left, right, bottom, and
-          top margins). E.g. ['1c', '2c', '3c', '4c'].
+          top margins). E.g. ``["1c", "2c", "3c", "4c"]``.
 
         The actual gap created is always a sum of the margins for the two
         opposing sides (e.g., east plus west or south plus north margins)
@@ -116,7 +117,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
         **t**\ op) and the last (i.e., **b**\ ottom) rows will have
-        *x*-annotations; use ``sharex='t'`` or ``sharex='b'`` to select only
+        *x*-annotations; use ``sharex="t"`` or ``sharex="b"`` to select only
         one of those two rows [both]. Append **+l** if annotated *x*-axes
         should have a label [none]; optionally append the label if it is the
         same for the entire subplot. Append **+t** to make space for subplot
@@ -126,7 +127,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Set subplot layout for shared y-axes. Use when all subplots in a row
         share a common *y*-range. If ``sharey=True``, the first (i.e.,
         **l**\ eft) and the last (i.e., **r**\ ight) columns will have
-        *y*-annotations; use ``sharey='l'`` or ``sharey='r'`` to select only
+        *y*-annotations; use ``sharey="l"`` or ``sharey="r"`` to select only
         one of those two columns [both]. Append **+l** if annotated *y*-axes
         will have a label [none]; optionally, append the label if it is the
         same for the entire subplot. Append **+p** to make all annotations
@@ -208,7 +209,7 @@ def set_panel(self, panel=None, **kwargs):
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
         **s**, or **n**. The option is repeatable to set aside space on more
-        than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
+        than one side (e.g. ``clearance=["w1c", "s2c"]`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
         untouched by the main map plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
