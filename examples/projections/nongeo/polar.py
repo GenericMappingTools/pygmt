@@ -142,8 +142,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45' @^ \
-               region=[0, 90, 3480, 6371]",
+        "WNse+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
@@ -165,8 +164,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ \
-               region=[0, 90, 3480, 6371]",
+        "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
