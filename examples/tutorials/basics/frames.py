@@ -53,6 +53,16 @@ fig.basemap(frame="ag")
 fig.show()
 
 ###############################################################################
+# To adjust the step widths of annotations, frame, and grid lines we can
+# add the desired step widths after ``a``, ``f``, or ``g``. In the example
+# below, the step widths are set to 30°, 7.5°, and 15°, respectively.
+
+fig = pygmt.Figure()
+fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
+fig.basemap(frame="a30f7.5g15")
+fig.show()
+
+###############################################################################
 # Title
 # -----
 #
