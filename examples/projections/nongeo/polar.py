@@ -64,6 +64,7 @@ fig.basemap(
     # set map width to 5 cm
     projection="P5c",
     # set the frame and color
+    # @^ allows for a line break within the title
     frame=["xa45f", "+gbisque+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
 )
 
