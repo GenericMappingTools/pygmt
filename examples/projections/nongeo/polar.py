@@ -81,6 +81,7 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame, color, and title
+    # @^ allows for a line break within the title
     frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
 )
 
@@ -97,6 +98,7 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame, color, and title
+    # @^ allows for a line break within the title
     frame=["xa45f", "ya0.2",
            "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
@@ -115,6 +117,7 @@ fig.basemap(
     # 45 degrees
     projection="P5c+a+t45",
     # set the frame, color, and title
+    # @^ allows for a line break within the title
     frame=["xa30f", "ya0.2",
            "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]"],
 )
@@ -133,6 +136,7 @@ fig.basemap(
     # 45 degrees
     projection="P5c+a+t45",
     # set the frame, color, and title
+    # @^ allows for a line break within the title
     frame=["xa30f", "ya",
            "WNse+gbisque+tprojection='P5c+a+t45' @^ \
                region=[0, 90, 3480, 6371]"],
@@ -152,6 +156,7 @@ fig.basemap(
     # 45 degrees, r-axis is marked as depth
     projection="P5c+a+t45+z",
     # set the frame, color, and title
+    # @^ allows for a line break within the title
     frame=["xa30f", "ya",
            "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ \
                region=[0, 90, 3480, 6371]"],
