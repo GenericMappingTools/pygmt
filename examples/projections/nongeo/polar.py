@@ -64,11 +64,8 @@ fig.basemap(
     # set map width to 5 cm
     projection="P5c",
     # set the frame and color
-    frame=["xa45f", "+gbisque"],
+    frame=["xa45f", "+gbisque+tprojection='P5c' @^ region=[0, 360, 0, 1]"],
 )
-
-fig.text(position="TC", text="projection='P5c'", offset="0/2.0c", no_clip=True)
-fig.text(position="TC", text="region=[0, 360, 0, 1]", offset="0/1.5c", no_clip=True)
 
 fig.shift_origin(xshift="8c")
 
@@ -83,11 +80,8 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame and color
-    frame=["xa45f", "+gbisque"],
+    frame=["xa45f", "+gbisque+tprojection='P5c+a' @^ region=[0, 360, 0, 1]"],
 )
-
-fig.text(position="TC", text="projection='P5c+a'", offset="0/2.0c", no_clip=True)
-fig.text(position="TC", text="region=[0, 360, 0, 1]", offset="0/1.5c", no_clip=True)
 
 fig.shift_origin(xshift="8c")
 
@@ -102,11 +96,8 @@ fig.basemap(
     # instead of standard angle
     projection="P5c+a",
     # set the frame and color
-    frame=["xa45f", "ya0.2", "WNe+gbisque"],
+    frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
-
-fig.text(position="TC", text="projection='P5c+a'", offset="0/2.0c", no_clip=True)
-fig.text(position="TC", text="region=[0, 90, 0, 1]", offset="0/1.5c", no_clip=True)
 
 fig.shift_origin(xshift="-16c", yshift="-7c")
 
@@ -122,11 +113,8 @@ fig.basemap(
     # 45 degrees
     projection="P5c+a+t45",
     # set the frame and color
-    frame=["xa30f", "ya0.2", "WNe+gbisque"],
+    frame=["xa30f", "ya0.2", "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]"],
 )
-
-fig.text(position="TC", text=r"projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
-fig.text(position="TC", text="region=[0, 90, 0, 1]", offset="0/1.5c", no_clip=True)
 
 fig.shift_origin(xshift="8c", yshift="1.3c")
 
@@ -142,12 +130,7 @@ fig.basemap(
     # 45 degrees
     projection="P5c+a+t45",
     # set the frame and color
-    frame=["xa30f", "ya", "WNse+gbisque"],
-)
-
-fig.text(position="TC", text=r"projection='P5c+a\+t45'", offset="0/2.0c", no_clip=True)
-fig.text(
-    position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True
+    frame=["xa30f", "ya", "WNse+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 3480, 6371]"],
 )
 
 fig.shift_origin(xshift="8c")
@@ -164,14 +147,7 @@ fig.basemap(
     # 45 degrees, r-axis is marked as depth
     projection="P5c+a+t45+z",
     # set the frame and color
-    frame=["xa30f", "ya", "WNse+gbisque"],
-)
-
-fig.text(
-    position="TC", text=r"projection='P5c+a\+t45+z'", offset="0/2.0c", no_clip=True
-)
-fig.text(
-    position="TC", text="region=[0, 90, 3480, 6371]", offset="0/1.5c", no_clip=True
+    frame=["xa30f", "ya", "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ region=[0, 90, 3480, 6371]"],
 )
 
 fig.show()
