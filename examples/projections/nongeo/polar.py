@@ -99,8 +99,7 @@ fig.basemap(
     projection="P5c+a",
     # set the frame, color, and title
     # @^ allows for a line break within the title
-    frame=["xa45f", "ya0.2",
-           "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
+    frame=["xa45f", "ya0.2", "WNe+gbisque+tprojection='P5c+a' @^ region=[0, 90, 0, 1]"],
 )
 
 fig.shift_origin(xshift="-16c", yshift="-7c")
@@ -118,8 +117,11 @@ fig.basemap(
     projection="P5c+a+t45",
     # set the frame, color, and title
     # @^ allows for a line break within the title
-    frame=["xa30f", "ya0.2",
-           "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]"],
+    frame=[
+        "xa30f",
+        "ya0.2",
+        "WNe+gbisque+tprojection='P5c+a+t45' @^ region=[0, 90, 0, 1]",
+    ],
 )
 
 fig.shift_origin(xshift="8c", yshift="1.3c")
@@ -137,9 +139,12 @@ fig.basemap(
     projection="P5c+a+t45",
     # set the frame, color, and title
     # @^ allows for a line break within the title
-    frame=["xa30f", "ya",
-           "WNse+gbisque+tprojection='P5c+a+t45' @^ \
-               region=[0, 90, 3480, 6371]"],
+    frame=[
+        "xa30f",
+        "ya",
+        "WNse+gbisque+tprojection='P5c+a+t45' @^ \
+               region=[0, 90, 3480, 6371]",
+    ],
 )
 
 fig.shift_origin(xshift="8c")
@@ -157,9 +162,12 @@ fig.basemap(
     projection="P5c+a+t45+z",
     # set the frame, color, and title
     # @^ allows for a line break within the title
-    frame=["xa30f", "ya",
-           "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ \
-               region=[0, 90, 3480, 6371]"],
+    frame=[
+        "xa30f",
+        "ya",
+        "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ \
+               region=[0, 90, 3480, 6371]",
+    ],
 )
 
 fig.show()
