@@ -108,9 +108,9 @@ def grdimage(self, grid, **kwargs):
         image formats you may need to explicitly set ``img_in``, which
         specifies that the grid is in fact an image file to be read via
         GDAL. Append **r** to assign the region specified by ``region``
-        to the image. For example, if you have used ``region='d'`` then the
-        image will be assigned a global domain. This mode allows you to
-        project a raw image (an image without referencing coordinates).
+        to the image. For example, if you have used ``region="d"`` then
+        the image will be assigned a global domain. This mode allows you
+        to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
