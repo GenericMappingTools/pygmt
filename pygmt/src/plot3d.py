@@ -91,7 +91,7 @@ def plot3d(
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
     direction : list of two 1d arrays
-        If plotting vectors (using ``style='V'`` or ``style='v'``), then
+        If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
@@ -162,7 +162,7 @@ def plot3d(
         color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
-        ``color='+z'``. To apply it to the pen color, append **+z** to
+        ``color="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
     {b}
