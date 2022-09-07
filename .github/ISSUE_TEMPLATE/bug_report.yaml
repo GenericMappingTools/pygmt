@@ -16,8 +16,15 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: "Full code that generated the error"
-      description: "Provide an example code snippet that reproduces the bug."
+      label: "Minimal Complete Verifiable Example"
+      description: |
+        So that we can understand and fix the issue quickly and efficiently, please provide
+        a minimal, self-contained copy-pastable example that demonstrates the issue.
+        For more details, check out:
+
+        - [Minimal Complete Verifiable Examples](https://stackoverflow.com/help/mcve)
+        - [Craft Minimal Bug Reports](http://matthewrocklin.com/blog/work/2018/02/28/minimal-bug-reports)
+
       placeholder: "PASTE CODE HERE"
       render: python
     validations:
