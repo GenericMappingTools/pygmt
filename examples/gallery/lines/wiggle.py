@@ -27,7 +27,7 @@ fig.wiggle(
     scale="20c",
     # Fill positive and negative areas red and gray, respectively
     color=["red+p", "gray+n"],
-    # Set the outline width to 1 point
+    # Set the outline width to 1.0 point
     pen="1.0p",
     # Draw a blue track with a width of 0.5 points
     track="0.5p,blue",
