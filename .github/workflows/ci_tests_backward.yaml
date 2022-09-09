@@ -25,8 +25,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        python-version: ['3.8']
+        os: [ubuntu-20.04, macOS-11, windows-2019]
         gmt_version: ['6.3']
     timeout-minutes: 30
     defaults:
