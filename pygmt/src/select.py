@@ -56,7 +56,7 @@ def select(data=None, outfile=None, **kwargs):
     7. inside bins of a grid mask whose nodes are non-zero
 
     The sense of the tests can be reversed for each of these 7 criteria by
-    using the ``reverse`` option.
+    using the ``reverse`` parameter.
 
     Full option list at :gmt-docs:`gmtselect.html`
 

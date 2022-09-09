@@ -90,7 +90,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
-        If plotting vectors (using ``style='V'`` or ``style='v'``), then
+        If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
@@ -146,7 +146,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
           incoming segment [Default].
         - **r** : Same as **s**, but the group reference point is reset
           after each record to the previous point (this method is only
-          available with the ``connection='r'`` scheme).
+          available with the ``connection="r"`` scheme).
 
         Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
         the coordinates of a *refpoint* which will serve as a fixed external
@@ -192,7 +192,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
-        ``color='+z'``. To apply it to the pen color, append **+z** to
+        ``color="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
     {b}
