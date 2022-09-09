@@ -62,8 +62,8 @@ def grdcontour(self, grid, **kwargs):
           single annotation level +\ *annot_int*
         - Disable all annotation with  **-**
         - Optional label modifiers can be specified as a single string
-          ``'[annot_int]+e'``  or with a list of arguments
-          ``([annot_int], 'e', 'f10p', 'gred')``.
+          ``"[annot_int]+e"``  or with a list of arguments
+          ``([annot_int], "e", "f10p", "gred")``.
     limit : str or list of 2 ints
         *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string

@@ -66,8 +66,8 @@ def makecpt(**kwargs):
     ----------
     transparency : str
         Sets a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the fore-, back-, and nan-colors
-        [Default is no transparency, i.e., 0 (opaque)].
+        Append **+a** to also affect the foreground, background, and NaN
+        colors [Default is no transparency, i.e., 0 (opaque)].
     cmap : str
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
@@ -75,10 +75,10 @@ def makecpt(**kwargs):
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
-        or ``background='o'``) uses the colors specified in the master file, or
+        or ``background="o"``) uses the colors specified in the master file, or
         those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
-        ``background='i'`` to match the colors for the lowest and highest
+        ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
         [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
@@ -89,9 +89,9 @@ def makecpt(**kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*[-], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append - to build
-        ranges *start*-*start+1* instead.
+        *start*\[**-**], where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Append **-** to
+        build ranges *start*-*start+1* instead.
     series : list or str
         [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
         Defines the range of the new CPT by giving the lowest and highest
@@ -110,10 +110,10 @@ def makecpt(**kwargs):
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
-        file. If not given or False (default), saves the CPT as the session
+        file. If not given or False [Default], saves the CPT as the session
         current CPT.
     reverse : str
-        Set this to True or **c**\ [Default] to reverse the sense of color
+        Set this to True or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
         z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
@@ -140,7 +140,7 @@ def makecpt(**kwargs):
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like ``cmap='categorical'``.
+        a categorical color table, like ``cmap="categorical"``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with

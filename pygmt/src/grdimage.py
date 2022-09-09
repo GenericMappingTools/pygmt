@@ -95,10 +95,10 @@ def grdimage(self, grid, **kwargs):
         drivers. Append a **+c**\ *args* string where *args* is a list
         of one or more concatenated number of GDAL **-co** arguments. For
         example, to write a GeoPDF with the TerraGo format use
-        ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
-        selected then we will write a GeoTiff image if the GMT projection
-        syntax translates into a PROJ syntax, otherwise a plain tiff file
-        is produced. (2) Any vector elements will be lost.
+        ``=PDF+cGEO_ENCODING=OGC_BP``. **Notes**: (1) If a tiff file (.tif)
+        is selected then we will write a GeoTiff image if the GMT
+        projection syntax translates into a PROJ syntax, otherwise a plain
+        tiff file is produced. (2) Any vector elements will be lost.
     {frame}
     {cmap}
     img_in : str
@@ -108,9 +108,9 @@ def grdimage(self, grid, **kwargs):
         image formats you may need to explicitly set ``img_in``, which
         specifies that the grid is in fact an image file to be read via
         GDAL. Append **r** to assign the region specified by ``region``
-        to the image. For example, if you have used ``region='d'`` then the
-        image will be assigned a global domain. This mode allows you to
-        project a raw image (an image without referencing coordinates).
+        to the image. For example, if you have used ``region="d"`` then
+        the image will be assigned a global domain. This mode allows you
+        to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
@@ -138,9 +138,9 @@ def grdimage(self, grid, **kwargs):
         want a more specific intensity scenario then run
         :func:`pygmt.grdgradient` separately first. If we should derive
         intensities from another file than grid, specify the file with
-        suitable modifiers [Default is no illumination]. Note: If the input
-        data is an *image* then an *intensfile* or constant *intensity* must
-        be provided.
+        suitable modifiers [Default is no illumination]. **Note**: If the
+        input data is an *image* then an *intensfile* or constant *intensity*
+        must be provided.
     {projection}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ

@@ -25,7 +25,7 @@ def which(fname, **kwargs):
 
     ``fname`` can also be a downloadable file (either a full URL, a
     `@file` special file for downloading from the GMT Site Cache, or
-    `@earth_relief_*` topography grids). In these cases, use option
+    `@earth_relief_*` topography grids). In these cases, use parameter
     ``download`` to set the desired behavior. If ``download`` is not used
     (or False), the file will not be found.
 
@@ -53,7 +53,7 @@ def which(fname, **kwargs):
     Returns
     -------
     path : str or list
-        The path(s) to the file(s), depending on the options used.
+        The path(s) to the file(s), depending on the parameters used.
 
     Raises
     ------

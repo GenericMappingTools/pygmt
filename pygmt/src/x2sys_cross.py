@@ -98,9 +98,9 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         suffix specified for this TAG. Track files will be searched for first
         in the current directory and second in all directories listed in
         $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
-        set it will default to $GMT_SHAREDIR/x2sys]. (Note: MGD77 files will
-        also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt files
-        will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
+        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
+        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile : str
         Optional. The file name for the output ASCII txt file to store the

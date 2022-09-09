@@ -94,7 +94,7 @@ def grdfilter(grid, **kwargs):
         4: grid (x,y) in degrees, *width* in km, Spherical distance
         calculation.
 
-        5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
+        5: grid (x,y) in Mercator ``projection="m1"`` img units, *width* in km,
         Spherical distance calculation.
 
     {spacing}
