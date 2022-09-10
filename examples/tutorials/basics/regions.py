@@ -38,7 +38,7 @@ fig.show()
 ###############################################################################
 #
 # The coordinates can be passed to ``region`` as a list, in the form of
-# [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
+# [*xmin*, *xmax*, *ymin*, *ymax*].
 
 fig = pygmt.Figure()
 fig.coast(
