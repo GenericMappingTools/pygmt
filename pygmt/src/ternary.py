@@ -69,6 +69,6 @@ def ternary(self, data, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
             lib.call_module(
-                module="ternary", 
+                module="ternary",
                 args=build_arg_string(kwargs, infile=infile),
             )
