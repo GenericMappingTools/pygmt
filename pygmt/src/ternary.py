@@ -54,8 +54,8 @@ def ternary(self, data, **kwargs):
     {CPT}
     {G}
     style : str
-        Plot symbols (including vectors, pie slices, fronts, decorated or
-        quoted lines).
+        *symbol*\[\ *size*].
+        Plot individual symbols in a ternary diagram.
     {W}
     {XY}
     {U}
@@ -68,4 +68,7 @@ def ternary(self, data, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
-            lib.call_module("ternary", build_arg_string(kwargs, infile=infile))
+            lib.call_module(
+                module="ternary", 
+                args=build_arg_string(kwargs, infile=infile),
+            )
