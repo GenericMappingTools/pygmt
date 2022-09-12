@@ -11,15 +11,14 @@ on:
       - 'doc/**'
       - 'examples/**'
       - '*.md'
-      - '*.json'
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
   repository_dispatch:
     types: [test-gmt-dev-command]
-  # Schedule daily tests
+  # Schedule tests on Monday/Wednesday/Friday
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1,3,5'
 
 jobs:
   test_gmt_dev:
@@ -29,7 +28,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.10']
-        os: [ubuntu-latest, macOS-11.0, windows-2022]
+        os: [ubuntu-22.04, macOS-12, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -39,16 +38,16 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         if: github.event_name != 'repository_dispatch'
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Generate token from GenericMappingTools bot
@@ -62,13 +61,13 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.0.2
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       - name: Show job URL
@@ -102,19 +101,14 @@ jobs:
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         build dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
         if: github.event_name == 'schedule'
         run: |
-          ORIGINAL_BRANCH=$(git branch --show-current)
-          # Pull down GMT 6.4 baseline images from the gmt-6.4 branch
-          # https://github.com/GenericMappingTools/pygmt/pull/1883
-          git checkout gmt-6.4
           dvc pull
           ls -lhR pygmt/tests/baseline/
-          git checkout ${ORIGINAL_BRANCH}
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
@@ -137,7 +131,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.17.0
+        uses: dawidd6/action-download-artifact@v2.23.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -155,9 +149,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       - name: Add GMT's bin to PATH (Linux/macOS)
         run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH

@@ -47,7 +47,7 @@ def select(data=None, outfile=None, **kwargs):
     pass or reject the records. Records can be selected based on whether or not
     they are:
 
-    1. inside a rectangular region (**region** [and **projection**])
+    1. inside a rectangular region (``region`` [and ``projection``])
     2. within *dist* km of any point in *pointfile*
     3. within *dist* km of any line in *linefile*
     4. inside one of the polygons in the *polygonfile*
@@ -56,7 +56,7 @@ def select(data=None, outfile=None, **kwargs):
     7. inside bins of a grid mask whose nodes are non-zero
 
     The sense of the tests can be reversed for each of these 7 criteria by
-    using the **reverse** option.
+    using the ``reverse`` parameter.
 
     Full option list at :gmt-docs:`gmtselect.html`
 
@@ -72,14 +72,14 @@ def select(data=None, outfile=None, **kwargs):
     {A}
     resolution : str
         *resolution*\ [**+f**].
-        Ignored unless **mask** is set. Selects the resolution of the coastline
+        Ignored unless ``mask`` is set. Selects the resolution of the coastline
         data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,
         or (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append (**+f**) to automatically select a lower
         resolution should the one requested not be available [Default is abort
-        if not found]. Note that because the coastlines differ in details it is
-        not guaranteed that a point will remain inside [or outside] when a
-        different resolution is selected.
+        if not found]. **Note** that because the coastlines differ in details
+        it is not guaranteed that a point will remain inside [or outside] when
+        a different resolution is selected.
     gridmask : str
         Pass all locations that are inside the valid data area of the grid
         *gridmask*. Nodes that are outside are either NaN or zero.
@@ -90,13 +90,13 @@ def select(data=None, outfile=None, **kwargs):
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
         - **g** will pass records inside the cells with z equal zero of the
-          grid mask in **gridmask**.
+          grid mask in ``gridmask``.
         - **l** select records NOT within the specified distance of any line.
         - **r** select records NOT inside the specified rectangular region.
-        - **s** select records NOT considered inside as specified by **mask**
-          (and **area_thresh**, **resolution**).
+        - **s** select records NOT considered inside as specified by ``mask``
+          (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
-          **z_subregion**.
+          ``z_subregion``.
     {J}
     mask : str or list
         Pass all records whose location is inside specified geographical
@@ -113,7 +113,7 @@ def select(data=None, outfile=None, **kwargs):
     z_subregion : str
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
-        given range or is NaN (use **skiprows** to skip NaN records). If *max*
+        given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
         http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
@@ -121,14 +121,14 @@ def select(data=None, outfile=None, **kwargs):
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
         **+c**\ *col*, and to specify several tests just repeat the
-        **z_subregion** option as many times as you have columns to test.
-        **Note**: When more than one **z_subregion** option is given then the
+        ``z_subregion`` option as many times as you have columns to test.
+        **Note**: When more than one ``z_subregion`` option is given then the
         ``reverse="z"`` option cannot be used. In the case of multiple tests
         you may use these modifiers as well: **+a** passes any record that
         passes at least one of your *z* tests [Default is all tests must pass],
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
-        incremented for each new **z_subregion** option, starting with 2.
+        incremented for each new ``z_subregion`` option, starting with 2.
     {b}
     {d}
     {e}
@@ -168,7 +168,7 @@ def select(data=None, outfile=None, **kwargs):
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
-                    module="gmtselect",
+                    module="select",
                     args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
 

@@ -38,7 +38,7 @@ def image(self, imagefile, **kwargs):
         This must be an Encapsulated PostScript (EPS) file or a raster
         image. An EPS file must contain an appropriate BoundingBox. A
         raster file can have a depth of 1, 8, 24, or 32 bits and is read
-        via GDAL. Note: If GDAL was not configured during GMT installation
+        via GDAL. **Note**: If GDAL was not configured during GMT installation
         then only EPS files are supported.
     {J}
     {R}
@@ -64,4 +64,4 @@ def image(self, imagefile, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        lib.call_module("image", build_arg_string(kwargs, infile=imagefile))
+        lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))

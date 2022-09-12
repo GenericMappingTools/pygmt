@@ -32,28 +32,31 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     ----------
     resolution : str
         The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
-        arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'30m'``,
-        ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
-        ``'03m'``, ``'02m'``, ``'01m'``, ``'30s'``, ``'15s'``, ``'03s'``,
-        or ``'01s'``.
+        arc-degree, arc-minute and arc-second. It can be ``"01d"``, ``"30m"``,
+        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
+        ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``, ``"03s"``,
+        or ``"01s"``.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for Earth relief grids with resolutions higher than 5
-        arc-minute (i.e., ``05m``).
+        arc-minute (i.e., ``"05m"``).
 
     registration : str
-        Grid registration type. Either ``pixel`` for pixel registration or
-        ``gridline`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        Grid registration type. Either ``"pixel"`` for pixel registration or
+        ``"gridline"`` for gridline registration. Default is ``None``, where
+        a gridline-registered grid is returned unless only the pixel-registered
+        grid is available.
+
+        **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
+        grid by default unless only the gridline-registered grid is available.
 
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
-        ``'03s'`` and ``'01s'`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15
-        arc-second (i.e., ``'15s'``). If True, will only load the original
+        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
+        by up-sampling the SRTM15+ tiles which have a resolution of 15
+        arc-second (i.e., ``"15s"``). If True, will only load the original
         land-only SRTM tiles.
 
     Returns
@@ -71,7 +74,7 @@ def load_earth_relief(resolution="01d", region=None, registration=None, use_srtm
     Examples
     --------
 
-    >>> # load the default grid (pixel-registered 01d grid)
+    >>> # load the default grid (gridline-registered 01d grid)
     >>> grid = load_earth_relief()
     >>> # load the 30m grid with "gridline" registration
     >>> grid = load_earth_relief("30m", registration="gridline")

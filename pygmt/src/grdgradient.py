@@ -84,7 +84,7 @@ def grdgradient(grid, **kwargs):
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with
-        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The
+        :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The
         Lambertian Reflection assumes an ideal surface that reflects all the
         light that strikes it and the surface appears
         equally bright from all viewing directions. Here, *azim* and *elev* are
@@ -176,6 +176,8 @@ def grdgradient(grid, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module("grdgradient", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="grdgradient", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

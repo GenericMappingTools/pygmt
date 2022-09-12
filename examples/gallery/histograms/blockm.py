@@ -1,7 +1,7 @@
 """
 Blockmean
 ---------
-The :meth:`pygmt.blockmean` method calculates different quantities
+The :func:`pygmt.blockmean` function calculates different quantities
 inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.
 The following examples show how to calculate the averages of the given values
 inside each bin and how to report the number of points inside each bin.
@@ -30,7 +30,7 @@ grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 fig.grdimage(
     grid=grd,
     region=region,
-    frame=["af", '+t"Mean earthquake depth inside each block"'],
+    frame=["af", "+tMean earthquake depth inside each block"],
     cmap="batlow",
 )
 # plot slightly transparent landmasses on top
@@ -51,7 +51,7 @@ grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 fig.grdimage(
     grid=grd,
     region=region,
-    frame=["af", '+t"Number of points inside each block"'],
+    frame=["af", "+tNumber of points inside each block"],
     cmap="batlow",
 )
 fig.coast(land="darkgray", transparency=40)

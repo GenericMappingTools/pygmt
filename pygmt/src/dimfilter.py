@@ -13,6 +13,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["dimfilter"]
+
 
 @fmt_docstring
 @use_alias(
@@ -38,8 +40,8 @@ def dimfilter(grid, **kwargs):
     subregion of the input and/or with a new increment using ``spacing``,
     which may add an "extra space" in the input data to prevent edge
     effects for the output grid. If the filter is low-pass, then the output
-    may be less frequently sampled than the input. **dimfilter** will not
-    produce a smooth output as other spatial filters
+    may be less frequently sampled than the input. :func:`pygmt.dimfilter`
+    will not produce a smooth output as other spatial filters
     do because it returns a minimum median out of *N* medians of *N*
     sectors. The output can be rough unless the input data is noise-free.
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
@@ -124,6 +126,25 @@ def dimfilter(grid, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of Earth relief data
+    >>> grid = pygmt.datasets.load_earth_relief()
+    >>> # Create a filtered grid from an input grid.
+    >>> filtered_grid = pygmt.dimfilter(
+    ...     grid=grid,
+    ...     # Set filter type to "median" and the diameter width to 600 km
+    ...     filter="m600",
+    ...     # Set grid in degrees, width in km
+    ...     distance=4,
+    ...     # Create 6 sectors and return the lowest values in the sector
+    ...     sectors="l6",
+    ...     # Set the region longitude range from 55W to 51W, and the
+    ...     # latitude range from 24S to 19S
+    ...     region=[-55, -51, -24, -19],
+    ... )
     """
     if not all(arg in kwargs for arg in ["D", "F", "N"]) and "Q" not in kwargs:
         raise GMTInvalidInput(
@@ -135,10 +156,10 @@ def dimfilter(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind=None, data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("dimfilter", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="dimfilter", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

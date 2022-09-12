@@ -49,7 +49,7 @@ COMMON_OPTIONS = {
             is no fill.""",
     "I": r"""
         spacing : str
-            *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
+            *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
@@ -309,9 +309,9 @@ COMMON_OPTIONS = {
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
               specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. Note: if ``incols`` is also used
-              then the columns given to ``outcols`` correspond to the order
-              after the ``incols`` selection has taken place.""",
+              input and skip trailing text. *Note**: If ``incols`` is also
+              used then the columns given to ``outcols`` correspond to the
+              order after the ``incols`` selection has taken place.""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
@@ -806,71 +806,3 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
         return new_module
 
     return deprecator
-
-
-def check_data_input_order(deprecate_version, remove_version):
-    """
-    Decorator to raise a FutureWarning if the order of data input parameters
-    changes and positional arguments are passed.
-
-    The decorator is temporary and should be removed in v0.7.0.
-
-    Parameters
-    ----------
-    deprecate_version : str
-        The PyGMT version when the order of data input parameters is changed.
-    remove_version : str
-        The PyGMT version when the deprecation warning should be removed.
-
-    Examples
-    --------
-    >>> @check_data_input_order("v0.0.0", "v9.9.9")
-    ... def module(data=None, x=None, y=None, z=None, **kwargs):
-    ...     "A module that prints the arguments it received"
-    ...     print(f"data={data}, x={x}, y={y}, z={z}")
-    >>> module(data="table.txt")
-    data=table.txt, x=None, y=None, z=None
-    >>> module(x=0, y=1, z=2)
-    data=None, x=0, y=1, z=2
-    >>> with warnings.catch_warnings(record=True) as w:
-    ...     module(0, 1, 2)
-    ...     assert len(w) == 1
-    ...     assert issubclass(w[0].category, FutureWarning)
-    ...
-    data=0, x=1, y=2, z=None
-    """
-
-    def data_input_order_checker(module_func):
-        """
-        The decorator that creates the new function to check if positional
-        arguments are passed.
-        """
-
-        @functools.wraps(module_func)
-        def new_module(*args, **kwargs):
-            """
-            New module instance that raises a warning if positional arguments
-            are passed.
-            """
-            # Plotting functions always have a "self" parameter
-            # which is a pygmt.Figure instance that has a "savefig" method
-            if len(args) > 1 and hasattr(args[0], "savefig"):
-                plotting_func = 1
-            else:
-                plotting_func = 0
-
-            if len(args) > 1 + plotting_func:
-                # more than one positional arguments are used
-                msg = (
-                    "The function parameters has been re-ordered as 'data, x, y, [z]' "
-                    f"since {deprecate_version} but you're passing positional arguments. "
-                    "You can silence the warning by passing keyword arguments "
-                    "like 'x=x, y=y, z=z'. Otherwise, the warning will be removed "
-                    f"in {remove_version}."
-                )
-                warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            return module_func(*args, **kwargs)
-
-        return new_module
-
-    return data_input_order_checker

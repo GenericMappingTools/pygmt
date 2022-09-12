@@ -2,19 +2,10 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    check_data_input_order,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.5.0", remove_version="v0.7.0")
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     B="frame",
     D="position",
@@ -81,12 +72,12 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         [Default is no fill]. Optionally, append **+p** to fill positive areas
         (this is the default behavior). Append **+n** to fill negative areas.
         Append **+n+p** to fill both positive and negative areas with the same
-        fill. Note: You will need to repeat the color parameter to select
+        fill. **Note**: You will need to repeat the color parameter to select
         different fills for the positive and negative wiggles.
 
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Default is **0.25p,black,solid**].
+        [Default is ``"0.25p,black,solid"``].
     {U}
     {V}
     pen : str
@@ -113,4 +104,6 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         )
 
         with file_context as fname:
-            lib.call_module("wiggle", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="wiggle", args=build_arg_string(kwargs, infile=fname)
+            )

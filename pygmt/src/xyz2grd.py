@@ -159,6 +159,8 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module("xyz2grd", build_arg_string(kwargs, infile=infile))
+                lib.call_module(
+                    module="xyz2grd", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

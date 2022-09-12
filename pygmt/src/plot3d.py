@@ -5,7 +5,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    check_data_input_order,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -16,7 +15,6 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -93,7 +91,7 @@ def plot3d(
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
     direction : list of two 1d arrays
-        If plotting vectors (using ``style='V'`` or ``style='v'``), then
+        If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
@@ -164,7 +162,7 @@ def plot3d(
         color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
-        ``color='+z'``. To apply it to the pen color, append **+z** to
+        ``color="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     {a}
     {b}
@@ -242,4 +240,6 @@ def plot3d(
         )
 
         with file_context as fname:
-            lib.call_module("plot3d", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+            )

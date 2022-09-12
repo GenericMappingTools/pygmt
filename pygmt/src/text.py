@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -164,24 +163,27 @@ def text_(
         for texts, but this option is only valid if using x/y/text.
     {w}
     """
-
-    # pylint: disable=too-many-locals
     # pylint: disable=too-many-branches
-
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
-        kind = data_kind(textfiles, x, y, text)
-    else:
-        if x is not None or y is not None:
+        if (x is not None or y is not None) and textfiles is not None:
             raise GMTInvalidInput(
-                "Provide either position only, or x/y pairs, not both"
+                "Provide either position only, or x/y pairs, or textfiles."
             )
-        kind = "vectors"
-
-    if kind == "vectors" and text is None:
-        raise GMTInvalidInput("Must provide text with x/y pairs or position")
+        kind = data_kind(textfiles, x, y, text)
+        if kind == "vectors" and text is None:
+            raise GMTInvalidInput("Must provide text with x/y pairs")
+    else:
+        if x is not None or y is not None or textfiles is not None:
+            raise GMTInvalidInput(
+                "Provide either position only, or x/y pairs, or textfiles."
+            )
+        if text is None or is_nonstr_iter(text):
+            raise GMTInvalidInput("Text can't be None or array.")
+        kind = None
+        textfiles = ""
 
     # Build the -F option in gmt text.
     if kwargs.get("F") is None and (
@@ -219,18 +221,13 @@ def text_(
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
+    # Append text at last column. Text must be passed in as str type.
+    if kind == "vectors":
+        extra_arrays.append(np.atleast_1d(text).astype(str))
+
     with Session() as lib:
-        file_context = dummy_context(textfiles) if kind == "file" else ""
-        if kind == "vectors":
-            if position is not None:
-                file_context = dummy_context("")
-            else:
-                file_context = lib.virtualfile_from_vectors(
-                    np.atleast_1d(x),
-                    np.atleast_1d(y),
-                    *extra_arrays,
-                    # text must be in str type, see issue #706
-                    np.atleast_1d(text).astype(str),
-                )
+        file_context = lib.virtualfile_from_data(
+            check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
+        )
         with file_context as fname:
-            lib.call_module("text", build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))

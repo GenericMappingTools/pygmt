@@ -101,7 +101,7 @@ def grdinfo(grid, **kwargs):
         the min and max. To force a symmetrical range about zero, using
         minus/plus the max absolute value of the two extremes, append **+s**\ .
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
-        (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
+        (if *dz* was given) as expected by :func:`pygmt.makecpt`.
     {V}
     {f}
 
@@ -115,8 +115,8 @@ def grdinfo(grid, **kwargs):
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
                 lib.call_module(
-                    "grdinfo",
-                    build_arg_string(kwargs, infile=infile, outfile=outfile.name),
+                    module="grdinfo",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile.name),
                 )
         result = outfile.read()
     return result

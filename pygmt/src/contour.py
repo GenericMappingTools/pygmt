@@ -3,17 +3,10 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    check_data_input_order,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="annotation",
     B="frame",
@@ -93,7 +86,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
-        Pen to draw the underlying triangulation [Default is none].
+        Pen to draw the underlying triangulation [Default is None].
     no_clip : bool
         Do NOT clip contours or image at the boundaries [Default will clip
         to fit inside region].
@@ -132,4 +125,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
         with file_context as fname:
-            lib.call_module("contour", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="contour", args=build_arg_string(kwargs, infile=fname)
+            )

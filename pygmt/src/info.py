@@ -6,7 +6,6 @@ from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -14,7 +13,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("table", "data", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     C="per_column",
     I="spacing",
@@ -86,7 +84,8 @@ def info(data, **kwargs):
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 lib.call_module(
-                    "info", build_arg_string(kwargs, infile=fname, outfile=tmpfile.name)
+                    module="info",
+                    args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 

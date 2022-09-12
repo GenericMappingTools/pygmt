@@ -15,7 +15,7 @@ class GMTDataArrayAccessor:
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution="01d")
+    >>> grid = load_earth_relief(resolution="01d", registration="pixel")
 
     >>> # See if grid uses Gridline (0) or Pixel (1) registration
     >>> grid.gmt.registration
@@ -29,10 +29,10 @@ class GMTDataArrayAccessor:
         self._obj = xarray_obj
         try:
             self._source = self._obj.encoding["source"]  # filepath to NetCDF source
-            # From the shortened summary information of `grdinfo`,
-            # get grid registration in column 10, and grid type in column 11
+            # Get grid registration and grid type from the last two columns of
+            # the shortened summary information of `grdinfo`.
             self._registration, self._gtype = map(
-                int, grdinfo(self._source, per_column="n", o="10,11").split()
+                int, grdinfo(self._source, per_column="n").split()[-2:]
             )
         except (KeyError, ValueError):
             self._registration = 0  # Default to Gridline registration

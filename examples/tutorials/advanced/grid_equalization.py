@@ -1,7 +1,7 @@
 """
 Performing grid histogram equalization
---------------------------------------
-The :meth:`pygmt.grdhisteq.equalize_grid` function creates a grid using
+======================================
+The :meth:`pygmt.grdhisteq.equalize_grid` method creates a grid using
 statistics based on a cumulative distribution function.
 """
 # sphinx_gallery_thumbnail_number = 3
@@ -12,8 +12,8 @@ import pygmt
 # Load sample data
 # ----------------
 # Load the sample Earth relief data for a region around Yosemite valley
-# and use :meth:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
-# z values.
+# and use :func:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
+# z-values.
 
 grid = pygmt.datasets.load_earth_relief(
     resolution="03s", region=[-119.825, -119.4, 37.6, 37.825]
@@ -47,7 +47,7 @@ with fig.subplot(
             projection="X?",
             region=[500, 3600, 0, 20],
             series=[500, 3600, 100],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
+            frame=["wnSE", "xaf+lElevation (m)", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -107,12 +107,13 @@ with fig.subplot(
         fig.histogram(
             data=linear_dist,
             projection="X?",
-            region=[0, divisions, 0, 40],
+            region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
+            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
+            center=True,
         )
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
@@ -154,7 +155,7 @@ with fig.subplot(
             projection="X?",
             region=[-4.5, 4.5, 0, 20],
             series=[-4.5, 4.5, 0.2],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
+            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
@@ -210,12 +211,13 @@ with fig.subplot(
         fig.histogram(
             data=quadratic_dist,
             projection="X?",
-            region=[0, divisions, 0, 40],
+            region=[-1, divisions, 0, 40],
             series=[0, divisions, 1],
-            frame=["wnSE", "xaf+lElevation (m)", "yaf+lCounts"],
+            frame=["wnSE", "xaf+lRelative elevation", "yaf+lPercent frequency"],
             cmap=True,
             histtype=1,
             pen="1p,black",
+            center=True,
         )
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()

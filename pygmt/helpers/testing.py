@@ -158,6 +158,7 @@ def download_test_data():
         "@earth_relief_30m_p",
         "@earth_relief_30m_g",
         "@earth_relief_10m_p",
+        "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
         # List of tiles of 03s srtm data.
@@ -171,6 +172,8 @@ def download_test_data():
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
+        "@capitals.gmt",
+        "@earth_relief_20m_holes.grd",
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
         "@RidgeTest.shp",

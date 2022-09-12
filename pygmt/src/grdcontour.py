@@ -62,8 +62,8 @@ def grdcontour(self, grid, **kwargs):
           single annotation level +\ *annot_int*
         - Disable all annotation with  **-**
         - Optional label modifiers can be specified as a single string
-          ``'[annot_int]+e'``  or with a list of arguments
-          ``([annot_int], 'e', 'f10p', 'gred')``.
+          ``"[annot_int]+e"``  or with a list of arguments
+          ``([annot_int], "e", "f10p", "gred")``.
     limit : str or list of 2 ints
         *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string
@@ -100,4 +100,6 @@ def grdcontour(self, grid, **kwargs):
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:
-            lib.call_module("grdcontour", build_arg_string(kwargs, infile=fname))
+            lib.call_module(
+                module="grdcontour", args=build_arg_string(kwargs, infile=fname)
+            )

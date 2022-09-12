@@ -28,7 +28,7 @@ fig.show()
 # 4. lake-in-island-in-lake shore
 #
 # You can specify which level you want to plot by passing the level number and
-# a GMT pen configuration. For example, to plot just the coastlines with 0.5
+# a GMT pen configuration. For example, to plot just the coastlines with 0.5p
 # thickness and black lines:
 
 fig = pygmt.Figure()

@@ -4,14 +4,10 @@ Test Figure.grdimage.
 import numpy as np
 import pytest
 import xarray as xr
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import check_figures_equal
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")

@@ -79,9 +79,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -112,9 +112,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -164,15 +164,15 @@ def velo(self, data=None, **kwargs):
     {B}
     {CPT}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec='e'``
-        and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
+        can be used to rescale the uncertainties of velocities (``spec="e"``
+        and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintycolor : str
         Sets the color or shade used for filling uncertainty wedges
-        (``spec='w'``) or velocity error ellipses (``spec='e'`` or
-        ``spec='r'``). If ``uncertaintycolor`` is not specified, the
+        (``spec="w"``) or velocity error ellipses (``spec="e"`` or
+        ``spec="r"``). If ``uncertaintycolor`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
-        ``zvalue='+e'`` will update the uncertainty fill color based on the
+        ``zvalue="+e"`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
     color : str
@@ -256,4 +256,4 @@ def velo(self, data=None, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
 
         with file_context as fname:
-            lib.call_module("velo", build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))
