@@ -7,8 +7,8 @@ color-coded by categories. In the example below, we show how the
 can be visualized. Here, we can pass the individual categories included in
 the "species" column directly to the ``color`` parameter via
 ``color=df.species.cat.codes.astype(int)``. Additionally, we have to set
-``cmap=True``. A desired colormap can be selected via the :meth:`pygmt.makecpt`
-method.
+``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
+function.
 """
 
 import pandas as pd
@@ -26,8 +26,8 @@ df.species = df.species.astype(dtype="category")
 # Make a list of the individual categories of the 'species' column
 # ['Adelie', 'Chinstrap', 'Gentoo']
 # They are (corresponding to the categorical number code) by default in
-# alphabetical order and later used for the colorbar labels
-labels = list(df.species.cat.categories)
+# alphabetical order and later used for the colorbar annotations
+cb_annots = list(df.species.cat.categories)
 
 # Use pygmt.info to get region bounds (xmin, xmax, ymin, ymax)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
@@ -65,7 +65,7 @@ pygmt.makecpt(
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
     # convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
-    color_model="+c" + ",".join(labels),
+    color_model="+c" + ",".join(cb_annots),
 )
 
 fig.plot(

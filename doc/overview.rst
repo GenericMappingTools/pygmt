@@ -41,6 +41,18 @@ Presentations
 These are conference presentations about the development of PyGMT (previously
 "GMT/Python"):
 
+* "Geospatial Analysis & Visualization with PyGMT".
+  2022.
+  Max Jones, Wei Ji Leong, and Leonardo Uieda.
+  Presented at *SciPy 2022*.
+  doi:`10.6084/m9.figshare.20483793 <https://doi.org/10.6084/m9.figshare.20483793>`__
+
+.. figure:: _static/scipy2022-youtube-thumbnail.jpg
+   :target: https://youtu.be/nCktihu9bWg
+   :width: 80%
+   :align: center
+   :alt: SciPy 2022 YouTube video
+
 * "PyGMT: Accessing the Generic Mapping Tools from Python".
   2019.
   Leonardo Uieda and Paul Wessel.
@@ -63,7 +75,7 @@ These are conference presentations about the development of PyGMT (previously
    :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
    :width: 80%
    :align: center
-   :alt: SciPy youtube video
+   :alt: SciPy 2018 YouTube video
 
 * "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
   2018.
@@ -87,7 +99,7 @@ These are conference presentations about the development of PyGMT (previously
    :target: https://www.youtube.com/watch?v=93M4How7R24
    :width: 80%
    :align: center
-   :alt: SciPy youtube video
+   :alt: SciPy 2017 YouTube video
 
 * "A modern Python interface for the Generic Mapping Tools".
   2017.

@@ -49,7 +49,7 @@ COMMON_OPTIONS = {
             is no fill.""",
     "I": r"""
         spacing : str
-            *xinc*\ [**+e**\|\ **n**][/\ *yinc*\ [**+e**\|\ **n**]].
+            *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
@@ -309,9 +309,9 @@ COMMON_OPTIONS = {
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
               specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. Note: if ``incols`` is also used
-              then the columns given to ``outcols`` correspond to the order
-              after the ``incols`` selection has taken place.""",
+              input and skip trailing text. *Note**: If ``incols`` is also
+              used then the columns given to ``outcols`` correspond to the
+              order after the ``incols`` selection has taken place.""",
     "p": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\

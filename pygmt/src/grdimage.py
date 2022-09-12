@@ -49,12 +49,12 @@ def grdimage(self, grid, **kwargs):
     added by providing a file with intensities in the (-1,+1) range or
     instructions to derive intensities from the input data grid. Values outside
     this range will be clipped. Such intensity files can be created from the
-    grid using :meth:`pygmt.grdgradient` and, optionally, modified by
-    ``grdmath`` or ``grdhisteq``. If GMT is built with GDAL support, ``grid``
-    can be an image file (geo-referenced or not). In this case the image can
-    optionally be illuminated with the file provided via the ``shading``
-    parameter. Here, if image has no coordinates then those of the intensity
-    file will be used.
+    grid using :func:`pygmt.grdgradient` and, optionally, modified by
+    :gmt-docs:`grdmath.html` or :class:`pygmt.grdhisteq`. If GMT is built
+    with GDAL support, ``grid`` can be an image file (geo-referenced or not).
+    In this case the image can optionally be illuminated with the file
+    provided via the ``shading`` parameter. Here, if image has no coordinates
+    then those of the intensity file will be used.
 
     When using map projections, the grid is first resampled on a new
     rectangular grid with the same dimensions. Higher resolution images can
@@ -95,10 +95,10 @@ def grdimage(self, grid, **kwargs):
         drivers. Append a **+c**\ *args* string where *args* is a list
         of one or more concatenated number of GDAL **-co** arguments. For
         example, to write a GeoPDF with the TerraGo format use
-        ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
-        selected then we will write a GeoTiff image if the GMT projection
-        syntax translates into a PROJ syntax, otherwise a plain tiff file
-        is produced. (2) Any vector elements will be lost.
+        ``=PDF+cGEO_ENCODING=OGC_BP``. **Notes**: (1) If a tiff file (.tif)
+        is selected then we will write a GeoTiff image if the GMT
+        projection syntax translates into a PROJ syntax, otherwise a plain
+        tiff file is produced. (2) Any vector elements will be lost.
     {B}
     {CPT}
     img_in : str
@@ -108,9 +108,9 @@ def grdimage(self, grid, **kwargs):
         image formats you may need to explicitly set ``img_in``, which
         specifies that the grid is in fact an image file to be read via
         GDAL. Append **r** to assign the region specified by ``region``
-        to the image. For example, if you have used ``region='d'`` then the
-        image will be assigned a global domain. This mode allows you to
-        project a raw image (an image without referencing coordinates).
+        to the image. For example, if you have used ``region="d"`` then
+        the image will be assigned a global domain. This mode allows you
+        to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
@@ -131,15 +131,16 @@ def grdimage(self, grid, **kwargs):
         Give the name of a grid file or a DataArray with intensities in the
         (-1,+1) range, or a constant intensity to apply everywhere (affects the
         ambient light). Alternatively, derive an intensity grid from the input
-        data grid via a call to :meth:`pygmt.grdgradient`; append
+        data grid via a call to :func:`pygmt.grdgradient`; append
         **+a**\ *azimuth*, **+n**\ *args*, and **+m**\ *ambient* to specify
-        azimuth, intensity, and ambient arguments for that method, or just give
-        **+d** to select the default arguments (``+a-45+nt1+m0``). If you want
-        a more specific intensity scenario then run :meth:`pygmt.grdgradient`
-        separately first. If we should derive intensities from another file
-        than grid, specify the file with suitable modifiers [Default is no
-        illumination]. Note: If the input data is an *image* then an
-        *intensfile* or constant *intensity* must be provided.
+        azimuth, intensity, and ambient arguments for that function, or just
+        give **+d** to select the default arguments (``+a-45+nt1+m0``). If you
+        want a more specific intensity scenario then run
+        :func:`pygmt.grdgradient` separately first. If we should derive
+        intensities from another file than grid, specify the file with
+        suitable modifiers [Default is no illumination]. **Note**: If the
+        input data is an *image* then an *intensfile* or constant *intensity*
+        must be provided.
     {J}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ

@@ -22,7 +22,7 @@ import pygmt
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
 # The length of the vector uses centimeters by default but
-# could be changed using :meth:`pygmt.config`
+# could be changed using :class:`pygmt.config`
 # (Check the next examples for unit changes).
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
@@ -218,7 +218,8 @@ y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
 direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
 length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
-# Create a plot with coast, Mercator projection (M) over the continental US
+# Create a plot with coast,
+# Transverse Mercator projection (T) over Turkey and Syria
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],

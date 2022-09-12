@@ -511,7 +511,7 @@ def test_plot_shapefile():
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
     which(fname=datasets, download="a")
     fig = Figure()
-    fig.plot(data="@RidgeTest.shp", pen="1p")
+    fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig
 
 

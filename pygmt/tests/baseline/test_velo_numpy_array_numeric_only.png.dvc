@@ -1,4 +1,4 @@
 outs:
-- md5: 852dba2075122641e3785603207f9b88
-  size: 44362
+- md5: b0c130e6fb6e29446cf88412adff4a90
+  size: 44243
   path: test_velo_numpy_array_numeric_only.png
