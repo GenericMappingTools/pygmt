@@ -24,11 +24,13 @@ def test_earth_relief_fails(data_source):
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
-def test_earth_relief_01d():
+def test_earth_relief_01d_srtm():
     """
-    Test some properties of the earth relief 01d data.
+    Test some properties of the earth relief 01d data with SRTM data.
     """
-    data = load_earth_relief(resolution="01d", registration="gridline")
+    data = load_earth_relief(
+        resolution="01d", registration="gridline", data_source="relief"
+    )
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
@@ -36,18 +38,51 @@ def test_earth_relief_01d():
     npt.assert_allclose(data.max(), 5559.0)
 
 
-def test_earth_relief_01d_with_region():
+def test_earth_relief_01d_gebco():
     """
-    Test loading low-resolution earth relief with 'region'.
+    Test some properties of the earth relief 01d data with GEBCO data.
     """
     data = load_earth_relief(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
+        resolution="01d", registration="gridline", data_source="gebco"
+    )
+    assert data.shape == (181, 361)
+    npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
+    npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
+    npt.assert_allclose(data.min(), -8598)
+    npt.assert_allclose(data.max(), 5559.0)
+
+
+def test_earth_relief_01d_with_region_srtm():
+    """
+    Test loading low-resolution earth relief with 'region' with SRTM data.
+    """
+    data = load_earth_relief(
+        resolution="01d",
+        region=[-10, 10, -5, 5],
+        registration="gridline",
+        data_source="relief",
     )
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -5154)
     npt.assert_allclose(data.max(), 805.5)
+
+def test_earth_relief_01d_with_region_gebco():
+    """
+    Test loading low-resolution earth relief with 'region' with GEBCO data.
+    """
+    data = load_earth_relief(
+        resolution="01d",
+        region=[-10, 10, -5, 5],
+        registration="gridline",
+        data_source="gebco",
+    )
+    assert data.shape == (11, 21)
+    npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
+    npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
+    npt.assert_allclose(data.min(), -5146)
+    npt.assert_allclose(data.max(), 806)
 
 
 def test_earth_relief_30m():
