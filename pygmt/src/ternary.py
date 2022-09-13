@@ -50,7 +50,8 @@ def ternary(self, data, **kwargs):
         counter-clockwise direction].
     region : str or list
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
-        Give the min and max limits for each of the three axis **a**, **b**, and **c**.
+        Give the min and max limits for each of the three axes **a**, **b**, 
+        and **c**.
     {CPT}
     {G}
     style : str
