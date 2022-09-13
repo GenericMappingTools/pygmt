@@ -144,6 +144,8 @@ def load_earth_relief(
             earth_relief_prefix = "srtm_relief_"
     elif data_source == "gebco":
         earth_relief_prefix = "earth_gebco_"
+    else:
+        raise GMTInvalidInput("Invalid input for 'data_source'.")
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation

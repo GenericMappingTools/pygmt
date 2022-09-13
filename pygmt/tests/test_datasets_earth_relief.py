@@ -68,6 +68,7 @@ def test_earth_relief_01d_with_region_srtm():
     npt.assert_allclose(data.min(), -5154)
     npt.assert_allclose(data.max(), 805.5)
 
+
 def test_earth_relief_01d_with_region_gebco():
     """
     Test loading low-resolution earth relief with 'region' with GEBCO data.
@@ -161,3 +162,13 @@ def test_earth_relief_invalid_resolution_registration_combination():
     ]:
         with pytest.raises(GMTInvalidInput):
             load_earth_relief(resolution=resolution, registration=registration)
+
+
+def test_earth_relief_invalid_data_source():
+    """
+    Test loading earth relief with invalid data_source argument.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="01d", registration="gridline", data_source="invalid_source"
+        )
