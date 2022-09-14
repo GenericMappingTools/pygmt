@@ -81,8 +81,8 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         ``region`` is given as -90/90 or 0/180.
 
     region : str or list
+        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
-        *r0/r1/az0/az1*.
         Specifies the ``region`` of interest in (*r*, *azimuth*) space.
         Here, *r0* is 0 and *r1* is the maximal length in units.
         For *az0* and *az1*, specify either -90/90 or 0/180 for half
