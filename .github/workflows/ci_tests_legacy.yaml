@@ -5,15 +5,15 @@ name: GMT Legacy Tests
 on:
   # push:
   #   branches: [ main ]
-  pull_request:
+  # pull_request:
     # types: [ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    # paths-ignore:
+    #  - 'doc/**'
+    #  - 'examples/**'
+    #  - '*.md'
+    #  - 'README.rst'
+    #  - 'LICENSE.txt'
+    #  - '.gitignore'
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
