@@ -31,6 +31,9 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://tinyurl.com/y22nb8up
+    :alt: PyOpenSci
+    :target: https://github.com/pyOpenSci/software-review/issues/43
 .. image:: https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square
     :alt: GitHub license
     :target: https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
