@@ -45,7 +45,8 @@ fig.basemap(frame="af")
 fig.show()
 
 ###############################################################################
-# Add automatic grid lines to the plot by passing ``g`` to ``frame``:
+# Add automatic grid lines to the plot by passing ``g`` through the ``frame``
+# parameter:
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
