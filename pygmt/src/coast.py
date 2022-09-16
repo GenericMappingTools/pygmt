@@ -37,7 +37,7 @@ from pygmt.helpers import (
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(self, clip=None, **kwargs):
     r"""
     Plot continents, shorelines, rivers, and borders on maps.
 
@@ -81,7 +81,7 @@ def coast(self, **kwargs):
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
-        Select filling or clipping of "dry" areas.
+        Select filling of "dry" areas.
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
@@ -147,7 +147,7 @@ def coast(self, **kwargs):
 
         a = All boundaries (1-3)
     water : str
-        Select filling or clipping of "wet" areas.
+        Select filling of "wet" areas.
     {U}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
@@ -159,6 +159,13 @@ def coast(self, **kwargs):
         lake-in-island-in-lake shore. Pass a list of *level*\ /*pen*
         strings to ``shorelines`` to set multiple levels. When specific
         level pens are set, those not listed will not be drawn.
+    clip : str
+        To clip land do ``clip="land"``, ``clip="water"`` clips water. Use
+        ``clip="end"`` to mark end of existing clip path. The clip path applies
+        to all plotting calls between the start of the clip path and the end of
+        the clip path. No projection information is needed. Also supply
+        ``xshift`` and ``yshift`` settings if you have moved since the clip
+        started.
     dcw : str or list
         *code1,code2,…*\ [**+l**\|\ **L**\ ][**+g**\ *fill*\ ]
         [**+p**\ *pen*\ ][**+z**].
@@ -181,12 +188,47 @@ def coast(self, **kwargs):
     {p}
     {t}
     {V}
+
+    Example
+    -------
+    >>> # Initiate a clip path for Africa so that the subsequent colorimage of
+    >>> # gridded topography is only seen over land
+    >>> import pygmt  # doctest: +SKIP
+    >>> # Load a grid of earth_relief_05m data, with an x-range of -30 to 30,
+    >>> # and a y-range of -40 to 40
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="05m", region=[-30, 30, -40, 40]
+    ... )  # doctest: +SKIP
+    >>> # Create an instance of the Figure class
+    >>> fig = pygmt.Figure()  # doctest: +SKIP
+    >>> # Initiate clip path for land areas based on low-resolution coastlines
+    >>> fig.coast(
+    ...     projection="M12c", resolution="l", clip="land", frame=True
+    ... )  # doctest: +SKIP
+    >>> # Plot the clipped grid
+    >>> fig.grdimage(grid=grid, cmap="relief")  # doctest: +SKIP
+    >>> # End clip path
+    >>> fig.coast(clip="end")  # doctest: +SKIP
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if clip:
+        if clip == "land":
+            kwargs["G"] = True
+        elif clip == "water":
+            kwargs["S"] = True
+        elif clip == "end":
+            kwargs["Q"] = True
+        else:
+            raise GMTInvalidInput(
+                "Invalid clip parameter. Must be one of 'land', 'water', and 'end'."
+            )
+
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
         raise GMTInvalidInput(
             """At least one of the following parameters must be specified:
-            lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
+            lakes, land, water, rivers, borders, dcw, clip, or shorelines"""
         )
+
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_string(kwargs))
