@@ -146,17 +146,6 @@ def show_versions():
                 continue
         return None
 
-    def _get_gmt_version():
-        """
-        Get GMT version.
-        """
-        try:
-            return subprocess.check_output(
-                ["gmt", "--version"], universal_newlines=True
-            ).strip()
-        except FileNotFoundError:
-            return None
-
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
@@ -176,7 +165,6 @@ def show_versions():
     for modname in deps:
         print(f"  {modname}: {_get_module_version(modname)}")
     print(f"  ghostscript: {_get_ghostscript_version()}")
-    print(f"  gmt: {_get_gmt_version()}")
 
     print_clib_info()
 

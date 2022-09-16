@@ -873,7 +873,10 @@ def test_info_dict():
         """
         Put 'bla' in the value buffer.
         """
-        value.value = b"bla"
+        if name == b"API_VERSION":
+            value.value = b"1.2.3"
+        else:
+            value.value = b"bla"
         return 0
 
     ses = clib.Session()
@@ -881,8 +884,11 @@ def test_info_dict():
     with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
         # Check for an empty dictionary
         assert ses.info
-        for value in ses.info.values():
-            assert value == "bla"
+        for key, value in ses.info.items():
+            if key == "version":
+                assert value == "1.2.3"
+            else:
+                assert value == "bla"
     ses.destroy()
 
 

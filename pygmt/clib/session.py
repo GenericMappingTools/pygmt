@@ -158,7 +158,8 @@ class Session:
             self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
-                "binary dir": self.get_default("API_BINDIR"),
+                # API_BINDIR points to the directory of the Python interpreter
+                # "binary dir": self.get_default("API_BINDIR"),
                 "share dir": self.get_default("API_SHAREDIR"),
                 # This segfaults for some reason
                 # 'data dir': self.get_default("API_DATADIR"),
@@ -169,6 +170,9 @@ class Session:
                 # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
+            # API_BIN_VERSION is new in GMT 6.4.0.
+            if Version(self._info["version"]) >= Version("6.4.0"):
+                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):

@@ -511,6 +511,7 @@ class Figure:
         set_panel,
         solar,
         subplot,
+        ternary,
         text,
         velo,
         wiggle,

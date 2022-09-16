@@ -1,0 +1,4 @@
+outs:
+- md5: 2d8e82e8fb76c0cda924ce6f0ccaef77
+  size: 61962
+  path: test_ternary.png
