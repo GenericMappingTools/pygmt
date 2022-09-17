@@ -157,7 +157,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     unit : bool
         Set units for :math:`x, y, r, s`  degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` to km.
+        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
