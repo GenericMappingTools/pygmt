@@ -156,7 +156,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         [Default is ``False``; plane created with spherical trigonometry.]
 
     unit : bool
-        Set units for :math:`x, y, r, s`  degrees and
+        Set units for :math:`x, y, r, s` to degrees and
         :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
         [Default is ``False``; all arguments use the same units]
 
