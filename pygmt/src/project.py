@@ -85,8 +85,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     No assumptions are made regarding the units for
     :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
-    If -Q is selected, map units are assumed and :math:`x, y, r, s` must be in
-    degrees and :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
+    be in degrees and
+    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
