@@ -133,7 +133,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
         Create :math:`(r, s, p)` output data every *dist* units of :math:`p`
-        (See `unit` parameter). Alternatively, append */colat* for a small
+        (See ``unit`` parameter). Alternatively, append */colat* for a small
         circle instead [Default is a colatitude of 90, i.e., a great circle].
         If setting a pole with ``pole`` and you want the small circle to go
         through *cx*/*cy*, append **+c** to compute the required colatitude.
