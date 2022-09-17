@@ -164,7 +164,7 @@ fig.basemap(
     frame=[
         "xa30f",
         "ya",
-        "WNse+gbisque+tprojection='P5c+a+t45+\z' @^ region=[0, 90, 3480, 6371]",  # noqa:W605
+        "WNse+gbisque+tprojection='P5c+a+t45+\\z' @^ region=[0, 90, 3480, 6371]",
     ],
 )
 
