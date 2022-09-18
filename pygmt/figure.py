@@ -70,7 +70,7 @@ class Figure:
     >>> os.remove("my-figure.png")
 
     The plot region can be specified through ISO country codes (for example,
-    ``'JP'`` for Japan):
+    ``"JP"`` for Japan):
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
