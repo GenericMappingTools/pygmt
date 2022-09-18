@@ -340,7 +340,7 @@ class Figure:
         for the current figure. Parameters ``dpi`` and ``width`` can be used
         to control the resolution and dimension of the figure in the notebook.
 
-        Note: The external viewer can be disabled by setting the
+        **Note**: The external viewer can be disabled by setting the
         PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
