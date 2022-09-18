@@ -70,7 +70,7 @@ COMMON_OPTIONS = {
               giving an increment you may specify the *number of nodes* desired
               by appending **+n** to the supplied integer argument; the
               increment is then recalculated from the number of nodes, the
-              *registration*, and the domain. The resulting increment value
+              ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
               <cookbook/file-formats.html#gmt-file-formats>` for details.
@@ -309,7 +309,7 @@ COMMON_OPTIONS = {
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
               specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. *Note**: If ``incols`` is also
+              input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
     "p": r"""
