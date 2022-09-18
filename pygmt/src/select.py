@@ -110,7 +110,7 @@ def select(data=None, outfile=None, **kwargs):
         land].
     {R}
     {V}
-    z_subregion : str
+    z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
         given range or is NaN (use ``skiprows`` to skip NaN records). If *max*
