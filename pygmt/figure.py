@@ -360,8 +360,8 @@ class Figure:
         method : str
             How the current figure will be displayed. Options are
 
-            - **external**: PDF preview in an external program [default]
-            - **notebook**: PNG preview [default in Jupyter notebooks]
+            - **external**: PDF preview in an external program [Default]
+            - **notebook**: PNG preview [Default in Jupyter notebooks]
             - **none**: Disable image preview
         waiting : float
             Suspend the execution of the current process for a given number of
@@ -527,8 +527,8 @@ def set_display(method=None):
     method : str or None
         The method to display an image. Choose from:
 
-        - **external**: PDF preview in an external program [default]
-        - **notebook**: PNG preview [default in Jupyter notebooks]
+        - **external**: PDF preview in an external program [Default]
+        - **notebook**: PNG preview [Default in Jupyter notebooks]
         - **none**: Disable image preview
     """
     if method in ["notebook", "external", "none"]:
