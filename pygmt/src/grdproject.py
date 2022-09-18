@@ -44,11 +44,11 @@ def grdproject(grid, **kwargs):
     avoided by also forward projecting the input grid nodes. If two or more
     nodes are projected onto the same new node, their average will dominate in
     the calculation of the new node value. Interpolation and aliasing is
-    controlled with the ``interpolation`` option. The new node spacing may be
-    determined in one of several ways by specifying the grid spacing, number
-    of nodes, or resolution. Nodes not constrained by input data are set to
-    NaN. The ``region`` parameter can be used to select a map region larger or
-    smaller than that implied by the extent of the grid file.
+    controlled with the ``interpolation`` parameter. The new node spacing may
+    be determined in one of several ways by specifying the grid spacing,
+    number of nodes, or resolution. Nodes not constrained by input data are
+    set to NaN. The ``region`` parameter can be used to select a map region
+    large or smaller than that implied by the extent of the grid file.
 
     Full option list at :gmt-docs:`grdproject.html`
 

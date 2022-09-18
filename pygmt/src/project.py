@@ -63,18 +63,18 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     is to your left. If a Pole has been specified, then the positive
     (:math:`q`) direction is toward the pole.
 
-    To specify an oblique projection, use the ``pole`` option to set
+    To specify an oblique projection, use the ``pole`` parameter to set
     the pole. Then the equator of the projection is already determined and the
-    ``center`` option is used to locate the :math:`p = 0` meridian. The center
-    *cx/cy* will be taken as a point through which the :math:`p = 0` meridian
-    passes. If you do not care to choose a particular point, use the South pole
-    (*cx* = 0, *cy* = -90).
+    ``center`` parameter is used to locate the :math:`p = 0` meridian. The
+    center *cx/cy* will be taken as a point through which the :math:`p = 0`
+    meridian passes. If you do not care to choose a particular point, use the
+    South pole (*cx* = 0, *cy* = -90).
 
     Data can be selectively windowed by using the ``length`` and ``width``
-    options. If ``width`` is used, the projection width is set to use only
+    parameters. If ``width`` is used, the projection width is set to use only
     data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
     the length is set to use only those data with
-    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` option
+    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` parameter
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
 
@@ -85,8 +85,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     No assumptions are made regarding the units for
     :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
-    If -Q is selected, map units are assumed and :math:`x, y, r, s` must be in
-    degrees and :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
+    be in degrees and
+    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
@@ -132,7 +133,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
         Create :math:`(r, s, p)` output data every *dist* units of :math:`p`
-        (See `unit` option). Alternatively, append */colat* for a small
+        (See ``unit`` parameter). Alternatively, append */colat* for a small
         circle instead [Default is a colatitude of 90, i.e., a great circle].
         If setting a pole with ``pole`` and you want the small circle to go
         through *cx*/*cy*, append **+c** to compute the required colatitude.
@@ -156,8 +157,8 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         [Default is ``False``; plane created with spherical trigonometry.]
 
     unit : bool
-        Set units for :math:`x, y, r, s`  degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` to km.
+        Set units for :math:`x, y, r, s` to degrees and
+        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
