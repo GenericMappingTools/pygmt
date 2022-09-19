@@ -54,11 +54,13 @@ extlinks = {
 
 # intersphinx configuration
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
+    "contextily": ("https://contextily.readthedocs.io/en/stable/", None),
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
 
 # options for sphinx-copybutton
