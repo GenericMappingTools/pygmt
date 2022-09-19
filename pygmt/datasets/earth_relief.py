@@ -60,17 +60,17 @@ def load_earth_relief(
 
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
-        ``'03s'`` and ``'01s'`` grids, and the missing ocean values are filled
+        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15
-        arc-second (i.e., ``'15s'``). If True, will only load the original
-        land-only SRTM tiles. Only works when `data_source` is set to `relief`.
+        arc-second (i.e., ``"15s"``). If True, will only load the original
+        land-only SRTM tiles. Only works when ``data_source="relief"``.
 
     data_source : str
         Select the source for the Earth relief data.
 
         Available options:
 
-        - **relief** : IGPP Global Earth Relief [Default option]
+        - **relief** : IGPP Global Earth Relief [Default]
 
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity
