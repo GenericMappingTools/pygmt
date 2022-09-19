@@ -51,8 +51,8 @@ def grdcut(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {J}
-    {R}
+    {projection}
+    {region}
     extend : bool or int or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
@@ -78,8 +78,8 @@ def grdcut(grid, **kwargs):
         considering the range of the core subset for further reduction of the
         area.
 
-    {V}
-    {f}
+    {verbose}
+    {coltypes}
 
     Returns
     -------

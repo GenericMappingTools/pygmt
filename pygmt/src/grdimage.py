@@ -99,8 +99,8 @@ def grdimage(self, grid, **kwargs):
         is selected then we will write a GeoTiff image if the GMT
         projection syntax translates into a PROJ syntax, otherwise a plain
         tiff file is produced. (2) Any vector elements will be lost.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
@@ -141,7 +141,7 @@ def grdimage(self, grid, **kwargs):
         suitable modifiers [Default is no illumination]. **Note**: If the
         input data is an *image* then an *intensfile* or constant *intensity*
         must be provided.
-    {J}
+    {projection}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
         transformation. Cannot be used with ``nan_transparent``.
@@ -152,15 +152,15 @@ def grdimage(self, grid, **kwargs):
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
         3).
-    {R}
-    {V}
-    {XY}
-    {c}
-    {f}
-    {n}
-    {p}
-    {t}
-    {x}
+    {region}
+    {verbose}
+    {xyshift}
+    {panel}
+    {coltypes}
+    {interpolation}
+    {perspective}
+    {transparency}
+    {cores}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

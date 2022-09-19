@@ -223,7 +223,7 @@ class Figure:
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
-        {V}
+        {verbose}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -511,6 +511,7 @@ class Figure:
         set_panel,
         solar,
         subplot,
+        ternary,
         text,
         velo,
         wiggle,

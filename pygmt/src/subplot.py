@@ -83,7 +83,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         typeset your tag numbers using lowercase Roman numerals; use **+R** for
         uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
         tag numbers vertically down columns [horizontally across rows].
-    {B}
+    {frame}
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
@@ -96,7 +96,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         side and 2 cm on south side). Such space will be left untouched by
         the main map plotting but can be accessed by methods that plot
         scales, bars, text, etc.
-    {J}
+    {projection}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
@@ -112,7 +112,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         opposing sides (e.g., east plus west or south plus north margins)
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
-    {R}
+    {region}
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
@@ -145,8 +145,8 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         While individual subplots can have titles (see ``sharex``/``sharey`` or
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
-    {V}
-    {XY}
+    {verbose}
+    {xyshift}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
@@ -216,7 +216,7 @@ def set_panel(self, panel=None, **kwargs):
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
 
-    {V}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # convert tuple or list to comma-separated str

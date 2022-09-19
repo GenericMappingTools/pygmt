@@ -61,24 +61,24 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {registration}
+    {wrap}
 
     Returns
     -------

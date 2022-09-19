@@ -95,10 +95,10 @@ def plot3d(
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {R}
+    {region}
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
@@ -111,13 +111,13 @@ def plot3d(
         stair-case curves that whose first move is along *x* or *y*,
         respectively. **Note**: The ``straight_line`` parameter requires
         constant *z*-coordinates.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     offset : str
         *dx*/*dy*\ [/*dz*].
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
-    {G}
+    {color}
         *color* can be a 1d array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
@@ -151,10 +151,10 @@ def plot3d(
         the foreground are plotted after items in the background.
     style : str
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
-    {U}
-    {V}
-    {W}
-    {XY}
+    {timestamp}
+    {verbose}
+    {pen}
+    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -164,21 +164,21 @@ def plot3d(
         polygon in the input data. To apply it to the fill color, use
         ``color="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {a}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {l}
-    {p}
-    {t}
+    {aspatial}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {label}
+    {perspective}
+    {transparency}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y/z.
-    {w}
+    {wrap}
     """
     # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

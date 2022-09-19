@@ -64,11 +64,11 @@ def info(data, **kwargs):
         Report the min/max of the first (0'th) column to the nearest multiple
         of dz and output this in the form ``[zmin, zmax, dz]``.
 
-    {V}
-    {a}
-    {i}
-    {f}
-    {r}
+    {verbose}
+    {aspatial}
+    {incols}
+    {coltypes}
+    {registration}
 
     Returns
     -------

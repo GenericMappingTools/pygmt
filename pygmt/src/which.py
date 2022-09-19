@@ -48,7 +48,7 @@ def which(fname, **kwargs):
         places downloaded files), **c** to place it in the user cache
         directory, or **u** for the user data directory instead (i.e., ignoring
         any subdirectory structure).
-    {V}
+    {verbose}
 
     Returns
     -------
