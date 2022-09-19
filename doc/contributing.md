@@ -540,7 +540,7 @@ separate PR (e.g., [add missing aliases to grd2xyz](https://github.com/GenericMa
 
 * Select a suitable alias for each GMT option, following the guidelines in the
   [code style](#code-style) section. Before creating a new alias, check if the
-  parameter is listed in the `COMMON_OPTIONS` dictionary in
+  parameter is listed in the `COMMON_DOCSTRINGS` dictionary in
   `pygmt/helpers/decorators.py`, if other wrapped GMT modules have a similar
   parameter, and if [GMT.jl](https://www.generic-mapping-tools.org/GMT.jl/dev/)
   has defined an alias.
@@ -548,7 +548,7 @@ separate PR (e.g., [add missing aliases to grd2xyz](https://github.com/GenericMa
   GMT option as the parameter and the alias as the argument.
 * Add the alias and description to the parameters section of the docstring,
   using the `fmt_docstring` decorator to add descriptions for parameters
-  included in the `COMMON_OPTIONS` dictionary.
+  included in the `COMMON_DOCSTRINGS` dictionary.
 
 ### Testing your Code
 
