@@ -82,16 +82,15 @@ def load_map_tiles(region, source=None, lonlat=False, **kwargs):
         )
 
     west, east, south, north = region
-    image, extent = contextily.bounds2img(
+    image, (left, right, bottom, top) = contextily.bounds2img(
         w=west, s=south, e=east, n=north, source=source, ll=lonlat, **kwargs
     )
 
-    # Turn RGBA image from channel-last to channel-first and get 3band RGB only
-    _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
-    rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
+    # Turn RGBA image from channel-last (H, W, C) to channel-first (C, H, W)
+    # and get just RGB (3 band) by dropping RGBA's alpha channel
+    rgb_image = image.transpose(2, 0, 1)[0:3, :, :]
 
     # Georeference RGB image into an xarray.DataArray
-    left, right, bottom, top = extent  # xmin, xmax, ymin, ymax
     dataarray = xr.DataArray(
         data=rgb_image,
         coords=dict(
