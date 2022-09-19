@@ -71,21 +71,21 @@ def grdcontour(self, grid, **kwargs):
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    {J}
-    {R}
-    {B}
+    {projection}
+    {region}
+    {frame}
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {U}
-    {V}
-    {W}
-    {XY}
-    {c}
-    {f}
+    {timestamp}
+    {verbose}
+    {pen}
+    {xyshift}
+    {panel}
+    {coltypes}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -93,8 +93,8 @@ def grdcontour(self, grid, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {p}
-    {t}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

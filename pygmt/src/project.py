@@ -170,7 +170,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         Set the position of the rotation pole of the projection.
         (Definition 3).
 
-    {V}
+    {verbose}
 
     width : str or list
         *w_min*/*w_max*.
@@ -198,7 +198,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
 
-    {f}
+    {coltypes}
 
     Returns
     -------

@@ -215,14 +215,14 @@ def meca(
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
-    {J}
-    {R}
-    {B}
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    {projection}
+    {region}
+    {frame}
+    {verbose}
+    {xyshift}
+    {panel}
+    {perspective}
+    {transparency}
     """
     # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

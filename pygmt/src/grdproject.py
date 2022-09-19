@@ -64,8 +64,8 @@ def grdproject(grid, **kwargs):
     inverse : bool
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
-    {J}
-    {R}
+    {projection}
+    {region}
     center : str or list
         [*dx*, *dy*].
         Let projected coordinates be relative to projection center [Default
@@ -73,7 +73,7 @@ def grdproject(grid, **kwargs):
         projected units to be added (or subtracted when ``inverse`` is set) to
         (from) the projected coordinates, such as false eastings and
         northings for particular projection zones [0/0].
-    {I}
+    {spacing}
     dpi : int
         Set the resolution for the new grid in dots per inch.
     scaling : str
@@ -86,9 +86,9 @@ def grdproject(grid, **kwargs):
     unit : str
         Append **c**, **i**, or **p** to indicate that cm, inch, or point
         should be the projected measure unit. Cannot be used with ``scaling``.
-    {V}
-    {n}
-    {r}
+    {verbose}
+    {interpolation}
+    {registration}
 
     Returns
     -------

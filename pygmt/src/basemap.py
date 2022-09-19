@@ -48,12 +48,12 @@ def basemap(self, **kwargs):
 
     Parameters
     ----------
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {R}
+    {region}
         *Required if this is the first plot command.*
-    {B}
+    {frame}
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
@@ -82,13 +82,13 @@ def basemap(self, **kwargs):
     compass : str
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
-    {U}
-    {V}
-    {XY}
-    {c}
-    {f}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {xyshift}
+    {panel}
+    {coltypes}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):

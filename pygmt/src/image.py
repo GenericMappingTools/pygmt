@@ -40,8 +40,8 @@ def image(self, imagefile, **kwargs):
         raster file can have a depth of 1, 8, 24, or 32 bits and is read
         via GDAL. **Note**: If GDAL was not configured during GMT installation
         then only EPS files are supported.
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
@@ -55,12 +55,12 @@ def image(self, imagefile, **kwargs):
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {U}
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {xyshift}
+    {panel}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
