@@ -48,7 +48,7 @@ COMMON_DOCSTRINGS = {
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "fill": """\
-        fill : str or 1d array
+        fill : str
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
     "spacing": r"""
