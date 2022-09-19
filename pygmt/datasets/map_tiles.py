@@ -85,17 +85,18 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
         w=west, s=south, e=east, n=north, source=source, ll=ll, **kwargs
     )
 
-    # Turn RGBA image from channel-last to channel-first and get 3-band RGB only
+    # Turn RGBA image from channel-last to channel-first and get 3band RGB only
     _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
     rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
 
     # Georeference RGB image into an xarray.DataArray
+    left, right, bottom, top = extent  # xmin, xmax, ymin, ymax
     dataarray = xr.DataArray(
         data=rgb_image,
         coords=dict(
             band=[0, 1, 2],  # Red, Green, Blue
-            y=np.linspace(start=north, stop=south, num=rgb_image.shape[1]),
-            x=np.linspace(start=west, stop=east, num=rgb_image.shape[2]),
+            y=np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
+            x=np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         ),
         dims=("band", "y", "x"),
     )
