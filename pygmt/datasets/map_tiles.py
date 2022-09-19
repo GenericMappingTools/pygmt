@@ -12,7 +12,7 @@ import numpy as np
 import xarray as xr
 
 
-def load_map_tiles(region, source=None, ll=False, **kwargs):
+def load_map_tiles(region, source=None, lonlat=False, **kwargs):
     """
     Load a georeferenced raster basemap from XYZ tile providers.
 
@@ -25,7 +25,8 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
     region : list
         The bounding box of the map in the form of a list [*xmin*, *xmax*,
         *ymin*, *ymax*]. These coordinates should be in Spherical Mercator
-        (EPSG:3857) if ``ll=False``, or longitude/latitude if ``ll=True``.
+        (EPSG:3857) if ``lonlat=False``, or longitude/latitude if
+        ``lonlat=True``.
 
     source : xyzservices.TileProvider or str
         [Optional. Default: Stamen Terrain web tiles] The tile source: web tile
@@ -36,7 +37,7 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
         all bands are loaded into the basemap. IMPORTANT: tiles are assumed to
         be in the Spherical Mercator projection (EPSG:3857).
 
-    ll : bool
+    lonlat : bool
         [Optional. Default: False]. If True, coordinates in ``region`` are
         assumed to be lon/lat as opposed to Spherical Mercator.
 
@@ -62,7 +63,7 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
     >>> raster = load_map_tiles(
     ...     region=[103.60, 104.06, 1.22, 1.49],  # West, East, South, North
     ...     source=contextily.providers.Stamen.TerrainBackground,
-    ...     ll=True,  # bounding box coordinates are longitude/latitude
+    ...     lonlat=True,  # bounding box coordinates are longitude/latitude
     ... )
     >>> raster.sizes
     Frozen({'band': 3, 'y': 1024, 'x': 1536})
@@ -82,7 +83,7 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(
-        w=west, s=south, e=east, n=north, source=source, ll=ll, **kwargs
+        w=west, s=south, e=east, n=north, source=source, ll=lonlat, **kwargs
     )
 
     # Turn RGBA image from channel-last to channel-first and get 3band RGB only
