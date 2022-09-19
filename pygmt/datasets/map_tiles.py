@@ -59,7 +59,6 @@ def load_map_tiles(region, source=None, ll=False, **kwargs):
     --------
     >>> import contextily
     >>> from pygmt.datasets import load_map_tiles
-    ...
     >>> raster = load_map_tiles(
     ...     region=[103.60, 104.06, 1.22, 1.49],  # West, East, South, North
     ...     source=contextily.providers.Stamen.TerrainBackground,
