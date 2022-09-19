@@ -47,7 +47,7 @@ def colorbar(self, **kwargs):
     ----------
     frame : str or list
         Set color bar boundary frame, labels, and axes attributes.
-    {CPT}
+    {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         [**+w**\ *length*\ [/\ *width*]]\ [**+e**\ [**b**\|\ **f**][*length*]]\
@@ -99,11 +99,11 @@ def colorbar(self, **kwargs):
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    {verbose}
+    {xyshift}
+    {panel}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

@@ -55,9 +55,9 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
-    {V}
+    {spacing}
+    {region}
+    {verbose}
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates

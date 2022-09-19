@@ -184,18 +184,18 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {U}
-    {V}
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {h}
-    {i}
-    {p}
-    {t}
-    {w}
+    {timestamp}
+    {verbose}
+    {xyshift}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

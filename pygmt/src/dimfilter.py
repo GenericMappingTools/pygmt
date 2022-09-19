@@ -116,7 +116,7 @@ def dimfilter(grid, **kwargs):
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Defines the region of the output points. [Default: Same as input.]
-    {V}
+    {verbose}
 
     Returns
     -------

@@ -55,15 +55,15 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         {table-classes}
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    {J}
-    {R}
+    {projection}
+    {region}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
-    {B}
+    {frame}
     levels : str or int
         Specify the contour lines to generate.
 
@@ -96,7 +96,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
-    {W}
+    {pen}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -104,18 +104,18 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {U}
-    {V}
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {xyshift}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

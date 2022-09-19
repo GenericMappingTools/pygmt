@@ -54,14 +54,14 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {J}
-    {R}
+    {projection}
+    {region}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (cm, inch, or point); if no unit
         is given we use the default unit that is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT`.
-    {B}
+    {frame}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
@@ -78,22 +78,22 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {U}
-    {V}
+    {timestamp}
+    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {p}
-    {t}
-    {w}
+    {xyshift}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
