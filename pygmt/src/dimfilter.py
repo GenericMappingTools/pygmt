@@ -40,8 +40,8 @@ def dimfilter(grid, **kwargs):
     subregion of the input and/or with a new increment using ``spacing``,
     which may add an "extra space" in the input data to prevent edge
     effects for the output grid. If the filter is low-pass, then the output
-    may be less frequently sampled than the input. **dimfilter** will not
-    produce a smooth output as other spatial filters
+    may be less frequently sampled than the input. :func:`pygmt.dimfilter`
+    will not produce a smooth output as other spatial filters
     do because it returns a minimum median out of *N* medians of *N*
     sectors. The output can be rough unless the input data is noise-free.
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
@@ -116,7 +116,7 @@ def dimfilter(grid, **kwargs):
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
         Defines the region of the output points. [Default: Same as input.]
-    {V}
+    {verbose}
 
     Returns
     -------

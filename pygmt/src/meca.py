@@ -202,7 +202,7 @@ def meca(
         ``event_name`` values in ``spec`` if ``spec`` is a dict or
         pd.DataFrame.
     offset: bool or str
-        [**+p**\ *pen*][**+s**\ *size].
+        [**+p**\ *pen*][**+s**\ *size*].
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by ``plot_longitude`` and
         ``plot_latitude`` if provided. A small circle is plotted at the initial
@@ -213,13 +213,13 @@ def meca(
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         *region* [Default is False, i.e. plot symbols inside map frame only].
-    {J}
-    {R}
-    {B}
-    {V}
-    {c}
-    {p}
-    {t}
+    {projection}
+    {region}
+    {frame}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
     # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

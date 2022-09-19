@@ -77,9 +77,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -110,9 +110,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
+          by the ``pen`` parameter and the arrow-head can be colored via
           ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -152,25 +152,25 @@ def velo(self, data=None, **kwargs):
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {J}
-    {R}
+    {projection}
+    {region}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec='e'``
-        and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
+        can be used to rescale the uncertainties of velocities (``spec="e"``
+        and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintycolor : str
         Sets the color or shade used for filling uncertainty wedges
-        (``spec='w'``) or velocity error ellipses (``spec='e'`` or
-        ``spec='r'``). If ``uncertaintycolor`` is not specified, the
+        (``spec="w"``) or velocity error ellipses (``spec="e"`` or
+        ``spec="r"``). If ``uncertaintycolor`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
-        ``zvalue='+e'`` will update the uncertainty fill color based on the
+        ``zvalue="+e"`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
     color : str
@@ -206,8 +206,8 @@ def velo(self, data=None, **kwargs):
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
         by ``region``. [Default plots symbols inside frame only].
-    {U}
-    {V}
+    {timestamp}
+    {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -225,13 +225,13 @@ def velo(self, data=None, **kwargs):
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {c}
-    {d}
-    {e}
-    {h}
-    {i}
-    {p}
-    {t}
+    {panel}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

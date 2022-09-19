@@ -59,8 +59,9 @@ class Figure:
     Examples
     --------
 
-    >>> fig = Figure()
-    >>> fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
@@ -71,8 +72,9 @@ class Figure:
     The plot region can be specified through ISO country codes (for example,
     ``'JP'`` for Japan):
 
-    >>> fig = Figure()
-    >>> fig.basemap(region="JP", projection="M3i", frame=True)
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region="JP", projection="M7c", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
@@ -147,7 +149,7 @@ class Figure:
 
         If no input files are given, will convert the current active figure
         (see :class:`pygmt.Figure`). In this case, an output name must be given
-        using parameter *prefix*.
+        using parameter ``prefix``.
 
         Full option list at :gmt-docs:`psconvert.html`
 
@@ -221,7 +223,7 @@ class Figure:
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
-        {V}
+        {verbose}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -509,6 +511,7 @@ class Figure:
         set_panel,
         solar,
         subplot,
+        ternary,
         text,
         velo,
         wiggle,

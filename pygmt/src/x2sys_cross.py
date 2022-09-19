@@ -98,9 +98,9 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         suffix specified for this TAG. Track files will be searched for first
         in the current directory and second in all directories listed in
         $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
-        set it will default to $GMT_SHAREDIR/x2sys]. (Note: MGD77 files will
-        also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt files
-        will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
+        set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
+        will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
+        files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
 
     outfile : str
         Optional. The file name for the output ASCII txt file to store the
@@ -153,7 +153,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {R}
+    {region}
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -170,7 +170,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {V}
+    {verbose}
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover

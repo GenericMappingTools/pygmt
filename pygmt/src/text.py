@@ -112,8 +112,8 @@ def text_(
         **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
         left. If no justification is explicitly given (i.e. ``justify=True``),
         then the input to ``textfiles`` must have this as a column.
-    {J}
-    {R}
+    {projection}
+    {region}
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
@@ -146,19 +146,19 @@ def text_(
         style = solid].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
-    {U}
-    {V}
-    {a}
-    {c}
-    {e}
-    {f}
-    {h}
-    {i}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {aspatial}
+    {panel}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
         *transparency* can also be a 1d array to set varying transparency
         for texts, but this option is only valid if using x/y/text.
-    {w}
+    {wrap}
     """
     # pylint: disable=too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

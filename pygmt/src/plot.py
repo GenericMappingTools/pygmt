@@ -88,12 +88,12 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
     direction : list of two 1d arrays
-        If plotting vectors (using ``style='V'`` or ``style='v'``), then
+        If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1d arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
-    {J}
-    {R}
+    {projection}
+    {region}
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
@@ -105,8 +105,8 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         simply connected, unless you append **x** or **y** to draw
         stair-case curves that whose first move is along *x* or *y*,
         respectively.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     offset : str
         *dx*/*dy*.
         Offset the plot symbol or line locations by the given amounts
@@ -144,12 +144,12 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
           incoming segment [Default].
         - **r** : Same as **s**, but the group reference point is reset
           after each record to the previous point (this method is only
-          available with the ``connection='r'`` scheme).
+          available with the ``connection="r"`` scheme).
 
         Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
-    {G}
+    {color}
         *color* can be a 1d array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
@@ -179,9 +179,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     style : str
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
-    {W}
-    {U}
-    {V}
+    {pen}
+    {timestamp}
+    {verbose}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
@@ -189,23 +189,23 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
-        ``color='+z'``. To apply it to the pen color, append **+z** to
+        ``color="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
-    {a}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {l}
-    {p}
-    {t}
+    {aspatial}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {label}
+    {perspective}
+    {transparency}
         *transparency* can also be a 1d array to set varying transparency
         for symbols, but this option is only valid if using x/y.
-    {w}
+    {wrap}
     """
     # pylint: disable=too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

@@ -53,13 +53,13 @@ def histogram(self, data, **kwargs):
     data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
-    {J}
-    {R}
-    {B}
-    {CPT}
-    {G}
-    {W}
-    {c}
+    {projection}
+    {region}
+    {frame}
+    {cmap}
+    {color}
+    {pen}
+    {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents.  Append any of the
@@ -122,17 +122,17 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {U}
-    {V}
-    {b}
-    {d}
-    {e}
-    {h}
-    {i}
-    {l}
-    {p}
-    {t}
-    {w}
+    {timestamp}
+    {verbose}
+    {binary}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {label}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

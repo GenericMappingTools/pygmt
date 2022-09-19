@@ -34,8 +34,8 @@ def logo(self, **kwargs):
 
     Parameters
     ----------
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
@@ -51,10 +51,10 @@ def logo(self, **kwargs):
           [Default]
         - **n** to skip the label placement
         - **u** to place the URL to the GMT site
-    {U}
-    {V}
-    {c}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

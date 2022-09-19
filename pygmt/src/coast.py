@@ -61,11 +61,11 @@ def coast(self, **kwargs):
 
     Parameters
     ----------
-    {J}
-    {R}
+    {projection}
+    {region}
         *Required if this is the first plot command.*
-    {A}
-    {B}
+    {area_thresh}
+    {frame}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -146,7 +146,7 @@ def coast(self, **kwargs):
         a = All boundaries (1-3)
     water : str
         Select filling or clipping of "wet" areas.
-    {U}
+    {timestamp}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
@@ -170,14 +170,14 @@ def coast(self, **kwargs):
         .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
         prepend **=** to any of the continent codes (e.g. =EU for Europe).
         Append **+p**\ *pen* to draw polygon outlines
-        (default is no outline) and **+g**\ *fill* to fill them
-        (default is no fill). Append **+l**\|\ **+L** to =\ *continent* to
+        [Default is no outline] and **+g**\ *fill* to fill them
+        [Default is no fill]. Append **+l**\|\ **+L** to =\ *continent* to
         only list countries in that continent; repeat if more than one
         continent is requested.
-    {c}
-    {p}
-    {t}
-    {V}
+    {panel}
+    {perspective}
+    {transparency}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):

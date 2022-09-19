@@ -47,19 +47,19 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set the UTC date and time of the displayed terminator. It can be
         passed as a string or Python datetime object.
         [Default is the current UTC date and time]
-    {R}
-    {J}
-    {B}
+    {region}
+    {projection}
+    {frame}
     fill : str
         Color or pattern for filling of terminators.
     pen : str
         Set pen attributes for lines. The default pen
         is ``default,black,solid``.
-    {U}
-    {V}
-    {c}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

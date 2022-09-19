@@ -48,11 +48,11 @@ def grdimage(self, grid, **kwargs):
     instructions to derive intensities from the input data grid. Values outside
     this range will be clipped. Such intensity files can be created from the
     grid using :func:`pygmt.grdgradient` and, optionally, modified by
-    ``grdmath`` or ``grdhisteq``. If GMT is built with GDAL support, ``grid``
-    can be an image file (geo-referenced or not). In this case the image can
-    optionally be illuminated with the file provided via the ``shading``
-    parameter. Here, if image has no coordinates then those of the intensity
-    file will be used.
+    :gmt-docs:`grdmath.html` or :class:`pygmt.grdhisteq`. If GMT is built
+    with GDAL support, ``grid`` can be an image file (geo-referenced or not).
+    In this case the image can optionally be illuminated with the file
+    provided via the ``shading`` parameter. Here, if image has no coordinates
+    then those of the intensity file will be used.
 
     When using map projections, the grid is first resampled on a new
     rectangular grid with the same dimensions. Higher resolution images can
@@ -93,12 +93,12 @@ def grdimage(self, grid, **kwargs):
         drivers. Append a **+c**\ *args* string where *args* is a list
         of one or more concatenated number of GDAL **-co** arguments. For
         example, to write a GeoPDF with the TerraGo format use
-        ``=PDF+cGEO_ENCODING=OGC_BP``. Notes: (1) If a tiff file (.tif) is
-        selected then we will write a GeoTiff image if the GMT projection
-        syntax translates into a PROJ syntax, otherwise a plain tiff file
-        is produced. (2) Any vector elements will be lost.
-    {B}
-    {CPT}
+        ``=PDF+cGEO_ENCODING=OGC_BP``. **Notes**: (1) If a tiff file (.tif)
+        is selected then we will write a GeoTiff image if the GMT
+        projection syntax translates into a PROJ syntax, otherwise a plain
+        tiff file is produced. (2) Any vector elements will be lost.
+    {frame}
+    {cmap}
     img_in : str
         [**r**].
         GMT will automatically detect standard image files (Geotiff, TIFF,
@@ -106,9 +106,9 @@ def grdimage(self, grid, **kwargs):
         image formats you may need to explicitly set ``img_in``, which
         specifies that the grid is in fact an image file to be read via
         GDAL. Append **r** to assign the region specified by ``region``
-        to the image. For example, if you have used ``region='d'`` then the
-        image will be assigned a global domain. This mode allows you to
-        project a raw image (an image without referencing coordinates).
+        to the image. For example, if you have used ``region="d"`` then
+        the image will be assigned a global domain. This mode allows you
+        to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
         Sets the resolution of the projected grid that will be created if a
@@ -136,10 +136,10 @@ def grdimage(self, grid, **kwargs):
         want a more specific intensity scenario then run
         :func:`pygmt.grdgradient` separately first. If we should derive
         intensities from another file than grid, specify the file with
-        suitable modifiers [Default is no illumination]. Note: If the input
-        data is an *image* then an *intensfile* or constant *intensity* must
-        be provided.
-    {J}
+        suitable modifiers [Default is no illumination]. **Note**: If the
+        input data is an *image* then an *intensfile* or constant *intensity*
+        must be provided.
+    {projection}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
         transformation. Cannot be used with ``nan_transparent``.
@@ -150,14 +150,14 @@ def grdimage(self, grid, **kwargs):
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
         3).
-    {R}
-    {V}
-    {c}
-    {f}
-    {n}
-    {p}
-    {t}
-    {x}
+    {region}
+    {verbose}
+    {panel}
+    {coltypes}
+    {interpolation}
+    {perspective}
+    {transparency}
+    {cores}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
