@@ -10,15 +10,16 @@ LINT_FILES=$(PROJECT) doc/conf.py
 help:
 	@echo "Commands:"
 	@echo ""
-	@echo "  install   install in editable mode"
-	@echo "  package   build source and wheel distributions"
-	@echo "  test      run the test suite (including some doctests) and report coverage"
-	@echo "  fulltest  run the test suite (including all doctests) and report coverage"
-	@echo "  format    run black, blackdoc, docformatter and isort to automatically format the code"
-	@echo "  check     run code style and quality checks (black, blackdoc, docformatter, flakeheaven and isort)"
-	@echo "  lint      run pylint for a deeper (and slower) quality check"
-	@echo "  clean     clean up build and generated files"
-	@echo "  distclean clean up build and generated files, including project metadata files"
+	@echo "  install        install in editable mode"
+	@echo "  package        build source and wheel distributions"
+	@echo "  test           run the test suite (including some doctests) and report coverage"
+	@echo "  fulltest       run the test suite (including all doctests) and report coverage"
+	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
+	@echo "  format         run black, blackdoc, docformatter and isort to automatically format the code"
+	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, flakeheaven and isort)"
+	@echo "  lint           run pylint for a deeper (and slower) quality check"
+	@echo "  clean          clean up build and generated files"
+	@echo "  distclean      clean up build and generated files, including project metadata files"
 	@echo ""
 
 install:
@@ -47,6 +48,20 @@ fulltest:
 	cd $(TESTDIR); PYGMT_USE_EXTERNAL_DISPLAY="false" pytest $(PYTEST_COV_ARGS) $(PROJECT)
 	cp $(TESTDIR)/coverage.xml .
 	cp -r $(TESTDIR)/htmlcov .
+	rm -r $(TESTDIR)
+
+test_no_images:
+	# Run a tmp folder to make sure the tests are run on the installed version
+	mkdir -p $(TESTDIR)
+	@echo ""
+	@cd $(TESTDIR); python -c "import $(PROJECT); $(PROJECT).show_versions()"
+	@echo ""
+	# run pytest without the --mpl option to disable image comparisons
+	# use -o to override the addopts in pyproject.toml file
+	cd $(TESTDIR); \
+		PYGMT_USE_EXTERNAL_DISPLAY="false" \
+		pytest -o addopts="--verbose --durations=0 --durations-min=0.2 --doctest-modules" \
+		$(PYTEST_COV_ARGS) $(PROJECT)
 	rm -r $(TESTDIR)
 
 format:

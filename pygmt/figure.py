@@ -70,7 +70,7 @@ class Figure:
     >>> os.remove("my-figure.png")
 
     The plot region can be specified through ISO country codes (for example,
-    ``'JP'`` for Japan):
+    ``"JP"`` for Japan):
 
     >>> import pygmt
     >>> fig = pygmt.Figure()
@@ -216,14 +216,14 @@ class Figure:
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
-            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            PPM, **s** means SVG, and **t** means TIFF [Default is JPEG]. To
             **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
             order to get a monochrome (grayscale) image. The EPS format can be
             combined with any of the other formats. For example, **ef** creates
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
-        {V}
+        {verbose}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
@@ -340,7 +340,7 @@ class Figure:
         for the current figure. Parameters ``dpi`` and ``width`` can be used
         to control the resolution and dimension of the figure in the notebook.
 
-        Note: The external viewer can be disabled by setting the
+        **Note**: The external viewer can be disabled by setting the
         PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
@@ -360,8 +360,8 @@ class Figure:
         method : str
             How the current figure will be displayed. Options are
 
-            - **external**: PDF preview in an external program [default]
-            - **notebook**: PNG preview [default in Jupyter notebooks]
+            - **external**: PDF preview in an external program [Default]
+            - **notebook**: PNG preview [Default in Jupyter notebooks]
             - **none**: Disable image preview
         waiting : float
             Suspend the execution of the current process for a given number of
@@ -511,6 +511,7 @@ class Figure:
         set_panel,
         solar,
         subplot,
+        ternary,
         text,
         velo,
         wiggle,
@@ -526,8 +527,8 @@ def set_display(method=None):
     method : str or None
         The method to display an image. Choose from:
 
-        - **external**: PDF preview in an external program [default]
-        - **notebook**: PNG preview [default in Jupyter notebooks]
+        - **external**: PDF preview in an external program [Default]
+        - **notebook**: PNG preview [Default in Jupyter notebooks]
         - **none**: Disable image preview
     """
     if method in ["notebook", "external", "none"]:

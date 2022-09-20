@@ -94,7 +94,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         or file names. Supported file formats are ASCII, native binary, or
         COARDS netCDF 1-D data. More columns may also be present.
 
-        If the filenames are missing their file extension, we will append the
+        If the file names are missing their file extension, we will append the
         suffix specified for this TAG. Track files will be searched for first
         in the current directory and second in all directories listed in
         $X2SYS_HOME/TAG/TAG_paths.txt (if it exists). [If $X2SYS_HOME is not
@@ -118,7 +118,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     runtimes : bool or str
         Compute and append the processing run-time for each pair to the
-        progress message (use ``runtimes=True``). Pass in a filename (e.g.
+        progress message (use ``runtimes=True``). Pass in a file name (e.g.
         ``runtimes="file.txt"``) to save these run-times to file. The idea here
         is to use the knowledge of run-times to split the main process in a
         number of sub-processes that can each be launched in a different
@@ -153,7 +153,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         Use **e** for external COEs only, and **i** for internal COEs only
         [Default is all COEs].
 
-    {R}
+    {region}
 
     speed : str or list
         **l**\|\ **u**\|\ **h**\ *speed*.
@@ -170,7 +170,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         speed of 0, upper speed of 10, and disable heading calculations for
         speeds below 5.
 
-    {V}
+    {verbose}
 
     numpoints : int
         Give the maximum number of data points on either side of the crossover
