@@ -32,7 +32,9 @@ def load_earth_relief(
     registration type (**p** for pixel registration or **g** for gridline
     registration).
 
-    Refer to :gmt-datasets:`earth-relief.html` for more details.
+    Refer to :gmt-datasets:`earth-relief.html` for more details for more
+    details about available datasets, including version information and
+    references.
 
     Parameters
     ----------
@@ -61,7 +63,7 @@ def load_earth_relief(
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15
+        by up-sampling the SRTM15 tiles which have a resolution of 15
         arc-second (i.e., ``"15s"``). If True, will only load the original
         land-only SRTM tiles. Only works when ``data_source="relief"``.
 
