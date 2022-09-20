@@ -73,7 +73,8 @@ def load_earth_relief(
         - **relief** : IGPP Global Earth Relief [Default]
 
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
-          inferred relief via altimetric gravity
+          inferred relief via altimetric gravity. See
+          :gmt-datasets:`earth-gebco.html`.
 
     Returns
     -------
@@ -145,7 +146,10 @@ def load_earth_relief(
     elif data_source == "gebco":
         earth_relief_prefix = "earth_gebco_"
     else:
-        raise GMTInvalidInput("Invalid input for 'data_source'.")
+        raise GMTInvalidInput(
+            f"Invalid earth relief 'data_source' {data_source}, "
+            "valid values are 'relief' and 'gebco'."
+        )
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
