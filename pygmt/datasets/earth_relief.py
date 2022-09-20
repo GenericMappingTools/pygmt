@@ -26,11 +26,11 @@ def load_earth_relief(
     this function. Afterwards, it will load the grid from the data directory.
     So you'll need an internet connection the first time around.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_relief**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    This module downloads the grids that can also be accessed by
+    passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
+    any grid plotting/processing function. *res* is the grid resolution
+    (see below), and *reg* is grid registration type (**p** for pixel
+    registration or **g** for gridline registration).
 
     Refer to :gmt-datasets:`earth-relief.html` for more details for more
     details about available datasets, including version information and
