@@ -16,7 +16,7 @@ def load_earth_relief(
     region=None,
     registration=None,
     use_srtm=False,
-    data_source="relief",
+    data_source="igpp",
 ):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
@@ -65,14 +65,14 @@ def load_earth_relief(
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15 tiles which have a resolution of 15
         arc-second (i.e., ``"15s"``). If True, will only load the original
-        land-only SRTM tiles. Only works when ``data_source="relief"``.
+        land-only SRTM tiles. Only works when ``data_source="igpp"``.
 
     data_source : str
         Select the source for the Earth relief data.
 
         Available options:
 
-        - **relief** : IGPP Global Earth Relief [Default]
+        - **igpp** : IGPP Global Earth Relief [Default]
 
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
@@ -141,7 +141,7 @@ def load_earth_relief(
         )
 
     # Choose earth relief data prefix
-    if data_source == "relief":
+    if data_source == "igpp":
         earth_relief_prefix = "earth_relief_"
         if use_srtm and resolution in land_only_srtm_resolutions:
             earth_relief_prefix = "srtm_relief_"

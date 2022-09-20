@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 @pytest.mark.parametrize(
     "data_source",
-    ["relief", "gebco"],
+    ["igpp", "gebco"],
 )
 def test_earth_relief_fails(data_source):
     """
@@ -29,7 +29,7 @@ def test_earth_relief_01d_srtm():
     Test some properties of the earth relief 01d data with SRTM data.
     """
     data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source="relief"
+        resolution="01d", registration="gridline", data_source="igpp"
     )
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
@@ -60,7 +60,7 @@ def test_earth_relief_01d_with_region_srtm():
         resolution="01d",
         region=[-10, 10, -5, 5],
         registration="gridline",
-        data_source="relief",
+        data_source="igpp",
     )
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
