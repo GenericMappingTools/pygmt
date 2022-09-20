@@ -73,10 +73,10 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         assigned to each node (this only requires two input columns *x* and
         *y* as *z* is not consulted). Append **z** to sum multiple values that
         belong to the same node.
-    {I}
-    {J}
-    {R}
-    {V}
+    {spacing}
+    {projection}
+    {region}
+    {verbose}
     convention : str
         [*flags*].
         Read a 1-column ASCII [or binary] table. This assumes that all the
@@ -117,14 +117,14 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         each input record to have a single value, while the former can handle
         multiple values per record but can only parse regular floating point
         values. Translate incoming *z*-values via the ``incols`` parameter.
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {r}
-    {w}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {registration}
+    {wrap}
 
     Returns
     -------

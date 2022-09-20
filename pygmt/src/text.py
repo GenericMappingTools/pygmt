@@ -77,7 +77,7 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of filenames containing 1 or more
+        A text data file name, or a list of file names containing 1 or more
         records with (x, y[, angle, font, justify], text).
     x/y : float or 1d arrays
         The x and y coordinates, or an array of x and y coordinates to plot
@@ -115,8 +115,8 @@ def text_(
         **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
         left. If no justification is explicitly given (i.e. ``justify=True``),
         then the input to ``textfiles`` must have this as a column.
-    {J}
-    {R}
+    {projection}
+    {region}
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
@@ -149,23 +149,23 @@ def text_(
         style = solid].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
-    {U}
-    {V}
-    {XY}
-    {a}
-    {c}
-    {e}
-    {f}
-    {h}
+    {timestamp}
+    {verbose}
+    {xyshift}
+    {aspatial}
+    {panel}
+    {find}
+    {coltypes}
+    {header}
     use_word : int
         Select a specific word from the trailing text, with the first
         word being 0 [Default is the entire trailing text]. No numerical
         columns can be specified.
-    {p}
-    {t}
+    {perspective}
+    {transparency}
         *transparency* can also be a 1d array to set varying transparency
         for texts, but this option is only valid if using x/y/text.
-    {w}
+    {wrap}
     """
     # pylint: disable=too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

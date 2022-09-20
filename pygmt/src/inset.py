@@ -106,9 +106,9 @@ def inset(self, **kwargs):
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
         is clip].
-    {R}
-    {J}
-    {V}
+    {region}
+    {projection}
+    {verbose}
 
     Examples
     --------

@@ -84,9 +84,9 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     search_radius : str
         Sets the search radius that determines which data points are considered
@@ -113,17 +113,17 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {registration}
+    {wrap}
 
     Returns
     -------

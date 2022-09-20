@@ -93,14 +93,14 @@ def binstats(data, **kwargs):
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {I}
-    {R}
-    {V}
-    {a}
-    {b}
-    {h}
-    {i}
-    {r}
+    {spacing}
+    {region}
+    {verbose}
+    {aspatial}
+    {binary}
+    {header}
+    {incols}
+    {registration}
 
     Returns
     -------
