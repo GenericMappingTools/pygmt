@@ -47,9 +47,9 @@ def grdcontour(self, grid, **kwargs):
     interval : str or int
         Specify the contour lines to generate.
 
-        - The filename of a CPT file where the color boundaries will
+        - The file name of a CPT file where the color boundaries will
           be used as contour levels.
-        - The filename of a 2 (or 3) column file containing the contour
+        - The file name of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
           angle (col 3)
         - A fixed contour interval *cont_int* or a single contour with
@@ -71,21 +71,21 @@ def grdcontour(self, grid, **kwargs):
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    {J}
-    {R}
-    {B}
+    {projection}
+    {region}
+    {frame}
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {U}
-    {V}
-    {W}
-    {XY}
-    {c}
-    {f}
+    {timestamp}
+    {verbose}
+    {pen}
+    {xyshift}
+    {panel}
+    {coltypes}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -93,8 +93,8 @@ def grdcontour(self, grid, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {p}
-    {t}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

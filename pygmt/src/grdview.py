@@ -65,10 +65,10 @@ def grdview(self, grid, **kwargs):
         When used with ``perspective``, optionally append */zmin/zmax* to
         indicate the range to use for the 3-D axes [Default is the region in
         the input grid].
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {B}
+    {frame}
     cmap : str
         The name of the color palette table to use.
     drapegrid : str or xarray.DataArray
@@ -113,13 +113,13 @@ def grdview(self, grid, **kwargs):
         specify azimuth, intensity, and ambient arguments for that function,
         or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
-    {V}
-    {XY}
-    {c}
-    {f}
-    {n}
-    {p}
-    {t}
+    {verbose}
+    {xyshift}
+    {panel}
+    {coltypes}
+    {interpolation}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

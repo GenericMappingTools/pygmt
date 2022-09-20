@@ -112,7 +112,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
@@ -123,22 +123,22 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         - **s** - report the sum of all z-values inside a block
         - **w** - report the sum of weights
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {i}
-    {f}
-    {h}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {incols}
+    {coltypes}
+    {header}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -208,24 +208,24 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -295,24 +295,24 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------

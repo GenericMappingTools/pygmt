@@ -154,15 +154,15 @@ def velo(self, data=None, **kwargs):
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {J}
-    {R}
+    {projection}
+    {region}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     rescale : str
         can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
@@ -208,8 +208,8 @@ def velo(self, data=None, **kwargs):
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
         by ``region``. [Default plots symbols inside frame only].
-    {U}
-    {V}
+    {timestamp}
+    {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
@@ -218,7 +218,7 @@ def velo(self, data=None, **kwargs):
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill
         only [Default].  Use just **+c** to set both pen and fill color.
-    {XY}
+    {xyshift}
     zvalue : str
         [**m**\|\ **e**\|\ **n**\|\ **u**\ ][**+e**].
         Select the quantity that will be used with the CPT given via ``cmap``
@@ -228,13 +228,13 @@ def velo(self, data=None, **kwargs):
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {c}
-    {d}
-    {e}
-    {h}
-    {i}
-    {p}
-    {t}
+    {panel}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

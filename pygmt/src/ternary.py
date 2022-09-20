@@ -52,18 +52,18 @@ def ternary(self, data, **kwargs):
         [*amin*, *amax*, *bmin*, *bmax*, *cmin*, *cmax*].
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
-    {CPT}
-    {G}
+    {cmap}
+    {color}
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
-    {W}
-    {XY}
-    {U}
-    {V}
-    {c}
-    {p}
-    {t}
+    {pen}
+    {xyshift}
+    {timestamp}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

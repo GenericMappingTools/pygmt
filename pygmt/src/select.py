@@ -69,7 +69,7 @@ def select(data=None, outfile=None, **kwargs):
         {table-classes}.
     outfile : str
         The file name for the output ASCII file.
-    {A}
+    {area_thresh}
     resolution : str
         *resolution*\ [**+f**].
         Ignored unless ``mask`` is set. Selects the resolution of the coastline
@@ -97,7 +97,7 @@ def select(data=None, outfile=None, **kwargs):
           (and ``area_thresh``, ``resolution``).
         - **z** select records NOT within the range specified by
           ``z_subregion``.
-    {J}
+    {projection}
     mask : str or list
         Pass all records whose location is inside specified geographical
         features. Specify if records should be skipped (s) or kept (k) using
@@ -108,8 +108,8 @@ def select(data=None, outfile=None, **kwargs):
 
         [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry
         land].
-    {R}
-    {V}
+    {region}
+    {verbose}
     z_subregion : str or list
         *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].
         Pass all records whose 3rd column (*z*; *col* = 2) lies within the
@@ -129,17 +129,17 @@ def select(data=None, outfile=None, **kwargs):
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` option, starting with 2.
-    {b}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {o}
-    {r}
-    {s}
-    {w}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {skiprows}
+    {wrap}
 
     Returns
     -------

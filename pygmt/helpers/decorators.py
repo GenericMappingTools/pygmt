@@ -14,16 +14,16 @@ import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
-COMMON_OPTIONS = {
-    "R": r"""
+COMMON_DOCSTRINGS = {
+    "region": r"""
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
-    "J": r"""
+    "projection": r"""
         projection : str
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
-    "A": r"""
+    "area_thresh": r"""
         area_thresh : int or float or str
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
@@ -31,23 +31,23 @@ COMMON_OPTIONS = {
             hierarchical level that is lower than *min_level* or higher than
             *max_level* will not be plotted [Default is 0/0/4 (all
             features)].""",
-    "B": r"""
+    "frame": r"""
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "U": """\
+    "timestamp": """\
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
-    "CPT": r"""
+    "cmap": r"""
         cmap : str
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "G": """\
+    "color": """\
         color : str or 1d array
             Select color or pattern for filling of symbols or polygons. Default
             is no fill.""",
-    "I": r"""
+    "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
@@ -70,7 +70,7 @@ COMMON_OPTIONS = {
               giving an increment you may specify the *number of nodes* desired
               by appending **+n** to the supplied integer argument; the
               increment is then recalculated from the number of nodes, the
-              *registration*, and the domain. The resulting increment value
+              ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
               <cookbook/file-formats.html#gmt-file-formats>` for details.
@@ -78,7 +78,7 @@ COMMON_OPTIONS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
-    "V": """\
+    "verbose": """\
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
@@ -90,10 +90,10 @@ COMMON_OPTIONS = {
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
-    "W": """\
+    "pen": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "XY": r"""
+    "xyshift": r"""
         xshift : str
             [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
             Shift plot origin in x-direction.
@@ -102,13 +102,13 @@ COMMON_OPTIONS = {
             Shift plot origin in y-direction. Full documentation is at
             :gmt-docs:`gmt.html#xy-full`.
          """,
-    "a": r"""
+    "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
-    "b": r"""
+    "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
             Select native binary input (using ``binary="i"``) or output
@@ -136,7 +136,7 @@ COMMON_OPTIONS = {
                   be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
-    "d": r"""
+    "nodata": r"""
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
@@ -144,7 +144,7 @@ COMMON_OPTIONS = {
             NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
-    "c": r"""
+    "panel": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
             Select a specific subplot panel. Only allowed when in subplot
@@ -154,7 +154,7 @@ COMMON_OPTIONS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
-    "e": r"""
+    "find": r"""
         find : str
             [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
             Only pass records that match the given *pattern* or regular
@@ -162,13 +162,13 @@ COMMON_OPTIONS = {
             the *pattern* or *regexp* to instead only pass data expressions
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
-    "f": r"""
+    "coltypes": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or
             geographical data). Full documentation is at
             :gmt-docs:`gmt.html#f-full`.""",
-    "g": r"""
+    "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
             **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].
@@ -209,7 +209,7 @@ COMMON_OPTIONS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
-    "h": r"""
+    "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
             *remark*][**+t**\ *title*].
@@ -231,7 +231,7 @@ COMMON_OPTIONS = {
                   line-breaks.
 
             Blank lines and lines starting with \# are always skipped.""",
-    "i": r"""
+    "incols": r"""
         incols : str or 1d array
             Specify data columns for primary input in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
@@ -261,7 +261,7 @@ COMMON_OPTIONS = {
                   [Default is 1].
                 - **+o** to add the given *offset* to the input values [Default
                   is 0].""",
-    "j": r"""
+    "distcalc": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
             Determine how spherical distances are calculated.
@@ -275,11 +275,11 @@ COMMON_OPTIONS = {
             (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
             (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
-    "l": r"""
+    "label": r"""
         label : str
             Add a legend entry for the symbol or line being plotted. Full
             documentation is at :gmt-docs:`gmt.html#l-full`.""",
-    "n": r"""
+    "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
             Select interpolation mode for grids. You can select the type of
@@ -289,7 +289,7 @@ COMMON_OPTIONS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
-    "o": r"""
+    "outcols": r"""
         outcols : str or 1d array
             *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
@@ -309,10 +309,10 @@ COMMON_OPTIONS = {
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
               specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. *Note**: If ``incols`` is also
+              input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
-    "p": r"""
+    "perspective": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
@@ -320,13 +320,13 @@ COMMON_OPTIONS = {
             the viewpoint. Default is [180, 90]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "r": r"""
+    "registration": r"""
         registration : str
             **g**\|\ **p**.
             Force gridline (**g**) or pixel (**p**) node registration.
             [Default is **g**\ (ridline)].
         """,
-    "s": r"""
+    "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
             Suppress output for records whose *z*-value equals NaN [Default
@@ -342,14 +342,14 @@ COMMON_OPTIONS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
-    "t": """\
+    "transparency": """\
         transparency : int or float
             Set transparency level, in [0-100] percent range.
             Default is 0, i.e., opaque.
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
-    "w": r"""
+    "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
             **c**\ *period*\ [/*phase*][**+c**\ *col*].
@@ -367,7 +367,7 @@ COMMON_OPTIONS = {
                 - **c** - custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
-    "x": r"""
+    "cores": r"""
         cores : bool or int
             [[**-**]\ *n*].
             Limit the number of cores to be used in any OpenMP-enabled
@@ -390,17 +390,6 @@ def fmt_docstring(module_func):
 
     * ``{aliases}``: Insert a section listing the parameter aliases defined by
       decorator ``use_alias``.
-
-    The following are places for common parameter descriptions:
-
-    * ``{R}``: region (bounding box as west, east, south, north)
-    * ``{J}``: projection (coordinate system to use)
-    * ``{B}``: frame (map frame and axes parameters)
-    * ``{U}``: timestamp (insert time stamp logo)
-    * ``{CPT}``: cmap (the color palette table)
-    * ``{G}``: color
-    * ``{W}``: pen
-    * ``{n}``: interpolation
 
     Parameters
     ----------
@@ -426,8 +415,8 @@ def fmt_docstring(module_func):
     ...     data : str or {table-like}
     ...         Pass in either a file name to an ASCII data table, a 2D
     ...         {table-classes}.
-    ...     {R}
-    ...     {J}
+    ...     {region}
+    ...     {projection}
     ...
     ...     {aliases}
     ...     '''
@@ -481,7 +470,7 @@ def fmt_docstring(module_func):
         "    tabular data"
     )
 
-    for marker, text in COMMON_OPTIONS.items():
+    for marker, text in COMMON_DOCSTRINGS.items():
         # Remove the indentation and the first line break from the multiline
         # strings so that it doesn't mess up the original docstring
         filler_text[marker] = textwrap.dedent(text.lstrip("\n"))
