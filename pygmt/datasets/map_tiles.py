@@ -12,7 +12,7 @@ import numpy as np
 import xarray as xr
 
 
-def load_map_tiles(region, source=None, lonlat=False, **kwargs):
+def load_map_tiles(region, source=None, lonlat=True, **kwargs):
     """
     Load a georeferenced raster basemap from XYZ tile providers.
 
@@ -24,9 +24,8 @@ def load_map_tiles(region, source=None, lonlat=False, **kwargs):
     ----------
     region : list
         The bounding box of the map in the form of a list [*xmin*, *xmax*,
-        *ymin*, *ymax*]. These coordinates should be in Spherical Mercator
-        (EPSG:3857) if ``lonlat=False``, or longitude/latitude if
-        ``lonlat=True``.
+        *ymin*, *ymax*]. These coordinates should be in longitude/latitude if
+        ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.
 
     source : xyzservices.TileProvider or str
         [Optional. Default: Stamen Terrain web tiles] The tile source: web tile
@@ -38,8 +37,8 @@ def load_map_tiles(region, source=None, lonlat=False, **kwargs):
         be in the Spherical Mercator projection (EPSG:3857).
 
     lonlat : bool
-        [Optional. Default: False]. If True, coordinates in ``region`` are
-        assumed to be lon/lat as opposed to Spherical Mercator.
+        [Optional. Default: True]. If False, coordinates in ``region`` are
+        assumed to be Spherical Mercator as opposed to lon/lat.
 
     kwargs : dict
         Extra keyword arguments to pass to :func:`contextily.bounds2img`.
