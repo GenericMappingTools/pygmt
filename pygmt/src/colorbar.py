@@ -108,9 +108,9 @@ def colorbar(self, frame=None, annotation=None, xlabel=None, ylabel=None, **kwar
     if xlabel or ylabel or annotation:
         if kwargs.get("B") is None:
             frame = []
-        elif type(kwargs.get("B")) is list:
+        elif isinstance(kwargs.get("B"), list):
             frame = kwargs.get("B")
-        elif type(kwargs.get("B")) is not list:
+        else:
             frame = [kwargs.get("B")]
         if xlabel:
             frame.append("x+l" + str(xlabel))
