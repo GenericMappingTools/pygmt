@@ -105,7 +105,7 @@ def colorbar(self, frame=None, annotation=None, xlabel=None, ylabel=None, **kwar
     {perspective}
     {transparency}
     """
-    if (xlabel or ylabel or annotation):
+    if xlabel or ylabel or annotation:
         if kwargs.get("B") is None:
             frame = []
         elif type(kwargs.get("B")) is list:
