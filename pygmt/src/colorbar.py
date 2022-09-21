@@ -27,7 +27,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(
     R="sequence", G="sequence", I="sequence", c="sequence_comma", p="sequence"
 )
-def colorbar(self, **kwargs):
+def colorbar(self, frame=None, annotation=None, xlabel=None, ylabel=None, **kwargs):
     r"""
     Plot a gray or color scale-bar on maps.
 
@@ -105,6 +105,21 @@ def colorbar(self, **kwargs):
     {perspective}
     {transparency}
     """
+    if (xlabel or ylabel or annotation):
+        if kwargs.get("B") is None:
+            frame = []
+        elif type(kwargs.get("B")) is list:
+            frame = kwargs.get("B")
+        elif type(kwargs.get("B")) is not list:
+            frame = [kwargs.get("B")]
+        if xlabel:
+            frame.append("x+l" + str(xlabel))
+        if ylabel:
+            frame.append("y+l" + str(ylabel))
+        if annotation:
+            frame.append("a" + str(annotation))
+    if frame:
+        kwargs["B"] = frame
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_string(kwargs))
