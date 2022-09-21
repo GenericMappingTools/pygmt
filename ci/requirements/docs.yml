@@ -24,3 +24,5 @@ dependencies:
     - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme
+    - pip:
+        - sphinx-paramlinks

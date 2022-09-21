@@ -72,6 +72,7 @@ jobs:
           mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
                         build ipython make myst-parser geopandas \
                         sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
+          pip install sphinx-paramlinks
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
