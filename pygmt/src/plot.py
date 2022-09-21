@@ -57,20 +57,22 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     Takes a matrix, (x,y) pairs, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
-    Must provide either ``data`` or ``x``/``y``.
+    Must provide either :paramref:`data` or :paramref:`x/y`.
 
-    If providing data through ``x``/``y``, ``color`` can be a 1d array that
-    will be mapped to a colormap.
+    If providing data through :paramref:`x/y`, :paramref:`color` can be a 1d
+    array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot will
     interpret the third column of the input data as symbol size. Symbols
     whose size is <= 0 are skipped. If no symbols are specified then the
-    symbol code (see ``style`` below) must be present as last column in the
-    input. If ``style`` is not used, a line connecting the data points will
-    be drawn instead. To explicitly close polygons, use ``close``. Select a
-    fill with ``color``. If ``color`` is set, ``pen`` will control whether the
-    polygon outline is drawn or not. If a symbol is selected, ``color`` and
-    ``pen`` determines the fill and outline/no outline, respectively.
+    symbol code (see :paramref:`style` below) must be present as last column in
+    the input. If :paramref:`style` is not used, a line connecting the data
+    points will be drawn instead. To explicitly close polygons, use
+    :paramref:`close`. Select a fill with :paramref:`color`. If
+    :paramref:`color` is set, :paramref:`pen` will control whether the
+    polygon outline is drawn or not. If a symbol is selected, :paramref:`color`
+    and :paramref:`pen` determines the fill and outline/no outline,
+    respectively.
 
     Full option list at :gmt-docs:`plot.html`
 
@@ -81,14 +83,14 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use parameter ``incols`` to choose which columns are x, y, color, and
-        size, respectively.
+        Use parameter :paramref:`incols` to choose which columns are x, y,
+        color, and size, respectively.
     x/y : float or 1d arrays
         The x and y coordinates, or arrays of x and y coordinates of the
         data points
     size : 1d array
-        The size of the data points in units specified using ``style``.
-        Only valid if using ``x``/``y``.
+        The size of the data points in units specified using :paramref:`style`.
+        Only valid if using :paramref:`x/y`.
     direction : list of two 1d arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
         should be a list of two 1d arrays with the vector directions. These
@@ -99,7 +101,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use ``straight_line``.
+        arcs. To draw them as straight lines, use ``straight_line=True``.
         Alternatively, add **m** to draw the line by first following a
         meridian, then a parallel. Or append **p** to start following a
         parallel, then a meridian. (This can be practical to draw a line
@@ -152,15 +154,15 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {color}
-        *color* can be a 1d array, but it is only valid if using ``x``/``y``
-        and ``cmap=True`` is also required.
+        *color* can be a 1d array, but it is only valid if using
+        :paramref:`x/y` and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
         also be a 1d array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y`` pairs.
+        valid for :paramref:`x/y` pairs.
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
@@ -188,12 +190,12 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
-        via ``color`` and ``pen``, give both a *value* via ``zvalue`` and a
-        color lookup table via ``cmap``.  Alternatively, give the name of a
-        *file* with one z-value (read from the last column) for each
-        polygon in the input data. To apply it to the fill color, use
-        ``color="+z"``. To apply it to the pen color, append **+z** to
-        ``pen``.
+        via :paramref:`color` and :paramref:`pen`, give both a *value* via
+        :paramref:`zvalue` and a color lookup table via :paramref:`cmap`.
+        Alternatively, give the name of a *file* with one z-value (read from
+        the last column) for each polygon in the input data. To apply it to the
+        fill color, use ``color="+z"``. To apply it to the pen color, append
+        **+z** to :paramref:`pen`.
     {aspatial}
     {binary}
     {panel}
@@ -207,7 +209,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {perspective}
     {transparency}
         *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y.
+        for symbols, but this option is only valid if using :paramref:`x/y`.
     {wrap}
     """
     # pylint: disable=too-many-locals
