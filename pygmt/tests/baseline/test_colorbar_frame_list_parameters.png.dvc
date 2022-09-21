@@ -1,0 +1,4 @@
+outs:
+- md5: 69740a2512fd502e3d53d16bddc0f97c
+  size: 4878
+  path: test_colorbar_frame_list_parameters.png
