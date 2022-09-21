@@ -76,7 +76,7 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of filenames containing 1 or more
+        A text data file name, or a list of file names containing 1 or more
         records with (x, y[, angle, font, justify], text).
     x/y : float or 1d arrays
         The x and y coordinates, or an array of x and y coordinates to plot
