@@ -6,7 +6,8 @@ This tutorial page covers the basics of creating a figure of Earth relief,
 using a remote dataset hosted by GMT, using the method
 :meth:`pygmt.datasets.load_earth_relief`. It will use
 :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
-and :meth:`pygmt.Figure.coast` methods for plotting.
+:meth:`pygmt.Figure.colorbar`, and :meth:`pygmt.Figure.coast` methods for
+plotting.
 """
 
 # sphinx_gallery_thumbnail_number = 1
@@ -73,6 +74,21 @@ fig.show()
 ###############################################################################
 # Adding contour lines
 # --------------------
+#
+# To add contour lines to the color coded figured, the
+# :meth:`pygmt.Figure.grdcontour` method is used. The ``frame`` and
+# ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
+# not needed again. However, the same input for ``grid`` (in this case, the
+# variable named "grid") must be input again. The ``interval`` parameter sets
+# the spacing between lines (in this case, 500 meters), and the ``annotation``
+# parameter sets the spacing between darker lines that have the value on
+# written on them (in this case, every 1,000 meters).
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdcontour(grid=grid, interval=500, annotation=1000)
+fig.colorbar(frame=["a1000", "x+lElevation (m)"])
+fig.show()
 
 ###############################################################################
 # Color in land
