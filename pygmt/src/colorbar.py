@@ -47,6 +47,12 @@ def colorbar(self, frame=None, annotation=None, xlabel=None, ylabel=None, **kwar
     ----------
     frame : str or list
         Set color bar boundary frame, labels, and axes attributes.
+    annotation : int or float or str
+        Set the interval for annotated gridlines on the colorbar.
+    xlabel : str or int or float
+        Set the label for the x-axis of the colorbar.
+    ylabel : str or int or float
+        Set the label for the y-axis of the colorbar.
     {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
