@@ -142,10 +142,9 @@ def load_earth_relief(
             f"resolution '{resolution}' is not supported."
         )
     with Session() as lib:
-        if lib.get_default(name="API_VERSION") != "6.4.0" \
-                and data_source != "igpp":
+        if lib.get_default(name="API_VERSION") != "6.4.0" and data_source != "igpp":
             raise GMTVersionError(
-                f"The {data_source} option is not available for GMT" 
+                f"The {data_source} option is not available for GMT"
                 " versions before 6.4.0."
             )
     # Choose earth relief data prefix
