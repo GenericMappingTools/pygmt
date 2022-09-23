@@ -206,8 +206,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {label}
     {perspective}
     {transparency}
-        *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y.
+        ``transparency`` can also be a 1d array to set varying
+        transparency for symbols, but this option is only valid if using
+        ``x``/``y``.
     {wrap}
     """
     # pylint: disable=too-many-locals
