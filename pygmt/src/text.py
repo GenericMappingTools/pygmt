@@ -160,8 +160,9 @@ def text_(
     {incols}
     {perspective}
     {transparency}
-        *transparency* can also be a 1d array to set varying transparency
-        for texts, but this option is only valid if using x/y/text.
+        ``transparency`` can also be a 1d array to set varying
+        transparency for texts, but this option is only valid if using
+        ``x``/``y`` and ``text``.
     {wrap}
     """
     # pylint: disable=too-many-branches
