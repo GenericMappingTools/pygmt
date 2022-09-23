@@ -10,7 +10,7 @@ using a remote dataset hosted by GMT, using the method
 plotting.
 """
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 ###############################################################################
@@ -22,7 +22,7 @@ import pygmt
 # which will affect the resolution of the plot made later in the tutorial.
 # The ``registration`` parameter determines the grid registration.
 #
-# This grid region covers the islands of Guam and Rota in western Pacific
+# This grid region covers the islands of Guam and Rota in the western Pacific
 # Ocean.
 
 grid = pygmt.datasets.load_earth_relief(
