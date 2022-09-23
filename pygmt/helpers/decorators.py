@@ -348,8 +348,8 @@ COMMON_DOCSTRINGS = {
                   if values in all specified *cols* equal NaN].""",
     "transparency": """\
         transparency : int or float
-            Set transparency level, in [0-100] percent range.
-            Default is 0, i.e., opaque.
+            Set transparency level, in [0-100] percent range
+            [Default is 0, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
