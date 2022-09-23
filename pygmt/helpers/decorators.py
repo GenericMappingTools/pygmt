@@ -45,12 +45,12 @@ COMMON_DOCSTRINGS = {
            CPT from those colors automatically.""",
     "color": """\
         color : str or 1d array
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
     "fill": """\
         fill : str
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
     "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
