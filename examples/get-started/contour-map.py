@@ -109,3 +109,22 @@ fig.show()
 ###############################################################################
 # Additional exercises
 # --------------------
+#
+# This is the end of the second tutorial. Here are some additional exercises
+# for the concepts that were discussed:
+#
+# 1. Change the resolution of the grid file to either "01m" (lower resolution)
+#    or "15s" (higher resolution). Note that higher resolution grids will have
+#    larger file sizes.
+#
+# 2. Create a contour map of the area around Mt. Rainier. A suggestion for the
+#    ``region`` would be ``[-122, -121, 46.5, 47.5]``. Adjust the
+#    :meth:`pygmt.Figure.grdcontour` and :meth:`pygmt.Figure.colorbar`
+#    settings as needed to make the figure look good.
+#
+# 3. Create a contour map of São Miguel Island in the Azores; a suggested
+#    ``region`` is ``[-26, -25, 37.5, 38]``. Instead of coloring in ``land``,
+#    set ``water`` to "lightblue" to only display Earth relief information for
+#    the land.
+#
+# 4. Try other CPTs, such as "jet" and "geo".
