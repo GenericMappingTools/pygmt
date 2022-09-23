@@ -93,6 +93,18 @@ fig.show()
 ###############################################################################
 # Color in land
 # -------------
+#
+# To make it clear where the islands are located, the
+# :meth:`pygmt.Figure.coast` method can be used to color in the land. The
+# ``land`` is colored in as "lightgray", and the ``shorelines`` parameters
+# draws a border around the islands.
+
+fig = pygmt.Figure()
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdcontour(grid=grid, interval=500, annotation=1000)
+fig.coast(shorelines="2p", land="lightgray")
+fig.colorbar(frame=["a1000", "x+lElevation (m)"])
+fig.show()
 
 ###############################################################################
 # Additional exercises
