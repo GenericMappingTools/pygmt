@@ -55,8 +55,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     fill : str
         Color or pattern for filling of terminators.
     pen : str
-        Set pen attributes for lines. The default pen
-        is ``"0.25p,black,solid"``.
+        Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {timestamp}
     {verbose}
     {xyshift}
