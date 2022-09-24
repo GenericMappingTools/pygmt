@@ -122,7 +122,7 @@ def text_(
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill`` are
         specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
-        for point; if not given we consult :gmt_term:`PROJ_LENGTH_UNIT`)
+        for point; if not given we consult :gmt-term:`PROJ_LENGTH_UNIT`)
         or *%* for a percentage of the font size. Optionally, use modifier
         **+t** to set the shape of the textbox when using ``fill`` and/or
         ``pen``. Append lower case **o** to get a straight rectangle
