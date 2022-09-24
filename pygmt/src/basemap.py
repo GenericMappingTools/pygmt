@@ -23,7 +23,6 @@ from pygmt.helpers import (
     F="box",
     Td="rose",
     Tm="compass",
-    U="timestamp",
     V="verbose",
     X="xshift",
     Y="yshift",
@@ -82,7 +81,6 @@ def basemap(self, **kwargs):
     compass : str
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
-    {timestamp}
     {verbose}
     {xyshift}
     {panel}

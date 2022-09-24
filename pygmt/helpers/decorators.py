@@ -575,6 +575,17 @@ def use_alias(**aliases):
                         f"Use long-form parameter '{long_alias}' instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # timestamp (U) is deprecated since v0.8.0.
+            if "U" in kwargs or "timestamp" in kwargs:
+                if "timestamp" in kwargs:
+                    kwargs["U"] = kwargs.pop("timestamp")
+                msg = (
+                    "Parameter 'U' and 'timestamp' is deprecated since v0.8.0. "
+                    "Use Figure.timestamp() instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
