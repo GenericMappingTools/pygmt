@@ -207,7 +207,7 @@ def velo(self, data=None, **kwargs):
         to set both pen and fill color.
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region``. [Default plots symbols inside frame only].
+        by ``region`` [Default plots symbols inside frame only].
     {timestamp}
     {verbose}
     pen : str
