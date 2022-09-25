@@ -57,7 +57,7 @@ def histogram(self, data, **kwargs):
     {region}
     {frame}
     {cmap}
-    {color}
+    {fill}
     {pen}
     {panel}
     annotate : bool or str

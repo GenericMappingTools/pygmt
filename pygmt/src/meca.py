@@ -212,7 +212,7 @@ def meca(
         is 0.25p].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
-        *region* [Default is False, i.e. plot symbols inside map frame only].
+        ``region`` [Default is False, i.e. plot symbols inside map frame only].
     {projection}
     {region}
     {frame}
