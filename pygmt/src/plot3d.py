@@ -176,8 +176,9 @@ def plot3d(
     {label}
     {perspective}
     {transparency}
-        *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y/z.
+        ``transparency`` can also be a 1d array to set varying
+        transparency for symbols, but this option is only valid if using
+        ``x``/``y``/``z``.
     {wrap}
     """
     # pylint: disable=too-many-locals

@@ -45,12 +45,12 @@ COMMON_DOCSTRINGS = {
            CPT from those colors automatically.""",
     "color": """\
         color : str or 1d array
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
     "fill": """\
         fill : str
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
     "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
@@ -90,7 +90,7 @@ COMMON_DOCSTRINGS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms);
+            - **t** - Timings (report runtimes for time-intensive algorithms)
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -348,8 +348,8 @@ COMMON_DOCSTRINGS = {
                   if values in all specified *cols* equal NaN].""",
     "transparency": """\
         transparency : int or float
-            Set transparency level, in [0-100] percent range.
-            Default is 0, i.e., opaque.
+            Set transparency level, in [0-100] percent range
+            [Default is 0, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
