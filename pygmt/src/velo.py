@@ -213,7 +213,7 @@ def velo(self, data=None, **kwargs):
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
-        plane edges. [Defaults: width = default, color = black, style = solid].
+        plane edges [Default is ``"0.25p,black,solid"``].
         If the modifier **+cl** is appended then the color of the pen is
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill
