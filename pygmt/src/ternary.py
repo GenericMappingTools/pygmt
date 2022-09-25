@@ -11,6 +11,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     C="cmap",
     G="fill",
     JX="width",
+    L="label",
     R="region",
     S="style",
     U="timestamp",
@@ -53,6 +54,11 @@ def ternary(self, data, **kwargs):
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
     {cmap}
+    label : str
+        *a*/*b*/*c*. Set the labels for the three diagram vertices where the 
+        component is 100% [none]. These are placed at a distance of three 
+        times the MAP_LABEL_OFFSET setting from their respective corners. 
+        To skip any one of them, specify that label as -.
     {fill}
     style : str
         *symbol*\[\ *size*].
