@@ -12,7 +12,7 @@ from inspect import Parameter, signature
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers.utils import args_in_kwargs, is_nonstr_iter
+from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
     "region": r"""
