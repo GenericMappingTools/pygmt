@@ -55,9 +55,9 @@ def ternary(self, data, **kwargs):
         and **c**.
     {cmap}
     label : str
-        *a*/*b*/*c*. Set the labels for the three diagram vertices where the 
-        component is 100% [none]. These are placed at a distance of three 
-        times the MAP_LABEL_OFFSET setting from their respective corners. 
+        *a*/*b*/*c*. Set the labels for the three diagram vertices where the
+        component is 100% [none]. These are placed at a distance of three
+        times the MAP_LABEL_OFFSET setting from their respective corners.
         To skip any one of them, specify that label as -.
     {fill}
     style : str
