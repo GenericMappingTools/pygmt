@@ -150,16 +150,15 @@ def load_earth_relief(
                 " versions before 6.4.0."
             )
     # Choose earth relief data prefix
-    if data_source == "igpp":
-        earth_relief_prefix = "earth_relief_"
-        if use_srtm and resolution in land_only_srtm_resolutions:
-            earth_relief_prefix = "srtm_relief_"
-    elif data_source == "gebco":
-        earth_relief_prefix = "earth_gebco_"
+    earth_relief_sources = {"igpp": "earth_relief_", "gebco": "earth_gebco_"}
+    if use_srtm and resolution in land_only_srtm_resolutions and data_source == "igpp":
+        earth_relief_prefix = "srtm_relief_"
+    elif data_source in earth_relief_sources:
+        earth_relief_prefix = earth_relief_sources[data_source]
     else:
         raise GMTInvalidInput(
             f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'relief' and 'gebco'."
+            "valid values are 'igpp' and 'gebco'."
         )
 
     # different ways to load tiled and non-tiled earth relief data
