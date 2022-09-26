@@ -4,6 +4,7 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from packaging.version import Version
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
@@ -141,8 +142,9 @@ def load_earth_relief(
             f"{registration}-registered Earth relief data for "
             f"resolution '{resolution}' is not supported."
         )
+
     with Session() as lib:
-        if lib.get_default(name="API_VERSION") != "6.4.0" and data_source != "igpp":
+        if Version(lib.info["version"]) < Version("6.4.0") and data_source != "igpp":
             raise GMTVersionError(
                 f"The {data_source} option is not available for GMT"
                 " versions before 6.4.0."
