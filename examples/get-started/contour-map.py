@@ -81,8 +81,8 @@ fig.show()
 # not needed again. However, the same input for ``grid`` (in this case, the
 # variable named "grid") must be input again. The ``interval`` parameter sets
 # the spacing between lines (in this case, 500 meters), and the ``annotation``
-# parameter sets the spacing between darker lines that have the value on
-# written on them (in this case, every 1,000 meters).
+# parameter draws darker lines that are annotated with the elevation or
+# bathymetry.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
