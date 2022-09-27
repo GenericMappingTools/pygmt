@@ -142,15 +142,18 @@ def load_earth_relief(
             f"{registration}-registered Earth relief data for "
             f"resolution '{resolution}' is not supported."
         )
-
-    with Session() as lib:
-        if Version(lib.info["version"]) < Version("6.4.0") and data_source != "igpp":
-            raise GMTVersionError(
-                f"The {data_source} option is not available for GMT"
-                " versions before 6.4.0."
-            )
-    # Choose earth relief data prefix
     earth_relief_sources = {"igpp": "earth_relief_", "gebco": "earth_gebco_"}
+    if data_source in earth_relief_sources and data_source != "igpp":
+        with Session() as lib:
+            if (
+                Version(lib.info["version"]) < Version("6.4.0")
+                and data_source != "igpp"
+            ):
+                raise GMTVersionError(
+                    f"The {data_source} option is not available for GMT"
+                    " versions before 6.4.0."
+                )
+    # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions and data_source == "igpp":
         earth_relief_prefix = "srtm_relief_"
     elif data_source in earth_relief_sources:
