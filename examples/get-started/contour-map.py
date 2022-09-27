@@ -36,7 +36,7 @@ grid = pygmt.datasets.load_earth_relief(
 # To plot Earth relief data, the method :meth:`pygmt.Figure.grdimage` can be
 # used to plot a color-coded figure to display the topography and bathymetry
 # in the grid file. The ``grid`` parameter accepts the input grid, which in
-# this case is the remote file downloaded in the previous section. If the
+# this case is the remote file downloaded in the previous step. If the
 # ``region`` parameter is not set, the region boundaries of the input grid are
 # used.
 #
