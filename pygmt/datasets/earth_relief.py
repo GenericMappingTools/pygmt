@@ -75,7 +75,7 @@ def load_earth_relief(
         Available options:
 
         - **igpp** : IGPP Global Earth Relief [Default option]. See
-          :gmt-datasets:`earth-relief.html`.]
+          :gmt-datasets:`earth-relief.html`.
 
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See

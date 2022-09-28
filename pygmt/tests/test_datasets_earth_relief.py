@@ -24,9 +24,9 @@ def test_earth_relief_fails(data_source):
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
-def test_earth_relief_01d_srtm():
+def test_earth_relief_01d_igpp():
     """
-    Test some properties of the earth relief 01d data with SRTM data.
+    Test some properties of the earth relief 01d data with IGPP data.
     """
     data = load_earth_relief(
         resolution="01d", registration="gridline", data_source="igpp"
@@ -54,7 +54,7 @@ def test_earth_relief_01d_gebco():
 
 def test_earth_relief_01d_with_region_srtm():
     """
-    Test loading low-resolution earth relief with 'region' with SRTM data.
+    Test loading low-resolution earth relief with 'region' with IGPP data.
     """
     data = load_earth_relief(
         resolution="01d",
