@@ -38,7 +38,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
-    Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
+    Takes a matrix, (x,y,z) triplets, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
     Must provide either ``data`` or ``x``/``y``/``z``.
