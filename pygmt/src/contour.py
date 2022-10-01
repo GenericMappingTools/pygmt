@@ -59,7 +59,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {region}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``interval``.
+        contours specified in ``levels``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
