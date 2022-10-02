@@ -120,13 +120,14 @@ def text_(
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill`` are
         specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
-        for point; if not given we consult **PROJ_LENGTH_UNIT**) or *%* for a
-        percentage of the font size. Optionally, use modifier **+t** to set
-        the shape of the textbox when using ``fill`` and/or ``pen``. Append
-        lower case **o** to get a straight rectangle [Default is **o**]. Append
-        upper case **O** to get a rounded rectangle. In paragraph mode
-        (*paragraph*) you can also append lower case **c** to get a concave
-        rectangle or append upper case **C** to get a convex rectangle.
+        for point; if not given we consult :gmt-term:`PROJ_LENGTH_UNIT`)
+        or *%* for a percentage of the font size. Optionally, use modifier
+        **+t** to set the shape of the textbox when using ``fill`` and/or
+        ``pen``. Append lower case **o** to get a straight rectangle
+        [Default is **o**]. Append upper case **O** to get a rounded
+        rectangle. In paragraph mode (*paragraph*) you can also append lower
+        case **c** to get a concave rectangle or append upper case **C**
+        to get a convex rectangle.
     fill : str
         Sets the shade or color used for filling the text box [Default is
         no fill].
@@ -142,8 +143,7 @@ def text_(
         for this line.
     pen : str
         Sets the pen used to draw a rectangle around the text string
-        (see ``clearance``) [Default is width = default, color = black,
-        style = solid].
+        (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is will clip].
     {timestamp}
@@ -156,8 +156,9 @@ def text_(
     {incols}
     {perspective}
     {transparency}
-        *transparency* can also be a 1d array to set varying transparency
-        for texts, but this option is only valid if using x/y/text.
+        ``transparency`` can also be a 1d array to set varying
+        transparency for texts, but this option is only valid if using
+        ``x``/``y`` and ``text``.
     {wrap}
     """
     # pylint: disable=too-many-branches
