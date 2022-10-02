@@ -188,7 +188,7 @@ When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
 - Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for old usage. At least one test using the old usage should be added.
+  warning for the old usage. At least one test using the old usage should be added.
 - The warning message should clearly explain the changes and include the versions
   in which the old usage is deprecated and is expected to be removed.
 - The `FutureWarning` warning should appear for 2-4 minor versions, depending on
