@@ -204,7 +204,7 @@ decorator (if those two exist). Here is an example:
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
-@kwargs_to_strings(R="sequence", i='sequence_comma')
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
