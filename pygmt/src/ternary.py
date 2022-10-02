@@ -75,14 +75,9 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if alabel is None:
-        alabel = "-"
-
-    if blabel is None:
-        blabel = "-"
-
-    if clabel is None:
-        clabel = "-"
+    alabel = str(alabel) if alabel is not None else "-"
+    blabel = str(blabel) if blabel is not None else "-"
+    clabel = str(clabel) if clabel is not None else "-"
 
     kwargs["L"] = "/".join([alabel, blabel, clabel])
 
