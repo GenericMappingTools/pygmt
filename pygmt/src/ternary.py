@@ -56,8 +56,8 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     {fill}
     alabel : str
         Set the label for the *a* vertex where the component is 100%. The
-        label is placed at a distance of three times the MAP_LABEL_OFFSET
-        setting from the corner.
+        label is placed at a distance of three times the 
+        :gmt-term:`MAP_LABEL_OFFSET` setting from the corner.
     blabel : str
         Set the label for the *b* vertex where the component is 100%.
     clabel : str
