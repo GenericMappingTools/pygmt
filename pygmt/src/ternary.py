@@ -11,7 +11,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     C="cmap",
     G="fill",
     JX="width",
-    L="label",
     R="region",
     S="style",
     U="timestamp",
@@ -24,7 +23,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def ternary(self, data, **kwargs):
+def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     r"""
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -54,12 +53,15 @@ def ternary(self, data, **kwargs):
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
     {cmap}
-    label : str
-        *a*/*b*/*c*. Set the labels for the three diagram vertices where the
-        component is 100% [none]. These are placed at a distance of three
-        times the MAP_LABEL_OFFSET setting from their respective corners.
-        To skip any one of them, specify that label as -.
     {fill}
+    alabel : str
+        Set the label for the *a* vertex where the component is 100%. The
+        label is placed at a distance of three times the MAP_LABEL_OFFSET
+        setting from the corner.
+    blabel : str
+        Set the label for the *b* vertex where the component is 100%.
+    clabel : str
+        Set the label for the *c* vertex where the component is 100%.
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
@@ -74,6 +76,18 @@ def ternary(self, data, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
+
+        if alabel is None:
+            alabel = "-"
+
+        if blabel is None:
+            blabel = "-"
+
+        if clabel is None:
+            clabel = "-"
+
+        kwargs["L"] = "/".join([alabel, blabel, clabel])
+
         with file_context as infile:
             lib.call_module(
                 module="ternary",
