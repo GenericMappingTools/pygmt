@@ -53,7 +53,7 @@ def ternary(self, data, **kwargs):
         Give the min and max limits for each of the three axes **a**, **b**,
         and **c**.
     {cmap}
-    {color}
+    {fill}
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.

@@ -188,7 +188,7 @@ When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
 - Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for old usage. At least one test using the old usage should be added.
+  warning for the old usage. At least one test using the old usage should be added.
 - The warning message should clearly explain the changes and include the versions
   in which the old usage is deprecated and is expected to be removed.
 - The `FutureWarning` warning should appear for 2-4 minor versions, depending on
@@ -204,7 +204,7 @@ decorator (if those two exist). Here is an example:
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
-@kwargs_to_strings(R="sequence", i='sequence_comma')
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
