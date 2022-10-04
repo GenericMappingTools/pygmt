@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["coast"]
+
 
 @fmt_docstring
 @use_alias(
@@ -180,6 +182,29 @@ def coast(self, **kwargs):
     {perspective}
     {transparency}
     {verbose}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # Call the coast module for the plot
+    >>> fig.coast(
+    ...     # Set the projection to Mercator, and plot size to 10 cm
+    ...     projection="M10c",
+    ...     # Set the region of the plot
+    ...     region=[-10, 30, 30, 60],
+    ...     # Set the frame of the plot
+    ...     frame="a",
+    ...     # Set the color of the land to "darkgreen"
+    ...     land="darkgreen",
+    ...     # Set the color of the water to "lightblue"
+    ...     water="lightblue",
+    ...     # Draw national borders with a 1-pixel black line
+    ...     borders="1p/black",
+    ... )
+    >>> # Show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
