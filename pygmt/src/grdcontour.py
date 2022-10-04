@@ -51,16 +51,16 @@ def grdcontour(self, grid, **kwargs):
           be used as contour levels.
         - The file name of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3)
+          angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*
+          +\ *cont_int*.
     annotation : str,  int, or list
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval *annot_int* or a
-          single annotation level +\ *annot_int*
-        - Disable all annotation with  **-**
+          single annotation level +\ *annot_int*.
+        - Disable all annotation with  **-**.
         - Optional label modifiers can be specified as a single string
           ``"[annot_int]+e"``  or with a list of arguments
           ``([annot_int], "e", "f10p", "gred")``.
