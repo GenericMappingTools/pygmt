@@ -102,4 +102,3 @@ def test_ternary_1_label(array):
         pen="thinnest",
     )
     return fig
-
