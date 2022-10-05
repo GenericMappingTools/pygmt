@@ -75,10 +75,11 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    alabel = str(alabel) if alabel is not None else "-"
-    blabel = str(blabel) if blabel is not None else "-"
-    clabel = str(clabel) if clabel is not None else "-"
-    kwargs["L"] = "/".join([alabel, blabel, clabel])
+    if alabel or blabel or clabel:
+        alabel = str(alabel) if alabel is not None else "-"
+        blabel = str(blabel) if blabel is not None else "-"
+        clabel = str(clabel) if clabel is not None else "-"
+        kwargs["L"] = "/".join([alabel, blabel, clabel])
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
