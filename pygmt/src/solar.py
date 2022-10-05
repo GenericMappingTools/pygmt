@@ -6,6 +6,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["solar"]
+
 
 @fmt_docstring
 @use_alias(
@@ -62,6 +64,34 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     {panel}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> # import the Python module "datetime"
+    >>> import datetime
+    >>> import pygmt
+    >>> # create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
+    >>> date = datetime.datetime(
+    ...     year=1997, month=6, day=24, hour=8, minute=52, second=18
+    ... )
+    >>> # create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create a basemap of the Earth with the coast method
+    >>> fig.coast(
+    ...     land="lightgreen", water="lightblue", projection="W10c", region="d"
+    ... )
+    >>> fig.solar(
+    ...     # set the terminator to "day_night"
+    ...     terminator="day_night",
+    ...     # pass the datetime object
+    ...     terminator_datetime=date,
+    ...     # fill the night-section with navyblue at 75% transparency
+    ...     fill="navyblue@75",
+    ...     # draw the terminator with a 1-point black line
+    ...     pen="1p",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
