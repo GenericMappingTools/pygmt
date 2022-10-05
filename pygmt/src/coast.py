@@ -201,7 +201,7 @@ def coast(self, **kwargs):
     ...     # Set the color of the water to "lightblue"
     ...     water="lightblue",
     ...     # Draw national borders with a 1-point black line
-    ...     borders="1p/black",
+    ...     borders="1/1p,black",
     ... )
     >>> # Show the plot
     >>> fig.show()
