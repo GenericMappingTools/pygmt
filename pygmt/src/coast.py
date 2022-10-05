@@ -188,7 +188,7 @@ def coast(self, **kwargs):
     >>> import pygmt
     >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Call the coast module for the plot
+    >>> # Call the coast method for the plot
     >>> fig.coast(
     ...     # Set the projection to Mercator, and plot size to 10 cm
     ...     projection="M10c",
@@ -200,7 +200,7 @@ def coast(self, **kwargs):
     ...     land="darkgreen",
     ...     # Set the color of the water to "lightblue"
     ...     water="lightblue",
-    ...     # Draw national borders with a 1-pixel black line
+    ...     # Draw national borders with a 1-point black line
     ...     borders="1p/black",
     ... )
     >>> # Show the plot
