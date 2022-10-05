@@ -6,6 +6,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["grd2cpt"]
+
 
 @fmt_docstring
 @use_alias(
@@ -159,6 +161,14 @@ def grd2cpt(grid, **kwargs):
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
     {verbose}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30m grid with "gridline" registration
+    >>> grid = load_earth_relief("30m", registration="gridline")
+    >>> # create a CPT with grd2cpt
+    >>> cpt = pygmt.grd2cpt(grid=grid)
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
