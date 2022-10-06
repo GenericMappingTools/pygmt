@@ -166,7 +166,7 @@ def grd2cpt(grid, **kwargs):
     -------
     >>> import pygmt
     >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
+    >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a CPT with grd2cpt
     >>> cpt = pygmt.grd2cpt(grid=grid)
     """
