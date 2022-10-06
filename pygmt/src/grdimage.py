@@ -168,7 +168,7 @@ def grdimage(self, grid, **kwargs):
     -------
     >>> import pygmt
     >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
+    >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # pass in the grid and set the CPT to "geo"
