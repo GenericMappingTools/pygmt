@@ -4,6 +4,8 @@ grdcontour - Plot a contour figure.
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["grdcontour"]
+
 
 @fmt_docstring
 @use_alias(
@@ -95,6 +97,34 @@ def grdcontour(self, grid, **kwargs):
         separator for the two labels instead.
     {perspective}
     {transparency}
+
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 15m grid with "gridline" registration in a specified region
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="15m",
+    ...     region=[-92.5, -82.5, -3, 7],
+    ...     registration="gridline",
+    ... )
+    >>> # create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create the contour plot
+    >>> fig.grdcontour(
+    ...     # pass in the grid downloaded above
+    ...     grid=grid,
+    ...     # set the interval for contour lines at 250 meters
+    ...     interval=250,
+    ...     # set the interval for annotated contour lines at 1,000 meters
+    ...     annotation=1000,
+    ...     # add a frame for the plot
+    ...     frame="a",
+    ...     # set the projection to Mercator for the 10 cm figure
+    ...     projection="M10c",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
