@@ -18,7 +18,9 @@ fig.ternary(
     region=[0, 100, 0, 100, 0, 100],
     width="10c",
     style="c0.1c",
-    L="Water/Air/Limestone",
+    alabel="Water",
+    blabel="Air",
+    clabel="Limestone",
     cmap=True,
     frame=[
         'aafg+l"Water component"+u" %"',
