@@ -62,3 +62,43 @@ def test_ternary(array):
         pen="thinnest",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_ternary_3_labels(array):
+    """
+    Test plotting a ternary chart with 3 labels.
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        alabel="A",
+        blabel="B",
+        clabel="C",
+        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        style="c0.1c",
+        pen="thinnest",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_ternary_1_label(array):
+    """
+    Test plotting a ternary chart with 1 label.
+    """
+    fig = Figure()
+    fig.ternary(
+        data=array,
+        region=[0, 100, 0, 100, 0, 100],
+        cmap="red,orange,yellow,green,blue,violet",
+        width="10c",
+        alabel="A",
+        frame=["bafg+lAir", "cafg+lLimestone", "aafg+lWater"],
+        style="c0.1c",
+        pen="thinnest",
+    )
+    return fig
