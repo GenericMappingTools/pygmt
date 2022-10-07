@@ -260,7 +260,7 @@ This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 ``GMT_LIBRARY_PATH`` environment variable to the directory where ``libgmt.so``,
-``libgmt.dylib`` or ``gmt.dll`` can be found for Linux, macOS and Windows,
+``libgmt.dylib`` or ``gmt.dll`` can be found on Linux, macOS or Windows,
 respectively.
 
 For Linux/macOS, adding the following line to your shell configuration file
@@ -268,7 +268,7 @@ For Linux/macOS, adding the following line to your shell configuration file
 
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
 
-For Windows, adding the ``GMT_LIBRARY_PATH`` environment variable following the
+For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 `instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
 and set its value to a path like::
 
