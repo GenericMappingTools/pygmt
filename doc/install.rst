@@ -264,7 +264,7 @@ You can tell PyGMT exactly where to look for ``libgmt`` by setting the
 respectively.
 
 For Linux/macOS, add the following line to your shell configuration file
-(usually `~/.bashrc` for Bash on Linux and `~/.zshrc` for Zsh on macOS)::
+(usually ``~/.bashrc`` for Bash on Linux and ``~/.zshrc`` for Zsh on macOS)::
 
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
 
