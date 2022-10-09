@@ -189,6 +189,7 @@ def download_test_data():
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@static_earth_relief.nc",
+        "@ternary.txt",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",
