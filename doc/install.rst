@@ -273,3 +273,17 @@ For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 and set its value to a path like::
 
     C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\
+
+Notes for Jupyter users
+-----------------------
+
+If you can successfully import pygmt in a Python interpreter or IPython, but
+fail to import pygmt in Jupyter with ``ModuleNotFoundError``, you may need to
+install a ``pygmt`` kernel following the commands below::
+
+    conda activate pygmt
+    python -m ipykernel install --user --name pygmt  #to install conda env properly
+    jupyter kernelspec list --json
+
+After that, you need to restart your Jupyter, open your notebook, select the
+``pygmt`` kernel and then import pygmt.
