@@ -76,7 +76,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     ... )
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # create a basemap of the Earth with the coast method
+    >>> # create a map of the Earth with the coast method
     >>> fig.coast(
     ...     land="lightgreen", water="lightblue", projection="W10c", region="d"
     ... )
@@ -88,7 +88,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     ...     # fill the night-section with navyblue at 75% transparency
     ...     fill="navyblue@75",
     ...     # draw the terminator with a 1-point black line
-    ...     pen="1p",
+    ...     pen="1p,black",
     ... )
     >>> # show the plot
     >>> fig.show()
