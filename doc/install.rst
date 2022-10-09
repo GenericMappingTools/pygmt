@@ -285,5 +285,5 @@ install a ``pygmt`` kernel following the commands below::
     python -m ipykernel install --user --name pygmt  #to install conda env properly
     jupyter kernelspec list --json
 
-After that, you need to restart your Jupyter, open your notebook, select the
+After that, you need to restart Jupyter, open your notebook, select the
 ``pygmt`` kernel and then import pygmt.
