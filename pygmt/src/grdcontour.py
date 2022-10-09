@@ -101,7 +101,8 @@ def grdcontour(self, grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 15 arc minute grid with "gridline" registration in a specified region
+    >>> # load the 15 arc minute grid with "gridline" registration 
+    >>> # in a specified region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="15m",
     ...     region=[-92.5, -82.5, -3, 7],
