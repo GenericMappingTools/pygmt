@@ -17,8 +17,8 @@ fig.plot(
     # Cartesian projection
     region=[0, 10, 0, 50],
     projection="X15c/10c",
-    # WSne is passed to frame to put axis labels only on the left and
-    # bottom axes
+    # "WSne" is passed to the frame parameter to put annotations
+    # only on the left and bottom axes
     frame=["af", "WSne"],
 )
 fig.show()
