@@ -165,10 +165,10 @@ def grd2cpt(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 30m grid with "gridline" registration
+    >>> # load the 30 arc minute grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a CPT with grd2cpt
-    >>> cpt = pygmt.grd2cpt(grid=grid)
+    >>> pygmt.grd2cpt(grid=grid)
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
