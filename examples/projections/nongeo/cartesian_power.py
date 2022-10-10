@@ -20,7 +20,7 @@ fig.plot(
     region=[0, 100, 0, 10],
     # Set the power transformation of the x-axis, with a power of 0.5
     projection="X15cp0.5/10c",
-    # Set the figures frame, color, and gridlines
+    # Set the figures frame, color, and annotations
     frame=["WSne+givory", "xa1p", "ya2f1"],
     # Set the line thickness to thick
     # Use the default color black and the default style solid
