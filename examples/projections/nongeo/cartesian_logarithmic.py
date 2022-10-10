@@ -9,11 +9,11 @@ requires **l** after its size argument.
 import numpy as np
 import pygmt
 
-# Create a list of x values 0-100
+# Create a list of x-values 0-100
 xline = np.arange(0, 101)
 # Create a list of y-values that are the square root of the x-values
 yline = xline**0.5
-# Create a list of x values for every 10 in 0-100
+# Create a list of x-values for every 10 in 0-100
 xpoints = np.arange(0, 101, 10)
 # Create a list of y-values that are the square root of the x-values
 ypoints = xpoints**0.5
