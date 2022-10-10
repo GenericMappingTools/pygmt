@@ -27,8 +27,8 @@ fig.plot(
     frame=["WSne+gbisque", "x2g3", "ya2f1g2"],
     x=xline,
     y=yline,
-    # Set the line thickness to 1p, the color to blue, and the style to
-    # dash
+    # Set the line thickness to "1p", the color to "blue",
+    # and the style to "-", i.e. "dashed"
     pen="1p,blue,-",
 )
 # Plot square root values as points on the line
