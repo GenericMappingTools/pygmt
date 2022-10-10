@@ -27,12 +27,12 @@ fig.plot(
     frame=["WSne+gbisque", "x2g3", "ya2f1g2"],
     x=xline,
     y=yline,
-    # Set the line thickness to *1p*, the color to *blue*, and the style to
-    # *dash*
+    # Set the line thickness to 1p, the color to blue, and the style to
+    # dash
     pen="1p,blue,-",
 )
 # Plot square root values as points on the line
-# Style of points is 0.3 cm square, color is *red* with a *black* outline
+# Style of points is 0.3 cm square, color is red with a black outline
 # Points are not clipped if they go off the figure
 fig.plot(x=xpoints, y=ypoints, style="s0.3c", color="red", no_clip=True, pen="black")
 fig.show()
