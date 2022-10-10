@@ -22,14 +22,14 @@ fig.plot(
     projection="X15cp0.5/10c",
     # Set the figures frame, color, and gridlines
     frame=["WSne+givory", "xa1p", "ya2f1"],
-    # Set the line thickness to *thick*
-    # Use the default color *black* and the default style *solid*
+    # Set the line thickness to thick
+    # Use the default color black and the default style solid
     pen="thick",
     x=xvalues,
     y=yvalues,
 )
 # Plot x,y values as points on the line
-# Style of points is 0.2 cm circles, color is *green* with a *black* outline
+# Style of points is 0.2 cm circles, color is green with a black outline
 # Points are not clipped if they go off the figure
 fig.plot(x=xvalues, y=yvalues, style="c0.2c", color="green", no_clip=True, pen="black")
 fig.show()
