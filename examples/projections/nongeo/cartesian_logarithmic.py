@@ -24,7 +24,7 @@ fig.plot(
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
     # Set the figures frame, color, annotations, and gridlines
-    frame=["WSne+gbisque", "x2g3", "ya2f1g2"],
+    frame=["WSne+gbisque", "xa2g3", "ya2f1g2"],
     x=xline,
     y=yline,
     # Set the line thickness to "1p", the color to "blue",
