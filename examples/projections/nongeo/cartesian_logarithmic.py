@@ -23,7 +23,8 @@ fig.plot(
     region=[1, 100, 0, 10],
     # Set a logarithmic transformation on the x-axis
     projection="X15cl/10c",
-    # Set the figures frame, color, annotations, and gridlines
+    # Set the figures frame and color as well as
+    # annotations, ticks, and gridlines
     frame=["WSne+gbisque", "xa2g3", "ya2f1g2"],
     x=xline,
     y=yline,
