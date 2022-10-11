@@ -21,6 +21,8 @@ fig.plot(
     # Set the power transformation of the x-axis, with a power of 0.5
     projection="X15cp0.5/10c",
     # Set the figures frame, color, and annotations
+    # The "p" forces to show only square numbers as annotations
+    # of the x-axis
     frame=["WSne+givory", "xa1p", "ya2f1"],
     # Set the line thickness to "thick" (equals "1p", i.e. 1 point)
     # Use the default color "black" and the default style "solid"
