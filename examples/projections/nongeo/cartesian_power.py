@@ -20,7 +20,8 @@ fig.plot(
     region=[0, 100, 0, 10],
     # Set the power transformation of the x-axis, with a power of 0.5
     projection="X15cp0.5/10c",
-    # Set the figures frame, color, and annotations
+    # Set the figures frame and color as well as
+    # annotations and ticks
     # The "p" forces to show only square numbers as annotations
     # of the x-axis
     frame=["WSne+givory", "xa1p", "ya2f1"],
