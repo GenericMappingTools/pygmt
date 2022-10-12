@@ -148,16 +148,17 @@ def load_earth_relief(
                     f"The {data_source} option is not available for GMT"
                     " versions before 6.4.0."
                 )
-    # Choose earth relief data prefix
-    if use_srtm and resolution in land_only_srtm_resolutions and data_source == "igpp":
-        earth_relief_prefix = "srtm_relief_"
-    elif data_source in earth_relief_sources:
-        earth_relief_prefix = earth_relief_sources[data_source]
     else:
         raise GMTInvalidInput(
             f"Invalid earth relief 'data_source' {data_source}, "
             "valid values are 'igpp' and 'gebco'."
         )
+    # Choose earth relief data prefix
+    if use_srtm and resolution in land_only_srtm_resolutions and data_source == "igpp":
+        earth_relief_prefix = "srtm_relief_"
+    elif data_source in earth_relief_sources:
+        earth_relief_prefix = earth_relief_sources[data_source]
+
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
