@@ -153,6 +153,7 @@ def download_test_data():
     # List of datasets to download
     datasets = [
         # Earth relief grids
+        "@earth_gebco_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_01d_g",
         "@earth_relief_30m_p",
@@ -161,7 +162,6 @@ def download_test_data():
         "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
-        "@earth_gebco_01d_g",
         # List of tiles of 03s srtm data.
         # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
