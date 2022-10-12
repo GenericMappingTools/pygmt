@@ -163,8 +163,8 @@ def load_earth_relief(
                 f"The {data_source} option is not available if 'use_srtm=True'."
                 " Set data_source to 'igpp'."
             )
-    elif data_source in earth_relief_sources:
-        earth_relief_prefix = earth_relief_sources[data_source]
+    else:
+        earth_relief_prefix = earth_relief_sources.get(data_source)
 
     # different ways to load tiled and non-tiled earth relief data
     # Known issue: tiled grids don't support slice operation
