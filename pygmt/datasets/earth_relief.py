@@ -154,8 +154,14 @@ def load_earth_relief(
                     " versions before 6.4.0."
                 )
     # Choose earth relief data prefix
-    if use_srtm and resolution in land_only_srtm_resolutions and data_source == "igpp":
-        earth_relief_prefix = "srtm_relief_"
+    if use_srtm and resolution in land_only_srtm_resolutions:
+        if data_source == "igpp":
+            earth_relief_prefix = "srtm_relief_"
+        else:
+            raise GMTInvalidInput(
+                f"The {data_source} option is not available if 'use_srtm=True'."
+                " Set data_source to 'igpp'."
+            )
     elif data_source in earth_relief_sources:
         earth_relief_prefix = earth_relief_sources[data_source]
 

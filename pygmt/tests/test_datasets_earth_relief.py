@@ -172,3 +172,18 @@ def test_earth_relief_invalid_data_source():
         load_earth_relief(
             resolution="01d", registration="gridline", data_source="invalid_source"
         )
+
+
+def test_earth_relief_invalid_data_source_with_use_srtm():
+    """
+    Test loading earth relief with use_srtm=True and an incompatible
+    data_source argument.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="03s",
+            region=[135, 136, 35, 36],
+            registration="gridline",
+            use_srtm=True,
+            data_source="gebco",
+        )
