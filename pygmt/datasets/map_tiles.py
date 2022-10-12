@@ -11,6 +11,8 @@ except ImportError:
 import numpy as np
 import xarray as xr
 
+__doctest_requires__ = {("load_map_tiles"): ["contextily"]}
+
 
 def load_map_tiles(region, source=None, lonlat=True, **kwargs):
     """
