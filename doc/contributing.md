@@ -50,7 +50,7 @@ top of the GitHub repository and click *New Issue*.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
-#### Reporting upstream bugs
+#### Reporting Upstream Bugs
 
 If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve

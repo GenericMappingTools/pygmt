@@ -99,7 +99,8 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     straight_line : bool or str
         [**m**\|\ **p**\|\ **x**\|\ **y**].
         By default, geographic line segments are drawn as great circle
-        arcs. To draw them as straight lines, use ``straight_line``.
+        arcs. To draw them as straight lines, use
+        ``straight_line=True``.
         Alternatively, add **m** to draw the line by first following a
         meridian, then a parallel. Or append **p** to start following a
         parallel, then a meridian. (This can be practical to draw a line
@@ -206,8 +207,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {label}
     {perspective}
     {transparency}
-        *transparency* can also be a 1d array to set varying transparency
-        for symbols, but this option is only valid if using x/y.
+        ``transparency`` can also be a 1d array to set varying
+        transparency for symbols, but this option is only valid if using
+        ``x``/``y``.
     {wrap}
     """
     # pylint: disable=too-many-locals
