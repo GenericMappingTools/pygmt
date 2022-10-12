@@ -8,10 +8,7 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.parametrize(
-    "data_source",
-    ["igpp", "gebco"],
-)
+@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
 def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
