@@ -278,11 +278,11 @@ Notes for Jupyter users
 -----------------------
 
 If you can successfully import pygmt in a Python interpreter or IPython, but
-fail to import pygmt in Jupyter with ``ModuleNotFoundError``, you may need to
+get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to
 install a ``pygmt`` kernel following the commands below::
 
     conda activate pygmt
-    python -m ipykernel install --user --name pygmt  #to install conda env properly
+    python -m ipykernel install --user --name pygmt  # install conda environment properly
     jupyter kernelspec list --json
 
 After that, you need to restart Jupyter, open your notebook, select the
