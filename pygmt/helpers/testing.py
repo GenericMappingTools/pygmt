@@ -153,6 +153,7 @@ def download_test_data():
     # List of datasets to download
     datasets = [
         # Earth relief grids
+        "@earth_gebco_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_01d_g",
         "@earth_relief_30m_p",
