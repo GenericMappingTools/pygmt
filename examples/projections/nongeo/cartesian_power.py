@@ -26,8 +26,8 @@ fig.plot(
     # of the x-axis
     frame=["WSne+givory", "xa1p", "ya2f1"],
     # Set the line thickness to "thick" (equals "1p", i.e. 1 point)
-    # Use the default color "black" and the default style "solid"
-    pen="thick",
+    # Use as color "black" (default) and as style "solid" (default)
+    pen="thick,black,solid",
     x=xvalues,
     y=yvalues,
 )
