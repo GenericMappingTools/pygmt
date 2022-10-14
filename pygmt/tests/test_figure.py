@@ -89,6 +89,17 @@ def test_figure_savefig_exists():
         os.remove(fname)
 
 
+def test_figure_savefig_directory_nonexists():
+    """
+    Make sure that Figure.savefig() raises a FileNotFoundError when the parent
+    directory doesn't exist.
+    """
+    fig = Figure()
+    fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
+    with pytest.raises(FileNotFoundError, match="No such directory:"):
+        fig.savefig("a-nonexist-directory/test_figure_savefig_directory_nonexists.png")
+
+
 def test_figure_savefig_unknown_extension():
     """
     Check that an error is raised when an unknown extension is passed.

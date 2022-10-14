@@ -4,6 +4,7 @@ Define the Figure class that handles all plotting.
 import base64
 import os
 import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 try:
@@ -240,6 +241,12 @@ class Figure:
                 kwargs["N"] = "+i"
             else:
                 kwargs["N"] += "+i"
+
+        # check if the parent directory exists
+        if kwargs.get("F") and not Path(kwargs.get("F")).parent.exists():
+            raise FileNotFoundError(
+                f"No such directory: '{Path(kwargs.get('F')).parent}'"
+            )
 
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
