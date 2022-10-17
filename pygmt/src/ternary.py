@@ -23,7 +23,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def ternary(self, data, **kwargs):
+def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     r"""
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
@@ -54,6 +54,14 @@ def ternary(self, data, **kwargs):
         and **c**.
     {cmap}
     {fill}
+    alabel : str
+        Set the label for the *a* vertex where the component is 100%. The
+        label is placed at a distance of three times the
+        :gmt-term:`MAP_LABEL_OFFSET` setting from the corner.
+    blabel : str
+        Set the label for the *b* vertex where the component is 100%.
+    clabel : str
+        Set the label for the *c* vertex where the component is 100%.
     style : str
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
@@ -66,6 +74,13 @@ def ternary(self, data, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if alabel or blabel or clabel:
+        alabel = str(alabel) if alabel is not None else "-"
+        blabel = str(blabel) if blabel is not None else "-"
+        clabel = str(clabel) if clabel is not None else "-"
+        kwargs["L"] = "/".join([alabel, blabel, clabel])
+
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:

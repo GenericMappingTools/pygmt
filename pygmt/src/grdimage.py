@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdimage"]
+
 
 @fmt_docstring
 @use_alias(
@@ -161,6 +163,19 @@ def grdimage(self, grid, **kwargs):
     {perspective}
     {transparency}
     {cores}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30 arc minute grid with "gridline" registration
+    >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
+    >>> # create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # pass in the grid and set the CPT to "geo"
+    >>> # set the projection to Mollweide and the size to 10 cm
+    >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
+    >>> # show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
