@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.1.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
@@ -22,7 +22,7 @@ jobs:
       uses: iterative/setup-dvc@v1.0.4
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.0
+      uses: iterative/setup-cml@v1.2.1
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
