@@ -8,7 +8,7 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "synbath"])
 def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
@@ -46,6 +46,19 @@ def test_earth_relief_01d_gebco():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -8598)
+    npt.assert_allclose(data.max(), 5559.0)
+
+def test_earth_relief_01d_synbath():
+    """
+    Test some properties of the earth relief 01d data with SYNBATH data.
+    """
+    data = load_earth_relief(
+        resolution="01d", registration="gridline", data_source="synbath"
+    )
+    assert data.shape == (181, 361)
+    npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
+    npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
+    npt.assert_allclose(data.min(), -8600.5)
     npt.assert_allclose(data.max(), 5559.0)
 
 
