@@ -153,6 +153,7 @@ def download_test_data():
     # List of datasets to download
     datasets = [
         # Earth relief grids
+        "@earth_gebco_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_01d_g",
         "@earth_relief_30m_p",
@@ -189,6 +190,7 @@ def download_test_data():
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@static_earth_relief.nc",
+        "@ternary.txt",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",

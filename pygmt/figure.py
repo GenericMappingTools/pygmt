@@ -145,7 +145,7 @@ class Figure:
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, SVG, TIFF) using Ghostscript.
+        PDF, PNG, PPM, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
         (see :class:`pygmt.Figure`). In this case, an output name must be given
@@ -216,7 +216,7 @@ class Figure:
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
-            PPM, **s** means SVG, and **t** means TIFF [Default is JPEG]. To
+            PPM, and **t** means TIFF [Default is JPEG]. To
             **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
             order to get a monochrome (grayscale) image. The EPS format can be
             combined with any of the other formats. For example, **ef** creates

@@ -13,11 +13,12 @@ fig.plot(
     x=[3, 9, 2],
     y=[4, 9, 37],
     pen="3p,red",
-    # ``region`` sets the x and y ranges or the Cartesian figure.
+    # The region parameter sets the x and y ranges of the
+    # Cartesian projection
     region=[0, 10, 0, 50],
     projection="X15c/10c",
-    # ``WSne`` is passed to ``frame`` to put axis labels only on the left and
-    # bottom axes.
+    # "WSne" is passed to the frame parameter to put annotations
+    # only on the left and bottom axes
     frame=["af", "WSne"],
 )
 fig.show()
