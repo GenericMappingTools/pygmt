@@ -137,9 +137,11 @@ project = "PyGMT"
 copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
+    # Set base_url for stable version
     html_baseurl = "https://pygmt.org/dev/"
 else:
     version = __version__
+    # Set base_url for dev version
     html_baseurl = "https://pygmt.org/latest/"
 release = __version__
 
