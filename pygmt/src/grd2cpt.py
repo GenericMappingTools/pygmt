@@ -167,13 +167,13 @@ def grd2cpt(grid, **kwargs):
     >>> import pygmt
     >>> # load the 30 arc minute grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
-    >>> # Create a plot
+    >>> # create a plot
     >>> fig = pygmt.Figure()
     >>> # create a CPT from the grid object with grd2cpt
     >>> pygmt.grd2cpt(grid=grid)
-    >>> # Plot the grid object, the CPT will be automatically used
+    >>> # plot the grid object, the CPT will be automatically used
     >>> fig.grdimage(grid=grid)
-    >>> # Show the plot
+    >>> # show the plot
     >>> fig.show()
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
