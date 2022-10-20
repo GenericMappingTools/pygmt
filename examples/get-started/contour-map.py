@@ -41,7 +41,7 @@ grid = pygmt.datasets.load_earth_relief(
 # used.
 #
 # The ``cmap`` parameter sets the color palette table (CPT) used for
-# portraying Earth relief. The :meth:`pygmt.Figure.grdimage` method used the
+# portraying Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the
 # input grid to apply Earth relief values to a specific color within the CPT.
 # In this case, the CPT used is "haxby"; a full list of CPTs can be found
 # at :gmt-docs:`cookbook/cpts.html`.
