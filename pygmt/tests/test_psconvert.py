@@ -52,7 +52,7 @@ def test_psconvert_without_prefix():
 @pytest.mark.parametrize("prefix", ["", None, False, True])
 def test_psconvert_invalid_prefix(prefix):
     """
-    Call psconvert with a invalid 'prefix' argument.
+    Call psconvert with an invalid 'prefix' argument.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
