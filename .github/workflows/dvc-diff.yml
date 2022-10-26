@@ -104,14 +104,14 @@ jobs:
 
     - name: Create comment with image diff report
       if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v2.0.1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: ${{ steps.image-diff.outputs.report }}
 
     - name: Update comment with new image diff report
       if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v2.0.1
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.image-diff.outputs.report }}
