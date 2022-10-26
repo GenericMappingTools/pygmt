@@ -23,12 +23,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.10']
+        python-version: ['3.11']
         os: [ubuntu-latest, macOS-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.10) for draft PRs
+        # Only run one job (Ubuntu + Python 3.11) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
