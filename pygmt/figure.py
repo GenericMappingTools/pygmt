@@ -244,8 +244,9 @@ class Figure:
 
         # check if the parent directory exists
         if kwargs.get("F") and not Path(kwargs.get("F")).parent.exists():
+            directory = Path(kwargs.get("F")).parent
             raise FileNotFoundError(
-                f"No such directory: '{Path(kwargs.get('F')).parent}'"
+                f"No such directory: '{directory}', please create it first."
             )
 
         # Manually handle prefix -F argument so spaces aren't converted to \040
