@@ -242,13 +242,6 @@ class Figure:
             else:
                 kwargs["N"] += "+i"
 
-        # check if the parent directory exists
-        if kwargs.get("F") and not Path(kwargs.get("F")).parent.exists():
-            directory = Path(kwargs.get("F")).parent
-            raise FileNotFoundError(
-                f"No such directory: '{directory}', please create it first."
-            )
-
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
@@ -258,6 +251,13 @@ class Figure:
                 "The 'prefix' parameter must be specified with a valid value."
             )
         prefix_arg = f'-F"{prefix}"'
+
+        # check if the parent directory exists
+        prefix_path = Path(prefix).parent
+        if not prefix_path.exists():
+            raise FileNotFoundError(
+                f"No such directory: '{prefix_path}', please create it first."
+            )
 
         with Session() as lib:
             lib.call_module(
