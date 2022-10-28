@@ -14,7 +14,7 @@ and we encourage all to read it carefully.
 
 ### Ways to Contribute Documentation and/or Code
 
-* Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
+* Tackle any issue that you wish! Some issues are labeled as **"good first issue"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
