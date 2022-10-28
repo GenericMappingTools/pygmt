@@ -52,7 +52,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-pygmt.config(FONT_TITLE="14p,Helvetica,black", FORMAT_GEO_MAP="+D")
+pygmt.config(FONT_TITLE="14p,Courier,black", FORMAT_GEO_MAP="+D")
 
 # ============
 # Top left
