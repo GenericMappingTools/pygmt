@@ -256,7 +256,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their
-   GitHub account. Sort their names by the number of commits made since the
+   GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `README.rst` with new information on the new release version,
    including a vX.Y.Z documentation link, and compatibility with
