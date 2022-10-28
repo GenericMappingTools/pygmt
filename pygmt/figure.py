@@ -244,10 +244,12 @@ class Figure:
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
-        try:
-            prefix_arg = f'-F"{kwargs.pop("F")}"'
-        except KeyError as err:
-            raise GMTInvalidInput("The 'prefix' must be specified.") from err
+        prefix = kwargs.pop("F", None)
+        if prefix in ["", None, False, True]:
+            raise GMTInvalidInput(
+                "The 'prefix' parameter must be specified with a valid value."
+            )
+        prefix_arg = f'-F"{prefix}"'
 
         with Session() as lib:
             lib.call_module(
