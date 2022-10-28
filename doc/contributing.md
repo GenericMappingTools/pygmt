@@ -44,7 +44,7 @@ and we encourage all to read it carefully.
 ### Reporting a Bug
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-top of the GitHub repository and click *New Issue*.
+top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Bug report*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your bug report, try to answer any follow up questions about the bug
@@ -74,7 +74,7 @@ the problem:
 ### Submitting a Feature Request
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-  top of the GitHub repository and click *New Issue*.
+  top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Feature request*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your feature request, try to answer any follow up questions as best
