@@ -24,7 +24,7 @@ instead.
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by GitHub Actions** so you shouldn't have to make commits here.
 
-## Managing GitHub issues
+## Managing GitHub Issues
 
 A few guidelines for managing GitHub issues:
 
@@ -40,7 +40,7 @@ A few guidelines for managing GitHub issues:
   possible, post a comment when an upstream PR is merged that fixes the problem, and
   consider adding a regression test for serious bugs.
 
-## Reviewing and merging pull requests
+## Reviewing and Merging Pull Requests
 
 A few guidelines for reviewing:
 
@@ -172,7 +172,7 @@ supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 
 
-## Backwards compatibility and deprecation policy
+## Backwards Compatibility and Deprecation Policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
@@ -221,7 +221,7 @@ The version number is set automatically using setuptools_scm based information
 obtained from git.
 There are a few steps that still must be done manually, though.
 
-### Updating the changelog
+### Updating the Changelog
 
 The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
@@ -270,7 +270,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    More information about the `CITATION.cff` specification can be found at
    https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
 
-### Check the README syntax
+### Check the README Syntax
 
 GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
 So slightly broken RST can cause the PyPI page to not render the correct content. Check
@@ -282,7 +282,7 @@ rst2html.py --no-raw README.rst > index.html
 
 Open `index.html` and check for any flaws or error messages.
 
-### Pushing to PyPI and updating the documentation
+### Pushing to PyPI and Updating the Documentation
 
 After the changelog is updated, making a release can be done by going to
 https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
@@ -300,7 +300,7 @@ this new folder.
 Grab both the source code and baseline images zip files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.
 
-### Updating the conda package
+### Updating the Conda Package
 
 When a new version is released on PyPI, conda-forge's bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.
