@@ -56,7 +56,6 @@ pygmt.config(FONT_TITLE="14p,Courier,black", FORMAT_GEO_MAP="+D")
 
 # ============
 # Top left
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 360, radius_min = 0,
     # radius_max = 1
@@ -72,7 +71,6 @@ fig.shift_origin(xshift="8c")
 
 # ============
 # Top middle
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 360, radius_min = 0,
     # radius_max = 1
@@ -89,7 +87,6 @@ fig.shift_origin(xshift="8c")
 
 # ============
 # Top right
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 0,
     # radius_max = 1
@@ -106,7 +103,6 @@ fig.shift_origin(xshift="-16c", yshift="-7c")
 
 # ============
 # Bottom left
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 0,
     # radius_max = 1
@@ -128,7 +124,6 @@ fig.shift_origin(xshift="8c", yshift="1.3c")
 
 # ============
 # Bottom middle
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,
     # radius_max = 6371 (Earth's radius)
@@ -150,7 +145,6 @@ fig.shift_origin(xshift="8c")
 
 # ============
 # Bottom right
-#
 fig.basemap(
     # set map limits to theta_min = 0, theta_max = 90, radius_min = 3480,
     # radius_max = 6371 (Earth's radius)
