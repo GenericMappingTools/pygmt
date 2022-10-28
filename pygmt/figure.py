@@ -146,7 +146,7 @@ class Figure:
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, SVG, TIFF) using Ghostscript.
+        PDF, PNG, PPM, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
         (see :class:`pygmt.Figure`). In this case, an output name must be given
@@ -217,7 +217,7 @@ class Figure:
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
-            PPM, **s** means SVG, and **t** means TIFF [Default is JPEG]. To
+            PPM, and **t** means TIFF [Default is JPEG]. To
             **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
             order to get a monochrome (grayscale) image. The EPS format can be
             combined with any of the other formats. For example, **ef** creates
@@ -251,10 +251,12 @@ class Figure:
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
-        try:
-            prefix_arg = f'-F"{kwargs.pop("F")}"'
-        except KeyError as err:
-            raise GMTInvalidInput("The 'prefix' must be specified.") from err
+        prefix = kwargs.pop("F", None)
+        if prefix in ["", None, False, True]:
+            raise GMTInvalidInput(
+                "The 'prefix' parameter must be specified with a valid value."
+            )
+        prefix_arg = f'-F"{prefix}"'
 
         with Session() as lib:
             lib.call_module(
