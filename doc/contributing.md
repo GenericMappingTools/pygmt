@@ -56,7 +56,7 @@ If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve
 the problem:
 
-* Add the line `pygmt.config(GMT_VERBOSE='d')` after your import statements, which
+* Add the line `pygmt.config(GMT_VERBOSE="d")` after your import statements, which
   will report the equivalent GMT commands as one of the debug messages.
 * Either append all messages from running your script to your GitHub issue, or
   filter the messages to include only the GMT-equivalent commands using a command
