@@ -297,7 +297,7 @@ this new folder.
 
 ### Archiving on Zenodo
 
-Grab both the source code and baseline images zip files from the GitHub release page
+Grab both the source code and baseline images ZIP files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.
 
 ### Updating the Conda Package
