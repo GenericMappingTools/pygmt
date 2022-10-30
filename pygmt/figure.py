@@ -4,6 +4,7 @@ Define the Figure class that handles all plotting.
 import base64
 import os
 import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 try:
@@ -250,6 +251,13 @@ class Figure:
                 "The 'prefix' parameter must be specified with a valid value."
             )
         prefix_arg = f'-F"{prefix}"'
+
+        # check if the parent directory exists
+        prefix_path = Path(prefix).parent
+        if not prefix_path.exists():
+            raise FileNotFoundError(
+                f"No such directory: '{prefix_path}', please create it first."
+            )
 
         with Session() as lib:
             lib.call_module(
