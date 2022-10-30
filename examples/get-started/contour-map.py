@@ -43,11 +43,11 @@ grid = pygmt.datasets.load_earth_relief(
 # The ``cmap`` parameter sets the color palette table (CPT) used for
 # portraying Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the
 # input grid to apply Earth relief values to a specific color within the CPT.
-# In this case, the CPT used is "haxby"; a full list of CPTs can be found
+# In this case, the CPT used is "oleron"; a full list of CPTs can be found
 # at :gmt-docs:`cookbook/cpts.html`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.show()
 
 ###############################################################################
@@ -67,7 +67,7 @@ fig.show()
 # in :meth:`pygmt.Figure.grdimage`.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 
@@ -85,7 +85,7 @@ fig.show()
 # bathymetry.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.grdcontour(grid=grid, interval=500, annotation=1000)
 fig.colorbar(frame=["a1000", "x+lElevation (m)"])
 fig.show()
@@ -100,7 +100,7 @@ fig.show()
 # draws a border around the islands.
 
 fig = pygmt.Figure()
-fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="haxby")
+fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.grdcontour(grid=grid, interval=500, annotation=1000)
 fig.coast(shorelines="2p", land="lightgray")
 fig.colorbar(frame=["a1000", "x+lElevation (m)"])
