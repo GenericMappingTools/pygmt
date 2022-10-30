@@ -17,7 +17,7 @@ import pygmt
 # Loading the Earth relief dataset
 # --------------------------------
 #
-# The first step is to import :meth:`pygmt.datasets.load_earth_relief`.
+# The first step is to use :meth:`pygmt.datasets.load_earth_relief`.
 # The ``resolution`` parameter sets the resolution of the remote grid file,
 # which will affect the resolution of the plot made later in the tutorial.
 # The ``registration`` parameter determines the grid registration.
@@ -127,4 +127,4 @@ fig.show()
 #    set ``water`` to "lightblue" to only display Earth relief information for
 #    the land.
 #
-# 4. Try other CPTs, such as "jet" and "geo".
+# 4. Try other CPTs, such as "SCM/fes" or "geo".
