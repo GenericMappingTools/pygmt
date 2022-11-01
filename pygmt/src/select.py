@@ -120,15 +120,15 @@ def select(data=None, outfile=None, **kwargs):
         have at least three columns. To indicate no limit on *min* or *max*,
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
-        **+c**\ *col*, and to specify several tests just repeat the
-        ``z_subregion`` option as many times as you have columns to test.
-        **Note**: When more than one ``z_subregion`` option is given then the
-        ``reverse="z"`` option cannot be used. In the case of multiple tests
+        **+c**\ *col*, and to specify several tests pass a list of arguments
+        as you have columns to test.
+        **Note**: When more than one ``z_subregion`` argument is given then the
+        ``reverse="z"`` cannot be used. In the case of multiple tests
         you may use these modifiers as well: **+a** passes any record that
         passes at least one of your *z* tests [Default is all tests must pass],
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
-        incremented for each new ``z_subregion`` option, starting with 2.
+        incremented for each new ``z_subregion`` argument, starting with 2.
     {binary}
     {nodata}
     {find}
