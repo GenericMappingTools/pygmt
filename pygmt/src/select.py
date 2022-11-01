@@ -117,7 +117,7 @@ def select(data=None, outfile=None, **kwargs):
         is omitted then we test if *z* equals *min* instead. This means
         equality within 5 ULPs (unit of least precision;
         http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must
-        have at least three columns. To indicate no limit on min or max,
+        have at least three columns. To indicate no limit on *min* or *max*,
         specify a hyphen (-). If your 3rd column is absolute time then remember
         to supply ``coltypes="2T"``. To specify another column, append
         **+c**\ *col*, and to specify several tests just repeat the
