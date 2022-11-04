@@ -34,9 +34,10 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
         provider or path to a local file. The web tile provider can be in the
         form of a :class:`xyzservices.TileProvider` object or a URL. The
         placeholders for the XYZ in the URL need to be {x}, {y}, {z},
-        respectively. For local file paths, the file is read with rasterio and
-        all bands are loaded into the basemap. IMPORTANT: tiles are assumed to
-        be in the Spherical Mercator projection (EPSG:3857).
+        respectively. For local file paths, the file is read with
+        :doc:`rasterio <rasterio:index>` and all bands are loaded into the
+        basemap. IMPORTANT: tiles are assumed to be in the Spherical Mercator
+        projection (EPSG:3857).
 
     lonlat : bool
         [Optional. Default: True]. If False, coordinates in ``region`` are

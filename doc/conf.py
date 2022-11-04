@@ -59,7 +59,8 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
+    "xarray": ("https://docs.xarray.dev/en/stable/", None),
     "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
 
