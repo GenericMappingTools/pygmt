@@ -153,6 +153,7 @@ def download_test_data():
     # List of datasets to download
     datasets = [
         # Earth relief grids
+        "@earth_gebco_01d_g",
         "@earth_relief_01d_p",
         "@earth_relief_01d_g",
         "@earth_relief_30m_p",
@@ -168,6 +169,7 @@ def download_test_data():
         "@N35E135.earth_relief_03s_g.nc",
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
+        "@N00E135.earth_relief_30s_g.nc",
         # Earth seafloor age grids
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
@@ -188,6 +190,7 @@ def download_test_data():
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@static_earth_relief.nc",
+        "@ternary.txt",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",

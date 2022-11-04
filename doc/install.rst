@@ -260,12 +260,31 @@ library (``libgmt``).
 This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
-``GMT_LIBRARY_PATH`` environment variable.
-This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or
-``gmt.dll`` can be found for Linux, macOS and Windows, respectively.
-e.g., on a command line, run::
+``GMT_LIBRARY_PATH`` environment variable to the directory where ``libgmt.so``,
+``libgmt.dylib`` or ``gmt.dll`` can be found on Linux, macOS or Windows,
+respectively.
 
-    # Linux/macOS
+For Linux/macOS, add the following line to your shell configuration file
+(usually ``~/.bashrc`` for Bash on Linux and ``~/.zshrc`` for Zsh on macOS)::
+
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
-    # Windows
-    set "GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\"
+
+For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
+`instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
+and set its value to a path like::
+
+    C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\
+
+Notes for Jupyter users
+-----------------------
+
+If you can successfully import pygmt in a Python interpreter or IPython, but
+get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to
+install a ``pygmt`` kernel following the commands below::
+
+    conda activate pygmt
+    python -m ipykernel install --user --name pygmt  # install conda environment properly
+    jupyter kernelspec list --json
+
+After that, you need to restart Jupyter, open your notebook, select the
+``pygmt`` kernel and then import pygmt.

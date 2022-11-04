@@ -1,0 +1,4 @@
+outs:
+- md5: 7278b6cdaf0076840927380a22d03846
+  size: 63228
+  path: test_ternary_1_label.png
