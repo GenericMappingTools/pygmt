@@ -31,7 +31,7 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
 
     source : xyzservices.TileProvider or str
         [Optional. Default: Stamen Terrain web tiles] The tile source: web tile
-        provider or path to local file. The web tile provider can be in the
+        provider or path to a local file. The web tile provider can be in the
         form of a :class:`xyzservices.TileProvider` object or a URL. The
         placeholders for the XYZ in the URL need to be {x}, {y}, {z},
         respectively. For local file paths, the file is read with rasterio and
