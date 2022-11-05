@@ -425,6 +425,7 @@ def fmt_docstring(module_func):
     ...     {aliases}
     ...     '''
     ...     pass
+    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
@@ -534,6 +535,7 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
+    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -751,6 +753,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red
