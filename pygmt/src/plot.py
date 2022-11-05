@@ -116,8 +116,8 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         *dx/dy* [Default is no offset]. If *dy* is not given it is set
         equal to *dx*.
     error_bar : bool or str
-        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
-        [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
+        [**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**]\
+        [**+cl**\|\ **f**][**+n**][**+w**\ *cap*][**+p**\ *pen*].
         Draw symmetrical error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
