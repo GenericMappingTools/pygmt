@@ -576,7 +576,7 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.8.0.
+            # timestamp (U) is deprecated since v0.8.0, remove in v0.12.0
             if "U" in kwargs or "timestamp" in kwargs:
                 if "timestamp" in kwargs:
                     kwargs["U"] = kwargs.pop("timestamp")
