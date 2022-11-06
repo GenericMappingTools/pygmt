@@ -118,7 +118,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     error_bar : bool or str
         [**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**]\
         [**+cl**\|\ **f**][**+n**][**+w**\ *cap*][**+p**\ *pen*].
-        Draw symmetrical error bars. Full documentation is at
+        Draw error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
         [**c**\|\ **n**\|\ **r**]\
