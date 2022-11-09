@@ -595,6 +595,7 @@ def use_alias(**aliases):
                     kwargs["Y"] = kwargs.pop("yshift")
                 msg = (
                     "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
+                    "and will be removed in v0.12.0. "
                     "Use Figure.shift_origin(yshift=...) instead."
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
