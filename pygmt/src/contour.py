@@ -36,7 +36,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
-    Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
+    Takes a matrix, (x,y,z) triplets, or a file name as input and plots lines,
     polygons, or symbols at those locations on a map.
 
     Must provide either ``data`` or ``x``/``y``/``z``.
@@ -50,14 +50,14 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
-        {table-classes}
+        {table-classes}.
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
     {projection}
     {region}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``interval``.
+        contours specified in ``levels``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
@@ -69,9 +69,9 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
           be used as contour levels.
         - The file name of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3)
+          angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*
+          +\ *cont_int*.
     D : str
         Dump contour coordinates.
     E : str
