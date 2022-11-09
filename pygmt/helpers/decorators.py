@@ -581,7 +581,8 @@ def use_alias(**aliases):
                 if "xshift" in kwargs:
                     kwargs["X"] = kwargs.pop("xshift")
                 msg = (
-                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0. "
+                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
+                    "and will be removed in v0.12.0. "
                     "Use Figure.shift_origin(xshift=...) instead."
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
