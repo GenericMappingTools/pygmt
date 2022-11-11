@@ -24,7 +24,7 @@ def test_config():
             projection="X5c/5c",
             frame=["xaf+lred label", "yaf", "+tred annotation"],
         )
-    
+
     fig.shift_origin(xshift="7c")
     fig.basemap(
         region=[0, 10, 0, 10],
