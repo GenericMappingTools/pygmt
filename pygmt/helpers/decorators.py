@@ -97,15 +97,6 @@ COMMON_DOCSTRINGS = {
     "pen": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "xyshift": r"""
-        xshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
-            Shift plot origin in x-direction.
-        yshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
