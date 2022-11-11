@@ -95,7 +95,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x,y,z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -191,7 +191,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x,y,z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -278,7 +278,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x,y,z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
