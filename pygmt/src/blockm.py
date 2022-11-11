@@ -18,7 +18,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean, median, or mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    Reads arbitrarily located (x,y,z) triplets [or optionally weighted
     quadruples (x,y,z,w)] from a table and writes to the output a mean,
     median, or mode (depending on ``block_method``) position and value for
     every non-empty block in a grid region defined by the ``region`` and
@@ -90,7 +90,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mean estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    Reads arbitrarily located (x,y,z) triplets [or optionally weighted
     quadruples (x,y,z,w)] and writes to the output a mean position and value
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
@@ -186,7 +186,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by median estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    Reads arbitrarily located (x,y,z) triplets [or optionally weighted
     quadruples (x,y,z,w)] and writes to the output a median position and value
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
@@ -273,7 +273,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
     Block average (x,y,z) data tables by mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
+    Reads arbitrarily located (x,y,z) triplets [or optionally weighted
     quadruples (x,y,z,w)] and writes to the output a mode position and value
     for every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
