@@ -284,9 +284,9 @@ def meca(
         # convert dict to pd.DataFrame so columns can be reordered
         if isinstance(spec, dict):
             # convert values to ndarray so pandas doesn't complain about "all
-            # scalar values". See issue #2174 for details.
-            for key, value in spec.items():
-                spec[key] = np.atleast_1d(value)
+            # scalar values". See
+            # https://github.com/GenericMappingTools/pygmt/pull/2174
+            spec = {key: np.atleast_1d(value) for key, value in spec.items()}
             spec = pd.DataFrame(spec)
 
         # expected columns are:
