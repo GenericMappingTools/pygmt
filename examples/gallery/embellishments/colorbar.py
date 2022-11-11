@@ -14,7 +14,7 @@ the colorbar using the following options:
   ``position="jTR"`` for top right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
   170E, latitude 45S.
-- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm,7 cm from
+- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm from
   anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
