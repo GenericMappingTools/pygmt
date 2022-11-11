@@ -67,7 +67,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
        Only the closest point in each sector (red circles) contribute to the
        weighted estimate.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x,y,z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
