@@ -29,25 +29,6 @@ def test_meca_spec_dictionary():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_meca_spec_dictionary.png")
-def test_meca_spec_dict_all_scalars():
-    """
-    Test supplying a dict with scalar values for all focal parameters.
-    """
-    fig = Figure()
-    # Right lateral strike slip focal mechanism
-    fig.meca(
-        spec=dict(
-            strike=0, dip=90, rake=0, magnitude=5, longitude=0, latitude=5, depth=0
-        ),
-        scale="2.5c",
-        region=[-1, 1, 4, 6],
-        projection="M14c",
-        frame=2,
-    )
-    return fig
-
-
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dict_list():
     """
@@ -308,5 +289,28 @@ def test_meca_dict_offset_eventname():
         plot_longitude=-124.5,
         plot_latitude=47.5,
         event_name="Event20220311",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_meca_dict_eventname.png")
+def test_meca_spec_dict_all_scalars():
+    """
+    Test supplying a dict with scalar values for all focal parameters.
+    """
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=dict(
+            strike=330,
+            dip=30,
+            rake=90,
+            magnitude=3,
+            longitude=-124,
+            latitude=48,
+            depth=12.0,
+            event_name="Event20220311",
+        ),
+        scale="1c",
     )
     return fig
