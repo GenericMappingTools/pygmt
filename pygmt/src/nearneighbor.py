@@ -1,5 +1,5 @@
 """
-nearneighbor - Grid table data using a "Nearest neighbor" algorithm
+nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 from pygmt.clib import Session
