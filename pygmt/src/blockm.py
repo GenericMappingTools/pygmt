@@ -17,8 +17,7 @@ __doctest_skip__ = ["blockmean", "blockmedian", "blockmode"]
 
 def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
-    Block average (x, y, z) data tables by mean, median, or mode
-	estimation.
+    Block average (x, y, z) data tables by mean, median, or mode estimation.
 
     Reads arbitrarily located (x, y, z) triplets [or optionally weighted
     quadruples (x, y, z, w)] from a table and writes to the output a mean,
