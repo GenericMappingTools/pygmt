@@ -63,7 +63,7 @@ def plot3d(
 
     Must provide either ``data`` or ``x``/``y``/``z``.
 
-    If providing data through ``x/y/z``, ``fill`` can be a 1d array
+    If providing data through ``x``/``y``/``z``, ``fill`` can be a 1d array
     that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
