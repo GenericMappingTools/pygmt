@@ -36,8 +36,8 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots z as a
-    function of distance along track.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots z
+    as a function of distance along track.
 
     Must provide either ``data`` or ``x``/``y``/``z``.
 

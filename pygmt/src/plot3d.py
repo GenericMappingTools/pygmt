@@ -58,7 +58,7 @@ def plot3d(
     r"""
     Plot lines, polygons, and symbols in 3-D.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots
     lines, polygons, or symbols at those locations in 3-D.
 
     Must provide either ``data`` or ``x``/``y``/``z``.
