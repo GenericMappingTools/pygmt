@@ -35,7 +35,7 @@ from pygmt.helpers import (
     e="find",
     f="coltypes",
     h="header",
-    i="use_word",
+    it="use_word",
     p="perspective",
     t="transparency",
     w="wrap",
