@@ -61,10 +61,10 @@ def plot3d(
     Takes a matrix, (x, y, z) triplets, or a file name as input and plots
     lines, polygons, or symbols at those locations in 3-D.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    If providing data through ``x``/``y``/``z``, ``fill`` can be a 1d array
-    that will be mapped to a colormap.
+    If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a
+    1d array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
     interpret the fourth column of the input data as symbol size. Symbols
