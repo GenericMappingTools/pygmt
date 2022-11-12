@@ -297,6 +297,9 @@ def test_meca_dict_offset_eventname():
 def test_meca_spec_dict_all_scalars():
     """
     Test supplying a dict with scalar values for all focal parameters.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/pull/2174
     """
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
