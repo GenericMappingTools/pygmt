@@ -48,6 +48,7 @@ def test_earth_relief_01d_gebco():
     npt.assert_allclose(data.min(), -8598)
     npt.assert_allclose(data.max(), 5559.0)
 
+
 def test_earth_relief_01d_synbath():
     """
     Test some properties of the earth relief 01d data with SYNBATH data.
@@ -123,6 +124,21 @@ def test_earth_relief_05m_with_region():
     assert data.data.max() == 2532.0
     assert data.sizes["lat"] == 361
     assert data.sizes["lon"] == 481
+
+
+def test_earth_relief_30s_synbath():
+    """
+    Test some properties of the earth relief 30s data with SYNBATH data.
+    """
+    data = load_earth_relief(
+        region=[-95, -94, -1.5, -1],
+        resolution="30s",
+        registration="pixel",
+        data_source="synbath",
+    )
+    assert data.shape == (60, 120)
+    npt.assert_allclose(data.min(), -3552.5)
+    npt.assert_allclose(data.max(), -2154)
 
 
 def test_earth_relief_05m_without_region():
