@@ -102,4 +102,7 @@ fig.grdcontour(
     grid=grid,
     limit=[-4000, -2000],
 )
+fig.colorbar(
+    frame=["x+lelevation", "y+lm"],
+)
 fig.show()
