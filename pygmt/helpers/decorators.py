@@ -135,8 +135,8 @@ COMMON_DOCSTRINGS = {
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
-            example, ``d="-9999"`` will replace all values equal to -9999 with
-            NaN during input and all NaN values with -9999 during output.
+            example, ``nodata="-9999"`` will replace all values equal to -9999
+            with NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "panel": r"""
