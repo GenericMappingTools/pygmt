@@ -287,7 +287,7 @@ def test_figure_depr_xshift():
         assert len(record) == 1  # check that only one warning was raised
 
 
-def test_figure_depr_X():
+def test_figure_depr_x():
     """
     Check if deprecation of X parameter works correctly if used.
     """
@@ -309,7 +309,7 @@ def test_figure_depr_yshift():
         assert len(record) == 1  # check that only one warning was raised
 
 
-def test_figure_depr_Y():
+def test_figure_depr_y():
     """
     Check if deprecation of Y parameter works correctly if used.
     """
