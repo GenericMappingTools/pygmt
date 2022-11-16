@@ -51,4 +51,9 @@ fig.grdview(
     shading="+a45",
 )
 
+fig.colorbar(
+    frame="a2f1",
+    position="JRM",
+)
+
 fig.show()
