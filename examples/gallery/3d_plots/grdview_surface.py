@@ -42,7 +42,7 @@ fig = pygmt.Figure()
 SCALE = 0.5  # in centimeter
 fig.grdview(
     data,
-    frame=["a5f1", "za5f1"],
+    frame=["a5f1g5", "za5f1g5"],
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
     surftype="s",
