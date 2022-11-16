@@ -280,7 +280,7 @@ def test_figure_depr_xshift():
     """
     Check if deprecation of xshift parameter works correctly if used.
     """
-    fig = pygmt.Figure()
+    fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         fig.plot(x=1, y=1, style="c3c", xshift="3c")
@@ -291,7 +291,7 @@ def test_figure_depr_X():
     """
     Check if deprecation of X parameter works correctly if used.
     """
-    fig = pygmt.Figure()
+    fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         fig.plot(x=1, y=1, style="c3c", X="3c")
@@ -302,7 +302,7 @@ def test_figure_depr_yshift():
     """
     Check if deprecation of yshift parameter works correctly if used.
     """
-    fig = pygmt.Figure()
+    fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
@@ -313,7 +313,7 @@ def test_figure_depr_Y():
     """
     Check if deprecation of Y parameter works correctly if used.
     """
-    fig = pygmt.Figure()
+    fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         fig.plot(x=1, y=1, style="c3c", Y="3c")
