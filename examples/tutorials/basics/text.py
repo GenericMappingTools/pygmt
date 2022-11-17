@@ -28,10 +28,10 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plot text annotations using a single element
+# Plot text annotations using single arguments
 fig.text(text="SOUTH CHINA SEA", x=112, y=6)
 
-# Plot text annotations using lists of elements
+# Plot text annotations using lists of arguments
 fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
