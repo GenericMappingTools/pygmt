@@ -20,7 +20,7 @@ import pygmt
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` parameters to specify the annotation text and position in the
-# projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
+# projection frame. ``text`` accepts *str* types, while ``x`` and ``y``
 # accept either *int* or *float* numbers, or a list/array of numbers.
 
 fig = pygmt.Figure()
