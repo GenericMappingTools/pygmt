@@ -1,5 +1,6 @@
 """
-blockm - Block average (x,y,z) data tables by mean, median, or mode estimation.
+blockm - Block average (x, y, z) data tables by mean, median, or mode
+estimation.
 """
 import pandas as pd
 from pygmt.clib import Session
@@ -16,10 +17,10 @@ __doctest_skip__ = ["blockmean", "blockmedian", "blockmode"]
 
 def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mean, median, or mode estimation.
+    Block average (x, y, z) data tables by mean, median, or mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] from a table and writes to the output a mean,
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] from a table and writes to the output a mean,
     median, or mode (depending on ``block_method``) position and value for
     every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
@@ -88,14 +89,14 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mean estimation.
+    Block average (x, y, z) data tables by mean estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a mean position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mean position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -184,14 +185,14 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by median estimation.
+    Block average (x, y, z) data tables by median estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a median position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a median position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -271,14 +272,14 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mode estimation.
+    Block average (x, y, z) data tables by mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a mode position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mode position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
