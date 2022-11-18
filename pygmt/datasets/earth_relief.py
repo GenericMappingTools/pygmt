@@ -141,11 +141,15 @@ def load_earth_relief(
             f"{registration}-registered Earth relief data for "
             f"resolution '{resolution}' is not supported."
         )
-    earth_relief_sources = {"igpp": "earth_relief_", "gebco": "earth_gebco_"}
+    earth_relief_sources = {
+        "igpp": "earth_relief_",
+        "gebco": "earth_gebco_",
+        "gebcosi": "earth_gebcosi_",
+    }
     if data_source not in earth_relief_sources:
         raise GMTInvalidInput(
             f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'igpp' and 'gebco'."
+            "valid values are 'igpp', 'gebco', and 'gebcosi'."
         )
     if data_source != "igpp":
         with Session() as lib:
