@@ -117,8 +117,8 @@ fig.show()
 ###############################################################################
 # ``angle`` parameter
 # -------------------
-# ``angle`` is an optional parameter used to specify the clockwise rotation of
-# the text from the horizontal.
+# ``angle`` is an optional parameter used to specify the counter-clockwise
+# rotation of the text from the horizontal.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 4, 0, 4], projection="X5c", frame="WSen")
