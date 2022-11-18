@@ -14,7 +14,7 @@ and we encourage all to read it carefully.
 
 ### Ways to Contribute Documentation and/or Code
 
-* Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
+* Tackle any issue that you wish! Some issues are labeled as **"good first issue"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
@@ -44,19 +44,19 @@ and we encourage all to read it carefully.
 ### Reporting a Bug
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-top of the GitHub repository and click *New Issue*.
+top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Bug report*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
-#### Reporting upstream bugs
+#### Reporting Upstream Bugs
 
 If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve
 the problem:
 
-* Add the line `pygmt.config(GMT_VERBOSE='d')` after your import statements, which
+* Add the line `pygmt.config(GMT_VERBOSE="d")` after your import statements, which
   will report the equivalent GMT commands as one of the debug messages.
 * Either append all messages from running your script to your GitHub issue, or
   filter the messages to include only the GMT-equivalent commands using a command
@@ -74,7 +74,7 @@ the problem:
 ### Submitting a Feature Request
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-  top of the GitHub repository and click *New Issue*.
+  top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Feature request*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your feature request, try to answer any follow up questions as best

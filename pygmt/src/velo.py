@@ -207,13 +207,13 @@ def velo(self, data=None, **kwargs):
         to set both pen and fill color.
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region``. [Default plots symbols inside frame only].
+        by ``region`` [Default plots symbols inside frame only].
     {timestamp}
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
-        plane edges. [Defaults: width = default, color = black, style = solid].
+        plane edges [Default is ``"0.25p,black,solid"``].
         If the modifier **+cl** is appended then the color of the pen is
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill

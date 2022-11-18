@@ -45,8 +45,12 @@ COMMON_DOCSTRINGS = {
            CPT from those colors automatically.""",
     "color": """\
         color : str or 1d array
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
+    "fill": """\
+        fill : str
+            Select color or pattern for filling of symbols or polygons [Default
+            is no fill].""",
     "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
@@ -86,7 +90,7 @@ COMMON_DOCSTRINGS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms);
+            - **t** - Timings (report runtimes for time-intensive algorithms)
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
@@ -140,8 +144,8 @@ COMMON_DOCSTRINGS = {
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
-            example, ``d="-9999"`` will replace all values equal to -9999 with
-            NaN during input and all NaN values with -9999 during output.
+            example, ``nodata="-9999"`` will replace all values equal to -9999
+            with NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "panel": r"""
@@ -344,8 +348,8 @@ COMMON_DOCSTRINGS = {
                   if values in all specified *cols* equal NaN].""",
     "transparency": """\
         transparency : int or float
-            Set transparency level, in [0-100] percent range.
-            Default is 0, i.e., opaque.
+            Set transparency level, in [0-100] percent range
+            [Default is 0, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
@@ -421,6 +425,7 @@ def fmt_docstring(module_func):
     ...     {aliases}
     ...     '''
     ...     pass
+    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
@@ -530,6 +535,7 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
+    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -747,6 +753,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red

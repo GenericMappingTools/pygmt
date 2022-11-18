@@ -291,3 +291,29 @@ def test_meca_dict_offset_eventname():
         event_name="Event20220311",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_meca_dict_eventname.png")
+def test_meca_spec_dict_all_scalars():
+    """
+    Test supplying a dict with scalar values for all focal parameters.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/pull/2174
+    """
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=dict(
+            strike=330,
+            dip=30,
+            rake=90,
+            magnitude=3,
+            longitude=-124,
+            latitude=48,
+            depth=12.0,
+            event_name="Event20220311",
+        ),
+        scale="1c",
+    )
+    return fig
