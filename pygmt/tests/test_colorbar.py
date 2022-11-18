@@ -110,7 +110,7 @@ def test_colorbar_frame_string_parameters():
     fig.colorbar(
         cmap="rainbow",
         position="x0c/0c+w1c/0.5c",
-        frame="a0.5",
+        frame="a0.25",
         xlabel="test-x",
         ylabel="test-y",
     )
