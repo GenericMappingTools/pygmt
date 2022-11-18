@@ -114,6 +114,23 @@ def test_earth_relief_05m_with_region():
     assert data.sizes["lon"] == 481
 
 
+def test_earth_gebcosi_15m_with_region():
+    """
+    Test loading a subregion of 15 arc-minute resolution earth_gebcosi grid.
+    """
+    data = load_earth_relief(
+        resolution="15m",
+        region=[85, 87, -88, -84],
+        registration="pixel",
+        data_source="gebcosi",
+    )
+    assert data.shape == (16, 8)
+    npt.assert_allclose(data.lat, np.arange(-87.875, -84, 0.25))
+    npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
+    npt.assert_allclose(data.min(), -531)
+    npt.assert_allclose(data.max(), 474)
+
+
 def test_earth_relief_05m_without_region():
     """
     Test loading high-resolution earth relief without passing 'region'.
