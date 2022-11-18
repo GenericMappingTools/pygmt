@@ -101,7 +101,7 @@ def test_colorbar_frame_list_parameters():
 
 
 @pytest.mark.mpl_image_compare
-def test_colorbar_frame_string_parameters():
+def test_colorbar_frame_string_parameters(filename="test_colorbar_frame_parameters.png"):
     """
     Create colorbar with a string passed to frame and arguments passed to
     xlabel and ylabel.
@@ -110,7 +110,7 @@ def test_colorbar_frame_string_parameters():
     fig.colorbar(
         cmap="rainbow",
         position="x0c/0c+w1c/0.5c",
-        frame="a.5",
+        frame="a0.25",
         xlabel="test-x",
         ylabel="test-y",
     )
