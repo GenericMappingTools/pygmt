@@ -8,7 +8,7 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "gebcosi"])
 def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
@@ -35,12 +35,14 @@ def test_earth_relief_01d_igpp():
     npt.assert_allclose(data.max(), 5559.0)
 
 
-def test_earth_relief_01d_gebco():
+@pytest.mark.parametrize("data_source", ["gebco", "gebcosi"])
+def test_earth_relief_01d_gebco(data_source):
     """
-    Test some properties of the earth relief 01d data with GEBCO data.
+    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI
+    data.
     """
     data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source="gebco"
+        resolution="01d", registration="gridline", data_source=data_source
     )
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
