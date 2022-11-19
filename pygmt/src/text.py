@@ -91,7 +91,7 @@ def text_(
         * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
 
-        For example, ``position="TL"`` plots the text at the Upper Left corner
+        For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
     text : str or 1d array
         The text string, or an array of strings to plot on the figure.
