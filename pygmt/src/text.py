@@ -81,11 +81,11 @@ def text_(
         records with (x, y[, angle, font, justify], text).
     x/y : float or 1d arrays
         The x and y coordinates, or an array of x and y coordinates to plot
-        the text
+        the text.
     position : str
-        Sets reference point on the map for the text by using x,y
+        Sets reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
-        through ``x``/``y``. Specify with a two letter (order independent)
+        through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
         * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
@@ -94,7 +94,7 @@ def text_(
         For example, ``position="TL"`` plots the text at the Upper Left corner
         of the map.
     text : str or 1d array
-        The text string, or an array of strings to plot on the figure
+        The text string, or an array of strings to plot on the figure.
     angle: int, float, str or bool
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
