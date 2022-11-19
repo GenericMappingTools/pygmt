@@ -126,7 +126,7 @@ def text_(
         specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
         for point; if not given we consult :gmt-term:`PROJ_LENGTH_UNIT`)
         or *%* for a percentage of the font size. Optionally, use modifier
-        **+t** to set the shape of the textbox when using ``fill`` and/or
+        **+t** to set the shape of the text box when using ``fill`` and/or
         ``pen``. Append lower case **o** to get a straight rectangle
         [Default is **o**]. Append upper case **O** to get a rounded
         rectangle. In paragraph mode (*paragraph*) you can also append lower
