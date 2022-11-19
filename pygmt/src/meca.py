@@ -117,7 +117,7 @@ def meca(
         ``spec`` can be specified in either of the following types:
 
         - ``str``: a file name containing focal mechanism parameters as
-          columns. The meanings of each column is:
+          columns. The meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
