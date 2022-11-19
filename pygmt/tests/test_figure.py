@@ -278,7 +278,8 @@ def test_figure_icc_gray():
 
 def test_figure_deprecated_xshift_yshift():
     """
-    Check if deprecation of parameters X/Y/xshift/yshift work correctly if used.
+    Check if deprecation of parameters X/Y/xshift/yshift work correctly if
+    used.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
