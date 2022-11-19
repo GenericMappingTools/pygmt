@@ -164,6 +164,7 @@ def meca(
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention: str
         Focal mechanism convention. Choose from:
+
         - ``"aki"`` (Aki & Richards)
         - ``"gcmt"`` (global CMT)
         - ``"mt"`` (seismic moment tensor)
