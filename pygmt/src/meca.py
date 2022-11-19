@@ -169,7 +169,7 @@ def meca(
         - ``"gcmt"`` (global CMT)
         - ``"mt"`` (seismic moment tensor)
         - ``"partial"`` (partial focal mechanism)
-        - ``"principal_axis"`` (principal axis).
+        - ``"principal_axis"`` (principal axis)
 
         Ignored if ``spec`` is a dictionary or pd.DataFrame.
     component: str
