@@ -128,7 +128,7 @@ def meca(
             beachball. Using ``0 0`` will plot the beachball at the longitude,
             latitude given in columns 1 and 2. [optional and requires
             ``offset=True`` to take effect].
-          - Text string to appear near the beach ball [optional].
+          - Text string to appear near the beachball [optional].
 
         - **1D array**: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
@@ -200,7 +200,7 @@ def meca(
         as the number of events. Will override the ``plot_latitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
     event_name : str or list of str, or 1d numpy array
-        Text strings (e.g., event names) to appear near the beach ball. List
+        Text strings (e.g., event names) to appear near the beachball. List
         must be the same length as the number of events. Will override the
         ``event_name`` values in ``spec`` if ``spec`` is a dict or
         pd.DataFrame.
