@@ -153,9 +153,9 @@ def meca(
           ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
           ``plot_latitude``, and/or ``event_name``.
 
-          For ``spec`` in either a str, a 1D array or a 2D array, the
+          If ``spec`` is either a str, a 1D array or a 2D array, the
           ``convention`` parameter is required so we know how to interpret the
-          columns. For ``spec`` in a dict or a pd.DataFrame, ``convention`` is
+          columns. If ``spec`` is a dict or a pd.DataFrame, ``convention`` is
           not needed and is ignored if specified.
 
     scale: str
