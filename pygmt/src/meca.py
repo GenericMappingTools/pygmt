@@ -116,7 +116,7 @@ def meca(
 
         ``spec`` can be specified in either of the following types:
 
-        - ``str``: a file name containing focal mechanism parameters as
+        - *str*: a file name containing focal mechanism parameters as
           columns. The meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
@@ -130,11 +130,11 @@ def meca(
             ``offset=True`` to take effect].
           - Text string to appear near the beachball [optional].
 
-        - **1D array**: focal mechanism parameters of a single event.
+        - *1D array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
-        - **2D array**: focal mechanim parameters of multiple events.
+        - *2D array*: focal mechanim parameters of multiple events.
           The meanings of columns are the same as above.
-        - dict or pd.DataFrame: The dict keys or pd.DataFrame column names
+        - *dict or pd.DataFrame*: The dict keys or pd.DataFrame column names
           determine the focal mechanims convention. For different conventions,
           the following combination of keys are allowed:
 
