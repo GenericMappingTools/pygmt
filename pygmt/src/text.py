@@ -110,7 +110,7 @@ def text_(
         columns.
     justify : str or bool
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x,y) point. Choose a two-letter
+        will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
         **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
         bottom left. If no justification is explicitly given
@@ -137,7 +137,7 @@ def text_(
         no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x,y) point by *dx*/\ *dy* [0/0].
+        Offsets the text from the projected (x, y) point by *dx*/\ *dy* [0/0].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
