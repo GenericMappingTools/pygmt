@@ -110,11 +110,12 @@ def text_(
         columns.
     justify : str or bool
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x,y) point. Choose a 2 character
+        will be mapped onto the (x,y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
-        **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
-        left. If no justification is explicitly given (i.e. ``justify=True``),
-        then the input to ``textfiles`` must have this as a column.
+        **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
+        bottom left. If no justification is explicitly given
+        (i.e. ``justify=True``), then the input to ``textfiles`` must have
+        this as a column.
     {projection}
     {region}
         *Required if this is the first plot command.*
