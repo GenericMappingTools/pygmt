@@ -78,12 +78,12 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         )
 
     if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
+        raise GMTInvalidInput(f"Invalid Earth age resolution '{resolution}'.")
 
-    # Choose earth relief data prefix
+    # Choose earth age data prefix
     earth_age_prefix = "earth_age_"
 
-    # different ways to load tiled and non-tiled earth relief data
+    # different ways to load tiled and non-tiled earth age data
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
     if region is None:
