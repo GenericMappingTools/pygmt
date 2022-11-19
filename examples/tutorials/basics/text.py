@@ -97,8 +97,8 @@ fig.show()
 # being added to a plot. The following code segment demonstrates the
 # positioning of the anchor point relative to the text.
 #
-# The anchor is specified with a two letter (order independent) code, chosen
-# from:
+# The anchor point is specified with a two letter (order independent) code,
+# chosen from:
 #
 # * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
 # * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
