@@ -137,7 +137,7 @@ def text_(
         no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x,y) point by *dx*,\ *dy* [0/0].
+        Offsets the text from the projected (x,y) point by *dx*/\ *dy* [0/0].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
