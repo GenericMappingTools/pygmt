@@ -4,6 +4,7 @@ and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from pygmt.datasets.load_earth_dataset import _load_earth_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 from pygmt.io import load_dataarray
@@ -66,35 +67,18 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     # earth seafloor crust age data stored as tiles for high resolutions
     tiled_resolutions = ["05m", "04m", "03m", "02m", "01m"]
 
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
-        )
-
-    if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth age resolution '{resolution}'.")
-
     # Choose earth age data prefix
     earth_age_prefix = "earth_age_"
 
-    # different ways to load tiled and non-tiled earth age data
-    # Known issue: tiled grids don't support slice operation
-    # See https://github.com/GenericMappingTools/pygmt/issues/524
-    if region is None:
-        if resolution not in non_tiled_resolutions:
-            raise GMTInvalidInput(
-                f"'region' is required for Earth age resolution '{resolution}'."
-            )
-        fname = which(f"@earth_age_{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
-    else:
-        grid = grdcut(f"@{earth_age_prefix}{resolution}{reg}", region=region)
+    grid = _load_earth_dataset(
+        resolution=resolution,
+        region=region,
+        registration=registration,
+        non_tiled_resolutions=non_tiled_resolutions,
+        tiled_resolutions=tiled_resolutions,
+        dataset_prefix=earth_age_prefix,
+        dataset_name="Earth age",
+    )
 
     # Add some metadata to the grid
     grid.name = "seafloor_age"
