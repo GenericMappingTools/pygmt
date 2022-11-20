@@ -63,9 +63,13 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
     # earth seafloor crust age data stored as tiles for high resolutions
     tiled_resolutions = ["05m", "04m", "03m", "02m", "01m"]
+    # resolutions only in one registration
+    pixel_only_resolutions = None
+    gridline_only_resolutions = ["01m"]
 
     # Choose earth age data prefix
-    earth_age_prefix = "earth_age_"
+    dataset_name = "Earth age"
+    dataset_prefix = "earth_age_"
 
     grid = _load_earth_dataset(
         resolution=resolution,
@@ -73,8 +77,10 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         registration=registration,
         non_tiled_resolutions=non_tiled_resolutions,
         tiled_resolutions=tiled_resolutions,
-        dataset_prefix=earth_age_prefix,
-        dataset_name="Earth age",
+        dataset_prefix=dataset_prefix,
+        dataset_name=dataset_name,
+        pixel_only_resolutions=pixel_only_resolutions,
+        gridline_only_resolutions=gridline_only_resolutions,
     )
 
     # Add some metadata to the grid

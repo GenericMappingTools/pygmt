@@ -11,6 +11,8 @@ from pygmt.src import grdcut, which
 def _load_earth_dataset(
     resolution,
     region,
+    pixel_only_resolutions,
+    gridline_only_resolutions,
     registration,
     non_tiled_resolutions,
     tiled_resolutions,
@@ -63,6 +65,17 @@ def _load_earth_dataset(
 
     if resolution not in non_tiled_resolutions + tiled_resolutions:
         raise GMTInvalidInput(f"Invalid {dataset_name} resolution '{resolution}'.")
+
+    if pixel_only_resolutions:
+        if registration == "gridline" and resolution in pixel_only_resolutions:
+            raise GMTInvalidInput(
+                f"{resolution} resolution is only available in pixel registration."
+            )
+    if gridline_only_resolutions:
+        if registration == "pixel" and resolution in gridline_only_resolutions:
+            raise GMTInvalidInput(
+                f"{resolution} resolution is only available in gridline registration."
+            )
 
     # different ways to load tiled and non-tiled earth age data
     # Known issue: tiled grids don't support slice operation
