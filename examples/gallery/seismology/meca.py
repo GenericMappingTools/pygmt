@@ -23,7 +23,8 @@ fig.coast(
     frame="a",
 )
 
-# store focal mechanism parameters in a dictionary based on the aki convention
+# store focal mechanism parameters in a dictionary based on the Aki & Richards
+# convention
 focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
 
 # pass the focal mechanism data through the spec parameter. In addition provide
