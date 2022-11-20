@@ -5,10 +5,7 @@ and load as :class:`xarray.DataArray`.
 The grids are available in various resolutions.
 """
 from pygmt.datasets.load_earth_dataset import _load_earth_dataset
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
-from pygmt.io import load_dataarray
-from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
