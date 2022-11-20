@@ -28,6 +28,12 @@ focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
 
 # pass the focal mechanism data through the spec parameter. In addition provide
 # values for scale, event location, and event depth
-fig.meca(focal_mechanism, scale="1c", longitude=-124.3, latitude=48.1, depth=12.0)
+fig.meca(
+    spec=focal_mechanism,
+    scale="1c",
+    longitude=-124.3,
+    latitude=48.1,
+    depth=12.0,
+)
 
 fig.show()
