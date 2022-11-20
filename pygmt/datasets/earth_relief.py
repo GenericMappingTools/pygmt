@@ -6,10 +6,9 @@ The grids are available in various resolutions.
 """
 from packaging.version import Version
 from pygmt.clib import Session
+from pygmt.datasets.load_earth_dataset import _load_earth_dataset
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
-from pygmt.io import load_dataarray
-from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
@@ -118,29 +117,10 @@ def load_earth_relief(
     tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
+    # resolutions only in one registration
+    pixel_only_resolutions = ["15s"]
+    gridline_only_resolutions = ["03s", "01s"]
 
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
-        )
-
-    if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
-
-    # Check combination of resolution and registration.
-    if (resolution == "15s" and registration == "gridline") or (
-        resolution in ("03s", "01s") and registration == "pixel"
-    ):
-        raise GMTInvalidInput(
-            f"{registration}-registered Earth relief data for "
-            f"resolution '{resolution}' is not supported."
-        )
     earth_relief_sources = {"igpp": "earth_relief_", "gebco": "earth_gebco_"}
     if data_source not in earth_relief_sources:
         raise GMTInvalidInput(
@@ -157,27 +137,27 @@ def load_earth_relief(
     # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source == "igpp":
-            earth_relief_prefix = "srtm_relief_"
+            dataset_prefix = "srtm_relief_"
         else:
             raise GMTInvalidInput(
                 f"The {data_source} option is not available if 'use_srtm=True'."
                 " Set data_source to 'igpp'."
             )
     else:
-        earth_relief_prefix = earth_relief_sources.get(data_source)
+        dataset_prefix = earth_relief_sources.get(data_source)
 
-    # different ways to load tiled and non-tiled earth relief data
-    # Known issue: tiled grids don't support slice operation
-    # See https://github.com/GenericMappingTools/pygmt/issues/524
-    if region is None:
-        if resolution not in non_tiled_resolutions:
-            raise GMTInvalidInput(
-                f"'region' is required for Earth relief resolution '{resolution}'."
-            )
-        fname = which(f"@{earth_relief_prefix}{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
-    else:
-        grid = grdcut(f"@{earth_relief_prefix}{resolution}{reg}", region=region)
+    dataset_name = "Earth relief"
+    grid = _load_earth_dataset(
+        resolution=resolution,
+        region=region,
+        registration=registration,
+        non_tiled_resolutions=non_tiled_resolutions,
+        tiled_resolutions=tiled_resolutions,
+        dataset_prefix=dataset_prefix,
+        dataset_name=dataset_name,
+        pixel_only_resolutions=pixel_only_resolutions,
+        gridline_only_resolutions=gridline_only_resolutions,
+    )
 
     # Add some metadata to the grid
     grid.name = "elevation"
