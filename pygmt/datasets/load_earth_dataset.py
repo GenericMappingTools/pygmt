@@ -24,9 +24,7 @@ def _load_earth_dataset(
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, or ``"01m"``.
+        arc-degree and arc-minute.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
