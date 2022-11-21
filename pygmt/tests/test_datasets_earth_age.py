@@ -32,6 +32,11 @@ def test_earth_age_01d():
     Test some properties of the earth age 01d data.
     """
     data = load_earth_age(resolution="01d", registration="gridline")
+    assert data.name == "seafloor_age"
+    assert data.attrs["units"] == "Myr"
+    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.attrs["vertical_datum"] == "EMG96"
+    assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
