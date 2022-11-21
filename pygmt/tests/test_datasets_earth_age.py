@@ -78,7 +78,7 @@ def test_earth_age_05m_without_region():
         load_earth_age("05m")
 
 
-def test_earth_incorrect_resolution_registration():
+def test_earth_age_incorrect_resolution_registration():
     """
     Test that an error is raised when trying to load a grid registration with
     an unavailable resolution.
