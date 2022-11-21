@@ -28,8 +28,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     a="aspatial",
     c="panel",
     e="find",
@@ -153,7 +151,6 @@ def text_(
         Do NOT clip text at map boundaries [Default is with clip].
     {timestamp}
     {verbose}
-    {xyshift}
     {aspatial}
     {panel}
     {find}

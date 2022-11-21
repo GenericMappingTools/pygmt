@@ -97,15 +97,6 @@ COMMON_DOCSTRINGS = {
     "pen": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "xyshift": r"""
-        xshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
-            Shift plot origin in x-direction.
-        yshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
@@ -577,6 +568,29 @@ def use_alias(**aliases):
                         f"Use long-form parameter '{long_alias}' instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # xshift (X) is deprecated since v0.8.0.
+            if "X" in kwargs or "xshift" in kwargs:
+                if "xshift" in kwargs:
+                    kwargs["X"] = kwargs.pop("xshift")
+                msg = (
+                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(xshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # yshift (Y) is deprecated since v0.8.0.
+            if "Y" in kwargs or "yshift" in kwargs:
+                if "yshift" in kwargs:
+                    kwargs["Y"] = kwargs.pop("yshift")
+                msg = (
+                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(yshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
