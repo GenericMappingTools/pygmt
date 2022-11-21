@@ -110,7 +110,7 @@ def load_earth_relief(
     ...     use_srtm=True,
     ... )
     """
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-locals
     # earth relief data stored as single grids for low resolutions
     non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
     # earth relief data stored as tiles for high resolutions
