@@ -8,7 +8,7 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "synbath"])
 def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
@@ -21,12 +21,14 @@ def test_earth_relief_fails(data_source):
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
-def test_earth_relief_01d_igpp():
+@pytest.mark.parametrize("data_source", ["igpp", "synbath"])
+def test_earth_relief_01d_igpp_synbath(data_source):
     """
-    Test some properties of the earth relief 01d data with IGPP data.
+    Test some properties of the earth relief 01d data with IGPP and SYNBATH
+    data.
     """
     data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source="igpp"
+        resolution="01d", registration="gridline", data_source=data_source
     )
     assert data.name == "elevation"
     assert data.attrs["units"] == "meters"
@@ -115,6 +117,21 @@ def test_earth_relief_05m_with_region():
     assert data.data.max() == 2532.0
     assert data.sizes["lat"] == 361
     assert data.sizes["lon"] == 481
+
+
+def test_earth_relief_30s_synbath():
+    """
+    Test some properties of the earth relief 30s data with SYNBATH data.
+    """
+    data = load_earth_relief(
+        region=[-95, -94, -1.5, -1],
+        resolution="30s",
+        registration="pixel",
+        data_source="synbath",
+    )
+    assert data.shape == (60, 120)
+    npt.assert_allclose(data.min(), -3552.5)
+    npt.assert_allclose(data.max(), -2154)
 
 
 def test_earth_relief_05m_without_region():
