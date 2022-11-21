@@ -2,7 +2,7 @@
 Plotting text
 =============
 
-It is often useful to add annotations to a map plot. This is handled by
+It is often useful to add annotations to a plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
 # sphinx_gallery_thumbnail_number = 3
@@ -20,18 +20,18 @@ import pygmt
 #
 # Here we create a simple map and add an annotation using the ``text``, ``x``,
 # and ``y`` parameters to specify the annotation text and position in the
-# projection frame. ``text`` accepts *str* types, while ``x``, and ``y``
-# accepts either *int* or *float* numbers, or a list/array of numbers.
+# projection frame. ``text`` accepts *str* types, while ``x`` and ``y``
+# accept either *int* or *float* numbers, or a list/array of numbers.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
     fig.basemap(region=[108, 120, -5, 8], projection="M20c", frame="a")
 fig.coast(land="black", water="skyblue")
 
-# Plot text annotations using a single element
+# Plot text annotations using single arguments
 fig.text(text="SOUTH CHINA SEA", x=112, y=6)
 
-# Plot text annotations using lists of elements
+# Plot text annotations using lists of arguments
 fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
@@ -61,7 +61,7 @@ fig.show()
 # -------------------------
 #
 # It is also possible to add annotations from a file containing ``x``, ``y``,
-# and ``text`` fields. Here we give a complete example.
+# and ``text`` columns. Here we give a complete example.
 
 fig = pygmt.Figure()
 with pygmt.config(MAP_FRAME_TYPE="plain"):
@@ -97,8 +97,8 @@ fig.show()
 # being added to a plot. The following code segment demonstrates the
 # positioning of the anchor point relative to the text.
 #
-# The anchor is specified with a two letter (order independent) code, chosen
-# from:
+# The anchor point is specified with a two-letter (order independent) code,
+# chosen from:
 #
 # * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
 # * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
@@ -117,8 +117,8 @@ fig.show()
 ###############################################################################
 # ``angle`` parameter
 # -------------------
-# ``angle`` is an optional parameter used to specify the clockwise rotation of
-# the text from the horizontal.
+# ``angle`` is an optional parameter used to specify the counter-clockwise
+# rotation in degrees of the text from the horizontal.
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 4, 0, 4], projection="X5c", frame="WSen")
