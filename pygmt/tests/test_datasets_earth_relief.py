@@ -19,6 +19,7 @@ def test_earth_relief_fails(data_source):
         with pytest.raises(GMTInvalidInput):
             load_earth_relief(resolution=resolution, data_source=data_source)
 
+
 # Only test 01d and 30m to avoid downloading large datasets in CI
 def test_earth_relief_01d_igpp():
     """
