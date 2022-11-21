@@ -34,8 +34,6 @@ from pygmt.src.which import which
     S="style",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     a="aspatial",
     b="binary",
@@ -156,7 +154,6 @@ def plot3d(
     {timestamp}
     {verbose}
     {pen}
-    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

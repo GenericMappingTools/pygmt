@@ -81,8 +81,6 @@ def data_format_code(convention, component="full"):
     B="frame",
     N="no_clip",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -220,7 +218,6 @@ def meca(
     {region}
     {frame}
     {verbose}
-    {xyshift}
     {panel}
     {perspective}
     {transparency}

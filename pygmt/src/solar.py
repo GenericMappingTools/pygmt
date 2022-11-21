@@ -18,8 +18,6 @@ __doctest_skip__ = ["solar"]
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -60,7 +58,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {timestamp}
     {verbose}
-    {xyshift}
     {panel}
     {perspective}
     {transparency}
