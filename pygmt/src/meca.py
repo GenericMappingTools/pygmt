@@ -114,8 +114,8 @@ def meca(
 
         ``spec`` can be specified in either of the following types:
 
-        - ``str``: a file name containing focal mechanism parameters as
-          columns. The meanings of each column is:
+        - *str*: a file name containing focal mechanism parameters as
+          columns. The meaning of each column is:
 
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
@@ -126,13 +126,13 @@ def meca(
             beachball. Using ``0 0`` will plot the beachball at the longitude,
             latitude given in columns 1 and 2. [optional and requires
             ``offset=True`` to take effect].
-          - Text string to appear near the beach ball [optional].
+          - Text string to appear near the beachball [optional].
 
-        - **1D array**: focal mechanism parameters of a single event.
+        - *1D array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
-        - **2D array**: focal mechanim parameters of multiple events.
+        - *2D array*: focal mechanim parameters of multiple events.
           The meanings of columns are the same as above.
-        - dict or pd.DataFrame: The dict keys or pd.DataFrame column names
+        - *dict or pd.DataFrame*: The dict keys or pd.DataFrame column names
           determine the focal mechanims convention. For different conventions,
           the following combination of keys are allowed:
 
@@ -151,9 +151,9 @@ def meca(
           ``latitude``, ``longitude``, ``depth``, ``plot_longitude``,
           ``plot_latitude``, and/or ``event_name``.
 
-          For ``spec`` in either a str, a 1D array or a 2D array, the
+          If ``spec`` is either a str, a 1D array or a 2D array, the
           ``convention`` parameter is required so we know how to interpret the
-          columns. For ``spec`` in a dict or a pd.DataFrame, ``convention`` is
+          columns. If ``spec`` is a dict or a pd.DataFrame, ``convention`` is
           not needed and is ignored if specified.
 
     scale: str
@@ -162,11 +162,12 @@ def meca(
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention: str
         Focal mechanism convention. Choose from:
+
         - ``"aki"`` (Aki & Richards)
         - ``"gcmt"`` (global CMT)
         - ``"mt"`` (seismic moment tensor)
         - ``"partial"`` (partial focal mechanism)
-        - ``"principal_axis"`` (principal axis).
+        - ``"principal_axis"`` (principal axis)
 
         Ignored if ``spec`` is a dictionary or pd.DataFrame.
     component: str
@@ -197,7 +198,7 @@ def meca(
         as the number of events. Will override the ``plot_latitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
     event_name : str or list of str, or 1d numpy array
-        Text strings (e.g., event names) to appear near the beach ball. List
+        Text strings (e.g., event names) to appear near the beachball. List
         must be the same length as the number of events. Will override the
         ``event_name`` values in ``spec`` if ``spec`` is a dict or
         pd.DataFrame.
