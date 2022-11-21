@@ -19,7 +19,6 @@ def test_earth_relief_fails(data_source):
         with pytest.raises(GMTInvalidInput):
             load_earth_relief(resolution=resolution, data_source=data_source)
 
-
 # Only test 01d and 30m to avoid downloading large datasets in CI
 def test_earth_relief_01d_igpp():
     """
@@ -28,6 +27,11 @@ def test_earth_relief_01d_igpp():
     data = load_earth_relief(
         resolution="01d", registration="gridline", data_source="igpp"
     )
+    assert data.name == "elevation"
+    assert data.attrs["units"] == "meters"
+    assert data.attrs["long_name"] == "elevation relative to the geoid"
+    assert data.attrs["vertical_datum"] == "EMG96"
+    assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
