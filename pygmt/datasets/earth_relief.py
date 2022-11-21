@@ -121,28 +121,6 @@ def load_earth_relief(
     pixel_only_resolutions = ["15s"]
     gridline_only_resolutions = ["03s", "01s"]
 
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
-        )
-
-    if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
-
-    # Check combination of resolution and registration.
-    if (resolution == "15s" and registration == "gridline") or (
-        resolution in ("03s", "01s") and registration == "pixel"
-    ):
-        raise GMTInvalidInput(
-            f"{registration}-registered Earth relief data for "
-            f"resolution '{resolution}' is not supported."
-        )
     earth_relief_sources = {
         "igpp": "earth_relief_",
         "gebco": "earth_gebco_",
