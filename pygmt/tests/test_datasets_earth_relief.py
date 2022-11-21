@@ -184,3 +184,25 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
             use_srtm=True,
             data_source="gebco",
         )
+
+
+@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
+def test_earth_relief_incorrect_resolution_registration(data_source):
+    """
+    Test that an error is raised when trying to load a grid registration with
+    an unavailable resolution.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="03s",
+            region=[0, 1, 3, 5],
+            registration="pixel",
+            data_source=data_source,
+        )
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="15s",
+            region=[0, 1, 3, 5],
+            registration="gridline",
+            data_source=data_source,
+        )
