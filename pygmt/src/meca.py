@@ -273,9 +273,9 @@ def meca(
         if depth is not None:
             spec["depth"] = np.atleast_1d(depth)
         if plot_longitude is not None:  # must be in string type
-            spec["plot_longitude"] = np.atleast_1d(plot_longitude).astype(str)
+            spec["plot_longitude"] = np.atleast_1d(plot_longitude)
         if plot_latitude is not None:  # must be in string type
-            spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
+            spec["plot_latitude"] = np.atleast_1d(plot_latitude)
         if event_name is not None:
             spec["event_name"] = np.atleast_1d(event_name).astype(str)
 
@@ -293,9 +293,13 @@ def meca(
         newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
+            spec[["plot_longitude", "plot_latitude"]] = spec[
+                ["plot_longitude", "plot_latitude"]
+            ].astype(str)
             kwargs["A"] = True
         if "event_name" in spec.columns:
             newcols += ["event_name"]
+            spec["event_name"] = spec["event_name"].astype(str)
         # reorder columns in DataFrame
         spec = spec.reindex(newcols, axis=1)
     elif isinstance(spec, np.ndarray) and spec.ndim == 1:
