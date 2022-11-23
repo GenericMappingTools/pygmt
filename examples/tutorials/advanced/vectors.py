@@ -90,7 +90,7 @@ fig.plot(
     style="v1c+e",
     direction=[[0], [3]],
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 # Vector 2 after changing default unit to inch
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -354,7 +354,7 @@ fig.show()
 # Chicago. To style geographic
 # vectors, use ``=`` at the beginning of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
-# can be passed into the ``pen`` and ``color`` parameters.
+# can be passed into the ``pen`` and ``fill`` parameters.
 #
 # Note that the **+s** is added to use a startpoint and an endpoint
 # to represent the vector instead of input angle and length.
