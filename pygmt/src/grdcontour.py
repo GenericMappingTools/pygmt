@@ -22,8 +22,6 @@ __doctest_skip__ = ["grdcontour"]
     V="verbose",
     W="pen",
     l="label",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -85,7 +83,6 @@ def grdcontour(self, grid, **kwargs):
     {timestamp}
     {verbose}
     {pen}
-    {xyshift}
     {panel}
     {coltypes}
     label : str
