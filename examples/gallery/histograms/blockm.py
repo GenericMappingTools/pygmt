@@ -37,7 +37,7 @@ fig.grdimage(
 fig.coast(land="darkgray", transparency=40)
 # plot original data points
 fig.plot(
-    x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="1p,black"
+    x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black"
 )
 fig.colorbar(frame=["x+lkm"])
 
@@ -56,7 +56,7 @@ fig.grdimage(
 )
 fig.coast(land="darkgray", transparency=40)
 fig.plot(
-    x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="1p,black"
+    x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black"
 )
 fig.colorbar(frame=["x+lcount"])
 
