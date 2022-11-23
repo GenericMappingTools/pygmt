@@ -6,10 +6,10 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string, 
-    deprecate_parameter, 
-    fmt_docstring, 
-    kwargs_to_strings, 
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
     use_alias,
 )
 
