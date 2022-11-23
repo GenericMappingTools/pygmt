@@ -5,17 +5,24 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string, 
+    deprecate_parameter, 
+    fmt_docstring, 
+    kwargs_to_strings, 
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
 @use_alias(
     A="vector",
     B="frame",
     C="cmap",
     D="rescale",
     E="uncertaintycolor",
-    G="color",
+    G="fill",
     H="scale",
     I="shading",
     J="projection",
@@ -78,7 +85,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``color``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or shade
           specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -111,7 +118,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``color``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or shade
           specified by the ``uncertaintycolor`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -130,7 +137,7 @@ def velo(self, data=None, **kwargs):
           *wedgescale* is not given then we read it from the data file as an
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
-          rotations of the order of 100 nanoradians/yr. Use ``color`` to set
+          rotations of the order of 100 nanoradians/yr. Use ``fill`` to set
           the fill color or shade for the wedge, and ``uncertaintycolor`` to
           set the color or shade for the uncertainty. Parameters are expected
           to be in the following columns:
@@ -173,7 +180,7 @@ def velo(self, data=None, **kwargs):
         ``zvalue="+e"`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
-    color : str
+    fill : str
         Select color or pattern for filling of symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
