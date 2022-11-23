@@ -36,20 +36,20 @@ with fig.subplot(
 
     pen = "1.5p"
     with fig.set_panel(panel=0):
-        color = "skyblue"
+        fill = "skyblue"
         fig.basemap(region=[0, 4, 0, 3], frame="+tvertical bars")
-        fig.plot(x=1, y=2, style="b0.5c", color=color, pen=pen)
-        fig.plot(x=2, y=2.5, style="b1c", color=color, pen=pen)
+        fig.plot(x=1, y=2, style="b0.5c", fill=color, pen=pen)
+        fig.plot(x=2, y=2.5, style="b1c", fill=color, pen=pen)
         # +b1 means that the bar is starting from y=1 here
-        fig.plot(x=3, y=2.5, style="b0.75c+b1", color=color, pen=pen)
+        fig.plot(x=3, y=2.5, style="b0.75c+b1", fill=color, pen=pen)
 
     with fig.set_panel(panel=1):
-        color = "tomato"
+        fill = "tomato"
         fig.basemap(region=[0, 4, 0, 3], frame="+thorizontal bars")
-        fig.plot(x=1.5, y=0.5, style="B0.75c", color=color, pen=pen)
-        fig.plot(x=3, y=1.5, style="B1c", color=color, pen=pen)
+        fig.plot(x=1.5, y=0.5, style="B0.75c", fill=color, pen=pen)
+        fig.plot(x=3, y=1.5, style="B1c", fill=color, pen=pen)
         # +b2 means that the bar is starting from x=2 here
-        fig.plot(x=3.5, y=2.5, style="B0.5c+b2", color=color, pen=pen)
+        fig.plot(x=3.5, y=2.5, style="B0.5c+b2", fill=color, pen=pen)
 
     # generate dictionary for plotting multi-band bars
     data = {
