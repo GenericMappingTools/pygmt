@@ -166,6 +166,7 @@ def download_test_data():
         "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
+        "@earth_synbath_01d_g",
         # List of tiles of 03s srtm data.
         # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
@@ -174,6 +175,8 @@ def download_test_data():
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
+        # Earth synbath relief grids
+        "@S15W105.earth_synbath_30s_p.nc",
         # Earth seafloor age grids
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test

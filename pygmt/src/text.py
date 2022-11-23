@@ -28,8 +28,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     a="aspatial",
     c="panel",
     e="find",
@@ -81,20 +79,20 @@ def text_(
         records with (x, y[, angle, font, justify], text).
     x/y : float or 1d arrays
         The x and y coordinates, or an array of x and y coordinates to plot
-        the text
+        the text.
     position : str
-        Sets reference point on the map for the text by using x,y
+        Sets reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
-        through ``x``/``y``. Specify with a two letter (order independent)
+        through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
         * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
 
-        For example, ``position="TL"`` plots the text at the Upper Left corner
+        For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
     text : str or 1d array
-        The text string, or an array of strings to plot on the figure
+        The text string, or an array of strings to plot on the figure.
     angle: int, float, str or bool
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
@@ -110,11 +108,12 @@ def text_(
         columns.
     justify : str or bool
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x,y) point. Choose a 2 character
+        will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
-        **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
-        left. If no justification is explicitly given (i.e. ``justify=True``),
-        then the input to ``textfiles`` must have this as a column.
+        **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
+        bottom left. If no justification is explicitly given
+        (i.e. ``justify=True``), then the input to ``textfiles`` must have
+        this as a column.
     {projection}
     {region}
         *Required if this is the first plot command.*
@@ -125,7 +124,7 @@ def text_(
         specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
         for point; if not given we consult :gmt-term:`PROJ_LENGTH_UNIT`)
         or *%* for a percentage of the font size. Optionally, use modifier
-        **+t** to set the shape of the textbox when using ``fill`` and/or
+        **+t** to set the shape of the text box when using ``fill`` and/or
         ``pen``. Append lower case **o** to get a straight rectangle
         [Default is **o**]. Append upper case **O** to get a rounded
         rectangle. In paragraph mode (*paragraph*) you can also append lower
@@ -136,7 +135,8 @@ def text_(
         no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x,y) point by *dx*,\ *dy* [0/0].
+        Offsets the text from the projected (x, y) point by *dx*/\ *dy*
+        [Default is ``"0/0"``].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
@@ -148,10 +148,9 @@ def text_(
         Sets the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
-        Do NOT clip text at map boundaries [Default is will clip].
+        Do NOT clip text at map boundaries [Default is with clip].
     {timestamp}
     {verbose}
-    {xyshift}
     {aspatial}
     {panel}
     {find}
