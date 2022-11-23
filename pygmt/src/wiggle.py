@@ -2,14 +2,15 @@
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias, deprecate_parameter
 
 
 @fmt_docstring
+@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
 @use_alias(
     B="frame",
     D="position",
-    G="color",
+    G="fill",
     J="projection",
     R="region",
     T="track",
@@ -65,12 +66,12 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
-    color : str
+    fill : str
         Set fill shade, color or pattern for positive and/or negative wiggles
         [Default is no fill]. Optionally, append **+p** to fill positive areas
         (this is the default behavior). Append **+n** to fill negative areas.
         Append **+n+p** to fill both positive and negative areas with the same
-        fill. **Note**: You will need to repeat the color parameter to select
+        fill. **Note**: You will need to repeat the fill parameter to select
         different fills for the positive and negative wiggles.
 
     track : str
