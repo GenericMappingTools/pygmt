@@ -131,8 +131,8 @@ def test_earth_gebcosi_15m_with_region():
     npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
     npt.assert_allclose(data.min(), -531)
     npt.assert_allclose(data.max(), 474)
-    
-    
+
+
 def test_earth_relief_30s_synbath():
     """
     Test some properties of the earth relief 30s data with SYNBATH data.
