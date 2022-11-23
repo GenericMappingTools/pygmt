@@ -65,7 +65,7 @@ fig.plot(
     style="v0.6c+e",
     direction=[[-45, 23], [6, 3]],
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -100,7 +100,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
         direction=[[0], [3]],
         style="v1c+e",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 fig.show()
 
@@ -125,7 +125,7 @@ fig.plot(
     data=vectors,
     style="v0.6c+e",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -151,7 +151,7 @@ fig.plot(
     data=vectors,
     style="v0.6c+e",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -189,7 +189,7 @@ fig.plot(
     style=style,
     direction=[[-25], [3]],
     pen="1p",
-    color="red3",
+    fill="red3",
 )
 
 # vector specifications structured as:
@@ -204,7 +204,7 @@ fig.plot(
     data=vectors,
     style=style,
     pen="1p",
-    color="yellow",
+    fill="yellow",
 )
 fig.show()
 
@@ -238,7 +238,7 @@ fig.plot(
     style="v0.4c+ea+bc",
     direction=[direction, length],
     pen="0.6p",
-    color="red3",
+    fill="red3",
 )
 
 fig.show()
@@ -270,7 +270,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 
 # Another example using np.array()
@@ -281,7 +281,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -310,7 +310,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -332,7 +332,7 @@ fig.plot(
     data=[circular_vector],
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -340,7 +340,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
         data=[circular_vector],
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 fig.show()
 
@@ -376,7 +376,7 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -413,7 +413,7 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -441,6 +441,6 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
