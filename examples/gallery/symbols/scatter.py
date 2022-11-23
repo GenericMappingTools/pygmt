@@ -33,7 +33,7 @@ for fill in ["gray73", "darkorange", "slateblue"]:
         fill=fill,
         # Set the legend label,
         # and set the symbol size to be 0.25 cm (+S0.25c) in legend
-        label=f"{color}+S0.25c",
+        label=f"{fill}+S0.25c",
         transparency=50,  # set transparency level for all symbols
     )
 
