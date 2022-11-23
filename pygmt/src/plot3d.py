@@ -34,8 +34,6 @@ from pygmt.src.which import which
     S="style",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     a="aspatial",
     b="binary",
@@ -58,13 +56,13 @@ def plot3d(
     r"""
     Plot lines, polygons, and symbols in 3-D.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots
     lines, polygons, or symbols at those locations in 3-D.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    If providing data through ``x/y/z``, ``fill`` can be a 1d array
-    that will be mapped to a colormap.
+    If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a
+    1d array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
     interpret the fourth column of the input data as symbol size. Symbols
@@ -156,7 +154,6 @@ def plot3d(
     {timestamp}
     {verbose}
     {pen}
-    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

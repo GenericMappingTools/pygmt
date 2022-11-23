@@ -33,8 +33,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     d="nodata",
@@ -193,7 +191,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     {timestamp}
     {verbose}
-    {xyshift}
     {binary}
     {panel}
     {nodata}

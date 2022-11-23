@@ -43,7 +43,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     the input (beyond the required :math:`x` and :math:`y` columns).
 
     Alternatively, ``project`` may be used to generate
-    :math:`(r, s, p)` triples at equal increments along a profile using the
+    :math:`(r, s, p)` triplets at equal increments along a profile using the
     ``generate`` parameter. In this case, the value of ``data`` is ignored
     (you can use, e.g., ``data=None``).
 

@@ -81,7 +81,7 @@ jobs:
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
           # python-version: ${{ matrix.python-version }}
@@ -131,7 +131,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.0
+        uses: dawidd6/action-download-artifact@v2.24.2
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
