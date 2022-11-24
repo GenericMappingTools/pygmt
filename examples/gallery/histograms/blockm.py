@@ -36,9 +36,7 @@ fig.grdimage(
 # plot slightly transparent landmasses on top
 fig.coast(land="darkgray", transparency=40)
 # plot original data points
-fig.plot(
-    x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black"
-)
+fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
 fig.colorbar(frame=["x+lkm"])
 
 fig.shift_origin(xshift="w+5c")
@@ -55,9 +53,7 @@ fig.grdimage(
     cmap="batlow",
 )
 fig.coast(land="darkgray", transparency=40)
-fig.plot(
-    x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black"
-)
+fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
 fig.colorbar(frame=["x+lcount"])
 
 fig.show()
