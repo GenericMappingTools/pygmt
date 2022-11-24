@@ -272,9 +272,9 @@ def meca(
             spec["latitude"] = np.atleast_1d(latitude)
         if depth is not None:
             spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:  # must be in string type
+        if plot_longitude is not None:
             spec["plot_longitude"] = np.atleast_1d(plot_longitude)
-        if plot_latitude is not None:  # must be in string type
+        if plot_latitude is not None:
             spec["plot_latitude"] = np.atleast_1d(plot_latitude)
         if event_name is not None:
             spec["event_name"] = np.atleast_1d(event_name).astype(str)
