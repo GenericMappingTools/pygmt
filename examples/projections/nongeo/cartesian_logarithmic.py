@@ -33,7 +33,7 @@ fig.plot(
     pen="1p,blue,-",
 )
 # Plot square root values as points on the line
-# Style of points is 0.3 cm squares, color is "red" with a "black" outline
+# Style of points is 0.3 cm squares, color fill is "red" with a "black" outline
 # Points are not clipped if they go off the figure
-fig.plot(x=xpoints, y=ypoints, style="s0.3c", color="red", no_clip=True, pen="black")
+fig.plot(x=xpoints, y=ypoints, style="s0.3c", fill="red", no_clip=True, pen="black")
 fig.show()

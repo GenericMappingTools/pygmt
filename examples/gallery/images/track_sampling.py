@@ -36,6 +36,6 @@ fig.plot(
     y=track.latitude,
     style="c0.15c",
     cmap="terra",
-    color=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
+    fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
 fig.show()

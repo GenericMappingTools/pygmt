@@ -72,7 +72,7 @@ fig.plot3d(
     # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
     style="uc",
     # Points colored by categorical number code
-    color=df.species.cat.codes.astype(int),
+    fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
     # Set map dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
