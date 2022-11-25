@@ -362,7 +362,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def load_sample_compositions(**kwargs):
+def load_sample_compositions():
     """
     Loads the remote file @ternary.txt.
 
