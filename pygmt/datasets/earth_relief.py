@@ -76,9 +76,16 @@ def load_earth_relief(
         - **igpp** : IGPP Global Earth Relief [Default option]. See
           :gmt-datasets:`earth-relief.html`.
 
+        - **synbath** : IGPP Global Earth Relief dataset that uses
+          stastical properties of young seafloor to provide more realistic
+          relief of young areas with small seamounts.
+
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
+
+        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
+          elevations.
 
     Returns
     -------
