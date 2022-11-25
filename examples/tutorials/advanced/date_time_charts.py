@@ -89,7 +89,7 @@ fig.plot(
     y=y,
     style="c0.4c",
     pen="1p",
-    color="blue",
+    fill="blue",
 )
 fig.show()
 
@@ -120,7 +120,7 @@ fig.plot(
     y=y,
     style="a0.45c",
     pen="1p",
-    color="dodgerblue",
+    fill="dodgerblue",
 )
 fig.show()
 
@@ -144,7 +144,7 @@ fig.plot(
     y=y,
     style="i0.4c",
     pen="1p",
-    color="yellow",
+    fill="yellow",
 )
 fig.show()
 
@@ -174,7 +174,7 @@ fig.plot(
     y=y,
     style="i0.4c",
     pen="1p",
-    color="purple",
+    fill="purple",
 )
 fig.show()
 
@@ -202,7 +202,7 @@ fig.plot(
     y=y,
     style="n0.4c",
     pen="1p",
-    color="red",
+    fill="red",
 )
 fig.show()
 
@@ -227,7 +227,7 @@ fig.plot(
     y=y,
     style="s0.5c",
     pen="1p",
-    color="blue",
+    fill="blue",
 )
 fig.show()
 
@@ -268,7 +268,7 @@ fig.plot(
     y=df.Score,
     style="c0.4c",
     pen="1p",
-    color="green3",
+    fill="green3",
 )
 
 fig.show()
@@ -312,7 +312,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
         y=y,
         style="c0.4c",
         pen="1p",
-        color="green3",
+        fill="green3",
     )
 
 fig.show()
@@ -354,6 +354,6 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
         y=y,
         style="n0.4c",
         pen="1p",
-        color="lightseagreen",
+        fill="lightseagreen",
     )
 fig.show()

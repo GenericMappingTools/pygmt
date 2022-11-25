@@ -40,15 +40,15 @@ fig = pygmt.Figure()
 fig.basemap(region=[0, 6, 0, 2], projection="x3c", frame=True)
 
 # Ellipse
-fig.plot(x=0.5, y=1, style="e45/3/1", color="orange", pen="2p,black")
+fig.plot(x=0.5, y=1, style="e45/3/1", fill="orange", pen="2p,black")
 # Rotated rectangle
-fig.plot(x=1.5, y=1, style="j120/5/0.5", color="red3", pen="2p,black")
+fig.plot(x=1.5, y=1, style="j120/5/0.5", fill="red3", pen="2p,black")
 # Rectangle
-fig.plot(x=3, y=1, style="r4/1.5", color="dodgerblue", pen="2p,black")
+fig.plot(x=3, y=1, style="r4/1.5", fill="dodgerblue", pen="2p,black")
 # Rounded rectangle
-fig.plot(x=4.5, y=1, style="R1.25/4/0.5", color="seagreen", pen="2p,black")
+fig.plot(x=4.5, y=1, style="R1.25/4/0.5", fill="seagreen", pen="2p,black")
 # Pie wedge
-fig.plot(x=5.5, y=1, style="w2.5/45/330", color="lightgray", pen="2p,black")
+fig.plot(x=5.5, y=1, style="w2.5/45/330", fill="lightgray", pen="2p,black")
 
 fig.show()
 
@@ -72,18 +72,18 @@ fig.basemap(region=[0, 6, 0, 4], projection="x3c", frame=["xa1f0.2", "ya0.5f0.1"
 
 # Ellipse
 data = [[0.5, 1, 45, 3, 1], [0.5, 3, 135, 2, 1]]
-fig.plot(data=data, style="e", color="orange", pen="2p,black")
+fig.plot(data=data, style="e", fill="orange", pen="2p,black")
 # Rotated rectangle
 data = [[1.5, 1, 120, 5, 0.5], [1.5, 3, 50, 3, 0.5]]
-fig.plot(data=data, style="j", color="red3", pen="2p,black")
+fig.plot(data=data, style="j", fill="red3", pen="2p,black")
 # Rectangle
 data = [[3, 1, 4, 1.5], [3, 3, 3, 1.5]]
-fig.plot(data=data, style="r", color="dodgerblue", pen="2p,black")
+fig.plot(data=data, style="r", fill="dodgerblue", pen="2p,black")
 # Rounded rectangle
 data = [[4.5, 1, 1.25, 4, 0.5], [4.5, 3, 1.25, 2.0, 0.2]]
-fig.plot(data=data, style="R", color="seagreen", pen="2p,black")
+fig.plot(data=data, style="R", fill="seagreen", pen="2p,black")
 # Pie wedge
 data = [[5.5, 1, 2.5, 45, 330], [5.5, 3, 1.5, 60, 300]]
-fig.plot(data=data, style="w", color="lightgray", pen="2p,black")
+fig.plot(data=data, style="w", fill="lightgray", pen="2p,black")
 
 fig.show()
