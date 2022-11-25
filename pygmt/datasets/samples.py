@@ -361,6 +361,7 @@ def load_mars_shape(**kwargs):
     )
     return data
 
+
 def load_sample_compositions(**kwargs):
     """
     Loads the remote file @ternary.txt.
@@ -370,12 +371,11 @@ def load_sample_compositions(**kwargs):
     data : pandas.DataFrame
         The data table with columns "a", "b", "c", "z".
     """
-    
+
     fname = which("@ternary.txt", download="c")
-    data = pd.read_csv(
-        fname, sep="\t", header=None, names=["a", "b", "c", "z"]
-    )
+    data = pd.read_csv(fname, sep="\t", header=None, names=["a", "b", "c", "z"])
     return data
+
 
 def _load_notre_dame_topography():
     """
