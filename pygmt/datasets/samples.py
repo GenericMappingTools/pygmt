@@ -24,6 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
+        "compositions": "Table of rock sample compositions",
         "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
@@ -70,6 +71,7 @@ def load_sample_data(name):
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
         "bathymetry": load_sample_bathymetry,
+        "compositions": load_sample_compositions,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
@@ -359,6 +361,21 @@ def load_mars_shape(**kwargs):
     )
     return data
 
+def load_sample_compositions(**kwargs):
+    """
+    Loads the remote file @ternary.txt.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "a", "b", "c", "z".
+    """
+    
+    fname = which("@ternary.txt", download="c")
+    data = pd.read_csv(
+        fname, sep="\t", header=None, names=["a", "b", "c", "z"]
+    )
+    return data
 
 def _load_notre_dame_topography():
     """
