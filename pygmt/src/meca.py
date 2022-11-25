@@ -189,11 +189,11 @@ def meca(
         Depth(s) of event location in kilometers. Must be the same length as
         the number of events. Will override the ``depth`` values in ``spec``
         if ``spec`` is a dict or pd.DataFrame.
-    plot_longitude: int, float, list, or 1d numpy array
+    plot_longitude: int, float, str, list, or 1d numpy array
         Longitude(s) at which to place beachball. Must be the same length as
         the number of events. Will override the ``plot_longitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
-    plot_latitude: int, float, list, or 1d numpy array
+    plot_latitude: int, float, str, list, or 1d numpy array
         Latitude(s) at which to place beachball. List must be the same length
         as the number of events. Will override the ``plot_latitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
