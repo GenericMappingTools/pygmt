@@ -32,7 +32,7 @@ fig.plot(
     y=yvalues,
 )
 # Plot x-, y-values as points on the line
-# Style of points is 0.2 cm circles, color is "green" with a "black" outline
-# Points are not clipped if they go off the figure
-fig.plot(x=xvalues, y=yvalues, style="c0.2c", color="green", no_clip=True, pen="black")
+# Style of points is 0.2 cm circles, color fill is "green" with a "black"
+# outline. Points are not clipped if they go off the figure
+fig.plot(x=xvalues, y=yvalues, style="c0.2c", fill="green", no_clip=True, pen="black")
 fig.show()

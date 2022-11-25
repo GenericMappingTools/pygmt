@@ -76,7 +76,7 @@ for frontstyle in [
     "f0.5c/0.3c+r+t+o0.3c+p+i",
 ]:
     y -= 1  # move the current line down
-    fig.plot(x=x, y=y, pen="1.25p", style=frontstyle, color="red3")
+    fig.plot(x=x, y=y, pen="1.25p", style=frontstyle, fill="red3")
     fig.text(
         x=x[-1],
         y=y[-1],
