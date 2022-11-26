@@ -1,6 +1,8 @@
 """
 config - set GMT defaults globally or locally.
 """
+from inspect import Parameter, Signature
+
 from pygmt.clib import Session
 
 
@@ -19,6 +21,15 @@ class config:  # pylint: disable=invalid-name
 
     Full GMT defaults list at :gmt-docs:`gmt.conf.html`
     """
+
+    # Manually set the __signature__ attribute to enable tab autocompletion
+    _keywords = ["FONT_LABEL", "FONT_TAG", "FONT_TITLE"]
+    __signature__ = Signature(
+        parameters=[
+            Parameter(key, kind=Parameter.KEYWORD_ONLY, default=None)
+            for key in _keywords
+        ]
+    )
 
     def __init__(self, **kwargs):
         # Save values so that we can revert to their initial values
