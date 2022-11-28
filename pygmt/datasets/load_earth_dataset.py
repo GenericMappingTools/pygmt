@@ -10,11 +10,20 @@ from pygmt.src import grdcut, which
 
 
 class Resolution(NamedTuple):
+    """
+    The available grid registrations for a given resolution and whether it is a
+    tiled grid.
+    """
+
     registrations: list[str]
     tiled: bool
 
 
 class Dataset(NamedTuple):
+    """
+    Standard information about a dataset and grid metadata.
+    """
+
     dataset_title: str
     name: str
     long_name: str
