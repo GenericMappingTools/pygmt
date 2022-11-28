@@ -201,5 +201,5 @@ def test_ternary():
     assert summary.loc["max", "b"] == 0.921
     assert summary.loc["min", "c"] == 0
     assert summary.loc["max", "c"] == 0.981
-    assert summary.loc["min", "d"] == 1.041
-    assert summary.loc["max", "d"] == 70.844
+    assert summary.loc["min", "z"] == 1.041
+    assert summary.loc["max", "z"] == 70.844
