@@ -142,12 +142,14 @@ def _load_earth_dataset(dataset_name, dataset_prefix, registration, resolution, 
     dataset = datasets[dataset_name]
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid 'resolution' input of {resolution}.")
-    if registration not in dataset.resolutions[resolution].registrations:
+    if registration and (
+        registration not in dataset.resolutions[resolution].registrations
+    ):
         raise GMTInvalidInput(
             f"{registration} registration is not available for the "
             f"{resolution} {dataset.dataset_title} dataset. Only "
             f"{dataset.resolutions[resolution].registrations[0]}"
-            "registration is available."
+            " registration is available."
         )
 
     # different ways to load tiled and non-tiled earth age data
