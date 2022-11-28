@@ -4,9 +4,9 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+import pygmt.datasets.load_earth_dataset as load_earth_dataset
 from packaging.version import Version
 from pygmt.clib import Session
-from pygmt.datasets.load_earth_dataset import _load_earth_dataset
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
 
@@ -111,15 +111,8 @@ def load_earth_relief(
     ... )
     """
     # pylint: disable=too-many-locals
-    # earth relief data stored as single grids for low resolutions
-    non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
-    # earth relief data stored as tiles for high resolutions
-    tiled_resolutions = ["05m", "04m", "03m", "02m", "01m", "30s", "15s", "03s", "01s"]
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
-    # resolutions only in one registration
-    pixel_only_resolutions = ["15s"]
-    gridline_only_resolutions = ["03s", "01s"]
 
     earth_relief_sources = {
         "igpp": "earth_relief_",
@@ -150,29 +143,12 @@ def load_earth_relief(
     else:
         dataset_prefix = earth_relief_sources.get(data_source)
 
-    dataset_name = "Earth relief"
-    grid = _load_earth_dataset(
+    dataset_name = "earth_relief"
+    grid = load_earth_dataset._load_earth_dataset(
         resolution=resolution,
         region=region,
         registration=registration,
-        non_tiled_resolutions=non_tiled_resolutions,
-        tiled_resolutions=tiled_resolutions,
         dataset_prefix=dataset_prefix,
         dataset_name=dataset_name,
-        pixel_only_resolutions=pixel_only_resolutions,
-        gridline_only_resolutions=gridline_only_resolutions,
     )
-
-    # Add some metadata to the grid
-    grid.name = "elevation"
-    grid.attrs["long_name"] = "elevation relative to the geoid"
-    grid.attrs["units"] = "meters"
-    grid.attrs["vertical_datum"] = "EMG96"
-    grid.attrs["horizontal_datum"] = "WGS84"
-    # Remove the actual range because it gets outdated when indexing the grid,
-    # which causes problems when exporting it to netCDF for usage on the
-    # command-line.
-    grid.attrs.pop("actual_range")
-    for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
     return grid
