@@ -186,3 +186,20 @@ def test_maunaloa_co2():
     assert summary.loc["max", "date"] == 2019.3699
     assert summary.loc["min", "co2_ppm"] == 313.2
     assert summary.loc["max", "co2_ppm"] == 414.83
+
+    
+def test_ternary():
+    """
+    Check that the @ternary.txt dataset loads without errors.
+    """
+    data = load_sample_data(name="compositions")
+    assert data.shape == (1000, 4)
+    summary = data.describe()
+    assert summary.loc["min", "a"] == 0
+    assert summary.loc["max", "a"] == 1
+    assert summary.loc["min", "b"] == 0
+    assert summary.loc["max", "b"] == 0.921
+    assert summary.loc["min", "c"] == 0
+    assert summary.loc["max", "c"] == 0.981
+    assert summary.loc["min", "d"] == 1.041
+    assert summary.loc["max", "d"] == 70.844    
