@@ -75,9 +75,16 @@ def load_earth_relief(
         - **igpp** : IGPP Global Earth Relief [Default option]. See
           :gmt-datasets:`earth-relief.html`.
 
+        - **synbath** : IGPP Global Earth Relief dataset that uses
+          stastical properties of young seafloor to provide more realistic
+          relief of young areas with small seamounts.
+
         - **gebco** : GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
+
+        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
+          elevations.
 
     Returns
     -------
@@ -117,12 +124,13 @@ def load_earth_relief(
     earth_relief_sources = {
         "igpp": "earth_relief_",
         "gebco": "earth_gebco_",
+        "gebcosi": "earth_gebcosi_",
         "synbath": "earth_synbath_",
     }
     if data_source not in earth_relief_sources:
         raise GMTInvalidInput(
             f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'igpp', 'gebco', and 'synbath'."
+            "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
         )
     if data_source != "igpp":
         with Session() as lib:
