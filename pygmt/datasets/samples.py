@@ -71,7 +71,6 @@ def load_sample_data(name):
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
         "bathymetry": load_sample_bathymetry,
-        "compositions": load_sample_compositions,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
@@ -83,6 +82,7 @@ def load_sample_data(name):
     # Dictionary of private load functions
     load_func = {
         "earth_relief_holes": _load_earth_relief_holes,
+        "compositions": _load_sample_compositions,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
     }
@@ -362,7 +362,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def load_sample_compositions():
+def _load_sample_compositions():
     """
     Loads the remote file @ternary.txt.
 
