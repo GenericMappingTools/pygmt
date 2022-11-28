@@ -24,8 +24,6 @@ from pygmt.helpers import (
     Td="rose",
     Tm="compass",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -82,7 +80,6 @@ def basemap(self, **kwargs):
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
     {verbose}
-    {xyshift}
     {panel}
     {coltypes}
     {perspective}

@@ -36,20 +36,20 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
@@ -65,7 +65,7 @@ jobs:
         run: |
           mamba install gmt=${{ matrix.gmt_version }} numpy \
                         pandas xarray netCDF4 packaging geopandas \
-                        build dvc make pytest>=6.0 \
+                        build dvc make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
@@ -74,7 +74,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.22.0
+        uses: dawidd6/action-download-artifact@v2.24.2
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

@@ -15,8 +15,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     S="style",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     t="transparency",
 )
@@ -55,7 +53,6 @@ def logo(self, **kwargs):
         - **u** to place the URL to the GMT site
     {timestamp}
     {verbose}
-    {xyshift}
     {panel}
     {transparency}
     """

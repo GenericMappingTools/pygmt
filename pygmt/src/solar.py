@@ -6,6 +6,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["solar"]
+
 
 @fmt_docstring
 @use_alias(
@@ -16,8 +18,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -40,29 +40,55 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     terminator : str
         Set the type of terminator displayed. Valid arguments are
         **day_night**, **civil**, **nautical**, and **astronomical**, which
-        can be set with either the full name or the first letter of the name.
-        [Default is **day_night**]
+        can be set with either the full name or the first letter of the name
+        [Default is **day_night**].
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
         different types of twilight.
     terminator_datetime : str or datetime object
-        Set the UTC date and time of the displayed terminator. It can be
+        Set the UTC date and time of the displayed terminator
+        [Default is the current UTC date and time]. It can be
         passed as a string or Python datetime object.
-        [Default is the current UTC date and time]
     {region}
     {projection}
     {frame}
     fill : str
         Color or pattern for filling of terminators.
     pen : str
-        Set pen attributes for lines. The default pen
-        is ``"0.25p,black,solid"``.
+        Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {timestamp}
     {verbose}
-    {xyshift}
     {panel}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> # import the Python module "datetime"
+    >>> import datetime
+    >>> import pygmt
+    >>> # create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
+    >>> date = datetime.datetime(
+    ...     year=1997, month=6, day=24, hour=8, minute=52, second=18
+    ... )
+    >>> # create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create a map of the Earth with the coast method
+    >>> fig.coast(
+    ...     land="lightgreen", water="lightblue", projection="W10c", region="d"
+    ... )
+    >>> fig.solar(
+    ...     # set the terminator to "day_night"
+    ...     terminator="day_night",
+    ...     # pass the datetime object
+    ...     terminator_datetime=date,
+    ...     # fill the night-section with navyblue at 75% transparency
+    ...     fill="navyblue@75",
+    ...     # draw the terminator with a 1-point black line
+    ...     pen="1p,black",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
