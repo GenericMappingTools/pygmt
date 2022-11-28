@@ -117,7 +117,6 @@ def load_earth_relief(
     ...     use_srtm=True,
     ... )
     """
-    # pylint: disable=too-many-locals
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
 
