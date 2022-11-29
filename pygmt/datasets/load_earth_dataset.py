@@ -1,5 +1,5 @@
 """
-Internal function to download remote Earth datasets.
+Internal function to load remote Earth datasets.
 """
 from typing import Dict, NamedTuple
 
@@ -24,7 +24,7 @@ class Dataset(NamedTuple):
     Standard information about a dataset and grid metadata.
     """
 
-    dataset_title: str
+    title: str
     name: str
     long_name: str
     units: str
@@ -36,7 +36,7 @@ class Dataset(NamedTuple):
 
 datasets = {
     "earth_relief": Dataset(
-        dataset_title="Earth relief",
+        title="Earth relief",
         name="elevation",
         long_name="elevation relative to the geoid",
         units="meters",
@@ -61,7 +61,7 @@ datasets = {
         },
     ),
     "earth_age": Dataset(
-        dataset_title="seafloor age",
+        title="seafloor age",
         name="seafloor_age",
         long_name="age of seafloor crust",
         units="Myr",
@@ -85,7 +85,7 @@ datasets = {
 
 
 @kwargs_to_strings(region="sequence")
-def _load_earth_dataset(dataset_name, dataset_prefix, registration, resolution, region):
+def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, registration):
     r"""
     Load Earth datasets.
 
