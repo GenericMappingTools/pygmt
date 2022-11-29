@@ -189,11 +189,11 @@ def meca(
         Depth(s) of event location in kilometers. Must be the same length as
         the number of events. Will override the ``depth`` values in ``spec``
         if ``spec`` is a dict or pd.DataFrame.
-    plot_longitude: int, float, list, or 1d numpy array
+    plot_longitude: int, float, str, list, or 1d numpy array
         Longitude(s) at which to place beachball. Must be the same length as
         the number of events. Will override the ``plot_longitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
-    plot_latitude: int, float, list, or 1d numpy array
+    plot_latitude: int, float, str, list, or 1d numpy array
         Latitude(s) at which to place beachball. List must be the same length
         as the number of events. Will override the ``plot_latitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
@@ -272,10 +272,10 @@ def meca(
             spec["latitude"] = np.atleast_1d(latitude)
         if depth is not None:
             spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:  # must be in string type
-            spec["plot_longitude"] = np.atleast_1d(plot_longitude).astype(str)
-        if plot_latitude is not None:  # must be in string type
-            spec["plot_latitude"] = np.atleast_1d(plot_latitude).astype(str)
+        if plot_longitude is not None:
+            spec["plot_longitude"] = np.atleast_1d(plot_longitude)
+        if plot_latitude is not None:
+            spec["plot_latitude"] = np.atleast_1d(plot_latitude)
         if event_name is not None:
             spec["event_name"] = np.atleast_1d(event_name).astype(str)
 
@@ -293,9 +293,13 @@ def meca(
         newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
+            spec[["plot_longitude", "plot_latitude"]] = spec[
+                ["plot_longitude", "plot_latitude"]
+            ].astype(str)
             kwargs["A"] = True
         if "event_name" in spec.columns:
             newcols += ["event_name"]
+            spec["event_name"] = spec["event_name"].astype(str)
         # reorder columns in DataFrame
         spec = spec.reindex(newcols, axis=1)
     elif isinstance(spec, np.ndarray) and spec.ndim == 1:
