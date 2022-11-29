@@ -81,8 +81,8 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
-        "earth_relief_holes": _load_earth_relief_holes,
         "compositions": _load_sample_compositions,
+        "earth_relief_holes": _load_earth_relief_holes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
     }
