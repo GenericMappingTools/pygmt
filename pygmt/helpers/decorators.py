@@ -577,6 +577,7 @@ def use_alias(**aliases):
                     "Parameters 'U' and 'timestamp' are deprecated since v0.8.0 "
                     "and will be removed in v0.12.0. "
                     "Use Figure.timestamp() instead."
+                )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
             # xshift (X) is deprecated since v0.8.0.
