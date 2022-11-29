@@ -33,38 +33,6 @@ class Dataset(NamedTuple):
     horizontal_datum: str
 
 
-earth_relief_resolutions = {
-    "01d": Resolution(["pixel", "gridline"], False),
-    "30m": Resolution(["pixel", "gridline"], False),
-    "20m": Resolution(["pixel", "gridline"], False),
-    "15m": Resolution(["pixel", "gridline"], False),
-    "10m": Resolution(["pixel", "gridline"], False),
-    "06m": Resolution(["pixel", "gridline"], False),
-    "05m": Resolution(["pixel", "gridline"], True),
-    "04m": Resolution(["pixel", "gridline"], True),
-    "03m": Resolution(["pixel", "gridline"], True),
-    "02m": Resolution(["pixel", "gridline"], True),
-    "01m": Resolution(["pixel", "gridline"], True),
-    "30s": Resolution(["pixel", "gridline"], True),
-    "15s": Resolution(["pixel"], True),
-    "03s": Resolution(["gridline"], True),
-    "01s": Resolution(["gridline"], True),
-}
-
-earth_age_resolutions = {
-    "01d": Resolution(["pixel", "gridline"], False),
-    "30m": Resolution(["pixel", "gridline"], False),
-    "20m": Resolution(["pixel", "gridline"], False),
-    "15m": Resolution(["pixel", "gridline"], False),
-    "10m": Resolution(["pixel", "gridline"], False),
-    "06m": Resolution(["pixel", "gridline"], False),
-    "05m": Resolution(["pixel", "gridline"], True),
-    "04m": Resolution(["pixel", "gridline"], True),
-    "03m": Resolution(["pixel", "gridline"], True),
-    "02m": Resolution(["pixel", "gridline"], True),
-    "01m": Resolution(["gridline"], True),
-}
-
 
 datasets = {
     "earth_relief": Dataset(
@@ -74,7 +42,23 @@ datasets = {
         units="meters",
         vertical_datum="EMG96",
         horizontal_datum="WGS84",
-        resolutions=earth_relief_resolutions,
+        resolutions={
+            "01d": Resolution(["pixel", "gridline"], False),
+            "30m": Resolution(["pixel", "gridline"], False),
+            "20m": Resolution(["pixel", "gridline"], False),
+            "15m": Resolution(["pixel", "gridline"], False),
+            "10m": Resolution(["pixel", "gridline"], False),
+            "06m": Resolution(["pixel", "gridline"], False),
+            "05m": Resolution(["pixel", "gridline"], True),
+            "04m": Resolution(["pixel", "gridline"], True),
+            "03m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel", "gridline"], True),
+            "01m": Resolution(["pixel", "gridline"], True),
+            "30s": Resolution(["pixel", "gridline"], True),
+            "15s": Resolution(["pixel"], True),
+            "03s": Resolution(["gridline"], True),
+            "01s": Resolution(["gridline"], True),
+        },
     ),
     "earth_age": Dataset(
         dataset_title="seafloor age",
@@ -83,7 +67,19 @@ datasets = {
         units="Myr",
         vertical_datum="EMG96",
         horizontal_datum="WGS84",
-        resolutions=earth_age_resolutions,
+        resolutions={
+            "01d": Resolution(["pixel", "gridline"], False),
+            "30m": Resolution(["pixel", "gridline"], False),
+            "20m": Resolution(["pixel", "gridline"], False),
+            "15m": Resolution(["pixel", "gridline"], False),
+            "10m": Resolution(["pixel", "gridline"], False),
+            "06m": Resolution(["pixel", "gridline"], False),
+            "05m": Resolution(["pixel", "gridline"], True),
+            "04m": Resolution(["pixel", "gridline"], True),
+            "03m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel", "gridline"], True),
+            "01m": Resolution(["gridline"], True),            
+        },
     ),
 }
 
