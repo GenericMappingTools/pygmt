@@ -152,54 +152,46 @@ class config:  # pylint: disable=invalid-name
         "TIME_UNIT",
         "TIME_WEEK_START",
         "TIME_Y2K_OFFSET_YEAR",
-    ] + [  # special keywords
-        "FONT",
-        "FONT_ANNOT",
-        "FORMAT_TIME_MAP",
-        "MAP_ANNOT_OFFSET",
-        "MAP_GRID_CROSS_SIZE",
-        "MAP_GRID_PEN",
-        "MAP_TICK_LENGTH",
-        "MAP_TICK_PEN",
     ]
+
+    _special_keywords = {
+        "FONT": [
+            "FONT_ANNOT_PRIMARY",
+            "FONT_ANNOT_SECONDARY",
+            "FONT_HEADING",
+            "FONT_LABEL",
+            "FONT_TAG",
+            "FONT_TITLE",
+        ],
+        "FONT_ANNOT": ["FONT_ANNOT_PRIMARY", "FONT_ANNOT_SECONDARY"],
+        "FORMAT_TIME_MAP": ["FORMAT_TIME_PRIMARY_MAP", "FORMAT_TIME_SECONDARY_MAP"],
+        "MAP_ANNOT_OFFSET": [
+            "MAP_ANNOT_OFFSET_PRIMARY",
+            "MAP_ANNOT_OFFSET_SECONDARY",
+        ],
+        "MAP_GRID_CROSS_SIZE": [
+            "MAP_GRID_CROSS_SIZE_PRIMARY",
+            "MAP_GRID_CROSS_SIZE_SECONDARY",
+        ],
+        "MAP_GRID_PEN": ["MAP_GRID_PEN_PRIMARY", "MAP_GRID_PEN_SECONDARY"],
+        "MAP_TICK_LENGTH": ["MAP_TICK_LENGTH_PRIMARY", "MAP_TICK_LENGTH_SECONDARY"],
+        "MAP_TICK_PEN": ["MAP_TICK_PEN_PRIMARY", "MAP_TICK_PEN_SECONDARY"],
+    }
 
     __signature__ = Signature(
         parameters=[
             Parameter(key, kind=Parameter.KEYWORD_ONLY, default=None)
-            for key in _keywords
+            for key in _keywords + list(_special_keywords.keys())
         ]
     )
 
     def __init__(self, **kwargs):
         # Save values so that we can revert to their initial values
         self.old_defaults = {}
-        self.special_params = {
-            "FONT": [
-                "FONT_ANNOT_PRIMARY",
-                "FONT_ANNOT_SECONDARY",
-                "FONT_HEADING",
-                "FONT_LABEL",
-                "FONT_TAG",
-                "FONT_TITLE",
-            ],
-            "FONT_ANNOT": ["FONT_ANNOT_PRIMARY", "FONT_ANNOT_SECONDARY"],
-            "FORMAT_TIME_MAP": ["FORMAT_TIME_PRIMARY_MAP", "FORMAT_TIME_SECONDARY_MAP"],
-            "MAP_ANNOT_OFFSET": [
-                "MAP_ANNOT_OFFSET_PRIMARY",
-                "MAP_ANNOT_OFFSET_SECONDARY",
-            ],
-            "MAP_GRID_CROSS_SIZE": [
-                "MAP_GRID_CROSS_SIZE_PRIMARY",
-                "MAP_GRID_CROSS_SIZE_SECONDARY",
-            ],
-            "MAP_GRID_PEN": ["MAP_GRID_PEN_PRIMARY", "MAP_GRID_PEN_SECONDARY"],
-            "MAP_TICK_LENGTH": ["MAP_TICK_LENGTH_PRIMARY", "MAP_TICK_LENGTH_SECONDARY"],
-            "MAP_TICK_PEN": ["MAP_TICK_PEN_PRIMARY", "MAP_TICK_PEN_SECONDARY"],
-        }
         with Session() as lib:
             for key in kwargs:
-                if key in self.special_params:
-                    for k in self.special_params[key]:
+                if key in self._special_keywords:
+                    for k in self._special_keywords[key]:
                         self.old_defaults[k] = lib.get_default(k)
                 else:
                     self.old_defaults[key] = lib.get_default(key)
