@@ -33,7 +33,6 @@ class Dataset(NamedTuple):
     horizontal_datum: str
 
 
-
 datasets = {
     "earth_relief": Dataset(
         title="Earth relief",
@@ -78,7 +77,7 @@ datasets = {
             "04m": Resolution(["pixel", "gridline"], True),
             "03m": Resolution(["pixel", "gridline"], True),
             "02m": Resolution(["pixel", "gridline"], True),
-            "01m": Resolution(["gridline"], True),            
+            "01m": Resolution(["gridline"], True),
         },
     ),
 }
