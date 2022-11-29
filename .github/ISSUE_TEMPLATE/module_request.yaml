@@ -30,9 +30,11 @@ body:
       required: true
   - type: markdown
     attributes:
-      label: Checklist for wrapping GMT Module
-      description: Please do not edit this section when submitting pull requests. This checklist will help track progress on wrapping the module.
       value: |
+        **Checklist for wrapping GMT Module**
+
+        <!-- Please do not edit this section when submitting pull requests. This checklist will help track progress on wrapping the module. -->
+
         - [ ] 'Initial feature implementation' Pull Request (PR)
         - [ ] 'Add missing aliases to module' documentation PR
         - [ ] 'Support additional functionality in module' PR (optional)
