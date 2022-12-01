@@ -13,6 +13,16 @@ class Resolution(NamedTuple):
     """
     The available grid registrations for a given resolution and whether it is a
     tiled grid.
+
+    Parameters
+    ----------
+    registrations : list
+        A list of the accepted registrations for a given resolutions.
+        Can be either "pixel" or "gridline".
+
+    tiled : bool
+        States if the given resolution is tiled, which requires an
+        argument for ``region``."
     """
 
     registrations: list[str]
@@ -22,6 +32,30 @@ class Resolution(NamedTuple):
 class Dataset(NamedTuple):
     """
     Standard information about a dataset and grid metadata.
+
+    Parameters
+    ----------
+    title : str
+        The title of the dataset, used in error messages.
+
+    name : str
+        The name assigned as an attribute to the data array.
+
+    long_name : str
+        The long name assigned as an attribute to the data array.
+
+    units : str
+        The units of the values in the data array.
+
+    resolutions : dict
+        Dictionary of with given resolution as keys and the values use
+        the Resolution class.
+
+    vertical_datum : str
+        The datum used on the vertical axis.
+
+    horizontal_datum : str
+        The datum used on the horizontal axis.
     """
 
     title: str
