@@ -136,13 +136,13 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
         )
     dataset = datasets[dataset_name]
     if resolution not in dataset.resolutions.keys():
-        raise GMTInvalidInput(f"Invalid 'resolution' input of {resolution}.")
+        raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
     if registration and (
         registration not in dataset.resolutions[resolution].registrations
     ):
         raise GMTInvalidInput(
             f"{registration} registration is not available for the "
-            f"{resolution} {dataset.dataset_title} dataset. Only "
+            f"{resolution} {dataset.title} dataset. Only "
             f"{dataset.resolutions[resolution].registrations[0]}"
             " registration is available."
         )
@@ -153,7 +153,7 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.dataset_title}"
+                f"'region' is required for {dataset.title}"
                 f"resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
