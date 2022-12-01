@@ -227,7 +227,7 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
         )
 
 
-@pytest.mark.parametrize("data_source", ["igpp", "gebco", "synbath"])
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "gebcosi", "synbath"])
 def test_earth_relief_incorrect_resolution_registration(data_source):
     """
     Test that an error is raised when trying to load a grid registration with
