@@ -24,7 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "compositions": "Table of rock sample compositions",
+        "rock_compositions": "Table of rock sample compositions",
         "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
@@ -81,7 +81,7 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
-        "compositions": _load_sample_compositions,
+        "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
@@ -362,7 +362,7 @@ def load_mars_shape(**kwargs):
     return data
 
 
-def _load_sample_compositions():
+def _load_rock_sample_compositions():
     """
     Loads the remote file @ternary.txt.
 
