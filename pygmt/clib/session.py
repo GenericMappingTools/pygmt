@@ -53,14 +53,18 @@ MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 REGISTRATIONS = ["GMT_GRID_PIXEL_REG", "GMT_GRID_NODE_REG"]
 
 DTYPES = {
-    np.float64: "GMT_DOUBLE",
-    np.float32: "GMT_FLOAT",
-    np.int64: "GMT_LONG",
+    np.int8: "GMT_CHAR",
+    np.int16: "GMT_SHORT",
     np.int32: "GMT_INT",
-    np.uint64: "GMT_ULONG",
+    np.int64: "GMT_LONG",
+    np.uint8: "GMT_UCHAR",
+    np.uint16: "GMT_USHORT",
     np.uint32: "GMT_UINT",
-    np.datetime64: "GMT_DATETIME",
+    np.uint64: "GMT_ULONG",
+    np.float32: "GMT_FLOAT",
+    np.float64: "GMT_DOUBLE",
     np.str_: "GMT_TEXT",
+    np.datetime64: "GMT_DATETIME",
 }
 
 
@@ -154,7 +158,8 @@ class Session:
             self._info = {  # pylint: disable=attribute-defined-outside-init
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
-                "binary dir": self.get_default("API_BINDIR"),
+                # API_BINDIR points to the directory of the Python interpreter
+                # "binary dir": self.get_default("API_BINDIR"),
                 "share dir": self.get_default("API_SHAREDIR"),
                 # This segfaults for some reason
                 # 'data dir': self.get_default("API_DATADIR"),
@@ -165,6 +170,9 @@ class Session:
                 # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
+            # API_BIN_VERSION is new in GMT 6.4.0.
+            if Version(self._info["version"]) >= Version("6.4.0"):
+                self._info["binary version"] = self.get_default("API_BIN_VERSION")
         return self._info
 
     def __enter__(self):
@@ -732,8 +740,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
-        Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, uint32, datetime64 and str\_.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
+        uint8, uint16, uint32, uint64, float32, float64, str\_ and datetime64.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
@@ -856,8 +864,8 @@ class Session:
         The dataset must be created by :meth:`pygmt.clib.Session.create_data`
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
-        Not at all numpy dtypes are supported, only: float64, float32, int64,
-        int32, uint64, and uint32.
+        Not all numpy dtypes are supported, only: int8, int16, int32, int64,
+        uint8, uint16, uint32, uint64, float32 and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use

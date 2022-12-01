@@ -22,7 +22,7 @@ import pygmt
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
 # The length of the vector uses centimeters by default but
-# could be changed using :meth:`pygmt.config`
+# could be changed using :class:`pygmt.config`
 # (Check the next examples for unit changes).
 #
 # Notice that the ``v`` in the ``style`` parameter stands for
@@ -65,7 +65,7 @@ fig.plot(
     style="v0.6c+e",
     direction=[[-45, 23], [6, 3]],
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -90,7 +90,7 @@ fig.plot(
     style="v1c+e",
     direction=[[0], [3]],
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 # Vector 2 after changing default unit to inch
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -100,7 +100,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
         direction=[[0], [3]],
         style="v1c+e",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 fig.show()
 
@@ -125,7 +125,7 @@ fig.plot(
     data=vectors,
     style="v0.6c+e",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -151,12 +151,12 @@ fig.plot(
     data=vectors,
     style="v0.6c+e",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
 ###############################################################################
-# In this example, cartesian vectors are plotted over a Mercator
+# In this example, Cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
 # longitude and y values represent the latitude where the vector starts.
 #
@@ -189,7 +189,7 @@ fig.plot(
     style=style,
     direction=[[-25], [3]],
     pen="1p",
-    color="red3",
+    fill="red3",
 )
 
 # vector specifications structured as:
@@ -204,12 +204,12 @@ fig.plot(
     data=vectors,
     style=style,
     pen="1p",
-    color="yellow",
+    fill="yellow",
 )
 fig.show()
 
 ###############################################################################
-# Another example of plotting cartesian vectors over a coast plot. This time a
+# Another example of plotting Cartesian vectors over a coast plot. This time a
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
 
@@ -218,7 +218,8 @@ y = np.linspace(39, 39, 5)  # y values = [39. 39. 39. 39.]
 direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
 length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
-# Create a plot with coast, Mercator projection (M) over the continental US
+# Create a plot with coast,
+# Transverse Mercator projection (T) over Turkey and Syria
 fig = pygmt.Figure()
 fig.coast(
     region=[20, 50, 30, 45],
@@ -237,7 +238,7 @@ fig.plot(
     style="v0.4c+ea+bc",
     direction=[direction, length],
     pen="0.6p",
-    color="red3",
+    fill="red3",
 )
 
 fig.show()
@@ -269,7 +270,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 
 # Another example using np.array()
@@ -280,7 +281,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -309,7 +310,7 @@ fig.plot(
     data=data,
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -331,7 +332,7 @@ fig.plot(
     data=[circular_vector],
     style="m0.5c+ea",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -339,7 +340,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
         data=[circular_vector],
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 fig.show()
 
@@ -353,7 +354,7 @@ fig.show()
 # Chicago. To style geographic
 # vectors, use ``=`` at the beginning of the ``style`` parameter.
 # Other styling features such as vector stem thickness and head color
-# can be passed into the ``pen`` and ``color`` parameters.
+# can be passed into the ``pen`` and ``fill`` parameters.
 #
 # Note that the **+s** is added to use a startpoint and an endpoint
 # to represent the vector instead of input angle and length.
@@ -375,7 +376,7 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -412,7 +413,7 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()
 
@@ -440,6 +441,6 @@ fig.plot(
     data=data,
     style="=0.5c+ea+s",
     pen="2p",
-    color="red3",
+    fill="red3",
 )
 fig.show()

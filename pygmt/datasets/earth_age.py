@@ -32,19 +32,19 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree, arc-minute and arc-second. It can be ``'01d'``, ``'30m'``,
-        ``'20m'``, ``'15m'``, ``'10m'``, ``'06m'``, ``'05m'``, ``'04m'``,
-        ``'03m'``, ``'02m'``, or ``'01m'``.
+        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
+        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
+        ``"03m"``, ``"02m"``, or ``"01m"``.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for grids with resolutions higher than 5
-        arc-minute (i.e., ``05m``).
+        arc-minute (i.e., ``"05m"``).
 
     registration : str
-        Grid registration type. Either ``pixel`` for pixel registration or
-        ``gridline`` for gridline registration. Default is ``None``, where
+        Grid registration type. Either ``"pixel"`` for pixel registration or
+        ``"gridline"`` for gridline registration. Default is ``None``, where
         a pixel-registered grid is returned unless only the
         gridline-registered grid is available.
 
@@ -78,12 +78,12 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         )
 
     if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
+        raise GMTInvalidInput(f"Invalid Earth age resolution '{resolution}'.")
 
-    # Choose earth relief data prefix
+    # Choose earth age data prefix
     earth_age_prefix = "earth_age_"
 
-    # different ways to load tiled and non-tiled earth relief data
+    # different ways to load tiled and non-tiled earth age data
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
     if region is None:

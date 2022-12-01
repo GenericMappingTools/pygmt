@@ -84,7 +84,7 @@ def grdgradient(grid, **kwargs):
         [**m**\|\ **s**\|\ **p**]\ *azim/elev*\ [**+a**\ *ambient*][**+d**\
         *diffuse*][**+p**\ *specular*][**+s**\ *shine*].
         Compute Lambertian radiance appropriate to use with
-        :doc:`pygmt.Figure.grdimage` and :doc:`pygmt.Figure.grdview`. The
+        :meth:`pygmt.Figure.grdimage` and :meth:`pygmt.Figure.grdview`. The
         Lambertian Reflection assumes an ideal surface that reflects all the
         light that strikes it and the surface appears
         equally bright from all viewing directions. Here, *azim* and *elev* are
@@ -134,13 +134,13 @@ def grdgradient(grid, **kwargs):
         grid output is not  needed for this run then do not specify
         ``outgrid``. For  subsequent runs,  just use **r** to read these
         values.  Using **R**  will read then delete the statistics file.
-    {R}
+    {region}
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.
         Requires ``direction`` but makes ``outgrid`` optional.
-    {V}
-    {f}
-    {n}
+    {verbose}
+    {coltypes}
+    {interpolation}
 
     Returns
     -------

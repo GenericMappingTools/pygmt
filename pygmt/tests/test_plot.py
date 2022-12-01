@@ -18,16 +18,16 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
@@ -46,20 +46,20 @@ def test_plot_red_circles(data, region):
         region=region,
         projection="X10c",
         style="c0.2c",
-        color="red",
+        fill="red",
         frame="afg",
     )
     return fig
 
 
-def test_plot_fail_no_data(data):
+def test_plot_fail_no_data(data, region):
     """
     Plot should raise an exception if no data is given.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(
-            region=region, projection="X10c", style="c0.2c", color="red", frame="afg"
+            region=region, projection="X10c", style="c0.2c", fill="red", frame="afg"
         )
     with pytest.raises(GMTInvalidInput):
         fig.plot(
@@ -67,7 +67,7 @@ def test_plot_fail_no_data(data):
             region=region,
             projection="X10c",
             style="c0.2c",
-            color="red",
+            fill="red",
             frame="afg",
         )
     with pytest.raises(GMTInvalidInput):
@@ -76,7 +76,7 @@ def test_plot_fail_no_data(data):
             region=region,
             projection="X10c",
             style="c0.2c",
-            color="red",
+            fill="red",
             frame="afg",
         )
     # Should also fail if given too much data
@@ -88,26 +88,26 @@ def test_plot_fail_no_data(data):
             region=region,
             projection="X10c",
             style="c0.2c",
-            color="red",
+            fill="red",
             frame="afg",
         )
 
 
-def test_plot_fail_1d_array_with_data(data):
+def test_plot_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array color, size, intensity and transparency
+    Should raise an exception if array fill, size, intensity and transparency
     are used with matrix.
     """
     fig = Figure()
     kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="c0.2c", color=data[:, 2], **kwargs)
+        fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="cc", size=data[:, 2], color="red", **kwargs)
+        fig.plot(style="cc", size=data[:, 2], fill="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="c0.2c", color="red", intensity=data[:, 2], **kwargs)
+        fig.plot(style="c0.2c", fill="red", intensity=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot(style="c0.2c", color="red", transparency=data[:, 2] * 100, **kwargs)
+        fig.plot(style="c0.2c", fill="red", transparency=data[:, 2] * 100, **kwargs)
 
 
 @pytest.mark.mpl_image_compare
@@ -122,7 +122,7 @@ def test_plot_projection(data):
         region="g",
         projection="R270/10c",
         style="s0.2c",
-        color="green",
+        fill="green",
         frame="ag",
     )
     return fig
@@ -131,13 +131,13 @@ def test_plot_projection(data):
 @pytest.mark.mpl_image_compare
 def test_plot_colors(data, region):
     """
-    Plot the data using z as colors.
+    Plot the data using z as fills.
     """
     fig = Figure()
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        color=data[:, 2],
+        fill=data[:, 2],
         region=region,
         projection="X10c",
         style="c0.5c",
@@ -160,7 +160,7 @@ def test_plot_sizes(data, region):
         region=region,
         projection="X10c",
         style="cc",
-        color="blue",
+        fill="blue",
         frame="af",
     )
     return fig
@@ -169,13 +169,13 @@ def test_plot_sizes(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot_colors_sizes(data, region):
     """
-    Plot the data using z as sizes and colors.
+    Plot the data using z as sizes and fills.
     """
     fig = Figure()
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        color=data[:, 2],
+        fill=data[:, 2],
         size=0.5 * data[:, 2],
         region=region,
         projection="X10c",
@@ -189,14 +189,14 @@ def test_plot_colors_sizes(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot_colors_sizes_proj(data, region):
     """
-    Plot the data using z as sizes and colors with a projection.
+    Plot the data using z as sizes and fills with a projection.
     """
     fig = Figure()
     fig.coast(region=region, projection="M15c", frame="af", water="skyblue")
     fig.plot(
         x=data[:, 0],
         y=data[:, 1],
-        color=data[:, 2],
+        fill=data[:, 2],
         size=0.5 * data[:, 2],
         style="cc",
         cmap="copper",
@@ -221,7 +221,7 @@ def test_plot_varying_intensity():
         projection="X10c/2c",
         frame=["S", "xaf+lIntensity"],
         style="c0.25c",
-        color="blue",
+        fill="blue",
         intensity=intensity,
     )
     return fig
@@ -243,7 +243,7 @@ def test_plot_transparency():
         projection="X10c",
         frame=True,
         style="c0.2c",
-        color="blue",
+        fill="blue",
         transparency=80.0,
     )
     return fig
@@ -266,7 +266,7 @@ def test_plot_varying_transparency():
         projection="X10c",
         frame=True,
         style="c0.2c",
-        color="blue",
+        fill="blue",
         transparency=z,
     )
     return fig
@@ -275,11 +275,11 @@ def test_plot_varying_transparency():
 @pytest.mark.mpl_image_compare
 def test_plot_sizes_colors_transparencies():
     """
-    Plot the data with varying sizes and colors using z as transparency.
+    Plot the data with varying sizes and fills using z as transparency.
     """
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
-    color = np.arange(1, 10) * 0.15
+    fill = np.arange(1, 10) * 0.15
     size = np.arange(1, 10) * 0.2
     transparency = np.arange(1, 10) * 10
 
@@ -291,7 +291,7 @@ def test_plot_sizes_colors_transparencies():
         projection="X10c",
         frame=True,
         style="cc",
-        color=color,
+        fill=fill,
         size=size,
         cmap="gray",
         transparency=transparency,
@@ -300,8 +300,8 @@ def test_plot_sizes_colors_transparencies():
 
 
 @pytest.mark.mpl_image_compare(filename="test_plot_matrix.png")
-@pytest.mark.parametrize("color", ["#aaaaaa", 170])
-def test_plot_matrix(data, color):
+@pytest.mark.parametrize("fill", ["#aaaaaa", 170])
+def test_plot_matrix(data, fill):
     """
     Plot the data passing in a matrix and specifying columns.
     """
@@ -311,7 +311,7 @@ def test_plot_matrix(data, color):
         region=[10, 70, -5, 10],
         projection="M15c",
         style="cc",
-        color=color,
+        fill=fill,
         frame="a",
         incols="0,1,2+s0.5",
     )
@@ -346,7 +346,7 @@ def test_plot_from_file(region):
         region=region,
         projection="X10c",
         style="d1c",
-        color="yellow",
+        fill="yellow",
         frame=True,
         incols=[0, 1],
     )
@@ -370,7 +370,7 @@ def test_plot_vectors():
         region="-2/2/-2/2",
         projection="X10c",
         style="V0.2c+e+n",
-        color="black",
+        fill="black",
         frame="af",
     )
     return fig
@@ -511,7 +511,7 @@ def test_plot_shapefile():
     datasets = ["@RidgeTest" + suffix for suffix in [".shp", ".shx", ".dbf", ".prj"]]
     which(fname=datasets, download="a")
     fig = Figure()
-    fig.plot(data="@RidgeTest.shp", pen="1p")
+    fig.plot(data="@RidgeTest.shp", pen="1p", frame=True)
     return fig
 
 

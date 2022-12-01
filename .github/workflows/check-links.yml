@@ -15,18 +15,18 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.1.0
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.1.0
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
-      uses: lycheeverse/lychee-action@v1.4.1
+      uses: lycheeverse/lychee-action@v1.5.4
       with:
         # 429: Too many requests
         args: >
@@ -44,6 +44,8 @@ jobs:
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
+          --exclude "^https://www.researchgate.net/project/"
+          --exclude "^https://test.pypi.org/simple/"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"

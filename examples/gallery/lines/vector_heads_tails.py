@@ -35,7 +35,7 @@ import pygmt
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 10, 0, 15], projection="X15c/10c", frame='+t"Vector heads and tails"'
+    region=[0, 10, 0, 15], projection="X15c/10c", frame="+tVector heads and tails"
 )
 
 x = 1
@@ -74,7 +74,7 @@ for vecstyle in [
     "v1c+bi+ea+r+h0.5+a45",
 ]:
     fig.plot(
-        x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", color="red3"
+        x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", fill="red3"
     )
     fig.text(
         x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c"

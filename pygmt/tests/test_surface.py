@@ -39,7 +39,7 @@ def fixture_spacing():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdcut grid result.
     """
@@ -145,25 +145,3 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
         assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
         with xr.open_dataarray(tmpfile.name) as grid:
             check_values(grid, expected_grid)
-
-
-def test_surface_deprecate_outfile_to_outgrid(data, region, spacing, expected_grid):
-    """
-    Make sure that the old parameter "outfile" is supported and it reports a
-    warning.
-    """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = data.values  # convert pandas.DataFrame to numpy.ndarray
-        with GMTTempFile(suffix=".nc") as tmpfile:
-            output = surface(
-                data=data,
-                spacing=spacing,
-                region=region,
-                outfile=tmpfile.name,
-                verbose="e",  # Suppress warnings for IEEE 754 rounding
-            )
-            assert output is None  # check that output is None since outfile is set
-            assert os.path.exists(path=tmpfile.name)  # check that file exists at path
-            with xr.open_dataarray(tmpfile.name) as grid:
-                check_values(grid, expected_grid)
-        assert len(record) == 1  # check that only one warning was raised

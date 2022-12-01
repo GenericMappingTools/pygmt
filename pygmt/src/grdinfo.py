@@ -40,7 +40,7 @@ def grdinfo(grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
         This is the only required parameter.
-    {R}
+    {region}
     per_column : str or bool
         **n**\|\ **t**.
         Formats the report using tab-separated fields on a single line. The
@@ -101,9 +101,9 @@ def grdinfo(grid, **kwargs):
         the min and max. To force a symmetrical range about zero, using
         minus/plus the max absolute value of the two extremes, append **+s**\ .
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
-        (if *dz* was given) as expected by :meth:`pygmt.makecpt`.
-    {V}
-    {f}
+        (if *dz* was given) as expected by :func:`pygmt.makecpt`.
+    {verbose}
+    {coltypes}
 
     Returns
     -------

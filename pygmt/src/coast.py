@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["coast"]
+
 
 @fmt_docstring
 @use_alias(
@@ -30,8 +32,6 @@ from pygmt.helpers import (
     S="water",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -39,7 +39,7 @@ from pygmt.helpers import (
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def coast(self, **kwargs):
     r"""
-    Plot continents, shorelines, rivers, and borders on maps
+    Plot continents, shorelines, rivers, and borders on maps.
 
     Plots grayshaded, colored, or textured land-masses [or water-masses] on
     maps and [optionally] draws coastlines, rivers, and political
@@ -63,11 +63,11 @@ def coast(self, **kwargs):
 
     Parameters
     ----------
-    {J}
-    {R}
+    {projection}
+    {region}
         *Required if this is the first plot command.*
-    {A}
-    {B}
+    {area_thresh}
+    {frame}
     lakes : str or list
         *fill*\ [**+l**\|\ **+r**].
         Set the shade, color, or pattern for lakes and river-lakes. The
@@ -85,8 +85,7 @@ def coast(self, **kwargs):
     rivers : int or str or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
-        pen attributes [Default pen is width = default, color = black,
-        style = solid].
+        pen attributes [Default is ``"0.25p,black,solid"``].
 
         Choose from the list of river types below; pass a list to
         ``rivers`` to use multiple arguments.
@@ -133,8 +132,8 @@ def coast(self, **kwargs):
     borders : int or str or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
-        [optionally] append pen attributes [Default pen is width = default,
-        color = black, style = solid].
+        [optionally] append pen attributes
+        [Default is ``"0.25p,black,solid"``].
 
         Choose from the list of boundaries below. Pass a list to
         ``borders`` to use multiple arguments.
@@ -148,11 +147,11 @@ def coast(self, **kwargs):
         a = All boundaries (1-3)
     water : str
         Select filling or clipping of "wet" areas.
-    {U}
+    {timestamp}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
-        [Default is width = default, color = black, style = solid] which
+        [Default is ``"0.25p,black,solid"``] which
         apply to all four levels. To set the pen for a single level,
         pass a string with *level*\ /*pen*\ , where level is
         1-4 and represent coastline, lakeshore, island-in-lake shore, and
@@ -172,15 +171,37 @@ def coast(self, **kwargs):
         .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,
         prepend **=** to any of the continent codes (e.g. =EU for Europe).
         Append **+p**\ *pen* to draw polygon outlines
-        (default is no outline) and **+g**\ *fill* to fill them
-        (default is no fill). Append **+l**\|\ **+L** to =\ *continent* to
+        [Default is no outline] and **+g**\ *fill* to fill them
+        [Default is no fill]. Append **+l**\|\ **+L** to =\ *continent* to
         only list countries in that continent; repeat if more than one
         continent is requested.
-    {XY}
-    {c}
-    {p}
-    {t}
-    {V}
+    {panel}
+    {perspective}
+    {transparency}
+    {verbose}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # Call the coast method for the plot
+    >>> fig.coast(
+    ...     # Set the projection to Mercator, and plot size to 10 cm
+    ...     projection="M10c",
+    ...     # Set the region of the plot
+    ...     region=[-10, 30, 30, 60],
+    ...     # Set the frame of the plot
+    ...     frame="a",
+    ...     # Set the color of the land to "darkgreen"
+    ...     land="darkgreen",
+    ...     # Set the color of the water to "lightblue"
+    ...     water="lightblue",
+    ...     # Draw national borders with a 1-point black line
+    ...     borders="1/1p,black",
+    ... )
+    >>> # Show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):

@@ -29,13 +29,13 @@ contributions.
 
 The goal is to maintain a diverse community that's pleasant for everyone.
 **Please be considerate and respectful of others**.
-Everyone must abide by our [Code of Conduct](CODE_OF_CONDUCT.md) and we encourage all to
-read it carefully.
+Everyone must abide by our [Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md)
+and we encourage all to read it carefully.
 
 ## Quick links
 
 * [Ways to Contribute](https://www.pygmt.org/dev/contributing.html#ways-to-contribute)
 * [Getting Help](https://www.pygmt.org/dev/contributing.html#getting-help)
 * [Reporting a Bug](https://www.pygmt.org/dev/contributing.html#reporting-a-bug)
-* [Editing the Documentation](https://www.pygmt.org/dev/contributing.html#editing-the-documentation)
+* [Contributing Documentation](https://www.pygmt.org/dev/contributing.html#contributing-documentation)
 * [Contributing Code](https://www.pygmt.org/dev/contributing.html#contributing-code)
