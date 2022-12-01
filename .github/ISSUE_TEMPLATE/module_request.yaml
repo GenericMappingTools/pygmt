@@ -1,4 +1,4 @@
-name: Feature request - Wrap new GMT module
+name: Feature request - Wrap a new GMT module
 description: Request PyGMT wrapper for a GMT module
 title: "Wrapper for <module-name>"
 labels: ["feature request"]
@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please replace <module-name> in the issue title and the description with the name of the requested module and add the description of the module.
+        Please replace `<module-name>` in the issue title and the description with the name of the requested module and add the description of the module.
   - type: textarea
     id: which-module
     attributes:
@@ -31,12 +31,4 @@ body:
   - type: markdown
     attributes:
       value: |
-        **Checklist for wrapping GMT Module**
-
-        <!-- Please do not edit this section when submitting pull requests. This checklist will help track progress on wrapping the module. -->
-
-        - [ ] 'Initial feature implementation' Pull Request (PR)
-        - [ ] 'Add missing aliases to module' documentation PR
-        - [ ] 'Support additional functionality in module' PR (optional)
-        - [ ] 'Add gallery example for module' documentation PR
-        - [ ] 'Add tutorial for module' documentation PR (optional)
+        Progress on wrapping the module will be tracked in the [project board](https://github.com/GenericMappingTools/pygmt/projects/9).
