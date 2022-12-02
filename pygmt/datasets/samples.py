@@ -24,7 +24,6 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "rock_compositions": "Table of rock sample compositions",
         "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
@@ -35,6 +34,7 @@ def list_sample_data():
         "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
+        "rock_compositions": "Table of rock sample compositions",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
