@@ -29,6 +29,26 @@ def test_meca_spec_dict():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_dict.png")
+def test_meca_spec_1darray():
+    """
+    Test supplying a 1D numpy array containing a single focal mechanism to the
+    spec parameter.
+    """
+    fig = Figure()
+    fig.meca(
+        # The columns are:
+        # longitude, latitude, depth, strike, dip, rake, magnitude
+        spec=np.array([0, 5, 0, 0, 90, 0, 5]),
+        convention="aki",
+        region=[-1, 1, 4, 6],
+        scale="2.5c",
+        projection="M14c",
+        frame=True,
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dict_list():
     """
@@ -75,44 +95,6 @@ def test_meca_spec_dataframe():
     fig.meca(
         spec=pd.DataFrame(data=focal_mechanisms),
         region=[-125, -122, 47, 49],
-        scale="2c",
-        projection="M14c",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_1d_array():
-    """
-    Test supplying a 1D numpy array containing focal mechanisms and locations
-    to the spec parameter.
-    """
-    fig = Figure()
-    # supply focal mechanisms to meca as a 1D numpy array, here we are using
-    # the Harvard CMT zero trace convention but the focal mechanism
-    # parameters may be specified any of the available conventions. Since we
-    # are not using a dict or dataframe the convention and component should
-    # be specified.
-    focal_mechanism = [
-        -127.40,  # longitude
-        40.87,  # latitude
-        12,  # depth
-        -3.19,  # mrr
-        0.16,  # mtt
-        3.03,  # mff
-        -1.02,  # mrt
-        -3.93,  # mrf
-        -0.02,  # mtf
-        23,  # exponent
-        0,  # plot_lon, 0 to plot at event location
-        0,  # plot_lat, 0 to plot at event location
-    ]
-    focal_mech_array = np.asarray(focal_mechanism)
-    fig.meca(
-        spec=focal_mech_array,
-        convention="mt",
-        component="full",
-        region=[-128, -127, 40, 41],
         scale="2c",
         projection="M14c",
     )
