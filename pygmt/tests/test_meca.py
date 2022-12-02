@@ -73,6 +73,26 @@ def test_meca_spec_file():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_dict.png")
+def test_meca_spec_dataframe():
+    """
+    Test supplying a dictionary containing a single focal mechanism to the spec
+    parameter.
+    """
+    fig = Figure()
+    fig.meca(
+        spec=pd.DataFrame(dict(strike=0, dip=90, rake=0, magnitude=5), index=[0]),
+        longitude=0,
+        latitude=5,
+        depth=0,
+        scale="2.5c",
+        region=[-1, 1, 4, 6],
+        projection="M14c",
+        frame=True,
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dict_list():
     """
