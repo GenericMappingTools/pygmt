@@ -17,7 +17,7 @@ class Resolution(NamedTuple):
     Parameters
     ----------
     registrations : list
-        A list of the accepted registrations for a given resolutions.
+        A list of the accepted registrations for a given resolution.
         Can be either "pixel" or "gridline".
 
     tiled : bool
