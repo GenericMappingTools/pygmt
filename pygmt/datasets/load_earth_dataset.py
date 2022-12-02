@@ -1,5 +1,5 @@
 """
-Internal function to load remote Earth datasets.
+Internal function to load GMT remote datasets.
 """
 from typing import Dict, NamedTuple
 
