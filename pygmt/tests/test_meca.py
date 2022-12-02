@@ -98,7 +98,7 @@ def test_meca_spec_dict_list():
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_dataframe():
+def test_meca_spec_two_dataframe():
     """
     Test supplying a pandas.DataFrame containing focal mechanisms and locations
     to the spec parameter.
