@@ -364,7 +364,7 @@ def load_mars_shape(**kwargs):
 
 def _load_rock_sample_compositions():
     """
-    Loads the remote file @ternary.txt.
+    Loads a table of rock sample compositions.
 
     Returns
     -------
@@ -373,8 +373,7 @@ def _load_rock_sample_compositions():
     """
 
     fname = which("@ternary.txt", download="c")
-    data = pd.read_csv(fname, sep="\t", header=None, names=["water", "air", "limestone", "z"])
-    return data
+    return pd.read_csv(fname, sep="\t", header=None, names=["water", "air", "limestone", "z"])
 
 
 def _load_notre_dame_topography():
