@@ -24,7 +24,7 @@ def test_meca_spec_dict():
         scale="2.5c",
         region=[-1, 1, 4, 6],
         projection="M14c",
-        frame=2,
+        frame=True,
     )
     return fig
 
