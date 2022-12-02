@@ -373,7 +373,9 @@ def _load_rock_sample_compositions():
     """
 
     fname = which("@ternary.txt", download="c")
-    return pd.read_csv(fname, sep="\t", header=None, names=["water", "air", "limestone", "z"])
+    return pd.read_csv(
+        fname, sep="\t", header=None, names=["water", "air", "limestone", "z"]
+    )
 
 
 def _load_notre_dame_topography():
