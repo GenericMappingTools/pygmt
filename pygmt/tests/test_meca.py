@@ -49,6 +49,30 @@ def test_meca_spec_1darray():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_dict.png")
+def test_meca_spec_file():
+    """
+    Test supplying a file containing a single focal mechanism to the spec
+    parameter.
+    """
+    fig = Figure()
+    focal_mechanism = [0, 5, 0, 0, 90, 0, 5]
+    # writes temp file to pass to gmt
+    with GMTTempFile() as temp:
+        with open(temp.name, mode="w", encoding="utf8") as temp_file:
+            temp_file.write(" ".join([str(x) for x in focal_mechanism]))
+        # supply focal mechanisms to meca as a file
+        fig.meca(
+            spec=temp.name,
+            convention="aki",
+            region=[-1, 1, 4, 6],
+            scale="2.5c",
+            projection="M14c",
+            frame=True,
+        )
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_meca_spec_dict_list():
     """
@@ -128,30 +152,6 @@ def test_meca_spec_2d_array():
         scale="2c",
         projection="M14c",
     )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_file():
-    """
-    Test supplying a file containing focal mechanisms and locations to the spec
-    parameter.
-    """
-    fig = Figure()
-    focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
-    # writes temp file to pass to gmt
-    with GMTTempFile() as temp:
-        with open(temp.name, mode="w", encoding="utf8") as temp_file:
-            temp_file.write(" ".join([str(x) for x in focal_mechanism]))
-        # supply focal mechanisms to meca as a file
-        fig.meca(
-            spec=temp.name,
-            convention="mt",
-            component="full",
-            region=[-128, -127, 40, 41],
-            scale="2c",
-            projection="M14c",
-        )
     return fig
 
 
