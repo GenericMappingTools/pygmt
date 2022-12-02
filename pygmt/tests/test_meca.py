@@ -9,7 +9,7 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_dictionary():
+def test_meca_spec_dict():
     """
     Test supplying a dictionary containing a single focal mechanism to the spec
     parameter.
