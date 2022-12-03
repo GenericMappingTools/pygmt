@@ -152,10 +152,10 @@ def load_earth_relief(
 
     dataset_name = "earth_relief"
     grid = _load_earth_dataset(
+        dataset_prefix=dataset_prefix,
+        dataset_name=dataset_name,
         resolution=resolution,
         region=region,
         registration=registration,
-        dataset_prefix=dataset_prefix,
-        dataset_name=dataset_name,
     )
     return grid

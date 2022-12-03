@@ -61,10 +61,10 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     dataset_prefix = "earth_age_"
     dataset_name = "earth_age"
     grid = _load_earth_dataset(
+        dataset_prefix=dataset_prefix,
+        dataset_name=dataset_name,
         resolution=resolution,
         region=region,
         registration=registration,
-        dataset_prefix=dataset_prefix,
-        dataset_name=dataset_name,
     )
     return grid

@@ -14,7 +14,7 @@ class Resolution(NamedTuple):
     The available grid registrations for a given resolution and whether it is a
     tiled grid.
 
-    Parameters
+    Attributes
     ----------
     registrations : list
         A list of the accepted registrations for a given resolution.
@@ -33,19 +33,19 @@ class Dataset(NamedTuple):
     """
     Standard information about a dataset and grid metadata.
 
-    Parameters
+    Attributes
     ----------
     title : str
         The title of the dataset, used in error messages.
 
     name : str
-        The name assigned as an attribute to the data array.
+        The name assigned as an attribute to the DataArray.
 
     long_name : str
         The long name assigned as an attribute to the data array.
 
     units : str
-        The units of the values in the data array.
+        The units of the values in the DataArray.
 
     resolutions : dict
         Dictionary of with given resolution as keys and the values use
@@ -71,7 +71,7 @@ datasets = {
     "earth_relief": Dataset(
         title="Earth relief",
         name="elevation",
-        long_name="elevation relative to the geoid",
+        long_name="Earth elevation relative to the geoid",
         units="meters",
         vertical_datum="EMG96",
         horizontal_datum="WGS84",
@@ -131,14 +131,13 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
         The prefix for the dataset that will be passed to the GMT C API.
 
     resolution : str
-        The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree and arc-minute.
+        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
+        arc-degree, arc-minute, and arc-second respectively.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
+        Required for tiled grids. 
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
@@ -154,8 +153,7 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
     Note
     ----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
-    which are stored as smaller tiles.
+    tiled grids.
     """
 
     if registration in ("pixel", "gridline", None):
@@ -181,7 +179,7 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
             " registration is available."
         )
 
-    # different ways to load tiled and non-tiled earth age data
+    # different ways to load tiled and non-tiled grids.
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
     if region is None:
