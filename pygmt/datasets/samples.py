@@ -369,7 +369,7 @@ def _load_rock_sample_compositions():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "water", "air", "limestone", "z".
+        The data table with columns "water", "air", and "limestone".
     """
 
     fname = which("@ternary.txt", download="c")
