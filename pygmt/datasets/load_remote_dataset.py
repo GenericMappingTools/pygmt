@@ -52,7 +52,7 @@ class GMTRemoteDataset(NamedTuple):
         Resolution objects.
 
     extra_attributes : dict
-        A dictionary of the datum or data for the axis on the dataset.
+        A dictionary of extra or uniques attributes of the dataset.
     """
 
     title: str
