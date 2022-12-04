@@ -51,7 +51,7 @@ class GMTRemoteDataset(NamedTuple):
         Dictionary of available resolution as keys and the values are
         Resolution objects.
 
-    attribute_datum : dict
+    extra_attributes : dict
         A dictionary of the datum or data for the axis on the dataset.
     """
 
@@ -60,7 +60,7 @@ class GMTRemoteDataset(NamedTuple):
     long_name: str
     units: str
     resolutions: Dict[str, Resolution]
-    attribute_datum: dict
+    extra_attributes: dict
 
 
 datasets = {
@@ -69,7 +69,7 @@ datasets = {
         name="elevation",
         long_name="Earth elevation relative to the geoid",
         units="meters",
-        attribute_datum={"vertical_datum": "EMG96", "horizontal_datum": "WGS84"},
+        extra_attributes={"vertical_datum": "EMG96", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
             "30m": Resolution(["pixel", "gridline"], False),
@@ -93,7 +93,7 @@ datasets = {
         name="seafloor_age",
         long_name="age of seafloor crust",
         units="Myr",
-        attribute_datum={"horizontal_datum": "WGS84"},
+        extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
             "30m": Resolution(["pixel", "gridline"], False),
@@ -193,7 +193,7 @@ def _load_remote_dataset(
     grid.name = dataset.name
     grid.attrs["long_name"] = dataset.long_name
     grid.attrs["units"] = dataset.units
-    for key, value in dataset.attribute_datum.items():
+    for key, value in dataset.extra_attributes.items():
         grid.attrs[key] = value
     # Remove the actual range because it gets outdated when indexing the grid,
     # which causes problems when exporting it to netCDF for usage on the
