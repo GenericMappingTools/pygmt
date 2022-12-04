@@ -29,7 +29,7 @@ class Resolution(NamedTuple):
     tiled: bool
 
 
-class Dataset(NamedTuple):
+class GMTRemoteDataset(NamedTuple):
     """
     Standard information about a dataset and grid metadata.
 
@@ -51,11 +51,8 @@ class Dataset(NamedTuple):
         Dictionary of with given resolution as keys and the values use
         the Resolution class.
 
-    vertical_datum : str
-        The datum used on the vertical axis.
-
-    horizontal_datum : str
-        The datum used on the horizontal axis.
+    attribute_datum : dict
+        A dictionary of the datum or data for the axis on the dataset.
     """
 
     title: str
@@ -63,18 +60,16 @@ class Dataset(NamedTuple):
     long_name: str
     units: str
     resolutions: Dict[str, Resolution]
-    vertical_datum: str
-    horizontal_datum: str
+    attribute_datum: dict
 
 
 datasets = {
-    "earth_relief": Dataset(
+    "earth_relief": GMTRemoteDataset(
         title="Earth relief",
         name="elevation",
         long_name="Earth elevation relative to the geoid",
         units="meters",
-        vertical_datum="EMG96",
-        horizontal_datum="WGS84",
+        attribute_datum={"vertical_datum": "EMG96", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
             "30m": Resolution(["pixel", "gridline"], False),
@@ -93,13 +88,12 @@ datasets = {
             "01s": Resolution(["gridline"], True),
         },
     ),
-    "earth_age": Dataset(
+    "earth_age": GMTRemoteDataset(
         title="seafloor age",
         name="seafloor_age",
         long_name="age of seafloor crust",
         units="Myr",
-        vertical_datum="EMG96",
-        horizontal_datum="WGS84",
+        attribute_datum={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
             "30m": Resolution(["pixel", "gridline"], False),
@@ -137,7 +131,7 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
     region : str or list
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for tiled grids. 
+        Required for tiled grids.
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
@@ -197,8 +191,8 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
     grid.name = dataset.name
     grid.attrs["long_name"] = dataset.long_name
     grid.attrs["units"] = dataset.units
-    grid.attrs["vertical_datum"] = dataset.vertical_datum
-    grid.attrs["horizontal_datum"] = dataset.horizontal_datum
+    for key, value in dataset.attribute_datum.items():
+        grid.attrs[key] = value
     # Remove the actual range because it gets outdated when indexing the grid,
     # which causes problems when exporting it to netCDF for usage on the
     # command-line.
