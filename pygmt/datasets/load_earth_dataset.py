@@ -25,7 +25,7 @@ class Resolution(NamedTuple):
         argument for ``region``."
     """
 
-    registrations: list[str]
+    registrations: list
     tiled: bool
 
 
