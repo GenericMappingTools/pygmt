@@ -32,7 +32,7 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     )
     assert data.name == "elevation"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "elevation relative to the geoid"
+    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
     assert data.attrs["vertical_datum"] == "EMG96"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
