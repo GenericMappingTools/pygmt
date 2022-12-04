@@ -114,7 +114,7 @@ datasets = {
 @kwargs_to_strings(region="sequence")
 def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, registration):
     r"""
-    Load Earth datasets.
+    Load GMT remote datasets.
 
     Parameters
     ----------
@@ -142,11 +142,11 @@ def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, regist
     Returns
     -------
     grid : :class:`xarray.DataArray`
-        The Earth dataset grid.
+        The GMT remote dataset grid.
 
     Note
     ----
-    The :class:`xarray.DataArray` grid doesn't support slice operation, for
+    The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
 
