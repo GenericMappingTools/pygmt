@@ -32,8 +32,8 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
-        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
+        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "rock_compositions": "Table of rock sample compositions",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
