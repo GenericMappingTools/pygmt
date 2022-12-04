@@ -4,7 +4,7 @@ and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-from pygmt.datasets.load_earth_dataset import _load_earth_dataset
+from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
 
@@ -60,7 +60,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     """
     dataset_prefix = "earth_age_"
     dataset_name = "earth_age"
-    grid = _load_earth_dataset(
+    grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,
         resolution=resolution,

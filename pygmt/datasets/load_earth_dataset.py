@@ -112,7 +112,7 @@ datasets = {
 
 
 @kwargs_to_strings(region="sequence")
-def _load_earth_dataset(dataset_name, dataset_prefix, resolution, region, registration):
+def _load_remote_dataset(dataset_name, dataset_prefix, resolution, region, registration):
     r"""
     Load GMT remote datasets.
 

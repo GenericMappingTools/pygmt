@@ -6,7 +6,7 @@ The grids are available in various resolutions.
 """
 from packaging.version import Version
 from pygmt.clib import Session
-from pygmt.datasets.load_earth_dataset import _load_earth_dataset
+from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
 
@@ -151,7 +151,7 @@ def load_earth_relief(
         dataset_prefix = earth_relief_sources[data_source]
 
     dataset_name = "earth_relief"
-    grid = _load_earth_dataset(
+    grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,
         resolution=resolution,
