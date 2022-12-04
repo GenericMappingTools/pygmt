@@ -48,8 +48,8 @@ class GMTRemoteDataset(NamedTuple):
         The units of the values in the DataArray.
 
     resolutions : dict
-        Dictionary of with given resolution as keys and the values use
-        the Resolution class.
+        Dictionary of available resolution as keys and the values are
+        Resolution objects.
 
     attribute_datum : dict
         A dictionary of the datum or data for the axis on the dataset.
