@@ -188,7 +188,7 @@ def test_maunaloa_co2():
     assert summary.loc["max", "co2_ppm"] == 414.83
 
 
-def test_ternary():
+def test_rock_sample_compositions():
     """
     Check that the @ternary.txt dataset loads without errors.
     """
