@@ -42,7 +42,7 @@ class GMTRemoteDataset(NamedTuple):
         The name assigned as an attribute to the DataArray.
 
     long_name : str
-        The long name assigned as an attribute to the data array.
+        The long name assigned as an attribute to the DataArray.
 
     units : str
         The units of the values in the DataArray.

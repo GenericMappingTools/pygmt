@@ -148,12 +148,12 @@ def load_earth_relief(
                 " Set data_source to 'igpp'."
             )
     else:
-        dataset_prefix = earth_relief_sources.get(data_source)
+        dataset_prefix = earth_relief_sources[data_source]
 
     dataset_name = "earth_relief"
     grid = _load_earth_dataset(
-        dataset_prefix=dataset_prefix,
         dataset_name=dataset_name,
+        dataset_prefix=dataset_prefix,
         resolution=resolution,
         region=region,
         registration=registration,
