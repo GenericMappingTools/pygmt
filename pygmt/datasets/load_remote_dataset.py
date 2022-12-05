@@ -52,7 +52,7 @@ class GMTRemoteDataset(NamedTuple):
         Resolution objects.
 
     extra_attributes : dict
-        A dictionary of extra or uniques attributes of the dataset.
+        A dictionary of extra or unique attributes of the dataset.
     """
 
     title: str
@@ -69,7 +69,7 @@ datasets = {
         name="elevation",
         long_name="Earth elevation relative to the geoid",
         units="meters",
-        extra_attributes={"vertical_datum": "EMG96", "horizontal_datum": "WGS84"},
+        extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
             "30m": Resolution(["pixel", "gridline"], False),
