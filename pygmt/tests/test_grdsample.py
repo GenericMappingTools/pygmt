@@ -1,7 +1,7 @@
 """
 Tests for grdsample.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -64,7 +64,7 @@ def test_grdsample_file_out(grid, expected_grid, region, spacing):
             grid=grid, outgrid=tmpfile.name, spacing=spacing, region=region
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
