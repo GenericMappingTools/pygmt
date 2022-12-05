@@ -296,7 +296,6 @@ def meca(
             spec[["plot_longitude", "plot_latitude"]] = spec[
                 ["plot_longitude", "plot_latitude"]
             ].astype(str)
-            kwargs["A"] = True
         if "event_name" in spec.columns:
             newcols += ["event_name"]
             spec["event_name"] = spec["event_name"].astype(str)
