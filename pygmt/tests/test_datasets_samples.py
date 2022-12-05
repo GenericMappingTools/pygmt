@@ -103,7 +103,6 @@ def test_fractures_compilation():
         data = load_fractures_compilation()
         assert len(record) == 1
     assert data.shape == (361, 2)
-    summary = data.describe()
     assert data["length"].min() == 98.6561
     assert data["length"].max() == 984.652
     assert data["azimuth"].min() == 0.0
