@@ -16,8 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     c="panel",
@@ -82,7 +80,6 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {xyshift}
     {binary}
     {panel}
     {nodata}

@@ -30,8 +30,6 @@ from pygmt.helpers import (
     Wf="facadepen",
     I="shading",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     n="interpolation",
@@ -114,7 +112,6 @@ def grdview(self, grid, **kwargs):
         or just give **+d** to select the default arguments
         [Default is **+a**\ -45\ **+nt**\ 1\ **+m**\ 0].
     {verbose}
-    {xyshift}
     {panel}
     {coltypes}
     {interpolation}

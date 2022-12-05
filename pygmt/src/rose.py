@@ -13,7 +13,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -33,8 +33,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     d="nodata",
@@ -193,7 +191,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     {timestamp}
     {verbose}
-    {xyshift}
     {binary}
     {panel}
     {nodata}
