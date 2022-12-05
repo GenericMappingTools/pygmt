@@ -58,6 +58,7 @@ jobs:
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
