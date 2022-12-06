@@ -16,8 +16,8 @@ def load_earth_relief(
     resolution="01d",
     region=None,
     registration=None,
-    use_srtm=False,
     data_source="igpp",
+    use_srtm=False,
 ):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
