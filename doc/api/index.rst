@@ -215,7 +215,7 @@ Datasets
 
 PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
 These functions will download the datasets automatically the first time they are used
-and store them in the GMT cache folder.
+and store them in the GMT's user data directory.
 
 .. autosummary::
     :toctree: generated
@@ -224,6 +224,13 @@ and store them in the GMT cache folder.
     datasets.load_earth_age
     datasets.load_earth_relief
     datasets.load_sample_data
+
+The following functions are deprecated since v0.6.0 and will be removed in v0.9.0.
+Use :func:`pygmt.datasets.load_sample_data` instead.
+
+.. autosummary::
+    :toctree: generated
+
     datasets.load_fractures_compilation
     datasets.load_hotspots
     datasets.load_japan_quakes
