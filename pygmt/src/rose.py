@@ -3,10 +3,17 @@ rose - Plot windrose diagrams or polar histograms.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -14,7 +21,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="shift",
     Em="vectors",
     F="no_scale",
-    G="color",
+    G="fill",
     I="inquire",
     JX="diameter",
     L="labels",
@@ -26,8 +33,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     d="nodata",
@@ -114,7 +119,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          consideration, set them all to unity with ``scale="u"``
          [Default is no scaling].
 
-    color : str
+    fill : str
          Selects shade, color or pattern for filling the sectors [Default
          is no fill].
 
@@ -186,7 +191,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     {timestamp}
     {verbose}
-    {xyshift}
     {binary}
     {panel}
     {nodata}

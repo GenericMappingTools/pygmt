@@ -1,5 +1,5 @@
 """
-nearneighbor - Grid table data using a "Nearest neighbor" algorithm
+nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 from pygmt.clib import Session
@@ -40,7 +40,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Grid table data using a "Nearest neighbor" algorithm.
 
-    **nearneighbor** reads arbitrarily located (*x,y,z*\ [,\ *w*]) triples
+    **nearneighbor** reads arbitrarily located (*x*, *y*, *z*\ [, *w*]) triplets
     [quadruplets] and uses a nearest neighbor algorithm to assign a weighted
     average value to each node that has one or more data points within a search
     radius centered on the node with adequate coverage across a subset of the
@@ -67,7 +67,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
        Only the closest point in each sector (red circles) contribute to the
        weighted estimate.
 
-    Takes a matrix, xyz triples, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 

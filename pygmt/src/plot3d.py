@@ -6,6 +6,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
+    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -15,12 +16,13 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
     C="cmap",
     D="offset",
-    G="color",
+    G="fill",
     I="intensity",
     J="projection",
     Jz="zscale",
@@ -32,8 +34,6 @@ from pygmt.src.which import which
     S="style",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     a="aspatial",
     b="binary",
@@ -56,13 +56,13 @@ def plot3d(
     r"""
     Plot lines, polygons, and symbols in 3-D.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots
     lines, polygons, or symbols at those locations in 3-D.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
-    If providing data through ``x/y/z``, ``color`` can be a 1d array
-    that will be mapped to a colormap.
+    If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a
+    1d array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
     interpret the fourth column of the input data as symbol size. Symbols
@@ -70,8 +70,8 @@ def plot3d(
     symbol code (see ``style`` below) must be present as last column in the
     input. If ``style`` is not used, a line connecting the data points will
     be drawn instead. To explicitly close polygons, use ``close``. Select a
-    fill with ``color``. If ``color`` is set, ``pen`` will control whether the
-    polygon outline is drawn or not. If a symbol is selected, ``color`` and
+    fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the
+    polygon outline is drawn or not. If a symbol is selected, ``fill`` and
     ``pen`` determines the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot3d.html`
@@ -83,7 +83,7 @@ def plot3d(
     data : str or {table-like}
         Either a data file name, a 2d {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
-        z, color, and size, respectively.
+        z, fill, and size, respectively.
     x/y/z : float or 1d arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
         the data points
@@ -117,8 +117,8 @@ def plot3d(
         *dx*/*dy*\ [/*dz*].
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
-    {color}
-        *color* can be a 1d array, but it is only valid if using ``x``/``y``
+    {fill}
+        *fill* can be a 1d array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
     intensity : float or bool or 1d array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
@@ -154,15 +154,14 @@ def plot3d(
     {timestamp}
     {verbose}
     {pen}
-    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color
-        via ``color`` and ``pen``, give both a *value* via **zvalue** and a
+        via ``fill`` and ``pen``, give both a *value* via **zvalue** and a
         color lookup table via ``cmap``.  Alternatively, give the name of a
         *file* with one z-value (read from the last column) for each
         polygon in the input data. To apply it to the fill color, use
-        ``color="+z"``. To apply it to the pen color, append **+z** to
+        ``fill="+z"``. To apply it to the pen color, append **+z** to
         ``pen``.
     {aspatial}
     {binary}
@@ -208,7 +207,7 @@ def plot3d(
     if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
         if kind != "vectors":
             raise GMTInvalidInput(
-                "Can't use arrays for color if data is matrix or file."
+                "Can't use arrays for fill if data is matrix or file."
             )
         extra_arrays.append(kwargs["G"])
         del kwargs["G"]

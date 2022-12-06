@@ -18,8 +18,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     I="shading",
     W="scale",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -100,7 +98,6 @@ def colorbar(self, **kwargs):
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
     {verbose}
-    {xyshift}
     {panel}
     {perspective}
     {transparency}

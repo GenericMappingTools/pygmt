@@ -4,10 +4,8 @@ and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-from pygmt.exceptions import GMTInvalidInput
+from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
-from pygmt.io import load_dataarray
-from pygmt.src import grdcut, which
 
 
 @kwargs_to_strings(region="sequence")
@@ -60,52 +58,13 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
-
-    # earth seafloor crust age data stored as single grids for low resolutions
-    non_tiled_resolutions = ["01d", "30m", "20m", "15m", "10m", "06m"]
-    # earth seafloor crust age data stored as tiles for high resolutions
-    tiled_resolutions = ["05m", "04m", "03m", "02m", "01m"]
-
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
-    else:
-        raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
-        )
-
-    if resolution not in non_tiled_resolutions + tiled_resolutions:
-        raise GMTInvalidInput(f"Invalid Earth relief resolution '{resolution}'.")
-
-    # Choose earth relief data prefix
-    earth_age_prefix = "earth_age_"
-
-    # different ways to load tiled and non-tiled earth relief data
-    # Known issue: tiled grids don't support slice operation
-    # See https://github.com/GenericMappingTools/pygmt/issues/524
-    if region is None:
-        if resolution not in non_tiled_resolutions:
-            raise GMTInvalidInput(
-                f"'region' is required for Earth age resolution '{resolution}'."
-            )
-        fname = which(f"@earth_age_{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
-    else:
-        grid = grdcut(f"@{earth_age_prefix}{resolution}{reg}", region=region)
-
-    # Add some metadata to the grid
-    grid.name = "seafloor_age"
-    grid.attrs["long_name"] = "age of seafloor crust"
-    grid.attrs["units"] = "Myr"
-    grid.attrs["vertical_datum"] = "EMG96"
-    grid.attrs["horizontal_datum"] = "WGS84"
-    # Remove the actual range because it gets outdated when indexing the grid,
-    # which causes problems when exporting it to netCDF for usage on the
-    # command-line.
-    grid.attrs.pop("actual_range")
-    for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
+    dataset_prefix = "earth_age_"
+    dataset_name = "earth_age"
+    grid = _load_remote_dataset(
+        dataset_name=dataset_name,
+        dataset_prefix=dataset_prefix,
+        resolution=resolution,
+        region=region,
+        registration=registration,
+    )
     return grid
