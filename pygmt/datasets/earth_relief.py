@@ -101,17 +101,20 @@ def load_earth_relief(
     Examples
     --------
 
+    >>> from pygmt.datasets import load_earth_relief
     >>> # load the default grid (gridline-registered 01d grid)
     >>> grid = load_earth_relief()
     >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
+    >>> grid = load_earth_relief(resolution="30m", registration="gridline")
     >>> # load high-resolution grid for a specific region
     >>> grid = load_earth_relief(
-    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
     ... )
     >>> # load the original 3 arc-second land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
-    ...     "03s",
+    ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
     ...     use_srtm=True,
