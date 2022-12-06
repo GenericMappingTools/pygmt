@@ -1,5 +1,5 @@
 """
-Function to download the Earth seafloor age datasets from the GMT data server,
+Function to download the Earth magnetic anomaly datasets from the GMT data server,
 and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -51,13 +51,13 @@ def load_earth_magnetic_anomaly(resolution="01d", region=None, registration=None
     Returns
     -------
     grid : :class:`xarray.DataArray`
-        The Earth seafloor crustal age grid. Coordinates are latitude and
+        The Earth magnetic anomaly grid. Coordinates are latitude and
         longitude in degrees. Age is in millions of years (Myr).
 
     Note
     ----
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
+    Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
 
