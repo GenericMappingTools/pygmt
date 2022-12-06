@@ -58,12 +58,8 @@ def load_earth_magnetic_anomaly(resolution="01d", region=None, registration=None
     Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
-
-    # Choose earth magnetic anomaly data prefix
     dataset_prefix = "earth_mag_"
-
     dataset_name = "earth_magnetic_anomaly"
-
     grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,

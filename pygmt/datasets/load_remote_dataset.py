@@ -124,7 +124,7 @@ datasets = {
             "05m": Resolution(["pixel", "gridline"], True),
             "04m": Resolution(["pixel", "gridline"], True),
             "03m": Resolution(["pixel", "gridline"], True),
-            "02m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel"], True),
         },
     ),
 }
