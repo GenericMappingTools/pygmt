@@ -33,7 +33,6 @@ __doctest_skip__ = ["select"]
     h="header",
     i="incols",
     o="outcols",
-    r="registration",
     s="skiprows",
     w="wrap",
 )
@@ -137,7 +136,6 @@ def select(data=None, outfile=None, **kwargs):
     {header}
     {incols}
     {outcols}
-    {registration}
     {skiprows}
     {wrap}
 
