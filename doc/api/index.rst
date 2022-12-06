@@ -222,6 +222,7 @@ and store them in the GMT cache folder.
 
     datasets.list_sample_data
     datasets.load_earth_age
+    datasets.load_earth_magnetic_anomaly
     datasets.load_earth_relief
     datasets.load_sample_data
     datasets.load_fractures_compilation
