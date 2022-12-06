@@ -33,7 +33,9 @@ def test_earth_mag_01d():
     """
     data = load_earth_magnetic_anomaly(resolution="01d", registration="gridline")
     assert data.name == "magnetic_anomaly"
-    assert data.attrs["long_name"] == "anomaly (nT)"
+    assert data.attrs["long_name"] == "Earth magnetic anomaly"
+    assert data.attrs["units"] == "nT"
+    assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
