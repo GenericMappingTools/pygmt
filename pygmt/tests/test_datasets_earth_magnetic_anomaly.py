@@ -57,7 +57,7 @@ def test_earth_mag_01d_with_region():
     npt.assert_allclose(data.max(), 127.39996)
 
 
-def test_earth_mag_04m_with_region():
+def test_earth_mag_03m_with_region():
     """
     Test loading a subregion of high-resolution earth magnetic anomaly data.
     """
