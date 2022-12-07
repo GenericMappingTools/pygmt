@@ -16,15 +16,13 @@ def load_blue_marble(resolution="01d"):
     Load NASA Blue Marble images in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_age/``) the first time you invoke
+    (usually ``~/.gmt/server/earth/earth_day/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_age**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@earth_day**\_\ *res*\ to any grid plotting/processing
+    function. *res* is the grid resolution (see below).
 
     Refer to :gmt-datasets:`earth-daynight.html` for more details.
 
