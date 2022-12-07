@@ -213,9 +213,9 @@ Miscellaneous
 Datasets
 --------
 
-PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
+PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` module.
 These functions will download the datasets automatically the first time they are used
-and store them in the GMT's user data directory.
+and store them in GMT's user data directory.
 
 .. autosummary::
     :toctree: generated
