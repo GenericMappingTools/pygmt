@@ -182,7 +182,7 @@ def download_test_data():
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
         # Earth geoid grids
         "@earth_geoid_01d_g.grd",
-        "@S90W180.earth_geoid_05m_g.nc", # Specific grid for 05m test
+        "@S90W180.earth_geoid_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
