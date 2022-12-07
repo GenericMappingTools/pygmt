@@ -108,6 +108,27 @@ datasets = {
             "01m": Resolution(["gridline"], True),
         },
     ),
+    "blue_marble": GMTRemoteDataset(
+        title="NASA Day/Night Images",
+        name="blue_marble",
+        long_name="NASA Day/Night Images",
+        units="N/A",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution([None], False),
+            "30m": Resolution([None], False),
+            "20m": Resolution([None], False),
+            "15m": Resolution([None], False),
+            "10m": Resolution([None], False),
+            "06m": Resolution([None], False),
+            "05m": Resolution([None], False),
+            "04m": Resolution([None], False),
+            "03m": Resolution([None], False),
+            "02m": Resolution([None], False),
+            "01m": Resolution([None], False),
+            "30s": Resolution([None], False),
+        },
+    ),
 }
 
 
