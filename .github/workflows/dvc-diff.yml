@@ -13,16 +13,16 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3.1.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.0.3
+      uses: iterative/setup-dvc@v1.1.1
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.1.3
+      uses: iterative/setup-cml@v1.2.1
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
@@ -95,7 +95,7 @@ jobs:
         echo ::set-output name=report::$report
 
     - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.0.0
+      uses: peter-evans/find-comment@v2.1.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -104,14 +104,14 @@ jobs:
 
     - name: Create comment with image diff report
       if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: ${{ steps.image-diff.outputs.report }}
 
     - name: Update comment with new image diff report
       if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.image-diff.outputs.report }}

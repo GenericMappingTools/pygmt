@@ -29,7 +29,7 @@ def x2sys_init(tag, **kwargs):
     x2sys TAG. The TAG keeps track of settings such as file format, whether the
     data are geographic or not, and the binning resolution for track indices.
 
-    Before you can run :meth:`pygmt.x2sys_init` you must set the environmental
+    Before you can run :func:`pygmt.x2sys_init` you must set the environmental
     parameter X2SYS_HOME to a directory where you have write permission, which
     is where x2sys can keep track of your settings.
 
@@ -95,8 +95,8 @@ def x2sys_init(tag, **kwargs):
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].
 
-    {R}
-    {V}
+    {region}
+    {verbose}
 
     gap : str or list
         **t**\|\ **d**\ *gap*.
@@ -107,7 +107,7 @@ def x2sys_init(tag, **kwargs):
         If these limits are exceeded then a data gap is assumed and no COE will
         be determined.
 
-    {j}
+    {distcalc}
     """
     with Session() as lib:
         lib.call_module(module="x2sys_init", args=build_arg_string(kwargs, infile=tag))

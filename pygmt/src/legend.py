@@ -21,8 +21,6 @@ from pygmt.helpers import (
     F="box",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -45,17 +43,17 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     Parameters
     ----------
     spec : None or str
-        Either ``None`` [default] for using the automatically generated legend
+        Either ``None`` [Default] for using the automatically generated legend
         specification file, or a *filename* pointing to the legend
         specification file.
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [/*height*]\ [**+j**\ *justify*]\ [**+l**\ *spacing*]\
         [**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the
-        legend. By default, uses **JTR**\ +\ **jTR**\ +\ **o**\ *0.2c* which
+        legend. By default, uses **JTR**\ **+jTR**\ **+o**\ 0.2c which
         places the legend at the top-right corner inside the map frame, with a
         0.2 cm offset.
     box : bool or str
@@ -65,12 +63,11 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         using :gmt-term:`MAP_FRAME_PEN`. By default, uses
         **+g**\ white\ **+p**\ 1p which draws a box around the legend using a
         1p black pen and adds a white background.
-    {U}
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

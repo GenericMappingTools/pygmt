@@ -48,12 +48,12 @@ def test_legend_entries():
     fig.plot(
         data="@Table_5_11.txt",
         style="c0.15i",
-        color="lightgreen",
+        fill="lightgreen",
         pen="faint",
         label="Apples",
     )
     fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
     fig.legend(position="JTR+jTR")
 
     return fig

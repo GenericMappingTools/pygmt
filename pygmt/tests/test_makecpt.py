@@ -39,7 +39,7 @@ def test_makecpt_plot_points(points):
     fig.plot(
         x=points[:, 0],
         y=points[:, 1],
-        color=points[:, 2],
+        fill=points[:, 2],
         region=[10, 70, -5, 10],
         style="c1c",
         cmap=True,
@@ -147,7 +147,7 @@ def test_makecpt_categorical(position):
     Use static color palette table that is categorical.
     """
     fig = Figure()
-    makecpt(cmap="categorical", categorical=True)
+    makecpt(cmap="categorical", categorical=True, series=[0, 6, 1])
     fig.colorbar(cmap=True, frame=True, position=position)
     return fig
 

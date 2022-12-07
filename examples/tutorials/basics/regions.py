@@ -2,7 +2,7 @@
 Setting the region
 ==================
 
-Many of the plotting functions take the ``region`` parameter, which sets the
+Many of the plotting methods take the ``region`` parameter, which sets the
 area that will be shown in the figure. This tutorial covers the different types
 of inputs that it can accept.
 """
@@ -38,7 +38,7 @@ fig.show()
 ###############################################################################
 #
 # The coordinates can be passed to ``region`` as a list, in the form of
-# [*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
+# [*xmin*, *xmax*, *ymin*, *ymax*].
 
 fig = pygmt.Figure()
 fig.coast(

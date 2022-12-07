@@ -8,14 +8,43 @@ Quickstart
 
 The fastest way to install PyGMT is with the
 `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
+or `mamba <https://mamba.readthedocs.io/en/latest/>`__
 package manager which takes care of setting up a virtual environment, as well
-as the installation of GMT and all the dependencies PyGMT depends on::
+as the installation of GMT and all the dependencies PyGMT depends on:
 
-    conda create --name pygmt --channel conda-forge pygmt
+.. tab-set::
 
-To activate the virtual environment, you can do::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda activate pygmt
+        ::
+
+            conda create --name pygmt --channel conda-forge pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba create --name pygmt --channel conda-forge pygmt
+
+To activate the virtual environment, you can do:
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba activate pygmt
 
 After this, check that everything works by running the following in a Python
 interpreter (e.g., in a Jupyter notebook)::
@@ -59,8 +88,7 @@ Compiled conda packages of GMT for Linux, macOS and Windows are provided
 through `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
 Advanced users can also
 `build GMT from source <https://github.com/GenericMappingTools/gmt/blob/master/BUILDING.md>`__
-instead, which is not so recommended but we would love to get feedback from
-anyone who tries.
+instead.
 
 We recommend following the instructions further on to install GMT 6.
 
@@ -69,7 +97,7 @@ Dependencies
 
 PyGMT requires the following libraries to be installed:
 
-* `numpy <https://numpy.org>`__ (>= 1.19)
+* `numpy <https://numpy.org>`__ (>= 1.20)
 * `pandas <https://pandas.pydata.org>`__
 * `xarray <https://xarray.pydata.org>`__
 * `netCDF4 <https://unidata.github.io/netcdf4-python>`__
@@ -96,13 +124,41 @@ First, we must configure conda to get packages from the
 
 Now we can create a new conda environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
-want)::
+want):
 
-    conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+.. tab-set::
 
-Activate the environment by running the following (**do not forget this step!**)::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda activate pygmt
+        ::
+
+            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+Activate the environment by running the following (**do not forget this step!**):
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba activate pygmt
 
 From now on, all commands will take place inside the conda virtual environment
 called ``pygmt`` and won't affect your default ``base`` installation.
@@ -114,17 +170,45 @@ Installing PyGMT
 Now that you have GMT installed and your conda virtual environment activated,
 you can install PyGMT using any of the following methods:
 
-Using conda (recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Using conda/mamba (recommended)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This installs the latest stable release of PyGMT from
-`conda-forge <https://anaconda.org/conda-forge/pygmt>`__::
+`conda-forge <https://anaconda.org/conda-forge/pygmt>`__:
 
-    conda install pygmt
+.. tab-set::
 
-This upgrades the installed PyGMT version to be the latest stable release::
+    .. tab-item:: conda
+        :sync: conda
 
-    conda update pygmt
+        ::
+
+            conda install pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba install pygmt
+
+This upgrades the installed PyGMT version to be the latest stable release:
+
+.. tab-set::
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda update pygmt
+
+    .. tab-item:: mamba
+        :sync: mamba
+
+        ::
+
+            mamba update pygmt
 
 Using pip
 ~~~~~~~~~
@@ -133,6 +217,11 @@ This installs the latest stable release from
 `PyPI <https://pypi.org/project/pygmt>`__::
 
     pip install pygmt
+
+.. tip::
+
+   You can also run ``pip install pygmt[all]`` to install pygmt with
+   all of its optional dependencies.
 
 Alternatively, you can install the latest development version from
 `TestPyPI <https://test.pypi.org/project/pygmt>`__::
@@ -170,12 +259,31 @@ library (``libgmt``).
 This can happen if you have multiple versions of GMT installed.
 
 You can tell PyGMT exactly where to look for ``libgmt`` by setting the
-``GMT_LIBRARY_PATH`` environment variable.
-This should be set to the directory where ``libgmt.so``, ``libgmt.dylib`` or
-``gmt.dll`` can be found for Linux, macOS and Windows, respectively.
-e.g., on a command line, run::
+``GMT_LIBRARY_PATH`` environment variable to the directory where ``libgmt.so``,
+``libgmt.dylib`` or ``gmt.dll`` can be found on Linux, macOS or Windows,
+respectively.
 
-    # Linux/macOS
+For Linux/macOS, add the following line to your shell configuration file
+(usually ``~/.bashrc`` for Bash on Linux and ``~/.zshrc`` for Zsh on macOS)::
+
     export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
-    # Windows
-    set "GMT_LIBRARY_PATH=C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\"
+
+For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
+`instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
+and set its value to a path like::
+
+    C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\
+
+Notes for Jupyter users
+-----------------------
+
+If you can successfully import pygmt in a Python interpreter or IPython, but
+get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to
+install a ``pygmt`` kernel following the commands below::
+
+    conda activate pygmt
+    python -m ipykernel install --user --name pygmt  # install conda environment properly
+    jupyter kernelspec list --json
+
+After that, you need to restart Jupyter, open your notebook, select the
+``pygmt`` kernel and then import pygmt.

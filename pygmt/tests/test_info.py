@@ -31,23 +31,6 @@ def test_info():
     assert output == expected_output
 
 
-def test_info_deprecate_table_to_data():
-    """
-    Make sure that the old parameter "table" is supported and it reports a
-    warning.
-    """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        output = info(table=POINTS_DATA)  # pylint: disable=no-value-for-parameter
-        expected_output = (
-            f"{POINTS_DATA}: N = 20 "
-            "<11.5309/61.7074> "
-            "<-2.9289/7.8648> "
-            "<0.1412/0.9338>\n"
-        )
-        assert output == expected_output
-        assert len(record) == 1  # check that only one warning was raised
-
-
 @pytest.mark.parametrize(
     "table",
     [
@@ -182,7 +165,7 @@ def test_info_1d_array():
 
 def test_info_per_column():
     """
-    Make sure the per_column option works.
+    Make sure the per_column parameter works.
     """
     output = info(data=POINTS_DATA, per_column=True)
     npt.assert_allclose(
@@ -192,7 +175,7 @@ def test_info_per_column():
 
 def test_info_per_column_with_time_inputs():
     """
-    Make sure the per_column option works with time inputs.
+    Make sure the per_column parameter works with time inputs.
     """
     table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
     output = info(data=table, per_column=True)
@@ -203,7 +186,7 @@ def test_info_per_column_with_time_inputs():
 
 def test_info_spacing():
     """
-    Make sure the spacing option works.
+    Make sure the spacing parameter works.
     """
     output = info(data=POINTS_DATA, spacing=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9])
@@ -211,7 +194,7 @@ def test_info_spacing():
 
 def test_info_spacing_bounding_box():
     """
-    Make sure the spacing option for writing a bounding box works.
+    Make sure the spacing parameter for writing a bounding box works.
     """
     output = info(data=POINTS_DATA, spacing="b")
     npt.assert_allclose(
@@ -228,7 +211,7 @@ def test_info_spacing_bounding_box():
 
 def test_info_per_column_spacing():
     """
-    Make sure the per_column and spacing options work together.
+    Make sure the per_column and spacing parameters work together.
     """
     output = info(data=POINTS_DATA, per_column=True, spacing=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9, 0.1412, 0.9338])
@@ -236,7 +219,7 @@ def test_info_per_column_spacing():
 
 def test_info_nearest_multiple():
     """
-    Make sure the nearest_multiple option works.
+    Make sure the nearest_multiple parameter works.
     """
     output = info(data=POINTS_DATA, nearest_multiple=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, 0.1])

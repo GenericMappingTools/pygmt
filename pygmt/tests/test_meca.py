@@ -17,7 +17,7 @@ def test_meca_spec_dictionary():
     fig = Figure()
     # Right lateral strike slip focal mechanism
     fig.meca(
-        dict(strike=0, dip=90, rake=0, magnitude=5),
+        spec=dict(strike=0, dip=90, rake=0, magnitude=5),
         longitude=0,
         latitude=5,
         depth=0,
@@ -41,13 +41,14 @@ def test_meca_spec_dict_list():
         strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
     )
     fig.meca(
-        focal_mechanisms,
-        longitude=[-124.3, -124.4],
-        latitude=[48.1, 48.2],
+        spec=focal_mechanisms,
+        longitude=[-123.5, -124.5],
+        latitude=[47.5, 48.5],
         depth=[12.0, 11.0],
         region=[-125, -122, 47, 49],
         scale="2c",
-        projection="M14c",
+        projection="M8c",
+        frame=True,
     )
     return fig
 
@@ -71,8 +72,12 @@ def test_meca_spec_dataframe():
         latitude=[48.1, 48.2],
         depth=[12, 11.0],
     )
-    spec_dataframe = pd.DataFrame(data=focal_mechanisms)
-    fig.meca(spec_dataframe, region=[-125, -122, 47, 49], scale="2c", projection="M14c")
+    fig.meca(
+        spec=pd.DataFrame(data=focal_mechanisms),
+        region=[-125, -122, 47, 49],
+        scale="2c",
+        projection="M14c",
+    )
     return fig
 
 
@@ -104,7 +109,7 @@ def test_meca_spec_1d_array():
     ]
     focal_mech_array = np.asarray(focal_mechanism)
     fig.meca(
-        focal_mech_array,
+        spec=focal_mech_array,
         convention="mt",
         component="full",
         region=[-128, -127, 40, 41],
@@ -125,27 +130,17 @@ def test_meca_spec_2d_array():
     # the GCMT convention but the focal mechanism parameters may be
     # specified any of the available conventions. Since we are not using a
     # dict or dataframe the convention and component should be specified.
-    focal_mechanisms = [
+
+    # longitude, latitude, depth, strike1, rake1, strike2, dip2, rake2,
+    # mantissa, exponent, plot_longitude, plot_latitude
+    focal_mechanisms = np.array(
         [
-            -127.40,  # longitude
-            40.87,  # latitude
-            12,  # depth
-            170,  # strike1
-            20,  # dip1
-            -110,  # rake1
-            11,  # strike2
-            71,  # dip2
-            -83,  # rake2
-            5.1,  # mantissa
-            23,  # exponent
-            0,  # plot_lon, 0 means we want to plot at the event location
-            0,  # plot_lat
-        ],
-        [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
-    ]
-    focal_mechs_array = np.asarray(focal_mechanisms)
+            [-127.40, 40.87, 12, 170, 20, -110, 11, 71, -83, 5.1, 23, 0, 0],
+            [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
+        ]
+    )
     fig.meca(
-        focal_mechs_array,
+        spec=focal_mechanisms,
         convention="gcmt",
         region=[-128, -127, 40, 41],
         scale="2c",
@@ -160,7 +155,6 @@ def test_meca_spec_file():
     Test supplying a file containing focal mechanisms and locations to the spec
     parameter.
     """
-
     fig = Figure()
     focal_mechanism = [-127.43, 40.81, 12, -3.19, 1.16, 3.93, -1.02, -3.93, -1.02, 23]
     # writes temp file to pass to gmt
@@ -169,7 +163,7 @@ def test_meca_spec_file():
             temp_file.write(" ".join([str(x) for x in focal_mechanism]))
         # supply focal mechanisms to meca as a file
         fig.meca(
-            temp.name,
+            spec=temp.name,
             convention="mt",
             component="full",
             region=[-128, -127, 40, 41],
@@ -199,9 +193,9 @@ def test_meca_loc_array():
     fig.meca(
         focal_mechanisms,
         scale,
-        longitude,
-        latitude,
-        depth,
+        longitude=longitude,
+        latitude=latitude,
+        depth=depth,
         region=[-125, -122, 47, 49],
         projection="M14c",
     )
@@ -235,5 +229,119 @@ def test_meca_gcmt_convention():
         region=[239, 240, 34, 35.2],
         projection="m2.5c",
         frame=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_dict_offset():
+    """
+    Test offsetting beachballs for a dict input.
+    """
+    fig = Figure()
+    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",
+        longitude=-124,
+        latitude=48,
+        depth=12.0,
+        plot_longitude=-124.5,
+        plot_latitude=47.5,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_meca_dict_offset.png")
+def test_meca_dict_offset_in_dict():
+    """
+    Test offsetting beachballs for a dict input with offset parameters in the
+    dict.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/2016.
+    """
+    fig = Figure()
+    focal_mechanism = dict(
+        strike=330,
+        dip=30,
+        rake=90,
+        magnitude=3,
+        plot_longitude=-124.5,
+        plot_latitude=47.5,
+    )
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",
+        longitude=-124,
+        latitude=48,
+        depth=12.0,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_dict_eventname():
+    """
+    Test offsetting beachballs for a dict input.
+    """
+    fig = Figure()
+    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",
+        longitude=-124,
+        latitude=48,
+        depth=12.0,
+        event_name="Event20220311",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_meca_dict_offset_eventname():
+    """
+    Test offsetting beachballs for a dict input.
+    """
+    fig = Figure()
+    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",
+        longitude=-124,
+        latitude=48,
+        depth=12.0,
+        plot_longitude=-124.5,
+        plot_latitude=47.5,
+        event_name="Event20220311",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_meca_dict_eventname.png")
+def test_meca_spec_dict_all_scalars():
+    """
+    Test supplying a dict with scalar values for all focal parameters.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/pull/2174
+    """
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+    fig.meca(
+        spec=dict(
+            strike=330,
+            dip=30,
+            rake=90,
+            magnitude=3,
+            longitude=-124,
+            latitude=48,
+            depth=12.0,
+            event_name="Event20220311",
+        ),
+        scale="1c",
     )
     return fig

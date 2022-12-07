@@ -15,8 +15,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     S="style",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     t="transparency",
 )
@@ -36,8 +34,8 @@ def logo(self, **kwargs):
 
     Parameters
     ----------
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
@@ -53,11 +51,10 @@ def logo(self, **kwargs):
           [Default]
         - **n** to skip the label placement
         - **u** to place the URL to the GMT site
-    {U}
-    {V}
-    {XY}
-    {c}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

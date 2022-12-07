@@ -116,6 +116,10 @@ sphinx_gallery_conf = {
     "image_scrapers": (PyGMTScraper(),),
     # Removes configuration comments from scripts
     "remove_config_comments": True,
+    # Disable "nested_sections" (default is True), to
+    # generate only a single index file for the whole gallery.
+    # This is a new feature up on Sphinx-Gallery 0.11.0.
+    "nested_sections": False,
 }
 
 # Sphinx project configuration
@@ -133,8 +137,12 @@ project = "PyGMT"
 copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
+    # Set base_url for stable version
+    html_baseurl = "https://pygmt.org/dev/"
 else:
     version = __version__
+    # Set base_url for dev version
+    html_baseurl = "https://pygmt.org/latest/"
 release = __version__
 
 # These enable substitutions using |variable| in the rst files
@@ -173,7 +181,7 @@ html_context = {
     "menu_links": [
         (
             '<i class="fa fa-gavel fa-fw"></i> Code of Conduct',
-            f"{repository_url}/blob/main/CODE_OF_CONDUCT.md",
+            "https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md",
         ),
         (
             '<i class="fa fa-book fa-fw"></i> License',

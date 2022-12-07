@@ -45,7 +45,7 @@ stopdir = 180 + 40 * np.arange(0, num)  # stop direction in degrees
 # data for circular vectors
 data = np.column_stack([x, y, radius, startdir, stopdir])
 arcstyle = "m0.5c+ea"  # Circular vector (m) with an arrow at end
-fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
+fig.plot(data=data, style=arcstyle, fill="red3", pen="1.5p,black")
 fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
 

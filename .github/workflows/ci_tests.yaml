@@ -11,7 +11,6 @@ on:
       - 'doc/**'
       - 'examples/**'
       - '*.md'
-      - '*.json'
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
@@ -34,23 +33,20 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.10) for draft PRs
+        # Only run two jobs (Ubuntu + Python 3.8/3.10) for draft PRs
         exclude:
           - os: macOS-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
-          # - os: ubuntu-latest
-          #   python-version: 3.7
-          #   isDraft: true
-        # Pair Python 3.8 with NumPy 1.19 and Python 3.10 with NumPy 1.22
-        # Only install optional packages on Python 3.10/NumPy 1.22
+        # Pair Python 3.8 with NumPy 1.21 and Python 3.10 with NumPy 1.23
+        # Only install optional packages on Python 3.10/NumPy 1.23
         include:
           - python-version: '3.8'
-            numpy-version: '1.19'
+            numpy-version: '1.21'
             optional-packages: ''
           - python-version: '3.10'
-            numpy-version: '1.22'
+            numpy-version: '1.23'
             optional-packages: 'geopandas ipython'
     timeout-minutes: 30
     defaults:
@@ -66,20 +62,20 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.1.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
@@ -88,16 +84,17 @@ jobs:
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 numpy=${{ matrix.numpy-version }} \
+          mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        build dvc make pytest>=6.0 \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        build dvc make 'pytest>=6.0' \
+                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -105,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.21.0
+        uses: dawidd6/action-download-artifact@v2.24.2
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -129,9 +126,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       # Run the regular tests
       - name: Run tests
@@ -153,7 +148,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.0
+        uses: codecov/codecov-action@v3.1.1
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

@@ -47,6 +47,7 @@ Plotting tabular data
     Figure.plot
     Figure.plot3d
     Figure.rose
+    Figure.ternary
     Figure.velo
     Figure.wiggle
 
@@ -84,7 +85,7 @@ Saving and displaying the figure
 Configuring the display settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following module is provided directly through the :mod:`pygmt` top level
+The following function is provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
@@ -95,7 +96,7 @@ package.
 Color palette table generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following modules are provided directly through the :mod:`pygmt` top level
+The following functions are provided directly through the :mod:`pygmt` top level
 package.
 
 .. autosummary::
@@ -213,9 +214,9 @@ Miscellaneous
 Datasets
 --------
 
-PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
+PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` module.
 These functions will download the datasets automatically the first time they are used
-and store them in the GMT cache folder.
+and store them in GMT's user data directory.
 
 .. autosummary::
     :toctree: generated
@@ -224,6 +225,13 @@ and store them in the GMT cache folder.
     datasets.load_earth_age
     datasets.load_earth_relief
     datasets.load_sample_data
+
+The following functions are deprecated since v0.6.0 and will be removed in v0.9.0.
+Use :func:`pygmt.datasets.load_sample_data` instead.
+
+.. autosummary::
+    :toctree: generated
+
     datasets.load_fractures_compilation
     datasets.load_hotspots
     datasets.load_japan_quakes
