@@ -10,6 +10,8 @@ from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
 
+__doctest_skip__ = ["load_earth_relief"]
+
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(
@@ -101,17 +103,20 @@ def load_earth_relief(
     Examples
     --------
 
-    >>> # load the default grid (gridline-registered 01d grid)
+    >>> from pygmt.datasets import load_earth_relief
+    >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
-    >>> # load high-resolution grid for a specific region
+    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> grid = load_earth_relief(resolution="30m", registration="gridline")
+    >>> # load high-resolution (5 arc-minute) grid for a specific region
     >>> grid = load_earth_relief(
-    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
     ... )
     >>> # load the original 3 arc-second land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
-    ...     "03s",
+    ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
     ...     use_srtm=True,
