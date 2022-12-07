@@ -104,11 +104,11 @@ def load_earth_relief(
     --------
 
     >>> from pygmt.datasets import load_earth_relief
-    >>> # load the default grid (gridline-registered 01d grid)
+    >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30m grid with "gridline" registration
+    >>> # load the 30 arc-minute grid with "gridline" registration
     >>> grid = load_earth_relief(resolution="30m", registration="gridline")
-    >>> # load high-resolution grid for a specific region
+    >>> # load high-resolution (5 arc-minute) grid for a specific region
     >>> grid = load_earth_relief(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
