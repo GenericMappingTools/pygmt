@@ -50,7 +50,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     -------
     grid : :class:`xarray.DataArray`
         The Earth geoid grid. Coordinates are latitude and
-        longitude in degrees. Units are in milligals (mGal).
+        longitude in degrees. Units are in meters.
 
     Note
     ----

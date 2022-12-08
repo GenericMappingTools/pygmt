@@ -112,7 +112,7 @@ datasets = {
         title="Earth geoid",
         name="earth_geoid",
         long_name="EGM2008 Global Earth Geoid",
-        units="mGal",
+        units="m",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["pixel", "gridline"], False),
