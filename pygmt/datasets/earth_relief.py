@@ -10,14 +10,16 @@ from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput, GMTVersionError
 from pygmt.helpers import kwargs_to_strings
 
+__doctest_skip__ = ["load_earth_relief"]
+
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(
     resolution="01d",
     region=None,
     registration=None,
-    use_srtm=False,
     data_source="igpp",
+    use_srtm=False,
 ):
     r"""
     Load Earth relief grids (topography and bathymetry) in various resolutions.
@@ -29,9 +31,11 @@ def load_earth_relief(
 
     This module downloads the grids that can also be accessed by
     passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid plotting/processing function. *res* is the grid resolution
-    (see below), and *reg* is grid registration type (**p** for pixel
-    registration or **g** for gridline registration).
+    any grid plotting/processing function. *earth_relief_type* is the GMT name
+    for the dataset. The available options are **earth_relief**\,
+    **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
+    grid resolution (see below), and *reg* is grid registration type
+    (**p** for pixel registration or **g** for gridline registration).
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
@@ -60,13 +64,6 @@ def load_earth_relief(
         **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
         grid by default unless only the gridline-registered grid is available.
 
-    use_srtm : bool
-        By default, the land-only SRTM tiles from NASA are used to generate the
-        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
-        by up-sampling the SRTM15 tiles which have a resolution of 15
-        arc-second (i.e., ``"15s"``). If True, will only load the original
-        land-only SRTM tiles. Only works when ``data_source="igpp"``.
-
     data_source : str
         Select the source for the Earth relief data.
 
@@ -86,6 +83,13 @@ def load_earth_relief(
         - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
           elevations.
 
+    use_srtm : bool
+        By default, the land-only SRTM tiles from NASA are used to generate the
+        ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
+        by up-sampling the SRTM15 tiles which have a resolution of 15
+        arc-second (i.e., ``"15s"``). If True, will only load the original
+        land-only SRTM tiles. Only works when ``data_source="igpp"``.
+
     Returns
     -------
     grid : :class:`xarray.DataArray`
@@ -101,17 +105,20 @@ def load_earth_relief(
     Examples
     --------
 
-    >>> # load the default grid (gridline-registered 01d grid)
+    >>> from pygmt.datasets import load_earth_relief
+    >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30m grid with "gridline" registration
-    >>> grid = load_earth_relief("30m", registration="gridline")
-    >>> # load high-resolution grid for a specific region
+    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> grid = load_earth_relief(resolution="30m", registration="gridline")
+    >>> # load high-resolution (5 arc-minute) grid for a specific region
     >>> grid = load_earth_relief(
-    ...     "05m", region=[120, 160, 30, 60], registration="gridline"
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
     ... )
     >>> # load the original 3 arc-second land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
-    ...     "03s",
+    ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
     ...     registration="gridline",
     ...     use_srtm=True,

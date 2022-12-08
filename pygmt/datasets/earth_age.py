@@ -7,6 +7,8 @@ The grids are available in various resolutions.
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
+__doctest_skip__ = ["load_earth_age"]
+
 
 @kwargs_to_strings(region="sequence")
 def load_earth_age(resolution="01d", region=None, registration=None):
@@ -57,6 +59,21 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
     Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
+
+    Examples
+    --------
+
+    >>> from pygmt.datasets import load_earth_age
+    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> grid = load_earth_age()
+    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> grid = load_earth_age(resolution="30m", registration="gridline")
+    >>> # load high-resolution (5 arc-minute) grid for a specific region
+    >>> grid = load_earth_age(
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
+    ... )
     """
     dataset_prefix = "earth_age_"
     dataset_name = "earth_age"
