@@ -108,6 +108,25 @@ datasets = {
             "01m": Resolution(["gridline"], True),
         },
     ),
+    "earth_magnetic_anomaly": GMTRemoteDataset(
+        title="Earth magnetic anomaly",
+        name="magnetic_anomaly",
+        long_name="Earth magnetic anomaly",
+        units="nT",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["pixel", "gridline"], False),
+            "30m": Resolution(["pixel", "gridline"], False),
+            "20m": Resolution(["pixel", "gridline"], False),
+            "15m": Resolution(["pixel", "gridline"], False),
+            "10m": Resolution(["pixel", "gridline"], False),
+            "06m": Resolution(["pixel", "gridline"], False),
+            "05m": Resolution(["pixel", "gridline"], True),
+            "04m": Resolution(["pixel", "gridline"], True),
+            "03m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel"], True),
+        },
+    ),
 }
 
 
