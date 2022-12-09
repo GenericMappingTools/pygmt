@@ -185,7 +185,7 @@ def test_rock_sample_compositions():
     Check that the @ternary.txt dataset loads without errors.
     """
     data = load_sample_data(name="rock_compositions")
-    assert data.shape == (1000, 3)
+    assert data.shape == (1000, 4)
     assert data["limestone"].min() == 0
     assert data["limestone"].max() == 1
     assert data["water"].min() == 0
