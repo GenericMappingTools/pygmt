@@ -183,6 +183,9 @@ def download_test_data():
         # Earth magnetic anomaly grids
         "@earth_mag_01d_g.grd"
         "@S90W180.earth_mag_05m_g.nc"  # Specific grid for 05m test
+        # Earth free-air anomaly grids
+        "@earth_faa_01d_g.grd",
+        "@S90W180.earth_faa_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
