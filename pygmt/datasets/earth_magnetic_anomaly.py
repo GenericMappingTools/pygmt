@@ -24,7 +24,7 @@ def load_earth_magnetic_anomaly(
     These grids can also be accessed by passing in the file name
     **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
     function. *earth_mag_type* is the GMT name
-    for the dataset. The available options are **earth_mag**\ and
+    for the dataset. The available options are **earth_mag** and
     **earth_mag4km**\. *res* is the grid resolution (see below), and *reg* is
     grid registration type (**p** for pixel registration or **g** for gridline
     registration).
