@@ -84,6 +84,17 @@ def test_earth_mag_05m_without_region():
         load_earth_magnetic_anomaly("05m")
 
 
+def test_earth_mag_incorrect_resolution_registration():
+    """
+    Test that an error is raised when trying to load a grid registration with
+    an unavailable resolution.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_earth_magnetic_anomaly(
+            resolution="02m", region=[0, 1, 3, 5], registration="gridline", mag4km=False
+        )
+
+
 def test_earth_mag4km_01d():
     """
     Test some properties of the magnetic anomaly 4km 01d data.
