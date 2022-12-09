@@ -186,6 +186,9 @@ def download_test_data():
         # Earth magnetic anomaly grids
         "@earth_mag_01d_g.grd",
         "@S90W180.earth_mag_05m_g.nc",  # Specific grid for 05m test
+        # Earth vertical gravity gradient grids
+        "@earth_vgg_01d_g.grd",
+        "@S90W180.earth_vgg_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
