@@ -223,6 +223,7 @@ and store them in GMT's user data directory.
     datasets.list_sample_data
     datasets.load_earth_age
     datasets.load_earth_geoid
+    datasets.load_earth_magnetic_anomaly
     datasets.load_earth_relief
     datasets.load_sample_data
 
