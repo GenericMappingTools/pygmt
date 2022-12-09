@@ -31,9 +31,7 @@ def test_earth_mag_01d():
     """
     Test some properties of the magnetic anomaly 01d data.
     """
-    data = load_earth_magnetic_anomaly(
-        resolution="01d", registration="gridline", mag4km=False
-    )
+    data = load_earth_magnetic_anomaly(resolution="01d", registration="gridline")
     assert data.name == "magnetic_anomaly"
     assert data.attrs["long_name"] == "Earth magnetic anomaly"
     assert data.attrs["units"] == "nT"
