@@ -70,10 +70,7 @@ def load_earth_magnetic_anomaly(
     Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
-    if mag4km:
-        dataset_prefix = "earth_mag4km_"
-    else:
-        dataset_prefix = "earth_mag_"
+    dataset_prefix = "earth_mag4km_" if mag4km is True else "earth_mag_"
     grid = _load_remote_dataset(
         dataset_name="earth_magnetic_anomaly",
         dataset_prefix=dataset_prefix,
