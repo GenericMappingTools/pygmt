@@ -1,7 +1,7 @@
 """
 Tests for binstats.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
 from pygmt import binstats
@@ -23,7 +23,7 @@ def test_binstats_outgrid():
             region="g",
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
 def test_binstats_no_outgrid():

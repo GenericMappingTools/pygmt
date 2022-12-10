@@ -4,6 +4,7 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 import os
+from pathlib import Path
 
 try:
     import IPython
@@ -151,7 +152,7 @@ def test_figure_savefig_filename_with_spaces():
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(fname=imgfile.name)
         assert r"\040" not in os.path.abspath(imgfile.name)
-        assert os.path.exists(imgfile.name)
+        assert Path(imgfile.name).stat().st_size > 0
 
 
 def test_figure_savefig():
