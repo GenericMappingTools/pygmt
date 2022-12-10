@@ -14,8 +14,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     M="monochrome",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -57,7 +55,6 @@ def image(self, imagefile, **kwargs):
         YIQ-transformation.
     {timestamp}
     {verbose}
-    {xyshift}
     {panel}
     {perspective}
     {transparency}

@@ -2,6 +2,7 @@
 Tests for makecpt.
 """
 import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -39,7 +40,7 @@ def test_makecpt_plot_points(points):
     fig.plot(
         x=points[:, 0],
         y=points[:, 1],
-        color=points[:, 2],
+        fill=points[:, 2],
         region=[10, 70, -5, 10],
         style="c1c",
         cmap=True,
@@ -76,7 +77,7 @@ def test_makecpt_output_cpt_file():
     """
     with GMTTempFile(suffix=".cpt") as cptfile:
         makecpt(output=cptfile.name)
-        assert os.path.exists(cptfile.name)
+        assert Path(cptfile.name).stat().st_size > 0
 
 
 def test_makecpt_blank_output():

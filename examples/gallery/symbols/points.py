@@ -19,5 +19,5 @@ fig = pygmt.Figure()
 # data region
 fig.basemap(region=region, projection="X15c", frame=True)
 # Plot using inverted triangles (i) of 0.5 cm size
-fig.plot(x=x, y=y, style="i0.5c", color="black")
+fig.plot(x=x, y=y, style="i0.5c", fill="black")
 fig.show()

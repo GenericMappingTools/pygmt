@@ -1,7 +1,7 @@
 """
 Tests for surface.
 """
-import os
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -142,6 +142,6 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
             verbose="e",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             check_values(grid, expected_grid)

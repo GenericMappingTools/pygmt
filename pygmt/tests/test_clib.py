@@ -6,6 +6,7 @@ Test the wrappers for the C API.
 import os
 from contextlib import contextmanager
 from itertools import product
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -159,7 +160,7 @@ def test_call_module():
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
             lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
-            assert os.path.exists(out_fname.name)
+            assert Path(out_fname.name).stat().st_size > 0
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 

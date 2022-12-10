@@ -16,7 +16,7 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -34,8 +34,6 @@ from pygmt.src.which import which
     S="style",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     a="aspatial",
     b="binary",
@@ -156,7 +154,6 @@ def plot3d(
     {timestamp}
     {verbose}
     {pen}
-    {xyshift}
     zvalue : str
         *value*\|\ *file*.
         Instead of specifying a symbol or polygon fill and outline color

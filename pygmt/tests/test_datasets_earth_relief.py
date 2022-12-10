@@ -8,7 +8,7 @@ from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.parametrize("data_source", ["igpp", "gebco"])
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "gebcosi", "synbath"])
 def test_earth_relief_fails(data_source):
     """
     Make sure earth relief fails for invalid resolutions.
@@ -21,13 +21,20 @@ def test_earth_relief_fails(data_source):
 
 
 # Only test 01d and 30m to avoid downloading large datasets in CI
-def test_earth_relief_01d_igpp():
+@pytest.mark.parametrize("data_source", ["igpp", "synbath"])
+def test_earth_relief_01d_igpp_synbath(data_source):
     """
-    Test some properties of the earth relief 01d data with IGPP data.
+    Test some properties of the earth relief 01d data with IGPP and SYNBATH
+    data.
     """
     data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source="igpp"
+        resolution="01d", registration="gridline", data_source=data_source
     )
+    assert data.name == "elevation"
+    assert data.attrs["units"] == "meters"
+    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
+    assert data.attrs["vertical_datum"] == "EGM96"
+    assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
@@ -35,12 +42,14 @@ def test_earth_relief_01d_igpp():
     npt.assert_allclose(data.max(), 5559.0)
 
 
-def test_earth_relief_01d_gebco():
+@pytest.mark.parametrize("data_source", ["gebco", "gebcosi"])
+def test_earth_relief_01d_gebco(data_source):
     """
-    Test some properties of the earth relief 01d data with GEBCO data.
+    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI
+    data.
     """
     data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source="gebco"
+        resolution="01d", registration="gridline", data_source=data_source
     )
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
@@ -110,6 +119,38 @@ def test_earth_relief_05m_with_region():
     assert data.data.max() == 2532.0
     assert data.sizes["lat"] == 361
     assert data.sizes["lon"] == 481
+
+
+def test_earth_gebcosi_15m_with_region():
+    """
+    Test loading a subregion of 15 arc-minute resolution earth_gebcosi grid.
+    """
+    data = load_earth_relief(
+        resolution="15m",
+        region=[85, 87, -88, -84],
+        registration="pixel",
+        data_source="gebcosi",
+    )
+    assert data.shape == (16, 8)
+    npt.assert_allclose(data.lat, np.arange(-87.875, -84, 0.25))
+    npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
+    npt.assert_allclose(data.min(), -531)
+    npt.assert_allclose(data.max(), 474)
+
+
+def test_earth_relief_30s_synbath():
+    """
+    Test some properties of the earth relief 30s data with SYNBATH data.
+    """
+    data = load_earth_relief(
+        region=[-95, -94, -1.5, -1],
+        resolution="30s",
+        registration="pixel",
+        data_source="synbath",
+    )
+    assert data.shape == (60, 120)
+    npt.assert_allclose(data.min(), -3552.5)
+    npt.assert_allclose(data.max(), -2154)
 
 
 def test_earth_relief_05m_without_region():
@@ -183,4 +224,26 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
             registration="gridline",
             use_srtm=True,
             data_source="gebco",
+        )
+
+
+@pytest.mark.parametrize("data_source", ["igpp", "gebco", "gebcosi", "synbath"])
+def test_earth_relief_incorrect_resolution_registration(data_source):
+    """
+    Test that an error is raised when trying to load a grid registration with
+    an unavailable resolution.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="03s",
+            region=[0, 1, 3, 5],
+            registration="pixel",
+            data_source=data_source,
+        )
+    with pytest.raises(GMTInvalidInput):
+        load_earth_relief(
+            resolution="15s",
+            region=[0, 1, 3, 5],
+            registration="gridline",
+            data_source=data_source,
         )
