@@ -1,7 +1,7 @@
 """
 Tests for grdclip.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -47,7 +47,7 @@ def test_grdclip_outgrid(grid, expected_grid):
             region=[-53, -49, -19, -16],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == 1  # Geographic grid
