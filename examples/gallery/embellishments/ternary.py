@@ -2,7 +2,7 @@
 Ternary diagram
 ---------------------------------------
 
-To plot circles (diameter = 0.1 cm) on a 6-inch-wide ternary diagram at the
+To plot circles (diameter = 0.1 cm) on a 10-centimeter-wide ternary diagram at the
 positions listed in the file ternary.txt, with default annotations and
 gridline spacings, using the specified labeling.
 """
@@ -11,21 +11,23 @@ import pygmt
 
 fig = pygmt.Figure()
 
+data = pygmt.datasets.load_sample_data(name="rock_compositions")
+
 pygmt.makecpt(cmap="batlow", series=[0, 80, 10])
 
 fig.ternary(
-    "@ternary.txt",
+    data,
     region=[0, 100, 0, 100, 0, 100],
     width="10c",
     style="c0.1c",
-    alabel="Water",
-    blabel="Air",
-    clabel="Limestone",
+    alabel="Limestone",
+    blabel="Water",
+    clabel="Air",
     cmap=True,
     frame=[
-        'aafg+l"Water component"+u" %"',
-        'bafg+l"Air component"+u" %"',
-        'cagf+l"Limestone component"+u" %"',
+        'aafg+l"Limestone component"+u" %"',
+        'bafg+l"Water component"+u" %"',
+        'cagf+l"Air component"+u" %"',
         "+givory",
     ],
 )
