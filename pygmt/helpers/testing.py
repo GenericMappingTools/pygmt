@@ -47,6 +47,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
     ...     )
     ...     return fig_ref, fig_test
+    ...
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
@@ -58,6 +59,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
     ...     return fig_ref, fig_test
+    ...
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     ...
@@ -153,6 +155,9 @@ def download_test_data():
     # List of datasets to download
     datasets = [
         # Earth relief grids
+        "@earth_gebco_01d_g",
+        "@earth_gebcosi_01d_g",
+        "@earth_gebcosi_15m_p",
         "@earth_relief_01d_p",
         "@earth_relief_01d_g",
         "@earth_relief_30m_p",
@@ -161,6 +166,7 @@ def download_test_data():
         "@earth_relief_10m_g",
         "@earth_relief_05m_p",
         "@earth_relief_05m_g",
+        "@earth_synbath_01d_g",
         # List of tiles of 03s srtm data.
         # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
@@ -168,9 +174,18 @@ def download_test_data():
         "@N35E135.earth_relief_03s_g.nc",
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
+        "@N00E135.earth_relief_30s_g.nc",
+        # Earth synbath relief grids
+        "@S15W105.earth_synbath_30s_p.nc",
         # Earth seafloor age grids
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
+        # Earth geoid grids
+        "@earth_geoid_01d_g.grd",
+        "@S90W180.earth_geoid_05m_g.nc",  # Specific grid for 05m test
+        # Earth magnetic anomaly grids
+        "@earth_mag_01d_g.grd",
+        "@S90W180.earth_mag_05m_g.nc",  # Specific grid for 05m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
@@ -188,6 +203,7 @@ def download_test_data():
         "@mars370d.txt",
         "@srtm_tiles.nc",  # needed for 03s and 01s relief data
         "@static_earth_relief.nc",
+        "@ternary.txt",
         "@test.dat.nc",
         "@tut_bathy.nc",
         "@tut_quakes.ngdc",

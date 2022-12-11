@@ -97,15 +97,6 @@ COMMON_DOCSTRINGS = {
     "pen": """\
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "xyshift": r"""
-        xshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
-            Shift plot origin in x-direction.
-        yshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
@@ -144,8 +135,8 @@ COMMON_DOCSTRINGS = {
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
-            example, ``d="-9999"`` will replace all values equal to -9999 with
-            NaN during input and all NaN values with -9999 during output.
+            example, ``nodata="-9999"`` will replace all values equal to -9999
+            with NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
     "panel": r"""
@@ -425,6 +416,7 @@ def fmt_docstring(module_func):
     ...     {aliases}
     ...     '''
     ...     pass
+    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
@@ -534,6 +526,7 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
+    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -575,6 +568,29 @@ def use_alias(**aliases):
                         f"Use long-form parameter '{long_alias}' instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # xshift (X) is deprecated since v0.8.0.
+            if "X" in kwargs or "xshift" in kwargs:
+                if "xshift" in kwargs:
+                    kwargs["X"] = kwargs.pop("xshift")
+                msg = (
+                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(xshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # yshift (Y) is deprecated since v0.8.0.
+            if "Y" in kwargs or "yshift" in kwargs:
+                if "yshift" in kwargs:
+                    kwargs["Y"] = kwargs.pop("yshift")
+                msg = (
+                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(yshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
@@ -751,6 +767,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red

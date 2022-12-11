@@ -1,7 +1,7 @@
 """
 Tests for triangulate.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -116,7 +116,7 @@ def test_delaunay_triples_outfile(dataframe, expected_dataframe):
             result = triangulate.delaunay_triples(data=dataframe, outfile=tmpfile.name)
             assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(filepath_or_buffer=tmpfile.name, sep="\t", header=None)
         pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
 
@@ -152,7 +152,7 @@ def test_regular_grid_with_outgrid_param(dataframe, expected_grid):
             data=data, spacing=1, region=[2, 4, 5, 6], outgrid=tmpfile.name
         )
         assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             assert isinstance(grid, xr.DataArray)
             assert grid.gmt.registration == 0  # Gridline registration

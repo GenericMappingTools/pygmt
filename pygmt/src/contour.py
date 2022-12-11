@@ -20,8 +20,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     b="binary",
     c="panel",
     d="nodata",
@@ -38,10 +36,10 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots,
+    lines, polygons, or symbols at those locations on a map.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`contour.html`
 
@@ -106,7 +104,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         separator for the two labels instead.
     {timestamp}
     {verbose}
-    {xyshift}
     {binary}
     {panel}
     {nodata}
