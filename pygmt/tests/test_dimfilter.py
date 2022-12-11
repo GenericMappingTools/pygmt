@@ -1,7 +1,7 @@
 """
 Tests for dimfilter.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -54,7 +54,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
             region=[-55, -51, -24, -19],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

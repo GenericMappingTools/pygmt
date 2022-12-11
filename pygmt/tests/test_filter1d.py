@@ -1,8 +1,7 @@
 """
 Tests for filter1d.
 """
-
-import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -38,7 +37,7 @@ def test_filter1d_file_output(data):
             data=data, filter_type="g5", outfile=tmpfile.name, output_type="file"
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
 
 
 def test_filter1d_invalid_format(data):
@@ -77,7 +76,7 @@ def test_filter1d_outfile_incorrect_output_type(data):
                 data=data, filter_type="g5", outfile=tmpfile.name, output_type="numpy"
             )
             assert result is None  # return value is None
-            assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+            assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
 
 
 def test_filter1d_format(data):
