@@ -2,6 +2,7 @@
 Tests for grdtrack.
 """
 import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -72,7 +73,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
     with GMTTempFile() as tmpfile:
         output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = np.loadtxt(tmpfile.name)
         npt.assert_allclose(np.array(output), expected_array)
 
