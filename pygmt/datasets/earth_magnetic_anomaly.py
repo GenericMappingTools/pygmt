@@ -25,7 +25,7 @@ def load_earth_magnetic_anomaly(
     **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
     function. *earth_mag_type* is the GMT name
     for the dataset. The available options are **earth_mag** and
-    **earth_mag4km**\. *res* is the grid resolution (see below), and *reg* is
+    **earth_mag4km**. *res* is the grid resolution (see below), and *reg* is
     grid registration type (**p** for pixel registration or **g** for gridline
     registration).
 
@@ -56,7 +56,7 @@ def load_earth_magnetic_anomaly(
         regions or over land and water at an altitude of 4 kilometers. The
         default is ``False``, which uses an *earth_mag_type* of **earth_mag**\.
         Setting ``mag4km`` to ``True`` sets the *earth_mag_type*
-        of **earth_mag4km**\. The oceanic files are ~60% smaller.
+        of **earth_mag4km**. The oceanic files are ~60% smaller.
 
     Returns
     -------
