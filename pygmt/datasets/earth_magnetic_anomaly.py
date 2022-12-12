@@ -53,9 +53,9 @@ def load_earth_magnetic_anomaly(
 
     mag4km : bool
         Choose the data version to use. The default is ``False``, which is
-        observed at sea level over oceanic regions and have no data over land.
-        Setting ``mag4km`` to ``True`` to use a version where all observations
-        are relative to an altitude of 4 km above the geoid and includes data
+        observed at sea level over oceanic regions and has no data over land.
+        Set ``mag4km`` to ``True`` to use a version where all observations
+        are relative to an altitude of 4 km above the geoid and include data
         over land.
 
     Returns
