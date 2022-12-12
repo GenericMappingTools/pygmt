@@ -1,7 +1,7 @@
 """
 Tests for sphdistance.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -45,7 +45,7 @@ def test_sphdistance_outgrid(array):
             data=array, outgrid=tmpfile.name, spacing=1, region=[82, 87, 22, 24]
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
 def test_sphdistance_no_outgrid(array):
