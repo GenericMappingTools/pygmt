@@ -53,12 +53,13 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
+      # Install Mambaforge and dependencies
+      - name: Setup Mambaforge and install dependencies
         uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
           python-version: ${{ matrix.python-version }}
+          environment-file: ci/requirements/docs.yml
           channels: conda-forge,nodefaults
           channel-priority: strict
           miniforge-version: latest
@@ -66,13 +67,6 @@ jobs:
           mamba-version: "*"
           run-post: false
           use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build ipython make myst-parser geopandas \
-                        sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
