@@ -18,7 +18,6 @@ assignees: ''
 
 - [ ] Bump the GMT version in CI (1 PR)
   - [ ] Update `.github/workflows/cache_data.yaml`
-  - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
   - [ ] Update `ci/requirements/docs.yml`
   - [ ] Update `environment.yml`
