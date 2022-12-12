@@ -1,9 +1,9 @@
 """
 Ternary diagram
----------------------------------------
+---------------
 
 To plot circles (diameter = 0.1 cm) on a 10-centimeter-wide ternary diagram at the
-positions listed in the file ternary.txt, with default annotations and
+positions listed in the sample dataset `rock_compositions`, with default annotations and
 gridline spacings, using the specified labeling.
 """
 
