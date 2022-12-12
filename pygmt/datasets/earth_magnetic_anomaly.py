@@ -52,11 +52,11 @@ def load_earth_magnetic_anomaly(
         gridline-registered grid is available.
 
     mag4km : bool
-        Specifies using the observations at sea level only over oceanic
-        regions or over land and water at an altitude of 4 kilometers. The
-        default is ``False``, which uses an *earth_mag_type* of **earth_mag**\.
-        Setting ``mag4km`` to ``True`` sets the *earth_mag_type*
-        of **earth_mag4km**. The oceanic files are ~60% smaller.
+        Choose the data version to use. The default is ``False``, which is
+        observed at sea level over oceanic regions and have no data over land.
+        Setting ``mag4km`` to ``True`` to use a version where all observations
+        are relative to an altitude of 4 km above the geoid and includes data
+        over land.
 
     Returns
     -------
