@@ -1,7 +1,7 @@
 """
 Tests for grdlandmask.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -39,7 +39,7 @@ def test_grdlandmask_outgrid(expected_grid):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdlandmask(outgrid=tmpfile.name, spacing=1, region=[125, 130, 30, 35])
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
