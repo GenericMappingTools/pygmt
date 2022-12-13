@@ -25,9 +25,9 @@ fig.ternary(
     clabel="Air",
     cmap=True,
     frame=[
-        'aafg+l"Limestone component"+u" %"',
-        'bafg+l"Water component"+u" %"',
-        'cagf+l"Air component"+u" %"',
+        "aafg+lLimestone component+u %",
+        "bafg+lWater component+u %",
+        "cagf+lAir component+u %",
         "+givory",
     ],
 )
