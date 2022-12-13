@@ -1,7 +1,7 @@
 """
 Tests for sph2grd.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
 from pygmt import sph2grd
@@ -17,7 +17,7 @@ def test_sph2grd_outgrid():
             data="@EGM96_to_36.txt", outgrid=tmpfile.name, spacing=1, region="g"
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
 def test_sph2grd_no_outgrid():

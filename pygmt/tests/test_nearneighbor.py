@@ -1,7 +1,7 @@
 """
 Tests for nearneighbor.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -79,7 +79,7 @@ def test_nearneighbor_with_outgrid_param(ship_data):
             search_radius="10m",
         )
         assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
             assert grid.shape == (121, 121)

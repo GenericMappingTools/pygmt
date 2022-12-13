@@ -1,7 +1,7 @@
 """
 Tests for grdfilter.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -67,7 +67,7 @@ def test_grdfilter_dataarray_in_file_out(grid, expected_grid):
             region=[-53, -49, -20, -17],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
