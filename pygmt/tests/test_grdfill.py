@@ -1,7 +1,7 @@
 """
 Tests for grdfill.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -115,7 +115,7 @@ def test_grdfill_file_out(grid, expected_grid):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
