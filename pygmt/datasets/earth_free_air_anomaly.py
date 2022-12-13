@@ -58,10 +58,9 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     Earth free-air anomaly with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
-    dataset_prefix = "earth_faa_"
     grid = _load_remote_dataset(
         dataset_name="earth_free_air_anomaly",
-        dataset_prefix=dataset_prefix,
+        dataset_prefix="earth_faa_",
         resolution=resolution,
         region=region,
         registration=registration,
