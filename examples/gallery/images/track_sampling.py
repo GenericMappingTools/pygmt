@@ -29,6 +29,12 @@ pygmt.makecpt(
     output="cpt_gray_relief.cpt",
     series= [int(grid.min()), int(grid.max()), 10],
 )
+# Set up colormap for data points of track
+pygmt.makecpt(
+    cmap="terra",
+    output="cpt_terra_points.cpt",
+    series="-1/1/0.01",  # normalized
+)
 
 fig = pygmt.Figure()
 # Plot the earth relief grid on Cylindrical Stereographic projection, masking
