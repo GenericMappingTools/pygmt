@@ -48,7 +48,7 @@ fig.plot(
     x=track.longitude,
     y=track.latitude,
     style="c0.15c",
-    cmap="terra",
+    cmap="cpt_terra_points.cpt",
     fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
 fig.show()
