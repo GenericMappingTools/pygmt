@@ -23,6 +23,13 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 # points
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
+# Set up colormap for earth relief grid
+pygmt.makecpt(
+    cmap="gray",
+    output="cpt_gray_relief.cpt",
+    series= [int(grid.min()), int(grid.max()), 10],
+)
+
 fig = pygmt.Figure()
 # Plot the earth relief grid on Cylindrical Stereographic projection, masking
 # land areas
