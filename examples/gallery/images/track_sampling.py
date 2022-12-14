@@ -40,7 +40,7 @@ fig = pygmt.Figure()
 # Plot the earth relief grid on Cylindrical Stereographic projection, masking
 # land areas
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
-fig.grdimage(grid=grid, cmap=="cpt_gray_relief.cpt")
+fig.grdimage(grid=grid, cmap="cpt_gray_relief.cpt")
 fig.coast(land="#666666")
 # Plot the sampled bathymetry points using circles (c) of 0.15 cm size
 # Points are colored using elevation values (normalized for visual purposes)
