@@ -51,4 +51,10 @@ fig.plot(
     cmap="cpt_terra_points.cpt",
     fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
+# Add colorbar for earth relief grid
+fig.colorbar(
+    cmap="cpt_gray_relief.cpt",
+    position="JBC+o0c/1.2c+ml",
+    frame=["af", "x+lbathymetry", "y+lm"],
+)
 fig.show()
