@@ -27,7 +27,7 @@ track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 pygmt.makecpt(
     cmap="gray",
     output="cpt_gray_relief.cpt",
-    series= [int(grid.min()), int(grid.max()), 10],
+    series=[int(grid.min()), int(grid.max()), 10],
 )
 # Set up colormap for data points of track
 pygmt.makecpt(
