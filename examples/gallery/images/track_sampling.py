@@ -57,4 +57,10 @@ fig.colorbar(
     position="JBC+o0c/1.2c+ml",
     frame=["af", "x+lbathymetry", "y+lm"],
 )
+# Add colorbar for data points of track
+fig.colorbar(
+    cmap="cpt_terra_points.cpt",
+    position="JRM+ml",
+    frame=["a0.2f0.1", "+lnormalized bathymetry"],
+)
 fig.show()
