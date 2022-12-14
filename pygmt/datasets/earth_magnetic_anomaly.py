@@ -9,19 +9,24 @@ from pygmt.helpers import kwargs_to_strings
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_magnetic_anomaly(resolution="01d", region=None, registration=None):
+def load_earth_magnetic_anomaly(
+    resolution="01d", region=None, registration=None, mag4km=False
+):
     r"""
     Load an Earth magnetic anomaly grid in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_mag/``) the first time you invoke
+    (usually ``~/.gmt/server/earth/earth_mag/`` or
+    ``~/.gmt/server/earth/earth_mag4km/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_mag**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
+    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
+    function. *earth_mag_type* is the GMT name
+    for the dataset. The available options are **earth_mag** and
+    **earth_mag4km**. *res* is the grid resolution (see below), and *reg* is
+    grid registration type (**p** for pixel registration or **g** for gridline
     registration).
 
     Refer to :gmt-datasets:`earth-mag.html` for more details.
@@ -46,6 +51,13 @@ def load_earth_magnetic_anomaly(resolution="01d", region=None, registration=None
         a pixel-registered grid is returned unless only the
         gridline-registered grid is available.
 
+    mag4km : bool
+        Choose the data version to use. The default is ``False``, which is
+        observed at sea level over oceanic regions and has no data over land.
+        Set ``mag4km`` to ``True`` to use a version where all observations
+        are relative to an altitude of 4 km above the geoid and include data
+        over land.
+
     Returns
     -------
     grid : :class:`xarray.DataArray`
@@ -58,7 +70,7 @@ def load_earth_magnetic_anomaly(resolution="01d", region=None, registration=None
     Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,
     which are stored as smaller tiles.
     """
-    dataset_prefix = "earth_mag_"
+    dataset_prefix = "earth_mag4km_" if mag4km is True else "earth_mag_"
     grid = _load_remote_dataset(
         dataset_name="earth_magnetic_anomaly",
         dataset_prefix=dataset_prefix,
