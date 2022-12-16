@@ -54,7 +54,10 @@ def test_plot3d_red_circles_zscale(data, region):
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
-    "Plot the 3-D data in red circles passing in vectors and setting zsize = 6c"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting
+    zsize = "6c"
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
