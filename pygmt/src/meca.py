@@ -307,7 +307,7 @@ def meca(
         # Convert 1d array into 2d array
         spec = np.atleast_2d(spec)
 
-    # determine data_foramt from convection and component
+    # determine data_format from convention and component
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
