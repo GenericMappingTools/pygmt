@@ -125,8 +125,8 @@ def plot3d(
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
-        also be a 1-D array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y``/``z``.
+        also be a 1-D array to set varying intensity for symbols, but it is
+        only valid for ``x``/``y``/``z``.
 
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
