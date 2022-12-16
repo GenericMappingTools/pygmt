@@ -53,7 +53,7 @@ def load_earth_relief(
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for Earth relief grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
+        arc-minutes (i.e., ``"05m"``).
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
@@ -87,7 +87,7 @@ def load_earth_relief(
         By default, the land-only SRTM tiles from NASA are used to generate the
         ``"03s"`` and ``"01s"`` grids, and the missing ocean values are filled
         by up-sampling the SRTM15 tiles which have a resolution of 15
-        arc-second (i.e., ``"15s"``). If True, will only load the original
+        arc-seconds (i.e., ``"15s"``). If True, will only load the original
         land-only SRTM tiles. Only works when ``data_source="igpp"``.
 
     Returns
@@ -108,15 +108,15 @@ def load_earth_relief(
     >>> from pygmt.datasets import load_earth_relief
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_relief()
-    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_relief(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minute) grid for a specific region
+    >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_relief(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    >>> # load the original 3 arc-second land-only SRTM tiles from NASA
+    >>> # load the original 3 arc-seconds land-only SRTM tiles from NASA
     >>> grid = load_earth_relief(
     ...     resolution="03s",
     ...     region=[135, 136, 35, 36],
