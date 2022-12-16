@@ -45,10 +45,10 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
