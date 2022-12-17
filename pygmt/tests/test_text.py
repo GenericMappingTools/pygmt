@@ -275,8 +275,7 @@ def test_text_justify_parsed_from_textfile():
     Print text justified based on a column from textfile, using justify=True
     boolean operation.
 
-    Loosely based on "All great-circle paths lead to Rome"
-    gallery example at
+    Loosely based on "All great-circle paths lead to Rome" gallery example at
     https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
     """
     fig = Figure()
