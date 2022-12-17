@@ -49,7 +49,7 @@ The below table shows the projection codes for the 31 GMT projections.
      - :doc:`Eckert VI equal area </projections/misc/misc_eckertVI>`
    * - **L**\ |lon0|/|lat0|/|lat1|/|lat2|/\ *width*
      - :doc:`Lambert conic conformal </projections/conic/conic_lambert>`
-   * - **M**\ [|lon0|\ [/|lat0|]/]\ *width*
+   * - **M**\ |lon0|\ [/|lat0|]/]\ *width*
      - :doc:`Mercator cylindrical </projections/cyl/cyl_mercator>`
    * - **N**\ [|lon0|/]\ *width*
      - :doc:`Robinson </projections/misc/misc_robinson>`
@@ -72,7 +72,7 @@ The below table shows the projection codes for the 31 GMT projections.
    * - **S**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - :doc:`General stereographic
        </projections/azim/azim_general_stereographic>`
-   * - **T**\ [|lon0|\ [/|lat0|]/]\ *width*
+   * - **T**\ |lon0|\ [/|lat0|]/]\ *width*
      - :doc:`Transverse Mercator </projections/cyl/cyl_transverse_mercator>`
    * - **U**\ *zone*/*width*
      - :doc:`Universal Transverse Mercator (UTM)
