@@ -1,6 +1,6 @@
 """
 3-D Scatter plots
-----------------
+-----------------
 
 The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3-D.
 In the example below, we show how the
