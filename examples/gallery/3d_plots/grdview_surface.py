@@ -39,9 +39,11 @@ data = xr.DataArray(ackley(*np.meshgrid(x, y)), coords=(x, y))
 fig = pygmt.Figure()
 
 # Plot grid as a 3-D surface
-SCALE = 0.5  # in centimeter
+SCALE = 0.5  # in centimeters
 fig.grdview(
     data,
+    # Set annotations and gridlines in steps of five, and
+    # tick marks in steps of one
     frame=["a5f1g5", "za5f1g5"],
     projection=f"x{SCALE}c",
     zscale=f"{SCALE}c",
@@ -53,7 +55,7 @@ fig.grdview(
 
 # Add colorbar for gridded data
 fig.colorbar(
-    frame="a2f1",  # Set annotation in steps of two, tick marks in steps of one
+    frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
     position="JRM",  # Place colorbar at position Right Middle
 )
 
