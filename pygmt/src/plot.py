@@ -70,7 +70,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     be drawn instead. To explicitly close polygons, use ``close``. Select a
     fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
-    ``pen`` determines the fill and outline/no outline, respectively.
+    ``pen`` determine the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot.html`
 
