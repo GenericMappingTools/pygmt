@@ -151,7 +151,9 @@ class _Miscellaneous(_Projection):
     unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{central_meridian}/{width}{unit}",
+        init=False,
+        repr=False,
+        default="{_code}{central_meridian}/{width}{unit}",
     )
 
 
@@ -869,7 +871,9 @@ class UniversalTransverseMercator(_Projection):
     unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
-        init=False, repr=False, default="{_code}{zone}/{width}{unit}",
+        init=False,
+        repr=False,
+        default="{_code}{zone}/{width}{unit}",
     )
     _code: str = attr.ib(init=False, repr=False, default="U")
 
