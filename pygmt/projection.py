@@ -3,51 +3,8 @@ Contains the projections supported by GMT, and the necessary mechanisms
 to create a projection and output a valid GMT projection string.
 """
 
-from enum import Enum
+import numbers
 import attr
-
-
-UNDEFINED = ""
-
-
-class Supported(Enum):
-
-    """
-    The supported projections and their GMT code.
-    """
-
-    UNDEFINED = ""
-    LAMBERT_AZIMUTH_EQUAL_AREA = "A"  # DONE
-    ALBERS_CONIC_EQUAL_AREA = "B"  # DONE
-    CASSINI_CYLINDRICAL = "C"  # DONE
-    CYLINDRICAL_STEROGRAPHIC = "JCyl_stere/"  # includes `/` according to https://docs.generic-mapping-tools.org/latest/proj_codes.html  # DONE
-    EQUIDISTANT_CONIC = "JD"  # DONE
-    AZIMUTHAL_EQUIDISTANT = "E"  # DONE
-    AZIMUTHAL_GNOMIC = "F"  # DONE
-    AZIMUTHAL_ORTHOGRAPHIC = "G"  # DONE
-    GENERAL_PERSPECTIVE = "G"  # DONE
-    HAMMER_EQUAL_AREA = "H"  # DONE
-    SINUSOIDAL_EQUAL_AREA = "I"  # DONE
-    MILLER_CYLINDRICAL = "J"  # DONE
-    ECKERT_IV_EQUAL_AREA = "Kf"  # DONE
-    ECKERT_VI_EQUAL_AREA = "Ks"  # DONE
-    LAMBERT_CONIC_CONFORMAL = "L"  # DONE
-    MERCATOR_CYLINDRICAL = "M"  # DONE
-    ROBINSON = "N"  # DONE
-    OBLIQUE_MERCATOR_1 = "Oa"  # DONE
-    OBLIQUE_MERCATOR_2 = "Ob"  # DONE
-    OBLIQUE_MERCATOR_3 = "Oc"  # DONE
-    POLAR = "P"
-    POLYCONIC = "Poly"  # DONE
-    EQUIDISTANT_CYLINDRICAL = "Q"  # DONE
-    WINKEL_TRIPEL = "R"  # DONE
-    GENERAL_STEREOGRAPHIC = "S"  # DONE
-    TRANSVERSE_MERCATOR = "T"  # DONE
-    UNIVERSAL_TRANSVERSE_MERCATOR = "U"  # DONE
-    VAN_DER_GRINTEN = "V"  # DONE
-    MOLLWEIDE = "W"  # DONE
-    LINEAR = "X"
-    CYLINDRICAL_EQUAL_AREA = "Y"  # DONE
 
 
 @attr.s()
@@ -57,13 +14,13 @@ class _Projection:
     """
 
     _fmt: str = attr.ib(init=False, repr=False, default="{_code}")
-    _code: str = attr.ib(init=False, repr=False, default=UNDEFINED)
+    _code: str = attr.ib(init=False, repr=False, default="")
 
     def __str__(self):
         "Convert to the GMT-style projection code."
         exclude = attr.fields(self.__class__)._fmt
         kwargs = attr.asdict(self, filter=attr.filters.exclude(exclude))
-        return self._fmt.format(**kwargs)
+        return f"-J{self._fmt.format(**kwargs)}"
 
 
 @attr.s(kw_only=True)
@@ -441,7 +398,7 @@ class EquidistantConic(_Conic):
         Default is ``c``.
     """
 
-    _code: str = attr.ib(init=False, repr=False, default="JD")
+    _code: str = attr.ib(init=False, repr=False, default="D")
 
 
 @attr.s(frozen=True)
@@ -510,7 +467,7 @@ class CylindricalStereographic(_Cylindrical):
     central_longitude: float = attr.ib(default=180, kw_only=True)
     central_latitude: float = attr.ib(default=0, kw_only=True)
 
-    _code: str = attr.ib(init=False, repr=False, default="JCyl_stere/")
+    _code: str = attr.ib(init=False, repr=False, default="Cyl_stere/")
 
 
 @attr.s(frozen=True)
@@ -939,3 +896,246 @@ class EquidistantCylindrical(_Cylindrical):
     central_latitude: float = attr.ib(default=0, kw_only=True)
 
     _code: str = attr.ib(init=False, repr=False, default="Q")
+
+
+@attr.s(frozen=True, kw_only=True)
+class Polar(_Projection):
+    """
+    Class definition for the Polar projection (theta, radial or r).
+
+    Parameters
+    ----------
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``c``.
+    clockwise : bool
+        Set to True for azimuths clockwise from North instead of
+        counter clockwise from East (default).
+    flip : bool
+        Set to True to flip the radial direction to point inwards.
+    flip_options : str | int | float
+        The string ``e`` indicates that ``r`` represents elevations in degrees.
+        The string ``p`` will select current planetary radius as maximum radius north.
+        A numerical value can be used to specify a custom radius.
+    origin : float
+        Origin in degrees so the angular value is aligned with the
+        positive x-axis (or the azimuth to be aligned with the positive
+        y-axis if theta is clockwise from north).
+        Angular offset in degrees. Default is 0 (no offset).
+    offset : float
+        Radial offset to include in measurement units. Default is 0 (no offset).
+    depth : bool
+        To annotate depth rather than radius. Alternatively, if your ``r`` data
+        are actually depths, then you ca
+    depth_options : str | int | float
+        The string ``p`` indicates that your data are actually depths.
+        A numerical value ti get radial annotations ``r = radius - z`` instead.
+
+    radial : str
+        Set to ``r`` if radial is elevations in degrees, or ``z`` if
+        annotations are depth. Default is '' (radius).
+    """
+
+    clockwise: bool = attr.ib(default=False, kw_only=True)
+    flip: bool = attr.ib(default=False, kw_only=True)
+    flip_options = attr.ib(default="", kw_only=True)
+    width: float = attr.ib()
+    unit: str = attr.ib(default="c")
+    origin: float = attr.ib(default=0, kw_only=True)
+    offset: float = attr.ib(default=0, kw_only=True)
+    depth = attr.ib(default=False, kw_only=True)
+    depth_options = attr.ib(default=False, kw_only=True)
+
+    _code: str = attr.ib(init=False, repr=False, default="P")
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{width}{unit}{_clockwise}{_flip}{_offset}{_origin}{_depth}",
+    )
+
+    # the polar projection has a more complicated/specific setup with mixed type
+    # options. So private fields were necessary to do the post conversions.
+    _clockwise: str = attr.ib(init=False, repr=False, default="")
+    _flip: str = attr.ib(init=False, repr=False, default="")
+    _offset: str = attr.ib(init=False, repr=False, default="")
+    _origin: str = attr.ib(init=False, repr=False, default="")
+    _depth: str = attr.ib(init=False, repr=False, default="")
+
+    @flip_options.validator
+    def check_flip_options(self, attribute, value):
+        """
+        Validate the options that are passed through the flip_options field.
+        """
+        msg = "flip_options must be 'e', 'p' or a number specifying the radius"
+        if isinstance(value, str):
+            if value not in ["e", "p", ""]:
+                raise ValueError(msg)
+        elif not isinstance(value, numbers.Number):
+            raise ValueError(msg)
+
+    @depth_options.validator
+    def check_depth_options(self, attribute, value):
+        """
+        Validate the options that are passed through the depth_options field.
+        """
+        msg = "depth_options must be 'p' or a number specifying the radius"
+        if isinstance(value, str):
+            if value != "p":
+                raise ValueError(msg)
+        elif not isinstance(value, numbers.Number):
+            raise ValueError(msg)
+
+    def __attrs_post_init__(self):
+        """
+        For frozen instances, we have to set using the traditonal way
+        using object.__setattr__(self, key, value).
+        """
+        # cw_value = "+a" if self.clockwise else ""
+        if self.clockwise:
+            object.__setattr__(self, "_clockwise", self.clockwise)
+
+        if self.offset:
+            object.__setattr__(self, "_offset", f"+r{self.offset}")
+
+        if self.origin:
+            object.__setattr__(self, "_origin", f"+t{self.origin}")
+
+        # flip and depth have an options field
+        # two options;
+        # 1. override with an empty str,
+        # 2. raise an exception if the associated bool is not set to True
+
+        if self.flip:
+            flip_str = "+f"
+
+            if self.flip_options:
+                flip_str += f"{self.flip_options}"
+        else:
+            object.__setattr__(self, "_flip", "")  # override
+
+        if self.depth:
+            depth_str = "+z"
+
+            if self.depth_options:
+                depth_str += f"{self.depth_options}"
+
+            object.__setattr__(self, "_depth", depth_str)
+        else:
+            object.__setattr__(self, "_depth", "")  # override
+
+
+def _time_check(self, attribute, value):
+    """
+    Validate the time field for the linear projection.
+    """
+    msg = "time must be 't' 'T' (relative to TIME_EPOCH or absolute time)."
+    if isinstance(value, str):
+        if value not in ["t", "T", ""]:  # empty str caters for default value
+            raise ValueError(msg)
+    else:
+        raise ValueError(msg)
+
+
+@attr.s(frozen=True, kw_only=True)
+class Linear(_Projection):
+    """
+    Class definition for the linear coordinate transformations.
+
+    Caters for regular floating point coordinates, geographic coordinates
+    and calendar time coordinates.
+    Additional scaling transformations include logarithmic and power.
+    """
+
+    width: float = attr.ib()
+    height: float = attr.ib(default=False, kw_only=True)
+    unit: str = attr.ib(default="c")
+    geographic: bool = attr.ib(default=False, kw_only=True)
+    log_x: bool = attr.ib(default=False, kw_only=True)
+    log_y: bool = attr.ib(default=False, kw_only=True)
+    power_x: float = attr.ib(default=False, kw_only=True)
+    power_y: float = attr.ib(default=False, kw_only=True)
+    time_x: str = attr.ib(default="", kw_only=True, validator=_time_check)
+    time_y: str = attr.ib(default="", kw_only=True, validator=_time_check)
+
+    _code: str = attr.ib(init=False, repr=False, default="X")
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{width}{unit}{_logx}{_powx}{_timex}{_height}{_logy}{_powy}{_timey}{_geog}",
+    )
+
+    # these private fields act as an alias for the main fields so the proj str
+    # can be be generated from the aliases rather than the
+    # original fields due to the handling complexity of this proj type
+    _height: str = attr.ib(init=False, repr=False, default="")
+    _timex: str = attr.ib(init=False, repr=False, default="")
+    _timey: str = attr.ib(init=False, repr=False, default="")
+    _powx: str = attr.ib(init=False, repr=False, default="")
+    _powy: str = attr.ib(init=False, repr=False, default="")
+    _logx: str = attr.ib(init=False, repr=False, default="")
+    _logy: str = attr.ib(init=False, repr=False, default="")
+    _geog: str = attr.ib(init=False, repr=False, default="")
+
+    def __attrs_post_init__(self):
+        """
+        The linear projection has a lot of options that require more control
+        and checking after initialisation.
+        """
+        if self.height:
+            object.__setattr__(self, "_height", f"/{self.height}{self.unit}")
+
+        # docs mention d | g, but the examples showed no difference
+        if self.geographic:
+            object.__setattr__(self, "_geog", "d")
+
+        # docs indicate mutual exclusivity for log, power, time for both
+        # x & y sections
+        # -JXwidth[l|pexp|T|t][/height[l|pexp|T|t]][d]
+        if any(
+            [
+                self.log_x and self.power_x,
+                self.log_x and self.time_x,
+                self.power_x and self.time_x,
+            ]
+        ):
+            msg = "log_x, power_x and time_x are mutually exclusive"
+            raise ValueError(msg)
+
+        if any(
+            [
+                self.log_y and self.power_y,
+                self.log_y and self.time_y,
+                self.power_y and self.time_y,
+            ]
+        ):
+            msg = "log_y, power_y and time_y are mutually exclusive"
+            raise ValueError(msg)
+
+        if self.log_y and not self.height:
+            msg = "height must be defined when applying log scaling"
+            raise ValueError(msg)
+
+        if self.power_y and not self.height:
+            msg = "height must be defined when applying power scaling"
+            raise ValueError(msg)
+
+        # Linear proj has a slightly more complicated str format to control;
+        if self.log_x:
+            object.__setattr__(self, "_logx", "l")
+
+        if self.log_y:
+            object.__setattr__(self, "_logy", "l")
+
+        if self.time_x:
+            object.__setattr__(self, "_timex", self.time_x)
+
+        if self.time_y:
+            object.__setattr__(self, "_timey", self.time_y)
+
+        if self.power_x:
+            object.__setattr__(self, "_powx", f"p{self.power_x}")
+
+        if self.power_y:
+            object.__setattr__(self, "_powy", f"p{self.power_y}")
