@@ -276,7 +276,7 @@ def test_text_justify_parsed_from_textfile():
     boolean operation.
 
     Loosely based on "All great-circle paths lead to Rome" gallery example at
-    https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
+    https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
     """
     fig = Figure()
     fig.text(
