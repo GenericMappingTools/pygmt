@@ -23,7 +23,7 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 # points
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
-# Set up colormap for earth relief grid
+# Set up colormap for Earth relief grid
 pygmt.makecpt(
     cmap="gray",
     output="cpt_gray_relief.cpt",
@@ -33,17 +33,18 @@ pygmt.makecpt(
 pygmt.makecpt(
     cmap="terra",
     output="cpt_terra_points.cpt",
-    series="-1/1/0.01",  # normalized
+    series="-1/1/0.01",  # for normalized values
 )
 
 fig = pygmt.Figure()
-# Plot the earth relief grid on Cylindrical Stereographic projection, masking
+# Plot the Earth relief grid on Cylindrical Stereographic projection, masking
 # land areas
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 fig.grdimage(grid=grid, cmap="cpt_gray_relief.cpt")
 fig.coast(land="#666666")
-# Plot the sampled bathymetry points using circles (c) of 0.15 cm size
-# Points are colored using elevation values (normalized for visual purposes)
+# Plot the sampled bathymetry points using circles (c) with a diameter of
+# 0.15 centimeters (c). Points are colored using elevation values (normalized
+# for visual purposes)
 fig.plot(
     x=track.longitude,
     y=track.latitude,
@@ -51,16 +52,16 @@ fig.plot(
     cmap="cpt_terra_points.cpt",
     fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
-# Add colorbar for earth relief grid
+# Add colorbar for Earth relief grid
 fig.colorbar(
     cmap="cpt_gray_relief.cpt",
-    position="JBC+o0c/1.2c+ml",
+    position="JBC+o0c/1.2c+ml",  # placed at position Bottom Center
     frame=["af", "x+lelevation", "y+lm"],
 )
 # Add colorbar for data points of track
 fig.colorbar(
     cmap="cpt_terra_points.cpt",
-    position="JRM+ml",
+    position="JRM+ml",  # placed at position Right Middle
     frame=["a0.2f0.1", "+lnormalized elevation"],
 )
 fig.show()
