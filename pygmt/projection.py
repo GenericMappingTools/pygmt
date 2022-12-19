@@ -4,6 +4,7 @@ to create a projection and output a valid GMT projection string.
 """
 
 import numbers
+from typing import Union
 import attr
 
 
@@ -20,7 +21,7 @@ class _Projection:
         "Convert to the GMT-style projection code."
         exclude = attr.fields(self.__class__)._fmt
         kwargs = attr.asdict(self, filter=attr.filters.exclude(exclude))
-        return f"-J{self._fmt.format(**kwargs)}"
+        return f"{self._fmt.format(**kwargs)}"
 
 
 @attr.s(kw_only=True)
@@ -146,15 +147,25 @@ class _Miscellaneous(_Projection):
         Default is ``c``.
     """
 
-    central_meridian: float = attr.ib()
+    central_meridian: Union[float, str] = attr.ib(default="")
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_meridian}/{width}{unit}",
+        default="{_code}{_central_meridian}{width}{unit}",
     )
+    _central_meridian: str = attr.ib(init=False, repr=False, default="")
+
+    def __attrs_post_init__(self):
+        """Handling the default case; not supplying a central meridian."""
+        if self.central_meridian:
+            cm_fmt = f"{self.central_meridian}/"
+        else:
+            cm_fmt = ""
+
+        object.__setattr__(self, "_central_meridian", cm_fmt)
 
 
 @attr.s(frozen=True)
@@ -688,17 +699,33 @@ class Polyconic(_Projection):
         Default is ``c``.
     """
 
-    central_longitude: float = attr.ib()
-    central_latitude: float = attr.ib()
+    # whilst this proj is part of the conic family, the params are different:
+    # central lon/lat are optionals
+    # two standard parallels are not defined in the proj code string
+    central_longitude: float = attr.ib(default=None)
+    central_latitude: float = attr.ib(default=None)
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
+        default="{_code}{_central_lon}{_central_lat}{width}{unit}",
     )
-    _code: str = attr.ib(init=False, repr=False, default="Poly")
+    _code: str = attr.ib(init=False, repr=False, default="Poly/")
+    _central_lon = attr.ib(init=False, repr=False, default="")
+    _central_lat = attr.ib(init=False, repr=False, default="")
+
+    def __attrs_post_init__(self):
+        """
+        For frozen instances, we have to set using the traditonal way
+        using object.__setattr__(self, key, value).
+        """
+        if self.central_longitude:
+            object.__setattr__(self, "_central_lon", f"{self.central_longitude}/")
+
+            if self.central_latitude:
+                object.__setattr__(self, "_central_lat", f"{self.central_latitude}/")
 
 
 @attr.s(frozen=True)
@@ -717,6 +744,8 @@ class Miller(_Miscellaneous):
         Default is ``c``.
     """
 
+    # a cylindrical proj, but we're basing of miscellaneous as the
+    # standard parallel param isn't defined in the code string for Miller
     _code: str = attr.ib(init=False, repr=False, default="J")
 
 
@@ -738,19 +767,42 @@ class ObliqueMercator1(_Projection):
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``c``.
+    allow_southern_hemisphere : bool
+        If set to True, then allow projection poles in the southern hemisphere.
+        Default is to map any such poles to their antipodes in the northern
+        hemisphere.
+    align_yaxis : bool
+        If set to True, then align the oblique with the y-axis.
+        Default is to align with the x-axis.
     """
 
     central_longitude: float = attr.ib()
     central_latitude: float = attr.ib()
+    azimuth: float = attr.ib()
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
+    allow_southern_hemisphere: bool = attr.ib(default=False)
+    align_yaxis: bool = attr.ib(default=False)
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{azimuth}/{width}{unit}",
+        default="{_code}{_sth_hem}{central_longitude}/{central_latitude}/{azimuth}/{width}{unit}{_align_y}",
     )
-    _code: str = attr.ib(init=False, repr=False, default="Oa")
+    _code: str = attr.ib(init=False, repr=False, default="O")
+    _sth_hem: str = attr.ib(init=False, repr=False, default="")
+    _align_y: str = attr.ib(init=False, repr=False, default="")
+
+    def __attrs_post_init__(self):
+        """
+        For frozen instances, we have to set using the traditonal way
+        using object.__setattr__(self, key, value).
+        """
+        if self.allow_southern_hemisphere:
+            object.__setattr__(self, "_sth_hem", "A")
+
+        if self.align_yaxis:
+            object.__setattr__(self, "_align_y", "+v")
 
 
 @attr.s(frozen=True, kw_only=True)
@@ -936,21 +988,17 @@ class Polar(_Projection):
     depth_options : str | int | float
         The string ``p`` indicates that your data are actually depths.
         A numerical value ti get radial annotations ``r = radius - z`` instead.
-
-    radial : str
-        Set to ``r`` if radial is elevations in degrees, or ``z`` if
-        annotations are depth. Default is '' (radius).
     """
 
-    clockwise: bool = attr.ib(default=False, kw_only=True)
-    flip: bool = attr.ib(default=False, kw_only=True)
-    flip_options = attr.ib(default="", kw_only=True)
+    clockwise: bool = attr.ib(default=False)
+    flip: bool = attr.ib(default=False)
+    flip_options = attr.ib(default="")
     width: float = attr.ib()
     unit: str = attr.ib(default="c")
-    origin: float = attr.ib(default=0, kw_only=True)
-    offset: float = attr.ib(default=0, kw_only=True)
-    depth = attr.ib(default=False, kw_only=True)
-    depth_options = attr.ib(default=False, kw_only=True)
+    origin: float = attr.ib(default=0)
+    offset: float = attr.ib(default=0)
+    depth: bool = attr.ib(default=False)
+    depth_options = attr.ib(default=False)
 
     _code: str = attr.ib(init=False, repr=False, default="P")
     _fmt: str = attr.ib(
@@ -996,9 +1044,8 @@ class Polar(_Projection):
         For frozen instances, we have to set using the traditonal way
         using object.__setattr__(self, key, value).
         """
-        # cw_value = "+a" if self.clockwise else ""
         if self.clockwise:
-            object.__setattr__(self, "_clockwise", self.clockwise)
+            object.__setattr__(self, "_clockwise", "+a")
 
         if self.offset:
             object.__setattr__(self, "_offset", f"+r{self.offset}")
@@ -1007,8 +1054,8 @@ class Polar(_Projection):
             object.__setattr__(self, "_origin", f"+t{self.origin}")
 
         # flip and depth have an options field
-        # two options;
-        # 1. override with an empty str,
+        # two options if the user has provided options without depth=True;
+        # 1. override user input with an empty str,
         # 2. raise an exception if the associated bool is not set to True
 
         if self.flip:
@@ -1016,6 +1063,8 @@ class Polar(_Projection):
 
             if self.flip_options:
                 flip_str += f"{self.flip_options}"
+
+            object.__setattr__(self, "_flip", flip_str)
         else:
             object.__setattr__(self, "_flip", "")  # override
 
@@ -1034,7 +1083,7 @@ def _time_check(self, attribute, value):
     """
     Validate the time field for the linear projection.
     """
-    msg = "time must be 't' 'T' (relative to TIME_EPOCH or absolute time)."
+    msg = "time must be 't' or 'T' (relative to TIME_EPOCH or absolute time)."
     if isinstance(value, str):
         if value not in ["t", "T", ""]:  # empty str caters for default value
             raise ValueError(msg)
@@ -1053,15 +1102,15 @@ class Linear(_Projection):
     """
 
     width: float = attr.ib()
-    height: float = attr.ib(default=False, kw_only=True)
+    height: float = attr.ib(default=False)
     unit: str = attr.ib(default="c")
-    geographic: bool = attr.ib(default=False, kw_only=True)
-    log_x: bool = attr.ib(default=False, kw_only=True)
-    log_y: bool = attr.ib(default=False, kw_only=True)
-    power_x: float = attr.ib(default=False, kw_only=True)
-    power_y: float = attr.ib(default=False, kw_only=True)
-    time_x: str = attr.ib(default="", kw_only=True, validator=_time_check)
-    time_y: str = attr.ib(default="", kw_only=True, validator=_time_check)
+    geographic: bool = attr.ib(default=False)
+    log_x: bool = attr.ib(default=False)
+    log_y: bool = attr.ib(default=False)
+    power_x: float = attr.ib(default=False)
+    power_y: float = attr.ib(default=False)
+    time_x: str = attr.ib(default="", validator=_time_check)
+    time_y: str = attr.ib(default="", validator=_time_check)
 
     _code: str = attr.ib(init=False, repr=False, default="X")
     _fmt: str = attr.ib(
