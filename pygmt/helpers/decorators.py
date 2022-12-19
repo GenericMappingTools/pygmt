@@ -57,8 +57,8 @@ COMMON_DOCSTRINGS = {
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
-              increment unit. Choose among **m** to indicate arc minutes or
-              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              increment unit. Choose among **m** to indicate arc-minutes or
+              **s** to indicate arc-seconds. If one of the units **e**, **f**,
               **k**, **M**, **n** or **u** is appended instead, the increment
               is assumed to be given in meter, foot, km, mile, nautical mile or
               US survey foot, respectively, and will be converted to the
@@ -188,12 +188,12 @@ COMMON_DOCSTRINGS = {
             A unit **u** may be appended to the specified *gap*:
 
                 - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
-                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
+                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
                   **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ter)].
+                  (m)\ **e**\ (ters)].
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
+                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].

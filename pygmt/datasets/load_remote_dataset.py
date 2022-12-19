@@ -147,6 +147,26 @@ datasets = {
             "02m": Resolution(["pixel"], True),
         },
     ),
+    "earth_free_air_anomaly": GMTRemoteDataset(
+        title="free air anomaly",
+        name="free_air_anomaly",
+        long_name="IGPP Global Earth Free-Air Anomaly",
+        units="mGal",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["pixel", "gridline"], False),
+            "30m": Resolution(["pixel", "gridline"], False),
+            "20m": Resolution(["pixel", "gridline"], False),
+            "15m": Resolution(["pixel", "gridline"], False),
+            "10m": Resolution(["pixel", "gridline"], False),
+            "06m": Resolution(["pixel", "gridline"], False),
+            "05m": Resolution(["pixel", "gridline"], True),
+            "04m": Resolution(["pixel", "gridline"], True),
+            "03m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel", "gridline"], True),
+            "01m": Resolution(["pixel"], True),
+        },
+    ),
 }
 
 
@@ -167,7 +187,7 @@ def _load_remote_dataset(
 
     resolution : str
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degree, arc-minute, and arc-second respectively.
+        arc-degrees, arc-minutes, and arc-seconds, respectively.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list
