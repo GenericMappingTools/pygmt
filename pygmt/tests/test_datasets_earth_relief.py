@@ -123,7 +123,7 @@ def test_earth_relief_05m_with_region():
 
 def test_earth_gebcosi_15m_with_region():
     """
-    Test loading a subregion of 15 arc-minute resolution earth_gebcosi grid.
+    Test loading a subregion of 15 arc-minutes resolution earth_gebcosi grid.
     """
     data = load_earth_relief(
         resolution="15m",
@@ -163,7 +163,7 @@ def test_earth_relief_05m_without_region():
 
 def test_earth_relief_03s_landonly_srtm():
     """
-    Test loading original 3 arc-second land-only SRTM tiles.
+    Test loading original 3 arc-seconds land-only SRTM tiles.
     """
     data = load_earth_relief(
         "03s", region=[135, 136, 35, 36], registration="gridline", use_srtm=True
