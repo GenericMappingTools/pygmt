@@ -30,7 +30,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
+        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
         ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
         ``"03m"``, ``"02m"``, or ``"01m"``.
 
@@ -38,7 +38,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
+        arc-minutes (i.e., ``"05m"``).
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or

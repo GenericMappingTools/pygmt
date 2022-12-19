@@ -32,7 +32,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
+        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
         ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
         ``"03m"``, ``"02m"``, or ``"01m"``.
 
@@ -40,7 +40,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         The subregion of the grid to load, in the forms of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
+        arc-minutes (i.e., ``"05m"``).
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
@@ -66,9 +66,9 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     >>> from pygmt.datasets import load_earth_age
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_age()
-    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_age(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minute) grid for a specific region
+    >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_age(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],

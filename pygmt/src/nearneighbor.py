@@ -138,8 +138,8 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     >>> import pygmt
     >>> # Load a sample dataset of bathymetric x, y, and z values
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
-    >>> # Create a new grid with 5 arc-minute spacing in the designated region
-    >>> # Set search_radius to only consider points within 10 arc-minute of a node
+    >>> # Create a new grid with 5 arc-minutes spacing in the designated region
+    >>> # Set search_radius to only consider points within 10 arc-minutes of a node
     >>> output = pygmt.nearneighbor(
     ...     data=data,
     ...     spacing="5m",
