@@ -31,7 +31,9 @@ def test_earth_vgg_01d():
     """
     Test some properties of the earth vgg 01d data.
     """
-    data = load_earth_vertical_gravity_gradient(resolution="01d", registration="gridline")
+    data = load_earth_vertical_gravity_gradient(
+        resolution="01d", registration="gridline"
+    )
     assert data.name == "earth_vgg"
     assert data.attrs["units"] == "Eotvos"
     assert data.attrs["long_name"] == "IGPP Global Earth Vertical Gravity Gradient"
@@ -89,4 +91,6 @@ def test_earth_vgg_incorrect_resolution_registration():
     an unavailable resolution.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_vertical_gravity_gradient(resolution="01m", region=[0, 1, 3, 5], registration="gridline")
+        load_earth_vertical_gravity_gradient(
+            resolution="01m", region=[0, 1, 3, 5], registration="gridline"
+        )
