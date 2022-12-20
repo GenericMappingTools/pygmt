@@ -9,7 +9,7 @@ from pygmt.helpers import kwargs_to_strings
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_vgg(resolution="01d", region=None, registration=None):
+def load_earth_vertical_gravity_gradient(resolution="01d", region=None, registration=None):
     r"""
     Load the IGPP Global Earth Vertical Gravity Gradient in various
     resolutions.

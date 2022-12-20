@@ -4,7 +4,7 @@ Test basic functionality for loading Earth vertical gravity gradient datasets.
 import numpy as np
 import numpy.testing as npt
 import pytest
-from pygmt.datasets import load_earth_vgg
+from pygmt.datasets import load_earth_vertical_gravity_gradient
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -16,7 +16,7 @@ def test_earth_vgg_fails():
     resolutions.append(60)
     for resolution in resolutions:
         with pytest.raises(GMTInvalidInput):
-            load_earth_vgg(resolution=resolution)
+            load_earth_vertical_gravity_gradient(resolution=resolution)
 
 
 def test_earth_vgg_incorrect_registration():
@@ -24,14 +24,14 @@ def test_earth_vgg_incorrect_registration():
     Test loading load_earth_vgg with incorrect registration type.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_vgg(registration="improper_type")
+        load_earth_vertical_gravity_gradient(registration="improper_type")
 
 
 def test_earth_vgg_01d():
     """
     Test some properties of the earth vgg 01d data.
     """
-    data = load_earth_vgg(resolution="01d", registration="gridline")
+    data = load_earth_vertical_gravity_gradient(resolution="01d", registration="gridline")
     assert data.name == "earth_vgg"
     assert data.attrs["units"] == "Eotvos"
     assert data.attrs["long_name"] == "IGPP Global Earth Vertical Gravity Gradient"
@@ -48,7 +48,7 @@ def test_earth_vgg_01d_with_region():
     """
     Test loading low-resolution earth vgg with 'region'.
     """
-    data = load_earth_vgg(
+    data = load_earth_vertical_gravity_gradient(
         resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
     )
     assert data.shape == (11, 21)
@@ -62,7 +62,7 @@ def test_earth_vgg_05m_with_region():
     """
     Test loading a subregion of high-resolution earth vgg.
     """
-    data = load_earth_vgg(
+    data = load_earth_vertical_gravity_gradient(
         resolution="05m", region=[-50, -40, 20, 26], registration="gridline"
     )
     assert data.coords["lat"].data.min() == 20.0
@@ -80,7 +80,7 @@ def test_earth_vgg_05m_without_region():
     Test loading high-resolution earth vgg without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_vgg("05m")
+        load_earth_vertical_gravity_gradient("05m")
 
 
 def test_earth_vgg_incorrect_resolution_registration():
@@ -89,4 +89,4 @@ def test_earth_vgg_incorrect_resolution_registration():
     an unavailable resolution.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_vgg(resolution="01m", region=[0, 1, 3, 5], registration="pixel")
+        load_earth_vertical_gravity_gradient(resolution="01m", region=[0, 1, 3, 5], registration="gridline")
