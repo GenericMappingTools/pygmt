@@ -501,6 +501,99 @@ class TestMiller:
         assert str(self.prj2) == "J12c"
 
 
+class TestObliqueMercator1:
+    """
+    Tests for the Oblique Mercator projection (option 1).
+    """
+    prj1 = projection.ObliqueMercator1(
+        central_longitude=145, central_latitude=-35, azimuth=45, width=12
+    )
+    prj2 = projection.ObliqueMercator1(
+        central_longitude=145, central_latitude=-35, azimuth=45, allow_southern_hemisphere=True, width=12
+    )
+    prj3 = projection.ObliqueMercator1(
+        central_longitude=145, central_latitude=-35, azimuth=45, align_yaxis=True, width=12
+    )
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "O145/-35/45/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "OA145/-35/45/12c"
+
+    def test_string_conversion3(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "O145/-35/45/12c+v"
+
+
+class TestObliqueMercator2:
+    """
+    Tests for the Oblique Mercator projection (option 2).
+    """
+    prj1 = projection.ObliqueMercator2(
+        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, width=12
+    )
+    prj2 = projection.ObliqueMercator2(
+        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, allow_southern_hemisphere=True, width=12
+    )
+    prj3 = projection.ObliqueMercator2(
+        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, align_yaxis=True, width=12
+    )
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "O145/-35/110/-20/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "OB145/-35/110/-20/12c"
+
+    def test_string_conversion3(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "O145/-35/110/-20/12c+v"
+
+
+class TestObliqueMercator3:
+    """
+    Tests for the Oblique Mercator projection (option 3).
+    """
+    prj1 = projection.ObliqueMercator3(
+        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, width=12
+    )
+    prj2 = projection.ObliqueMercator3(
+        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, allow_southern_hemisphere=True, width=12
+    )
+    prj3 = projection.ObliqueMercator3(
+        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, align_yaxis=True, width=12
+    )
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "O145/-35/110/-20/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "OC145/-35/110/-20/12c"
+
+    def test_string_conversion3(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "O145/-35/110/-20/12c+v"
+
+
 class TestPolar:
     """
     Tests for the Polar projection.
