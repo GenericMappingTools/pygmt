@@ -14,7 +14,7 @@ fig = pygmt.Figure()
 # Define region of interest around Iceland
 region = [-28, -10, 62, 68]
 
-# Load sample grid (3 arc minute global relief) in target area
+# Load sample grid (3 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 # Plot original grid
