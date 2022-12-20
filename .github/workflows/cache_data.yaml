@@ -19,32 +19,33 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.0
+        uses: actions/checkout@v3.2.0
         with:
-          # fecth all history so that setuptools-scm works
+          # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           channels: conda-forge,nodefaults
           channel-priority: strict
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.3.0 \
-                        numpy pandas xarray netCDF4 packaging matplotlib
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
+                        build
 
       # Install the package that we want to test
       - name: Install the package
         run: |
-          python setup.py sdist --formats=zip
+          python -m build --sdist
           pip install dist/*
 
       # Download remote files
@@ -54,7 +55,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: gmt-cache
           path: |

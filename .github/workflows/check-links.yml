@@ -15,18 +15,18 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3.0.0
+      uses: actions/checkout@v3.2.0
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v3.0.0
+      uses: actions/checkout@v3.2.0
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
-      uses: lycheeverse/lychee-action@v1.3.2
+      uses: lycheeverse/lychee-action@v1.5.4
       with:
         # 429: Too many requests
         args: >
@@ -41,7 +41,11 @@ jobs:
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%3Cmodule-name%3E.html$"
-          --exclude "https://hackmd.io/@pygmt"
+          --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
+          --exclude "^https://hackmd.io/@pygmt"
+          --exclude "^https://doi.org"
+          --exclude "^https://www.researchgate.net/project/"
+          --exclude "^https://test.pypi.org/simple/"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"
@@ -55,7 +59,7 @@ jobs:
       run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
     - name: Create Issue From File
-      uses: peter-evans/create-issue-from-file@v3
+      uses: peter-evans/create-issue-from-file@v4
       with:
         title: Link Checker Report on ${{ steps.date.outputs.date }}
         content-filepath: ./lychee/out.md

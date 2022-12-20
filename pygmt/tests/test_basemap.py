@@ -3,16 +3,16 @@ Tests Figure.basemap.
 """
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.mpl_image_compare
 def test_basemap_required_args():
     """
-    Figure.basemap fails when not given required arguments.
+    Automatically set `frame=True` when required arguments are not given.
     """
     fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
+    return fig
 
 
 @pytest.mark.mpl_image_compare
@@ -48,7 +48,7 @@ def test_basemap_power_axis():
     fig.basemap(
         region=[0, 100, 0, 5000],
         projection="x1p0.5/-0.001",
-        frame=['x1p+l"Crustal age"', "y500+lDepth"],
+        frame=["x1p+lCrustal age", "y500+lDepth"],
     )
     return fig
 
@@ -70,6 +70,29 @@ def test_basemap_winkel_tripel():
     """
     fig = Figure()
     fig.basemap(region=[90, 450, -90, 90], projection="R270/20c", frame="afg")
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_basemap_utm_projection.png")
+@pytest.mark.parametrize(
+    "projection",
+    [
+        "EPSG_32723 +width=5",
+        "+proj=utm +zone=23 +south +datum=WGS84 +units=m +no_defs +width=5",
+    ],
+)
+def test_basemap_utm_projection(projection):
+    """
+    Create a Universal Transverse Mercator (Zone 23S) basemap plot.
+
+    Also check that providing the projection as an EPSG code or PROJ4 string
+    works.
+    """
+    projection = projection.replace(
+        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
+    )
+    fig = Figure()
+    fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
     return fig
 
 

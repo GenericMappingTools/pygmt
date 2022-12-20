@@ -12,6 +12,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["grdclip"]
+
 
 @fmt_docstring
 @use_alias(
@@ -53,7 +55,7 @@ def grdclip(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {R}
+    {region}
     above : str or list or tuple
         [*high*, *above*].
         Set all data[i] > *high* to *above*.
@@ -67,7 +69,7 @@ def grdclip(grid, **kwargs):
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.
-    {V}
+    {verbose}
 
     Returns
     -------
@@ -80,32 +82,32 @@ def grdclip(grid, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
     >>> # and a y-range of 15 to 25
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Report the minimum and maximum data values
-    >>> [grid.data.min(), grid.data.max()]  # doctest: +SKIP
+    >>> [grid.data.min(), grid.data.max()]
     [179.0, 2103.0]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to
     >>> # 0 and all values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(
     ...     grid=grid, below=[1000, 0], above=[1500, 10000]
-    ... )  # doctest: +SKIP
+    ... )
     >>> # Report the minimum and maximum data values
-    >>> [new_grid.data.min(), new_grid.data.max()]  # doctest: +SKIP
+    >>> [new_grid.data.min(), new_grid.data.max()]
     [0.0, 10000.0]
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdclip", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="grdclip", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

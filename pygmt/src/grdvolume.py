@@ -12,6 +12,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdvolume"]
+
 
 @fmt_docstring
 @use_alias(
@@ -62,8 +64,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-    {R}
-    {V}
+    {region}
+    {verbose}
 
     Returns
     -------
@@ -74,7 +76,30 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
           ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
           is not set (depends on ``output_type`` [Default is
-          class:`pandas.DataFrame`])
+          :class:`pandas.DataFrame`])
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30
+    >>> # degrees, and a y-range of 15 to 25 degrees
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
+    >>> # Create a pandas dataframe that contains the contour, area, volume,
+    >>> # and maximum mean height above the plane specified by the given
+    >>> # contour and below the surface; set the minimum contour z-value to
+    >>> # 200, the maximum to 400, and the interval to 50.
+    >>> output_dataframe = pygmt.grdvolume(
+    ...     grid=grid, contour=[200, 400, 50], output_type="pandas"
+    ... )
+    >>> print(output_dataframe)
+             0             1             2           3
+        0  200  2.144285e+12  7.972228e+14  371.789489
+        1  250  2.104042e+12  6.908183e+14  328.329232
+        2  300  2.014978e+12  5.877195e+14  291.675420
+        3  350  1.892109e+12  4.897545e+14  258.840510
+        4  400  1.744792e+12  3.988316e+14  228.584026
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(
@@ -89,8 +114,10 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module("grdvolume", arg_str)
+                lib.call_module(
+                    module="grdvolume",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame

@@ -1,0 +1,4 @@
+outs:
+- md5: 18c2886462bdeeb6c941a54185206302
+  size: 1376
+  path: test_config_format_date_map.png

@@ -2,6 +2,7 @@
 Tests for grdtrack.
 """
 import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -25,7 +26,7 @@ def fixture_dataarray():
 
 
 @pytest.fixture(scope="module", name="expected_array")
-def fixture_numpy_array():
+def fixture_expected_array():
     """
     Load a numpy array with x, y, and bathymetry data.
     """
@@ -72,7 +73,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
     with GMTTempFile() as tmpfile:
         output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = np.loadtxt(tmpfile.name)
         npt.assert_allclose(np.array(output), expected_array)
 
@@ -97,6 +98,29 @@ def test_grdtrack_input_csvfile_and_ncfile_to_dataframe(expected_array):
     output = grdtrack(points=POINTS_DATA, grid="@static_earth_relief.nc")
     assert isinstance(output, pd.DataFrame)
     npt.assert_allclose(np.array(output), expected_array)
+
+
+def test_grdtrack_profile(dataarray):
+    """
+    Run grdtrack by passing a profile.
+    """
+    output = grdtrack(grid=dataarray, profile="-51/-17/-54/-19")
+    assert isinstance(output, pd.DataFrame)
+    npt.assert_allclose(
+        np.array(output),
+        np.array(
+            [
+                [-51.0, -17.0, 669.671875],
+                [-51.42430204, -17.28838525, 847.40745877],
+                [-51.85009439, -17.57598444, 885.30534844],
+                [-52.27733766, -17.86273467, 829.85423488],
+                [-52.70599151, -18.14857333, 776.83702212],
+                [-53.13601473, -18.43343819, 631.07867839],
+                [-53.56736521, -18.7172675, 504.28037216],
+                [-54.0, -19.0, 486.10351562],
+            ]
+        ),
+    )
 
 
 def test_grdtrack_wrong_kind_of_points_input(dataarray, dataframe):
@@ -137,3 +161,34 @@ def test_grdtrack_without_outfile_setting(dataarray, dataframe):
     """
     with pytest.raises(GMTInvalidInput):
         grdtrack(points=dataframe, grid=dataarray)
+
+
+def test_grdtrack_no_points_and_profile(dataarray):
+    """
+    Run grdtrack but don't set 'points' and 'profile'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdtrack(grid=dataarray)
+
+
+def test_grdtrack_set_points_and_profile(dataarray, dataframe):
+    """
+    Run grdtrack but set both 'points' and 'profile'.
+    """
+    with pytest.raises(GMTInvalidInput):
+        grdtrack(grid=dataarray, points=dataframe, profile="BL/TR")
+
+
+def test_grdtrack_old_parameter_order(dataframe, dataarray, expected_array):
+    """
+    Run grdtrack with the old parameter order 'points, grid'.
+
+    This test should be removed in v0.9.0.
+    """
+    for points in (POINTS_DATA, dataframe):
+        for grid in ("@static_earth_relief.nc", dataarray):
+            with pytest.warns(expected_warning=FutureWarning) as record:
+                output = grdtrack(points, grid)
+                assert len(record) == 1
+                assert isinstance(output, pd.DataFrame)
+                npt.assert_allclose(np.array(output), expected_array)

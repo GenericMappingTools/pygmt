@@ -1,7 +1,7 @@
 """
 Tests for grdgradient.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -20,7 +20,7 @@ def fixture_grid():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdgradient grid result.
     """
@@ -48,7 +48,7 @@ def test_grdgradient_outgrid(grid, expected_grid):
             grid=grid, outgrid=tmpfile.name, azimuth=10, region=[-53, -49, -20, -17]
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
@@ -57,8 +57,13 @@ def test_grdgradient_no_outgrid(grid, expected_grid):
     """
     Test the azimuth and direction parameters for grdgradient with no set
     outgrid.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1807.
     """
-    result = grdgradient(grid=grid, azimuth=10, region=[-53, -49, -20, -17])
+    result = grdgradient(
+        grid=grid, azimuth=10, region=[-53, -49, -20, -17], outgrid=None
+    )
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid

@@ -5,7 +5,6 @@ rose - Plot windrose diagrams or polar histograms.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
-    check_data_input_order,
     deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
@@ -14,8 +13,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -23,7 +21,7 @@ from pygmt.helpers import (
     D="shift",
     Em="vectors",
     F="no_scale",
-    G="color",
+    G="fill",
     I="inquire",
     JX="diameter",
     L="labels",
@@ -35,8 +33,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     d="nodata",
@@ -72,10 +68,11 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     data : str or {table-like}
         Pass in either a file name to an ASCII data table, a 2D
         {table-classes}.
-        Use option ``columns`` to choose which columns are length and azimuth,
-        respectively. If a file with only azimuths is given, use ``columns`` to
-        indicate the single column with azimuths; then all lengths are set to
-        unity (see ``scale = 'u'`` to set actual lengths to unity as well).
+        Use parameter ``incols`` to choose which columns are length and
+        azimuth, respectively. If a file with only azimuths is given, use
+        ``incols`` to indicate the single column with azimuths; then all
+        lengths are set to unity (see ``scale="u"`` to set actual
+        lengths to unity as well).
 
     length/azimuth : float or 1d arrays
         Length and azimuth values, or arrays of length and azimuth
@@ -86,27 +83,27 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         180 degree ambiguity) instead of true 0-360 degree directions
         [Default is 0-360 degrees]. We compensate by counting each record
         twice: First as azimuth and second as azimuth +180. Ignored if
-        range is given as -90/90 or 0/180.
+        ``region`` is given as (-90, 90) or (0, 180).
 
     region : str or list
+        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
-        *r0/r1/az0/az1*.
-        Specifies the 'region' of interest in (*r*, *azimuth*) space. Here,
-        *r0* is 0, *r1* is max length in units. For *az0* and *az1*,
-        specify either -90/90 or 0/180 for half circle plot or 0/360 for
-        full circle.
+        Specifies the ``region`` of interest in (*r*, *azimuth*) space.
+        Here, *r0* is 0 and *r1* is the maximal length in units.
+        For *az0* and *az1*, specify either (-90, 90) or (0, 180) for
+        half circle plot or (0, 360) for full circle.
 
     diameter : str
          Sets the diameter of the rose diagram. If not given,
          then we default to a diameter of 7.5 cm.
 
-    sector : str
+    sector : float or str
          Gives the sector width in degrees for sector and rose diagram.
-         Default ``'0'`` means windrose diagram. Append **+r** to draw rose
-         diagram instead of sector diagram (e.g. ``'10+r'``).
+         Default ``0`` means windrose diagram. Append **+r** to draw rose
+         diagram instead of sector diagram (e.g. ``"10+r"``).
 
     norm : bool
-         Normalize input radii (or bin counts if ``sector_width`` is used)
+         Normalize input radii (or bin counts if ``sector`` is used)
          by the largest value so all radii (or bin counts) range from 0
          to 1.
 
@@ -117,12 +114,12 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          by the radial gridline spacing.
 
     scale : float or str
-         Multiply the data radii by scale. E.g., use ``scale = 0.001`` to
+         Multiply the data radii by scale. E.g., use ``scale=0.001`` to
          convert your data from m to km. To exclude the radii from
-         consideration, set them all to unity with ``scale = 'u'``
+         consideration, set them all to unity with ``scale="u"``
          [Default is no scaling].
 
-    color : str
+    fill : str
          Selects shade, color or pattern for filling the sectors [Default
          is no fill].
 
@@ -132,21 +129,22 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     pen : str
         Set pen attributes for sector outline or rose plot, e.g.
-        ``pen = '0.5p'``. [Default is no outline]. To change pen used to
+        ``pen="0.5p"``. [Default is no outline]. To change pen used to
         draw vector (requires ``vectors``) [Default is same as sector
-        outline] use e.g. ``pen = 'v0.5p'``.
+        outline] use e.g. ``pen="v0.5p"``.
 
     labels : str
-         ``'wlabel,elabel,slabel,nlabel'``. Specify labels for the 0, 90,
-         180, and 270 degree marks. For full-circle plot the default is
-         WEST,EAST,SOUTH,NORTH and for half-circle the default is
-         90W,90E,-,0. A **-** in any entry disables that label
-         (e.g. ``labels = 'W,E,-,N'``). Use ``labels = ''`` to disable
-         all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting
-         will affect the words used.
+         *wlabel,elabel,slabel,nlabel*.
+         Specify labels for the 0, 90, 180, and 270 degree marks.
+         For full-circle plot the default is
+         ``"West,East,South,North"`` and for half-circle the default
+         is ``"90W,90E,-,0"``. A ``"-"`` in any entry disables that
+         label (e.g. ``labels="W,E,-,N"``). Use ``labels=""`` to
+         disable all four labels. Note that the
+         :gmt-term:`GMT_LANGUAGE` setting will affect the words used.
 
     no_scale : bool
-         Do NOT draw the scale length bar (``no_scale = True``).
+         Do NOT draw the scale length bar (``no_scale=True``).
          Default plots scale in lower right corner provided ``frame``
          is used.
 
@@ -155,13 +153,14 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          (e.g., first sector is centered on 0 degrees).
 
     vectors : str
-          ``vectors = 'mode_file'``. Plot vectors showing the
-          principal directions given in the *mode_file* file.
+          *mode_file*.
+          Plot vectors showing the principal directions given in
+          the *mode_file* file.
           Alternatively, specify ``vectors`` to compute and plot
           mean direction. See ``vector_params`` to control the vector
           attributes. Finally, to instead save the computed mean
           direction and other statistics, use
-          ``vectors = '+wmode_file'``. The eight items saved to
+          ``vectors="+wmode_file"``. The eight items saved to
           a single record are: *mean_az*, *mean_r*, *mean_resultant*,
           *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,
           where the last term is 0 or 1 depending on whether the mean
@@ -180,28 +179,27 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     alpha : float or str
         Sets the confidence level used to determine if the mean
         resultant is significant (i.e., Lord Rayleigh test for
-        uniformity) [``alpha = 0.05``]. Note: The critical
-        values are approximated [Berens, 2009] and requires at
-        least 10 points; the critical resultants are accurate to at
-        least 3 significant digits. For smaller data sets you
+        uniformity) [Default is ``alpha=0.05``]. **Note**: The
+        critical values are approximated [Berens, 2009] and requires
+        at least 10 points; the critical resultants are accurate to
+        at least 3 significant digits. For smaller data sets you
         should consult exact statistical tables.
 
         Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {U}
-    {V}
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {h}
-    {i}
-    {p}
-    {t}
-    {w}
+    {timestamp}
+    {verbose}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
@@ -213,6 +211,4 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         )
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-
-            lib.call_module("rose", arg_str)
+            lib.call_module(module="rose", args=build_arg_string(kwargs, infile=fname))

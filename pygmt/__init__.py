@@ -12,10 +12,10 @@ Here are just a few of the things that PyGMT does well:
 
   - Easy handling of individual types of data like Cartesian, geographic, or
     time-series data.
-  - Processing of (geo)spatial data including gridding, filtering, and masking
+  - Processing of (geo)spatial data including gridding, filtering, and masking.
   - Allows plotting of a large spectrum of objects on figures including
-    lines, vectors, polygons, and symbols (pre-defined and customized)
-  - Generate publication-quality illustrations and make animations
+    lines, vectors, polygons, and symbols (pre-defined and customized).
+  - Generate publication-quality illustrations and make animations.
 """
 
 import atexit as _atexit
@@ -29,10 +29,13 @@ from pygmt.io import load_dataarray
 from pygmt.session_management import begin as _begin
 from pygmt.session_management import end as _end
 from pygmt.src import (
+    binstats,
     blockmean,
     blockmedian,
     blockmode,
     config,
+    dimfilter,
+    filter1d,
     grd2cpt,
     grd2xyz,
     grdclip,
@@ -40,6 +43,7 @@ from pygmt.src import (
     grdfill,
     grdfilter,
     grdgradient,
+    grdhisteq,
     grdinfo,
     grdlandmask,
     grdproject,
@@ -55,6 +59,7 @@ from pygmt.src import (
     sphdistance,
     sphinterpolate,
     surface,
+    triangulate,
     which,
     x2sys_cross,
     x2sys_init,
@@ -141,24 +146,13 @@ def show_versions():
                 continue
         return None
 
-    def _get_gmt_version():
-        """
-        Get GMT version.
-        """
-        try:
-            return subprocess.check_output(
-                ["gmt", "--version"], universal_newlines=True
-            ).strip()
-        except FileNotFoundError:
-            return None
-
     sys_info = {
         "python": sys.version.replace("\n", " "),
         "executable": sys.executable,
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging"]
+    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
 
     print("PyGMT information:")
     print(f"  version: {__version__}")
@@ -171,7 +165,6 @@ def show_versions():
     for modname in deps:
         print(f"  {modname}: {_get_module_version(modname)}")
     print(f"  ghostscript: {_get_ghostscript_version()}")
-    print(f"  gmt: {_get_gmt_version()}")
 
     print_clib_info()
 

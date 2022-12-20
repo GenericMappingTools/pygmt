@@ -1,5 +1,5 @@
 """
-nearneighbor - Grid table data using a "Nearest neighbor" algorithm
+nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 from pygmt.clib import Session
@@ -11,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["nearneighbor"]
 
 
 @fmt_docstring
@@ -33,12 +35,12 @@ from pygmt.io import load_dataarray
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
 def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     r"""
-    Grid table data using a "Nearest neighbor" algorithm
+    Grid table data using a "Nearest neighbor" algorithm.
 
-    **nearneighbor** reads arbitrarily located (*x,y,z*\ [,\ *w*]) triples
+    **nearneighbor** reads arbitrarily located (*x*, *y*, *z*\ [, *w*]) triplets
     [quadruplets] and uses a nearest neighbor algorithm to assign a weighted
     average value to each node that has one or more data points within a search
     radius centered on the node with adequate coverage across a subset of the
@@ -65,7 +67,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
        Only the closest point in each sector (red circles) contribute to the
        weighted estimate.
 
-    Takes a matrix, xyz triples, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -82,9 +84,9 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     search_radius : str
         Sets the search radius that determines which data points are considered
@@ -111,17 +113,17 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         Alternatively, use ``sectors="n"`` to call GDAL's nearest neighbor
         algorithm instead.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -131,6 +133,19 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         - :class:`xarray.DataArray`: if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+    Example
+    -------
+    >>> import pygmt
+    >>> # Load a sample dataset of bathymetric x, y, and z values
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
+    >>> # Create a new grid with 5 arc-minutes spacing in the designated region
+    >>> # Set search_radius to only consider points within 10 arc-minutes of a node
+    >>> output = pygmt.nearneighbor(
+    ...     data=data,
+    ...     spacing="5m",
+    ...     region=[245, 255, 20, 30],
+    ...     search_radius="10m",
+    ... )
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -139,10 +154,10 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with table_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tmpfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module(module="nearneighbor", args=arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

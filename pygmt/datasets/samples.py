@@ -5,6 +5,7 @@ import warnings
 
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.io import load_dataarray
 from pygmt.src import which
 
 
@@ -23,13 +24,17 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
+        "earth_relief_holes": "Regional 20 arc-minutes Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
         "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
+        "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
+        "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
         "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "rock_compositions": "Table of rock sample compositions",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -63,7 +68,8 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    load_func = {
+    # Dictionary of public load functions for backwards compatibility
+    load_func_old = {
         "bathymetry": load_sample_bathymetry,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
@@ -73,7 +79,18 @@ def load_sample_data(name):
         "usgs_quakes": load_usgs_quakes,
     }
 
-    data = load_func[name](suppress_warning=True)
+    # Dictionary of private load functions
+    load_func = {
+        "rock_compositions": _load_rock_sample_compositions,
+        "earth_relief_holes": _load_earth_relief_holes,
+        "maunaloa_co2": _load_maunaloa_co2,
+        "notre_dame_topography": _load_notre_dame_topography,
+    }
+
+    if name in load_func_old:
+        data = load_func_old[name](suppress_warning=True)
+    elif name in load_func:
+        data = load_func[name]()
 
     return data
 
@@ -343,3 +360,65 @@ def load_mars_shape(**kwargs):
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
     )
     return data
+
+
+def _load_rock_sample_compositions():
+    """
+    Loads a table of rock sample compositions.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "limestone", "water", "air",
+        and "permittivity".
+    """
+
+    fname = which("@ternary.txt", download="c")
+    return pd.read_csv(
+        fname,
+        delim_whitespace=True,
+        header=None,
+        names=["limestone", "water", "air", "permittivity"],
+    )
+
+
+def _load_notre_dame_topography():
+    """
+    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "x", "y", and "z".
+    """
+    fname = which("@Table_5_11.txt", download="c")
+    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
+
+
+def _load_maunaloa_co2():
+    """
+    Load a table of CO2 values from Mauna Loa.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "date" and "co2_ppm".
+    """
+    fname = which("@MaunaLoa_CO2.txt", download="c")
+    return pd.read_csv(
+        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
+    )
+
+
+def _load_earth_relief_holes():
+    """
+    Loads the remote file @earth_relief_20m_holes.grd.
+
+    Returns
+    -------
+    grid : :class:`xarray.DataArray`
+        The Earth relief grid. Coordinates are latitude and longitude in
+        degrees. Relief is in meters.
+    """
+    fname = which("@earth_relief_20m_holes.grd", download="c")
+    return load_dataarray(fname, engine="netcdf4")

@@ -2,20 +2,12 @@
 Tests for legend.
 """
 import pytest
-from packaging.version import Version
-from pygmt import Figure, clib
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
-
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_position():
     """
     Test that plots a position with each of the four legend coordinate systems.
@@ -31,10 +23,6 @@ def test_legend_position():
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_default_position():
     """
     Test using the default legend position.
@@ -51,10 +39,6 @@ def test_legend_default_position():
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_entries():
     """
     Test different marker types/shapes.
@@ -64,22 +48,18 @@ def test_legend_entries():
     fig.plot(
         data="@Table_5_11.txt",
         style="c0.15i",
-        color="lightgreen",
+        fill="lightgreen",
         pen="faint",
         label="Apples",
     )
-    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label='"My lines"')
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
+    fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
+    fig.plot(data="@Table_5_11.txt", style="t0.15i", fill="orange", label="Oranges")
     fig.legend(position="JTR+jTR")
 
     return fig
 
 
 @pytest.mark.mpl_image_compare
-@pytest.mark.xfail(
-    condition=gmt_version > Version("6.3.0"),
-    reason="Defaults updated in https://github.com/GenericMappingTools/gmt/pull/6165",
-)
 def test_legend_specfile():
     """
     Test specfile functionality.

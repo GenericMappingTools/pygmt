@@ -1,7 +1,7 @@
 """
 Tests for grd2xyz.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -45,7 +45,7 @@ def test_grd2xyz_format(grid):
     np.testing.assert_allclose(orig_val, xyz_val)
     xyz_array = grd2xyz(grid=grid, output_type="numpy")
     assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, output_type="pandas")
+    xyz_df = grd2xyz(grid=grid, output_type="pandas", outcols=None)
     assert isinstance(xyz_df, pd.DataFrame)
     assert list(xyz_df.columns) == ["lon", "lat", "z"]
 
@@ -57,7 +57,7 @@ def test_grd2xyz_file_output(grid):
     with GMTTempFile(suffix=".xyz") as tmpfile:
         result = grd2xyz(grid=grid, outfile=tmpfile.name, output_type="file")
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
 
 
 def test_grd2xyz_invalid_format(grid):
@@ -85,7 +85,7 @@ def test_grd2xyz_outfile_incorrect_output_type(grid):
         with GMTTempFile(suffix=".xyz") as tmpfile:
             result = grd2xyz(grid=grid, outfile=tmpfile.name, output_type="numpy")
             assert result is None  # return value is None
-            assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+            assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
 
 
 def test_grd2xyz_pandas_output_with_o(grid):

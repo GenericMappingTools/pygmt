@@ -5,17 +5,27 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
+@deprecate_parameter(
+    "uncertaintycolor", "uncertaintyfill", "v0.8.0", remove_version="v0.12.0"
+)
 @use_alias(
     A="vector",
     B="frame",
     C="cmap",
     D="rescale",
-    E="uncertaintycolor",
-    G="color",
+    E="uncertaintyfill",
+    G="fill",
     H="scale",
     I="shading",
     J="projection",
@@ -26,8 +36,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="zvalue",
     c="panel",
     d="nodata",
@@ -79,9 +87,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
-          ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          by the ``pen`` parameter and the arrow-head can be colored via
+          ``fill``. The ellipse will be filled with the color or shade
+          specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -112,9 +120,9 @@ def velo(self, data=None, **kwargs):
           confidence ellipse. Use **+f** to set the font and size of the text
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
-          by the ``pen`` option and the arrow-head can be colored via
-          ``color``. The ellipse will be filled with the color or shade
-          specified by the ``uncertaintycolor`` option [Default is
+          by the ``pen`` parameter and the arrow-head can be colored via
+          ``fill``. The ellipse will be filled with the color or shade
+          specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
           Parameters are expected to be in the following columns:
@@ -132,8 +140,8 @@ def velo(self, data=None, **kwargs):
           *wedgescale* is not given then we read it from the data file as an
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
-          rotations of the order of 100 nanoradians/yr. Use ``color`` to set
-          the fill color or shade for the wedge, and ``uncertaintycolor`` to
+          rotations of the order of 100 nanoradians/yr. Use ``fill`` to set
+          the fill color or shade for the wedge, and ``uncertaintyfill`` to
           set the color or shade for the uncertainty. Parameters are expected
           to be in the following columns:
 
@@ -154,28 +162,28 @@ def velo(self, data=None, **kwargs):
               with extension taken positive.
             - **5**: azimuth of eps2 in degrees CW from North.
 
-    {J}
-    {R}
+    {projection}
+    {region}
     vector : bool or str
         Modify vector parameters. For vector heads, append vector head *size*
         [Default is 9p]. See
         :gmt-docs:`supplements/geodesy/velo.html#vector-attributes` for
         specifying additional attributes.
-    {B}
-    {CPT}
+    {frame}
+    {cmap}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec='e'``
-        and ``spec='r'``) and rotations (``spec='w'``). Can be combined with
+        can be used to rescale the uncertainties of velocities (``spec="e"``
+        and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
-    uncertaintycolor : str
+    uncertaintyfill : str
         Sets the color or shade used for filling uncertainty wedges
-        (``spec='w'``) or velocity error ellipses (``spec='e'`` or
-        ``spec='r'``). If ``uncertaintycolor`` is not specified, the
+        (``spec="w"``) or velocity error ellipses (``spec="e"`` or
+        ``spec="r"``). If ``uncertaintyfill`` is not specified, the
         uncertainty regions will be transparent. **Note**: Using ``cmap`` and
-        ``zvalue='+e'`` will update the uncertainty fill color based on the
+        ``zvalue="+e"`` will update the uncertainty fill color based on the
         selected measure in ``zvalue`` [magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
-    color : str
+    fill : str
         Select color or pattern for filling of symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
@@ -207,18 +215,17 @@ def velo(self, data=None, **kwargs):
         to set both pen and fill color.
     no_clip: bool or str
         Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region``. [Default plots symbols inside frame only].
-    {U}
-    {V}
+        by ``region`` [Default plots symbols inside frame only].
+    {timestamp}
+    {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
         Set pen attributes for velocity arrows, ellipse circumference and fault
-        plane edges. [Defaults: width = default, color = black, style = solid].
+        plane edges [Default is ``"0.25p,black,solid"``].
         If the modifier **+cl** is appended then the color of the pen is
         updated from the CPT (see ``cmap``). If instead modifier **+cf** is
         appended then the color from the cpt file is applied to symbol fill
         only [Default].  Use just **+c** to set both pen and fill color.
-    {XY}
     zvalue : str
         [**m**\|\ **e**\|\ **n**\|\ **u**\ ][**+e**].
         Select the quantity that will be used with the CPT given via ``cmap``
@@ -228,18 +235,22 @@ def velo(self, data=None, **kwargs):
         required columns). To instead use the corresponding error estimates
         (i.e., vector or rotation uncertainty) to lookup the color and paint
         the error ellipse or wedge instead, append **+e**.
-    {c}
-    {d}
-    {e}
-    {h}
-    {i}
-    {p}
-    {t}
+    {panel}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if "S" not in kwargs or ("S" in kwargs and not isinstance(kwargs["S"], str)):
-        raise GMTInvalidInput("Spec is a required argument and has to be a string.")
+    if kwargs.get("S") is None or (
+        kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
+    ):
+        raise GMTInvalidInput(
+            "The parameter `spec` is required and has to be a string."
+        )
 
     if isinstance(data, np.ndarray) and not pd.api.types.is_numeric_dtype(data):
         raise GMTInvalidInput(
@@ -252,5 +263,4 @@ def velo(self, data=None, **kwargs):
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
 
         with file_context as fname:
-            arg_str = " ".join([fname, build_arg_string(kwargs)])
-            lib.call_module("velo", arg_str)
+            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))

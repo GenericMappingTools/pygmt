@@ -6,17 +6,27 @@ import contextlib
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["inset"]
+
 
 @fmt_docstring
 @contextlib.contextmanager
-@use_alias(D="position", F="box", M="margin", N="no_clip", V="verbose")
-@kwargs_to_strings(D="sequence", M="sequence")
+@use_alias(
+    D="position",
+    F="box",
+    J="projection",
+    M="margin",
+    N="no_clip",
+    R="region",
+    V="verbose",
+)
+@kwargs_to_strings(D="sequence", M="sequence", R="sequence")
 def inset(self, **kwargs):
     r"""
     Create an inset figure to be placed within a larger figure.
 
-    This function sets the position, frame, and margins for a smaller figure
-    inside of the larger figure. Plotting functions that are called within the
+    This method sets the position, frame, and margins for a smaller figure
+    inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
     Full option list at :gmt-docs:`inset.html`
@@ -37,7 +47,7 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code \ that refers to the (invisible)
+        2-char justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
         coordinates (inches, cm, points, append unit).
@@ -96,7 +106,9 @@ def inset(self, **kwargs):
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
         is clip].
-    {V}
+    {region}
+    {projection}
+    {verbose}
 
     Examples
     --------
@@ -125,8 +137,8 @@ def inset(self, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         try:
-            lib.call_module("inset", f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")
             yield
         finally:
             v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module("inset", f"end {v_arg}".strip())
+            lib.call_module(module="inset", args=f"end {v_arg}".strip())

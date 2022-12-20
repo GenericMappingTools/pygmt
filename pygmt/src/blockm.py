@@ -1,24 +1,26 @@
 """
-blockm - Block average (x,y,z) data tables by mean, median, or mode estimation.
+blockm - Block average (x, y, z) data tables by mean, median, or mode
+estimation.
 """
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
-    check_data_input_order,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
 
+__doctest_skip__ = ["blockmean", "blockmedian", "blockmode"]
+
 
 def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mean, median, or mode estimation.
+    Block average (x, y, z) data tables by mean, median, or mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] from a table and writes to the output a mean,
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] from a table and writes to the output a mean,
     median, or mode (depending on ``block_method``) position and value for
     every non-empty block in a grid region defined by the ``region`` and
     ``spacing`` parameters.
@@ -49,8 +51,10 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name
-                arg_str = " ".join([infile, build_arg_string(kwargs), "->" + outfile])
-                lib.call_module(module=block_method, args=arg_str)
+                lib.call_module(
+                    module=block_method,
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
@@ -66,7 +70,6 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -83,17 +86,17 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mean estimation.
+    Block average (x, y, z) data tables by mean estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a mean position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mean position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -110,7 +113,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
     summary : str
         [**m**\|\ **n**\|\ **s**\|\ **w**].
@@ -121,22 +124,22 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         - **s** - report the sum of all z-values inside a block
         - **w** - report the sum of weights
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {i}
-    {f}
-    {h}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {incols}
+    {coltypes}
+    {header}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -150,15 +153,13 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mean values within 5 by 5 minute bins
     >>> data_bmean = pygmt.blockmean(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmean", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -166,7 +167,6 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -182,17 +182,17 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by median estimation.
+    Block average (x, y, z) data tables by median estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a median position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a median position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -209,24 +209,24 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -240,15 +240,13 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block median values within 5 by 5 minute bins
     >>> data_bmedian = pygmt.blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmedian", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -256,7 +254,6 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
 
 @fmt_docstring
-@check_data_input_order("v0.5.0", remove_version="v0.7.0")
 @use_alias(
     I="spacing",
     R="region",
@@ -272,17 +269,17 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r="registration",
     w="wrap",
 )
-@kwargs_to_strings(R="sequence", i="sequence_comma", o="sequence_comma")
+@kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
 def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     r"""
-    Block average (x,y,z) data tables by mode estimation.
+    Block average (x, y, z) data tables by mode estimation.
 
-    Reads arbitrarily located (x,y,z) triples [or optionally weighted
-    quadruples (x,y,z,w)] and writes to the output a mode position and value
-    for every non-empty block in a grid region defined by the ``region`` and
-    ``spacing`` parameters.
+    Reads arbitrarily located (x, y, z) triplets [or optionally weighted
+    quadruplets (x, y, z, w)] and writes to the output a mode position and
+    value for every non-empty block in a grid region defined by the ``region``
+    and ``spacing`` parameters.
 
-    Takes a matrix, xyz triplets, or a file name as input.
+    Takes a matrix, (x, y, z) triplets, or a file name as input.
 
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
@@ -299,24 +296,24 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
 
-    {I}
+    {spacing}
 
-    {R}
+    {region}
 
     outfile : str
         The file name for the output ASCII file.
 
-    {V}
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {o}
-    {r}
-    {w}
+    {verbose}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {outcols}
+    {registration}
+    {wrap}
 
     Returns
     -------
@@ -330,15 +327,13 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
-    >>> data = pygmt.datasets.load_sample_data(
-    ...     name="bathymetry"
-    ... )  # doctest: +SKIP
+    >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mode values within 5 by 5 minute bins
     >>> data_bmode = pygmt.blockmode(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )  # doctest: +SKIP
+    ... )
     """
     return _blockm(
         block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs

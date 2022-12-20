@@ -1,0 +1,4 @@
+outs:
+- md5: 6f800af07e13d59e4927b499cf3d035e
+  size: 10027
+  path: test_meca_dict_offset.png

@@ -1,7 +1,7 @@
 """
 Tests for grdproject.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -20,7 +20,7 @@ def fixture_grid():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdproject grid result.
     """
@@ -53,18 +53,25 @@ def test_grdproject_file_out(grid, expected_grid):
             region=[-53, -51, -20, -17],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_grdproject_no_outgrid(grid, expected_grid):
+@pytest.mark.parametrize(
+    "projection",
+    ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],
+)
+def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
+
+    Also check that providing the projection as an EPSG code or PROJ4 string
+    works.
     """
     assert grid.gmt.gtype == 1  # Geographic grid
     result = grdproject(
-        grid=grid, projection="M10c", spacing=3, region=[-53, -51, -20, -17]
+        grid=grid, projection=projection, spacing=3, region=[-53, -51, -20, -17]
     )
     assert result.gmt.gtype == 0  # Rectangular grid
     assert result.gmt.registration == 1  # Pixel registration

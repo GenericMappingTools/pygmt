@@ -39,7 +39,7 @@ def test_rose_data_file(data_fractures_compilation):
         region=[0, 1, 0, 360],
         sector=15,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
         pen="1p",
         norm="",
@@ -61,7 +61,7 @@ def test_rose_2d_array_single():
         region=[0, 1, 0, 360],
         sector=10,
         diameter="5.5c",
-        color="cyan",
+        fill="cyan",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
         pen="1p",
         norm=True,
@@ -82,7 +82,7 @@ def test_rose_2d_array_multiple(data):
         region=[0, 1, 0, 360],
         sector=10,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+gmoccasin"],
         pen="1p",
         norm=True,
@@ -128,7 +128,7 @@ def test_rose_plot_with_transparency(data_fractures_compilation):
         region=[0, 1, 0, 360],
         sector=15,
         diameter="5.5c",
-        color="blue",
+        fill="blue",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
         pen="1p",
         norm=True,
@@ -152,7 +152,7 @@ def test_rose_no_sectors(data_fractures_compilation):
         region=[0, 500, 0, 360],
         diameter="10c",
         labels="180/0/90/270",
-        frame=["xg100", "yg45", "+t'Windrose diagram'"],
+        frame=["xg100", "yg45", "+tWindrose diagram"],
         pen="1.5p,red3",
         transparency=40,
         scale=0.5,
@@ -175,7 +175,7 @@ def test_rose_bools(data_fractures_compilation):
         sector=10,
         diameter="10c",
         frame=["x0.2g0.2", "y30g30", "+glightgray"],
-        color="red3",
+        fill="red3",
         pen="1p",
         orientation=False,
         norm=True,
@@ -183,38 +183,4 @@ def test_rose_bools(data_fractures_compilation):
         no_scale=True,
         shift=False,
     )
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_rose_bools.png")
-def test_rose_deprecate_columns_to_incols(data_fractures_compilation):
-    """
-    Make sure that the old parameter "columns" is supported and it reports a
-    warning.
-
-    Modified from the test_rose_bools() test.
-    """
-
-    # swap data column order of the sample fractures compilation dataset,
-    # as the use of the 'columns' parameter will reverse this action
-    data = data_fractures_compilation[["azimuth", "length"]]
-
-    fig = Figure()
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.rose(
-            data,
-            region=[0, 1, 0, 360],
-            sector=10,
-            columns=[1, 0],
-            diameter="10c",
-            frame=["x0.2g0.2", "y30g30", "+glightgray"],
-            color="red3",
-            pen="1p",
-            orientation=False,
-            norm=True,
-            vectors=True,
-            no_scale=True,
-            shift=False,
-        )
-        assert len(record) == 1  # check that only one warning was raised
     return fig

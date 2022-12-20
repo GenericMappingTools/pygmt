@@ -26,7 +26,7 @@ from pygmt.io import load_dataarray
     f="coltypes",
     r="registration",
 )
-@kwargs_to_strings(R="sequence")
+@kwargs_to_strings(I="sequence", R="sequence")
 def grdfilter(grid, **kwargs):
     r"""
     Filter a grid in the space (or time) domain.
@@ -94,21 +94,21 @@ def grdfilter(grid, **kwargs):
         4: grid (x,y) in degrees, *width* in km, Spherical distance
         calculation.
 
-        5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
+        5: grid (x,y) in Mercator ``projection="m1"`` img units, *width* in km,
         Spherical distance calculation.
 
-    {I}
+    {spacing}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
-    {R}
+    {region}
     toggle : bool
         Toggle the node registration for the output grid so as to become the
         opposite of the input grid. [Default gives the same registration as the
         input grid].
-    {V}
-    {f}
-    {r}
+    {verbose}
+    {coltypes}
+    {registration}
 
     Returns
     -------
@@ -145,10 +145,10 @@ def grdfilter(grid, **kwargs):
         with Session() as lib:
             file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = " ".join([infile, build_arg_string(kwargs)])
-                lib.call_module("grdfilter", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="grdfilter", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

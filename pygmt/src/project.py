@@ -43,7 +43,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     the input (beyond the required :math:`x` and :math:`y` columns).
 
     Alternatively, ``project`` may be used to generate
-    :math:`(r, s, p)` triples at equal increments along a profile using the
+    :math:`(r, s, p)` triplets at equal increments along a profile using the
     ``generate`` parameter. In this case, the value of ``data`` is ignored
     (you can use, e.g., ``data=None``).
 
@@ -63,18 +63,18 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     is to your left. If a Pole has been specified, then the positive
     (:math:`q`) direction is toward the pole.
 
-    To specify an oblique projection, use the ``pole`` option to set
+    To specify an oblique projection, use the ``pole`` parameter to set
     the pole. Then the equator of the projection is already determined and the
-    ``center`` option is used to locate the :math:`p = 0` meridian. The center
-    *cx/cy* will be taken as a point through which the :math:`p = 0` meridian
-    passes. If you do not care to choose a particular point, use the South pole
-    (*cx* = 0, *cy* = -90).
+    ``center`` parameter is used to locate the :math:`p = 0` meridian. The
+    center *cx/cy* will be taken as a point through which the :math:`p = 0`
+    meridian passes. If you do not care to choose a particular point, use the
+    South pole (*cx* = 0, *cy* = -90).
 
     Data can be selectively windowed by using the ``length`` and ``width``
-    options. If ``width`` is used, the projection width is set to use only
+    parameters. If ``width`` is used, the projection width is set to use only
     data with :math:`w_{{min}} < q < w_{{max}}`. If ``length`` is set, then
     the length is set to use only those data with
-    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` option
+    :math:`l_{{min}} < p < l_{{max}}`. If the ``endpoint`` parameter
     has been used to define the projection, then ``length="w"`` may be used to
     window the length of the projection to exactly the span from O to B.
 
@@ -85,13 +85,16 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     No assumptions are made regarding the units for
     :math:`x, y, r, s, p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`.
-    If -Q is selected, map units are assumed and :math:`x, y, r, s` must be in
-    degrees and :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
+    If ``unit`` is selected, map units are assumed and :math:`x, y, r, s` must
+    be in degrees and
+    :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}`
     will be in km.
 
     Calculations of specific great-circle and geodesic distances or for
     back-azimuths or azimuths are better done using :gmt-docs:`mapproject` as
     project is strictly spherical.
+
+    Full option list at :gmt-docs:`project.html`
 
     {aliases}
 
@@ -130,7 +133,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     generate : str
         *dist* [/*colat*][**+c**\|\ **h**].
         Create :math:`(r, s, p)` output data every *dist* units of :math:`p`
-        (See `unit` option). Alternatively, append */colat* for a small
+        (See ``unit`` parameter). Alternatively, append */colat* for a small
         circle instead [Default is a colatitude of 90, i.e., a great circle].
         If setting a pole with ``pole`` and you want the small circle to go
         through *cx*/*cy*, append **+c** to compute the required colatitude.
@@ -139,7 +142,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         end point cannot be farther apart than :math:`2|\mbox{{colat}}|`.
         Finally, if you append **+h** then we will report the position of
         the pole as part of the segment header [Default is no header].
-        Note: No input is read and the value of ``data``, ``x``, ``y``,
+        **Note**: No input is read and the value of ``data``, ``x``, ``y``,
         and ``z`` is ignored if ``generate`` is used.
 
     length : str or list
@@ -154,8 +157,8 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         [Default is ``False``; plane created with spherical trigonometry.]
 
     unit : bool
-        Set units for :math:`x, y, r, s`  degrees and
-        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, {{w_max}}` to km.
+        Set units for :math:`x, y, r, s` to degrees and
+        :math:`p, q, dist, l_{{min}}, l_{{max}}, w_{{min}}, w_{{max}}` to km.
         [Default is ``False``; all arguments use the same units]
 
     sort : bool
@@ -167,7 +170,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         Set the position of the rotation pole of the projection.
         (Definition 3).
 
-    {V}
+    {verbose}
 
     width : str or list
         *w_min*/*w_max*.
@@ -195,7 +198,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
 
-    {f}
+    {coltypes}
 
     Returns
     -------
@@ -208,13 +211,13 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
           by ``outfile``)
     """
 
-    if "C" not in kwargs:
+    if kwargs.get("C") is None:
         raise GMTInvalidInput("The `center` parameter must be specified.")
-    if "G" not in kwargs and data is None:
+    if kwargs.get("G") is None and data is None:
         raise GMTInvalidInput(
             "The `data` parameter must be specified unless `generate` is used."
         )
-    if "G" in kwargs and "F" in kwargs:
+    if kwargs.get("G") is not None and kwargs.get("F") is not None:
         raise GMTInvalidInput(
             "The `convention` parameter is not allowed with `generate`."
         )
@@ -223,7 +226,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         if outfile is None:  # Output to tmpfile if outfile is not set
             outfile = tmpfile.name
         with Session() as lib:
-            if "G" not in kwargs:
+            if kwargs.get("G") is None:
                 # Choose how data will be passed into the module
                 table_context = lib.virtualfile_from_data(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
@@ -231,16 +234,14 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
                 # Run project on the temporary (csv) data table
                 with table_context as infile:
-                    arg_str = " ".join(
-                        [infile, build_arg_string(kwargs), "->" + outfile]
-                    )
+                    arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
             else:
-                arg_str = " ".join([build_arg_string(kwargs), "->" + outfile])
+                arg_str = build_arg_string(kwargs, outfile=outfile)
             lib.call_module(module="project", args=arg_str)
 
         # if user did not set outfile, return pd.DataFrame
         if outfile == tmpfile.name:
-            if "G" in kwargs:
+            if kwargs.get("G") is not None:
                 column_names = list("rsp")
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             else:

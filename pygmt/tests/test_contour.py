@@ -14,16 +14,16 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module")
-def data():
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
     """
     Load the point data from the test file.
     """
     return pd.read_table(POINTS_DATA, header=None, sep=r"\s+")
 
 
-@pytest.fixture(scope="module")
-def region():
+@pytest.fixture(scope="module", name="region")
+def fixture_region():
     """
     The data region.
     """
@@ -76,10 +76,13 @@ def test_contour_from_file(region):
 
 
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
-def test_contour_deprecate_columns_to_incols(region):
+def test_contour_incols_transposed_data(region):
     """
-    Make sure that the old parameter "columns" is supported and it reports an
-    warning.
+    Make sure that transposing the data matrix still produces a correct result
+    with incols reordering the columns.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1313
 
     Modified from the test_contour_vec() test.
     """
@@ -96,14 +99,12 @@ def test_contour_deprecate_columns_to_incols(region):
     # switch x and y from here onwards to simulate different column order
     data = np.array([y, x, z]).T
 
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.contour(
-            data,
-            projection="X10c",
-            region=region,
-            frame="a",
-            pen=True,
-            columns=[1, 0, 2],
-        )
-        assert len(record) == 1  # check that only one warning was raised
+    fig.contour(
+        data,
+        projection="X10c",
+        region=region,
+        frame="a",
+        pen=True,
+        incols=[1, 0, 2],
+    )
     return fig

@@ -1,15 +1,19 @@
 """
 Tests for grdfill.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
 import xarray as xr
-from pygmt import grdfill, load_dataarray
+from packaging.version import Version
+from pygmt import clib, grdfill, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -25,7 +29,7 @@ def fixture_grid():
 
 
 @pytest.fixture(scope="module", name="expected_grid")
-def fixture_grid_result():
+def fixture_expected_grid():
     """
     Load the expected grdfill grid result.
     """
@@ -82,6 +86,28 @@ def test_grdfill_dataarray_out(grid, expected_grid):
     xr.testing.assert_allclose(a=result, b=expected_grid)
 
 
+@pytest.mark.skipif(
+    gmt_version < Version("6.4.0"),
+    reason="Upstream bug/crash fixed in https://github.com/GenericMappingTools/gmt/pull/6418.",
+)
+def test_grdfill_asymmetric_pad(grid, expected_grid):
+    """
+    Test grdfill using a region that includes the edge of the grid.
+
+    Regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/1745.
+    """
+    result = grdfill(grid=grid, mode="c20", region=[-55, -50, -24, -16])
+    # check information of the output grid
+    assert isinstance(result, xr.DataArray)
+    assert result.gmt.gtype == 1  # Geographic grid
+    assert result.gmt.registration == 1  # Pixel registration
+    # check information of the output grid
+    xr.testing.assert_allclose(
+        a=result, b=expected_grid.sel(lon=slice(-55, -50), lat=slice(-24, -16))
+    )
+
+
 def test_grdfill_file_out(grid, expected_grid):
     """
     Test grdfill with an outgrid set.
@@ -89,7 +115,7 @@ def test_grdfill_file_out(grid, expected_grid):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

@@ -13,6 +13,8 @@ from pygmt.helpers import (
 )
 from pygmt.io import load_dataarray
 
+__doctest_skip__ = ["sphdistance"]
+
 
 @fmt_docstring
 @use_alias(
@@ -53,9 +55,9 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
-    {V}
+    {spacing}
+    {region}
+    {verbose}
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates
@@ -99,8 +101,21 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         - :class:`xarray.DataArray` if ``outgrid`` is not set
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
+
+    Example
+    -------
+    >>> import numpy as np
+    >>> import pygmt
+    >>> # Create an array of longitude/latitude coordinates
+    >>> coords_list = [[85.5, 22.3], [82.3, 22.6], [85.8, 22.4], [86.5, 23.3]]
+    >>> coords_array = np.array(coords_list)
+    >>> # Perform a calculation of the distance to
+    >>> # each point from Voronoi polygons
+    >>> grid = pygmt.sphdistance(
+    ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
+    ... )
     """
-    if "I" not in kwargs or "R" not in kwargs:
+    if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
@@ -108,11 +123,10 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y
             )
             with file_context as infile:
-                if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                    kwargs.update({"G": tmpfile.name})
-                outgrid = kwargs["G"]
-                arg_str = build_arg_string(kwargs)
-                arg_str = " ".join([infile, arg_str])
-                lib.call_module("sphdistance", arg_str)
+                if (outgrid := kwargs.get("G")) is None:
+                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                lib.call_module(
+                    module="sphdistance", args=build_arg_string(kwargs, infile=infile)
+                )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

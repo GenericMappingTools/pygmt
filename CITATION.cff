@@ -16,7 +16,7 @@ authors:
   family-names: Leong
   affiliation: The Ohio State University, USA
   orcid: https://orcid.org/0000-0003-2354-1988
-- given-names: Meghan
+- given-names: Max
   family-names: Jones
   affiliation: University of Hawai'i at Mānoa, USA
   orcid: https://orcid.org/0000-0003-0180-8928
@@ -24,26 +24,34 @@ authors:
   family-names: Schlitzer
   affiliation: Unaffiliated
   orcid: https://orcid.org/0000-0002-5843-2282
-- given-names: Liam
-  family-names: Toney
-  affiliation: University of Alaska Fairbanks, USA
-  orcid: https://orcid.org/0000-0003-0167-9433
 - given-names: Michael
   family-names: Grund
   affiliation: Innoplexia GmbH, Germany
   orcid: https://orcid.org/0000-0001-8759-2018
+- given-names: Liam
+  family-names: Toney
+  affiliation: University of Alaska Fairbanks, USA
+  orcid: https://orcid.org/0000-0003-0167-9433
 - given-names: Jiayuan
   family-names: Yao
   affiliation: Nanyang Technological University, Singapore
   orcid: https://orcid.org/0000-0001-7036-4238
 - given-names: Yohai
   family-names: Magen
-  affiliation: Tel Aviv University
+  affiliation: Tel Aviv University, Israel
   orcid: https://orcid.org/0000-0002-4892-4013
 - given-names: Kathryn
   family-names: Materna
   affiliation: US Geological Survey, USA
   orcid: https://orcid.org/0000-0002-6687-980X
+- given-names: Yvonne
+  family-names: Fröhlich
+  affiliation: Karlsruhe Institute of Technology, Germany
+  orcid: https://orcid.org/0000-0002-8566-0619
+- given-names: Andre
+  family-names: Belem
+  affiliation: Fluminense Federal University, Brazil
+  orcid: https://orcid.org/0000-0002-8865-6180
 - given-names: Tyler
   family-names: Newton
   affiliation: University of Oregon, USA
@@ -58,15 +66,15 @@ authors:
   orcid: https://orcid.org/0000-0002-5190-4478
 - given-names: Jamie
   family-names: Quinn
-  affiliation: University College London
+  affiliation: University College London, United Kingdom
   orcid: https://orcid.org/0000-0002-0268-7032
 - given-names: Paul
   family-names: Wessel
   affiliation: University of Hawai'i at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2021-10-29
-doi: 10.5281/zenodo.5607255
+date-released: 2022-07-01
+doi: 10.5281/zenodo.6702566
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.5.0
+version: 0.7.0

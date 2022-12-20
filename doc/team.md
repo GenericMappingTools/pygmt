@@ -22,78 +22,91 @@ responsibilities. Distinguished Contributors who are also active maintainers of
 the PyGMT project and have responsibilities detailed in the
 {doc}`maintenance` have 'Maintainer' listed below their names.
 
-```{raw} html
+:::::{grid} 2 3 3 4
 
-    <div class="team-row">
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/3974108?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Dongdong Tian</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7 class="team-card-text"><a href="https://github.com/seisman" >@seisman</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/50591376?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Jiayuan Yao</h6>
-            <h7 class="team-card-text"><a href="https://github.com/core-man" >@core-man</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/290082?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Leonardo Uieda</h6>
-            <h7 class="team-card-text">Founder</h7>
-            <h7 class="team-card-text"><a href="https://github.com/leouieda" >@leouieda</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/38269494?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Liam Toney</h6>
-            <h7 class="team-card-text"><a href="https://github.com/liamtoney" >@liamtoney</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/14077947?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Meghan Jones</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/meghanrjones" >@meghanrjones</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23025878?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Michael Grund</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/michaelgrund" >@michaelgrund</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/26473567?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Paul Wessel</h6>
-            <h7 class="team-card-text">Founder</h7>
-            <h7class="team-card-text"><a href="https://github.com/PaulWessel" >@PaulWessel</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/23487320?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Wei Ji Leong</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <h7class="team-card-text"><a href="https://github.com/weiji14" >@weiji14</a></h7>
-        </div>
-    </div>
-    <div class="team-card">
-        <img class="card-img-top team-img" src="https://avatars.githubusercontent.com/u/29518865?v=4" alt="Card image">
-        <div class="team-card-body">
-            <h6 class="team-card-text">Will Schlitzer</h6>
-            <h7 class="team-card-text">Maintainer</h7>
-            <p class="team-card-text"><a href="https://github.com/willschlitzer" >@willschlitzer</a></h7>
-        </div>
-    </div>
-    </div>
-```
+::::{grid-item-card} Dongdong Tian
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/3974108?v=4
+
+[@seisman](https://github.com/seisman)
++++
+{bdg-primary}`Maintainer`
+::::
+
+::::{grid-item-card} Jiayuan Yao
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/50591376?v=4
+
+[@core-man](https://github.com/core-man)
+::::
+
+::::{grid-item-card} Leonardo Uieda
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/290082?v=4
+
+[@leouieda](https://github.com/leouieda)
++++
+{bdg-success}`Founder`
+::::
+
+::::{grid-item-card} Liam Toney
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/38269494?v=4
+
+[@liamtoney](https://github.com/liamtoney)
+::::
+
+::::{grid-item-card} Max Jones
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/14077947?v=4
+
+[@maxrjones](https://github.com/maxrjones)
++++
+{bdg-primary}`Maintainer`
+::::
+
+::::{grid-item-card} Michael Grund
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/23025878?v=4
+
+[@michaelgrund](https://github.com/michaelgrund)
++++
+{bdg-primary}`Maintainer`
+::::
+
+::::{grid-item-card} Paul Wessel
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/26473567?v=4
+
+[@PaulWessel](https://github.com/PaulWessel)
++++
+{bdg-success}`Founder`
+::::
+
+::::{grid-item-card} Wei Ji Leong
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/23487320?v=4
+
+[@weiji14](https://github.com/weiji14)
++++
+{bdg-primary}`Maintainer`
+::::
+
+::::{grid-item-card} Will Schlitzer
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/29518865?v=4
+
+[@willschlitzer](https://github.com/willschlitzer)
++++
+{bdg-primary}`Maintainer`
+::::
+:::::

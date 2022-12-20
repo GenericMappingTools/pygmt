@@ -1,7 +1,6 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
-
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -12,6 +11,8 @@ from pygmt.helpers import (
     use_alias,
 )
 from pygmt.io import load_dataarray
+
+__doctest_skip__ = ["grdlandmask"]
 
 
 @fmt_docstring
@@ -26,7 +27,7 @@ from pygmt.io import load_dataarray
     V="verbose",
     r="registration",
 )
-@kwargs_to_strings(R="sequence", N="sequence", E="sequence")
+@kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
     r"""
     Create a grid file with set values for land and water.
@@ -47,9 +48,9 @@ def grdlandmask(**kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
-    {A}
+    {spacing}
+    {region}
+    {area_thresh}
     resolution : str
         *res*\[\ **+f**\]. Selects the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
@@ -81,8 +82,8 @@ def grdlandmask(**kwargs):
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
-    {V}
-    {r}
+    {verbose}
+    {registration}
 
     Returns
     -------
@@ -95,22 +96,18 @@ def grdlandmask(**kwargs):
 
     Example
     -------
-    >>> import pygmt  # doctest: +SKIP
+    >>> import pygmt
     >>> # Create a landmask grid with an x-range of 125 to 130,
     >>> # and a y-range of 30 to 35
-    >>> landmask = pygmt.grdlandmask(
-    ...     spacing=1, region=[125, 130, 30, 35]
-    ... )  # doctest: +SKIP
+    >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
-    if "I" not in kwargs or "R" not in kwargs:
+    if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            if "G" not in kwargs:  # if outgrid is unset, output to tempfile
-                kwargs.update({"G": tmpfile.name})
-            outgrid = kwargs["G"]
-            arg_str = build_arg_string(kwargs)
-            lib.call_module("grdlandmask", arg_str)
+            if (outgrid := kwargs.get("G")) is None:
+                kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

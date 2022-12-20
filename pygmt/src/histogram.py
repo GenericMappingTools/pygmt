@@ -2,17 +2,10 @@
 Histogram - Create a histogram
 """
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    deprecate_parameter,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
-@deprecate_parameter("table", "data", "v0.5.0", remove_version="v0.7.0")
 @use_alias(
     A="horizontal",
     B="frame",
@@ -31,8 +24,6 @@ from pygmt.helpers import (
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="histtype",
     b="binary",
     c="panel",
@@ -50,8 +41,8 @@ from pygmt.helpers import (
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or
-    list, array, or dataframe.
+    Plots a histogram, and can read data from a file or list, array, or
+    dataframe.
 
     Full option list at :gmt-docs:`histogram.html`
 
@@ -62,13 +53,13 @@ def histogram(self, data, **kwargs):
     data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
-    {J}
-    {R}
-    {B}
-    {CPT}
-    {G}
-    {W}
-    {c}
+    {projection}
+    {region}
+    {frame}
+    {cmap}
+    {fill}
+    {pen}
+    {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents.  Append any of the
@@ -131,22 +122,22 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {XY}
-    {U}
-    {V}
-    {b}
-    {d}
-    {e}
-    {h}
-    {i}
-    {l}
-    {p}
-    {t}
-    {w}
+    {timestamp}
+    {verbose}
+    {binary}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {label}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
-            arg_str = " ".join([infile, build_arg_string(kwargs)])
-            lib.call_module("histogram", arg_str)
+            lib.call_module(
+                module="histogram", args=build_arg_string(kwargs, infile=infile)
+            )
