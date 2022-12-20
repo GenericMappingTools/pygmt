@@ -66,7 +66,7 @@ class _Azimuthal(_Projection):
 
 
 @attr.s(kw_only=True)
-class _Cylindrical(_Projection):
+class _CylindricalRequired(_Projection):
     """
     Base class for cylindrical projections.
 
@@ -93,6 +93,59 @@ class _Cylindrical(_Projection):
         repr=False,
         default="{_code}{central_longitude}/{central_latitude}/{width}{unit}",
     )
+
+
+@attr.s(kw_only=True)
+class _CylindricalOptionals(_Projection):
+    """
+    Base class for cylindrical projections.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``c``.
+    """
+
+    central_longitude: float = attr.ib(default=None)
+    central_latitude: float = attr.ib(default=None)
+    width: float = attr.ib()
+    unit: str = attr.ib(default="c")
+
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{_lon0}{_lat0}{width}{unit}",
+    )
+    _lon0: str = attr.ib(init=False, repr=False, default="")
+    _lat0: str = attr.ib(init=False, repr=False, default="")
+
+    @central_latitude.validator
+    def check_lon0(self, attribute, value):
+        """
+        If supplying the central latitude, then the central longitude is required.
+        """
+        msg = "central_longitude must be defined when defining central_latitude"
+        if self.central_longitude is None and self.central_latitude is not None:
+            raise ValueError(msg)
+
+    def __attrs_post_init__(self):
+        """
+        The central longitude and latitude are optionals for some of the
+        cylindrical projections. This work around is to preserve the
+        original behaviour.
+        """
+        if self.central_longitude:
+            object.__setattr__(self, "_lon0", f"{self.central_longitude}/")
+
+        if self.central_latitude:
+            object.__setattr__(self, "_lat0", f"{self.central_latitude}/")
 
 
 @attr.s(kw_only=True)
@@ -166,6 +219,48 @@ class _Miscellaneous(_Projection):
             cm_fmt = ""
 
         object.__setattr__(self, "_central_meridian", cm_fmt)
+
+
+@attr.s(frozen=True, kw_only=True)
+class _ObliqueMercator(_Projection):
+    """
+    Base class for the Oblique Mercator projection which has 3 config options.
+
+    Parameters
+    ----------
+    central_longitude : float
+        The longitude of the projection centre.
+    central_latitude : float
+        The latitude of the projection centre.
+    width : float
+        The figure width.
+    unit : str
+        The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
+        Default is ``c``.
+    allow_southern_hemisphere : bool
+        If set to True, then allow projection poles in the southern hemisphere.
+        Default is to map any such poles to their antipodes in the northern
+        hemisphere.
+    align_yaxis : bool
+        If set to True, then align the oblique with the y-axis.
+        Default is to align with the x-axis.
+    """
+
+    central_longitude: float = attr.ib()
+    central_latitude: float = attr.ib()
+    width: float = attr.ib()
+    unit: str = attr.ib(default="c")
+    allow_southern_hemisphere: bool = attr.ib(default=False)
+    align_yaxis: bool = attr.ib(default=False)
+
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="",
+    )
+    _code: str = attr.ib(init=False, repr=False, default="O")
+    _sth_hem: str = attr.ib(init=False, repr=False, default="")
+    _align_y: str = attr.ib(init=False, repr=False, default="")
 
 
 @attr.s(frozen=True)
@@ -415,7 +510,7 @@ class EquidistantConic(_Conic):
 
 
 @attr.s(frozen=True)
-class CassiniCylindrical(_Cylindrical):
+class CassiniCylindrical(_CylindricalRequired):
     """
     Class definition for the Cassini cylindrical projection.
 
@@ -436,7 +531,7 @@ class CassiniCylindrical(_Cylindrical):
 
 
 @attr.s(frozen=True)
-class MercatorCylindrical(_Cylindrical):
+class MercatorCylindrical(_CylindricalOptionals):
     """
     Class definition for the Mercator cylindrical projection.
 
@@ -453,14 +548,11 @@ class MercatorCylindrical(_Cylindrical):
         Default is ``c``.
     """
 
-    central_longitude: float = attr.ib(default=180, kw_only=True)
-    central_latitude: float = attr.ib(default=0, kw_only=True)
-
     _code: str = attr.ib(init=False, repr=False, default="M")
 
 
 @attr.s(frozen=True)
-class CylindricalStereographic(_Cylindrical):
+class CylindricalStereographic(_CylindricalOptionals):
     """
     Class definition for the cylindrical stereographic projection.
 
@@ -477,14 +569,11 @@ class CylindricalStereographic(_Cylindrical):
         Default is ``c``.
     """
 
-    central_longitude: float = attr.ib(default=180, kw_only=True)
-    central_latitude: float = attr.ib(default=0, kw_only=True)
-
     _code: str = attr.ib(init=False, repr=False, default="Cyl_stere/")
 
 
 @attr.s(frozen=True)
-class CylindricalEqualArea(_Cylindrical):
+class CylindricalEqualArea(_CylindricalOptionals):
     """
     Class definition for the cylindrical equal area projection.
 
@@ -750,7 +839,7 @@ class Miller(_Miscellaneous):
 
 
 @attr.s(frozen=True, kw_only=True)
-class ObliqueMercator1(_Projection):
+class ObliqueMercator1(_ObliqueMercator):
     """
     Class definition for the oblique Mercator 1 projection.
 
@@ -776,22 +865,13 @@ class ObliqueMercator1(_Projection):
         Default is to align with the x-axis.
     """
 
-    central_longitude: float = attr.ib()
-    central_latitude: float = attr.ib()
     azimuth: float = attr.ib()
-    width: float = attr.ib()
-    unit: str = attr.ib(default="c")
-    allow_southern_hemisphere: bool = attr.ib(default=False)
-    align_yaxis: bool = attr.ib(default=False)
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
         default="{_code}{_sth_hem}{central_longitude}/{central_latitude}/{azimuth}/{width}{unit}{_align_y}",
     )
-    _code: str = attr.ib(init=False, repr=False, default="O")
-    _sth_hem: str = attr.ib(init=False, repr=False, default="")
-    _align_y: str = attr.ib(init=False, repr=False, default="")
 
     def __attrs_post_init__(self):
         """
@@ -806,7 +886,7 @@ class ObliqueMercator1(_Projection):
 
 
 @attr.s(frozen=True, kw_only=True)
-class ObliqueMercator2(_Projection):
+class ObliqueMercator2(_ObliqueMercator):
     """
     Class definition for the oblique Mercator 2 projection.
 
@@ -825,25 +905,38 @@ class ObliqueMercator2(_Projection):
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``c``.
+    allow_southern_hemisphere : bool
+        If set to True, then allow projection poles in the southern hemisphere.
+        Default is to map any such poles to their antipodes in the northern
+        hemisphere.
+    align_yaxis : bool
+        If set to True, then align the oblique with the y-axis.
+        Default is to align with the x-axis.
     """
 
-    central_longitude: float = attr.ib()
-    central_latitude: float = attr.ib()
     oblique_longitude: float = attr.ib()
     oblique_latitude: float = attr.ib()
-    width: float = attr.ib()
-    unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{oblique_longitude}/{oblique_latitude}/{width}{unit}",
+        default="{_code}{_sth_hem}{central_longitude}/{central_latitude}/{oblique_longitude}/{oblique_latitude}/{width}{unit}{_align_y}",
     )
-    _code: str = attr.ib(init=False, repr=False, default="Ob")
+
+    def __attrs_post_init__(self):
+        """
+        For frozen instances, we have to set using the traditonal way
+        using object.__setattr__(self, key, value).
+        """
+        if self.allow_southern_hemisphere:
+            object.__setattr__(self, "_sth_hem", "B")
+
+        if self.align_yaxis:
+            object.__setattr__(self, "_align_y", "+v")
 
 
 @attr.s(frozen=True, kw_only=True)
-class ObliqueMercator3(_Projection):
+class ObliqueMercator3(_ObliqueMercator):
     """
     Class definition for the oblique Mercator 3 projection.
 
@@ -862,25 +955,38 @@ class ObliqueMercator3(_Projection):
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``c``.
+    allow_southern_hemisphere : bool
+        If set to True, then allow projection poles in the southern hemisphere.
+        Default is to map any such poles to their antipodes in the northern
+        hemisphere.
+    align_yaxis : bool
+        If set to True, then align the oblique with the y-axis.
+        Default is to align with the x-axis.
     """
 
-    central_longitude: float = attr.ib()
-    central_latitude: float = attr.ib()
     pole_longitude: float = attr.ib()
     pole_latitude: float = attr.ib()
-    width: float = attr.ib()
-    unit: str = attr.ib(default="c")
 
     _fmt: str = attr.ib(
         init=False,
         repr=False,
-        default="{_code}{central_longitude}/{central_latitude}/{pole_longitude}/{pole_latitude}/{width}{unit}",
+        default="{_code}{_sth_hem}{central_longitude}/{central_latitude}/{pole_longitude}/{pole_latitude}/{width}{unit}{_align_y}",
     )
-    _code: str = attr.ib(init=False, repr=False, default="Oc")
+
+    def __attrs_post_init__(self):
+        """
+        For frozen instances, we have to set using the traditonal way
+        using object.__setattr__(self, key, value).
+        """
+        if self.allow_southern_hemisphere:
+            object.__setattr__(self, "_sth_hem", "C")
+
+        if self.align_yaxis:
+            object.__setattr__(self, "_align_y", "+v")
 
 
 @attr.s(frozen=True)
-class TransverseMercator(_Cylindrical):
+class TransverseMercator(_CylindricalRequired):
     """
     Class definition for the Transverse Mercator projection.
 
@@ -897,7 +1003,22 @@ class TransverseMercator(_Cylindrical):
         Default is ``c``.
     """
 
+    central_latitude: float = attr.ib(default=None)
+
     _code: str = attr.ib(init=False, repr=False, default="T")
+    _fmt: str = attr.ib(
+        init=False,
+        repr=False,
+        default="{_code}{central_longitude}/{_lat0}{width}{unit}",
+    )
+    _lat0: str = attr.ib(init=False, repr=False, default="")
+
+    def __attrs_post_init__(self):
+        """
+        The transverse mercator has the central meridan as an optional.
+        """
+        if self.central_latitude:
+            object.__setattr__(self, "_lat0", f"{self.central_latitude}/")
 
 
 @attr.s(frozen=True, kw_only=True)
@@ -931,25 +1052,22 @@ class UniversalTransverseMercator(_Projection):
 
 
 @attr.s(frozen=True)
-class EquidistantCylindrical(_Cylindrical):
+class EquidistantCylindrical(_CylindricalOptionals):
     """
     Class definition for the equidistant cylindrical projection.
 
     Parameters
     ----------
     central_longitude : float
-        The longitude of the projection centre. Default is 180.
+        The longitude of the projection centre.
     central_latitude : float
-        The latitude of the projection centre. Default is 0.
+        The latitude of the projection centre.
     width : float
         The figure width.
     unit : str
         The unit for the figure width in ``i`` for inch, ``c`` for centimetre.
         Default is ``c``.
     """
-
-    central_longitude: float = attr.ib(default=180, kw_only=True)
-    central_latitude: float = attr.ib(default=0, kw_only=True)
 
     _code: str = attr.ib(init=False, repr=False, default="Q")
 
