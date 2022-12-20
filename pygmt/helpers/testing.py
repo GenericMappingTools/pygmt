@@ -181,11 +181,16 @@ def download_test_data():
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
         # Earth geoid grids
-        "@earth_geoid_01d_g.grd",
+        "@earth_geoid_01d_g",
         "@S90W180.earth_geoid_05m_g.nc",  # Specific grid for 05m test
         # Earth magnetic anomaly grids
-        "@earth_mag_01d_g.grd",
+        "@earth_mag_01d_g",
         "@S90W180.earth_mag_05m_g.nc",  # Specific grid for 05m test
+        "@earth_mag4km_01d_g",
+        "@S90W180.earth_mag4km_05m_g.nc",  # Specific grid for 05m test
+        # Earth free-air anomaly grids
+        "@earth_faa_01d_g",
+        "@S90W180.earth_faa_05m_g.nc",  # Specific grid for 05m test
         # Earth vertical gravity gradient grids
         "@earth_vgg_01d_g",
         "@S90W180.earth_vgg_05m_g.nc",  # Specific grid for 05m test
