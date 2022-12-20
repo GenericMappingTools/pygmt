@@ -187,7 +187,7 @@ def _load_remote_dataset(
 
     resolution : str
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degree, arc-minute, and arc-second respectively.
+        arc-degrees, arc-minutes, and arc-seconds, respectively.
 
     region : str or list
         The subregion of the grid to load, in the forms of a list

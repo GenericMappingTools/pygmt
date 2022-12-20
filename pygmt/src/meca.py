@@ -296,7 +296,8 @@ def meca(
             spec[["plot_longitude", "plot_latitude"]] = spec[
                 ["plot_longitude", "plot_latitude"]
             ].astype(str)
-            kwargs["A"] = True
+            if kwargs.get("A") is None:
+                kwargs["A"] = True
         if "event_name" in spec.columns:
             newcols += ["event_name"]
             spec["event_name"] = spec["event_name"].astype(str)
@@ -306,7 +307,7 @@ def meca(
         # Convert 1d array into 2d array
         spec = np.atleast_2d(spec)
 
-    # determine data_foramt from convection and component
+    # determine data_format from convention and component
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
