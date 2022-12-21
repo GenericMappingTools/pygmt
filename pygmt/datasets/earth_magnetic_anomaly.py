@@ -90,7 +90,7 @@ def load_earth_magnetic_anomaly(
     ... )
     >>> # load the 20 arc-minutes grid of the mag4km dataset
     >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="30m", registration="gridline", mag4km=True
+    ...     resolution="20m", registration="gridline", mag4km=True
     ... )
     """
     dataset_prefix = "earth_mag4km_" if mag4km is True else "earth_mag_"
