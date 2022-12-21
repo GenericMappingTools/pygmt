@@ -70,7 +70,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     >>> grid = load_earth_geoid(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_geoid(
-    ...     resolution="10m",
+    ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
