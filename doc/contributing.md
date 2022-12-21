@@ -14,7 +14,7 @@ and we encourage all to read it carefully.
 
 ### Ways to Contribute Documentation and/or Code
 
-* Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
+* Tackle any issue that you wish! Some issues are labeled as **"good first issue"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
@@ -44,19 +44,19 @@ and we encourage all to read it carefully.
 ### Reporting a Bug
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-top of the GitHub repository and click *New Issue*.
+top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Bug report*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
-#### Reporting upstream bugs
+#### Reporting Upstream Bugs
 
 If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve
 the problem:
 
-* Add the line `pygmt.config(GMT_VERBOSE='d')` after your import statements, which
+* Add the line `pygmt.config(GMT_VERBOSE="d")` after your import statements, which
   will report the equivalent GMT commands as one of the debug messages.
 * Either append all messages from running your script to your GitHub issue, or
   filter the messages to include only the GMT-equivalent commands using a command
@@ -74,7 +74,7 @@ the problem:
 ### Submitting a Feature Request
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-  top of the GitHub repository and click *New Issue*.
+  top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Feature request*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your feature request, try to answer any follow up questions as best
@@ -249,7 +249,7 @@ There are four main components to PyGMT's documentation:
 * Getting started/developer documentation, with source text in ReST `*.rst`
   and markdown `*.md` files under the `doc/` folder.
 
-The documentation are written primarily in
+The documentation is written primarily in
 [reStructuredText](https://docutils.sourceforge.io/rst.html) and built by
 [Sphinx](http://www.sphinx-doc.org/). Please refer to
 {gmt-docs}`reStructuredText Cheatsheet <devdocs/rst-cheatsheet.html>`
@@ -363,7 +363,7 @@ General guidelines for making a good gallery plot:
 * Use a sample dataset from `pygmt.datasets` if you need to plot data. If a suitable
   dataset isn't available, open an issue requesting one and we'll work together to add
   it.
-* Add comments to explain things are aren't obvious from reading the code. Good: *Use a
+* Add comments to explain things that aren't obvious from reading the code. Good: *Use a
   Mercator projection and make the plot 15 centimeters wide*. Bad: *Draw coastlines and
   plot the data*.
 * Describe the feature that you're showcasing and link to other relevant parts of the
@@ -392,13 +392,14 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the `Figure.show()` function needs to be called for a plot to be inserted into
-the documentation.
+Note that the <code>pygmt.Figure.show</code> method needs to be called for a plot
+to be inserted into the documentation.
+
 
 ### Editing the API Documentation
 
 The API documentation is built from the docstrings in the Python `*.py` files under
-the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow the
 [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
@@ -471,7 +472,7 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to to format the code so we don't have to think about it:
+We use some tools to format the code so we don't have to think about it:
 
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
@@ -491,7 +492,7 @@ For consistency, we also use UNIX-style line endings (`\n`) and file permission
 Don't worry if you forget to do it. Our continuous integration systems will
 warn us and you can make a new commit with the formatted code.
 Even better, you can just write `/format` in the first line of any comment in a
-Pull Request to lint the code automatically.
+pull request to lint the code automatically.
 
 When wrapping a new alias, use an underscore to separate words bridged by vowels
 (aeiou), such as `no_skip` and `z_only`. Do not use an underscore to separate
@@ -499,14 +500,14 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flake8](http://flake8.pycqa.org/en/latest/) and
+We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flake8 and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
@@ -524,9 +525,9 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-methods, such as `plot` and `basemap`. The highest priority for tests should be the
-Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
-mechanism.
+methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
+The highest priority for tests should be the Python-specific code, such as numpy,
+pandas, and xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
@@ -576,9 +577,9 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting function works"
+    "Test that my plotting method works"
     fig = Figure()
-    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
+    fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     return fig
 ```
 
@@ -682,7 +683,7 @@ Here's an example:
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting function works"
+  "Test that my plotting method works"
   fig_ref, fig_test = Figure(), Figure()
   fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")

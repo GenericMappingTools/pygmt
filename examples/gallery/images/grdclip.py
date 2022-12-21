@@ -1,10 +1,10 @@
 """
 Clipping grid values
 --------------------
-The :meth:`pygmt.grdclip` method allows to clip defined ranges of grid values.
-In the example shown below we set all elevation values (grid points) smaller
-than 0 m (in general the bathymetric part of the grid) to a common value of
--2000 m via the ``below`` parameter.
+The :func:`pygmt.grdclip` function allows to clip defined ranges of grid
+values. In the example shown below we set all elevation values (grid points)
+smaller than 0 m (in general the bathymetric part of the grid) to a common
+value of -2000 m via the ``below`` parameter.
 """
 
 import pygmt
@@ -14,7 +14,7 @@ fig = pygmt.Figure()
 # Define region of interest around Iceland
 region = [-28, -10, 62, 68]
 
-# Load sample grid (3 arc minute global relief) in target area
+# Load sample grid (3 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 # Plot original grid

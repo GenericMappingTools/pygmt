@@ -41,12 +41,12 @@ fig.basemap(
 # numpy.datetime64 types
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
 y = [1, 2, 3]
-fig.plot(x=x, y=y, style="c0.4c", pen="1p", color="red3")
+fig.plot(x=x, y=y, style="c0.4c", pen="1p", fill="red3")
 
 # pandas.DatetimeIndex
 x = pd.date_range("2013", periods=3, freq="YS")
 y = [4, 5, 6]
-fig.plot(x=x, y=y, style="t0.4c", pen="1p", color="gold")
+fig.plot(x=x, y=y, style="t0.4c", pen="1p", fill="gold")
 
 # xarray.DataArray
 x = xr.DataArray(data=pd.date_range(start="2015-03", periods=3, freq="QS"))
@@ -56,11 +56,11 @@ fig.plot(x=x, y=y, style="s0.4c", pen="1p")
 # raw datetime strings
 x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15"]
 y = [7, 8, 9]
-fig.plot(x=x, y=y, style="a0.4c", pen="1p", color="dodgerblue")
+fig.plot(x=x, y=y, style="a0.4c", pen="1p", fill="dodgerblue")
 
 # the Python built-in datetime and date
 x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 6, 1, 20, 5, 45)]
 y = [6.5, 4.5]
-fig.plot(x=x, y=y, style="i0.4c", pen="1p", color="seagreen")
+fig.plot(x=x, y=y, style="i0.4c", pen="1p", fill="seagreen")
 
 fig.show()

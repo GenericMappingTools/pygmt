@@ -1,7 +1,7 @@
 """
 Create 'wet-dry' mask grid
 --------------------------
-The :meth:`pygmt.grdlandmask` method allows setting
+The :func:`pygmt.grdlandmask` function allows setting
 all nodes on land or water to a specified value using
 the ``maskvalues`` parameter.
 """
@@ -16,7 +16,7 @@ region = [-65, -40, -40, -20]
 # Assign a value of 0 for all water masses and a value of 1 for all land
 # masses.
 # Use shoreline data with (l)ow resolution and set the grid spacing to
-# 5 arc minute in x and y direction.
+# 5 arc-minutes in x and y direction.
 grid = pygmt.grdlandmask(region=region, spacing="5m", maskvalues=[0, 1], resolution="l")
 
 # Plot clipped grid

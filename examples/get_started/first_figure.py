@@ -4,8 +4,8 @@
 
 This tutorial page covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the ``coast`` method for plotting. Later examples will address other PyGMT
-methods.
+the :meth:`pygmt.Figure.coast` method for plotting. Later examples will
+address other PyGMT methods.
 """
 
 ###############################################################################
@@ -21,8 +21,8 @@ methods.
 # Loading the library
 # -------------------
 #
-# The first step is to import ``pygmt``. All methods and figure generation is
-# accessible from the :mod:`pygmt` top level package.
+# The first step is to import :mod:`pygmt`. All methods and figure generation
+# are accessible from the :mod:`pygmt` top level package.
 
 # sphinx_gallery_thumbnail_number = 4
 import pygmt
@@ -37,11 +37,12 @@ import pygmt
 fig = pygmt.Figure()
 
 ###############################################################################
-# To add to a plot object (``fig`` in this example), the PyGMT module is used
-# as a method on the class. This example will use the ``coast`` method, which
-# can be used to create a map without any other methods, modules or external
-# data. The ``coast`` method plots the coastlines, borders, and bodies of water
-# using a database that is included in GMT.
+# To add elements to the figure instance or object (``fig`` in this example)
+# different methods can be called on it. This example will use the
+# :meth:`pygmt.Figure.coast` method, which can be used to create a map without
+# any other methods or external data. The :meth:`pygmt.Figure.coast`
+# method plots the coastlines, borders, and bodies of water using a database
+# that is included in GMT.
 #
 # First, a region for the figure must be selected. This example will plot some
 # of the coast of Maine in the northeastern US. A Python list can be passed to
@@ -51,11 +52,12 @@ fig = pygmt.Figure()
 # right) coordinates are (N44.75, W68). Negative values can be passed for
 # latitudes in the southern hemisphere or longitudes in the western hemisphere.
 #
-# In addition to the region, an argument needs to be passed to ``coast`` to
-# tell it what to plot. In this example, ``coast`` will be told to plot the
-# shorelines by passing the Boolean value ``True`` to the ``shorelines``
-# parameter. The ``shorelines`` parameter has other options for finer control,
-# but setting it to ``True`` uses the default values.
+# In addition to the region, an argument needs to be passed to
+# :meth:`pygmt.Figure.coast` to tell it what to plot. In this example,
+# :meth:`pygmt.Figure.coast` will be told to plot the shorelines by passing the
+# Boolean value ``True`` to the ``shorelines`` parameter. The ``shorelines``
+# parameter has other options for finer control, but setting it to ``True``
+# uses the default values.
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
@@ -74,9 +76,9 @@ fig.show()
 #
 # When plotting colors in PyGMT, there are multiple
 # :gmt-docs:`color codes <gmtcolors.html>`, that can be used. This includes
-# standard GMT color names (like ``skyblue``), R/G/B levels (like ``0/0/255``),
-# a hex value (like ``#333333``), or a graylevel (like ``50``). For this
-# example, GMT color names are used.
+# standard GMT color names (like ``"skyblue"``), R/G/B levels (like
+# ``"0/0/255"``), a hex value (like ``"#333333"``), or a gray level (like
+# ``"gray50"``). For this example, GMT color names are used.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -102,7 +104,7 @@ fig.show()
 # projections are explained in the :doc:`projection </projections/index>`
 # gallery. For this example, the Mercator projection is set using ``"M"``.
 # The width of the figure will be 10 centimeters, as set by ``"10c"``.
-# The map size can also be set in inches using "i" (e.g. a 5 inch wide
+# The map size can also be set in inches using "i" (e.g. a 5-inch wide
 # Mercator projection would use ``"M5i"``).
 
 fig = pygmt.Figure()

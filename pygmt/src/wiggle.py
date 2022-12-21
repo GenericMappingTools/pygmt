@@ -16,8 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     c="panel",
@@ -36,10 +34,10 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots z as a
-    function of distance along track.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots z
+    as a function of distance along track.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`wiggle.html`
 
@@ -54,14 +52,14 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {J}
-    {R}
+    {projection}
+    {region}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (cm, inch, or point); if no unit
         is given we use the default unit that is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT`.
-    {B}
+    {frame}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
@@ -72,28 +70,27 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         [Default is no fill]. Optionally, append **+p** to fill positive areas
         (this is the default behavior). Append **+n** to fill negative areas.
         Append **+n+p** to fill both positive and negative areas with the same
-        fill. Note: You will need to repeat the color parameter to select
+        fill. **Note**: You will need to repeat the color parameter to select
         different fills for the positive and negative wiggles.
 
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Default is **0.25p,black,solid**].
-    {U}
-    {V}
+        [Default is ``"0.25p,black,solid"``].
+    {timestamp}
+    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {p}
-    {t}
-    {w}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

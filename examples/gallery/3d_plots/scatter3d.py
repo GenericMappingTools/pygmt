@@ -8,7 +8,7 @@ In the example below, we show how the
 can be visualized using a perspective 3D plot. The ``region``
 parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
-using :meth:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
+using :func:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
 minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
@@ -72,7 +72,7 @@ fig.plot3d(
     # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
     style="uc",
     # Points colored by categorical number code
-    color=df.species.cat.codes.astype(int),
+    fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
     # Set map dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
@@ -90,7 +90,9 @@ fig.plot3d(
     zscale=1.5,
 )
 
+# Shift plot origin in x direction
+fig.shift_origin(xshift=3.1)
 # Add colorbar legend
-fig.colorbar(xshift=3.1)
+fig.colorbar()
 
 fig.show()

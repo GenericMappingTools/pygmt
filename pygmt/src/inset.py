@@ -25,8 +25,8 @@ def inset(self, **kwargs):
     r"""
     Create an inset figure to be placed within a larger figure.
 
-    This function sets the position, frame, and margins for a smaller figure
-    inside of the larger figure. Plotting functions that are called within the
+    This method sets the position, frame, and margins for a smaller figure
+    inside of the larger figure. Plotting methods that are called within the
     context manager are added to the inset figure.
 
     Full option list at :gmt-docs:`inset.html`
@@ -106,9 +106,9 @@ def inset(self, **kwargs):
     no_clip : bool
         Do NOT clip features extruding outside map inset boundaries [Default
         is clip].
-    {R}
-    {J}
-    {V}
+    {region}
+    {projection}
+    {verbose}
 
     Examples
     --------

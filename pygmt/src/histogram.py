@@ -24,8 +24,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="histtype",
     b="binary",
     c="panel",
@@ -43,8 +41,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or
-    list, array, or dataframe.
+    Plots a histogram, and can read data from a file or list, array, or
+    dataframe.
 
     Full option list at :gmt-docs:`histogram.html`
 
@@ -55,13 +53,13 @@ def histogram(self, data, **kwargs):
     data : str or list or {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2D
         {table-classes}.
-    {J}
-    {R}
-    {B}
-    {CPT}
-    {G}
-    {W}
-    {c}
+    {projection}
+    {region}
+    {frame}
+    {cmap}
+    {fill}
+    {pen}
+    {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
         Annotate each bar with the count it represents.  Append any of the
@@ -124,18 +122,17 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {XY}
-    {U}
-    {V}
-    {b}
-    {d}
-    {e}
-    {h}
-    {i}
-    {l}
-    {p}
-    {t}
-    {w}
+    {timestamp}
+    {verbose}
+    {binary}
+    {nodata}
+    {find}
+    {header}
+    {incols}
+    {label}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

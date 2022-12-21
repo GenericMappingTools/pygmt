@@ -48,9 +48,9 @@ def grdlandmask(**kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
-    {A}
+    {spacing}
+    {region}
+    {area_thresh}
     resolution : str
         *res*\[\ **+f**\]. Selects the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
@@ -82,8 +82,8 @@ def grdlandmask(**kwargs):
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
-    {V}
-    {r}
+    {verbose}
+    {registration}
 
     Returns
     -------

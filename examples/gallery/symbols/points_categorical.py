@@ -7,8 +7,8 @@ color-coded by categories. In the example below, we show how the
 can be visualized. Here, we can pass the individual categories included in
 the "species" column directly to the ``color`` parameter via
 ``color=df.species.cat.codes.astype(int)``. Additionally, we have to set
-``cmap=True``. A desired colormap can be selected via the :meth:`pygmt.makecpt`
-method.
+``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
+function.
 """
 
 import pandas as pd
@@ -76,7 +76,7 @@ fig.plot(
     # scaled by 7.5*10e-5)
     size=df.body_mass_g * 7.5e-5,
     # Points colored by categorical number code
-    color=df.species.cat.codes.astype(int),
+    fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
     # Do not clip symbols that fall close to the map bounds

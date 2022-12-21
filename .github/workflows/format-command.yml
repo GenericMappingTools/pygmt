@@ -14,21 +14,21 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3.2.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
           ref: ${{ github.event.client_payload.pull_request.head.ref }}
 
       # Setup Python environment
-      - uses: actions/setup-python@v4.2.0
+      - uses: actions/setup-python@v4.3.1
         with:
           python-version: '3.10'
 
       # Install formatting tools
       - name: Install formatting tools
         run: |
-          pip install black blackdoc docformatter flake8 isort
+          pip install black blackdoc docformatter flakeheaven isort
           sudo apt-get install dos2unix
 
       # Run "make format" and commit the change to the PR branch
@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v2.1.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}

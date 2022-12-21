@@ -20,8 +20,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     b="binary",
     c="panel",
     d="nodata",
@@ -38,10 +36,10 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     r"""
     Contour table data by direct triangulation.
 
-    Takes a matrix, (x,y,z) pairs, or a file name as input and plots lines,
-    polygons, or symbols at those locations on a map.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots,
+    lines, polygons, or symbols at those locations on a map.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`contour.html`
 
@@ -52,28 +50,28 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2D
-        {table-classes}
+        {table-classes}.
     x/y/z : 1d arrays
         Arrays of x and y coordinates and values z of the data points.
-    {J}
-    {R}
+    {projection}
+    {region}
     annotation : str or int
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``interval``.
+        contours specified in ``levels``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
-    {B}
+    {frame}
     levels : str or int
         Specify the contour lines to generate.
 
-        - The filename of a CPT file where the color boundaries will
+        - The file name of a CPT file where the color boundaries will
           be used as contour levels.
-        - The filename of a 2 (or 3) column file containing the contour
+        - The file name of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3)
+          angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*
+          +\ *cont_int*.
     D : str
         Dump contour coordinates.
     E : str
@@ -96,7 +94,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
-    {W}
+    {pen}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -104,18 +102,17 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {U}
-    {V}
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {h}
-    {i}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 

@@ -72,7 +72,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     Parameters
     ----------
     grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a filename (netcdf
+        Gridded array from which to sample values from, or a file name (netcdf
         format).
 
     points : str or {table-like}
@@ -186,7 +186,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         nearest distance nodes along the cross-profiles. We write 13 output
         columns per track: *dist, lonc, latc, distc, azimuthc, zc, lonl, latl,
         distl, lonr, latr, distr, width*.
-    {R}
+    {region}
     no_skip : bool
         Do *not* skip points that fall outside the domain of the grid(s)
         [Default only output points within grid domain].
@@ -210,7 +210,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         - **+a** : Append stacked values to all cross-profiles.
         - **+d** : Append stack deviations to all cross-profiles.
         - **+r** : Append data residuals (data - stack) to all cross-profiles.
-        - **+s**\ [*file*] : Save stacked profile to *file* [Default filename
+        - **+s**\ [*file*] : Save stacked profile to *file* [Default file name
           is grdtrack_stacked_profile.txt].
         - **+c**\ *fact* : Compute envelope on stacked profile as
           ±\ *fact* \*\ *deviation* [Default fact value is 2].
@@ -244,22 +244,22 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         spherical degrees. Use *radius* to change the unit and give *radius* =
         0 if you do not want to limit the radius search. To instead replace the
         input point with the coordinates of the nearest node, append **+p**.
-    {V}
+    {verbose}
     z_only : bool
         Only write out the sampled z-values [Default writes all columns].
-    {a}
-    {b}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {j}
-    {n}
-    {o}
-    {s}
-    {w}
+    {aspatial}
+    {binary}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {distcalc}
+    {interpolation}
+    {outcols}
+    {skiprows}
+    {wrap}
 
     Returns
     -------

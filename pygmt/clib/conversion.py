@@ -48,7 +48,7 @@ def dataarray_to_matrix(grid):
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
-    >>> grid = load_earth_relief(resolution="01d")
+    >>> grid = load_earth_relief(resolution="01d", registration="pixel")
     >>> matrix, region, inc = dataarray_to_matrix(grid)
     >>> print(region)
     [-180.0, 180.0, -90.0, 90.0]

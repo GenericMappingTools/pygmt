@@ -11,7 +11,6 @@ on:
       - 'doc/**'
       - 'examples/**'
       - '*.md'
-      - '*.json'
       - 'README.rst'
       - 'LICENSE.txt'
       - '.gitignore'
@@ -39,13 +38,13 @@ jobs:
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.10.0
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           access_token: ${{ github.token }}
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.2.0
         if: github.event_name != 'repository_dispatch'
         with:
           # fetch all history so that setuptools-scm works
@@ -62,7 +61,7 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.2.0
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -72,7 +71,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v2.0.0
+        uses: peter-evans/create-or-update-comment@v2.1.0
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -82,7 +81,7 @@ jobs:
 
       # Install Mambaforge with conda-forge dependencies
       - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.1.1
+        uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
           # python-version: ${{ matrix.python-version }}
@@ -91,6 +90,7 @@ jobs:
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install dependencies from conda-forge
@@ -102,7 +102,7 @@ jobs:
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         build dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-doctestplus pytest-mpl sphinx-gallery tomli
+                        pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
@@ -132,7 +132,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.22.0
+        uses: dawidd6/action-download-artifact@v2.24.2
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -150,9 +150,7 @@ jobs:
 
       # Install the package that we want to test
       - name: Install the package
-        run: |
-          python -m build --sdist
-          pip install dist/*
+        run: make install
 
       - name: Add GMT's bin to PATH (Linux/macOS)
         run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH

@@ -6,6 +6,7 @@ Test the wrappers for the C API.
 import os
 from contextlib import contextmanager
 from itertools import product
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -159,7 +160,7 @@ def test_call_module():
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
             lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
-            assert os.path.exists(out_fname.name)
+            assert Path(out_fname.name).stat().st_size > 0
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 
@@ -873,7 +874,10 @@ def test_info_dict():
         """
         Put 'bla' in the value buffer.
         """
-        value.value = b"bla"
+        if name == b"API_VERSION":
+            value.value = b"1.2.3"
+        else:
+            value.value = b"bla"
         return 0
 
     ses = clib.Session()
@@ -881,8 +885,11 @@ def test_info_dict():
     with mock(ses, "GMT_Get_Default", mock_func=mock_defaults):
         # Check for an empty dictionary
         assert ses.info
-        for value in ses.info.values():
-            assert value == "bla"
+        for key, value in ses.info.items():
+            if key == "version":
+                assert value == "1.2.3"
+            else:
+                assert value == "bla"
     ses.destroy()
 
 

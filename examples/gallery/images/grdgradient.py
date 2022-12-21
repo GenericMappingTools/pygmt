@@ -1,9 +1,9 @@
 """
 Calculating grid gradient and radiance
 --------------------------------------
-The :meth:`pygmt.grdgradient` method calculates the gradient of a grid file.
+The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 In the example shown below we will see how to calculate a hillshade map based
-on a Data Elevation Model (DEM). As input :meth:`pygmt.grdgradient` gets
+on a Data Elevation Model (DEM). As input :func:`pygmt.grdgradient` gets
 a :class:`xarray.DataArray` object or a path string to a grid file, calculates
 the respective gradient and returns it as an :class:`xarray.DataArray` object.
 We will use the ``radiance`` parameter in order to set the illumination source
@@ -15,7 +15,7 @@ import pygmt
 # Define region of interest around Yosemite valley
 region = [-119.825, -119.4, 37.6, 37.825]
 
-# Load sample grid (3 arc second global relief) in target area
+# Load sample grid (3 arc-seconds global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
 
 # calculate the reflection of a light source projecting from west to east
