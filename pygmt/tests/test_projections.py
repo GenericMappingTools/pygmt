@@ -222,17 +222,22 @@ class TestMercatorCylindrical:
     Tests for the Mercator Cylindrical projection.
     """
 
-    prj = projection.MercatorCylindrical(
+    prj1 = projection.MercatorCylindrical(
         central_longitude=145, central_latitude=-35, width=12
     )
+    prj2 = projection.MercatorCylindrical(width=12)
 
     def test_default_unit(self):
         "Test the default value for the figure units"
-        assert self.prj.unit == "c"
+        assert self.prj1.unit == "c"
 
-    def test_string_conversion(self):
+    def test_string_conversion1(self):
         "Test the string representation of the projection class"
-        assert str(self.prj) == "M145/-35/12c"
+        assert str(self.prj1) == "M145/-35/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "M12c"
 
 
 class TestCylindricalStereographic:
@@ -240,17 +245,22 @@ class TestCylindricalStereographic:
     Tests for the Cylindrical Stereographic projection.
     """
 
-    prj = projection.CylindricalStereographic(
+    prj1 = projection.CylindricalStereographic(
         central_longitude=145, central_latitude=-35, width=12
     )
+    prj2 = projection.CylindricalStereographic(width=12)
 
     def test_default_unit(self):
         "Test the default value for the figure units"
-        assert self.prj.unit == "c"
+        assert self.prj1.unit == "c"
 
-    def test_string_conversion(self):
+    def test_string_conversion1(self):
         "Test the string representation of the projection class"
-        assert str(self.prj) == "Cyl_stere/145/-35/12c"
+        assert str(self.prj1) == "Cyl_stere/145/-35/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "Cyl_stere/12c"
 
 
 class TestCylindricalEqualArea:
@@ -258,17 +268,22 @@ class TestCylindricalEqualArea:
     Tests for the Cylindrical Equal Area projection.
     """
 
-    prj = projection.CylindricalEqualArea(
+    prj1 = projection.CylindricalEqualArea(
         central_longitude=145, central_latitude=-35, width=12
     )
+    prj2 = projection.CylindricalEqualArea(width=12)
 
     def test_default_unit(self):
         "Test the default value for the figure units"
-        assert self.prj.unit == "c"
+        assert self.prj1.unit == "c"
 
-    def test_string_conversion(self):
+    def test_string_conversion1(self):
         "Test the string representation of the projection class"
-        assert str(self.prj) == "Y145/-35/12c"
+        assert str(self.prj1) == "Y145/-35/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "Y12c"
 
 
 class TestHammerEqualArea:
@@ -505,6 +520,7 @@ class TestObliqueMercator1:
     """
     Tests for the Oblique Mercator projection (option 1).
     """
+
     prj1 = projection.ObliqueMercator1(
         central_longitude=145, central_latitude=-35, azimuth=45, width=12
     )
@@ -536,6 +552,7 @@ class TestObliqueMercator2:
     """
     Tests for the Oblique Mercator projection (option 2).
     """
+
     prj1 = projection.ObliqueMercator2(
         central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, width=12
     )
@@ -567,6 +584,7 @@ class TestObliqueMercator3:
     """
     Tests for the Oblique Mercator projection (option 3).
     """
+
     prj1 = projection.ObliqueMercator3(
         central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, width=12
     )
@@ -592,6 +610,76 @@ class TestObliqueMercator3:
     def test_string_conversion3(self):
         "Test the string representation of the projection class"
         assert str(self.prj2) == "O145/-35/110/-20/12c+v"
+
+
+class TestTransverseMercator:
+    """
+    Tests for the Transverse Mercator projection.
+    """
+
+    prj1 = projection.TransverseMercator(central_longitude=145, width=12)
+    prj2 = projection.TransverseMercator(
+        central_longitude=145, central_latitude=-35, width=12
+    )
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "T145/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "T145/-35/12c"
+
+
+class TestUniversalTransverseMercator:
+    """
+    Tests for the Universal Transverse Mercator projection.
+    """
+
+    prj1 = projection.UniversalTransverseMercator(zone="-55", width=12)
+    prj2 = projection.UniversalTransverseMercator(zone="55H", width=12)
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "U-55/12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "U55H/12c"
+
+
+class TestEquidistantCylindrical:
+    """
+    Tests for the Equidistant Cylindrical projection.
+    """
+
+    prj1 = projection.EquidistantCylindrical(width=12)
+    prj2 = projection.EquidistantCylindrical(central_longitude=145, width=12)
+    prj3 = projection.EquidistantCylindrical(central_longitude=145, central_latitude=-35, width=12)
+
+    def test_default_unit(self):
+        "Test the default value for the figure units"
+        assert self.prj1.unit == "c"
+
+    def test_string_conversion1(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj1) == "Q12c"
+
+    def test_string_conversion2(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "Q145/12c"
+
+    def test_string_conversion3(self):
+        "Test the string representation of the projection class"
+        assert str(self.prj2) == "Q145/-35/12c"
 
 
 class TestPolar:
