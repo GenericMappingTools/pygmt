@@ -477,9 +477,7 @@ class TestPolyconic:
     Tests for the Polyconic projection.
     """
 
-    prj1 = projection.Polyconic(
-        central_longitude=145, central_latitude=-35, width=12
-    )
+    prj1 = projection.Polyconic(central_longitude=145, central_latitude=-35, width=12)
     prj2 = projection.Polyconic(width=12)
 
     def test_default_unit(self):
@@ -525,10 +523,18 @@ class TestObliqueMercator1:
         central_longitude=145, central_latitude=-35, azimuth=45, width=12
     )
     prj2 = projection.ObliqueMercator1(
-        central_longitude=145, central_latitude=-35, azimuth=45, allow_southern_hemisphere=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        azimuth=45,
+        allow_southern_hemisphere=True,
+        width=12,
     )
     prj3 = projection.ObliqueMercator1(
-        central_longitude=145, central_latitude=-35, azimuth=45, align_yaxis=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        azimuth=45,
+        align_yaxis=True,
+        width=12,
     )
 
     def test_default_unit(self):
@@ -554,13 +560,27 @@ class TestObliqueMercator2:
     """
 
     prj1 = projection.ObliqueMercator2(
-        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        oblique_longitude=110,
+        oblique_latitude=-20,
+        width=12,
     )
     prj2 = projection.ObliqueMercator2(
-        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, allow_southern_hemisphere=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        oblique_longitude=110,
+        oblique_latitude=-20,
+        allow_southern_hemisphere=True,
+        width=12,
     )
     prj3 = projection.ObliqueMercator2(
-        central_longitude=145, central_latitude=-35, oblique_longitude=110, oblique_latitude=-20, align_yaxis=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        oblique_longitude=110,
+        oblique_latitude=-20,
+        align_yaxis=True,
+        width=12,
     )
 
     def test_default_unit(self):
@@ -586,13 +606,27 @@ class TestObliqueMercator3:
     """
 
     prj1 = projection.ObliqueMercator3(
-        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        pole_longitude=110,
+        pole_latitude=-20,
+        width=12,
     )
     prj2 = projection.ObliqueMercator3(
-        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, allow_southern_hemisphere=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        pole_longitude=110,
+        pole_latitude=-20,
+        allow_southern_hemisphere=True,
+        width=12,
     )
     prj3 = projection.ObliqueMercator3(
-        central_longitude=145, central_latitude=-35, pole_longitude=110, pole_latitude=-20, align_yaxis=True, width=12
+        central_longitude=145,
+        central_latitude=-35,
+        pole_longitude=110,
+        pole_latitude=-20,
+        align_yaxis=True,
+        width=12,
     )
 
     def test_default_unit(self):
@@ -663,7 +697,9 @@ class TestEquidistantCylindrical:
 
     prj1 = projection.EquidistantCylindrical(width=12)
     prj2 = projection.EquidistantCylindrical(central_longitude=145, width=12)
-    prj3 = projection.EquidistantCylindrical(central_longitude=145, central_latitude=-35, width=12)
+    prj3 = projection.EquidistantCylindrical(
+        central_longitude=145, central_latitude=-35, width=12
+    )
 
     def test_default_unit(self):
         "Test the default value for the figure units"
