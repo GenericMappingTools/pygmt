@@ -8,9 +8,10 @@ from pygmt.datasets import load_earth_vertical_gravity_gradient
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_vgg_fails():
+def test_earth_vertical_gravity_gradient_fails():
     """
-    Make sure load_earth_vgg fails for invalid resolutions.
+    Make sure load_earth_vertical_gravity_gradient fails for invalid
+    resolutions.
     """
     resolutions = "1m 1d bla 60d 001m 03".split()
     resolutions.append(60)
@@ -19,15 +20,16 @@ def test_earth_vgg_fails():
             load_earth_vertical_gravity_gradient(resolution=resolution)
 
 
-def test_earth_vgg_incorrect_registration():
+def test_earth_vertical_gravity_gradient_incorrect_registration():
     """
-    Test loading load_earth_vgg with incorrect registration type.
+    Test loading load_earth_vertical_gravity_gradient with incorrect
+    registration type.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_vertical_gravity_gradient(registration="improper_type")
 
 
-def test_earth_vgg_01d():
+def test_earth_vertical_gravity_gradient_01d():
     """
     Test some properties of the earth vgg 01d data.
     """
@@ -46,7 +48,7 @@ def test_earth_vgg_01d():
     assert data[1, 1].isnull()
 
 
-def test_earth_vgg_01d_with_region():
+def test_earth_vertical_gravity_gradient_01d_with_region():
     """
     Test loading low-resolution earth vgg with 'region'.
     """
@@ -60,7 +62,7 @@ def test_earth_vgg_01d_with_region():
     npt.assert_allclose(data.max(), 19.78125)
 
 
-def test_earth_vgg_05m_with_region():
+def test_earth_vertical_gravity_gradient_05m_with_region():
     """
     Test loading a subregion of high-resolution earth vgg.
     """
@@ -77,7 +79,7 @@ def test_earth_vgg_05m_with_region():
     assert data.sizes["lon"] == 121
 
 
-def test_earth_vgg_05m_without_region():
+def test_earth_vertical_gravity_gradient_05m_without_region():
     """
     Test loading high-resolution earth vgg without passing 'region'.
     """
@@ -85,7 +87,7 @@ def test_earth_vgg_05m_without_region():
         load_earth_vertical_gravity_gradient("05m")
 
 
-def test_earth_vgg_incorrect_resolution_registration():
+def test_earth_vertical_gravity_gradient_incorrect_resolution_registration():
     """
     Test that an error is raised when trying to load a grid registration with
     an unavailable resolution.
