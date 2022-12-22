@@ -86,7 +86,7 @@ def test_accessor_set_non_boolean():
 )
 def test_accessor_sliced_datacube():
     """
-    Check that a 2D grid which is sliced from an n-dimensional datacube works
+    Check that a 2-D grid which is sliced from an n-dimensional datacube works
     with accessor methods.
 
     This is a regression test for

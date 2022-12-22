@@ -92,7 +92,7 @@ jobs:
         report="${report//'%'/'%25'}"
         report="${report//$'\n'/'%0A'}"
         report="${report//$'\r'/'%0D'}"
-        echo ::set-output name=report::$report
+        echo "report=$report" >> $GITHUB_OUTPUT
 
     - name: Find comment with image diff report
       uses: peter-evans/find-comment@v2.2.0
