@@ -84,11 +84,11 @@ def test_meca_spec_dataframe():
 @pytest.mark.mpl_image_compare
 def test_meca_spec_1d_array():
     """
-    Test supplying a 1D numpy array containing focal mechanisms and locations
+    Test supplying a 1-D numpy array containing focal mechanisms and locations
     to the spec parameter.
     """
     fig = Figure()
-    # supply focal mechanisms to meca as a 1D numpy array, here we are using
+    # supply focal mechanisms to meca as a 1-D numpy array, here we are using
     # the Harvard CMT zero trace convention but the focal mechanism
     # parameters may be specified any of the available conventions. Since we
     # are not using a dict or dataframe the convention and component should
@@ -122,11 +122,11 @@ def test_meca_spec_1d_array():
 @pytest.mark.mpl_image_compare
 def test_meca_spec_2d_array():
     """
-    Test supplying a 2D numpy array containing focal mechanisms and locations
+    Test supplying a 2-D numpy array containing focal mechanisms and locations
     to the spec parameter.
     """
     fig = Figure()
-    # supply focal mechanisms to meca as a 2D numpy array, here we are using
+    # supply focal mechanisms to meca as a 2-D numpy array, here we are using
     # the GCMT convention but the focal mechanism parameters may be
     # specified any of the available conventions. Since we are not using a
     # dict or dataframe the convention and component should be specified.
@@ -185,7 +185,7 @@ def test_meca_loc_array():
         strike=[327, 350], dip=[41, 50], rake=[68, 90], magnitude=[3, 2]
     )
     # longitude, latitude, and depth may be specified as an int, float,
-    # list, or 1d numpy array
+    # list, or 1-D numpy array
     longitude = np.array([-123.3, -124.4])
     latitude = np.array([48.4, 48.2])
     depth = [12.0, 11.0]  # to test mixed data types as inputs

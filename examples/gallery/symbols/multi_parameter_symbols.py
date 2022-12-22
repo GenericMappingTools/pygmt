@@ -21,7 +21,7 @@ import pygmt
 ###############################################################################
 # We can plot multi-parameter symbols using the same symbol style. We need to
 # define locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for
-# a single symbol or 1d list for several ones) and two or three symbol
+# a single symbol or 1-D list for several ones) and two or three symbol
 # parameters after those shortcuts via the ``style`` parameter.
 #
 # The multi-parameter symbols in the ``style`` parameter are defined as:
@@ -54,11 +54,11 @@ fig.show()
 
 ###############################################################################
 # We can also plot symbols with varying parameters via defining those values in
-# a 2d list or numpy array (``[[parameters]]`` for a single symbol or
+# a 2-D list or numpy array (``[[parameters]]`` for a single symbol or
 # ``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or using
 # an appropriately formatted input file and passing it to ``data``.
 #
-# The symbol parameters in the 2d list or numpy array are defined as:
+# The symbol parameters in the 2-D list or numpy array are defined as:
 #
 # - **e**: ellipse, ``[[lon, lat, direction, major_axis, minor_axis]]``
 # - **j**: rotated rectangle, ``[[lon, lat, direction, width, height]]``

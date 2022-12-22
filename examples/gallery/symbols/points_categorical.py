@@ -39,7 +39,7 @@ region = pygmt.info(
     spacing=(3, 2),
 )
 
-# Make a 2D categorical scatter plot, coloring each of the 3 species
+# Make a 2-D categorical scatter plot, coloring each of the 3 species
 # differently
 fig = pygmt.Figure()
 

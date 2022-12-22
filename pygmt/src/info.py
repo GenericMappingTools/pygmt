@@ -48,7 +48,7 @@ def info(data, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 1D/2D
+        Pass in either a file name to an ASCII data table, a 1-D/2-D
         {table-classes}.
     per_column : bool
         Report the min/max values per column in separate columns.
