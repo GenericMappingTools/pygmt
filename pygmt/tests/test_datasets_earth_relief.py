@@ -27,14 +27,13 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     Test some properties of the earth relief 01d data with IGPP and SYNBATH
     data.
     """
-    data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source=data_source
-    )
+    data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "elevation"
     assert data.attrs["units"] == "meters"
     assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
+    assert data.gmt.registration == 0
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))

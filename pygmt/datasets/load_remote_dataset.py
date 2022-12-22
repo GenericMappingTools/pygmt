@@ -71,18 +71,18 @@ datasets = {
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
-            "01d": Resolution(["pixel", "gridline"], False),
-            "30m": Resolution(["pixel", "gridline"], False),
-            "20m": Resolution(["pixel", "gridline"], False),
-            "15m": Resolution(["pixel", "gridline"], False),
-            "10m": Resolution(["pixel", "gridline"], False),
-            "06m": Resolution(["pixel", "gridline"], False),
-            "05m": Resolution(["pixel", "gridline"], True),
-            "04m": Resolution(["pixel", "gridline"], True),
-            "03m": Resolution(["pixel", "gridline"], True),
-            "02m": Resolution(["pixel", "gridline"], True),
-            "01m": Resolution(["pixel", "gridline"], True),
-            "30s": Resolution(["pixel", "gridline"], True),
+            "01d": Resolution(["gridline", "pixel"], False),
+            "30m": Resolution(["gridline", "pixel"], False),
+            "20m": Resolution(["gridline", "pixel"], False),
+            "15m": Resolution(["gridline", "pixel"], False),
+            "10m": Resolution(["gridline", "pixel"], False),
+            "06m": Resolution(["gridline", "pixel"], False),
+            "05m": Resolution(["gridline", "pixel"], True),
+            "04m": Resolution(["gridline", "pixel"], True),
+            "03m": Resolution(["gridline", "pixel"], True),
+            "02m": Resolution(["gridline", "pixel"], True),
+            "01m": Resolution(["gridline", "pixel"], True),
+            "30s": Resolution(["gridline", "pixel"], True),
             "15s": Resolution(["pixel"], True),
             "03s": Resolution(["gridline"], True),
             "01s": Resolution(["gridline"], True),
@@ -210,10 +210,14 @@ def _load_remote_dataset(
     The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
-
-    if registration in ("pixel", "gridline", None):
+    dataset = datasets[dataset_name]
+    if resolution not in dataset.resolutions.keys():
+        raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+    if registration is None:
+        registration = dataset.resolutions[resolution].registrations[0]
+    if registration in ("pixel", "gridline"):
         # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
+        reg = f"_{registration[0]}"
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: '{registration}', should be either "
@@ -221,9 +225,7 @@ def _load_remote_dataset(
             "pixel-registered grid is returned unless only the "
             "gridline-registered grid is available."
         )
-    dataset = datasets[dataset_name]
-    if resolution not in dataset.resolutions.keys():
-        raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+
     if registration and (
         registration not in dataset.resolutions[resolution].registrations
     ):
