@@ -18,8 +18,10 @@
                 {% else %}
                     {% set example_script = example_script + ".py" %}
                 {% endif %}
-                <a href="https://github.com/{{ github_repo }}/edit/{{ github_version }}/{{ doc_path }}/{{ example_script }}"
-                   class="fa fa-github"> Improve this page</a>
+                {% if pagename.split("/")[-1] != "sg_execution_times" %}
+                    <a href="https://github.com/{{ github_repo }}/edit/{{ github_version }}/{{ doc_path }}/{{ example_script }}"
+                       class="fa fa-github"> Improve this page</a>
+                {% endif %}
             {% else %}
                 <a href="https://github.com/{{ github_repo }}/edit/{{ github_version }}/{{ doc_path }}/{{ pagename }}{{ page_source_suffix }}"
                    class="fa fa-github"> Improve this page</a>
