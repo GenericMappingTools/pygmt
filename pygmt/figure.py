@@ -141,7 +141,7 @@ class Figure:
         V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, icc_gray=False, **kwargs):
+    def psconvert(self, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
@@ -230,18 +230,6 @@ class Figure:
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-
-        if icc_gray:
-            msg = (
-                "The 'icc_gray' parameter has been deprecated since v0.6.0"
-                " and will be removed in v0.8.0."
-            )
-            warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if kwargs.get("N") is None:
-                kwargs["N"] = "+i"
-            else:
-                kwargs["N"] += "+i"
-
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
