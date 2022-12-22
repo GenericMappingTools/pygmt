@@ -131,6 +131,7 @@ def test_earth_gebcosi_15m_with_region():
         data_source="gebcosi",
     )
     assert data.shape == (16, 8)
+    assert data.gmt.registration == 1
     npt.assert_allclose(data.lat, np.arange(-87.875, -84, 0.25))
     npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
     npt.assert_allclose(data.min(), -531)
