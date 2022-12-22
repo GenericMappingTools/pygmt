@@ -190,7 +190,7 @@ def _load_remote_dataset(
         arc-degrees, arc-minutes, and arc-seconds, respectively.
 
     region : str or list
-        The subregion of the grid to load, in the forms of a list
+        The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for tiled grids.
 
