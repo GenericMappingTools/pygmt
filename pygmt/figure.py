@@ -3,7 +3,6 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-import warnings
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
