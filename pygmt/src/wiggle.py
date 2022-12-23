@@ -105,7 +105,8 @@ def wiggle(
     if kwargs.get("G") is not None:
         msg = (
             "The 'color' parameter has been deprecated since v0.8.0"
-            " and will be removed in v0.12.0. Use fill_positive/fill_negative instead."
+            " and will be removed in v0.12.0. Use fill_positive/fill_negative"
+            " instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
