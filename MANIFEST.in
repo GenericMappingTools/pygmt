@@ -1,9 +1,13 @@
-include README.rst
-include LICENSE.txt
-include CODE_OF_CONDUCT.md
-include CONTRIBUTING.md
-include AUTHORS.md
-include versioneer.py
-include pygmt/_version.py
-recursive-include pygmt/tests/data *
-recursive-include pygmt/tests/baseline *
+prune .dvc
+prune .github*
+prune ci
+prune doc*
+prune examples*
+exclude .dvcignore
+exclude .gitignore
+exclude .readthedocs.yaml
+exclude AUTHORSHIP.md
+exclude CONTRIBUTING.md
+exclude Makefile
+exclude environment.yml
+exclude requirements.txt

@@ -1,0 +1,4 @@
+outs:
+- md5: dce12e1a356d425182ac49558691ca79
+  size: 4894
+  path: test_text_justify_bottom_right_and_top_left.png

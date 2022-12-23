@@ -1,7 +1,7 @@
 # pylint: disable=missing-docstring
 #
-# Custom exception types used throughout the library. All exceptions derive from
-# GMTError.
+# Custom exception types used throughout the library. All exceptions derive
+# from GMTError.
 
 
 class GMTError(Exception):
@@ -43,4 +43,10 @@ class GMTInvalidInput(GMTError):
 class GMTVersionError(GMTError):
     """
     Raised when an incompatible version of GMT is being used.
+    """
+
+
+class GMTImageComparisonFailure(AssertionError):
+    """
+    Raised when a comparison between two images fails.
     """

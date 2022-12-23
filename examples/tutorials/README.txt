@@ -1,4 +1,6 @@
+.. _tutorials:
+
 Tutorials
 =========
 
-This file is a placeholder and not included in the docs.
+These examples teach us how to complete various tasks using PyGMT!

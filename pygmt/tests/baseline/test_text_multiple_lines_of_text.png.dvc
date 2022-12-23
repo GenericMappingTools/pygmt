@@ -1,0 +1,4 @@
+outs:
+- md5: 82744785853f4c0c35a8a30f6e460ad3
+  size: 6125
+  path: test_text_multiple_lines_of_text.png

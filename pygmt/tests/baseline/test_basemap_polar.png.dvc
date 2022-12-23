@@ -1,0 +1,4 @@
+outs:
+- md5: ded4dba2d1c780b85f256eaad2e268f5
+  size: 31886
+  path: test_basemap_polar.png

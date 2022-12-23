@@ -1,0 +1,4 @@
+outs:
+- md5: 1469301865b97d4a95bdc26a89ae7df5
+  size: 13936
+  path: test_meca_spec_dict_list.png

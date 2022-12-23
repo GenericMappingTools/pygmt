@@ -1,0 +1,4 @@
+outs:
+- md5: b40481dd506db95c617978fe41ca9f9c
+  size: 4583
+  path: test_meca_spec_dataframe.png

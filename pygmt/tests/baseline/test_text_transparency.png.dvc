@@ -1,0 +1,4 @@
+outs:
+- md5: 0ba04d2715ef2fcdca352a47a1b4c661
+  size: 18078
+  path: test_text_transparency.png

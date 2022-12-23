@@ -1,0 +1,63 @@
+# This workflow gets and uploads the GMT data artifacts used in the PyGMT CI tests
+name: Cache data
+
+on:
+  # Uncomment the 'pull_request' line below to manually re-cache data artifacts
+  # pull_request:
+  # Schedule runs on 12 noon every Sunday
+  schedule:
+    - cron: '0 12 * * 0'
+
+jobs:
+  gmt_cache:
+    name: Cache GMT artifacts
+    runs-on: macOS-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v3.2.0
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          channels: conda-forge,nodefaults
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          run-post: false
+          use-mamba: true
+
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install dependencies
+        run: |
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
+                        build
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python -m build --sdist
+          pip install dist/*
+
+      # Download remote files
+      - name: Download remote data
+        run: |
+          python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
+
+      # Upload the downloaded files as artifacts to GitHub
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: gmt-cache
+          path: |
+              ~/.gmt/cache
+              ~/.gmt/server

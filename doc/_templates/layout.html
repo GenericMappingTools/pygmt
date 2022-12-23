@@ -15,6 +15,10 @@
       ga('set', 'anonymizeIp', true);
       ga('send', 'pageview');
     </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
 {% endblock %}
 
 
@@ -28,7 +32,7 @@
 
 
 {% block sidebartitle %}
-    <a href="{{ pathto(master_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
+    <a href="{{ pathto(root_doc) }}"><h2 class="sidebar-title">{{ project }}</h2></a>
 
     {% if theme_display_version %}
         {%- set nav_version = version %}

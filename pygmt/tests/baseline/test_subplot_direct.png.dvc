@@ -1,0 +1,4 @@
+outs:
+- md5: 643e93a421f06688d77288c3629f242c
+  size: 6853
+  path: test_subplot_direct.png

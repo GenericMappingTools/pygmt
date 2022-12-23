@@ -1,0 +1,4 @@
+outs:
+- md5: 8d8adbe565623420f7211ecd97b02db2
+  size: 58333
+  path: test_rose_plot_with_transparency.png

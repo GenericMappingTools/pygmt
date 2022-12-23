@@ -3,39 +3,34 @@ html {
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-size: 1.05em;
 }
 
 h1, h2, h3, h4 {
-    font-weight: 300;
-    font-family: "Open Sans",sans-serif;
+    font-weight: normal;
+    font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
+/* Set the header font sizes */
 h1 {
     font-size: 200%;
 }
 
-.gmtplot-output {
-    width: 100%;
-    overflow: auto;
+h2 {
+    font-size: 185%;
 }
 
-.gmtplot-output img {
-    max-width: 700px;
-    width: 100%;
+h3 {
+    font-size: 150%;
 }
 
-.gmtplot-output pre {
-    color: #888888;
+h4 {
+    font-size: 130%;
 }
 
-.gmtplot-output-figure {
-    margin-bottom: 50px;
-}
-
-.rst-content img {
-    max-width: 700px;
-    width: 100%;
+p {
+    font-size: 1.05em;
 }
 
 .sidebar-title {
@@ -89,6 +84,32 @@ h1 {
     max-width: 1000px;
 }
 
+/* Format parameters section similar to sphinx_rtd_theme v4.x.x (not a grid) */
+html.writer-html5 .rst-content dl.field-list {
+    display: initial;
+}
+
+/* Add a grey box around parameters similar to sphinx_rtd_theme v4.x.x) */
+.rst-content dl:not(.docutils) dl dt {
+    margin-bottom: 4px;
+    border: none;
+    border-left: solid 3px #ccc;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.rst-content dl:not(.docutils) dt {
+    display: table;
+    margin: 6px 0;
+    font-size: 90%;
+    line-height: normal;
+    background: #e7f2fa;
+    color: #2980B9;
+    border-top: solid 3px #6ab0de;
+    padding: 6px;
+    position: relative;
+}
+
 /* Remove the padding from the Parameters table */
 .rst-content table.field-list .field-name {
     padding-left: 0px;
@@ -114,4 +135,71 @@ h1 {
         display: block;
         margin-top: 20px;
     }
+}
+
+/* Style for the copy button */
+/* Safe to remove for sphinx-copybutton>0.3.1
+ * https://github.com/executablebooks/sphinx-copybutton/pull/107
+ */
+a.copybtn {
+    position: absolute;
+    top: .2em;
+    right: .2em;
+    width: 1.3em;
+    height: 1.3em;
+    opacity: .3;
+    transition: opacity 0.5s;
+    border: none;
+    user-select: none;
+}
+
+/* Atkinson Hyperlegible regular */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Regular-102a.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Atkinson Hyperlegible bold */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Bold-102a.woff2") format('woff2');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Atkinson Hyperlegible italic */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-Italic-102a.woff2") format('woff2');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Atkinson Hyperlegible bold italic */
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("./fonts/Atkinson-Hyperlegible-BoldItalic-102a.woff2") format('woff2');
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Style for images and thumbnails of sphinx-gallery */
+.sphx-glr-thumbcontainer {
+    border: solid #d6d6d6 1px!important;
+    text-align: center!important;
+}
+
+.sphx-glr-thumbcontainer {
+    min-height: 240px!important;
+    min-width: 180px!important;
+}
+
+.sphx-glr-thumbcontainer img {
+    max-width:95%!important;
+}
+
+.sphx-glr-single-img {
+    max-width: 80%!important;
 }

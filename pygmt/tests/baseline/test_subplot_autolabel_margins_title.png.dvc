@@ -1,0 +1,4 @@
+outs:
+- md5: e1e6312073c2ca423d2034d193858929
+  size: 23036
+  path: test_subplot_autolabel_margins_title.png

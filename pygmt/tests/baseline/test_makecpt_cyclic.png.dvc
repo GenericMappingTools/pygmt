@@ -1,0 +1,4 @@
+outs:
+- md5: 150c12b8d8959561bdf36d380dc23d10
+  size: 3747
+  path: test_makecpt_cyclic.png

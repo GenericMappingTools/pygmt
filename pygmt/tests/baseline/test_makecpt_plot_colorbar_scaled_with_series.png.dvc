@@ -1,0 +1,4 @@
+outs:
+- md5: 99bb2d95750b1d0be7ac3ad1ee5fae52
+  size: 3378
+  path: test_makecpt_plot_colorbar_scaled_with_series.png

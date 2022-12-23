@@ -1,0 +1,4 @@
+outs:
+- md5: 92aeb730de6db02fb2cf488f37d799cc
+  size: 1394
+  path: test_colorbar_box_with_fill.png

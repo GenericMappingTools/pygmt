@@ -1,32 +1,26 @@
 """
-Tests for fig.logo
+Tests for fig.logo.
 """
 import pytest
-
-from .. import Figure
-from ..exceptions import GMTInvalidInput
+from pygmt import Figure
 
 
 @pytest.mark.mpl_image_compare
 def test_logo():
-    "Plot a GMT logo of a 2 inch width as a stand-alone plot"
+    """
+    Plot the GMT logo as a stand-alone plot.
+    """
     fig = Figure()
-    fig.logo(D="x0/0+w2i")
+    fig.logo()
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_logo_on_a_map():
-    "Plot a GMT logo in the upper right corner of a map"
+    """
+    Plot the GMT logo at the upper right corner of a map.
+    """
     fig = Figure()
-    fig.coast(region=[-90, -70, 0, 20], projection="M6i", land="chocolate", frame=True)
-    fig.logo(D="jTR+o0.1i/0.1i+w3i", F=True)
-    return fig
-
-
-def test_logo_fails():
-    "Make sure logo raises an exception when D is not given"
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.logo()
+    fig.basemap(region=[-90, -70, 0, 20], projection="M15c", frame=True)
+    fig.logo(position="jTR+o0.25c/0.25c+w7.5c", box=True)
     return fig

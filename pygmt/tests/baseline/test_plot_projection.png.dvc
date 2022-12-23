@@ -1,0 +1,4 @@
+outs:
+- md5: 5fa2e73cc144954960d68108abab8795
+  size: 21255
+  path: test_plot_projection.png

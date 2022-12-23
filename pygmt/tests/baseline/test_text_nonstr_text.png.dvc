@@ -1,0 +1,4 @@
+outs:
+- md5: 182422ec2319098a82daa29d6d8009e0
+  size: 12659
+  path: test_text_nonstr_text.png

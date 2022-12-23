@@ -1,5 +1,5 @@
-# Requirements for installing with conda
-numpy
+# Required packages
+numpy>=1.20
 pandas
 xarray
 netCDF4

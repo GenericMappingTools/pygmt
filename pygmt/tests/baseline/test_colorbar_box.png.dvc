@@ -1,0 +1,4 @@
+outs:
+- md5: 554a83b4f34c4470e2e2aba765860e84
+  size: 1450
+  path: test_colorbar_box.png

@@ -1,61 +1,61 @@
 # Makefile for Sphinx documentation
 
 # You can set these variables from the command line.
-SPHINXOPTS    =
+SPHINXOPTS    = -j auto
 SPHINXBUILD   = sphinx-build
 SPHINXAUTOGEN = sphinx-autogen
 BUILDDIR      = _build
 
 # Internal variables.
-ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
+ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees  $(SPHINXOPTS) .
 
-.PHONY: help clean html linkcheck doctest api
+.PHONY: help all api html server clean
+
+help:
+	@echo "Please use 'make <target>' where <target> is one of"
+	@echo "  all          build the HTML files from the existing rst sources"
+	@echo "  api          generate rst source files of API documentation"
+	@echo "  html         build the HTML files from the existing rst sources"
+	@echo "  html-noplot  build the HTML files without running any examples"
+	@echo "  server       make a local HTTP server for previewing the built documentation"
+	@echo "  clean        clean up built and generated files"
 
 all: html
 
-help:
-	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  all        generate the complete webpage"
-	@echo "  html       make only the HTML files from the existing rst sources"
-	@echo "  linkcheck  check all external links for integrity"
-	@echo "  doctest    run all doctests embedded in the documentation (if enabled)"
-
-clean:
-	rm -rf $(BUILDDIR)/html/*
-	rm -rf $(BUILDDIR)/doctrees
-	rm -rf $(BUILDDIR)/linkcheck
-	rm -rf modules
-	rm -rf api/generated
-	rm -rf gallery
-	rm -rf tutorials
-	rm -rf projections
-	rm -rf .ipynb_checkpoints
+api:
+	@echo
+	@echo "Generating rst source files of API documentation."
+	@echo
+	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
 
 html: api
 	@echo
 	@echo "Building HTML files."
 	@echo
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	# Set PYGMT_USE_EXTERNAL_DISPLAY to "false" to disable external display
+	PYGMT_USE_EXTERNAL_DISPLAY="false" $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-api:
+html-noplot: api
 	@echo
-	@echo "Building API docs."
+	@echo "Building HTML files without example plots."
 	@echo
-	$(SPHINXAUTOGEN) -i -t _templates -o api/generated api/*.rst
-
-
-linkcheck:
-	$(SPHINXBUILD) -b linkcheck $(ALLSPHINXOPTS) $(BUILDDIR)/linkcheck
+	$(SPHINXBUILD) -D plot_gallery=0 -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
-	@echo "Link check complete; look for any errors in the above output " \
-	      "or in $(BUILDDIR)/linkcheck/output.txt."
+	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-doctest:
-	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
-	      "results in $(BUILDDIR)/doctest/output.txt."
-
-serve:
+server:
+	@echo
+	@echo "Running a server on port 8009."
+	@echo "Open http://localhost:8009 in a web browser to preview the documentation."
+	@echo
 	cd $(BUILDDIR)/html && python -m http.server 8009
+
+clean:
+	rm -rf $(BUILDDIR)
+	rm -rf api/generated
+	rm -rf gallery
+	rm -rf tutorials
+	rm -rf get_started
+	rm -rf projections

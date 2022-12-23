@@ -1,0 +1,4 @@
+outs:
+- md5: d95be055306d25aa619e816a9a4b147e
+  size: 7550
+  path: test_config_format_time_map.png

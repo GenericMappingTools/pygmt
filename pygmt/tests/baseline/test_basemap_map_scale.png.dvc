@@ -1,0 +1,4 @@
+outs:
+- md5: e88925c5053369eb516757ec963d691d
+  size: 31044
+  path: test_basemap_map_scale.png

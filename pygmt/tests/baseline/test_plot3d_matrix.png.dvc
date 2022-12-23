@@ -1,0 +1,4 @@
+outs:
+- md5: 2dfb17a65aedde7e5503b751bfc5e9c8
+  size: 34236
+  path: test_plot3d_matrix.png

@@ -1,0 +1,4 @@
+outs:
+- md5: 916dd79b35defcb6b6c1464f4a279790
+  size: 3216
+  path: test_meca_spec_1d_array.png

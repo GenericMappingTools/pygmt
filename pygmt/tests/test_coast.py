@@ -1,67 +1,74 @@
 """
-Tests for coast
+Tests for fig.coast.
 """
 import pytest
-
-from .. import Figure
-
-
-@pytest.mark.mpl_image_compare
-def test_coast():
-    "Simple plot from the GMT docs"
-    fig = Figure()
-    fig.coast(
-        R="-30/30/-40/40",
-        J="m0.1i",
-        B=5,
-        I="1/1p,blue",
-        N="1/0.25p,-",
-        W="0.25p,white",
-        G="green",
-        S="blue",
-        D="c",
-        A=10000,
-    )
-    return fig
+from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
-def test_coast_iceland():
-    "Test passing in R as a list"
+def test_coast_region():
+    """
+    Test plotting a regional map with coastlines.
+    """
     fig = Figure()
-    fig.coast(R=[-30, -10, 60, 65], J="m1c", B=True, G="p28+r100")
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_coast_aliases():
-    "Test that all aliases work"
-    fig = Figure()
-    fig.coast(
-        region="-30/30/-40/40",
-        projection="m0.1i",
-        frame="afg",
-        rivers="1/1p,black",
-        borders="1/0.5p,-",
-        shorelines="0.25p,white",
-        land="moccasin",
-        water="skyblue",
-        resolution="i",
-        area_thresh=1000,
-    )
+    fig.coast(region="JP", projection="M10c", frame=True, land="gray", shorelines=1)
     return fig
 
 
 @pytest.mark.mpl_image_compare
 def test_coast_world_mercator():
-    "Test passing generating a global Mercator map with coastlines"
+    """
+    Test generating a global Mercator map with coastlines.
+    """
     fig = Figure()
     fig.coast(
         region=[-180, 180, -80, 80],
-        projection="M10i",
+        projection="M15c",
         frame="af",
         land="#aaaaaa",
-        resolution="l",
+        resolution="c",
         water="white",
+    )
+    return fig
+
+
+def test_coast_required_args():
+    """
+    Test if fig.coast fails when not given required arguments.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.coast(region="EG")
+
+
+@pytest.mark.mpl_image_compare
+def test_coast_dcw_single():
+    """
+    Test passing a single country code to dcw.
+    """
+    fig = Figure()
+    fig.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw="ES+gbisque+pblue",
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_coast_dcw_list():
+    """
+    Test passing a list of country codes and fill arguments to dcw.
+    """
+    fig = Figure()
+    fig.coast(
+        region=[-10, 15, 25, 44],
+        frame="a",
+        projection="M15c",
+        land="brown",
+        dcw=["ES+gbisque+pgreen", "IT+gcyan+pblue"],
     )
     return fig

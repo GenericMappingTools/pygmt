@@ -1,0 +1,4 @@
+outs:
+- md5: e2f5d695f6f7a0d385a8d988e7ecdf37
+  size: 2319
+  path: test_colorbar_truncated_to_zlow_zhigh.png

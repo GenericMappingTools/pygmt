@@ -20,18 +20,17 @@
 
     overview.rst
     install.rst
-    tutorials/first-figure.rst
-    gallery/index.rst
+    get_started/index.rst
 
 .. toctree::
     :maxdepth: 2
     :hidden:
     :caption: User Guide
 
-    tutorials/frames.rst
+    tutorials/index.rst
+    gallery/index.rst
     projections/index.rst
-    tutorials/coastlines.rst
-    tutorials/plot.rst
+    external_resources.md
 
 .. toctree::
     :maxdepth: 2
@@ -39,3 +38,13 @@
     :caption: Reference documentation
 
     api/index.rst
+    changes.md
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+    :caption: Development
+
+    team.md
+    contributing.md
+    maintenance.md

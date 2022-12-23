@@ -25,8 +25,14 @@ files and get only the more convenient formats like PDF and PNG.
 The project was started in 2017 by `Leonardo Uieda <http://www.leouieda.com>`__
 and `Paul Wessel <http://www.soest.hawaii.edu/wessel>`__ (the co-creator and main
 developer of GMT) at the University of Hawaii at Manoa.
-The development of PyGMT was funded by
-`NSF grant OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__.
+The development of PyGMT has been supported by NSF grants
+`OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
+`EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.
+
+We welcome any feedback and ideas! Let us know by submitting
+`issues on GitHub <https://github.com/GenericMappingTools/pygmt/issues>`__
+or by posting on our `Discourse forum
+<https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a>`__.
 
 
 Presentations
@@ -35,16 +41,41 @@ Presentations
 These are conference presentations about the development of PyGMT (previously
 "GMT/Python"):
 
+* "Geospatial Analysis & Visualization with PyGMT".
+  2022.
+  Max Jones, Wei Ji Leong, and Leonardo Uieda.
+  Presented at *SciPy 2022*.
+  doi:`10.6084/m9.figshare.20483793 <https://doi.org/10.6084/m9.figshare.20483793>`__
+
+.. figure:: _static/scipy2022-youtube-thumbnail.jpg
+   :target: https://youtu.be/nCktihu9bWg
+   :width: 80%
+   :align: center
+   :alt: SciPy 2022 YouTube video
+
+* "PyGMT: Accessing the Generic Mapping Tools from Python".
+  2019.
+  Leonardo Uieda and Paul Wessel.
+  Presented at *AGU 2019*.
+  doi:`10.6084/m9.figshare.11320280 <https://doi.org/10.6084/m9.figshare.11320280>`__
+
+.. figure:: _static/agu2019-poster.jpg
+   :target: https://doi.org/10.6084/m9.figshare.11320280
+   :width: 80%
+   :align: center
+   :alt: AGU 2019 poster on figshare
+
 * "Building an object-oriented Python interface for the Generic Mapping Tools".
   2018.
   Leonardo Uieda and Paul Wessel.
-  Presented at *Scipy 2018*.
+  Presented at *SciPy 2018*.
   doi:`10.6084/m9.figshare.6814052 <https://doi.org/10.6084/m9.figshare.6814052>`__
 
 .. figure:: _static/scipy2018-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=6wMtfZXfTRM
+   :width: 80%
    :align: center
-   :alt: Scipy youtube video
+   :alt: SciPy 2018 YouTube video
 
 * "Integrating the Generic Mapping Tools with the Scientific Python Ecosystem".
   2018.
@@ -54,19 +85,21 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/aogs2018-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.6399944
+   :width: 80%
    :align: center
    :alt: AOGS poster on figshare
 
 * "Bringing the Generic Mapping Tools to Python".
   2017.
   Leonardo Uieda and Paul Wessel.
-  Presented at *Scipy 2017*.
+  Presented at *SciPy 2017*.
   doi:`10.6084/m9.figshare.7635833 <https://doi.org/10.6084/m9.figshare.7635833>`__
 
 .. figure:: _static/scipy2017-youtube-thumbnail.png
    :target: https://www.youtube.com/watch?v=93M4How7R24
+   :width: 80%
    :align: center
-   :alt: Scipy youtube video
+   :alt: SciPy 2017 YouTube video
 
 * "A modern Python interface for the Generic Mapping Tools".
   2017.
@@ -76,5 +109,6 @@ These are conference presentations about the development of PyGMT (previously
 
 .. figure:: _static/agu2017-poster.jpg
    :target: https://doi.org/10.6084/m9.figshare.5662411
+   :width: 80%
    :align: center
-   :alt: AGU poster on figshare
+   :alt: AGU 2017 poster on figshare

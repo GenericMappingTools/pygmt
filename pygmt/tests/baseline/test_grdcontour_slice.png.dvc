@@ -1,0 +1,4 @@
+outs:
+- md5: 66f1c57afea5075a02f5f90b2c225185
+  size: 53984
+  path: test_grdcontour_slice.png

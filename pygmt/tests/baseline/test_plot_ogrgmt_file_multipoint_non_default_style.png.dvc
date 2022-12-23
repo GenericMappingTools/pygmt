@@ -1,0 +1,4 @@
+outs:
+- md5: 4a946506f8a48be04792fdabffc6fa07
+  size: 4451
+  path: test_plot_ogrgmt_file_multipoint_non_default_style.png

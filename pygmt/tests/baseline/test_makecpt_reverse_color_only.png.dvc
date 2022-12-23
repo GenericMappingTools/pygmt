@@ -1,0 +1,4 @@
+outs:
+- md5: 6b39a96fe69ce94e16f29fb8e28b22c1
+  size: 3954
+  path: test_makecpt_reverse_color_only.png

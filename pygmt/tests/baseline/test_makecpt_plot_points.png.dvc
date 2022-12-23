@@ -1,0 +1,4 @@
+outs:
+- md5: 7944289487b6efd9755a931e371d8022
+  size: 26601
+  path: test_makecpt_plot_points.png

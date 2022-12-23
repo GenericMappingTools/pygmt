@@ -1,0 +1,4 @@
+outs:
+- md5: a44dc0f1af50958aeff2d359ea8b03a7
+  size: 8732
+  path: test_meca_gcmt_convention.png

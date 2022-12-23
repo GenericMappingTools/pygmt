@@ -1,0 +1,34 @@
+name: Feature request - Wrap a new GMT module
+description: Request PyGMT wrapper for a GMT module
+title: "Wrapper for <module-name>"
+labels: ["feature request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please replace `<module-name>` in the issue title and the description with the name of the requested module and add the description of the module.
+  - type: textarea
+    id: which-module
+    attributes:
+      label: Description of the desired module
+      description: Please be as detailed as you can in your description. If possible, include an example of how you would like to use this feature (even better if it's a code example).
+      placeholder: Implement [`<module-name>`](https://docs.generic-mapping-tools.org/latest/<module-name>.html) which `<insert description of the GMT module>`.
+    validations:
+      required: true
+  - type: dropdown
+    id: help
+    attributes:
+      label: Are you willing to help implement and maintain this feature?
+      description: |
+        Every feature we add is code that we will have to maintain and keep updated. This takes a lot of effort.
+        If you are willing to be involved in the project and help maintain your feature, it will make it easier for us to accept it.
+      options:
+        - "No"
+        - "Yes"
+        - "Maybe"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Progress on wrapping the module will be tracked in the [project board](https://github.com/GenericMappingTools/pygmt/projects/9).

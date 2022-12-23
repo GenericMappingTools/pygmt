@@ -1,0 +1,4 @@
+outs:
+- md5: b20b1fd9f9e585abb5da08f3201e69ce
+  size: 12965
+  path: test_config_map_tick_length.png

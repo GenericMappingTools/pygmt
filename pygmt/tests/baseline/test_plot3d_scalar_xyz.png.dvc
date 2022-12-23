@@ -1,0 +1,4 @@
+outs:
+- md5: ff132fccbeb5304eb230d64eb2c57792
+  size: 30890
+  path: test_plot3d_scalar_xyz.png

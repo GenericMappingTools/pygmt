@@ -1,0 +1,4 @@
+outs:
+- md5: e1cd6b2b971d8f1dd0fd452a9136c54e
+  size: 7229
+  path: test_text_position_offset_with_line.png

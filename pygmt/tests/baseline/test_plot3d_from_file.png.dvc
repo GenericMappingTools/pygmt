@@ -1,0 +1,4 @@
+outs:
+- md5: cb66a8d11e211fcc8c58a35e1bb3a957
+  size: 40754
+  path: test_plot3d_from_file.png

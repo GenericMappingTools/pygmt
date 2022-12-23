@@ -1,0 +1,4 @@
+outs:
+- md5: 25eccec4314f5dc6af1fce6cd7316efb
+  size: 1910
+  path: test_text_single_line_of_text.png

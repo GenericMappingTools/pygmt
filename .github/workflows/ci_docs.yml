@@ -1,0 +1,168 @@
+# This workflow installs PyGMT, builds and deploys documentation
+
+name: Docs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths-ignore:
+      - 'pygmt/tests/**'
+      - '*.md'
+      - 'LICENSE.txt'
+      - '.gitignore'
+  release:
+    types:
+      - published
+
+jobs:
+  docs:
+    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10']
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        # Is it a draft Pull Request (true or false)?
+        isDraft:
+          - ${{ github.event.pull_request.draft }}
+        # Only run one job (Ubuntu + Python 3.10) for draft PRs
+        exclude:
+          - os: macOS-latest
+            isDraft: true
+          - os: windows-latest
+            isDraft: true
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Cancel previous runs that are not completed
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.11.0
+        with:
+          access_token: ${{ github.token }}
+
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v3.2.0
+        with:
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
+
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
+        uses: conda-incubator/setup-miniconda@v2.2.0
+        with:
+          activate-environment: pygmt
+          python-version: ${{ matrix.python-version }}
+          channels: conda-forge,nodefaults
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          run-post: false
+          use-mamba: true
+
+      # Install GMT and other required dependencies from conda-forge
+      - name: Install dependencies
+        run: |
+          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
+                        build ipython make myst-parser geopandas \
+                        sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: mamba list
+
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v2.24.2
+        with:
+          workflow: cache_data.yaml
+          workflow_conclusion: success
+          name: gmt-cache
+          path: .gmt
+
+      # Move downloaded files to ~/.gmt directory and list them
+      - name: Move and list downloaded remote files
+        run: |
+          mkdir -p ~/.gmt
+          mv .gmt/* ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: |
+          python -m build --sdist
+          pip install dist/*
+
+      # Build the documentation
+      - name: Build the documentation
+        run: make -C doc clean all
+
+      - name: Checkout the gh-pages branch
+        uses: actions/checkout@v3.2.0
+        with:
+          ref: gh-pages
+          # Checkout to this folder instead of the current one
+          path: deploy
+          # Download the entire history
+          fetch-depth: 0
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')
+
+      - name: Push the built HTML to gh-pages
+        run: |
+          # Detect if this is a release or from the main branch
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+              # Get the tag name without the "refs/tags/" part
+              version="${GITHUB_REF#refs/*/}"
+          else
+              version=dev
+          fi
+          echo "Deploying version: $version"
+          # Make the new commit message. Needs to happen before cd into deploy
+          # to get the right commit hash.
+          message="Deploy $version from $(git rev-parse --short HEAD)"
+          cd deploy
+          # Need to have this file so that Github doesn't try to run Jekyll
+          touch .nojekyll
+          # Delete all the files and replace with our new  set
+          echo -e "\nRemoving old files from previous builds of ${version}:"
+          rm -rvf ${version}
+          echo -e "\nCopying HTML files to ${version}:"
+          cp -Rvf ../doc/_build/html/ ${version}/
+          # If this is a new release, update the link from /latest to it
+          if [[ "${version}" != "dev" ]]; then
+              echo -e "\nSetup link from ${version} to 'latest'."
+              rm -f latest
+              ln -sf ${version} latest
+          fi
+          # Stage the commit
+          git add -A .
+          echo -e "\nChanges to be applied:"
+          git status
+          # Configure git to be the GitHub Actions account
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          # If this is a dev build and the last commit was from a dev build
+          # (detect if "dev" was in the previous commit message), reuse the
+          # same commit
+          if [[ "${version}" == "dev" && `git log -1 --format='%s'` == *"dev"* ]]; then
+              echo -e "\nAmending last commit:"
+              git commit --amend --reset-author -m "$message"
+          else
+              echo -e "\nMaking a new commit:"
+              git commit -m "$message"
+          fi
+          # Make the push quiet just in case there is anything that could leak
+          # sensitive information.
+          echo -e "\nPushing changes to gh-pages."
+          git push -fq origin gh-pages 2>&1 >/dev/null
+          echo -e "\nFinished uploading generated files."
+        if: (github.event_name == 'release' || github.event_name == 'push') && (matrix.os == 'ubuntu-latest')

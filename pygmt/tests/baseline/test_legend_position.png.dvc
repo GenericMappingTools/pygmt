@@ -1,0 +1,4 @@
+outs:
+- md5: b80a0ec0f5de45bdc196c19adfb5a471
+  size: 24883
+  path: test_legend_position.png

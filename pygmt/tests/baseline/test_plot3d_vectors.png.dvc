@@ -1,0 +1,4 @@
+outs:
+- md5: cbc43a6768b1766494248491b29bd4b1
+  size: 22521
+  path: test_plot3d_vectors.png

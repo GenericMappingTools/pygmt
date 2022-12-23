@@ -1,0 +1,4 @@
+outs:
+- md5: c2e05c0d6fb17bcc7bf2f96193f91ad6
+  size: 10005
+  path: test_image.png

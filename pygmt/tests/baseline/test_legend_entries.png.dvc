@@ -1,0 +1,4 @@
+outs:
+- md5: a135c47ee62e4bd9604eda3b04bbd6ab
+  size: 68425
+  path: test_legend_entries.png

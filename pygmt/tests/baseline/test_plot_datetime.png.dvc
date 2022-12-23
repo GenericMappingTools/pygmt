@@ -1,0 +1,4 @@
+outs:
+- md5: ed371743977c33b2036f1e88337f7861
+  size: 12780
+  path: test_plot_datetime.png

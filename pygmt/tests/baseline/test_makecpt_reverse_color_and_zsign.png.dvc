@@ -1,0 +1,4 @@
+outs:
+- md5: 88e3aa96a640c2d61e8e93ca459210f1
+  size: 3611
+  path: test_makecpt_reverse_color_and_zsign.png

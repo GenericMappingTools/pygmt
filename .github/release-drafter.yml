@@ -1,0 +1,38 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+version-resolver:
+  minor:
+    labels:
+      - 'feature'
+  default: patch
+categories:
+  - title: 'New Features'
+    label: 'feature'
+  - title: 'Enhancements'
+    label: 'enhancement'
+  - title: 'Deprecations'
+    label: 'deprecation'
+  - title: 'Bug Fixes'
+    label: 'bug'
+  - title: 'Documentation'
+    label: 'documentation'
+  - title: 'Maintenance'
+    label: 'maintenance'
+exclude-labels:
+  - 'skip-changelog'
+category-template: '### $TITLE'
+change-template: '* $TITLE ([#$NUMBER]($URL))'
+template: |
+  ## Release v$RESOLVED_VERSION (20YY/MM/DD)
+
+  [![Digital Object Identifier for PyGMT v$RESOLVED_VERSION](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+  ### Highlights
+
+  *
+
+  $CHANGES
+
+  ### Contributors
+
+  $CONTRIBUTORS

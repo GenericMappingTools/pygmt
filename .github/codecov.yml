@@ -1,0 +1,19 @@
+codecov:
+  notify:
+    require_ci_to_pass: no
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto  # increase overall coverage on each pull request
+        threshold: 0.25%  # Allow the coverage to drop by X%
+        if_not_found: success
+        if_ci_failed: failure
+    patch:
+      default:
+        target: 90%  # >=90% of new changes should be tested
+        if_not_found: success
+        if_ci_failed: failure
+
+comment: off

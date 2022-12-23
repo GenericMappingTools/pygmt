@@ -1,0 +1,4 @@
+outs:
+- md5: e337c879b0db02a0ea5312d306ce7a32
+  size: 1826
+  path: test_colorbar_scaled_z_values.png

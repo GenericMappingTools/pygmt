@@ -1,0 +1,4 @@
+outs:
+- md5: 3d37fb15aaa3e1e16c04d502c32187d0
+  size: 12025
+  path: test_plot3d_ogrgmt_file_multipoint_default_style.png

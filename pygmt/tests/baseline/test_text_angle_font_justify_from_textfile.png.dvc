@@ -1,0 +1,4 @@
+outs:
+- md5: c812717ca530830ca390584d4fe365eb
+  size: 9353
+  path: test_text_angle_font_justify_from_textfile.png

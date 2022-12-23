@@ -1,0 +1,4 @@
+outs:
+- md5: f66de197af63f42c14afe153ab79d69a
+  size: 20395
+  path: test_legend_default_position.png
