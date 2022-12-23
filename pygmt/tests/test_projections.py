@@ -283,7 +283,7 @@ class TestCylindricalEqualArea:
 
     def test_string_conversion2(self):
         "Test the string representation of the projection class"
-        assert str(self.prj1) == "Y12c"
+        assert str(self.prj2) == "Y12c"
 
 
 class TestHammerEqualArea:
@@ -551,7 +551,7 @@ class TestObliqueMercator1:
 
     def test_string_conversion3(self):
         "Test the string representation of the projection class"
-        assert str(self.prj2) == "O145/-35/45/12c+v"
+        assert str(self.prj3) == "O145/-35/45/12c+v"
 
 
 class TestObliqueMercator2:
@@ -597,7 +597,7 @@ class TestObliqueMercator2:
 
     def test_string_conversion3(self):
         "Test the string representation of the projection class"
-        assert str(self.prj2) == "O145/-35/110/-20/12c+v"
+        assert str(self.prj3) == "O145/-35/110/-20/12c+v"
 
 
 class TestObliqueMercator3:
@@ -643,7 +643,7 @@ class TestObliqueMercator3:
 
     def test_string_conversion3(self):
         "Test the string representation of the projection class"
-        assert str(self.prj2) == "O145/-35/110/-20/12c+v"
+        assert str(self.prj3) == "O145/-35/110/-20/12c+v"
 
 
 class TestTransverseMercator:
@@ -687,7 +687,7 @@ class TestUniversalTransverseMercator:
 
     def test_string_conversion2(self):
         "Test the string representation of the projection class"
-        assert str(self.prj1) == "U55H/12c"
+        assert str(self.prj2) == "U55H/12c"
 
 
 class TestEquidistantCylindrical:
@@ -715,7 +715,7 @@ class TestEquidistantCylindrical:
 
     def test_string_conversion3(self):
         "Test the string representation of the projection class"
-        assert str(self.prj2) == "Q145/-35/12c"
+        assert str(self.prj3) == "Q145/-35/12c"
 
 
 class TestPolar:
@@ -738,15 +738,15 @@ class TestPolar:
 
     def test_string_conversion2(self):
         "Test the string representation of the polar projection class"
-        assert str(self.prj1) == "P10c+a+r10+t45"
+        assert str(self.prj2) == "P10c+a+r10+t45"
 
     def test_string_conversion3(self):
         "Test the string representation of the polar projection class"
-        assert str(self.prj1) == "P10c+f33"
+        assert str(self.prj3) == "P10c+f33"
 
     def test_string_conversion4(self):
         "Test the string representation of the polar projection class"
-        assert str(self.prj1) == "P10c+z33"
+        assert str(self.prj4) == "P10c+z33"
 
     def test_assert_depth_options(self):
         "Test that a ValueError assertion is raised for the depth options"
@@ -768,7 +768,7 @@ class TestLinear:
     prj2 = projection.Linear(width=10, geographic=True)
     prj3 = projection.Linear(width=10, log_x=True)
     prj4 = projection.Linear(width=10, log_x=True, height=35, log_y=True)
-    prj5 = projection.Linear(width=10, power_x=2, height=35, power_y=3)
+    prj5 = projection.Linear(width=10, power_x=0.5, height=35, power_y=3)
     prj6 = projection.Linear(width=10, time_x="t", height=35, power_y=3)
 
     def test_default_unit(self):
