@@ -51,7 +51,7 @@ def histogram(self, data, **kwargs):
     Parameters
     ----------
     data : str or list or {table-like}
-        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
     {region}

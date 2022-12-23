@@ -13,7 +13,7 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -66,7 +66,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
@@ -74,7 +74,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         lengths are set to unity (see ``scale="u"`` to set actual
         lengths to unity as well).
 
-    length/azimuth : float or 1d arrays
+    length/azimuth : float or 1-D arrays
         Length and azimuth values, or arrays of length and azimuth
         values
 

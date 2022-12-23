@@ -44,7 +44,7 @@ COMMON_DOCSTRINGS = {
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
     "color": """\
-        color : str or 1d array
+        color : str or 1-D array
             Select color or pattern for filling of symbols or polygons [Default
             is no fill].""",
     "fill": """\
@@ -57,8 +57,8 @@ COMMON_DOCSTRINGS = {
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
-              increment unit. Choose among **m** to indicate arc minutes or
-              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              increment unit. Choose among **m** to indicate arc-minutes or
+              **s** to indicate arc-seconds. If one of the units **e**, **f**,
               **k**, **M**, **n** or **u** is appended instead, the increment
               is assumed to be given in meter, foot, km, mile, nautical mile or
               US survey foot, respectively, and will be converted to the
@@ -188,12 +188,12 @@ COMMON_DOCSTRINGS = {
             A unit **u** may be appended to the specified *gap*:
 
                 - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
-                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
+                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
                   **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ter)].
+                  (m)\ **e**\ (ters)].
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
+                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -227,13 +227,13 @@ COMMON_DOCSTRINGS = {
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1d array
+        incols : str or 1-D array
             Specify data columns for primary input in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             reads all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in input order (e.g.,
+            - For *1-D array*: specify individual columns in input order (e.g.,
               ``incols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -285,14 +285,14 @@ COMMON_DOCSTRINGS = {
             - **l** for bilinear
             - **n** for nearest-neighbor""",
     "outcols": r"""
-        outcols : str or 1d array
+        outcols : str or 1-D array
             *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             writes all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in output order (e.g.,
+            - For *1-D array*: specify individual columns in output order (e.g.,
               ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -408,7 +408,7 @@ def fmt_docstring(module_func):
     ...     Parameters
     ...     ----------
     ...     data : str or {table-like}
-    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
     ...     {projection}
@@ -423,9 +423,9 @@ def fmt_docstring(module_func):
     Parameters
     ----------
     data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
@@ -460,7 +460,7 @@ def fmt_docstring(module_func):
     )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
-        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
+        "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
         "    tabular data"
     )

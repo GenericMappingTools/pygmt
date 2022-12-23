@@ -1,7 +1,7 @@
 """
 Tests for project.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -64,7 +64,7 @@ def test_project_output_filename(dataframe):
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (1, 6)
         npt.assert_allclose(

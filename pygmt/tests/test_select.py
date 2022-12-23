@@ -1,7 +1,7 @@
 """
 Tests for select.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
 import pandas as pd
@@ -58,7 +58,7 @@ def test_select_input_filename():
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (5, 3)
         npt.assert_allclose(output.median(), [250.12149, 26.04296, -674.0])

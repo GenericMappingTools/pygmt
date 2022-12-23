@@ -39,7 +39,7 @@ region = pygmt.info(
     spacing=(3, 2),
 )
 
-# Make a 2D categorical scatter plot, coloring each of the 3 species
+# Make a 2-D categorical scatter plot, coloring each of the 3 species
 # differently
 fig = pygmt.Figure()
 
@@ -76,7 +76,7 @@ fig.plot(
     # scaled by 7.5*10e-5)
     size=df.body_mass_g * 7.5e-5,
     # Points colored by categorical number code
-    color=df.species.cat.codes.astype(int),
+    fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
     # Do not clip symbols that fall close to the map bounds

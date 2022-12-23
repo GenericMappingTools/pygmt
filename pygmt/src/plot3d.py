@@ -16,7 +16,7 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -62,7 +62,7 @@ def plot3d(
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a
-    1d array that will be mapped to a colormap.
+    1-D array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
     interpret the fourth column of the input data as symbol size. Symbols
@@ -72,7 +72,7 @@ def plot3d(
     be drawn instead. To explicitly close polygons, use ``close``. Select a
     fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
-    ``pen`` determines the fill and outline/no outline, respectively.
+    ``pen`` determine the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot3d.html`
 
@@ -81,18 +81,18 @@ def plot3d(
     Parameters
     ----------
     data : str or {table-like}
-        Either a data file name, a 2d {table-classes}.
+        Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
-    x/y/z : float or 1d arrays
+    x/y/z : float or 1-D arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
         the data points
-    size : 1d array
+    size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
-    direction : list of two 1d arrays
+    direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
-        should be a list of two 1d arrays with the vector directions. These
+        should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
@@ -118,15 +118,15 @@ def plot3d(
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
     {fill}
-        *fill* can be a 1d array, but it is only valid if using ``x``/``y``
+        *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1d array
+    intensity : float or bool or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
-        also be a 1d array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y``/``z``.
+        also be a 1-D array to set varying intensity for symbols, but it is
+        only valid for ``x``/``y``/``z``.
 
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
@@ -175,7 +175,7 @@ def plot3d(
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1d array to set varying
+        ``transparency`` can also be a 1-D array to set varying
         transparency for symbols, but this option is only valid if using
         ``x``/``y``/``z``.
     {wrap}

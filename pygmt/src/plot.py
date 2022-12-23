@@ -16,7 +16,7 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", "v0.12.0")
+@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -59,7 +59,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
 
     Must provide either ``data`` or ``x``/``y``.
 
-    If providing data through ``x``/``y``, ``fill`` can be a 1d array that
+    If providing data through ``x``/``y``, ``fill`` can be a 1-D array that
     will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot will
@@ -70,7 +70,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     be drawn instead. To explicitly close polygons, use ``close``. Select a
     fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
-    ``pen`` determines the fill and outline/no outline, respectively.
+    ``pen`` determine the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot.html`
 
@@ -79,19 +79,19 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
         size, respectively.
-    x/y : float or 1d arrays
+    x/y : float or 1-D arrays
         The x and y coordinates, or arrays of x and y coordinates of the
         data points
-    size : 1d array
+    size : 1-D array
         The size of the data points in units specified using ``style``.
         Only valid if using ``x``/``y``.
-    direction : list of two 1d arrays
+    direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
-        should be a list of two 1d arrays with the vector directions. These
+        should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
@@ -153,15 +153,15 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         the coordinates of a *refpoint* which will serve as a fixed external
         reference point for all groups.
     {fill}
-        *fill* can be a 1d array, but it is only valid if using ``x``/``y``
+        *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1d array
+    intensity : float or bool or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
-        also be a 1d array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y`` pairs.
+        also be a 1-D array to set varying intensity for symbols, but it is
+        only valid for ``x``/``y`` pairs.
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
         [**+yl**\|\ **r**\|\ *y0*][**+p**\ *pen*].
@@ -206,7 +206,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1d array to set varying
+        ``transparency`` can also be a 1-D array to set varying
         transparency for symbols, but this option is only valid if using
         ``x``/``y``.
     {wrap}

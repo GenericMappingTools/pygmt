@@ -33,7 +33,6 @@ __doctest_skip__ = ["select"]
     h="header",
     i="incols",
     o="outcols",
-    r="registration",
     s="skiprows",
     w="wrap",
 )
@@ -65,7 +64,7 @@ def select(data=None, outfile=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
     outfile : str
         The file name for the output ASCII file.
@@ -137,7 +136,6 @@ def select(data=None, outfile=None, **kwargs):
     {header}
     {incols}
     {outcols}
-    {registration}
     {skiprows}
     {wrap}
 

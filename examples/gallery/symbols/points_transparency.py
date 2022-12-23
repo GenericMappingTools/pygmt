@@ -21,5 +21,5 @@ fig.basemap(
     frame=["xaf+lTransparency level+u%", "WSrt"],
     projection="X15c/6c",
 )
-fig.plot(x=x, y=y, style="c0.6c", color="blue", pen="1p,red", transparency=transparency)
+fig.plot(x=x, y=y, style="c0.6c", fill="blue", pen="1p,red", transparency=transparency)
 fig.show()
