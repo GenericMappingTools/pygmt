@@ -76,7 +76,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         format).
 
     points : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
 
     newcolname : str
