@@ -167,6 +167,26 @@ datasets = {
             "01m": Resolution(["pixel"], True),
         },
     ),
+    "earth_vgg": GMTRemoteDataset(
+        title="Earth vertical gravity gradient",
+        name="earth_vgg",
+        long_name="IGPP Global Earth Vertical Gravity Gradient",
+        units="Eotvos",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["pixel", "gridline"], False),
+            "30m": Resolution(["pixel", "gridline"], False),
+            "20m": Resolution(["pixel", "gridline"], False),
+            "15m": Resolution(["pixel", "gridline"], False),
+            "10m": Resolution(["pixel", "gridline"], False),
+            "06m": Resolution(["pixel", "gridline"], False),
+            "05m": Resolution(["pixel", "gridline"], True),
+            "04m": Resolution(["pixel", "gridline"], True),
+            "03m": Resolution(["pixel", "gridline"], True),
+            "02m": Resolution(["pixel", "gridline"], True),
+            "01m": Resolution(["pixel"], True),
+        },
+    ),
 }
 
 
@@ -190,7 +210,7 @@ def _load_remote_dataset(
         arc-degrees, arc-minutes, and arc-seconds, respectively.
 
     region : str or list
-        The subregion of the grid to load, in the forms of a list
+        The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for tiled grids.
 
