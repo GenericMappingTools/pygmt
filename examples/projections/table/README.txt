@@ -72,7 +72,7 @@ The below table shows the projection codes for the 31 GMT projections.
    * - **S**\ |lon0|/|lat0|\ [/\ *horizon*]/\ *width*
      - :doc:`General stereographic
        </projections/azim/azim_general_stereographic>`
-   * - **T**\ |lon0|/\ [/|lat0|/]\ *width*
+   * - **T**\ |lon0|\ [/\ |lat0|]/\ *width*
      - :doc:`Transverse Mercator </projections/cyl/cyl_transverse_mercator>`
    * - **U**\ *zone*/*width*
      - :doc:`Universal Transverse Mercator (UTM)
