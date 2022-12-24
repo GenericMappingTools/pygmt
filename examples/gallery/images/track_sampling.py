@@ -15,6 +15,7 @@ can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 """
 import os
+
 import pygmt
 
 # Load sample grid and point datasets
