@@ -14,7 +14,7 @@ Alternatively, a NetCDF file path can be passed to ``grid``. An ASCII file path
 can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 """
-
+import os
 import pygmt
 
 # Load sample grid and point datasets
@@ -24,13 +24,15 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 # points
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
-# Set up colormap for Earth relief grid
+# Set up colormap for Earth relief grid and save it in a file via the
+# output parameter
 pygmt.makecpt(
     cmap="gray",
     output="cpt_gray_relief.cpt",
     series=[int(grid.min()), int(grid.max()), 10],
 )
-# Set up colormap for data points of track
+# Set up colormap for data points of track and save it in a file via the
+# output parameter
 pygmt.makecpt(
     cmap="terra",
     output="cpt_terra_points.cpt",
@@ -66,3 +68,7 @@ fig.colorbar(
     frame=["a0.2f0.1", "+lnormalized elevation"],
 )
 fig.show()
+
+# Cleanups (remove colormap files)
+os.remove("cpt_gray_relief.cpt")
+os.remove("cpt_terra_points.cpt")
