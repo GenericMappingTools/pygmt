@@ -116,10 +116,7 @@ def wiggle(
         raise GMTInvalidInput("Use either fill_positive/fill_negative or color.")
 
     if fill_positive:
-        if kwargs.get("G") is not None:
-            kwargs["G"] = [kwargs["G"], fill_positive + "+p"]
-        else:
-            kwargs["G"] = fill_positive + "+p"
+        kwargs["G"] = fill_positive + "+p"
 
     if fill_negative:
         if kwargs.get("G") is not None:
