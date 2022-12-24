@@ -37,7 +37,7 @@ pygmt.makecpt(
 pygmt.makecpt(
     cmap="terra",
     output="cpt_terra_points.cpt",
-    series="-1/1/0.01",  # for normalized values
+    series=[-1, 1, 0.01],  # for normalized values
 )
 
 fig = pygmt.Figure()
