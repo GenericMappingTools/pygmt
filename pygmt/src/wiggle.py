@@ -104,6 +104,9 @@ def wiggle(
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
+    if (fill_positive or fill_negative) and kwargs.get("G") is not None:
+        raise GMTInvalidInput("Use either fill_positive/fill_negative or color.")
+
     if kwargs.get("G") is not None:
         msg = (
             "The 'color' parameter has been deprecated since v0.8.0"
@@ -111,9 +114,6 @@ def wiggle(
             " instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
-
-    if (fill_positive or fill_negative) and kwargs.get("G") is not None:
-        raise GMTInvalidInput("Use either fill_positive/fill_negative or color.")
 
     if fill_positive:
         kwargs["G"] = fill_positive + "+p"

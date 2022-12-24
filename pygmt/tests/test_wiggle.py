@@ -4,6 +4,7 @@ Tests wiggle.
 import numpy as np
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
@@ -59,3 +60,31 @@ def test_wiggle_data_incols():
         position="jRM+w2+lnT",
     )
     return fig
+
+
+def test_wiggle_fill_multiple():
+    """
+    Check that wiggle fails when the parameters color and
+    fill_positive/fill_negative are used together.
+    """
+    x = np.arange(-2, 2, 0.02)
+    y = np.zeros(x.size)
+    z = np.cos(2 * np.pi * x)
+
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.wiggle(
+            x=x,
+            y=y,
+            z=z,
+            region=[-4, 4, -1, 1],
+            projection="X8c",
+            incols=[1, 0, 2],
+            scale="0.5c",
+            color="blue",
+            fill_positive="red",
+            fill_negative="gray",
+            pen="1.0p",
+            track="0.5p",
+            position="jRM+w2+lnT",
+        )
