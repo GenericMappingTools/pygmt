@@ -37,7 +37,7 @@ pygmt.makecpt(
 pygmt.makecpt(
     cmap="terra",
     output="cpt_terra_points.cpt",
-    series=[-1, 1, 0.01],  # for normalized values
+    series=[-1, 1, 0.01],  # Set up for normalized values
 )
 
 fig = pygmt.Figure()
@@ -59,13 +59,13 @@ fig.plot(
 # Add colorbar for Earth relief grid
 fig.colorbar(
     cmap="cpt_gray_relief.cpt",
-    position="JBC+o0c/1.2c+ml",  # placed at position Bottom Center
+    position="JBC+o0c/1.2c+ml",  # Place colorbar at position Bottom Center
     frame=["af", "x+lelevation", "y+lm"],
 )
 # Add colorbar for data points of track
 fig.colorbar(
     cmap="cpt_terra_points.cpt",
-    position="JRM+ml",  # placed at position Right Middle
+    position="JRM+ml",  # Place colorbar at position Right Middle
     frame=["a0.2f0.1", "+lnormalized elevation"],
 )
 fig.show()
