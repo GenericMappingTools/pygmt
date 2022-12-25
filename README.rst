@@ -188,8 +188,8 @@ Developers". Feel free to cite our work in your research using the following Bib
       year         = 2022,
       publisher    = {Zenodo},
       version      = {v0.8.0},
-      doi          = {10.5281/zenodo.6702566},
-      url          = {https://doi.org/10.5281/zenodo.6702566}
+      doi          = {10.5281/zenodo.7481934},
+      url          = {https://doi.org/10.5281/zenodo.7481934}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
