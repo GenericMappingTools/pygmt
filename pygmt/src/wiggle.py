@@ -39,8 +39,8 @@ def wiggle(
     x=None,
     y=None,
     z=None,
-    fill_positive=None,
-    fill_negative=None,
+    fillpositive=None,
+    fillnegative=None,
     **kwargs
 ):
     r"""
@@ -77,10 +77,10 @@ def wiggle(
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
-    fill_positive : str
+    fillpositive : str
         Set fill shade, color or pattern for positive wiggles [Default is no
         fill].
-    fill_negative : str
+    fillnegative : str
         Set fill shade, color or pattern for negative wiggles [Default is no
         fill].
     track : str
@@ -104,23 +104,23 @@ def wiggle(
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if (fill_positive or fill_negative) and kwargs.get("G") is not None:
-        raise GMTInvalidInput("Use either fill_positive/fill_negative or color.")
+    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
+        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
 
     if kwargs.get("G") is not None:
         msg = (
             "The 'color' parameter has been deprecated since v0.8.0"
-            " and will be removed in v0.12.0. Use fill_positive/fill_negative"
+            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
             " instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
-    if fill_positive or fill_negative:
+    if fillpositive or fillnegative:
         kwargs["G"] = []
-        if fill_positive:
-            kwargs["G"].append(fill_positive + "+p")
-        if fill_negative:
-            kwargs["G"].append(fill_negative + "+n")
+        if fillpositive:
+            kwargs["G"].append(fillpositive + "+p")
+        if fillnegative:
+            kwargs["G"].append(fillnegative + "+n")
 
     with Session() as lib:
         # Choose how data will be passed in to the module

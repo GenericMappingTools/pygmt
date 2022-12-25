@@ -24,8 +24,8 @@ def test_wiggle():
         y=y,
         z=z,
         scale="0.5c",
-        fill_positive="red",
-        fill_negative="gray",
+        fillpositive="red",
+        fillnegative="gray",
         pen="1.0p",
         track="0.5p",
         position="jRM+w2+lnT",
@@ -53,8 +53,8 @@ def test_wiggle_data_incols():
         projection="X8c",
         incols=[1, 0, 2],
         scale="0.5c",
-        fill_positive="red",
-        fill_negative="gray",
+        fillpositive="red",
+        fillnegative="gray",
         pen="1.0p",
         track="0.5p",
         position="jRM+w2+lnT",
@@ -65,7 +65,7 @@ def test_wiggle_data_incols():
 def test_wiggle_fill_multiple():
     """
     Check that wiggle fails when the parameters color and
-    fill_positive/fill_negative are used together.
+    fillpositive/fillnegative are used together.
     """
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
@@ -82,8 +82,8 @@ def test_wiggle_fill_multiple():
             incols=[1, 0, 2],
             scale="0.5c",
             color="blue",
-            fill_positive="red",
-            fill_negative="gray",
+            fillpositive="red",
+            fillnegative="gray",
             pen="1.0p",
             track="0.5p",
             position="jRM+w2+lnT",
