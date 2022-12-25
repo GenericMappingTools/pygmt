@@ -115,14 +115,12 @@ def wiggle(
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
-    if fill_positive:
-        kwargs["G"] = fill_positive + "+p"
-
-    if fill_negative:
-        if kwargs.get("G") is not None:
-            kwargs["G"] = [kwargs["G"], fill_negative + "+n"]
-        else:
-            kwargs["G"] = fill_negative + "+n"
+    if fill_positive or fill_negative:
+        kwargs["G"] = []
+        if fill_positive:
+            kwargs["G"].append(fill_positive + "+p")
+        if fill_negative:
+            kwargs["G"].append(fill_negative + "+n")
 
     with Session() as lib:
         # Choose how data will be passed in to the module
