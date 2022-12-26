@@ -67,8 +67,6 @@
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
 * Correct and consistent usage of 'function, 'method', and 'class' ([#2043](https://github.com/GenericMappingTools/pygmt/pull/2043))
 * Add SciPy 2022 talk to presentations ([#2053](https://github.com/GenericMappingTools/pygmt/pull/2053))
-* Improve documentation of UTM projection ([#2061](https://github.com/GenericMappingTools/pygmt/pull/2061))
-* Consistent usage of whitespaces across gallery and tutorial examples ([#2018](https://github.com/GenericMappingTools/pygmt/pull/2018))
 
 ### Maintenance
 
