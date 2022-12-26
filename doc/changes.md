@@ -61,7 +61,6 @@
 * Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
 * Add inline example for coast ([#2142](https://github.com/GenericMappingTools/pygmt/pull/2142))
 * Figure.ternary: Add parameters alabel, blabel, and clabel ([#2139](https://github.com/GenericMappingTools/pygmt/pull/2139))
-* Improve tutorial frames.py ([#2023](https://github.com/GenericMappingTools/pygmt/pull/2023))
 * Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
 * Add a gallery example showing the usage of vertical and horizontal bars ([#1521](https://github.com/GenericMappingTools/pygmt/pull/1521))
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
