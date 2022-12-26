@@ -57,7 +57,7 @@ fig.plot(
 # Add a colorbar for the normalized elevation
 fig.colorbar(
     position="JRM+ml",  # Place colorbar at position Right Middle
-    frame=["a0.2f0.1", "+lnormalized elevation"],
+    frame=["a0.2f0.1", "x+lnormalized elevation"],
 )
 
 fig.show()
