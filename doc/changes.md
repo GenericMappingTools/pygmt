@@ -7,6 +7,8 @@
 
 ### Highlights
 
+* 🎉 **Eighth minor release of PyGMT** 🎉
+* Wrapped ternary
 *
 
 ### New Features
