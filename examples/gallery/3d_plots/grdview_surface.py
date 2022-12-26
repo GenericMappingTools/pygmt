@@ -39,7 +39,7 @@ data = xr.DataArray(ackley(*np.meshgrid(x, y)), coords=(x, y))
 fig = pygmt.Figure()
 
 # Plot grid as a 3-D surface
-SCALE = 0.5  # in centimeter
+SCALE = 0.5  # in centimeters
 fig.grdview(
     data,
     frame=["a5f1", "za5f1"],
