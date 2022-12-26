@@ -24,7 +24,7 @@ fig = pygmt.Figure()
 # Calculate mean depth in kilometers from all events within
 # 150x150 minutes bins using blockmean
 df = pygmt.blockmean(data=data, region=region, spacing=spacing)
-# convert to grid
+# Convert to grid
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
 fig.grdimage(
@@ -33,9 +33,9 @@ fig.grdimage(
     frame=["af", "+tMean earthquake depth inside each block"],
     cmap="batlow",
 )
-# plot slightly transparent landmasses on top
+# Plot slightly transparent landmasses on top
 fig.coast(land="darkgray", transparency=40)
-# plot original data points
+# Plot original data points
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
 fig.colorbar(frame=["x+lkm"])
 
