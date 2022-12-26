@@ -42,7 +42,7 @@ def load_earth_magnetic_anomaly(
         ``"03m"``, or ``"02m"``.
 
     region : str or list
-        The subregion of the grid to load, in the forms of a list
+        The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
