@@ -24,24 +24,26 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
-# Create a global map using a Cylindrical Stereographic projection
+# Create a 15-centimeter-wide global map using a Cylindrical
+# Stereographic projection
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 
-# Set up colormap for Earth relief grid
+# Set up a colormap for the elevation values of the Earth relief grid
 pygmt.makecpt(cmap="gray", series=[int(grid.min()), int(grid.max()), 10])
 # Plot Earth relief grid with color-coding for the elevation
 fig.grdimage(grid=grid, cmap=True)
-# Add colorbar for Earth relief grid
+# Add a colorbar for the elevation
 fig.colorbar(
     cmap=True,
     position="JBC+o0c/1.2c+ml",  # Place colorbar at position Bottom Center
     frame=["af", "x+lelevation", "y+lm"],
 )
 
-# Mask land areas in gray and plote shorlines
+# Mask land areas in gray and plot shorlines with a 1 point black line
 fig.coast(land="#666666", shorelines="1/1p,black")
 
-# Set up colormap for data points, which are normalized for visual purpose
+# Set up a colormap for the elevation values of the track points. These
+# values are normalzied for visual purposes (see below)
 pygmt.makecpt(cmap="terra", series=[-1, 1, 0.01])
 # Plot the sampled bathymetry points using circles (c) with a diameter of
 # 0.15 centimeters (c). Points are colored using normalized elevation values
@@ -52,7 +54,7 @@ fig.plot(
     cmap=True,
     fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
-# Add colorbar for data points of track
+# Add a colorbar for the normalized elevation
 fig.colorbar(
     cmap=True,
     position="JRM+ml",  # Place colorbar at position Right Middle
