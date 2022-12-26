@@ -39,8 +39,8 @@ fig.colorbar(
     frame=["af", "x+lelevation", "y+lm"],
 )
 
-# Mask land areas in gray and plot shorlines with a 1 point black line
-fig.coast(land="#666666", shorelines="1/1p,black")
+# Mask land areas in gray and plot shorlines as 0.5 points thick black line
+fig.coast(land="#666666", shorelines="1/0.5p,black")
 
 # Set up a colormap for the elevation values of the track points. These
 # values are normalzied for visual purposes (see below)
