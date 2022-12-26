@@ -30,7 +30,7 @@ fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 
 # Set up a colormap for the elevation values of the Earth relief grid
 pygmt.makecpt(cmap="gray", series=[int(grid.min()), int(grid.max()), 10])
-# Plot Earth relief grid with color-coding for the elevation
+# Plot the Earth relief grid with color-coding for the elevation
 fig.grdimage(grid=grid, cmap=True)
 # Add a colorbar for the elevation
 fig.colorbar(
