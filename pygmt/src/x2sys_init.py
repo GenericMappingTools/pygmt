@@ -87,7 +87,7 @@ def x2sys_init(tag, **kwargs):
         - **c** - Cartesian userdist or userdist/usertime
         - **e** - meters or m/s
         - **f** - feet or feet/s
-        - **k** - km or km/hr
+        - **k** - kilometers or km/hr
         - **m** - miles or miles/hr
         - **n** - nautical miles or knots
         - **u** - survey feet or survey feet/s
