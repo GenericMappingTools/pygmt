@@ -119,8 +119,8 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         of the profiles by appending **+l** or **+r**, respectively.  Append
         suitable units to *length*; it sets the unit used for *ds* [and
         *spacing*] (See :gmt-docs:`Units <grdtrack.html#units>`). The default
-        unit for geographic grids is meter while Cartesian grids implies the
-        user unit.  The output columns will be *lon*, *lat*, *dist*, *azimuth*,
+        unit for geographic grids is meters while Cartesian grids implies the
+        user unit. The output columns will be *lon*, *lat*, *dist*, *azimuth*,
         *z1*, *z2*, ..., *zn* (The *zi* are the sampled values for each of the
         *n* grids).
     dfile : str
