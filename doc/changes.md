@@ -104,12 +104,12 @@
 
 ### Contributors
 
-* [maxrjones](https://github.com/maxrjones)
-* [michaelgrund](https://github.com/michaelgrund)
 * [seisman](https://github.com/seisman)
-* [weiji14](https://github.com/weiji14)
-* [willschlitzer](https://github.com/willschlitzer)
 * [yvonnefroehlich](https://github.com/yvonnefroehlich)
+* [willschlitzer](https://github.com/willschlitzer)
+* [michaelgrund](https://github.com/michaelgrund)
+* [weiji14](https://github.com/weiji14)
+* [maxrjones](https://github.com/maxrjones)
 
 ---
 
