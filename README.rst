@@ -173,10 +173,10 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Schlitzer, William and
                       Grund, Michael and
                       Toney, Liam and
+                      Fröhlich, Yvonne and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
-                      Fröhlich, Yvonne and
                       Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
