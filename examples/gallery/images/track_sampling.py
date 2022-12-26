@@ -34,7 +34,6 @@ pygmt.makecpt(cmap="gray", series=[int(grid.min()), int(grid.max()), 10])
 fig.grdimage(grid=grid, cmap=True)
 # Add a colorbar for the elevation
 fig.colorbar(
-    cmap=True,
     position="JBC+o0c/1.2c+ml",  # Place colorbar at position Bottom Center
     frame=["af", "x+lelevation", "y+lm"],
 )
@@ -57,7 +56,6 @@ fig.plot(
 )
 # Add a colorbar for the normalized elevation
 fig.colorbar(
-    cmap=True,
     position="JRM+ml",  # Place colorbar at position Right Middle
     frame=["a0.2f0.1", "+lnormalized elevation"],
 )
