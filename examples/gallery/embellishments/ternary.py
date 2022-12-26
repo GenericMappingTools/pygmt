@@ -1,10 +1,10 @@
 """
 Ternary diagram
 ---------------
-The pygmt.Figure.ternary method can draw ternary diagrams. The example shows
-how to plot circles with a diameter of 0.1 centimeters (``style=0.1c``) on a
-10-centimeter-wide (```width=10c``) ternary diagram at the positions listed
-in the first three columns of the sample dataset `rock_compositions`, with
+The :meth:`pygmt.Figure.ternary` method can draw ternary diagrams. The example shows
+how to plot circles with a diameter of 0.1 centimeters (``style="c0.1c"``) on a
+10-centimeter-wide (``width="10c"``) ternary diagram at the positions listed
+in the first three columns of the sample dataset ``rock_compositions``, with
 default annotations and gridline spacings, using the specified labeling
 defined via ``alabel``, ``blabel`` and ``clabel``. Points are colored based
 on the values given in the fourth columns of the sample dataset via
@@ -38,11 +38,7 @@ fig.ternary(
     ],
 )
 
-# Shift origin -1 centimeters in y direction to avoid overlap
-# between ternary diagram and colorbar
-fig.shift_origin(yshift="-1c")
-
 # Add a colorbar indicating the values given in the fourth column of
 # the input dataset
-fig.colorbar(frame=["x+lPermittivity"])
+fig.colorbar(position="JBC+o0c/1.5c", frame=["x+lPermittivity"])
 fig.show()
