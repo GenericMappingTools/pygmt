@@ -77,7 +77,7 @@ def text_(
     textfiles : str or list
         A text data file name, or a list of file names containing 1 or more
         records with (x, y[, angle, font, justify], text).
-    x/y : float or 1d arrays
+    x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
     position : str
@@ -91,7 +91,7 @@ def text_(
 
         For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1d array
+    text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
     angle: int, float, str or bool
         Set the angle measured in degrees counter-clockwise from
@@ -162,7 +162,7 @@ def text_(
         columns can be specified.
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1d array to set varying
+        ``transparency`` can also be a 1-D array to set varying
         transparency for texts, but this option is only valid if using
         ``x``/``y`` and ``text``.
     {wrap}

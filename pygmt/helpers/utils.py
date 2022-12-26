@@ -25,7 +25,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
-    * 1D arrays x and y (and z, optionally)
+    * 1-D arrays x and y (and z, optionally)
 
     Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
@@ -34,11 +34,11 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     ----------
     data : str or pathlib.Path or xarray.DataArray or {table-like} or None
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
-        table, an :class:`xarray.DataArray`, a 1D/2D
+        table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes}.
-    x/y : 1d arrays or None
+    x/y : 1-D arrays or None
         x and y columns as numpy arrays.
-    z : 1d array or None
+    z : 1-D array or None
         z column as numpy array. To be used optionally when x and y are given.
     required_z : bool
         State whether the 'z' column is required.
