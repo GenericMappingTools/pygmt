@@ -85,8 +85,9 @@ def grdproject(grid, **kwargs):
         **u** (US survey feet), **i** (inches), **c** (centimeters), or
         **p** (points).
     unit : str
-        Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with ``scaling``.
+        Append **c**, **i**, or **p** to indicate that centimeters, inches, or
+        points should be the projected measure unit. Cannot be used with
+        ``scaling``.
     {verbose}
     {interpolation}
     {registration}
