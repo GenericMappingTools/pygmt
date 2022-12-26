@@ -24,8 +24,8 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
-# Create a 15-centimeter-wide global map using a Cylindrical
-# Stereographic projection
+# Create global map using a Cylindrical Stereographic projection with a
+# width of 15 centimeters
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
 
 # Set up a colormap for the elevation values of the Earth relief grid
@@ -39,7 +39,8 @@ fig.colorbar(
     frame=["af", "x+lelevation", "y+lm"],
 )
 
-# Mask land areas in gray and plot shorlines as 0.5 points thick black line
+# Mask the land areas in gray and plot the shorelines in black with a
+# thickness of 0.5 points
 fig.coast(land="#666666", shorelines="1/0.5p,black")
 
 # Set up a colormap for the elevation values of the track points. These
