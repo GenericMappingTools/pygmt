@@ -82,8 +82,8 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
-        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
-        (mile), **n** (nautical mile) or **u** survey foot.
+        (spherical degrees), **e** (meters), **f** (feet), **k** (kilometers),
+        **M** (miles), **n** (nautical miles), or **u** (survey feet).
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
