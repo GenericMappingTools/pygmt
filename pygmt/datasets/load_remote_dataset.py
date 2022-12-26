@@ -64,30 +64,6 @@ class GMTRemoteDataset(NamedTuple):
 
 
 datasets = {
-    "earth_relief": GMTRemoteDataset(
-        title="Earth relief",
-        name="elevation",
-        long_name="Earth elevation relative to the geoid",
-        units="meters",
-        extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
-        resolutions={
-            "01d": Resolution(["gridline", "pixel"], False),
-            "30m": Resolution(["gridline", "pixel"], False),
-            "20m": Resolution(["gridline", "pixel"], False),
-            "15m": Resolution(["gridline", "pixel"], False),
-            "10m": Resolution(["gridline", "pixel"], False),
-            "06m": Resolution(["gridline", "pixel"], False),
-            "05m": Resolution(["gridline", "pixel"], True),
-            "04m": Resolution(["gridline", "pixel"], True),
-            "03m": Resolution(["gridline", "pixel"], True),
-            "02m": Resolution(["gridline", "pixel"], True),
-            "01m": Resolution(["gridline", "pixel"], True),
-            "30s": Resolution(["gridline", "pixel"], True),
-            "15s": Resolution(["pixel"], True),
-            "03s": Resolution(["gridline"], True),
-            "01s": Resolution(["gridline"], True),
-        },
-    ),
     "earth_age": GMTRemoteDataset(
         title="seafloor age",
         name="seafloor_age",
