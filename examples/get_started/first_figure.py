@@ -180,4 +180,4 @@ fig.show()
 #    Meridian or "g" to center the map at the International Date Line. When the
 #    region is set without using a list full of integers or floating numbers,
 #    the argument needs to be passed as a Python string. Create a
-#    5 centimeters map using the Mollwide ("W") projection.
+#    15-centimeter-wide map using the Mollwide ("W") projection.
