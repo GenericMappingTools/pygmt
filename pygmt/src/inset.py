@@ -61,7 +61,7 @@ def inset(self, **kwargs):
         coordinates instead are the lower left and upper right corners of
         the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
         rectangle in projected coordinates and optionally
-        append **+u**\ *unit* [Default coordinate unit is meters (e)].
+        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
 
         Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
         in plot coordinates (inches, centimeters, etc.). By default, the
