@@ -1,6 +1,8 @@
 """
 ternary - Plot data on ternary diagrams.
 """
+import pandas as pd
+from packaging.version import Version
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -79,6 +81,12 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         kwargs["L"] = "/".join([alabel, blabel, clabel])
 
     with Session() as lib:
+        # Patch for GMT < 6.5.0.
+        # See https://github.com/GenericMappingTools/pygmt/pull/2138
+        if Version(lib.info["version"]) < Version("6.5.0") and isinstance(
+            data, pd.DataFrame
+        ):
+            data = data.to_numpy()
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
             lib.call_module(
