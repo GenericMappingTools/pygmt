@@ -56,8 +56,8 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {region}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
-        or **p** to indicate the distance unit (cm, inch, or point); if no unit
-        is given we use the default unit that is controlled by
+        or **p** to indicate the distance unit (centimeters, inches, or points);
+        if no unit is given we use the default unit that is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT`.
     {frame}
     position : str
