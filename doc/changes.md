@@ -3,7 +3,7 @@
 
 ## Release v0.8.0 (2022/12/28)
 
-[![Digital Object Identifier for PyGMT v0.8.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.8.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7481934.svg)](https://doi.org/10.5281/zenodo.7481934)
 
 ### Highlights
 
