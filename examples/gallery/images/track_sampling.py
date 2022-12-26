@@ -44,7 +44,7 @@ fig.colorbar(
 fig.coast(land="#666666", shorelines="1/0.5p,black")
 
 # Set up a colormap for the elevation values of the track points. These
-# values are normalzied for visual purposes (see below)
+# values are normalized for visual purposes (see below)
 pygmt.makecpt(cmap="terra", series=[-1, 1, 0.01])
 # Plot the sampled bathymetry points using circles (c) with a diameter of
 # 0.15 centimeters (c). Points are colored using normalized elevation values
