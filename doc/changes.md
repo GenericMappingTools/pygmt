@@ -63,7 +63,6 @@
 * Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
 * Add a gallery example showing the usage of vertical and horizontal bars ([#1521](https://github.com/GenericMappingTools/pygmt/pull/1521))
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
-* Correct and consistent usage of 'function, 'method', and 'class' ([#2043](https://github.com/GenericMappingTools/pygmt/pull/2043))
 * Add SciPy 2022 talk to presentations ([#2053](https://github.com/GenericMappingTools/pygmt/pull/2053))
 
 ### Maintenance
