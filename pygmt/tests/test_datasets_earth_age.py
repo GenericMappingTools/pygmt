@@ -59,7 +59,6 @@ def test_earth_age_01d_with_region():
     npt.assert_allclose(data.max(), 125.1189)
 
 
-
 def test_earth_age_05m_without_region():
     """
     Test loading high-resolution earth age without passing 'region'.

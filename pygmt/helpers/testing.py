@@ -194,7 +194,6 @@ def download_test_data():
         "@S90W180.earth_mag4km_05m_g.nc",  # Specific grid for 05m test
         # Earth free-air anomaly grids
         "@earth_faa_01d_g",
-        "@S90W180.earth_faa_05m_g.nc",  # Specific grid for 05m test
         "@N00W030.earth_faa_01m_p.nc",  # Specific grid for 01m test
         # Earth vertical gravity gradient grids
         "@earth_vgg_01d_g",

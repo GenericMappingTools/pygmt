@@ -57,22 +57,6 @@ def test_earth_faa_01d_with_region():
     npt.assert_allclose(data.max(), 69.524994)
 
 
-def test_earth_faa_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth free air anomaly data.
-    """
-    data = load_earth_free_air_anomaly(
-        resolution="05m", region=[-115, -112, 4, 6], registration="gridline"
-    )
-    assert data.shape == (25, 37)
-    assert data.lat.min() == 4
-    assert data.lat.max() == 6
-    assert data.lon.min() == -115
-    assert data.lon.max() == -112
-    npt.assert_allclose(data.min(), -20.5)
-    npt.assert_allclose(data.max(), -3.9500122)
-
-
 def test_earth_faa_05m_without_region():
     """
     Test loading high-resolution earth free air anomaly without passing
