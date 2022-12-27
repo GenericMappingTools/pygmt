@@ -66,7 +66,6 @@
 * Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
 * Add badges for conda package version, license and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
-* Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
 
 ### Maintenance
 
