@@ -10,7 +10,6 @@ from pygmt.datasets.earth_relief import load_earth_relief
 from pygmt.datasets.earth_vertical_gravity_gradient import (
     load_earth_vertical_gravity_gradient,
 )
-from pygmt.datasets.earth_wdmam import load_earth_wdmam
 from pygmt.datasets.samples import (
     list_sample_data,
     load_fractures_compilation,
