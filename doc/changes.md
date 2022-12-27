@@ -52,20 +52,21 @@
 * Figure.ternary: Fix the crash for pd.DataFrame input with GMT 6.3-6.4 ([#2274](https://github.com/GenericMappingTools/pygmt/pull/2274))
 
 ### Documentation
-* Add gallery example for Figure.ternary method ([#2138](https://github.com/GenericMappingTools/pygmt/pull/2138))
-* Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
+
 * Add intro tutorial section for creating contour map ([#2126](https://github.com/GenericMappingTools/pygmt/pull/2126))
-* Add inline example for grd2cpt ([#2145](https://github.com/GenericMappingTools/pygmt/pull/2145))
-* Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
+* Add gallery example for Figure.ternary method ([#2138](https://github.com/GenericMappingTools/pygmt/pull/2138))
+* Add gallery example showing the usage of vertical and horizontal bars ([#1521](https://github.com/GenericMappingTools/pygmt/pull/1521))
+* Add inline example for coast ([#2142](https://github.com/GenericMappingTools/pygmt/pull/2142))
 * Add inline example for grdcontour ([#2148](https://github.com/GenericMappingTools/pygmt/pull/2148))
 * Add inline example for grdimage ([#2146](https://github.com/GenericMappingTools/pygmt/pull/2146))
+* Add inline example for grd2cpt ([#2145](https://github.com/GenericMappingTools/pygmt/pull/2145))
 * Add inline example for solar ([#2147](https://github.com/GenericMappingTools/pygmt/pull/2147))
-* Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
-* Add inline example for coast ([#2142](https://github.com/GenericMappingTools/pygmt/pull/2142))
-* Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
-* Add a gallery example showing the usage of vertical and horizontal bars ([#1521](https://github.com/GenericMappingTools/pygmt/pull/1521))
-* Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
 * Add SciPy 2022 talk to presentations ([#2053](https://github.com/GenericMappingTools/pygmt/pull/2053))
+* Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
+* Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
+* Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
+* Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
+* Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
 
 ### Maintenance
 
