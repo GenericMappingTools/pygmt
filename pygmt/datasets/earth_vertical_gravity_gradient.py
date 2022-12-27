@@ -45,9 +45,9 @@ def load_earth_vertical_gravity_gradient(
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        ``"gridline"`` for gridline registration. Default is ``"gridline"``
+        when available.
+
 
     Returns
     -------
