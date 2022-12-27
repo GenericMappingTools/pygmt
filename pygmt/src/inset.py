@@ -47,7 +47,7 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code that refers to the (invisible)
+        2-character justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
         coordinates (inches, centimeters, points, append unit).
@@ -67,7 +67,7 @@ def inset(self, **kwargs):
         in plot coordinates (inches, centimeters, etc.). By default, the
         anchor point on the scale is assumed to be the bottom left corner
         (**BL**), but this can be changed by appending **+j** followed by
-        a 2-char justification code *justify*.
+        a 2-character justification code *justify*.
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
