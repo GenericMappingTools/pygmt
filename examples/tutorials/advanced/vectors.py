@@ -72,7 +72,7 @@ fig.show()
 ###############################################################################
 # The default unit of vector length is centimeters,
 # however, this can be changed to inches or points. Note that, in PyGMT,
-# one point is defined as 1/72 inches.
+# one point is defined as 1/72 inch.
 #
 # In this example, the graphed region is 5in X 5in, but
 # the length of the first vector is still graphed in centimeters.
