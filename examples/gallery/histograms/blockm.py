@@ -42,7 +42,7 @@ fig.colorbar(frame=["x+lkm"])
 fig.shift_origin(xshift="w+5c")
 
 # Calculate number of total locations within 150x150 arc-minute bins
-# via blockmean's summary parameter
+# with blockmean's summary parameter
 df = pygmt.blockmean(data=data, region=region, spacing=spacing, summary="n")
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
