@@ -241,7 +241,6 @@ def _load_remote_dataset(
         else:
             registration = "pixel"
     if registration in ("pixel", "gridline"):
-        # If None, let GMT decide on Pixel/Gridline type
         reg = f"_{registration[0]}"
     else:
         raise GMTInvalidInput(

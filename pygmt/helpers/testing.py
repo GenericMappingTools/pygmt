@@ -180,6 +180,7 @@ def download_test_data():
         # Earth seafloor age grids
         "@earth_age_01d_g",
         "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
+        "@N00W030.earth_age_01m_g.nc",  # Specific grid for 01m test
         # Earth geoid grids
         "@earth_geoid_01d_g",
         "@S90W180.earth_geoid_05m_g.nc",  # Specific grid for 05m test
