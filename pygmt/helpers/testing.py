@@ -196,7 +196,7 @@ def download_test_data():
         "@S90W180.earth_vgg_05m_g.nc",  # Specific grid for 05m test
         # Earth WDMAM grids
         "@earth_wdmam_01d_g",
-        "@S90W180.earth_wdmam_05m_g.nc",  # Specific grid for 05m test
+        "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",

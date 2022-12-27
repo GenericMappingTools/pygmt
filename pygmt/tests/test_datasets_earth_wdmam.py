@@ -57,20 +57,19 @@ def test_earth_wdmam_01d_with_region():
     npt.assert_allclose(data.max(), 102.19995)
 
 
-def test_earth_wdmam_05m_with_region():
+def test_earth_wdmam_03m_with_region():
     """
     Test loading a subregion of high-resolution WDMAM data.
     """
-    data = load_earth_wdmam(
-        resolution="05m", region=[-115, -112, 4, 6], registration="gridline"
-    )
-    assert data.shape == (25, 37)
-    assert data.lat.min() == 4
-    assert data.lat.max() == 6
-    assert data.lon.min() == -115
-    assert data.lon.max() == -112
-    npt.assert_allclose(data.min(), -147.1001)
-    npt.assert_allclose(data.max(), 457.69995)
+    data = load_earth_wdmam(resolution="03m", region=[10, 13, -60, -58])
+    assert data.gmt.registration == 0
+    assert data.shape == (41, 61)
+    assert data.lat.min() == -60
+    assert data.lat.max() == -58
+    assert data.lon.min() == 10
+    assert data.lon.max() == 13
+    npt.assert_allclose(data.min(), -639.7001)
+    npt.assert_allclose(data.max(), 629.6)
 
 
 def test_earth_wdmam_05m_without_region():
