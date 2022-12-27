@@ -34,13 +34,14 @@
 * Rewrite the meca function to support offsetting and labeling beachballs ([#1784](https://github.com/GenericMappingTools/pygmt/pull/1784))
 
 ### Deprecations
+
+* Deprecate xshift (X) and yshift (Y) aliases from all plotting modules (remove in v0.12.0) ([#2071](https://github.com/GenericMappingTools/pygmt/pull/2071))
+* Figure.plot: Deprecate parameter "color" to "fill" (remove in v0.12.0) ([#2177](https://github.com/GenericMappingTools/pygmt/pull/2177))
+* Figure.plot3d: Deprecate parameter "color" to "fill" (remove in v0.12.0) ([#2178](https://github.com/GenericMappingTools/pygmt/pull/2178))
+* Figure.rose: Deprecate parameter color to fill (remove in v0.12.0) ([#2181](https://github.com/GenericMappingTools/pygmt/pull/2181))
+* Figure.velo: Deprecate parameters "color" to "fill" and "uncertaintycolor" to "uncertaintyfill" (remove in v0.12.0) ([#2206](https://github.com/GenericMappingTools/pygmt/pull/2206))
 * Figure.wiggle: Deprecate parameter "color" (remove in v0.12.0) and add "fillpositive"/"fillnegative" ([#2205](https://github.com/GenericMappingTools/pygmt/pull/2205))
 * Figure.psconvert: Remove the deprecated parameter 'icc_gray' (deprecated since v0.6.0) ([#2267](https://github.com/GenericMappingTools/pygmt/pull/2267))
-* Figure.velo: Deprecate parameters "color" to "fill" and "uncertaintycolor" to "uncertaintyfill" (remove in v0.12.0) ([#2206](https://github.com/GenericMappingTools/pygmt/pull/2206))
-* Deprecate xshift (X) and yshift (Y) aliases from all plotting modules (remove in v0.12.0) ([#2071](https://github.com/GenericMappingTools/pygmt/pull/2071))
-* Figure.rose: Deprecate parameter color to fill (remove in v0.12.0) ([#2181](https://github.com/GenericMappingTools/pygmt/pull/2181))
-* Figure.plot3d: Deprecate parameter "color" to "fill" (remove in v0.12.0) ([#2178](https://github.com/GenericMappingTools/pygmt/pull/2178))
-* Figure.plot: Deprecate parameter "color" to "fill" (remove in v0.12.0) ([#2177](https://github.com/GenericMappingTools/pygmt/pull/2177))
 * Figure.text: Deprecate parameter "incols" to "use_word" (remove in v0.10.0)  ([#1964](https://github.com/GenericMappingTools/pygmt/pull/1964))
 
 ### Bug Fixes
