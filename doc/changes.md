@@ -62,11 +62,11 @@
 * Add inline example for grd2cpt ([#2145](https://github.com/GenericMappingTools/pygmt/pull/2145))
 * Add inline example for solar ([#2147](https://github.com/GenericMappingTools/pygmt/pull/2147))
 * Add SciPy 2022 talk to presentations ([#2053](https://github.com/GenericMappingTools/pygmt/pull/2053))
+* Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
+* Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
 * Add badges for conda package version, license and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
 * Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
-* Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
-* Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
 
 ### Maintenance
 
