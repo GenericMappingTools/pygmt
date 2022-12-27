@@ -57,23 +57,6 @@ def test_earth_geoid_01d_with_region():
     npt.assert_allclose(data.max(), 29.89)
 
 
-def test_earth_geoid_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth geoid.
-    """
-    data = load_earth_geoid(
-        resolution="05m", region=[-50, -40, 20, 30], registration="gridline"
-    )
-    assert data.coords["lat"].data.min() == 20.0
-    assert data.coords["lat"].data.max() == 30.0
-    assert data.coords["lon"].data.min() == -50.0
-    assert data.coords["lon"].data.max() == -40.0
-    npt.assert_allclose(data.min(), -32.79)
-    npt.assert_allclose(data.max(), 16.57)
-    assert data.sizes["lat"] == 121
-    assert data.sizes["lon"] == 121
-
-
 def test_earth_geoid_05m_without_region():
     """
     Test loading high-resolution earth geoid without passing 'region'.
