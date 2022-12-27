@@ -57,9 +57,8 @@ def load_earth_relief(
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, where
-        a gridline-registered grid is returned unless only the pixel-registered
-        grid is available.
+        ``"gridline"`` for gridline registration. Default is ``"gridline"``
+        when available.
 
         **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
         grid by default unless only the gridline-registered grid is available.
