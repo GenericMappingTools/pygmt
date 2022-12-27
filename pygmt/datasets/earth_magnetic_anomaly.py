@@ -60,14 +60,14 @@ def load_earth_magnetic_anomaly(
         Choose the magnetic anomaly dataset to use. The default is ``False``,
         and uses the EMAG2 Global Earth Magnetic Anomaly Model. If set to
         ``True``, it uses the World Digital Magnetic Anomaly Map (WDMAM).
-        It cannot be set to ``True`` is ``mag4km`` is ``True``.
+        It cannot be set to ``True`` is ``mag4km`` if ``True``.
 
     mag4km : bool
         Choose the data version to use. The default is ``False``, which is
         observed at sea level over oceanic regions and has no data over land.
         Set ``mag4km`` to ``True`` to use a version where all observations
         are relative to an altitude of 4 km above the geoid and include data
-        over land. It cannot be set to ``True`` is ``wdmam`` is ``True``.
+        over land. It cannot be set to ``True`` if ``wdmam`` is ``True``.
 
     Returns
     -------
@@ -100,6 +100,10 @@ def load_earth_magnetic_anomaly(
     >>> # load the 20 arc-minutes grid of the mag4km dataset
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", mag4km=True
+    ... )
+    >>> # load the 20 arc-minutes grid of the WDMAM dataset
+    >>> grid = load_earth_magnetic_anomaly(
+    ...     resolution="20m", registration="gridline", wdmam=True
     ... )
     """
     if mag4km and wdmam:
