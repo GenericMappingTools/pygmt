@@ -59,22 +59,6 @@ def test_earth_age_01d_with_region():
     npt.assert_allclose(data.max(), 125.1189)
 
 
-def test_earth_age_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth age.
-    """
-    data = load_earth_age(
-        resolution="05m", region=[-50, -40, 20, 30], registration="gridline"
-    )
-    assert data.coords["lat"].data.min() == 20.0
-    assert data.coords["lat"].data.max() == 30.0
-    assert data.coords["lon"].data.min() == -50.0
-    assert data.coords["lon"].data.max() == -40.0
-    npt.assert_allclose(data.data.min(), 0.040000916)
-    npt.assert_allclose(data.data.max(), 46.530003)
-    assert data.sizes["lat"] == 121
-    assert data.sizes["lon"] == 121
-
 
 def test_earth_age_05m_without_region():
     """
