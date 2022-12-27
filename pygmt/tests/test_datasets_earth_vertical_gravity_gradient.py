@@ -62,23 +62,6 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     npt.assert_allclose(data.max(), 19.78125)
 
 
-def test_earth_vertical_gravity_gradient_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth vgg.
-    """
-    data = load_earth_vertical_gravity_gradient(
-        resolution="05m", region=[-50, -40, 20, 26], registration="gridline"
-    )
-    assert data.coords["lat"].data.min() == 20.0
-    assert data.coords["lat"].data.max() == 26.0
-    assert data.coords["lon"].data.min() == -50.0
-    assert data.coords["lon"].data.max() == -40.0
-    npt.assert_allclose(data.min(), -107.625)
-    npt.assert_allclose(data.max(), 159.75)
-    assert data.sizes["lat"] == 73
-    assert data.sizes["lon"] == 121
-
-
 def test_earth_vertical_gravity_gradient_05m_without_region():
     """
     Test loading high-resolution earth vgg without passing 'region'.
