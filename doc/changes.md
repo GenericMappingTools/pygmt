@@ -66,7 +66,6 @@
 * Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
 * Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
 * Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
-* Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
 
 ### Maintenance
 
@@ -74,6 +73,7 @@
 * Update the instructions for checking README syntax ([#2265](https://github.com/GenericMappingTools/pygmt/pull/2265))
 * NEP29: Test PyGMT on NumPy 1.24 ([#2256](https://github.com/GenericMappingTools/pygmt/pull/2256))
 * Check if a module outputs to a temporary file using "Path().stat().st_size > 0" ([#2224](https://github.com/GenericMappingTools/pygmt/pull/2224))
+* Convert bug report markdown issue template into yaml configured form ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091))
 * Convert module request issue template into yaml configured form ([#2216](https://github.com/GenericMappingTools/pygmt/pull/2216))
 * Add an internal function to load GMT remote datasets ([#2200](https://github.com/GenericMappingTools/pygmt/pull/2200))
 * Convert feature request issue template into yaml configured form ([#2214](https://github.com/GenericMappingTools/pygmt/pull/2214))
