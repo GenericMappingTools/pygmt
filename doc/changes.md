@@ -83,7 +83,6 @@
 * Use the Ubuntu 22.04 docker image for readthedocs ([#2086](https://github.com/GenericMappingTools/pygmt/pull/2086))
 * Add badges for conda package version, license and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
 * Add optional dependencies to pyproject.toml ([#2069](https://github.com/GenericMappingTools/pygmt/pull/2069))
-* Remove tomli from GMT Tests and GMT Dev Tests workflows ([#2080](https://github.com/GenericMappingTools/pygmt/pull/2080))
 * Migrate project metadata from setup.py to pyproject.toml following PEP621 ([#1848](https://github.com/GenericMappingTools/pygmt/pull/1848))
 * Replace flake8 with flakeheaven ([#1847](https://github.com/GenericMappingTools/pygmt/pull/1847))
 * NEP29: Test PyGMT on NumPy 1.23 and 1.21 ([#2057](https://github.com/GenericMappingTools/pygmt/pull/2057))
