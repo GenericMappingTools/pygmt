@@ -9,8 +9,9 @@
 
 * 🎉 **Eighth minor release of PyGMT** 🎉
 * Wrapped ternary
-* Add a intro tutorial for creating contour maps
 * Easy access to various remote datasets
+* Add a intro tutorial for creating contour maps
+* Support tab auto-completion for all GMT defaults
 
 ### New Features
 
