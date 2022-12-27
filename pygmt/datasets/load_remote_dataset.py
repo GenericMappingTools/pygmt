@@ -246,8 +246,8 @@ def _load_remote_dataset(
         raise GMTInvalidInput(
             f"Invalid grid registration: '{registration}', should be either "
             "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
+            "gridline-registered grid is returned unless only the "
+            "pixel-registered grid is available."
         )
 
     if registration and (
