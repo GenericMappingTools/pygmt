@@ -234,7 +234,12 @@ def _load_remote_dataset(
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
     if registration is None:
-        registration = dataset.resolutions[resolution].registrations[0]
+        # Check if "gridline" is an available registration for the resolution
+        if "gridline" in dataset.resolutions[resolution].registrations:
+            # Use default of gridline registration if available
+            registration = "gridline"
+        else:
+            registration = "pixel"
     if registration in ("pixel", "gridline"):
         # If None, let GMT decide on Pixel/Gridline type
         reg = f"_{registration[0]}"
