@@ -46,10 +46,10 @@
 
 ### Bug Fixes
 
-* Figure.ternary: Fix the crash for pd.DataFrame input with GMT 6.3-6.4 ([#2274](https://github.com/GenericMappingTools/pygmt/pull/2274))
 * Figure.meca: Fix line and circle of offset parameter for dict/pandas input  ([#2226](https://github.com/GenericMappingTools/pygmt/pull/2226))
 * Figure.meca: Fix beachball offsetting with dict/pandas inputs ([#2202](https://github.com/GenericMappingTools/pygmt/pull/2202))
 * Figure.meca: Fix the bug when passing a dict of scalar values to the spec parameter ([#2174](https://github.com/GenericMappingTools/pygmt/pull/2174))
+* Figure.ternary: Fix the crash for pd.DataFrame input with GMT 6.3-6.4 ([#2274](https://github.com/GenericMappingTools/pygmt/pull/2274))
 
 ### Documentation
 * Add gallery example for Figure.ternary method ([#2138](https://github.com/GenericMappingTools/pygmt/pull/2138))
