@@ -22,7 +22,6 @@
 
 ### Enhancements
 
-* load_earth_magnetic_anomaly: Add mag4km parameter to support earth_mag4km dataset ([#2239](https://github.com/GenericMappingTools/pygmt/pull/2239))
 * Add ternary sample dataset ([#2211](https://github.com/GenericMappingTools/pygmt/pull/2211))
 * pygmt.config: Support tab auto-completion for all GMT defaults ([#2213](https://github.com/GenericMappingTools/pygmt/pull/2213))
 * Figure.text: Deprecate parameter "incols" to "use_word" (remove in v0.10.0)  ([#1964](https://github.com/GenericMappingTools/pygmt/pull/1964))
