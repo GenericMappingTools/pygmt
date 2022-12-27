@@ -25,12 +25,12 @@
 ### Enhancements
 
 * Add ternary sample dataset ([#2211](https://github.com/GenericMappingTools/pygmt/pull/2211))
-* pygmt.config: Support tab auto-completion for all GMT defaults ([#2213](https://github.com/GenericMappingTools/pygmt/pull/2213))
-* Figure.savefig: Raise a FileNotFoundError if the parent directory doesn't exist ([#2160](https://github.com/GenericMappingTools/pygmt/pull/2160))
-* Figure.psconvert: Check if the given prefix is valid ([#2170](https://github.com/GenericMappingTools/pygmt/pull/2170))
-* Figure.ternary: Add parameters alabel, blabel, and clabel ([#2139](https://github.com/GenericMappingTools/pygmt/pull/2139))
-* Figure.show: Allow keyword arguments passed to Figure.psconvert ([#2078](https://github.com/GenericMappingTools/pygmt/pull/2078))
 * Figure.psconvert: Add a new alias gs_path (-G) ([#2076](https://github.com/GenericMappingTools/pygmt/pull/2076))
+* Figure.ternary: Add parameters alabel, blabel, and clabel ([#2139](https://github.com/GenericMappingTools/pygmt/pull/2139))
+* Figure.psconvert: Check if the given prefix is valid ([#2170](https://github.com/GenericMappingTools/pygmt/pull/2170))
+* Figure.savefig: Raise a FileNotFoundError if the parent directory doesn't exist ([#2160](https://github.com/GenericMappingTools/pygmt/pull/2160))
+* Figure.show: Allow keyword arguments passed to Figure.psconvert ([#2078](https://github.com/GenericMappingTools/pygmt/pull/2078))
+* pygmt.config: Support tab auto-completion for all GMT defaults ([#2213](https://github.com/GenericMappingTools/pygmt/pull/2213))
 * Rewrite the meca function to support offsetting and labeling beachballs ([#1784](https://github.com/GenericMappingTools/pygmt/pull/1784))
 
 ### Deprecations
