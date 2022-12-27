@@ -49,7 +49,7 @@
 * Figure.meca: Fix the bug when passing a dict of scalar values to the spec parameter ([#2174](https://github.com/GenericMappingTools/pygmt/pull/2174))
 
 ### Documentation
-
+* Add gallery example for Figure.ternary method ([#2138](https://github.com/GenericMappingTools/pygmt/pull/2138))
 * Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
 * Add intro tutorial section for creating contour map ([#2126](https://github.com/GenericMappingTools/pygmt/pull/2126))
 * Add inline example for grd2cpt ([#2145](https://github.com/GenericMappingTools/pygmt/pull/2145))
