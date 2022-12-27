@@ -175,6 +175,8 @@ def download_test_data():
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
+        "@N00W010.earth_relief_15s_p.nc",  # Specific grid for 15s test
+        "@N04W010.earth_relief_03s_g.nc",  # Specific grid for 03s test
         # Earth synbath relief grids
         "@S15W105.earth_synbath_30s_p.nc",
         # Earth seafloor age grids

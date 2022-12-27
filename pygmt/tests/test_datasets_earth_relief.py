@@ -247,3 +247,33 @@ def test_earth_relief_incorrect_resolution_registration(data_source):
             registration="gridline",
             data_source=data_source,
         )
+
+def test_earth_relief_15s_default_registration():
+    """
+    Test that the grid returned by default for the 15 arc-second resolution has
+    a "pixel" registration.
+    """
+    data = load_earth_relief(resolution="15s", region=[-10, -9.5, 4, 5])
+    assert data.shape == (240, 120)
+    assert data.gmt.registration == 1
+    npt.assert_allclose(data.coords["lat"].data.min(), 4.002083)
+    npt.assert_allclose(data.coords["lat"].data.max(), 4.997917)
+    npt.assert_allclose(data.coords["lon"].data.min(), -9.997917)
+    npt.assert_allclose(data.coords["lon"].data.max(), -9.502083)
+    npt.assert_allclose(data.min(), -3897)
+    npt.assert_allclose(data.max(), -74)
+
+def test_earth_relief_03s_default_registration():
+    """
+    Test that the grid returned by default for the 3 arc-second resolution has
+    a "gridline" registration.
+    """
+    data = load_earth_relief(resolution="03s", region=[-10, -9.8, 4.9, 5])
+    assert data.shape == (121, 241)
+    assert data.gmt.registration == 0
+    npt.assert_allclose(data.coords["lat"].data.min(), 4.9)
+    npt.assert_allclose(data.coords["lat"].data.max(), 5)
+    npt.assert_allclose(data.coords["lon"].data.min(), -10)
+    npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
+    npt.assert_allclose(data.min(), -2069.996)
+    npt.assert_allclose(data.max(), -924.0801)
