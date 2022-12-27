@@ -92,10 +92,11 @@ def test_earth_age_incorrect_resolution_registration():
     with pytest.raises(GMTInvalidInput):
         load_earth_age(resolution="01m", region=[0, 1, 3, 5], registration="pixel")
 
+
 def test_earth_age_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution
-    has a "gridline" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has
+    a "gridline" registration.
     """
     data = load_earth_age(resolution="01m", region=[-10, -9, 3, 5])
     assert data.shape == (121, 61)
@@ -106,4 +107,3 @@ def test_earth_age_01m_default_registration():
     assert data.coords["lon"].data.max() == -9.0
     npt.assert_allclose(data.min(), 88.63)
     npt.assert_allclose(data.max(), 125.25)
-

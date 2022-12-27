@@ -81,10 +81,11 @@ def test_earth_faa_05m_without_region():
     with pytest.raises(GMTInvalidInput):
         load_earth_free_air_anomaly("05m")
 
+
 def test_earth_faa_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution
-    has a "pixel" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has
+    a "pixel" registration.
     """
     data = load_earth_free_air_anomaly(resolution="01m", region=[-10, -9, 3, 5])
     assert data.shape == (120, 60)
