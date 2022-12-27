@@ -80,7 +80,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     orientation : bool
         Specifies that the input data are orientation data (i.e., have a
-        180 degrees ambiguity) instead of true 0-360 degrees directions
+        180 degrees ambiguity) instead of true 0-360 degree directions
         [Default is 0-360 degrees]. We compensate by counting each record
         twice: First as azimuth and second as azimuth +180. Ignored if
         ``region`` is given as (-90, 90) or (0, 180).
@@ -135,7 +135,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     labels : str
          *wlabel,elabel,slabel,nlabel*.
-         Specify labels for the 0, 90, 180, and 270 degrees marks.
+         Specify labels for the 0, 90, 180, and 270 degree marks.
          For full-circle plot the default is
          ``"West,East,South,North"`` and for half-circle the default
          is ``"90W,90E,-,0"``. A ``"-"`` in any entry disables that
