@@ -11,8 +11,8 @@ onto a cylinder in the direction of the antipodal point on the equator. The
 cylinder crosses the sphere at two standard parallels, equidistant from the
 equator.
 
-**cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *scale*
-or **Cyl_stere/**\ [*lon0/*]\ [*lat0/*]\ *width*
+**cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *scale* or
+**Cyl_stere**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **cyl_stere** or **Cyl_stere**. The central meridian
 is set by the optional *lon0*, and the figure size is set with *scale* or
