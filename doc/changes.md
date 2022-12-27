@@ -54,7 +54,6 @@
 * Add Yvonne to team page ([#2270](https://github.com/GenericMappingTools/pygmt/pull/2270))
 * Add intro tutorial section for creating contour map ([#2126](https://github.com/GenericMappingTools/pygmt/pull/2126))
 * Add inline example for grd2cpt ([#2145](https://github.com/GenericMappingTools/pygmt/pull/2145))
-* SVG format is not supported in psconvert with ghostscript 9.16+ ([#2159](https://github.com/GenericMappingTools/pygmt/pull/2159))
 * Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
 * Add inline example for grdcontour ([#2148](https://github.com/GenericMappingTools/pygmt/pull/2148))
 * Add inline example for grdimage ([#2146](https://github.com/GenericMappingTools/pygmt/pull/2146))
