@@ -60,9 +60,6 @@ def load_earth_relief(
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
         when available.
 
-        **Note**: For GMT 6.3, ``registration=None`` returns a pixel-registered
-        grid by default unless only the gridline-registered grid is available.
-
     data_source : str
         Select the source for the Earth relief data.
 
