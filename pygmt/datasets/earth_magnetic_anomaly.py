@@ -49,9 +49,8 @@ def load_earth_magnetic_anomaly(
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        ``"gridline"`` for gridline registration. Default is ``"gridline"``
+        when available.
 
     mag4km : bool
         Choose the data version to use. The default is ``False``, which is
