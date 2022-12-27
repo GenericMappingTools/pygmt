@@ -248,6 +248,7 @@ def test_earth_relief_incorrect_resolution_registration(data_source):
             data_source=data_source,
         )
 
+
 def test_earth_relief_15s_default_registration():
     """
     Test that the grid returned by default for the 15 arc-second resolution has
@@ -262,6 +263,7 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.coords["lon"].data.max(), -9.502083)
     npt.assert_allclose(data.min(), -3897)
     npt.assert_allclose(data.max(), -74)
+
 
 def test_earth_relief_03s_default_registration():
     """
