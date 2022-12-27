@@ -227,7 +227,6 @@ and store them in GMT's user data directory.
     datasets.load_earth_magnetic_anomaly
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
-    datasets.load_earth_wdmam
     datasets.load_sample_data
 
 The following functions are deprecated since v0.6.0 and will be removed in v0.9.0.
