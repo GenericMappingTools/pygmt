@@ -187,7 +187,6 @@ def download_test_data():
         "@N00W030.earth_geoid_01m_g.nc",  # Specific grid for 01m test
         # Earth magnetic anomaly grids
         "@earth_mag_01d_g",
-        "@S90W180.earth_mag_05m_g.nc",  # Specific grid for 05m test
         "@S30W060.earth_mag_02m_p.nc",  # Specific grid for 02m test
         "@earth_mag4km_01d_g",
         "@S90W180.earth_mag4km_05m_g.nc",  # Specific grid for 05m test
