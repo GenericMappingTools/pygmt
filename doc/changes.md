@@ -94,7 +94,6 @@
 * Migrate Continuous Documentation from Vercel to Readthedocs ([#1859](https://github.com/GenericMappingTools/pygmt/pull/1859))
 * Use the org-wide code of conduct ([#2020](https://github.com/GenericMappingTools/pygmt/pull/2020))
 * Refactor grdview and grdimage to use virtualfile_from_data ([#1988](https://github.com/GenericMappingTools/pygmt/pull/1988))
-* Use consistent names for pytest fixtures ([#1965](https://github.com/GenericMappingTools/pygmt/pull/1965))
 
 ### Contributors
 
