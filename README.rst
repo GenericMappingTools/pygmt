@@ -187,7 +187,7 @@ Developers". Feel free to cite our work in your research using the following Bib
       month        = dec,
       year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.8.0},
+      version      = {0.8.0},
       doi          = {10.5281/zenodo.7481934},
       url          = {https://doi.org/10.5281/zenodo.7481934}
     }
