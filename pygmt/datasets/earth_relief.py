@@ -134,13 +134,6 @@ def load_earth_relief(
             f"Invalid earth relief 'data_source' {data_source}, "
             "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
         )
-    if data_source != "igpp":
-        with Session() as lib:
-            if Version(lib.info["version"]) < Version("6.4.0"):
-                raise GMTVersionError(
-                    f"The {data_source} option is not available for GMT"
-                    " versions before 6.4.0."
-                )
     # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source == "igpp":
