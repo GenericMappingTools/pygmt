@@ -43,6 +43,15 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
         [Optional. Default: True]. If False, coordinates in ``region`` are
         assumed to be Spherical Mercator as opposed to lon/lat.
 
+    wait : int
+        [Optional. Default: 0]. If the tile API is rate-limited, the number of
+        seconds to wait between a failed request and the next try.
+
+    max_retries : int
+        [Optional. Default: 2]. Total number of rejected requests allowed
+        before contextily will stop trying to fetch more tiles from a
+        rate-limited API.
+
     kwargs : dict
         Extra keyword arguments to pass to :func:`contextily.bounds2img`.
 
