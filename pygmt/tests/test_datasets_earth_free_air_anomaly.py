@@ -57,13 +57,13 @@ def test_earth_faa_01d_with_region():
     npt.assert_allclose(data.max(), 69.524994)
 
 
-def test_earth_faa_05m_without_region():
+def test_earth_faa_01m_without_region():
     """
     Test loading high-resolution earth free air anomaly without passing
     'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_free_air_anomaly("05m")
+        load_earth_free_air_anomaly("01m")
 
 
 def test_earth_faa_01m_default_registration():
