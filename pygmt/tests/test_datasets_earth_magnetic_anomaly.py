@@ -112,7 +112,6 @@ def test_earth_mag4km_01d_with_region():
     npt.assert_allclose(data.max(), 113.59985)
 
 
-
 def test_earth_mag_02m_default_registration():
     """
     Test that the grid returned by default for the 2 arc-minute resolution has
