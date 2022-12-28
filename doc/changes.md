@@ -50,7 +50,7 @@
 * Figure.meca: Fix line and circle of offset parameter for dict/pandas input  ([#2226](https://github.com/GenericMappingTools/pygmt/pull/2226))
 * Figure.meca: Fix beachball offsetting with dict/pandas inputs ([#2202](https://github.com/GenericMappingTools/pygmt/pull/2202))
 * Figure.meca: Fix the bug when passing a dict of scalar values to the spec parameter ([#2174](https://github.com/GenericMappingTools/pygmt/pull/2174))
-* Figure.ternary: Fix the crash for pd.DataFrame input with GMT 6.3-6.4 ([#2274](https://github.com/GenericMappingTools/pygmt/pull/2274))
+* Figure.ternary: Fix the crash for pd.DataFrame input with GMT 6.3.0-6.4.0 ([#2274](https://github.com/GenericMappingTools/pygmt/pull/2274))
 
 ### Documentation
 
@@ -71,7 +71,7 @@
 ### Maintenance
 
 * Add an internal function to load GMT remote datasets ([#2200](https://github.com/GenericMappingTools/pygmt/pull/2200))
-* load_earth_relief() now returns gridline-registrated grids by default in GMT 6.4 ([#2052](https://github.com/GenericMappingTools/pygmt/pull/2052))
+* load_earth_relief() now returns gridline-registrated grids by default in GMT 6.4.0 ([#2052](https://github.com/GenericMappingTools/pygmt/pull/2052))
 * Add support for Python 3.11 ([#2172](https://github.com/GenericMappingTools/pygmt/pull/2172))
 * NEP29: Test PyGMT on NumPy 1.24 ([#2256](https://github.com/GenericMappingTools/pygmt/pull/2256))
 * NEP29: Test PyGMT on NumPy 1.23 and 1.21 ([#2057](https://github.com/GenericMappingTools/pygmt/pull/2057))
