@@ -13,7 +13,7 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d", region=None, registration=None, data_source="emag"
+    resolution="01d", region=None, registration=None, data_source="emag2"
 ):
     r"""
     Load an Earth magnetic anomaly grid in various resolutions.
@@ -29,12 +29,12 @@ def load_earth_magnetic_anomaly(
     **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
     function. *earth_mag_type* is the GMT name
     for the dataset. The available options are **earth_mag**,
-    **earth_mag4km**, and **@earth_wdmam**. *res* is the grid resolution
+    **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution
     (see below), and *reg* is grid registration type (**p** for pixel
     registration or **g** for gridline registration).
 
     Refer to :gmt-datasets:`earth-mag.html`
-    and :gmt-datasets:`earth-wdmam.html`  for more details.
+    and :gmt-datasets:`earth-wdmam.html` for more details.
 
     Parameters
     ----------
@@ -60,13 +60,13 @@ def load_earth_magnetic_anomaly(
 
         Available options:
 
-        - **emag** : EMAG2 Global Earth Magnetic Anomaly Model [Default
+        - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default
           option]. Only includes data is observed from sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 
-        - **emag4km** : Use a version  of EMAG2 where all observations
+        - **emag2_4km** : Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
-          data over land
+          data over land.
 
         - **wdmam** : World Digital Magnetic Anomaly Map (WDMAM).
           See :gmt-datasets:`earth-wdmam.html`
@@ -99,9 +99,9 @@ def load_earth_magnetic_anomaly(
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    >>> # load the 20 arc-minutes grid of the mag4km dataset
+    >>> # load the 20 arc-minutes grid of the emag2_4km dataset
     >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="20m", registration="gridline", data_source="emag4km"
+    ...     resolution="20m", registration="gridline", data_source="emag2_4km"
     ... )
     >>> # load the 20 arc-minutes grid of the WDMAM dataset
     >>> grid = load_earth_magnetic_anomaly(
@@ -109,14 +109,14 @@ def load_earth_magnetic_anomaly(
     ... )
     """
     magnetic_anomaly_sources = {
-        "emag": "earth_mag_",
-        "emag4km": "earth_mag4km_",
+        "emag2": "earth_mag_",
+        "emag2_4km": "earth_mag4km_",
         "wdmam": "earth_wdmam_",
     }
     if data_source not in magnetic_anomaly_sources:
         raise GMTInvalidInput(
-            f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'emag', 'emag4km', and 'wdmam'."
+            f"Invalid earth magnetic anomaly 'data_source' {data_source}, "
+            "valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
     dataset_prefix = magnetic_anomaly_sources[data_source]
     if data_source == "wdmam":

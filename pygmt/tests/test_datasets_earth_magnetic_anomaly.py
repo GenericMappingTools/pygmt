@@ -76,7 +76,7 @@ def test_earth_mag_incorrect_resolution_registration():
             resolution="02m",
             region=[0, 1, 3, 5],
             registration="gridline",
-            data_source="emag4km",
+            data_source="emag2_4km",
         )
 
 
@@ -84,7 +84,7 @@ def test_earth_mag4km_01d():
     """
     Test some properties of the magnetic anomaly 4km 01d data.
     """
-    data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag4km")
+    data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag2_4km")
     assert data.name == "magnetic_anomaly"
     assert data.attrs["long_name"] == "Earth magnetic anomaly"
     assert data.attrs["units"] == "nT"
@@ -105,7 +105,7 @@ def test_earth_mag4km_01d_with_region():
         resolution="01d",
         region=[-10, 10, -5, 5],
         registration="gridline",
-        data_source="emag4km",
+        data_source="emag2_4km",
     )
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
@@ -134,7 +134,7 @@ def test_earth_mag_02m_default_registration():
         resolution="05m",
         region=[-115, -112, 4, 6],
         registration="gridline",
-        data_source="emag4km",
+        data_source="emag2_4km",
     )
     assert data.shape == (25, 37)
     assert data.lat.min() == 4
