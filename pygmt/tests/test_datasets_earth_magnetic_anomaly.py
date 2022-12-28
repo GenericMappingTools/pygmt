@@ -57,13 +57,13 @@ def test_earth_mag_01d_with_region():
     npt.assert_allclose(data.max(), 127.39996)
 
 
-def test_earth_mag_05m_without_region():
+def test_earth_mag_01m_without_region():
     """
     Test loading high-resolution earth magnetic anomaly without passing
     'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly("05m")
+        load_earth_magnetic_anomaly("01m")
 
 
 def test_earth_mag_incorrect_resolution_registration():
