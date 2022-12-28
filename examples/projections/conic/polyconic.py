@@ -18,7 +18,8 @@ scale as well, but the meridians are not as they get further away from the
 central meridian. As a consequence, no parallel is standard because conformity
 is lost with the lengthening of the meridians.
 
-**poly**\ */scale* or **Poly**\ */width*
+**poly**/\ [*lon0*/\ [*lat0*/]]\ *scale* or
+**Poly**/\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **poly** or **Poly**. The figure size is set
 with *scale* or *width*.

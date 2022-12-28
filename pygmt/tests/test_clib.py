@@ -799,7 +799,7 @@ def test_dataarray_to_matrix_dims_fails():
     """
     Check that it fails for > 2 dims.
     """
-    # Make a 3D regular grid
+    # Make a 3-D regular grid
     data = np.ones((10, 12, 11), dtype="float32")
     x = np.arange(11)
     y = np.arange(12)
