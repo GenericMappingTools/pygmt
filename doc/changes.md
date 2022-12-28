@@ -98,12 +98,12 @@
 
 ### Contributors
 
-* [seisman](https://github.com/seisman)
-* [yvonnefroehlich](https://github.com/yvonnefroehlich)
-* [willschlitzer](https://github.com/willschlitzer)
-* [michaelgrund](https://github.com/michaelgrund)
-* [weiji14](https://github.com/weiji14)
-* [maxrjones](https://github.com/maxrjones)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Will Schlitzer](https://github.com/willschlitzer)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Max Jones](https://github.com/maxrjones)
 
 ---
 
