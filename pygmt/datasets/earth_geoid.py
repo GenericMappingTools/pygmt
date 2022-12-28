@@ -44,8 +44,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        when available.
+        ``"gridline"`` for gridline registration. Default is ``"gridline"``.
 
     Returns
     -------

@@ -58,7 +58,7 @@ def load_earth_relief(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        when available.
+        for all resolutions except ``"15s"`` which is ``"pixel"`` only.
 
     data_source : str
         Select the source for the Earth relief data.

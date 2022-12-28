@@ -45,7 +45,7 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        when available.
+        for all resolutions except ``"01m"`` which is ``"pixel"`` only.
 
     Returns
     -------
