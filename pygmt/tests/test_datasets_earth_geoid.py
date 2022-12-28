@@ -57,12 +57,12 @@ def test_earth_geoid_01d_with_region():
     npt.assert_allclose(data.max(), 29.89)
 
 
-def test_earth_geoid_05m_without_region():
+def test_earth_geoid_01m_without_region():
     """
     Test loading high-resolution earth geoid without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_geoid("05m")
+        load_earth_geoid("01m")
 
 
 def test_earth_geoid_incorrect_resolution_registration():
