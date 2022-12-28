@@ -19,7 +19,7 @@
 * Add load_earth_geoid function for Earth Geoid dataset ([#2236](https://github.com/GenericMappingTools/pygmt/pull/2236))
 * Add load_earth_magnetic_anomaly function for Earth magnetic anomaly dataset ([#2196](https://github.com/GenericMappingTools/pygmt/pull/2196), [#2239](https://github.com/GenericMappingTools/pygmt/pull/2239))
 * Add load_earth_vertical_gravity_gradient function for Earth vertical gravity gradient dataset ([#2240](https://github.com/GenericMappingTools/pygmt/pull/2240))
-* load_earth_relief: Add the support of data sources 'gebco' , 'gebcosi', and 'synbath' ([#1818](https://github.com/GenericMappingTools/pygmt/pull/1818), [#2162](https://github.com/GenericMappingTools/pygmt/pull/2162), [#2192](https://github.com/GenericMappingTools/pygmt/pull/2192))
+* load_earth_relief: Add the support of data sources "gebco" , "gebcosi", and "synbath" ([#1818](https://github.com/GenericMappingTools/pygmt/pull/1818), [#2162](https://github.com/GenericMappingTools/pygmt/pull/2162), [#2192](https://github.com/GenericMappingTools/pygmt/pull/2192))
 * Wrap ternary ([#1431](https://github.com/GenericMappingTools/pygmt/pull/1431))
 
 ### Enhancements
@@ -42,7 +42,7 @@
 * Figure.rose: Deprecate parameter color to fill (remove in v0.12.0) ([#2181](https://github.com/GenericMappingTools/pygmt/pull/2181))
 * Figure.velo: Deprecate parameters "color" to "fill" and "uncertaintycolor" to "uncertaintyfill" (remove in v0.12.0) ([#2206](https://github.com/GenericMappingTools/pygmt/pull/2206))
 * Figure.wiggle: Deprecate parameter "color" (remove in v0.12.0) and add "fillpositive"/"fillnegative" ([#2205](https://github.com/GenericMappingTools/pygmt/pull/2205))
-* Figure.psconvert: Remove the deprecated parameter 'icc_gray' (deprecated since v0.6.0) ([#2267](https://github.com/GenericMappingTools/pygmt/pull/2267))
+* Figure.psconvert: Remove the deprecated parameter "icc_gray" (deprecated since v0.6.0) ([#2267](https://github.com/GenericMappingTools/pygmt/pull/2267))
 * Figure.text: Deprecate parameter "incols" to "use_word" (remove in v0.10.0)  ([#1964](https://github.com/GenericMappingTools/pygmt/pull/1964))
 
 ### Bug Fixes
@@ -65,7 +65,7 @@
 * Add SciPy 2022 talk to presentations ([#2053](https://github.com/GenericMappingTools/pygmt/pull/2053))
 * Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
 * Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
-* Add badges for conda package version, license and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
+* Add badges for conda package version, license, and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
 * Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
 
 ### Maintenance
@@ -76,7 +76,7 @@
 * NEP29: Test PyGMT on NumPy 1.24 ([#2256](https://github.com/GenericMappingTools/pygmt/pull/2256))
 * NEP29: Test PyGMT on NumPy 1.23 and 1.21 ([#2057](https://github.com/GenericMappingTools/pygmt/pull/2057))
 * Bump the GMT version in CI to 6.4.0 ([#1990](https://github.com/GenericMappingTools/pygmt/pull/1990))
-* Update baseline images for GMT 6.4 ([#1883](https://github.com/GenericMappingTools/pygmt/pull/1883))
+* Update baseline images for GMT 6.4.0 ([#1883](https://github.com/GenericMappingTools/pygmt/pull/1883))
 * Migrate Continuous Documentation from Vercel to Readthedocs ([#1859](https://github.com/GenericMappingTools/pygmt/pull/1859))
 * Set nested_sections to False for Sphinx-Gallery 0.11.0 regarding a correct navgation bar ([#2046](https://github.com/GenericMappingTools/pygmt/pull/2046))
 * Convert bug report, feature, and module request issue templates into yaml configured forms ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091), [#2214](https://github.com/GenericMappingTools/pygmt/pull/2214), [#2216](https://github.com/GenericMappingTools/pygmt/pull/2216))
