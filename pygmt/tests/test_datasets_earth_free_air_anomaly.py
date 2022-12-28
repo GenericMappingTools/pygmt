@@ -31,12 +31,13 @@ def test_earth_faa_01d():
     """
     Test some properties of the free air anomaly 01d data.
     """
-    data = load_earth_free_air_anomaly(resolution="01d", registration="gridline")
+    data = load_earth_free_air_anomaly(resolution="01d")
     assert data.name == "free_air_anomaly"
     assert data.attrs["long_name"] == "IGPP Global Earth Free-Air Anomaly"
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -275.75)
@@ -47,10 +48,9 @@ def test_earth_faa_01d_with_region():
     """
     Test loading low-resolution earth free air anomaly with 'region'.
     """
-    data = load_earth_free_air_anomaly(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
-    )
+    data = load_earth_free_air_anomaly(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -58.75)

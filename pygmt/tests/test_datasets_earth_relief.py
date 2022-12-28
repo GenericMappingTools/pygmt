@@ -47,10 +47,9 @@ def test_earth_relief_01d_gebco(data_source):
     Test some properties of the earth relief 01d data with GEBCO and GEBOCSI
     data.
     """
-    data = load_earth_relief(
-        resolution="01d", registration="gridline", data_source=data_source
-    )
+    data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -8598)
@@ -64,10 +63,10 @@ def test_earth_relief_01d_with_region_srtm():
     data = load_earth_relief(
         resolution="01d",
         region=[-10, 10, -5, 5],
-        registration="gridline",
         data_source="igpp",
     )
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -5154)
@@ -81,10 +80,10 @@ def test_earth_relief_01d_with_region_gebco():
     data = load_earth_relief(
         resolution="01d",
         region=[-10, 10, -5, 5],
-        registration="gridline",
         data_source="gebco",
     )
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -5146)
@@ -95,8 +94,9 @@ def test_earth_relief_30m():
     """
     Test some properties of the earth relief 30m data.
     """
-    data = load_earth_relief(resolution="30m", registration="gridline")
+    data = load_earth_relief(resolution="30m")
     assert data.shape == (361, 721)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
     npt.assert_allclose(data.min(), -9454.5)

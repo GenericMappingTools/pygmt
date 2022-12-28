@@ -48,9 +48,7 @@ def test_earth_age_01d_with_region():
     """
     Test loading low-resolution earth age with 'region'.
     """
-    data = load_earth_age(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
-    )
+    data = load_earth_age(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))

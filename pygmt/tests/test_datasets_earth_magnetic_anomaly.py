@@ -31,12 +31,13 @@ def test_earth_mag_01d():
     """
     Test some properties of the magnetic anomaly 01d data.
     """
-    data = load_earth_magnetic_anomaly(resolution="01d", registration="gridline")
+    data = load_earth_magnetic_anomaly(resolution="01d")
     assert data.name == "magnetic_anomaly"
     assert data.attrs["long_name"] == "Earth magnetic anomaly"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -384)
@@ -47,10 +48,9 @@ def test_earth_mag_01d_with_region():
     """
     Test loading low-resolution earth magnetic anomaly with 'region'.
     """
-    data = load_earth_magnetic_anomaly(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
-    )
+    data = load_earth_magnetic_anomaly(resolution="01d", region=[-10, 10, -5, 5])
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -180.40002)
@@ -81,14 +81,13 @@ def test_earth_mag4km_01d():
     """
     Test some properties of the magnetic anomaly 4km 01d data.
     """
-    data = load_earth_magnetic_anomaly(
-        resolution="01d", registration="gridline", mag4km=True
-    )
+    data = load_earth_magnetic_anomaly(resolution="01d", mag4km=True)
     assert data.name == "magnetic_anomaly"
     assert data.attrs["long_name"] == "Earth magnetic anomaly"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -799.19995)

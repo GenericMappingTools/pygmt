@@ -33,14 +33,13 @@ def test_earth_vertical_gravity_gradient_01d():
     """
     Test some properties of the earth vgg 01d data.
     """
-    data = load_earth_vertical_gravity_gradient(
-        resolution="01d", registration="gridline"
-    )
+    data = load_earth_vertical_gravity_gradient(resolution="01d")
     assert data.name == "earth_vgg"
     assert data.attrs["units"] == "Eotvos"
     assert data.attrs["long_name"] == "IGPP Global Earth Vertical Gravity Gradient"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -136.34375)
@@ -53,9 +52,10 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     Test loading low-resolution earth vgg with 'region'.
     """
     data = load_earth_vertical_gravity_gradient(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
+        resolution="01d", region=[-10, 10, -5, 5]
     )
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -16.34375)
