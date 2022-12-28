@@ -87,7 +87,7 @@
 * Migrate project metadata from setup.py to pyproject.toml following PEP621 ([#1848](https://github.com/GenericMappingTools/pygmt/pull/1848))
 * Move blackdoc options to pyproject.toml ([#2093](https://github.com/GenericMappingTools/pygmt/pull/2093))
 * Move docformatter options from Makefile to pyproject.toml ([#2072](https://github.com/GenericMappingTools/pygmt/pull/2072))
-* Replace flake8 with flakeheaven ([#1847](https://github.com/GenericMappingTools/pygmt/pull/1847))* Check if a module outputs to a temporary file using "Path().stat().st_size > 0" ([#2224](https://github.com/GenericMappingTools/pygmt/pull/2224))
+* Replace flake8 with flakeheaven ([#1847](https://github.com/GenericMappingTools/pygmt/pull/1847))
 * Add a workflow and Makefile target to test old GMT versions every Tuesday ([#2079](https://github.com/GenericMappingTools/pygmt/pull/2079))
 * Check if a module outputs to a temporary file using "Path().stat().st_size > 0" ([#2224](https://github.com/GenericMappingTools/pygmt/pull/2224))
 * pygmt.show_versions: Show GMT binary version and hide the Python interpreter path ([#1838](https://github.com/GenericMappingTools/pygmt/pull/1838))
