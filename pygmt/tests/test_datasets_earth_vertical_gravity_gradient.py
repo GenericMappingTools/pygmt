@@ -33,14 +33,13 @@ def test_earth_vertical_gravity_gradient_01d():
     """
     Test some properties of the earth vgg 01d data.
     """
-    data = load_earth_vertical_gravity_gradient(
-        resolution="01d", registration="gridline"
-    )
+    data = load_earth_vertical_gravity_gradient(resolution="01d")
     assert data.name == "earth_vgg"
     assert data.attrs["units"] == "Eotvos"
     assert data.attrs["long_name"] == "IGPP Global Earth Vertical Gravity Gradient"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -136.34375)
@@ -53,38 +52,22 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     Test loading low-resolution earth vgg with 'region'.
     """
     data = load_earth_vertical_gravity_gradient(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline"
+        resolution="01d", region=[-10, 10, -5, 5]
     )
     assert data.shape == (11, 21)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -16.34375)
     npt.assert_allclose(data.max(), 19.78125)
 
 
-def test_earth_vertical_gravity_gradient_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth vgg.
-    """
-    data = load_earth_vertical_gravity_gradient(
-        resolution="05m", region=[-50, -40, 20, 26], registration="gridline"
-    )
-    assert data.coords["lat"].data.min() == 20.0
-    assert data.coords["lat"].data.max() == 26.0
-    assert data.coords["lon"].data.min() == -50.0
-    assert data.coords["lon"].data.max() == -40.0
-    npt.assert_allclose(data.min(), -107.625)
-    npt.assert_allclose(data.max(), 159.75)
-    assert data.sizes["lat"] == 73
-    assert data.sizes["lon"] == 121
-
-
-def test_earth_vertical_gravity_gradient_05m_without_region():
+def test_earth_vertical_gravity_gradient_01m_without_region():
     """
     Test loading high-resolution earth vgg without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_vertical_gravity_gradient("05m")
+        load_earth_vertical_gravity_gradient("01m")
 
 
 def test_earth_vertical_gravity_gradient_incorrect_resolution_registration():
@@ -96,3 +79,21 @@ def test_earth_vertical_gravity_gradient_incorrect_resolution_registration():
         load_earth_vertical_gravity_gradient(
             resolution="01m", region=[0, 1, 3, 5], registration="gridline"
         )
+
+
+def test_earth_vertical_gravity_gradient_01m_default_registration():
+    """
+    Test that the grid returned by default for the 1 arc-minute resolution has
+    a "pixel" registration.
+    """
+    data = load_earth_vertical_gravity_gradient(
+        resolution="01m", region=[-10, -9, 3, 5]
+    )
+    assert data.shape == (120, 60)
+    assert data.gmt.registration == 1
+    npt.assert_allclose(data.coords["lat"].data.min(), 3.008333333)
+    npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
+    npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
+    npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
+    npt.assert_allclose(data.min(), -40.25)
+    npt.assert_allclose(data.max(), 81.75)

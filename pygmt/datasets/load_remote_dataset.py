@@ -248,20 +248,26 @@ def _load_remote_dataset(
     The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
-
-    if registration in ("pixel", "gridline", None):
-        # If None, let GMT decide on Pixel/Gridline type
-        reg = f"_{registration[0]}" if registration else ""
+    dataset = datasets[dataset_name]
+    if resolution not in dataset.resolutions.keys():
+        raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+    if registration is None:
+        # Check if "gridline" is an available registration for the resolution
+        if "gridline" in dataset.resolutions[resolution].registrations:
+            # Use default of gridline registration if available
+            registration = "gridline"
+        else:
+            registration = "pixel"
+    if registration in ("pixel", "gridline"):
+        reg = f"_{registration[0]}"
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: '{registration}', should be either "
             "'pixel', 'gridline' or None. Default is None, where a "
-            "pixel-registered grid is returned unless only the "
-            "gridline-registered grid is available."
+            "gridline-registered grid is returned unless only the "
+            "pixel-registered grid is available."
         )
-    dataset = datasets[dataset_name]
-    if resolution not in dataset.resolutions.keys():
-        raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+
     if registration and (
         registration not in dataset.resolutions[resolution].registrations
     ):
