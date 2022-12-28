@@ -175,25 +175,26 @@ def download_test_data():
         "@N37W120.earth_relief_03s_g.nc",
         "@N00W090.earth_relief_03m_p.nc",
         "@N00E135.earth_relief_30s_g.nc",
+        "@N00W010.earth_relief_15s_p.nc",  # Specific grid for 15s test
+        "@N04W010.earth_relief_03s_g.nc",  # Specific grid for 03s test
         # Earth synbath relief grids
         "@S15W105.earth_synbath_30s_p.nc",
         # Earth seafloor age grids
         "@earth_age_01d_g",
-        "@S90W180.earth_age_05m_g.nc",  # Specific grid for 05m test
+        "@N00W030.earth_age_01m_g.nc",  # Specific grid for 01m test
         # Earth geoid grids
         "@earth_geoid_01d_g",
-        "@S90W180.earth_geoid_05m_g.nc",  # Specific grid for 05m test
+        "@N00W030.earth_geoid_01m_g.nc",  # Specific grid for 01m test
         # Earth magnetic anomaly grids
         "@earth_mag_01d_g",
-        "@S90W180.earth_mag_05m_g.nc",  # Specific grid for 05m test
+        "@S30W060.earth_mag_02m_p.nc",  # Specific grid for 02m test
         "@earth_mag4km_01d_g",
-        "@S90W180.earth_mag4km_05m_g.nc",  # Specific grid for 05m test
         # Earth free-air anomaly grids
         "@earth_faa_01d_g",
-        "@S90W180.earth_faa_05m_g.nc",  # Specific grid for 05m test
+        "@N00W030.earth_faa_01m_p.nc",  # Specific grid for 01m test
         # Earth vertical gravity gradient grids
         "@earth_vgg_01d_g",
-        "@S90W180.earth_vgg_05m_g.nc",  # Specific grid for 05m test
+        "@N00W030.earth_vgg_01m_p.nc",  # Specific grid for 01m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
