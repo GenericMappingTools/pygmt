@@ -71,7 +71,7 @@
 
 * Add an internal function to load GMT remote datasets ([#2200](https://github.com/GenericMappingTools/pygmt/pull/2200))
 * load_earth_relief() now returns gridline-registrated grids by default in GMT 6.4 ([#2052](https://github.com/GenericMappingTools/pygmt/pull/2052))
-* Convert bug report and feature request issue templates into yaml configured forms ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091), [#2214](https://github.com/GenericMappingTools/pygmt/pull/2214), [#2216](https://github.com/GenericMappingTools/pygmt/pull/2216))
+* Convert bug report, feature, and module request issue templates into yaml configured forms ([#2091](https://github.com/GenericMappingTools/pygmt/pull/2091), [#2214](https://github.com/GenericMappingTools/pygmt/pull/2214), [#2216](https://github.com/GenericMappingTools/pygmt/pull/2216))
 * Add support for Python 3.11 ([#2172](https://github.com/GenericMappingTools/pygmt/pull/2172))
 * NEP29: Test PyGMT on NumPy 1.24 ([#2256](https://github.com/GenericMappingTools/pygmt/pull/2256))
 * NEP29: Test PyGMT on NumPy 1.23 and 1.21 ([#2057](https://github.com/GenericMappingTools/pygmt/pull/2057))
