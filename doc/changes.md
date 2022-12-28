@@ -81,7 +81,6 @@
 * Update baseline images for GMT 6.4 ([#1883](https://github.com/GenericMappingTools/pygmt/pull/1883))
 * Migrate Continuous Documentation from Vercel to Readthedocs ([#1859](https://github.com/GenericMappingTools/pygmt/pull/1859))
 * Set nested_sections to False for Sphinx-Gallery 0.11.0 regarding a correct navgation bar ([#2046](https://github.com/GenericMappingTools/pygmt/pull/2046))
-* Use the Ubuntu 22.04 docker image for readthedocs ([#2086](https://github.com/GenericMappingTools/pygmt/pull/2086))
 * Update the instructions for checking README syntax ([#2265](https://github.com/GenericMappingTools/pygmt/pull/2265))
 * Check if a module outputs to a temporary file using "Path().stat().st_size > 0" ([#2224](https://github.com/GenericMappingTools/pygmt/pull/2224))
 * doc: Set different html_baseurl for stable and dev versions ([#2158](https://github.com/GenericMappingTools/pygmt/pull/2158))
