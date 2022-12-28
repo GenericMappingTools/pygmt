@@ -4,10 +4,8 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-from packaging.version import Version
-from pygmt.clib import Session
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput, GMTVersionError
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_relief"]
