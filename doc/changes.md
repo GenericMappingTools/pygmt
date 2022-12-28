@@ -10,7 +10,7 @@
 * 🎉 **Eighth minor release of PyGMT** 🎉
 * Added support for tab auto-completion for all GMT default parameters ([#2213](https://github.com/GenericMappingTools/pygmt/pull/2213))
 * Created functions to download GMT remote datasets ([#2200](https://github.com/GenericMappingTools/pygmt/pull/2200))
-* Wrapped the ternary module ([#2211](https://github.com/GenericMappingTools/pygmt/pull/2211))
+* Wrapped the ternary module ([#1431](https://github.com/GenericMappingTools/pygmt/pull/1431))
 * Added an intro tutorial for creating contour maps ([#2126](https://github.com/GenericMappingTools/pygmt/pull/2126))
 
 ### New Features
