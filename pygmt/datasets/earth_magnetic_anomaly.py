@@ -13,7 +13,7 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d", region=None, registration=None, mag4km=False, wdmam=False
+    resolution="01d", region=None, registration=None, data_source="emag"
 ):
     r"""
     Load an Earth magnetic anomaly grid in various resolutions.
@@ -56,18 +56,21 @@ def load_earth_magnetic_anomaly(
         a pixel-registered grid is returned unless only the
         gridline-registered grid is available.
 
-    wdman : bool
-        Choose the magnetic anomaly dataset to use. The default is ``False``,
-        and uses the EMAG2 Global Earth Magnetic Anomaly Model. If set to
-        ``True``, it uses the World Digital Magnetic Anomaly Map (WDMAM).
-        It cannot be set to ``True`` is ``mag4km`` if ``True``.
+    data_source : str
+        Select the source of the magnetic anomaly data.
 
-    mag4km : bool
-        Choose the data version to use. The default is ``False``, which is
-        observed at sea level over oceanic regions and has no data over land.
-        Set ``mag4km`` to ``True`` to use a version where all observations
-        are relative to an altitude of 4 km above the geoid and include data
-        over land. It cannot be set to ``True`` if ``wdmam`` is ``True``.
+        Available options:
+
+        - **emag** : EMAG2 Global Earth Magnetic Anomaly Model [Default
+          option]. Only includes data is observed from sea level over
+          oceanic regions. See :gmt-datasets:`earth-mag.html`.
+
+        - **emag4km** : Use a version  of EMAG2 where all observations
+          are relative to an altitude of 4 km above the geoid and include
+          data over land
+
+        - **wdmam** : World Digital Magnetic Anomaly Map (WDMAM).
+          See :gmt-datasets:`earth-wdmam.html`
 
     Returns
     -------
@@ -99,24 +102,28 @@ def load_earth_magnetic_anomaly(
     ... )
     >>> # load the 20 arc-minutes grid of the mag4km dataset
     >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="20m", registration="gridline", mag4km=True
+    ...     resolution="20m", registration="gridline", data_source="emag4km"
     ... )
     >>> # load the 20 arc-minutes grid of the WDMAM dataset
     >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="20m", registration="gridline", wdmam=True
+    ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )
     """
-    if mag4km and wdmam:
-        raise GMTInvalidInput("Cannot set 'wdmam' and 'mag4km' to 'True'.")
-    if mag4km:
-        dataset_name = "earth_magnetic_anomaly"
-        dataset_prefix = "earth_mag4km_"
-    elif wdmam:
+    magnetic_anomaly_sources = {
+        "emag": "earth_mag_",
+        "emag4km": "earth_mag4km_",
+        "wdmam": "earth_wdmam_",
+    }
+    if data_source not in magnetic_anomaly_sources:
+        raise GMTInvalidInput(
+            f"Invalid earth relief 'data_source' {data_source}, "
+            "valid values are 'emag', 'emag4km', and 'wdmam'."
+        )
+    dataset_prefix = magnetic_anomaly_sources[data_source]
+    if data_source == "wdmam":
         dataset_name = "earth_wdmam"
-        dataset_prefix = "earth_wdmam_"
     else:
         dataset_name = "earth_magnetic_anomaly"
-        dataset_prefix = "earth_mag_"
     grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,

@@ -89,7 +89,10 @@ def test_earth_mag_incorrect_resolution_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(
-            resolution="02m", region=[0, 1, 3, 5], registration="gridline", mag4km=False
+            resolution="02m",
+            region=[0, 1, 3, 5],
+            registration="gridline",
+            data_source="emag4km",
         )
 
 
@@ -98,7 +101,7 @@ def test_earth_mag4km_01d():
     Test some properties of the magnetic anomaly 4km 01d data.
     """
     data = load_earth_magnetic_anomaly(
-        resolution="01d", registration="gridline", mag4km=True
+        resolution="01d", registration="gridline", data_source="emag4km"
     )
     assert data.name == "magnetic_anomaly"
     assert data.attrs["long_name"] == "Earth magnetic anomaly"
@@ -119,7 +122,7 @@ def test_earth_mag4km_01d_with_region():
         resolution="01d",
         region=[-10, 10, -5, 5],
         registration="gridline",
-        mag4km=True,
+        data_source="emag4km",
     )
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
@@ -137,7 +140,7 @@ def test_earth_mag4km_05m_with_region():
         resolution="05m",
         region=[-115, -112, 4, 6],
         registration="gridline",
-        mag4km=True,
+        data_source="emag4km",
     )
     assert data.shape == (25, 37)
     assert data.lat.min() == 4
@@ -153,7 +156,7 @@ def test_earth_mag_01d_wdmam():
     Test some properties of the WDMAM 01d data.
     """
     data = load_earth_magnetic_anomaly(
-        resolution="01d", registration="gridline", wdmam=True
+        resolution="01d", registration="gridline", data_source="wdmam"
     )
     assert data.name == "wdmam"
     assert data.attrs["long_name"] == "World Digital Magnetic Anomaly Map"
@@ -171,7 +174,10 @@ def test_earth_mag_01d_wdmam_with_region():
     Test loading low-resolution WDMAM grid with 'region'.
     """
     data = load_earth_magnetic_anomaly(
-        resolution="01d", region=[-10, 10, -5, 5], registration="gridline", wdmam=True
+        resolution="01d",
+        region=[-10, 10, -5, 5],
+        registration="gridline",
+        data_source="wdmam",
     )
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
@@ -185,7 +191,7 @@ def test_earth_mag_03m_wdmam_with_region():
     Test loading a subregion of high-resolution WDMAM data.
     """
     data = load_earth_magnetic_anomaly(
-        resolution="03m", region=[10, 13, -60, -58], wdmam=True
+        resolution="03m", region=[10, 13, -60, -58], data_source="wdmam"
     )
     assert data.gmt.registration == 0
     assert data.shape == (41, 61)
@@ -203,7 +209,7 @@ def test_earth_mag_05m_wdmam_without_region():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(
-            resolution="05m", registration="gridline", wdmam=True
+            resolution="05m", registration="gridline", data_source="wdmam"
         )
 
 
@@ -214,14 +220,17 @@ def test_earth_mag_wdmam_incorrect_resolution_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(
-            resolution="03m", region=[0, 1, 3, 5], registration="pixel", wdmam=True
+            resolution="03m",
+            region=[0, 1, 3, 5],
+            registration="pixel",
+            data_source="wdmam",
         )
 
 
-def test_earth_mag_wdmam_and_mag4km_error():
+def test_earth_mag_data_source_error():
     """
-    Test that an error is raised when 'WDMAM' and 'mag4km' are both set to
-    'True'.
+    Test that an error is raised when an invalid argument is passed to
+    'data_source'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(resolution="01d", wdmam=True, mag4km=True)
+        load_earth_magnetic_anomaly(resolution="01d", data_source="invalid")
