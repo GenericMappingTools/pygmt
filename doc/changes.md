@@ -24,6 +24,7 @@
 
 ### Enhancements
 
+* Set gridline (if available) as the default grid registration for remote datasets ([#2266](https://github.com/GenericMappingTools/pygmt/pull/2266))
 * Add ternary sample dataset ([#2211](https://github.com/GenericMappingTools/pygmt/pull/2211))
 * Figure.psconvert: Add a new alias gs_path (-G) ([#2076](https://github.com/GenericMappingTools/pygmt/pull/2076))
 * Figure.ternary: Add parameters alabel, blabel, and clabel ([#2139](https://github.com/GenericMappingTools/pygmt/pull/2139))
