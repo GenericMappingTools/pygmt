@@ -129,7 +129,6 @@ def test_earth_mag_02m_default_registration():
     npt.assert_allclose(data.min(), -231)
     npt.assert_allclose(data.max(), 131.79999)
 
-
     data = load_earth_magnetic_anomaly(
         resolution="05m",
         region=[-115, -112, 4, 6],
