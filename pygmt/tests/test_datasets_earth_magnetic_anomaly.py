@@ -112,25 +112,6 @@ def test_earth_mag4km_01d_with_region():
     npt.assert_allclose(data.max(), 113.59985)
 
 
-def test_earth_mag4km_05m_with_region():
-    """
-    Test loading a subregion of high-resolution earth magnetic anomaly 4km
-    data.
-    """
-    data = load_earth_magnetic_anomaly(
-        resolution="05m",
-        region=[-115, -112, 4, 6],
-        registration="gridline",
-        mag4km=True,
-    )
-    assert data.shape == (25, 37)
-    assert data.lat.min() == 4
-    assert data.lat.max() == 6
-    assert data.lon.min() == -115
-    assert data.lon.max() == -112
-    npt.assert_allclose(data.min(), -128.40015)
-    npt.assert_allclose(data.max(), 76.80005)
-
 
 def test_earth_mag_02m_default_registration():
     """
