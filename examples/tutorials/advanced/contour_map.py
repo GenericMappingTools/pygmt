@@ -87,7 +87,8 @@ fig.show()
 # :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the
 # final map. If the ``projection`` parameter is specified in the
 # :meth:`pygmt.Figure.grdimage` method, it does not need to be repeated in the
-# :meth:`pygmt.Figure.grdcontour` method.
+# :meth:`pygmt.Figure.grdcontour` method. Finally, a colorbar is added using
+# the :meth:`pygmt.Figure.colorbar` method.
 
 fig = pygmt.Figure()
 fig.grdimage(
@@ -102,4 +103,5 @@ fig.grdcontour(
     grid=grid,
     limit=[-4000, -2000],
 )
+fig.colorbar(frame=["x+lelevation", "y+lm"])
 fig.show()
