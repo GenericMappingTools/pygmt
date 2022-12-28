@@ -136,12 +136,12 @@ def test_earth_relief_30s_synbath():
     npt.assert_allclose(data.max(), -2154)
 
 
-def test_earth_relief_05m_without_region():
+def test_earth_relief_01m_without_region():
     """
     Test loading high-resolution earth relief without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
-        load_earth_relief("05m")
+        load_earth_relief("01m")
 
 
 def test_earth_relief_03s_landonly_srtm():
