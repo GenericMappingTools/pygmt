@@ -14,6 +14,7 @@ Alternatively, a NetCDF file path can be passed to ``grid``. An ASCII file path
 can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 """
+
 import pygmt
 
 # Load sample grid and point datasets
@@ -24,40 +25,18 @@ points = pygmt.datasets.load_sample_data(name="ocean_ridge_points")
 track = pygmt.grdtrack(points=points, grid=grid, newcolname="bathymetry")
 
 fig = pygmt.Figure()
-# Create global map using a Cylindrical Stereographic projection with a
-# width of 15 centimeters
+# Plot the earth relief grid on Cylindrical Stereographic projection, masking
+# land areas
 fig.basemap(region="g", projection="Cyl_stere/150/-20/15c", frame=True)
-
-# Set up a colormap for the elevation values of the Earth relief grid
-pygmt.makecpt(cmap="gray", series=[int(grid.min()), int(grid.max()), 10])
-# Plot the Earth relief grid with color-coding for the elevation
-fig.grdimage(grid=grid, cmap=True)
-# Add a colorbar for the elevation
-fig.colorbar(
-    position="JBC+o0c/1.2c+ml",  # Place colorbar at position Bottom Center
-    frame=["af", "x+lelevation", "y+lm"],
-)
-
-# Mask the land areas in gray and plot the shorelines in black with a
-# thickness of 0.5 points
-fig.coast(land="#666666", shorelines="1/0.5p,black")
-
-# Set up a colormap for the elevation values of the track points. These
-# values are normalized for visual purposes (see below)
-pygmt.makecpt(cmap="terra", series=[-1, 1, 0.01])
-# Plot the sampled bathymetry points using circles (c) with a diameter of
-# 0.15 centimeters (c). Points are colored using normalized elevation values
+fig.grdimage(grid=grid, cmap="gray")
+fig.coast(land="#666666")
+# Plot the sampled bathymetry points using circles (c) of 0.15 cm size
+# Points are colored using elevation values (normalized for visual purposes)
 fig.plot(
     x=track.longitude,
     y=track.latitude,
     style="c0.15c",
-    cmap=True,
+    cmap="terra",
     fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
-# Add a colorbar for the normalized elevation
-fig.colorbar(
-    position="JRM+ml",  # Place colorbar at position Right Middle
-    frame=["a0.2f0.1", "x+lnormalized elevation"],
-)
-
 fig.show()
