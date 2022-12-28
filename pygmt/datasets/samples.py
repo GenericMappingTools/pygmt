@@ -24,7 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
+        "earth_relief_holes": "Regional 20 arc-minutes Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
@@ -369,7 +369,8 @@ def _load_rock_sample_compositions():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "water", "air", and "limestone".
+        The data table with columns "limestone", "water", "air",
+        and "permittivity".
     """
 
     fname = which("@ternary.txt", download="c")
@@ -377,8 +378,7 @@ def _load_rock_sample_compositions():
         fname,
         delim_whitespace=True,
         header=None,
-        names=["water", "air", "limestone"],
-        usecols=(0, 1, 2),
+        names=["limestone", "water", "air", "permittivity"],
     )
 
 

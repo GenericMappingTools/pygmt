@@ -1,7 +1,7 @@
 """
 Tests for xyz2grd.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -63,7 +63,7 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
             outgrid=tmpfile.name,
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

@@ -48,9 +48,9 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     ----------
     data : str or {table-like}
         Pass in (x, y) or (longitude, latitude) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y : 1d arrays
+    x/y : 1-D arrays
         Arrays of x and y coordinates.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
