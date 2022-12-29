@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grd2xyz.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.grd2xyz</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.grd2xyz</li>
     <li class="source-link">
         
     </li>
@@ -220,7 +222,7 @@
 <span class="sd">        **f** to start at 1 (Fortran-style counting). Alternatively, append</span>
 <span class="sd">        **i** to write just the two columns *index* and *z*, where *index*</span>
 <span class="sd">        is the 1-D indexing that GMT uses when referring to grid nodes.</span>
-<span class="sd">    {R}</span>
+<span class="sd">    {region}</span>
 <span class="sd">        Adding ``region`` will select a subsection of the grid. If this</span>
 <span class="sd">        subsection exceeds the boundaries of the grid, only the common region</span>
 <span class="sd">        will be output.</span>
@@ -235,7 +237,7 @@
 <span class="sd">        this by appending **+u**\ *unit*. For such grids, the area</span>
 <span class="sd">        varies with latitude and also sees special cases for</span>
 <span class="sd">        gridline-registered layouts at sides, corners, and poles.</span>
-<span class="sd">    {V}</span>
+<span class="sd">    {verbose}</span>
 <span class="sd">    convention : str</span>
 <span class="sd">        [*flags*].</span>
 <span class="sd">        Write a 1-column ASCII [or binary] table. Output will be organized</span>
@@ -266,12 +268,12 @@
 <span class="sd">        * **d** 8-byte floating point double precision</span>
 
 <span class="sd">        Default format is scanline orientation of ASCII numbers: **TLa**.</span>
-<span class="sd">    {b}</span>
-<span class="sd">    {d}</span>
-<span class="sd">    {f}</span>
-<span class="sd">    {h}</span>
-<span class="sd">    {o}</span>
-<span class="sd">    {s}</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {coltypes}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {outcols}</span>
+<span class="sd">    {skiprows}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -294,9 +296,9 @@
 <span class="sd">    &gt;&gt;&gt; # Create a pandas DataFrame with the xyz data from an input grid</span>
 <span class="sd">    &gt;&gt;&gt; xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type=&quot;pandas&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; xyz_dataframe.head(n=2)</span>
-<span class="sd">         lon    lat  elevation</span>
-<span class="sd">    0  10.25  24.75      903.5</span>
-<span class="sd">    1  10.75  24.75      820.0</span>
+<span class="sd">        lon   lat  elevation</span>
+<span class="sd">    0  10.0  25.0      863.0</span>
+<span class="sd">    1  10.5  25.0      985.5</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">output_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
@@ -360,9 +362,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

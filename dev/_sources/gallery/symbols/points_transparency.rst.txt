@@ -36,8 +36,6 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -64,37 +62,32 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
     fig = pygmt.Figure()
     fig.basemap(
         region=[-5, 105, 0, 2],
-        frame=['xaf+l"Transparency level"+u%', "WSrt"],
+        frame=["xaf+lTransparency level+u%", "WSrt"],
         projection="X15c/6c",
     )
-    fig.plot(x=x, y=y, style="c0.6c", color="blue", pen="1p,red", transparency=transparency)
+    fig.plot(x=x, y=y, style="c0.6c", fill="blue", pen="1p,red", transparency=transparency)
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.912 seconds)
+   **Total running time of the script:** ( 0 minutes  1.046 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_transparency.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: points_transparency.py <points_transparency.py>`
 
-     :download:`Download Python source code: points_transparency.py <points_transparency.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: points_transparency.ipynb <points_transparency.ipynb>`
+      :download:`Download Jupyter notebook: points_transparency.ipynb <points_transparency.ipynb>`
 
 
 .. only:: html

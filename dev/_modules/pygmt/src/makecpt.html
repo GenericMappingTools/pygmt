@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/makecpt.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.makecpt</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.makecpt</li>
     <li class="source-link">
         
     </li>
@@ -184,7 +186,7 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make GMT color palette tables.</span>
 
-<span class="sd">    This is a method that will help you make static color palette tables</span>
+<span class="sd">    This is a function that will help you make static color palette tables</span>
 <span class="sd">    (CPTs). By default, the CPT will simply be saved to the current session,</span>
 <span class="sd">    but you can use ``output`` to save it to a file. You define an equidistant</span>
 <span class="sd">    set of contour intervals or pass your own z-table or list, and create a new</span>
@@ -203,15 +205,15 @@
 <span class="sd">    If the master CPT includes B, F, and N entries, these will be copied into</span>
 <span class="sd">    the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
 <span class="sd">    :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the</span>
-<span class="sd">    :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file or the command line will be used. This</span>
+<span class="sd">    :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file will be used. This</span>
 <span class="sd">    default behavior can be overruled using the parameters ``background``,</span>
 <span class="sd">    ``overrule_bg`` or ``no_bg``.</span>
 
-<span class="sd">    The color model (RGB, HSV or CMYK) of the palette created by **makecpt**</span>
-<span class="sd">    will be the same as specified in the header of the master CPT. When there</span>
-<span class="sd">    is no :gmt-term:`COLOR_MODEL` entry in the master CPT, the</span>
-<span class="sd">    :gmt-term:`COLOR_MODEL` specified in the :gmt-docs:`gmt.conf &lt;gmt.conf&gt;`</span>
-<span class="sd">    file or on the command line will be used.</span>
+<span class="sd">    The color model (RGB, HSV or CMYK) of the palette created by</span>
+<span class="sd">    :func:`pygmt.makecpt` will be the same as specified in the header of the</span>
+<span class="sd">    master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the</span>
+<span class="sd">    master CPT, the :gmt-term:`COLOR_MODEL` specified in the</span>
+<span class="sd">    :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file will be used.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`makecpt.html`</span>
 
@@ -221,8 +223,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    transparency : str</span>
 <span class="sd">        Sets a constant level of transparency (0-100) for all color slices.</span>
-<span class="sd">        Append **+a** to also affect the fore-, back-, and nan-colors</span>
-<span class="sd">        [Default is no transparency, i.e., 0 (opaque)].</span>
+<span class="sd">        Append **+a** to also affect the foreground, background, and NaN</span>
+<span class="sd">        colors [Default is no transparency, i.e., 0 (opaque)].</span>
 <span class="sd">    cmap : str</span>
 <span class="sd">        Selects the master color palette table (CPT) to use in the</span>
 <span class="sd">        interpolation. Full list of built-in color palette tables can be found</span>
@@ -230,10 +232,10 @@
 <span class="sd">    background : bool or str</span>
 <span class="sd">        Select the back- and foreground colors to match the colors for lowest</span>
 <span class="sd">        and highest *z*-values in the output CPT [Default (``background=True``</span>
-<span class="sd">        or ``background=&#39;o&#39;``) uses the colors specified in the master file, or</span>
+<span class="sd">        or ``background=&quot;o&quot;``) uses the colors specified in the master file, or</span>
 <span class="sd">        those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
 <span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use</span>
-<span class="sd">        ``background=&#39;i&#39;`` to match the colors for the lowest and highest</span>
+<span class="sd">        ``background=&quot;i&quot;`` to match the colors for the lowest and highest</span>
 <span class="sd">        values in the input (instead of the output) CPT.</span>
 <span class="sd">    color_model :</span>
 <span class="sd">        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].</span>
@@ -244,9 +246,9 @@
 <span class="sd">        appended then we create labels for each category to be used when the</span>
 <span class="sd">        CPT is plotted. The *label* may be a comma-separated list of category</span>
 <span class="sd">        names (you can skip a category by not giving a name), or give</span>
-<span class="sd">        *start*[-], where we automatically build monotonically increasing</span>
-<span class="sd">        labels from *start* (a single letter or an integer). Append - to build</span>
-<span class="sd">        ranges *start*-*start+1* instead.</span>
+<span class="sd">        *start*\[**-**], where we automatically build monotonically increasing</span>
+<span class="sd">        labels from *start* (a single letter or an integer). Append **-** to</span>
+<span class="sd">        build ranges *start*-*start+1* instead.</span>
 <span class="sd">    series : list or str</span>
 <span class="sd">        [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].</span>
 <span class="sd">        Defines the range of the new CPT by giving the lowest and highest</span>
@@ -265,10 +267,10 @@
 <span class="sd">        also :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
 <span class="sd">    output : str</span>
 <span class="sd">        Optional. The file name with extension .cpt to store the generated CPT</span>
-<span class="sd">        file. If not given or False (default), saves the CPT as the session</span>
+<span class="sd">        file. If not given or False [Default], saves the CPT as the session</span>
 <span class="sd">        current CPT.</span>
 <span class="sd">    reverse : str</span>
-<span class="sd">        Set this to True or **c**\ [Default] to reverse the sense of color</span>
+<span class="sd">        Set this to True or **c** [Default] to reverse the sense of color</span>
 <span class="sd">        progression in the master CPT. Set this to z to reverse the sign of</span>
 <span class="sd">        z-values in the color table. Note that this change of z-direction</span>
 <span class="sd">        happens before ``truncate`` and ``series`` values are used so the</span>
@@ -278,24 +280,24 @@
 <span class="sd">        Overrule background, foreground, and NaN colors specified in the master</span>
 <span class="sd">        CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,</span>
 <span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in</span>
-<span class="sd">        the :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file or on the command line. When</span>
-<span class="sd">        combined with **background**, only :gmt-term:`COLOR_NAN` is considered.</span>
+<span class="sd">        the :gmt-docs:`gmt.conf &lt;gmt.conf&gt;` file. When combined with</span>
+<span class="sd">        ``background``, only :gmt-term:`COLOR_NAN` is considered.</span>
 <span class="sd">    no_bg : bool</span>
 <span class="sd">        Do not write out the background, foreground, and NaN-color fields</span>
 <span class="sd">        [Default will write them, i.e. ``no_bg=False``].</span>
 <span class="sd">    log : bool</span>
 <span class="sd">        For logarithmic interpolation scheme with input given as logarithms.</span>
-<span class="sd">        Expects input z-values provided via **series** to be log10(*z*),</span>
+<span class="sd">        Expects input z-values provided via ``series`` to be log10(*z*),</span>
 <span class="sd">        assigns colors, and writes out *z*.</span>
 <span class="sd">    continuous : bool</span>
 <span class="sd">        Force a continuous CPT when building from a list of colors and a list</span>
 <span class="sd">        of z-values [Default is None, i.e. discrete values].</span>
-<span class="sd">    {V}</span>
+<span class="sd">    {verbose}</span>
 <span class="sd">    categorical : bool</span>
 <span class="sd">        Do not interpolate the input color table but pick the output colors</span>
 <span class="sd">        starting at the beginning of the color table, until colors for all</span>
 <span class="sd">        intervals are assigned. This is particularly useful in combination with</span>
-<span class="sd">        a categorical color table, like ``cmap=&#39;categorical&#39;``.</span>
+<span class="sd">        a categorical color table, like ``cmap=&quot;categorical&quot;``.</span>
 <span class="sd">    cyclic : bool</span>
 <span class="sd">        Produce a wrapped (cyclic) color table that endlessly repeats its</span>
 <span class="sd">        range. Note that ``cyclic=True`` cannot be set together with</span>
@@ -323,9 +325,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

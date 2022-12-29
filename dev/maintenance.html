@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/maintenance.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,6 +29,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="_static/design-tabs.js"></script>
@@ -87,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -108,18 +110,18 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Maintainers Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#branches">Branches</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#managing-github-issues">Managing GitHub issues</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and merging pull requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#managing-github-issues">Managing GitHub Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and Merging Pull Requests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#continuous-documentation">Continuous Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dependencies-policy">Dependencies Policy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards compatibility and deprecation policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backwards-compatibility-and-deprecation-policy">Backwards Compatibility and Deprecation Policy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#making-a-release">Making a Release</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#updating-the-changelog">Updating the changelog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#check-the-readme-syntax">Check the README syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pushing-to-pypi-and-updating-the-documentation">Pushing to PyPI and updating the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-the-changelog">Updating the Changelog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-the-readme-syntax">Check the README Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pushing-to-pypi-and-updating-the-documentation">Pushing to PyPI and Updating the Documentation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#archiving-on-zenodo">Archiving on Zenodo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#updating-the-conda-package">Updating the conda package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-the-conda-package">Updating the Conda Package</a></li>
 </ul>
 </li>
 </ul>
@@ -133,7 +135,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -158,8 +160,8 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Maintainers Guide</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Maintainers Guide</li>
     <li class="source-link">
         
             
@@ -204,7 +206,7 @@ branch are in the <code class="docutils literal notranslate"><span class="pre">d
 </ul>
 </section>
 <section id="managing-github-issues">
-<h2>Managing GitHub issues<a class="headerlink" href="#managing-github-issues" title="Permalink to this heading"></a></h2>
+<h2>Managing GitHub Issues<a class="headerlink" href="#managing-github-issues" title="Permalink to this heading"></a></h2>
 <p>A few guidelines for managing GitHub issues:</p>
 <ul class="simple">
 <li><p>Assign <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/labels">labels</a> and the expected
@@ -221,7 +223,7 @@ consider adding a regression test for serious bugs.</p></li>
 </ul>
 </section>
 <section id="reviewing-and-merging-pull-requests">
-<h2>Reviewing and merging pull requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Permalink to this heading"></a></h2>
+<h2>Reviewing and Merging Pull Requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Permalink to this heading"></a></h2>
 <p>A few guidelines for reviewing:</p>
 <ul class="simple">
 <li><p>Always <strong>be polite</strong> and give constructive feedback.</p></li>
@@ -251,14 +253,14 @@ conda and the <code class="docutils literal notranslate"><span class="pre">Makef
 <p>There are 11 configuration files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>:</p>
 <ol class="arabic">
 <li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code> (Code lint and style checks)</p>
-<p>This is run on every commit to the <em>main</em> and Pull Request branches.
+<p>This is run on every commit to the <em>main</em> and pull request branches.
 It is also scheduled to run daily on the <em>main</em> branch.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code> (Tests on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>main</em> and Pull Request branches.
+<p>This is run on every commit to the <em>main</em> and pull request branches.
 It is also scheduled to run regular tests daily and run full tests
 (including doctests) on Wednesday on the <em>main</em> branch.
-In draft Pull Requests, only two jobs on Linux are triggered to save on
+In draft pull requests, only two jobs on Linux are triggered to save on
 Continuous Integration resources:</p>
 <ul class="simple">
 <li><p>Minimum <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy">NEP29</a>
@@ -271,8 +273,8 @@ via the <a class="reference external" href="https://github.com/codecov/codecov-a
 More codecov related configurations are stored in <code class="docutils literal notranslate"><span class="pre">.github/codecov.yml</span></code>.</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code> (Build documentation on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>main</em> and Pull Request branches.
-In draft Pull Requests, only the job on Linux is triggered to save on
+<p>This is run on every commit to the <em>main</em> and pull request branches.
+In draft pull requests, only the job on Linux is triggered to save on
 Continuous Integration resources.</p>
 <p>On the <em>main</em> branch, the workflow also handles the documentation
 deployment:</p>
@@ -321,13 +323,10 @@ asset when a release is published.</p>
 </section>
 <section id="continuous-documentation">
 <h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Permalink to this heading"></a></h2>
-<p>We use the <a class="reference external" href="https://github.com/apps/vercel">Vercel for GitHub</a> App to preview changes
+<p>We use the <a class="reference external" href="https://readthedocs.org/">ReadtheDocs</a> service to preview changes
 made to our documentation website every time we make a commit in a pull request.
-The service has a configuration file <code class="docutils literal notranslate"><span class="pre">vercel.json</span></code>, with a list of options to
-change the default behaviour at https://vercel.com/docs/configuration.
-The actual script <code class="docutils literal notranslate"><span class="pre">package.json</span></code> is used by Vercel to install the necessary packages,
-build the documentation, copy the files to a ‘public’ folder and deploy that to the web,
-see https://vercel.com/docs/build-step.</p>
+The service has a configuration file <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>, with a list of options
+to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.</p>
 </section>
 <section id="dependencies-policy">
 <h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Permalink to this heading"></a></h2>
@@ -339,12 +338,12 @@ and at minimum the two latest minor versions.</p></li>
 <li><p>All minor versions of NumPy released in the 24 months prior to the project,
 and at minimum the last three minor versions.</p></li>
 </ul>
-<p>In <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, the <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> variable should be set to the minimum
+<p>In <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, the <code class="docutils literal notranslate"><span class="pre">requires-python</span></code> key should be set to the minimum
 supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.</p>
 </section>
 <section id="backwards-compatibility-and-deprecation-policy">
-<h2>Backwards compatibility and deprecation policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this heading"></a></h2>
+<h2>Backwards Compatibility and Deprecation Policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this heading"></a></h2>
 <p>PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
 <a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a> (e.g. vMAJOR.MINOR.PATCH).
@@ -359,7 +358,7 @@ patch releases.</p></li>
 <ul class="simple">
 <li><p>Discuss whether the incompatible changes are necessary on GitHub.</p></li>
 <li><p>Make the changes in a backwards compatible way, and raise a <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code>
-warning for old usage. At least one test using the old usage should be added.</p></li>
+warning for the old usage. At least one test using the old usage should be added.</p></li>
 <li><p>The warning message should clearly explain the changes and include the versions
 in which the old usage is deprecated and is expected to be removed.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">FutureWarning</span></code> warning should appear for 2-4 minor versions, depending on
@@ -369,11 +368,11 @@ the impact of the changes. It means the deprecation period usually lasts
 </ul>
 <p>To rename a function parameter, add the <code class="docutils literal notranslate"><span class="pre">&#64;deprecate_parameter</span></code> decorator near
 the top after the <code class="docutils literal notranslate"><span class="pre">&#64;fmt_docstring</span></code> decorator but before the <code class="docutils literal notranslate"><span class="pre">&#64;use_alias</span></code>
-decorator (if those two exists). Here is an example:</p>
+decorator (if those two exist). Here is an example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@fmt_docstring</span>
 <span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="s2">&quot;incols&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.4.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.6.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span><span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span> <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s1">&#39;sequence_comma&#39;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
@@ -389,10 +388,10 @@ The version number is set automatically using setuptools_scm based information
 obtained from git.
 There are a few steps that still must be done manually, though.</p>
 <section id="updating-the-changelog">
-<h3>Updating the changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this heading"></a></h3>
+<h3>Updating the Changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this heading"></a></h3>
 <p>The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
-every time a Pull Request (with a proper label) is merged into the main branch.
+every time a pull request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
@@ -411,7 +410,7 @@ inside the badge url.</p>
 </pre></div>
 </div>
 </li>
-<li><p>Open a new Pull Request using the title ‘Changelog entry for vX.Y.Z’ with
+<li><p>Open a new pull request using the title ‘Changelog entry for vX.Y.Z’ with
 the updated release notes, so that other people can help to review and
 collaborate on the changelog curation process described next.</p></li>
 <li><p>Edit the change list to remove any trivial changes (updates to the README,
@@ -422,7 +421,7 @@ modules and methods, gallery examples, API docs changes) and entries within each
 are alphabetical.</p></li>
 <li><p>Move a few important items from the main sections to the highlights section.</p></li>
 <li><p>Edit the list of people who contributed to the release, linking to their
-GitHub account. Sort their names by the number of commits made since the
+GitHub accounts. Sort their names by the number of commits made since the
 last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
 <li><p>Update <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> with new information on the new release version,
 including a vX.Y.Z documentation link, and compatibility with
@@ -438,17 +437,14 @@ https://github.com/citation-file-format/citation-file-format/blob/main/schema-gu
 </ol>
 </section>
 <section id="check-the-readme-syntax">
-<h3>Check the README syntax<a class="headerlink" href="#check-the-readme-syntax" title="Permalink to this heading"></a></h3>
+<h3>Check the README Syntax<a class="headerlink" href="#check-the-readme-syntax" title="Permalink to this heading"></a></h3>
 <p>GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-So slightly broken RST can cause the PyPI page to not render the correct content. Check
-using the <code class="docutils literal notranslate"><span class="pre">rst2html.py</span></code> script that comes with docutils:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">long</span><span class="o">-</span><span class="n">description</span> <span class="o">|</span> <span class="n">rst2html</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">raw</span> <span class="o">&gt;</span> <span class="n">index</span><span class="o">.</span><span class="n">html</span>
-</pre></div>
-</div>
-<p>Open <code class="docutils literal notranslate"><span class="pre">index.html</span></code> and check for any flaws or error messages.</p>
+To check the README syntax, visit the
+<a class="reference external" href="https://test.pypi.org/project/pygmt/#history">PyGMT TestPyPI release history</a>, select
+the latest commit, and review the left sidebar and project description for any errors.</p>
 </section>
 <section id="pushing-to-pypi-and-updating-the-documentation">
-<h3>Pushing to PyPI and updating the documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Permalink to this heading"></a></h3>
+<h3>Pushing to PyPI and Updating the Documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Permalink to this heading"></a></h3>
 <p>After the changelog is updated, making a release can be done by going to
 https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
 and clicking on publish. A git tag will also be created, make sure that this
@@ -461,11 +457,11 @@ this new folder.</p>
 </section>
 <section id="archiving-on-zenodo">
 <h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Permalink to this heading"></a></h3>
-<p>Grab both the source code and baseline images zip files from the GitHub release page
+<p>Grab both the source code and baseline images ZIP files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.</p>
 </section>
 <section id="updating-the-conda-package">
-<h3>Updating the conda package<a class="headerlink" href="#updating-the-conda-package" title="Permalink to this heading"></a></h3>
+<h3>Updating the Conda Package<a class="headerlink" href="#updating-the-conda-package" title="Permalink to this heading"></a></h3>
 <p>When a new version is released on PyPI, conda-forge’s bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.</p>
 <p>If changes need to be done manually, you can:</p>
@@ -495,9 +491,9 @@ from the PyPI “Download files” section.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

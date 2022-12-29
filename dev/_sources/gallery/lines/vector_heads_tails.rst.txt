@@ -60,8 +60,6 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -80,7 +78,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
     fig = pygmt.Figure()
     fig.basemap(
-        region=[0, 10, 0, 15], projection="X15c/10c", frame='+t"Vector heads and tails"'
+        region=[0, 10, 0, 15], projection="X15c/10c", frame="+tVector heads and tails"
     )
 
     x = 1
@@ -119,7 +117,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
         "v1c+bi+ea+r+h0.5+a45",
     ]:
         fig.plot(
-            x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", color="red3"
+            x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", fill="red3"
         )
         fig.text(
             x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c"
@@ -131,28 +129,23 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.352 seconds)
+   **Total running time of the script:** ( 0 minutes  3.977 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_heads_tails.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: vector_heads_tails.py <vector_heads_tails.py>`
 
-     :download:`Download Python source code: vector_heads_tails.py <vector_heads_tails.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: vector_heads_tails.ipynb <vector_heads_tails.ipynb>`
+      :download:`Download Jupyter notebook: vector_heads_tails.ipynb <vector_heads_tails.ipynb>`
 
 
 .. only:: html

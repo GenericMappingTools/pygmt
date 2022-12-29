@@ -22,17 +22,18 @@ Sampling along tracks
 ---------------------
 
 The :func:`pygmt.grdtrack` function samples a raster grid's value along
-specified points. We will need to input a 2D raster to ``grid`` which can be an
-:class:`xarray.DataArray`. The argument passed to the ``points`` parameter can
-be a :class:`pandas.DataFrame` table where the first two columns are x and y
-(or longitude and latitude). Note also that there is a ``newcolname`` parameter
-that will be used to name the new column of values sampled from the grid.
+specified points. We will need to input a 2-D raster to ``grid`` which can be
+an :class:`xarray.DataArray`. The argument passed to the ``points`` parameter
+can be a :class:`pandas.DataFrame` table where the first two columns are
+x and y (or longitude and latitude). Note also that there is a ``newcolname``
+parameter that will be used to name the new column of values sampled from the
+grid.
 
 Alternatively, a NetCDF file path can be passed to ``grid``. An ASCII file path
 can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-42
+.. GENERATED FROM PYTHON SOURCE LINES 17-43
 
 
 
@@ -43,8 +44,6 @@ argument needs to be passed to the ``outfile`` parameter.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -82,35 +81,30 @@ argument needs to be passed to the ``outfile`` parameter.
         y=track.latitude,
         style="c0.15c",
         cmap="terra",
-        color=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
+        fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
     )
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.639 seconds)
+   **Total running time of the script:** ( 0 minutes  1.977 seconds)
 
 
 .. _sphx_glr_download_gallery_images_track_sampling.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: track_sampling.py <track_sampling.py>`
 
-     :download:`Download Python source code: track_sampling.py <track_sampling.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: track_sampling.ipynb <track_sampling.ipynb>`
+      :download:`Download Jupyter notebook: track_sampling.ipynb <track_sampling.ipynb>`
 
 
 .. only:: html

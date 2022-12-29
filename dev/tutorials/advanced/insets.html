@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/insets.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,6 +29,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
         <script src="../../_static/design-tabs.js"></script>
@@ -88,7 +90,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -97,7 +99,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#advanced">Advanced</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Adding an inset to the figure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
-<li class="toctree-l3"><a class="reference internal" href="3d_perspective_image.html">Creating a 3D perspective image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3d_perspective_image.html">Creating a 3-D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
@@ -131,7 +133,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -156,9 +158,9 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Tutorials</a> &raquo;</li>
-      <li>Adding an inset to the figure</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Adding an inset to the figure</li>
     <li class="source-link">
         
             
@@ -167,8 +169,10 @@
                 
                     
                 
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/tutorials/advanced/insets.py"
-                   class="fa fa-github"> Improve this page</a>
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/tutorials/advanced/insets.py"
+                       class="fa fa-github"> Improve this page</a>
+                
             
         
     </li>
@@ -209,8 +213,7 @@ US state of Massachusetts.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_001.png" srcset="../../_images/sphx_glr_insets_001.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+<img src="../../_images/sphx_glr_insets_001.png" srcset="../../_images/sphx_glr_insets_001.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code></a> method uses a context manager, and is called
@@ -219,8 +222,8 @@ width, is required to plot the inset. Using the <strong>j</strong> argument, the
 of the inset is set to one of the 9 anchors (bottom-middle-top and
 left-center-right). In the example below, <code class="docutils literal notranslate"><span class="pre">BL</span></code> sets the inset to the bottom
 left. The <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter can set the fill and border of the inset. In the
-example below, <code class="docutils literal notranslate"><span class="pre">+pblack</span></code> sets the border color to black and <code class="docutils literal notranslate"><span class="pre">+gred</span></code> sets
-the fill to red.</p>
+example below, <code class="docutils literal notranslate"><span class="pre">+pblack</span></code> sets the border color to black and <code class="docutils literal notranslate"><span class="pre">+glightred</span></code>
+sets the fill to light red.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">74</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.5</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">],</span>
@@ -232,14 +235,13 @@ the fill to red.</p>
     <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">inset</span></a><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+w3c&quot;</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="s2">&quot;+pblack+glightred&quot;</span><span class="p">):</span>
-    <span class="c1"># pass is used to exit the with statement as no plotting functions are</span>
+    <span class="c1"># pass is used to exit the with statement as no plotting methods are</span>
     <span class="c1"># called</span>
     <span class="k">pass</span>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_002.png" srcset="../../_images/sphx_glr_insets_002.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+<img src="../../_images/sphx_glr_insets_002.png" srcset="../../_images/sphx_glr_insets_002.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
 <p>When using <strong>j</strong> to set the anchor of the inset, the default location is in
@@ -263,11 +265,10 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_003.png" srcset="../../_images/sphx_glr_insets_003.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+<img src="../../_images/sphx_glr_insets_003.png" srcset="../../_images/sphx_glr_insets_003.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p>Standard plotting functions can be called from within the <code class="docutils literal notranslate"><span class="pre">inset</span></code> context
+<p>Standard plotting methods can be called from within the <code class="docutils literal notranslate"><span class="pre">inset</span></code> context
 manager. The example below uses <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> to plot a zoomed
 out map that selectively paints the state of Massachusetts to shows its
 location relative to other states.</p>
@@ -290,7 +291,7 @@ location relative to other states.</p>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
     <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M3c&quot;</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="c1"># Use a plotting function to create a figure inside the inset.</span>
+    <span class="c1"># Use a plotting method to create a figure inside the inset.</span>
     <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
         <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span>
         <span class="n">borders</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
@@ -302,12 +303,11 @@ location relative to other states.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
+<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.053 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-insets-py">
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.725 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-insets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2bce6de666bf8cf98d11d6eb23cd1fbd/insets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">insets.py</span></code></a></p>
 </div>
@@ -331,9 +331,9 @@ location relative to other states.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

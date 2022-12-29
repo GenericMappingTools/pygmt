@@ -48,11 +48,11 @@ Create a simple Cartesian vector using a starting point through
 On the shown figure, the plot is projected on a 10cm X 10cm region,
 which is specified by the ``projection`` parameter.
 The direction is specified
-by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
+by a list of two 1-D arrays structured as ``[[angle_in_degrees], [length]]``.
 The angle is measured in degrees and moves counter-clockwise from the
 horizontal.
 The length of the vector uses centimeters by default but
-could be changed using :meth:`pygmt.config`
+could be changed using :class:`pygmt.config`
 (Check the next examples for unit changes).
 
 Notice that the ``v`` in the ``style`` parameter stands for
@@ -89,8 +89,6 @@ side of the vector.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -126,7 +124,7 @@ styling attributes can be found in
         style="v0.6c+e",
         direction=[[-45, 23], [6, 3]],
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -140,8 +138,6 @@ styling attributes can be found in
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -177,7 +173,7 @@ can be changed to inches in the second plotted vector.
         style="v1c+e",
         direction=[[0], [3]],
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     # Vector 2 after changing default unit to inch
     with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -187,7 +183,7 @@ can be changed to inches in the second plotted vector.
             direction=[[0], [3]],
             style="v1c+e",
             pen="2p",
-            color="red3",
+            fill="red3",
         )
     fig.show()
 
@@ -202,8 +198,6 @@ can be changed to inches in the second plotted vector.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -215,7 +209,7 @@ can be changed to inches in the second plotted vector.
 
 Vectors can also be plotted by including all the information
 about a vector in a single list. However, this requires creating
-a 2D list or numpy array containing all vectors.
+a 2-D list or numpy array containing all vectors.
 Each vector list contains the information structured as:
 ``[x_start, y_start, direction_degrees, length]``.
 
@@ -238,7 +232,7 @@ used instead of ``x``, ``y`` and  ``direction``.
         data=vectors,
         style="v0.6c+e",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -253,8 +247,6 @@ used instead of ``x``, ``y`` and  ``direction``.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -266,7 +258,7 @@ used instead of ``x``, ``y`` and  ``direction``.
 
 Using the functionality mentioned in the previous example,
 multiple vectors can be plotted at the same time. Another
-vector could be simply added to the 2D list or numpy
+vector could be simply added to the 2-D list or numpy
 array object and passed using ``data`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 137-158
@@ -290,7 +282,7 @@ array object and passed using ``data`` parameter.
         data=vectors,
         style="v0.6c+e",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -305,8 +297,6 @@ array object and passed using ``data`` parameter.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -316,7 +306,7 @@ array object and passed using ``data`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 159-170
 
-In this example, cartesian vectors are plotted over a Mercator
+In this example, Cartesian vectors are plotted over a Mercator
 projection of the continental US. The x values represent the
 longitude and y values represent the latitude where the vector starts.
 
@@ -354,7 +344,7 @@ this example).
         style=style,
         direction=[[-25], [3]],
         pen="1p",
-        color="red3",
+        fill="red3",
     )
 
     # vector specifications structured as:
@@ -369,7 +359,7 @@ this example).
         data=vectors,
         style=style,
         pen="1p",
-        color="yellow",
+        fill="yellow",
     )
     fig.show()
 
@@ -384,8 +374,6 @@ this example).
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -395,11 +383,11 @@ this example).
 
 .. GENERATED FROM PYTHON SOURCE LINES 212-215
 
-Another example of plotting cartesian vectors over a coast plot. This time a
+Another example of plotting Cartesian vectors over a coast plot. This time a
 Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 is used to create 5 vectors with equal stops.
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-245
+.. GENERATED FROM PYTHON SOURCE LINES 215-246
 
 .. code-block:: default
 
@@ -409,7 +397,8 @@ is used to create 5 vectors with equal stops.
     direction = np.linspace(-90, -90, 5)  # direction values = [-90. -90. -90. -90.]
     length = np.linspace(1.5, 1.5, 5)  # length values = [1.5 1.5 1.5 1.5]
 
-    # Create a plot with coast, Mercator projection (M) over the continental US
+    # Create a plot with coast,
+    # Transverse Mercator projection (T) over Turkey and Syria
     fig = pygmt.Figure()
     fig.coast(
         region=[20, 50, 30, 45],
@@ -428,7 +417,7 @@ is used to create 5 vectors with equal stops.
         style="v0.4c+ea+bc",
         direction=[direction, length],
         pen="0.6p",
-        color="red3",
+        fill="red3",
     )
 
     fig.show()
@@ -444,8 +433,6 @@ is used to create 5 vectors with equal stops.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -453,7 +440,7 @@ is used to create 5 vectors with equal stops.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 246-260
+.. GENERATED FROM PYTHON SOURCE LINES 247-261
 
 Plot Circular Vectors
 ---------------------
@@ -470,7 +457,7 @@ horizontal axis. In this example, the result show is the left half of a
 circle as the plot starts at 90 degrees and goes until 270. Notice that the
 ``m`` in the ``style`` parameter stands for circular vectors.
 
-.. GENERATED FROM PYTHON SOURCE LINES 260-287
+.. GENERATED FROM PYTHON SOURCE LINES 261-288
 
 .. code-block:: default
 
@@ -486,7 +473,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
         data=data,
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 
     # Another example using np.array()
@@ -497,7 +484,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
         data=data,
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -512,8 +499,6 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -521,7 +506,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 288-295
+.. GENERATED FROM PYTHON SOURCE LINES 289-296
 
 When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the ``data`` parameter. In this example,
@@ -531,7 +516,7 @@ parameter and random values for the ``degree_stop`` parameter discussed in
 the previous example. This is the reason in which each vector has a different
 appearance on the projection.
 
-.. GENERATED FROM PYTHON SOURCE LINES 295-316
+.. GENERATED FROM PYTHON SOURCE LINES 296-317
 
 .. code-block:: default
 
@@ -552,7 +537,7 @@ appearance on the projection.
         data=data,
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -567,8 +552,6 @@ appearance on the projection.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -576,7 +559,7 @@ appearance on the projection.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 317-323
+.. GENERATED FROM PYTHON SOURCE LINES 318-324
 
 Much like when plotting Cartesian vectors, the default unit used is
 centimeters. When this is changed to inches, the size of the plot appears
@@ -585,7 +568,7 @@ circular vectors. One is plotted using the default unit, and the second is
 plotted using inches. Despite using the same list to plot the vectors, a
 different measurement unit causes one to be larger than the other.
 
-.. GENERATED FROM PYTHON SOURCE LINES 323-346
+.. GENERATED FROM PYTHON SOURCE LINES 324-347
 
 .. code-block:: default
 
@@ -600,7 +583,7 @@ different measurement unit causes one to be larger than the other.
         data=[circular_vector],
         style="m0.5c+ea",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
 
     with pygmt.config(PROJ_LENGTH_UNIT="i"):
@@ -608,7 +591,7 @@ different measurement unit causes one to be larger than the other.
             data=[circular_vector],
             style="m0.5c+ea",
             pen="2p",
-            color="red3",
+            fill="red3",
         )
     fig.show()
 
@@ -623,8 +606,6 @@ different measurement unit causes one to be larger than the other.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -632,7 +613,7 @@ different measurement unit causes one to be larger than the other.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 347-360
+.. GENERATED FROM PYTHON SOURCE LINES 348-361
 
 Plot Geographic Vectors
 -----------------------
@@ -643,12 +624,12 @@ The geographical vector is going from Idaho to
 Chicago. To style geographic
 vectors, use ``=`` at the beginning of the ``style`` parameter.
 Other styling features such as vector stem thickness and head color
-can be passed into the ``pen`` and ``color`` parameters.
+can be passed into the ``pen`` and ``fill`` parameters.
 
 Note that the **+s** is added to use a startpoint and an endpoint
 to represent the vector instead of input angle and length.
 
-.. GENERATED FROM PYTHON SOURCE LINES 360-382
+.. GENERATED FROM PYTHON SOURCE LINES 361-383
 
 .. code-block:: default
 
@@ -670,7 +651,7 @@ to represent the vector instead of input angle and length.
         data=data,
         style="=0.5c+ea+s",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -685,8 +666,6 @@ to represent the vector instead of input angle and length.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -694,17 +673,17 @@ to represent the vector instead of input angle and length.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 383-390
+.. GENERATED FROM PYTHON SOURCE LINES 384-391
 
 Using the same technique shown in the previous example,
 multiple vectors can be plotted in a chain where the endpoint
 of one is the starting point of another. This can be done
 by adding the coordinate lists together to create this structure:
 ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
-Each list within the 2D list contains the start and end information
+Each list within the 2-D list contains the start and end information
 for each vector.
 
-.. GENERATED FROM PYTHON SOURCE LINES 390-419
+.. GENERATED FROM PYTHON SOURCE LINES 391-420
 
 .. code-block:: default
 
@@ -733,7 +712,7 @@ for each vector.
         data=data,
         style="=0.5c+ea+s",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -748,8 +727,6 @@ for each vector.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -757,13 +734,13 @@ for each vector.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 420-423
+.. GENERATED FROM PYTHON SOURCE LINES 421-424
 
 This example plots vectors over a Mercator projection. The starting points
 are located at SA which is South Africa and going to four different
 locations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 423-446
+.. GENERATED FROM PYTHON SOURCE LINES 424-447
 
 .. code-block:: default
 
@@ -787,7 +764,7 @@ locations.
         data=data,
         style="=0.5c+ea+s",
         pen="2p",
-        color="red3",
+        fill="red3",
     )
     fig.show()
 
@@ -801,8 +778,6 @@ locations.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -813,28 +788,23 @@ locations.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.157 seconds)
+   **Total running time of the script:** ( 0 minutes  14.050 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_vectors.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: vectors.py <vectors.py>`
 
-     :download:`Download Python source code: vectors.py <vectors.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: vectors.ipynb <vectors.ipynb>`
+      :download:`Download Jupyter notebook: vectors.ipynb <vectors.ipynb>`
 
 
 .. only:: html

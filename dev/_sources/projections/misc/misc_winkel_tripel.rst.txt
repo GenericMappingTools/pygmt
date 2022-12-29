@@ -53,13 +53,8 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    coast [WARNING]: 3 annotations along the bottom border were skipped due to crowding.
-    coast [WARNING]: Crowding decisions is controlled by MAP_ANNOT_MIN_SPACING, currently set to 24.9687p.
-    coast [WARNING]: Decrease or increase MAP_ANNOT_MIN_SPACING to see more or fewer annotations, with 0 showing all annotations.
     <IPython.core.display.Image object>
 
 
@@ -81,28 +76,23 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.871 seconds)
+   **Total running time of the script:** ( 0 minutes  0.998 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_winkel_tripel.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: misc_winkel_tripel.py <misc_winkel_tripel.py>`
 
-     :download:`Download Python source code: misc_winkel_tripel.py <misc_winkel_tripel.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: misc_winkel_tripel.ipynb <misc_winkel_tripel.ipynb>`
+      :download:`Download Jupyter notebook: misc_winkel_tripel.ipynb <misc_winkel_tripel.ipynb>`
 
 
 .. only:: html

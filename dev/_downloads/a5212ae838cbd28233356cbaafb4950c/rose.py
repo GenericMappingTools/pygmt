@@ -32,7 +32,7 @@ fig.rose(
     # 0 to 1
     norm=True,
     # use red3 as color fill for the sectors
-    color="red3",
+    fill="red3",
     # define the frame with ticks and gridlines every 0.2
     # length unit in radial direction and every 30 degrees
     # in azimuthal direction, set background color to

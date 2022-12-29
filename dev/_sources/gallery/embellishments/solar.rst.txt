@@ -39,8 +39,6 @@ more information.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -62,7 +60,7 @@ more information.
     # Create a figure showing the global region on a Mollweide projection
     # Land color is set to dark green and water color is set to light blue
     fig.coast(region="d", projection="W0/15c", land="darkgreen", water="lightblue")
-    # Set a time for the day-night terminator and twilights, 1700 UTC on
+    # Set a time for the day-night terminator and twilights, 17:00 UTC on
     # January 1, 2000
     terminator_datetime = datetime.datetime(
         year=2000, month=1, day=1, hour=17, minute=0, second=0
@@ -99,28 +97,23 @@ more information.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.685 seconds)
+   **Total running time of the script:** ( 0 minutes  1.963 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_solar.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: solar.py <solar.py>`
 
-     :download:`Download Python source code: solar.py <solar.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: solar.ipynb <solar.ipynb>`
+      :download:`Download Jupyter notebook: solar.ipynb <solar.ipynb>`
 
 
 .. only:: html

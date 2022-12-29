@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/histogram.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.histogram</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.histogram</li>
     <li class="source-link">
         
     </li>
@@ -179,8 +181,6 @@
     <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
-    <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
-    <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;histtype&quot;</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
@@ -198,8 +198,8 @@
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots a histogram, and can read data from a file or</span>
-<span class="sd">    list, array, or dataframe.</span>
+<span class="sd">    Plots a histogram, and can read data from a file or list, array, or</span>
+<span class="sd">    dataframe.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`histogram.html`</span>
 
@@ -208,15 +208,15 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or list or {table-like}</span>
-<span class="sd">        Pass in either a file name to an ASCII data table, a Python list, a 2D</span>
+<span class="sd">        Pass in either a file name to an ASCII data table, a Python list, a 2-D</span>
 <span class="sd">        {table-classes}.</span>
-<span class="sd">    {J}</span>
-<span class="sd">    {R}</span>
-<span class="sd">    {B}</span>
-<span class="sd">    {CPT}</span>
-<span class="sd">    {G}</span>
-<span class="sd">    {W}</span>
-<span class="sd">    {c}</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    {region}</span>
+<span class="sd">    {frame}</span>
+<span class="sd">    {cmap}</span>
+<span class="sd">    {fill}</span>
+<span class="sd">    {pen}</span>
+<span class="sd">    {panel}</span>
 <span class="sd">    annotate : bool or str</span>
 <span class="sd">        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].</span>
 <span class="sd">        Annotate each bar with the count it represents.  Append any of the</span>
@@ -279,18 +279,17 @@
 
 <span class="sd">        To use weights provided as a second data column instead of pure counts,</span>
 <span class="sd">        append **+w**.</span>
-<span class="sd">    {XY}</span>
-<span class="sd">    {U}</span>
-<span class="sd">    {V}</span>
-<span class="sd">    {b}</span>
-<span class="sd">    {d}</span>
-<span class="sd">    {e}</span>
-<span class="sd">    {h}</span>
-<span class="sd">    {i}</span>
-<span class="sd">    {l}</span>
-<span class="sd">    {p}</span>
-<span class="sd">    {t}</span>
-<span class="sd">    {w}</span>
+<span class="sd">    {timestamp}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {find}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {incols}</span>
+<span class="sd">    {label}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">    {wrap}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -310,9 +309,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

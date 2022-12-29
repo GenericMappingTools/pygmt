@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/gallery/index.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,6 +29,7 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
         <script src="../_static/design-tabs.js"></script>
@@ -88,7 +90,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -121,6 +123,7 @@
 <li class="toctree-l3"><a class="reference internal" href="symbols/points_transparency.html">Points with varying transparency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/scatter.html">Scatter plots with a legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="symbols/text_symbols.html">Text symbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="symbols/bars.html">Vertical or horizontal bars</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#images-contours-and-fields">Images, contours, and fields</a><ul>
@@ -133,7 +136,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#d-plots">3D Plots</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="3d_plots/scatter3d.html">3D Scatter plots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="3d_plots/scatter3d.html">3-D Scatter plots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="3d_plots/grdview_surface.html">Plotting a surface</a></li>
 </ul>
 </li>
@@ -144,6 +147,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#base-maps">Base maps</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="basemaps/double_y_axes.html">Double Y axes graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basemaps/ternary.html">Ternary diagram</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#histograms">Histograms</a><ul>
@@ -186,7 +190,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -211,8 +215,8 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Gallery</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Gallery</li>
     <li class="source-link">
         
             
@@ -221,8 +225,10 @@
                 
                     
                 
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/gallery/README.txt"
-                   class="fa fa-github"> Improve this page</a>
+                
+                    <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/../examples/gallery/README.txt"
+                       class="fa fa-github"> Improve this page</a>
+                
             
         
     </li>
@@ -234,364 +240,183 @@
            <div itemprop="articleBody">
              
   <section id="gallery">
-<span id="sphx-glr-gallery"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this heading"></a></h1>
+<span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this heading"></a></h1>
 <p>This gallery contains examples of what PyGMT can do. Click on any example to see the
 code used to generate it.</p>
-<div class="sphx-glr-clear"></div><section id="maps-and-map-elements">
-<span id="sphx-glr-gallery-maps"></span><h2>Maps and map elements<a class="headerlink" href="#maps-and-map-elements" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat..."><figure class="align-default" id="id2">
-<img alt="Color land and water" src="../_images/sphx_glr_land_and_water_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<div class="sphx-glr-thumbnails"></div><section id="maps-and-map-elements">
+<h2>Maps and map elements<a class="headerlink" href="#maps-and-map-elements" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat..."><img alt="Color land and water" src="../_images/sphx_glr_land_and_water_thumb.png" />
+<p><a class="reference internal" href="maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Color land and water</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an..."><img alt="Political Boundaries" src="../_images/sphx_glr_borders_thumb.png" />
+<p><a class="reference internal" href="maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political Boundaries</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Political Boundaries</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><img alt="Shorelines" src="../_images/sphx_glr_shorelines_thumb.png" />
+<p><a class="reference internal" href="maps/shorelines.html#sphx-glr-gallery-maps-shorelines-py"><span class="std std-ref">Shorelines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Shorelines</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an..."><figure class="align-default" id="id3">
-<img alt="Political Boundaries" src="../_images/sphx_glr_borders_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political Boundaries</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><figure class="align-default" id="id4">
-<img alt="Shorelines" src="../_images/sphx_glr_shorelines_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="maps/shorelines.html#sphx-glr-gallery-maps-shorelines-py"><span class="std std-ref">Shorelines</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="lines-and-vectors">
-<span id="sphx-glr-gallery-lines"></span><h2>Lines and vectors<a class="headerlink" href="#lines-and-vectors" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><figure class="align-default" id="id5">
-<img alt="Cartesian, circular, and geographic vectors" src="../_images/sphx_glr_vector_styles_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Lines and vectors<a class="headerlink" href="#lines-and-vectors" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><img alt="Cartesian, circular, and geographic vectors" src="../_images/sphx_glr_vector_styles_thumb.png" />
+<p><a class="reference internal" href="lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points..."><img alt="Generate points along great circles" src="../_images/sphx_glr_great_circles_thumb.png" />
+<p><a class="reference internal" href="lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><img alt="Line colors with a custom CPT" src="../_images/sphx_glr_line_custom_cpt_thumb.png" />
+<p><a class="reference internal" href="lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called *front* which allows to plot specif..."><img alt="Line fronts" src="../_images/sphx_glr_linefronts_thumb.png" />
+<p><a class="reference internal" href="lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line fronts</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><img alt="Line styles" src="../_images/sphx_glr_linestyles_thumb.png" />
+<p><a class="reference internal" href="lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line styles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Roads"><img alt="Roads" src="../_images/sphx_glr_roads_thumb.png" />
+<p><a class="reference internal" href="lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Roads</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,..."><img alt="Vector heads and tails" src="../_images/sphx_glr_vector_heads_tails_thumb.png" />
+<p><a class="reference internal" href="lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci..."><img alt="Wiggle along tracks" src="../_images/sphx_glr_wiggle_thumb.png" />
+<p><a class="reference internal" href="lines/wiggle.html#sphx-glr-gallery-lines-wiggle-py"><span class="std std-ref">Wiggle along tracks</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Wiggle along tracks</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project method can generate points along a great circle whose center and end points c..."><figure class="align-default" id="id6">
-<img alt="Generate points along great circles" src="../_images/sphx_glr_great_circles_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><figure class="align-default" id="id7">
-<img alt="Line colors with a custom CPT" src="../_images/sphx_glr_line_custom_cpt_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called *front* which allows to plot specif..."><figure class="align-default" id="id8">
-<img alt="Line fronts" src="../_images/sphx_glr_linefronts_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><figure class="align-default" id="id9">
-<img alt="Line styles" src="../_images/sphx_glr_linestyles_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Roads"><figure class="align-default" id="id10">
-<img alt="Roads" src="../_images/sphx_glr_roads_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,..."><figure class="align-default" id="id11">
-<img alt="Vector heads and tails" src="../_images/sphx_glr_vector_heads_tails_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci..."><figure class="align-default" id="id12">
-<img alt="Wiggle along tracks" src="../_images/sphx_glr_wiggle_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="lines/wiggle.html#sphx-glr-gallery-lines-wiggle-py"><span class="std std-ref">Wiggle along tracks</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="symbols-and-markers">
-<span id="sphx-glr-gallery-symbols"></span><h2>Symbols and markers<a class="headerlink" href="#symbols-and-markers" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding..."><figure class="align-default" id="id13">
-<img alt="Basic geometric symbols" src="../_images/sphx_glr_basic_symbols_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Symbols and markers<a class="headerlink" href="#symbols-and-markers" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding..."><img alt="Basic geometric symbols" src="../_images/sphx_glr_basic_symbols_thumb.png" />
+<p><a class="reference internal" href="symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><img alt="Color points by categories" src="../_images/sphx_glr_points_categorical_thumb.png" />
+<p><a class="reference internal" href="symbols/points_categorical.html#sphx-glr-gallery-symbols-points-categorical-py"><span class="std std-ref">Color points by categories</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Color points by categories</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy..."><img alt="Custom symbols" src="../_images/sphx_glr_custom_symbols_thumb.png" />
+<p><a class="reference internal" href="symbols/custom_symbols.html#sphx-glr-gallery-symbols-custom-symbols-py"><span class="std std-ref">Custom symbols</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Custom symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:"><img alt="Datetime inputs" src="../_images/sphx_glr_datetime_inputs_thumb.png" />
+<p><a class="reference internal" href="symbols/datetime_inputs.html#sphx-glr-gallery-symbols-datetime-inputs-py"><span class="std std-ref">Datetime inputs</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Datetime inputs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp..."><img alt="Multi-parameter symbols" src="../_images/sphx_glr_multi_parameter_symbols_thumb.png" />
+<p><a class="reference internal" href="symbols/multi_parameter_symbols.html#sphx-glr-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">Multi-parameter symbols</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multi-parameter symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. The plot symbol and size is set with the style pa..."><img alt="Points" src="../_images/sphx_glr_points_thumb.png" />
+<p><a class="reference internal" href="symbols/points.html#sphx-glr-gallery-symbols-points-py"><span class="std std-ref">Points</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array argument to the..."><img alt="Points with varying transparency" src="../_images/sphx_glr_points_transparency_thumb.png" />
+<p><a class="reference internal" href="symbols/points_transparency.html#sphx-glr-gallery-symbols-points-transparency-py"><span class="std std-ref">Points with varying transparency</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Points with varying transparency</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ..."><img alt="Scatter plots with a legend" src="../_images/sphx_glr_scatter_thumb.png" />
+<p><a class="reference internal" href="symbols/scatter.html#sphx-glr-gallery-symbols-scatter-py"><span class="std std-ref">Scatter plots with a legend</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scatter plots with a legend</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Text symbols"><img alt="Text symbols" src="../_images/sphx_glr_text_symbols_thumb.png" />
+<p><a class="reference internal" href="symbols/text_symbols.html#sphx-glr-gallery-symbols-text-symbols-py"><span class="std std-ref">Text symbols</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Text symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars"><img alt="Vertical or horizontal bars" src="../_images/sphx_glr_bars_thumb.png" />
+<p><a class="reference internal" href="symbols/bars.html#sphx-glr-gallery-symbols-bars-py"><span class="std std-ref">Vertical or horizontal bars</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><figure class="align-default" id="id14">
-<img alt="Color points by categories" src="../_images/sphx_glr_points_categorical_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/points_categorical.html#sphx-glr-gallery-symbols-points-categorical-py"><span class="std std-ref">Color points by categories</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy..."><figure class="align-default" id="id15">
-<img alt="Custom symbols" src="../_images/sphx_glr_custom_symbols_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/custom_symbols.html#sphx-glr-gallery-symbols-custom-symbols-py"><span class="std std-ref">Custom symbols</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:"><figure class="align-default" id="id16">
-<img alt="Datetime inputs" src="../_images/sphx_glr_datetime_inputs_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/datetime_inputs.html#sphx-glr-gallery-symbols-datetime-inputs-py"><span class="std std-ref">Datetime inputs</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp..."><figure class="align-default" id="id17">
-<img alt="Multi-parameter symbols" src="../_images/sphx_glr_multi_parameter_symbols_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/multi_parameter_symbols.html#sphx-glr-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">Multi-parameter symbols</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. The plot symbol and size is set with the style pa..."><figure class="align-default" id="id18">
-<img alt="Points" src="../_images/sphx_glr_points_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/points.html#sphx-glr-gallery-symbols-points-py"><span class="std std-ref">Points</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array argument to the..."><figure class="align-default" id="id19">
-<img alt="Points with varying transparency" src="../_images/sphx_glr_points_transparency_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/points_transparency.html#sphx-glr-gallery-symbols-points-transparency-py"><span class="std std-ref">Points with varying transparency</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ..."><figure class="align-default" id="id20">
-<img alt="Scatter plots with a legend" src="../_images/sphx_glr_scatter_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/scatter.html#sphx-glr-gallery-symbols-scatter-py"><span class="std std-ref">Scatter plots with a legend</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Text symbols"><figure class="align-default" id="id21">
-<img alt="Text symbols" src="../_images/sphx_glr_text_symbols_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="symbols/text_symbols.html#sphx-glr-gallery-symbols-text-symbols-py"><span class="std std-ref">Text symbols</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="images-contours-and-fields">
-<span id="sphx-glr-gallery-images"></span><h2>Images, contours, and fields<a class="headerlink" href="#images-contours-and-fields" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><figure class="align-default" id="id22">
-<img alt="Calculating grid gradient and radiance" src="../_images/sphx_glr_grdgradient_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Images, contours, and fields<a class="headerlink" href="#images-contours-and-fields" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="Calculating grid gradient and radiance" src="../_images/sphx_glr_grdgradient_thumb.png" />
+<p><a class="reference internal" href="images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="Clipping grid values" src="../_images/sphx_glr_grdclip_thumb.png" />
+<p><a class="reference internal" href="images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1-D numpy.ndarray data columns. #. data 2-D numpy.ndarray data matrix with 3 columns..."><img alt="Contours" src="../_images/sphx_glr_contours_thumb.png" />
+<p><a class="reference internal" href="images/contours.html#sphx-glr-gallery-images-contours-py"><span class="std std-ref">Contours</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Contours</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="Create 'wet-dry' mask grid" src="../_images/sphx_glr_grdlandmask_thumb.png" />
+<p><a class="reference internal" href="images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Images on figures"><img alt="Images on figures" src="../_images/sphx_glr_image_thumb.png" />
+<p><a class="reference internal" href="images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Images on figures</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Images on figures</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="Sampling along tracks" src="../_images/sphx_glr_track_sampling_thumb.png" />
+<p><a class="reference internal" href="images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><figure class="align-default" id="id23">
-<img alt="Clipping grid values" src="../_images/sphx_glr_grdclip_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1d numpy.ndarray data columns. #. data 2d numpy.ndarray data matrix with 3 columns c..."><figure class="align-default" id="id24">
-<img alt="Contours" src="../_images/sphx_glr_contours_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/contours.html#sphx-glr-gallery-images-contours-py"><span class="std std-ref">Contours</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><figure class="align-default" id="id25">
-<img alt="Create 'wet-dry' mask grid" src="../_images/sphx_glr_grdlandmask_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Images on figures"><figure class="align-default" id="id26">
-<img alt="Images on figures" src="../_images/sphx_glr_image_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Images on figures</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><figure class="align-default" id="id27">
-<img alt="Sampling along tracks" src="../_images/sphx_glr_track_sampling_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="d-plots">
-<span id="sphx-glr-gallery-3d-plots"></span><h2>3D Plots<a class="headerlink" href="#d-plots" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3D. In the example below, we show..."><figure class="align-default" id="id28">
-<img alt="3D Scatter plots" src="../_images/sphx_glr_scatter3d_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3D Scatter plots</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>3D Plots<a class="headerlink" href="#d-plots" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="3-D Scatter plots" src="../_images/sphx_glr_scatter3d_thumb.png" />
+<p><a class="reference internal" href="3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D Scatter plots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><img alt="Plotting a surface" src="../_images/sphx_glr_grdview_surface_thumb.png" />
+<p><a class="reference internal" href="3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><figure class="align-default" id="id29">
-<img alt="Plotting a surface" src="../_images/sphx_glr_grdview_surface_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="seismology-and-geodesy">
-<span id="sphx-glr-gallery-seismology"></span><h2>Seismology and geodesy<a class="headerlink" href="#seismology-and-geodesy" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms, or beachballs. We can specify the focal..."><figure class="align-default" id="id30">
-<img alt="Focal mechanisms" src="../_images/sphx_glr_meca_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="seismology/meca.html#sphx-glr-gallery-seismology-meca-py"><span class="std std-ref">Focal mechanisms</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Seismology and geodesy<a class="headerlink" href="#seismology-and-geodesy" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms or beachballs. We can specify the focal ..."><img alt="Focal mechanisms" src="../_images/sphx_glr_meca_thumb.png" />
+<p><a class="reference internal" href="seismology/meca.html#sphx-glr-gallery-seismology-meca-py"><span class="std std-ref">Focal mechanisms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Focal mechanisms</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ..."><img alt="Velocity arrows and confidence ellipses" src="../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
+<p><a class="reference internal" href="seismology/velo_arrow_ellipse.html#sphx-glr-gallery-seismology-velo-arrow-ellipse-py"><span class="std std-ref">Velocity arrows and confidence ellipses</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Velocity arrows and confidence ellipses</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ..."><figure class="align-default" id="id31">
-<img alt="Velocity arrows and confidence ellipses" src="../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="seismology/velo_arrow_ellipse.html#sphx-glr-gallery-seismology-velo-arrow-ellipse-py"><span class="std std-ref">Velocity arrows and confidence ellipses</span></a></span><a class="headerlink" href="#id31" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="base-maps">
-<span id="sphx-glr-gallery-basemaps"></span><h2>Base maps<a class="headerlink" href="#base-maps" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes sh..."><figure class="align-default" id="id32">
-<img alt="Double Y axes graph" src="../_images/sphx_glr_double_y_axes_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y axes graph</span></a></span><a class="headerlink" href="#id32" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Base maps<a class="headerlink" href="#base-maps" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes sh..."><img alt="Double Y axes graph" src="../_images/sphx_glr_double_y_axes_thumb.png" />
+<p><a class="reference internal" href="basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y axes graph</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Double Y axes graph</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="Ternary diagram" src="../_images/sphx_glr_ternary_thumb.png" />
+<p><a class="reference internal" href="basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="histograms">
-<span id="sphx-glr-gallery-histograms"></span><h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><figure class="align-default" id="id33">
-<img alt="Blockmean" src="../_images/sphx_glr_blockm_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></span><a class="headerlink" href="#id33" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Histograms<a class="headerlink" href="#histograms" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="Blockmean" src="../_images/sphx_glr_blockm_thumb.png" />
+<p><a class="reference internal" href="histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Blockmean</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Histogram"><img alt="Histogram" src="../_images/sphx_glr_histogram_thumb.png" />
+<p><a class="reference internal" href="histograms/histogram.html#sphx-glr-gallery-histograms-histogram-py"><span class="std std-ref">Histogram</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Histogram</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="Rose diagram" src="../_images/sphx_glr_rose_thumb.png" />
+<p><a class="reference internal" href="histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Rose diagram</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Histogram"><figure class="align-default" id="id34">
-<img alt="Histogram" src="../_images/sphx_glr_histogram_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="histograms/histogram.html#sphx-glr-gallery-histograms-histogram-py"><span class="std std-ref">Histogram</span></a></span><a class="headerlink" href="#id34" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><figure class="align-default" id="id35">
-<img alt="Rose diagram" src="../_images/sphx_glr_rose_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></span><a class="headerlink" href="#id35" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 <section id="plot-embellishments">
-<span id="sphx-glr-gallery-embellishments"></span><h2>Plot embellishments<a class="headerlink" href="#plot-embellishments" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><figure class="align-default" id="id36">
-<img alt="Colorbar" src="../_images/sphx_glr_colorbar_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></span><a class="headerlink" href="#id36" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
+<h2>Plot embellishments<a class="headerlink" href="#plot-embellishments" title="Permalink to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><img alt="Colorbar" src="../_images/sphx_glr_colorbar_thumb.png" />
+<p><a class="reference internal" href="embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Colorbar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T..."><img alt="Day-night terminator line and twilights" src="../_images/sphx_glr_solar_thumb.png" />
+<p><a class="reference internal" href="embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset" src="../_images/sphx_glr_inset_thumb.png" />
+<p><a class="reference internal" href="embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Inset</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset map showing a rectangular region" src="../_images/sphx_glr_inset_rectangle_region_thumb.png" />
+<p><a class="reference internal" href="embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><img alt="Legend" src="../_images/sphx_glr_legend_thumb.png" />
+<p><a class="reference internal" href="embellishments/legend.html#sphx-glr-gallery-embellishments-legend-py"><span class="std std-ref">Legend</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Legend</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map."><img alt="Logo" src="../_images/sphx_glr_logo_thumb.png" />
+<p><a class="reference internal" href="embellishments/logo.html#sphx-glr-gallery-embellishments-logo-py"><span class="std std-ref">Logo</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Logo</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="Multiple colormaps" src="../_images/sphx_glr_colorbars_multiple_thumb.png" />
+<p><a class="reference internal" href="embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div></div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T..."><figure class="align-default" id="id37">
-<img alt="Day-night terminator line and twilights" src="../_images/sphx_glr_solar_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></span><a class="headerlink" href="#id37" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The function is call..."><figure class="align-default" id="id38">
-<img alt="Inset" src="../_images/sphx_glr_inset_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></span><a class="headerlink" href="#id38" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The function is call..."><figure class="align-default" id="id39">
-<img alt="Inset map showing a rectangular region" src="../_images/sphx_glr_inset_rectangle_region_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></span><a class="headerlink" href="#id39" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><figure class="align-default" id="id40">
-<img alt="Legend" src="../_images/sphx_glr_legend_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/legend.html#sphx-glr-gallery-embellishments-legend-py"><span class="std std-ref">Legend</span></a></span><a class="headerlink" href="#id40" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map."><figure class="align-default" id="id41">
-<img alt="Logo" src="../_images/sphx_glr_logo_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/logo.html#sphx-glr-gallery-embellishments-logo-py"><span class="std std-ref">Logo</span></a></span><a class="headerlink" href="#id41" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><figure class="align-default" id="id42">
-<img alt="Multiple colormaps" src="../_images/sphx_glr_colorbars_multiple_thumb.png" />
-<figcaption>
-<p><span class="caption-text"><a class="reference internal" href="embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></span><a class="headerlink" href="#id42" title="Permalink to this image"></a></p>
-</figcaption>
-</figure>
-</div><div class="toctree-wrapper compound">
-</div>
-<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
 </section>
 
@@ -608,9 +433,9 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

@@ -35,8 +35,6 @@ Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -62,28 +60,23 @@ Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.005 seconds)
+   **Total running time of the script:** ( 0 minutes  1.128 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_shorelines.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: shorelines.py <shorelines.py>`
 
-     :download:`Download Python source code: shorelines.py <shorelines.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: shorelines.ipynb <shorelines.ipynb>`
+      :download:`Download Jupyter notebook: shorelines.ipynb <shorelines.ipynb>`
 
 
 .. only:: html

@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.which.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,6 +29,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
         <script src="../../_static/design-tabs.js"></script>
@@ -88,7 +90,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -107,7 +109,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.which</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.which</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.which"><code class="docutils literal notranslate"><span class="pre">which</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.test.html">pygmt.test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.print_clib_info.html">pygmt.print_clib_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.show_versions.html">pygmt.show_versions</a></li>
@@ -134,7 +139,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -159,9 +164,9 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">API Reference</a> &raquo;</li>
-      <li>pygmt.which</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.which</li>
     <li class="source-link">
         
             
@@ -185,14 +190,15 @@
 <dt class="sig sig-object py" id="pygmt.which">
 <span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">which</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/which.html#which"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.which" title="Permalink to this definition"></a></dt>
 <dd><p>Find the full path to specified files.</p>
-<p>Reports the full paths to the files given through <em>fname</em>. We look for
-the file in (1) the current directory, (2) in $GMT_USERDIR (if defined),
-(3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR (if defined).</p>
-<p><em>fname</em> can also be a downloadable file (either a full URL, a
+<p>Reports the full paths to the files given through <code class="docutils literal notranslate"><span class="pre">fname</span></code>. We look
+for the file in (1) the current directory, (2) in $GMT_USERDIR (if
+defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
+(if defined).</p>
+<p><code class="docutils literal notranslate"><span class="pre">fname</span></code> can also be a downloadable file (either a full URL, a
 <cite>&#64;file</cite> special file for downloading from the GMT Site Cache, or
-<cite>&#64;earth_relief_*</cite> topography grids). In these cases, use option <em>download</em>
-to set the desired behavior. If <em>download</em> is not used (or False), the file
-will not be found.</p>
+<cite>&#64;earth_relief_*</cite> topography grids). In these cases, use parameter
+<code class="docutils literal notranslate"><span class="pre">download</span></code> to set the desired behavior. If <code class="docutils literal notranslate"><span class="pre">download</span></code> is not used
+(or False), the file will not be found.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmtwhich.html">https://docs.generic-mapping-tools.org/latest/gmtwhich.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -202,8 +208,8 @@ will not be found.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – One or more file names of any data type (grids, tables, etc.).</p></li>
-<li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>l</strong>|<strong>u</strong>].
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – One or more file names of any data type (grids, tables, etc.).</p></li>
+<li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>l</strong>|<strong>u</strong>].
 If the fname argument is a downloadable file (either a complete URL, an
 &#64;file for downloading from the GMT data server, or &#64;earth_relief_xxy)
 we will try to download the file if it is not found in your local data
@@ -213,13 +219,13 @@ appropriate folder under the user directory (this is where GMT normally
 places downloaded files), <strong>c</strong> to place it in the user cache
 directory, or <strong>u</strong> for the user data directory instead (i.e., ignoring
 any subdirectory structure).</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
 <li><p><strong>e</strong> - Error messages only</p></li>
 <li><p><strong>w</strong> - Warnings [Default]</p></li>
-<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms);</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
 <li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
 <li><p><strong>c</strong> - Compatibility warnings</p></li>
 <li><p><strong>d</strong> - Debugging messages</p></li>
@@ -228,10 +234,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>path</strong> (<em>str or list</em>) – The path(s) to the file(s), depending on the options used.</p>
+<dd class="field-even"><p><strong>path</strong> (<em>str or list</em>) – The path(s) to the file(s), depending on the parameters used.</p>
 </dd>
 <dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.10)"><strong>FileNotFoundError</strong></a> – If the file is not found.</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.11)"><strong>FileNotFoundError</strong></a> – If the file is not found.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -251,9 +257,9 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

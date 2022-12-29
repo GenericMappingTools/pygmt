@@ -32,7 +32,7 @@ Specifying the same scale for the ``projection`` and ``zscale`` parameters
 ensures equal axis scaling. The ``shading`` parameter specifies illumination;
 here we choose an azimuth of 45° with ``shading="+a45"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-55
+.. GENERATED FROM PYTHON SOURCE LINES 16-63
 
 
 
@@ -43,8 +43,6 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -85,10 +83,12 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     fig = pygmt.Figure()
 
     # Plot grid as a 3-D surface
-    SCALE = 0.5  # in centimeter
+    SCALE = 0.5  # in centimeters
     fig.grdview(
         data,
-        frame=["a5f1", "za5f1"],
+        # Set annotations and gridlines in steps of five, and
+        # tick marks in steps of one
+        frame=["a5f1g5", "za5f1g5"],
         projection=f"x{SCALE}c",
         zscale=f"{SCALE}c",
         surftype="s",
@@ -97,33 +97,34 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
         shading="+a45",
     )
 
+    # Add colorbar for gridded data
+    fig.colorbar(
+        frame="a2f1",  # Set annotations in steps of two, tick marks in steps of one
+        position="JRM",  # Place colorbar at position Right Middle
+    )
+
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.536 seconds)
+   **Total running time of the script:** ( 0 minutes  6.553 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: grdview_surface.py <grdview_surface.py>`
 
-     :download:`Download Python source code: grdview_surface.py <grdview_surface.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: grdview_surface.ipynb <grdview_surface.ipynb>`
+      :download:`Download Jupyter notebook: grdview_surface.ipynb <grdview_surface.ipynb>`
 
 
 .. only:: html

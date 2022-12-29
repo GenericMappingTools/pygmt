@@ -65,8 +65,6 @@ Use the ``shorelines`` parameter to plot only the shorelines:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -84,7 +82,7 @@ The shorelines are divided in 4 levels:
 4. lake-in-island-in-lake shore
 
 You can specify which level you want to plot by passing the level number and
-a GMT pen configuration. For example, to plot just the coastlines with 0.5
+a GMT pen configuration. For example, to plot just the coastlines with 0.5p
 thickness and black lines:
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-39
@@ -107,8 +105,6 @@ thickness and black lines:
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -142,8 +138,6 @@ You can specify multiple levels (with their own pens) by passing a list to
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -189,8 +183,6 @@ between levels:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -227,8 +219,6 @@ used in HTML and CSS):
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -239,28 +229,23 @@ used in HTML and CSS):
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.420 seconds)
+   **Total running time of the script:** ( 0 minutes  6.347 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_coastlines.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: coastlines.py <coastlines.py>`
 
-     :download:`Download Python source code: coastlines.py <coastlines.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: coastlines.ipynb <coastlines.ipynb>`
+      :download:`Download Jupyter notebook: coastlines.ipynb <coastlines.ipynb>`
 
 
 .. only:: html

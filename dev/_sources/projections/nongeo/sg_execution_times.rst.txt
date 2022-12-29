@@ -5,14 +5,14 @@
 
 Computation times
 =================
-**00:05.543** total execution time for **projections_nongeo** files:
+**00:05.348** total execution time for **projections_nongeo** files:
 
 +--------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_nongeo_polar.py` (``polar.py``)                                 | 00:03.143 | 0.0 MB |
+| :ref:`sphx_glr_projections_nongeo_polar.py` (``polar.py``)                                 | 00:02.410 | 0.0 MB |
 +--------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``cartesian_logarithmic.py``) | 00:00.852 | 0.0 MB |
+| :ref:`sphx_glr_projections_nongeo_cartesian_logarithmic.py` (``cartesian_logarithmic.py``) | 00:01.078 | 0.0 MB |
 +--------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``cartesian_power.py``)             | 00:00.836 | 0.0 MB |
+| :ref:`sphx_glr_projections_nongeo_cartesian_power.py` (``cartesian_power.py``)             | 00:00.987 | 0.0 MB |
 +--------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_nongeo_cartesian_linear.py` (``cartesian_linear.py``)           | 00:00.711 | 0.0 MB |
+| :ref:`sphx_glr_projections_nongeo_cartesian_linear.py` (``cartesian_linear.py``)           | 00:00.873 | 0.0 MB |
 +--------------------------------------------------------------------------------------------+-----------+--------+

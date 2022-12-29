@@ -37,8 +37,6 @@ created when the ``label`` parameter is used.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -56,17 +54,17 @@ created when the ``label`` parameter is used.
 
     fig = pygmt.Figure()
 
-    fig.basemap(projection="x1i", region=[0, 7, 3, 7], frame=True)
+    fig.basemap(projection="x2c", region=[0, 7, 3, 7], frame=True)
 
     fig.plot(
         data="@Table_5_11.txt",
-        style="c0.15i",
-        color="lightgreen",
+        style="c0.40c",
+        fill="lightgreen",
         pen="faint",
         label="Apples",
     )
     fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-    fig.plot(data="@Table_5_11.txt", style="t0.15i", color="orange", label="Oranges")
+    fig.plot(data="@Table_5_11.txt", style="t0.40c", fill="orange", label="Oranges")
 
     fig.legend(position="JTR+jTR+o0.2c", box=True)
 
@@ -75,28 +73,23 @@ created when the ``label`` parameter is used.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.157 seconds)
+   **Total running time of the script:** ( 0 minutes  1.288 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_legend.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: legend.py <legend.py>`
 
-     :download:`Download Python source code: legend.py <legend.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: legend.ipynb <legend.ipynb>`
+      :download:`Download Jupyter notebook: legend.ipynb <legend.ipynb>`
 
 
 .. only:: html

@@ -38,8 +38,6 @@ See also
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -90,7 +88,7 @@ See also
     # data for circular vectors
     data = np.column_stack([x, y, radius, startdir, stopdir])
     arcstyle = "m0.5c+ea"  # Circular vector (m) with an arrow at end
-    fig.plot(data=data, style=arcstyle, color="red3", pen="1.5p,black")
+    fig.plot(data=data, style=arcstyle, fill="red3", pen="1.5p,black")
     fig.text(text="CIRCULAR", x=-95, y=44.2, font="13p,Helvetica-Bold,black", fill="white")
 
 
@@ -113,28 +111,23 @@ See also
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.683 seconds)
+   **Total running time of the script:** ( 0 minutes  1.999 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_vector_styles.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: vector_styles.py <vector_styles.py>`
 
-     :download:`Download Python source code: vector_styles.py <vector_styles.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: vector_styles.ipynb <vector_styles.ipynb>`
+      :download:`Download Jupyter notebook: vector_styles.ipynb <vector_styles.ipynb>`
 
 
 .. only:: html

@@ -58,8 +58,6 @@ argument. To make the main front line invisible, add **+i**.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -82,7 +80,7 @@ argument. To make the main front line invisible, add **+i**.
     y = np.array([20, 20])
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame='+t"Line Fronts"')
+    fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tLine Fronts")
 
     # Plot the line using different front styles
     for frontstyle in [
@@ -121,7 +119,7 @@ argument. To make the main front line invisible, add **+i**.
         "f0.5c/0.3c+r+t+o0.3c+p+i",
     ]:
         y -= 1  # move the current line down
-        fig.plot(x=x, y=y, pen="1.25p", style=frontstyle, color="red3")
+        fig.plot(x=x, y=y, pen="1.25p", style=frontstyle, fill="red3")
         fig.text(
             x=x[-1],
             y=y[-1],
@@ -136,28 +134,23 @@ argument. To make the main front line invisible, add **+i**.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.980 seconds)
+   **Total running time of the script:** ( 0 minutes  3.726 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linefronts.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: linefronts.py <linefronts.py>`
 
-     :download:`Download Python source code: linefronts.py <linefronts.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: linefronts.ipynb <linefronts.ipynb>`
+      :download:`Download Jupyter notebook: linefronts.ipynb <linefronts.ipynb>`
 
 
 .. only:: html

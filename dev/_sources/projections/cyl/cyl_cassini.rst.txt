@@ -48,8 +48,6 @@ The projection is set with **c** or **C**. The projection center is set by
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -73,28 +71,23 @@ The projection is set with **c** or **C**. The projection center is set by
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.006 seconds)
+   **Total running time of the script:** ( 0 minutes  1.196 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_cassini.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cyl_cassini.py <cyl_cassini.py>`
 
-     :download:`Download Python source code: cyl_cassini.py <cyl_cassini.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cyl_cassini.ipynb <cyl_cassini.ipynb>`
+      :download:`Download Jupyter notebook: cyl_cassini.ipynb <cyl_cassini.ipynb>`
 
 
 .. only:: html

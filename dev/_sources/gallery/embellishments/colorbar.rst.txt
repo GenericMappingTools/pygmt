@@ -33,8 +33,8 @@ the colorbar using the following options:
   ``position="jTR"`` for top right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
   170E, latitude 45S.
-- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm,7 cm from
-  anchor point.
+- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
+  from anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
@@ -52,8 +52,6 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -70,13 +68,13 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
     import pygmt
 
     fig = pygmt.Figure()
-    fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", 'WSne+t"Colorbars"'])
+    fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
 
-    ## Create a colorbar designed for seismic tomography - roma
+    # Create a colorbar designed for seismic tomography - roma
     # Colorbar is placed at bottom center (BC) by default if no position is given
     fig.colorbar(cmap="roma", frame=["x+lVelocity", "y+lm/s"])
 
-    ## Create a colorbar showing the scientific rainbow - batlow
+    # Create a colorbar showing the scientific rainbow - batlow
     fig.colorbar(
         cmap="batlow",
         # Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,
@@ -87,7 +85,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
         scale=100,
     )
 
-    ## Create a colorbar suitable for surface topography - oleron
+    # Create a colorbar suitable for surface topography - oleron
     fig.colorbar(
         cmap="oleron",
         # Colorbar position justified outside map frame (J) at Middle Right (MR),
@@ -106,28 +104,23 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.036 seconds)
+   **Total running time of the script:** ( 0 minutes  1.193 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbar.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: colorbar.py <colorbar.py>`
 
-     :download:`Download Python source code: colorbar.py <colorbar.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: colorbar.ipynb <colorbar.ipynb>`
+      :download:`Download Jupyter notebook: colorbar.ipynb <colorbar.ipynb>`
 
 
 .. only:: html

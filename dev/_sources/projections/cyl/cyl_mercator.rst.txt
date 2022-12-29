@@ -32,7 +32,7 @@ course for the entire voyage. The Mercator projection has been used extensively
 for world maps in which the distortion towards the polar regions grows
 rather large.
 
-**m**\ [*lon0[/lat0]*]\ */scale* or **M**\ [*lon0*][*/lat0*]\ */width*
+**m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
@@ -49,8 +49,6 @@ The figure size is set with *scale* or *width*.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -74,28 +72,23 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.823 seconds)
+   **Total running time of the script:** ( 0 minutes  0.949 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cyl_mercator.py <cyl_mercator.py>`
 
-     :download:`Download Python source code: cyl_mercator.py <cyl_mercator.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cyl_mercator.ipynb <cyl_mercator.ipynb>`
+      :download:`Download Jupyter notebook: cyl_mercator.ipynb <cyl_mercator.ipynb>`
 
 
 .. only:: html

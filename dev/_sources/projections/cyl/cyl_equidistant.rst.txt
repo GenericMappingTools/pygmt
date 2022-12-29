@@ -26,12 +26,15 @@ latitudes. The most common form is the Plate Carrée projection, where the
 scaling of longitudes and latitudes is the same. All meridians and parallels
 are straight lines.
 
-**q**\ *scale* or **Q**\ *width*
+**q**\ [*lon0*/\ [*lat0*/]]\ *scale* or **Q**\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **q** or **Q**, and the figure size is set with
-*scale* or *width*.
+*scale* or *width*. Optionally, the central meridian can be set with *lon0*
+[Default is the middle of the map]. Optionally, the standard parallel can
+be set with *lat0* [Default is the equator]. When supplied, the central
+meridian must be supplied as well.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-27
+.. GENERATED FROM PYTHON SOURCE LINES 18-30
 
 
 
@@ -42,8 +45,6 @@ The projection is set with **q** or **Q**, and the figure size is set with
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -74,28 +75,23 @@ The projection is set with **q** or **Q**, and the figure size is set with
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.787 seconds)
+   **Total running time of the script:** ( 0 minutes  0.899 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equidistant.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cyl_equidistant.py <cyl_equidistant.py>`
 
-     :download:`Download Python source code: cyl_equidistant.py <cyl_equidistant.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cyl_equidistant.ipynb <cyl_equidistant.ipynb>`
+      :download:`Download Jupyter notebook: cyl_equidistant.ipynb <cyl_equidistant.ipynb>`
 
 
 .. only:: html

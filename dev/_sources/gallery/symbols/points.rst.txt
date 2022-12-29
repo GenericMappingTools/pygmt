@@ -36,8 +36,6 @@ is set with the ``style`` parameter.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -65,34 +63,29 @@ is set with the ``style`` parameter.
     # data region
     fig.basemap(region=region, projection="X15c", frame=True)
     # Plot using inverted triangles (i) of 0.5 cm size
-    fig.plot(x=x, y=y, style="i0.5c", color="black")
+    fig.plot(x=x, y=y, style="i0.5c", fill="black")
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.897 seconds)
+   **Total running time of the script:** ( 0 minutes  1.033 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: points.py <points.py>`
 
-     :download:`Download Python source code: points.py <points.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: points.ipynb <points.ipynb>`
+      :download:`Download Jupyter notebook: points.ipynb <points.ipynb>`
 
 
 .. only:: html

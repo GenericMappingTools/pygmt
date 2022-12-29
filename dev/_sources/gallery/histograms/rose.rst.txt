@@ -36,8 +36,6 @@ histograms.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -78,7 +76,7 @@ histograms.
         # 0 to 1
         norm=True,
         # use red3 as color fill for the sectors
-        color="red3",
+        fill="red3",
         # define the frame with ticks and gridlines every 0.2
         # length unit in radial direction and every 30 degrees
         # in azimuthal direction, set background color to
@@ -93,28 +91,23 @@ histograms.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.730 seconds)
+   **Total running time of the script:** ( 0 minutes  0.814 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_rose.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: rose.py <rose.py>`
 
-     :download:`Download Python source code: rose.py <rose.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: rose.ipynb <rose.ipynb>`
+      :download:`Download Jupyter notebook: rose.ipynb <rose.ipynb>`
 
 
 .. only:: html

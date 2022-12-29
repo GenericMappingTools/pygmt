@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_earth_age.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,13 +29,14 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
         <script src="../../_static/design-tabs.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.datasets.load_earth_relief" href="pygmt.datasets.load_earth_relief.html" />
+    <link rel="next" title="pygmt.datasets.load_earth_free_air_anomaly" href="pygmt.datasets.load_earth_free_air_anomaly.html" />
     <link rel="prev" title="pygmt.datasets.list_sample_data" href="pygmt.datasets.list_sample_data.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -88,7 +90,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -109,8 +111,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#datasets">Datasets</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.list_sample_data.html">pygmt.datasets.list_sample_data</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_earth_age</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_earth_age</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.datasets.load_earth_age"><code class="docutils literal notranslate"><span class="pre">load_earth_age</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_free_air_anomaly.html">pygmt.datasets.load_earth_free_air_anomaly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_geoid.html">pygmt.datasets.load_earth_geoid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_magnetic_anomaly.html">pygmt.datasets.load_earth_magnetic_anomaly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_relief.html">pygmt.datasets.load_earth_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_data.html">pygmt.datasets.load_sample_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_fractures_compilation.html">pygmt.datasets.load_fractures_compilation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_hotspots.html">pygmt.datasets.load_hotspots</a></li>
@@ -141,7 +150,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -166,9 +175,9 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">API Reference</a> &raquo;</li>
-      <li>pygmt.datasets.load_earth_age</li>
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.datasets.load_earth_age</li>
     <li class="source-link">
         
             
@@ -205,30 +214,42 @@ registration).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> stand for
-arc-degree, arc-minute and arc-second. It can be <code class="docutils literal notranslate"><span class="pre">'01d'</span></code>, <code class="docutils literal notranslate"><span class="pre">'30m'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'20m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'15m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'10m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'06m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'05m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'04m'</span></code>,
-<code class="docutils literal notranslate"><span class="pre">'03m'</span></code>, <code class="docutils literal notranslate"><span class="pre">'02m'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'01m'</span></code>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><em>list</em></a>) – The subregion of the grid to load, in the forms of a list
+<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> stand for
+arc-degrees and arc-minutes. It can be <code class="docutils literal notranslate"><span class="pre">&quot;01d&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;30m&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;20m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;15m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;10m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;06m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;04m&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;03m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;01m&quot;</span></code>.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – The subregion of the grid to load, in the form of a list
 [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>] or a string <em>xmin/xmax/ymin/ymax</em>.
 Required for grids with resolutions higher than 5
-arc-minute (i.e., <code class="docutils literal notranslate"><span class="pre">05m</span></code>).</p></li>
-<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">pixel</span></code> for pixel registration or
-<code class="docutils literal notranslate"><span class="pre">gridline</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, where
-a pixel-registered grid is returned unless only the
-gridline-registered grid is available.</p></li>
+arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>).</p></li>
+<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> for pixel registration or
+<code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth seafloor crustal age grid. Coordinates are latitude and
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth seafloor crustal age grid. Coordinates are latitude and
 longitude in degrees. Age is in millions of years (Myr).</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
+<p>The <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
 Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
 which are stored as smaller tiles.</p>
+</div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">load_earth_age</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_age</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_age</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span> <span class="o">=</span> <span class="n">load_earth_age</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;05m&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">registration</span><span class="o">=</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -240,16 +261,16 @@ which are stored as smaller tiles.</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.datasets.list_sample_data.html" class="btn btn-neutral float-left" title="pygmt.datasets.list_sample_data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.datasets.load_earth_relief.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_earth_relief" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.datasets.load_earth_free_air_anomaly.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_earth_free_air_anomaly" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

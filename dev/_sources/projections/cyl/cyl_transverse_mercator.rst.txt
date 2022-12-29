@@ -28,7 +28,7 @@ infinity at 90° from center. The central meridian, each meridian 90° away from
 the center, and equator are straight lines; other parallels and meridians are
 complex curves.
 
-**t**\ *lon0/*\ [*lat0/*\ ]\ *scale* or **T**\ *lon0/*\ [*lat0/*\ ]\ *width*
+**t**\ *lon0*\ [/\ *lat0*]/\ *scale* or **T**\ *lon0*\ [/\ *lat0*]/\ *width*
 
 The projection is set with **t** or **T**. The central meridian is set
 by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
@@ -45,8 +45,6 @@ figure size is set with *scale* or *width*.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -77,28 +75,23 @@ figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.845 seconds)
+   **Total running time of the script:** ( 0 minutes  1.003 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_transverse_mercator.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cyl_transverse_mercator.py <cyl_transverse_mercator.py>`
 
-     :download:`Download Python source code: cyl_transverse_mercator.py <cyl_transverse_mercator.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cyl_transverse_mercator.ipynb <cyl_transverse_mercator.ipynb>`
+      :download:`Download Jupyter notebook: cyl_transverse_mercator.ipynb <cyl_transverse_mercator.ipynb>`
 
 
 .. only:: html

@@ -40,8 +40,6 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -76,7 +74,7 @@ inside a rectangle of dimension east_sigma by north_sigma.
         data=df,
         region=[-10, 8, -10, 6],
         pen="0.6p,red",
-        uncertaintycolor="lightblue1",
+        uncertaintyfill="lightblue1",
         line=True,
         spec="e0.2/0.39/18",
         frame=["WSne", "2g2f"],
@@ -89,28 +87,23 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.922 seconds)
+   **Total running time of the script:** ( 0 minutes  1.037 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: velo_arrow_ellipse.py <velo_arrow_ellipse.py>`
 
-     :download:`Download Python source code: velo_arrow_ellipse.py <velo_arrow_ellipse.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: velo_arrow_ellipse.ipynb <velo_arrow_ellipse.ipynb>`
+      :download:`Download Jupyter notebook: velo_arrow_ellipse.ipynb <velo_arrow_ellipse.ipynb>`
 
 
 .. only:: html

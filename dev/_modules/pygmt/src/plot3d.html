@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/plot3d.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.plot3d</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.plot3d</li>
     <li class="source-link">
         
     </li>
@@ -161,6 +163,7 @@
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">is_nonstr_iter</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
@@ -170,12 +173,13 @@
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.8.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.12.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;straight_line&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;intensity&quot;</span><span class="p">,</span>
     <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">Jz</span><span class="o">=</span><span class="s2">&quot;zscale&quot;</span><span class="p">,</span>
@@ -187,8 +191,6 @@
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
-    <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
-    <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zvalue&quot;</span><span class="p">,</span>
     <span class="n">a</span><span class="o">=</span><span class="s2">&quot;aspatial&quot;</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
@@ -211,13 +213,13 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot lines, polygons, and symbols in 3-D.</span>
 
-<span class="sd">    Takes a matrix, (x,y,z) triplets, or a file name as input and plots</span>
+<span class="sd">    Takes a matrix, (x, y, z) triplets, or a file name as input and plots</span>
 <span class="sd">    lines, polygons, or symbols at those locations in 3-D.</span>
 
-<span class="sd">    Must provide either ``data`` or ``x``/``y``/``z``.</span>
+<span class="sd">    Must provide either ``data`` or ``x``, ``y``, and ``z``.</span>
 
-<span class="sd">    If providing data through ``x/y/z``, ``color`` can be a 1d array</span>
-<span class="sd">    that will be mapped to a colormap.</span>
+<span class="sd">    If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a</span>
+<span class="sd">    1-D array that will be mapped to a colormap.</span>
 
 <span class="sd">    If a symbol is selected and no symbol size given, then plot3d will</span>
 <span class="sd">    interpret the fourth column of the input data as symbol size. Symbols</span>
@@ -225,9 +227,9 @@
 <span class="sd">    symbol code (see ``style`` below) must be present as last column in the</span>
 <span class="sd">    input. If ``style`` is not used, a line connecting the data points will</span>
 <span class="sd">    be drawn instead. To explicitly close polygons, use ``close``. Select a</span>
-<span class="sd">    fill with ``color``. If ``color`` is set, ``pen`` will control whether the</span>
-<span class="sd">    polygon outline is drawn or not. If a symbol is selected, ``color`` and</span>
-<span class="sd">    ``pen`` determines the fill and outline/no outline, respectively.</span>
+<span class="sd">    fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the</span>
+<span class="sd">    polygon outline is drawn or not. If a symbol is selected, ``fill`` and</span>
+<span class="sd">    ``pen`` determine the fill and outline/no outline, respectively.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`plot3d.html`</span>
 
@@ -236,24 +238,24 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or {table-like}</span>
-<span class="sd">        Either a data file name, a 2d {table-classes}.</span>
+<span class="sd">        Either a data file name, a 2-D {table-classes}.</span>
 <span class="sd">        Optionally, use parameter ``incols`` to specify which columns are x, y,</span>
-<span class="sd">        z, color, and size, respectively.</span>
-<span class="sd">    x/y/z : float or 1d arrays</span>
+<span class="sd">        z, fill, and size, respectively.</span>
+<span class="sd">    x/y/z : float or 1-D arrays</span>
 <span class="sd">        The x, y, and z coordinates, or arrays of x, y and z coordinates of</span>
 <span class="sd">        the data points</span>
-<span class="sd">    size : 1d array</span>
+<span class="sd">    size : 1-D array</span>
 <span class="sd">        The size of the data points in units specified in ``style``.</span>
 <span class="sd">        Only valid if using ``x``/``y``/``z``.</span>
-<span class="sd">    direction : list of two 1d arrays</span>
-<span class="sd">        If plotting vectors (using ``style=&#39;V&#39;`` or ``style=&#39;v&#39;``), then</span>
-<span class="sd">        should be a list of two 1d arrays with the vector directions. These</span>
+<span class="sd">    direction : list of two 1-D arrays</span>
+<span class="sd">        If plotting vectors (using ``style=&quot;V&quot;`` or ``style=&quot;v&quot;``), then</span>
+<span class="sd">        should be a list of two 1-D arrays with the vector directions. These</span>
 <span class="sd">        can be angle and length, azimuth and length, or x and y components,</span>
 <span class="sd">        depending on the style options chosen.</span>
-<span class="sd">    {J}</span>
+<span class="sd">    {projection}</span>
 <span class="sd">    zscale/zsize : float or str</span>
 <span class="sd">        Set z-axis scaling or z-axis size.</span>
-<span class="sd">    {R}</span>
+<span class="sd">    {region}</span>
 <span class="sd">    straight_line : bool or str</span>
 <span class="sd">        [**m**\|\ **p**\|\ **x**\|\ **y**].</span>
 <span class="sd">        By default, geographic line segments are drawn as great circle</span>
@@ -266,22 +268,22 @@
 <span class="sd">        stair-case curves that whose first move is along *x* or *y*,</span>
 <span class="sd">        respectively. **Note**: The ``straight_line`` parameter requires</span>
 <span class="sd">        constant *z*-coordinates.</span>
-<span class="sd">    {B}</span>
-<span class="sd">    {CPT}</span>
+<span class="sd">    {frame}</span>
+<span class="sd">    {cmap}</span>
 <span class="sd">    offset : str</span>
 <span class="sd">        *dx*/*dy*\ [/*dz*].</span>
 <span class="sd">        Offset the plot symbol or line locations by the given amounts</span>
 <span class="sd">        *dx*/*dy*\ [/*dz*] [Default is no offset].</span>
-<span class="sd">    {G}</span>
-<span class="sd">        *color* can be a 1d array, but it is only valid if using ``x``/``y``</span>
+<span class="sd">    {fill}</span>
+<span class="sd">        *fill* can be a 1-D array, but it is only valid if using ``x``/``y``</span>
 <span class="sd">        and ``cmap=True`` is also required.</span>
-<span class="sd">    intensity : float or bool or 1d array</span>
+<span class="sd">    intensity : float or bool or 1-D array</span>
 <span class="sd">        Provide an *intensity* value (nominally in the -1 to +1 range) to</span>
 <span class="sd">        modulate the fill color by simulating illumination. If using</span>
 <span class="sd">        ``intensity=True``, we will instead read *intensity* from the first</span>
 <span class="sd">        data column after the symbol parameters (if given). *intensity* can</span>
-<span class="sd">        also be a 1d array to set varying intensity for symbols, but it is only</span>
-<span class="sd">        valid for ``x``/``y``/``z``.</span>
+<span class="sd">        also be a 1-D array to set varying intensity for symbols, but it is</span>
+<span class="sd">        only valid for ``x``/``y``/``z``.</span>
 
 <span class="sd">    close : str</span>
 <span class="sd">        [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\</span>
@@ -306,34 +308,34 @@
 <span class="sd">        the foreground are plotted after items in the background.</span>
 <span class="sd">    style : str</span>
 <span class="sd">        Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.</span>
-<span class="sd">    {U}</span>
-<span class="sd">    {V}</span>
-<span class="sd">    {W}</span>
-<span class="sd">    {XY}</span>
+<span class="sd">    {timestamp}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    {pen}</span>
 <span class="sd">    zvalue : str</span>
 <span class="sd">        *value*\|\ *file*.</span>
 <span class="sd">        Instead of specifying a symbol or polygon fill and outline color</span>
-<span class="sd">        via ``color`` and ``pen``, give both a *value* via **zvalue** and a</span>
+<span class="sd">        via ``fill`` and ``pen``, give both a *value* via **zvalue** and a</span>
 <span class="sd">        color lookup table via ``cmap``.  Alternatively, give the name of a</span>
 <span class="sd">        *file* with one z-value (read from the last column) for each</span>
 <span class="sd">        polygon in the input data. To apply it to the fill color, use</span>
-<span class="sd">        ``color=&#39;+z&#39;``. To apply it to the pen color, append **+z** to</span>
+<span class="sd">        ``fill=&quot;+z&quot;``. To apply it to the pen color, append **+z** to</span>
 <span class="sd">        ``pen``.</span>
-<span class="sd">    {a}</span>
-<span class="sd">    {b}</span>
-<span class="sd">    {c}</span>
-<span class="sd">    {d}</span>
-<span class="sd">    {e}</span>
-<span class="sd">    {f}</span>
-<span class="sd">    {g}</span>
-<span class="sd">    {h}</span>
-<span class="sd">    {i}</span>
-<span class="sd">    {l}</span>
-<span class="sd">    {p}</span>
-<span class="sd">    {t}</span>
-<span class="sd">        *transparency* can also be a 1d array to set varying transparency</span>
-<span class="sd">        for symbols, but this option is only valid if using x/y/z.</span>
-<span class="sd">    {w}</span>
+<span class="sd">    {aspatial}</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {panel}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {find}</span>
+<span class="sd">    {coltypes}</span>
+<span class="sd">    {gap}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {incols}</span>
+<span class="sd">    {label}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">        ``transparency`` can also be a 1-D array to set varying</span>
+<span class="sd">        transparency for symbols, but this option is only valid if using</span>
+<span class="sd">        ``x``/``y``/``z``.</span>
+<span class="sd">    {wrap}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-locals</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
@@ -362,7 +364,7 @@
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Can&#39;t use arrays for color if data is matrix or file.&quot;</span>
+                <span class="s2">&quot;Can&#39;t use arrays for fill if data is matrix or file.&quot;</span>
             <span class="p">)</span>
         <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">])</span>
         <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span>
@@ -409,9 +411,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

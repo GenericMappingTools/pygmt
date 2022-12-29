@@ -100,8 +100,6 @@ of 0.3 centimeters.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -150,7 +148,7 @@ Some notable differences to the previous example include
         y=y,
         style="c0.4c",
         pen="1p",
-        color="blue",
+        fill="blue",
     )
     fig.show()
 
@@ -164,8 +162,6 @@ Some notable differences to the previous example include
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -189,7 +185,7 @@ can be seen in the following example. This character is immediately followed
 by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
 marking the two digit hour value, two digit minute value, and two digit
 second value respectively. The figure in the following example is plotted
-over a horizontal range of one year from 1/1/2016 to 1/1/2017.
+over a horizontal range of one year from 2016-01-01 to 2017-01-01.
 
 .. GENERATED FROM PYTHON SOURCE LINES 111-127
 
@@ -201,13 +197,13 @@ over a horizontal range of one year from 1/1/2016 to 1/1/2017.
     fig = pygmt.Figure()
     fig.plot(
         projection="X10c/5c",
-        region=["2016-01-01", "2017-01-1", 0, 6],
+        region=["2016-01-01", "2017-01-01", 0, 6],
         frame=["WSen", "afg"],
         x=x,
         y=y,
         style="a0.45c",
         pen="1p",
-        color="dodgerblue",
+        fill="dodgerblue",
     )
     fig.show()
 
@@ -221,8 +217,6 @@ over a horizontal range of one year from 1/1/2016 to 1/1/2017.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -257,7 +251,7 @@ between ISO and datetime in order to create valid plots.
         y=y,
         style="i0.4c",
         pen="1p",
-        color="yellow",
+        fill="yellow",
     )
     fig.show()
 
@@ -271,8 +265,6 @@ between ISO and datetime in order to create valid plots.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -313,7 +305,7 @@ in the list ``x`` that will be plotted.
         y=y,
         style="i0.4c",
         pen="1p",
-        color="purple",
+        fill="purple",
     )
     fig.show()
 
@@ -327,8 +319,6 @@ in the list ``x`` that will be plotted.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -367,7 +357,7 @@ valid DataArray.
         y=y,
         style="n0.4c",
         pen="1p",
-        color="red",
+        fill="red",
     )
     fig.show()
 
@@ -381,8 +371,6 @@ valid DataArray.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -418,7 +406,7 @@ datatypes.
         y=y,
         style="s0.5c",
         pen="1p",
-        color="blue",
+        fill="blue",
     )
     fig.show()
 
@@ -432,8 +420,6 @@ datatypes.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -449,7 +435,7 @@ Generating an automatic region
 
 Another way of creating charts involving datetime data can be done
 by automatically generating the region of the plot. This can be done
-by passing the dataframe to :meth:`pygmt.info`, which will find
+by passing the dataframe to :func:`pygmt.info`, which will find
 maximum and minimum values for each column and create a list
 that could be passed as region. Additionally, the ``spacing`` argument
 can be passed to increase the range past the maximum and minimum
@@ -485,7 +471,7 @@ data points.
         y=df.Score,
         style="c0.4c",
         pen="1p",
-        color="green3",
+        fill="green3",
     )
 
     fig.show()
@@ -500,8 +486,6 @@ data points.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -555,7 +539,7 @@ date formats can be found on the
             y=y,
             style="c0.4c",
             pen="1p",
-            color="green3",
+            fill="green3",
         )
 
     fig.show()
@@ -570,8 +554,6 @@ date formats can be found on the
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -623,7 +605,7 @@ time formats can be found on the
             y=y,
             style="n0.4c",
             pen="1p",
-            color="lightseagreen",
+            fill="lightseagreen",
         )
     fig.show()
 
@@ -637,8 +619,6 @@ time formats can be found on the
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -649,28 +629,23 @@ time formats can be found on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.167 seconds)
+   **Total running time of the script:** ( 0 minutes  8.337 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_date_time_charts.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: date_time_charts.py <date_time_charts.py>`
 
-     :download:`Download Python source code: date_time_charts.py <date_time_charts.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: date_time_charts.ipynb <date_time_charts.ipynb>`
+      :download:`Download Jupyter notebook: date_time_charts.ipynb <date_time_charts.ipynb>`
 
 
 .. only:: html

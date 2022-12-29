@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/rose.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.rose</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.rose</li>
     <li class="source-link">
         
     </li>
@@ -158,10 +160,17 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.8.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.12.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;sector&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
@@ -169,7 +178,7 @@
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;shift&quot;</span><span class="p">,</span>
     <span class="n">Em</span><span class="o">=</span><span class="s2">&quot;vectors&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;no_scale&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;inquire&quot;</span><span class="p">,</span>
     <span class="n">JX</span><span class="o">=</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;labels&quot;</span><span class="p">,</span>
@@ -181,8 +190,6 @@
     <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
-    <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
-    <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
     <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
@@ -216,14 +223,15 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or {table-like}</span>
-<span class="sd">        Pass in either a file name to an ASCII data table, a 2D</span>
+<span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
 <span class="sd">        {table-classes}.</span>
-<span class="sd">        Use option ``columns`` to choose which columns are length and azimuth,</span>
-<span class="sd">        respectively. If a file with only azimuths is given, use ``columns`` to</span>
-<span class="sd">        indicate the single column with azimuths; then all lengths are set to</span>
-<span class="sd">        unity (see ``scale = &#39;u&#39;`` to set actual lengths to unity as well).</span>
+<span class="sd">        Use parameter ``incols`` to choose which columns are length and</span>
+<span class="sd">        azimuth, respectively. If a file with only azimuths is given, use</span>
+<span class="sd">        ``incols`` to indicate the single column with azimuths; then all</span>
+<span class="sd">        lengths are set to unity (see ``scale=&quot;u&quot;`` to set actual</span>
+<span class="sd">        lengths to unity as well).</span>
 
-<span class="sd">    length/azimuth : float or 1d arrays</span>
+<span class="sd">    length/azimuth : float or 1-D arrays</span>
 <span class="sd">        Length and azimuth values, or arrays of length and azimuth</span>
 <span class="sd">        values</span>
 
@@ -232,27 +240,27 @@
 <span class="sd">        180 degree ambiguity) instead of true 0-360 degree directions</span>
 <span class="sd">        [Default is 0-360 degrees]. We compensate by counting each record</span>
 <span class="sd">        twice: First as azimuth and second as azimuth +180. Ignored if</span>
-<span class="sd">        range is given as -90/90 or 0/180.</span>
+<span class="sd">        ``region`` is given as (-90, 90) or (0, 180).</span>
 
 <span class="sd">    region : str or list</span>
+<span class="sd">        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].</span>
 <span class="sd">        *Required if this is the first plot command*.</span>
-<span class="sd">        *r0/r1/az0/az1*.</span>
-<span class="sd">        Specifies the &#39;region&#39; of interest in (*r*, *azimuth*) space. Here,</span>
-<span class="sd">        *r0* is 0, *r1* is max length in units. For *az0* and *az1*,</span>
-<span class="sd">        specify either -90/90 or 0/180 for half circle plot or 0/360 for</span>
-<span class="sd">        full circle.</span>
+<span class="sd">        Specifies the ``region`` of interest in (*r*, *azimuth*) space.</span>
+<span class="sd">        Here, *r0* is 0 and *r1* is the maximal length in units.</span>
+<span class="sd">        For *az0* and *az1*, specify either (-90, 90) or (0, 180) for</span>
+<span class="sd">        half circle plot or (0, 360) for full circle.</span>
 
 <span class="sd">    diameter : str</span>
 <span class="sd">         Sets the diameter of the rose diagram. If not given,</span>
 <span class="sd">         then we default to a diameter of 7.5 cm.</span>
 
-<span class="sd">    sector : str</span>
+<span class="sd">    sector : float or str</span>
 <span class="sd">         Gives the sector width in degrees for sector and rose diagram.</span>
-<span class="sd">         Default ``&#39;0&#39;`` means windrose diagram. Append **+r** to draw rose</span>
-<span class="sd">         diagram instead of sector diagram (e.g. ``&#39;10+r&#39;``).</span>
+<span class="sd">         Default ``0`` means windrose diagram. Append **+r** to draw rose</span>
+<span class="sd">         diagram instead of sector diagram (e.g. ``&quot;10+r&quot;``).</span>
 
 <span class="sd">    norm : bool</span>
-<span class="sd">         Normalize input radii (or bin counts if ``sector_width`` is used)</span>
+<span class="sd">         Normalize input radii (or bin counts if ``sector`` is used)</span>
 <span class="sd">         by the largest value so all radii (or bin counts) range from 0</span>
 <span class="sd">         to 1.</span>
 
@@ -263,12 +271,12 @@
 <span class="sd">         by the radial gridline spacing.</span>
 
 <span class="sd">    scale : float or str</span>
-<span class="sd">         Multiply the data radii by scale. E.g., use ``scale = 0.001`` to</span>
+<span class="sd">         Multiply the data radii by scale. E.g., use ``scale=0.001`` to</span>
 <span class="sd">         convert your data from m to km. To exclude the radii from</span>
-<span class="sd">         consideration, set them all to unity with ``scale = &#39;u&#39;``</span>
+<span class="sd">         consideration, set them all to unity with ``scale=&quot;u&quot;``</span>
 <span class="sd">         [Default is no scaling].</span>
 
-<span class="sd">    color : str</span>
+<span class="sd">    fill : str</span>
 <span class="sd">         Selects shade, color or pattern for filling the sectors [Default</span>
 <span class="sd">         is no fill].</span>
 
@@ -278,21 +286,22 @@
 
 <span class="sd">    pen : str</span>
 <span class="sd">        Set pen attributes for sector outline or rose plot, e.g.</span>
-<span class="sd">        ``pen = &#39;0.5p&#39;``. [Default is no outline]. To change pen used to</span>
+<span class="sd">        ``pen=&quot;0.5p&quot;``. [Default is no outline]. To change pen used to</span>
 <span class="sd">        draw vector (requires ``vectors``) [Default is same as sector</span>
-<span class="sd">        outline] use e.g. ``pen = &#39;v0.5p&#39;``.</span>
+<span class="sd">        outline] use e.g. ``pen=&quot;v0.5p&quot;``.</span>
 
 <span class="sd">    labels : str</span>
-<span class="sd">         ``&#39;wlabel,elabel,slabel,nlabel&#39;``. Specify labels for the 0, 90,</span>
-<span class="sd">         180, and 270 degree marks. For full-circle plot the default is</span>
-<span class="sd">         WEST,EAST,SOUTH,NORTH and for half-circle the default is</span>
-<span class="sd">         90W,90E,-,0. A **-** in any entry disables that label</span>
-<span class="sd">         (e.g. ``labels = &#39;W,E,-,N&#39;``). Use ``labels = &#39;&#39;`` to disable</span>
-<span class="sd">         all four labels. Note that the :gmt-term:`GMT_LANGUAGE` setting</span>
-<span class="sd">         will affect the words used.</span>
+<span class="sd">         *wlabel,elabel,slabel,nlabel*.</span>
+<span class="sd">         Specify labels for the 0, 90, 180, and 270 degree marks.</span>
+<span class="sd">         For full-circle plot the default is</span>
+<span class="sd">         ``&quot;West,East,South,North&quot;`` and for half-circle the default</span>
+<span class="sd">         is ``&quot;90W,90E,-,0&quot;``. A ``&quot;-&quot;`` in any entry disables that</span>
+<span class="sd">         label (e.g. ``labels=&quot;W,E,-,N&quot;``). Use ``labels=&quot;&quot;`` to</span>
+<span class="sd">         disable all four labels. Note that the</span>
+<span class="sd">         :gmt-term:`GMT_LANGUAGE` setting will affect the words used.</span>
 
 <span class="sd">    no_scale : bool</span>
-<span class="sd">         Do NOT draw the scale length bar (``no_scale = True``).</span>
+<span class="sd">         Do NOT draw the scale length bar (``no_scale=True``).</span>
 <span class="sd">         Default plots scale in lower right corner provided ``frame``</span>
 <span class="sd">         is used.</span>
 
@@ -301,13 +310,14 @@
 <span class="sd">         (e.g., first sector is centered on 0 degrees).</span>
 
 <span class="sd">    vectors : str</span>
-<span class="sd">          ``vectors = &#39;mode_file&#39;``. Plot vectors showing the</span>
-<span class="sd">          principal directions given in the *mode_file* file.</span>
+<span class="sd">          *mode_file*.</span>
+<span class="sd">          Plot vectors showing the principal directions given in</span>
+<span class="sd">          the *mode_file* file.</span>
 <span class="sd">          Alternatively, specify ``vectors`` to compute and plot</span>
 <span class="sd">          mean direction. See ``vector_params`` to control the vector</span>
 <span class="sd">          attributes. Finally, to instead save the computed mean</span>
 <span class="sd">          direction and other statistics, use</span>
-<span class="sd">          ``vectors = &#39;+wmode_file&#39;``. The eight items saved to</span>
+<span class="sd">          ``vectors=&quot;+wmode_file&quot;``. The eight items saved to</span>
 <span class="sd">          a single record are: *mean_az*, *mean_r*, *mean_resultant*,</span>
 <span class="sd">          *max_r*, *scaled_mean_r*, *length_sum*, *n*, *sign@alpha*,</span>
 <span class="sd">          where the last term is 0 or 1 depending on whether the mean</span>
@@ -326,28 +336,27 @@
 <span class="sd">    alpha : float or str</span>
 <span class="sd">        Sets the confidence level used to determine if the mean</span>
 <span class="sd">        resultant is significant (i.e., Lord Rayleigh test for</span>
-<span class="sd">        uniformity) [``alpha = 0.05``]. Note: The critical</span>
-<span class="sd">        values are approximated [Berens, 2009] and requires at</span>
-<span class="sd">        least 10 points; the critical resultants are accurate to at</span>
-<span class="sd">        least 3 significant digits. For smaller data sets you</span>
+<span class="sd">        uniformity) [Default is ``alpha=0.05``]. **Note**: The</span>
+<span class="sd">        critical values are approximated [Berens, 2009] and requires</span>
+<span class="sd">        at least 10 points; the critical resultants are accurate to</span>
+<span class="sd">        at least 3 significant digits. For smaller data sets you</span>
 <span class="sd">        should consult exact statistical tables.</span>
 
 <span class="sd">        Berens, P., 2009, CircStat: A MATLAB Toolbox for Circular</span>
 <span class="sd">        Statistics, *J. Stat. Software*, 31(10), 1-21,</span>
 <span class="sd">        https://doi.org/10.18637/jss.v031.i10.</span>
 
-<span class="sd">    {U}</span>
-<span class="sd">    {V}</span>
-<span class="sd">    {XY}</span>
-<span class="sd">    {b}</span>
-<span class="sd">    {c}</span>
-<span class="sd">    {d}</span>
-<span class="sd">    {e}</span>
-<span class="sd">    {h}</span>
-<span class="sd">    {i}</span>
-<span class="sd">    {p}</span>
-<span class="sd">    {t}</span>
-<span class="sd">    {w}</span>
+<span class="sd">    {timestamp}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {panel}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {find}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {incols}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">    {wrap}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
@@ -371,9 +380,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

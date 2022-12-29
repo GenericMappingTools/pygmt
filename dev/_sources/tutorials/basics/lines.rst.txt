@@ -73,8 +73,6 @@ scales using ``region`` (in this case, each axis is 0-10). Pass a list of
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -114,8 +112,6 @@ Additional line segments can be added by including additional values for
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -126,7 +122,7 @@ Additional line segments can be added by including additional values for
 .. GENERATED FROM PYTHON SOURCE LINES 46-49
 
 To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
-additional line. Arguments such as ``region``, ``projection``, and ``frame``
+additional line. Parameters such as ``region``, ``projection``, and ``frame``
 do not need to be repeated in subsequent uses.
 
 .. GENERATED FROM PYTHON SOURCE LINES 49-62
@@ -156,8 +152,6 @@ do not need to be repeated in subsequent uses.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -204,8 +198,6 @@ the default color and ``solid`` as the default style.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -244,8 +236,6 @@ parameter. In the example below, the line color is set to ``red``.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -286,8 +276,6 @@ The line style can be set and is added after the line width or color to the
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -331,8 +319,6 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -343,28 +329,23 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.112 seconds)
+   **Total running time of the script:** ( 0 minutes  5.991 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_lines.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: lines.py <lines.py>`
 
-     :download:`Download Python source code: lines.py <lines.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: lines.ipynb <lines.ipynb>`
+      :download:`Download Jupyter notebook: lines.ipynb <lines.ipynb>`
 
 
 .. only:: html

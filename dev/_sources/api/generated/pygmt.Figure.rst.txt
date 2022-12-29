@@ -104,6 +104,10 @@ pygmt.Figure
     
     
     
+    Figure.ternary
+    
+    
+    
     Figure.text
     
     

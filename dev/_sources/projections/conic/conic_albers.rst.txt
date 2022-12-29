@@ -50,8 +50,6 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -77,28 +75,23 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.972 seconds)
+   **Total running time of the script:** ( 0 minutes  1.142 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_albers.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: conic_albers.py <conic_albers.py>`
 
-     :download:`Download Python source code: conic_albers.py <conic_albers.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: conic_albers.ipynb <conic_albers.ipynb>`
+      :download:`Download Jupyter notebook: conic_albers.ipynb <conic_albers.ipynb>`
 
 
 .. only:: html

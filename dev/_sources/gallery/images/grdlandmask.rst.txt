@@ -20,7 +20,7 @@
 
 Create 'wet-dry' mask grid
 --------------------------
-The :meth:`pygmt.grdlandmask` method allows setting
+The :func:`pygmt.grdlandmask` function allows setting
 all nodes on land or water to a specified value using
 the ``maskvalues`` parameter.
 
@@ -35,8 +35,6 @@ the ``maskvalues`` parameter.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -63,7 +61,7 @@ the ``maskvalues`` parameter.
     # Assign a value of 0 for all water masses and a value of 1 for all land
     # masses.
     # Use shoreline data with (l)ow resolution and set the grid spacing to
-    # 5 arc minute in x and y direction.
+    # 5 arc-minutes in x and y direction.
     grid = pygmt.grdlandmask(region=region, spacing="5m", maskvalues=[0, 1], resolution="l")
 
     # Plot clipped grid
@@ -84,28 +82,23 @@ the ``maskvalues`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.129 seconds)
+   **Total running time of the script:** ( 0 minutes  1.346 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdlandmask.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: grdlandmask.py <grdlandmask.py>`
 
-     :download:`Download Python source code: grdlandmask.py <grdlandmask.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: grdlandmask.ipynb <grdlandmask.ipynb>`
+      :download:`Download Jupyter notebook: grdlandmask.ipynb <grdlandmask.ipynb>`
 
 
 .. only:: html

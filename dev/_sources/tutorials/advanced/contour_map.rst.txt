@@ -49,7 +49,7 @@ The :meth:`pygmt.Figure.grdcontour` method takes the grid input.
 It plots annotated contour lines, which are thicker and have the
 elevation/depth written on them, and unannotated contour lines.
 In the example below, the default contour line intervals are 500 meters,
-with an annotated contour line every 1000 meters.
+with an annotated contour line every 1,000 meters.
 By default, it plots the map with the
 equidistant cylindrical projection and with no frame.
 
@@ -73,8 +73,6 @@ equidistant cylindrical projection and with no frame.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -87,7 +85,7 @@ equidistant cylindrical projection and with no frame.
 Contour line settings
 ---------------------
 
-Use the ``annotation`` and ``interval`` arguments to adjust contour line
+Use the ``annotation`` and ``interval`` parameters to adjust contour line
 intervals. In the example below, there are contour intervals every 250 meters
 and annotated contour lines every 1,000 meters.
 
@@ -115,8 +113,6 @@ and annotated contour lines every 1,000 meters.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -129,8 +125,8 @@ and annotated contour lines every 1,000 meters.
 Contour limits
 --------------
 
-The ``limit`` argument sets the minimum and maximum values for the contour
-lines. The argument takes the low and high values, and is either a list (as
+The ``limit`` parameter sets the minimum and maximum values for the contour
+lines. The parameter takes the low and high values, and is either a list (as
 below) or a string ``limit="-4000/-2000"``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-63
@@ -158,8 +154,6 @@ below) or a string ``limit="-4000/-2000"``.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -172,7 +166,7 @@ below) or a string ``limit="-4000/-2000"``.
 Map settings
 ------------
 
-The :meth:`pygmt.Figure.grdcontour` method accepts additional arguments,
+The :meth:`pygmt.Figure.grdcontour` method accepts additional parameters,
 including setting the projection and frame.
 
 .. GENERATED FROM PYTHON SOURCE LINES 69-81
@@ -202,8 +196,6 @@ including setting the projection and frame.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -211,7 +203,7 @@ including setting the projection and frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-91
+.. GENERATED FROM PYTHON SOURCE LINES 82-92
 
 Adding a colormap
 -----------------
@@ -219,11 +211,12 @@ Adding a colormap
 The :meth:`pygmt.Figure.grdimage` method can be used to add a
 colormap to the contour map. It must be called prior to
 :meth:`pygmt.Figure.grdcontour` to keep the contour lines visible on the
-final map. If the ``projection`` argument is specified in the
+final map. If the ``projection`` parameter is specified in the
 :meth:`pygmt.Figure.grdimage` method, it does not need to be repeated in the
-:meth:`pygmt.Figure.grdcontour` method.
+:meth:`pygmt.Figure.grdcontour` method. Finally, a colorbar is added using
+the :meth:`pygmt.Figure.colorbar` method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-106
+.. GENERATED FROM PYTHON SOURCE LINES 92-108
 
 .. code-block:: default
 
@@ -241,6 +234,7 @@ final map. If the ``projection`` argument is specified in the
         grid=grid,
         limit=[-4000, -2000],
     )
+    fig.colorbar(frame=["x+lelevation", "y+lm"])
     fig.show()
 
 
@@ -253,8 +247,6 @@ final map. If the ``projection`` argument is specified in the
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -265,28 +257,23 @@ final map. If the ``projection`` argument is specified in the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.349 seconds)
+   **Total running time of the script:** ( 0 minutes  7.522 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_contour_map.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: contour_map.py <contour_map.py>`
 
-     :download:`Download Python source code: contour_map.py <contour_map.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: contour_map.ipynb <contour_map.ipynb>`
+      :download:`Download Jupyter notebook: contour_map.ipynb <contour_map.ipynb>`
 
 
 .. only:: html

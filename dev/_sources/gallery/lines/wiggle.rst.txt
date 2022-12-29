@@ -22,12 +22,13 @@ Wiggle along tracks
 -------------------
 
 The :meth:`pygmt.Figure.wiggle` method can plot z = f(x,y) anomalies along
-tracks. ``x``, ``y``, ``z`` can be specified as 1d arrays or within a specified
-file. The ``scale`` parameter can be used to set the scale of the anomaly in
-data/distance units. The positive and/or negative areas can be filled with
-color by setting the ``color`` parameter.
+tracks. ``x``, ``y``, ``z`` can be specified as 1-D arrays or within a
+specified file. The ``scale`` parameter can be used to set the scale of the
+anomaly in data/distance units. The positive and/or negative areas can be
+filled with color by setting the ``fillpositive`` and/or ``fillnegative``
+parameters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-39
+.. GENERATED FROM PYTHON SOURCE LINES 12-42
 
 
 
@@ -38,8 +39,6 @@ color by setting the ``color`` parameter.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -69,11 +68,13 @@ color by setting the ``color`` parameter.
         x=x,
         y=y,
         z=z,
-        # Set anomaly scale to "20c"
+        # Set anomaly scale to 20 centimeters
         scale="20c",
-        # Fill positive and negative areas red and gray, respectively
-        color=["red+p", "gray+n"],
-        # Set the outline width to "1.0p"
+        # Fill positive areas red
+        fillpositive="red",
+        # Fill negative areas gray
+        fillnegative="gray",
+        # Set the outline width to 1.0 point
         pen="1.0p",
         # Draw a blue track with a width of 0.5 points
         track="0.5p,blue",
@@ -86,28 +87,23 @@ color by setting the ``color`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.788 seconds)
+   **Total running time of the script:** ( 0 minutes  0.939 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_wiggle.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: wiggle.py <wiggle.py>`
 
-     :download:`Download Python source code: wiggle.py <wiggle.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: wiggle.ipynb <wiggle.ipynb>`
+      :download:`Download Jupyter notebook: wiggle.ipynb <wiggle.ipynb>`
 
 
 .. only:: html

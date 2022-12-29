@@ -12,13 +12,14 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/index.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -28,6 +29,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
         <script src="_static/design-tabs.js"></script>
@@ -87,7 +89,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -115,7 +117,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -140,8 +142,8 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Home</li>
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Home</li>
     <li class="source-link">
         
             
@@ -221,7 +223,7 @@ questions and leave comments.</p></li>
 <h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading"></a></h1>
 <section id="code-of-conduct">
 <h2>Code of conduct<a class="headerlink" href="#code-of-conduct" title="Permalink to this heading"></a></h2>
-<p>Please note that this project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
+<p>Please note that this project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
 By participating in this project you agree to abide by its terms.</p>
 </section>
 <section id="contributing-guidelines">
@@ -254,7 +256,7 @@ mistakes. That’s how we all improve and we are happy to help others learn.</p>
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md">AUTHORS.md</a>
 file on GitHub for a list of the people involved and a definition of the term “PyGMT
 Developers”. Feel free to cite our work in your research using the following BibTeX:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2022_6702566</span><span class="p">,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2022_7481934</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
@@ -262,21 +264,23 @@ Developers”. Feel free to cite our work in your research using the following B
                   <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
                   <span class="n">Grund</span><span class="p">,</span> <span class="n">Michael</span> <span class="ow">and</span>
                   <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
+                  <span class="n">Fröhlich</span><span class="p">,</span> <span class="n">Yvonne</span> <span class="ow">and</span>
                   <span class="n">Yao</span><span class="p">,</span> <span class="n">Jiayuan</span> <span class="ow">and</span>
                   <span class="n">Magen</span><span class="p">,</span> <span class="n">Yohai</span> <span class="ow">and</span>
                   <span class="n">Materna</span><span class="p">,</span> <span class="n">Kathryn</span> <span class="ow">and</span>
+                  <span class="n">Belem</span><span class="p">,</span> <span class="n">Andre</span> <span class="ow">and</span>
                   <span class="n">Newton</span><span class="p">,</span> <span class="n">Tyler</span> <span class="ow">and</span>
                   <span class="n">Anant</span><span class="p">,</span> <span class="n">Abhishek</span> <span class="ow">and</span>
                   <span class="n">Ziebarth</span><span class="p">,</span> <span class="n">Malte</span> <span class="ow">and</span>
                   <span class="n">Quinn</span><span class="p">,</span> <span class="n">Jamie</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">jul</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">dec</span><span class="p">,</span>
   <span class="n">year</span>         <span class="o">=</span> <span class="mi">2022</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="n">v0</span><span class="mf">.7.0</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.6702566</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.6702566</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">0.8.0</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.7481934</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.7481934</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -332,85 +336,91 @@ for GMT.</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/milestone/9">Dev</a> (upcoming release)</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/milestones">Dev</a> (upcoming release)</p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/dev">Dev Documentation</a> (reflects <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">main branch</a>)</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.20</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0">v0.7.0</a> (latest release)</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0">v0.8.0</a> (latest release)</p></td>
+<td><p><a class="reference external" href="https://www.pygmt.org/v0.8.0">v0.8.0 Documentation</a></p></td>
+<td><p>&gt;=6.3.0</p></td>
+<td><p>&gt;=3.8</p></td>
+<td><p>&gt;=1.20</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0">v0.7.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.7.0">v0.7.0 Documentation</a></p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.20</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1">v0.6.1</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1">v0.6.1</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.6.1">v0.6.1 Documentation</a></p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.19</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0">v0.6.0</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0">v0.6.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.6.0">v0.6.0 Documentation</a></p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.19</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0">v0.5.0</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0">v0.5.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.5.0">v0.5.0 Documentation</a></p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.18</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1">v0.4.1</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1">v0.4.1</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.4.1">v0.4.1 Documentation</a></p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.17</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0">v0.4.0</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0">v0.4.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.4.0">v0.4.0 Documentation</a></p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.17</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1">v0.3.1</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1">v0.3.1</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.3.1">v0.3.1 Documentation</a></p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0">v0.3.0</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0">v0.3.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.3.0">v0.3.0 Documentation</a></p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1">v0.2.1</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1">v0.2.1</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.2.1">v0.2.1 Documentation</a></p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.6</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0">v0.2.0</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0">v0.2.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.2.0">v0.2.0 Documentation</a></p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>3.6 - 3.8</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2">v0.1.2</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2">v0.1.2</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.1.2">v0.1.2 Documentation</a></p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1">v0.1.1</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1">v0.1.1</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.1.1">v0.1.1 Documentation</a></p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0">v0.1.0</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0">v0.1.0</a></p></td>
 <td><p><a class="reference external" href="https://www.pygmt.org/v0.1.0">v0.1.0 Documentation</a></p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
@@ -440,9 +450,9 @@ for GMT.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

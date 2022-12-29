@@ -24,7 +24,7 @@ Cartesian linear
 **X**\ *width*/[*height*]: Give the *width* of the figure and the optional
 *height*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-24
+.. GENERATED FROM PYTHON SOURCE LINES 8-25
 
 
 
@@ -35,8 +35,6 @@ Cartesian linear
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -59,11 +57,12 @@ Cartesian linear
         x=[3, 9, 2],
         y=[4, 9, 37],
         pen="3p,red",
-        # ``region`` sets the x and y ranges or the Cartesian figure.
+        # The region parameter sets the x and y ranges of the
+        # Cartesian projection
         region=[0, 10, 0, 50],
         projection="X15c/10c",
-        # ``WSne`` is passed to ``frame`` to put axis labels only on the left and
-        # bottom axes.
+        # "WSne" is passed to the frame parameter to put annotations
+        # only on the left and bottom axes
         frame=["af", "WSne"],
     )
     fig.show()
@@ -71,28 +70,23 @@ Cartesian linear
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.711 seconds)
+   **Total running time of the script:** ( 0 minutes  0.873 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_linear.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: cartesian_linear.py <cartesian_linear.py>`
 
-     :download:`Download Python source code: cartesian_linear.py <cartesian_linear.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: cartesian_linear.ipynb <cartesian_linear.ipynb>`
+      :download:`Download Jupyter notebook: cartesian_linear.ipynb <cartesian_linear.ipynb>`
 
 
 .. only:: html

@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/select.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.select</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.select</li>
     <li class="source-link">
         
     </li>
@@ -188,7 +190,6 @@
     <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
     <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
     <span class="n">o</span><span class="o">=</span><span class="s2">&quot;outcols&quot;</span><span class="p">,</span>
-    <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
     <span class="n">s</span><span class="o">=</span><span class="s2">&quot;skiprows&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -202,7 +203,7 @@
 <span class="sd">    pass or reject the records. Records can be selected based on whether or not</span>
 <span class="sd">    they are:</span>
 
-<span class="sd">    1. inside a rectangular region (**region** [and **projection**])</span>
+<span class="sd">    1. inside a rectangular region (``region`` [and ``projection``])</span>
 <span class="sd">    2. within *dist* km of any point in *pointfile*</span>
 <span class="sd">    3. within *dist* km of any line in *linefile*</span>
 <span class="sd">    4. inside one of the polygons in the *polygonfile*</span>
@@ -211,7 +212,7 @@
 <span class="sd">    7. inside bins of a grid mask whose nodes are non-zero</span>
 
 <span class="sd">    The sense of the tests can be reversed for each of these 7 criteria by</span>
-<span class="sd">    using the **reverse** option.</span>
+<span class="sd">    using the ``reverse`` parameter.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`gmtselect.html`</span>
 
@@ -220,21 +221,21 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : str or {table-like}</span>
-<span class="sd">        Pass in either a file name to an ASCII data table, a 2D</span>
+<span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
 <span class="sd">        {table-classes}.</span>
 <span class="sd">    outfile : str</span>
 <span class="sd">        The file name for the output ASCII file.</span>
-<span class="sd">    {A}</span>
+<span class="sd">    {area_thresh}</span>
 <span class="sd">    resolution : str</span>
 <span class="sd">        *resolution*\ [**+f**].</span>
-<span class="sd">        Ignored unless **mask** is set. Selects the resolution of the coastline</span>
+<span class="sd">        Ignored unless ``mask`` is set. Selects the resolution of the coastline</span>
 <span class="sd">        data set to use ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow,</span>
 <span class="sd">        or (**c**)rude). The resolution drops off by ~80% between data sets.</span>
 <span class="sd">        [Default is **l**]. Append (**+f**) to automatically select a lower</span>
 <span class="sd">        resolution should the one requested not be available [Default is abort</span>
-<span class="sd">        if not found]. Note that because the coastlines differ in details it is</span>
-<span class="sd">        not guaranteed that a point will remain inside [or outside] when a</span>
-<span class="sd">        different resolution is selected.</span>
+<span class="sd">        if not found]. Note that because the coastlines differ in details</span>
+<span class="sd">        it is not guaranteed that a point will remain inside [or outside] when</span>
+<span class="sd">        a different resolution is selected.</span>
 <span class="sd">    gridmask : str</span>
 <span class="sd">        Pass all locations that are inside the valid data area of the grid</span>
 <span class="sd">        *gridmask*. Nodes that are outside are either NaN or zero.</span>
@@ -245,14 +246,14 @@
 <span class="sd">        - **c** select records NOT inside any point&#39;s circle of influence.</span>
 <span class="sd">        - **f** select records NOT inside any of the polygons.</span>
 <span class="sd">        - **g** will pass records inside the cells with z equal zero of the</span>
-<span class="sd">          grid mask in **gridmask**.</span>
+<span class="sd">          grid mask in ``gridmask``.</span>
 <span class="sd">        - **l** select records NOT within the specified distance of any line.</span>
 <span class="sd">        - **r** select records NOT inside the specified rectangular region.</span>
-<span class="sd">        - **s** select records NOT considered inside as specified by **mask**</span>
-<span class="sd">          (and **area_thresh**, **resolution**).</span>
+<span class="sd">        - **s** select records NOT considered inside as specified by ``mask``</span>
+<span class="sd">          (and ``area_thresh``, ``resolution``).</span>
 <span class="sd">        - **z** select records NOT within the range specified by</span>
-<span class="sd">          **z_subregion**.</span>
-<span class="sd">    {J}</span>
+<span class="sd">          ``z_subregion``.</span>
+<span class="sd">    {projection}</span>
 <span class="sd">    mask : str or list</span>
 <span class="sd">        Pass all records whose location is inside specified geographical</span>
 <span class="sd">        features. Specify if records should be skipped (s) or kept (k) using</span>
@@ -263,38 +264,37 @@
 
 <span class="sd">        [Default is s/k/s/k/s (i.e., s/k), which passes all points on dry</span>
 <span class="sd">        land].</span>
-<span class="sd">    {R}</span>
-<span class="sd">    {V}</span>
-<span class="sd">    z_subregion : str</span>
+<span class="sd">    {region}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    z_subregion : str or list</span>
 <span class="sd">        *min*\ [/*max*]\ [**+a**]\ [**+c**\ *col*]\ [**+i**].</span>
 <span class="sd">        Pass all records whose 3rd column (*z*; *col* = 2) lies within the</span>
-<span class="sd">        given range or is NaN (use **skiprows** to skip NaN records). If *max*</span>
+<span class="sd">        given range or is NaN (use ``skiprows`` to skip NaN records). If *max*</span>
 <span class="sd">        is omitted then we test if *z* equals *min* instead. This means</span>
 <span class="sd">        equality within 5 ULPs (unit of least precision;</span>
 <span class="sd">        http://en.wikipedia.org/wiki/Unit_in_the_last_place). Input file must</span>
-<span class="sd">        have at least three columns. To indicate no limit on min or max,</span>
+<span class="sd">        have at least three columns. To indicate no limit on *min* or *max*,</span>
 <span class="sd">        specify a hyphen (-). If your 3rd column is absolute time then remember</span>
 <span class="sd">        to supply ``coltypes=&quot;2T&quot;``. To specify another column, append</span>
-<span class="sd">        **+c**\ *col*, and to specify several tests just repeat the</span>
-<span class="sd">        **z_subregion** option as many times as you have columns to test.</span>
-<span class="sd">        **Note**: When more than one **z_subregion** option is given then the</span>
-<span class="sd">        ``reverse=&quot;z&quot;`` option cannot be used. In the case of multiple tests</span>
+<span class="sd">        **+c**\ *col*, and to specify several tests pass a list of arguments</span>
+<span class="sd">        as you have columns to test.</span>
+<span class="sd">        **Note**: When more than one ``z_subregion`` argument is given then the</span>
+<span class="sd">        ``reverse=&quot;z&quot;`` cannot be used. In the case of multiple tests</span>
 <span class="sd">        you may use these modifiers as well: **+a** passes any record that</span>
 <span class="sd">        passes at least one of your *z* tests [Default is all tests must pass],</span>
 <span class="sd">        and **+i** reverses the tests to pass record with *z* value NOT in the</span>
 <span class="sd">        given range. Finally, if **+c** is not used then it is automatically</span>
-<span class="sd">        incremented for each new **z_subregion** option, starting with 2.</span>
-<span class="sd">    {b}</span>
-<span class="sd">    {d}</span>
-<span class="sd">    {e}</span>
-<span class="sd">    {f}</span>
-<span class="sd">    {g}</span>
-<span class="sd">    {h}</span>
-<span class="sd">    {i}</span>
-<span class="sd">    {o}</span>
-<span class="sd">    {r}</span>
-<span class="sd">    {s}</span>
-<span class="sd">    {w}</span>
+<span class="sd">        incremented for each new ``z_subregion`` argument, starting with 2.</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {find}</span>
+<span class="sd">    {coltypes}</span>
+<span class="sd">    {gap}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {incols}</span>
+<span class="sd">    {outcols}</span>
+<span class="sd">    {skiprows}</span>
+<span class="sd">    {wrap}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -349,9 +349,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

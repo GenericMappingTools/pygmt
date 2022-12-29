@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/coast.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.coast</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.coast</li>
     <li class="source-link">
         
     </li>
@@ -167,6 +169,8 @@
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;coast&quot;</span><span class="p">]</span>
+
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
@@ -185,8 +189,6 @@
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;water&quot;</span><span class="p">,</span>
     <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
-    <span class="n">X</span><span class="o">=</span><span class="s2">&quot;xshift&quot;</span><span class="p">,</span>
-    <span class="n">Y</span><span class="o">=</span><span class="s2">&quot;yshift&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
     <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
@@ -194,7 +196,7 @@
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">coast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot continents, shorelines, rivers, and borders on maps</span>
+<span class="sd">    Plot continents, shorelines, rivers, and borders on maps.</span>
 
 <span class="sd">    Plots grayshaded, colored, or textured land-masses [or water-masses] on</span>
 <span class="sd">    maps and [optionally] draws coastlines, rivers, and political</span>
@@ -218,11 +220,11 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    {J}</span>
-<span class="sd">    {R}</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    {region}</span>
 <span class="sd">        *Required if this is the first plot command.*</span>
-<span class="sd">    {A}</span>
-<span class="sd">    {B}</span>
+<span class="sd">    {area_thresh}</span>
+<span class="sd">    {frame}</span>
 <span class="sd">    lakes : str or list</span>
 <span class="sd">        *fill*\ [**+l**\|\ **+r**].</span>
 <span class="sd">        Set the shade, color, or pattern for lakes and river-lakes. The</span>
@@ -240,8 +242,7 @@
 <span class="sd">    rivers : int or str or list</span>
 <span class="sd">        *river*\ [/*pen*].</span>
 <span class="sd">        Draw rivers. Specify the type of rivers and [optionally] append</span>
-<span class="sd">        pen attributes [Default pen is width = default, color = black,</span>
-<span class="sd">        style = solid].</span>
+<span class="sd">        pen attributes [Default is ``&quot;0.25p,black,solid&quot;``].</span>
 
 <span class="sd">        Choose from the list of river types below; pass a list to</span>
 <span class="sd">        ``rivers`` to use multiple arguments.</span>
@@ -288,8 +289,8 @@
 <span class="sd">    borders : int or str or list</span>
 <span class="sd">        *border*\ [/*pen*].</span>
 <span class="sd">        Draw political boundaries. Specify the type of boundary and</span>
-<span class="sd">        [optionally] append pen attributes [Default pen is width = default,</span>
-<span class="sd">        color = black, style = solid].</span>
+<span class="sd">        [optionally] append pen attributes</span>
+<span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``].</span>
 
 <span class="sd">        Choose from the list of boundaries below. Pass a list to</span>
 <span class="sd">        ``borders`` to use multiple arguments.</span>
@@ -303,11 +304,11 @@
 <span class="sd">        a = All boundaries (1-3)</span>
 <span class="sd">    water : str</span>
 <span class="sd">        Select filling or clipping of &quot;wet&quot; areas.</span>
-<span class="sd">    {U}</span>
+<span class="sd">    {timestamp}</span>
 <span class="sd">    shorelines : int or str or list</span>
 <span class="sd">        [*level*\ /]\ *pen*.</span>
 <span class="sd">        Draw shorelines [Default is no shorelines]. Append pen attributes</span>
-<span class="sd">        [Default is width = default, color = black, style = solid] which</span>
+<span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``] which</span>
 <span class="sd">        apply to all four levels. To set the pen for a single level,</span>
 <span class="sd">        pass a string with *level*\ /*pen*\ , where level is</span>
 <span class="sd">        1-4 and represent coastline, lakeshore, island-in-lake shore, and</span>
@@ -327,15 +328,37 @@
 <span class="sd">        .\ *state*, (e.g, US.TX for Texas).  To specify a whole continent,</span>
 <span class="sd">        prepend **=** to any of the continent codes (e.g. =EU for Europe).</span>
 <span class="sd">        Append **+p**\ *pen* to draw polygon outlines</span>
-<span class="sd">        (default is no outline) and **+g**\ *fill* to fill them</span>
-<span class="sd">        (default is no fill). Append **+l**\|\ **+L** to =\ *continent* to</span>
+<span class="sd">        [Default is no outline] and **+g**\ *fill* to fill them</span>
+<span class="sd">        [Default is no fill]. Append **+l**\|\ **+L** to =\ *continent* to</span>
 <span class="sd">        only list countries in that continent; repeat if more than one</span>
 <span class="sd">        continent is requested.</span>
-<span class="sd">    {XY}</span>
-<span class="sd">    {c}</span>
-<span class="sd">    {p}</span>
-<span class="sd">    {t}</span>
-<span class="sd">    {V}</span>
+<span class="sd">    {panel}</span>
+<span class="sd">    {perspective}</span>
+<span class="sd">    {transparency}</span>
+<span class="sd">    {verbose}</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new plot with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # Call the coast method for the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.coast(</span>
+<span class="sd">    ...     # Set the projection to Mercator, and plot size to 10 cm</span>
+<span class="sd">    ...     projection=&quot;M10c&quot;,</span>
+<span class="sd">    ...     # Set the region of the plot</span>
+<span class="sd">    ...     region=[-10, 30, 30, 60],</span>
+<span class="sd">    ...     # Set the frame of the plot</span>
+<span class="sd">    ...     frame=&quot;a&quot;,</span>
+<span class="sd">    ...     # Set the color of the land to &quot;darkgreen&quot;</span>
+<span class="sd">    ...     land=&quot;darkgreen&quot;,</span>
+<span class="sd">    ...     # Set the color of the water to &quot;lightblue&quot;</span>
+<span class="sd">    ...     water=&quot;lightblue&quot;,</span>
+<span class="sd">    ...     # Draw national borders with a 1-point black line</span>
+<span class="sd">    ...     borders=&quot;1/1p,black&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # Show the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
@@ -356,9 +379,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_relief.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.datasets.earth_relief</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.datasets.earth_relief</li>
     <li class="source-link">
         
     </li>
@@ -159,57 +161,85 @@
 
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">kwargs_to_strings</span>
-<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
-<span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="n">grdcut</span><span class="p">,</span> <span class="n">which</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_earth_relief&quot;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="load_earth_relief"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief">[docs]</a><span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_srtm</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">load_earth_relief</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;igpp&quot;</span><span class="p">,</span>
+    <span class="n">use_srtm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load Earth relief grids (topography and bathymetry) in various resolutions.</span>
 
 <span class="sd">    The grids are downloaded to a user data directory</span>
-<span class="sd">    (usually ``~/.gmt/server/earth/earth_relief/``) the first time you invoke</span>
-<span class="sd">    this function. Afterwards, it will load the grid from the data directory.</span>
-<span class="sd">    So you&#39;ll need an internet connection the first time around.</span>
+<span class="sd">    (usually a subdirectory under ~/.gmt/server/earth/) the first time you</span>
+<span class="sd">    invoke this function. Afterwards, it will load the grid from the data</span>
+<span class="sd">    directory. So you&#39;ll need an internet connection the first time around.</span>
 
-<span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@earth_relief**\_\ *res*\[_\ *reg*] to any grid plotting/processing</span>
-<span class="sd">    function. *res* is the grid resolution (see below), and *reg* is grid</span>
-<span class="sd">    registration type (**p** for pixel registration or **g** for gridline</span>
-<span class="sd">    registration).</span>
+<span class="sd">    This module downloads the grids that can also be accessed by</span>
+<span class="sd">    passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to</span>
+<span class="sd">    any grid plotting/processing function. *earth_relief_type* is the GMT name</span>
+<span class="sd">    for the dataset. The available options are **earth_relief**\,</span>
+<span class="sd">    **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the</span>
+<span class="sd">    grid resolution (see below), and *reg* is grid registration type</span>
+<span class="sd">    (**p** for pixel registration or **g** for gridline registration).</span>
 
-<span class="sd">    Refer to :gmt-datasets:`earth-relief.html` for more details.</span>
+<span class="sd">    Refer to :gmt-datasets:`earth-relief.html` for more details about available</span>
+<span class="sd">    datasets, including version information and references.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    resolution : str</span>
 <span class="sd">        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for</span>
-<span class="sd">        arc-degree, arc-minute and arc-second. It can be ``&#39;01d&#39;``, ``&#39;30m&#39;``,</span>
-<span class="sd">        ``&#39;20m&#39;``, ``&#39;15m&#39;``, ``&#39;10m&#39;``, ``&#39;06m&#39;``, ``&#39;05m&#39;``, ``&#39;04m&#39;``,</span>
-<span class="sd">        ``&#39;03m&#39;``, ``&#39;02m&#39;``, ``&#39;01m&#39;``, ``&#39;30s&#39;``, ``&#39;15s&#39;``, ``&#39;03s&#39;``,</span>
-<span class="sd">        or ``&#39;01s&#39;``.</span>
+<span class="sd">        arc-degrees, arc-minutes, and arc-seconds. It can be ``&quot;01d&quot;``,</span>
+<span class="sd">        ``&quot;30m&quot;``, ``&quot;20m&quot;``, ``&quot;15m&quot;``, ``&quot;10m&quot;``, ``&quot;06m&quot;``, ``&quot;05m&quot;``,</span>
+<span class="sd">        ``&quot;04m&quot;``, ``&quot;03m&quot;``, ``&quot;02m&quot;``, ``&quot;01m&quot;``, ``&quot;30s&quot;``, ``&quot;15s&quot;``,</span>
+<span class="sd">        ``&quot;03s&quot;``, or ``&quot;01s&quot;``.</span>
 
 <span class="sd">    region : str or list</span>
-<span class="sd">        The subregion of the grid to load, in the forms of a list</span>
+<span class="sd">        The subregion of the grid to load, in the form of a list</span>
 <span class="sd">        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.</span>
 <span class="sd">        Required for Earth relief grids with resolutions higher than 5</span>
-<span class="sd">        arc-minute (i.e., ``05m``).</span>
+<span class="sd">        arc-minutes (i.e., ``&quot;05m&quot;``).</span>
 
 <span class="sd">    registration : str</span>
-<span class="sd">        Grid registration type. Either ``pixel`` for pixel registration or</span>
-<span class="sd">        ``gridline`` for gridline registration. Default is ``None``, where</span>
-<span class="sd">        a pixel-registered grid is returned unless only the</span>
-<span class="sd">        gridline-registered grid is available.</span>
+<span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
+<span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``&quot;gridline&quot;``</span>
+<span class="sd">        for all resolutions except ``&quot;15s&quot;`` which is ``&quot;pixel&quot;`` only.</span>
+
+<span class="sd">    data_source : str</span>
+<span class="sd">        Select the source for the Earth relief data.</span>
+
+<span class="sd">        Available options:</span>
+
+<span class="sd">        - **igpp** : IGPP Global Earth Relief [Default option]. See</span>
+<span class="sd">          :gmt-datasets:`earth-relief.html`.</span>
+
+<span class="sd">        - **synbath** : IGPP Global Earth Relief dataset that uses</span>
+<span class="sd">          stastical properties of young seafloor to provide more realistic</span>
+<span class="sd">          relief of young areas with small seamounts.</span>
+
+<span class="sd">        - **gebco** : GEBCO Global Earth Relief with only observed relief and</span>
+<span class="sd">          inferred relief via altimetric gravity. See</span>
+<span class="sd">          :gmt-datasets:`earth-gebco.html`.</span>
+
+<span class="sd">        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)</span>
+<span class="sd">          elevations.</span>
 
 <span class="sd">    use_srtm : bool</span>
 <span class="sd">        By default, the land-only SRTM tiles from NASA are used to generate the</span>
-<span class="sd">        ``&#39;03s&#39;`` and ``&#39;01s&#39;`` grids, and the missing ocean values are filled</span>
-<span class="sd">        by up-sampling the SRTM15+V2.1 tiles which have a resolution of 15</span>
-<span class="sd">        arc-second (i.e., ``&#39;15s&#39;``). If True, will only load the original</span>
-<span class="sd">        land-only SRTM tiles.</span>
+<span class="sd">        ``&quot;03s&quot;`` and ``&quot;01s&quot;`` grids, and the missing ocean values are filled</span>
+<span class="sd">        by up-sampling the SRTM15 tiles which have a resolution of 15</span>
+<span class="sd">        arc-seconds (i.e., ``&quot;15s&quot;``). If True, will only load the original</span>
+<span class="sd">        land-only SRTM tiles. Only works when ``data_source=&quot;igpp&quot;``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -226,83 +256,59 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 
-<span class="sd">    &gt;&gt;&gt; # load the default grid (pixel-registered 01d grid)</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_relief</span>
+<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief()</span>
-<span class="sd">    &gt;&gt;&gt; # load the 30m grid with &quot;gridline&quot; registration</span>
-<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; # load high-resolution grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
-<span class="sd">    ...     &quot;05m&quot;, region=[120, 160, 30, 60], registration=&quot;gridline&quot;</span>
+<span class="sd">    ...     resolution=&quot;05m&quot;,</span>
+<span class="sd">    ...     region=[120, 160, 30, 60],</span>
+<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # load the original 3 arc-second land-only SRTM tiles from NASA</span>
+<span class="sd">    &gt;&gt;&gt; # load the original 3 arc-seconds land-only SRTM tiles from NASA</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_relief(</span>
-<span class="sd">    ...     &quot;03s&quot;,</span>
+<span class="sd">    ...     resolution=&quot;03s&quot;,</span>
 <span class="sd">    ...     region=[135, 136, 35, 36],</span>
 <span class="sd">    ...     registration=&quot;gridline&quot;,</span>
 <span class="sd">    ...     use_srtm=True,</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="c1"># earth relief data stored as single grids for low resolutions</span>
-    <span class="n">non_tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="s2">&quot;30m&quot;</span><span class="p">,</span> <span class="s2">&quot;20m&quot;</span><span class="p">,</span> <span class="s2">&quot;15m&quot;</span><span class="p">,</span> <span class="s2">&quot;10m&quot;</span><span class="p">,</span> <span class="s2">&quot;06m&quot;</span><span class="p">]</span>
-    <span class="c1"># earth relief data stored as tiles for high resolutions</span>
-    <span class="n">tiled_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;05m&quot;</span><span class="p">,</span> <span class="s2">&quot;04m&quot;</span><span class="p">,</span> <span class="s2">&quot;03m&quot;</span><span class="p">,</span> <span class="s2">&quot;02m&quot;</span><span class="p">,</span> <span class="s2">&quot;01m&quot;</span><span class="p">,</span> <span class="s2">&quot;30s&quot;</span><span class="p">,</span> <span class="s2">&quot;15s&quot;</span><span class="p">,</span> <span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
     <span class="c1"># resolutions of original land-only SRTM tiles from NASA</span>
     <span class="n">land_only_srtm_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">registration</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># If None, let GMT decide on Pixel/Gridline type</span>
-        <span class="n">reg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;_</span><span class="si">{</span><span class="n">registration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">registration</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="n">earth_relief_sources</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;igpp&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_relief_&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gebco&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebco_&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gebcosi&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebcosi_&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;synbath&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_synbath_&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">data_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">earth_relief_sources</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid grid registration: &#39;</span><span class="si">{</span><span class="n">registration</span><span class="si">}</span><span class="s2">&#39;, should be either &quot;</span>
-            <span class="s2">&quot;&#39;pixel&#39;, &#39;gridline&#39; or None. Default is None, where a &quot;</span>
-            <span class="s2">&quot;pixel-registered grid is returned unless only the &quot;</span>
-            <span class="s2">&quot;gridline-registered grid is available.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid earth relief &#39;data_source&#39; </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="s2">&quot;valid values are &#39;igpp&#39;, &#39;gebco&#39;, &#39;gebcosi&#39; and &#39;synbath&#39;.&quot;</span>
         <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">resolution</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span> <span class="o">+</span> <span class="n">tiled_resolutions</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Earth relief resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Check combination of resolution and registration.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">resolution</span> <span class="o">==</span> <span class="s2">&quot;15s&quot;</span> <span class="ow">and</span> <span class="n">registration</span> <span class="o">==</span> <span class="s2">&quot;gridline&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-        <span class="n">resolution</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">registration</span> <span class="o">==</span> <span class="s2">&quot;pixel&quot;</span>
-    <span class="p">):</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">registration</span><span class="si">}</span><span class="s2">-registered Earth relief data for &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39; is not supported.&quot;</span>
-        <span class="p">)</span>
-
     <span class="c1"># Choose earth relief data prefix</span>
-    <span class="n">earth_relief_prefix</span> <span class="o">=</span> <span class="s2">&quot;earth_relief_&quot;</span>
     <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">land_only_srtm_resolutions</span><span class="p">:</span>
-        <span class="n">earth_relief_prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief_&quot;</span>
-
-    <span class="c1"># different ways to load tiled and non-tiled earth relief data</span>
-    <span class="c1"># Known issue: tiled grids don&#39;t support slice operation</span>
-    <span class="c1"># See https://github.com/GenericMappingTools/pygmt/issues/524</span>
-    <span class="k">if</span> <span class="n">region</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">resolution</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_tiled_resolutions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;igpp&quot;</span><span class="p">:</span>
+            <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief_&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;&#39;region&#39; is required for Earth relief resolution &#39;</span><span class="si">{</span><span class="n">resolution</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2"> option is not available if &#39;use_srtm=True&#39;.&quot;</span>
+                <span class="s2">&quot; Set data_source to &#39;igpp&#39;.&quot;</span>
             <span class="p">)</span>
-        <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@earth_relief_</span><span class="si">{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
-        <span class="n">grid</span> <span class="o">=</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;netcdf4&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">grid</span> <span class="o">=</span> <span class="n">grdcut</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;@</span><span class="si">{</span><span class="n">earth_relief_prefix</span><span class="si">}{</span><span class="n">resolution</span><span class="si">}{</span><span class="n">reg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">)</span>
+        <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="n">earth_relief_sources</span><span class="p">[</span><span class="n">data_source</span><span class="p">]</span>
 
-    <span class="c1"># Add some metadata to the grid</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;elevation&quot;</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;long_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;elevation relative to the geoid&quot;</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;meters&quot;</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;vertical_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EMG96&quot;</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;horizontal_datum&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;WGS84&quot;</span>
-    <span class="c1"># Remove the actual range because it gets outdated when indexing the grid,</span>
-    <span class="c1"># which causes problems when exporting it to netCDF for usage on the</span>
-    <span class="c1"># command-line.</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">coords</span><span class="p">:</span>
-        <span class="n">grid</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;actual_range&quot;</span><span class="p">)</span>
+    <span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;earth_relief&quot;</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+        <span class="n">dataset_prefix</span><span class="o">=</span><span class="n">dataset_prefix</span><span class="p">,</span>
+        <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+        <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">grid</span></div>
 </pre></div>
 
@@ -315,9 +321,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

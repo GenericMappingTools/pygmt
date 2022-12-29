@@ -11,13 +11,14 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdhisteq.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -27,6 +28,7 @@
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
         <script src="../../../_static/design-tabs.js"></script>
@@ -85,7 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../get-started/index.html">Intro to PyGMT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
@@ -113,7 +115,7 @@
         </p>
         <ul>
             
-                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
             
                 <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
             
@@ -138,10 +140,10 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-          <li><a href="../../pygmt.html">pygmt</a> &raquo;</li>
-      <li>pygmt.src.grdhisteq</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.grdhisteq</li>
     <li class="source-link">
         
     </li>
@@ -178,7 +180,7 @@
     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform histogram equalization for a grid.</span>
 
-<span class="sd">    Two common use cases of :meth:`pygmt.grdhisteq` are to find data values</span>
+<span class="sd">    Two common use cases of :class:`pygmt.grdhisteq` are to find data values</span>
 <span class="sd">    that divide a grid into patches of equal area</span>
 <span class="sd">    (:meth:`pygmt.grdhisteq.compute_bins`) or to write a grid with</span>
 <span class="sd">    statistics based on some kind of cumulative distribution function</span>
@@ -194,7 +196,7 @@
 <span class="sd">    provide a list of data values that divide the data range into divisions</span>
 <span class="sd">    which have an equal area in the image [Default is 16 if ``divisions`` is</span>
 <span class="sd">    not set]. The :class:`pandas.DataFrame` or ASCII file output can be used to</span>
-<span class="sd">    make a colormap with :meth:`pygmt.makecpt` and an image with</span>
+<span class="sd">    make a colormap with :func:`pygmt.makecpt` and an image with</span>
 <span class="sd">    :meth:`pygmt.Figure.grdimage` that has all levels of gray occurring</span>
 <span class="sd">    equally.</span>
 
@@ -244,9 +246,9 @@
 <span class="sd">        divisions : int</span>
 <span class="sd">            Set the number of divisions of the data range [Default is 16].</span>
 
-<span class="sd">        {R}</span>
-<span class="sd">        {V}</span>
-<span class="sd">        {h}</span>
+<span class="sd">        {region}</span>
+<span class="sd">        {verbose}</span>
+<span class="sd">        {header}</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -261,7 +263,7 @@
 
 <span class="sd">        See Also</span>
 <span class="sd">        -------</span>
-<span class="sd">        :meth:`pygmt.grd2cpt`</span>
+<span class="sd">        :func:`pygmt.grd2cpt`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -331,8 +333,8 @@
 <span class="sd">            range.</span>
 <span class="sd">        quadratic: bool</span>
 <span class="sd">            Perform quadratic equalization [Default is linear].</span>
-<span class="sd">        {R}</span>
-<span class="sd">        {V}</span>
+<span class="sd">        {region}</span>
+<span class="sd">        {verbose}</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -356,7 +358,7 @@
 
 <span class="sd">        See Also</span>
 <span class="sd">        -------</span>
-<span class="sd">        :meth:`pygmt.grd2cpt`</span>
+<span class="sd">        :func:`pygmt.grd2cpt`</span>
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
@@ -409,7 +411,7 @@
 <span class="sd">        can provide a list of data values that divide the data range into</span>
 <span class="sd">        divisions which have an equal area in the image [Default is 16 if</span>
 <span class="sd">        ``divisions`` is not set]. The :class:`pandas.DataFrame` or ASCII file</span>
-<span class="sd">        output can be used to make a colormap with :meth:`pygmt.makecpt` and an</span>
+<span class="sd">        output can be used to make a colormap with :func:`pygmt.makecpt` and an</span>
 <span class="sd">        image with :meth:`pygmt.Figure.grdimage` that has all levels of gray</span>
 <span class="sd">        occurring equally.</span>
 
@@ -433,9 +435,9 @@
 <span class="sd">            Set the number of divisions of the data range.</span>
 <span class="sd">        quadratic : bool</span>
 <span class="sd">            Perform quadratic equalization [Default is linear].</span>
-<span class="sd">        {R}</span>
-<span class="sd">        {V}</span>
-<span class="sd">        {h}</span>
+<span class="sd">        {region}</span>
+<span class="sd">        {verbose}</span>
+<span class="sd">        {header}</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -461,15 +463,15 @@
 <span class="sd">        &gt;&gt;&gt; print(bins)</span>
 <span class="sd">                start    stop</span>
 <span class="sd">        bin_id</span>
-<span class="sd">        0       179.0   397.5</span>
-<span class="sd">        1       397.5   475.5</span>
-<span class="sd">        2       475.5   573.5</span>
-<span class="sd">        3       573.5   710.5</span>
-<span class="sd">        4       710.5  2103.0</span>
+<span class="sd">        0       170.0   389.0</span>
+<span class="sd">        1       389.0   470.5</span>
+<span class="sd">        2       470.5   571.0</span>
+<span class="sd">        3       571.0   705.0</span>
+<span class="sd">        4       705.0  2275.5</span>
 
 <span class="sd">        See Also</span>
 <span class="sd">        -------</span>
-<span class="sd">        :meth:`pygmt.grd2cpt`</span>
+<span class="sd">        :func:`pygmt.grd2cpt`</span>
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
@@ -517,9 +519,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e5f5da9b">e5f5da9b</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Jul 02, 2022.
+      <span class="lastupdated">Last updated on Dec 29, 2022.
       </span></p>
   </div>
 

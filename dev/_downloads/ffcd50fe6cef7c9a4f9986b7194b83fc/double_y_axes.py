@@ -46,7 +46,7 @@ with pygmt.config(
 # Plot the line for y1 data
 fig.plot(x=x, y=y1, pen="1p,blue")
 # Plot points for y1 data
-fig.plot(x=x, y=y1, style="c0.2c", color="blue", label="y1")
+fig.plot(x=x, y=y1, style="c0.2c", fill="blue", label="y1")
 
 # Plot the Y axis for y2 data
 # The right axis (E) is plotted with red annotations, ticks, and label
@@ -60,7 +60,7 @@ with pygmt.config(
 # Plot the line for y2 data
 fig.plot(x=x, y=y2, pen="1p,red")
 # Plot points for y2 data
-fig.plot(x=x, y=y2, style="s0.28c", color="red", label="y2")
+fig.plot(x=x, y=y2, style="s0.28c", fill="red", label="y2")
 
 # Create a legend in the top-left corner of the plot
 fig.legend(position="jTL+o0.1c", box=True)

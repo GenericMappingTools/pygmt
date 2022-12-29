@@ -21,13 +21,13 @@
 Focal mechanisms
 ----------------
 
-The :meth:`pygmt.Figure.meca` method can plot focal mechanisms, or beachballs.
+The :meth:`pygmt.Figure.meca` method can plot focal mechanisms or beachballs.
 We can specify the focal mechanism nodal planes or moment tensor components as
-a dict using the ``spec`` parameter (or they can be specified as a 1d or 2d
-array, or within a specified file). The size of plotted beachballs can be
-specified using the ``scale`` parameter.
+a dictionary using the ``spec`` parameter (or they can be specified as a 1-D
+or 2-D array, or within a specified file). The size of plotted beachballs can
+be specified using the ``scale`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-34
+.. GENERATED FROM PYTHON SOURCE LINES 11-41
 
 
 
@@ -38,8 +38,6 @@ specified using the ``scale`` parameter.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -59,7 +57,7 @@ specified using the ``scale`` parameter.
 
     fig = pygmt.Figure()
 
-    # generate a basemap near Washington state showing coastlines, land, and water
+    # generate a map near Washington State showing land, water, and shorelines
     fig.coast(
         region=[-125, -122, 47, 49],
         projection="M6c",
@@ -69,40 +67,42 @@ specified using the ``scale`` parameter.
         frame="a",
     )
 
-    # store focal mechanisms parameters in a dict
+    # store focal mechanism parameters in a dictionary based on the Aki & Richards
+    # convention
     focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
 
-    # pass the focal mechanism data to meca in addition to the scale and event
-    # location
-    fig.meca(focal_mechanism, scale="1c", longitude=-124.3, latitude=48.1, depth=12.0)
+    # pass the focal mechanism data through the spec parameter. In addition provide
+    # scale, event location, and event depth
+    fig.meca(
+        spec=focal_mechanism,
+        scale="1c",  # in centimeters
+        longitude=-124.3,
+        latitude=48.1,
+        depth=12.0,
+    )
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.795 seconds)
+   **Total running time of the script:** ( 0 minutes  0.918 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_meca.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: meca.py <meca.py>`
 
-     :download:`Download Python source code: meca.py <meca.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: meca.ipynb <meca.ipynb>`
+      :download:`Download Jupyter notebook: meca.ipynb <meca.ipynb>`
 
 
 .. only:: html

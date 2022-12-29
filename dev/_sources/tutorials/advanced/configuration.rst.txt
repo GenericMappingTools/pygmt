@@ -44,10 +44,10 @@ Configuring default GMT parameters
 ----------------------------------
 
 Users can override default parameters either temporarily (locally) or
-permanently (globally) using :meth:`pygmt.config`. The full list of default
+permanently (globally) using :class:`pygmt.config`. The full list of default
 parameters that can be changed can be found at :gmt-docs:`gmt.conf.html`.
 
-We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
+We demonstrate the usage of :class:`pygmt.config` by configuring a map plot.
 
 .. GENERATED FROM PYTHON SOURCE LINES 21-29
 
@@ -72,8 +72,6 @@ We demonstrate the usage of :meth:`pygmt.config` by configuring a map plot.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -87,7 +85,7 @@ Globally overriding defaults
 ----------------------------
 
 The ``MAP_FRAME_TYPE`` parameter specifies the style of map frame to use, of
-which there are 5 options: ``fancy`` (default, seen above), ``fancy+``,
+which there are 5 options: ``fancy`` (default, see above), ``fancy+``,
 ``plain``, ``graph`` (which does not apply to geographical maps) and
 ``inside``.
 
@@ -121,8 +119,6 @@ to be a decimal number of degrees.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -176,8 +172,6 @@ as a context manager is shown below:
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -188,28 +182,23 @@ as a context manager is shown below:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.224 seconds)
+   **Total running time of the script:** ( 0 minutes  3.767 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_configuration.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: configuration.py <configuration.py>`
 
-     :download:`Download Python source code: configuration.py <configuration.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: configuration.ipynb <configuration.ipynb>`
+      :download:`Download Jupyter notebook: configuration.ipynb <configuration.ipynb>`
 
 
 .. only:: html

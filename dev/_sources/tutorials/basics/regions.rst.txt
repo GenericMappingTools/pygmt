@@ -21,7 +21,7 @@
 Setting the region
 ==================
 
-Many of the plotting functions take the ``region`` parameter, which sets the
+Many of the plotting methods take the ``region`` parameter, which sets the
 area that will be shown in the figure. This tutorial covers the different types
 of inputs that it can accept.
 
@@ -82,8 +82,6 @@ A string of coordinates can be passed to ``region``, in the form of
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -94,7 +92,7 @@ A string of coordinates can be passed to ``region``, in the form of
 .. GENERATED FROM PYTHON SOURCE LINES 39-41
 
 The coordinates can be passed to ``region`` as a list, in the form of
-[*xmin*,\ *xmax*,\ *ymin*,\ *ymax*].
+[*xmin*, *xmax*, *ymin*, *ymax*].
 
 .. GENERATED FROM PYTHON SOURCE LINES 42-56
 
@@ -124,8 +122,6 @@ The coordinates can be passed to ``region`` as a list, in the form of
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -170,8 +166,6 @@ coordinates, append **+r** at the end of the ``region`` string.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -220,8 +214,6 @@ and prime meridian.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -263,8 +255,6 @@ intersection of the equator and International Date Line.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -311,8 +301,6 @@ two-character ISO 3166-1 alpha-2 convention
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -358,8 +346,6 @@ of *increment* .
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -402,8 +388,6 @@ values can be passed to expand differently on each axis. The format is
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -449,8 +433,6 @@ east, south, and north axes.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -492,8 +474,6 @@ increment without rounding.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -538,8 +518,6 @@ increment.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     <IPython.core.display.Image object>
@@ -550,28 +528,23 @@ increment.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.540 seconds)
+   **Total running time of the script:** ( 0 minutes  13.372 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_regions.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: regions.py <regions.py>`
 
-     :download:`Download Python source code: regions.py <regions.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: regions.ipynb <regions.ipynb>`
+      :download:`Download Jupyter notebook: regions.ipynb <regions.ipynb>`
 
 
 .. only:: html
