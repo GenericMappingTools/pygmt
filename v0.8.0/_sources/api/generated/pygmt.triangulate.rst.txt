@@ -1,0 +1,27 @@
+pygmt.triangulate
+=================
+
+.. currentmodule:: pygmt
+
+.. autoclass:: triangulate
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    triangulate.delaunay_triples
+    
+    
+    
+    triangulate.regular_grid
+    
+    
+
+.. include:: backreferences/pygmt.triangulate.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>

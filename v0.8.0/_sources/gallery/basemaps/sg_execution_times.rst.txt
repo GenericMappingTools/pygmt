@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_basemaps_sg_execution_times:
+
+Computation times
+=================
+**00:03.666** total execution time for **gallery_basemaps** files:
+
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``double_y_axes.py``) | 00:02.279 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_basemaps_ternary.py` (``ternary.py``)             | 00:01.387 | 0.0 MB |
++--------------------------------------------------------------------------+-----------+--------+

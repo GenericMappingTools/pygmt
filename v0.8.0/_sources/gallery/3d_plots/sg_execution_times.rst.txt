@@ -1,0 +1,14 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_3d_plots_sg_execution_times:
+
+Computation times
+=================
+**00:08.706** total execution time for **gallery_3d_plots** files:
+
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``grdview_surface.py``) | 00:06.625 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``scatter3d.py``)             | 00:02.081 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+

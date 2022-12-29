@@ -1,0 +1,12 @@
+pygmt.sphinterpolate
+====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: sphinterpolate
+
+.. include:: backreferences/pygmt.sphinterpolate.examples
+
+.. raw:: html
+
+     <div style='clear:both'></div>
