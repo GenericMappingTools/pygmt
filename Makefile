@@ -60,7 +60,7 @@ test_no_images:
 	# use -o to override the addopts in pyproject.toml file
 	cd $(TESTDIR); \
 		PYGMT_USE_EXTERNAL_DISPLAY="false" \
-		pytest -o addopts="--verbose --durations=0 --durations-min=0.2 --doctest-plus --doctest-modules" \
+		pytest -o addopts="--verbose --durations=0 --durations-min=0.2 --doctest-plus" \
 		$(PYTEST_COV_ARGS) $(PROJECT)
 	rm -r $(TESTDIR)
 
