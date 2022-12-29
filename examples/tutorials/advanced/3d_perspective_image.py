@@ -1,6 +1,6 @@
 """
-Creating a 3D perspective image
-===============================
+Creating a 3-D perspective image
+================================
 
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.

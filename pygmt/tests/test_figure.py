@@ -266,17 +266,6 @@ def test_figure_set_display_invalid():
         set_display(method="invalid")
 
 
-def test_figure_icc_gray():
-    """
-    Check if icc_gray parameter works correctly if used.
-    """
-    fig = Figure()
-    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.psconvert(icc_gray=True, prefix="Test")
-        assert len(record) == 1  # check that only one warning was raised
-
-
 def test_figure_deprecated_xshift_yshift():
     """
     Check if deprecation of parameters X/Y/xshift/yshift work correctly if
