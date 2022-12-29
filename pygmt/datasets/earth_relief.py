@@ -4,10 +4,8 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
-from packaging.version import Version
-from pygmt.clib import Session
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.exceptions import GMTInvalidInput, GMTVersionError
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_earth_relief"]
@@ -134,13 +132,6 @@ def load_earth_relief(
             f"Invalid earth relief 'data_source' {data_source}, "
             "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
         )
-    if data_source != "igpp":
-        with Session() as lib:
-            if Version(lib.info["version"]) < Version("6.4.0"):
-                raise GMTVersionError(
-                    f"The {data_source} option is not available for GMT"
-                    " versions before 6.4.0."
-                )
     # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions:
         if data_source == "igpp":

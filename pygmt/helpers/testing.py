@@ -195,6 +195,9 @@ def download_test_data():
         # Earth vertical gravity gradient grids
         "@earth_vgg_01d_g",
         "@N00W030.earth_vgg_01m_p.nc",  # Specific grid for 01m test
+        # Earth WDMAM grids
+        "@earth_wdmam_01d_g",
+        "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
         # Other cache files
         "@capitals.gmt",
         "@earth_relief_20m_holes.grd",
