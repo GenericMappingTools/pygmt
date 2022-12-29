@@ -71,7 +71,6 @@
 ### Maintenance
 
 * Add an internal function to load GMT remote datasets ([#2200](https://github.com/GenericMappingTools/pygmt/pull/2200))
-* load_earth_relief() now returns gridline-registrated grids by default in GMT 6.4.0 ([#2052](https://github.com/GenericMappingTools/pygmt/pull/2052))
 * Add support for Python 3.11 ([#2172](https://github.com/GenericMappingTools/pygmt/pull/2172))
 * NEP29: Test PyGMT on NumPy 1.24 ([#2256](https://github.com/GenericMappingTools/pygmt/pull/2256))
 * NEP29: Test PyGMT on NumPy 1.23 and 1.21 ([#2057](https://github.com/GenericMappingTools/pygmt/pull/2057))
