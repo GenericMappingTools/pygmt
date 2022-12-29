@@ -19,7 +19,7 @@
 * Add load_earth_geoid function for Earth Geoid dataset ([#2236](https://github.com/GenericMappingTools/pygmt/pull/2236))
 * Add load_earth_magnetic_anomaly function for Earth magnetic anomaly dataset ([#2196](https://github.com/GenericMappingTools/pygmt/pull/2196), [#2239](https://github.com/GenericMappingTools/pygmt/pull/2239)), [#2241](https://github.com/GenericMappingTools/pygmt/pull/2241)
 * Add load_earth_vertical_gravity_gradient function for Earth vertical gravity gradient dataset ([#2240](https://github.com/GenericMappingTools/pygmt/pull/2240))
-* load_earth_relief: Add the support of data sources "gebco" , "gebcosi", and "synbath" ([#1818](https://github.com/GenericMappingTools/pygmt/pull/1818), [#2162](https://github.com/GenericMappingTools/pygmt/pull/2162), [#2192](https://github.com/GenericMappingTools/pygmt/pull/2192))
+* load_earth_relief: Add the support of data sources "gebco" , "gebcosi", and "synbath" ([#1818](https://github.com/GenericMappingTools/pygmt/pull/1818), [#2162](https://github.com/GenericMappingTools/pygmt/pull/2162), [#2192](https://github.com/GenericMappingTools/pygmt/pull/2192)), [#2281](https://github.com/GenericMappingTools/pygmt/pull/2281)
 * Wrap ternary ([#1431](https://github.com/GenericMappingTools/pygmt/pull/1431))
 
 ### Enhancements
