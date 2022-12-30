@@ -135,7 +135,7 @@ jobs:
 
       # Run full tests including doctests on Wednesday
       - name: Run full tests
-        if: github.event_name == 'schedule' && endswith(github.event.schedule, '3')
+        if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 3'
         run: make fulltest PYTEST_EXTRA="-r P"
 
       # Upload diff images on test failure
