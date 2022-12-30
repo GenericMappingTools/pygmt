@@ -515,6 +515,7 @@ def test_plot_shapefile():
     return fig
 
 
+@pytest.mark.mpl_image_compare
 def test_plot_dataframe_incols():
     """
     Make sure that the incols parameter works for pandas.DataFrame.
