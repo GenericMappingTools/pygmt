@@ -173,6 +173,7 @@ def grdimage(self, grid, **kwargs):
     >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
     >>> # show the plot
     >>> fig.show()
+    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
