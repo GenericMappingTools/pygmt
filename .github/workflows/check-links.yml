@@ -37,7 +37,7 @@ jobs:
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
-          --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z"
+          --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^git"
           --exclude "^file://"
           --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
