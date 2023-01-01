@@ -202,6 +202,7 @@ def coast(self, **kwargs):
     ... )
     >>> # Show the plot
     >>> fig.show()
+    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):

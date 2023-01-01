@@ -19,7 +19,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -33,6 +33,7 @@ jobs:
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge

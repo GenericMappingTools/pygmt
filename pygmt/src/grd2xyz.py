@@ -139,9 +139,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-         lon    lat  elevation
-    0  10.25  24.75      903.5
-    1  10.75  24.75      820.0
+        lon   lat  elevation
+    0  10.0  25.0      863.0
+    1  10.5  25.0      985.5
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(

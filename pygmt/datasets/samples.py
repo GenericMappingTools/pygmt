@@ -24,7 +24,7 @@ def list_sample_data():
     """
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "earth_relief_holes": "Regional 20 arc-minute Earth relief grid with holes",
+        "earth_relief_holes": "Regional 20 arc-minutes Earth relief grid with holes",
         "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
@@ -32,8 +32,9 @@ def list_sample_data():
         "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
         " Mars from Smith and Zuber (1996)",
         "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
-        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
         "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
+        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
+        "rock_compositions": "Table of rock sample compositions",
         "usgs_quakes": "Table of global earthquakes from the USGS",
     }
     return names
@@ -80,6 +81,7 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
+        "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
@@ -358,6 +360,26 @@ def load_mars_shape(**kwargs):
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
     )
     return data
+
+
+def _load_rock_sample_compositions():
+    """
+    Loads a table of rock sample compositions.
+
+    Returns
+    -------
+    data : pandas.DataFrame
+        The data table with columns "limestone", "water", "air",
+        and "permittivity".
+    """
+
+    fname = which("@ternary.txt", download="c")
+    return pd.read_csv(
+        fname,
+        delim_whitespace=True,
+        header=None,
+        names=["limestone", "water", "air", "permittivity"],
+    )
 
 
 def _load_notre_dame_topography():

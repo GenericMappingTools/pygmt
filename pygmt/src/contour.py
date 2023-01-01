@@ -49,9 +49,9 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     ----------
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     {projection}
     {region}

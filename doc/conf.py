@@ -58,7 +58,7 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "xarray": ("https://docs.xarray.dev/en/stable/", None),
 }
 
 # options for sphinx-copybutton
@@ -73,11 +73,11 @@ sphinx_gallery_conf = {
     "examples_dirs": [
         "../examples/gallery",
         "../examples/tutorials",
-        "../examples/get-started",
+        "../examples/get_started",
         "../examples/projections",
     ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "get-started", "projections"],
+    "gallery_dirs": ["gallery", "tutorials", "get_started", "projections"],
     "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/maps",
@@ -97,7 +97,7 @@ sphinx_gallery_conf = {
             "../examples/projections/table",
             "../examples/tutorials/basics",
             "../examples/tutorials/advanced",
-            "../examples/get-started",
+            "../examples/get_started",
         ]
     ),
     # Patter to search for example files

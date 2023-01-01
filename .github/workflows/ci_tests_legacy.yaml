@@ -42,7 +42,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.2.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -58,13 +58,15 @@ jobs:
           miniforge-version: latest
           miniforge-variant: Mambaforge
           mamba-version: "*"
+          run-post: false
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
           mamba install gmt=${{ matrix.gmt_version }} numpy \
-                        pandas xarray netCDF4 packaging geopandas \
+                        pandas xarray netCDF4 packaging \
+                        geopandas ipython \
                         build dvc make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 

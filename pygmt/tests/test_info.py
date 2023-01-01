@@ -67,7 +67,7 @@ def test_info_path(table):
 
 def test_info_2d_list():
     """
-    Make sure info works on a 2d list.
+    Make sure info works on a 2-D list.
     """
     output = info(data=[[0, 8], [3, 5], [6, 2]])
     expected_output = "<vector memory>: N = 3 <0/6> <2/8>\n"
@@ -126,7 +126,7 @@ def test_info_pandas_dataframe_time_column():
 
 def test_info_xarray_dataset_time_column():
     """
-    Make sure info works on xarray.Dataset 1D inputs with a time column.
+    Make sure info works on xarray.Dataset 1-D inputs with a time column.
     """
     table = xr.Dataset(
         coords={"index": [0, 1, 2, 3, 4]},
@@ -144,7 +144,7 @@ def test_info_xarray_dataset_time_column():
 
 def test_info_2d_array():
     """
-    Make sure info works on 2D numpy.ndarray inputs.
+    Make sure info works on 2-D numpy.ndarray inputs.
     """
     table = np.loadtxt(POINTS_DATA)
     output = info(data=table)
@@ -156,7 +156,7 @@ def test_info_2d_array():
 
 def test_info_1d_array():
     """
-    Make sure info works on 1D numpy.ndarray inputs.
+    Make sure info works on 1-D numpy.ndarray inputs.
     """
     output = info(data=np.arange(20))
     expected_output = "<vector memory>: N = 20 <0/19>\n"

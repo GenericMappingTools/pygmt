@@ -1,7 +1,10 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
+import warnings
+
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -30,7 +33,16 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
+def wiggle(
+    self,
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    fillpositive=None,
+    fillnegative=None,
+    **kwargs
+):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
@@ -45,10 +57,10 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
@@ -65,14 +77,12 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
-    color : str
-        Set fill shade, color or pattern for positive and/or negative wiggles
-        [Default is no fill]. Optionally, append **+p** to fill positive areas
-        (this is the default behavior). Append **+n** to fill negative areas.
-        Append **+n+p** to fill both positive and negative areas with the same
-        fill. **Note**: You will need to repeat the color parameter to select
-        different fills for the positive and negative wiggles.
-
+    fillpositive : str
+        Set fill shade, color, or pattern for positive wiggles [Default is no
+        fill].
+    fillnegative : str
+        Set fill shade, color, or pattern for negative wiggles [Default is no
+        fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
@@ -93,6 +103,24 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
     {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
+        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
+
+    if kwargs.get("G") is not None:
+        msg = (
+            "The 'color' parameter has been deprecated since v0.8.0"
+            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
+            " instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+
+    if fillpositive or fillnegative:
+        kwargs["G"] = []
+        if fillpositive:
+            kwargs["G"].append(fillpositive + "+p")
+        if fillnegative:
+            kwargs["G"].append(fillnegative + "+n")
 
     with Session() as lib:
         # Choose how data will be passed in to the module

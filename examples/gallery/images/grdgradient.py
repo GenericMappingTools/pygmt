@@ -15,7 +15,7 @@ import pygmt
 # Define region of interest around Yosemite valley
 region = [-119.825, -119.4, 37.6, 37.825]
 
-# Load sample grid (3 arc second global relief) in target area
+# Load sample grid (3 arc-seconds global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="03s", region=region)
 
 # calculate the reflection of a light source projecting from west to east

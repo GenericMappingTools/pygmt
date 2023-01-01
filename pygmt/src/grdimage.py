@@ -164,7 +164,7 @@ def grdimage(self, grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 30 arc minute grid with "gridline" registration
+    >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
@@ -173,6 +173,7 @@ def grdimage(self, grid, **kwargs):
     >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
     >>> # show the plot
     >>> fig.show()
+    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
