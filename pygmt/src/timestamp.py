@@ -16,6 +16,7 @@ def timestamp(
     justification="BL",
     offset=("-54p", "-54p"),
     font="Helvetica",
+    timefmt="%Y %b %d %H:%M:%S",
 ):
     """
     Plot the GMT timestamp logo.
@@ -42,6 +43,10 @@ def timestamp(
         Font of the timestamp and the optional label.
         For GMT<=6.4.0, this parameter can only change the font style.
         For GMT>=6.5.0, this parameter can change the font style and font color.
+    timefmt : str
+        Format of the time information in the UNIX time stamp. This format is
+        parsed by the C function ``strftime``, so that virtually any text can
+        be used (even not containing any time information).
 
     Examples
     --------
@@ -89,5 +94,7 @@ def timestamp(
 
     with Session() as lib:
         lib.call_module(
-            module="plot", args=build_arg_string(kwdict) + f" --FONT_LOGO={font}"
+            module="plot",
+            args=build_arg_string(kwdict)
+            + f" --FONT_LOGO={font} --FORMAT_TIME_STAMP={timefmt}",
         )
