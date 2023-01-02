@@ -49,8 +49,8 @@ A few guidelines for reviewing:
   PR.
 * Don't be harsh with code style or performance. If the code is bad, either (1) merge
   the pull request and open a new one fixing the code and pinging the original submitter
-  (2) comment on the PR detailing how the code could be improved. Both ways are focused
-  on showing the contributor **how to write good code**, not shaming them.
+  or (2) comment on the PR detailing how the code could be improved. Both ways are
+  focused on showing the contributor **how to write good code**, not shaming them.
 
 Pull requests should be **squash merged**.
 This means that all commits will be collapsed into one.
