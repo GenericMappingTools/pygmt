@@ -13,11 +13,10 @@ dependencies:
     - packaging
     # Optional dependencies
     - geopandas
+    - ipython
     # Development dependencies (general)
     - build
     - dvc
-    - ipython
-    - jupyter
     - make
     # Dev dependencies (style checks)
     - black
