@@ -70,7 +70,6 @@ def load_sample_data(name):
 
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
-        "bathymetry": load_sample_bathymetry,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
@@ -81,6 +80,7 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
+        "bathymetry": _load_sample_bathymetry,
         "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
         "maunaloa_co2": _load_maunaloa_co2,
@@ -179,20 +179,10 @@ def load_ocean_ridge_points(**kwargs):
     return data
 
 
-def load_sample_bathymetry(**kwargs):
+def _load_sample_bathymetry(**kwargs):
     """
-    (Deprecated) Load a table of ship observations of bathymetry off Baja
+    Load a table of ship observations of bathymetry off Baja
     California as a pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="bathymetry")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
 
     Returns
     -------
@@ -200,14 +190,6 @@ def load_sample_bathymetry(**kwargs):
         The data table. Columns are longitude, latitude, and bathymetry.
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='bathymetry') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@tut_ship.xyz", download="c")
     data = pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
