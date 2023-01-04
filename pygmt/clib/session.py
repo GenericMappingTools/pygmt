@@ -825,8 +825,8 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Strings`` exits with
+            status != 0.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
@@ -887,8 +887,8 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with
+            status != 0.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -1375,7 +1375,7 @@ class Session:
         ----------
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
-            from 'raster', 'vector' or None. Default is None (no validation).
+            from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
