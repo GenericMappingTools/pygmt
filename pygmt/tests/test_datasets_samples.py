@@ -12,7 +12,6 @@ from pygmt.datasets import (
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_sample_data,
-    load_usgs_quakes,
 )
 from pygmt.exceptions import GMTInvalidInput
 
@@ -89,9 +88,7 @@ def test_usgs_quakes():
     """
     Check that the dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_usgs_quakes()
-        assert len(record) == 1
+    data = load_sample_data(name="usgs_quakes")
     assert data.shape == (1197, 22)
 
 

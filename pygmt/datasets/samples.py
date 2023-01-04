@@ -76,7 +76,6 @@ def load_sample_data(name):
         "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
-        "usgs_quakes": load_usgs_quakes,
     }
 
     # Dictionary of private load functions
@@ -85,6 +84,7 @@ def load_sample_data(name):
         "earth_relief_holes": _load_earth_relief_holes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
+        "usgs_quakes": _load_usgs_quakes,
     }
 
     if name in load_func_old:
@@ -215,20 +215,11 @@ def load_sample_bathymetry(**kwargs):
     return data
 
 
-def load_usgs_quakes(**kwargs):
+def _load_usgs_quakes():
     """
-    (Deprecated) Load a table of global earthquakes from the USGS as a
-    pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="usgs_quakes")`` and will be removed in
-       v0.9.0.
+    Load a table of global earthquakes from the USGS as a pandas.DataFrame.
 
     This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
 
     Returns
     -------
@@ -236,15 +227,6 @@ def load_usgs_quakes(**kwargs):
         The data table. Use ``print(data.describe())`` to see the available
         columns.
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='usgs_quakes') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@usgs_quakes_22.txt", download="c")
     data = pd.read_csv(fname)
     return data
