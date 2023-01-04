@@ -252,8 +252,8 @@ def load_usgs_quakes(**kwargs):
 
 def _load_fractures_compilation():
     """
-    Load a table of fracture lengths and azimuths as hypothetically 
-    digitized from geological maps as a pandas.DataFrame.
+    Load a table of fracture lengths and azimuths as hypothetically digitized
+    from geological maps as a pandas.DataFrame.
 
     Returns
     -------
