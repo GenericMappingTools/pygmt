@@ -677,12 +677,12 @@ class Session:
 
     def _check_dtype_and_dim(self, array, ndim):
         """
-        Check that a numpy array has the given dimensions and is a valid data
+        Check that a numpy array has the given dimension and is a valid data
         type.
 
         Parameters
         ----------
-        array : numpy array
+        array : numpy.ndarray
             The array to be tested.
         ndim : int
             The desired dimension of the array.
@@ -694,8 +694,8 @@ class Session:
 
         Raises
         ------
-        GMTCLibError
-            If the array has the wrong dimensions or is an unsupported data
+        GMTInvalidInput
+            If the array has the wrong dimension or is an unsupported data
             type.
 
         Examples
@@ -717,7 +717,7 @@ class Session:
         """
         # check the array has the given dimension
         if array.ndim != ndim:
-            raise GMTInvalidInput(f"Expected a numpy 1d array, got {array.ndim}d.")
+            raise GMTInvalidInput(f"Expected a numpy {ndim}d array, got {array.ndim}d.")
 
         # check the array has a valid/known data type
         if array.dtype.type not in DTYPES:
