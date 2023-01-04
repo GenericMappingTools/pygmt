@@ -324,7 +324,7 @@ def load_hotspots(**kwargs):
     return data
 
 
-def _load_mars_shape(**kwargs):
+def _load_mars_shape():
     """
     Load a table of data for the shape of Mars as a pandas.DataFrame.
 
