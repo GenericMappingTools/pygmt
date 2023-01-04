@@ -25,6 +25,7 @@ def list_sample_data():
     names = {
         "bathymetry": "Table of ship bathymetric observations off Baja California",
         "earth_relief_holes": "Regional 20 arc-minutes Earth relief grid with holes",
+        "fractures": "Table of hypothetical fracture lengths and azimuths",
         "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
         " Mueller et al., 1993",
         "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
