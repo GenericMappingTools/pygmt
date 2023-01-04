@@ -74,7 +74,6 @@ def load_sample_data(name):
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "japan_quakes": load_japan_quakes,
-        "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
         "usgs_quakes": load_usgs_quakes,
     }
@@ -83,6 +82,7 @@ def load_sample_data(name):
     load_func = {
         "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
+        "mars_shape": _load_mars_shape,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
     }
@@ -324,37 +324,15 @@ def load_hotspots(**kwargs):
     return data
 
 
-def load_mars_shape(**kwargs):
+def _load_mars_shape(**kwargs):
     """
-    (Deprecated) Load a table of data for the shape of Mars.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="mars_shape")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@mars370d.txt`` dataset used in GMT examples, with data and
-    information from Smith, D. E., and M. T. Zuber (1996), The shape of Mars
-    and the topographic signature of the hemispheric dichotomy. Data columns
-    are "longitude," "latitude", and "radius (meters)."
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of data for the shape of Mars as a pandas.DataFrame.
 
     Returns
     -------
     data : pandas.DataFrame
         The data table with columns "longitude", "latitude", and "radius(m)".
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='mars_shape') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]

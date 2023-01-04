@@ -8,7 +8,6 @@ from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
     load_japan_quakes,
-    load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
     load_sample_data,
@@ -113,9 +112,7 @@ def test_mars_shape():
     """
     Check that the @mars370d.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_mars_shape()
-        assert len(record) == 1
+    data = load_sample_data(name="mars_shape")
     assert data.shape == (370, 3)
     assert data["longitude"].min() == 0.008
     assert data["longitude"].max() == 359.983
