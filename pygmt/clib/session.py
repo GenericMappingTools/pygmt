@@ -717,7 +717,7 @@ class Session:
         """
         # check the array has the given dimension
         if array.ndim != ndim:
-            raise GMTInvalidInput(f"Expected a numpy {ndim}d array, got {array.ndim}d.")
+            raise GMTInvalidInput(f"Expected a numpy {ndim}-D array, got {array.ndim}-D.")
 
         # check the array has a valid/known data type
         if array.dtype.type not in DTYPES:
