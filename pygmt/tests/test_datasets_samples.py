@@ -6,7 +6,6 @@ import pandas as pd
 import pytest
 from pygmt.datasets import (
     load_fractures_compilation,
-    load_hotspots,
     load_japan_quakes,
     load_mars_shape,
     load_ocean_ridge_points,
@@ -129,9 +128,7 @@ def test_hotspots():
     """
     Check that the @hotspots.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_hotspots()
-        assert len(record) == 1
+    data = load_sample_data(name="hotspots")
     assert data.shape == (55, 4)
     assert list(data.columns) == [
         "longitude",
