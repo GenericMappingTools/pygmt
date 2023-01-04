@@ -1381,10 +1381,10 @@ class Session:
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
         x/y/z : 1-D arrays or None
-            x, y and z columns as numpy arrays.
+            x, y, and z columns as numpy arrays.
         extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y and z. All
-            of these arrays must be of the same size as the x/y/z arrays.
+            Optional. A list of numpy arrays in addition to x, y, and z.
+            All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
 
