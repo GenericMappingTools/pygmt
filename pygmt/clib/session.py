@@ -763,8 +763,8 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Vector`` exits with
+            status != 0.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -1468,7 +1468,8 @@ class Session:
                     _virtualfile_from = self.virtualfile_from_matrix
                     _data = (data,)
                 except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy.ndarray, and pandas.Series types
+                    # Python list, tuple, numpy.ndarray, and pandas.Series
+                    # types
                     _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
