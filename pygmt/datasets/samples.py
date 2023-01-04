@@ -287,8 +287,8 @@ def load_fractures_compilation(**kwargs):
 
 def _load_hotspots():
     """
-    Load a table with the locations, names, and suggested symbol
-    sizes of hotspots.
+    Load a table with the locations, names, and suggested symbol sizes of
+    hotspots.
 
     Returns
     -------
