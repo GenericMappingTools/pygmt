@@ -5,7 +5,6 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.datasets import (
-    load_fractures_compilation,
     load_hotspots,
     load_japan_quakes,
     load_mars_shape,
@@ -99,9 +98,7 @@ def test_fractures_compilation():
     """
     Check that the @fractures_06.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_fractures_compilation()
-        assert len(record) == 1
+    data = load_sample_data(name="fractures_compilation")
     assert data.shape == (361, 2)
     assert data["length"].min() == 98.6561
     assert data["length"].max() == 984.652
