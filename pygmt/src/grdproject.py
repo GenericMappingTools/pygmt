@@ -79,13 +79,15 @@ def grdproject(grid, **kwargs):
     scaling : str
         [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
         **k**\|\ **M**\|\ **n**\|\ **u**].
-        Force 1:1 scaling, i.e., output or output data are in actual projected
-        meters [**e**]. To specify other units, append **f** (foot),
-        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
-        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
+        Force 1:1 scaling, i.e., output or input data are in actual projected
+        meters [**e**]. To specify other units, append **f** (feet),
+        **k** (kilometers), **M** (statute miles), **n** (nautical miles),
+        **u** (US survey feet), **i** (inches), **c** (centimeters), or
+        **p** (points).
     unit : str
-        Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with ``scaling``.
+        Append **c**, **i**, or **p** to indicate that centimeters, inches, or
+        points should be the projected measure unit. Cannot be used with
+        ``scaling``.
     {verbose}
     {interpolation}
     {registration}
