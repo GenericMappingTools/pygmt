@@ -7,7 +7,6 @@ import pytest
 from pygmt.datasets import (
     load_fractures_compilation,
     load_hotspots,
-    load_japan_quakes,
     load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
@@ -29,9 +28,7 @@ def test_japan_quakes():
     """
     Check that the dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_japan_quakes()
-        assert len(record) == 1
+    data = load_sample_data(name="japan_quakes")
     assert data.shape == (115, 7)
     assert data["year"].min() == 1987
     assert data["year"].max() == 1988

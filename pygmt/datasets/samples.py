@@ -73,7 +73,6 @@ def load_sample_data(name):
         "bathymetry": load_sample_bathymetry,
         "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
-        "japan_quakes": load_japan_quakes,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
         "usgs_quakes": load_usgs_quakes,
@@ -81,10 +80,11 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
-        "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
+        "japan_quakes": _load_japan_quakes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
+        "rock_compositions": _load_rock_sample_compositions,
     }
 
     if name in load_func_old:
@@ -95,21 +95,9 @@ def load_sample_data(name):
     return data
 
 
-def load_japan_quakes(**kwargs):
+def _load_japan_quakes():
     """
-    (Deprecated) Load a table of earthquakes around Japan as a
-    pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="japan_quakes")`` and will be removed in
-       v0.9.0.
-
-    Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
-    dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of earthquakes around Japan as a pandas.DataFrame.
 
     Returns
     -------
@@ -117,29 +105,21 @@ def load_japan_quakes(**kwargs):
         The data table. Columns are year, month, day, latitude, longitude,
         depth (in km), and magnitude of the earthquakes.
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='japan_quakes') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
-
     fname = which("@tut_quakes.ngdc", download="c")
-    data = pd.read_csv(fname, header=1, sep=r"\s+")
-    data.columns = [
-        "year",
-        "month",
-        "day",
-        "latitude",
-        "longitude",
-        "depth_km",
-        "magnitude",
-    ]
-
-    return data
+    return pd.read_csv(
+        fname,
+        header=1,
+        delim_whitespace=True,
+        names=[
+            "year",
+            "month",
+            "day",
+            "latitude",
+            "longitude",
+            "depth_km",
+            "magnitude",
+        ],
+    )
 
 
 def load_ocean_ridge_points(**kwargs):
