@@ -181,8 +181,8 @@ def load_ocean_ridge_points(**kwargs):
 
 def _load_sample_bathymetry(**kwargs):
     """
-    Load a table of ship observations of bathymetry off Baja
-    California as a pandas.DataFrame.
+    Load a table of ship observations of bathymetry off Baja California as a
+    pandas.DataFrame.
 
     Returns
     -------
