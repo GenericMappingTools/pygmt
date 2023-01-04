@@ -38,20 +38,6 @@ def test_japan_quakes():
     assert data["day"].max() == 31
 
 
-def test_load_sample_data():
-    """
-    Check that the dataset loads without errors.
-    """
-    data = load_sample_data(name="japan_quakes")
-    assert data.shape == (115, 7)
-    assert data["year"].min() == 1987
-    assert data["year"].max() == 1988
-    assert data["month"].min() == 1
-    assert data["month"].max() == 12
-    assert data["day"].min() == 1
-    assert data["day"].max() == 31
-
-
 def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
