@@ -98,7 +98,7 @@ def test_fractures_compilation():
     """
     Check that the @fractures_06.txt dataset loads without errors.
     """
-    data = load_sample_data(name="fractures_compilation")
+    data = load_sample_data(name="fractures")
     assert data.shape == (361, 2)
     assert data["length"].min() == 98.6561
     assert data["length"].max() == 984.652
