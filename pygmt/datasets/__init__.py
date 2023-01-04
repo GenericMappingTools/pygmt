@@ -17,7 +17,6 @@ from pygmt.datasets.samples import (
     load_japan_quakes,
     load_mars_shape,
     load_ocean_ridge_points,
-    load_sample_bathymetry,
     load_sample_data,
     load_usgs_quakes,
 )
