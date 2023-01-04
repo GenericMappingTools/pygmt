@@ -677,7 +677,7 @@ class Session:
 
     def _check_dtype_and_dim(self, array, ndim):
         """
-        Check that a numpy array has the given dimension and is a valid data
+        Check that a numpy array has the given dimensions and is a valid data
         type.
 
         Parameters
@@ -695,7 +695,7 @@ class Session:
         Raises
         ------
         GMTInvalidInput
-            If the array has the wrong dimension or is an unsupported data
+            If the array has the wrong dimensions or is an unsupported data
             type.
 
         Examples
