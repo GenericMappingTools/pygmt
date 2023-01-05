@@ -99,6 +99,8 @@ def _load_japan_quakes():
     """
     Load a table of earthquakes around Japan as a pandas.DataFrame.
 
+    Data is from the NOAA NGDC database.
+
     Returns
     -------
     data : pandas.DataFrame
