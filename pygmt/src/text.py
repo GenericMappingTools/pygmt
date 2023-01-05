@@ -120,16 +120,16 @@ def text_(
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
-        [Default is 15% of the font size]. Only used if ``pen`` or ``fill`` are
-        specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
-        for point; if not given we consult :gmt-term:`PROJ_LENGTH_UNIT`)
-        or *%* for a percentage of the font size. Optionally, use modifier
-        **+t** to set the shape of the text box when using ``fill`` and/or
-        ``pen``. Append lower case **o** to get a straight rectangle
-        [Default is **o**]. Append upper case **O** to get a rounded
-        rectangle. In paragraph mode (*paragraph*) you can also append lower
-        case **c** to get a concave rectangle or append upper case **C**
-        to get a convex rectangle.
+        [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
+        are specified. Append the unit you want (*c* for centimeters,
+        *i* for inches, or *p* for points; if not given we consult
+        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
+        size. Optionally, use modifier **+t** to set the shape of the text
+        box when using ``fill`` and/or ``pen``. Append lower case **o**
+        to get a straight rectangle [Default is **o**]. Append upper case
+        **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
+        you can also append lower case **c** to get a concave rectangle or
+        append upper case **C** to get a convex rectangle.
     fill : str
         Sets the shade or color used for filling the text box [Default is
         no fill].
