@@ -187,7 +187,8 @@ def _load_sample_bathymetry():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are longitude, latitude, and bathymetry.
+        The data table. The column names are "longitude", "latitude",
+        and "bathymetry".
     """
 
     fname = which("@tut_ship.xyz", download="c")
