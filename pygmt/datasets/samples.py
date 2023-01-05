@@ -294,7 +294,7 @@ def _load_hotspots():
     -------
     data : pandas.DataFrame
         The data table with columns "longitude", "latitude", "symbol_size", and
-        "placename".
+        "place_name".
     """
 
     fname = which("@hotspots.txt", download="c")
