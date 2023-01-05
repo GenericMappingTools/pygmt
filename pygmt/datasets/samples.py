@@ -102,8 +102,9 @@ def _load_japan_quakes():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are year, month, day, latitude, longitude,
-        depth (in km), and magnitude of the earthquakes.
+        The data table. The column names are "year", "month", "day",
+        "latitude", "longitude", "depth_km", and "magnitude" of the
+        earthquakes.
     """
     fname = which("@tut_quakes.ngdc", download="c")
     return pd.read_csv(
