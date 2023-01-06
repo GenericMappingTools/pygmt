@@ -147,12 +147,10 @@ def _load_ocean_ridge_points():
     Load a table of ocean ridge points for the entire world as a
     pandas.DataFrame.
 
-    This is the ``@ridge.txt`` dataset used in the GMT tutorials.
-
     Returns
     -------
     data : pandas.DataFrame
-        The data table. The column names are longitude and latitude.
+        The data table. The column names are "longitude" and "latitude".
     """
     fname = which("@ridge.txt", download="c")
     data = pd.read_csv(
