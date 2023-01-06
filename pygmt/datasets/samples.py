@@ -246,7 +246,9 @@ def _load_fractures_compilation():
     """
 
     fname = which("@fractures_06.txt", download="c")
-    data = pd.read_csv(fname, header=None, delim_whitespace=True, names=["azimuth", "length"])
+    data = pd.read_csv(
+        fname, header=None, delim_whitespace=True, names=["azimuth", "length"]
+    )
     return data[["length", "azimuth"]]
 
 
