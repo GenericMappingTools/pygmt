@@ -145,7 +145,7 @@ datasets = {
     ),
     "earth_mask": GMTRemoteDataset(
         title="Earth mask",
-        name="mask",
+        name="earth_mask",
         long_name="Mask of land and water features",
         units="integers",
         extra_attributes={"horizontal_datum": "WGS84"},

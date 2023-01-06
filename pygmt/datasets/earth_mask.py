@@ -16,7 +16,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     Load the GSHHG Global Earth Mask in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/earth/earth_geoid/``) the first time you invoke
+    (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
     So you'll need an internet connection the first time around.
 
