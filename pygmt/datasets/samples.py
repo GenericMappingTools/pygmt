@@ -219,8 +219,6 @@ def _load_usgs_quakes():
     """
     Load a table of global earthquakes from the USGS as a pandas.DataFrame.
 
-    This is the ``@usgs_quakes_22.txt`` dataset used in the GMT tutorials.
-
     Returns
     -------
     data : pandas.DataFrame
