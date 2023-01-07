@@ -241,8 +241,9 @@ def _load_fractures_compilation():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Use ``print(data.describe())`` to see the available
-        columns.
+        The data table. The column names are "length" and
+        "azimuth" of the fractures.
+
     """
 
     fname = which("@fractures_06.txt", download="c")
