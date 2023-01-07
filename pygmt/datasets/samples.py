@@ -243,7 +243,6 @@ def _load_fractures_compilation():
     data : pandas.DataFrame
         The data table. The column names are "length" and
         "azimuth" of the fractures.
-
     """
 
     fname = which("@fractures_06.txt", download="c")
