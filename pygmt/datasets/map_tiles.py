@@ -89,7 +89,7 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
             "Package `contextily` is required to be installed to use this function. "
             "Please use `pip install contextily` or "
             "`conda install -c conda-forge contextily` "
-            "to install the package"
+            "to install the package."
         )
 
     west, east, south, north = region
