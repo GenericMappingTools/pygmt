@@ -734,7 +734,7 @@ class Session:
 
     def put_vector(self, dataset, column, vector):
         r"""
-        Attach a numpy 1D array as a column on a GMT dataset.
+        Attach a numpy 1-D array as a column on a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
@@ -743,11 +743,11 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_ and datetime64.
+        uint8, uint16, uint32, uint64, float32, float64, str\_, and datetime64.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2d array, for example, you will have to make a
+            column slice of a 2-D array, for example, you will have to make a
             copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
             is contiguous (it won't copy if it already is).
 
@@ -758,15 +758,15 @@ class Session:
             :meth:`pygmt.clib.Session.create_data`.
         column : int
             The column number of this vector in the dataset (starting from 0).
-        vector : numpy 1d-array
-            The array that will be attached to the dataset. Must be a 1d C
+        vector : numpy 1-D array
+            The array that will be attached to the dataset. Must be a 1-D C
             contiguous array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Vector`` exits with
+            status != 0.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -798,7 +798,7 @@ class Session:
 
     def put_strings(self, dataset, family, strings):
         """
-        Attach a numpy 1D array of dtype str as a column on a GMT dataset.
+        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
 
         Use this function to attach string type numpy array data to a GMT
         dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
@@ -808,7 +808,7 @@ class Session:
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2d array, for example, you will have to make a
+            column slice of a 2-D array, for example, you will have to make a
             copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
             is contiguous (it won't copy if it already is).
 
@@ -820,15 +820,15 @@ class Session:
         family : str
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings : numpy 1d-array
-            The array that will be attached to the dataset. Must be a 1d C
+        strings : numpy 1-D array
+            The array that will be attached to the dataset. Must be a 1-D C
             contiguous array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Strings`` exits with
+            status != 0.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
@@ -858,7 +858,7 @@ class Session:
 
     def put_matrix(self, dataset, matrix, pad=0):
         """
-        Attach a numpy 2D array to a GMT dataset.
+        Attach a numpy 2-D array to a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
@@ -867,7 +867,7 @@ class Session:
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
         Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32 and float64.
+        uint8, uint16, uint32, uint64, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -879,8 +879,8 @@ class Session:
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        matrix : numpy 2d-array
-            The array that will be attached to the dataset. Must be a 2d C
+        matrix : numpy 2-D array
+            The array that will be attached to the dataset. Must be a 2-D C
             contiguous array.
         pad : int
             The amount of padding that should be added to the matrix. Use when
@@ -889,8 +889,8 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with
+            status != 0.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -1087,7 +1087,7 @@ class Session:
     @contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
-        Store 1d arrays as columns of a table inside a virtual file.
+        Store 1-D arrays as columns of a table inside a virtual file.
 
         Use the virtual file name to pass in the data in your vectors to a GMT
         module.
@@ -1102,12 +1102,12 @@ class Session:
         :meth:`pygmt.clib.Session.open_virtual_file`.
 
         If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a 2D
-        array), they will need to be copied to a contiguous block.
+        without copying to GMT. If they are not (e.g., they are columns of a
+        2-D array), they will need to be copied to a contiguous block.
 
         Parameters
         ----------
-        vectors : 1d arrays
+        vectors : 1-D arrays
             The vectors that will be included in the array. All must be of the
             same size.
 
@@ -1191,7 +1191,7 @@ class Session:
     @contextmanager
     def virtualfile_from_matrix(self, matrix):
         """
-        Store a 2d array as a table inside a virtual file.
+        Store a 2-D array as a table inside a virtual file.
 
         Use the virtual file name to pass in the data in your matrix to a GMT
         module.
@@ -1217,7 +1217,7 @@ class Session:
 
         Parameters
         ----------
-        matrix : 2d array
+        matrix : 2-D array
             The matrix that will be included in the GMT data container.
 
         Yields
@@ -1377,16 +1377,16 @@ class Session:
         ----------
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
-            from 'raster', 'vector' or None. Default is None (no validation).
+            from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
-        x/y/z : 1d arrays or None
-            x, y and z columns as numpy arrays.
-        extra_arrays : list of 1d arrays
-            Optional. A list of numpy arrays in addition to x, y and z. All
-            of these arrays must be of the same size as the x/y/z arrays.
+        x/y/z : 1-D arrays or None
+            x, y, and z columns as numpy arrays.
+        extra_arrays : list of 1-D arrays
+            Optional. A list of numpy arrays in addition to x, y, and z.
+            All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
 
@@ -1455,22 +1455,23 @@ class Session:
                 _data.append(np.atleast_1d(z))
             if extra_arrays:
                 _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2D arrays into list of vectors
+        elif kind == "matrix":  # turn 2-D arrays into list of vectors
             try:
-                # pandas.Series will be handled below like a 1d numpy ndarray
+                # pandas.Series will be handled below like a 1-D numpy.ndarray
                 assert not hasattr(data, "to_frame")
                 # pandas.DataFrame and xarray.Dataset types
                 _data = [array for _, array in data.items()]
             except (AttributeError, AssertionError):
                 try:
-                    # Just use virtualfile_from_matrix for 2D numpy.ndarray
+                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
                     # which are signed integer (i), unsigned integer (u) or
                     # floating point (f) types
                     assert data.ndim == 2 and data.dtype.kind in "iuf"
                     _virtualfile_from = self.virtualfile_from_matrix
                     _data = (data,)
                 except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy ndarray and pandas.Series types
+                    # Python list, tuple, numpy.ndarray, and pandas.Series
+                    # types
                     _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
@@ -1487,8 +1488,8 @@ class Session:
 
         Returns
         -------
-        * wesn : 1d array
-            A 1D numpy array with the west, east, south, and north dimensions
+        * wesn : 1-D array
+            A numpy 1-D array with the west, east, south, and north dimensions
             of the current figure.
 
         Examples
