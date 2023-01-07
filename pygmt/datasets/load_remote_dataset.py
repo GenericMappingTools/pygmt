@@ -187,6 +187,24 @@ datasets = {
             "01m": Resolution(["pixel"], True),
         },
     ),
+    "earth_wdmam": GMTRemoteDataset(
+        title="WDMAM magnetic anomaly",
+        name="wdmam",
+        long_name="World Digital Magnetic Anomaly Map",
+        units="nT",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["gridline", "pixel"], False),
+            "30m": Resolution(["gridline", "pixel"], False),
+            "20m": Resolution(["gridline", "pixel"], False),
+            "15m": Resolution(["gridline", "pixel"], False),
+            "10m": Resolution(["gridline", "pixel"], False),
+            "06m": Resolution(["gridline", "pixel"], False),
+            "05m": Resolution(["gridline", "pixel"], True),
+            "04m": Resolution(["gridline", "pixel"], True),
+            "03m": Resolution(["gridline"], True),
+        },
+    ),
 }
 
 
