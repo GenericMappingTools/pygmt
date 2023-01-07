@@ -17,6 +17,7 @@ dependencies:
     # Development dependencies (general)
     - build
     - dvc
+    - jupyter
     - make
     # Dev dependencies (style checks)
     - black
