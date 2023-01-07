@@ -685,7 +685,7 @@ class Session:
         array : numpy.ndarray
             The array to be tested.
         ndim : int
-            The desired dimension of the array.
+            The desired number of array dimensions.
 
         Returns
         -------
@@ -695,8 +695,8 @@ class Session:
         Raises
         ------
         GMTInvalidInput
-            If the array has the wrong dimensions or is an unsupported data
-            type.
+            If the array has the wrong number of dimensions or
+            is an unsupported data type.
 
         Examples
         --------
@@ -715,13 +715,13 @@ class Session:
         ...
         True
         """
-        # check the array has the given dimension
+        # Check that the array has the given number of dimensions
         if array.ndim != ndim:
             raise GMTInvalidInput(
                 f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
             )
 
-        # check the array has a valid/known data type
+        # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
