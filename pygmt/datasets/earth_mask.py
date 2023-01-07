@@ -39,8 +39,6 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     region : str or list
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5
-        arc-minutes (i.e., ``"05m"``).
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
@@ -50,7 +48,13 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     -------
     grid : :class:`xarray.DataArray`
         The Earth mask grid. Coordinates are latitude and
-        longitude in degrees. Units are in integers.
+        longitude in degrees. Units are in integers for the surface type:
+
+        - 0: Ocean
+        - 1: Land
+        - 2: Lake
+        - 3: Island
+        - 4: Pond
     """
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
