@@ -177,18 +177,3 @@ def test_grdtrack_set_points_and_profile(dataarray, dataframe):
     """
     with pytest.raises(GMTInvalidInput):
         grdtrack(grid=dataarray, points=dataframe, profile="BL/TR")
-
-
-def test_grdtrack_old_parameter_order(dataframe, dataarray, expected_array):
-    """
-    Run grdtrack with the old parameter order 'points, grid'.
-
-    This test should be removed in v0.9.0.
-    """
-    for points in (POINTS_DATA, dataframe):
-        for grid in ("@static_earth_relief.nc", dataarray):
-            with pytest.warns(expected_warning=FutureWarning) as record:
-                output = grdtrack(points, grid)
-                assert len(record) == 1
-                assert isinstance(output, pd.DataFrame)
-                npt.assert_allclose(np.array(output), expected_array)

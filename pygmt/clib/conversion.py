@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 def dataarray_to_matrix(grid):
     """
-    Transform an xarray.DataArray into a data 2D array and metadata.
+    Transform an xarray.DataArray into a data 2-D array and metadata.
 
     Use this to extract the underlying numpy array of data and the region and
     increment for the grid.
@@ -31,8 +31,8 @@ def dataarray_to_matrix(grid):
 
     Returns
     -------
-    matrix : 2d-array
-        The 2D array of data from the grid.
+    matrix : 2-D array
+        The 2-D array of data from the grid.
     region : list
         The West, East, South, North boundaries of the grid.
     inc : list
@@ -127,24 +127,24 @@ def dataarray_to_matrix(grid):
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1d vectors (lists, arrays or pandas.Series) to C contiguous 1d
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D
     arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
-    memory). This usually happens when vectors are columns of a 2d array or
+    memory). This usually happens when vectors are columns of a 2-D array or
     have been sliced.
 
     If a vector is a list or pandas.Series, get the underlying numpy array.
 
     Parameters
     ----------
-    vectors : list of lists, 1d arrays or pandas.Series
+    vectors : list of lists, 1-D arrays, or pandas.Series
         The vectors that must be converted.
 
     Returns
     -------
-    arrays : list of 1d arrays
+    arrays : list of 1-D arrays
         The converted numpy arrays
 
     Examples
@@ -179,12 +179,12 @@ def as_c_contiguous(array):
 
     Parameters
     ----------
-    array : 1d array
+    array : 1-D array
         The numpy array
 
     Returns
     -------
-    array : 1d array
+    array : 1-D array
         Array is C contiguous order.
 
     Examples
@@ -252,7 +252,7 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
 
 def array_to_datetime(array):
     """
-    Convert an 1d datetime array from various types into pandas.DatetimeIndex
+    Convert an 1-D datetime array from various types into pandas.DatetimeIndex
     (i.e., numpy.datetime64).
 
     If the input array is not in legal datetime formats, raise a "ParseError"
@@ -260,7 +260,7 @@ def array_to_datetime(array):
 
     Parameters
     ----------
-    array : list or 1d array
+    array : list or 1-D array
         The input datetime array in various formats.
 
         Supported types:
@@ -272,7 +272,7 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1d datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
+    array : 1-D datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
 
     Examples
     --------

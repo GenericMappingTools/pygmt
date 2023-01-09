@@ -12,8 +12,6 @@ from pygmt.datasets.earth_vertical_gravity_gradient import (
 )
 from pygmt.datasets.samples import (
     list_sample_data,
-    load_fractures_compilation,
-    load_japan_quakes,
     load_mars_shape,
     load_ocean_ridge_points,
     load_sample_bathymetry,
