@@ -289,11 +289,16 @@ def _load_hotspots():
     """
     Load a table with the locations, names, and suggested symbol sizes of
     hotspots as a pandas.DataFrame.
+    
+    The data is from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,
+    pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]
+    have symbol sizes twice the size of all other hotspots.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", "symbol_size", and
+        The data table. The column names are "longitude", "latitude",
+        "symbol_size", and "palce_name".
         "place_name".
     """
 
