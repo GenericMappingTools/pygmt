@@ -298,7 +298,7 @@ def _load_hotspots():
     -------
     data : pandas.DataFrame
         The data table. The column names are "longitude", "latitude",
-        "symbol_size", and "palce_name".
+        "symbol_size", and "place_name".
         "place_name".
     """
 
