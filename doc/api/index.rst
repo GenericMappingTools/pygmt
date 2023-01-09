@@ -235,9 +235,7 @@ Use :func:`pygmt.datasets.load_sample_data` instead.
 .. autosummary::
     :toctree: generated
 
-    datasets.load_fractures_compilation
     datasets.load_hotspots
-    datasets.load_japan_quakes
     datasets.load_mars_shape
     datasets.load_ocean_ridge_points
     datasets.load_usgs_quakes
