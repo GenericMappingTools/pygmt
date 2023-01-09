@@ -79,7 +79,6 @@ def load_sample_data(name):
     # Dictionary of private load functions
     load_func = {
         "bathymetry": _load_sample_bathymetry,
-        "rock_compositions": _load_rock_sample_compositions,
         "earth_relief_holes": _load_earth_relief_holes,
         "fractures": _load_fractures_compilation,
         "japan_quakes": _load_japan_quakes,
