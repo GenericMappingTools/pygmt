@@ -94,8 +94,10 @@ def print_clib_info():
 
 def show_versions():
     """
-    Prints various dependency versions useful when submitting bug reports. This
-    includes information about:
+    Print various dependency versions which is useful when submitting bug
+    reports.
+
+    This includes information about:
 
     - PyGMT itself
     - System information (Python version, Operating System)
