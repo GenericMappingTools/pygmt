@@ -1,6 +1,8 @@
-# pylint: disable=missing-docstring
-#
-# Load sample data included with GMT (downloaded from the GMT cache server).
+"""
+Functions to load GMT remote data and sample data.
+
+Data are downloaded from the GMT data server.
+"""
 
 from pygmt.datasets.earth_age import load_earth_age
 from pygmt.datasets.earth_free_air_anomaly import load_earth_free_air_anomaly
