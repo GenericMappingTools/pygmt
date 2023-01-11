@@ -20,6 +20,7 @@ __doctest_skip__ = ["surface"]
     I="spacing",
     R="region",
     G="outgrid",
+    T='tensor',
     V="verbose",
     a="aspatial",
     b="binary",
