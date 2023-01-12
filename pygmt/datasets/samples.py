@@ -79,8 +79,8 @@ def load_sample_data(name):
     # Dictionary of private load functions
     load_func = {
         "earth_relief_holes": _load_earth_relief_holes,
-        "hotspots": _load_hotspots,
         "fractures": _load_fractures_compilation,
+        "hotspots": _load_hotspots,
         "japan_quakes": _load_japan_quakes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
