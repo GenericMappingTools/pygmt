@@ -61,7 +61,7 @@ def load_earth_magnetic_anomaly(
         Available options:
 
         - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default
-          option]. Only includes data is observed from sea level over
+          option]. Only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 
         - **emag2_4km** : Use a version of EMAG2 where all observations
