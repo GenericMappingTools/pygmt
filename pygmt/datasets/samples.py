@@ -269,7 +269,12 @@ def _load_hotspots():
     """
 
     fname = which("@hotspots.txt", download="c")
-    return pd.read_csv(fname, sep="\t", skiprows=3, names=["longitude", "latitude", "symbol_size", "place_name"])
+    return pd.read_csv(
+        fname,
+        sep="\t",
+        skiprows=3,
+        names=["longitude", "latitude", "symbol_size", "place_name"],
+    )
 
 
 def load_mars_shape(**kwargs):
