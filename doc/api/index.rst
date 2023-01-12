@@ -205,7 +205,6 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
 .. currentmodule:: pygmt
 
 Datasets
