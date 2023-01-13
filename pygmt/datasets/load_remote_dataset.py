@@ -147,7 +147,7 @@ datasets = {
         title="Earth mask",
         name="earth_mask",
         long_name="Mask of land and water features",
-        units="integers",
+        units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
             "01d": Resolution(["gridline", "pixel"], False),
@@ -317,7 +317,8 @@ def _load_remote_dataset(
     # Add some metadata to the grid
     grid.name = dataset.name
     grid.attrs["long_name"] = dataset.long_name
-    grid.attrs["units"] = dataset.units
+    if dataset.units:
+        grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
         grid.attrs[key] = value
     # Remove the actual range because it gets outdated when indexing the grid,
