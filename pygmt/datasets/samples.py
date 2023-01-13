@@ -136,14 +136,13 @@ def _load_ocean_ridge_points():
         The data table. The column names are "longitude" and "latitude".
     """
     fname = which("@ridge.txt", download="c")
-    data = pd.read_csv(
+    return pd.read_csv(
         fname,
         delim_whitespace=True,
         names=["longitude", "latitude"],
         skiprows=1,
         comment=">",
     )
-    return data
 
 
 def load_sample_bathymetry(**kwargs):
