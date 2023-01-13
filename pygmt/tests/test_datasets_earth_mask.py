@@ -29,7 +29,7 @@ def test_earth_mask_incorrect_registration():
 
 def test_earth_mask_01d():
     """
-    Test some properties of the earth mask 01d data.
+    Test some properties of the Earth mask 01d data.
     """
     data = load_earth_mask(resolution="01d")
     assert data.name == "earth_mask"
@@ -47,7 +47,7 @@ def test_earth_mask_01d():
 
 def test_earth_mask_01d_with_region():
     """
-    Test loading low-resolution earth mask with 'region'.
+    Test loading low-resolution Earth mask with 'region'.
     """
     data = load_earth_mask(resolution="01d", region=[-7, 4, 13, 19])
     assert data.shape == (7, 12)
