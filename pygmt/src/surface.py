@@ -17,9 +17,12 @@ __doctest_skip__ = ["surface"]
 
 @fmt_docstring
 @use_alias(
+    C="convergence",
     I="spacing",
+    L="limit",
     R="region",
     G="outgrid",
+    M="max_radius",
     T="tension",
     V="verbose",
     a="aspatial",
@@ -69,6 +72,25 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
+    convergence: float
+        Optional. Convergence limit. Iteration is assumed to have converged when the maximum 
+        absolute change in any grid value is less than convergence_limit. 
+        (Units same as data z units). Alternatively, give limit in percentage 
+        of rms deviation by appending %. [Default is scaled to  of the 
+        root-mean-square deviation of the data from a best-fit (least-squares) plane.]. 
+        This is the final convergence limit at the desired grid spacing; 
+        for intermediate (coarser) grids the effective convergence limit 
+        is divided by the grid spacing multiplier.
+    max_radius: str
+        Optional. After solving for the surface, apply a mask so that nodes farther than 
+        max_radius away from a data constraint are set to NaN [no masking]. 
+        Append a distance unit (see Units) if needed. One can also select the nodes to mask by 
+        using the n_cells**c**\ form. Here n_cells means the number of cells around the node 
+        controlled by a data point. As an example **0c**\ means that only the cell where the point 
+        lies is filled, **1c**\ keeps one cell beyond that 
+        (i.e. makes a 3x3 square neighborhood), and so on.
+    limit: float 
+        
     tension: float or str
         [**b**\|\ **i**]
         Optional. These must be between 0 and 1. 
