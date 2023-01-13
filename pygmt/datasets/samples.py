@@ -71,7 +71,6 @@ def load_sample_data(name):
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
         "bathymetry": load_sample_bathymetry,
-        "fractures": load_fractures_compilation,
         "hotspots": load_hotspots,
         "mars_shape": load_mars_shape,
         "ocean_ridge_points": load_ocean_ridge_points,
@@ -81,6 +80,7 @@ def load_sample_data(name):
     # Dictionary of private load functions
     load_func = {
         "earth_relief_holes": _load_earth_relief_holes,
+        "fractures": _load_fractures_compilation,
         "japan_quakes": _load_japan_quakes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
@@ -99,7 +99,7 @@ def _load_japan_quakes():
     """
     Load a table of earthquakes around Japan as a pandas.DataFrame.
 
-    Data is from the NOAA NGDC database.
+    The data are from the NOAA NGDC database.
 
     Returns
     -------
@@ -233,38 +233,22 @@ def load_usgs_quakes(**kwargs):
     return data
 
 
-def load_fractures_compilation(**kwargs):
+def _load_fractures_compilation():
     """
-    (Deprecated) Load a table of fracture lengths and azimuths as
-    hypothetically digitized from geological maps as a pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="fractures")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of fracture lengths and azimuths as hypothetically digitized
+    from geological maps as a pandas.DataFrame.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Use ``print(data.describe())`` to see the available
-        columns.
+        The data table. The column names are "length" and
+        "azimuth" of the fractures.
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='fractures') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@fractures_06.txt", download="c")
-    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
+    data = pd.read_csv(
+        fname, header=None, delim_whitespace=True, names=["azimuth", "length"]
+    )
     return data[["length", "azimuth"]]
 
 
