@@ -20,7 +20,7 @@ __doctest_skip__ = ["surface"]
     I="spacing",
     R="region",
     G="outgrid",
-    T='tensor',
+    T="tension",
     V="verbose",
     a="aspatial",
     b="binary",
@@ -69,6 +69,16 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
+    tension: float or str
+        [**b**\|\ **i**]
+        Optional. These must be between 0 and 1. 
+        Tension may be used in the interior solution (above equation, 
+        where it suppresses spurious oscillations) and in the boundary conditions 
+        (where it tends to flatten the solution approaching the edges). 
+        Add **i**\ tension to set interior tension, and **b**\ tension to set boundary tension.
+        If you do not prepend **i**\ or **b**\, both will be set to the same value.
+        [Default = 0 for both gives minimum curvature solution.]
+    
 
     {verbose}
     {aspatial}
