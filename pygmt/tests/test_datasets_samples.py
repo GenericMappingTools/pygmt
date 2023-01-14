@@ -5,10 +5,8 @@ import numpy.testing as npt
 import pandas as pd
 import pytest
 from pygmt.datasets import (
-    load_fractures_compilation,
     load_hotspots,
     load_mars_shape,
-    load_ocean_ridge_points,
     load_sample_bathymetry,
     load_sample_data,
 )
@@ -41,9 +39,7 @@ def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_ocean_ridge_points()
-        assert len(record) == 1
+    data = load_sample_data(name="ocean_ridge_points")
     assert data.shape == (4146, 2)
     assert data["longitude"].min() == -179.9401
     assert data["longitude"].max() == 179.935
@@ -127,9 +123,7 @@ def test_fractures_compilation():
     """
     Check that the @fractures_06.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_fractures_compilation()
-        assert len(record) == 1
+    data = load_sample_data(name="fractures")
     assert data.shape == (361, 2)
     assert data["length"].min() == 98.6561
     assert data["length"].max() == 984.652
