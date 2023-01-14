@@ -21,6 +21,8 @@ __doctest_skip__ = ["surface"]
     I="spacing",
     L="limit",
     M="max_radius",
+    Ll="lower",
+    Lu="upper",
     R="region",
     G="outgrid",
     T="tension",
@@ -89,9 +91,19 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         controlled by a data point. As an example **0c**\ means that only the cell where the point 
         lies is filled, **1c**\ keeps one cell beyond that 
         (i.e. makes a 3x3 square neighborhood), and so on.
-    limit: float 
-        
-    tension : float or str
+    lower: float 
+        Optional. Impose limits on the output solution. Directive *lower*\ sets the lower bound. 
+        *lower*\ can be the name of a grid file with lower bound values, a fixed value, 
+        **d**\ to set to minimum input value, or **u**\ for unconstrained [Default] 
+        Grid files used to set the limits may contain NaNs. In the presence of NaNs, 
+        the limit of a node masked with NaN is unconstrained. 
+    upper: float 
+        Optional. Impose limits on the output solution. Directive *upper*\ sets the upper bound and 
+        can be the name of a grid file with upper bound values, a fixed value, 
+        **d**\ to set to maximum input value, or **u**\ for unconstrained [Default]. 
+        Grid files used to set the limits may contain NaNs. In the presence of NaNs, 
+        the limit of a node masked with NaN is unconstrained. 
+    tension: float or str
         [**b**\|\ **i**].
         Optional. These must be between 0 and 1. 
         Tension may be used in the interior solution (above equation, 
