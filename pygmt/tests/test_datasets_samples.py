@@ -65,7 +65,7 @@ def test_sample_bathymetry():
 
 def test_usgs_quakes():
     """
-    Check that the dataset loads without errors.
+    Check that the @usgs_quakes_22.txt dataset loads without errors.
     """
     data = load_sample_data(name="usgs_quakes")
     assert data.shape == (1197, 22)

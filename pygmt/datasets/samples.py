@@ -194,8 +194,7 @@ def _load_usgs_quakes():
         columns.
     """
     fname = which("@usgs_quakes_22.txt", download="c")
-    data = pd.read_csv(fname)
-    return data
+    return pd.read_csv(fname)
 
 
 def _load_fractures_compilation():
