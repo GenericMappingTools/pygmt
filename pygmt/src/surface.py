@@ -20,9 +20,9 @@ __doctest_skip__ = ["surface"]
     C="convergence",
     I="spacing",
     L="limit",
+    M="max_radius",
     R="region",
     G="outgrid",
-    M="max_radius",
     T="tension",
     V="verbose",
     a="aspatial",
@@ -72,7 +72,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
-    convergence: float
+    convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged when the maximum 
         absolute change in any grid value is less than convergence_limit. 
         (Units same as data z units). Alternatively, give limit in percentage 
@@ -81,7 +81,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         This is the final convergence limit at the desired grid spacing; 
         for intermediate (coarser) grids the effective convergence limit 
         is divided by the grid spacing multiplier.
-    max_radius: str
+    max_radius : str
         Optional. After solving for the surface, apply a mask so that nodes farther than 
         max_radius away from a data constraint are set to NaN [no masking]. 
         Append a distance unit (see Units) if needed. One can also select the nodes to mask by 
@@ -91,8 +91,8 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         (i.e. makes a 3x3 square neighborhood), and so on.
     limit: float 
         
-    tension: float or str
-        [**b**\|\ **i**]
+    tension : float or str
+        [**b**\|\ **i**].
         Optional. These must be between 0 and 1. 
         Tension may be used in the interior solution (above equation, 
         where it suppresses spurious oscillations) and in the boundary conditions 
