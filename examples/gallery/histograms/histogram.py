@@ -28,7 +28,7 @@ fig.histogram(
     series=5,
     # Use "red3" as color fill for the bars
     fill="red3",
-    # Use a pen width of 1 point to draw the outlines
+    # Use the pen parameter to draw the outlines with a width of 1 point
     pen="1p",
     # Choose histogram type 0, i.e., counts [Default]
     histtype=0,
