@@ -94,7 +94,7 @@ def print_clib_info():
 
 def show_versions():
     """
-    Print various dependency versions which is useful when submitting bug
+    Print various dependency versions which are useful when submitting bug
     reports.
 
     This includes information about:
