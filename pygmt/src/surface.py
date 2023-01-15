@@ -18,13 +18,12 @@ __doctest_skip__ = ["surface"]
 @fmt_docstring
 @use_alias(
     C="convergence",
+    G="outgrid",
     I="spacing",
-    L="limit",
-    M="max_radius",
     Ll="lower",
     Lu="upper",
+    M="max_radius",
     R="region",
-    G="outgrid",
     T="tension",
     V="verbose",
     a="aspatial",
@@ -88,7 +87,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         Optional. After solving for the surface, apply a mask so that nodes 
         farther than max_radius away from a data constraint are set to NaN 
         [no masking]. Append a distance unit (see Units) if needed. One can 
-        also select the nodes to mask by using the *n_cells*\**c** form. 
+        also select the nodes to mask by using the *n_cells*\**c**\ form. 
         Here *n_cells* means the number of cells around the node controlled 
         by a data point. As an example **0c** means that only the cell where
         the point lies is filled, **1c** keeps one cell beyond that (i.e. 
@@ -98,8 +97,8 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         sets the lower bound. *lower* can be the name of a grid file with 
         lower bound values, a fixed value, **d** to set to minimum input 
         value, or **u** for unconstrained [Default]. Grid files used to set 
-        the limits may contain NaNs. In the presence of NaNs, the limit of
-         a node masked with NaN is unconstrained. 
+        the limits may contain NaNs. In the presence of NaNs, the limit of 
+        a node masked with NaN is unconstrained. 
     upper : float or str
         Optional. Impose limits on the output solution. Directive *upper* 
         sets the upper bound and can be the name of a grid file with upper 
@@ -113,7 +112,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         may be used in the interior solution (above equation, where it 
         suppresses spurious oscillations) and in the boundary conditions 
         (where it tends to flatten the solution approaching the edges). Add 
-        **i**\*tension* to set interior tension, and **b**\*tension*\  to 
+        **i**\*tension*\ to set interior tension, and **b**\*tension*\  to 
         set boundary tension. If you do not prepend **i** or **b**, both 
         will be set to the same value. [Default = 0 for both gives minimum 
         curvature solution.]
