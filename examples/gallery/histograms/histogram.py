@@ -30,7 +30,7 @@ fig.histogram(
     fill="red3",
     # Use a pen width of 1 point to draw the outlines
     pen="1p",
-    # Choose histogram type 0 = counts [default]
+    # Choose histogram type 0, i.e., counts [Default]
     histtype=0,
 )
 
