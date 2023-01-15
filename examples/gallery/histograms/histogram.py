@@ -3,7 +3,7 @@ Histogram
 ---------
 The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of
-each bar. The type of histogram (frequency count or percentage) can be
+each bar. The type of the histogram (frequency count or percentage) can be
 selected via the ``histtype`` parameter.
 """
 
