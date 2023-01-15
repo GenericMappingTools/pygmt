@@ -22,7 +22,7 @@ fig = pygmt.Figure()
 fig.histogram(
     data=data,
     # Define the frame, add a title, and set the background color to
-    # "lightgray". Add labels for x and y axes
+    # "lightgray". Add labels to the x-axis and y-axis
     frame=["WSne+tHistogram+glightgray", "x+lElevation (m)", "y+lCounts"],
     # Generate evenly spaced bins by increments of 5
     series=5,
