@@ -87,7 +87,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         Optional. After solving for the surface, apply a mask so that nodes 
         farther than max_radius away from a data constraint are set to NaN 
         [no masking]. Append a distance unit (see Units) if needed. One can 
-        also select the nodes to mask by using the *n_cells*\**c**\ form. 
+        also select the nodes to mask by using the *n_cells***c** form. 
         Here *n_cells* means the number of cells around the node controlled 
         by a data point. As an example **0c** means that only the cell where
         the point lies is filled, **1c** keeps one cell beyond that (i.e. 
@@ -112,7 +112,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         may be used in the interior solution (above equation, where it 
         suppresses spurious oscillations) and in the boundary conditions 
         (where it tends to flatten the solution approaching the edges). Add 
-        **i**\*tension*\ to set interior tension, and **b**\*tension*\  to 
+        **i***tension* to set interior tension, and **b***tension*  to 
         set boundary tension. If you do not prepend **i** or **b**, both 
         will be set to the same value. [Default = 0 for both gives minimum 
         curvature solution.]
