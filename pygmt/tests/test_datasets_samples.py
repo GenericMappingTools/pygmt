@@ -7,7 +7,6 @@ import pytest
 from pygmt.datasets import (
     load_hotspots,
     load_mars_shape,
-    load_ocean_ridge_points,
     load_sample_data,
     load_usgs_quakes,
 )
@@ -40,9 +39,7 @@ def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_ocean_ridge_points()
-        assert len(record) == 1
+    data = load_sample_data(name="ocean_ridge_points")
     assert data.shape == (4146, 2)
     assert data["longitude"].min() == -179.9401
     assert data["longitude"].max() == 179.935
