@@ -78,7 +78,7 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
-        "bathymetry": _load_sample_bathymetry,
+        "bathymetry": _load_baja_california_bathymetry,
         "earth_relief_holes": _load_earth_relief_holes,
         "fractures": _load_fractures_compilation,
         "japan_quakes": _load_japan_quakes,
@@ -162,7 +162,7 @@ def load_ocean_ridge_points(**kwargs):
     return data
 
 
-def _load_sample_bathymetry():
+def _load_baja_california_bathymetry():
     """
     Load a table of ship observations of bathymetry off Baja California as a
     pandas.DataFrame.
