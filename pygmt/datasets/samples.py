@@ -158,10 +158,9 @@ def _load_baja_california_bathymetry():
     """
 
     fname = which("@tut_ship.xyz", download="c")
-    data = pd.read_csv(
+    return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
     )
-    return data
 
 
 def load_usgs_quakes(**kwargs):
