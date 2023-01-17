@@ -25,6 +25,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     r"""
+    Plot ternary diagrams.
+
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
     size given, then we will interpret the fourth column of the input data as
