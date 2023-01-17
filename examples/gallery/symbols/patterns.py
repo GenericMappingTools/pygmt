@@ -19,8 +19,8 @@ fig.basemap(
 
 for pattern in [
     # To use a pattern as fill append "p" and the number of the desired
-    # patten. By default, the pattern is plotted in black and white with
-    # a resolution of 300 dpi
+    # pattern. By default, the pattern is plotted in black and white
+    # with a resolution of 300 dpi
     "p19",
     # Set the background color ("+b") to "red3"
     # and the foreground color ("+f") to "lightgray"
@@ -34,7 +34,7 @@ for pattern in [
     "p19+b+flightbrown+r100",
 ]:
     y -= 2
-    # Plot a square with a pattern as fill
+    # Plot a square with the pattern as fill
     fig.plot(
         x=2,
         y=y,
@@ -48,7 +48,7 @@ for pattern in [
         y=y,
         text=pattern,
         font="Courier-Bold",
-        justify="ML",  # justification of text is MiddelLeft
+        justify="ML",  # justification of the text is MiddleLeft
     )
 
 fig.show()
