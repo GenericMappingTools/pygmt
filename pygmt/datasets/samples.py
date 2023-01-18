@@ -70,7 +70,6 @@ def load_sample_data(name):
 
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
-        "bathymetry": load_sample_bathymetry,
         "hotspots": load_hotspots,
         "mars_shape": load_mars_shape,
         "usgs_quakes": load_usgs_quakes,
@@ -78,6 +77,7 @@ def load_sample_data(name):
 
     # Dictionary of private load functions
     load_func = {
+        "bathymetry": _load_baja_california_bathymetry,
         "earth_relief_holes": _load_earth_relief_holes,
         "fractures": _load_fractures_compilation,
         "japan_quakes": _load_japan_quakes,
@@ -146,40 +146,22 @@ def _load_ocean_ridge_points():
     )
 
 
-def load_sample_bathymetry(**kwargs):
+def _load_baja_california_bathymetry():
     """
-    (Deprecated) Load a table of ship observations of bathymetry off Baja
-    California as a pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="bathymetry")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of ship observations of bathymetry off Baja California as a
+    pandas.DataFrame.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are longitude, latitude, and bathymetry.
+        The data table. The column names are "longitude", "latitude",
+        and "bathymetry".
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='bathymetry') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@tut_ship.xyz", download="c")
-    data = pd.read_csv(
+    return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
     )
-    return data
 
 
 def _load_usgs_quakes():

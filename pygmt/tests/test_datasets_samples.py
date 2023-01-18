@@ -7,7 +7,6 @@ import pytest
 from pygmt.datasets import (
     load_hotspots,
     load_mars_shape,
-    load_sample_bathymetry,
     load_sample_data,
 )
 from pygmt.exceptions import GMTInvalidInput
@@ -51,9 +50,7 @@ def test_sample_bathymetry():
     """
     Check that the @tut_ship.xyz dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_sample_bathymetry()
-        assert len(record) == 1
+    data = load_sample_data(name="bathymetry")
     assert data.shape == (82970, 3)
     assert data["longitude"].min() == 245.0
     assert data["longitude"].max() == 254.705
