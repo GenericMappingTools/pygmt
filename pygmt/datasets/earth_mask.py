@@ -50,11 +50,11 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         The Earth mask grid. Coordinates are latitude and
         longitude in degrees. Units are in integers for the surface type:
 
-        - 0: Ocean
-        - 1: Land
-        - 2: Lake
-        - 3: Island
-        - 4: Pond
+        - 0: Oceanic areas beyond the shoreline
+        - 1: Land areas inside the shoreline
+        - 2: Lakes inside the land areas
+        - 3: Islands in lakes in the land areas
+        - 4: Smaller lakes in islands that are found within lakes inside the land area
     """
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
