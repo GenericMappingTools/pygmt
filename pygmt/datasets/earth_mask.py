@@ -32,9 +32,9 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degrees, arc-minutes, and arc-seconds. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, or ``"15s"``.
+        arc-degrees, arc-minutes, and arc-seconds. It can be ``"01d"``,
+        ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``,
+        ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, or ``"15s"``.
 
     region : str or list
         The subregion of the grid to load, in the form of a list
@@ -48,13 +48,14 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     -------
     grid : :class:`xarray.DataArray`
         The Earth mask grid. Coordinates are latitude and
-        longitude in degrees. Units are in integers for the surface type:
+        longitude in degrees. Units are values describing the surface type:
 
         - 0: Oceanic areas beyond the shoreline
         - 1: Land areas inside the shoreline
         - 2: Lakes inside the land areas
         - 3: Islands in lakes in the land areas
-        - 4: Smaller lakes in islands that are found within lakes inside the land area
+        - 4: Smaller lakes in islands that are found within lakes
+          inside the land area
     """
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
