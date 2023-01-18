@@ -63,4 +63,4 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         region=region,
         registration=registration,
     )
-    return grid
+    return grid.astype("int8")
