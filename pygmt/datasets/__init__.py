@@ -14,7 +14,6 @@ from pygmt.datasets.samples import (
     list_sample_data,
     load_hotspots,
     load_mars_shape,
-    load_sample_bathymetry,
     load_sample_data,
     load_usgs_quakes,
 )
