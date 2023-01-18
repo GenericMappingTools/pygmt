@@ -17,10 +17,10 @@ fig.basemap(
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
 
+# To use a pattern as fill append "p" and the number of the desired
+# pattern. By default, the pattern is plotted in black and white
+# with a resolution of 300 dpi
 for pattern in [
-    # To use a pattern as fill append "p" and the number of the desired
-    # pattern. By default, the pattern is plotted in black and white
-    # with a resolution of 300 dpi
     # Plot a hachted pattern via pattern number 8
     "p8",
     # Plot a dotted pattern via pattern number 19
