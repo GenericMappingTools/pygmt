@@ -8,12 +8,12 @@ TODO
 
 import pygmt
 
-y = 11
+y = 13
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 10, 0, 10],
-    projection="X10c",
+    region=[0, 12, 0, 12],
+    projection="X12c",
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
 
@@ -21,6 +21,9 @@ for pattern in [
     # To use a pattern as fill append "p" and the number of the desired
     # pattern. By default, the pattern is plotted in black and white
     # with a resolution of 300 dpi
+    # Plot a hachted pattern via pattern number 8
+    "p8",
+    # Plot a dotted pattern via pattern number 19
     "p19",
     # Set the background color ("+b") to "red3"
     # and the foreground color ("+f") to "lightgray"
