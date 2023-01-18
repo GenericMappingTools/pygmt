@@ -73,7 +73,6 @@ def load_sample_data(name):
         "bathymetry": load_sample_bathymetry,
         "hotspots": load_hotspots,
         "mars_shape": load_mars_shape,
-        "ocean_ridge_points": load_ocean_ridge_points,
         "usgs_quakes": load_usgs_quakes,
     }
 
