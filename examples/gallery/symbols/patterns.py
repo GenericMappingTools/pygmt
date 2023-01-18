@@ -12,8 +12,8 @@ y = 13
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[0, 12, 0, 12],
-    projection="X12c",
+    region=[0, 10, 0, 12],
+    projection="X10c",
     frame="rlbt+glightgray+tBit and Hachure Patterns",
 )
 
