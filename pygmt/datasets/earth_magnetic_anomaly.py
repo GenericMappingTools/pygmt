@@ -58,20 +58,18 @@ def load_earth_magnetic_anomaly(
         ``data_source="emag2_4km"``, which are ``"pixel"`` only.
 
     data_source : str
-        Select the source of the magnetic anomaly data.
+        Select the source of the magnetic anomaly data. Available options are:
 
-        Available options:
-
-        - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default
+        - ``"emag2"`` : EMAG2 Global Earth Magnetic Anomaly Model [Default
           option]. Only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 
-        - **emag2_4km** : Use a version of EMAG2 where all observations
+        - ``"emag2_4km"`` : Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
           data over land.
 
-        - **wdmam** : World Digital Magnetic Anomaly Map (WDMAM).
-          See :gmt-datasets:`earth-wdmam.html`
+        - ``"wdmam"`` : World Digital Magnetic Anomaly Map (WDMAM).
+          See :gmt-datasets:`earth-wdmam.html`.
 
     Returns
     -------
