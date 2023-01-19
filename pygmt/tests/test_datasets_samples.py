@@ -117,6 +117,12 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+    assert data["longitude"].min() == -169.6
+    assert data["longitude"].max() == 167
+    assert data["latitude"].min() == -78
+    assert data["latitude"].max() == 64
+    assert data["symbol_size"].min() == 0.25
+    assert data["symbol_size"].max() == 0.5
 
 
 def test_load_notre_dame_topography():
