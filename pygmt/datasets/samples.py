@@ -70,7 +70,6 @@ def load_sample_data(name):
 
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
-        "hotspots": load_hotspots,
         "mars_shape": load_mars_shape,
     }
 
@@ -79,6 +78,7 @@ def load_sample_data(name):
         "bathymetry": _load_baja_california_bathymetry,
         "earth_relief_holes": _load_earth_relief_holes,
         "fractures": _load_fractures_compilation,
+        "hotspots": _load_hotspots,
         "japan_quakes": _load_japan_quakes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
@@ -196,43 +196,29 @@ def _load_fractures_compilation():
     return data[["length", "azimuth"]]
 
 
-def load_hotspots(**kwargs):
+def _load_hotspots():
     """
-    (Deprecated) Load a table with the locations, names, and suggested symbol
-    sizes of hotspots.
+    Load a table with the locations, names, and suggested symbol sizes of
+    hotspots as a pandas.DataFrame.
 
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="hotspots")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@hotspots.txt`` dataset used in the GMT tutorials, with data
-    from Mueller, Royer, and Lawver, 1993, Geology, vol. 21, pp. 275-278. The
-    main 5 hotspots used by Doubrovine et al. [2012] have symbol sizes twice
-    the size of all other hotspots.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    The data are from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,
+    pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]
+    have symbol sizes twice the size of all other hotspots.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", "symbol_size", and
-        "placename".
+        The data table. The column names are "longitude", "latitude",
+        "symbol_size", and "place_name".
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='hotspots') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@hotspots.txt", download="c")
-    columns = ["longitude", "latitude", "symbol_size", "place_name"]
-    data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
-    return data
+    return pd.read_csv(
+        fname,
+        sep="\t",
+        skiprows=3,
+        names=["longitude", "latitude", "symbol_size", "place_name"],
+    )
 
 
 def load_mars_shape(**kwargs):
