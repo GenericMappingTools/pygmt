@@ -10,8 +10,4 @@ from pygmt.datasets.earth_relief import load_earth_relief
 from pygmt.datasets.earth_vertical_gravity_gradient import (
     load_earth_vertical_gravity_gradient,
 )
-from pygmt.datasets.samples import (
-    list_sample_data,
-    load_mars_shape,
-    load_sample_data,
-)
+from pygmt.datasets.samples import list_sample_data, load_mars_shape, load_sample_data
