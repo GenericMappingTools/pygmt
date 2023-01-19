@@ -70,21 +70,21 @@ def load_sample_data(name):
 
     # Dictionary of public load functions for backwards compatibility
     load_func_old = {
-        "bathymetry": load_sample_bathymetry,
-        "fractures": load_fractures_compilation,
-        "hotspots": load_hotspots,
-        "japan_quakes": load_japan_quakes,
-        "ocean_ridge_points": load_ocean_ridge_points,
         "usgs_quakes": load_usgs_quakes,
     }
 
     # Dictionary of private load functions
     load_func = {
-        "rock_compositions": _load_rock_sample_compositions,
+        "bathymetry": _load_baja_california_bathymetry,
         "earth_relief_holes": _load_earth_relief_holes,
         "mars_shape": _load_mars_shape,
+        "fractures": _load_fractures_compilation,
+        "hotspots": _load_hotspots,
+        "japan_quakes": _load_japan_quakes,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
+        "ocean_ridge_points": _load_ocean_ridge_points,
+        "rock_compositions": _load_rock_sample_compositions,
     }
 
     if name in load_func_old:
@@ -95,124 +95,72 @@ def load_sample_data(name):
     return data
 
 
-def load_japan_quakes(**kwargs):
+def _load_japan_quakes():
     """
-    (Deprecated) Load a table of earthquakes around Japan as a
-    pandas.DataFrame.
+    Load a table of earthquakes around Japan as a pandas.DataFrame.
 
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="japan_quakes")`` and will be removed in
-       v0.9.0.
-
-    Data is from the NOAA NGDC database. This is the ``@tut_quakes.ngdc``
-    dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    The data are from the NOAA NGDC database.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are year, month, day, latitude, longitude,
-        depth (in km), and magnitude of the earthquakes.
+        The data table. The column names are "year", "month", "day",
+        "latitude", "longitude", "depth_km", and "magnitude" of the
+        earthquakes.
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='japan_quakes') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
-
     fname = which("@tut_quakes.ngdc", download="c")
-    data = pd.read_csv(fname, header=1, sep=r"\s+")
-    data.columns = [
-        "year",
-        "month",
-        "day",
-        "latitude",
-        "longitude",
-        "depth_km",
-        "magnitude",
-    ]
+    return pd.read_csv(
+        fname,
+        header=1,
+        delim_whitespace=True,
+        names=[
+            "year",
+            "month",
+            "day",
+            "latitude",
+            "longitude",
+            "depth_km",
+            "magnitude",
+        ],
+    )
 
-    return data
 
-
-def load_ocean_ridge_points(**kwargs):
+def _load_ocean_ridge_points():
     """
-    (Deprecated) Load a table of ocean ridge points for the entire world as a
+    Load a table of ocean ridge points for the entire world as a
     pandas.DataFrame.
 
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="ocean_ridge_points")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@ridge.txt`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
-
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are longitude and latitude.
+        The data table. The column names are "longitude" and "latitude".
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be removed "
-            "in v0.9.0. Please use load_sample_data(name='ocean_ridge_points') "
-            "instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
-
     fname = which("@ridge.txt", download="c")
-    data = pd.read_csv(
-        fname, sep=r"\s+", names=["longitude", "latitude"], skiprows=1, comment=">"
+    return pd.read_csv(
+        fname,
+        delim_whitespace=True,
+        names=["longitude", "latitude"],
+        skiprows=1,
+        comment=">",
     )
-    return data
 
 
-def load_sample_bathymetry(**kwargs):
+def _load_baja_california_bathymetry():
     """
-    (Deprecated) Load a table of ship observations of bathymetry off Baja
-    California as a pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="bathymetry")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@tut_ship.xyz`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of ship observations of bathymetry off Baja California as a
+    pandas.DataFrame.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Columns are longitude, latitude, and bathymetry.
+        The data table. The column names are "longitude", "latitude",
+        and "bathymetry".
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='bathymetry') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@tut_ship.xyz", download="c")
-    data = pd.read_csv(
+    return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
     )
-    return data
 
 
 def load_usgs_quakes(**kwargs):
@@ -250,78 +198,48 @@ def load_usgs_quakes(**kwargs):
     return data
 
 
-def load_fractures_compilation(**kwargs):
+def _load_fractures_compilation():
     """
-    (Deprecated) Load a table of fracture lengths and azimuths as
-    hypothetically digitized from geological maps as a pandas.DataFrame.
-
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="fractures")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@fractures_06.txt`` dataset used in the GMT tutorials.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Load a table of fracture lengths and azimuths as hypothetically digitized
+    from geological maps as a pandas.DataFrame.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table. Use ``print(data.describe())`` to see the available
-        columns.
+        The data table. The column names are "length" and
+        "azimuth" of the fractures.
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='fractures') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@fractures_06.txt", download="c")
-    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
+    data = pd.read_csv(
+        fname, header=None, delim_whitespace=True, names=["azimuth", "length"]
+    )
     return data[["length", "azimuth"]]
 
 
-def load_hotspots(**kwargs):
+def _load_hotspots():
     """
-    (Deprecated) Load a table with the locations, names, and suggested symbol
-    sizes of hotspots.
+    Load a table with the locations, names, and suggested symbol sizes of
+    hotspots as a pandas.DataFrame.
 
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="hotspots")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@hotspots.txt`` dataset used in the GMT tutorials, with data
-    from Mueller, Royer, and Lawver, 1993, Geology, vol. 21, pp. 275-278. The
-    main 5 hotspots used by Doubrovine et al. [2012] have symbol sizes twice
-    the size of all other hotspots.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    The data are from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,
+    pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]
+    have symbol sizes twice the size of all other hotspots.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", "symbol_size", and
-        "placename".
+        The data table. The column names are "longitude", "latitude",
+        "symbol_size", and "place_name".
     """
 
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='hotspots') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@hotspots.txt", download="c")
-    columns = ["longitude", "latitude", "symbol_size", "place_name"]
-    data = pd.read_table(filepath_or_buffer=fname, sep="\t", skiprows=3, names=columns)
-    return data
+    return pd.read_csv(
+        fname,
+        sep="\t",
+        skiprows=3,
+        names=["longitude", "latitude", "symbol_size", "place_name"],
+    )
 
 
 def _load_mars_shape():
