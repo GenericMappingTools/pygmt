@@ -203,14 +203,12 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     >>> print(
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
-    ...         confdict=dict(
-    ...             FONT_LABEL="12p,red", FORMAT_TIME_STAMP="%Y %b %d %H:%M:%S"
-    ...         ),
+    ...         confdict=dict(FONT_LABEL="12p,red", FORMAT_DATE_MAP="o dd"),
     ...         infile="input.txt",
     ...         outfile="output.txt",
     ...     )
     ... )
-    input.txt -A0 -B -Crainbow --FONT_LABEL=12p,red --FORMAT_TIME_STAMP=%Y\040%b\040%d\040%H:%M:%S ->output.txt
+    input.txt -A0 -B -Crainbow --FONT_LABEL="12p,red" --FORMAT_DATE_MAP="o dd" ->output.txt
     """
     gmt_args = []
 
@@ -236,9 +234,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     gmt_args = sorted(gmt_args)
 
     if confdict:
-        for key, value in confdict.items():
-            _value = value.replace(" ", r"\040")
-            gmt_args.append(f"--{key}={_value}")
+        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
 
     if infile:
         gmt_args = [str(infile)] + gmt_args
