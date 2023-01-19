@@ -6,8 +6,6 @@ import pandas as pd
 import pytest
 from pygmt.datasets import (
     load_mars_shape,
-    load_ocean_ridge_points,
-    load_sample_bathymetry,
     load_sample_data,
     load_usgs_quakes,
 )
@@ -40,9 +38,7 @@ def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_ocean_ridge_points()
-        assert len(record) == 1
+    data = load_sample_data(name="ocean_ridge_points")
     assert data.shape == (4146, 2)
     assert data["longitude"].min() == -179.9401
     assert data["longitude"].max() == 179.935
@@ -54,9 +50,7 @@ def test_sample_bathymetry():
     """
     Check that the @tut_ship.xyz dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_sample_bathymetry()
-        assert len(record) == 1
+    data = load_sample_data(name="bathymetry")
     assert data.shape == (82970, 3)
     assert data["longitude"].min() == 245.0
     assert data["longitude"].max() == 254.705
