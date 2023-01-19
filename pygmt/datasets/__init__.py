@@ -13,7 +13,6 @@ from pygmt.datasets.earth_vertical_gravity_gradient import (
 )
 from pygmt.datasets.samples import (
     list_sample_data,
-    load_hotspots,
     load_mars_shape,
     load_sample_data,
     load_usgs_quakes,

@@ -4,12 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import (
-    load_hotspots,
-    load_mars_shape,
-    load_sample_data,
-    load_usgs_quakes,
-)
+from pygmt.datasets import load_mars_shape, load_sample_data, load_usgs_quakes
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -103,9 +98,7 @@ def test_hotspots():
     """
     Check that the @hotspots.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_hotspots()
-        assert len(record) == 1
+    data = load_sample_data(name="hotspots")
     assert data.shape == (55, 4)
     assert list(data.columns) == [
         "longitude",
@@ -114,6 +107,12 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+    assert data["longitude"].min() == -169.6
+    assert data["longitude"].max() == 167
+    assert data["latitude"].min() == -78
+    assert data["latitude"].max() == 64
+    assert data["symbol_size"].min() == 0.25
+    assert data["symbol_size"].max() == 0.5
 
 
 def test_load_notre_dame_topography():
