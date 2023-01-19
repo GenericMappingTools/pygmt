@@ -118,8 +118,8 @@ def test_mars_shape():
     assert data["longitude"].max() == 359.983
     assert data["latitude"].min() == -79.715
     assert data["latitude"].max() == 85.887
-    assert data["radius(m)"].min() == -6930
-    assert data["radius(m)"].max() == 15001
+    assert data["radius_m"].min() == -6930
+    assert data["radius_m"].max() == 15001
 
 
 def test_hotspots():

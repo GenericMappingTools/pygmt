@@ -327,7 +327,7 @@ def load_hotspots(**kwargs):
 def _load_mars_shape():
     """
     Load a table of data for the shape of Mars as a pandas.DataFrame.
-    
+
     Data and information are from Smith, D. E., and M. T. Zuber (1996),
     The shape of Mars and the topographic signature of the hemispheric
     dichotomy.
@@ -335,11 +335,12 @@ def _load_mars_shape():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with column names "longitude", "latitude", and "radius_m".
+        The data table with column names "longitude", "latitude", and
+        "radius_m".
     """
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
-        fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
+        fname, sep="\t", header=None, names=["longitude", "latitude", "radius_m"]
     )
     return data
 
