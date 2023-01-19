@@ -48,7 +48,8 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     -------
     grid : :class:`xarray.DataArray`
         The Earth mask grid. Coordinates are latitude and
-        longitude in degrees. Units are values describing the surface type:
+        longitude in degrees. The node values in the mask grids are all in 
+        the 0-4 range and reflect different surface types:
 
         - 0: Oceanic areas beyond the shoreline
         - 1: Land areas inside the shoreline

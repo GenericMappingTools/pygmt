@@ -37,12 +37,12 @@ def test_earth_mask_01d():
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
-    assert data[1, 1].dtype == "int8"
+    assert data.dtype == "int8"
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), 0)
     npt.assert_allclose(data.max(), 2)
-    npt.assert_allclose(int(data[36, 45]), 0)
+    npt.assert_allclose(data[36, 45], 0)
 
 
 def test_earth_mask_01d_with_region():
@@ -54,4 +54,4 @@ def test_earth_mask_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(13, 20, 1))
     npt.assert_allclose(data.lon, np.arange(-7, 5, 1))
-    npt.assert_allclose(int(data[1, 5]), 1)
+    npt.assert_allclose(data[1, 5], 1)
