@@ -72,7 +72,6 @@ def load_sample_data(name):
     load_func_old = {
         "hotspots": load_hotspots,
         "mars_shape": load_mars_shape,
-        "usgs_quakes": load_usgs_quakes,
     }
 
     # Dictionary of private load functions

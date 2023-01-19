@@ -4,11 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import (
-    load_hotspots,
-    load_mars_shape,
-    load_sample_data,
-)
+from pygmt.datasets import load_hotspots, load_mars_shape, load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
