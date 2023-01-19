@@ -335,7 +335,7 @@ def _load_mars_shape():
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", and "radius(m)".
+        The data table with column names "longitude", "latitude", and "radius_m".
     """
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
