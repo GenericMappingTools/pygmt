@@ -270,6 +270,7 @@ def _load_remote_dataset(
     The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
+    # pylint: disable=too-many-branches
     dataset = datasets[dataset_name]
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
