@@ -77,7 +77,7 @@ def test_config_format_date_map():
     https://github.com/GenericMappingTools/pygmt/issues/2298.
     """
     fig = Figure()
-    # Set the FORMAT_DATE_MAP to "yyyy mm dd" that contains whitespaces.
+    # Set FORMAT_DATE_MAP to "yyyy mm dd" which contains whitespaces.
     config(FORMAT_DATE_MAP="yyyy mm dd")
     with config(FORMAT_DATE_MAP="o dd"):
         fig.basemap(
