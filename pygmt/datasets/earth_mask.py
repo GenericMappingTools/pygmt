@@ -58,6 +58,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         - 4: Smaller lakes in islands that are found within lakes
           inside the land area
     """
+    # pylint: disable=too-many-branches
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
         dataset_prefix="earth_mask_",
