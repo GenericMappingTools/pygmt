@@ -205,9 +205,6 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
-.. automodule:: pygmt.datasets
-
 .. currentmodule:: pygmt
 
 Datasets
@@ -237,8 +234,6 @@ Use :func:`pygmt.datasets.load_sample_data` instead.
 
     datasets.load_mars_shape
 
-.. automodule:: pygmt.exceptions
-
 .. currentmodule:: pygmt
 
 Exceptions
@@ -257,8 +252,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
-
-.. automodule:: pygmt.clib
 
 .. currentmodule:: pygmt
 
