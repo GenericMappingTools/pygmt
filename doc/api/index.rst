@@ -236,7 +236,6 @@ Use :func:`pygmt.datasets.load_sample_data` instead.
     :toctree: generated
 
     datasets.load_mars_shape
-    datasets.load_usgs_quakes
 
 .. automodule:: pygmt.exceptions
 
