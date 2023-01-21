@@ -21,7 +21,7 @@ fig.coast(region="d", projection="W0/15c", land="darkgreen", water="lightblue")
 terminator_datetime = datetime.datetime(
     year=2000, month=1, day=1, hour=17, minute=0, second=0
 )
-# Set the pen line to be 0.5p thick
+# Set the pen line to be 0.5 points thick
 # Set the fill for the night area to be navy blue at different transparency
 # levels
 fig.solar(
