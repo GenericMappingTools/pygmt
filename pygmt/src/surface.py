@@ -86,13 +86,13 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     maxradius : int or str
         Optional. After solving for the surface, apply a mask so that nodes 
         farther than *maxradius* away from a data constraint are set to NaN 
-        [Default is no masking]. Append a distance unit (see :gmt-docs:`Units
-         <surface.html#units>`) if needed. One can also select the nodes to 
-        mask by using the *n_cells*\ **c** form. Here *n_cells* means the 
-        number of cells around the node is controlled by a data point. As an
-        example ``"0c"`` means that only the cell where the point lies is 
-        filled, ``"1c"`` keeps one cell beyond that (i.e. makes a 3x3 square 
-        neighborhood), and so on.
+        [Default is no masking]. Append a distance unit (See 
+        :gmt-docs:`Units <surface.html#units>`) if needed. One can also 
+        select the nodes to mask by using the *n_cells*\ **c** form. Here 
+        *n_cells* means the number of cells around the node is controlled 
+        by a data point. As an example ``"0c"`` means that only the cell 
+        where the point lies is filled, ``"1c"`` keeps one cell beyond 
+        that (i.e. makes a 3x3 square neighborhood), and so on.
     lower : float or str
         Optional. Impose limits on the output solution. Directive *lower* 
         sets the lower bound. *lower* can be the name of a grid file with 
