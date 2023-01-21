@@ -205,9 +205,6 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
-.. automodule:: pygmt.datasets
-
 .. currentmodule:: pygmt
 
 Datasets
@@ -235,13 +232,7 @@ Use :func:`pygmt.datasets.load_sample_data` instead.
 .. autosummary::
     :toctree: generated
 
-    datasets.load_hotspots
     datasets.load_mars_shape
-    datasets.load_ocean_ridge_points
-    datasets.load_sample_bathymetry
-    datasets.load_usgs_quakes
-
-.. automodule:: pygmt.exceptions
 
 .. currentmodule:: pygmt
 
@@ -261,8 +252,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
-
-.. automodule:: pygmt.clib
 
 .. currentmodule:: pygmt
 
