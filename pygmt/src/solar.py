@@ -39,9 +39,9 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     ----------
     terminator : str
         Set the type of terminator displayed. Valid arguments are
-        **day_night**, **civil**, **nautical**, and **astronomical**, which
-        can be set with either the full name or the first letter of the name
-        [Default is **day_night**].
+        ``"day_night"``, ``"civil"``, ``"nautical"``, and ``"astronomical"``,
+        which can be set with either the full name or the first letter of the
+        name [Default is ``"day_night"``].
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
         different types of twilight.
