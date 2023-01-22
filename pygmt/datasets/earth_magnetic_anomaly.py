@@ -75,7 +75,7 @@ def load_earth_magnetic_anomaly(
     -------
     grid : :class:`xarray.DataArray`
         The Earth magnetic anomaly grid. Coordinates are latitude and
-        longitude in degrees. Units are in nano Teslas (nT).
+        longitude in degrees. Units are in nano Tesla (nT).
 
     Note
     ----
