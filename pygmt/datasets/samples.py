@@ -1,8 +1,6 @@
 """
 Functions to load sample data.
 """
-import warnings
-
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.io import load_dataarray
@@ -68,9 +66,6 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    # Dictionary of public load functions for backwards compatibility
-    load_func_old = {}
-
     # Dictionary of private load functions
     load_func = {
         "bathymetry": _load_baja_california_bathymetry,
@@ -86,9 +81,7 @@ def load_sample_data(name):
         "usgs_quakes": _load_usgs_quakes,
     }
 
-    if name in load_func_old:
-        data = load_func_old[name](suppress_warning=True)
-    elif name in load_func:
+    if name in load_func:
         data = load_func[name]()
 
     return data
