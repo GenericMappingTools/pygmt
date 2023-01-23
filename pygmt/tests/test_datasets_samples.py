@@ -4,7 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import load_sample_data, load_usgs_quakes
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -58,12 +58,58 @@ def test_sample_bathymetry():
 
 def test_usgs_quakes():
     """
-    Check that the dataset loads without errors.
+    Check that the @usgs_quakes_22.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_usgs_quakes()
-        assert len(record) == 1
+    data = load_sample_data(name="usgs_quakes")
     assert data.shape == (1197, 22)
+    assert list(data.columns) == [
+        "time",
+        "latitude",
+        "longitude",
+        "depth",
+        "mag",
+        "magType",
+        "nst",
+        "gap",
+        "dmin",
+        "rms",
+        "net",
+        "id",
+        "updated",
+        "place",
+        "type",
+        "horizontalError",
+        "depthError",
+        "magError",
+        "magNst",
+        "status",
+        "locationSource",
+        "magSource",
+    ]
+    npt.assert_allclose(data["latitude"].min(), -60.6819)
+    npt.assert_allclose(data["latitude"].max(), 72.6309)
+    npt.assert_allclose(data["longitude"].min(), -179.9953)
+    npt.assert_allclose(data["longitude"].max(), 179.9129)
+    npt.assert_allclose(data["depth"].min(), -0.21)
+    npt.assert_allclose(data["depth"].max(), 640.49)
+    npt.assert_allclose(data["mag"].min(), 3)
+    npt.assert_allclose(data["mag"].max(), 8.1)
+    npt.assert_allclose(data["nst"].min(), 3)
+    npt.assert_allclose(data["nst"].max(), 167)
+    npt.assert_allclose(data["gap"].min(), 10.0)
+    npt.assert_allclose(data["gap"].max(), 353.0)
+    npt.assert_allclose(data["dmin"].min(), 0.006421)
+    npt.assert_allclose(data["dmin"].max(), 39.455)
+    npt.assert_allclose(data["rms"].min(), 0.02)
+    npt.assert_allclose(data["rms"].max(), 1.76)
+    npt.assert_allclose(data["horizontalError"].min(), 0.09)
+    npt.assert_allclose(data["horizontalError"].max(), 36.8)
+    npt.assert_allclose(data["depthError"].min(), 0)
+    npt.assert_allclose(data["depthError"].max(), 65.06)
+    npt.assert_allclose(data["magError"].min(), 0.02)
+    npt.assert_allclose(data["magError"].max(), 0.524)
+    npt.assert_allclose(data["magNst"].min(), 1)
+    npt.assert_allclose(data["magNst"].max(), 944)
 
 
 def test_fractures_compilation():
