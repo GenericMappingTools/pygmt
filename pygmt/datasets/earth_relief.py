@@ -23,7 +23,9 @@ def load_earth_relief(
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually a subdirectory under ~/.gmt/server/earth/) the first time you
+    (usually ``~/.gmt/server/earth/earth_relief``,
+    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
+    or ``~/.gmt/server/earth/earth_synbath``) the first time you
     invoke this function. Afterwards, it will load the grid from the data
     directory. So you'll need an internet connection the first time around.
 
