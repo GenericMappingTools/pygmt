@@ -12,6 +12,7 @@ authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
     "cartography",
     "geodesy",
+    "geology",
     "geophysics",
     "geospatial",
     "oceanography",
