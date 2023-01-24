@@ -1,10 +1,7 @@
 """
 grdtrack - Sample grids at specified (x,y) locations.
 """
-import warnings
-
 import pandas as pd
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -14,7 +11,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.src.which import which
 
 __doctest_skip__ = ["grdtrack"]
 
@@ -296,29 +292,6 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
-
-    # Backward compatibility with old parameter order "points, grid".
-    # deprecated_version="0.7.0", remove_version="v0.9.0"
-    is_a_grid = True
-    if not isinstance(grid, (xr.DataArray, str)):
-        is_a_grid = False
-    elif isinstance(grid, str):
-        try:
-            xr.open_dataarray(which(grid, download="a"), engine="netcdf4").close()
-            is_a_grid = True
-        except (ValueError, OSError):
-            is_a_grid = False
-    if not is_a_grid:
-        msg = (
-            "Positional parameters 'points, grid' of pygmt.grdtrack() has changed "
-            "to 'grid, points=None' since v0.7.0. It's likely that you're NOT "
-            "passing a valid grid as the first positional argument or "
-            "are passing an invalid grid to the 'grid' parameter. "
-            "Please check the order of arguments with the latest documentation. "
-            "This warning will be removed in v0.9.0."
-        )
-        grid, points = points, grid
-        warnings.warn(msg, category=FutureWarning, stacklevel=1)
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:

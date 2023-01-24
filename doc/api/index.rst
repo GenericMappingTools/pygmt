@@ -205,9 +205,6 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
-.. automodule:: pygmt.datasets
-
 .. currentmodule:: pygmt
 
 Datasets
@@ -225,6 +222,7 @@ and store them in GMT's user data directory.
     datasets.load_earth_free_air_anomaly
     datasets.load_earth_geoid
     datasets.load_earth_magnetic_anomaly
+    datasets.load_earth_mask
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
@@ -235,15 +233,8 @@ Use :func:`pygmt.datasets.load_sample_data` instead.
 .. autosummary::
     :toctree: generated
 
-    datasets.load_fractures_compilation
-    datasets.load_hotspots
     datasets.load_map_tiles
     datasets.load_mars_shape
-    datasets.load_ocean_ridge_points
-    datasets.load_sample_bathymetry
-    datasets.load_usgs_quakes
-
-.. automodule:: pygmt.exceptions
 
 .. currentmodule:: pygmt
 
@@ -263,8 +254,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
-
-.. automodule:: pygmt.clib
 
 .. currentmodule:: pygmt
 

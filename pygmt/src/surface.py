@@ -1,5 +1,5 @@
 """
-surface - Grids table data using adjustable tension continuous curvature
+surface - Grid table data using adjustable tension continuous curvature
 splines.
 """
 from pygmt.clib import Session
@@ -34,7 +34,7 @@ __doctest_skip__ = ["surface"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def surface(data=None, x=None, y=None, z=None, **kwargs):
     r"""
-    Grids table data using adjustable tension continuous curvature splines.
+    Grid table data using adjustable tension continuous curvature splines.
 
     Surface reads randomly-spaced (x, y, z) triplets and produces gridded
     values z(x,y) by solving:

@@ -1,7 +1,7 @@
 name: pygmt
 channels:
     - conda-forge
-    - defaults
+    - nodefaults
 dependencies:
     # Required dependencies
     - pip
@@ -14,10 +14,10 @@ dependencies:
     # Optional dependencies
     - contextily
     - geopandas
+    - ipython
     # Development dependencies (general)
     - build
     - dvc
-    - ipython
     - jupyter
     - make
     # Dev dependencies (style checks)

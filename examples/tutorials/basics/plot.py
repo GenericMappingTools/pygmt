@@ -15,7 +15,7 @@ import pygmt
 ###############################################################################
 # For example, let's load the sample dataset of tsunami generating earthquakes
 # around Japan using :func:`pygmt.datasets.load_sample_data`.
-# The data is loaded as a :class:`pandas.DataFrame`.
+# The data are loaded as a :class:`pandas.DataFrame`.
 
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
 
