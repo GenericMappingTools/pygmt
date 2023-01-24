@@ -42,7 +42,8 @@ def load_earth_magnetic_anomaly(
         The grid resolution. The suffix ``d`` and ``m`` stand for
         arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
         ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, or ``"02m"``.
+        ``"03m"``, or ``"02m"``. The ``"02m"`` resolution is not available for
+        ``data_source="wdmam"``.
 
     region : str or list
         The subregion of the grid to load, in the form of a list
@@ -53,7 +54,8 @@ def load_earth_magnetic_anomaly(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"02m"`` which is ``"pixel"`` only.
+        for all resolutions except ``"02m"`` for ``data_source="emag2"`` or
+        ``data_source="emag2_4km"``, which are ``"pixel"`` only.
 
     data_source : str
         Select the source of the magnetic anomaly data.
@@ -61,7 +63,7 @@ def load_earth_magnetic_anomaly(
         Available options:
 
         - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default
-          option]. Only includes data is observed from sea level over
+          option]. Only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 
         - **emag2_4km** : Use a version of EMAG2 where all observations

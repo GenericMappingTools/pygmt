@@ -34,7 +34,7 @@ __doctest_skip__ = ["grdclip"]
 )
 def grdclip(grid, **kwargs):
     r"""
-    Sets values in a grid that meet certain criteria to a new value.
+    Set values in a grid that meet certain criteria to a new value.
 
     Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
     input ``grid`` file.
