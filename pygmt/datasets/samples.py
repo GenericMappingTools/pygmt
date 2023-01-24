@@ -70,10 +70,10 @@ def load_sample_data(name):
     load_func = {
         "bathymetry": _load_baja_california_bathymetry,
         "earth_relief_holes": _load_earth_relief_holes,
-        "mars_shape": _load_mars_shape,
         "fractures": _load_fractures_compilation,
         "hotspots": _load_hotspots,
         "japan_quakes": _load_japan_quakes,
+        "mars_shape": _load_mars_shape,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
         "ocean_ridge_points": _load_ocean_ridge_points,
