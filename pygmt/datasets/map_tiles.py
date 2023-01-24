@@ -30,27 +30,28 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
         ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.
 
     source : xyzservices.TileProvider or str
-        [Optional. Default: Stamen Terrain web tiles] The tile source: web tile
-        provider or path to a local file. The web tile provider can be in the
-        form of a :class:`xyzservices.TileProvider` object or a URL. The
-        placeholders for the XYZ in the URL need to be {x}, {y}, {z},
-        respectively. For local file paths, the file is read with
-        :doc:`rasterio <rasterio:index>` and all bands are loaded into the
-        basemap. IMPORTANT: tiles are assumed to be in the Spherical Mercator
-        projection (EPSG:3857).
+        Optional. The tile source: web tile provider or path to a local file.
+        The web tile provider can be in the form of a
+        :class:`xyzservices.TileProvider` object or a URL. The placeholders for
+        the XYZ in the URL need to be {x}, {y}, {z}, respectively. For local
+        file paths, the file is read with :doc:`rasterio <rasterio:index>` and
+        all bands are loaded into the basemap. IMPORTANT: tiles are assumed to
+        be in the Spherical Mercator projection (EPSG:3857). [Default is
+        ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
+        tiles].
 
     lonlat : bool
-        [Optional. Default: True]. If False, coordinates in ``region`` are
-        assumed to be Spherical Mercator as opposed to lon/lat.
+        Optional. If False, coordinates in ``region`` are assumed to be
+        Spherical Mercator as opposed to lon/lat. [Default is True].
 
     wait : int
-        [Optional. Default: 0]. If the tile API is rate-limited, the number of
-        seconds to wait between a failed request and the next try.
+        Optional. If the tile API is rate-limited, the number of seconds to
+        wait between a failed request and the next try. [Default is 0].
 
     max_retries : int
-        [Optional. Default: 2]. Total number of rejected requests allowed
-        before contextily will stop trying to fetch more tiles from a
-        rate-limited API.
+        Optional. Total number of rejected requests allowed before contextily
+        will stop trying to fetch more tiles from a rate-limited API. [Default
+        is 2].
 
     kwargs : dict
         Extra keyword arguments to pass to :func:`contextily.bounds2img`.
