@@ -20,12 +20,12 @@ the left or right side of the front [Default is centered]. Append
 **f**\ ault [Default], **s**\ lip, or **t**\ riangle. Slip means left-lateral
 or right-lateral strike-slip arrows (centered is not an option). The **+s**
 modifier optionally accepts the angle used to draw the vector [Default is
-20]. Alternatively, use **+S** which draws arcuate arrow heads. Append
-**+o**\ *offset* to offset the first symbol from the beginning of the front
-by that amount [Default is 0]. The chosen symbol is drawn with the same pen
-as set for the line (i.e., via the ``pen`` parameter). To use an alternate
-pen, append **+p**\ *pen*. To skip the outline, just use **+p** with no
-argument. To make the main front line invisible, add **+i**.
+20 degrees]. Alternatively, use **+S** which draws arcuate arrow heads.
+Append **+o**\ *offset* to offset the first symbol from the beginning of
+the front by that amount [Default is 0]. The chosen symbol is drawn with
+the same pen as set for the line (i.e., via the ``pen`` parameter). To use
+an alternate pen, append **+p**\ *pen*. To skip the outline, just use
+**+p** with no argument. To make the main front line invisible, add **+i**.
 
 """
 
@@ -49,8 +49,8 @@ for frontstyle in [
     "f1c/0.25c+c",
     # line with triangle front style
     "f1c/0.3c+t",
-    # line with left-lateral ("+l") slip ("+s") front style, angle is set to 45
-    # and offset to 2.25 cm
+    # line with left-lateral ("+l") slip ("+s") front style, angle is set to
+    # 45 degrees and offset to 2.25 cm
     "f5c/1c+l+s45+o2.25c",
     # line with "faults" front style, symbols are plotted on the left side of
     # the front
