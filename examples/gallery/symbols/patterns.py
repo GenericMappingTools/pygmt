@@ -51,7 +51,7 @@ for pattern in [
         y=y,
         text=pattern,
         font="Courier-Bold",
-        justify="ML",  # justification of the text is MiddleLeft
+        justify="ML",  # justification of the text is Middle Left
     )
 
 fig.show()
