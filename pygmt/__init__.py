@@ -1,6 +1,6 @@
 """
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 Generic Mapping Tools (GMT), a command-line program widely used in the Earth
 Sciences. Besides making GMT more accessible to new users, PyGMT aims to
 provide integration with the PyData ecosystem as well as support for rich
