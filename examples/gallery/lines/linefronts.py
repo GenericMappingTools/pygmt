@@ -26,7 +26,6 @@ the front by that amount [Default is 0]. The chosen symbol is drawn with
 the same pen as set for the line (i.e., via the ``pen`` parameter). To use
 an alternate pen, append **+p**\ *pen*. To skip the outline, just use
 **+p** with no argument. To make the main front line invisible, add **+i**.
-
 """
 
 import numpy as np
