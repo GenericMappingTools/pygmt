@@ -23,7 +23,9 @@ def load_earth_relief(
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually a subdirectory under ~/.gmt/server/earth/) the first time you
+    (usually ``~/.gmt/server/earth/earth_relief``,
+    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
+    or ``~/.gmt/server/earth/earth_synbath``) the first time you
     invoke this function. Afterwards, it will load the grid from the data
     directory. So you'll need an internet connection the first time around.
 
@@ -59,22 +61,20 @@ def load_earth_relief(
         for all resolutions except ``"15s"`` which is ``"pixel"`` only.
 
     data_source : str
-        Select the source for the Earth relief data.
+        Select the source for the Earth relief data. Available options are:
 
-        Available options:
-
-        - **igpp** : IGPP Global Earth Relief [Default option]. See
+        - ``"igpp"``: IGPP Global Earth Relief [Default option]. See
           :gmt-datasets:`earth-relief.html`.
 
-        - **synbath** : IGPP Global Earth Relief dataset that uses
-          stastical properties of young seafloor to provide more realistic
+        - ``"synbath"``: IGPP Global Earth Relief dataset that uses
+          stastical properties of young seafloor to provide a more realistic
           relief of young areas with small seamounts.
 
-        - **gebco** : GEBCO Global Earth Relief with only observed relief and
+        - ``"gebco"``: GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
 
-        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
+        - ``"gebcosi"``: GEBCO Global Earth Relief that gives sub-ice (si)
           elevations.
 
     use_srtm : bool
