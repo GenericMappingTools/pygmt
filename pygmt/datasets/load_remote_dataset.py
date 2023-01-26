@@ -257,8 +257,8 @@ def _load_remote_dataset(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        a gridline-registered grid is returned unless only the
+        pixel-registered grid is available.
 
     Returns
     -------
