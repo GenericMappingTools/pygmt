@@ -72,8 +72,13 @@ def test_config_format_date_map():
 
     Note the space in 'o dd', this acts as a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/247.
+
+    Setting FORMAT_DATE_MAP="yyyy mm dd" as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2298.
     """
     fig = Figure()
+    # Set FORMAT_DATE_MAP to "yyyy mm dd" which contains whitespaces.
+    config(FORMAT_DATE_MAP="yyyy mm dd")
     with config(FORMAT_DATE_MAP="o dd"):
         fig.basemap(
             region=["1969-7-21T", "1969-7-23T", 0, 1],
