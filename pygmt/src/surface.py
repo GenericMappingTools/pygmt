@@ -73,13 +73,13 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
-    convergence : float
+    convergence : float or str
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
         *convergence_limit*. (Units same as data z units). Alternatively,
         give limit in percentage of rms deviation by appending %. [Default
         is scaled to :math:`10^{{-4}}` of the root-mean-square deviation of
-        the data from a best-fit (least-squares) plane.]. This is the final
+        the data from a best-fit (least-squares) plane.] This is the final
         convergence limit at the desired grid spacing; for intermediate
         (coarser) grids the effective convergence limit is divided by the
         grid spacing multiplier.
