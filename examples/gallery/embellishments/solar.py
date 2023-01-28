@@ -4,9 +4,9 @@ Day-night terminator line and twilights
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between
 daytime and nighttime. The parameter ``terminator`` is used to set the twilight
-stage, and can be either 'day-night' (brightest), 'civil', 'nautical', or
-'astronomical' (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for
-more information.
+stage, and can be either ``"day_night"`` (brightest), ``"civil"``,
+``"nautical"``, or ``"astronomical"`` (darkest).
+Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 """
 import datetime
 
@@ -21,7 +21,7 @@ fig.coast(region="d", projection="W0/15c", land="darkgreen", water="lightblue")
 terminator_datetime = datetime.datetime(
     year=2000, month=1, day=1, hour=17, minute=0, second=0
 )
-# Set the pen line to be 0.5p thick
+# Set the pen line to be 0.5 points thick
 # Set the fill for the night area to be navy blue at different transparency
 # levels
 fig.solar(
