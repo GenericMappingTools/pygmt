@@ -121,14 +121,14 @@ def dummy_context(arg):
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
-    Convert dicts and input/output files into a GMT argument string.
+    Convert keyword dicts and input/output files into a GMT argument string.
 
     Make sure all values in ``kwdict`` have been previously converted to a
     string representation using the ``kwargs_to_strings`` decorator. The only
     exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
-    same command line argument. For example, the kwargs entry ``'B': ['xa',
+    same command line option. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
 
     Note that spaces `` `` in arguments are converted to the equivalent octal
@@ -203,12 +203,12 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     >>> print(
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
-    ...         confdict=dict(FONT_LABEL="12p,red", FORMAT_DATE_MAP="o dd"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
     ...         infile="input.txt",
     ...         outfile="output.txt",
     ...     )
     ... )
-    input.txt -A0 -B -Crainbow --FONT_LABEL="12p,red" --FORMAT_DATE_MAP="o dd" ->output.txt
+    input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
     gmt_args = []
 
