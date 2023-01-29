@@ -4,6 +4,8 @@ Bit and Hachure Patterns
 
 TODO
 
+An overview of all 90 predefined bit and hachure patterns can by found at
+https://docs.generic-mapping-tools.org/latest/cookbook/predefined-patterns.html.
 """
 
 import pygmt
