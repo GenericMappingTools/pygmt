@@ -61,15 +61,15 @@ pygmt.makecpt(
 )
 
 fig.plot3d(
-    # Use petal width, sepal length and petal length as x, y and z data input,
-    # respectively
+    # Use petal width, sepal length, and petal length as x, y, and z
+    # data input, respectively
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
     # Vary each symbol size according to another feature (sepal width, scaled
     # by 0.1)
     size=0.1 * df.sepal_width,
-    # Use 3-D cubes ("u") as symbols, with size in centimeter units ("c")
+    # Use 3-D cubes ("u") as symbols with size in centimeters ("c")
     style="uc",
     # Points colored by categorical number code
     fill=df.species.cat.codes.astype(int),

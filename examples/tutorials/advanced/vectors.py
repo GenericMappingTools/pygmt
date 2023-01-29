@@ -92,7 +92,7 @@ fig.plot(
     pen="2p",
     fill="red3",
 )
-# Vector 2 after changing default unit to inch
+# Vector 2 after changing default unit to inches
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
         x=2,
