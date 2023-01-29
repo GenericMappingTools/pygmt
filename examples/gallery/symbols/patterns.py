@@ -2,10 +2,10 @@ r"""
 Bit and Hachure Patterns
 ------------------------
 
-The ``fill`` parameter can be used to fill polygons with bit or hachure patterns.
-This includes symbols (:meth:`pygmt.Figure.plot`), histogram bars or sectors
-(:meth:`pygmt.Figure.histogram` or :meth:`pygmt.Figure.rose`), and anomalies
-(:meth:`pygmt.Figure.wiggle`) as well as land and water masses
+The ``fill`` parameter can be used to fill polygons with bit or hachure
+patterns. This includes symbols (:meth:`pygmt.Figure.plot`), histogram bars
+or sectors (:meth:`pygmt.Figure.histogram` or :meth:`pygmt.Figure.rose`),
+and anomalies (:meth:`pygmt.Figure.wiggle`) as well as land and water masses
 (:meth:`pygmt.Figure.coast`):
 
 **P**\ |**p**\ *pattern*\ [**+b**\ *color*\ ][**+f**\ *color*\ ][**+r**\ *dpi*]
