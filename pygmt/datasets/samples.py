@@ -80,11 +80,7 @@ def load_sample_data(name):
         "rock_compositions": _load_rock_sample_compositions,
         "usgs_quakes": _load_usgs_quakes,
     }
-
-    if name in load_func:
-        data = load_func[name]()
-
-    return data
+    return load_func[name]()
 
 
 def _load_japan_quakes():
