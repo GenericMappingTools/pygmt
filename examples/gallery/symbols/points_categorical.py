@@ -81,7 +81,8 @@ fig.plot(
     cmap=True,
     # Do not clip symbols that fall close to the map bounds
     no_clip=True,
-    # Use circles as symbols with size in centimeter units
+    # Use circles as symbols (the first "c") with diameter in
+    # centimeters (the second "c")
     style="cc",
     # Set transparency level for all symbols to deal with overplotting
     transparency=40,

@@ -60,18 +60,18 @@ def colorbar(self, frame=None, annotation=None, xlabel=None, ylabel=None, **kwar
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
         Defines the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
-        use **j** or **J** for setting *refpoint* via a 2-char justification
-        code that refers to the (invisible) map domain rectangle, (3) use **n**
-        for normalized (0-1) coordinates, or (4) use **x** for plot
-        coordinates (inches, cm, etc.). All but **x** requires both ``region``
-        and ``projection`` to be specified. Append **+w** followed by the
-        length and width of the color bar. If width is not specified then it is
-        set to 4% of the given length. Give a negative length to reverse
-        the scale bar. Append **+h** to get a horizontal scale
+        use **j** or **J** for setting *refpoint* via a 2-character
+        justification code that refers to the (invisible) map domain rectangle,
+        (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
+        plot coordinates (inches, cm, etc.). All but **x** requires both
+        ``region`` and ``projection`` to be specified. Append **+w** followed
+        by the length and width of the color bar. If width is not specified
+        then it is set to 4% of the given length. Give a negative length to
+        reverse the scale bar. Append **+h** to get a horizontal scale
         [Default is vertical (**+v**)]. By default, the anchor point on the
-        scale is assumed to be the bottom left corner (**BL**), but this can be
-        changed by appending **+j** followed by a 2-char justification code
-        *justify*.
+        scale is assumed to be the bottom left corner (**BL**), but this can
+        be changed by appending **+j** followed by a 2-character
+        justification code *justify*.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].

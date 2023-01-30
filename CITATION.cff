@@ -32,6 +32,10 @@ authors:
   family-names: Toney
   affiliation: University of Alaska Fairbanks, USA
   orcid: https://orcid.org/0000-0003-0167-9433
+- given-names: Yvonne
+  family-names: Fröhlich
+  affiliation: Karlsruhe Institute of Technology, Germany
+  orcid: https://orcid.org/0000-0002-8566-0619
 - given-names: Jiayuan
   family-names: Yao
   affiliation: Nanyang Technological University, Singapore
@@ -44,10 +48,6 @@ authors:
   family-names: Materna
   affiliation: US Geological Survey, USA
   orcid: https://orcid.org/0000-0002-6687-980X
-- given-names: Yvonne
-  family-names: Fröhlich
-  affiliation: Karlsruhe Institute of Technology, Germany
-  orcid: https://orcid.org/0000-0002-8566-0619
 - given-names: Andre
   family-names: Belem
   affiliation: Fluminense Federal University, Brazil
@@ -72,9 +72,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawai'i at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2022-07-01
-doi: 10.5281/zenodo.6702566
+date-released: 2022-12-30
+doi: 10.5281/zenodo.7481934
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.7.0
+version: 0.8.0

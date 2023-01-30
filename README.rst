@@ -68,9 +68,10 @@ About
 -----
 
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond.
 
 Project goals
 -------------
@@ -165,7 +166,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6702566,
+    @software{pygmt_2022_7481934,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -173,10 +174,10 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Schlitzer, William and
                       Grund, Michael and
                       Toney, Liam and
+                      Fröhlich, Yvonne and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
-                      Fröhlich, Yvonne and
                       Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
@@ -184,12 +185,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jul,
+      month        = dec,
       year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.7.0},
-      doi          = {10.5281/zenodo.6702566},
-      url          = {https://doi.org/10.5281/zenodo.6702566}
+      version      = {0.8.0},
+      doi          = {10.5281/zenodo.7481934},
+      url          = {https://doi.org/10.5281/zenodo.7481934}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -247,7 +248,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.20
-    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_ (latest release)
+    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
+      - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.20
+    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_
       - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
       - >=6.3.0
       - >=3.8
