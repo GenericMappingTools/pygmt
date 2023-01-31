@@ -1,8 +1,6 @@
 """
 Functions to load sample data.
 """
-import warnings
-
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.io import load_dataarray
@@ -68,11 +66,6 @@ def load_sample_data(name):
     if name not in names:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
 
-    # Dictionary of public load functions for backwards compatibility
-    load_func_old = {
-        "mars_shape": load_mars_shape,
-    }
-
     # Dictionary of private load functions
     load_func = {
         "bathymetry": _load_baja_california_bathymetry,
@@ -80,19 +73,14 @@ def load_sample_data(name):
         "fractures": _load_fractures_compilation,
         "hotspots": _load_hotspots,
         "japan_quakes": _load_japan_quakes,
+        "mars_shape": _load_mars_shape,
         "maunaloa_co2": _load_maunaloa_co2,
         "notre_dame_topography": _load_notre_dame_topography,
         "ocean_ridge_points": _load_ocean_ridge_points,
         "rock_compositions": _load_rock_sample_compositions,
         "usgs_quakes": _load_usgs_quakes,
     }
-
-    if name in load_func_old:
-        data = load_func_old[name](suppress_warning=True)
-    elif name in load_func:
-        data = load_func[name]()
-
-    return data
+    return load_func[name]()
 
 
 def _load_japan_quakes():
@@ -221,40 +209,23 @@ def _load_hotspots():
     )
 
 
-def load_mars_shape(**kwargs):
+def _load_mars_shape():
     """
-    (Deprecated) Load a table of data for the shape of Mars.
+    Load a table of data for the shape of Mars as a pandas.DataFrame.
 
-    .. warning:: Deprecated since v0.6.0. This function has been replaced with
-       ``load_sample_data(name="mars_shape")`` and will be removed in
-       v0.9.0.
-
-    This is the ``@mars370d.txt`` dataset used in GMT examples, with data and
-    information from Smith, D. E., and M. T. Zuber (1996), The shape of Mars
-    and the topographic signature of the hemispheric dichotomy. Data columns
-    are "longitude," "latitude", and "radius (meters)."
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
+    Data and information are from Smith, D. E., and M. T. Zuber (1996),
+    The shape of Mars and the topographic signature of the hemispheric
+    dichotomy.
 
     Returns
     -------
     data : pandas.DataFrame
-        The data table with columns "longitude", "latitude", and "radius(m)".
+        The data table with column names "longitude", "latitude", and
+        "radius_m".
     """
-
-    if "suppress_warning" not in kwargs:
-        warnings.warn(
-            "This function has been deprecated since v0.6.0 and will be "
-            "removed in v0.9.0. Please use "
-            "load_sample_data(name='mars_shape') instead.",
-            category=FutureWarning,
-            stacklevel=2,
-        )
     fname = which("@mars370d.txt", download="c")
     data = pd.read_csv(
-        fname, sep="\t", header=None, names=["longitude", "latitude", "radius(m)"]
+        fname, sep="\t", header=None, names=["longitude", "latitude", "radius_m"]
     )
     return data
 
@@ -289,7 +260,7 @@ def _load_notre_dame_topography():
         The data table with columns "x", "y", and "z".
     """
     fname = which("@Table_5_11.txt", download="c")
-    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
+    return pd.read_csv(fname, delim_whitespace=True, header=None, names=["x", "y", "z"])
 
 
 def _load_maunaloa_co2():
@@ -303,7 +274,7 @@ def _load_maunaloa_co2():
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     return pd.read_csv(
-        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
+        fname, header=None, skiprows=1, delim_whitespace=True, names=["date", "co2_ppm"]
     )
 
 
