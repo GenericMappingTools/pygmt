@@ -1,0 +1,4 @@
+outs:
+- md5: b85cb9b93c3bc16364c829f6c2ff0592
+  size: 1758
+  path: test_timestamp.png
