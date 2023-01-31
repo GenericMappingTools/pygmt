@@ -289,7 +289,7 @@ def _load_notre_dame_topography():
         The data table with columns "x", "y", and "z".
     """
     fname = which("@Table_5_11.txt", download="c")
-    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
+    return pd.read_csv(fname, delim_whitespace=True, header=None, names=["x", "y", "z"])
 
 
 def _load_maunaloa_co2():
@@ -303,7 +303,7 @@ def _load_maunaloa_co2():
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     return pd.read_csv(
-        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
+        fname, header=None, skiprows=1, delim_whitespace=True, names=["date", "co2_ppm"]
     )
 
 
