@@ -130,18 +130,17 @@ def test_earth_mag_02m_default_registration():
     npt.assert_allclose(data.max(), 131.79999)
 
     data = load_earth_magnetic_anomaly(
-        resolution="05m",
+        resolution="02m",
         region=[-115, -112, 4, 6],
-        registration="gridline",
         data_source="emag2_4km",
     )
-    assert data.shape == (25, 37)
-    assert data.lat.min() == 4
-    assert data.lat.max() == 6
-    assert data.lon.min() == -115
-    assert data.lon.max() == -112
-    npt.assert_allclose(data.min(), -128.40015)
-    npt.assert_allclose(data.max(), 76.80005)
+    assert data.shape == (60, 90)
+    assert data.lat.min() == 4.01666667
+    assert data.lat.max() == 5.98333333
+    assert data.lon.min() == -114.98333333
+    assert data.lon.max() == -112.01666667
+    npt.assert_allclose(data.min(), -132.80003)
+    npt.assert_allclose(data.max(), 79.59996)
 
 
 def test_earth_mag_01d_wdmam():
@@ -196,13 +195,13 @@ def test_earth_mag_03m_wdmam_with_region():
     npt.assert_allclose(data.max(), 629.6)
 
 
-def test_earth_mag_05m_wdmam_without_region():
+def test_earth_mag_03m_wdmam_without_region():
     """
     Test loading a high-resolution WDMAM grid without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(
-            resolution="05m", registration="gridline", data_source="wdmam"
+            resolution="03m", registration="gridline", data_source="wdmam"
         )
 
 

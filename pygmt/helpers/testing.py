@@ -189,6 +189,7 @@ def download_test_data():
         "@earth_mag_01d_g",
         "@S30W060.earth_mag_02m_p.nc",  # Specific grid for 02m test
         "@earth_mag4km_01d_g",
+        "@S30W120.earth_mag4km_02m_p.nc",  # Specific grid for 02m test
         # Earth mask grid
         "@earth_mask_01d_g",
         # Earth free-air anomaly grids
