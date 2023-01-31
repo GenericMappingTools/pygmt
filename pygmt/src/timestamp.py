@@ -96,5 +96,5 @@ def timestamp(
         lib.call_module(
             module="plot",
             args=build_arg_string(kwdict)
-            + f" --FONT_LOGO={font} --FORMAT_TIME_STAMP={timefmt}",
+            + f' --FONT_LOGO="{font}" --FORMAT_TIME_STAMP="{timefmt}"',
         )
