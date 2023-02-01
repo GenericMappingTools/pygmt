@@ -111,7 +111,7 @@ def meca(
 
     Parameters
     ----------
-    spec: str, 1-D array, 2-D array, dict, or pd.DataFrame
+    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame
         Data that contains focal mechanism parameters.
 
         ``spec`` can be specified in either of the following types:
@@ -158,11 +158,11 @@ def meca(
           columns. If ``spec`` is a dict or a pd.DataFrame, ``convention`` is
           not needed and is ignored if specified.
 
-    scale: str
+    scale : str
         Adjusts the scaling of the radius of the beachball, which is
         proportional to the magnitude. *scale* defines the size for
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
-    convention: str
+    convention : str
         Focal mechanism convention. Choose from:
 
         - ``"aki"`` (Aki & Richards)
@@ -172,30 +172,30 @@ def meca(
         - ``"principal_axis"`` (principal axis)
 
         Ignored if ``spec`` is a dictionary or pd.DataFrame.
-    component: str
+    component : str
         The component of the seismic moment tensor to plot.
 
         - ``"full"``: the full seismic moment tensor
         - ``"dc"``: the closest double couple defined from the moment tensor
           (zero trace and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude: int, float, list, or 1-D numpy array
+    longitude : int, float, list, or 1-D numpy array
         Longitude(s) of event location. Must be the same length as the
         number of events. Will override the ``longitude`` values
         in ``spec`` if ``spec`` is a dict or pd.DataFrame.
-    latitude: int, float, list, or 1-D numpy array
+    latitude : int, float, list, or 1-D numpy array
         Latitude(s) of event location. Must be the same length as the
         number of events. Will override the ``latitude`` values
         in ``spec`` if ``spec`` is a dict or pd.DataFrame.
-    depth: int, float, list, or 1-D numpy array
+    depth : int, float, list, or 1-D numpy array
         Depth(s) of event location in kilometers. Must be the same length as
         the number of events. Will override the ``depth`` values in ``spec``
         if ``spec`` is a dict or pd.DataFrame.
-    plot_longitude: int, float, str, list, or 1-D numpy array
+    plot_longitude : int, float, str, list, or 1-D numpy array
         Longitude(s) at which to place beachball. Must be the same length as
         the number of events. Will override the ``plot_longitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
-    plot_latitude: int, float, str, list, or 1-D numpy array
+    plot_latitude : int, float, str, list, or 1-D numpy array
         Latitude(s) at which to place beachball. List must be the same length
         as the number of events. Will override the ``plot_latitude`` values in
         ``spec`` if ``spec`` is a dict or pd.DataFrame.
@@ -204,7 +204,7 @@ def meca(
         must be the same length as the number of events. Will override the
         ``event_name`` values in ``spec`` if ``spec`` is a dict or
         pd.DataFrame.
-    offset: bool or str
+    offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offsets beachballs to the longitude, latitude specified in the last two
         columns of the input file or array, or by ``plot_longitude`` and
