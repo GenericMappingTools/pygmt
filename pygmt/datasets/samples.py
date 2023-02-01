@@ -274,7 +274,7 @@ datasets = {
         func=_load_ocean_ridge_points,
         description="Table of ocean ridge points for the entire world",
     ),
-    "rock_sample_compositions": GMTSampleData(
+    "rock_compositions": GMTSampleData(
         func=_load_rock_sample_compositions,
         description="Table of rock sample compositions",
     ),
