@@ -75,11 +75,11 @@ def data_format_code(convention, component="full"):
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     A="offset",
     B="frame",
+    J="projection",
     N="no_clip",
+    R="region",
     V="verbose",
     c="panel",
     p="perspective",
