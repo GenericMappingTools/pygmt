@@ -77,6 +77,8 @@ def data_format_code(convention, component="full"):
 @use_alias(
     A="offset",
     B="frame",
+    E="extensionfill",
+    G="compressionfill",
     J="projection",
     N="no_clip",
     R="region",
