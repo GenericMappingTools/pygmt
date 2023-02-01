@@ -213,6 +213,12 @@ def meca(
         **+s**\ *size* to set the diameter of the circle [Default is
         no circle]. Use **+p**\ *pen* to set the line pen attributes [Default
         is 0.25p].
+    compressionfill : str
+        Select color or pattern for filling the compressional quadrants
+        [Default is black].
+    extensionfill : str
+        Select color or pattern for filling the extensive quadrants
+        [Default is white].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
