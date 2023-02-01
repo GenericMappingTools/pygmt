@@ -121,7 +121,8 @@ def dummy_context(arg):
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
-    Convert keyword dictionaries and input/output files into a GMT argument string.
+    Convert keyword dictionaries and input/output files into a GMT argument
+    string.
 
     Make sure all values in ``kwdict`` have been previously converted to a
     string representation using the ``kwargs_to_strings`` decorator. The only
