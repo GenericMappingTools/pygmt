@@ -299,6 +299,7 @@ def fmt_dataset_list(module_func):
     module_func
         The same *module_func* but with the docstring formatted.
     """
+    # Add a new lines and 8 white spaces for formatting in the documentation
     texts = "\n        ".join(
         f'- ``"{name}"``: {dataset.description}.' for name, dataset in datasets.items()
     )
