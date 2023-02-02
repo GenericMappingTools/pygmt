@@ -12,7 +12,8 @@ or similar parameters:
   and ``fillnegative``
 - Land and water masses: :meth:`pygmt.Figure.coast` via ``land``
   and ``water``
-- Focal mechanisms: :meth:`pygmt.Figure.meca` via ``G`` and ``E``
+- Focal mechanisms: :meth:`pygmt.Figure.meca` via ``compressionfill``
+  and ``extensionfill``
 
 The required argument has the following form:
 
