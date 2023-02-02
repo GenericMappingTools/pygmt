@@ -4,7 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import load_sample_data
+from pygmt.datasets import list_sample_data, load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -14,6 +14,13 @@ def test_load_sample_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         load_sample_data(name="bad.filename")
+
+
+def test_list_sample_data():
+    """
+    Check that the list_sample_data function returns a dictionary.
+    """
+    assert isinstance(list_sample_data(), dict)
 
 
 def test_japan_quakes():
