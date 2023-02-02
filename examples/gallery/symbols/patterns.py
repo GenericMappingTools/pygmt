@@ -16,6 +16,7 @@ or similar parameters:
   and ``extensionfill``
 - Uncertainty wedges and velocity error ellipses:
   :meth:`pygmt.Figure.velo` via ``uncertaintyfill``
+- Terminators: :meth:`pygmt.Figure.solar` via ``fill``
 
 The required argument has the following form:
 
