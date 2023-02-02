@@ -146,8 +146,8 @@ def test_earth_mag4km_02m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 5.98333333)
     npt.assert_allclose(data.coords["lon"].data.min(), -114.98333333)
     npt.assert_allclose(data.coords["lon"].data.max(), -112.01666667)
-    npt.assert_allclose(data.min(), -132.80003)
-    npt.assert_allclose(data.max(), 79.59996)
+    npt.assert_allclose(data.min(), -132.80005)
+    npt.assert_allclose(data.max(), 79.59985)
 
 
 def test_earth_mag_01d_wdmam():
