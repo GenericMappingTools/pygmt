@@ -5,23 +5,23 @@ Bit and Hachure Patterns
 PyGMT allows using bit or hachure patterns via the ``fill`` parameter
 or similar parameters:
 
-- Anomalies: :meth:`pygmt.Figure.wiggle` via ``fillpositive``
-  and ``fillnegative``
-- Day-light terminators: :meth:`pygmt.Figure.solar` via ``fill``
-- Focal mechanisms: :meth:`pygmt.Figure.meca` via ``compressionfill``
+- :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
+- :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
+- :meth:`pygmt.Figure.coast`: Land and water masses via ``land``
+  and ``water``, respectively
+- :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
+- :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
+- :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and
+  ``fillnegative``
+- :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compressionfill``
   and ``extensionfill``
-- Histogram bars or sectors: :meth:`pygmt.Figure.histogram` or
-  :meth:`pygmt.Figure.rose` via ``fill``
-- Land and water masses: :meth:`pygmt.Figure.coast` via ``land``
-  and ``water``
-- Symbols and polygons: :meth:`pygmt.Figure.plot` via ``fill``
-- Uncertainty wedges and velocity error ellipses:
-  :meth:`pygmt.Figure.velo` via ``uncertaintyfill``
+- :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error
+  ellipses via ``uncertaintyfill``
+- :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
 
 The required argument has the following form:
 
 **P**\ |**p**\ *pattern*\ [**+b**\ *color*\ ][**+f**\ *color*\ ][**+r**\ *dpi*]
-
 
 TODO
 
