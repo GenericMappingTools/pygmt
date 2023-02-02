@@ -5,19 +5,19 @@ Bit and Hachure Patterns
 PyGMT allows using bit or hachure patterns via the ``fill`` parameter
 or similar parameters:
 
-- :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
-- :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
-- :meth:`pygmt.Figure.coast`: Land and water masses via ``land``
-  and ``water``, respectively
+- :meth:`pygmt.Figure.coast`: Land and water masses via ``land`` and
+  ``water``, respectively
 - :meth:`pygmt.Figure.histogram`: Histogram bars via ``fill``
-- :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
-- :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive`` and
-  ``fillnegative``
 - :meth:`pygmt.Figure.meca`: Focal mechanisms via ``compressionfill``
   and ``extensionfill``
+- :meth:`pygmt.Figure.plot`: Symbols and polygons via ``fill``
+- :meth:`pygmt.Figure.rose`: Histogram sectors via ``fill``
+- :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
+- :meth:`pygmt.Figure.ternary`: Symbols via ``fill``
 - :meth:`pygmt.Figure.velo`: Uncertainty wedges and velocity error
   ellipses via ``uncertaintyfill``
-- :meth:`pygmt.Figure.solar`: Day-light terminators via ``fill``
+- :meth:`pygmt.Figure.wiggle`: Anomalies via ``fillpositive``
+  and ``fillnegative``
 
 The required argument has the following form:
 
