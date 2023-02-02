@@ -14,7 +14,7 @@ or similar parameters:
 - Land and water masses: :meth:`pygmt.Figure.coast` via ``land``
   and ``water``
 - Symbols and polygons: :meth:`pygmt.Figure.plot` via ``fill``
-- Terminators: :meth:`pygmt.Figure.solar` via ``fill``
+- Day-light terminators: :meth:`pygmt.Figure.solar` via ``fill``
 - Uncertainty wedges and velocity error ellipses:
   :meth:`pygmt.Figure.velo` via ``uncertaintyfill``
 
