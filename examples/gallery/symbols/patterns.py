@@ -14,6 +14,8 @@ or similar parameters:
   and ``water``
 - Focal mechanisms: :meth:`pygmt.Figure.meca` via ``compressionfill``
   and ``extensionfill``
+- Uncertainty wedges and velocity error ellipses:
+  :meth:`pygmt.Figure.velo` via ``uncertaintyfill``
 
 The required argument has the following form:
 
