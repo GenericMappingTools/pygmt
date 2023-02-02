@@ -129,16 +129,23 @@ def test_earth_mag_02m_default_registration():
     npt.assert_allclose(data.min(), -231)
     npt.assert_allclose(data.max(), 131.79999)
 
+
+def test_earth_mag4km_02m_default_registration():
+    """
+    Test that the grid returned by default for the 2 arc-minute resolution has
+    a "pixel" registration.
+    """
     data = load_earth_magnetic_anomaly(
         resolution="02m",
         region=[-115, -112, 4, 6],
         data_source="emag2_4km",
     )
     assert data.shape == (60, 90)
-    assert data.lat.min() == 4.01666667
-    assert data.lat.max() == 5.98333333
-    assert data.lon.min() == -114.98333333
-    assert data.lon.max() == -112.01666667
+    assert data.gmt.registration == 1
+    npt.assert_allclose(data.coords["lat"].data.min(), 4.01666667)
+    npt.assert_allclose(data.coords["lat"].data.max(), 5.98333333)
+    npt.assert_allclose(data.coords["lon"].data.min(), -114.98333333)
+    npt.assert_allclose(data.coords["lon"].data.max(), -112.01666667)
     npt.assert_allclose(data.min(), -132.80003)
     npt.assert_allclose(data.max(), 79.59996)
 
