@@ -142,7 +142,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     kwdict : dict
         A dictionary containing parsed keyword arguments.
     confdict : dict
-        A dictionary containing GMT's configurations.
+        A dictionary containing configurable GMT parameters.
     infile : str or pathlib.Path
         The input file.
     outfile : str or pathlib.Path
@@ -152,8 +152,8 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     -------
     args : str
         The space-delimited argument string with '-' inserted before each
-        keyword, or '--' inserted before GMT's configuration key-value pairs.
-        The keyword arguments are sorted alphabetically, followed by GMT's
+        keyword, or '--' inserted before GMT configuration key-value pairs.
+        The keyword arguments are sorted alphabetically, followed by GMT
         configuration key-value pairs, with optional input file at the
         beginning and optional output file at the end.
 
