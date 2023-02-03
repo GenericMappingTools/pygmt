@@ -56,7 +56,9 @@ def histogram(self, data, **kwargs):
     {region}
     {frame}
     {cmap}
-    {fill}
+    fill : str
+         Set the color or pattern for filling the bars
+         [Default is no fill].
     {pen}
     {panel}
     annotate : bool or str
