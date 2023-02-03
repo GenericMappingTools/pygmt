@@ -35,7 +35,7 @@ COMMON_DOCSTRINGS = {
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "timestamp": """\
+    "timestamp": r"""
         timestamp : bool or str
             Draw GMT time stamp logo on plot.""",
     "cmap": r"""
@@ -43,7 +43,7 @@ COMMON_DOCSTRINGS = {
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "fill": """\
+    "fill": r"""
         fill : str
             Set the color or pattern for filling of symbols or polygons
             [Default is no fill].""",
@@ -78,7 +78,7 @@ COMMON_DOCSTRINGS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
-    "verbose": """\
+    "verbose": r"""
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
@@ -90,7 +90,7 @@ COMMON_DOCSTRINGS = {
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
-    "pen": """\
+    "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "aspatial": r"""
@@ -333,7 +333,7 @@ COMMON_DOCSTRINGS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
-    "transparency": """\
+    "transparency": r"""
         transparency : int or float
             Set transparency level, in [0-100] percent range
             [Default is 0, i.e., opaque].
