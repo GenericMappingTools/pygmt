@@ -49,8 +49,8 @@ COMMON_DOCSTRINGS = {
             is no fill].""",
     "fill": """\
         fill : str
-            Select color or pattern for filling of symbols or polygons [Default
-            is no fill].""",
+            Set the color or pattern for filling of symbols or polygons
+            [Default is no fill].""",
     "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
