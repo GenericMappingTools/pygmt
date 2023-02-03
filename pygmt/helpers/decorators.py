@@ -43,10 +43,6 @@ COMMON_DOCSTRINGS = {
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "color": """\
-        color : str or 1-D array
-            Select color or pattern for filling of symbols or polygons [Default
-            is no fill].""",
     "fill": """\
         fill : str
             Set the color or pattern for filling of symbols or polygons
