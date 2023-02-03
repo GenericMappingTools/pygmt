@@ -45,7 +45,7 @@ COMMON_DOCSTRINGS = {
            CPT from those colors automatically.""",
     "fill": r"""
         fill : str
-            Set the color or pattern for filling of symbols or polygons
+            Set the color or pattern for filling the symbols or polygons
             [Default is no fill].""",
     "spacing": r"""
         spacing : str

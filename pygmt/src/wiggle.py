@@ -78,10 +78,10 @@ def wiggle(
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
     fillpositive : str
-        Set the color or pattern for filling of positive wiggles
+        Set the color or pattern for filling the positive wiggles
         [Default is no fill].
     fillnegative : str
-        Set the color or pattern for filling of negative wiggles
+        Set the color or pattern for filling the negative wiggles
         [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
