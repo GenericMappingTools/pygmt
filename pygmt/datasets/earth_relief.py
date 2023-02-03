@@ -138,7 +138,7 @@ def load_earth_relief(
             dataset_prefix = "srtm_relief_"
         else:
             raise GMTInvalidInput(
-                f"'use_srtm=True' doesn't work with data source '{data_source}'."
+                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
                 " Please set 'data_source' to 'igpp'."
             )
     else:
