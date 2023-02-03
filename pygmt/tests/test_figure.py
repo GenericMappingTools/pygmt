@@ -220,6 +220,7 @@ def test_figure_savefig():
         "crop": True,
         "Qt": 2,
         "Qg": 2,
+        "W": "+k",
     }
 
 
