@@ -283,7 +283,10 @@ def launch_external_viewer(fname, waiting=0):
     """
     # Redirect stdout and stderr to devnull so that the terminal isn't filled
     # with noise
-    run_args = dict(stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    run_args = {
+        "stdout": subprocess.DEVNULL,
+        "stderr": subprocess.DEVNULL,
+    }
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.

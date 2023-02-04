@@ -54,7 +54,7 @@ def fixture_expected_grid():
     """
     return xr.DataArray(
         data=[[779.6264, 752.1539, 749.38776], [771.2882, 726.9792, 722.1368]],
-        coords=dict(y=[5, 6], x=[2, 3, 4]),
+        coords={"y": [5, 6], "x": [2, 3, 4]},
         dims=["y", "x"],
     )
 
