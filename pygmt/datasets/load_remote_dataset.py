@@ -22,7 +22,7 @@ class Resolution(NamedTuple):
 
     tiled : bool
         States if the given resolution is tiled, which requires an
-        argument for ``region``."
+        argument for ``region``.
     """
 
     registrations: list
