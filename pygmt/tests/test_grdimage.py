@@ -119,14 +119,13 @@ def test_grdimage_shading_xarray(grid, shading):
     https://github.com/GenericMappingTools/pygmt/issues/618.
     """
     fig_ref, fig_test = Figure(), Figure()
-    kwargs = dict(
-        region=[-180, 180, -90, 90],
-        frame=True,
-        projection="Cyl_stere/6i",
-        cmap="geo",
-        shading=shading,
-    )
-
+    kwargs = {
+        "region": [-180, 180, -90, 90],
+        "frame": True,
+        "projection": "Cyl_stere/6i",
+        "cmap": "geo",
+        "shading": shading,
+    }
     fig_ref.grdimage("@earth_relief_01d_g", **kwargs)
     fig_test.grdimage(grid, **kwargs)
     return fig_ref, fig_test
