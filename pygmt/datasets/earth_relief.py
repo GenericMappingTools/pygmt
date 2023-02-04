@@ -129,8 +129,8 @@ def load_earth_relief(
     }
     if data_source not in earth_relief_sources:
         raise GMTInvalidInput(
-            f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
+            f"Invalid earth relief data source '{data_source}'. "
+            "Valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
         )
     # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions:
@@ -138,8 +138,8 @@ def load_earth_relief(
             dataset_prefix = "srtm_relief_"
         else:
             raise GMTInvalidInput(
-                f"The {data_source} option is not available if 'use_srtm=True'."
-                " Set data_source to 'igpp'."
+                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
+                " Please set 'data_source' to 'igpp'."
             )
     else:
         dataset_prefix = earth_relief_sources[data_source]

@@ -115,8 +115,8 @@ def load_earth_magnetic_anomaly(
     }
     if data_source not in magnetic_anomaly_sources:
         raise GMTInvalidInput(
-            f"Invalid earth magnetic anomaly 'data_source' {data_source}, "
-            "valid values are 'emag2', 'emag2_4km', and 'wdmam'."
+            f"Invalid earth magnetic anomaly data source '{data_source}'. "
+            "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
     dataset_prefix = magnetic_anomaly_sources[data_source]
     if data_source == "wdmam":
