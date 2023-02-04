@@ -95,6 +95,7 @@ def timestamp(
     with Session() as lib:
         lib.call_module(
             module="plot",
-            args=build_arg_string(kwdict)
-            + f' --FONT_LOGO="{font}" --FORMAT_TIME_STAMP="{timefmt}"',
+            args=build_arg_string(
+                kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
+            ),
         )
