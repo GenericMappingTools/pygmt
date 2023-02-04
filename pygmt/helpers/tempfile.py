@@ -59,8 +59,7 @@ class GMTTempFile:
     """
 
     def __init__(self, prefix="pygmt-", suffix=".txt"):
-        args = dict(prefix=prefix, suffix=suffix, delete=False)
-        with NamedTemporaryFile(**args) as tmpfile:
+        with NamedTemporaryFile(prefix=prefix, suffix=suffix, delete=False) as tmpfile:
             self.name = tmpfile.name
 
     def __enter__(self):
@@ -128,7 +127,7 @@ def tempfile_from_geojson(geojson):
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         os.remove(tmpfile.name)  # ensure file is deleted first
-        ogrgmt_kwargs = dict(filename=tmpfile.name, driver="OGR_GMT", mode="w")
+        ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
             # Using geopandas.to_file to directly export to OGR_GMT format
             geojson.to_file(**ogrgmt_kwargs)
