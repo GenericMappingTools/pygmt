@@ -80,6 +80,22 @@ def test_earth_mag_incorrect_resolution_registration():
         )
 
 
+def test_earth_mag_02m_default_registration():
+    """
+    Test that the grid returned by default for the 2 arc-minute resolution has
+    a "pixel" registration.
+    """
+    data = load_earth_magnetic_anomaly(resolution="02m", region=[-10, -9, 3, 5])
+    assert data.shape == (60, 30)
+    assert data.gmt.registration == 1
+    npt.assert_allclose(data.coords["lat"].data.min(), 3.016666667)
+    npt.assert_allclose(data.coords["lat"].data.max(), 4.983333333)
+    npt.assert_allclose(data.coords["lon"].data.min(), -9.98333333)
+    npt.assert_allclose(data.coords["lon"].data.max(), -9.01666667)
+    npt.assert_allclose(data.min(), -231)
+    npt.assert_allclose(data.max(), 131.79999)
+
+
 def test_earth_mag4km_01d():
     """
     Test some properties of the magnetic anomaly 4km 01d data.
@@ -114,34 +130,24 @@ def test_earth_mag4km_01d_with_region():
     npt.assert_allclose(data.max(), 113.59985)
 
 
-def test_earth_mag_02m_default_registration():
+def test_earth_mag4km_02m_default_registration():
     """
     Test that the grid returned by default for the 2 arc-minute resolution has
     a "pixel" registration.
     """
-    data = load_earth_magnetic_anomaly(resolution="02m", region=[-10, -9, 3, 5])
-    assert data.shape == (60, 30)
-    assert data.gmt.registration == 1
-    npt.assert_allclose(data.coords["lat"].data.min(), 3.016666667)
-    npt.assert_allclose(data.coords["lat"].data.max(), 4.983333333)
-    npt.assert_allclose(data.coords["lon"].data.min(), -9.98333333)
-    npt.assert_allclose(data.coords["lon"].data.max(), -9.01666667)
-    npt.assert_allclose(data.min(), -231)
-    npt.assert_allclose(data.max(), 131.79999)
-
     data = load_earth_magnetic_anomaly(
-        resolution="05m",
+        resolution="02m",
         region=[-115, -112, 4, 6],
-        registration="gridline",
         data_source="emag2_4km",
     )
-    assert data.shape == (25, 37)
-    assert data.lat.min() == 4
-    assert data.lat.max() == 6
-    assert data.lon.min() == -115
-    assert data.lon.max() == -112
-    npt.assert_allclose(data.min(), -128.40015)
-    npt.assert_allclose(data.max(), 76.80005)
+    assert data.shape == (60, 90)
+    assert data.gmt.registration == 1
+    npt.assert_allclose(data.coords["lat"].data.min(), 4.01666667)
+    npt.assert_allclose(data.coords["lat"].data.max(), 5.98333333)
+    npt.assert_allclose(data.coords["lon"].data.min(), -114.98333333)
+    npt.assert_allclose(data.coords["lon"].data.max(), -112.01666667)
+    npt.assert_allclose(data.min(), -132.80005)
+    npt.assert_allclose(data.max(), 79.59985)
 
 
 def test_earth_mag_01d_wdmam():
@@ -196,13 +202,13 @@ def test_earth_mag_03m_wdmam_with_region():
     npt.assert_allclose(data.max(), 629.6)
 
 
-def test_earth_mag_05m_wdmam_without_region():
+def test_earth_mag_03m_wdmam_without_region():
     """
     Test loading a high-resolution WDMAM grid without passing 'region'.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(
-            resolution="05m", registration="gridline", data_source="wdmam"
+            resolution="03m", registration="gridline", data_source="wdmam"
         )
 
 
