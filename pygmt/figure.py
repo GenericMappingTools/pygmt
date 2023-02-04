@@ -294,7 +294,15 @@ class Figure:
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
-        fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
+        fmts = {
+            "png": "g",
+            "pdf": "f",
+            "jpg": "j",
+            "bmp": "b",
+            "eps": "e",
+            "tif": "t",
+            "kml": "g",
+        }
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
