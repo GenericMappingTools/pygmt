@@ -251,11 +251,11 @@ datasets = {
     "hotspots": GMTSampleData(
         func=_load_hotspots,
         description="Table of locations, names, and symbol sizes of hotpots from "
-        "Mueller et al., 1993",
+        "Müller et al. (1993)",
     ),
     "japan_quakes": GMTSampleData(
         func=_load_japan_quakes,
-        description="Table of earthquakes around Japan from NOAA NGDC database",
+        description="Table of earthquakes around Japan from the NOAA NGDC database",
     ),
     "mars_shape": GMTSampleData(
         func=_load_mars_shape,
@@ -299,7 +299,7 @@ def fmt_dataset_list(module_func):
     module_func
         The same *module_func* but with the docstring formatted.
     """
-    # Add a new lines and 8 white spaces for formatting in the documentation
+    # Add a new line and 8 white spaces for formatting in the documentation
     texts = "\n        ".join(
         f'- ``"{name}"``: {dataset.description}.' for name, dataset in datasets.items()
     )
