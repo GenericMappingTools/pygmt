@@ -214,10 +214,10 @@ def meca(
         no circle]. Use **+p**\ *pen* to set the line pen attributes [Default
         is 0.25p].
     compressionfill : str
-        Set the color or pattern for filling the compressional quadrants
+        Set color or pattern for filling compressional quadrants
         [Default is black].
     extensionfill : str
-        Set the color or pattern for filling the extensive quadrants
+        Set color or pattern for filling extensive quadrants
         [Default is white].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
