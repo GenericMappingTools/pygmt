@@ -131,7 +131,7 @@ def text_(
         you can also append lower case **c** to get a concave rectangle or
         append upper case **C** to get a convex rectangle.
     fill : str
-        Set the color for filling the text box [Default is no fill].
+        Set color for filling text boxes [Default is no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
         Offsets the text from the projected (x, y) point by *dx*/\ *dy*

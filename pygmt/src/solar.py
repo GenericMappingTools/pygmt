@@ -53,7 +53,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     {projection}
     {frame}
     fill : str
-        Set the color or pattern for filling the terminators.
+        Set color or pattern for filling terminators.
     pen : str
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
     {timestamp}
