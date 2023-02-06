@@ -227,13 +227,6 @@ and store them in GMT's user data directory.
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
 
-The following functions are deprecated since v0.6.0 and will be removed in v0.9.0.
-Use :func:`pygmt.datasets.load_sample_data` instead.
-
-.. autosummary::
-    :toctree: generated
-
-    datasets.load_mars_shape
 
 .. currentmodule:: pygmt
 

@@ -88,49 +88,49 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     outgrid : str
         Optional. The file name for the output netcdf file with extension .nc
         to store the grid in.
-    convergence : float
-        Optional. Convergence limit. Iteration is assumed to have converged 
-        when the maximum absolute change in any grid value is less than 
-        ``convergence``. (Units same as data z units). Alternatively, 
-        give limit in percentage of root-mean-square (rms) deviation by 
-        appending %. [Default is scaled to :math:`10^{{-4}}` of the rms 
-        deviation of the data from a best-fit (least-squares) plane.]. 
-        This is the final convergence limit at the desired grid spacing; 
-        for intermediate (coarser) grids the effective convergence limit is 
-        divided by the grid spacing multiplier.
+    convergence : float or str
+        Optional. Convergence limit. Iteration is assumed to have converged
+        when the maximum absolute change in any grid value is less than
+        ``convergence``. (Units same as data z units). Alternatively,
+        give limit in percentage of root-mean-square (rms) deviation by appending %. [Default
+        is scaled to :math:`10^{{-4}}` of the rms deviation of
+        the data from a best-fit (least-squares) plane.] This is the final
+        convergence limit at the desired grid spacing; for intermediate
+        (coarser) grids the effective convergence limit is divided by the
+        grid spacing multiplier.
     maxradius : int or str
-        Optional. After solving for the surface, apply a mask so that nodes 
-        farther than ``maxradius`` away from a data constraint are set to NaN 
-        [Default is no masking]. Append a distance unit (See 
-        :gmt-docs:`Units <surface.html#units>`) if needed. One can also 
-        select the nodes to mask by using the *n_cells*\ **c** form. Here 
-        *n_cells* means the number of cells around the node is controlled 
-        by a data point. As an example ``"0c"`` means that only the cell 
-        where the point lies is filled, ``"1c"`` keeps one cell beyond 
+        Optional. After solving for the surface, apply a mask so that nodes
+        farther than ``maxradius`` away from a data constraint are set to NaN
+        [Default is no masking]. Append a distance unit (See
+        :gmt-docs:`Units <surface.html#units>`) if needed. One can also
+        select the nodes to mask by using the *n_cells*\ **c** form. Here
+        *n_cells* means the number of cells around the node is controlled
+        by a data point. As an example ``"0c"`` means that only the cell
+        where the point lies is filled, ``"1c"`` keeps one cell beyond
         that (i.e. makes a 3x3 square neighborhood), and so on.
     lower : float or str
-        Optional. Impose limits on the output solution. Parameter ``lower`` 
-        sets the lower bound. ``lower`` can be the name of a grid file with 
-        lower bound values, a fixed value, **d** to set to minimum input 
-        value, or **u** for unconstrained [Default]. Grid files used to set 
-        the limits may contain NaNs. In the presence of NaNs, the limit of 
-        a node masked with NaN is unconstrained. 
+        Optional. Impose limits on the output solution. Parameter ``lower``
+        sets the lower bound. ``lower`` can be the name of a grid file with
+        lower bound values, a fixed value, **d** to set to minimum input
+        value, or **u** for unconstrained [Default]. Grid files used to set
+        the limits may contain NaNs. In the presence of NaNs, the limit of
+        a node masked with NaN is unconstrained.
     upper : float or str
-        Optional. Impose limits on the output solution. Parameter ``upper`` 
-        sets the upper bound and can be the name of a grid file with upper 
-        bound values, a fixed value, **d** to set to maximum input value, 
-        or **u** for unconstrained [Default]. Grid files used to set the 
-        limits may contain NaNs. In the presence of NaNs, the limit of a 
-        node masked with NaN is unconstrained. 
+        Optional. Impose limits on the output solution. Parameter ``upper``
+        sets the upper bound and can be the name of a grid file with upper
+        bound values, a fixed value, **d** to set to maximum input value,
+        or **u** for unconstrained [Default]. Grid files used to set the
+        limits may contain NaNs. In the presence of NaNs, the limit of a
+        node masked with NaN is unconstrained.
     tension : float or str
         [**b**\|\ **i**].
-        Optional. Tension factor[s]. These must be between 0 and 1. Tension 
-        may be used in the interior solution (above equation, where it 
-        suppresses spurious oscillations) and in the boundary conditions 
-        (where it tends to flatten the solution approaching the edges). Add 
-        **i**\ *tension* to set interior tension, and **b**\ *tension* to 
-        set boundary tension. If you do not prepend **i** or **b**, both 
-        will be set to the same value. [Default is 0 for both and gives 
+        Optional. Tension factor[s]. These must be between 0 and 1. Tension
+        may be used in the interior solution (above equation, where it
+        suppresses spurious oscillations) and in the boundary conditions
+        (where it tends to flatten the solution approaching the edges). Add
+        **i**\ *tension* to set interior tension, and **b**\ *tension* to
+        set boundary tension. If you do not prepend **i** or **b**, both
+        will be set to the same value. [Default is 0 for both and gives
         minimum curvature solution.]
     {verbose}
     {aspatial}
