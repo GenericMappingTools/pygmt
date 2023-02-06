@@ -41,7 +41,7 @@ def wiggle(
     z=None,
     fillpositive=None,
     fillnegative=None,
-    **kwargs
+    **kwargs,
 ):
     r"""
     Plot z=f(x,y) anomalies along tracks.

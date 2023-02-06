@@ -58,26 +58,24 @@ def load_earth_magnetic_anomaly(
         ``data_source="emag2_4km"``, which are ``"pixel"`` only.
 
     data_source : str
-        Select the source of the magnetic anomaly data.
+        Select the source of the magnetic anomaly data. Available options are:
 
-        Available options:
-
-        - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default
-          option]. Only includes data observed at sea level over
+        - ``"emag2"``: EMAG2 Global Earth Magnetic Anomaly Model [Default
+          option]. It only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 
-        - **emag2_4km** : Use a version of EMAG2 where all observations
+        - ``"emag2_4km"``: Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
           data over land.
 
-        - **wdmam** : World Digital Magnetic Anomaly Map (WDMAM).
-          See :gmt-datasets:`earth-wdmam.html`
+        - ``"wdmam"``: World Digital Magnetic Anomaly Map (WDMAM).
+          See :gmt-datasets:`earth-wdmam.html`.
 
     Returns
     -------
     grid : :class:`xarray.DataArray`
         The Earth magnetic anomaly grid. Coordinates are latitude and
-        longitude in degrees. Units are in nano Teslas (nT).
+        longitude in degrees. Units are in nano Tesla (nT).
 
     Note
     ----
@@ -117,8 +115,8 @@ def load_earth_magnetic_anomaly(
     }
     if data_source not in magnetic_anomaly_sources:
         raise GMTInvalidInput(
-            f"Invalid earth magnetic anomaly 'data_source' {data_source}, "
-            "valid values are 'emag2', 'emag2_4km', and 'wdmam'."
+            f"Invalid earth magnetic anomaly data source '{data_source}'. "
+            "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
     dataset_prefix = magnetic_anomaly_sources[data_source]
     if data_source == "wdmam":

@@ -6,9 +6,9 @@ About
 
 PyGMT is a Python wrapper for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
-It provides capabilities for processing spatial data (gridding, filtering, masking,
-FFTs, etc) and making high quality plots and maps.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond. It provides capabilities for processing spatial data (gridding,
+filtering, masking, FFTs, etc) and making high quality plots and maps.
 
 PyGMT is different from Python libraries like
 `Bokeh <https://bokeh.pydata.org/en/latest/>`__
