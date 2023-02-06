@@ -120,8 +120,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          [Default is no scaling].
 
     fill : str
-         Set color or pattern for filling sectors
-         [Default is no fill].
+         Set color or pattern for filling sectors [Default is no fill].
 
     cmap : str
         Give a CPT. The *r*-value for each sector is used to look-up the
