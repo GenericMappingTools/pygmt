@@ -22,7 +22,7 @@ class Resolution(NamedTuple):
 
     tiled : bool
         States if the given resolution is tiled, which requires an
-        argument for ``region``."
+        argument for ``region``.
     """
 
     registrations: list
@@ -143,6 +143,28 @@ datasets = {
             "02m": Resolution(["pixel"], True),
         },
     ),
+    "earth_mask": GMTRemoteDataset(
+        title="Earth mask",
+        name="earth_mask",
+        long_name="Mask of land and water features",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["gridline", "pixel"], False),
+            "30m": Resolution(["gridline", "pixel"], False),
+            "20m": Resolution(["gridline", "pixel"], False),
+            "15m": Resolution(["gridline", "pixel"], False),
+            "10m": Resolution(["gridline", "pixel"], False),
+            "06m": Resolution(["gridline", "pixel"], False),
+            "05m": Resolution(["gridline", "pixel"], False),
+            "04m": Resolution(["gridline", "pixel"], False),
+            "03m": Resolution(["gridline", "pixel"], False),
+            "02m": Resolution(["gridline", "pixel"], False),
+            "01m": Resolution(["gridline", "pixel"], False),
+            "30s": Resolution(["gridline", "pixel"], False),
+            "15s": Resolution(["gridline", "pixel"], False),
+        },
+    ),
     "earth_relief": GMTRemoteDataset(
         title="Earth relief",
         name="elevation",
@@ -235,8 +257,8 @@ def _load_remote_dataset(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        a gridline-registered grid is returned unless only the
+        pixel-registered grid is available.
 
     Returns
     -------
@@ -248,6 +270,7 @@ def _load_remote_dataset(
     The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
+    # pylint: disable=too-many-branches
     dataset = datasets[dataset_name]
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
@@ -295,7 +318,8 @@ def _load_remote_dataset(
     # Add some metadata to the grid
     grid.name = dataset.name
     grid.attrs["long_name"] = dataset.long_name
-    grid.attrs["units"] = dataset.units
+    if dataset.units:
+        grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
         grid.attrs[key] = value
     # Remove the actual range because it gets outdated when indexing the grid,

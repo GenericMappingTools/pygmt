@@ -4,14 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import (
-    load_hotspots,
-    load_mars_shape,
-    load_ocean_ridge_points,
-    load_sample_bathymetry,
-    load_sample_data,
-    load_usgs_quakes,
-)
+from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -41,9 +34,7 @@ def test_ocean_ridge_points():
     """
     Check that the @ridge.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_ocean_ridge_points()
-        assert len(record) == 1
+    data = load_sample_data(name="ocean_ridge_points")
     assert data.shape == (4146, 2)
     assert data["longitude"].min() == -179.9401
     assert data["longitude"].max() == 179.935
@@ -55,9 +46,7 @@ def test_sample_bathymetry():
     """
     Check that the @tut_ship.xyz dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_sample_bathymetry()
-        assert len(record) == 1
+    data = load_sample_data(name="bathymetry")
     assert data.shape == (82970, 3)
     assert data["longitude"].min() == 245.0
     assert data["longitude"].max() == 254.705
@@ -69,12 +58,58 @@ def test_sample_bathymetry():
 
 def test_usgs_quakes():
     """
-    Check that the dataset loads without errors.
+    Check that the @usgs_quakes_22.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_usgs_quakes()
-        assert len(record) == 1
+    data = load_sample_data(name="usgs_quakes")
     assert data.shape == (1197, 22)
+    assert list(data.columns) == [
+        "time",
+        "latitude",
+        "longitude",
+        "depth",
+        "mag",
+        "magType",
+        "nst",
+        "gap",
+        "dmin",
+        "rms",
+        "net",
+        "id",
+        "updated",
+        "place",
+        "type",
+        "horizontalError",
+        "depthError",
+        "magError",
+        "magNst",
+        "status",
+        "locationSource",
+        "magSource",
+    ]
+    npt.assert_allclose(data["latitude"].min(), -60.6819)
+    npt.assert_allclose(data["latitude"].max(), 72.6309)
+    npt.assert_allclose(data["longitude"].min(), -179.9953)
+    npt.assert_allclose(data["longitude"].max(), 179.9129)
+    npt.assert_allclose(data["depth"].min(), -0.21)
+    npt.assert_allclose(data["depth"].max(), 640.49)
+    npt.assert_allclose(data["mag"].min(), 3)
+    npt.assert_allclose(data["mag"].max(), 8.1)
+    npt.assert_allclose(data["nst"].min(), 3)
+    npt.assert_allclose(data["nst"].max(), 167)
+    npt.assert_allclose(data["gap"].min(), 10.0)
+    npt.assert_allclose(data["gap"].max(), 353.0)
+    npt.assert_allclose(data["dmin"].min(), 0.006421)
+    npt.assert_allclose(data["dmin"].max(), 39.455)
+    npt.assert_allclose(data["rms"].min(), 0.02)
+    npt.assert_allclose(data["rms"].max(), 1.76)
+    npt.assert_allclose(data["horizontalError"].min(), 0.09)
+    npt.assert_allclose(data["horizontalError"].max(), 36.8)
+    npt.assert_allclose(data["depthError"].min(), 0)
+    npt.assert_allclose(data["depthError"].max(), 65.06)
+    npt.assert_allclose(data["magError"].min(), 0.02)
+    npt.assert_allclose(data["magError"].max(), 0.524)
+    npt.assert_allclose(data["magNst"].min(), 1)
+    npt.assert_allclose(data["magNst"].max(), 944)
 
 
 def test_fractures_compilation():
@@ -93,25 +128,21 @@ def test_mars_shape():
     """
     Check that the @mars370d.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_mars_shape()
-        assert len(record) == 1
+    data = load_sample_data(name="mars_shape")
     assert data.shape == (370, 3)
     assert data["longitude"].min() == 0.008
     assert data["longitude"].max() == 359.983
     assert data["latitude"].min() == -79.715
     assert data["latitude"].max() == 85.887
-    assert data["radius(m)"].min() == -6930
-    assert data["radius(m)"].max() == 15001
+    assert data["radius_m"].min() == -6930
+    assert data["radius_m"].max() == 15001
 
 
 def test_hotspots():
     """
     Check that the @hotspots.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_hotspots()
-        assert len(record) == 1
+    data = load_sample_data(name="hotspots")
     assert data.shape == (55, 4)
     assert list(data.columns) == [
         "longitude",
@@ -120,6 +151,12 @@ def test_hotspots():
         "place_name",
     ]
     assert isinstance(data, pd.DataFrame)
+    assert data["longitude"].min() == -169.6
+    assert data["longitude"].max() == 167
+    assert data["latitude"].min() == -78
+    assert data["latitude"].max() == 64
+    assert data["symbol_size"].min() == 0.25
+    assert data["symbol_size"].max() == 0.5
 
 
 def test_load_notre_dame_topography():

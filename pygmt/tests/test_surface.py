@@ -18,7 +18,7 @@ def fixture_data():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
+        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
     )
 
 
@@ -55,10 +55,10 @@ def fixture_expected_grid():
             [897.4532, 822.9642, 756.4472, 687.594, 626.2299],
             [910.2932, 823.3307, 737.9952, 651.4994, 565.9981],
         ],
-        coords=dict(
-            y=[0, 1, 2, 3, 4, 5, 6, 7, 8],
-            x=[0, 1, 2, 3, 4],
-        ),
+        coords={
+            "y": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            "x": [0, 1, 2, 3, 4],
+        },
         dims=[
             "y",
             "x",

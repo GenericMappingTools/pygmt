@@ -67,7 +67,7 @@ jobs:
           mamba install gmt=${{ matrix.gmt_version }} numpy \
                         pandas xarray netCDF4 packaging \
                         geopandas ipython \
-                        build dvc make 'pytest>=6.0' \
+                        build dvc fsspec==2022.11.0 make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
