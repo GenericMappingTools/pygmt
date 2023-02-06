@@ -47,7 +47,22 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     .. math::    (1 - t)\nabla^2(z)+t\nabla(z) = 0
 
     where :math:`t` is a tension factor between 0 and 1, and :math:`\nabla`
-    indicates the Laplacian operator.
+    indicates the Laplacian operator. Here, :math:`t = 0` gives the 
+    “minimum curvature” solution. Minimum curvature can cause undesired 
+    oscillations and false local maxima or minima (See Smith and Wessel, 
+    1990), and you may wish to use :math:`t > 0` to suppress these effects.
+    Experience suggests :math:`t \sim 0.25` usually looks good for potential 
+    field data and t should be larger (:math:`t \sim 0.35`) for steep 
+    topography data. :math:`t = 1` gives a harmonic surface (no maxima or 
+    minima are possible except at control data points). It is recommended that 
+    the user preprocess the data with :class:`pygmt.blockmean`, 
+    :class:`pygmt.blockmedian`, or :class:`pygmt.blockmode` to avoid spatial 
+    aliasing and eliminate redundant data. You may impose lower and/or upper 
+    bounds on the solution. These may be entered in the form of a fixed value, 
+    a grid with values, or simply be the minimum/maximum input data values. 
+    Natural boundary conditions are applied at the edges, except for 
+    geographic data with 360-degree range where we apply periodic boundary 
+    conditions in the longitude direction.
 
     Takes a matrix, (x, y, z) triplets, or a file name as input.
 
@@ -76,16 +91,16 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged 
         when the maximum absolute change in any grid value is less than 
-        *convergence_limit*. (Units same as data z units). Alternatively, 
-        give limit in percentage of rms deviation by appending %. [Default 
-        is scaled to :math:`10^{{-4}}` of the root-mean-square deviation of 
-        the data from a best-fit (least-squares) plane.]. This is the final 
-        convergence limit at the desired grid spacing; for intermediate 
-        (coarser) grids the effective convergence limit is divided by the 
-        grid spacing multiplier.
+        ``convergence``. (Units same as data z units). Alternatively, 
+        give limit in percentage of root-mean-square (rms) deviation by 
+        appending %. [Default is scaled to :math:`10^{{-4}}` of the rms 
+        deviation of the data from a best-fit (least-squares) plane.]. 
+        This is the final convergence limit at the desired grid spacing; 
+        for intermediate (coarser) grids the effective convergence limit is 
+        divided by the grid spacing multiplier.
     maxradius : int or str
         Optional. After solving for the surface, apply a mask so that nodes 
-        farther than *maxradius* away from a data constraint are set to NaN 
+        farther than ``maxradius`` away from a data constraint are set to NaN 
         [Default is no masking]. Append a distance unit (See 
         :gmt-docs:`Units <surface.html#units>`) if needed. One can also 
         select the nodes to mask by using the *n_cells*\ **c** form. Here 
@@ -94,14 +109,14 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         where the point lies is filled, ``"1c"`` keeps one cell beyond 
         that (i.e. makes a 3x3 square neighborhood), and so on.
     lower : float or str
-        Optional. Impose limits on the output solution. Directive *lower* 
-        sets the lower bound. *lower* can be the name of a grid file with 
+        Optional. Impose limits on the output solution. Parameter ``lower`` 
+        sets the lower bound. ``lower`` can be the name of a grid file with 
         lower bound values, a fixed value, **d** to set to minimum input 
         value, or **u** for unconstrained [Default]. Grid files used to set 
         the limits may contain NaNs. In the presence of NaNs, the limit of 
         a node masked with NaN is unconstrained. 
     upper : float or str
-        Optional. Impose limits on the output solution. Directive *upper* 
+        Optional. Impose limits on the output solution. Parameter ``upper`` 
         sets the upper bound and can be the name of a grid file with upper 
         bound values, a fixed value, **d** to set to maximum input value, 
         or **u** for unconstrained [Default]. Grid files used to set the 
