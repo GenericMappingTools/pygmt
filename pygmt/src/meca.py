@@ -207,12 +207,12 @@ def meca(
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offsets beachball(s) to longitude(s) and latitude(s) specified in the
-        the last two columns of the input file or array, or by ``plot_longitude``
-        and ``plot_latitude`` if provided. A small circle is plotted at the
-        initial location and a line connects the beachball to the circle. Use
-        **+s**\ *size* to set the diameter of the circle [Default is
-        no circle]. Use **+p**\ *pen* to set the line pen attributes [Default
-        is 0.25p].
+        the last two columns of the input file or array, or by
+        ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
+        is plotted at the initial location and a line connects the beachball
+        to the circle. Use **+s**\ *size* to set the diameter of the circle
+        [Default is no circle]. Use **+p**\ *pen* to set the line pen
+        attributes [Default is 0.25p].
     compressionfill : str
         Set color or pattern for filling compressional quadrants
         [Default is black].
