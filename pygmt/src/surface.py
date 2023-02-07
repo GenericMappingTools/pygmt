@@ -48,15 +48,15 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
 
     where :math:`t` is a tension factor between 0 and 1, and :math:`\nabla`
     indicates the Laplacian operator. Here, :math:`t = 0` gives the
-    “minimum curvature” solution. Minimum curvature can cause undesired
-    oscillations and false local maxima or minima (See Smith and Wessel,
+    "minimum curvature" solution. Minimum curvature can cause undesired
+    oscillations and false local maxima or minima (see Smith and Wessel,
     1990), and you may wish to use :math:`t > 0` to suppress these effects.
     Experience suggests :math:`t \sim 0.25` usually looks good for potential
     field data and t should be larger (:math:`t \sim 0.35`) for steep
     topography data. :math:`t = 1` gives a harmonic surface (no maxima or
     minima are possible except at control data points). It is recommended that
-    the user preprocess the data with :class:`pygmt.blockmean`,
-    :class:`pygmt.blockmedian`, or :class:`pygmt.blockmode` to avoid spatial
+    the user preprocess the data with :func:`pygmt.blockmean`,
+    :func:`pygmt.blockmedian`, or :func:`pygmt.blockmode` to avoid spatial
     aliasing and eliminate redundant data. You may impose lower and/or upper
     bounds on the solution. These may be entered in the form of a fixed value,
     a grid with values, or simply be the minimum/maximum input data values.
@@ -94,14 +94,14 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         ``convergence``. (Units same as data z units). Alternatively,
         give limit in percentage of root-mean-square (rms) deviation by
         appending %. [Default is scaled to :math:`10^{{-4}}` of the rms
-        deviation of the data from a best-fit (least-squares) plane.].
+        deviation of the data from a best-fit (least-squares) plane.]
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
         divided by the grid spacing multiplier.
     maxradius : int or str
         Optional. After solving for the surface, apply a mask so that nodes
         farther than ``maxradius`` away from a data constraint are set to NaN
-        [Default is no masking]. Append a distance unit (See
+        [Default is no masking]. Append a distance unit (see
         :gmt-docs:`Units <surface.html#units>`) if needed. One can also
         select the nodes to mask by using the *n_cells*\ **c** form. Here
         *n_cells* means the number of cells around the node is controlled
