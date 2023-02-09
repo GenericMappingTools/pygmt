@@ -99,6 +99,15 @@ def colorbar(self, **kwargs):
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
+    equalsize : int or float or str
+        [**i**]\ [*gap*].
+        Gives equal-sized color rectangles. Default scales rectangles according
+        to the z-range in the CPT (see also ``zfile``). If *gap* is appended
+        and the CPT is discrete the annotations are centered on the rectangles,
+        using the lower boundary z-value for the annotation. If **i** is
+        prepended the interval range is annotated instead. If ``shading`` is
+        used then each rectangle will have its constant color modified by the
+        specified intensity.
     {verbose}
     {panel}
     {perspective}
