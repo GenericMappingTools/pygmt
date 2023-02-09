@@ -8,16 +8,16 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     B="frame",
     C="cmap",
     D="position",
     F="box",
     G="truncate",
     I="shading",
-    W="scale",
+    J="projection",
+    R="region",
     V="verbose",
+    W="scale",
     c="panel",
     p="perspective",
     t="transparency",
