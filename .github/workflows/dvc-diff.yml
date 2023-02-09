@@ -95,7 +95,7 @@ jobs:
         echo "report=$report" >> $GITHUB_OUTPUT
 
     - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.2.0
+      uses: peter-evans/find-comment@v2.2.1
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -104,14 +104,14 @@ jobs:
 
     - name: Create comment with image diff report
       if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
+      uses: peter-evans/create-or-update-comment@v2.1.1
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: ${{ steps.image-diff.outputs.report }}
 
     - name: Update comment with new image diff report
       if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
+      uses: peter-evans/create-or-update-comment@v2.1.1
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.image-diff.outputs.report }}
