@@ -11,28 +11,36 @@ azimuthal gradient of each point along a certain azimuth angle, then adjust
 the brightness value of the color according to the positive/negative of the 
 azimuthal gradient and the amplitude of each point.
 """
+
 import pygmt
 
 # Define region of interest around Caucasus
 region = [35, 50, 35, 45]
+
 # Define figure configuration
 pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
+
 # Load sample grid (1 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="01m", region=region)
+
 # Define a colormap to be used for topography.
 pygmt.makecpt(cmap="terra", series=[-5000, 5000])
 
 fig = pygmt.Figure()
+
 # Setup subplots with 3x4 panels
 with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c")):
+    
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
     for i, azi in enumerate(["0/90", "0/180", "0/300"]):
+        
         # `amp` controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for j, nor in enumerate(["2t", "2e", "10t", "10e"]):
             index = i * 4 + j
+            
             # making a file with intensities
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
