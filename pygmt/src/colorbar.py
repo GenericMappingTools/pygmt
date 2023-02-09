@@ -108,6 +108,13 @@ def colorbar(self, **kwargs):
         prepended the interval range is annotated instead. If ``shading`` is
         used then each rectangle will have its constant color modified by the
         specified intensity.
+    zfile : str
+        File with colorbar-width per color entry. By default, width of entry
+        is scaled to color range, i.e., z = 0-100 gives twice the width as
+        z = 100-150 (see also ``equalsize``). **Note**: The widths may be in
+        plot distance units or given as relative fractions and will be
+        automatically scaled so that the sum of the widths equals the requested
+        bar length.
     {verbose}
     {panel}
     {perspective}
