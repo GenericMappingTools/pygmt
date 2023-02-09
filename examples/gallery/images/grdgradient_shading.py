@@ -17,16 +17,16 @@ import pygmt
 # Define region of interest around Caucasus
 region = [35, 50, 35, 45]
 
-# Define figure configuration
-pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
-
 # Load sample grid (1 arc-minutes global relief) in target area
 grid = pygmt.datasets.load_earth_relief(resolution="01m", region=region)
+
+fig = pygmt.Figure()
 
 # Define a colormap to be used for topography.
 pygmt.makecpt(cmap="terra", series=[-5000, 5000])
 
-fig = pygmt.Figure()
+# Define figure configuration
+pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
 
 # Setup subplots with 3x4 panels
 with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c")):
