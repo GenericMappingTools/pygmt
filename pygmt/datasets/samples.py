@@ -323,6 +323,31 @@ def load_sample_data(name):
     --------
     list_sample_data : Report datasets available for tests and documentation
         examples.
+
+    Examples
+    --------
+
+    >>> from pprint import pprint
+    >>> from pygmt.datasets import list_sample_data, load_sample_data
+    >>> # use list_sample_data to see the available datasets
+    >>> pprint(list_sample_data())
+    {'bathymetry': 'Table of ship bathymetric observations off Baja California',
+     'earth_relief_holes': 'Regional 20 arc-minutes Earth relief grid with holes',
+     'fractures': 'Table of hypothetical fracture lengths and azimuths',
+     'hotspots': 'Table of locations, names, and symbol sizes of hotpots from '
+                 'Müller et al. (1993)',
+     'japan_quakes': 'Table of earthquakes around Japan from the NOAA NGDC '
+                     'database',
+     'mars_shape': 'Table of topographic signature of the hemispheric dichotomy of '
+                   'Mars from Smith and Zuber (1996)',
+     'maunaloa_co2': 'Table of CO2 readings from Mauna Loa',
+     'notre_dame_topography': 'Table 5.11 in Davis: Statistics and Data Analysis '
+                              'in Geology',
+     'ocean_ridge_points': 'Table of ocean ridge points for the entire world',
+     'rock_compositions': 'Table of rock sample compositions',
+     'usgs_quakes': 'Table of earthquakes from the USGS'}
+    >>> # load the sample bathymetry dataset
+    >>> data = load_sample_data("bathymetry")
     """
     if name not in datasets:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
