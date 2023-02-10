@@ -29,18 +29,18 @@ pygmt.makecpt(cmap="terra", series=[-7000, 7000])
 pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
 
 # Setup subplots with 3x4 panels
-with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c"), sharex="b", sharey="l", margins="-1c"):
-    
+with fig.subplot(
+    nrows=3, ncols=4, figsize=("24c", "21c"), sharex="b", sharey="l", margins="-1c"
+):
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
     for i, azi in enumerate(["0/90", "0/180", "0/300"]):
-        
         # `amp` controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for j, nor in enumerate(["2t", "2e", "10t", "10e"]):
             index = i * 4 + j
-            
+
             # making a intensity file with azimuth and normalize parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
