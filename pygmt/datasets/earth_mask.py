@@ -64,10 +64,10 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     >>> from pygmt.datasets import load_earth_mask
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_mask()
-    >>> # Location (120E, 50N) is in land area (1)
+    >>> # Location (120°E, 50°N) is in land area (1)
     >>> grid.sel(lon=120, lat=50).values
     array(1, dtype=int8)
-    >>> # Location (170E, 50N) is in oceanic area (0)
+    >>> # Location (170°E, 50°N) is in oceanic area (0)
     >>> grid.sel(lon=170, lat=50).values
     array(0, dtype=int8)
     """
