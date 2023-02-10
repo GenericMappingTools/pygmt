@@ -29,7 +29,7 @@ pygmt.makecpt(cmap="terra", series=[-5000, 5000])
 pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
 
 # Setup subplots with 3x4 panels
-with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c")):
+with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c"), sharex="b", sharey="l", margins="-1c"):
     
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
@@ -51,7 +51,7 @@ with fig.subplot(nrows=3, ncols=4, figsize=("24c", "21c")):
                     grid=grid,
                     shading=shade,
                     projection="M5c",
-                    frame=[f'WSne+t"{title}"', "a4f2"],
+                    frame=[f'+t"{title}"', "a4f2"],
                     cmap=True,
                 )
 
