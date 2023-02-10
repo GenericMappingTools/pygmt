@@ -1,7 +1,6 @@
 """
 Functions to load sample data.
 """
-import textwrap
 from typing import Callable, NamedTuple
 
 import pandas as pd
@@ -285,30 +284,6 @@ datasets = {
 }
 
 
-def fmt_dataset_list(module_func):
-    """
-    Decorator to replace the ``{dataset_list}`` placeholder in the docstring.
-
-    Parameters
-    ----------
-    module_func : function
-        The function to decorate.
-
-    Returns
-    -------
-    module_func
-        The same *module_func* but with the docstring formatted.
-    """
-    # Add a new line and 8 white spaces for formatting in the documentation
-    texts = "\n        ".join(
-        f'- ``"{name}"``: {dataset.description}.' for name, dataset in datasets.items()
-    )
-
-    docstrings = module_func.__doc__.format(dataset_list=texts)
-    module_func.__doc__ = textwrap.dedent(docstrings)
-    return module_func
-
-
 def list_sample_data():
     """
     Report datasets available for tests and documentation examples.
@@ -325,7 +300,6 @@ def list_sample_data():
     return {name: dataset.description for name, dataset in datasets.items()}
 
 
-@fmt_dataset_list
 def load_sample_data(name):
     """
     Load an example dataset from the GMT server.
@@ -337,9 +311,7 @@ def load_sample_data(name):
     Parameters
     ----------
     name : str
-        Name of the dataset to load. Available datasets are:
-
-        {dataset_list}
+        Name of the dataset to load.
 
     Returns
     -------
