@@ -330,7 +330,7 @@ def load_sample_data(name):
     >>> from pprint import pprint
     >>> from pygmt.datasets import list_sample_data, load_sample_data
     >>> # use list_sample_data to see the available datasets
-    >>> pprint(list_sample_data())
+    >>> pprint(list_sample_data())  # noqa: W505
     {'bathymetry': 'Table of ship bathymetric observations off Baja California',
      'earth_relief_holes': 'Regional 20 arc-minutes Earth relief grid with holes',
      'fractures': 'Table of hypothetical fracture lengths and azimuths',
