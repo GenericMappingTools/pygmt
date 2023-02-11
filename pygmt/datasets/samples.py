@@ -301,6 +301,7 @@ def list_sample_data():
 
 
 def load_sample_data(name):
+    # pylint: disable=line-too-long
     """
     Load an example dataset from the GMT server.
 
