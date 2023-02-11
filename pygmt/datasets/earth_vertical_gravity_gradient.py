@@ -59,6 +59,23 @@ def load_earth_vertical_gravity_gradient(
     The :class:`xarray.DataArray` grid doesn't support slice operation, for
     Earth vertical gravity gradient grids with resolutions of 5 arc-minutes or
     higher, which are stored as smaller tiles.
+
+    Examples
+    --------
+
+    >>> from pygmt.datasets import load_earth_vertical_gravity_gradient
+    >>> # load the default grid (gridline-registered 1 arc-degree grid)
+    >>> grid = load_earth_vertical_gravity_gradient()
+    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> grid = load_earth_vertical_gravity_gradient(
+    ...     resolution="30m", registration="gridline"
+    ... )
+    >>> # load high-resolution (5 arc-minutes) grid for a specific region
+    >>> grid = load_earth_vertical_gravity_gradient(
+    ...     resolution="05m",
+    ...     region=[120, 160, 30, 60],
+    ...     registration="gridline",
+    ... )
     """
     grid = _load_remote_dataset(
         dataset_name="earth_vgg",
