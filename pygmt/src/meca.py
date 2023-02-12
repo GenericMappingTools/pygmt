@@ -224,6 +224,11 @@ def meca(
     pen : str
         Set pen attributes for outline of beachball
         [Default is ``"0.25p,black,solid"``].
+    cmap : str
+        File name of a CPT file or a series of comma-separated colors (e.g.,
+        color1,color2,color3) to build a linear continuous CPT from those
+        colors automatically. The color of the compressive quadrants is
+        determined by the z-value (e.g., event depth) in the third column.
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
