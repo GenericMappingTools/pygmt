@@ -317,7 +317,7 @@ def load_sample_data(name):
     Returns
     -------
     :class:`pandas.DataFrame` or :class:`xarray.DataArray`
-        Sample dataset loaded as a pandas.DataFrame for tabular data or
+        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data or
         :class:`xarray.DataArray` for raster data.
 
     See Also
