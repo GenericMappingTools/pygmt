@@ -157,6 +157,62 @@ def meca(
           ``convention`` parameter is required so we know how to interpret the
           columns. If ``spec`` is a dict or a pd.DataFrame, ``convention`` is
           not needed and is ignored if specified.
+
+    scale: str
+        Adjusts the scaling of the radius of the beachball, which is
+        proportional to the magnitude. *scale* defines the size for
+        magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
+    convention: str
+        Focal mechanism convention. Choose from:
+
+        - ``"aki"`` (Aki & Richards)
+        - ``"gcmt"`` (global CMT)
+        - ``"mt"`` (seismic moment tensor)
+        - ``"partial"`` (partial focal mechanism)
+        - ``"principal_axis"`` (principal axis)
+
+        Ignored if ``spec`` is a dictionary or pd.DataFrame.
+    component: str
+        The component of the seismic moment tensor to plot.
+
+        - ``"full"``: the full seismic moment tensor
+        - ``"dc"``: the closest double couple defined from the moment tensor
+          (zero trace and zero determinant)
+        - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
+    longitude: int, float, list, or 1-D numpy array
+        Longitude(s) of event location. Must be the same length as the
+        number of events. Will override the ``longitude`` values
+        in ``spec`` if ``spec`` is a dict or pd.DataFrame.
+    latitude: int, float, list, or 1-D numpy array
+        Latitude(s) of event location. Must be the same length as the
+        number of events. Will override the ``latitude`` values
+        in ``spec`` if ``spec`` is a dict or pd.DataFrame.
+    depth: int, float, list, or 1-D numpy array
+        Depth(s) of event location in kilometers. Must be the same length as
+        the number of events. Will override the ``depth`` values in ``spec``
+        if ``spec`` is a dict or pd.DataFrame.
+    plot_longitude: int, float, str, list, or 1-D numpy array
+        Longitude(s) at which to place beachball. Must be the same length as
+        the number of events. Will override the ``plot_longitude`` values in
+        ``spec`` if ``spec`` is a dict or pd.DataFrame.
+    plot_latitude: int, float, str, list, or 1-D numpy array
+        Latitude(s) at which to place beachball. List must be the same length
+        as the number of events. Will override the ``plot_latitude`` values in
+        ``spec`` if ``spec`` is a dict or pd.DataFrame.
+    event_name : str or list of str, or 1-D numpy array
+        Text strings (e.g., event names) to appear near the beachball. List
+        must be the same length as the number of events. Will override the
+        ``event_name`` values in ``spec`` if ``spec`` is a dict or
+        pd.DataFrame.
+    offset: bool or str
+        [**+p**\ *pen*][**+s**\ *size*].
+        Offsets beachballs to the longitude, latitude specified in the last two
+        columns of the input file or array, or by ``plot_longitude`` and
+        ``plot_latitude`` if provided. A small circle is plotted at the initial
+        location and a line connects the beachball to the circle. Use
+        **+s**\ *size* to set the diameter of the circle [Default is
+        no circle]. Use **+p**\ *pen* to set the line pen attributes [Default
+        is 0.25p].
     compressionfill : str
         Set color or pattern for filling compressional quadrants
         [Default is black].
