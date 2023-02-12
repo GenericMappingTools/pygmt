@@ -2,7 +2,11 @@
 Tests for Figure.timestamp.
 """
 import pytest
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, clib
+
+with clib.Session() as _lib:
+    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -64,8 +68,24 @@ def test_timestamp_offset():
 @pytest.mark.mpl_image_compare
 def test_timestamp_font(faketime):
     """
-    Test if the font parameter works as expected.
+    Test if the "font" parameter works.
     """
     fig = Figure()
     fig.timestamp(font="Times-Roman", label="Powered by GMT", timefmt=faketime)
+    return fig
+
+
+@pytest.mark.skipif(
+    gmt_version < Version("6.5.0"),
+    reason="The 'text' parameter requires GMT>=6.5.0",
+)
+@pytest.mark.mpl_image_compare(filename="test_timestamp.png")
+def test_timestamp_text(faketime):
+    """
+    Test if the "text" parameter works.
+
+    Requires GMT>=6.5.0.
+    """
+    fig = Figure()
+    fig.timestamp(text=faketime)
     return fig
