@@ -66,7 +66,7 @@ def timestamp(
     self._preprocess()  # pylint: disable=protected-access
 
     # Build the options passed to the "plot" module
-    kwdict = dict(T=True, U="")
+    kwdict = {"T": True, "U": ""}
     if label is not None:
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justification}"

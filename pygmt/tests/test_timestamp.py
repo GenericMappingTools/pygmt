@@ -16,6 +16,9 @@ def fixture_faketime():
 
 @pytest.mark.mpl_image_compare
 def test_timestamp(faketime):
+    """
+    Test that the simplest timestamp() call works.
+    """
     fig = Figure()
     fig.timestamp(timefmt=faketime)
     return fig
