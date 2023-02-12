@@ -18,7 +18,7 @@ def timestamp(
     font="Helvetica",
     timefmt="%Y %b %d %H:%M:%S",
 ):
-    """
+    r"""
     Plot the GMT timestamp logo.
 
     Parameters
