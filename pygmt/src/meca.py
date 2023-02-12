@@ -221,6 +221,9 @@ def meca(
     extensionfill : str
         Set color or pattern for filling extensive quadrants
         [Default is white].
+    pen : str
+        Set pen attributes for outline of beachball
+        [Default is ``"0.25p,black,solid"``].
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
