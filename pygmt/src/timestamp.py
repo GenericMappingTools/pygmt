@@ -32,9 +32,9 @@ def timestamp(
         The text string shown after the GMT timestamp logo.
     justification : str
         Justification of the timestamp. *justification* is a two-character code
-        that is a combination of a horizontal (**L**\(eft), **C**\(enter), or
-        **R**\(ight)) and a vertical (**T**\(op), **M**\(iddle), or
-        **B**\(ottom)) code.
+        that is a combination of a horizontal (**L**\ (eft), **C**\ (enter), or
+        **R**\ (ight)) and a vertical (**T**\ (op), **M**\ (iddle), or
+        **B**\ (ottom)) code.
     offset : str or tuple
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp by *offset_x* and *offset_y*.
