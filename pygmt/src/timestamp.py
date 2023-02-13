@@ -91,6 +91,10 @@ def timestamp(
     if text is not None:
         if Version(gmt_version) <= Version("6.4.0"):
             raise GMTInvalidInput("The parameter 'text' requires GMT>=6.5.0.")
+        if len(str(text)) > 64:
+            raise GMTInvalidInput(
+                "The parameter 'text' must be less than 64 characters."
+            )
         kwdict["U"] += f"+t{text}"
 
     with Session() as lib:
