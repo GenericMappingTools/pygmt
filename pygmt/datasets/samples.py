@@ -1,86 +1,12 @@
 """
 Functions to load sample data.
 """
+from typing import Callable, NamedTuple
+
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.io import load_dataarray
 from pygmt.src import which
-
-
-def list_sample_data():
-    """
-    Report datasets available for tests and documentation examples.
-
-    Returns
-    -------
-    dict
-        Names and short descriptions of available sample datasets.
-
-    See Also
-    --------
-    load_sample_data : Load an example dataset from the GMT server.
-    """
-    names = {
-        "bathymetry": "Table of ship bathymetric observations off Baja California",
-        "earth_relief_holes": "Regional 20 arc-minutes Earth relief grid with holes",
-        "fractures": "Table of hypothetical fracture lengths and azimuths",
-        "hotspots": "Table of locations, names, and symbol sizes of hotpots from "
-        " Mueller et al., 1993",
-        "japan_quakes": "Table of earthquakes around Japan from NOAA NGDC database",
-        "mars_shape": "Table of topographic signature of the hemispheric dichotomy of "
-        " Mars from Smith and Zuber (1996)",
-        "maunaloa_co2": "Table of CO2 readings from Mauna Loa",
-        "notre_dame_topography": "Table 5.11 in Davis: Statistics and Data Analysis in Geology",
-        "ocean_ridge_points": "Table of ocean ridge points for the entire world",
-        "rock_compositions": "Table of rock sample compositions",
-        "usgs_quakes": "Table of global earthquakes from the USGS",
-    }
-    return names
-
-
-def load_sample_data(name):
-    """
-    Load an example dataset from the GMT server.
-
-    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
-    first time you invoke this function. Afterwards, it will load the data from
-    the cache. So you'll need an internet connection the first time around.
-
-    Parameters
-    ----------
-    name : str
-        Name of the dataset to load.
-
-    Returns
-    -------
-    :class:`pandas.DataFrame` or :class:`xarray.DataArray`
-        Sample dataset loaded as a pandas.DataFrame for tabular data or
-        xarray.DataArray for raster data.
-
-    See Also
-    --------
-    list_sample_data : Report datasets available for tests and documentation
-        examples.
-    """
-    names = list_sample_data()
-    if name not in names:
-        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
-
-    # Dictionary of private load functions
-    load_func = {
-        "bathymetry": _load_baja_california_bathymetry,
-        "earth_relief_holes": _load_earth_relief_holes,
-        "fractures": _load_fractures_compilation,
-        "hotspots": _load_hotspots,
-        "japan_quakes": _load_japan_quakes,
-        "mars_shape": _load_mars_shape,
-        "maunaloa_co2": _load_maunaloa_co2,
-        "notre_dame_topography": _load_notre_dame_topography,
-        "ocean_ridge_points": _load_ocean_ridge_points,
-        "rock_compositions": _load_rock_sample_compositions,
-        "usgs_quakes": _load_usgs_quakes,
-    }
-    return load_func[name]()
 
 
 def _load_japan_quakes():
@@ -290,3 +216,136 @@ def _load_earth_relief_holes():
     """
     fname = which("@earth_relief_20m_holes.grd", download="c")
     return load_dataarray(fname, engine="netcdf4")
+
+
+class GMTSampleData(NamedTuple):
+    """
+    Information of a sample dataset.
+
+    Attributes
+    ----------
+    func : callable
+        The function that loads the sample dataset.
+    description : str
+        The description of the sample dataset.
+    """
+
+    func: Callable
+    description: str
+
+
+datasets = {
+    "bathymetry": GMTSampleData(
+        func=_load_baja_california_bathymetry,
+        description="Table of ship bathymetric observations off Baja California",
+    ),
+    "earth_relief_holes": GMTSampleData(
+        func=_load_earth_relief_holes,
+        description="Regional 20 arc-minutes Earth relief grid with holes",
+    ),
+    "fractures": GMTSampleData(
+        func=_load_fractures_compilation,
+        description="Table of hypothetical fracture lengths and azimuths",
+    ),
+    "hotspots": GMTSampleData(
+        func=_load_hotspots,
+        description="Table of locations, names, and symbol sizes of hotpots from "
+        "Müller et al. (1993)",
+    ),
+    "japan_quakes": GMTSampleData(
+        func=_load_japan_quakes,
+        description="Table of earthquakes around Japan from the NOAA NGDC database",
+    ),
+    "mars_shape": GMTSampleData(
+        func=_load_mars_shape,
+        description="Table of topographic signature of the hemispheric dichotomy of "
+        "Mars from Smith and Zuber (1996)",
+    ),
+    "maunaloa_co2": GMTSampleData(
+        func=_load_maunaloa_co2,
+        description="Table of CO2 readings from Mauna Loa",
+    ),
+    "notre_dame_topography": GMTSampleData(
+        func=_load_notre_dame_topography,
+        description="Table 5.11 in Davis: Statistics and Data Analysis in Geology",
+    ),
+    "ocean_ridge_points": GMTSampleData(
+        func=_load_ocean_ridge_points,
+        description="Table of ocean ridge points for the entire world",
+    ),
+    "rock_compositions": GMTSampleData(
+        func=_load_rock_sample_compositions,
+        description="Table of rock sample compositions",
+    ),
+    "usgs_quakes": GMTSampleData(
+        func=_load_usgs_quakes,
+        description="Table of earthquakes from the USGS",
+    ),
+}
+
+
+def list_sample_data():
+    """
+    Report datasets available for tests and documentation examples.
+
+    Returns
+    -------
+    dict
+        Names and short descriptions of available sample datasets.
+
+    See Also
+    --------
+    load_sample_data : Load an example dataset from the GMT server.
+    """
+    return {name: dataset.description for name, dataset in datasets.items()}
+
+
+def load_sample_data(name):
+    # pylint: disable=line-too-long
+    """
+    Load an example dataset from the GMT server.
+
+    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the
+    first time you invoke this function. Afterwards, it will load the data from
+    the cache. So you'll need an internet connection the first time around.
+
+    Parameters
+    ----------
+    name : str
+        Name of the dataset to load.
+
+    Returns
+    -------
+    :class:`pandas.DataFrame` or :class:`xarray.DataArray`
+        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data or
+        :class:`xarray.DataArray` for raster data.
+
+    See Also
+    --------
+    list_sample_data : Report datasets available for tests and documentation
+        examples.
+
+    Examples
+    --------
+
+    >>> from pprint import pprint
+    >>> from pygmt.datasets import list_sample_data, load_sample_data
+    >>> # use list_sample_data to see the available datasets
+    >>> pprint(list_sample_data(), width=120)  # noqa: W505
+    {'bathymetry': 'Table of ship bathymetric observations off Baja California',
+     'earth_relief_holes': 'Regional 20 arc-minutes Earth relief grid with holes',
+     'fractures': 'Table of hypothetical fracture lengths and azimuths',
+     'hotspots': 'Table of locations, names, and symbol sizes of hotpots from Müller et al. (1993)',
+     'japan_quakes': 'Table of earthquakes around Japan from the NOAA NGDC database',
+     'mars_shape': 'Table of topographic signature of the hemispheric dichotomy of Mars from Smith and Zuber (1996)',
+     'maunaloa_co2': 'Table of CO2 readings from Mauna Loa',
+     'notre_dame_topography': 'Table 5.11 in Davis: Statistics and Data Analysis in Geology',
+     'ocean_ridge_points': 'Table of ocean ridge points for the entire world',
+     'rock_compositions': 'Table of rock sample compositions',
+     'usgs_quakes': 'Table of earthquakes from the USGS'}
+    >>> # load the sample bathymetry dataset
+    >>> data = load_sample_data("bathymetry")
+    """
+    if name not in datasets:
+        raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
+    return datasets[name].func()
