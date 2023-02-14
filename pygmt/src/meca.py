@@ -228,7 +228,7 @@ def meca(
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those
         colors automatically. The color of the compressive quadrants is
-        determined by the z-value (i.e., event depth or the third column for 
+        determined by the z-value (i.e., event depth or the third column for
         an input file).
     no_clip : bool
         Does NOT skip symbols that fall outside frame boundary specified by
