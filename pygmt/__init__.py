@@ -76,6 +76,21 @@ _begin()
 _atexit.register(_end)
 
 
+def _get_gmt_version():
+    """
+    Return the GMT version string.
+
+    Returns
+    -------
+    str
+        The GMT version string.
+    """
+    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
+
+    with Session() as lib:
+        return lib.info["version"]
+
+
 def print_clib_info():
     """
     Print information about the GMT shared library that we can find.
