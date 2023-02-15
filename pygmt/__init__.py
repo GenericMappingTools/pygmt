@@ -30,6 +30,7 @@ with clib.Session() as lib:
     __gmt_version__ = lib.info["version"]
 
 # Import modules to make the high-level GMT Python API
+from pygmt import datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
 from pygmt.io import load_dataarray
