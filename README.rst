@@ -102,6 +102,19 @@ If you use `mamba <https://mamba.readthedocs.org/>`__::
 
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
+Getting started
++++++++++++++++
+
+::
+
+    import pygmt
+    fig = pygmt.Figure()
+    fig.coast(projection="H10c", region="g", frame=True, land="gray")
+    fig.show()
+
+For more examples, please have a look at the `PyGMT Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
+
 
 Contacting Us
 -------------
