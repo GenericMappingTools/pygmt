@@ -7,7 +7,7 @@ import sys
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import _get_gmt_version, which
+from pygmt import __gmt_version__, which
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -73,7 +73,7 @@ def test_accessor_set_non_boolean():
 
 
 @pytest.mark.skipif(
-    Version(_get_gmt_version()) < Version("6.4.0"),
+    Version(__gmt_version__) < Version("6.4.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
 )
 @pytest.mark.xfail(

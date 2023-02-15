@@ -22,7 +22,7 @@ import atexit as _atexit
 from importlib.metadata import version
 
 # Import modules to make the high-level GMT Python API
-from pygmt import datasets
+from pygmt import clib, datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
 from pygmt.io import load_dataarray
@@ -69,26 +69,13 @@ from pygmt.src import (
 # Get semantic version through setuptools-scm
 __version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
+with clib.Session() as lib:
+    __gmt_version__ = lib.info["version"]
 
 # Start our global modern mode session
 _begin()
 # Tell Python to run _end when shutting down
 _atexit.register(_end)
-
-
-def _get_gmt_version():
-    """
-    Return the GMT version string.
-
-    Returns
-    -------
-    str
-        The GMT version string.
-    """
-    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
-
-    with Session() as lib:
-        return lib.info["version"]
 
 
 def print_clib_info():

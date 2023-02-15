@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import _get_gmt_version, grdfill, load_dataarray
+from pygmt import __gmt_version__, grdfill, load_dataarray
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -84,7 +84,7 @@ def test_grdfill_dataarray_out(grid, expected_grid):
 
 
 @pytest.mark.skipif(
-    Version(_get_gmt_version()) < Version("6.4.0"),
+    Version(__gmt_version__) < Version("6.4.0"),
     reason="Upstream bug/crash fixed in https://github.com/GenericMappingTools/gmt/pull/6418.",
 )
 def test_grdfill_asymmetric_pad(grid, expected_grid):
