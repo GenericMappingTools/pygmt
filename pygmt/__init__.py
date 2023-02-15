@@ -21,8 +21,15 @@ Here are just a few of the things that PyGMT does well:
 import atexit as _atexit
 from importlib.metadata import version
 
+from pygmt import clib
+
+# Get semantic version through setuptools-scm
+__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
+__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
+with clib.Session() as lib:
+    __gmt_version__ = lib.info["version"]
+
 # Import modules to make the high-level GMT Python API
-from pygmt import clib, datasets
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
 from pygmt.io import load_dataarray
@@ -65,12 +72,6 @@ from pygmt.src import (
     x2sys_init,
     xyz2grd,
 )
-
-# Get semantic version through setuptools-scm
-__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
-with clib.Session() as lib:
-    __gmt_version__ = lib.info["version"]
 
 # Start our global modern mode session
 _begin()
