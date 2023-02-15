@@ -105,7 +105,7 @@ For other ways to install ``pygmt``, see `full installation instructions <https:
 Getting started
 +++++++++++++++
 
-::
+As a strating point you can try the following example::
 
     import pygmt
     fig = pygmt.Figure()
