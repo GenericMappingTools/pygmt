@@ -24,8 +24,8 @@ def timestamp(
     Parameters
     ----------
     text : None or str
-        If ``None``, the current UNIX time stamp is shown in the GMT timestamp
-        logo. Set this parameter to replace the UNIX time stamp with a
+        If ``None``, the current UNIX timestamp is shown in the GMT timestamp
+        logo. Set this parameter to replace the UNIX timestamp with a
         custom text string instead. The text must be less than 64 characters.
         *Requires GMT>=6.5.0*.
     label : None or str
