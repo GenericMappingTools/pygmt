@@ -106,7 +106,7 @@ Getting started
 +++++++++++++++
 
 As a starting point, you can open a `Python interpreter <https://docs.python.org/3/tutorial/interpreter.html>`__
-or a `Jupyter Notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
+or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
 
     import pygmt
     fig = pygmt.Figure()
