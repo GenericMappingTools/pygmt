@@ -108,37 +108,30 @@ def test_accessor_sliced_datacube():
         os.remove(fname)
 
 
-def test_accessor_grid_source_file_not_found():
+def test_accessor_grid_source_file_not_exist():
     """
     Check that the accessor fallbacks to the default registration and gtype
-    when grid.encoding["source"] is given but the file is not found.
-
-    Address issue https://github.com/GenericMappingTools/pygmt/issues/1984.
+    when the grid source file (i.e., grid.encoding["source"]) doesn't exists.
     """
+    # load the 05m earth relief grid, which is stored as tiles
     grid = load_earth_relief(
-        resolution="01d", region=[0, 5, -5, 5], registration="pixel"
+        resolution="05m", region=[0, 5, -5, 5], registration="pixel"
     )
-    # check the original grid
-    assert len(grid.encoding["source"]) > 0
+    # registration and gtype are correct
     assert grid.gmt.registration == 1
     assert grid.gmt.gtype == 1
+    # the source grid file is defined but doesn't exists
+    assert len(grid.encoding["source"]) > 0
+    assert not Path(grid.encoding["source"]).exists()
 
-    # generate a new dataset
-    dataset = grid.to_dataset(name="height")
-    # source file is given but not found
-    assert len(dataset.height.encoding["source"]) > 0
-    assert not Path(dataset.height.encoding["source"]).exists()
-    # fallback to default registration and gtype
-    assert dataset.height.gmt.registration == 0
-    assert dataset.height.gmt.gtype == 0
+    # For a sliced grid, fallback to default registration and gtype,
+    # because the source grid file doesn't exists.
+    sliced_grid = grid[1:3, 1:3]
+    assert sliced_grid.gmt.registration == 0
+    assert sliced_grid.gmt.gtype == 0
 
-    # manually set the registration and gtype
-    dataset.height.gmt.registration = 1
-    dataset.height.gmt.gtype = 1
-    # the registration and gtype still have default values.
-    # Quote from https://docs.xarray.dev/en/stable/internals/extending-xarray.html
-    # > New instances, like those created from arithmetic operations or when
-    # > accessing a DataArray from a Dataset (ex. ds[var_name]), will have
-    # > new accessors created.
-    assert dataset.height.gmt.registration == 0
-    assert dataset.height.gmt.gtype == 0
+    # Still possible to manually set registration and gtype
+    sliced_grid.gmt.registration = 1
+    sliced_grid.gmt.gtype = 1
+    assert sliced_grid.gmt.registration == 1
+    assert sliced_grid.gmt.gtype == 1
