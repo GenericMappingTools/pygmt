@@ -113,7 +113,7 @@ or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and
     fig.coast(projection="H10c", region="g", frame=True, land="gray")
     fig.show()
 
-For more examples, please have a look at the `PyGMT Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+For more examples, please have a look at the `Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
 and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
 
 
