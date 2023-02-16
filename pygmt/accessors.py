@@ -34,7 +34,7 @@ class GMTDataArrayAccessor:
     >>> import numpy as np
     >>> import pygmt
     >>> import xarray as xr
-    >>> # creata a DataArray in gridline coordinates of sin(lon) * cos(lat)
+    >>> # create a DataArray in gridline coordinates of sin(lon) * cos(lat)
     >>> interval = 2.5
     >>> lat = np.arange(90, -90 - interval, -interval)
     >>> lon = np.arange(0, 360 + interval, interval)
