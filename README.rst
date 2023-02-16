@@ -105,7 +105,8 @@ For other ways to install ``pygmt``, see `full installation instructions <https:
 Getting started
 +++++++++++++++
 
-As a starting point you can try the following example::
+As a starting point, you can open a Python console or a Jupyter Notebook, and try 
+the following example::
 
     import pygmt
     fig = pygmt.Figure()
