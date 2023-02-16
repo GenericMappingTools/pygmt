@@ -105,7 +105,7 @@ For other ways to install ``pygmt``, see `full installation instructions <https:
 Getting started
 +++++++++++++++
 
-As a starting point, you can open a Python console or a Jupyter Notebook, and try 
+As a starting point, you can open a `Python console <https://docs.python.org/3/tutorial/interpreter.html>` or a `Jupyter Notebook <https://docs.jupyter.org/en/latest/running.html>`, and try 
 the following example::
 
     import pygmt
