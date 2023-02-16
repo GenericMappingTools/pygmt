@@ -12,7 +12,7 @@ with clib.Session() as _lib:
 @pytest.fixture(scope="module", name="faketime")
 def fixture_faketime():
     """
-    Fake datetime that will be passed to the "timefmt" paramater, so that the
+    Fake datetime that will be passed to the "timefmt" parameter, so that the
     timestamp string always has a fixed value.
     """
     return "9999-99-99T99:99:99"
