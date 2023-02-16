@@ -24,7 +24,7 @@ instead.
   branch are in the `dev` folder. Pages for each release are in their own folders.
   **Automatically updated by GitHub Actions** so you shouldn't have to make commits here.
 
-## Managing GitHub issues
+## Managing GitHub Issues
 
 A few guidelines for managing GitHub issues:
 
@@ -40,7 +40,7 @@ A few guidelines for managing GitHub issues:
   possible, post a comment when an upstream PR is merged that fixes the problem, and
   consider adding a regression test for serious bugs.
 
-## Reviewing and merging pull requests
+## Reviewing and Merging Pull Requests
 
 A few guidelines for reviewing:
 
@@ -49,8 +49,8 @@ A few guidelines for reviewing:
   PR.
 * Don't be harsh with code style or performance. If the code is bad, either (1) merge
   the pull request and open a new one fixing the code and pinging the original submitter
-  (2) comment on the PR detailing how the code could be improved. Both ways are focused
-  on showing the contributor **how to write good code**, not shaming them.
+  or (2) comment on the PR detailing how the code could be improved. Both ways are
+  focused on showing the contributor **how to write good code**, not shaming them.
 
 Pull requests should be **squash merged**.
 This means that all commits will be collapsed into one.
@@ -73,15 +73,15 @@ There are 11 configuration files located in `.github/workflows`:
 
 1. `style_checks.yaml` (Code lint and style checks)
 
-   This is run on every commit to the *main* and Pull Request branches.
+   This is run on every commit to the *main* and pull request branches.
    It is also scheduled to run daily on the *main* branch.
 
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
-   This is run on every commit to the *main* and Pull Request branches.
+   This is run on every commit to the *main* and pull request branches.
    It is also scheduled to run regular tests daily and run full tests
    (including doctests) on Wednesday on the *main* branch.
-   In draft Pull Requests, only two jobs on Linux are triggered to save on
+   In draft pull requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
    - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
@@ -95,8 +95,8 @@ There are 11 configuration files located in `.github/workflows`:
 
 3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
-   This is run on every commit to the *main* and Pull Request branches.
-   In draft Pull Requests, only the job on Linux is triggered to save on
+   This is run on every commit to the *main* and pull request branches.
+   In draft pull requests, only the job on Linux is triggered to save on
    Continuous Integration resources.
 
    On the *main* branch, the workflow also handles the documentation
@@ -151,13 +151,10 @@ There are 11 configuration files located in `.github/workflows`:
 
 ## Continuous Documentation
 
-We use the [Vercel for GitHub](https://github.com/apps/vercel) App to preview changes
+We use the [ReadtheDocs](https://readthedocs.org/) service to preview changes
 made to our documentation website every time we make a commit in a pull request.
-The service has a configuration file `vercel.json`, with a list of options to
-change the default behaviour at https://vercel.com/docs/configuration.
-The actual script `package.json` is used by Vercel to install the necessary packages,
-build the documentation, copy the files to a 'public' folder and deploy that to the web,
-see https://vercel.com/docs/build-step.
+The service has a configuration file `.readthedocs.yaml`, with a list of options
+to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.
 
 
 ## Dependencies Policy
@@ -170,12 +167,12 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
 * All minor versions of NumPy released in the 24 months prior to the project,
   and at minimum the last three minor versions.
 
-In `setup.py`, the `python_requires` variable should be set to the minimum
+In `pyproject.toml`, the `requires-python` key should be set to the minimum
 supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.
 
 
-## Backwards compatibility and deprecation policy
+## Backwards Compatibility and Deprecation Policy
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
@@ -191,7 +188,7 @@ When making incompatible changes, we should follow the process:
 
 - Discuss whether the incompatible changes are necessary on GitHub.
 - Make the changes in a backwards compatible way, and raise a `FutureWarning`
-  warning for old usage. At least one test using the old usage should be added.
+  warning for the old usage. At least one test using the old usage should be added.
 - The warning message should clearly explain the changes and include the versions
   in which the old usage is deprecated and is expected to be removed.
 - The `FutureWarning` warning should appear for 2-4 minor versions, depending on
@@ -207,7 +204,7 @@ decorator (if those two exist). Here is an example:
 @fmt_docstring
 @deprecate_parameter("columns", "incols", "v0.4.0", remove_version="v0.6.0")
 @use_alias(J="projection", R="region", V="verbose", i="incols")
-@kwargs_to_strings(R="sequence", i='sequence_comma')
+@kwargs_to_strings(R="sequence", i="sequence_comma")
 def plot(self, x=None, y=None, data=None, size=None, direction=None, **kwargs):
     pass
 ```
@@ -224,11 +221,11 @@ The version number is set automatically using setuptools_scm based information
 obtained from git.
 There are a few steps that still must be done manually, though.
 
-### Updating the changelog
+### Updating the Changelog
 
 The Release Drafter GitHub Action will automatically keep a draft changelog at
 https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
-every time a Pull Request (with a proper label) is merged into the main branch.
+every time a pull request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
 at .github/workflows/release-drafter.yml, and one for the changelog template
 at .github/release-drafter.yml. Configuration settings can be found at
@@ -248,7 +245,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
     ```
     [![Digital Object Identifier for PyGMT vX.Y.Z](https://zenodo.org/badge/DOI/10.5281/zenodo.<INSERT-DOI-HERE>.svg)](https://doi.org/10.5281/zenodo.<INSERT-DOI-HERE>)
     ```
-3. Open a new Pull Request using the title 'Changelog entry for vX.Y.Z' with
+3. Open a new pull request using the title 'Changelog entry for vX.Y.Z' with
    the updated release notes, so that other people can help to review and
    collaborate on the changelog curation process described next.
 4. Edit the change list to remove any trivial changes (updates to the README,
@@ -259,7 +256,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    are alphabetical.
 6. Move a few important items from the main sections to the highlights section.
 7. Edit the list of people who contributed to the release, linking to their
-   GitHub account. Sort their names by the number of commits made since the
+   GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `README.rst` with new information on the new release version,
    including a vX.Y.Z documentation link, and compatibility with
@@ -273,19 +270,14 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    More information about the `CITATION.cff` specification can be found at
    https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
 
-### Check the README syntax
+### Check the README Syntax
 
 GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-So slightly broken RST can cause the PyPI page to not render the correct content. Check
-using the `rst2html.py` script that comes with docutils:
+To check the README syntax, visit the
+[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
+the latest commit, and review the left sidebar and project description for any errors.
 
-```
-python setup.py --long-description | rst2html.py --no-raw > index.html
-```
-
-Open `index.html` and check for any flaws or error messages.
-
-### Pushing to PyPI and updating the documentation
+### Pushing to PyPI and Updating the Documentation
 
 After the changelog is updated, making a release can be done by going to
 https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
@@ -300,10 +292,10 @@ this new folder.
 
 ### Archiving on Zenodo
 
-Grab both the source code and baseline images zip files from the GitHub release page
+Grab both the source code and baseline images ZIP files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.
 
-### Updating the conda package
+### Updating the Conda Package
 
 When a new version is released on PyPI, conda-forge's bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.

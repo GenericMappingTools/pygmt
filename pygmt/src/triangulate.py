@@ -84,11 +84,11 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
-        {J}
-        {R}
-        {I}
+        {projection}
+        {region}
+        {spacing}
         outgrid : bool or str
             The name of the output netCDF file with extension .nc to store the
             grid in. The interpolation is performed in the original
@@ -102,17 +102,17 @@ class triangulate:  # pylint: disable=invalid-name
         output_type: str
             Determines the output type. Use "file", "xarray", "pandas", or
             "numpy".
-        {V}
-        {b}
-        {d}
-        {e}
-        {f}
-        {h}
-        {i}
-        {r}
+        {verbose}
+        {binary}
+        {nodata}
+        {find}
+        {coltypes}
+        {header}
+        {incols}
+        {registration}
             Only valid with ``outgrid``.
-        {s}
-        {w}
+        {skiprows}
+        {wrap}
 
         Returns
         -------
@@ -200,11 +200,11 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
-        {J}
-        {R}
-        {I}
+        {projection}
+        {region}
+        {spacing}
         outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
             grid in. The interpolation is performed in the original
@@ -212,16 +212,16 @@ class triangulate:  # pylint: disable=invalid-name
             better off projecting all data to a local coordinate system before
             using ``triangulate`` (this is true of all gridding routines) or
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
-        {V}
-        {b}
-        {d}
-        {e}
-        {f}
-        {h}
-        {i}
-        {r}
-        {s}
-        {w}
+        {verbose}
+        {binary}
+        {nodata}
+        {find}
+        {coltypes}
+        {header}
+        {incols}
+        {registration}
+        {skiprows}
+        {wrap}
 
         Returns
         -------
@@ -317,10 +317,10 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
-        {J}
-        {R}
+        {projection}
+        {region}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -331,15 +331,15 @@ class triangulate:  # pylint: disable=invalid-name
                 - ``numpy`` - :class:`numpy.ndarray`
                 - ``pandas``- :class:`pandas.DataFrame`
                 - ``file`` - ASCII file (requires ``outfile``)
-        {V}
-        {b}
-        {d}
-        {e}
-        {f}
-        {h}
-        {i}
-        {s}
-        {w}
+        {verbose}
+        {binary}
+        {nodata}
+        {find}
+        {coltypes}
+        {header}
+        {incols}
+        {skiprows}
+        {wrap}
 
         Returns
         -------

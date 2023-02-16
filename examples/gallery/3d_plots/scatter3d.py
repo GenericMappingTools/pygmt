@@ -1,14 +1,14 @@
 """
-3D Scatter plots
-----------------
+3-D Scatter plots
+-----------------
 
-The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3D.
+The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3-D.
 In the example below, we show how the
 `Iris flower dataset <https://en.wikipedia.org/wiki/Iris_flower_data_set>`__
-can be visualized using a perspective 3D plot. The ``region``
+can be visualized using a perspective 3-D plot. The ``region``
 parameter has to include the :math:`x`, :math:`y`, :math:`z` axis limits in the
 form of (xmin, xmax, ymin, ymax, zmin, zmax), which can be done automatically
-using :meth:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
+using :func:`pygmt.info`. To plot the z-axis frame, set ``frame`` as a
 minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
@@ -42,7 +42,7 @@ region = pygmt.info(
     spacing=(1, 2, 0.5),
 )
 
-# Make a 3D scatter plot, coloring each of the 3 species differently
+# Make a 3-D scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
 # Define a colormap to be used for three categories, define the range of the
@@ -61,18 +61,18 @@ pygmt.makecpt(
 )
 
 fig.plot3d(
-    # Use petal width, sepal length and petal length as x, y and z data input,
-    # respectively
+    # Use petal width, sepal length, and petal length as x, y, and z
+    # data input, respectively
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
     # Vary each symbol size according to another feature (sepal width, scaled
     # by 0.1)
     size=0.1 * df.sepal_width,
-    # Use 3D cubes ("u") as symbols, with size in centimeter units ("c")
+    # Use 3-D cubes ("u") as symbols with size in centimeters ("c")
     style="uc",
     # Points colored by categorical number code
-    color=df.species.cat.codes.astype(int),
+    fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
     # Set map dimensions (xmin, xmax, ymin, ymax, zmin, zmax)
@@ -90,7 +90,9 @@ fig.plot3d(
     zscale=1.5,
 )
 
+# Shift plot origin in x direction
+fig.shift_origin(xshift=3.1)
 # Add colorbar legend
-fig.colorbar(xshift=3.1)
+fig.colorbar()
 
 fig.show()

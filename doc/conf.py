@@ -58,7 +58,7 @@ intersphinx_mapping = {
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "xarray": ("https://docs.xarray.dev/en/stable/", None),
 }
 
 # options for sphinx-copybutton
@@ -73,11 +73,11 @@ sphinx_gallery_conf = {
     "examples_dirs": [
         "../examples/gallery",
         "../examples/tutorials",
-        "../examples/get-started",
+        "../examples/get_started",
         "../examples/projections",
     ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "get-started", "projections"],
+    "gallery_dirs": ["gallery", "tutorials", "get_started", "projections"],
     "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/maps",
@@ -97,7 +97,7 @@ sphinx_gallery_conf = {
             "../examples/projections/table",
             "../examples/tutorials/basics",
             "../examples/tutorials/advanced",
-            "../examples/get-started",
+            "../examples/get_started",
         ]
     ),
     # Patter to search for example files
@@ -116,6 +116,10 @@ sphinx_gallery_conf = {
     "image_scrapers": (PyGMTScraper(),),
     # Removes configuration comments from scripts
     "remove_config_comments": True,
+    # Disable "nested_sections" (default is True), to
+    # generate only a single index file for the whole gallery.
+    # This is a new feature up on Sphinx-Gallery 0.11.0.
+    "nested_sections": False,
 }
 
 # Sphinx project configuration
@@ -133,8 +137,12 @@ project = "PyGMT"
 copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
+    # Set base_url for stable version
+    html_baseurl = "https://pygmt.org/dev/"
 else:
     version = __version__
+    # Set base_url for dev version
+    html_baseurl = "https://pygmt.org/latest/"
 release = __version__
 
 # These enable substitutions using |variable| in the rst files

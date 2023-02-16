@@ -29,15 +29,13 @@ from pygmt.helpers import (
     SR="sharey",
     T="title",
     V="verbose",
-    X="xshift",
-    Y="yshift",
 )
 @kwargs_to_strings(Ff="sequence", Fs="sequence", M="sequence", R="sequence")
 def subplot(self, nrows=1, ncols=1, **kwargs):
     r"""
     Create multi-panel subplot figures.
 
-    This function is used to split the current figure into a rectangular layout
+    This method is used to split the current figure into a rectangular layout
     of subplots that each may contain a single self-contained figure. Begin by
     defining the layout of the entire multi-panel illustration. Several
     parameters are available to specify the systematic layout, labeling,
@@ -69,9 +67,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         follow sequentially. Surround the number or letter by parentheses on
         any side if these should be typeset as part of the tag. Use
         **+j**\|\ **J**\ *refpoint* to specify where the tag should be placed
-        in the subplot [TL]. Note: **+j** sets the justification of the tag to
-        *refpoint* (suitable for interior tags) while **+J** instead selects
-        the mirror opposite (suitable for exterior tags). Append
+        in the subplot [TL]. **Note**: **+j** sets the justification of the
+        tag to *refpoint* (suitable for interior tags) while **+J** instead
+        selects the mirror opposite (suitable for exterior tags). Append
         **+c**\ *dx*\[/*dy*] to set the clearance between the tag and a
         surrounding text box requested via **+g** or **+p** [3p/3p, i.e., 15%
         of the :gmt-term:`FONT_TAG` size dimension]. Append **+g**\ *fill* to
@@ -83,40 +81,41 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         typeset your tag numbers using lowercase Roman numerals; use **+R** for
         uppercase Roman numerals [Arabic numerals]. Append **+v** to increase
         tag numbers vertically down columns [horizontally across rows].
-    {B}
+    {frame}
     clearance : str or list
         [*side*]\ *clearance*.
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
         **s**, or **n**; or **x** for both **w** and **e**; or **y** for both
-        **s** and **n**. No *side* means all sides (i.e. ``clearance='1c'``
+        **s** and **n**. No *side* means all sides (i.e. ``clearance="1c"``
         would set a clearance of 1 cm on all sides). The option is repeatable
-        to set aside space on more than one side (e.g. ``clearance=['w1c',
-        's2c']`` would set a clearance of 1 cm on west side and 2 cm on south
-        side). Such space will be left untouched by the main map plotting but
-        can be accessed by methods that plot scales, bars, text, etc.
-    {J}
+        to set aside space on more than one side (e.g.
+        ``clearance=["w1c", "s2c"]`` would set a clearance of 1 cm on west
+        side and 2 cm on south side). Such space will be left untouched by
+        the main map plotting but can be accessed by methods that plot
+        scales, bars, text, etc.
+    {projection}
     margins : str or list
         This is margin space that is added between neighboring subplots (i.e.,
         the interior margins) in addition to the automatic space added for tick
         marks, annotations, and labels. The margins can be specified as either:
 
-        - a single value (for same margin on all sides). E.g. '5c'.
+        - a single value (for same margin on all sides). E.g. ``"5c"``.
         - a pair of values (for setting separate horizontal and vertical
-          margins). E.g. ['5c', '3c'].
+          margins). E.g. ``["5c", "3c"]``.
         - a set of four values (for setting separate left, right, bottom, and
-          top margins). E.g. ['1c', '2c', '3c', '4c'].
+          top margins). E.g. ``["1c", "2c", "3c", "4c"]``.
 
         The actual gap created is always a sum of the margins for the two
         opposing sides (e.g., east plus west or south plus north margins)
         [Default is half the primary annotation font size, giving the full
         annotation font size as the default gap].
-    {R}
+    {region}
     sharex : bool or str
         Set subplot layout for shared x-axes. Use when all subplots in a column
         share a common *x*-range. If ``sharex=True``, the first (i.e.,
         **t**\ op) and the last (i.e., **b**\ ottom) rows will have
-        *x*-annotations; use ``sharex='t'`` or ``sharex='b'`` to select only
+        *x*-annotations; use ``sharex="t"`` or ``sharex="b"`` to select only
         one of those two rows [both]. Append **+l** if annotated *x*-axes
         should have a label [none]; optionally append the label if it is the
         same for the entire subplot. Append **+t** to make space for subplot
@@ -126,7 +125,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Set subplot layout for shared y-axes. Use when all subplots in a row
         share a common *y*-range. If ``sharey=True``, the first (i.e.,
         **l**\ eft) and the last (i.e., **r**\ ight) columns will have
-        *y*-annotations; use ``sharey='l'`` or ``sharey='r'`` to select only
+        *y*-annotations; use ``sharey="l"`` or ``sharey="r"`` to select only
         one of those two columns [both]. Append **+l** if annotated *y*-axes
         will have a label [none]; optionally, append the label if it is the
         same for the entire subplot. Append **+p** to make all annotations
@@ -144,8 +143,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         While individual subplots can have titles (see ``sharex``/``sharey`` or
         ``frame``), the entire figure may also have an overarching *heading*
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
-    {V}
-    {XY}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
@@ -173,13 +171,13 @@ def set_panel(self, panel=None, **kwargs):
     r"""
     Set the current subplot panel to plot on.
 
-    Before you start plotting you must first select the active subplot. Note:
-    If any *projection* option is passed with the question mark **?** as scale
-    or width when plotting subplots, then the dimensions of the map are
-    automatically determined by the subplot size and your region. For Cartesian
-    plots: If you want the scale to apply equally to both dimensions then you
-    must specify ``projection="x"`` [The default ``projection="X"`` will fill
-    the subplot by using unequal scales].
+    Before you start plotting you must first select the active subplot.
+    **Note**: If any *projection* option is passed with the question mark
+    **?** as scale or width when plotting subplots, then the dimensions of
+    the map are automatically determined by the subplot size and your
+    region. For Cartesian plots: If you want the scale to apply equally to
+    both dimensions then you must specify ``projection="x"`` [The default
+    ``projection="X"`` will fill the subplot by using unequal scales].
 
     {aliases}
 
@@ -208,14 +206,14 @@ def set_panel(self, panel=None, **kwargs):
         Reserve a space of dimension *clearance* between the margin and the
         subplot on the specified side, using *side* values from **w**, **e**,
         **s**, or **n**. The option is repeatable to set aside space on more
-        than one side (e.g. ``clearance=['w1c', 's2c']`` would set a clearance
+        than one side (e.g. ``clearance=["w1c", "s2c"]`` would set a clearance
         of 1 cm on west side and 2 cm on south side). Such space will be left
         untouched by the main map plotting but can be accessed by methods that
         plot scales, bars, text, etc. This setting overrides the common
         clearances set by ``clearance`` in the initial
         :meth:`pygmt.Figure.subplot` call.
 
-    {V}
+    {verbose}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     # convert tuple or list to comma-separated str

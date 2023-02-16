@@ -53,8 +53,8 @@ def grdfill(grid, **kwargs):
         **s** for bicubic spline (optionally append a *tension*
         parameter [Default is no tension]).
 
-    {R}
-    {V}
+    {region}
+    {verbose}
 
     Returns
     -------

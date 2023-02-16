@@ -32,7 +32,10 @@ def fixture_region():
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zscale = 5"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting
+    zscale = 5
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -43,7 +46,7 @@ def test_plot3d_red_circles_zscale(data, region):
         region=region,
         projection="X10c",
         style="c0.2c",
-        color="red",
+        fill="red",
         frame=["afg", "zafg"],
     )
     return fig
@@ -51,7 +54,10 @@ def test_plot3d_red_circles_zscale(data, region):
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zsize = 6c"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting
+    zsize = "6c"
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -62,7 +68,7 @@ def test_plot3d_red_circles_zsize(data, region):
         region=region,
         projection="X10c",
         style="c0.2c",
-        color="red",
+        fill="red",
         frame=["afg", "zafg"],
     )
     return fig
@@ -70,19 +76,19 @@ def test_plot3d_red_circles_zsize(data, region):
 
 def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array color, size, intensity and transparency
+    Should raise an exception if array fill, size, intensity and transparency
     are used with matrix.
     """
     fig = Figure()
-    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
+    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(style="c0.2c", color=data[:, 2], **kwargs)
+        fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(style="cc", size=data[:, 2], color="red", **kwargs)
+        fig.plot3d(style="cc", size=data[:, 2], fill="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(style="cc", intensity=data[:, 2], color="red", **kwargs)
+        fig.plot3d(style="cc", intensity=data[:, 2], fill="red", **kwargs)
     with pytest.raises(GMTInvalidInput):
-        fig.plot3d(style="cc", color="red", transparency=data[:, 2] * 100, **kwargs)
+        fig.plot3d(style="cc", fill="red", transparency=data[:, 2] * 100, **kwargs)
 
 
 @pytest.mark.mpl_image_compare
@@ -100,7 +106,7 @@ def test_plot3d_projection(data, region):
         region=region,
         projection="R270/10c",
         style="s1c",
-        color="green",
+        fill="green",
         frame=["ag", "zag"],
     )
     return fig
@@ -109,7 +115,7 @@ def test_plot3d_projection(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_colors(data, region):
     """
-    Plot the data using z as colors.
+    Plot the data using z as fills.
     """
     fig = Figure()
     fig.plot3d(
@@ -118,7 +124,7 @@ def test_plot3d_colors(data, region):
         z=data[:, 2],
         zscale=5,
         perspective=[225, 30],
-        color=data[:, 2],
+        fill=data[:, 2],
         region=region,
         projection="X6c",
         style="c0.5c",
@@ -146,7 +152,7 @@ def test_plot3d_sizes(data, region):
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
         style="ui",
-        color="blue",
+        fill="blue",
         frame=["af", "zaf"],
     )
     return fig
@@ -155,7 +161,7 @@ def test_plot3d_sizes(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_colors_sizes(data, region):
     """
-    Plot the data using z as sizes and colors.
+    Plot the data using z as sizes and fills.
     """
     fig = Figure()
     fig.plot3d(
@@ -164,7 +170,7 @@ def test_plot3d_colors_sizes(data, region):
         z=data[:, 2],
         zscale=5,
         perspective=[225, 30],
-        color=data[:, 2],
+        fill=data[:, 2],
         size=0.5 * data[:, 2],
         region=region,
         projection="X6c",
@@ -180,7 +186,7 @@ def test_plot3d_colors_sizes(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_colors_sizes_proj(data, region):
     """
-    Plot the data using z as sizes and colors with a projection.
+    Plot the data using z as sizes and fills with a projection.
     """
     fig = Figure()
     fig.plot3d(
@@ -192,7 +198,7 @@ def test_plot3d_colors_sizes_proj(data, region):
         region=region,
         projection="M20c",
         frame=["af", "zaf"],
-        color=data[:, 2],
+        fill=data[:, 2],
         size=data[:, 2],
         # Using inches instead of cm because of upstream bug at
         # https://github.com/GenericMappingTools/gmt/issues/4386
@@ -223,7 +229,7 @@ def test_plot3d_varying_intensity():
         perspective=[135, 30],
         frame=["Sltr", "xaf+lIntensity"],
         style="c0.5c",
-        color="blue",
+        fill="blue",
         intensity=intensity,
     )
     return fig
@@ -244,7 +250,7 @@ def test_plot3d_transparency():
         y=y,
         z=z,
         style="u0.2c",
-        color="blue",
+        fill="blue",
         region=[0, 10, 0, 10, 10, 90],
         projection="X10c",
         zscale=0.1,
@@ -270,7 +276,7 @@ def test_plot3d_varying_transparency():
         y=y,
         z=z,
         style="o0.2c+B5",
-        color="blue",
+        fill="blue",
         region=[0, 10, 0, 10, 10, 90],
         projection="X10c",
         zscale=0.1,
@@ -284,12 +290,12 @@ def test_plot3d_varying_transparency():
 @pytest.mark.mpl_image_compare
 def test_plot3d_sizes_colors_transparencies():
     """
-    Plot the data with varying sizes and colors using z as transparency.
+    Plot the data with varying sizes and fills using z as transparency.
     """
     x = np.arange(1.0, 10.0)
     y = np.arange(1.0, 10.0)
     z = np.arange(1, 10) * 10
-    color = np.arange(1, 10) * 0.15
+    fill = np.arange(1, 10) * 0.15
     size = np.arange(1, 10) * 0.2
     transparency = np.arange(1, 10) * 10
 
@@ -304,7 +310,7 @@ def test_plot3d_sizes_colors_transparencies():
         perspective=[135, 30],
         frame=True,
         style="uc",
-        color=color,
+        fill=fill,
         size=size,
         cmap="gray",
         transparency=transparency,
@@ -314,8 +320,8 @@ def test_plot3d_sizes_colors_transparencies():
 
 @pytest.mark.mpl_image_compare
 @pytest.mark.mpl_image_compare(filename="test_plot3d_matrix.png")
-@pytest.mark.parametrize("color", ["#aaaaaa", 170])
-def test_plot3d_matrix(data, region, color):
+@pytest.mark.parametrize("fill", ["#aaaaaa", 170])
+def test_plot3d_matrix(data, region, fill):
     """
     Plot the data passing in a matrix and specifying incols.
     """
@@ -327,7 +333,7 @@ def test_plot3d_matrix(data, region, color):
         region=region,
         projection="M20c",
         style="c1c",
-        color=color,
+        fill=fill,
         frame=["a", "za"],
         incols="0,1,2",
     )
@@ -367,7 +373,7 @@ def test_plot3d_from_file(region):
         region=region,
         projection="X20c",
         style="d1c",
-        color="yellow",
+        fill="yellow",
         frame=["af", "zaf"],
         incols=[0, 1, 2],
     )
@@ -396,7 +402,7 @@ def test_plot3d_vectors():
         region=[-2, 2, -2, 2, -2, 2],
         projection="X10c",
         style="V1c+e+n",
-        color="black",
+        fill="black",
         frame=["af", "zaf"],
     )
     return fig
@@ -415,11 +421,11 @@ def test_plot3d_scalar_xyz():
         perspective=[225, 30],
     )
     fig.plot3d(
-        x=-1.5, y=1.5, z=-1.5, style="c1c", color="red", zscale=True, perspective=True
+        x=-1.5, y=1.5, z=-1.5, style="c1c", fill="red", zscale=True, perspective=True
     )
-    fig.plot3d(x=0, y=0, z=0, style="t1c", color="green", zscale=True, perspective=True)
+    fig.plot3d(x=0, y=0, z=0, style="t1c", fill="green", zscale=True, perspective=True)
     fig.plot3d(
-        x=1.5, y=-1.5, z=1.5, style="s1c", color="blue", zscale=True, perspective=True
+        x=1.5, y=-1.5, z=1.5, style="s1c", fill="blue", zscale=True, perspective=True
     )
     return fig
 

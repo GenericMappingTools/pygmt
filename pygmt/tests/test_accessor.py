@@ -2,6 +2,7 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 import os
+import sys
 from pathlib import Path
 
 import pytest
@@ -80,9 +81,14 @@ def test_accessor_set_non_boolean():
     gmt_version < Version("6.4.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
 )
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="PermissionError on Windows when deleting eraint_uvz.nc file; "
+    "see https://github.com/GenericMappingTools/pygmt/pull/2073",
+)
 def test_accessor_sliced_datacube():
     """
-    Check that a 2D grid which is sliced from an n-dimensional datacube works
+    Check that a 2-D grid which is sliced from an n-dimensional datacube works
     with accessor methods.
 
     This is a regression test for

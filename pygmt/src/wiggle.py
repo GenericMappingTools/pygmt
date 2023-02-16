@@ -1,7 +1,10 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
+import warnings
+
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -16,8 +19,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     Z="scale",
     b="binary",
     c="panel",
@@ -32,14 +33,23 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
+def wiggle(
+    self,
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    fillpositive=None,
+    fillnegative=None,
+    **kwargs,
+):
     r"""
     Plot z=f(x,y) anomalies along tracks.
 
-    Takes a matrix, (x,y,z) triplets, or a file name as input and plots z as a
-    function of distance along track.
+    Takes a matrix, (x, y, z) triplets, or a file name as input and plots z
+    as a function of distance along track.
 
-    Must provide either ``data`` or ``x``/``y``/``z``.
+    Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     Full option list at :gmt-docs:`wiggle.html`
 
@@ -47,55 +57,70 @@ def wiggle(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, z,
         respectively.
-    {J}
-    {R}
+    {projection}
+    {region}
     scale : str or float
         Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
-        or **p** to indicate the distance unit (cm, inch, or point); if no unit
-        is given we use the default unit that is controlled by
-        :gmt-term:`PROJ_LENGTH_UNIT`.
-    {B}
+        or **p** to indicate the distance unit (centimeters, inches, or
+        points); if no unit is given we use the default unit that is
+        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
+    {frame}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
         Defines the reference point on the map for the vertical scale bar.
-    color : str
-        Set fill shade, color or pattern for positive and/or negative wiggles
-        [Default is no fill]. Optionally, append **+p** to fill positive areas
-        (this is the default behavior). Append **+n** to fill negative areas.
-        Append **+n+p** to fill both positive and negative areas with the same
-        fill. Note: You will need to repeat the color parameter to select
-        different fills for the positive and negative wiggles.
-
+    fillpositive : str
+        Set color or pattern for filling positive wiggles
+        [Default is no fill].
+    fillnegative : str
+        Set color or pattern for filling negative wiggles
+        [Default is no fill].
     track : str
         Draw track [Default is no track]. Append pen attributes to use
-        [Default is **0.25p,black,solid**].
-    {U}
-    {V}
+        [Default is ``"0.25p,black,solid"``].
+    {timestamp}
+    {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
-    {XY}
-    {b}
-    {c}
-    {d}
-    {e}
-    {f}
-    {g}
-    {h}
-    {i}
-    {p}
-    {t}
-    {w}
+    {binary}
+    {panel}
+    {nodata}
+    {find}
+    {coltypes}
+    {gap}
+    {header}
+    {incols}
+    {perspective}
+    {transparency}
+    {wrap}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
+        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
+
+    if kwargs.get("G") is not None:
+        msg = (
+            "The 'color' parameter has been deprecated since v0.8.0"
+            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
+            " instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+
+    if fillpositive or fillnegative:
+        kwargs["G"] = []
+        if fillpositive:
+            kwargs["G"].append(fillpositive + "+p")
+        if fillnegative:
+            kwargs["G"].append(fillnegative + "+n")
 
     with Session() as lib:
         # Choose how data will be passed in to the module

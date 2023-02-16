@@ -106,7 +106,6 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
           not set (depends on ``output_type`` [Default is
           :class:`pandas.DataFrame`])
-
     """
     if kwargs.get("F") is None:
         raise GMTInvalidInput("Pass a required argument to 'filter_type'.")

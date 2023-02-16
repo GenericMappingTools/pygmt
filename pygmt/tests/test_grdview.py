@@ -126,7 +126,7 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
 def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
     Run grdview by passing in a grid and setting a colormap for producing a
-    surface plot with a 3D perspective viewpoint.
+    surface plot with a 3-D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(
@@ -139,7 +139,7 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
 def test_grdview_on_a_plane(xrgrid):
     """
     Run grdview by passing in a grid and plotting it on a z-plane, while
-    setting a 3D perspective viewpoint.
+    setting a 3-D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, plane=100, perspective=[225, 30], zscale=0.005)
@@ -150,7 +150,7 @@ def test_grdview_on_a_plane(xrgrid):
 def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     """
     Run grdview by passing in a grid and plotting it on a z-plane whose frontal
-    facade is colored gray, while setting a 3D perspective viewpoint.
+    facade is colored gray, while setting a 3-D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, plane="100+ggray", perspective=[225, 30], zscale=0.005)
@@ -214,6 +214,10 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
+@pytest.mark.xfail(
+    reason="Generated images are different from the baseline images on three platforms. "
+    "See https://github.com/GenericMappingTools/pygmt/issues/2062#issuecomment-1220680290"
+)
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """

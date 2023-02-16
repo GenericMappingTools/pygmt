@@ -31,7 +31,7 @@ fig = pygmt.Figure()
 # Define subplot layout
 # ---------------------
 #
-# The :meth:`pygmt.Figure.subplot` function is used to set up the layout, size,
+# The :meth:`pygmt.Figure.subplot` method is used to set up the layout, size,
 # and other attributes of the figure. It divides the whole canvas into regular
 # grid areas with *n* rows and *m* columns. Each grid area can contain an
 # individual subplot. For example:
@@ -62,8 +62,8 @@ with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
 fig.show()
 
 ###############################################################################
-# The :meth:`pygmt.Figure.set_panel` function activates a specified subplot,
-# and all subsequent plotting functions will take place in that subplot panel.
+# The :meth:`pygmt.Figure.set_panel` method activates a specified subplot,
+# and all subsequent plotting methods will take place in that subplot panel.
 # This is similar to matplotlib's ``plt.sca`` method. In order to specify a
 # subplot, you will need to provide the identifier for that subplot via the
 # ``panel`` parameter. Pass in either the *index* number, or a tuple/list like
@@ -115,11 +115,11 @@ fig.show()
 # 15 cm wide and 6 cm high (``figsize=["15c", "6c"]``). In addition, we use
 # some optional parameters to fine-tune some details of the figure creation:
 #
-# - ``autolabel=True``: Each subplot is automatically labelled abcd
-# - ``margins=["0.1c", "0.2c"]``: adjusts the space between adjacent subplots.
-#   In this case, it is set as 0.1 cm in the X direction and 0.2 cm in the Y
-#   direction.
-# - ``title="My Subplot Heading"``: adds a title on top of the whole figure.
+# - ``autolabel=True``: Each subplot is automatically labelled 'abcd'.
+# - ``margins=["0.1c", "0.2c"]``: Adjusts the space between adjacent subplots.
+#   In this case, it is set as 0.1 cm in the x-direction and 0.2 cm in the
+#   y-direction.
+# - ``title="My Subplot Heading"``: Adds a title on top of the whole figure.
 #
 # Notice that each subplot was set to use a linear projection ``"X?"``.
 # Usually, we need to specify the width and height of the map frame, but it is
@@ -145,7 +145,7 @@ fig.show()
 ###############################################################################
 # .. note::
 #
-#     All plotting functions (e.g. :meth:`pygmt.Figure.coast`,
+#     All plotting methods (e.g. :meth:`pygmt.Figure.coast`,
 #     :meth:`pygmt.Figure.text`, etc) are able to use ``panel`` parameter when
 #     in subplot mode. Once a panel is activated using ``panel`` or
 #     :meth:`pygmt.Figure.set_panel`, subsequent plotting commands that don't
@@ -153,12 +153,12 @@ fig.show()
 #     before.
 
 ###############################################################################
-# Shared X and Y axis labels
-# --------------------------
+# Shared x- and y-axes
+# --------------------
 # In the example above with the four subplots, the two subplots for each row
-# have the same Y-axis range, and the two subplots for each column have the
-# same X-axis range. You can use the ``sharex``/``sharey`` parameters to set a
-# common X and/or Y axis between subplots.
+# have the same y-axis range, and the two subplots for each column have the
+# same x-axis range. You can use the ``sharex``/``sharey`` parameters to set a
+# common x- and/or y-axis between subplots.
 
 fig = pygmt.Figure()
 with fig.subplot(
@@ -184,9 +184,9 @@ fig.show()
 # subplots within a row will share the y-axis, and only the **l**\ eft axis is
 # displayed.
 #
-# Of course, instead of using the ``sharex``/``sharey`` option, you can also
-# set a different ``frame`` for each subplot to control the axis properties
-# individually for each subplot.
+# Of course, instead of using the ``sharex``/``sharey`` parameters, you can
+# also set a different ``frame`` for each subplot to control the axis
+# properties individually for each subplot.
 
 ###############################################################################
 # Advanced subplot layouts

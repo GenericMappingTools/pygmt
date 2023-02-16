@@ -37,8 +37,8 @@ fig.show()
 # of the inset is set to one of the 9 anchors (bottom-middle-top and
 # left-center-right). In the example below, ``BL`` sets the inset to the bottom
 # left. The ``box`` parameter can set the fill and border of the inset. In the
-# example below, ``+pblack`` sets the border color to black and ``+gred`` sets
-# the fill to red.
+# example below, ``+pblack`` sets the border color to black and ``+glightred``
+# sets the fill to light red.
 
 fig = pygmt.Figure()
 fig.coast(
@@ -51,7 +51,7 @@ fig.coast(
     frame="a",
 )
 with fig.inset(position="jBL+w3c", box="+pblack+glightred"):
-    # pass is used to exit the with statement as no plotting functions are
+    # pass is used to exit the with statement as no plotting methods are
     # called
     pass
 fig.show()
@@ -81,7 +81,7 @@ fig.show()
 
 ###############################################################################
 #
-# Standard plotting functions can be called from within the ``inset`` context
+# Standard plotting methods can be called from within the ``inset`` context
 # manager. The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed
 # out map that selectively paints the state of Massachusetts to shows its
 # location relative to other states.
@@ -105,7 +105,7 @@ with fig.inset(
     region=[-80, -65, 35, 50],
     projection="M3c",
 ):
-    # Use a plotting function to create a figure inside the inset.
+    # Use a plotting method to create a figure inside the inset.
     fig.coast(
         land="gray",
         borders=[1, 2],

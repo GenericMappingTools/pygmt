@@ -3,11 +3,12 @@ Sampling along tracks
 ---------------------
 
 The :func:`pygmt.grdtrack` function samples a raster grid's value along
-specified points. We will need to input a 2D raster to ``grid`` which can be an
-:class:`xarray.DataArray`. The argument passed to the ``points`` parameter can
-be a :class:`pandas.DataFrame` table where the first two columns are x and y
-(or longitude and latitude). Note also that there is a ``newcolname`` parameter
-that will be used to name the new column of values sampled from the grid.
+specified points. We will need to input a 2-D raster to ``grid`` which can be
+an :class:`xarray.DataArray`. The argument passed to the ``points`` parameter
+can be a :class:`pandas.DataFrame` table where the first two columns are
+x and y (or longitude and latitude). Note also that there is a ``newcolname``
+parameter that will be used to name the new column of values sampled from the
+grid.
 
 Alternatively, a NetCDF file path can be passed to ``grid``. An ASCII file path
 can also be accepted for ``points``. To save an output ASCII file, a file name
@@ -36,6 +37,6 @@ fig.plot(
     y=track.latitude,
     style="c0.15c",
     cmap="terra",
-    color=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
+    fill=(track.bathymetry - track.bathymetry.mean()) / track.bathymetry.std(),
 )
 fig.show()

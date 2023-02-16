@@ -67,7 +67,7 @@ def test_info_path(table):
 
 def test_info_2d_list():
     """
-    Make sure info works on a 2d list.
+    Make sure info works on a 2-D list.
     """
     output = info(data=[[0, 8], [3, 5], [6, 2]])
     expected_output = "<vector memory>: N = 3 <0/6> <2/8>\n"
@@ -126,7 +126,7 @@ def test_info_pandas_dataframe_time_column():
 
 def test_info_xarray_dataset_time_column():
     """
-    Make sure info works on xarray.Dataset 1D inputs with a time column.
+    Make sure info works on xarray.Dataset 1-D inputs with a time column.
     """
     table = xr.Dataset(
         coords={"index": [0, 1, 2, 3, 4]},
@@ -144,7 +144,7 @@ def test_info_xarray_dataset_time_column():
 
 def test_info_2d_array():
     """
-    Make sure info works on 2D numpy.ndarray inputs.
+    Make sure info works on 2-D numpy.ndarray inputs.
     """
     table = np.loadtxt(POINTS_DATA)
     output = info(data=table)
@@ -156,7 +156,7 @@ def test_info_2d_array():
 
 def test_info_1d_array():
     """
-    Make sure info works on 1D numpy.ndarray inputs.
+    Make sure info works on 1-D numpy.ndarray inputs.
     """
     output = info(data=np.arange(20))
     expected_output = "<vector memory>: N = 20 <0/19>\n"
@@ -165,7 +165,7 @@ def test_info_1d_array():
 
 def test_info_per_column():
     """
-    Make sure the per_column option works.
+    Make sure the per_column parameter works.
     """
     output = info(data=POINTS_DATA, per_column=True)
     npt.assert_allclose(
@@ -175,7 +175,7 @@ def test_info_per_column():
 
 def test_info_per_column_with_time_inputs():
     """
-    Make sure the per_column option works with time inputs.
+    Make sure the per_column parameter works with time inputs.
     """
     table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
     output = info(data=table, per_column=True)
@@ -186,7 +186,7 @@ def test_info_per_column_with_time_inputs():
 
 def test_info_spacing():
     """
-    Make sure the spacing option works.
+    Make sure the spacing parameter works.
     """
     output = info(data=POINTS_DATA, spacing=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9])
@@ -194,7 +194,7 @@ def test_info_spacing():
 
 def test_info_spacing_bounding_box():
     """
-    Make sure the spacing option for writing a bounding box works.
+    Make sure the spacing parameter for writing a bounding box works.
     """
     output = info(data=POINTS_DATA, spacing="b")
     npt.assert_allclose(
@@ -211,7 +211,7 @@ def test_info_spacing_bounding_box():
 
 def test_info_per_column_spacing():
     """
-    Make sure the per_column and spacing options work together.
+    Make sure the per_column and spacing parameters work together.
     """
     output = info(data=POINTS_DATA, per_column=True, spacing=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, -3, 7.9, 0.1412, 0.9338])
@@ -219,7 +219,7 @@ def test_info_per_column_spacing():
 
 def test_info_nearest_multiple():
     """
-    Make sure the nearest_multiple option works.
+    Make sure the nearest_multiple parameter works.
     """
     output = info(data=POINTS_DATA, nearest_multiple=0.1)
     npt.assert_allclose(actual=output, desired=[11.5, 61.8, 0.1])

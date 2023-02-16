@@ -8,14 +8,14 @@ placement via the ``position`` parameter. The full list of color palette tables
 can be found at :gmt-docs:`cookbook/cpts.html`. You can set the ``position`` of
 the colorbar using the following options:
 
-- **j/J**: justified inside/outside the map frame using any 2 character
+- **j/J**: justified inside/outside the map frame using any 2-character
   combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
   ``position="jTR"`` for top right.
 - **g**: using map coordinates, e.g. ``position="g170/-45"`` for longitude
   170E, latitude 45S.
-- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm,7 cm from
-  anchor point.
+- **x**: using paper coordinates, e.g. ``position="x5c/7c"`` for 5 cm, 7 cm
+  from anchor point.
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
@@ -26,11 +26,11 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[0, 3, 6, 9], projection="x3c", frame=["af", "WSne+tColorbars"])
 
-## Create a colorbar designed for seismic tomography - roma
+# Create a colorbar designed for seismic tomography - roma
 # Colorbar is placed at bottom center (BC) by default if no position is given
 fig.colorbar(cmap="roma", frame=["x+lVelocity", "y+lm/s"])
 
-## Create a colorbar showing the scientific rainbow - batlow
+# Create a colorbar showing the scientific rainbow - batlow
 fig.colorbar(
     cmap="batlow",
     # Colorbar positioned at map coordinates (g) longitude/latitude 0.3/8.7,
@@ -41,7 +41,7 @@ fig.colorbar(
     scale=100,
 )
 
-## Create a colorbar suitable for surface topography - oleron
+# Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
     cmap="oleron",
     # Colorbar position justified outside map frame (J) at Middle Right (MR),

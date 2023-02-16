@@ -6,6 +6,8 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["grd2cpt"]
+
 
 @fmt_docstring
 @use_alias(
@@ -33,7 +35,7 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a method that will help you make static color palette tables
+    This is a function that will help you make static color palette tables
     (CPTs). By default, the CPT will simply be saved to the current session,
     but you can use ``output`` to save it to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
@@ -56,16 +58,16 @@ def grd2cpt(grid, **kwargs):
     If the master CPT includes B, F, and N entries, these will be copied into
     the new master file. If not, the parameters :gmt-term:`COLOR_BACKGROUND`,
     :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` from the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the command line will be used. This
-    default behavior can be overruled using the options ``background``,
-    ``overrule_bg`` or ``no_bg``.
+    :gmt-docs:`gmt.conf <gmt.conf>` file will be used. This default behavior
+    can be overruled using the parameters ``background``, ``overrule_bg``
+    or ``no_bg``.
 
     The color model (RGB, HSV or CMYK) of the palette created by
-    :meth:`pygmt.grd2cpt` will be the same as specified in the header of the
+    :func:`pygmt.grd2cpt` will be the same as specified in the header of the
     master CPT. When there is no :gmt-term:`COLOR_MODEL` entry in the master
     CPT, the :gmt-term:`COLOR_MODEL` specified in the
-    :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` option will be
-    used.
+    :gmt-docs:`gmt.conf <gmt.conf>` file or the ``color_model`` parameter
+    will be used.
 
     Full option list at :gmt-docs:`grd2cpt.html`
 
@@ -77,8 +79,8 @@ def grd2cpt(grid, **kwargs):
         The file name of the input grid or the grid loaded as a DataArray.
     transparency : int or float or str
         Sets a constant level of transparency (0-100) for all color slices.
-        Append **+a** to also affect the fore-, back-, and nan-colors
-        [Default is no transparency, i.e., 0 (opaque)].
+        Append **+a** to also affect the foreground, background, and NaN
+        colors [Default is no transparency, i.e., 0 (opaque)].
     cmap : str
         Selects the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
@@ -86,10 +88,10 @@ def grd2cpt(grid, **kwargs):
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
-        or ``background='o'``) uses the colors specified in the master file, or
+        or ``background="o"``) uses the colors specified in the master file, or
         those defined by the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
-        ``background='i'`` to match the colors for the lowest and highest
+        ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
         [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
@@ -124,7 +126,7 @@ def grd2cpt(grid, **kwargs):
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional parameter to set the file name with extension .cpt to store
-        the generated CPT file. If not given or False (default), saves the CPT
+        the generated CPT file. If not given or False [Default], saves the CPT
         as the session current CPT.
     reverse : str
         Set this to True or c [Default] to reverse the sense of color
@@ -137,8 +139,8 @@ def grd2cpt(grid, **kwargs):
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN` specified in
-        the :gmt-docs:`gmt.conf <gmt.conf>` file or on the command line. When
-        combined with ``background``, only :gmt-term:`COLOR_NAN` is considered.
+        the :gmt-docs:`gmt.conf <gmt.conf>` file. When combined with
+        ``background``, only :gmt-term:`COLOR_NAN` is considered.
     no_bg : bool
         Do not write out the background, foreground, and NaN-color fields
         [Default will write them, i.e. ``no_bg=False``].
@@ -153,12 +155,27 @@ def grd2cpt(grid, **kwargs):
         Do not interpolate the input color table but pick the output colors
         starting at the beginning of the color table, until colors for all
         intervals are assigned. This is particularly useful in combination with
-        a categorical color table, like ``cmap='categorical'``.
+        a categorical color table, like ``cmap="categorical"``.
     cyclic : bool
         Produce a wrapped (cyclic) color table that endlessly repeats its
         range. Note that ``cyclic=True`` cannot be set together with
         ``categorical=True``.
-    {V}
+    {verbose}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> grid = pygmt.datasets.load_earth_relief("30m", registration="gridline")
+    >>> # create a plot
+    >>> fig = pygmt.Figure()
+    >>> # create a CPT from the grid object with grd2cpt
+    >>> pygmt.grd2cpt(grid=grid)
+    >>> # plot the grid object, the CPT will be automatically used
+    >>> fig.grdimage(grid=grid)
+    >>> # show the plot
+    >>> fig.show()
+    <IPython.core.display.Image object>
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")

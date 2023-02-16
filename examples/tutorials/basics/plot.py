@@ -15,7 +15,7 @@ import pygmt
 ###############################################################################
 # For example, let's load the sample dataset of tsunami generating earthquakes
 # around Japan using :func:`pygmt.datasets.load_sample_data`.
-# The data is loaded as a :class:`pandas.DataFrame`.
+# The data are loaded as a :class:`pandas.DataFrame`.
 
 data = pygmt.datasets.load_sample_data(name="japan_quakes")
 
@@ -38,12 +38,12 @@ print(data.head())
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
 fig.coast(land="black", water="skyblue")
-fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", color="white", pen="black")
+fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="black")
 fig.show()
 
 ###############################################################################
-# We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The
-# ``pen`` parameter controls the outline of the symbols and the ``color``
+# We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
+# The ``pen`` parameter controls the outline of the symbols and the ``fill``
 # parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an
@@ -59,22 +59,22 @@ fig.plot(
     y=data.latitude,
     size=0.02 * (2**data.magnitude),
     style="cc",
-    color="white",
+    fill="white",
     pen="black",
 )
 fig.show()
 
 ###############################################################################
 # Notice that we didn't include the size in the ``style`` parameter this time,
-# just the symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this
-# case, the size will be interpreted as being in centimeters.
+# just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
+# this case, the size will be interpreted as being in centimeters.
 #
 # We can also map the colors of the markers to the depths by passing an array
-# to the ``color`` parameter and providing a colormap name (``cmap``). We can
+# to the ``fill`` parameter and providing a colormap name (``cmap``). We can
 # even use the new matplotlib colormap "viridis". Here, we first create a
 # continuous colormap ranging from the minimum depth to the maximum depth of
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
-# :func:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
+# :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
 #
 
@@ -86,7 +86,7 @@ fig.plot(
     x=data.longitude,
     y=data.latitude,
     size=0.02 * 2**data.magnitude,
-    color=data.depth_km,
+    fill=data.depth_km,
     cmap=True,
     style="cc",
     pen="black",

@@ -56,18 +56,18 @@ def grdsample(grid, **kwargs):
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
+    {spacing}
+    {region}
     translate : bool
         Translate between grid and pixel registration; if the input is
         grid-registered, the output will be pixel-registered and vice-versa.
     registration : str or bool
         [**g**\|\ **p**\ ].
         Set registration to **g**\ ridline or **p**\ ixel.
-    {V}
-    {f}
-    {n}
-    {x}
+    {verbose}
+    {coltypes}
+    {interpolation}
+    {cores}
 
     Returns
     -------

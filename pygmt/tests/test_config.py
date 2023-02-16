@@ -14,22 +14,22 @@ def test_config():
     # Change global settings of current figure
     config(FONT_ANNOT_PRIMARY="blue")
     fig.basemap(
-        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", '+t"Blue Annotation"']
+        region=[0, 10, 0, 10], projection="X5c/5c", frame=["af", "+tBlue Annotation"]
     )
 
     with config(FONT_LABEL="red", FONT_ANNOT_PRIMARY="red"):
+        fig.shift_origin(xshift="7c")
         fig.basemap(
             region=[0, 10, 0, 10],
             projection="X5c/5c",
-            frame=['xaf+l"red label"', "yaf", '+t"red annotation"'],
-            xshift="7c",
+            frame=["xaf+lred label", "yaf", "+tred annotation"],
         )
 
+    fig.shift_origin(xshift="7c")
     fig.basemap(
         region=[0, 10, 0, 10],
         projection="X5c/5c",
-        frame=["af", '+t"Blue Annotation"'],
-        xshift="7c",
+        frame=["af", "+tBlue Annotation"],
     )
     # Revert to default settings in current figure
     config(FONT_ANNOT_PRIMARY="black")
@@ -46,8 +46,8 @@ def test_config_font_one():
     """
     fig = Figure()
     with config(FONT="8p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5+l")
-    fig.basemap(compass="jBR+w5c+d-4.5+l")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5+l")
+    fig.basemap(compass="jBR+w3.5c+d-4.5+l")
     return fig
 
 
@@ -59,8 +59,8 @@ def test_config_font_annot():
     """
     fig = Figure()
     with config(FONT_ANNOT="6p,red"):
-        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w4c+d4.5")
-    fig.basemap(compass="jBR+w5c+d-4.5")
+        fig.basemap(region=[0, 9, 0, 9], projection="C3/3/9c", compass="jTL+w3c+d4.5")
+    fig.basemap(compass="jBR+w3.5c+d-4.5")
     return fig
 
 
@@ -72,8 +72,13 @@ def test_config_format_date_map():
 
     Note the space in 'o dd', this acts as a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/247.
+
+    Setting FORMAT_DATE_MAP="yyyy mm dd" as a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2298.
     """
     fig = Figure()
+    # Set FORMAT_DATE_MAP to "yyyy mm dd" which contains whitespaces.
+    config(FORMAT_DATE_MAP="yyyy mm dd")
     with config(FORMAT_DATE_MAP="o dd"):
         fig.basemap(
             region=["1969-7-21T", "1969-7-23T", 0, 1],
@@ -131,7 +136,8 @@ def test_config_map_grid_cross_size():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
@@ -149,7 +155,8 @@ def test_config_map_grid_pen():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
@@ -167,7 +174,8 @@ def test_config_map_tick_length():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig
 
 
@@ -185,5 +193,6 @@ def test_config_map_tick_pen():
             frame=["pa1Hg", "sa45mg45m", "NWse"],
             verbose="e",
         )
-    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], yshift=-3, verbose="e")
+    fig.shift_origin(yshift=-3)
+    fig.basemap(frame=["pa1Hg", "sa45mg45m", "nwSE"], verbose="e")
     return fig

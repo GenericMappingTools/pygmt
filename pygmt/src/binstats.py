@@ -37,7 +37,7 @@ def binstats(data, **kwargs):
     Reads arbitrarily located (x,y[,z][,w]) points
     (2-4 columns) from ``data`` and for each
     node in the specified grid layout determines which points are
-    within the given radius.  These point are then used in the
+    within the given radius. These points are then used in the
     calculation of the specified statistic. The results may be
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.
@@ -49,7 +49,7 @@ def binstats(data, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        A file name of an ASCII data table or a 2D
+        A file name of an ASCII data table or a 2-D
         {table-classes}.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
@@ -93,14 +93,14 @@ def binstats(data, **kwargs):
         computed while the count will be the sum of the weights instead of
         number of points. If the weights are actually uncertainties
         (one sigma) then append **+s** and weight = 1/sigma.
-    {I}
-    {R}
-    {V}
-    {a}
-    {b}
-    {h}
-    {i}
-    {r}
+    {spacing}
+    {region}
+    {verbose}
+    {aspatial}
+    {binary}
+    {header}
+    {incols}
+    {registration}
 
     Returns
     -------

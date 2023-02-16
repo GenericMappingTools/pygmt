@@ -4,6 +4,8 @@ grdcontour - Plot a contour figure.
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["grdcontour"]
+
 
 @fmt_docstring
 @use_alias(
@@ -20,8 +22,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     V="verbose",
     W="pen",
     l="label",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -47,23 +47,23 @@ def grdcontour(self, grid, **kwargs):
     interval : str or int
         Specify the contour lines to generate.
 
-        - The filename of a CPT file where the color boundaries will
+        - The file name of a CPT file where the color boundaries will
           be used as contour levels.
-        - The filename of a 2 (or 3) column file containing the contour
+        - The file name of a 2 (or 3) column file containing the contour
           levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3)
+          angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*
+          +\ *cont_int*.
     annotation : str,  int, or list
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval *annot_int* or a
-          single annotation level +\ *annot_int*
-        - Disable all annotation with  **-**
+          single annotation level +\ *annot_int*.
+        - Disable all annotation with  **-**.
         - Optional label modifiers can be specified as a single string
-          ``'[annot_int]+e'``  or with a list of arguments
-          ``([annot_int], 'e', 'f10p', 'gred')``.
+          ``"[annot_int]+e"``  or with a list of arguments
+          ``([annot_int], "e", "f10p", "gred")``.
     limit : str or list of 2 ints
         *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string
@@ -71,21 +71,20 @@ def grdcontour(self, grid, **kwargs):
         Do not draw contours with less than `cut` number of points.
     resample : str or int
         Resample smoothing factor.
-    {J}
-    {R}
-    {B}
+    {projection}
+    {region}
+    {frame}
     label_placement : str
         [**d**\|\ **f**\|\ **n**\|\ **l**\|\ **L**\|\ **x**\|\ **X**]\
         *args*.
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {U}
-    {V}
-    {W}
-    {XY}
-    {c}
-    {f}
+    {timestamp}
+    {verbose}
+    {pen}
+    {panel}
+    {coltypes}
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
@@ -93,8 +92,37 @@ def grdcontour(self, grid, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {p}
-    {t}
+    {perspective}
+    {transparency}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 15 arc-minutes grid with "gridline" registration
+    >>> # in a specified region
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="15m",
+    ...     region=[-92.5, -82.5, -3, 7],
+    ...     registration="gridline",
+    ... )
+    >>> # create a new plot with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create the contour plot
+    >>> fig.grdcontour(
+    ...     # pass in the grid downloaded above
+    ...     grid=grid,
+    ...     # set the interval for contour lines at 250 meters
+    ...     interval=250,
+    ...     # set the interval for annotated contour lines at 1,000 meters
+    ...     annotation=1000,
+    ...     # add a frame for the plot
+    ...     frame="a",
+    ...     # set the projection to Mercator for the 10 cm figure
+    ...     projection="M10c",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
+    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

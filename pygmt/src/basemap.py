@@ -25,8 +25,6 @@ from pygmt.helpers import (
     Tm="compass",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     f="coltypes",
     p="perspective",
@@ -48,12 +46,12 @@ def basemap(self, **kwargs):
 
     Parameters
     ----------
-    {J}
+    {projection}
     zscale/zsize : float or str
         Set z-axis scaling or z-axis size.
-    {R}
+    {region}
         *Required if this is the first plot command.*
-    {B}
+    {frame}
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
@@ -63,7 +61,7 @@ def basemap(self, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draws a rectangular border around the
         map scale or rose. Alternatively, specify a different pen with
-        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [default is
+        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
         no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
         separate in x- and y-direction, or individual side spacings between
@@ -75,20 +73,19 @@ def basemap(self, **kwargs):
         Finally, append **+s** to draw an offset background shaded region.
         Here, *dx/dy* indicates the shift relative to the foreground frame
         [Default is 4p/-4p] and shade sets the fill style to use for shading
-        [default is gray50].
+        [Default is gray50].
     rose : str
         Draws a map directional rose on the map at the location defined by
         the reference and anchor points.
     compass : str
         Draws a map magnetic rose on the map at the location defined by the
         reference and anchor points
-    {U}
-    {V}
-    {XY}
-    {c}
-    {f}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {coltypes}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):

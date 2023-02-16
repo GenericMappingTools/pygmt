@@ -10,7 +10,7 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+.. image:: https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square
     :alt: Latest version on conda-forge
     :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
@@ -31,9 +31,18 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://tinyurl.com/y22nb8up
+    :alt: PyOpenSci
+    :target: https://github.com/pyOpenSci/software-review/issues/43
+.. image:: https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square
+    :alt: GitHub license
+    :target: https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
+.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
+    :alt: Twitter URL
+    :target: https://twitter.com/gmt_dev
 
 .. placeholder-for-doc-index
 
@@ -59,9 +68,10 @@ About
 -----
 
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond.
 
 Project goals
 -------------
@@ -156,7 +166,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6702566,
+    @software{pygmt_2022_7481934,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
@@ -164,10 +174,10 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Schlitzer, William and
                       Grund, Michael and
                       Toney, Liam and
+                      Fröhlich, Yvonne and
                       Yao, Jiayuan and
                       Magen, Yohai and
                       Materna, Kathryn and
-                      Fröhlich, Yvonne and
                       Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
@@ -175,12 +185,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jul,
+      month        = dec,
       year         = 2022,
       publisher    = {Zenodo},
-      version      = {v0.7.0},
-      doi          = {10.5281/zenodo.6702566},
-      url          = {https://doi.org/10.5281/zenodo.6702566}
+      version      = {0.8.0},
+      doi          = {10.5281/zenodo.7481934},
+      url          = {https://doi.org/10.5281/zenodo.7481934}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -238,7 +248,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.20
-    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_ (latest release)
+    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
+      - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.20
+    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_
       - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
       - >=6.3.0
       - >=3.8

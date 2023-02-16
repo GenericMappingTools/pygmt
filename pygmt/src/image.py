@@ -14,8 +14,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     M="monochrome",
     U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     p="perspective",
     t="transparency",
@@ -38,10 +36,10 @@ def image(self, imagefile, **kwargs):
         This must be an Encapsulated PostScript (EPS) file or a raster
         image. An EPS file must contain an appropriate BoundingBox. A
         raster file can have a depth of 1, 8, 24, or 32 bits and is read
-        via GDAL. Note: If GDAL was not configured during GMT installation
+        via GDAL. **Note**: If GDAL was not configured during GMT installation
         then only EPS files are supported.
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
@@ -55,12 +53,11 @@ def image(self, imagefile, **kwargs):
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {U}
-    {V}
-    {XY}
-    {c}
-    {p}
-    {t}
+    {timestamp}
+    {verbose}
+    {panel}
+    {perspective}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
