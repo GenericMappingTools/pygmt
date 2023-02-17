@@ -8,12 +8,9 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import clib, which
 from pygmt.datasets import load_earth_relief
+from pygmt import __gmt_version__, which
 from pygmt.exceptions import GMTInvalidInput
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 def test_accessor_gridline_cartesian():
@@ -78,7 +75,7 @@ def test_accessor_set_non_boolean():
 
 
 @pytest.mark.skipif(
-    gmt_version < Version("6.4.0"),
+    Version(__gmt_version__) < Version("6.4.0"),
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
 )
 @pytest.mark.xfail(
