@@ -2,6 +2,7 @@
 timestamp - Plot the GMT timestamp logo.
 """
 from packaging.version import Version
+from pygmt import __gmt_version__
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, is_nonstr_iter
@@ -72,14 +73,10 @@ def timestamp(
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justification}"
 
-    # Deal with compatibility with different GMT versions
-    with Session() as lib:
-        gmt_version = lib.info["version"]
-
     if is_nonstr_iter(offset):  # given a tuple
         kwdict["U"] += "+o" + "/".join(f"{item}" for item in offset)
     else:  # given a single value
-        if "/" not in offset and Version(gmt_version) <= Version("6.4.0"):
+        if "/" not in offset and Version(__gmt_version__) <= Version("6.4.0"):
             # Giving a single offset doesn't work in GMT <= 6.4.0.
             # See https://github.com/GenericMappingTools/gmt/issues/7107.
             kwdict["U"] += f"+o{offset}/{offset}"
@@ -89,7 +86,7 @@ def timestamp(
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.
     if text is not None:
-        if Version(gmt_version) <= Version("6.4.0"):
+        if Version(__gmt_version__) <= Version("6.4.0"):
             raise GMTInvalidInput("The parameter 'text' requires GMT>=6.5.0.")
         if len(str(text)) > 64:
             raise GMTInvalidInput(
