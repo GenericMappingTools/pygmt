@@ -4,6 +4,11 @@
 
 .. autoclass:: {{ objname }}
 
+{% for item in attributes %}
+.. autoproperty::
+    {{ objname }}.{{ item }}
+{% endfor %}
+
 {% if methods != ["__init__"] %}
 .. rubric:: Methods Summary
 
