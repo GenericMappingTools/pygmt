@@ -3,6 +3,7 @@ GMT accessor methods.
 """
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.figure import Figure
 from pygmt.src.grdinfo import grdinfo
 
 
@@ -72,3 +73,19 @@ class GMTDataArrayAccessor:
                 f"Invalid coordinate system type: {value}, should be a boolean of "
                 "either 0 for Cartesian or 1 for Geographic"
             )
+
+    def imshow(self):
+        """
+        Image plot of 2D DataArray.
+
+        Examples
+        --------
+
+        >>> from pygmt.datasets import load_earth_relief
+        >>> grid = load_earth_relief()
+        >>> grid.gmt.imshow()
+        """
+        fig = Figure()
+        fig.grdimage(self._obj, frame=True)
+        fig.colorbar()
+        fig.show()
