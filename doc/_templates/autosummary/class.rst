@@ -4,6 +4,7 @@
 
 .. autoclass:: {{ objname }}
 
+{% if methods != ["__init__"] %}
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -12,6 +13,7 @@
     {{ objname }}.{{ item }}
     {% endif %}
     {% endfor %}
+{% endif %}
 
 .. include:: backreferences/{{ fullname }}.examples
 
