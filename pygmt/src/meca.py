@@ -157,7 +157,7 @@ def meca(
           ``convention`` is not needed and is ignored if specified.
 
     scale : str
-        Adjusts the scaling of the radius of the beachball, which is
+        Adjust the scaling of the radius of the beachball, which is
         proportional to the magnitude. *scale* defines the size for
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention : str
@@ -204,7 +204,7 @@ def meca(
         or pd.DataFrame.
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
-        Offsets beachball(s) to longitude(s) and latitude(s) specified in the
+        Offset beachball(s) to longitude(s) and latitude(s) specified in the
         the last two columns of the input file or array, or by
         ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
         is plotted at the initial location and a line connects the beachball
@@ -212,7 +212,7 @@ def meca(
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
         attributes [Default is 0.25p].
     no_clip : bool
-        Does NOT skip symbols that fall outside frame boundary specified by
+        Do NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
     {projection}
     {region}
