@@ -113,7 +113,7 @@ def grdimage(self, grid, **kwargs):
         to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
-        Sets the resolution of the projected grid that will be created if a
+        Set the resolution of the projected grid that will be created if a
         map projection other than Linear or Mercator was selected [100]. By
         default, the projected grid will be of the same size (rows and
         columns) as the input file. Specify **i** to use the PostScript
