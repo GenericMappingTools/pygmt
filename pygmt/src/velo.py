@@ -72,7 +72,7 @@ def velo(self, data=None, **kwargs):
         :class:`pandas.DataFrame` inputs.
 
     spec: str
-        Selects the meaning of the columns in the data file and the figure to
+        Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
@@ -172,7 +172,7 @@ def velo(self, data=None, **kwargs):
     {frame}
     {cmap}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec="e"``
+        Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintyfill : str
