@@ -231,7 +231,7 @@ def meca(
         determined by the z-value (i.e., event depth or the third column for
         an input file).
     no_clip : bool
-        Do NOT skip symbols that fall outside frame boundary specified by
+        Does NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
     {projection}
     {region}
