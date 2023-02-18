@@ -125,7 +125,7 @@ def grdgradient(grid, **kwargs):
         all nodes after gradient calculations are completed.
     tiles : str
         **c**\|\ **r**\|\ **R**.
-        Controls how normalization via ``normalize`` is carried out.  When
+        Control how normalization via ``normalize`` is carried out.  When
         multiple  grids should be normalized the same way (i.e., with the same
         *offset*  and/or *sigma*),
         we must pass these values via ``normalize``.  However, this is
