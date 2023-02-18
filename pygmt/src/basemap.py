@@ -55,7 +55,7 @@ def basemap(self, **kwargs):
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
-        Draws a simple map scale centered on the reference point specified.
+        Draw a simple map scale centered on the reference point specified.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
@@ -75,11 +75,11 @@ def basemap(self, **kwargs):
         [Default is 4p/-4p] and shade sets the fill style to use for shading
         [Default is gray50].
     rose : str
-        Draws a map directional rose on the map at the location defined by
+        Draw a map directional rose on the map at the location defined by
         the reference and anchor points.
     compass : str
-        Draws a map magnetic rose on the map at the location defined by the
-        reference and anchor points
+        Draw a map magnetic rose on the map at the location defined by the
+        reference and anchor points.
     {timestamp}
     {verbose}
     {panel}
