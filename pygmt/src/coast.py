@@ -77,7 +77,7 @@ def coast(self, **kwargs):
         strings in a list.
     resolution : str
         **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Selects the resolution of the data set to: (**f**\ )ull,
+        Select the resolution of the data set to: (**f**\ )ull,
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
@@ -128,7 +128,7 @@ def coast(self, **kwargs):
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
-        Draws a simple map scale centered on the reference point specified.
+        Draw a simple map scale centered on the reference point specified.
     borders : int or str or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
