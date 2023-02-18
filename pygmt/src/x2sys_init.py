@@ -60,13 +60,13 @@ def x2sys_init(tag, **kwargs):
         - **geoz** (same, with one z-column).
 
     suffix : str
-        Specifies the file extension (suffix) for these data files. If not
+        Specify the file extension (suffix) for these data files. If not
         given we use the format definition file prefix as the suffix (see
         ``fmtfile``).
 
     discontinuity : str
         **d**\|\ **g**.
-        Selects geographical coordinates. Append **d** for discontinuity at the
+        Select geographical coordinates. Append **d** for discontinuity at the
         Dateline (makes longitude go from -180 to +180) or **g** for
         discontinuity at Greenwich (makes longitude go from 0 to 360
         [Default]). If not given we assume the data are Cartesian.
@@ -80,7 +80,7 @@ def x2sys_init(tag, **kwargs):
 
     units : str or list
         **d**\|\ **s**\ *unit*.
-        Sets the units used for distance and speed when requested by other
+        Set the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
         desired *unit* as:
 
