@@ -77,7 +77,7 @@ def grdlandmask(**kwargs):
         ponds-in-islands-in-lakes outlines [Default is no line tracing].
     maskvalues : str or list
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
-        Sets the values that will be assigned to nodes. Values can
+        Set the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
