@@ -86,7 +86,7 @@ def plot3d(
         z, fill, and size, respectively.
     x/y/z : float or 1-D arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
-        the data points
+        the data points.
     size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
