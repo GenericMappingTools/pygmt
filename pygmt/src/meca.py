@@ -75,12 +75,16 @@ def data_format_code(convention, component="full"):
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     A="offset",
     B="frame",
+    C="cmap",
+    E="extensionfill",
+    G="compressionfill",
+    J="projection",
     N="no_clip",
+    R="region",
     V="verbose",
+    W="pen",
     c="panel",
     p="perspective",
     t="transparency",
@@ -211,6 +215,21 @@ def meca(
         to the circle. Use **+s**\ *size* to set the diameter of the circle
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
         attributes [Default is 0.25p].
+    compressionfill : str
+        Set color or pattern for filling compressive quadrants
+        [Default is black].
+    extensionfill : str
+        Set color or pattern for filling extensive quadrants
+        [Default is white].
+    pen : str
+        Set pen attributes for outline of beachball
+        [Default is ``"0.25p,black,solid"``].
+    cmap : str
+        File name of a CPT file or a series of comma-separated colors (e.g.,
+        *color1,color2,color3*) to build a linear continuous CPT from those
+        colors automatically. The color of the compressive quadrants is
+        determined by the z-value (i.e., event depth or the third column for
+        an input file).
     no_clip : bool
         Do NOT skip symbols that fall outside frame boundary specified by
         ``region`` [Default is False, i.e. plot symbols inside map frame only].
