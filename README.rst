@@ -55,7 +55,7 @@ To truly understand how powerful PyGMT is, play with it online on `Binder <https
 For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
-visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+visit the `Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
 some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
 .. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
@@ -101,6 +101,20 @@ If you use `mamba <https://mamba.readthedocs.org/>`__::
     mamba install --channel conda-forge pygmt
 
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+
+Getting started
++++++++++++++++
+
+As a starting point, you can open a `Python interpreter <https://docs.python.org/3/tutorial/interpreter.html>`__
+or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
+
+    import pygmt
+    fig = pygmt.Figure()
+    fig.coast(projection="H10c", region="g", frame=True, land="gray")
+    fig.show()
+
+For more examples, please have a look at the `Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
 
 
 Contacting Us
