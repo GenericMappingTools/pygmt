@@ -118,11 +118,11 @@ def test_accessor_grid_source_file_not_exist():
     assert grid.gmt.registration == 1
     assert grid.gmt.gtype == 1
     # the source grid file is defined but doesn't exists
-    assert len(grid.encoding["source"]) > 0
+    assert grid.encoding["source"].endswith(".nc")
     assert not Path(grid.encoding["source"]).exists()
 
     # For a sliced grid, fallback to default registration and gtype,
-    # because the source grid file doesn't exists.
+    # because the source grid file doesn't exist.
     sliced_grid = grid[1:3, 1:3]
     assert sliced_grid.gmt.registration == 0
     assert sliced_grid.gmt.gtype == 0
