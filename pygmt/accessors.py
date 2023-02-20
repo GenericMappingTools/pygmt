@@ -31,7 +31,7 @@ class GMTDataArrayAccessor:
 
     Due to the limitations of xarray accessors, the GMT accessors are created
     once per :class:`xarray.DataArray` instance. You may lose these
-    GMT-specific properties when manipulating grids (e.g., arithmetic, slice
+    GMT-specific properties when manipulating grids (e.g., arithmetic and slice
     operations) or when accessing a :class:`xarray.DataArray` from a
     :class:`xarray.Dataset`. In these cases, you need to manually set these
     properties beforing passing it to PyGMT.
@@ -39,7 +39,8 @@ class GMTDataArrayAccessor:
     Examples
     --------
 
-    You can access these GMT specific properties about your grid as follows:
+    For GMT's built-in remote datasets, these GMT-specific properties are
+    automatically determined and you can access them as follows:
 
     >>> from pygmt.datasets import load_earth_relief
     >>> # Use the global Earth relief grid with 1 degree spacing
@@ -51,7 +52,10 @@ class GMTDataArrayAccessor:
     >>> grid.gmt.gtype
     1
 
-    You can also set the GMT specific properties for grids created by yourself:
+    For :class:`xarray.DataArray` grids created by yourself, grid properties
+    ``registration`` and ``gtype`` default to 0 (i.e., a Cartesian
+    gridline-registrated grid). You need to set the correct properties before
+    passing it to PyGMT functions:
 
     >>> import numpy as np
     >>> import pygmt
