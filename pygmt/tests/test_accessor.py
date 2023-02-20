@@ -108,7 +108,7 @@ def test_accessor_sliced_datacube():
 def test_accessor_grid_source_file_not_exist():
     """
     Check that the accessor fallbacks to the default registration and gtype
-    when the grid source file (i.e., grid.encoding["source"]) doesn't exists.
+    when the grid source file (i.e., grid.encoding["source"]) doesn't exist.
     """
     # load the 05m earth relief grid, which is stored as tiles
     grid = load_earth_relief(
@@ -117,7 +117,7 @@ def test_accessor_grid_source_file_not_exist():
     # registration and gtype are correct
     assert grid.gmt.registration == 1
     assert grid.gmt.gtype == 1
-    # the source grid file is defined but doesn't exists
+    # the source grid file is defined but doesn't exist
     assert grid.encoding["source"].endswith(".nc")
     assert not Path(grid.encoding["source"]).exists()
 
