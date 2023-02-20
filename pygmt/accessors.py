@@ -52,20 +52,22 @@ class GMTDataArrayAccessor:
 
     def __init__(self, xarray_obj):
         self._obj = xarray_obj
-        try:
-            self._source = self._obj.encoding["source"]  # filepath to NetCDF source
-            if not Path(self._source).exists():
-                raise FileNotFoundError(
-                    f"Grid source file {self._source} doesn't exist."
+
+        self._source = self._obj.encoding.get("source")
+        if self._source is not None and Path(self._source).exists():
+            try:
+                # Get grid registration and grid type from the last two columns of
+                # the shortened summary information of `grdinfo`.
+                self._registration, self._gtype = map(
+                    int, grdinfo(self._source, per_column="n").split()[-2:]
                 )
-            # Get grid registration and grid type from the last two columns of
-            # the shortened summary information of `grdinfo`.
-            self._registration, self._gtype = map(
-                int, grdinfo(self._source, per_column="n").split()[-2:]
-            )
-        except (KeyError, ValueError, FileNotFoundError):
+            except ValueError:
+                self._registration = 0  # Default to Gridline registration
+                self._gtype = 0  # Default to Cartesian grid type
+        else:
             self._registration = 0  # Default to Gridline registration
             self._gtype = 0  # Default to Cartesian grid type
+        del self._source
 
     @property
     def registration(self):
