@@ -116,6 +116,7 @@ class GMTDataArrayAccessor:
     >>> ds.zval.gmt.registration, ds.zval.gmt.gtype
     (0, 0)
     >>> # the workaround is to assign the DataArray into a variable
+    >>> zval = ds.zval
     >>> zval.gmt.registration, zval.gmt.gtype
     (0, 0)
     >>> zval.gmt.registration, zval.gmt.gtype = 0, 1
