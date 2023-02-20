@@ -26,9 +26,9 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="terra", series=[-7000, 7000])
 
 # Define figure configuration
-pygmt.config(FONT_TITLE="15p,5", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
+pygmt.config(FONT_TITLE="15p", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
 
-# Setup subplots with 3x4 panels
+# Setup subplot panels with three rows and four columns
 with fig.subplot(
     nrows=3, ncols=4, figsize=("24c", "21c"), sharex="b", sharey="l", margins="-1c"
 ):
@@ -41,10 +41,10 @@ with fig.subplot(
         for j, nor in enumerate(["2t", "2e", "10t", "10e"]):
             index = i * 4 + j
 
-            # making a intensity file with azimuth and normalize parameters
+            # making an intensity DataArray using azimuth and normalize parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
-            title = f"A={azi}, N={nor}"
+            title = f"azimuth={azi}, normalize={nor}"
 
             with fig.set_panel(panel=index):
                 fig.grdimage(
