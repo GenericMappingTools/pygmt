@@ -26,33 +26,32 @@ fig = pygmt.Figure()
 pygmt.makecpt(cmap="terra", series=[-7000, 7000])
 
 # Define figure configuration
-pygmt.config(FONT_TITLE="15p", MAP_TITLE_OFFSET="10p", MAP_FRAME_TYPE="plain")
+pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")
 
 # Setup subplot panels with three rows and four columns
 with fig.subplot(
-    nrows=3, ncols=4, figsize=("24c", "21c"), sharex="b", sharey="l", margins="-1c"
+    nrows=3, ncols=4, figsize=("24c", "21c"), margins=["-1c", "-1c"], sharex="b", sharey="l",
 ):
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
-    for i, azi in enumerate(["0/90", "0/180", "0/300"]):
-        # `amp` controls the brightness value of the color
+    for azi in ["0/90", "0/180", "0/300"]:
+        # `amp` (e.g. 2 or 10) controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
-        for j, nor in enumerate(["2t", "2e", "10t", "10e"]):
-            index = i * 4 + j
+        for nor in ["2t", "2e", "10t", "10e"]:
 
             # making an intensity DataArray using azimuth and normalize parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
             title = f"azimuth={azi}, normalize={nor}"
-
-            with fig.set_panel(panel=index):
-                fig.grdimage(
-                    grid=grid,
-                    shading=shade,
-                    projection="M5c",
-                    frame=[f'+t"{title}"', "a4f2"],
-                    cmap=True,
-                )
+            
+            fig.grdimage(
+                grid=grid,
+                shading=shade,
+                projection="M5c",
+                frame=["a4f2", f'+t"{title}"'],
+                cmap=True,
+                panel=True
+            )
 
 fig.show()
