@@ -80,12 +80,18 @@ class GMTDataArrayAccessor:
 
     Note that the accessors are created once per :class:`xarray.DataArray`
     instance, so you may lose these GMT-specific properties after manipulating
-    grids:
+    your grid.
+
+
+    Inplace assignment operators like ``*=* don't create new instances, so the
+    properties are still kept:
 
     >>> grid *= 2.0
-    >>> # no new instance is created. The properties are kept
     >>> grid.gmt.registration, grid.gmt.gtype
     (0, 1)
+
+    Other grid operations (e.g., arithmetic or slice operations) create new
+    instances, so the properties will be lost:
 
     >>> # grid2 is a slice of the original grid
     >>> grid2 = grid[0:30, 50:80]
@@ -96,6 +102,24 @@ class GMTDataArrayAccessor:
     >>> grid2.gmt.registration = grid.gmt.registration
     >>> grid2.gmt.gtype = grid.gmt.gtype
     >>> grid2.gmt.registration, grid2.gmt.gtype
+    (0, 1)
+
+    Accesing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always
+    creates new instances, so these properties are always lost:
+
+    >>> ds = xr.Dataset({"zval": grid})
+    >>> ds.zval.gmt.registration, ds.zval.gmt.gtype
+    (0, 0)
+    >>> # manually set these properties won't work as expected
+    >>> ds.zval.gmt.registration = 0
+    >>> ds.zval.gmt.gtype = 1
+    >>> ds.zval.gmt.registration, ds.zval.gmt.gtype
+    (0, 0)
+    >>> # the workaround is to assign the DataArray into a variable
+    >>> zval.gmt.registration, zval.gmt.gtype
+    (0, 0)
+    >>> zval.gmt.registration, zval.gmt.gtype = 0, 1
+    >>> zval.gmt.registration, zval.gmt.gtype
     (0, 1)
     """
 
