@@ -30,7 +30,12 @@ pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")
 
 # Setup subplot panels with three rows and four columns
 with fig.subplot(
-    nrows=3, ncols=4, figsize=("24c", "21c"), margins=["-1c", "-1c"], sharex="b", sharey="l",
+    nrows=3,
+    ncols=4,
+    figsize=("24c", "21c"),
+    margins=["-1c", "-1c"],
+    sharex="b",
+    sharey="l",
 ):
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
@@ -39,19 +44,18 @@ with fig.subplot(
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for nor in ["2t", "2e", "10t", "10e"]:
-
             # making an intensity DataArray using azimuth and normalize parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
             title = f"azimuth={azi}, normalize={nor}"
-            
+
             fig.grdimage(
                 grid=grid,
                 shading=shade,
                 projection="M5c",
                 frame=["a4f2", f'+t"{title}"'],
                 cmap=True,
-                panel=True
+                panel=True,
             )
 
 fig.show()
