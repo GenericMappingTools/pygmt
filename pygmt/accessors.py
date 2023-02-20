@@ -56,8 +56,8 @@ class GMTDataArrayAccessor:
         self._source = self._obj.encoding.get("source")
         if self._source is not None and Path(self._source).exists():
             try:
-                # Get grid registration and grid type from the last two columns of
-                # the shortened summary information of `grdinfo`.
+                # Get grid registration and grid type from the last two columns
+                # of the shortened summary information of `grdinfo`.
                 self._registration, self._gtype = map(
                     int, grdinfo(self._source, per_column="n").split()[-2:]
                 )
