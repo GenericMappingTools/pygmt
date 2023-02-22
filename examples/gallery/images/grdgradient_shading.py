@@ -17,8 +17,8 @@ import pygmt
 # Define region of interest around Caucasus
 region = [35, 50, 35, 45]
 
-# Load sample grid (1 arc-minutes global relief) in target area
-grid = pygmt.datasets.load_earth_relief(resolution="01m", region=region)
+# Load sample grid (4 arc-minutes global relief) in target area
+grid = pygmt.datasets.load_earth_relief(resolution="04m", region=region)
 
 fig = pygmt.Figure()
 
