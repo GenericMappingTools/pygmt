@@ -1,6 +1,6 @@
 """
-Calculating grid gradient, azimuth, and normalize
---------------------------------------
+Calculating grid gradient with customized ``azimuth`` and ``normalize parameters
+--------------------------------------------------------------------------------
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 As input :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
 a path string to a grid file, calculates the respective gradient and returns
