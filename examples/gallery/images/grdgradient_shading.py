@@ -1,5 +1,5 @@
 """
-Calculating grid gradient with customized ``azimuth`` and ``normalize parameters
+Calculating grid gradient with customized ``azimuth`` and ``normalize`` parameters
 --------------------------------------------------------------------------------
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 As input :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
@@ -17,8 +17,8 @@ import pygmt
 # Define region of interest around Caucasus
 region = [35, 50, 35, 45]
 
-# Load sample grid (4 arc-minutes global relief) in target area
-grid = pygmt.datasets.load_earth_relief(resolution="04m", region=region)
+# Load sample grid (3 arc-minutes global relief) in target area
+grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 fig = pygmt.Figure()
 
@@ -44,7 +44,8 @@ with fig.subplot(
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for nor in ["2t", "2e", "10t", "10e"]:
-            # making an intensity DataArray using azimuth and normalize parameters
+            # making an intensity DataArray using azimuth and normalize 
+            # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
             title = f"azimuth={azi}, normalize={nor}"
