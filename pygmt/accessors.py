@@ -34,7 +34,7 @@ class GMTDataArrayAccessor:
     GMT-specific properties when manipulating grids (e.g., arithmetic and slice
     operations) or when accessing a :class:`xarray.DataArray` from a
     :class:`xarray.Dataset`. In these cases, you need to manually set these
-    properties beforing passing it to PyGMT.
+    properties before passing the grid to PyGMT.
 
     Examples
     --------
@@ -53,8 +53,8 @@ class GMTDataArrayAccessor:
     1
 
     For :class:`xarray.DataArray` grids created by yourself, grid properties
-    ``registration`` and ``gtype`` default to 0 (i.e., a Cartesian
-    gridline-registrated grid). You need to set the correct properties before
+    ``registration`` and ``gtype`` default to 0 (i.e., a gridline-registered,
+    Cartesian grid). You need to set the correct properties before
     passing it to PyGMT functions:
 
     >>> import numpy as np
