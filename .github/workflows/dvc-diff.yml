@@ -22,7 +22,7 @@ jobs:
       uses: iterative/setup-dvc@v1.1.1
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.1
+      uses: iterative/setup-cml@v1.2.2
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
@@ -87,12 +87,10 @@ jobs:
         # Mention git commit SHA in the report
         echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
 
-        # Format report to escape newlines before publishing as GitHub comment
-        report=$(cat report.md)
-        report="${report//'%'/'%25'}"
-        report="${report//$'\n'/'%0A'}"
-        report="${report//$'\r'/'%0D'}"
-        echo "report=$report" >> $GITHUB_OUTPUT
+        # Save the report content to the output parameter 'report'
+        echo 'report<<EOF' >> $GITHUB_OUTPUT
+        cat report.md >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
 
     - name: Find comment with image diff report
       uses: peter-evans/find-comment@v2.2.1
