@@ -80,14 +80,14 @@ def grdinfo(grid, **kwargs):
     force_scan : int or str
         **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**.
 
-        - **0**\ : Report range of z after actually scanning the data, not just
+        - **0**: Report range of z after actually scanning the data, not just
           reporting what the header says.
-        - **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median
+        - **1**: Report median and L1 scale of z (L1 scale = 1.4826 * Median
           Absolute Deviation (MAD)).
-        - **2**\ : Report mean, standard deviation, and root-mean-square (rms)
+        - **2**: Report mean, standard deviation, and root-mean-square (rms)
           of z.
-        - **p**\ : Report mode (LMS) and LMS scale of z.
-        - **a**\ : Include all of the above.
+        - **p**: Report mode (LMS) and LMS scale of z.
+        - **a**: Include all of the above.
     minxmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
         z-values.
@@ -99,7 +99,7 @@ def grdinfo(grid, **kwargs):
         set the *alpha* value (in percent): We then sort the grid, exclude the
         data in the 0.5*\ *alpha* and 100 - 0.5*\ *alpha* tails, and revise
         the min and max. To force a symmetrical range about zero, using
-        minus/plus the max absolute value of the two extremes, append **+s**\ .
+        minus/plus the max absolute value of the two extremes, append **+s**.
         We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :func:`pygmt.makecpt`.
     {verbose}
