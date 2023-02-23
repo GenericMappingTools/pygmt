@@ -88,7 +88,7 @@ def grdinfo(grid, **kwargs):
           of z.
         - **p**: Report mode (LMS) and LMS scale of z.
         - **a**: Include all of the above.
-    minxmax_pos : bool
+    minmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
         z-values.
     nearest_multiple : str
