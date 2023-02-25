@@ -3,6 +3,7 @@ ternary - Plot data on ternary diagrams.
 """
 import pandas as pd
 from packaging.version import Version
+from pygmt import __gmt_version__
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -25,6 +26,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     r"""
+    Plot ternary diagrams.
+
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
     size given, then we will interpret the fourth column of the input data as
@@ -80,13 +83,12 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         clabel = str(clabel) if clabel is not None else "-"
         kwargs["L"] = "/".join([alabel, blabel, clabel])
 
+    # Patch for GMT < 6.5.0.
+    # See https://github.com/GenericMappingTools/pygmt/pull/2138
+    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
+        data = data.to_numpy()
+
     with Session() as lib:
-        # Patch for GMT < 6.5.0.
-        # See https://github.com/GenericMappingTools/pygmt/pull/2138
-        if Version(lib.info["version"]) < Version("6.5.0") and isinstance(
-            data, pd.DataFrame
-        ):
-            data = data.to_numpy()
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:
             lib.call_module(

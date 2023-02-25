@@ -207,7 +207,7 @@ class config:  # pylint: disable=invalid-name
     def __exit__(self, exc_type, exc_value, traceback):
         # revert to initial values
         arg_str = " ".join(
-            [f"{key}={value}" for key, value in self.old_defaults.items()]
+            [f'{key}="{value}"' for key, value in self.old_defaults.items()]
         )
         with Session() as lib:
             lib.call_module(module="set", args=arg_str)

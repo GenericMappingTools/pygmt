@@ -19,7 +19,7 @@ def fixture_dataframe():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
+        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
     )[:10]
 
 
@@ -54,7 +54,7 @@ def fixture_expected_grid():
     """
     return xr.DataArray(
         data=[[779.6264, 752.1539, 749.38776], [771.2882, 726.9792, 722.1368]],
-        coords=dict(y=[5, 6], x=[2, 3, 4]),
+        coords={"y": [5, 6], "x": [2, 3, 4]},
         dims=["y", "x"],
     )
 

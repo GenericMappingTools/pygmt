@@ -51,7 +51,7 @@ def fixture_dataframe():
     Load a pandas DataFrame with points.
     """
     return pd.read_csv(
-        POINTS_DATA, sep=r"\s+", header=None, names=["longitude", "latitude"]
+        POINTS_DATA, delim_whitespace=True, header=None, names=["longitude", "latitude"]
     )
 
 
