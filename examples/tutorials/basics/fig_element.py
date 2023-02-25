@@ -2,9 +2,7 @@
 Figure elements
 =================================
 
-Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
-parameter that most plotting methods of the :class:`pygmt.Figure` class
-contain.
+TODO
 """
 
 import pygmt
@@ -15,15 +13,15 @@ fig = pygmt.Figure()
 x = range(0, 11, 2)
 y_1 = [10, 11, 15, 8, 9, 13]
 
-fig.plot(
-    region=[0, 10, 0, 20],
+fig.basemap(
+    region=[0, 10, 0, 20], 
     projection="X10c/8c",
-    frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
+    frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"])
+fig.plot(
     x=x,
     y=y_1,
     style="t0.3c",
-    # fill="darkorange",
-    label="fig.plot(style)",
+    label="fig.plot(style)"
 )
 y_2 = [4, 5, 6, 3, 5, 5]
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot(pen)")
@@ -70,7 +68,7 @@ fig.text(x=2, y=17.5, text='frame="xg2"', font="10p,8", justify="BC")
 # ============map boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(
-    x=10.2, y=8, text="Map\nBoundary", font="12p,2,darkblue", justify="BL", no_clip=True
+    x=10.2, y=8, text="Map Boundary", font="12p,2,darkblue", justify="BL", no_clip=True
 )
 fig.text(x=10.2, y=7, text='frame="WSne"', font="10p,8", justify="BL", no_clip=True)
 # ============fig.plot
