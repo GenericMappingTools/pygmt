@@ -11,10 +11,10 @@ except ImportError:
 import numpy as np
 import xarray as xr
 
-__doctest_requires__ = {("load_map_tiles"): ["contextily"]}
+__doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
-def load_map_tiles(region, source=None, lonlat=True, **kwargs):
+def load_tile_map(region, source=None, lonlat=True, **kwargs):
     """
     Load a georeferenced raster basemap from XYZ tile providers.
 
@@ -71,8 +71,8 @@ def load_map_tiles(region, source=None, lonlat=True, **kwargs):
     Examples
     --------
     >>> import contextily
-    >>> from pygmt.datasets import load_map_tiles
-    >>> raster = load_map_tiles(
+    >>> from pygmt.datasets import load_tile_map
+    >>> raster = load_tile_map(
     ...     region=[103.60, 104.06, 1.22, 1.49],  # West, East, South, North
     ...     source=contextily.providers.Stamen.TerrainBackground,
     ...     lonlat=True,  # bounding box coordinates are longitude/latitude
