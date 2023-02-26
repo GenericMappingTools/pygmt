@@ -54,9 +54,14 @@ def load_earth_age(resolution="01d", region=None, registration=None):
 
     Note
     ----
-    The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
-    which are stored as smaller tiles.
+
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grids can be accessed by the GMT accessors
+    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
+    However, these properties may be lost after specific grid operations and
+    need to be set manually before further passed to PyGMT functions.
+    Refer to :class:pygmt.GMTDataArrayAccessor for detailed explanations and
+    workarounds.
 
     Examples
     --------
