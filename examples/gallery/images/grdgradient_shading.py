@@ -44,7 +44,7 @@ with fig.subplot(
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for nor in ["2t", "2e", "10t", "10e"]:
-            # making an intensity DataArray using azimuth and normalize 
+            # making an intensity DataArray using azimuth and normalize
             # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
 
