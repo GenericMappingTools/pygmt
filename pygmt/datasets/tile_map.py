@@ -105,11 +105,11 @@ def load_tile_map(region, source=None, lonlat=True, **kwargs):
     # Georeference RGB image into an xarray.DataArray
     dataarray = xr.DataArray(
         data=rgb_image,
-        coords=dict(
-            band=[0, 1, 2],  # Red, Green, Blue
-            y=np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
-            x=np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
-        ),
+        coords={
+            "band": [0, 1, 2],  # Red, Green, Blue
+            "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
+            "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
+        },
         dims=("band", "y", "x"),
     )
 
