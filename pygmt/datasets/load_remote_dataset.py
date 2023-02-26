@@ -22,7 +22,7 @@ class Resolution(NamedTuple):
 
     tiled : bool
         States if the given resolution is tiled, which requires an
-        argument for ``region``."
+        argument for ``region``.
     """
 
     registrations: list
@@ -257,8 +257,8 @@ def _load_remote_dataset(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        a gridline-registered grid is returned unless only the
+        pixel-registered grid is available.
 
     Returns
     -------
@@ -270,19 +270,26 @@ def _load_remote_dataset(
     The returned :class:`xarray.DataArray` doesn't support slice operation for
     tiled grids.
     """
-    # pylint: disable=too-many-branches
     dataset = datasets[dataset_name]
+
+    # check resolution
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+
+    # check registration
     if registration is None:
-        # Check if "gridline" is an available registration for the resolution
-        if "gridline" in dataset.resolutions[resolution].registrations:
-            # Use default of gridline registration if available
-            registration = "gridline"
-        else:
+        # use gridline registration unless only pixel registration is available
+        registration = "gridline"
+        if "gridline" not in dataset.resolutions[resolution].registrations:
             registration = "pixel"
-    if registration in ("pixel", "gridline"):
-        reg = f"_{registration[0]}"
+    elif registration in ("pixel", "gridline"):
+        if registration not in dataset.resolutions[resolution].registrations:
+            raise GMTInvalidInput(
+                f"{registration} registration is not available for the "
+                f"{resolution} {dataset.title} dataset. Only "
+                f"{dataset.resolutions[resolution].registrations[0]}"
+                " registration is available."
+            )
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: '{registration}', should be either "
@@ -290,16 +297,7 @@ def _load_remote_dataset(
             "gridline-registered grid is returned unless only the "
             "pixel-registered grid is available."
         )
-
-    if registration and (
-        registration not in dataset.resolutions[resolution].registrations
-    ):
-        raise GMTInvalidInput(
-            f"{registration} registration is not available for the "
-            f"{resolution} {dataset.title} dataset. Only "
-            f"{dataset.resolutions[resolution].registrations[0]}"
-            " registration is available."
-        )
+    reg = f"_{registration[0]}"
 
     # different ways to load tiled and non-tiled grids.
     # Known issue: tiled grids don't support slice operation
@@ -307,8 +305,7 @@ def _load_remote_dataset(
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.title}"
-                f"resolution '{resolution}'."
+                f"'region' is required for {dataset.title} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")

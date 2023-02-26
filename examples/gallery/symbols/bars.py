@@ -33,7 +33,6 @@ with fig.subplot(
     sharex=True,
     margins=["0.5c", "0.75c"],
 ):
-
     pen = "1.5p"
     with fig.set_panel(panel=0):
         fill = "skyblue"

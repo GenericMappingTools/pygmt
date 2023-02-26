@@ -4,7 +4,7 @@ Test basic functionality for loading sample datasets.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt.datasets import load_mars_shape, load_sample_data
+from pygmt.datasets import list_sample_data, load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -14,6 +14,13 @@ def test_load_sample_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         load_sample_data(name="bad.filename")
+
+
+def test_list_sample_data():
+    """
+    Check that the list_sample_data function returns a dictionary.
+    """
+    assert isinstance(list_sample_data(), dict)
 
 
 def test_japan_quakes():
@@ -128,16 +135,14 @@ def test_mars_shape():
     """
     Check that the @mars370d.txt dataset loads without errors.
     """
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        data = load_mars_shape()
-        assert len(record) == 1
+    data = load_sample_data(name="mars_shape")
     assert data.shape == (370, 3)
     assert data["longitude"].min() == 0.008
     assert data["longitude"].max() == 359.983
     assert data["latitude"].min() == -79.715
     assert data["latitude"].max() == 85.887
-    assert data["radius(m)"].min() == -6930
-    assert data["radius(m)"].max() == 15001
+    assert data["radius_m"].min() == -6930
+    assert data["radius_m"].max() == 15001
 
 
 def test_hotspots():

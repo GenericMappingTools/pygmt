@@ -14,4 +14,4 @@ from pygmt.datasets.earth_vertical_gravity_gradient import (
     load_earth_vertical_gravity_gradient,
 )
 from pygmt.datasets.map_tiles import load_map_tiles
-from pygmt.datasets.samples import list_sample_data, load_mars_shape, load_sample_data
+from pygmt.datasets.samples import list_sample_data, load_sample_data
