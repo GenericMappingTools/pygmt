@@ -60,7 +60,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
     However, these properties may be lost after specific grid operations and
     need to be set manually before further passed to PyGMT functions.
-    Refer to :class:pygmt.GMTDataArrayAccessor for detailed explanations and
+    Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
     workarounds.
 
     Examples
