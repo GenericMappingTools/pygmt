@@ -14,7 +14,7 @@ import xarray as xr
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
-def load_tile_map(region, source=None, lonlat=True, **kwargs):
+def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2):
     """
     Load a georeferenced raster basemap from XYZ tile providers.
 
@@ -28,6 +28,9 @@ def load_tile_map(region, source=None, lonlat=True, **kwargs):
         The bounding box of the map in the form of a list [*xmin*, *xmax*,
         *ymin*, *ymax*]. These coordinates should be in longitude/latitude if
         ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.
+
+    zoom : int
+        Optional. Level of detail. [Default is 'auto'].
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
@@ -85,6 +88,7 @@ def load_tile_map(region, source=None, lonlat=True, **kwargs):
       * y        (y) float64 1.663e+05 1.663e+05 1.663e+05 ... 1.272e+05 ...
       * x        (x) float64 1.153e+07 1.153e+07 1.153e+07 ... 1.158e+07 ...
     """
+    # pylint: disable=too-many-locals
     if contextily is None:
         raise ModuleNotFoundError(
             "Package `contextily` is required to be installed to use this function. "
@@ -95,7 +99,15 @@ def load_tile_map(region, source=None, lonlat=True, **kwargs):
 
     west, east, south, north = region
     image, (left, right, bottom, top) = contextily.bounds2img(
-        w=west, s=south, e=east, n=north, source=source, ll=lonlat, **kwargs
+        w=west,
+        s=south,
+        e=east,
+        n=north,
+        zoom=zoom,
+        source=source,
+        ll=lonlat,
+        wait=wait,
+        max_retries=max_retries,
     )
 
     # Turn RGBA image from channel-last (H, W, C) to channel-first (C, H, W)
