@@ -98,7 +98,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         )
 
     west, east, south, north = region
-    image, (left, right, bottom, top) = contextily.bounds2img(
+    image, extent = contextily.bounds2img(
         w=west,
         s=south,
         e=east,
@@ -110,11 +110,12 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         max_retries=max_retries,
     )
 
-    # Turn RGBA image from channel-last (H, W, C) to channel-first (C, H, W)
-    # and get just RGB (3 band) by dropping RGBA's alpha channel
-    rgb_image = image.transpose(2, 0, 1)[0:3, :, :]
+    # Turn RGBA image from channel-last to channel-first and get 3band RGB only
+    _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
+    rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
 
     # Georeference RGB image into an xarray.DataArray
+    left, right, bottom, top = extent
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
