@@ -66,11 +66,11 @@ Which Python?
 
 PyGMT is tested to run on **Python 3.8 or greater**.
 
-We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
+We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
 Python distribution to ensure you have all dependencies installed and the
-`conda <https://docs.conda.io/projects/conda/en/latest/>`__
-package manager is available. Installing Anaconda does not require administrative
-rights to your computer and doesn't interfere with any other Python
+`mamba <https://mamba.readthedocs.io/en/stable/user_guide/mamba.html>`__
+package manager in the base environment. Installing Mambaforge does not require
+administrative rights to your computer and doesn't interfere with any other Python
 installations on your system.
 
 
@@ -112,7 +112,7 @@ Installing GMT and other dependencies
 -------------------------------------
 
 Before installing PyGMT, we must install GMT itself along with the other
-dependencies. The easiest way to do this is via the ``conda`` package manager.
+dependencies. The easiest way to do this is via the ``mamba`` or ``conda`` package manager.
 We recommend working in an isolated
 `conda environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
 to avoid issues with conflicting versions of dependencies.
@@ -272,7 +272,7 @@ For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 `instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
 and set its value to a path like::
 
-    C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\
+    C:\Users\USERNAME\Mambaforge\envs\pygmt\Library\bin\
 
 Notes for Jupyter users
 -----------------------
