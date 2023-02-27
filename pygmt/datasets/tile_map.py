@@ -1,5 +1,5 @@
 """
-Function to load raster basemap tiles from XYZ tile providers, and load as
+Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
@@ -16,7 +16,7 @@ __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2):
     """
-    Load a georeferenced raster basemap from XYZ tile providers.
+    Load a georeferenced raster tile map from XYZ tile providers.
 
     The tiles that compose the map are merged and georeferenced into an
     :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned
@@ -45,7 +45,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     lonlat : bool
         Optional. If False, coordinates in ``region`` are assumed to be
-        Spherical Mercator as opposed to lon/lat. [Default is True].
+        Spherical Mercator as opposed to longitude/latitude. [Default is True].
 
     wait : int
         Optional. If the tile API is rate-limited, the number of seconds to
@@ -56,13 +56,10 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         will stop trying to fetch more tiles from a rate-limited API. [Default
         is 2].
 
-    kwargs : dict
-        Extra keyword arguments to pass to :func:`contextily.bounds2img`.
-
     Returns
     -------
     raster : xarray.DataArray
-        Georefenced 3D data array of RGB value.
+        Georefenced 3-D data array of RGB value.
 
     Raises
     ------
@@ -110,7 +107,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         max_retries=max_retries,
     )
 
-    # Turn RGBA image from channel-last to channel-first and get 3band RGB only
+    # Turn RGBA image from channel-last to channel-first and get 3-band RGB only
     _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
     rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
 
