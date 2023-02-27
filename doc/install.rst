@@ -7,19 +7,12 @@ Quickstart
 ----------
 
 The fastest way to install PyGMT is with the
+`mamba <https://mamba.readthedocs.io/en/latest/>`__ or
 `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
-or `mamba <https://mamba.readthedocs.io/en/latest/>`__
 package manager which takes care of setting up a virtual environment, as well
 as the installation of GMT and all the dependencies PyGMT depends on:
 
 .. tab-set::
-
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda create --name pygmt --channel conda-forge pygmt
 
     .. tab-item:: mamba
         :sync: mamba
@@ -28,16 +21,16 @@ as the installation of GMT and all the dependencies PyGMT depends on:
 
             mamba create --name pygmt --channel conda-forge pygmt
 
-To activate the virtual environment, you can do:
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda activate pygmt
+            conda create --name pygmt --channel conda-forge pygmt
+
+To activate the virtual environment, you can do:
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -45,6 +38,13 @@ To activate the virtual environment, you can do:
         ::
 
             mamba activate pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
 
 After this, check that everything works by running the following in a Python
 interpreter (e.g., in a Jupyter notebook)::
@@ -128,13 +128,6 @@ want):
 
 .. tab-set::
 
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
-
     .. tab-item:: mamba
         :sync: mamba
 
@@ -142,16 +135,16 @@ want):
 
             mamba create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
 
-Activate the environment by running the following (**do not forget this step!**):
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda activate pygmt
+            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+Activate the environment by running the following (**do not forget this step!**):
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -159,6 +152,13 @@ Activate the environment by running the following (**do not forget this step!**)
         ::
 
             mamba activate pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
 
 From now on, all commands will take place inside the conda virtual environment
 called ``pygmt`` and won't affect your default ``base`` installation.
@@ -178,13 +178,6 @@ This installs the latest stable release of PyGMT from
 
 .. tab-set::
 
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda install pygmt
-
     .. tab-item:: mamba
         :sync: mamba
 
@@ -192,16 +185,16 @@ This installs the latest stable release of PyGMT from
 
             mamba install pygmt
 
-This upgrades the installed PyGMT version to be the latest stable release:
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda update pygmt
+            conda install pygmt
+
+This upgrades the installed PyGMT version to be the latest stable release:
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -209,6 +202,13 @@ This upgrades the installed PyGMT version to be the latest stable release:
         ::
 
             mamba update pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda update pygmt
 
 Using pip
 ~~~~~~~~~
