@@ -107,7 +107,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         max_retries=max_retries,
     )
 
-    # Turn RGBA image from channel-last to channel-first and get 3-band RGB only
+    # Turn RGBA img from channel-last to channel-first and get 3-band RGB only
     _image = image.transpose(2, 0, 1)  # Change image from (H, W, C) to (C, H, W)
     rgb_image = _image[0:3, :, :]  # Get just RGB by dropping RGBA's alpha channel
 
