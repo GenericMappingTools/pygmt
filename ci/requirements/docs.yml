@@ -12,6 +12,7 @@ dependencies:
     - netCDF4
     - packaging
     # Optional dependencies
+    - contextily
     - geopandas
     # Development dependencies (general)
     - build
