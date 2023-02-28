@@ -56,7 +56,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ----
 
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grids can be accessed by the GMT accessors
+    :class:`xarray.DataArray` grids can be accessed via the GMT accessors
     (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
     However, these properties may be lost after specific grid operations and
     need to be set manually before passing the grid further to PyGMT functions.
