@@ -3,10 +3,7 @@ Tests for Figure.timestamp.
 """
 import pytest
 from packaging.version import Version
-from pygmt import Figure, clib
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
+from pygmt import Figure, __gmt_version__, clib
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -76,7 +73,7 @@ def test_timestamp_font(faketime):
 
 
 @pytest.mark.skipif(
-    gmt_version < Version("6.5.0"),
+    Version(__gmt_version__) < Version("6.5.0"),
     reason="The 'text' parameter requires GMT>=6.5.0",
 )
 @pytest.mark.mpl_image_compare(filename="test_timestamp.png")
