@@ -16,7 +16,7 @@ def timestamp(
     label=None,
     justification="BL",
     offset=("-54p", "-54p"),
-    font="Helvetica",
+    font="Helvetica,black",
     timefmt="%Y %b %d %H:%M:%S",
 ):
     r"""
@@ -42,13 +42,12 @@ def timestamp(
         If a single value *offset* is given, *offset_y* = *offset_x* =
         *offset*.
     font : str
-        Font of the timestamp and the optional label.
-        For GMT<=6.4.0, the parameter can only change the font style.
-        For GMT>=6.5.0, the parameter can change the font style and font color.
+        Font of the timestamp and the optional label. The parameter can't
+        change the font color for GMT<=6.4.0.
     timefmt : str
-        Format of the time information in the UNIX timestamp. This format is
-        parsed by the C function ``strftime``, so that virtually any text can
-        be used (even not containing any time information).
+        Format string for the UNIX timestamp. The format string is parsed by
+        the C function ``strftime``, so that virtually any text can be used
+        (even not containing any time information).
 
     Examples
     --------
