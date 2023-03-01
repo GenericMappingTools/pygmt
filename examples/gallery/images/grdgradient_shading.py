@@ -1,6 +1,6 @@
 """
 Calculating grid gradient with customized ``azimuth`` and ``normalize`` parameters
---------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 As input :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
 a path string to a grid file, calculates the respective gradient and returns
@@ -47,14 +47,11 @@ with fig.subplot(
             # making an intensity DataArray using azimuth and normalize
             # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
-
-            title = f"azimuth={azi}, normalize={nor}"
-
             fig.grdimage(
                 grid=grid,
                 shading=shade,
                 projection="M5c",
-                frame=["a4f2", f'+t"{title}"'],
+                frame=["a4f2", f"+tazimuth={azi}, normalize={nor}"],
                 cmap=True,
                 panel=True,
             )
