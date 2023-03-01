@@ -3,7 +3,7 @@ Tests for Figure.timestamp.
 """
 import pytest
 from packaging.version import Version
-from pygmt import Figure, __gmt_version__, clib
+from pygmt import Figure, __gmt_version__
 
 
 @pytest.fixture(scope="module", name="faketime")
