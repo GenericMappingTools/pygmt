@@ -34,7 +34,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         level closer to the Earth's surface, with more tiles covering a smaller
         geographical area and thus more detail. Lower levels (e.g. ``0``) means
         a zoom level further from the Earth's surface, with less tiles covering
-        a larger geographical area and thus less detail. [Default is
+        a larger geographical area and thus less detail [Default is
         ``"auto"`` to automatically determine the zoom level based on the
         bounding box region extent].
 
