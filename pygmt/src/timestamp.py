@@ -43,7 +43,7 @@ def timestamp(
         *offset*.
     font : str
         Font of the timestamp and the optional label. The parameter can't
-        change the font color for GMT<=6.4.0.
+        change the font color for GMT<=6.4.0, only the font ID.
     timefmt : str
         Format string for the UNIX timestamp. The format string is parsed by
         the C function ``strftime``, so that virtually any text can be used
