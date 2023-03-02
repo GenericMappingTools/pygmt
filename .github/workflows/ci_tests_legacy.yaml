@@ -42,7 +42,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.3.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -65,7 +65,8 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=${{ matrix.gmt_version }} numpy \
-                        pandas xarray netCDF4 packaging geopandas \
+                        pandas xarray netCDF4 packaging \
+                        geopandas ipython \
                         build dvc make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
@@ -75,7 +76,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.2
+        uses: dawidd6/action-download-artifact@v2.25.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

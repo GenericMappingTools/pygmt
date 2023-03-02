@@ -66,7 +66,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     Parameters
     ----------
     data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
@@ -74,7 +74,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         lengths are set to unity (see ``scale="u"`` to set actual
         lengths to unity as well).
 
-    length/azimuth : float or 1d arrays
+    length/azimuth : float or 1-D arrays
         Length and azimuth values, or arrays of length and azimuth
         values
 
@@ -120,8 +120,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          [Default is no scaling].
 
     fill : str
-         Selects shade, color or pattern for filling the sectors [Default
-         is no fill].
+         Set color or pattern for filling sectors [Default is no fill].
 
     cmap : str
         Give a CPT. The *r*-value for each sector is used to look-up the

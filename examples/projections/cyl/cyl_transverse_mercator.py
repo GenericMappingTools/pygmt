@@ -9,7 +9,7 @@ infinity at 90° from center. The central meridian, each meridian 90° away from
 the center, and equator are straight lines; other parallels and meridians are
 complex curves.
 
-**t**\ *lon0/*\ [*lat0/*\ ]\ *scale* or **T**\ *lon0/*\ [*lat0/*\ ]\ *width*
+**t**\ *lon0*\ [/\ *lat0*]/\ *scale* or **T**\ *lon0*\ [/\ *lat0*]/\ *width*
 
 The projection is set with **t** or **T**. The central meridian is set
 by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the

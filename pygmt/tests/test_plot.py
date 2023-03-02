@@ -99,7 +99,7 @@ def test_plot_fail_1d_array_with_data(data, region):
     are used with matrix.
     """
     fig = Figure()
-    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
+    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
     with pytest.raises(GMTInvalidInput):
         fig.plot(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
@@ -515,6 +515,7 @@ def test_plot_shapefile():
     return fig
 
 
+@pytest.mark.mpl_image_compare
 def test_plot_dataframe_incols():
     """
     Make sure that the incols parameter works for pandas.DataFrame.
