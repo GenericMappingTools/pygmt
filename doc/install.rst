@@ -106,6 +106,7 @@ PyGMT requires the following libraries to be installed:
 The following are optional dependencies:
 
 * `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks (recommended).
+* `Contextily <https://contextily.readthedocs.io>`__: For retrieving tile maps from the internet.
 * `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 
 Installing GMT and other dependencies
