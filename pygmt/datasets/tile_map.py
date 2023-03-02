@@ -34,14 +34,24 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
-        The web tile provider can be in the form of a
-        :class:`xyzservices.TileProvider` object or a URL. The placeholders for
-        the XYZ in the URL need to be {x}, {y}, {z}, respectively. For local
-        file paths, the file is read with :doc:`rasterio <rasterio:index>` and
-        all bands are loaded into the basemap. IMPORTANT: tiles are assumed to
-        be in the Spherical Mercator projection (EPSG:3857). [Default is
-        ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
-        tiles].
+        Provide either:
+
+        - A web tile provider in the form of a
+          :class:`xyzservices.TileProvider` object. See
+          :doc:`Contextily providers <contextily:providers_deepdive>` for a
+          list of tile providers [Default is
+          ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
+          tiles].
+        - A web tile provider in the form of a URL. The placeholders for the
+          XYZ in the URL need to be {x}, {y}, {z}, respectively. E.g.
+          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
+        - A local file path. The file is read with
+          :doc:`rasterio <rasterio:index>` and all bands are loaded into the
+          basemap. See
+          :doc:`contextily:working_with_local_files`.
+
+        IMPORTANT: tiles are assumed to be in the Spherical Mercator projection
+        (EPSG:3857).
 
     lonlat : bool
         Optional. If False, coordinates in ``region`` are assumed to be
