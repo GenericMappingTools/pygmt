@@ -85,7 +85,7 @@ def timestamp(
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.
     if text is not None:
-        if Version(__gmt_version__) <= Version("6.4.0"):
+        if Version(__gmt_version__) < Version("6.5.0"):
             raise GMTInvalidInput("The parameter 'text' requires GMT>=6.5.0.")
         if len(str(text)) > 64:
             raise GMTInvalidInput(
