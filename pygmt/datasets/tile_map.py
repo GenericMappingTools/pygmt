@@ -30,16 +30,17 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.
 
     zoom : int or str
-        Optional. Level of detail. Higher levels (e.g. ``22``) means a zoom
+        Optional. Level of detail. Higher levels (e.g. ``22``) mean a zoom
         level closer to the Earth's surface, with more tiles covering a smaller
-        geographical area and thus more detail. Lower levels (e.g. ``0``) means
+        geographical area and thus more detail. Lower levels (e.g. ``0``) mean
         a zoom level further from the Earth's surface, with less tiles covering
         a larger geographical area and thus less detail [Default is
         ``"auto"`` to automatically determine the zoom level based on the
         bounding box region extent].
 
-        Note: the maximum possible zoom level may be smaller than 22, and
-        depends on what is supported by the chosen web tile provider source.
+        **Note**: The maximum possible zoom level may be smaller than ``22``,
+        and depends on what is supported by the chosen web tile provider
+        source.
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
@@ -59,21 +60,22 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
           basemap. See
           :doc:`contextily:working_with_local_files`.
 
-        IMPORTANT: tiles are assumed to be in the Spherical Mercator projection
+        IMPORTANT: Tiles are assumed to be in the Spherical Mercator projection
         (EPSG:3857).
 
     lonlat : bool
-        Optional. If False, coordinates in ``region`` are assumed to be
-        Spherical Mercator as opposed to longitude/latitude [Default is True].
+        Optional. If ``False``, coordinates in ``region`` are assumed to be
+        Spherical Mercator as opposed to longitude/latitude [Default is
+        ``True``].
 
     wait : int
         Optional. If the tile API is rate-limited, the number of seconds to
-        wait between a failed request and the next try [Default is 0].
+        wait between a failed request and the next try [Default is ``0``].
 
     max_retries : int
         Optional. Total number of rejected requests allowed before contextily
         will stop trying to fetch more tiles from a rate-limited API [Default
-        is 2].
+        is ``2``].
 
     Returns
     -------
