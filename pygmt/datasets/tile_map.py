@@ -55,21 +55,21 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     lonlat : bool
         Optional. If False, coordinates in ``region`` are assumed to be
-        Spherical Mercator as opposed to longitude/latitude. [Default is True].
+        Spherical Mercator as opposed to longitude/latitude [Default is True].
 
     wait : int
         Optional. If the tile API is rate-limited, the number of seconds to
-        wait between a failed request and the next try. [Default is 0].
+        wait between a failed request and the next try [Default is 0].
 
     max_retries : int
         Optional. Total number of rejected requests allowed before contextily
-        will stop trying to fetch more tiles from a rate-limited API. [Default
+        will stop trying to fetch more tiles from a rate-limited API [Default
         is 2].
 
     Returns
     -------
     raster : xarray.DataArray
-        Georefenced 3-D data array of RGB value.
+        Georeferenced 3-D data array of RGB values.
 
     Raises
     ------
