@@ -4,6 +4,7 @@ Test the behavior of the Figure class.
 Doesn't include the plotting commands which have their own test files.
 """
 import os
+from pathlib import Path
 
 try:
     import IPython
@@ -151,7 +152,7 @@ def test_figure_savefig_filename_with_spaces():
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(fname=imgfile.name)
         assert r"\040" not in os.path.abspath(imgfile.name)
-        assert os.path.exists(imgfile.name)
+        assert Path(imgfile.name).stat().st_size > 0
 
 
 def test_figure_savefig():
@@ -173,25 +174,54 @@ def test_figure_savefig():
 
     fname = ".".join([prefix, "png"])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt="g", crop=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == {
+        "prefix": prefix,
+        "fmt": "g",
+        "crop": True,
+        "Qt": 2,
+        "Qg": 2,
+    }
 
     fname = ".".join([prefix, "pdf"])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt="f", crop=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == {
+        "prefix": prefix,
+        "fmt": "f",
+        "crop": True,
+        "Qt": 2,
+        "Qg": 2,
+    }
 
     fname = ".".join([prefix, "png"])
     fig.savefig(fname, transparent=True)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt="G", crop=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == {
+        "prefix": prefix,
+        "fmt": "G",
+        "crop": True,
+        "Qt": 2,
+        "Qg": 2,
+    }
 
     fname = ".".join([prefix, "eps"])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(prefix=prefix, fmt="e", crop=True, Qt=2, Qg=2)
+    assert kwargs_saved[-1] == {
+        "prefix": prefix,
+        "fmt": "e",
+        "crop": True,
+        "Qt": 2,
+        "Qg": 2,
+    }
 
     fname = ".".join([prefix, "kml"])
     fig.savefig(fname)
-    assert kwargs_saved[-1] == dict(
-        prefix=prefix, fmt="g", crop=True, Qt=2, Qg=2, W="+k"
-    )
+    assert kwargs_saved[-1] == {
+        "prefix": prefix,
+        "fmt": "g",
+        "crop": True,
+        "Qt": 2,
+        "Qg": 2,
+        "W": "+k",
+    }
 
 
 @pytest.mark.skipif(IPython is None, reason="run when IPython is installed")
@@ -209,7 +239,7 @@ def test_figure_shift_origin():
     """
     Test if fig.shift_origin works.
     """
-    kwargs = dict(region=[0, 3, 0, 5], projection="X3c/5c", frame=0)
+    kwargs = {"region": [0, 3, 0, 5], "projection": "X3c/5c", "frame": 0}
     fig = Figure()
     # First call shift_origin without projection and region.
     # Test issue https://github.com/GenericMappingTools/pygmt/issues/514
@@ -263,17 +293,6 @@ def test_figure_set_display_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         set_display(method="invalid")
-
-
-def test_figure_icc_gray():
-    """
-    Check if icc_gray parameter works correctly if used.
-    """
-    fig = Figure()
-    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.warns(expected_warning=FutureWarning) as record:
-        fig.psconvert(icc_gray=True, prefix="Test")
-        assert len(record) == 1  # check that only one warning was raised
 
 
 def test_figure_deprecated_xshift_yshift():

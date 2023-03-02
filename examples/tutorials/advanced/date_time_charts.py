@@ -320,7 +320,7 @@ fig.show()
 ###############################################################################
 # The same concept shown above can be applied to smaller
 # as well as larger intervals. In this example,
-# data is plotted for different times throughout two days.
+# data are plotted for different times throughout two days.
 # Primary x-axis labels are modified to repeat every 6 hours
 # and secondary x-axis label repeats every day and shows
 # the day of the week.

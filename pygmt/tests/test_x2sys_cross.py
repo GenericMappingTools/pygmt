@@ -3,6 +3,7 @@
 Tests for x2sys_cross.
 """
 import os
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import numpy as np
@@ -48,7 +49,7 @@ def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
         )
 
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=outfile)  # check that outfile exists at path
+        assert Path(outfile).stat().st_size > 0  # check that outfile exists at path
         _ = pd.read_csv(outfile, sep="\t", header=2)  # ensure ASCII text file loads ok
 
 

@@ -41,8 +41,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or list, array, or
-    dataframe.
+    Plot Cartesian histograms.
 
     Full option list at :gmt-docs:`histogram.html`
 
@@ -51,13 +50,14 @@ def histogram(self, data, **kwargs):
     Parameters
     ----------
     data : str or list or {table-like}
-        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
     {region}
     {frame}
     {cmap}
-    {fill}
+    fill : str
+         Set color or pattern for filling bars [Default is no fill].
     {pen}
     {panel}
     annotate : bool or str

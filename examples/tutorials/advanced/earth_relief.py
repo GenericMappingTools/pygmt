@@ -11,8 +11,8 @@ plotted using the :meth:`pygmt.Figure.grdimage` method.
 import pygmt
 
 ###############################################################################
-# Load sample Earth relief data for the entire globe at a resolution of 1 arc
-# degree. The other available resolutions are show
+# Load sample Earth relief data for the entire globe at a resolution of
+# 1 arc-degree. The other available resolutions are show
 # at :gmt-datasets:`earth-relief.html`.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
@@ -87,12 +87,12 @@ fig.show()
 #
 # In addition to providing global data, the ``region`` parameter for
 # :func:`pygmt.datasets.load_earth_relief` can be used to provide data for a
-# specific area. The ``region`` parameter is required for resolutions at 5 arc
-# minutes or higher, and accepts a list (as in the example below) or a string.
-# The geographic ranges are passed as *xmin*/*xmax*/*ymin*/*ymax*.
+# specific area. The ``region`` parameter is required for resolutions at
+# 5 arc-minutes or higher, and accepts a list (as in the example below) or a
+# string. The geographic ranges are passed as *xmin*/*xmax*/*ymin*/*ymax*.
 #
-# The example below uses data with a 10 arc minute resolution, and plots it on
-# a 15 centimeter figure with a Mercator projection and a CPT set to *geo*.
+# The example below uses data with a 10 arc-minutes resolution, and plots it on
+# a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
 # ``frame="a"`` is used to add a frame to the figure.
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])

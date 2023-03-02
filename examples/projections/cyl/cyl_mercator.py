@@ -13,7 +13,7 @@ course for the entire voyage. The Mercator projection has been used extensively
 for world maps in which the distortion towards the polar regions grows
 rather large.
 
-**m**\ [*lon0[/lat0]*]\ */scale* or **M**\ [*lon0*][*/lat0*]\ */width*
+**m**\ [*lon0*/\ [*lat0*/]]\ *scale* or **M**\ [*lon0*/\ [*lat0*/]]\ *width*
 
 The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.

@@ -49,8 +49,8 @@ A few guidelines for reviewing:
   PR.
 * Don't be harsh with code style or performance. If the code is bad, either (1) merge
   the pull request and open a new one fixing the code and pinging the original submitter
-  (2) comment on the PR detailing how the code could be improved. Both ways are focused
-  on showing the contributor **how to write good code**, not shaming them.
+  or (2) comment on the PR detailing how the code could be improved. Both ways are
+  focused on showing the contributor **how to write good code**, not shaming them.
 
 Pull requests should be **squash merged**.
 This means that all commits will be collapsed into one.
@@ -273,14 +273,9 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 ### Check the README Syntax
 
 GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-So slightly broken RST can cause the PyPI page to not render the correct content. Check
-using the `rst2html.py` script that comes with docutils:
-
-```
-rst2html.py --no-raw README.rst > index.html
-```
-
-Open `index.html` and check for any flaws or error messages.
+To check the README syntax, visit the
+[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
+the latest commit, and review the left sidebar and project description for any errors.
 
 ### Pushing to PyPI and Updating the Documentation
 

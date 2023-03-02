@@ -3,7 +3,6 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-import warnings
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -141,7 +140,7 @@ class Figure:
         V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, icc_gray=False, **kwargs):
+    def psconvert(self, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
@@ -230,18 +229,6 @@ class Figure:
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-
-        if icc_gray:
-            msg = (
-                "The 'icc_gray' parameter has been deprecated since v0.6.0"
-                " and will be removed in v0.8.0."
-            )
-            warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if kwargs.get("N") is None:
-                kwargs["N"] = "+i"
-            else:
-                kwargs["N"] += "+i"
-
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
@@ -307,7 +294,15 @@ class Figure:
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
-        fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
+        fmts = {
+            "png": "g",
+            "pdf": "f",
+            "jpg": "j",
+            "bmp": "b",
+            "eps": "e",
+            "tif": "t",
+            "kml": "g",
+        }
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .

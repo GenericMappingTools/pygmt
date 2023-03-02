@@ -6,6 +6,7 @@ Test the wrappers for the C API.
 import os
 from contextlib import contextmanager
 from itertools import product
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -159,7 +160,7 @@ def test_call_module():
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
             lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
-            assert os.path.exists(out_fname.name)
+            assert Path(out_fname.name).stat().st_size > 0
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 
@@ -638,11 +639,11 @@ def test_virtualfile_from_vectors_pandas(dtypes):
     size = 13
     for dtype in dtypes:
         data = pd.DataFrame(
-            data=dict(
-                x=np.arange(size, dtype=dtype),
-                y=np.arange(size, size * 2, 1, dtype=dtype),
-                z=np.arange(size * 2, size * 3, 1, dtype=dtype),
-            )
+            data={
+                "x": np.arange(size, dtype=dtype),
+                "y": np.arange(size, size * 2, 1, dtype=dtype),
+                "z": np.arange(size * 2, size * 3, 1, dtype=dtype),
+            }
         )
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
@@ -798,7 +799,7 @@ def test_dataarray_to_matrix_dims_fails():
     """
     Check that it fails for > 2 dims.
     """
-    # Make a 3D regular grid
+    # Make a 3-D regular grid
     data = np.ones((10, 12, 11), dtype="float32")
     x = np.arange(11)
     y = np.arange(12)

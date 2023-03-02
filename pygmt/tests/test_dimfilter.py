@@ -1,7 +1,7 @@
 """
 Tests for dimfilter.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -32,10 +32,10 @@ def fixture_expected_grid():
             [367.5, 349.0, 385.5, 349.0],
             [435.0, 385.5, 413.5, 481.5],
         ],
-        coords=dict(
-            lon=[-54.5, -53.5, -52.5, -51.5],
-            lat=[-23.5, -22.5, -21.5, -20.5, -19.5],
-        ),
+        coords={
+            "lon": [-54.5, -53.5, -52.5, -51.5],
+            "lat": [-23.5, -22.5, -21.5, -20.5, -19.5],
+        },
         dims=["lat", "lon"],
     )
 
@@ -54,7 +54,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
             region=[-55, -51, -24, -19],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

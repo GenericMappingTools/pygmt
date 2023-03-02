@@ -3,7 +3,7 @@ Histogram
 ---------
 The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of
-each bar. The type of histogram (frequency count or percentage) can be
+each bar. The type of the histogram (frequency count or percentage) can be
 selected via the ``histtype`` parameter.
 """
 
@@ -12,7 +12,7 @@ import pygmt
 
 np.random.seed(100)
 
-# generate random elevation data from a normal distribution
+# Generate random elevation data from a normal distribution
 mean = 100  # mean of distribution
 stddev = 25  # standard deviation of distribution
 data = mean + stddev * np.random.randn(521)
@@ -21,16 +21,16 @@ fig = pygmt.Figure()
 
 fig.histogram(
     data=data,
-    # define the frame, add title and set background color to
-    # lightgray, add annotations for x and y axis
+    # Define the frame, add a title, and set the background color to
+    # "lightgray". Add labels to the x-axis and y-axis
     frame=["WSne+tHistogram+glightgray", "x+lElevation (m)", "y+lCounts"],
-    # generate evenly spaced bins by increments of 5
+    # Generate evenly spaced bins by increments of 5
     series=5,
-    # use red3 as color fill for the bars
+    # Use "red3" as color fill for the bars
     fill="red3",
-    # use a pen size of 1p to draw the outlines
+    # Use the pen parameter to draw the outlines with a width of 1 point
     pen="1p",
-    # choose histogram type 0 = counts [default]
+    # Choose histogram type 0, i.e., counts [Default]
     histtype=0,
 )
 

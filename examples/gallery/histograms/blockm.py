@@ -16,15 +16,15 @@ data = data[["longitude", "latitude", "depth_km"]]
 
 # Set the region for the plot
 region = [130, 152.5, 32.5, 52.5]
-# Define spacing in x and y direction (150 by 150 minute blocks)
+# Define spacing in x and y direction (150x150 arc-minute blocks)
 spacing = "150m"
 
 fig = pygmt.Figure()
 
-# Calculate mean depth in km from all events within 150x150 minute
-# bins using blockmean
+# Calculate mean depth in kilometers from all events within
+# 150x150 arc-minute bins using blockmean
 df = pygmt.blockmean(data=data, region=region, spacing=spacing)
-# convert to grid
+# Convert to grid
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 
 fig.grdimage(
@@ -33,16 +33,16 @@ fig.grdimage(
     frame=["af", "+tMean earthquake depth inside each block"],
     cmap="batlow",
 )
-# plot slightly transparent landmasses on top
+# Plot slightly transparent landmasses on top
 fig.coast(land="darkgray", transparency=40)
-# plot original data points
+# Plot original data points
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
 fig.colorbar(frame=["x+lkm"])
 
 fig.shift_origin(xshift="w+5c")
 
-# Calculate number of total locations within 150x150 minute bins via
-# blockmean's summary parameter
+# Calculate number of total locations within 150x150 arc-minute bins
+# with blockmean's summary parameter
 df = pygmt.blockmean(data=data, region=region, spacing=spacing, summary="n")
 grd = pygmt.xyz2grd(data=df, region=region, spacing=spacing)
 

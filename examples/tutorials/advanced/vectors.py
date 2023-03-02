@@ -18,7 +18,7 @@ import pygmt
 # On the shown figure, the plot is projected on a 10cm X 10cm region,
 # which is specified by the ``projection`` parameter.
 # The direction is specified
-# by a list of two 1d arrays structured as ``[[angle_in_degrees], [length]]``.
+# by a list of two 1-D arrays structured as ``[[angle_in_degrees], [length]]``.
 # The angle is measured in degrees and moves counter-clockwise from the
 # horizontal.
 # The length of the vector uses centimeters by default but
@@ -92,7 +92,7 @@ fig.plot(
     pen="2p",
     fill="red3",
 )
-# Vector 2 after changing default unit to inch
+# Vector 2 after changing default unit to inches
 with pygmt.config(PROJ_LENGTH_UNIT="i"):
     fig.plot(
         x=2,
@@ -107,7 +107,7 @@ fig.show()
 ###############################################################################
 # Vectors can also be plotted by including all the information
 # about a vector in a single list. However, this requires creating
-# a 2D list or numpy array containing all vectors.
+# a 2-D list or numpy array containing all vectors.
 # Each vector list contains the information structured as:
 # ``[x_start, y_start, direction_degrees, length]``.
 #
@@ -132,7 +132,7 @@ fig.show()
 ###############################################################################
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
-# vector could be simply added to the 2D list or numpy
+# vector could be simply added to the 2-D list or numpy
 # array object and passed using ``data`` parameter.
 
 # Vector specifications structured as:
@@ -386,7 +386,7 @@ fig.show()
 # of one is the starting point of another. This can be done
 # by adding the coordinate lists together to create this structure:
 # ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
-# Each list within the 2D list contains the start and end information
+# Each list within the 2-D list contains the start and end information
 # for each vector.
 
 # Coordinate pairs for all the locations used

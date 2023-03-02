@@ -205,34 +205,28 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
-.. automodule:: pygmt.datasets
-
 .. currentmodule:: pygmt
 
 Datasets
 --------
 
-PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` package.
+PyGMT provides access to GMT's datasets through the :mod:`pygmt.datasets` module.
 These functions will download the datasets automatically the first time they are used
-and store them in the GMT cache folder.
+and store them in GMT's user data directory.
 
 .. autosummary::
     :toctree: generated
 
     datasets.list_sample_data
     datasets.load_earth_age
+    datasets.load_earth_free_air_anomaly
+    datasets.load_earth_geoid
+    datasets.load_earth_magnetic_anomaly
+    datasets.load_earth_mask
     datasets.load_earth_relief
+    datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
-    datasets.load_fractures_compilation
-    datasets.load_hotspots
-    datasets.load_japan_quakes
-    datasets.load_mars_shape
-    datasets.load_ocean_ridge_points
-    datasets.load_sample_bathymetry
-    datasets.load_usgs_quakes
 
-.. automodule:: pygmt.exceptions
 
 .. currentmodule:: pygmt
 
@@ -252,8 +246,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
-
-.. automodule:: pygmt.clib
 
 .. currentmodule:: pygmt
 
