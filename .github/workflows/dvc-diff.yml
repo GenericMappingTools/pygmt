@@ -93,7 +93,7 @@ jobs:
         echo 'EOF' >> $GITHUB_OUTPUT
 
     - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.2.1
+      uses: peter-evans/find-comment@v2.3.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}

@@ -42,6 +42,7 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
+    "contextily",
     "geopandas",
     "ipython"
 ]
