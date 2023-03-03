@@ -12,6 +12,7 @@ dependencies:
     - netCDF4
     - packaging
     # Optional dependencies
+    - contextily
     - geopandas
     - ipython
     # Development dependencies (general)
