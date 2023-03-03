@@ -101,7 +101,7 @@ def colorbar(self, **kwargs):
         illumination].
     equalsize : int or float or str
         [**i**]\ [*gap*].
-        Equal-sized color rectangles. By default, the rectangles are scalled
+        Equal-sized color rectangles. By default, the rectangles are scaled
         according to the z-range in the CPT (see also ``zfile``). If *gap* is
         appended and the CPT is discrete each annotation is centered on each
         rectangle, using the lower boundary z-value for the annotation. If
