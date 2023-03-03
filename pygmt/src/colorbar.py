@@ -101,20 +101,20 @@ def colorbar(self, **kwargs):
         illumination].
     equalsize : int or float or str
         [**i**]\ [*gap*].
-        Gives equal-sized color rectangles. Default scales rectangles according
-        to the z-range in the CPT (see also ``zfile``). If *gap* is appended
-        and the CPT is discrete the annotations are centered on the rectangles,
-        using the lower boundary z-value for the annotation. If **i** is
-        prepended the interval range is annotated instead. If ``shading`` is
-        used then each rectangle will have its constant color modified by the
-        specified intensity.
+        Equal-sized color rectangles. By default, the rectangles are scalled
+        according to the z-range in the CPT (see also ``zfile``). If *gap* is
+        appended and the CPT is discrete each annotation is centered on each
+        rectangle, using the lower boundary z-value for the annotation. If
+        **i** is prepended the interval range is annotated instead. If
+        ``shading`` is used each rectangle will have its constant color
+        modified by the specified intensity.
     zfile : str
-        File with colorbar-width per color entry. By default, width of entry
-        is scaled to color range, i.e., z = 0-100 gives twice the width as
-        z = 100-150 (see also ``equalsize``). **Note**: The widths may be in
-        plot distance units or given as relative fractions and will be
-        automatically scaled so that the sum of the widths equals the requested
-        bar length.
+        File with colorbar-width per color entry. By default, the width of the
+        entry is scaled to the color range, i.e., z = 0-100 gives twice the
+        width as z = 100-150 (see also ``equalsize``). **Note**: The widths
+        may be in plot distance units or given as relative fractions and will
+        be automatically scaled so that the sum of the widths equals the
+        requested colorbar length.
     {verbose}
     {panel}
     {perspective}
