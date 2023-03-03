@@ -103,7 +103,7 @@ def test_timestamp_deprecated_timestamp(faketime):
 
 
 @pytest.mark.mpl_image_compare(filename="test_timestamp.png")
-def test_timestamp_deprecated_U(faketime):
+def test_timestamp_deprecated_u(faketime):
     """
     Check if the deprecated parameter 'U' works but raises a warning.
     """
