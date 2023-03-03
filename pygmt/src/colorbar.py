@@ -27,9 +27,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def colorbar(self, **kwargs):
     r"""
-    Plot a gray or color scale-bar on maps.
+    Plot colormaps on figures.
 
-    Both horizontal and vertical scales are supported. For CPTs with
+    Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
     have different colors) we will interpolate to give a continuous scale.
     Variations in intensity due to shading/illumination may be displayed by
@@ -44,7 +44,7 @@ def colorbar(self, **kwargs):
     Parameters
     ----------
     frame : str or list
-        Set color bar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes.
     {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
@@ -59,7 +59,7 @@ def colorbar(self, **kwargs):
         (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
         plot coordinates (inches, cm, etc.). All but **x** requires both
         ``region`` and ``projection`` to be specified. Append **+w** followed
-        by the length and width of the color bar. If width is not specified
+        by the length and width of the colorbar. If width is not specified
         then it is set to 4% of the given length. Give a negative length to
         reverse the scale bar. Append **+h** to get a horizontal scale
         [Default is vertical (**+v**)]. By default, the anchor point on the
