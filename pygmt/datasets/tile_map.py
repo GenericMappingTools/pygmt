@@ -102,7 +102,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     Frozen({'band': 3, 'y': 1024, 'x': 1536})
     >>> raster.coords
     Coordinates:
-      * band     (band) int64 0 1 2
+      * band     (band) uint8 0 1 2
       * y        (y) float64 1.663e+05 1.663e+05 1.663e+05 ... 1.272e+05 ...
       * x        (x) float64 1.153e+07 1.153e+07 1.153e+07 ... 1.158e+07 ...
     """
@@ -137,7 +137,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": [0, 1, 2],  # Red, Green, Blue
+            "band": np.uint8([0, 1, 2]),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },
