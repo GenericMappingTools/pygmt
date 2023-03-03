@@ -43,7 +43,7 @@ with fig.subplot(
         # `amp` (e.g. 2 or 10) controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
-        for nor in ["2t", "2e", "10t", "10e"]:
+        for nor in ["t2", "e2", "t10", "e10"]:
             # making an intensity DataArray using azimuth and normalize
             # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
