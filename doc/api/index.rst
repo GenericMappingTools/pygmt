@@ -34,6 +34,7 @@ Plotting map elements
     Figure.logo
     Figure.solar
     Figure.text
+    Figure.timestamp
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
