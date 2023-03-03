@@ -89,7 +89,7 @@ def colorbar(self, **kwargs):
         to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
         the CPT alone. The truncation takes place before the plotting.
     scale : float
-        Multiply all z-values in the CPT by the provided scale. By default
+        Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
     shading : str or list or bool
         Add illumination effects. Passing a single numerical value sets the
