@@ -27,7 +27,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def colorbar(self, **kwargs):
     r"""
-    Plot colormaps on figures.
+    Plot colorbars on figures.
 
     Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
