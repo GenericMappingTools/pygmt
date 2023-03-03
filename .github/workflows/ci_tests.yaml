@@ -47,7 +47,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: 'geopandas ipython'
+            optional-packages: 'contextily geopandas ipython'
     timeout-minutes: 30
     defaults:
       run:
