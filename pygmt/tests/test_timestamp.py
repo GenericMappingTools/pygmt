@@ -97,7 +97,14 @@ def test_timestamp_deprecated_timestamp(faketime):
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         with config(FORMAT_TIME_STAMP=faketime):
             # plot nothing (the data is outside the region) but a timestamp
-            fig.plot(x=0, y=0, projection="X1c", region=[1, 2, 1, 2], timestamp=True)
+            fig.plot(
+                x=0,
+                y=0,
+                style="p",
+                projection="X1c",
+                region=[1, 2, 1, 2],
+                timestamp=True,
+            )
         assert len(record) == 1  # check that only one warning was raised
     return fig
 
@@ -111,6 +118,6 @@ def test_timestamp_deprecated_u(faketime):
     with pytest.warns(expected_warning=SyntaxWarning) as record:
         with config(FORMAT_TIME_STAMP=faketime):
             # plot nothing (the data is outside the region) but a timestamp
-            fig.plot(x=0, y=0, projection="X1c", region=[1, 2, 1, 2], U=True)
+            fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
         assert len(record) == 1  # check that only one warning was raised
     return fig
