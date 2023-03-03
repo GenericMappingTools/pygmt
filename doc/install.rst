@@ -7,19 +7,12 @@ Quickstart
 ----------
 
 The fastest way to install PyGMT is with the
+`mamba <https://mamba.readthedocs.io/en/latest/>`__ or
 `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__
-or `mamba <https://mamba.readthedocs.io/en/latest/>`__
 package manager which takes care of setting up a virtual environment, as well
 as the installation of GMT and all the dependencies PyGMT depends on:
 
 .. tab-set::
-
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda create --name pygmt --channel conda-forge pygmt
 
     .. tab-item:: mamba
         :sync: mamba
@@ -28,16 +21,16 @@ as the installation of GMT and all the dependencies PyGMT depends on:
 
             mamba create --name pygmt --channel conda-forge pygmt
 
-To activate the virtual environment, you can do:
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda activate pygmt
+            conda create --name pygmt --channel conda-forge pygmt
+
+To activate the virtual environment, you can do:
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -45,6 +38,13 @@ To activate the virtual environment, you can do:
         ::
 
             mamba activate pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
 
 After this, check that everything works by running the following in a Python
 interpreter (e.g., in a Jupyter notebook)::
@@ -66,11 +66,11 @@ Which Python?
 
 PyGMT is tested to run on **Python 3.8 or greater**.
 
-We recommend using the `Anaconda <https://www.anaconda.com/distribution>`__
+We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
 Python distribution to ensure you have all dependencies installed and the
-`conda <https://docs.conda.io/projects/conda/en/latest/>`__
-package manager is available. Installing Anaconda does not require administrative
-rights to your computer and doesn't interfere with any other Python
+`mamba <https://mamba.readthedocs.io/en/stable/user_guide/mamba.html>`__
+package manager in the base environment. Installing Mambaforge does not require
+administrative rights to your computer and doesn't interfere with any other Python
 installations on your system.
 
 
@@ -106,13 +106,14 @@ PyGMT requires the following libraries to be installed:
 The following are optional dependencies:
 
 * `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks (recommended).
+* `Contextily <https://contextily.readthedocs.io>`__: For retrieving tile maps from the internet.
 * `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 
 Installing GMT and other dependencies
 -------------------------------------
 
 Before installing PyGMT, we must install GMT itself along with the other
-dependencies. The easiest way to do this is via the ``conda`` package manager.
+dependencies. The easiest way to do this is via the ``mamba`` or ``conda`` package manager.
 We recommend working in an isolated
 `conda environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
 to avoid issues with conflicting versions of dependencies.
@@ -128,13 +129,6 @@ want):
 
 .. tab-set::
 
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
-
     .. tab-item:: mamba
         :sync: mamba
 
@@ -142,16 +136,16 @@ want):
 
             mamba create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
 
-Activate the environment by running the following (**do not forget this step!**):
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda activate pygmt
+            conda create --name pygmt python=3.9 numpy pandas xarray netcdf4 packaging gmt
+
+Activate the environment by running the following (**do not forget this step!**):
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -159,6 +153,13 @@ Activate the environment by running the following (**do not forget this step!**)
         ::
 
             mamba activate pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda activate pygmt
 
 From now on, all commands will take place inside the conda virtual environment
 called ``pygmt`` and won't affect your default ``base`` installation.
@@ -178,13 +179,6 @@ This installs the latest stable release of PyGMT from
 
 .. tab-set::
 
-    .. tab-item:: conda
-        :sync: conda
-
-        ::
-
-            conda install pygmt
-
     .. tab-item:: mamba
         :sync: mamba
 
@@ -192,16 +186,16 @@ This installs the latest stable release of PyGMT from
 
             mamba install pygmt
 
-This upgrades the installed PyGMT version to be the latest stable release:
-
-.. tab-set::
-
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda update pygmt
+            conda install pygmt
+
+This upgrades the installed PyGMT version to be the latest stable release:
+
+.. tab-set::
 
     .. tab-item:: mamba
         :sync: mamba
@@ -209,6 +203,13 @@ This upgrades the installed PyGMT version to be the latest stable release:
         ::
 
             mamba update pygmt
+
+    .. tab-item:: conda
+        :sync: conda
+
+        ::
+
+            conda update pygmt
 
 Using pip
 ~~~~~~~~~
@@ -272,7 +273,7 @@ For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 `instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
 and set its value to a path like::
 
-    C:\Users\USERNAME\Anaconda3\envs\pygmt\Library\bin\
+    C:\Users\USERNAME\Mambaforge\envs\pygmt\Library\bin\
 
 Notes for Jupyter users
 -----------------------
