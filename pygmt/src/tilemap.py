@@ -1,8 +1,8 @@
 """
 tilemap - Plot XYZ tile maps.
 """
-
 from pygmt.clib import Session
+from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -116,8 +116,6 @@ def tilemap(
         :doc:`install instructions for rioxarray <rioxarray:installation>`,
         (e.g. via ``pip install rioxarray``) before using this function.
     """
-    from pygmt.datasets import load_tile_map  # pylint: disable=import-outside-toplevel
-
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     if rioxarray is None:
