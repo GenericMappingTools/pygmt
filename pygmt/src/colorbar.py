@@ -29,9 +29,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def colorbar(self, **kwargs):
     r"""
-    Plot a gray or color scale-bar on maps.
+    Plot colorbars on figures.
 
-    Both horizontal and vertical scales are supported. For CPTs with
+    Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
     have different colors) we will interpolate to give a continuous scale.
     Variations in intensity due to shading/illumination may be displayed by
@@ -46,7 +46,7 @@ def colorbar(self, **kwargs):
     Parameters
     ----------
     frame : str or list
-        Set color bar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes.
     {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
@@ -61,7 +61,7 @@ def colorbar(self, **kwargs):
         (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
         plot coordinates (inches, cm, etc.). All but **x** requires both
         ``region`` and ``projection`` to be specified. Append **+w** followed
-        by the length and width of the color bar. If width is not specified
+        by the length and width of the colorbar. If width is not specified
         then it is set to 4% of the given length. Give a negative length to
         reverse the scale bar. Append **+h** to get a horizontal scale
         [Default is vertical (**+v**)]. By default, the anchor point on the
@@ -73,7 +73,7 @@ def colorbar(self, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draws a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add
-        **+g**\ *fill* to fill the scale panel [default is no fill]. Append
+        **+g**\ *fill* to fill the scale panel [Default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
         lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
         y-direction, or individual side spacings between scale and border.
@@ -84,14 +84,14 @@ def colorbar(self, **kwargs):
         this radius by appending another value. Finally, append **+s** to draw
         an offset background shaded region. Here, *dx/dy* indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
-        style to use for shading [default is gray50].
+        style to use for shading [Default is ``"gray50"``].
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
         the CPT alone. The truncation takes place before the plotting.
     scale : float
-        Multiply all z-values in the CPT by the provided scale. By default
+        Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
     shading : str or list or bool
         Add illumination effects. Passing a single numerical value sets the
