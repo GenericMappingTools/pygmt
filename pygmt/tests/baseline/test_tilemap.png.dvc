@@ -1,0 +1,4 @@
+outs:
+- md5: c07e5f703941bd60a84bc109074dfb50
+  size: 181869
+  path: test_tilemap.png
