@@ -94,17 +94,18 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     >>> import contextily
     >>> from pygmt.datasets import load_tile_map
     >>> raster = load_tile_map(
-    ...     region=[103.60, 104.06, 1.22, 1.49],  # West, East, South, North
+    ...     region=[-180.0, 180.0, -90.0, 0.0],  # West, East, South, North
+    ...     zoom=1,  # less detailed zoom level
     ...     source=contextily.providers.Stamen.TerrainBackground,
     ...     lonlat=True,  # bounding box coordinates are longitude/latitude
     ... )
     >>> raster.sizes
-    Frozen({'band': 3, 'y': 1024, 'x': 1536})
+    Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords
     Coordinates:
-      * band     (band) int64 0 1 2
-      * y        (y) float64 1.663e+05 1.663e+05 1.663e+05 ... 1.272e+05 ...
-      * x        (x) float64 1.153e+07 1.153e+07 1.153e+07 ... 1.158e+07 ...
+      * band     (band) uint8 0 1 2
+      * y        (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x        (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
     """
     # pylint: disable=too-many-locals
     if contextily is None:
@@ -137,7 +138,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": [0, 1, 2],  # Red, Green, Blue
+            "band": np.uint8([0, 1, 2]),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },
