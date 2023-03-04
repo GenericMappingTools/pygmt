@@ -8,16 +8,18 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     B="frame",
     C="cmap",
     D="position",
     F="box",
     G="truncate",
     I="shading",
-    W="scale",
+    J="projection",
+    L="equalsize",
+    R="region",
     V="verbose",
+    W="scale",
+    Z="zfile",
     c="panel",
     p="perspective",
     t="transparency",
@@ -97,6 +99,22 @@ def colorbar(self, **kwargs):
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
+    equalsize : int or float or str
+        [**i**]\ [*gap*].
+        Equal-sized color rectangles. By default, the rectangles are scaled
+        according to the z-range in the CPT (see also ``zfile``). If *gap* is
+        appended and the CPT is discrete each annotation is centered on each
+        rectangle, using the lower boundary z-value for the annotation. If
+        **i** is prepended the interval range is annotated instead. If
+        ``shading`` is used each rectangle will have its constant color
+        modified by the specified intensity.
+    zfile : str
+        File with colorbar-width per color entry. By default, the width of the
+        entry is scaled to the color range, i.e., z = 0-100 gives twice the
+        width as z = 100-150 (see also ``equalsize``). **Note**: The widths
+        may be in plot distance units or given as relative fractions and will
+        be automatically scaled so that the sum of the widths equals the
+        requested colorbar length.
     {verbose}
     {panel}
     {perspective}
