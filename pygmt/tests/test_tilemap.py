@@ -14,5 +14,5 @@ def test_tilemap():
     Create a simple tilemap plot.
     """
     fig = Figure()
-    fig.tilemap(region=[-157.6, -157.1, 1.68, 2.08], frame="afg")
+    fig.tilemap(region=[-180.0, 180.0, -90, 90], zoom=0, frame="afg")
     return fig
