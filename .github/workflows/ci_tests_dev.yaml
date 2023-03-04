@@ -101,8 +101,9 @@ jobs:
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-doctestplus pytest-mpl sphinx-gallery
+                        build contextily dvc ipython rioxarray \
+                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        sphinx-gallery
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote

@@ -44,7 +44,8 @@ dynamic = ["version"]
 all = [
     "contextily",
     "geopandas",
-    "ipython"
+    "ipython",
+    "rioxarray"
 ]
 
 [project.urls]
