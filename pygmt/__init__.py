@@ -112,7 +112,6 @@ def show_versions(file=sys.stdout):
     import importlib
     import platform
     import subprocess
-    import sys
 
     def _get_module_version(modname):
         """
