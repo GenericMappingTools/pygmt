@@ -21,6 +21,7 @@ the colorbar using the following options:
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
 to ``position`` to get a horizontal colorbar instead of a vertical one.
 """
+
 import pygmt
 
 fig = pygmt.Figure()
