@@ -26,6 +26,7 @@ jobs:
         path: documentation
 
     - name: Link Checker
+      id: lychee
       uses: lycheeverse/lychee-action@v1.6.1
       with:
         # 429: Too many requests
@@ -61,6 +62,7 @@ jobs:
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create Issue From File
+      if: env.lychee_exit_code != 0
       uses: peter-evans/create-issue-from-file@v4
       with:
         title: Link Checker Report on ${{ steps.date.outputs.date }}
