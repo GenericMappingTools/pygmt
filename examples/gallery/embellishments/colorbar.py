@@ -48,9 +48,10 @@ fig.colorbar(
 # Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
     cmap="oleron",
-    # Colorbar position justified outside figure frame (J) at Middle Right (MR),
-    # offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,
-    # with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)
+    # Colorbar position justified outside figure frame (J) at Middle Right
+    # (MR), offset (+o) by 1 cm horizontally and 0 cm vertically from anchor
+    # point, with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN
+    # values (+n)
     position="JMR+o1c/0c+w7c/0.5c+n+mc",
     # Note that the label 'Elevation' is moved to the opposite side and plotted
     # vertically as a column of text using '+mc' in the position parameter
