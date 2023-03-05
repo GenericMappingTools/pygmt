@@ -3,7 +3,7 @@ Tests for Figure.timestamp.
 """
 import pytest
 from packaging.version import Version
-from pygmt import Figure, __gmt_version__
+from pygmt import Figure, __gmt_version__, config
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -85,4 +85,39 @@ def test_timestamp_text(faketime):
     """
     fig = Figure()
     fig.timestamp(text=faketime)
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_timestamp.png")
+def test_timestamp_deprecated_timestamp(faketime):
+    """
+    Check if the deprecated parameter 'timestamp' works but raises a warning.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=SyntaxWarning) as record:
+        with config(FORMAT_TIME_STAMP=faketime):
+            # plot nothing (the data is outside the region) but a timestamp
+            fig.plot(
+                x=0,
+                y=0,
+                style="p",
+                projection="X1c",
+                region=[1, 2, 1, 2],
+                timestamp=True,
+            )
+        assert len(record) == 1  # check that only one warning was raised
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_timestamp.png")
+def test_timestamp_deprecated_u(faketime):
+    """
+    Check if the deprecated parameter 'U' works but raises a warning.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=SyntaxWarning) as record:
+        with config(FORMAT_TIME_STAMP=faketime):
+            # plot nothing (the data is outside the region) but a timestamp
+            fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
+        assert len(record) == 1  # check that only one warning was raised
     return fig

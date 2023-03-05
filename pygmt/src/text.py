@@ -25,7 +25,6 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
-    U="timestamp",
     V="verbose",
     W="pen",
     a="aspatial",
@@ -148,7 +147,6 @@ def text_(
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
         Do NOT clip text at map boundaries [Default is with clip].
-    {timestamp}
     {verbose}
     {aspatial}
     {panel}

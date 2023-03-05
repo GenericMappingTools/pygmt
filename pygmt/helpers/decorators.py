@@ -35,9 +35,6 @@ COMMON_DOCSTRINGS = {
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "timestamp": r"""
-        timestamp : bool or str
-            Draw GMT time stamp logo on plot.""",
     "cmap": r"""
         cmap : str
            File name of a CPT file or a series of comma-separated colors
@@ -564,6 +561,17 @@ def use_alias(**aliases):
                         f"Use long-form parameter '{long_alias}' instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # timestamp (U) is deprecated since v0.9.0.
+            if "U" in kwargs or "timestamp" in kwargs:
+                if "timestamp" in kwargs:
+                    kwargs["U"] = kwargs.pop("timestamp")
+                msg = (
+                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.timestamp() instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
             # xshift (X) is deprecated since v0.8.0.
             if "X" in kwargs or "xshift" in kwargs:
