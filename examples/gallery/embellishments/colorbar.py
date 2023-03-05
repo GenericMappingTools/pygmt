@@ -64,12 +64,12 @@ fig.colorbar(
 pygmt.makecpt(
     cmap="hawaii",
     series=[0, 3, 1],
-    # comma-spearted string later used as annotations of the colorbar
+    # Comma-separated string for the annotations of the colorbar
     color_model="+cclass A,class B,class C,class D",
 )
 # Plot the colorbar
 fig.colorbar(
-    cmap=True,  # use colormap set up above
+    cmap=True,  # Use colormap set up above
     # Colorbar position justified inside map frame (j) at Bottom Left (BL),
     # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
     # point, and plotted horizontally (+h)
