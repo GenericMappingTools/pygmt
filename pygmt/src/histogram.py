@@ -21,7 +21,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     R="region",
     S="stairs",
     T="series",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="histtype",
@@ -122,7 +121,6 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {timestamp}
     {verbose}
     {binary}
     {nodata}

@@ -29,7 +29,6 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
-    U="timestamp",
     V="verbose",
     n="interpolation",
     c="panel",

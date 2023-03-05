@@ -80,27 +80,28 @@ def grdinfo(grid, **kwargs):
     force_scan : int or str
         **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**.
 
-        **0**\ : Report range of z after actually scanning the data, not just
-        reporting what the header says.
-        **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median
-        Absolute Deviation (MAD)).
-        **2**\ : Report mean, standard deviation, and root-mean-square (rms)
-        of z.
-        **p**\ : Report mode (LMS) and LMS scale of z.
-        **a**\ : Include all of the above.
-    minxmax_pos : bool
+        - **0**: Report range of z after actually scanning the data, not just
+          reporting what the header says.
+        - **1**: Report median and L1 scale of z (L1 scale = 1.4826 * Median
+          Absolute Deviation (MAD)).
+        - **2**: Report mean, standard deviation, and root-mean-square (rms)
+          of z.
+        - **p**: Report mode (LMS) and LMS scale of z.
+        - **a**: Include all of the above.
+    minmax_pos : bool
         Include the x/y values at the location of the minimum and maximum
         z-values.
     nearest_multiple : str
         [*dz*]\ [**+a**\ [*alpha*]]\ [**+s**].
-        Determine min and max z-value. If *dz* is provided then we first round
-        these values off to multiples of *dz*. To exclude the two tails of the
-        distribution when determining the min and max you can add **+a** to
-        set the *alpha* value (in percent): We then sort the grid, exclude the
-        data in the 0.5*\ *alpha* and 100 - 0.5*\ *alpha* tails, and revise
-        the min and max. To force a symmetrical range about zero, using
-        minus/plus the max absolute value of the two extremes, append **+s**\ .
-        We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*
+        Determine minimum and maximum z-values. If *dz* is provided then we
+        first round these values off to multiples of *dz*. To exclude the
+        two tails of the distribution when determining the minimum and
+        maximum you can add **+a** to set the *alpha* value (in percent):
+        We then sort the grid, exclude the data in the 0.5*\ *alpha* and
+        100 - 0.5*\ *alpha* tails, and revise the minimum and maximum. To
+        force a symmetrical range about zero, using minus/plus the maximum
+        absolute value of the two extremes, append **+s**. We report the
+        result via the text string *zmin/zmax* or *zmin/zmax/dz*
         (if *dz* was given) as expected by :func:`pygmt.makecpt`.
     {verbose}
     {coltypes}

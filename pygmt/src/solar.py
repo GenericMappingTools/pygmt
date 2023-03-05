@@ -15,7 +15,6 @@ __doctest_skip__ = ["solar"]
     G="fill",
     J="projection",
     R="region",
-    U="timestamp",
     V="verbose",
     W="pen",
     c="panel",
@@ -56,7 +55,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
         Set color or pattern for filling terminators [Default is no fill].
     pen : str
         Set pen attributes for lines [Default is ``"0.25p,black,solid"``].
-    {timestamp}
     {verbose}
     {panel}
     {perspective}

@@ -30,7 +30,6 @@ __doctest_skip__ = ["coast"]
     W="shorelines",
     G="land",
     S="water",
-    U="timestamp",
     V="verbose",
     c="panel",
     p="perspective",
@@ -147,7 +146,6 @@ def coast(self, **kwargs):
         a = All boundaries (1-3)
     water : str
         Select filling or clipping of "wet" areas.
-    {timestamp}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes

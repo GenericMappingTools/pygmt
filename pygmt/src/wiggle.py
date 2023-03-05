@@ -16,7 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     J="projection",
     R="region",
     T="track",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="scale",
@@ -86,7 +85,6 @@ def wiggle(
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {timestamp}
     {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].

@@ -8,16 +8,18 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     B="frame",
     C="cmap",
     D="position",
     F="box",
     G="truncate",
     I="shading",
-    W="scale",
+    J="projection",
+    L="equalsize",
+    R="region",
     V="verbose",
+    W="scale",
+    Z="zfile",
     c="panel",
     p="perspective",
     t="transparency",
@@ -27,9 +29,9 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def colorbar(self, **kwargs):
     r"""
-    Plot a gray or color scale-bar on maps.
+    Plot colorbars on figures.
 
-    Both horizontal and vertical scales are supported. For CPTs with
+    Both horizontal and vertical colorbars are supported. For CPTs with
     gradational colors (i.e., the lower and upper boundary of an interval
     have different colors) we will interpolate to give a continuous scale.
     Variations in intensity due to shading/illumination may be displayed by
@@ -44,7 +46,7 @@ def colorbar(self, **kwargs):
     Parameters
     ----------
     frame : str or list
-        Set color bar boundary frame, labels, and axes attributes.
+        Set colorbar boundary frame, labels, and axes attributes.
     {cmap}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
@@ -59,7 +61,7 @@ def colorbar(self, **kwargs):
         (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for
         plot coordinates (inches, cm, etc.). All but **x** requires both
         ``region`` and ``projection`` to be specified. Append **+w** followed
-        by the length and width of the color bar. If width is not specified
+        by the length and width of the colorbar. If width is not specified
         then it is set to 4% of the given length. Give a negative length to
         reverse the scale bar. Append **+h** to get a horizontal scale
         [Default is vertical (**+v**)]. By default, the anchor point on the
@@ -71,7 +73,7 @@ def colorbar(self, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draws a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add
-        **+g**\ *fill* to fill the scale panel [default is no fill]. Append
+        **+g**\ *fill* to fill the scale panel [Default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or
         lgap/rgap/bgap/tgap where these items are uniform, separate in x- and
         y-direction, or individual side spacings between scale and border.
@@ -82,14 +84,14 @@ def colorbar(self, **kwargs):
         this radius by appending another value. Finally, append **+s** to draw
         an offset background shaded region. Here, *dx/dy* indicates the shift
         relative to the foreground frame [4p/-4p] and shade sets the fill
-        style to use for shading [default is gray50].
+        style to use for shading [Default is ``"gray50"``].
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
         the CPT alone. The truncation takes place before the plotting.
     scale : float
-        Multiply all z-values in the CPT by the provided scale. By default
+        Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
     shading : str or list or bool
         Add illumination effects. Passing a single numerical value sets the
@@ -97,6 +99,22 @@ def colorbar(self, **kwargs):
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
+    equalsize : int or float or str
+        [**i**]\ [*gap*].
+        Equal-sized color rectangles. By default, the rectangles are scaled
+        according to the z-range in the CPT (see also ``zfile``). If *gap* is
+        appended and the CPT is discrete each annotation is centered on each
+        rectangle, using the lower boundary z-value for the annotation. If
+        **i** is prepended the interval range is annotated instead. If
+        ``shading`` is used each rectangle will have its constant color
+        modified by the specified intensity.
+    zfile : str
+        File with colorbar-width per color entry. By default, the width of the
+        entry is scaled to the color range, i.e., z = 0-100 gives twice the
+        width as z = 100-150 (see also ``equalsize``). **Note**: The widths
+        may be in plot distance units or given as relative fractions and will
+        be automatically scaled so that the sum of the widths equals the
+        requested colorbar length.
     {verbose}
     {panel}
     {perspective}
