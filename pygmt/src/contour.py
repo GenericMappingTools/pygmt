@@ -17,7 +17,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     N="no_clip",
     R="region",
     S="skip",
-    U="timestamp",
     V="verbose",
     W="pen",
     b="binary",
@@ -102,7 +101,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {timestamp}
     {verbose}
     {binary}
     {panel}
