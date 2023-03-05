@@ -76,7 +76,7 @@ fig.colorbar(
     # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",
     box=True,
-    # Separate colorbar into equal-sized rectangles
+    # Divide colorbar into equal-sized rectangles
     equalsize=0.5,
 )
 
