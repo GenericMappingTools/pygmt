@@ -8,11 +8,12 @@ import pygmt
 
 def test_show_versions():
     """
-    Test pygmt.show_versions()
+    Check that pygmt.show_versions() reports version information from PyGMT,
+    the operating system, dependencies and the GMT library.
     """
-    f = io.StringIO()
-    pygmt.show_versions(file=f)
-    assert "PyGMT information:" in f.getvalue()
-    assert "System information:" in f.getvalue()
-    assert "Dependency information:" in f.getvalue()
-    assert "GMT library information:" in f.getvalue()
+    buf = io.StringIO()
+    pygmt.show_versions(file=buf)
+    assert "PyGMT information:" in buf.getvalue()
+    assert "System information:" in buf.getvalue()
+    assert "Dependency information:" in buf.getvalue()
+    assert "GMT library information:" in buf.getvalue()
