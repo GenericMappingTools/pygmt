@@ -19,12 +19,8 @@ except ImportError:
 
 @fmt_docstring
 @use_alias(
-    A="img_out",
     B="frame",
-    C="cmap",
-    D="img_in",
     E="dpi",
-    G="bit_color",
     I="shading",
     J="projection",
     M="monochrome",
@@ -32,12 +28,9 @@ except ImportError:
     Q="nan_transparent",
     # R="region",
     V="verbose",
-    n="interpolation",
     c="panel",
-    f="coltypes",
     p="perspective",
     t="transparency",
-    x="cores",
 )
 @kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
 def tilemap(
