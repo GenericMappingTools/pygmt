@@ -2,7 +2,7 @@
 Timestamp
 ---------
 The :meth:`pygmt.Figure.timestamp` method can draw the
-GMT time stamp logo on the map/plot. A custom label 
+GMT timestamp logo on the map/plot. A custom label 
 can be added via the ``label`` parameter.
 """
 
