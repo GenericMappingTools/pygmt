@@ -18,7 +18,6 @@ __doctest_skip__ = ["grdcontour"]
     Q="cut",
     R="region",
     S="resample",
-    U="timestamp",
     V="verbose",
     W="pen",
     l="label",
@@ -80,7 +79,6 @@ def grdcontour(self, grid, **kwargs):
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {timestamp}
     {verbose}
     {pen}
     {panel}

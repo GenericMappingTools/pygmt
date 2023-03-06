@@ -30,7 +30,6 @@ from pygmt.helpers import (
     R="region",
     S="norm",
     T="orientation",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="scale",
@@ -188,7 +187,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {timestamp}
     {verbose}
     {binary}
     {panel}

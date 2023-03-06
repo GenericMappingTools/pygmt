@@ -12,7 +12,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="position",
     F="box",
     M="monochrome",
-    U="timestamp",
     V="verbose",
     c="panel",
     p="perspective",
@@ -53,7 +52,6 @@ def image(self, imagefile, **kwargs):
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
