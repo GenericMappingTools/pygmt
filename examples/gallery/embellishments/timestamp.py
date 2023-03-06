@@ -8,9 +8,6 @@ can be added via the ``label`` parameter.
 
 import pygmt
 
-# Define static format string.
-pygmt.config(FORMAT_TIME_STAMP="2023-03-01T20:45:15")
-
 fig = pygmt.Figure()
 fig.timestamp()
 fig.show()
