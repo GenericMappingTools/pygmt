@@ -11,12 +11,17 @@ of the figure. By default, the ``offset`` and
 (bottom-left), respectively. 
 """
 
+# sphinx_gallery_thumbnail_number = 1
+
 import pygmt
 
 fig = pygmt.Figure()
 fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c")
 fig.timestamp()
 fig.show()
+
+###############################################################################
+# Maybe some short description of the ``font`` and ``timefmt`` parameters.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
