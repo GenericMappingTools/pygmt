@@ -168,13 +168,17 @@ class Session:
                 "cores": self.get_default("API_CORES"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
-            # API_BIN_VERSION is new in GMT 6.4.0.
             # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
             # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency.
+            # dependency. The try-except block can be refactored after we bump
+            # the minimum required GMT version to 6.4.0.
+            try:
+                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
+            except GMTCLibError:
+                pass
+            # API_BIN_VERSION is new in GMT 6.4.0.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
-                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
         return self._info
 
     def __enter__(self):
@@ -432,7 +436,7 @@ class Session:
 
         Possible default parameter names include:
 
-        * ``"API_VERSION"``: The GMT version
+        * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
         * ``"API_BINDIR"``: The binary file directory
         * ``"API_SHAREDIR"``: The share directory
@@ -442,6 +446,7 @@ class Session:
         * ``"API_CORES"``: The number of cores
         * ``"API_IMAGE_LAYOUT"``: The image/band layout
         * ``"API_GRID_LAYOUT"``: The grid layout
+        * ``"API_BIN_VERSION"``: The GMT binary version (with git information)
 
         Parameters
         ----------
