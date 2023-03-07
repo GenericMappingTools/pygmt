@@ -16,6 +16,10 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c")
 fig.timestamp()
+fig.show()
+
+fig = pygmt.Figure()
+fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
 # Plot the GMT timestamp logo with a custom label.
 fig.timestamp(label="Powered by PyGMT", justification="TL")
 fig.show()
