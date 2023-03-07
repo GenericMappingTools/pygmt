@@ -5,7 +5,7 @@
 .. autoclass:: {{ objname }}
 
 {% if attributes %}
-.. rubic:: Attributes
+.. rubric:: Attributes
 
 {% for item in attributes %}
 .. autoproperty::
