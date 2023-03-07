@@ -166,13 +166,15 @@ class Session:
                 "plugin dir": self.get_default("API_PLUGINDIR"),
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
-                # API_IMAGE_LAYOUT not defined if GMT is not compiled with GDAL
-                # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
             # API_BIN_VERSION is new in GMT 6.4.0.
+            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
+            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
+            # dependency.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
+                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
         return self._info
 
     def __enter__(self):
