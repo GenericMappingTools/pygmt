@@ -20,11 +20,16 @@ fig.timestamp()
 fig.show()
 
 ###############################################################################
-# Additionally, a custom label can be added via the ``label`` parameter. The 
-# label font can be defined via the ``font`` parameter and the timestamp string 
+# Additionally, a custom label can be added via the ``label`` parameter. The
+# label font can be defined via the ``font`` parameter and the timestamp string
 # format via ``timefmt``.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
-fig.timestamp(label="Powered by PyGMT", justification="TL",font="Times-Bold", timefmt="%Y-%m-%dT%H:%M")
+fig.timestamp(
+    label="Powered by PyGMT",
+    justification="TL",
+    font="Times-Bold",
+    timefmt="%Y-%m-%dT%H:%M",
+)
 fig.show()
