@@ -2,8 +2,7 @@
 Timestamp
 ---------
 The :meth:`pygmt.Figure.timestamp` method can draw the
-GMT timestamp logo on the figure. A custom label
-can be added via the ``label`` parameter. The timestamp
+GMT timestamp logo on the figure. The timestamp
 will always be shown relative to the bottom-left corner
 of the figure. By default, the ``offset`` and
 ``justification`` parameters are set to
@@ -21,10 +20,11 @@ fig.timestamp()
 fig.show()
 
 ###############################################################################
-# Maybe some short description of the ``font`` and ``timefmt`` parameters.
+# Additionally, a custom label can be added via the ``label`` parameter. The 
+# label font can be defined via the ``font`` parameter and the timestamp string 
+# format via ``timefmt``.
 
 fig = pygmt.Figure()
 fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
-# Plot the GMT timestamp logo with a custom label.
-fig.timestamp(label="Powered by PyGMT", justification="TL")
+fig.timestamp(label="Powered by PyGMT", justification="TL",font="Times-Bold", timefmt="%Y-%m-%dT%H:%M")
 fig.show()
