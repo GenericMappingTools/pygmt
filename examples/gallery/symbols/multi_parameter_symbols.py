@@ -30,7 +30,7 @@ import pygmt
 # - **j**: rotated rectangle, ``direction/width/height``
 # - **r**: rectangle, ``width/height``
 # - **R**: rounded rectangle, ``width/height/radius``
-# - **w**: pie wedge, ``radius/startdir/stopdir``, the last two arguments are
+# - **w**: pie wedge, ``diameter/startdir/stopdir``, the last two arguments are
 #   directions given in degrees counter-clockwise from horizontal
 #
 # Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
@@ -64,7 +64,7 @@ fig.show()
 # - **j**: rotated rectangle, ``[[lon, lat, direction, width, height]]``
 # - **r**: rectangle, ``[[lon, lat, width, height]]``
 # - **R**: rounded rectangle, ``[[lon, lat, width, height, radius]]``
-# - **w**: pie wedge, ``[[lon, lat, radius, startdir, stopdir]]``, the last two
+# - **w**: pie wedge, ``[[lon, lat, diameter, startdir, stopdir]]``, the last two
 #   arguments are directions given in degrees counter-clockwise from horizontal
 
 fig = pygmt.Figure()
