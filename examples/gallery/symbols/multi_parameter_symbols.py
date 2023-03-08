@@ -33,7 +33,7 @@ import pygmt
 # - **w**: pie wedge, ``diameter/startdir/stopdir``, the last two arguments are
 #   directions given in degrees counter-clockwise from horizontal
 #
-# Upper-case versions **E**, **J**, and **W** are similar to **e**, **j** and
+# Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and
 # **w** but expect geographic azimuths and distances.
 
 fig = pygmt.Figure()
