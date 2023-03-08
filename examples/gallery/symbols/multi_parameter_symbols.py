@@ -64,8 +64,9 @@ fig.show()
 # - **j**: rotated rectangle, ``[[lon, lat, direction, width, height]]``
 # - **r**: rectangle, ``[[lon, lat, width, height]]``
 # - **R**: rounded rectangle, ``[[lon, lat, width, height, radius]]``
-# - **w**: pie wedge, ``[[lon, lat, diameter, startdir, stopdir]]``, the last two
-#   arguments are directions given in degrees counter-clockwise from horizontal
+# - **w**: pie wedge, ``[[lon, lat, diameter, startdir, stopdir]]``, the last
+#   two arguments are directions given in degrees counter-clockwise from
+#   horizontal
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 6, 0, 4], projection="x3c", frame=["xa1f0.2", "ya0.5f0.1"])
