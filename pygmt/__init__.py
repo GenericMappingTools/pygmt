@@ -17,8 +17,8 @@ Here are just a few of the things that PyGMT does well:
     lines, vectors, polygons, and symbols (pre-defined and customized).
   - Generating publication-quality illustrations and making animations.
 """
-
 import atexit as _atexit
+import sys
 from importlib.metadata import version
 
 from pygmt import clib
@@ -80,7 +80,7 @@ _begin()
 _atexit.register(_end)
 
 
-def print_clib_info():
+def print_clib_info(file=sys.stdout):
     """
     Print information about the GMT shared library that we can find.
 
@@ -93,10 +93,10 @@ def print_clib_info():
     with Session() as ses:
         for key in sorted(ses.info):
             lines.append(f"  {key}: {ses.info[key]}")
-    print("\n".join(lines))
+    print("\n".join(lines), file=file)
 
 
-def show_versions():
+def show_versions(file=sys.stdout):
     """
     Print various dependency versions which are useful when submitting bug
     reports.
@@ -112,7 +112,6 @@ def show_versions():
     import importlib
     import platform
     import subprocess
-    import sys
 
     def _get_module_version(modname):
         """
@@ -168,19 +167,19 @@ def show_versions():
         "geopandas",
     ]
 
-    print("PyGMT information:")
-    print(f"  version: {__version__}")
+    print("PyGMT information:", file=file)
+    print(f"  version: {__version__}", file=file)
 
-    print("System information:")
+    print("System information:", file=file)
     for key, val in sys_info.items():
-        print(f"  {key}: {val}")
+        print(f"  {key}: {val}", file=file)
 
-    print("Dependency information:")
+    print("Dependency information:", file=file)
     for modname in deps:
-        print(f"  {modname}: {_get_module_version(modname)}")
-    print(f"  ghostscript: {_get_ghostscript_version()}")
+        print(f"  {modname}: {_get_module_version(modname)}", file=file)
+    print(f"  ghostscript: {_get_ghostscript_version()}", file=file)
 
-    print_clib_info()
+    print_clib_info(file=file)
 
 
 def test(doctest=True, verbose=True, coverage=False, figures=True):
