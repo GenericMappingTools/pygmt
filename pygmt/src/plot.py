@@ -31,7 +31,6 @@ from pygmt.src.which import which
     N="no_clip",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="zvalue",
@@ -183,7 +182,6 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
     {pen}
-    {timestamp}
     {verbose}
     zvalue : str
         *value*\|\ *file*.
