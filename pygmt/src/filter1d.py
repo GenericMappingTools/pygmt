@@ -84,7 +84,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     time_col : int
         Indicate which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
-        [Default is 0].
+        [Default is ``0``].
 
     output_type : str
         Determine the format the xyz data will be returned in [Default is
