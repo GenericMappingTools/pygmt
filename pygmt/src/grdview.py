@@ -81,7 +81,7 @@ def grdview(self, grid, **kwargs):
         via the **+g** modifier, and the projection is not oblique, the frontal
         facade between the plane and the data perimeter is colored.
     surftype : str
-        Specifies cover type of the grid.
+        Specify cover type of the grid.
         Select one of following settings:
 
         - **m** - mesh plot [Default].
