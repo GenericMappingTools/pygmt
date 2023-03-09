@@ -87,7 +87,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             Determine the output type. Use "file", "xarray", "pandas", or
             "numpy".
         divisions : int
-            Set the number of divisions of the data range [Default is 16].
+            Set the number of divisions of the data range [Default is ``16``].
 
         {region}
         {verbose}
