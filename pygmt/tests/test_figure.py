@@ -86,7 +86,7 @@ def test_figure_savefig_exists():
     for fmt in "png pdf jpg bmp eps tif".split():
         fname = ".".join([prefix, fmt])
         fig.savefig(fname)
-        assert os.path.exists(fname)
+        assert Path(fname).exists()
         os.remove(fname)
 
 
@@ -139,7 +139,7 @@ def test_figure_savefig_transparent():
     # png should not raise an error
     fname = ".".join([prefix, "png"])
     fig.savefig(fname, transparent=True)
-    assert os.path.exists(fname)
+    assert Path(fname).exists()
     os.remove(fname)
 
 
@@ -151,7 +151,7 @@ def test_figure_savefig_filename_with_spaces():
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(fname=imgfile.name)
-        assert r"\040" not in os.path.abspath(imgfile.name)
+        assert r"\040" not in str(Path(imgfile.name).absolute())
         assert Path(imgfile.name).stat().st_size > 0
 
 
