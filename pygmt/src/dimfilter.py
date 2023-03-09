@@ -111,11 +111,11 @@ def dimfilter(grid, **kwargs):
         *x_inc* [and optionally *y_inc*] is the output Increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
         *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
-        input data), filtering will be considerably slower. [Default: Same
+        input data), filtering will be considerably slower. [Default is same
         as input.]
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
-        Define the region of the output points. [Default: Same as input.]
+        Define the region of the output points [Default is same as input].
     {verbose}
 
     Returns
