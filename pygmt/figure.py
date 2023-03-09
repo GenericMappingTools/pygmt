@@ -212,7 +212,7 @@ class Figure:
             Append the size of the subsample box (1, 2, or 4) [4]. [Default is
             no anti-aliasing (same as bits = 1)].
         fmt : str
-            Sets the output format, where **b** means BMP, **e** means EPS,
+            Set the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
