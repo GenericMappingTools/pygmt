@@ -34,13 +34,13 @@ FAMILIES = [
     "GMT_IS_PALETTE",  # Entity is a color palette table
     "GMT_IS_POSTSCRIPT",  # Entity is a PostScript content struct
     "GMT_IS_MATRIX",  # Entity is a user matrix
-    "GMT_IS_VECTOR",  # Entity is set of user vectors
+    "GMT_IS_VECTOR",  # Entity is a set of user vectors
     "GMT_IS_CUBE",  # Entity is a 3-D data cube
 ]
 
 VIAS = [
     "GMT_VIA_MATRIX",  # dataset is passed as a matrix
-    "GMT_VIA_VECTOR",  # dataset is passed as set of vectors
+    "GMT_VIA_VECTOR",  # dataset is passed as a set of vectors
 ]
 
 GEOMETRIES = [
