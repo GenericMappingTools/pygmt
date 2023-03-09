@@ -209,8 +209,8 @@ class Figure:
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
-            no anti-aliasing (same as bits = 1)].
+            Append the size of the subsample box (1, 2, or 4) [Default is
+            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
         fmt : str
             Set the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
