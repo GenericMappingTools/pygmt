@@ -75,7 +75,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     length/azimuth : float or 1-D arrays
         Length and azimuth values, or arrays of length and azimuth
-        values
+        values.
 
     orientation : bool
         Specify that the input data are orientation data (i.e., have a
@@ -87,7 +87,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     region : str or list
         *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
-        Specifies the ``region`` of interest in (*r*, *azimuth*) space.
+        Specify the ``region`` of interest in (*r*, *azimuth*) space.
         Here, *r0* is 0 and *r1* is the maximal length in units.
         For *az0* and *az1*, specify either (-90, 90) or (0, 180) for
         half circle plot or (0, 360) for full circle.
