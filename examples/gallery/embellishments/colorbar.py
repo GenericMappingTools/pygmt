@@ -72,8 +72,8 @@ pygmt.makecpt(
 fig.colorbar(
     cmap=True,  # Use colormap set up above
     # Colorbar placed inside figure frame (j) at Bottom Left (BL),
-    # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor point,
-    # and plotted horizontally (+h)
+    # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
+    # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",
     box=True,
     # Divide colorbar into equal-sized rectangles
