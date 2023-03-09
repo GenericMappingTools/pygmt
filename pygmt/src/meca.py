@@ -214,7 +214,7 @@ def meca(
         is plotted at the initial location and a line connects the beachball
         to the circle. Use **+s**\ *size* to set the diameter of the circle
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
-        attributes [Default is 0.25p].
+        attributes [Default is ``"0.25p"``].
     compressionfill : str
         Set color or pattern for filling compressive quadrants
         [Default is black].
@@ -232,7 +232,8 @@ def meca(
         an input file).
     no_clip : bool
         Do NOT skip symbols that fall outside frame boundary specified by
-        ``region`` [Default is False, i.e. plot symbols inside map frame only].
+        ``region`` [Default is ``False``, i.e., plot symbols inside map
+        frame only].
     {projection}
     {region}
     {frame}
