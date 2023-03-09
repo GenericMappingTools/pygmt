@@ -8,7 +8,7 @@ placement via the ``position`` parameter. The full list of color palette tables
 can be found at :gmt-docs:`cookbook/cpts.html`. You can set the ``position`` of
 the colorbar using the following options:
 
-- **j/J**: placed inside/outside the figure frame using a 2-character
+- **j/J**: placed inside/outside the figure frame using any 2-character
   combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
   ``position="jTR"`` for Top Right.
