@@ -217,10 +217,10 @@ def meca(
         attributes [Default is ``"0.25p"``].
     compressionfill : str
         Set color or pattern for filling compressive quadrants
-        [Default is black].
+        [Default is ``"black"``].
     extensionfill : str
         Set color or pattern for filling extensive quadrants
-        [Default is white].
+        [Default is ``"white"``].
     pen : str
         Set pen attributes for outline of beachball
         [Default is ``"0.25p,black,solid"``].
