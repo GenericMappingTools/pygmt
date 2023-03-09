@@ -66,7 +66,7 @@ pygmt.makecpt(
     cmap="hawaii",
     series=[0, 3, 1],
     # Comma-separated string for the annotations of the colorbar
-    color_model="+cclass A,class B,class C,class D",
+    color_model="+cA,B,C,D",
 )
 # Plot the colorbar
 fig.colorbar(
