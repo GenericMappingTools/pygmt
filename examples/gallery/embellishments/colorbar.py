@@ -8,7 +8,7 @@ placement via the ``position`` parameter. The full list of color palette tables
 can be found at :gmt-docs:`cookbook/cpts.html`. You can set the ``position`` of
 the colorbar using the following options:
 
-- **j/J**: placed inside/outside the figure frame using any 2-character
+- **j/J**: placed inside/outside the map frame using any 2-character
   combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
   horizontal (**L**\ eft, **C**\ enter, **R**\ ight) alignment codes, e.g.
   ``position="jTR"`` for Top Right.
@@ -48,7 +48,7 @@ fig.colorbar(
 # Create a colorbar suitable for surface topography - oleron
 fig.colorbar(
     cmap="oleron",
-    # Colorbar placed outside figure frame (J) at Middle Right (MR),
+    # Colorbar placed outside map frame (J) at Middle Right (MR),
     # offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,
     # with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)
     position="JMR+o1c/0c+w7c/0.5c+n+mc",
@@ -71,7 +71,7 @@ pygmt.makecpt(
 # Plot the colorbar
 fig.colorbar(
     cmap=True,  # Use colormap set up above
-    # Colorbar placed inside figure frame (j) at Bottom Left (BL),
+    # Colorbar placed inside map frame (j) at Bottom Left (BL),
     # offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor
     # point, and plotted horizontally (+h)
     position="jBL+o0.5c/0.8c+h",
