@@ -113,10 +113,11 @@ def grdimage(self, grid, **kwargs):
     dpi : int
         [**i**\|\ *dpi*].
         Set the resolution of the projected grid that will be created if a
-        map projection other than Linear or Mercator was selected [100]. By
-        default, the projected grid will be of the same size (rows and
-        columns) as the input file. Specify **i** to use the PostScript
-        image operator to interpolate the image at the device resolution.
+        map projection other than Linear or Mercator was selected [Default
+        is ``100`` dpi]. By default, the projected grid will be of the
+        same size (rows and columns) as the input file. Specify **i** to
+        use the PostScript image operator to interpolate the image at the
+        device resolution.
     bit_color : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
