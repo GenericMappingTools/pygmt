@@ -84,7 +84,7 @@ def select(data=None, outfile=None, **kwargs):
         *gridmask*. Nodes that are outside are either NaN or zero.
     reverse : str
         [**cflrsz**].
-        Reverses the sense of the test for each of the criteria specified:
+        Reverse the sense of the test for each of the criteria specified:
 
         - **c** select records NOT inside any point's circle of influence.
         - **f** select records NOT inside any of the polygons.
