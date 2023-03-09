@@ -40,7 +40,7 @@ def logo(self, **kwargs):
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
     box : bool or str
-        Without further arguments, draws a rectangular border around the
+        If set to ``True``, draws a rectangular border around the
         GMT logo.
     style : str
         [**l**\|\ **n**\|\ **u**].

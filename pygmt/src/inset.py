@@ -77,7 +77,7 @@ def inset(self, **kwargs):
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
         [[*dx*/*dy*/][*shade*]]].
 
-        If passed ``True``, this draws a rectangular box around the map
+        If set to ``True``, draws a rectangular box around the map
         inset using the default pen; specify a different pen
         with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
         [Default is no fill].
