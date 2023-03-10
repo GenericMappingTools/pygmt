@@ -88,6 +88,20 @@ def binstats(data, **kwargs):
         Sets the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
         Not compatible with ``tiling``.
+    tiling : str
+        **h**\|\ **r**.
+        Instead of circular, possibly overlapping areas, select
+        non-overlapping tiling. Choose between rectangular hexagonal
+        binning. For **r**, set bin sizes via ``spacing`` and we write
+        the computed statistics to the grid file named in ``outgrid``.
+        For **h**, we write a table with the centers of the hexagons and
+        the computed statistics to standard output (or to the file named
+        in ``outgrid``). Here, the ``spacing`` setting is expected to
+        set the y-increment only and we compute the x-increment given
+        the geometry. Because the horizontal spacing between hexagon
+        centers in x and y have a ratio of, we will automatically
+        adjust xmax in ``region`` to fit a whole number of hexagons.
+        Note: Hexagonal tiling requires Cartesian data.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
