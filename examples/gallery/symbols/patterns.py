@@ -23,7 +23,7 @@ The required argument has the following form:
 
 **P**\ |**p**\ *pattern*\ [**+b**\ *color*\ ][**+f**\ *color*\ ][**+r**\ *dpi*]
 
-*pattern* can either be a number in the range 1â€“90 or the name of a
+*pattern* can either be a number in the range 1-90 or the name of a
 1-, 8-, or 24-bit image raster file. The former will result in one of the 90
 predefined 64 x 64 bit-patterns provided with GMT; an overview can by found at
 https://docs.generic-mapping-tools.org/latest/cookbook/predefined-patterns.html.
