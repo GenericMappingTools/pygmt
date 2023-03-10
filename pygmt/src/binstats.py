@@ -101,7 +101,7 @@ def binstats(data, **kwargs):
         the geometry. Because the horizontal spacing between hexagon
         centers in x and y have a ratio of, we will automatically
         adjust xmax in ``region`` to fit a whole number of hexagons.
-        Note: Hexagonal tiling requires Cartesian data.
+        **Note**: Hexagonal tiling requires Cartesian data.
     weight : str
         Input data have an extra column containing observation point weight.
         If weights are given then weighted statistical quantities will be
