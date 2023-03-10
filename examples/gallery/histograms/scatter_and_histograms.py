@@ -20,29 +20,23 @@ xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[-xymax -0.5, xymax +0.5, -xymax-0.5, xymax+0.5],
+    region=[-xymax - 0.5, xymax + 0.5, -xymax - 0.5, xymax + 0.5],
     projection="X10c/10c",
     frame=["xa1", "ya1", "WSrt"],
 )
 
-fillcol="seagreen"
+fillcol = "seagreen"
 
 # plot data points as circles of size 0.25 centimeters
-fig.plot(  
-    x=x,   
-    y=y,
-    style="c0.25c",
-    fill=fillcol,
-    transparency=50
-)
+fig.plot(x=x, y=y, style="c0.25c", fill=fillcol, transparency=50)
 
 # add top margin histogram
 fig.shift_origin(yshift="10.25c")
 
-fig.histogram( 
+fig.histogram(
     projection="X10c/2c",
-    frame=["Wsrt","y+lCounts", "x+a"],
-    region=[-xymax-0.5, xymax+0.5, 0, 0],
+    frame=["Wsrt", "y+lCounts", "x+a"],
+    region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
     fill=fillcol,
     histtype=0,
@@ -50,17 +44,26 @@ fig.histogram(
 )
 
 # add right margin histogram
-fig.shift_origin(yshift = "-10.25c", xshift = "10.25c")
+fig.shift_origin(yshift="-10.25c", xshift="10.25c")
 
-fig.histogram( 
+fig.histogram(
     horizontal=True,
     projection="X2c/10c",
-    frame=["wSrt", "x+a", "y+lCounts"], # note that x and y are flipped here due to horizontal=True
-    region=[-xymax-0.5, xymax+0.5, 0, 0], # since no y-range was specified, ymax is calculated automatically
+    frame=[
+        "wSrt",
+        "x+a",
+        "y+lCounts",
+    ],  # note that x and y are flipped here due to horizontal=True
+    region=[
+        -xymax - 0.5,
+        xymax + 0.5,
+        0,
+        0,
+    ],  # since no y-range was specified, ymax is calculated automatically
     data=y,
     fill=fillcol,
     histtype=0,
-    series=0.1
+    series=0.1,
 )
 
 fig.show()
