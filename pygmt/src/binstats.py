@@ -91,8 +91,9 @@ def binstats(data, **kwargs):
     tiling : str
         **h**\|\ **r**.
         Instead of circular, possibly overlapping areas, select
-        non-overlapping tiling. Choose between rectangular hexagonal
-        binning. For **r**, set bin sizes via ``spacing`` and we write
+        non-overlapping tiling. Choose between **r**\ ectangular and
+        **h**\ exagonal binning.
+        For **r**, set bin sizes via ``spacing`` and we write
         the computed statistics to the grid file named in ``outgrid``.
         For **h**, we write a table with the centers of the hexagons and
         the computed statistics to standard output (or to the file named
