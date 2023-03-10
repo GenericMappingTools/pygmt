@@ -27,7 +27,7 @@ fig.basemap(
 
 fillcol="seagreen"
 
-# plot data points as circles of size 0.25c
+# plot data points as circles of size 0.25 centimeters
 fig.plot(  
     x=x,   
     y=y,
