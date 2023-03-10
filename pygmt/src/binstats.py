@@ -20,6 +20,7 @@ from pygmt.io import load_dataarray
     I="spacing",
     N="normalize",
     R="region",
+    T="tiling",
     S="search_radius",
     V="verbose",
     W="weight",
