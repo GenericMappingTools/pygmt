@@ -101,7 +101,7 @@ def binstats(data, **kwargs):
         set the y-increment only and we compute the x-increment given
         the geometry. Because the horizontal spacing between hexagon
         centers in x and y have a ratio of, we will automatically
-        adjust xmax in ``region`` to fit a whole number of hexagons.
+        adjust *xmax* in ``region`` to fit a whole number of hexagons.
         **Note**: Hexagonal tiling requires Cartesian data.
     weight : str
         Input data have an extra column containing observation point weight.
