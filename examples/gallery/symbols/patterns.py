@@ -23,10 +23,21 @@ The required argument has the following form:
 
 **P**\ |**p**\ *pattern*\ [**+b**\ *color*\ ][**+f**\ *color*\ ][**+r**\ *dpi*]
 
-TODO
-
-An overview of all 90 predefined bit and hachure patterns can by found at
+*pattern* can either be a number in the range 1â€“90 or the name of a
+1-, 8-, or 24-bit image raster file. The former will result in one of the 90
+predefined 64 x 64 bit-patterns provided with GMT; an overview can by found at
 https://docs.generic-mapping-tools.org/latest/cookbook/predefined-patterns.html.
+The latter allows the user to create customized, repeating images using image
+raster files.
+By specifying upper case **P** instead of **p** the image will be
+bit-reversed, i.e., white and black areas will be interchanged (only applies
+to 1-bit images or predefined bit-image patterns).
+For these patterns and other 1-bit images one may specify alternative
+**b**\ ackground and **f**\ oreground colors (by appending **+b**\ *color*
+and/or **+f**\ *color*) that will replace the default white and black pixels,
+respectively. Excluding *color* from a fore- or background specification yields
+a transparent image where only the back- or foreground pixels will be painted.
+The **+r**\ *dpi* modifier sets the resolution in dpi.
 """
 
 import pygmt
