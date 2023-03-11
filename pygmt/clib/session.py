@@ -28,25 +28,38 @@ from pygmt.exceptions import (
 from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
-    "GMT_IS_DATASET",
-    "GMT_IS_GRID",
-    "GMT_IS_PALETTE",
-    "GMT_IS_MATRIX",
-    "GMT_IS_VECTOR",
+    "GMT_IS_DATASET",  # Entity is a data table
+    "GMT_IS_GRID",  # Entity is a grid
+    "GMT_IS_IMAGE",  # Entity is a 1- or 3-band unsigned char image
+    "GMT_IS_PALETTE",  # Entity is a color palette table
+    "GMT_IS_POSTSCRIPT",  # Entity is a PostScript content struct
+    "GMT_IS_MATRIX",  # Entity is a user matrix
+    "GMT_IS_VECTOR",  # Entity is a set of user vectors
+    "GMT_IS_CUBE",  # Entity is a 3-D data cube
 ]
 
-VIAS = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
+VIAS = [
+    "GMT_VIA_MATRIX",  # dataset is passed as a matrix
+    "GMT_VIA_VECTOR",  # dataset is passed as a set of vectors
+]
 
 GEOMETRIES = [
-    "GMT_IS_NONE",
-    "GMT_IS_POINT",
-    "GMT_IS_LINE",
-    "GMT_IS_POLYGON",
-    "GMT_IS_PLP",
-    "GMT_IS_SURFACE",
+    "GMT_IS_NONE",  # items without geometry (e.g., CPT)
+    "GMT_IS_POINT",  # items are points
+    "GMT_IS_LINE",  # items are lines
+    "GMT_IS_POLY",  # items are polygons
+    "GMT_IS_LP",  # items could be any one of LINE or POLY
+    "GMT_IS_PLP",  # items could be any one of POINT, LINE, or POLY
+    "GMT_IS_SURFACE",  # items are 2-D grid
+    "GMT_IS_VOLUME",  # items are 3-D grid
 ]
 
-METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+METHODS = [
+    "GMT_IS_DUPLICATE",  # tell GMT the data are read-only
+    "GMT_IS_REFERENCE",  # tell GMT to duplicate the data
+]
+
+DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
@@ -985,12 +998,12 @@ class Session:
     @contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT Virtual File to pass data to and from a module.
+        Open a GMT virtual file to pass data to and from a module.
 
-        GMT uses a virtual file scheme to pass in data to API modules. Use it
-        to pass in your GMT data structure (created using
+        GMT uses a virtual file scheme to pass in data or get data from API
+        modules. Use it to pass in your GMT data structure (created using
         :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input or output file.
+        input file, or get the output from a module that writes to a file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
         leaving the ``with`` block. Because of this, no wrapper for
@@ -999,19 +1012,21 @@ class Session:
         Parameters
         ----------
         family : str
-            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). Should
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
             be the same as the one you used to create your data structure.
         geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). Should
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
             be the same as the one you used to create your data structure.
         direction : str
-            Either ``'GMT_IN'`` or ``'GMT_OUT'`` to indicate if passing data to
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
-            ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
-        data : int
-            The ctypes void pointer to your GMT data structure.
+            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
+            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data : int or None
+            The ctypes void pointer to your GMT data structure. For output
+            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
+            automatically allocate the output GMT data structure.
 
         Yields
         ------
@@ -1022,7 +1037,6 @@ class Session:
         --------
 
         >>> from pygmt.helpers import GMTTempFile
-        >>> import os
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
@@ -1070,20 +1084,17 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS
+            direction, valid=DIRECTIONS, valid_modifiers=METHODS
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
-
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
-
         if status != 0:
             raise GMTCLibError("Failed to create a virtual file.")
 
         vfname = buff.value.decode()
-
         try:
             yield vfname
         finally:
