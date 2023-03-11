@@ -41,6 +41,7 @@ fig.histogram(
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
     fill=fillcol,
+    pen="0.1p,white",
     histtype=0,
     series=0.1,
 )
@@ -57,6 +58,7 @@ fig.histogram(
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=y,
     fill=fillcol,
+    pen="0.1p,white",
     histtype=0,
     series=0.1,
 )
