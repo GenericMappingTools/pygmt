@@ -30,7 +30,7 @@ fillcol = "seagreen"
 # plot data points as circles with a diameter of 0.25 centimeters
 fig.plot(x=x, y=y, style="c0.25c", fill=fillcol, transparency=50)
 
-# add top margin histogram
+# shift the plot origin and add top margin histogram
 fig.shift_origin(yshift="10.25c")
 
 fig.histogram(
@@ -44,7 +44,7 @@ fig.histogram(
     series=0.1,
 )
 
-# add right margin histogram
+# shift the plot origin and add right margin histogram
 fig.shift_origin(yshift="-10.25c", xshift="10.25c")
 
 fig.histogram(
