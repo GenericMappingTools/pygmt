@@ -16,7 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     JX="width",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     c="panel",
@@ -69,7 +68,6 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
     {pen}
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
