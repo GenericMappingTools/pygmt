@@ -35,7 +35,7 @@ fig.shift_origin(yshift="10.25c")
 
 fig.histogram(
     projection="X10c/2c",
-    frame=["Wsrt", "y+lCounts"],
+    frame=["Wsrt", "x+a1", "y+lCounts"],
     # Give the same value for ymin and ymax to have ymin and ymax calculated automatically
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
@@ -51,7 +51,7 @@ fig.histogram(
     horizontal=True,
     projection="X2c/10c",
     # Note that x and y are flipped here due to horizontal=True
-    frame=["wSrt", "y+lCounts"],
+    frame=["wSrt", "x+a1", "y+lCounts"],
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=y,
     fill=fillcol,
