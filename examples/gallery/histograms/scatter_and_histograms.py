@@ -27,8 +27,8 @@ fig.basemap(
 
 fillcol = "seagreen"
 
-# plot data points as circles with a diameter of 0.25 centimeters
-fig.plot(x=x, y=y, style="c0.25c", fill=fillcol, transparency=50)
+# plot data points as circles with a diameter of 0.15 centimeters
+fig.plot(x=x, y=y, style="c0.15c", fill=fillcol, transparency=50)
 
 # shift the plot origin and add top margin histogram
 fig.shift_origin(yshift="10.25c")
@@ -36,7 +36,7 @@ fig.shift_origin(yshift="10.25c")
 fig.histogram(
     projection="X10c/2c",
     frame=["Wsrt", "y+lCounts"],
-    # Since no y-range is specified, ymax is calculated automatically
+    # Give the same value for ymin and ymax to have ymin and ymax calculated automatically
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
     fill=fillcol,
