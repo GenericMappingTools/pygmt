@@ -36,7 +36,8 @@ fig.shift_origin(yshift="10.25c")
 fig.histogram(
     projection="X10c/2c",
     frame=["Wsrt", "x+a1", "y+lCounts"],
-    # Give the same value for ymin and ymax to have ymin and ymax calculated automatically
+    # Give the same value for ymin and ymax to have ymin and ymax 
+    # calculated automatically
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
     fill=fillcol,
@@ -50,8 +51,8 @@ fig.shift_origin(yshift="-10.25c", xshift="10.25c")
 fig.histogram(
     horizontal=True,
     projection="X2c/10c",
-    # Note that the y-axis annotation "Counts" is shown in x-axis direction due to the
-    # rotation caused by horizontal=True
+    # Note that the y-axis annotation "Counts" is shown in x-axis direction
+    # due to the rotation caused by horizontal=True
     frame=["wSrt", "x+a1", "y+lCounts"],
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=y,
