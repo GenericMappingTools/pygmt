@@ -103,8 +103,8 @@ def inset(self, **kwargs):
         a string with the values separated by forward
         slashes [Default is no margins].
     no_clip : bool
-        Do NOT clip features extruding outside map inset boundaries [Default
-        is clip].
+        Do **not** clip features extruding outside the inset frame
+        boundaries [Default is ``False``].
     {region}
     {projection}
     {verbose}

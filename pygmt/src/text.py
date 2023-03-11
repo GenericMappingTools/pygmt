@@ -146,7 +146,8 @@ def text_(
         Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
-        Do NOT clip text at map boundaries [Default is with clip].
+        Do **not** clip text at the frame boundaries [Default is
+        ``False``].
     {verbose}
     {aspatial}
     {panel}

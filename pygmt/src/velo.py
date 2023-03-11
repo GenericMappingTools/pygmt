@@ -212,9 +212,10 @@ def velo(self, data=None, **kwargs):
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool or str
-        Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region`` [Default plots symbols inside frame only].
+    no_clip: bool
+        Do **not** skip symbols that fall outside the frame boundaries
+        [Default is ``False``, i.e., plot symbols inside the frame
+        boundaries only].
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
