@@ -115,7 +115,7 @@ def tilemap(
         raise ModuleNotFoundError(
             "Package `rioxarray` is required to be installed to use this function. "
             "Please use `pip install rioxarray` or "
-            "`conda install -c conda-forge rioxarray` "
+            "`mamba install -c conda-forge rioxarray` "
             "to install the package."
         )
 
