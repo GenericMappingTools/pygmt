@@ -11,11 +11,11 @@ import pygmt
 
 np.random.seed(19680801)
 
-# generate random data
+# Generate random data
 x = np.random.randn(1000)
 y = np.random.randn(1000)
 
-# get axis limits
+# Get axis limits
 xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
 
 fig = pygmt.Figure()
@@ -27,10 +27,10 @@ fig.basemap(
 
 fillcol = "seagreen"
 
-# plot data points as circles with a diameter of 0.15 centimeters
+# Plot data points as circles with a diameter of 0.15 centimeters
 fig.plot(x=x, y=y, style="c0.15c", fill=fillcol, transparency=50)
 
-# shift the plot origin and add top margin histogram
+# Shift the plot origin and add top margin histogram
 fig.shift_origin(yshift="10.25c")
 
 fig.histogram(
@@ -45,7 +45,7 @@ fig.histogram(
     series=0.1,
 )
 
-# shift the plot origin and add right margin histogram
+# Shift the plot origin and add right margin histogram
 fig.shift_origin(yshift="-10.25c", xshift="10.25c")
 
 fig.histogram(
