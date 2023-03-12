@@ -3,7 +3,9 @@ Scatter plot with histograms
 ----------------------------
 To create a scatter plot with histograms at the sides of the plot one
 can use :meth:`pygmt.Figure.plot` in combination with
-:meth:`pygmt.Figure.histogram`.
+:meth:`pygmt.Figure.histogram`. The positions of the histograms are plotted
+by offseting them from the main scatter plot figure using
+:meth:`pygmt.Figure.shift_origin`.
 """
 
 import numpy as np
@@ -11,7 +13,7 @@ import pygmt
 
 np.random.seed(19680801)
 
-# Generate random data
+# Generate random data from a standard normal distribution centered on 0
 x = np.random.randn(1000)
 y = np.random.randn(1000)
 
