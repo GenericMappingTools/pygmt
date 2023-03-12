@@ -83,13 +83,13 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
-        Pen to draw the underlying triangulation [Default is None].
+        Pen to draw the underlying triangulation [Default is ``None``].
     no_clip : bool
-        Do NOT clip contours or image at the boundaries [Default will clip
-        to fit inside region].
+        Do **not** clip contours or image at the frame boundaries
+        [Default is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
-        Do not draw contours with less than cut number of points.
+        Do not draw contours with less than *cut* number of points.
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.

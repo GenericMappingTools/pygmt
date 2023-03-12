@@ -43,7 +43,7 @@ def grdinfo(grid, **kwargs):
     {region}
     per_column : str or bool
         **n**\|\ **t**.
-        Formats the report using tab-separated fields on a single line. The
+        Format the report using tab-separated fields on a single line. The
         output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ]
         [ *med scale* ] [ *mean std rms* ] [ *n_nan* ] *registration gtype*.
         The data in brackets are outputted depending on the ``force_scan``

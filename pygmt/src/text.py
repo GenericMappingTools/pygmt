@@ -80,7 +80,7 @@ def text_(
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
     position : str
-        Sets reference point on the map for the text by using x, y
+        Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
@@ -133,7 +133,7 @@ def text_(
         Set color for filling text boxes [Default is no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x, y) point by *dx*/\ *dy*
+        Offset the text from the projected (x, y) point by *dx*/\ *dy*
         [Default is ``"0/0"``].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
@@ -143,10 +143,11 @@ def text_(
         point to the shifted point; append a pen to change the attributes
         for this line.
     pen : str
-        Sets the pen used to draw a rectangle around the text string
+        Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
-        Do NOT clip text at map boundaries [Default is with clip].
+        Do **not** clip text at the frame boundaries [Default is
+        ``False``].
     {verbose}
     {aspatial}
     {panel}

@@ -54,7 +54,7 @@ def colorbar(self, **kwargs):
         [**+h**\|\ **v**][**+j**\ *justify*]\
         [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\
         [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].
-        Defines the reference point on the map for the color scale using one of
+        Define the reference point on the map for the color scale using one of
         four coordinate systems: (1) Use **g** for map (user) coordinates, (2)
         use **j** or **J** for setting *refpoint* via a 2-character
         justification code that refers to the (invisible) map domain rectangle,
@@ -71,7 +71,7 @@ def colorbar(self, **kwargs):
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        If set to ``True``, draws a rectangular border around the color scale.
+        If set to ``True``, draw a rectangular border around the color scale.
         Alternatively, specify a different pen with **+p**\ *pen*. Add
         **+g**\ *fill* to fill the scale panel [Default is no fill]. Append
         **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or

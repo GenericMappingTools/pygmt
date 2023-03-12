@@ -209,10 +209,10 @@ class Figure:
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
-            no anti-aliasing (same as bits = 1)].
+            Append the size of the subsample box (1, 2, or 4) [Default is
+            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
         fmt : str
-            Sets the output format, where **b** means BMP, **e** means EPS,
+            Set the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
@@ -273,21 +273,21 @@ class Figure:
             The desired figure file name, including the extension. See the list
             of supported formats and their extensions above.
         transparent : bool
-            If True, will use a transparent background for the figure. Only
-            valid for PNG format.
+            If ``True``, will use a transparent background for the figure.
+            Only valid for PNG format.
         crop : bool
-            If True, will crop the figure canvas (page) to the plot area.
+            If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIFF). More specifically, it passes arguments ``t2``
+            If ``True``, will use anti-aliasing when creating raster images
+            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
             and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
         show: bool
-            If True, will open the figure in an external viewer.
+            If ``True``, will open the figure in an external viewer.
         dpi : int
-            Set raster resolution in dpi. Default is 720 for PDF, 300 for
-            others.
+            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
+            for others].
         **kwargs : dict
             Additional keyword arguments passed to
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,

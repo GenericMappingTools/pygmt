@@ -112,11 +112,12 @@ def grdimage(self, grid, **kwargs):
         to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
-        Sets the resolution of the projected grid that will be created if a
-        map projection other than Linear or Mercator was selected [100]. By
-        default, the projected grid will be of the same size (rows and
-        columns) as the input file. Specify **i** to use the PostScript
-        image operator to interpolate the image at the device resolution.
+        Set the resolution of the projected grid that will be created if a
+        map projection other than Linear or Mercator was selected [Default
+        is ``100`` dpi]. By default, the projected grid will be of the
+        same size (rows and columns) as the input file. Specify **i** to
+        use the PostScript image operator to interpolate the image at the
+        device resolution.
     bit_color : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
@@ -145,8 +146,8 @@ def grdimage(self, grid, **kwargs):
         Force conversion to monochrome image using the (television) YIQ
         transformation. Cannot be used with ``nan_transparent``.
     no_clip : bool
-        Do not clip the image at the map boundary (only relevant for
-        non-rectangular maps).
+        Do **not** clip the image at the frame boundaries (only relevant
+        for non-rectangular maps) [Default is ``False``].
     nan_transparent : bool
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
