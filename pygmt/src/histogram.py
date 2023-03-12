@@ -100,7 +100,7 @@ def histogram(self, data, **kwargs):
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
     stairs : bool
-        Draws a stairs-step diagram which does not include the internal bars
+        Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
         Plot the histogram using horizontal bars instead of the

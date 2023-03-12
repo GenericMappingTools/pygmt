@@ -71,7 +71,7 @@ def velo(self, data=None, **kwargs):
         :class:`pandas.DataFrame` inputs.
 
     spec: str
-        Selects the meaning of the columns in the data file and the figure to
+        Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
@@ -171,7 +171,7 @@ def velo(self, data=None, **kwargs):
     {frame}
     {cmap}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec="e"``
+        Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintyfill : str
@@ -212,9 +212,10 @@ def velo(self, data=None, **kwargs):
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool or str
-        Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region`` [Default plots symbols inside frame only].
+    no_clip: bool
+        Do **not** skip symbols that fall outside the frame boundaries
+        [Default is ``False``, i.e., plot symbols inside the frame
+        boundaries only].
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].

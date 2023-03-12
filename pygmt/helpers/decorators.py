@@ -29,7 +29,7 @@ COMMON_DOCSTRINGS = {
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
             hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is 0/0/4 (all
+            *max_level* will not be plotted [Default is ``"0/0/4"`` (all
             features)].""",
     "frame": r"""
         frame : bool or str or list
@@ -305,13 +305,13 @@ COMMON_DOCSTRINGS = {
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
-            the viewpoint. Default is [180, 90]. Full documentation is at
+            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
     "registration": r"""
         registration : str
             **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration.
+            Force gridline (**g**) or pixel (**p**) node registration
             [Default is **g**\ (ridline)].
         """,
     "skiprows": r"""
@@ -333,7 +333,7 @@ COMMON_DOCSTRINGS = {
     "transparency": r"""
         transparency : int or float
             Set transparency level, in [0-100] percent range
-            [Default is 0, i.e., opaque].
+            [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
