@@ -187,12 +187,12 @@ def test(doctest=True, verbose=True, coverage=False, figures=True):
     Run the test suite.
 
     Uses `pytest <http://pytest.org/>`__ to discover and run the tests. If you
-    haven't already, you can install it with `conda
-    <http://conda.pydata.org/>`__ or `pip <https://pip.pypa.io/en/stable/>`__.
+    haven't already, you can install it with `mamba
+    <https://mamba.readthedocs.org/>`__ or `pip
+    <https://pip.pypa.io/en/stable/>`__.
 
     Parameters
     ----------
-
     doctest : bool
         If ``True``, will run the doctests as well (code examples that start
         with a ``>>>`` in the docs).
