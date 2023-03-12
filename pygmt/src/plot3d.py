@@ -86,7 +86,7 @@ def plot3d(
         z, fill, and size, respectively.
     x/y/z : float or 1-D arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
-        the data points
+        the data points.
     size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
@@ -135,10 +135,11 @@ def plot3d(
         :gmt-docs:`plot3d.html#l`.
     no_clip : bool or str
         [**c**\|\ **r**].
-        Do NOT clip symbols that fall outside map border [Default plots
-        points whose coordinates are strictly inside the map border only].
+        Do **not** clip symbols that fall outside the frame boundaries
+        [Default plots points whose coordinates are strictly inside the
+        frame boundaries only].
         This parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360-longitude) maps we
+        clipped to the map region. For periodic (360° longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping

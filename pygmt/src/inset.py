@@ -76,8 +76,7 @@ def inset(self, **kwargs):
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
         [[*dx*/*dy*/][*shade*]]].
-
-        If passed ``True``, this draws a rectangular box around the map
+        If set to ``True``, draw a rectangular box around the map
         inset using the default pen; specify a different pen
         with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
         [Default is no fill].
@@ -91,9 +90,9 @@ def inset(self, **kwargs):
         rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
-        indicates the shift relative to the foreground frame
-        [4p/-4p] and ``shade`` sets the fill style to use for
-        shading [Default is gray50].
+        indicates the shift relative to the foreground frame [Default is
+        ``"4p/-4p"``] and ``shade`` sets the fill style to use for
+        shading [Default is ``"gray50"``].
     margin : int or str or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
@@ -104,8 +103,8 @@ def inset(self, **kwargs):
         a string with the values separated by forward
         slashes [Default is no margins].
     no_clip : bool
-        Do NOT clip features extruding outside map inset boundaries [Default
-        is clip].
+        Do **not** clip features extruding outside the inset frame
+        boundaries [Default is ``False``].
     {region}
     {projection}
     {verbose}

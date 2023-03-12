@@ -35,7 +35,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     ----------
     filter_type : str
         **type**\ *width*\ [**+h**].
-        Sets the filter **type**. Choose among convolution and non-convolution
+        Set the filter **type**. Choose among convolution and non-convolution
         filters. Append the filter code followed by the full filter
         *width* in same units as time column. By default, this
         performs a low-pass filtering; append **+h** to select high-pass
@@ -82,9 +82,9 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         half the filter-width of data at each end.
 
     time_col : int
-        Indicates which column contains the independent variable (time). The
+        Indicate which column contains the independent variable (time). The
         left-most column is 0, while the right-most is (*n_cols* - 1)
-        [Default is 0].
+        [Default is ``0``].
 
     output_type : str
         Determine the format the xyz data will be returned in [Default is
