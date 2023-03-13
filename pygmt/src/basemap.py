@@ -3,12 +3,7 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
