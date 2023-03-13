@@ -104,7 +104,7 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/10c",
+        projection="R40/10c",
         style="s1c",
         fill="green",
         frame=["ag", "zag"],
