@@ -23,7 +23,9 @@ def load_earth_relief(
     Load Earth relief grids (topography and bathymetry) in various resolutions.
 
     The grids are downloaded to a user data directory
-    (usually a subdirectory under ~/.gmt/server/earth/) the first time you
+    (usually ``~/.gmt/server/earth/earth_relief``,
+    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
+    or ``~/.gmt/server/earth/earth_synbath``) the first time you
     invoke this function. Afterwards, it will load the grid from the data
     directory. So you'll need an internet connection the first time around.
 
@@ -59,22 +61,20 @@ def load_earth_relief(
         for all resolutions except ``"15s"`` which is ``"pixel"`` only.
 
     data_source : str
-        Select the source for the Earth relief data.
+        Select the source for the Earth relief data. Available options are:
 
-        Available options:
-
-        - **igpp** : IGPP Global Earth Relief [Default option]. See
+        - ``"igpp"``: IGPP Global Earth Relief [Default option]. See
           :gmt-datasets:`earth-relief.html`.
 
-        - **synbath** : IGPP Global Earth Relief dataset that uses
-          stastical properties of young seafloor to provide more realistic
+        - ``"synbath"``: IGPP Global Earth Relief dataset that uses
+          stastical properties of young seafloor to provide a more realistic
           relief of young areas with small seamounts.
 
-        - **gebco** : GEBCO Global Earth Relief with only observed relief and
+        - ``"gebco"``: GEBCO Global Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
 
-        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)
+        - ``"gebcosi"``: GEBCO Global Earth Relief that gives sub-ice (si)
           elevations.
 
     use_srtm : bool
@@ -129,8 +129,8 @@ def load_earth_relief(
     }
     if data_source not in earth_relief_sources:
         raise GMTInvalidInput(
-            f"Invalid earth relief 'data_source' {data_source}, "
-            "valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
+            f"Invalid earth relief data source '{data_source}'. "
+            "Valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
         )
     # Choose earth relief data prefix
     if use_srtm and resolution in land_only_srtm_resolutions:
@@ -138,15 +138,14 @@ def load_earth_relief(
             dataset_prefix = "srtm_relief_"
         else:
             raise GMTInvalidInput(
-                f"The {data_source} option is not available if 'use_srtm=True'."
-                " Set data_source to 'igpp'."
+                f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
+                " Please set 'data_source' to 'igpp'."
             )
     else:
         dataset_prefix = earth_relief_sources[data_source]
 
-    dataset_name = "earth_relief"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
+        dataset_name="earth_relief",
         dataset_prefix=dataset_prefix,
         resolution=resolution,
         region=region,

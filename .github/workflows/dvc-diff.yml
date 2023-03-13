@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.2.0
+      uses: actions/checkout@v3.3.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
@@ -22,7 +22,7 @@ jobs:
       uses: iterative/setup-dvc@v1.1.1
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.1
+      uses: iterative/setup-cml@v1.2.2
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
@@ -87,15 +87,13 @@ jobs:
         # Mention git commit SHA in the report
         echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
 
-        # Format report to escape newlines before publishing as GitHub comment
-        report=$(cat report.md)
-        report="${report//'%'/'%25'}"
-        report="${report//$'\n'/'%0A'}"
-        report="${report//$'\r'/'%0D'}"
-        echo "report=$report" >> $GITHUB_OUTPUT
+        # Save the report content to the output parameter 'report'
+        echo 'report<<EOF' >> $GITHUB_OUTPUT
+        cat report.md >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
 
     - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.2.0
+      uses: peter-evans/find-comment@v2.3.0
       id: fc
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -104,14 +102,14 @@ jobs:
 
     - name: Create comment with image diff report
       if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
+      uses: peter-evans/create-or-update-comment@v2.1.1
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: ${{ steps.image-diff.outputs.report }}
 
     - name: Update comment with new image diff report
       if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
+      uses: peter-evans/create-or-update-comment@v2.1.1
       with:
         comment-id: ${{ steps.fc.outputs.comment-id }}
         body: ${{ steps.image-diff.outputs.report }}

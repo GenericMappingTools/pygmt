@@ -31,7 +31,6 @@ from pygmt.src.which import which
     N="no_clip",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="zvalue",
@@ -169,8 +168,9 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         :gmt-docs:`plot.html#l`.
     no_clip : bool or str
         [**c**\|\ **r**].
-        Do NOT clip symbols that fall outside map border [Default plots
-        points whose coordinates are strictly inside the map border only].
+        Do **not** clip symbols that fall outside the frame boundaries
+        [Default plots points whose coordinates are strictly inside the
+        frame boundaries only].
         The parameter does not apply to lines and polygons which are always
         clipped to the map region. For periodic (360-longitude) maps we
         must plot all symbols twice in case they are clipped by the
@@ -183,7 +183,6 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         Plot symbols (including vectors, pie slices, fronts, decorated or
         quoted lines).
     {pen}
-    {timestamp}
     {verbose}
     zvalue : str
         *value*\|\ *file*.

@@ -1,0 +1,4 @@
+outs:
+- md5: 868d6a5912b586bc7e095b9923ce8d83
+  size: 3036
+  path: test_timestamp_label.png

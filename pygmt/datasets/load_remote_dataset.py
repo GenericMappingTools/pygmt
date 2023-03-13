@@ -22,7 +22,7 @@ class Resolution(NamedTuple):
 
     tiled : bool
         States if the given resolution is tiled, which requires an
-        argument for ``region``."
+        argument for ``region``.
     """
 
     registrations: list
@@ -143,6 +143,28 @@ datasets = {
             "02m": Resolution(["pixel"], True),
         },
     ),
+    "earth_mask": GMTRemoteDataset(
+        title="Earth mask",
+        name="earth_mask",
+        long_name="Mask of land and water features",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution(["gridline", "pixel"], False),
+            "30m": Resolution(["gridline", "pixel"], False),
+            "20m": Resolution(["gridline", "pixel"], False),
+            "15m": Resolution(["gridline", "pixel"], False),
+            "10m": Resolution(["gridline", "pixel"], False),
+            "06m": Resolution(["gridline", "pixel"], False),
+            "05m": Resolution(["gridline", "pixel"], False),
+            "04m": Resolution(["gridline", "pixel"], False),
+            "03m": Resolution(["gridline", "pixel"], False),
+            "02m": Resolution(["gridline", "pixel"], False),
+            "01m": Resolution(["gridline", "pixel"], False),
+            "30s": Resolution(["gridline", "pixel"], False),
+            "15s": Resolution(["gridline", "pixel"], False),
+        },
+    ),
     "earth_relief": GMTRemoteDataset(
         title="Earth relief",
         name="elevation",
@@ -235,8 +257,8 @@ def _load_remote_dataset(
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        a gridline-registered grid is returned unless only the
+        pixel-registered grid is available.
 
     Returns
     -------
@@ -249,17 +271,25 @@ def _load_remote_dataset(
     tiled grids.
     """
     dataset = datasets[dataset_name]
+
+    # check resolution
     if resolution not in dataset.resolutions.keys():
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
+
+    # check registration
     if registration is None:
-        # Check if "gridline" is an available registration for the resolution
-        if "gridline" in dataset.resolutions[resolution].registrations:
-            # Use default of gridline registration if available
-            registration = "gridline"
-        else:
+        # use gridline registration unless only pixel registration is available
+        registration = "gridline"
+        if "gridline" not in dataset.resolutions[resolution].registrations:
             registration = "pixel"
-    if registration in ("pixel", "gridline"):
-        reg = f"_{registration[0]}"
+    elif registration in ("pixel", "gridline"):
+        if registration not in dataset.resolutions[resolution].registrations:
+            raise GMTInvalidInput(
+                f"{registration} registration is not available for the "
+                f"{resolution} {dataset.title} dataset. Only "
+                f"{dataset.resolutions[resolution].registrations[0]}"
+                " registration is available."
+            )
     else:
         raise GMTInvalidInput(
             f"Invalid grid registration: '{registration}', should be either "
@@ -267,16 +297,7 @@ def _load_remote_dataset(
             "gridline-registered grid is returned unless only the "
             "pixel-registered grid is available."
         )
-
-    if registration and (
-        registration not in dataset.resolutions[resolution].registrations
-    ):
-        raise GMTInvalidInput(
-            f"{registration} registration is not available for the "
-            f"{resolution} {dataset.title} dataset. Only "
-            f"{dataset.resolutions[resolution].registrations[0]}"
-            " registration is available."
-        )
+    reg = f"_{registration[0]}"
 
     # different ways to load tiled and non-tiled grids.
     # Known issue: tiled grids don't support slice operation
@@ -284,8 +305,7 @@ def _load_remote_dataset(
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.title}"
-                f"resolution '{resolution}'."
+                f"'region' is required for {dataset.title} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")
@@ -295,13 +315,14 @@ def _load_remote_dataset(
     # Add some metadata to the grid
     grid.name = dataset.name
     grid.attrs["long_name"] = dataset.long_name
-    grid.attrs["units"] = dataset.units
+    if dataset.units:
+        grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
         grid.attrs[key] = value
     # Remove the actual range because it gets outdated when indexing the grid,
     # which causes problems when exporting it to netCDF for usage on the
     # command-line.
-    grid.attrs.pop("actual_range")
+    grid.attrs.pop("actual_range", None)
     for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
+        grid[coord].attrs.pop("actual_range", None)
     return grid

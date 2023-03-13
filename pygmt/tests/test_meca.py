@@ -17,7 +17,7 @@ def test_meca_spec_dictionary():
     fig = Figure()
     # Right lateral strike slip focal mechanism
     fig.meca(
-        spec=dict(strike=0, dip=90, rake=0, magnitude=5),
+        spec={"strike": 0, "dip": 90, "rake": 0, "magnitude": 5},
         longitude=0,
         latitude=5,
         depth=0,
@@ -37,9 +37,12 @@ def test_meca_spec_dict_list():
     """
     fig = Figure()
     # supply focal mechanisms as a dict of lists
-    focal_mechanisms = dict(
-        strike=[330, 350], dip=[30, 50], rake=[90, 90], magnitude=[3, 2]
-    )
+    focal_mechanisms = {
+        "strike": [330, 350],
+        "dip": [30, 50],
+        "rake": [90, 90],
+        "magnitude": [3, 2],
+    }
     fig.meca(
         spec=focal_mechanisms,
         longitude=[-123.5, -124.5],
@@ -61,17 +64,16 @@ def test_meca_spec_dataframe():
     """
 
     fig = Figure()
-
     # supply focal mechanisms to meca as a dataframe
-    focal_mechanisms = dict(
-        strike=[324, 353],
-        dip=[20.6, 40],
-        rake=[83, 90],
-        magnitude=[3.4, 2.9],
-        longitude=[-124, -124.4],
-        latitude=[48.1, 48.2],
-        depth=[12, 11.0],
-    )
+    focal_mechanisms = {
+        "strike": [324, 353],
+        "dip": [20.6, 40],
+        "rake": [83, 90],
+        "magnitude": [3.4, 2.9],
+        "longitude": [-124, -124.4],
+        "latitude": [48.1, 48.2],
+        "depth": [12, 11.0],
+    }
     fig.meca(
         spec=pd.DataFrame(data=focal_mechanisms),
         region=[-125, -122, 47, 49],
@@ -181,9 +183,12 @@ def test_meca_loc_array():
     """
     fig = Figure()
     # specify focal mechanisms
-    focal_mechanisms = dict(
-        strike=[327, 350], dip=[41, 50], rake=[68, 90], magnitude=[3, 2]
-    )
+    focal_mechanisms = {
+        "strike": [327, 350],
+        "dip": [41, 50],
+        "rake": [68, 90],
+        "magnitude": [3, 2],
+    }
     # longitude, latitude, and depth may be specified as an int, float,
     # list, or 1-D numpy array
     longitude = np.array([-123.3, -124.4])
@@ -209,16 +214,16 @@ def test_meca_gcmt_convention():
     """
     fig = Figure()
     # specify focal mechanisms
-    focal_mechanisms = dict(
-        strike1=180,
-        dip1=18,
-        rake1=-88,
-        strike2=0,
-        dip2=72,
-        rake2=-90,
-        mantissa=5.5,
-        exponent=0,
-    )
+    focal_mechanisms = {
+        "strike1": 180,
+        "dip1": 18,
+        "rake1": -88,
+        "strike2": 0,
+        "dip2": 72,
+        "rake2": -90,
+        "mantissa": 5.5,
+        "exponent": 0,
+    }
     fig.meca(
         spec=focal_mechanisms,
         scale="1c",
@@ -239,7 +244,7 @@ def test_meca_dict_offset():
     Test offsetting beachballs for a dict input.
     """
     fig = Figure()
-    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(
         spec=focal_mechanism,
@@ -262,14 +267,14 @@ def test_meca_dict_offset_in_dict():
     See https://github.com/GenericMappingTools/pygmt/issues/2016.
     """
     fig = Figure()
-    focal_mechanism = dict(
-        strike=330,
-        dip=30,
-        rake=90,
-        magnitude=3,
-        plot_longitude=-124.5,
-        plot_latitude=47.5,
-    )
+    focal_mechanism = {
+        "strike": 330,
+        "dip": 30,
+        "rake": 90,
+        "magnitude": 3,
+        "plot_longitude": -124.5,
+        "plot_latitude": 47.5,
+    }
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(
         spec=focal_mechanism,
@@ -287,7 +292,7 @@ def test_meca_dict_eventname():
     Test offsetting beachballs for a dict input.
     """
     fig = Figure()
-    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(
         spec=focal_mechanism,
@@ -306,7 +311,7 @@ def test_meca_dict_offset_eventname():
     Test offsetting beachballs for a dict input.
     """
     fig = Figure()
-    focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(
         spec=focal_mechanism,
@@ -332,16 +337,16 @@ def test_meca_spec_dict_all_scalars():
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(
-        spec=dict(
-            strike=330,
-            dip=30,
-            rake=90,
-            magnitude=3,
-            longitude=-124,
-            latitude=48,
-            depth=12.0,
-            event_name="Event20220311",
-        ),
+        spec={
+            "strike": 330,
+            "dip": 30,
+            "rake": 90,
+            "magnitude": 3,
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "event_name": "Event20220311",
+        },
         scale="1c",
     )
     return fig

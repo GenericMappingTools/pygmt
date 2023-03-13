@@ -33,7 +33,6 @@ from pygmt.helpers import (
     N="no_clip",
     R="region",
     S="spec",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="zvalue",
@@ -72,7 +71,7 @@ def velo(self, data=None, **kwargs):
         :class:`pandas.DataFrame` inputs.
 
     spec: str
-        Selects the meaning of the columns in the data file and the figure to
+        Select the meaning of the columns in the data file and the figure to
         be plotted. In all cases, the scales are in data units per length unit
         and sizes are in length units (default length unit is controlled by
         :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is
@@ -172,22 +171,22 @@ def velo(self, data=None, **kwargs):
     {frame}
     {cmap}
     rescale : str
-        can be used to rescale the uncertainties of velocities (``spec="e"``
+        Can be used to rescale the uncertainties of velocities (``spec="e"``
         and ``spec="r"``) and rotations (``spec="w"``). Can be combined with
         the ``confidence`` variable.
     uncertaintyfill : str
-        Sets the color or shade used for filling uncertainty wedges
-        (``spec="w"``) or velocity error ellipses (``spec="e"`` or
-        ``spec="r"``). If ``uncertaintyfill`` is not specified, the
-        uncertainty regions will be transparent. **Note**: Using ``cmap`` and
-        ``zvalue="+e"`` will update the uncertainty fill color based on the
-        selected measure in ``zvalue`` [magnitude error]. More details at
+        Set color or pattern for filling uncertainty wedges (``spec="w"``)
+        or velocity error ellipses (``spec="e"`` or ``spec="r"``).
+        If ``uncertaintyfill`` is not specified, the uncertainty regions
+        will be transparent. **Note**: Using ``cmap`` and ``zvalue="+e"``
+        will update the uncertainty fill color based on the selected measure
+        in ``zvalue`` [Default is magnitude error]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
     fill : str
-        Select color or pattern for filling of symbols [Default is no fill].
+        Set color or pattern for filling symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
-        [magnitude]. More details at
+        [Default is magnitude]. More details at
         :gmt-docs:`cookbook/features.html#gfill-attrib`.
     scale : float or bool
         [*scale*].
@@ -213,10 +212,10 @@ def velo(self, data=None, **kwargs):
         ``cmap``). If instead modifier **+cf** is appended then the color from
         the cpt file is applied to error fill only [Default]. Use just **+c**
         to set both pen and fill color.
-    no_clip: bool or str
-        Do NOT skip symbols that fall outside the frame boundary specified
-        by ``region`` [Default plots symbols inside frame only].
-    {timestamp}
+    no_clip: bool
+        Do **not** skip symbols that fall outside the frame boundaries
+        [Default is ``False``, i.e., plot symbols inside the frame
+        boundaries only].
     {verbose}
     pen : str
         [*pen*][**+c**\ [**f**\|\ **l**]].
