@@ -42,7 +42,7 @@ The **+r**\ *dpi* modifier sets the resolution in dpi.
 
 import pygmt
 
-y = 13
+y = 11
 
 fig = pygmt.Figure()
 fig.basemap(
@@ -70,7 +70,6 @@ for pattern in [
     # works analogous for the foreground
     "p19+b+flightbrown+r100",
 ]:
-    y -= 2
     # Plot a square with the pattern as fill
     fig.plot(
         x=2,
@@ -87,5 +86,6 @@ for pattern in [
         font="Courier-Bold",
         justify="ML",  # justification of the text is Middle Left
     )
+    y -= 2
 
 fig.show()
