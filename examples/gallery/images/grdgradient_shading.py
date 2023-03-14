@@ -7,8 +7,8 @@ a path string to a grid file. It then calculates the respective gradient and
 returns an :class:`xarray.DataArray` object. The example below sets two main
 parameters:
 
-- ``azimuth``: to set the illumination light source direction (0 is North, 90
-  is East, 180 is South, 270 is West).
+- ``azimuth``: to set the illumination light source direction (0° is North,
+  90° is East, 180° is South, 270° is West).
 - ``normalize`` to enhance the three-dimensional sense of the topography.
 
 The ``normalize`` parameter calculates the azimuthal gradient of each point
@@ -27,7 +27,7 @@ grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 fig = pygmt.Figure()
 
-# Define a colormap to be used for topography.
+# Define a colormap to be used for topography
 pygmt.makecpt(cmap="terra", series=[-7000, 7000])
 
 # Define figure configuration
@@ -42,20 +42,20 @@ with fig.subplot(
     sharex="b",
     sharey="l",
 ):
-    # e.g. 0/90 illuminates light source from the north (top) and east
-    # (right), and so on.
+    # E.g. "0/90" illuminates light source from the North (top) and East
+    # (right), and so on
     for azi in ["0/90", "0/300", "180/225"]:
         # `amp` (e.g. 1 or 10) controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
         for nor in ["t1", "e1", "t10", "e10"]:
-            # making an intensity DataArray using azimuth and normalize
+            # Making an intensity DataArray using azimuth and normalize
             # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
             fig.grdimage(
                 grid=grid,
                 shading=shade,
-                projection="M5c",
+                projection="M?",
                 frame=["a4f2", f"+tazimuth={azi}, normalize={nor}"],
                 cmap=True,
                 panel=True,
