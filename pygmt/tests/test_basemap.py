@@ -3,16 +3,16 @@ Tests Figure.basemap.
 """
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
-@pytest.mark.mpl_image_compare
 def test_basemap_required_args():
     """
-    Automatically set `frame=True` when required arguments are not given.
+    Figure.basemap fails when not given required arguments.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
-    return fig
+    with pytest.raises(GMTInvalidInput):
+        fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
 
 
 @pytest.mark.mpl_image_compare
