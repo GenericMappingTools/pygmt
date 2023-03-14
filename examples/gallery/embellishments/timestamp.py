@@ -10,12 +10,12 @@ of the figure. By default, the ``offset`` and
 (bottom-left), respectively.
 """
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_number = 2
 
 import pygmt
 
 fig = pygmt.Figure()
-fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c")
+fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c", frame=True)
 fig.timestamp()
 fig.show()
 
