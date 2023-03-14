@@ -10,7 +10,7 @@ of the figure. By default, the ``offset`` and
 (bottom-left), respectively.
 """
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_number = 2
 
 import pygmt
 
