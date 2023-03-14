@@ -37,18 +37,18 @@ pygmt.config(FONT_TITLE="10p,5", MAP_TITLE_OFFSET="1p", MAP_FRAME_TYPE="plain")
 with fig.subplot(
     nrows=3,
     ncols=4,
-    figsize=("24c", "21c"),
+    figsize=("28c", "21c"),
     margins=["-1c", "-1c"],
     sharex="b",
     sharey="l",
 ):
     # e.g. 0/90 illuminates light source from the north (top) and east
     # (right), and so on.
-    for azi in ["0/90", "0/180", "0/300"]:
-        # `amp` (e.g. 2 or 10) controls the brightness value of the color
+    for azi in ["0/90", "0/300", "180/225"]:
+        # `amp` (e.g. 1 or 10) controls the brightness value of the color
         # `e` and `t` are cumulative Laplace distribution and cumulative
         # Cauchy distribution, respectively.
-        for nor in ["t2", "e2", "t10", "e10"]:
+        for nor in ["t1", "e1", "t10", "e10"]:
             # making an intensity DataArray using azimuth and normalize
             # parameters
             shade = pygmt.grdgradient(grid=grid, azimuth=azi, normalize=nor)
@@ -60,5 +60,7 @@ with fig.subplot(
                 cmap=True,
                 panel=True,
             )
+            
+fig.colorbar(position="x7.5c/-1.1c+w10c/0.25c+h", frame="a2000f500+lElevation(m)")
 
 fig.show()
