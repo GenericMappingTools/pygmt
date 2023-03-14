@@ -21,10 +21,12 @@ data = mean + stddev * np.random.randn(521)
 fig = pygmt.Figure()
 
 with fig.subplot(
-    nrows=1, ncols=2, figsize=("13.5c", "5c"), title="Histogram",
+    nrows=1,
+    ncols=2,
+    figsize=("13.5c", "5c"),
+    title="Histogram",
 ):
-        
-    with fig.set_panel(panel=0):        
+    with fig.set_panel(panel=0):
         fig.histogram(
             data=data,
             # Define the frame, add title and set background color to
@@ -39,7 +41,7 @@ with fig.subplot(
             # Choose histogram type 0, i.e., counts [Default]
             histtype=0,
         )
-        
+
     with fig.set_panel(panel=1):
         fig.histogram(
             data=data,
