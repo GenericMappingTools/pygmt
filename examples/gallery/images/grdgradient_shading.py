@@ -55,7 +55,7 @@ with fig.subplot(
             fig.grdimage(
                 grid=grid,
                 shading=shade,
-                projection="M?",
+                projection="M5c",
                 frame=["a4f2", f"+tazimuth={azi}, normalize={nor}"],
                 cmap=True,
                 panel=True,
