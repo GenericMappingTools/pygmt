@@ -92,13 +92,13 @@ Quickstart
 Installation
 ++++++++++++
 
-Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
-
-    conda install --channel conda-forge pygmt
-
-If you use `mamba <https://mamba.readthedocs.org/>`__::
+Simple installation using `mamba <https://mamba.readthedocs.org/>`__::
 
     mamba install --channel conda-forge pygmt
+
+If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
 
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
@@ -261,7 +261,7 @@ Compatibility with GMT/Python/NumPy versions
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
       - >=3.8
-      - >=1.20
+      - >=1.21
     * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
       - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
       - >=6.3.0

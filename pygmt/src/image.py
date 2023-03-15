@@ -12,7 +12,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="position",
     F="box",
     M="monochrome",
-    U="timestamp",
     V="verbose",
     c="panel",
     p="perspective",
@@ -44,16 +43,15 @@ def image(self, imagefile, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
         [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
-        Sets reference point on the map for the image.
+        Set reference point on the map for the image.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
-        Without further arguments, draws a rectangular border around the image
+        If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
