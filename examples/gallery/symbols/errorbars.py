@@ -4,9 +4,9 @@ Error bars
 The ``error_bar`` parameter of the :meth:`pygmt.Figure.plot` method
 can be used to add error bars to data points.
 
-The general syntax is:
-
-[**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**][**+cl**\|\ **f**][**+n**][**+w**\ *cap*][**+p**\ *pen*]
+The required argument has the following form:
+[**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**]\
+[**+cl**\|\ **f**][**+n**][**+w**\ *cap*][**+p**\ *pen*]
 
 TODO
 """
