@@ -19,11 +19,8 @@ of each point.
 
 import pygmt
 
-# Define region of interest around Caucasus
-region = [35, 50, 35, 45]
-
-# Load sample grid (3 arc-minutes global relief) in target area
-grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
+# Load the 3 arc-minutes global relief grid in the target area around Caucasus
+grid = pygmt.datasets.load_earth_relief(resolution="03m", region=[35, 50, 35, 45])
 
 fig = pygmt.Figure()
 
@@ -38,16 +35,15 @@ with fig.subplot(
     nrows=3,
     ncols=4,
     figsize=("28c", "21c"),
-    margins=["-1c", "-1c"],
     sharex="b",
     sharey="l",
 ):
     # E.g. "0/90" illuminates light source from the North (top) and East
     # (right), and so on
     for azi in ["0/90", "0/300", "180/225"]:
-        # `amp` (e.g. 1 or 10) controls the brightness value of the color
-        # `e` and `t` are cumulative Laplace distribution and cumulative
-        # Cauchy distribution, respectively.
+        # "e" and "t" are cumulative Laplace distribution and cumulative
+        # Cauchy distribution, respectively
+        # "amp" (e.g. 1 or 10) controls the brightness value of the color
         for nor in ["t1", "e1", "t10", "e10"]:
             # Making an intensity DataArray using azimuth and normalize
             # parameters
@@ -55,12 +51,12 @@ with fig.subplot(
             fig.grdimage(
                 grid=grid,
                 shading=shade,
-                projection="M5c",
+                projection="M?",
                 frame=["a4f2", f"+tazimuth={azi}, normalize={nor}"],
                 cmap=True,
                 panel=True,
             )
             
-fig.colorbar(position="x7.5c/-1.1c+w10c/0.25c+h", frame="a2000f500+lElevation(m)")
+fig.colorbar(position="x7.5c/-1.1c+w10c/0.25c+h", frame="a2000f500+lElevation (m)")
 
 fig.show()
