@@ -1680,3 +1680,26 @@ class Session:
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return wesn
+
+    def read_virtualfile(self, vfname):
+        """
+        Read data from a virtual file.
+
+        Parameters
+        ----------
+        vfname : str
+            Name of the virtual file to read.
+
+        Returns
+        -------
+        Pointer to the data, which can be casted into GMT data types.
+        """
+        c_read_virtualfile = self.get_libgmt_func(
+            "GMT_Read_VirtualFile",
+            argtypes=[
+                ctp.c_void_p,
+                ctp.c_char_p,
+            ],
+            restype=ctp.c_void_p,
+        )
+        return c_read_virtualfile(self.session_pointer, vfname.encode())
