@@ -56,7 +56,7 @@ with fig.subplot(
                 cmap=True,
                 panel=True,
             )
-            
+
 fig.colorbar(position="x7.5c/-1.1c+w10c/0.25c+h", frame="a2000f500+lElevation (m)")
 
 fig.show()
