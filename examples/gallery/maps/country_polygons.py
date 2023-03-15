@@ -1,8 +1,8 @@
 """
 Highlight country polygons
 --------------------------
-The :meth:`pygmt.Figure.coast` method allows to 
-highlight country polygons via the ``dcw`` 
+The :meth:`pygmt.Figure.coast` method allows to
+highlight country polygons via the ``dcw``
 parameter.
 """
 
