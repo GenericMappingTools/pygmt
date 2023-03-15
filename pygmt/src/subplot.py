@@ -155,8 +155,9 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         )
 
     # Need to use separate sessions for "subplot begin" and "subplot end".
-    # Otherwise, "subplot end" will use the last session, which may causes
-    # strange behavior like https://github.com/GenericMappingTools/pygmt/issues/2426
+    # Otherwise, "subplot end" will use the last session, which may cause
+    # strange positioning issues for later plotting calls.
+    # See https://github.com/GenericMappingTools/pygmt/issues/2426.
     try:
         with Session() as lib:
             arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
