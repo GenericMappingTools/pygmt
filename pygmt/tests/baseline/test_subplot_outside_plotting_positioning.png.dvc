@@ -1,4 +1,4 @@
 outs:
-- md5: 14da5db0ab63addd8a6d52d6746d9da2
-  size: 12124
+- md5: 60b51be2c54ccd6edf627a6fdae1d6ee
+  size: 12117
   path: test_subplot_outside_plotting_positioning.png
