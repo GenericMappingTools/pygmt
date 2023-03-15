@@ -88,7 +88,7 @@ def timestamp(
         if len(str(text)) > 64:
             msg = (
                 "Argument of 'text' must be no longer than 64 characters. "
-                "The text string will be truncated to 64 characters."
+                "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         if Version(__gmt_version__) <= Version("6.4.0"):
