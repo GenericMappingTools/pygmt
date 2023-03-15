@@ -65,11 +65,11 @@ def makecpt(**kwargs):
     Parameters
     ----------
     transparency : str
-        Sets a constant level of transparency (0-100) for all color slices.
+        Set a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the foreground, background, and NaN
-        colors [Default is no transparency, i.e., 0 (opaque)].
+        colors [Default is no transparency, i.e., ``0`` (opaque)].
     cmap : str
-        Selects the master color palette table (CPT) to use in the
+        Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
         at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
     background : bool or str
@@ -94,7 +94,7 @@ def makecpt(**kwargs):
         build ranges *start*-*start+1* instead.
     series : list or str
         [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
-        Defines the range of the new CPT by giving the lowest and highest
+        Define the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
         produced defines the color slice boundaries.  If **+n** is used it
