@@ -107,7 +107,8 @@ def test_subplot_outside_plotting_positioning():
     """
     Plotting calls are correctly positioned after exiting subplot.
 
-    See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2426.
     """
     fig = Figure()
     with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
