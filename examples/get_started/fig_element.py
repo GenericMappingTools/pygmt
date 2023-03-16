@@ -18,15 +18,11 @@ x = range(0, 11, 2)
 y_1 = [10, 11, 15, 8, 9, 13]
 
 fig.basemap(
-    region=[0, 10, 0, 20], 
+    region=[0, 10, 0, 20],
     projection="X10c/8c",
-    frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"])
-fig.plot(
-    x=x,
-    y=y_1,
-    style="t0.3c",
-    label="fig.plot (style)"
+    frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
 )
+fig.plot(x=x, y=y_1, style="t0.3c", label="fig.plot (style)")
 y_2 = [4, 5, 6, 3, 5, 5]
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
 # ============Figure
