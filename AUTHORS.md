@@ -24,3 +24,4 @@ The following people have contributed code and/or documentation to the project
 * [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated
 * [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Karlsruhe Institute of Technology, Germany
+* [Jing-Hui Tong](https://github.com/JingHuiTong) | [0009-0002-7195-3071](https://orcid.org/0009-0002-7195-3071) | National Taiwan Normal University, Taiwan
