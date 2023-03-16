@@ -161,15 +161,15 @@ Activate the environment by running the following (**do not forget this step!**)
 
             conda activate pygmt
 
-From now on, all commands will take place inside the conda virtual environment
-called ``pygmt`` and won't affect your default ``base`` installation.
+From now on, all commands will take place inside the virtual environment called
+``pygmt`` and won't affect your default ``base`` installation.
 
 
 Installing PyGMT
 ----------------
 
-Now that you have GMT installed and your conda virtual environment activated,
-you can install PyGMT using any of the following methods:
+Now that you have GMT installed and your virtual environment activated, you can
+install PyGMT using any of the following methods:
 
 Using mamba/conda (recommended)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
