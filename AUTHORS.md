@@ -13,6 +13,7 @@ The following people have contributed code and/or documentation to the project
 * [Dongdong Tian](https://seisman.info/) | [0000-0001-7967-1197](https://orcid.org/0000-0001-7967-1197) | China University of Geosciences, China
 * [Jamie Quinn](http://jamiejquinn.com) | [0000-0002-0268-7032](https://orcid.org/0000-0002-0268-7032) | University College London, United Kingdom
 * [Jiayuan Yao](https://github.com/core-man) | [0000-0001-7036-4238](https://orcid.org/0000-0001-7036-4238) | Nanyang Technological University, Singapore
+* [Jing-Hui Tong](https://github.com/JingHuiTong) | [0009-0002-7195-3071](https://orcid.org/0009-0002-7195-3071) | National Taiwan Normal University, Taiwan
 * [Kathryn Materna](https://github.com/kmaterna) | [0000-0002-6687-980X](https://orcid.org/0000-0002-6687-980X) | US Geological Survey, USA
 * [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool, United Kingdom
 * [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks, USA
@@ -24,4 +25,3 @@ The following people have contributed code and/or documentation to the project
 * [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated
 * [Yohai Magen](https://github.com/yohaimagen) | [0000-0002-4892-4013](https://orcid.org/0000-0002-4892-4013) | Tel Aviv University, Israel
 * [Yvonne Fröhlich](https://github.com/yvonnefroehlich) | [0000-0002-8566-0619](https://orcid.org/0000-0002-8566-0619) | Karlsruhe Institute of Technology, Germany
-* [Jing-Hui Tong](https://github.com/JingHuiTong) | [0009-0002-7195-3071](https://orcid.org/0009-0002-7195-3071) | National Taiwan Normal University, Taiwan
