@@ -1,0 +1,4 @@
+outs:
+- md5: c2bfca8624e4bf966eeb57bbc4aa0726
+  size: 8843
+  path: test_timestamp_justification.png

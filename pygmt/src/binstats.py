@@ -84,7 +84,7 @@ def binstats(data, **kwargs):
         Normalize the resulting grid values by the area represented by the
         search *radius* [no normalization].
     search_radius : float or str
-        Sets the *search_radius* that determines which data points are
+        Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
         Not compatible with ``tiling``.
     weight : str

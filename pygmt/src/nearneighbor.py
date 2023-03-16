@@ -89,7 +89,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     {region}
 
     search_radius : str
-        Sets the search radius that determines which data points are considered
+        Set the search radius that determines which data points are considered
         close to a node.
 
     outgrid : str

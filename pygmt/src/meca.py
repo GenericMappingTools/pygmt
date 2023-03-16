@@ -161,7 +161,7 @@ def meca(
           ``convention`` is not needed and is ignored if specified.
 
     scale : str
-        Adjusts the scaling of the radius of the beachball, which is
+        Adjust the scaling of the radius of the beachball, which is
         proportional to the magnitude. *scale* defines the size for
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
     convention : str
@@ -208,19 +208,19 @@ def meca(
         or pd.DataFrame.
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
-        Offsets beachball(s) to longitude(s) and latitude(s) specified in the
+        Offset beachball(s) to longitude(s) and latitude(s) specified in the
         the last two columns of the input file or array, or by
         ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
         is plotted at the initial location and a line connects the beachball
         to the circle. Use **+s**\ *size* to set the diameter of the circle
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
-        attributes [Default is 0.25p].
+        attributes [Default is ``"0.25p"``].
     compressionfill : str
         Set color or pattern for filling compressive quadrants
-        [Default is black].
+        [Default is ``"black"``].
     extensionfill : str
         Set color or pattern for filling extensive quadrants
-        [Default is white].
+        [Default is ``"white"``].
     pen : str
         Set pen attributes for outline of beachball
         [Default is ``"0.25p,black,solid"``].
@@ -231,8 +231,9 @@ def meca(
         determined by the z-value (i.e., event depth or the third column for
         an input file).
     no_clip : bool
-        Does NOT skip symbols that fall outside frame boundary specified by
-        ``region`` [Default is False, i.e. plot symbols inside map frame only].
+        Do **not** skip symbols that fall outside the frame boundaries
+        [Default is ``False``, i.e., plot symbols inside the frame
+        boundaries only].
     {projection}
     {region}
     {frame}

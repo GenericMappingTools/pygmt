@@ -17,15 +17,6 @@ class GMTDataArrayAccessor:
     properties about grids, which are important for PyGMT to correctly process
     and plot the grids.
 
-    Attributes
-    ----------
-
-    registration : int
-        Registration type of the grid, either 0 (Gridline) or 1 (Pixel).
-    gtype : int
-        Coordinate system type of the grid, either 0 (Cartesian) or 1
-        (Geographic).
-
     Notes
     -----
 
