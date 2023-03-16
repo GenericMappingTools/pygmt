@@ -55,7 +55,7 @@ To truly understand how powerful PyGMT is, play with it online on `Binder <https
 For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
-visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+visit the `Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
 some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
 .. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
@@ -68,9 +68,10 @@ About
 -----
 
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond.
 
 Project goals
 -------------
@@ -91,15 +92,29 @@ Quickstart
 Installation
 ++++++++++++
 
-Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
-
-    conda install --channel conda-forge pygmt
-
-If you use `mamba <https://mamba.readthedocs.org/>`__::
+Simple installation using `mamba <https://mamba.readthedocs.org/>`__::
 
     mamba install --channel conda-forge pygmt
 
+If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
+
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+
+Getting started
++++++++++++++++
+
+As a starting point, you can open a `Python interpreter <https://docs.python.org/3/tutorial/interpreter.html>`__
+or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
+
+    import pygmt
+    fig = pygmt.Figure()
+    fig.coast(projection="H10c", region="g", frame=True, land="gray")
+    fig.show()
+
+For more examples, please have a look at the `Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
 
 
 Contacting Us
@@ -246,7 +261,7 @@ Compatibility with GMT/Python/NumPy versions
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
       - >=3.8
-      - >=1.20
+      - >=1.21
     * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
       - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
       - >=6.3.0

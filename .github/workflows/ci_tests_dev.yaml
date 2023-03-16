@@ -71,7 +71,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v2.1.0
+        uses: peter-evans/create-or-update-comment@v2.1.1
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -101,7 +101,7 @@ jobs:
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build dvc ipython 'pytest>=6.0' pytest-cov \
+                        build contextily dvc ipython 'pytest>=6.0' pytest-cov \
                         pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Pull baseline image data from dvc remote (DAGsHub)
@@ -132,7 +132,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.3
+        uses: dawidd6/action-download-artifact@v2.26.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

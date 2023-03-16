@@ -127,7 +127,7 @@ def grdfilter(grid, **kwargs):
     >>> # Apply a filter of 600km (full width) to the @earth_relief_30m file
     >>> # and return a filtered field (saved as netcdf)
     >>> pygmt.grdfilter(
-    ...     grid="@earth_relief_30m",
+    ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
     ...     distance="4",
     ...     region=[150, 250, 10, 40],

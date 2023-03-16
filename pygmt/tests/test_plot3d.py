@@ -80,7 +80,7 @@ def test_plot3d_fail_1d_array_with_data(data, region):
     are used with matrix.
     """
     fig = Figure()
-    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
+    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
@@ -104,7 +104,7 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/10c",
+        projection="R40/10c",
         style="s1c",
         fill="green",
         frame=["ag", "zag"],

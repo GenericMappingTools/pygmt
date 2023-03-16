@@ -125,15 +125,15 @@ def grdgradient(grid, **kwargs):
         all nodes after gradient calculations are completed.
     tiles : str
         **c**\|\ **r**\|\ **R**.
-        Controls how normalization via ``normalize`` is carried out.  When
-        multiple  grids should be normalized the same way (i.e., with the same
-        *offset*  and/or *sigma*),
-        we must pass these values via ``normalize``.  However, this is
-        inconvenient if we compute these values from a grid.  Use **c** to
-        save  the results  of *offset* and *sigma* to a statistics file; if
-        grid output is not  needed for this run then do not specify
-        ``outgrid``. For  subsequent runs,  just use **r** to read these
-        values.  Using **R**  will read then delete the statistics file.
+        Control how normalization via ``normalize`` is carried out. When
+        multiple grids should be normalized the same way (i.e., with the same
+        *offset* and/or *sigma*),
+        we must pass these values via ``normalize``. However, this is
+        inconvenient if we compute these values from a grid. Use **c** to
+        save the results of *offset* and *sigma* to a statistics file; if
+        grid output is not needed for this run then do not specify
+        ``outgrid``. For subsequent runs, just use **r** to read these
+        values. Using **R** will read then delete the statistics file.
     {region}
     slope_file : str
         Name of output grid file with scalar magnitudes of gradient vectors.

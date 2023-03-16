@@ -21,7 +21,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     R="region",
     S="stairs",
     T="series",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="histtype",
@@ -41,8 +40,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 )
 def histogram(self, data, **kwargs):
     r"""
-    Plots a histogram, and can read data from a file or list, array, or
-    dataframe.
+    Plot Cartesian histograms.
 
     Full option list at :gmt-docs:`histogram.html`
 
@@ -57,7 +55,8 @@ def histogram(self, data, **kwargs):
     {region}
     {frame}
     {cmap}
-    {fill}
+    fill : str
+         Set color or pattern for filling bars [Default is no fill].
     {pen}
     {panel}
     annotate : bool or str
@@ -101,7 +100,7 @@ def histogram(self, data, **kwargs):
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
     stairs : bool
-        Draws a stairs-step diagram which does not include the internal bars
+        Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
         Plot the histogram using horizontal bars instead of the
@@ -122,7 +121,6 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {timestamp}
     {verbose}
     {binary}
     {nodata}

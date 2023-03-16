@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build ipython make myst-parser geopandas \
+                        build ipython make myst-parser contextily geopandas \
                         sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
@@ -80,7 +80,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.3
+        uses: dawidd6/action-download-artifact@v2.26.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

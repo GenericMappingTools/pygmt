@@ -47,7 +47,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: 'geopandas ipython'
+            optional-packages: 'contextily geopandas ipython'
     timeout-minutes: 30
     defaults:
       run:
@@ -102,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.3
+        uses: dawidd6/action-download-artifact@v2.26.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
