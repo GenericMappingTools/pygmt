@@ -35,6 +35,14 @@ fig.meca(
     longitude=-124.3,
     latitude=48.1,
     depth=12.0,
+    # fill compressional quadrants with color "gray70" (light gray)
+    # [Default is "black"]
+    compressionfill="gray70",
+    # fill extension quadrants with color "cornsilk"
+    # [Default is "white"]
+    extensionfill="cornsilk",
+    # use a 0.5 points thick dark gray ("gray30") outline
+    pen="0.5p,gray30",
 )
 
 fig.show()
