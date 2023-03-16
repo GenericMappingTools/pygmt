@@ -7,7 +7,7 @@ We can specify the focal mechanism nodal planes or moment tensor components as
 a dictionary using the ``spec`` parameter (or they can be specified as a 1-D
 or 2-D array, or within a specified file). The size of plotted beachballs can
 be specified using the ``scale`` parameter. The compressive and extensive
-quadrants can be filled with a standard color (or a pattern) via the
+quadrants can be filled with a color (or a pattern) via the
 ``compressionfill`` and ``extensionfill`` parameters, respectively.
 """
 
@@ -43,7 +43,7 @@ fig.meca(
     # Fill extensive quadrants with color "cornsilk"
     # [Default is "white"]
     extensionfill="cornsilk",
-    # Use a 0.5 points thick dark gray ("gray30") outline
+    # Use a pen thickness of 0.5 points to draw a dark gray ("gray30") outline
     pen="0.5p,gray30",
 )
 
