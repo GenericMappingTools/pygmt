@@ -33,14 +33,10 @@ class GMT_DATATABLE(ctp.Structure):
         ("n_records", ctp.c_uint64),  # Total number of data records across all segments
         ("min", ctp.POINTER(ctp.c_double)),  # Minimum coordinate for each column
         ("max", ctp.POINTER(ctp.c_double)),  # Maximum coordinate for each column
-        (
-            "header",
-            ctp.POINTER(ctp.c_char_p),
-        ),  # Array with all file header records, if any
-        (
-            "segment",
-            ctp.POINTER(ctp.POINTER(GMT_DATASEGMENT)),
-        ),  # Pointer to array of segments
+        # Array with all file header records, if any
+        ("header", ctp.POINTER(ctp.c_char_p)),
+        # Pointer to array of segments
+        ("segment", ctp.POINTER(ctp.POINTER(GMT_DATASEGMENT))),
         ("hidden", ctp.c_void_p),  # Book-keeping variables "hidden" from the API
     ]
 
@@ -66,10 +62,7 @@ class GMT_DATASET(ctp.Structure):
         # To store a referencing system string in PROJ.4 format
         ("ProjRefPROJ4", ctp.c_char_p),
         # To store a referencing system string in WKT format
-        (
-            "ProjRefWKT",
-            ctp.c_char_p,
-        ),
+        ("ProjRefWKT", ctp.c_char_p),
         ("ProjRefEPSG", ctp.c_int),  # To store a referencing system EPSG code
         ("hidden", ctp.c_void_p),  # Book-keeping variables "hidden" from the API
     ]
