@@ -1,7 +1,11 @@
 """
 Figure elements
 =================================
+The figure shows the naming of figure elements in pygmt. 
 
+* `frame`: setting map boundary(`WSNE` or `wsne`), annonate(`af`), axis label(`+l`), grid(`g`) and title(`+t`) of the plot in :func:`pygmt.Figure.basemap`
+* :func:`pygmt.Figure.plot`: plotting the lines or symbols based on `pen` or `style` parameters, respectively
+* :func:`pygmt.Figure.legend`: showing the naming of lines or symbols while the `label` given in :func:`pygmt.Figure.plot`
 TODO
 """
 
@@ -21,10 +25,10 @@ fig.plot(
     x=x,
     y=y_1,
     style="t0.3c",
-    label="fig.plot(style)"
+    label="fig.plot (style)"
 )
 y_2 = [4, 5, 6, 3, 5, 5]
-fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot(pen)")
+fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
 # ============Figure
 fig.text(x=12, y=22, text="Figure", font="12p,2,darkblue", justify="TC", no_clip=True)
 fig.text(x=12, y=20.5, text="pygmt.Figure()", font="10p,8", justify="TC", no_clip=True)
