@@ -13,7 +13,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-# generate a map near Washington State showing land, water, and shorelines
+# Generate a map near Washington State showing land, water, and shorelines
 fig.coast(
     region=[-125, -122, 47, 49],
     projection="M6c",
@@ -23,11 +23,11 @@ fig.coast(
     frame="a",
 )
 
-# store focal mechanism parameters in a dictionary based on the Aki & Richards
+# Store focal mechanism parameters in a dictionary based on the Aki & Richards
 # convention
 focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
 
-# pass the focal mechanism data through the spec parameter. In addition provide
+# Pass the focal mechanism data through the spec parameter. In addition provide
 # scale, event location, and event depth
 fig.meca(
     spec=focal_mechanism,
@@ -35,13 +35,13 @@ fig.meca(
     longitude=-124.3,
     latitude=48.1,
     depth=12.0,
-    # fill compressional quadrants with color "gray70" (light gray)
+    # Fill compressional quadrants with color "gray70" (light gray)
     # [Default is "black"]
     compressionfill="gray70",
-    # fill extension quadrants with color "cornsilk"
+    # Fill extension quadrants with color "cornsilk"
     # [Default is "white"]
     extensionfill="cornsilk",
-    # use a 0.5 points thick dark gray ("gray30") outline
+    # Use a 0.5 points thick dark gray ("gray30") outline
     pen="0.5p,gray30",
 )
 
