@@ -73,32 +73,32 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      - name: Setup Micromamba
+        uses: mamba-org/provision-with-micromamba@v15
         with:
-          activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
+          environment-file: false
+          environment-name: pygmt
           channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
-                        pandas xarray netCDF4 packaging \
-                        ${{ matrix.optional-packages }} \
-                        build dvc make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
+          extra-specs: |
+            gmt=6.4.0
+            numpy=${{ matrix.numpy-version }}
+            pandas
+            xarray
+            netCDF4
+            packaging
+            ${{ matrix.optional-packages }}
+            build
+            dvc
+            make
+            pytest>=6.0
+            pytest-cov
+            pytest-doctestplus
+            pytest-mpl
+            sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: mamba list
+        run: micromamba list
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
