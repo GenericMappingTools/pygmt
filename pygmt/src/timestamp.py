@@ -1,10 +1,11 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
+import warnings
+
 from packaging.version import Version
 from pygmt import __gmt_version__
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, is_nonstr_iter
 
 __doctest_skip__ = ["timestamp"]
@@ -28,7 +29,6 @@ def timestamp(
         If ``None``, the current UNIX timestamp is shown in the GMT timestamp
         logo. Set this parameter to replace the UNIX timestamp with a
         custom text string instead. The text must be less than 64 characters.
-        *Requires GMT>=6.5.0*.
     label : None or str
         The text string shown after the GMT timestamp logo.
     justification : str
@@ -85,13 +85,17 @@ def timestamp(
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.
     if text is not None:
-        if Version(__gmt_version__) < Version("6.5.0"):
-            raise GMTInvalidInput("The parameter 'text' requires GMT>=6.5.0.")
         if len(str(text)) > 64:
-            raise GMTInvalidInput(
-                "The parameter 'text' must be less than 64 characters."
+            msg = (
+                "Argument of 'text' must be no longer than 64 characters. "
+                "The given text string will be truncated to 64 characters."
             )
-        kwdict["U"] += f"+t{text}"
+            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        if Version(__gmt_version__) <= Version("6.4.0"):
+            # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
+            timefmt = text[:64]
+        else:
+            kwdict["U"] += f"+t{text}"
 
     with Session() as lib:
         lib.call_module(
