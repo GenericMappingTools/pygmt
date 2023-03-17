@@ -20,7 +20,7 @@ fig.show()
 
 ###############################################################################
 # Additionally, a custom label can be added via the ``label`` parameter. The
-# label font can be defined via the ``font`` parameter and the timestamp string
+# font can be defined via the ``font`` parameter and the timestamp string
 # format via ``timefmt``.
 
 os.environ["TZ"] = "Pacific/Honolulu"  # optionally set the time zone
