@@ -3,10 +3,12 @@ Figure elements
 =================================
 The figure shows the naming of figure elements in pygmt. 
 
-* `frame`: setting map boundary(`WSNE` or `wsne`), annonate(`af`), axis label(`+l`), grid(`g`) and title(`+t`) of the plot in :func:`pygmt.Figure.basemap`
-* :func:`pygmt.Figure.plot`: plotting the lines or symbols based on `pen` or `style` parameters, respectively
-* :func:`pygmt.Figure.legend`: showing the naming of lines or symbols while the `label` given in :func:`pygmt.Figure.plot`
+* ``frame``: setting map boundary(**WSNE** or **wsne**), annonate and grid(**afg**), axis label(**+l**) and title(**+t**) in :func:`pygmt.Figure.basemap`
+* :func:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
+* :func:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :func:`pygmt.Figure.plot`
 TODO
+=======
+
 """
 
 import pygmt
