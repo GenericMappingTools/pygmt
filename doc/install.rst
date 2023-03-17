@@ -115,7 +115,7 @@ Installing GMT and other dependencies
 Before installing PyGMT, we must install GMT itself along with the other
 dependencies. The easiest way to do this is via the ``mamba`` or ``conda`` package manager.
 We recommend working in an isolated
-`conda environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
+`virtual environment <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
 to avoid issues with conflicting versions of dependencies.
 
 First, we must configure conda to get packages from the
@@ -123,7 +123,7 @@ First, we must configure conda to get packages from the
 
     conda config --prepend channels conda-forge
 
-Now we can create a new conda environment with Python and all our dependencies
+Now we can create a new virtual environment with Python and all our dependencies
 installed (we'll call it ``pygmt`` but feel free to change it to whatever you
 want):
 
@@ -279,10 +279,10 @@ Notes for Jupyter users
 
 If you can successfully import pygmt in a Python interpreter or IPython, but
 get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to
-activate your ``pygmt`` virtual environment (using ``conda activate pygmt`` or
-``mamba activate pygmt``) and install a ``pygmt`` kernel following the commands below::
+activate your ``pygmt`` virtual environment (using ``mamba activate pygmt`` or
+``conda activate pygmt``) and install a ``pygmt`` kernel following the commands below::
 
-    python -m ipykernel install --user --name pygmt  # install conda environment properly
+    python -m ipykernel install --user --name pygmt  # install virtual environment properly
     jupyter kernelspec list --json
 
 After that, you need to restart Jupyter, open your notebook, select the
