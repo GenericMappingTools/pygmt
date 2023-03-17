@@ -25,9 +25,10 @@ def timestamp(
 
     Add the GMT timestamp logo with an optional label at the bottom-left corner
     of a plot. The timestamp will be in the locale set by the environment
-    variable **TZ** (generally local time) and its format is controlled by the
-    parameter ``timefmt``. It can also be replaced with any custom text string
-    using the ``text`` parameter.
+    variable **TZ** (generally local time but can be changed via
+    ``os.environ["TZ"]``) and its format is controlled by the parameter
+    ``timefmt``. It can also be replaced with any custom text string using the
+    ``text`` parameter.
 
     Parameters
     ----------
