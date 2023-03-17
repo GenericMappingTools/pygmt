@@ -80,6 +80,7 @@ jobs:
           environment-name: pygmt
           channels: conda-forge,nodefaults
           extra-specs: |
+            python=${{ matrix.python-version }}
             gmt=6.4.0
             numpy=${{ matrix.numpy-version }}
             pandas
