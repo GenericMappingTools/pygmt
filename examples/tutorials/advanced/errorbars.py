@@ -1,6 +1,7 @@
 r"""
 Error bars
-----------
+==========
+
 The ``error_bar`` parameter of the :meth:`pygmt.Figure.plot` method
 can be used to add error bars to data points.
 
@@ -18,7 +19,8 @@ import pandas as pd
 import pygmt
 
 ###############################################################################
-# Default
+# Symmetric error bars
+# --------------------
 
 # Define DataFrame with columns for x and y as well as x-error and y-error
 df = pd.DataFrame(
@@ -71,7 +73,32 @@ fig.plot(
 fig.show()
 
 ###############################################################################
+# Plot error bars only for one axis
+
+# Create Figure instance
+fig = pygmt.Figure()
+
+# Plot the data points
+fig.plot(
+    region=[0, 10, -2, 2],
+    projection="X10c",
+    data=df,
+    # Add only error bars for the y direction
+    error_bar="y+w10p+p2p,dodgerblue",
+    style="c0.3c",
+    pen="1.25p,black",
+    fill="green3",
+    frame=["a1fg1", "x+lx label", "y+ly label"],
+    # Select needed columns, zero-based indexing
+    incols=[0, 1, 3],
+)
+
+fig.show()
+
+
+###############################################################################
 # Asymmetric error bars
+# ---------------------
 
 # Define DataFrame with columns for x and y as well as lower and upper x-error
 # and y-error
@@ -104,8 +131,10 @@ fig.plot(
 
 fig.show()
 
+
 ###############################################################################
-# Low and high bounds
+# Use low and high bounds
+# -----------------------
 
 # Define DataFrame with columns for x and y as well as x and y low and high
 # bounds
@@ -138,3 +167,8 @@ fig.plot(
 )
 
 fig.show()
+
+
+###############################################################################
+# Use box-and-whisker (or stem-and-leaf) symbols
+# ----------------------------------------------
