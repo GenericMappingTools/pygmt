@@ -86,8 +86,6 @@ def test_timestamp_text_truncated():
     """
     Passing a text string longer than 64 characters raises a warning and the
     string will be truncated.
-
-    Requires GMT>=6.5.0.
     """
     fig = Figure()
     with pytest.warns(expected_warning=RuntimeWarning) as record:
