@@ -136,7 +136,7 @@ def grdview(self, grid, **kwargs):
     >>> fig.grdview(
     ...     # pass in the grid downloaded above
     ...     grid=grid,
-    ...     # set the perspective to have an azimuth of 130° and an elevation of 30°
+    ...     # set the perspective to an azimuth of 130° and an elevation of 30°
     ...     perspective=[130, 30],
     ...     # add a frame to the x- and y-axes
     ...     # specify annotations on the south and east borders of the plot
