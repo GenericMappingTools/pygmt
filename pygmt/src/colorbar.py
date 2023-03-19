@@ -109,13 +109,12 @@ def colorbar(self, **kwargs):
     >>> import pygmt
     >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
+    >>> # Create a basemap figure
+    >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c")
     >>> # Call the colorbar method for the plot
     >>> fig.colorbar(
     ...     # Set cmap to the "roma" CPT
     ...     cmap="roma",
-    ...     # Set a region and projection for the plot
-    ...     region=[0, 1, 0, 2],
-    ...     projection="X10c",
     ...     # Label the x-axis "Velocity" and the y-axis "m/s"
     ...     frame=["x+lVelocity", "y+lm/s"],
     ... )
