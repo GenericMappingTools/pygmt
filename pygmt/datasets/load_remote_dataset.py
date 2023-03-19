@@ -322,7 +322,7 @@ def _load_remote_dataset(
     # Remove the actual range because it gets outdated when indexing the grid,
     # which causes problems when exporting it to netCDF for usage on the
     # command-line.
-    grid.attrs.pop("actual_range")
+    grid.attrs.pop("actual_range", None)
     for coord in grid.coords:
-        grid[coord].attrs.pop("actual_range")
+        grid[coord].attrs.pop("actual_range", None)
     return grid

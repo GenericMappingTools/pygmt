@@ -16,7 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     J="projection",
     R="region",
     T="track",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="scale",
@@ -67,7 +66,7 @@ def wiggle(
     {projection}
     {region}
     scale : str or float
-        Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,
+        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,
         or **p** to indicate the distance unit (centimeters, inches, or
         points); if no unit is given we use the default unit that is
         controlled by :gmt-term:`PROJ_LENGTH_UNIT`.
@@ -76,7 +75,7 @@ def wiggle(
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\
         [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].
-        Defines the reference point on the map for the vertical scale bar.
+        Define the reference point on the map for the vertical scale bar.
     fillpositive : str
         Set color or pattern for filling positive wiggles
         [Default is no fill].
@@ -86,7 +85,6 @@ def wiggle(
     track : str
         Draw track [Default is no track]. Append pen attributes to use
         [Default is ``"0.25p,black,solid"``].
-    {timestamp}
     {verbose}
     pen : str
         Specify outline pen attributes [Default is no outline].
