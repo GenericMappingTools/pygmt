@@ -100,7 +100,7 @@ class triangulate:  # pylint: disable=invalid-name
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
-            Determines the output type. Use "file", "xarray", "pandas", or
+            Determine the output type. Use "file", "xarray", "pandas", or
             "numpy".
         {verbose}
         {binary}
