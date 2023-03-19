@@ -131,8 +131,8 @@ def test_basemap_map_scale():
 @pytest.mark.mpl_image_compare
 def test_basemap_subplot():
     """
-    Test in subplot mode for the case that the frame parameter of
-    basemap is not specified.
+    Test in subplot mode for the case that the frame parameter of basemap is
+    not specified.
     """
     nrows = 1
     ncols = 2
