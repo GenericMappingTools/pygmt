@@ -126,7 +126,7 @@ def grdview(self, grid, **kwargs):
     >>> # load the 15 arc-minutes grid with "gridline" registration
     >>> # in a specified region
     >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="15m",
+    ...     resolution="30m",
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
