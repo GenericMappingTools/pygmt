@@ -136,10 +136,10 @@ def grdview(self, grid, **kwargs):
     >>> fig.grdview(
     ...     # pass in the grid downloaded above
     ...     grid=grid,
-    ...     # set the perspective to have an azimuth of 130 and elevation of 30
+    ...     # set the perspective to have an azimuth of 130° and an elevation of 30°
     ...     perspective=[130, 30],
     ...     # add a frame to the x- and y-axes
-    ...     # specify grid labels on the south and east borders of the plot
+    ...     # specify annotations on the south and east borders of the plot
     ...     frame=["xa", "ya", "wSnE"],
     ...     # set the projection to Mercator for the 10 cm figure
     ...     projection="M10c",
