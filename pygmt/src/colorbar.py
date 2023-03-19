@@ -109,8 +109,8 @@ def colorbar(self, **kwargs):
     >>> import pygmt
     >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # Create a basemap figure
-    >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c")
+    >>> # Create a basemap
+    >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
     >>> # Call the colorbar method for the plot
     >>> fig.colorbar(
     ...     # Set cmap to the "roma" CPT
