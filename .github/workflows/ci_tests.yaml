@@ -77,6 +77,8 @@ jobs:
         uses: mamba-org/provision-with-micromamba@v15
         with:
           environment-file: ${{ matrix.environment-file }}
+          cache-downloads: true
+          cache-env: true
           extra-specs: |
             python=${{ matrix.python-version }}
             numpy=${{ matrix.numpy-version }}
