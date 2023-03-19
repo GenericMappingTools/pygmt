@@ -126,3 +126,28 @@ def test_basemap_map_scale():
         map_scale="jMC+c26.5+w10k+f+l",
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_subplot():
+    """
+    Test in subplot mode for the case that the frame parameter of
+    basemap is not specified.
+    """
+    nrows = 1
+    ncols = 2
+    fig = Figure()
+    with fig.subplot(
+        nrows=nrows,
+        ncols=ncols,
+        figsize=("10c", "5c"),
+        sharex="b+llabel_x",
+        sharey="l+llabel_y",
+        frame="a1f0.5g2",
+    ):
+        for i in range(nrows):
+            for j in range(ncols):
+                index = i * nrows + j
+                with fig.set_panel(panel=index):
+                    fig.basemap(region=[0, 10, 0, 10], projection="X?")
+    return fig
