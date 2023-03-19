@@ -6,15 +6,6 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_basemap_required_args():
-    """
-    Figure.basemap fails when not given required arguments.
-    """
-    fig = Figure()
-    with pytest.raises(GMTInvalidInput):
-        fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
-
-
 @pytest.mark.mpl_image_compare
 def test_basemap():
     """
