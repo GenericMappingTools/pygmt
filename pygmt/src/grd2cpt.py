@@ -78,11 +78,11 @@ def grd2cpt(grid, **kwargs):
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
     transparency : int or float or str
-        Sets a constant level of transparency (0-100) for all color slices.
+        Set a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the foreground, background, and NaN
-        colors [Default is no transparency, i.e., 0 (opaque)].
+        colors [Default is no transparency, i.e., ``0`` (opaque)].
     cmap : str
-        Selects the master color palette table (CPT) to use in the
+        Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
         at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
     background : bool or str
@@ -111,10 +111,10 @@ def grd2cpt(grid, **kwargs):
         to resample the color table into *nlevels* equidistant slices.
     series : list or str
         [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**\]|\ *file*\|\ *list*\].
-        Defines the range of the new CPT by giving the lowest and highest
+        Define the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
-        produced defines the color slice boundaries.  If **+n** is used it
+        produced defines the color slice boundaries. If **+n** is used it
         refers to the number of such boundaries and not the number of slices.
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.

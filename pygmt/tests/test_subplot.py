@@ -100,3 +100,19 @@ def test_subplot_nrows_ncols_less_than_one_error():
     with pytest.raises(GMTInvalidInput):
         with fig.subplot(nrows=0, ncols=-1, figsize=("2c", "1c")):
             pass
+
+
+@pytest.mark.mpl_image_compare
+def test_subplot_outside_plotting_positioning():
+    """
+    Plotting calls are correctly positioned after exiting subplot.
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2426.
+    """
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=2, figsize=(10, 5)):
+        fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=True, panel=True)
+        fig.basemap(region=[0, 10, 0, 10], projection="X?", frame=True, panel=True)
+    fig.colorbar(position="JBC+w5c+h", cmap="turbo", frame=True)
+    return fig

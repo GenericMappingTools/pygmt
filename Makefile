@@ -26,7 +26,7 @@ install:
 	pip install --no-deps -e .
 
 package:
-	python -m build --sdist --wheel
+	python -m build
 
 test:
 	# Run a tmp folder to make sure the tests are run on the installed version

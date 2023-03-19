@@ -52,7 +52,7 @@ def grdlandmask(**kwargs):
     {region}
     {area_thresh}
     resolution : str
-        *res*\[\ **+f**\]. Selects the resolution of the data set to use
+        *res*\[\ **+f**\]. Select the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
         (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append **+f** to automatically select a lower
@@ -77,7 +77,7 @@ def grdlandmask(**kwargs):
         ponds-in-islands-in-lakes outlines [Default is no line tracing].
     maskvalues : str or list
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
-        Sets the values that will be assigned to nodes. Values can
+        Set the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be

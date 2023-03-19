@@ -34,6 +34,7 @@ Plotting map elements
     Figure.logo
     Figure.solar
     Figure.text
+    Figure.timestamp
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -227,6 +228,13 @@ and store them in GMT's user data directory.
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
 
+In addition, there is also a special function to load XYZ tile maps via
+:doc:`contextily <contextily:index>` to be used as base maps.
+
+.. autosummary::
+    :toctree: generated
+
+    datasets.load_tile_map
 
 .. currentmodule:: pygmt
 
