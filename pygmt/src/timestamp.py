@@ -23,27 +23,39 @@ def timestamp(
     r"""
     Plot the GMT timestamp logo.
 
+    Add the GMT timestamp logo with an optional label at the bottom-left corner
+    of a plot with an offset of ``("-54p", "-54p")``. The timestamp will be
+    in the locale set by the environment variable **TZ** (generally local time
+    but can be changed via ``os.environ["TZ"]``) and its format is controlled
+    by the ``timefmt`` parameter. It can also be replaced with any custom
+    text string using the ``text`` parameter.
+
     Parameters
     ----------
     text : None or str
         If ``None``, the current UNIX timestamp is shown in the GMT timestamp
-        logo. Set this parameter to replace the UNIX timestamp with a
-        custom text string instead. The text must be less than 64 characters.
+        logo. Set this parameter to replace the UNIX timestamp with a custom
+        text string instead. The text must be no longer than 64 characters.
     label : None or str
         The text string shown after the GMT timestamp logo.
     justification : str
-        Justification of the timestamp. The *justification* is a two-character
+        Justification of the timestamp box relative to the plot's bottom-left
+        corner (i.e., the plot origin). The *justification* is a two-character
         code that is a combination of a horizontal (**L**\ (eft),
         **C**\ (enter), or **R**\ (ight)) and a vertical (**T**\ (op),
-        **M**\ (iddle), or **B**\ (ottom)) code.
+        **M**\ (iddle), or **B**\ (ottom)) code. For example,
+        ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of
+        the timestamp as the anchor point.
     offset : str or tuple
         *offset* or (*offset_x*, *offset_y*).
-        Offset the anchor point of the timestamp by *offset_x* and *offset_y*.
-        If a single value *offset* is given, *offset_y* = *offset_x* =
-        *offset*.
+        Offset the anchor point of the timestamp box by *offset_x* and
+        *offset_y*. If a single value *offset* is given, *offset_y* =
+        *offset_x* = *offset*.
     font : str
-        Font of the timestamp and the optional label. The parameter can't
-        change the font color for GMT<=6.4.0, only the font ID.
+        Font of the timestamp and the optional label. Since the GMT logo has a
+        fixed height, the font sizes are fixed to be 8-point for the timestamp
+        and 7-point for the label. The parameter can't change the font color
+        for GMT<=6.4.0, only the font style.
     timefmt : str
         Format string for the UNIX timestamp. The format string is parsed by
         the C function ``strftime``, so that virtually any text can be used
