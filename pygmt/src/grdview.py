@@ -123,14 +123,14 @@ def grdview(self, grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 15 arc-minutes grid with "gridline" registration
+    >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> # in a specified region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m",
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
-    >>> # create a new plot with pygmt.Figure()
+    >>> # create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # create the contour plot
     >>> fig.grdview(
@@ -141,7 +141,7 @@ def grdview(self, grid, **kwargs):
     ...     # add a frame to the x- and y-axes
     ...     # specify annotations on the south and east borders of the plot
     ...     frame=["xa", "ya", "wSnE"],
-    ...     # set the projection to Mercator for the 10 cm figure
+    ...     # set the projection to Mercator for the 10 cm wide figure
     ...     projection="M10c",
     ...     # set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
