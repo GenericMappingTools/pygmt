@@ -33,7 +33,7 @@ def basemap(self, **kwargs):
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
 
-    At least one of the parameters ``frame``, ``map_scale``, ``rose`` or
+    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
     ``compass`` must be specified if not in subplot mode.
 
     Full option list at :gmt-docs:`basemap.html`
