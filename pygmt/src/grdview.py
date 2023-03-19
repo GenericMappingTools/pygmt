@@ -145,7 +145,7 @@ def grdview(self, grid, **kwargs):
     ...     projection="M10c",
     ...     # set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
-    ...     # set surface plot to plot CPT
+    ...     # set "surface plot" to color the surface via a CPT
     ...     surftype="s",
     ...     # specify CPT to "geo"
     ...     cmap="geo",
