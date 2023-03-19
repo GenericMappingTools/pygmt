@@ -3,7 +3,6 @@ Tests Figure.basemap.
 """
 import pytest
 from pygmt import Figure
-from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.mark.mpl_image_compare
