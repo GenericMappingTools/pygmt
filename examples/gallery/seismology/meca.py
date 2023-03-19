@@ -3,13 +3,13 @@ Focal mechanisms
 ----------------
 
 The :meth:`pygmt.Figure.meca` method can plot focal mechanisms or beachballs.
-We can specify the focal mechanism nodal planes or moment tensor components as
-a dictionary using the ``spec`` parameter (or they can be specified as a 1-D
-or 2-D array, or within a file). The size of plotted beachballs can be set
-using the ``scale`` parameter. The compressive and extensive quadrants can be
-filled either with a color or a pattern via the ``compressionfill`` and
-``extensionfill`` parameters, respectively. Use the ``pen`` parameter to draw
-the outline of the beachballs.
+We can specify the focal mechanism nodal planes or moment tensor components
+as a dictionary using the ``spec`` parameter (or they can be specified as a
+ 1-D or 2-D array, or within a file). The size of the beachballs can be set
+using the ``scale`` parameter. The compressive and extensive quadrants can
+be filled either with a color or a pattern via the ``compressionfill`` and
+``extensionfill`` parameters, respectively. Use the ``pen`` parameter to
+adjust the outline of the beachballs.
 """
 
 import pygmt
@@ -44,9 +44,10 @@ fig.meca(
     # Fill extensive quadrants with color "cornsilk"
     # [Default is "white"]
     extensionfill="cornsilk",
-    # Draw a 0.5 points thick dark gray ("gray30") outline via
+    # Draw a 0.5 points thick dark gray ("gray30") solid outline via
     # the pen parameter
-    pen="0.5p,gray30",
+    # [Default is "0.25p,black,solid"]
+    pen="0.5p,gray30,solid",
 )
 
 fig.show()
