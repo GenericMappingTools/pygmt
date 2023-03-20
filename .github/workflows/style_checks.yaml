@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.3.0
 
-      # Setup Miniconda
+      # Setup Python
       - name: Set up Python
         uses: actions/setup-python@v4.5.0
         with:
