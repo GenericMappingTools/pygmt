@@ -2,8 +2,7 @@
 Tests for Figure.timestamp.
 """
 import pytest
-from packaging.version import Version
-from pygmt import Figure, __gmt_version__, config
+from pygmt import Figure, config
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -72,19 +71,27 @@ def test_timestamp_font(faketime):
     return fig
 
 
-@pytest.mark.skipif(
-    Version(__gmt_version__) < Version("6.5.0"),
-    reason="The 'text' parameter requires GMT>=6.5.0",
-)
 @pytest.mark.mpl_image_compare(filename="test_timestamp.png")
 def test_timestamp_text(faketime):
     """
     Test if the "text" parameter works.
-
-    Requires GMT>=6.5.0.
     """
     fig = Figure()
     fig.timestamp(text=faketime)
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_timestamp_text_truncated():
+    """
+    Passing a text string longer than 64 characters raises a warning and the
+    string will be truncated.
+    """
+    fig = Figure()
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
+        # a string with 70 characters will be truncated to 64 characters
+        fig.timestamp(text="0123456789" * 7)
+        assert len(record) == 1  # check that only one warning was raised
     return fig
 
 

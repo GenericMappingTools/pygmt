@@ -16,7 +16,10 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
-- [ ] Run `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository to check if any deprecations and related tests should be removed in this version
+- [ ] Check to ensure that:
+  - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
+  - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
+  - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
