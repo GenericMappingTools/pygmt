@@ -5,7 +5,7 @@ The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of
 each bar. The type of the histogram (frequency count or percentage) can be
 selected via the ``histtype`` parameter. The ``fill`` of the
-bars can be either a standard color name or a pattern.
+bars can be either a color or a pattern.
 """
 
 import numpy as np
@@ -24,7 +24,7 @@ with fig.subplot(
     nrows=1,
     ncols=2,
     figsize=("13.5c", "5c"),
-    title="Histogram",
+    title="Histograms",
 ):
     with fig.set_panel(panel=0):
         fig.histogram(
