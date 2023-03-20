@@ -43,6 +43,13 @@ def tilemap(
     :func:`pygmt.datasets.load_tile_map` into a georeferenced form, and plots
     the tiles as a basemap or overlay using :meth:`pygmt.Figure.grdimage`.
 
+    **Note**: By default, standard web map tiles served in a Web Mercator
+    (EPSG:3857) Cartesian format will be reprojected to a geographic coordinate
+    reference system (OGC:WGS84) and plotted with longitude/latitude bounds
+    when ``lonlat=True``. If reprojection is not desired, please set
+    ``lonlat=False`` and provide Web Mercator (EPSG:3857) coordinates to the
+    ``region`` parameter.
+
     {aliases}
 
     Parameters
@@ -128,6 +135,13 @@ def tilemap(
         wait=wait,
         max_retries=max_retries,
     )
+
+    # Reproject raster from Web Mercator (EPSG:3857) to lonlat (OGC:CRS84) if
+    # bounding box region was provided in lonlat
+    if lonlat and raster.rio.crs == "EPSG:3857":
+        raster = raster.rio.reproject(dst_crs="OGC:CRS84")
+        raster.gmt.gtype = 1  # set to geographic type
+
     with GMTTempFile(suffix=".tif") as tmpfile:
         raster.rio.to_raster(raster_path=tmpfile.name)
         with Session() as lib:

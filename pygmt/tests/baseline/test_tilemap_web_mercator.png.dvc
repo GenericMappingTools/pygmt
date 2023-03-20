@@ -1,4 +1,4 @@
 outs:
 - md5: ea1fc9d829e8534aed7dac825ea0ddff
   size: 123201
-  path: test_tilemap.png
+  path: test_tilemap_web_mercator.png
