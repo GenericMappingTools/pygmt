@@ -125,7 +125,7 @@ def colorbar(self, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Create a new plot with pygmt.Figure()
+    >>> # Create a new figure instance with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # Create a basemap
     >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
