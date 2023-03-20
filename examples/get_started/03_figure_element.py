@@ -3,18 +3,13 @@ Figure elements
 ===============
 The figure shows the naming of figure elements in PyGMT. 
 
-* :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map 
-must start with the creation of a :meth:`pygmt.Figure` instance
+* :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map must start with the creation of a :meth:`pygmt.Figure` instance
 
-* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid 
-(**afg**), axis label (**+l**) and title (**+t**) in 
-:meth:`pygmt.Figure.basemap`
+* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`
 
-* :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or 
-``style`` parameters, respectively
+* :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
 
-* :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while 
-the ``label`` given in :meth:`pygmt.Figure.plot`
+* :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :meth:`pygmt.Figure.plot`
 
 =======
 
