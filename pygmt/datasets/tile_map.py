@@ -112,7 +112,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `pip install contextily` or "
-            "`mamba install -c conda-forge contextily` "
+            "`conda install -c conda-forge contextily` "
             "to install the package."
         )
 
