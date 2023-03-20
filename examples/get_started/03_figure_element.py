@@ -5,12 +5,14 @@ The figure shows the naming of figure elements in PyGMT.
 
 * :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map must start with the creation of a :meth:`pygmt.Figure` instance
 
-* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`
+* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`.
+Full documentation is at [frame and axes attributes](https://www.pygmt.org/latest/tutorials/basics/frames.html)
 
 * :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
 
 * :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :meth:`pygmt.Figure.plot`
 
+* :meth:`pygmt.Figure.show`: previewing the figure you plotted
 =======
 
 """
@@ -22,6 +24,7 @@ fig = pygmt.Figure()
 
 x = range(0, 11, 2)
 y_1 = [10, 11, 15, 8, 9, 13]
+y_2 = [4, 5, 6, 3, 5, 5]
 
 fig.basemap(
     region=[0, 10, 0, 20],
@@ -29,7 +32,6 @@ fig.basemap(
     frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
 )
 fig.plot(x=x, y=y_1, style="t0.3c", label="fig.plot (style)")
-y_2 = [4, 5, 6, 3, 5, 5]
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
 # ============Figure
 fig.text(x=12, y=22, text="Figure", font="12p,2,darkblue", justify="TC", no_clip=True)
