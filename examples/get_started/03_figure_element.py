@@ -1,7 +1,7 @@
 """
 Figure elements
 ===============
-The figure shows the naming of figure elements in pygmt. 
+The figure shows the naming of figure elements in PyGMT. 
 
 * ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`
 * :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
