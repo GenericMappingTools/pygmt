@@ -30,7 +30,7 @@ stddev = 20
 
 # Create two data sets
 data01 = mean + stddev * np.random.randn(42)
-data02 = mean + stddev*2 * np.random.randn(42)
+data02 = mean + stddev * 2 * np.random.randn(42)
 
 
 ###############################################################################
@@ -151,7 +151,6 @@ with fig.subplot(
     ncols=2,
     figsize=("20c", "10c"),
 ):
-
     with fig.set_panel(panel=0):
         # Create histogram for data02
         fig.histogram(
@@ -216,7 +215,6 @@ with fig.subplot(
     ncols=2,
     figsize=("20c", "10c"),
 ):
-
     with fig.set_panel(panel=0):
         # Create histogram for data02
         fig.histogram(
@@ -290,7 +288,7 @@ fig.histogram(
     # Calculate the bar width based on the bin width, here half of the bin width
     # offset (+o) the bars to align each bar with the left limit of the
     # corresponding bin
-    barwidth=str(binwidth/2) + "+o-" + str(binwidth/4),
+    barwidth=str(binwidth / 2) + "+o-" + str(binwidth / 4),
     label="data01",
 )
 
@@ -303,7 +301,7 @@ fig.histogram(
     fill="orange",
     pen="1p",
     histtype=0,
-    barwidth=str(binwidth/2) + "+o" + str(binwidth/4),
+    barwidth=str(binwidth / 2) + "+o" + str(binwidth / 4),
     label="data02",
 )
 
