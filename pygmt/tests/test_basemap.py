@@ -134,8 +134,6 @@ def test_basemap_subplot():
     Test in subplot mode for the case that the frame parameter of basemap is
     not specified.
     """
-    nrows = 1
-    ncols = 2
     fig = Figure()
     with fig.subplot(nrows=1, ncols=2, figsize=("10c", "5c")):
         with fig.set_panel(panel=0):
