@@ -137,17 +137,9 @@ def test_basemap_subplot():
     nrows = 1
     ncols = 2
     fig = Figure()
-    with fig.subplot(
-        nrows=nrows,
-        ncols=ncols,
-        figsize=("10c", "5c"),
-        sharex="b+llabel_x",
-        sharey="l+llabel_y",
-        frame="a1f0.5g2",
-    ):
-        for i in range(nrows):
-            for j in range(ncols):
-                index = i * nrows + j
-                with fig.set_panel(panel=index):
-                    fig.basemap(region=[0, 10, 0, 10], projection="X?")
+    with fig.subplot(nrows=1, ncols=2, figsize=("10c", "5c")):
+        with fig.set_panel(panel=0):
+            fig.basemap(region=[0, 10, 0, 10], projection="X?")
+        with fig.set_panel(panel=1):
+            fig.basemap(region=[0, 10, 0, 10], projection="X?")
     return fig
