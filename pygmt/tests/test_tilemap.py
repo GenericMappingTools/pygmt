@@ -38,3 +38,21 @@ def test_tilemap_ogc_wgs84():
         verbose=True,
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+@pytest.mark.parametrize("no_clip", [False, True])
+def test_tilemap_no_clip(no_clip):
+    """
+    Create a tilemap plot clipped to the Southern Hemisphere when no_clip is
+    False, but for the whole globe when no_clip is True.
+    """
+    fig = Figure()
+    fig.tilemap(
+        region=[-180.0, 180.0, -90, 0.6886],
+        zoom=0,
+        frame="afg",
+        projection="H180/5c",
+        no_clip=no_clip,
+    )
+    return fig

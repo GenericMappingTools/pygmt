@@ -142,6 +142,11 @@ def tilemap(
         raster = raster.rio.reproject(dst_crs="OGC:CRS84")
         raster.gmt.gtype = 1  # set to geographic type
 
+    # Only set region if no_clip is False, so that plot is clipped to exact
+    # bounding box region
+    if not kwargs.get("N"):
+        kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
+
     with GMTTempFile(suffix=".tif") as tmpfile:
         raster.rio.to_raster(raster_path=tmpfile.name)
         with Session() as lib:
