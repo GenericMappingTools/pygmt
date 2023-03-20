@@ -1,11 +1,11 @@
 """
 Figure elements
-=================================
+===============
 The figure shows the naming of figure elements in pygmt. 
 
-* ``frame``: setting map boundary(**WSNE** or **wsne**), annonate and grid(**afg**), axis label(**+l**) and title(**+t**) in :func:`pygmt.Figure.basemap`
-* :func:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
-* :func:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :func:`pygmt.Figure.plot`
+* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`
+* :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
+* :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :meth:`pygmt.Figure.plot`
 TODO
 =======
 
@@ -78,9 +78,8 @@ fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.plot(x=4, y=6, style="c0.7c", pen="2p,darkblue")
 fig.text(x=5, y=6, text="fig.plot()", font="10p,8", justify="BL")
 
-
+# ============Legend
 fig.legend()
-# ============Legned
 fig.text(x=7.5, y=17, text="Legend", font="12p,2,darkblue", justify="TL", no_clip=True)
 fig.text(x=7.5, y=15.8, text="fig.legend()", font="10p,8", justify="TL", no_clip=True)
 
