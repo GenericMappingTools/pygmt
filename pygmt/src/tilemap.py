@@ -120,17 +120,16 @@ def tilemap(
             "to install the package."
         )
 
+    raster = load_tile_map(
+        region=region,
+        zoom=zoom,
+        source=source,
+        lonlat=lonlat,
+        wait=wait,
+        max_retries=max_retries,
+    )
     with GMTTempFile(suffix=".tif") as tmpfile:
-        raster = load_tile_map(
-            region=region,
-            zoom=zoom,
-            source=source,
-            lonlat=lonlat,
-            wait=wait,
-            max_retries=max_retries,
-        )
         raster.rio.to_raster(raster_path=tmpfile.name)
-
         with Session() as lib:
             lib.call_module(
                 module="grdimage", args=build_arg_string(kwargs, infile=tmpfile.name)
