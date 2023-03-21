@@ -9,7 +9,8 @@ must start with the creation of a :meth:`pygmt.Figure` instance
 * ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid 
 (**afg**), axis label (**+l**) and title (**+t**) in 
 :meth:`pygmt.Figure.basemap`. The detail examples can be found at 
-[frame and axes attributes](https://www.pygmt.org/latest/tutorials/basics/frames.html)
+`frame and axes attributes<https://www.pygmt.org/latest/tutorials/basics/
+frames.html>`_.
 
 * :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or 
 ``style`` parameters, respectively
