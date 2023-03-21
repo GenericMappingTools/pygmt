@@ -1,20 +1,27 @@
 """
-Figure elements
+3. Figure elements
 ===============
 The figure shows the naming of figure elements in PyGMT. 
 
-* :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map must start with the creation of a :meth:`pygmt.Figure` instance
+* :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map 
+must start with the creation of a :meth:`pygmt.Figure` instance
 
-* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid (**afg**), axis label (**+l**) and title (**+t**) in :meth:`pygmt.Figure.basemap`.
-Full documentation is at [frame and axes attributes](https://www.pygmt.org/latest/tutorials/basics/frames.html)
+* ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid 
+(**afg**), axis label (**+l**) and title (**+t**) in 
+:meth:`pygmt.Figure.basemap`. The detail examples can be found at 
+[frame and axes attributes](https://www.pygmt.org/latest/tutorials/basics/frames.html)
 
-* :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or ``style`` parameters, respectively
+* :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen`` or 
+``style`` parameters, respectively
 
-* :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while the ``label`` given in :meth:`pygmt.Figure.plot`
+* :meth:`pygmt.Figure.text`: plottong text strings with ``font`` parameter 
+which adjusts the fontsize, fontstyle and color.  
+
+* :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while 
+the ``label`` given in :meth:`pygmt.Figure.plot`
 
 * :meth:`pygmt.Figure.show`: previewing the figure you plotted
 =======
-
 """
 
 import pygmt
@@ -83,7 +90,6 @@ fig.text(x=10.2, y=7, text='frame="WSne"', font="10p,8", justify="BL", no_clip=T
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.plot(x=4, y=6, style="c0.7c", pen="2p,darkblue")
 fig.text(x=5, y=6, text="fig.plot()", font="10p,8", justify="BL")
-
 # ============Legend
 fig.legend()
 fig.text(x=7.5, y=17, text="Legend", font="12p,2,darkblue", justify="TL", no_clip=True)
