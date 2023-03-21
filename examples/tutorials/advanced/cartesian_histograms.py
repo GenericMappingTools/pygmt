@@ -38,7 +38,7 @@ data02 = mean + stddev * 2 * np.random.randn(42)
 # Vertical and horizontal bars
 # ----------------------------
 # To define the width of the bins the ``series`` parameter has to be specified.
-# The bars can be filled via the ``fill`` parameter either with a color or a
+# The bars can be filled via the ``fill`` parameter with either a color or a
 # pattern (see later in this tutorial). Use the ``pen`` parameter to adjust the
 # outline of the bars. Choose the histogram type via the ``histtpye``
 # parameter, e.g., ``0`` for counts [Default] or ``1`` for frequency percent.
