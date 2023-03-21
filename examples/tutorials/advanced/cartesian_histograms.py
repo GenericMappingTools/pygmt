@@ -205,6 +205,10 @@ fig.show()
 ###############################################################################
 # Stacked bars
 # ------------
+# Stacked bars can be achieved similar to overlaid bars via plotting two or
+# several histograms on top of each other. However, before plotting,
+# combined data sets have to be created from the singel data sets.
+#
 # Limitations
 #
 # - No common baseline
