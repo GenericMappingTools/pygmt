@@ -3,7 +3,7 @@ Cartesian histograms
 ====================
 
 Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram`
-method. In this tutorial different histogramm related aspects are addressed:
+method. In this tutorial different histogram related aspects are addressed:
 
 - using vertical and horizontal bars
 - showing counts and frequency percent
