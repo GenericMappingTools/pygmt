@@ -190,7 +190,7 @@ We highly recommend using [Mambaforge](https://github.com/conda-forge/miniforge#
 and the `mamba` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
-The repository includes a conda environment file `environment.yml` with the
+The repository includes a virtual environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
 In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:
