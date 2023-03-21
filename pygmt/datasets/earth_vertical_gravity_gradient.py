@@ -7,6 +7,8 @@ The grids are available in various resolutions.
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
+__doctest_skip__ = ["load_earth_vertical_gravity_gradient"]
+
 
 @kwargs_to_strings(region="sequence")
 def load_earth_vertical_gravity_gradient(
