@@ -68,13 +68,11 @@ def timestamp(
     >>> fig = pygmt.Figure()
     >>> fig.timestamp()
     >>> fig.show()
-    <IPython.core.display.Image object>
 
     >>> # Plot the GMT timestamp logo with a custom label.
     >>> fig = pygmt.Figure()
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
     self._preprocess()  # pylint: disable=protected-access
 
