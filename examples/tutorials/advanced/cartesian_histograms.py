@@ -140,6 +140,9 @@ fig.show()
 ###############################################################################
 # Overlaid bars
 # -------------
+# Overlaid or overlapping bars can be achieved by plotting two or serveral
+# histograms, each for one data set, on top of each other.
+#
 # Limitations
 #
 # - Mixing of colors or/and patterns
