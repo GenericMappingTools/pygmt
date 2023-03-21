@@ -121,7 +121,8 @@ fig.histogram(
     series=10,
     # Use pattern (p) number 8 as fill for the bars
     # Set the background (+b) to transparent due to not giving a color
-    fill="p8+b",
+    # Set the foreground (+f) to black [Default]
+    fill="p8+b+fblack",
     pen="1p",
     histtype=0,
     # Calculate cumulative values
