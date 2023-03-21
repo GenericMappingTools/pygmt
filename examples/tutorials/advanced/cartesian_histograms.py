@@ -180,7 +180,7 @@ with fig.subplot(
             label="data01",
         )
         # Create histogram for data02
-        # It is plotted on top of the histogramm for data01
+        # It is plotted on top of the histogram for data01
         fig.histogram(
             region=[0, 200, 0, 10],
             projection="X10c",
