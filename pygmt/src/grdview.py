@@ -141,7 +141,7 @@ def grdview(self, grid, **kwargs):
     ...     # add a frame to the x- and y-axes
     ...     # specify annotations on the south and east borders of the plot
     ...     frame=["xa", "ya", "wSnE"],
-    ...     # set the projection of the 2D map to Mercator with a 10 cm width
+    ...     # set the projection of the 2-D map to Mercator with a 10 cm width
     ...     projection="M10c",
     ...     # set the vertical scale (z-axis) to 2 cm
     ...     zsize="2c",
