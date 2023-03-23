@@ -1,4 +1,6 @@
 # Publish archives to PyPI and TestPyPI using GitHub Actions
+# Important: this workflow filename must be publish-to-pypi.yml to match the
+# settings in PyPI and TestPyPI so that OIDC publishing works
 
 name: Publish to PyPI
 
