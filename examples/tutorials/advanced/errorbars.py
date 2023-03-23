@@ -9,6 +9,13 @@ The required argument has the following form:
 [**x**\|\ **y**\|\ **X**\|\ **Y**][**+a**\|\ **A**]\
 [**+cl**\|\ **f**][**+n**][**+w**\ *cap*][**+p**\ *pen*]
 
+In this tutorial different error bars related aspects are addressed:
+
+- showing symmetric and unsymmetric errors
+- adjusting bars and caps
+- using low and high bounds
+- using box-and-whisker (or stem-and-leaf) symbols
+
 TODO
 """
 
