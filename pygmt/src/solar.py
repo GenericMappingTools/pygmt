@@ -87,7 +87,6 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     ... )
     >>> # show the plot
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
 
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

@@ -130,8 +130,7 @@ def inset(self, **kwargs):
     ...
     >>> # Map elements outside the "with" block are plotted in the main figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
-    >>> fig.show()  # doctest: +SKIP
-    <IPython.core.display.Image object>
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
