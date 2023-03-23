@@ -274,10 +274,11 @@ fig.show()
 # By setting the ``barwidth`` parameter in respect to the values passed to the
 # ``series`` parameter histgrams with grouped bars can be created.
 #
-# Limitation
+# Limitations
 #
-# - Careful setting the bar width in respect to the bin width in case of
-#   continuous data
+# - Careful setting the width and position of the bars in respect to the
+#   bin width
+# - Difficult to see the variations of the single data sets
 
 # Width used for binning the data
 binwidth = 10
