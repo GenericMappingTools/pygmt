@@ -29,8 +29,8 @@ with fig.subplot(
     with fig.set_panel(panel=0):
         fig.histogram(
             data=data,
-            # Define the frame, add title and set background color to
-            # "lightgray", add labels for x and y axes
+            # Define the frame and set background color to "lightgray",
+            # add labels for x and y axes
             frame=["WSne+glightgray", "x+lElevation in m", "y+lCounts"],
             # Generate evenly spaced bins by increments of 5
             series=5,
