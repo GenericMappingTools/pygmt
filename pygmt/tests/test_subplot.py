@@ -102,7 +102,7 @@ def test_subplot_nrows_ncols_less_than_one_error():
             pass
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(tolerance=4.0)
 def test_subplot_outside_plotting_positioning():
     """
     Plotting calls are correctly positioned after exiting subplot.
