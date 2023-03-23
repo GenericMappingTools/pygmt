@@ -11,7 +11,7 @@ rioxarray = pytest.importorskip("rioxarray")
 @pytest.mark.mpl_image_compare
 def test_tilemap_web_mercator():
     """
-    Create a tilemap plot in Web Mercator projection (EPSG:3857).
+    Create a tilemap plot in Spherical Mercator projection (EPSG:3857).
     """
     fig = Figure()
     fig.tilemap(
@@ -31,11 +31,7 @@ def test_tilemap_ogc_wgs84():
     """
     fig = Figure()
     fig.tilemap(
-        region=[-180.0, 180.0, -90, 90],
-        zoom=0,
-        frame="afg",
-        projection="R180/5c",
-        verbose=True,
+        region=[-180.0, 180.0, -90, 90], zoom=0, frame="afg", projection="R180/5c"
     )
     return fig
 
