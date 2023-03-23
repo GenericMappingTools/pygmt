@@ -61,7 +61,7 @@ def histogram(self, data, **kwargs):
     {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
-        Annotate each bar with the count it represents.  Append any of the
+        Annotate each bar with the count it represents. Append any of the
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
         annotation font; use **+o** to change the offset between bar and
@@ -70,7 +70,7 @@ def histogram(self, data, **kwargs):
     barwidth : int or float or str
         *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via
-        ``series``, and optionally shift all bars by an *offset*.  Here
+        ``series``, and optionally shift all bars by an *offset*. Here
         *width* is either an alternative width in data units, or the user may
         append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
         fixed dimension instead. Optionally, all bins may be shifted along the
@@ -94,7 +94,7 @@ def histogram(self, data, **kwargs):
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``.  By default these values are ignored.
+        the range set by ``series``. By default these values are ignored.
         Append **b** to let these values be included in the first or last
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
