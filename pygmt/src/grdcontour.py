@@ -120,7 +120,6 @@ def grdcontour(self, grid, **kwargs):
     ... )
     >>> # show the plot
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
