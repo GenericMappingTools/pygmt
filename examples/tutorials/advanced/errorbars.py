@@ -26,8 +26,8 @@ import pandas as pd
 import pygmt
 
 ###############################################################################
-# Symmetric error bars
-# --------------------
+# Symmetric error
+# ---------------
 
 # Define DataFrame with columns for x and y as well as x-error and y-error
 df = pd.DataFrame(
@@ -104,8 +104,8 @@ fig.show()
 
 
 ###############################################################################
-# Asymmetric error bars
-# ---------------------
+# Asymmetric errors
+# -----------------
 
 # Define DataFrame with columns for x and y as well as lower and upper x-error
 # and y-error
@@ -140,8 +140,8 @@ fig.show()
 
 
 ###############################################################################
-# Use low and high bounds
-# -----------------------
+# Low and high bounds
+# -------------------
 
 # Define DataFrame with columns for x and y as well as x and y low and high
 # bounds
@@ -177,5 +177,5 @@ fig.show()
 
 
 ###############################################################################
-# Use box-and-whisker (or stem-and-leaf) symbols
-# ----------------------------------------------
+# Box-and-whisker (or stem-and-leaf) symbols
+# ------------------------------------------
