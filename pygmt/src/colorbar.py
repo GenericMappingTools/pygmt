@@ -5,6 +5,8 @@ colorbar - Plot a colorbar.
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+__doctest_skip__ = ["colorbar"]
+
 
 @fmt_docstring
 @use_alias(
@@ -119,6 +121,23 @@ def colorbar(self, **kwargs):
     {panel}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # Create a new figure instance with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # Create a basemap
+    >>> fig.basemap(region=[0, 10, 0, 3], projection="X10c/3c", frame=True)
+    >>> # Call the colorbar method for the plot
+    >>> fig.colorbar(
+    ...     # Set cmap to the "roma" CPT
+    ...     cmap="roma",
+    ...     # Label the x-axis "Velocity" and the y-axis "m/s"
+    ...     frame=["x+lVelocity", "y+lm/s"],
+    ... )
+    >>> # Show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
