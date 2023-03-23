@@ -81,7 +81,7 @@ def histogram(self, data, **kwargs):
     distribution : bool or int or float or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
-        *pen* [Default is 0.25p,black].
+        *pen* [Default is ``"0.25p,black,solid"``].
         The *mode* selects which central location and scale to use:
 
         * 0 = mean and standard deviation [Default];
