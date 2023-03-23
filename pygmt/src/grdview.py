@@ -13,6 +13,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdview"]
+
 
 @fmt_docstring
 @use_alias(
@@ -117,6 +119,39 @@ def grdview(self, grid, **kwargs):
     {interpolation}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # in a specified region
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m",
+    ...     region=[-92.5, -82.5, -3, 7],
+    ...     registration="gridline",
+    ... )
+    >>> # create a new figure instance with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create the contour plot
+    >>> fig.grdview(
+    ...     # pass in the grid downloaded above
+    ...     grid=grid,
+    ...     # set the perspective to an azimuth of 130° and an elevation of 30°
+    ...     perspective=[130, 30],
+    ...     # add a frame to the x- and y-axes
+    ...     # specify annotations on the south and east borders of the plot
+    ...     frame=["xa", "ya", "wSnE"],
+    ...     # set the projection of the 2-D map to Mercator with a 10 cm width
+    ...     projection="M10c",
+    ...     # set the vertical scale (z-axis) to 2 cm
+    ...     zsize="2c",
+    ...     # set "surface plot" to color the surface via a CPT
+    ...     surftype="s",
+    ...     # specify CPT to "geo"
+    ...     cmap="geo",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
