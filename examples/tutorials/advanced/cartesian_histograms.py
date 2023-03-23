@@ -7,6 +7,7 @@ method. In this tutorial different histogram related aspects are addressed:
 
 - using vertical and horizontal bars
 - showing counts and frequency percent
+- adding annotations to the bars
 - showing cumulative values
 - using color and pattern as fill for the bars
 - using overlaid, stacked, and grouped bars
@@ -40,8 +41,7 @@ data02 = mean + stddev * 2 * np.random.randn(42)
 # To define the width of the bins the ``series`` parameter has to be specified.
 # The bars can be filled via the ``fill`` parameter with either a color or a
 # pattern (see later in this tutorial). Use the ``pen`` parameter to adjust the
-# outline of the bars. Choose the histogram type via the ``histtpye``
-# parameter, e.g., ``0`` for counts [Default] or ``1`` for frequency percent.
+# outline of the bars.
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -87,6 +87,55 @@ fig.histogram(
     # gridlines and labels
     horizontal=True,
 )
+
+fig.show()
+
+
+###############################################################################
+# Counts and frequency percent
+#-----------------------------
+# By default, a histogram showing the counts in each bin is created
+# (``histtype=0``). To show the frequency percent set the ``histtpye``
+# parameter to ``1``. For further options please have a look at the of
+# documentation :meth:`pygmt.Figure.histogram`.
+
+fig = pygmt.Figure()
+
+with fig.subplot(
+    nrows=1,
+    ncols=2,
+    figsize=("20c", "10c"),
+):
+    with fig.set_panel(panel=0):
+        # Create histogram for data02 based showing counts
+        fig.histogram(
+            region=[0, 200, 0, 20],
+            projection="X10c",
+            frame=["WSnr", "xaf10", "ya2f1+lConunts"],
+            data=data02,
+            series=10,
+            fill="orange",
+            pen="1p",
+            # Choose counts via the "histtype" parameter
+            histtype=0,
+            # Annotate each bar with the counts it represents
+            # Offest (+o) the text by 10 points in negative y-direction
+            annotate="+o-10p",
+        )
+
+    with fig.set_panel(panel=1):
+        # Create histogram for data02 showing frequency percent
+        fig.histogram(
+            region=[0, 200, 0, 100],
+            projection="X10c",
+            frame=["lSnE", "xaf10", "ya10f5+lFrequency percent"],
+            data=data02,
+            series=10,
+            fill="orange",
+            pen="1p",
+            # Choose frequency percent via the "histtype" parameter
+            histtype=1,
+        )
 
 fig.show()
 
