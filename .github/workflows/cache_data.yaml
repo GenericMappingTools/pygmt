@@ -30,7 +30,6 @@ jobs:
           environment-name: pygmt
           cache-downloads: true
           cache-env: true
-          # override any specifications in the environment file
           extra-specs: |
             gmt=6.4.0
             numpy
