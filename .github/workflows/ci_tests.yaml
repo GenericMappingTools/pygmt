@@ -47,7 +47,7 @@ jobs:
             environment-file: 'ci/requirements/tests.yml'
           - python-version: '3.11'
             numpy-version: '1.24'
-            environment-file: 'ci/requirements/tests-with-optional-dependencies.yml'
+            environment-file: 'ci/requirements/tests_with_optional_dependencies.yml'
     timeout-minutes: 30
     defaults:
       run:
