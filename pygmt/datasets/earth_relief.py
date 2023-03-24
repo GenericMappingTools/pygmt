@@ -92,9 +92,14 @@ def load_earth_relief(
 
     Note
     ----
-    The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth relief data with resolutions of 5 arc-minutes or higher, which are
-    stored as smaller tiles.
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
+    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
+    However, these properties may be lost after specific grid operations (such
+    as slicing) and will need to be manually set before passing the grid to any
+    PyGMT data processing or plotting functions. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
+    workarounds.
 
     Examples
     --------
