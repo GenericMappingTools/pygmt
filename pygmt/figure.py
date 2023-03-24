@@ -371,7 +371,8 @@ class Figure:
             - ``None``: Reset to the default display method
 
             The default display method is ``"external"`` in Python consoles or
-            ``"notebook"`` in Jupyter Notebooks.
+            ``"notebook"`` in Jupyter Notebooks, but can be changed by
+            :func:`pygmt.set_display`.
         waiting : float
             Suspend the execution of the current process for a given number of
             seconds after launching an external viewer.
