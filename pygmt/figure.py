@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except ModuleNotFoundError:
+except ImportError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -393,7 +393,7 @@ class Figure:
                 )
             )
 
-        if method in ["notebook", "none"]:
+        if method == "notebook":
             if IPython is None:
                 raise GMTError(
                     (
