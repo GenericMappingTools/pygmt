@@ -5,7 +5,7 @@ channels:
 dependencies:
     # Required dependencies
     - pip
-    - gmt=6.4.0
+    - gmt=6.3.0
     - numpy>=1.21
     - pandas
     - xarray
