@@ -79,30 +79,43 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      - name: Setup Micromamba
+        uses: mamba-org/provision-with-micromamba@v15
         with:
-          activate-environment: pygmt
-          # python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
+          cache-downloads: true
+          cache-env: true
+          extra-specs: |
+            python=${{ matrix.python-version }}
+            # build tools
+            cmake
+            make
+            ninja
+            # GMT dependencies
+            curl
+            fftw
+            ghostscript
+            hdf5
+            libblas
+            libcblas
+            libgdal
+            liblapack
+            libnetcdf
+            pcre
+            zlib
+            # PyGMT dependencies
+            geopandas
 
-      # Install dependencies from conda-forge
+      # Install dependencies from PyPI
       - name: Install dependencies
         run: |
-          mamba install python=${{ matrix.python-version }} \
-                        ninja cmake libblas libcblas liblapack fftw libgdal \
-                        geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc ipython 'pytest>=6.0' pytest-cov \
                         pytest-doctestplus pytest-mpl sphinx-gallery
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: micromamba list
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
