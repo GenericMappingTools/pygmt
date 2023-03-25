@@ -86,11 +86,9 @@ jobs:
           cache-env: true
           extra-specs: |
             python=${{ matrix.python-version }}
-            # build tools
             cmake
             make
             ninja
-            # GMT dependencies
             curl
             fftw
             ghostscript
@@ -102,7 +100,6 @@ jobs:
             libnetcdf
             pcre
             zlib
-            # PyGMT dependencies
             geopandas
 
       # Install dependencies from PyPI
