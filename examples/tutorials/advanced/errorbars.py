@@ -13,6 +13,7 @@ In this tutorial different error bars related aspects are addressed:
 
 - showing symmetric and asymmetric errors
 - adjusting bars and caps
+- showing either x or y errors
 - using low and high bounds
 - using box-and-whisker (or stem-and-leaf) symbols
 
