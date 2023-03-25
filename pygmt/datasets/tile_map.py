@@ -84,8 +84,8 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     Raises
     ------
-    ModuleNotFoundError
-        If ``contextily`` is not installed. Follow
+    ImportError
+        If ``contextily`` is not installed or can't be imported. Follow
         :doc:`install instructions for contextily <contextily:index>`, (e.g.
         via ``pip install contextily``) before using this function.
 
@@ -109,7 +109,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     """
     # pylint: disable=too-many-locals
     if contextily is None:
-        raise ModuleNotFoundError(
+        raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `pip install contextily` or "
             "`conda install -c conda-forge contextily` "

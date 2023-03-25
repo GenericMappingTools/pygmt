@@ -175,7 +175,6 @@ def grd2cpt(grid, **kwargs):
     >>> fig.grdimage(grid=grid)
     >>> # show the plot
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
