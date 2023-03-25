@@ -11,7 +11,7 @@ The required argument has the following form:
 
 In this tutorial different error bars related aspects are addressed:
 
-- showing symmetric and unsymmetric errors
+- showing symmetric and asymmetric errors
 - adjusting bars and caps
 - using low and high bounds
 - using box-and-whisker (or stem-and-leaf) symbols
