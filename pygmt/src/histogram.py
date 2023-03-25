@@ -65,7 +65,7 @@ def histogram(self, data, **kwargs):
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
         annotation font; use **+o** to change the offset between bar and
-        label [Default is ``"6p"`` ]; use **+r** to rotate the labels from
+        label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
     barwidth : int or float or str
         *width*\ [**+o**\ *offset*].
