@@ -94,7 +94,7 @@ def histogram(self, data, **kwargs):
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``. By default these values are ignored.
+        the range set by ``series``. By default, these values are ignored.
         Append **b** to let these values be included in the first or last
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
