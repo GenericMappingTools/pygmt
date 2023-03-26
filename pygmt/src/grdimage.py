@@ -148,7 +148,8 @@ def grdimage(self, grid, **kwargs):
     no_clip : bool
         Do **not** clip the image at the frame boundaries (only relevant
         for non-rectangular maps) [Default is ``False``].
-    nan_transparent : bool
+    nan_transparent : bool or str
+        [**+z**\ *value*][*color*]
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
         3). If the input is a grid, use **+z** to select another grid value
