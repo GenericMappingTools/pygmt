@@ -30,12 +30,6 @@ jobs:
       run:
         shell: bash -l {0}
 
-    # Environment variables used by codecov
-    env:
-      OS: ${{ matrix.os }}
-      PYTHON: ${{ matrix.python-version }}
-      NUMPY: ${{ matrix.numpy-version }}
-
     steps:
       # Cancel previous runs that are not completed
       - name: Cancel Previous Runs
@@ -69,7 +63,6 @@ jobs:
         run: |
           mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
-                        ${{ matrix.optional-packages }} \
                         build make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \
                         contextily geopandas ipython
