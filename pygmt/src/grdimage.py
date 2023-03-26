@@ -151,7 +151,9 @@ def grdimage(self, grid, **kwargs):
     nan_transparent : bool
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
-        3).
+        3). If the input is a grid, use **+z** to select another grid value
+        than NaN. If input is instead an image, append an alternate color to
+        select another pixel value to be transparent [Default is black].
     {region}
     {verbose}
     {panel}
