@@ -79,8 +79,7 @@ There are 11 configuration files located in `.github/workflows`:
 2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and pull request branches.
-   It is also scheduled to run regular tests daily and run full tests
-   (including doctests) on Wednesday on the *main* branch.
+   It is also scheduled to run regular tests daily on the *main* branch.
    In draft pull requests, only two jobs on Linux are triggered to save on
    Continuous Integration resources:
 
@@ -93,7 +92,12 @@ There are 11 configuration files located in `.github/workflows`:
    via the [Codecov GitHub Action](https://github.com/codecov/codecov-action).
    More codecov related configurations are stored in `.github/codecov.yml`.
 
-3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
+3. `ci_doctests.yaml` (Doctests on Linux/macOS/Windows)
+
+    This workflow is scheduled to run all doctests on Sunady on the *main*
+    branch.
+
+4. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
 
    This is run on every commit to the *main* and pull request branches.
    In draft pull requests, only the job on Linux is triggered to save on
@@ -106,19 +110,19 @@ There are 11 configuration files located in `.github/workflows`:
      from the *main* branch onto the `dev` folder of the *gh-pages* branch.
    * Updating the `latest` documentation link to the new release.
 
-4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
+5. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
 
    This is triggered when a PR is marked as "ready for review", or using the
    slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
    Wednesday and Friday on the *main* branch.
 
-5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
+6. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
 
    This is scheduled to run every Sunday at 12:00 (UTC).
    If new remote files are needed urgently, maintainers can manually uncomment
    the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-6. `publish-to-pypi.yml` (Publish wheels to TestPyPI and PyPI)
+7. `publish-to-pypi.yml` (Publish wheels to TestPyPI and PyPI)
 
    This workflow is ran to publish wheels to TestPyPI (for testing only) and
    PyPI. Archives will be pushed to TestPyPI on every commit to the *main*
@@ -126,27 +130,27 @@ There are 11 configuration files located in `.github/workflows`:
    authentication to TestPyPI/PyPI is done via OpenID Connect, see also
    https://github.com/pypa/gh-action-pypi-publish/tree/release/v1#publishing-with-openid-connect
 
-7. `release-drafter.yml` (Drafts the next release notes)
+8. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
     merged into the main branch.
 
-8. `check-links.yml` (Check links in the repository and website)
+9. `check-links.yml` (Check links in the repository and website)
 
    This workflow is run weekly to check all external links in plaintext and
    HTML files. It will create an issue if broken links are found.
 
-9. `format-command.yml` (Format the codes using slash command)
+10. `format-command.yml` (Format the codes using slash command)
 
    This workflow is triggered in a PR if the slash command `/format` is used.
 
-10. `dvc-diff.yml` (Report changes to test images on dvc remote)
+11. `dvc-diff.yml` (Report changes to test images on dvc remote)
 
     This workflow is triggered in a PR when any *.png.dvc files have been added,
     modified, or deleted. A GitHub comment will be published that contains a summary
     table of the images that have changed along with a visual report.
 
-11. `release-baseline-images.yml` (Upload the ZIP archive of baseline images as a release asset)
+12. `release-baseline-images.yml` (Upload the ZIP archive of baseline images as a release asset)
 
     This workflow is run to upload the ZIP archive of baseline images as a release
     asset when a release is published.
