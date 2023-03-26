@@ -155,7 +155,7 @@ def grdimage(self, grid, **kwargs):
         3). If the input is a grid, use **+z** to select another grid
         *value* than NaN. If the input is instead an image, append an
         alternate *color* to select another pixel value to be transparent
-        [Default is `"black"`].
+        [Default is ``"black"``].
     {region}
     {verbose}
     {panel}
