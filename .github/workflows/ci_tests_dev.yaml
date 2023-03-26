@@ -137,7 +137,7 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Install GMT dev version from conda-forge (Windows)
-        run: mamba install -c conda-forge/label/dev gmt
+        run: micromamba install -c conda-forge/label/dev gmt
         if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub
