@@ -523,6 +523,7 @@ class Figure:
         subplot,
         ternary,
         text,
+        tilemap,
         timestamp,
         velo,
         wiggle,
