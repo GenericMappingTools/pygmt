@@ -61,9 +61,13 @@ jobs:
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-    - name: Create Issue From File
+    - name: Show report content
       if: env.lychee_exit_code != 0
-      uses: peter-evans/create-issue-from-file@v4
-      with:
-        title: Link Checker Report on ${{ steps.date.outputs.date }}
-        content-filepath: ./lychee/out.md
+      run: cat ./lychee/out.md
+
+    #- name: Create Issue From File
+    #  if: env.lychee_exit_code != 0
+    #  uses: peter-evans/create-issue-from-file@v4
+    #  with:
+    #    title: Link Checker Report on ${{ steps.date.outputs.date }}
+    #    content-filepath: ./lychee/out.md
