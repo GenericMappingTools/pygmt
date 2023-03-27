@@ -62,6 +62,7 @@ Plotting raster data
     Figure.grdimage
     Figure.grdview
     Figure.image
+    Figure.tilemap
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~

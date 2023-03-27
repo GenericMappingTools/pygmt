@@ -15,6 +15,7 @@ dependencies:
     - contextily
     - geopandas
     - ipython
+    - rioxarray
     # Development dependencies (general)
     - build
     - dvc
