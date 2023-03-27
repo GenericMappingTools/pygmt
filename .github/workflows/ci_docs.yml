@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build ipython make myst-parser contextily geopandas \
+                        build ipython make myst-parser contextily geopandas rioxarray \
                         sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
