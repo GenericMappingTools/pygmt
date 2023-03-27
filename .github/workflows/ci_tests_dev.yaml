@@ -107,8 +107,9 @@ jobs:
         run: |
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc ipython 'pytest>=6.0' pytest-cov \
-                        pytest-doctestplus pytest-mpl sphinx-gallery
+                        build contextily dvc ipython rioxarray \
+                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

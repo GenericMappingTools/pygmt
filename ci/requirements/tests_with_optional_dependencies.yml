@@ -25,4 +25,5 @@ dependencies:
     - contextily
     - geopandas
     - ipython
+    - rioxarray
     - sphinx-gallery
