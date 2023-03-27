@@ -106,7 +106,6 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
       * band         (band) uint8 0 1 2
       * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...
       * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
-        spatial_ref  int64 0
     """
     # pylint: disable=too-many-locals
     if contextily is None:
@@ -148,6 +147,6 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     # If rioxarray is installed, set the coordinate reference system
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.set_crs(input_crs="EPSG:3857")
 
     return dataarray
