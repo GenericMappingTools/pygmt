@@ -39,7 +39,7 @@ def tilemap(
     r"""
     Plots an XYZ tile map.
 
-    This function loads XYZ tile maps from a tile server or local file using
+    This method loads XYZ tile maps from a tile server or local file using
     :func:`pygmt.datasets.load_tile_map` into a georeferenced form, and plots
     the tiles as a basemap or overlay using :meth:`pygmt.Figure.grdimage`.
 
