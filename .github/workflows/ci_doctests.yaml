@@ -65,7 +65,7 @@ jobs:
                         pandas xarray netCDF4 packaging \
                         build make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \
-                        contextily geopandas ipython
+                        contextily geopandas ipython rioxarray
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
