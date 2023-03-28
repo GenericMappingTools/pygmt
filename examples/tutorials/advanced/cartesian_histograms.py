@@ -48,7 +48,7 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],  # x_min, x_max, y_min, y_max
+    region=[0, 200, 0, 10],  # xmin, xmax, ymin, ymax
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations (a), ticks (f), and y-axis label (+l) "Counts"
     # The numbers give the steps of annotations and ticks
