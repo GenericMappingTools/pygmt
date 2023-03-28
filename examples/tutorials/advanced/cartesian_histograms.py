@@ -107,7 +107,7 @@ with fig.subplot(
     figsize=("20c", "10c"),
 ):
     with fig.set_panel(panel=0):
-        # Create histogram for data02 based showing counts
+        # Create histogram for data02 showing counts
         fig.histogram(
             region=[0, 200, 0, 10],
             projection="X10c",
