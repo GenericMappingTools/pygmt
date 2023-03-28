@@ -119,7 +119,7 @@ with fig.subplot(
             # Choose counts via the "histtype" parameter
             histtype=0,
             # Annotate each bar with the counts it represents
-            # Offest (+o) the text by 10 points in negative y-direction
+            # Offest (+o) the label by 10 points in negative y-direction
             annotate="+o-10p",
         )
 
