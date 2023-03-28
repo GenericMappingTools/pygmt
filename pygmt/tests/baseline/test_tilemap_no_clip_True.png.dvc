@@ -1,0 +1,4 @@
+outs:
+- md5: 83e6119b2351f9d472ca7e3cc45388c3
+  size: 60984
+  path: test_tilemap_no_clip_True.png
