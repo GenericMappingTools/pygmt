@@ -145,8 +145,8 @@ fig.show()
 # -----------------
 # To create a histogram showing the cumulative values set ``cumulative=True``.
 # Here, the bars of the cumulative histogram are filled with a pattern via
-# the ``fill`` parameter. Labels for the legend can be specified via the
-# ``label`` parameter.
+# the ``fill`` parameter. The legend entry can be specified via the ``label``
+# parameter.
 
 fig = pygmt.Figure()
 
@@ -160,7 +160,7 @@ fig.histogram(
     fill="red3",
     pen="1p",
     histtype=0,
-    # Set label used in legend
+    # Set legend entry
     label="data01",
 )
 
