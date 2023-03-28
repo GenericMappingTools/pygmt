@@ -261,7 +261,7 @@ fig.show()
 # Limitations
 #
 # - No common baseline
-# - Partly not directly clear whether overlaid or stacked
+# - Partly not directly clear whether overlaid or stacked bars
 
 # Combined the two data sets to one data set
 data_merge = np.concatenate((data01, data02), axis=None)
