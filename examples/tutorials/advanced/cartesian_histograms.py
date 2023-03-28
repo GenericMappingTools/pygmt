@@ -152,7 +152,7 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 51],
+    region=[0, 200, 0, 43],
     projection="X10c",
     frame=["WSne", "xaf10", "ya5f1+lCounts"],
     data=data01,
