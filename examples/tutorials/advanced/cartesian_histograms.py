@@ -205,54 +205,36 @@ fig.show()
 
 fig = pygmt.Figure()
 
-with fig.subplot(
-    nrows=1,
-    ncols=2,
-    figsize=("20c", "10c"),
-):
-    with fig.set_panel(panel=0):
-        # Create histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 10],
-            projection="X10c",
-            frame=["WSne", "xaf10", "ya2f1+lConunts"],
-            data=data01,
-            series=10,
-            fill="red3",
-            pen="1p",
-            histtype=0,
-        )
+# Create histogram for data01
+fig.histogram(
+    region=[0, 200, 0, 10],
+    projection="X10c",
+    frame=["wSne", "xaf10", "ya2f1"],
+    data=data01,
+    series=10,
+    fill="red3",
+    pen="1p",
+    histtype=0,
+    # Set legend entry
+    label="data01",
+)
 
-    with fig.set_panel(panel=1):
-        # Create histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 10],
-            projection="X10c",
-            frame=["wSne", "xaf10", "ya2f1"],
-            data=data01,
-            series=10,
-            fill="red3",
-            pen="1p",
-            histtype=0,
-            # Set legend entry
-            label="data01",
-        )
-        # Create histogram for data02
-        # It is plotted on top of the histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 10],
-            projection="X10c",
-            data=data02,
-            series=10,
-            # Fill bars with color "orange", use a transparency of 50% ("@50")
-            fill="orange@50",
-            pen="1p",
-            histtype=0,
-            label="data02",
-        )
+# Create histogram for data02
+# It is plotted on top of the histogram for data01
+fig.histogram(
+    region=[0, 200, 0, 10],
+    projection="X10c",
+    data=data02,
+    series=10,
+    # Fill bars with color "orange", use a transparency of 50% ("@50")
+    fill="orange@50",
+    pen="1p",
+    histtype=0,
+    label="data02",
+)
 
-        # Add legend
-        fig.legend()
+# Add legend
+fig.legend()
 
 fig.show()
 
@@ -274,51 +256,34 @@ data_merge = np.concatenate((data01, data02), axis=None)
 
 fig = pygmt.Figure()
 
-with fig.subplot(
-    nrows=1,
-    ncols=2,
-    figsize=("20c", "10c"),
-):
-    with fig.set_panel(panel=0):
-        # Create histogram for data02
-        fig.histogram(
-            region=[0, 200, 0, 20],
-            projection="X10c",
-            frame=["WSne", "xaf10", "ya2f1+lCounts"],
-            data=data02,
-            series=10,
-            fill="orange",
-            pen="1p",
-            histtype=0,
-        )
+# Create histogram for data01
+fig.histogram(
+    region=[0, 200, 0, 20],
+    projection="X10c",
+    frame=["wSne", "xaf10", "ya2f1+lCounts"],
+    data=data_merge,
+    series=10,
+    fill="orange",
+    pen="1p",
+    histtype=0,
+    label="data02",
+)
 
-    with fig.set_panel(panel=1):
-        # Create histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 20],
-            projection="X10c",
-            frame=["wSne", "xaf10", "ya2f1+lCounts"],
-            data=data_merge,
-            series=10,
-            fill="orange",
-            pen="1p",
-            histtype=0,
-            label="data02",
-        )
-        # Create histogram for data02
-        fig.histogram(
-            region=[0, 200, 0, 20],
-            projection="X10c",
-            data=data01,
-            series=10,
-            fill="red3",
-            pen="1p",
-            histtype=0,
-            label="data01",
-        )
+# Create histogram for data02 by using the combined data set
+# It is plotted on top of the histogram for data01
+fig.histogram(
+    region=[0, 200, 0, 20],
+    projection="X10c",
+    data=data01,
+    series=10,
+    fill="red3",
+    pen="1p",
+    histtype=0,
+    label="data01",
+)
 
-        # Add legend
-        fig.legend()
+# Add legend
+fig.legend()
 
 fig.show()
 
