@@ -216,7 +216,7 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 10],
     projection="X10c",
-    frame=["wSne", "xaf10", "ya2f1"],
+    frame=["wSne", "xaf10", "ya2f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
