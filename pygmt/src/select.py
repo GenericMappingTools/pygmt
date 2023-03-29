@@ -132,15 +132,15 @@ def select(data=None, outfile=None, **kwargs):
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
     pointfile : str
-        *pointfile*\ | *lon*/*lat* **+d**\ *dist*
+        *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
         points in the ASCII file *pointfile*.
     line_file : str
-        *linefile*\ **+d**\ *dist*\ [**+p**]
+        *linefile*\ **+d**\ *dist*\ [**+p**].
         Pass all records whose locations are within *dist* of any of the
         line segments in the ASCII multiple-segment file *linefile*.
     polygonfile : str
-        *polygonfile*
+        *polygonfile*.
         Pass all records whose locations are within one of the closed
         polygons in the multiple-segment file *polygonfile*.
     {binary}
