@@ -17,10 +17,13 @@ __doctest_skip__ = ["select"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
+    C="pointfile",
     D="resolution",
+    F="polygonfile",
     G="gridmask",
     I="reverse",
     J="projection",
+    L="line_file",
     N="mask",
     R="region",
     V="verbose",
@@ -128,6 +131,18 @@ def select(data=None, outfile=None, **kwargs):
         and **+i** reverses the tests to pass record with *z* value NOT in the
         given range. Finally, if **+c** is not used then it is automatically
         incremented for each new ``z_subregion`` argument, starting with 2.
+    pointfile : str
+        *pointfile*\ | *lon*/*lat* **+d**\ *dist*
+        Pass all records whose locations are within *dist* of any of the
+        points in the ASCII file *pointfile*.
+    line_file : str
+        *linefile*\ **+d**\ *dist*\ [**+p**]
+        Pass all records whose locations are within *dist* of any of the
+        line segments in the ASCII multiple-segment file *linefile*.
+    polygonfile : str
+        *polygonfile*
+        Pass all records whose locations are within one of the closed
+        polygons in the multiple-segment file *polygonfile*.
     {binary}
     {nodata}
     {find}
