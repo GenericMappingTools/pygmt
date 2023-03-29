@@ -58,9 +58,9 @@ fig.histogram(
     series=10,
     # Fill the bars with color "red3"
     fill="red3",
-    # Draw a black 1-point thick outline around the bars via the "pen"
+    # Draw a darkgray 1-point thick outline around the bars via the "pen"
     # parameter
-    pen="1p",
+    pen="1p,darkgray",
     # Choose counts via the "histtype" parameter
     histtype=0,
 )
@@ -82,7 +82,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="red3",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     # Use horizontal bars
     # Please note the flip of the x and y axes regarding annotations, ticks,
@@ -119,7 +119,7 @@ with fig.subplot(
             data=data02,
             series=10,
             fill="orange",
-            pen="1p",
+            pen="1p,darkgray",
             # Choose counts via the "histtype" parameter
             histtype=0,
         )
@@ -133,7 +133,7 @@ with fig.subplot(
             data=data02,
             series=10,
             fill="orange",
-            pen="1p",
+            pen="1p,darkgray",
             # Choose frequency percent via the "histtype" parameter
             histtype=1,
         )
@@ -167,7 +167,7 @@ with fig.subplot(
             data=data01,
             series=10,
             fill="red3",
-            pen="1p",
+            pen="1p,darkgray",
             histtype=0,
             # Annotate each bar with the counts it represents
             annotate=True,
@@ -185,7 +185,7 @@ with fig.subplot(
             # Set the background (+b) to white [Default]
             # Set the foreground (+f) to black [Default]
             fill="p8+bwhite+fblack",
-            pen="1p",
+            pen="1p,darkgray",
             histtype=0,
             # Show cumulative values
             cumulative=True,
@@ -220,7 +220,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="red3",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     # Set legend entry
     label="data01",
@@ -235,7 +235,7 @@ fig.histogram(
     series=10,
     # Fill bars with color "orange", use a transparency of 50% ("@50")
     fill="orange@50",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     label="data02",
 )
@@ -272,7 +272,7 @@ fig.histogram(
     data=data_merge,
     series=10,
     fill="orange",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     label="data02",
 )
@@ -285,7 +285,7 @@ fig.histogram(
     data=data01,
     series=10,
     fill="red3",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     label="data01",
 )
@@ -322,7 +322,7 @@ fig.histogram(
     data=data01,
     series=binwidth,
     fill="red3",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     # Calculate the bar width in respect to the bin width, here for two
     # data sets half of the bin width
@@ -339,7 +339,7 @@ fig.histogram(
     data=data02,
     series=binwidth,
     fill="orange",
-    pen="1p",
+    pen="1p,darkgray",
     histtype=0,
     barwidth=str(binwidth / 2) + "+o" + str(binwidth / 4),
     label="data02",
