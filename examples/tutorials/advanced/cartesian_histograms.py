@@ -71,8 +71,10 @@ fig.show()
 # By default, a histogram with vertical bars is created. Horizontal bars can
 # be achieved via ``horizontal=True``.
 
+# Create new figure instance
 fig = pygmt.Figure()
 
+# Create histogram for data01
 fig.histogram(
     region=[0, 200, 0, 10],
     projection="X10c",
@@ -99,8 +101,10 @@ fig.show()
 # parameter to ``1``. For further options please have a look at the
 # documentation of :meth:`pygmt.Figure.histogram`.
 
+# Create new figure instance
 fig = pygmt.Figure()
 
+# Set up subplot
 with fig.subplot(
     nrows=1,
     ncols=2,
@@ -145,8 +149,10 @@ fig.show()
 # the ``fill`` parameter. Annotate each bar with the counts it represents
 # using the ``annotate`` parameter.
 
+# Create new figure instance
 fig = pygmt.Figure()
 
+# Set up subplot
 with fig.subplot(
     nrows=1,
     ncols=2,
@@ -203,6 +209,7 @@ fig.show()
 # - More colors or/and patterns than data sets
 # - Visually a "third histogram"
 
+# Create new figure instance
 fig = pygmt.Figure()
 
 # Create histogram for data01
@@ -254,6 +261,7 @@ fig.show()
 # Combine the two data sets to one data set
 data_merge = np.concatenate((data01, data02), axis=None)
 
+# Create new figure instance
 fig = pygmt.Figure()
 
 # Create histogram for data01
@@ -303,6 +311,7 @@ fig.show()
 # Width used for binning the data
 binwidth = 10
 
+# Create new figure instance
 fig = pygmt.Figure()
 
 # Create histogram for data01
