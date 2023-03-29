@@ -52,7 +52,7 @@ fig.histogram(
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations (a), ticks (f), and y-axis label (+l) "Counts"
     # The numbers give the steps of annotations and ticks
-    frame=["WSne", "xaf10", "ya5f1+lCounts"],
+    frame=["WSne", "xaf10", "ya2f1+lCounts"],
     data=data01,
     # Set the bin width via the "series" parameter
     series=10,
@@ -76,7 +76,7 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 10],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya5f1+lCounts"],
+    frame=["WSne", "xaf10", "ya2f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
@@ -84,7 +84,7 @@ fig.histogram(
     histtype=0,
     # Use horizontal bars
     # Please note the flip of the x and y axes regarding annotations, ticks,
-    # gridlines and labels
+    # gridlines, and axis labels
     horizontal=True,
 )
 
@@ -111,16 +111,13 @@ with fig.subplot(
         fig.histogram(
             region=[0, 200, 0, 10],
             projection="X10c",
-            frame=["WSnr", "xaf10", "ya2f1+lConunts"],
+            frame=["WSnr", "xaf10", "ya2f1+lCounts"],
             data=data02,
             series=10,
             fill="orange",
             pen="1p",
             # Choose counts via the "histtype" parameter
             histtype=0,
-            # Annotate each bar with the counts it represents
-            # Offest (+o) the label by 10 points in negative y-direction
-            annotate="+o-10p",
         )
 
     with fig.set_panel(panel=1):
@@ -145,43 +142,50 @@ fig.show()
 # -----------------
 # To create a histogram showing the cumulative values set ``cumulative=True``.
 # Here, the bars of the cumulative histogram are filled with a pattern via
-# the ``fill`` parameter. The legend entry can be specified via the ``label``
-# parameter.
+# the ``fill`` parameter. Annotate each bar with the counts it represents
+# using the ``annotate`` parameter.
 
 fig = pygmt.Figure()
 
-# Create histogram for data01
-fig.histogram(
-    region=[0, 200, 0, 43],
-    projection="X10c",
-    frame=["WSne", "xaf10", "ya5f1+lCounts"],
-    data=data01,
-    series=10,
-    fill="red3",
-    pen="1p",
-    histtype=0,
-    # Set legend entry
-    label="data01",
-)
+with fig.subplot(
+    nrows=1,
+    ncols=2,
+    figsize=("20c", "10c"),
+):
+    with fig.set_panel(panel=0):
+        # Create histogram for data01
+        fig.histogram(
+            region=[0, 200, 0, 43],
+            projection="X10c",
+            frame=["WSne", "xaf10", "ya5f1+lCounts"],
+            data=data01,
+            series=10,
+            fill="red3",
+            pen="1p",
+            histtype=0,
+            # Annotate each bar with the counts it represents
+            annotate=True,
+        )
 
-# Create cumulative histogram for data01
-fig.histogram(
-    data=data01,
-    series=10,
-    # Use pattern (p) number 8 as fill for the bars
-    # Set the background (+b) to transparent due to not giving a color
-    # Set the foreground (+f) to black [Default]
-    fill="p8+b+fblack",
-    pen="1p",
-    histtype=0,
-    # Calculate cumulative values
-    cumulative=True,
-    label="data01 cumulative",
-)
-
-# Add legend within the bounding box of the plot (lower-case j)
-# at position Left Top
-fig.legend(position="jLT")
+    with fig.set_panel(panel=1):
+        # Create cumulative histogram for data01
+        fig.histogram(
+            region=[0, 200, 0, 43],
+            projection="X10c",
+            frame=["wSnE", "xaf10", "ya5f1+lCounts cumulative"],
+            data=data01,
+            series=10,
+            # Use pattern (p) number 8 as fill for the bars
+            # Set the background (+b) to white [Default]
+            # Set the foreground (+f) to black [Default]
+            fill="p8+bwhite+fblack",
+            pen="1p",
+            histtype=0,
+            # Show cumulative values
+            cumulative=True,
+            # Offest (+o) the label by 10 points in negative y-direction
+            annotate="+o-10p",
+        )
 
 fig.show()
 
@@ -190,7 +194,8 @@ fig.show()
 # Overlaid bars
 # -------------
 # Overlaid or overlapping bars can be achieved by plotting two or serveral
-# histograms, each for one data set, on top of each other.
+# histograms, each for one data set, on top of each other. The legend entry
+# can be specified via the ``label`` parameter.
 #
 # Limitations
 #
@@ -206,14 +211,14 @@ with fig.subplot(
     figsize=("20c", "10c"),
 ):
     with fig.set_panel(panel=0):
-        # Create histogram for data02
+        # Create histogram for data01
         fig.histogram(
             region=[0, 200, 0, 10],
             projection="X10c",
-            frame=["WSne", "xaf10", "ya5f1+lConunts"],
-            data=data02,
+            frame=["WSne", "xaf10", "ya2f1+lConunts"],
+            data=data01,
             series=10,
-            fill="orange",
+            fill="red3",
             pen="1p",
             histtype=0,
         )
@@ -223,12 +228,13 @@ with fig.subplot(
         fig.histogram(
             region=[0, 200, 0, 10],
             projection="X10c",
-            frame=["wSne", "xaf10", "ya5f1"],
+            frame=["wSne", "xaf10", "ya2f1"],
             data=data01,
             series=10,
             fill="red3",
             pen="1p",
             histtype=0,
+            # Set legend entry
             label="data01",
         )
         # Create histogram for data02
@@ -278,7 +284,7 @@ with fig.subplot(
         fig.histogram(
             region=[0, 200, 0, 20],
             projection="X10c",
-            frame=["WSne", "xaf10", "ya5f1+lConunts"],
+            frame=["WSne", "xaf10", "ya2f1+lCounts"],
             data=data02,
             series=10,
             fill="orange",
@@ -291,7 +297,7 @@ with fig.subplot(
         fig.histogram(
             region=[0, 200, 0, 20],
             projection="X10c",
-            frame=["wSne", "xaf10", "ya5f1+lConunts"],
+            frame=["wSne", "xaf10", "ya2f1+lCounts"],
             data=data_merge,
             series=10,
             fill="orange",
@@ -338,7 +344,7 @@ fig = pygmt.Figure()
 fig.histogram(
     region=[0, 200, 0, 10],
     projection="X10c",
-    frame=["WSne", "xaf10g10", "ya5f1+lCounts"],
+    frame=["WSne", "xaf10g10", "ya2f1+lCounts"],
     data=data01,
     series=binwidth,
     fill="red3",
