@@ -264,7 +264,7 @@ data_merge = np.concatenate((data01, data02), axis=None)
 # Create new figure instance
 fig = pygmt.Figure()
 
-# Create histogram for data01
+# Create histogram for data02 by using the combined data set
 fig.histogram(
     region=[0, 200, 0, 20],
     projection="X10c",
@@ -277,8 +277,8 @@ fig.histogram(
     label="data02",
 )
 
-# Create histogram for data02 by using the combined data set
-# It is plotted on top of the histogram for data01
+# Create histogram for data01
+# It is plotted on top of the histogram for data02
 fig.histogram(
     region=[0, 200, 0, 20],
     projection="X10c",
