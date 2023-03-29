@@ -67,7 +67,7 @@ jobs:
           mamba install gmt=${{ matrix.gmt_version }} numpy \
                         pandas xarray netCDF4 packaging \
                         contextily geopandas ipython rioxarray \
-                        build dvc make 'pytest>=6.0' \
+                        build make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
@@ -91,6 +91,9 @@ jobs:
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
+
+      - name: Setup data version control (DVC)
+        uses: iterative/setup-dvc@v1.1.1
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
