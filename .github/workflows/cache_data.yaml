@@ -28,8 +28,6 @@ jobs:
         uses: mamba-org/provision-with-micromamba@v15
         with:
           environment-name: pygmt
-          cache-downloads: true
-          cache-env: true
           extra-specs: |
             gmt=6.4.0
             numpy
