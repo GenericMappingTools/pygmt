@@ -94,6 +94,7 @@ jobs:
           use-mamba: true
 
       # Install dependencies from conda-forge
+      # TODO: Remove funcy pin after next DVC release
       - name: Install dependencies
         run: |
           mamba install python=${{ matrix.python-version }} \
@@ -101,7 +102,7 @@ jobs:
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc ipython rioxarray \
+                        build contextily dvc 'funcy=1.18' ipython rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
 
