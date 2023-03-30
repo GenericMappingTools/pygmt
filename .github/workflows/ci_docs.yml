@@ -48,7 +48,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -71,7 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build ipython make myst-parser contextily geopandas \
+                        build ipython make myst-parser contextily geopandas rioxarray \
                         sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
@@ -107,7 +107,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
