@@ -200,7 +200,7 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = march,
+      month        = mar,
       year         = 2023,
       publisher    = {Zenodo},
       version      = {0.9.0},
