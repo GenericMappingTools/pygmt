@@ -262,7 +262,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.8
       - >=1.21
-    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
+    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
+      - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.21
+    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_
       - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
       - >=6.3.0
       - >=3.8
