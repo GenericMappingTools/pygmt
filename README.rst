@@ -180,17 +180,18 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_7481934,
+    @software{pygmt_2023_7772533,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Jones, Max and
                       Schlitzer, William and
                       Grund, Michael and
-                      Toney, Liam and
+                      Jones, Max and
                       Fröhlich, Yvonne and
+                      Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
+                      Tong, Jing-Hui and
                       Materna, Kathryn and
                       Belem, Andre and
                       Newton, Tyler and
@@ -199,12 +200,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = dec,
-      year         = 2022,
+      month        = march,
+      year         = 2023,
       publisher    = {Zenodo},
-      version      = {0.8.0},
-      doi          = {10.5281/zenodo.7481934},
-      url          = {https://doi.org/10.5281/zenodo.7481934}
+      version      = {0.9.0},
+      doi          = {10.5281/zenodo.7772533},
+      url          = {https://doi.org/10.5281/zenodo.7772533}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
