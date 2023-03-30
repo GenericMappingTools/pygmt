@@ -102,7 +102,7 @@ jobs:
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc 'funcy<2.0' ipython rioxarray \
+                        build contextily dvc 'funcy=1.18' ipython rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
 
