@@ -13,7 +13,7 @@ method. In this tutorial different histogram related aspects are addressed:
 - using overlaid, stacked, and grouped bars
 """
 
-# sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_thumbnail_number = 4
 
 
 # Import the required packages
