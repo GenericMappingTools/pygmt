@@ -22,6 +22,7 @@ exclude-labels:
   - 'skip-changelog'
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
+sort-by: 'title'
 template: |
   ## Release v$RESOLVED_VERSION (20YY/MM/DD)
 
