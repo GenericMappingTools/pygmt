@@ -1,6 +1,6 @@
 # Changelog
 
-## Release v0.9.0 (20YY/03/31)
+## Release v0.9.0 (2023/03/31)
 
 [![Digital Object Identifier for PyGMT v0.9.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7772533.svg)](https://doi.org/10.5281/zenodo.7772533)
 
@@ -21,7 +21,6 @@
 * Figure.timestamp: Let the 'text' parameter work for GMT<=6.4.0 and raise a warning for long text ([#2425](https://github.com/GenericMappingTools/pygmt/pull/2425))
 * Figure.meca: Add aliases for C, E, G, and W ([#2345](https://github.com/GenericMappingTools/pygmt/pull/2345))
 * Figure.colorbar: Add aliases for L and Z ([#2357](https://github.com/GenericMappingTools/pygmt/pull/2357))
-* Expand Colorbar gallery example for categorical data ([#2395](https://github.com/GenericMappingTools/pygmt/pull/2395))
 
 ### Deprecations
 
@@ -42,7 +41,7 @@
 * Fix setting "sharex", "sharey", and "frame" of Figure.subplot in combination with Figure.basemap ([#2417](https://github.com/GenericMappingTools/pygmt/pull/2417))
 * Fix bug with different band dtype from load_tile_map by casting to uint8 ([#2393](https://github.com/GenericMappingTools/pygmt/pull/2393))
 * Figure.subplot: Fix strange positioning issues after exiting subplot ([#2427](https://github.com/GenericMappingTools/pygmt/pull/2427))
-* pygmt.config: Correctly resetting to default values that contain whitespaces ([#2331](https://github.com/GenericMappingTools/pygmt/pull/2331))
+* pygmt.config: Correctly reset to default values that contain whitespaces ([#2331](https://github.com/GenericMappingTools/pygmt/pull/2331))
 * pygmt.set_display: Do nothing when the display method is set to 'none' ([#2450](https://github.com/GenericMappingTools/pygmt/pull/2450))
 
 ### Documentation
@@ -60,6 +59,7 @@
 * Add gallery example for scatter plot with histograms on sides ([#2410](https://github.com/GenericMappingTools/pygmt/pull/2410))
 * Add gallery example showing how to use advanced grdgradient via the "azimuth" & "normalize" parameters ([#2354](https://github.com/GenericMappingTools/pygmt/pull/2354))
 * Add gallery example for the Figure.timestamp method ([#2391](https://github.com/GenericMappingTools/pygmt/pull/2391))
+* Expand gallery example "Colorbar" for categorical data ([#2395](https://github.com/GenericMappingTools/pygmt/pull/2395))
 * Expand gallery example "Focal mechanisms" to use "*fill" and "pen" ([#2433](https://github.com/GenericMappingTools/pygmt/pull/2433))
 * Add working example to quickstart section of README ([#2369](https://github.com/GenericMappingTools/pygmt/pull/2369))
 * Recommend Mambaforge and mamba in the installation and contributing guides ([#2385](https://github.com/GenericMappingTools/pygmt/pull/2385))
