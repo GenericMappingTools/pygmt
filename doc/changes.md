@@ -18,9 +18,9 @@
 
 ### Enhancements
 
-* pygmt.surface: Add aliases for "C", "L", "M", and "T"  ([#2321](https://github.com/GenericMappingTools/pygmt/pull/2321))
-* Figure.meca: Add aliases for C, E, G, and W ([#2345](https://github.com/GenericMappingTools/pygmt/pull/2345))
-* Figure.colorbar: Add aliases for L and Z ([#2357](https://github.com/GenericMappingTools/pygmt/pull/2357))
+* pygmt.surface: Add aliases for "C", "L", "M", and "T" ([#2321](https://github.com/GenericMappingTools/pygmt/pull/2321))
+* Figure.meca: Add aliases for "C", "E", "G", and "W" ([#2345](https://github.com/GenericMappingTools/pygmt/pull/2345))
+* Figure.colorbar: Add aliases for "L" and "Z" ([#2357](https://github.com/GenericMappingTools/pygmt/pull/2357))
 
 ### Deprecations
 
@@ -38,14 +38,14 @@
 ### Bug Fixes
 
 * GMTDataArrayAccessor: Fallback to default grid registration and gtype if the grid source file doesn't exist ([#2009](https://github.com/GenericMappingTools/pygmt/pull/2009))
-* Fix setting "sharex", "sharey", and "frame" of Figure.subplot in combination with Figure.basemap ([#2417](https://github.com/GenericMappingTools/pygmt/pull/2417))
+* Figure.subplot: Fix setting "sharex", "sharey", and "frame" in combination with Figure.basemap ([#2417](https://github.com/GenericMappingTools/pygmt/pull/2417))
 * Figure.subplot: Fix strange positioning issues after exiting subplot ([#2427](https://github.com/GenericMappingTools/pygmt/pull/2427))
 * pygmt.config: Correctly reset to default values that contain whitespaces ([#2331](https://github.com/GenericMappingTools/pygmt/pull/2331))
 * pygmt.set_display: Do nothing when the display method is set to 'none' ([#2450](https://github.com/GenericMappingTools/pygmt/pull/2450))
 
 ### Documentation
 
-* GMTDataArrayAccessor: Add inline examples for setting GMT specific properties (#2370) ([#2370](https://github.com/GenericMappingTools/pygmt/pull/2370))
+* GMTDataArrayAccessor: Add inline examples for setting GMT specific properties ([#2370](https://github.com/GenericMappingTools/pygmt/pull/2370))
 * Document limitations of GMT xarray accessors ([#2375](https://github.com/GenericMappingTools/pygmt/pull/2375))
 * Revise the notes about registration and gtype of remote datasets ([#2384](https://github.com/GenericMappingTools/pygmt/pull/2384))
 * Add project keywords to the pyproject.toml file ([#2315](https://github.com/GenericMappingTools/pygmt/pull/2315))
@@ -54,7 +54,7 @@
 * Add inline example for load_earth_mask ([#2355](https://github.com/GenericMappingTools/pygmt/pull/2355))
 * Add inline example for load_earth_vertical_gravity_gradient ([#2356](https://github.com/GenericMappingTools/pygmt/pull/2356))
 * Add inline examples and improve documentation for pygmt.set_display ([#2458](https://github.com/GenericMappingTools/pygmt/pull/2458))
-* Add gallery example showing how to use patterns via the "fill" parameter (or similiar parameters) ([#2329](https://github.com/GenericMappingTools/pygmt/pull/2329))
+* Add gallery example showing how to use patterns via the "fill" parameter (or similar parameters) ([#2329](https://github.com/GenericMappingTools/pygmt/pull/2329))
 * Add gallery example for scatter plot with histograms on sides ([#2410](https://github.com/GenericMappingTools/pygmt/pull/2410))
 * Add gallery example showing how to use advanced grdgradient via the "azimuth" & "normalize" parameters ([#2354](https://github.com/GenericMappingTools/pygmt/pull/2354))
 * Add gallery example for the Figure.timestamp method ([#2391](https://github.com/GenericMappingTools/pygmt/pull/2391))
@@ -65,7 +65,7 @@
 
 ### Maintenance
 
-* Add the GMTSampleData class to simplify the load_sample_data and list_sample_data functions (#2342) ([#2342](https://github.com/GenericMappingTools/pygmt/pull/2342))
+* Add the GMTSampleData class to simplify the load_sample_data and list_sample_data functions ([#2342](https://github.com/GenericMappingTools/pygmt/pull/2342))
 * Add a new target 'doctest' to run doctests only and simplify Makefile ([#2443](https://github.com/GenericMappingTools/pygmt/pull/2443))
 * Add a package-level variable `__gmt_version__` for development use ([#2366](https://github.com/GenericMappingTools/pygmt/pull/2366))
 * Allow printing show_versions() to in-memory buffer to enable testing ([#2399](https://github.com/GenericMappingTools/pygmt/pull/2399))

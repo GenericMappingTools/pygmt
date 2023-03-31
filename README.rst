@@ -213,7 +213,7 @@ https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function t
 It is also strongly recommended to cite the
 `GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
 Note that some modules like ``dimfilter``, ``surface``, and ``x2sys`` also have their
-dedicated citation. Further information for all these can be found at
+dedicated citations. Further information for all these can be found at
 https://www.generic-mapping-tools.org/cite.
 
 
