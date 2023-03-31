@@ -7,18 +7,17 @@
 ### Highlights
 
 * 🎉 **Ninth minor release of PyGMT** 🎉
-* Add function to load raster tile maps using contextily ([#2125](https://github.com/GenericMappingTools/pygmt/pull/2125))
 * Add Figure.tilemap to plot XYZ tile maps ([#2394](https://github.com/GenericMappingTools/pygmt/pull/2394))
+* Add function to load raster tile maps using contextily ([#2125](https://github.com/GenericMappingTools/pygmt/pull/2125))
 
 ### New Features
 
 * Add load_earth_mask function for GSHHG Global Earth Mask dataset ([#2310](https://github.com/GenericMappingTools/pygmt/pull/2310))
-* Add Figure.timestamp to plot the GMT timestamp logo ([#2208](https://github.com/GenericMappingTools/pygmt/pull/2208))
+* Add Figure.timestamp to plot the GMT timestamp logo ([#2208](https://github.com/GenericMappingTools/pygmt/pull/2208), [#2425](https://github.com/GenericMappingTools/pygmt/pull/2425))
 
 ### Enhancements
 
 * pygmt.surface: Add aliases for "C", "L", "M", and "T"  ([#2321](https://github.com/GenericMappingTools/pygmt/pull/2321))
-* Figure.timestamp: Let the 'text' parameter work for GMT<=6.4.0 and raise a warning for long text ([#2425](https://github.com/GenericMappingTools/pygmt/pull/2425))
 * Figure.meca: Add aliases for C, E, G, and W ([#2345](https://github.com/GenericMappingTools/pygmt/pull/2345))
 * Figure.colorbar: Add aliases for L and Z ([#2357](https://github.com/GenericMappingTools/pygmt/pull/2357))
 
@@ -39,7 +38,6 @@
 
 * GMTDataArrayAccessor: Fallback to default grid registration and gtype if the grid source file doesn't exist ([#2009](https://github.com/GenericMappingTools/pygmt/pull/2009))
 * Fix setting "sharex", "sharey", and "frame" of Figure.subplot in combination with Figure.basemap ([#2417](https://github.com/GenericMappingTools/pygmt/pull/2417))
-* Fix bug with different band dtype from load_tile_map by casting to uint8 ([#2393](https://github.com/GenericMappingTools/pygmt/pull/2393))
 * Figure.subplot: Fix strange positioning issues after exiting subplot ([#2427](https://github.com/GenericMappingTools/pygmt/pull/2427))
 * pygmt.config: Correctly reset to default values that contain whitespaces ([#2331](https://github.com/GenericMappingTools/pygmt/pull/2331))
 * pygmt.set_display: Do nothing when the display method is set to 'none' ([#2450](https://github.com/GenericMappingTools/pygmt/pull/2450))
@@ -68,7 +66,7 @@
 
 * Add the GMTSampleData class to simplify the load_sample_data and list_sample_data functions (#2342) ([#2342](https://github.com/GenericMappingTools/pygmt/pull/2342))
 * Add a new target 'doctest' to run doctests only and simplify Makefile ([#2443](https://github.com/GenericMappingTools/pygmt/pull/2443))
-* Add a package-level variable __gmt_version__ for development use ([#2366](https://github.com/GenericMappingTools/pygmt/pull/2366))
+* Add a package-level variable `__gmt_version__` for development use ([#2366](https://github.com/GenericMappingTools/pygmt/pull/2366))
 * Allow printing show_versions() to in-memory buffer to enable testing ([#2399](https://github.com/GenericMappingTools/pygmt/pull/2399))
 * Accept a dict containing configurable GMT parameters in build_arg_string ([#2324](https://github.com/GenericMappingTools/pygmt/pull/2324))
 * Publish to TestPyPI and PyPI via OpenID Connect token ([#2453](https://github.com/GenericMappingTools/pygmt/pull/2453))
