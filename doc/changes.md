@@ -9,7 +9,7 @@
 * 🎉 **Ninth minor release of PyGMT** 🎉
 * Add Figure.tilemap to plot XYZ tile maps ([#2394](https://github.com/GenericMappingTools/pygmt/pull/2394))
 * Add function to load raster tile maps using contextily ([#2125](https://github.com/GenericMappingTools/pygmt/pull/2125))
-* Add eleven new inline and gallery examples
+* Eleven new/updated gallery and inline examples
 
 ### New Features
 
