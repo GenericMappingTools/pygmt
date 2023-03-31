@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -158,7 +158,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Adding an inset to the figure</li>
     <li class="source-link">
@@ -185,7 +185,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-advanced-insets-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-advanced-insets-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="adding-an-inset-to-the-figure">
@@ -213,10 +213,7 @@ US state of Massachusetts.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_001.png" srcset="../../_images/sphx_glr_insets_001.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code></a> method uses a context manager, and is called
+<img src="../../_images/sphx_glr_insets_001.png" srcset="../../_images/sphx_glr_insets_001.png" alt="insets" class = "sphx-glr-single-img"/><p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.inset.html#pygmt.Figure.inset" title="pygmt.Figure.inset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code></a> method uses a context manager, and is called
 using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. The <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter, including the inset
 width, is required to plot the inset. Using the <strong>j</strong> argument, the location
 of the inset is set to one of the 9 anchors (bottom-middle-top and
@@ -241,10 +238,7 @@ sets the fill to light red.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_002.png" srcset="../../_images/sphx_glr_insets_002.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>When using <strong>j</strong> to set the anchor of the inset, the default location is in
+<img src="../../_images/sphx_glr_insets_002.png" srcset="../../_images/sphx_glr_insets_002.png" alt="insets" class = "sphx-glr-single-img"/><p>When using <strong>j</strong> to set the anchor of the inset, the default location is in
 contact with the nearby axis or axes. The offset of the inset can be set with
 <strong>+o</strong>, followed by the offsets along the x- and y-axis. If only one offset
 is passed, it is applied to both axes. Each offset can have its own unit. In
@@ -265,10 +259,7 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_003.png" srcset="../../_images/sphx_glr_insets_003.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Standard plotting methods can be called from within the <code class="docutils literal notranslate"><span class="pre">inset</span></code> context
+<img src="../../_images/sphx_glr_insets_003.png" srcset="../../_images/sphx_glr_insets_003.png" alt="insets" class = "sphx-glr-single-img"/><p>Standard plotting methods can be called from within the <code class="docutils literal notranslate"><span class="pre">inset</span></code> context
 manager. The example below uses <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> to plot a zoomed
 out map that selectively paints the state of Massachusetts to shows its
 location relative to other states.</p>
@@ -303,10 +294,7 @@ location relative to other states.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.725 seconds)</p>
+<img src="../../_images/sphx_glr_insets_004.png" srcset="../../_images/sphx_glr_insets_004.png" alt="insets" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.696 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-insets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/2bce6de666bf8cf98d11d6eb23cd1fbd/insets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">insets.py</span></code></a></p>
@@ -330,10 +318,10 @@ location relative to other states.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

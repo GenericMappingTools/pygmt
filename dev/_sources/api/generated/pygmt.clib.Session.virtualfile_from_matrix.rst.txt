@@ -5,7 +5,8 @@ pygmt.clib.Session.virtualfile\_from\_matrix
 
 .. automethod:: Session.virtualfile_from_matrix
 
-.. include:: backreferences/pygmt.clib.Session.virtualfile_from_matrix.examples
+.. minigallery:: pygmt.clib.Session.virtualfile_from_matrix
+    :add-heading:
 
 .. raw:: html
 

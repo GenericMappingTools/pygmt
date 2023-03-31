@@ -5,7 +5,8 @@ pygmt.binstats
 
 .. autofunction:: binstats
 
-.. include:: backreferences/pygmt.binstats.examples
+.. minigallery:: pygmt.binstats
+    :add-heading:
 
 .. raw:: html
 

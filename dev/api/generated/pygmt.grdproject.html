@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -177,7 +177,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.grdproject</li>
     <li class="source-link">
@@ -236,7 +236,7 @@ large or smaller than that implied by the extent of the grid file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
 <li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>None</em>) – The name of the output netCDF file with extension .nc to store the grid
 in.</p></li>
 <li><p><strong>inverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – When set to <code class="docutils literal notranslate"><span class="pre">True</span></code> transforms grid from rectangular to
@@ -281,12 +281,14 @@ the registration have already been initialized; use <code class="docutils litera
 </p></li>
 <li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Set the resolution for the new grid in dots per inch.</p></li>
 <li><p><strong>scaling</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>c</strong>|<strong>i</strong>|<strong>p</strong>|<strong>e</strong>|<strong>f</strong>|<strong>k</strong>|<strong>M</strong>|<strong>n</strong>|<strong>u</strong>].
-Force 1:1 scaling, i.e., output or output data are in actual projected
-meters [<strong>e</strong>]. To specify other units, append <strong>f</strong> (foot),
-<strong>k</strong> (km), <strong>M</strong> (statute mile), <strong>n</strong> (nautical mile), <strong>u</strong>
-(US survey foot), <strong>i</strong> (inch), <strong>c</strong> (cm), or <strong>p</strong> (point).</p></li>
-<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Append <strong>c</strong>, <strong>i</strong>, or <strong>p</strong> to indicate that cm, inch, or point
-should be the projected measure unit. Cannot be used with <code class="docutils literal notranslate"><span class="pre">scaling</span></code>.</p></li>
+Force 1:1 scaling, i.e., output or input data are in actual projected
+meters [<strong>e</strong>]. To specify other units, append <strong>f</strong> (feet),
+<strong>k</strong> (kilometers), <strong>M</strong> (statute miles), <strong>n</strong> (nautical miles),
+<strong>u</strong> (US survey feet), <strong>i</strong> (inches), <strong>c</strong> (centimeters), or
+<strong>p</strong> (points).</p></li>
+<li><p><strong>unit</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Append <strong>c</strong>, <strong>i</strong>, or <strong>p</strong> to indicate that centimeters, inches, or
+points should be the projected measure unit. Cannot be used with
+<code class="docutils literal notranslate"><span class="pre">scaling</span></code>.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
@@ -310,14 +312,14 @@ spline used:</p>
 </ul>
 </p></li>
 <li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <strong>g</strong>|<strong>p</strong>.
-Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registration.
+Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registration
 [Default is <strong>g</strong>(ridline)].</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p><strong>ret</strong> (<em>xarray.DataArray or None</em>) – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -353,10 +355,10 @@ Force gridline (<strong>g</strong>) or pixel (<strong>p</strong>) node registrat
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

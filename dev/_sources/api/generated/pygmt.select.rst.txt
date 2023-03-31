@@ -5,7 +5,8 @@ pygmt.select
 
 .. autofunction:: select
 
-.. include:: backreferences/pygmt.select.examples
+.. minigallery:: pygmt.select
+    :add-heading:
 
 .. raw:: html
 

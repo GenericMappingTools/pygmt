@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -170,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.show</li>
     <li class="source-link">
@@ -200,7 +200,7 @@
 otherwise opens it in the default viewer for your operating system
 (falls back to the default web browser).</p>
 <p><a class="reference internal" href="pygmt.set_display.html#pygmt.set_display" title="pygmt.set_display"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.set_display</span></code></a> can select the default display method
-(<strong>notebook</strong>, <strong>external</strong>, or <strong>none</strong>).</p>
+(<code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;external&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">method</span></code> parameter can also override the default display method
 for the current figure. Parameters <code class="docutils literal notranslate"><span class="pre">dpi</span></code> and <code class="docutils literal notranslate"><span class="pre">width</span></code> can be used
 to control the resolution and dimension of the figure in the notebook.</p>
@@ -218,12 +218,16 @@ the <code class="docutils literal notranslate"><span class="pre">waiting</span><
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The image resolution (dots per inch) in Jupyter notebooks.</p></li>
 <li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The image width (in pixels) in Jupyter notebooks.</p></li>
-<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>How the current figure will be displayed. Options are</p>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>None</em>) – <p>How the current figure will be displayed. Choose from:</p>
 <ul>
-<li><p><strong>external</strong>: PDF preview in an external program [Default]</p></li>
-<li><p><strong>notebook</strong>: PNG preview [Default in Jupyter notebooks]</p></li>
-<li><p><strong>none</strong>: Disable image preview</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;external&quot;</span></code>: External PDF preview using the default PDF viewer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code>: Inline PNG preview in the current notebook</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>: Disable image preview</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code>: Reset to the default display method</p></li>
 </ul>
+<p>The default display method is <code class="docutils literal notranslate"><span class="pre">&quot;external&quot;</span></code> in Python consoles or
+<code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code> in Jupyter notebooks, but can be changed by
+<a class="reference internal" href="pygmt.set_display.html#pygmt.set_display" title="pygmt.set_display"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.set_display</span></code></a>.</p>
 </p></li>
 <li><p><strong>waiting</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Suspend the execution of the current process for a given number of
 seconds after launching an external viewer.
@@ -238,283 +242,295 @@ Only works if <code class="docutils literal notranslate"><span class="pre">metho
 
 <section id="examples-using-pygmt-figure-show">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code><a class="headerlink" href="#examples-using-pygmt-figure-show" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat..."><img alt="Color land and water" src="../../_images/sphx_glr_land_and_water_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat..."><img alt="" src="../../_images/sphx_glr_land_and_water_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color land and water</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an..."><img alt="Political Boundaries" src="../../_images/sphx_glr_borders_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an..."><img alt="" src="../../_images/sphx_glr_borders_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political Boundaries</span></a></p>
   <div class="sphx-glr-thumbnail-title">Political Boundaries</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><img alt="Shorelines" src="../../_images/sphx_glr_shorelines_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><img alt="" src="../../_images/sphx_glr_shorelines_thumb.png" />
 <p><a class="reference internal" href="../../gallery/maps/shorelines.html#sphx-glr-gallery-maps-shorelines-py"><span class="std std-ref">Shorelines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Shorelines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><img alt="Cartesian, circular, and geographic vectors" src="../../_images/sphx_glr_vector_styles_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><img alt="" src="../../_images/sphx_glr_vector_styles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points..."><img alt="Generate points along great circles" src="../../_images/sphx_glr_great_circles_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points..."><img alt="" src="../../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><img alt="Line colors with a custom CPT" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><img alt="" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called *front* which allows to plot specif..."><img alt="Line fronts" src="../../_images/sphx_glr_linefronts_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called front which allows to plot specific..."><img alt="" src="../../_images/sphx_glr_linefronts_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line fronts</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><img alt="Line styles" src="../../_images/sphx_glr_linestyles_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><img alt="" src="../../_images/sphx_glr_linestyles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line styles</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Roads"><img alt="Roads" src="../../_images/sphx_glr_roads_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Roads"><img alt="" src="../../_images/sphx_glr_roads_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></p>
   <div class="sphx-glr-thumbnail-title">Roads</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,..."><img alt="Vector heads and tails" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,..."><img alt="" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci..."><img alt="Wiggle along tracks" src="../../_images/sphx_glr_wiggle_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.wiggle method can plot z = f(x,y) anomalies along tracks. x, y, z can be speci..."><img alt="" src="../../_images/sphx_glr_wiggle_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/wiggle.html#sphx-glr-gallery-lines-wiggle-py"><span class="std std-ref">Wiggle along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Wiggle along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding..."><img alt="Basic geometric symbols" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual geometric symbols by passing the corresponding..."><img alt="" src="../../_images/sphx_glr_basic_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/basic_symbols.html#sphx-glr-gallery-symbols-basic-symbols-py"><span class="std std-ref">Basic geometric symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Basic geometric symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><img alt="Color points by categories" src="../../_images/sphx_glr_points_categorical_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:"><img alt="" src="../../_images/sphx_glr_patterns_thumb.png" />
+<p><a class="reference internal" href="../../gallery/symbols/patterns.html#sphx-glr-gallery-symbols-patterns-py"><span class="std std-ref">Bit and Hachure Patterns</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Bit and Hachure Patterns</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><img alt="" src="../../_images/sphx_glr_points_categorical_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/points_categorical.html#sphx-glr-gallery-symbols-points-categorical-py"><span class="std std-ref">Color points by categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color points by categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy..."><img alt="Custom symbols" src="../../_images/sphx_glr_custom_symbols_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual custom symbols by passing the corresponding sy..."><img alt="" src="../../_images/sphx_glr_custom_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/custom_symbols.html#sphx-glr-gallery-symbols-custom-symbols-py"><span class="std std-ref">Custom symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Custom symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:"><img alt="Datetime inputs" src="../../_images/sphx_glr_datetime_inputs_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Datetime inputs of the following types are supported in PyGMT:"><img alt="" src="../../_images/sphx_glr_datetime_inputs_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/datetime_inputs.html#sphx-glr-gallery-symbols-datetime-inputs-py"><span class="std std-ref">Datetime inputs</span></a></p>
   <div class="sphx-glr-thumbnail-title">Datetime inputs</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp..."><img alt="Multi-parameter symbols" src="../../_images/sphx_glr_multi_parameter_symbols_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot individual multi-parameter symbols by passing the corresp..."><img alt="" src="../../_images/sphx_glr_multi_parameter_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/multi_parameter_symbols.html#sphx-glr-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">Multi-parameter symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multi-parameter symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. The plot symbol and size is set with the style pa..."><img alt="Points" src="../../_images/sphx_glr_points_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot points. The plot symbol and size is set with the style pa..."><img alt="" src="../../_images/sphx_glr_points_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/points.html#sphx-glr-gallery-symbols-points-py"><span class="std std-ref">Points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array argument to the..."><img alt="Points with varying transparency" src="../../_images/sphx_glr_points_transparency_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Points can be plotted with different transparency levels by passing in an array argument to the..."><img alt="" src="../../_images/sphx_glr_points_transparency_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/points_transparency.html#sphx-glr-gallery-symbols-points-transparency-py"><span class="std std-ref">Points with varying transparency</span></a></p>
   <div class="sphx-glr-thumbnail-title">Points with varying transparency</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ..."><img alt="Scatter plots with a legend" src="../../_images/sphx_glr_scatter_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with a legend one may use a loop and create one scatter plot per item ..."><img alt="" src="../../_images/sphx_glr_scatter_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/scatter.html#sphx-glr-gallery-symbols-scatter-py"><span class="std std-ref">Scatter plots with a legend</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scatter plots with a legend</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Text symbols"><img alt="Text symbols" src="../../_images/sphx_glr_text_symbols_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Text symbols"><img alt="" src="../../_images/sphx_glr_text_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/text_symbols.html#sphx-glr-gallery-symbols-text-symbols-py"><span class="std std-ref">Text symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Text symbols</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars"><img alt="Vertical or horizontal bars" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars"><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html#sphx-glr-gallery-symbols-bars-py"><span class="std std-ref">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="Calculating grid gradient and radiance" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="Clipping grid values" src="../../_images/sphx_glr_grdclip_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ..."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
   <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1-D numpy.ndarray data columns. #. data 2-D numpy.ndarray data matrix with 3 columns..."><img alt="Contours" src="../../_images/sphx_glr_contours_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1-D numpy.ndarray data columns. #. data 2-D numpy.ndarray data matrix with 3 columns..."><img alt="" src="../../_images/sphx_glr_contours_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/contours.html#sphx-glr-gallery-images-contours-py"><span class="std std-ref">Contours</span></a></p>
   <div class="sphx-glr-thumbnail-title">Contours</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="Create 'wet-dry' mask grid" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Images on figures"><img alt="Images on figures" src="../../_images/sphx_glr_image_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Images on figures"><img alt="" src="../../_images/sphx_glr_image_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Images on figures</span></a></p>
   <div class="sphx-glr-thumbnail-title">Images on figures</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="3-D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D Scatter plots</span></a></p>
   <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><img alt="Plotting a surface" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdview() method can plot 3-D surfaces with surftype=&quot;s&quot;. Here, we supply the ..."><img alt="" src="../../_images/sphx_glr_grdview_surface_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/grdview_surface.html#sphx-glr-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Plotting a surface</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting a surface</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms or beachballs. We can specify the focal ..."><img alt="Focal mechanisms" src="../../_images/sphx_glr_meca_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.meca method can plot focal mechanisms or beachballs. We can specify the focal ..."><img alt="" src="../../_images/sphx_glr_meca_thumb.png" />
 <p><a class="reference internal" href="../../gallery/seismology/meca.html#sphx-glr-gallery-seismology-meca-py"><span class="std std-ref">Focal mechanisms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Focal mechanisms</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ..."><img alt="Velocity arrows and confidence ellipses" src="../../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.velo method can be used to plot mean velocity arrows and confidence ellipses. ..."><img alt="" src="../../_images/sphx_glr_velo_arrow_ellipse_thumb.png" />
 <p><a class="reference internal" href="../../gallery/seismology/velo_arrow_ellipse.html#sphx-glr-gallery-seismology-velo-arrow-ellipse-py"><span class="std std-ref">Velocity arrows and confidence ellipses</span></a></p>
   <div class="sphx-glr-thumbnail-title">Velocity arrows and confidence ellipses</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes sh..."><img alt="Double Y axes graph" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The frame parameter of the plotting methods of the pygmt.Figure class can control which axes sh..."><img alt="" src="../../_images/sphx_glr_double_y_axes_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/double_y_axes.html#sphx-glr-gallery-basemaps-double-y-axes-py"><span class="std std-ref">Double Y axes graph</span></a></p>
   <div class="sphx-glr-thumbnail-title">Double Y axes graph</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="Ternary diagram" src="../../_images/sphx_glr_ternary_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="Blockmean" src="../../_images/sphx_glr_blockm_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
   <div class="sphx-glr-thumbnail-title">Blockmean</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Histogram"><img alt="Histogram" src="../../_images/sphx_glr_histogram_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Histogram"><img alt="" src="../../_images/sphx_glr_histogram_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/histogram.html#sphx-glr-gallery-histograms-histogram-py"><span class="std std-ref">Histogram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Histogram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="Rose diagram" src="../../_images/sphx_glr_rose_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="" src="../../_images/sphx_glr_rose_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Rose diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><img alt="Colorbar" src="../../_images/sphx_glr_colorbar_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Scatter plot with histograms"><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
+<p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Colorbar</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T..."><img alt="Day-night terminator line and twilights" src="../../_images/sphx_glr_solar_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.solar to show the different transition stages between daytime and nighttime. T..."><img alt="" src="../../_images/sphx_glr_solar_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/solar.html#sphx-glr-gallery-embellishments-solar-py"><span class="std std-ref">Day-night terminator line and twilights</span></a></p>
   <div class="sphx-glr-thumbnail-title">Day-night terminator line and twilights</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset" src="../../_images/sphx_glr_inset_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="" src="../../_images/sphx_glr_inset_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset map showing a rectangular region" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><img alt="Legend" src="../../_images/sphx_glr_legend_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.legend method can automatically create a legend for symbols plotted using pygm..."><img alt="" src="../../_images/sphx_glr_legend_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/legend.html#sphx-glr-gallery-embellishments-legend-py"><span class="std std-ref">Legend</span></a></p>
   <div class="sphx-glr-thumbnail-title">Legend</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map."><img alt="Logo" src="../../_images/sphx_glr_logo_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.logo method allows to place the GMT logo on a map."><img alt="" src="../../_images/sphx_glr_logo_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/logo.html#sphx-glr-gallery-embellishments-logo-py"><span class="std std-ref">Logo</span></a></p>
   <div class="sphx-glr-thumbnail-title">Logo</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="Multiple colormaps" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="Coastlines and borders" src="../../_images/sphx_glr_coastlines_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Timestamp"><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Timestamp</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
   <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plot..."><img alt="Frames, ticks, titles, and labels" src="../../_images/sphx_glr_frames_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Setting frame, ticks, title, etc., of the plot is handled by the frame parameter that most plot..."><img alt="" src="../../_images/sphx_glr_frames_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/frames.html#sphx-glr-tutorials-basics-frames-py"><span class="std std-ref">Frames, ticks, titles, and labels</span></a></p>
   <div class="sphx-glr-thumbnail-title">Frames, ticks, titles, and labels</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting data points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot."><img alt="Plotting lines" src="../../_images/sphx_glr_lines_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting lines is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_lines_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/lines.html#sphx-glr-tutorials-basics-lines-py"><span class="std std-ref">Plotting lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a plot. This is handled by pygmt.Figure.text."><img alt="Plotting text" src="../../_images/sphx_glr_text_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a plot. This is handled by pygmt.Figure.text."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting text</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown ..."><img alt="Setting the region" src="../../_images/sphx_glr_regions_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Many of the plotting methods take the region parameter, which sets the area that will be shown ..."><img alt="" src="../../_images/sphx_glr_regions_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/regions.html#sphx-glr-tutorials-basics-regions-py"><span class="std std-ref">Setting the region</span></a></p>
   <div class="sphx-glr-thumbnail-title">Setting the region</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><img alt="Adding an inset to the figure" src="../../_images/sphx_glr_insets_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="Configuring PyGMT defaults" src="../../_images/sphx_glr_configuration_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
   <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="Creating a 3-D perspective image" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="Creating a map with contour lines" src="../../_images/sphx_glr_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><img alt="Making subplots" src="../../_images/sphx_glr_subplots_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil..."><img alt="Plotting datetime charts" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="PyGMT accepts a variety of datetime objects to plot data and create charts. Aside from the buil..."><img alt="" src="../../_images/sphx_glr_date_time_charts_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/date_time_charts.html#sphx-glr-tutorials-advanced-date-time-charts-py"><span class="std std-ref">Plotting datetime charts</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting datetime charts</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="Plotting vectors" src="../../_images/sphx_glr_vectors_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting vectors is handled by pygmt.Figure.plot."><img alt="" src="../../_images/sphx_glr_vectors_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/vectors.html#sphx-glr-tutorials-advanced-vectors-py"><span class="std std-ref">Plotting vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting vectors</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure using PyGMT - a Python wrapper for th..."><img alt="1. Making your first figure" src="../../_images/sphx_glr_01_first_figure_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure using PyGMT - a Python wrapper for th..."><img alt="" src="../../_images/sphx_glr_01_first_figure_thumb.png" />
 <p><a class="reference internal" href="../../get_started/01_first_figure.html#sphx-glr-get-started-01-first-figure-py"><span class="std std-ref">1. Making your first figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">1. Making your first figure</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="2. Create a contour map" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
   <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><img alt="Azimuthal Equidistant" src="../../_images/sphx_glr_azim_equidistant_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><img alt="" src="../../_images/sphx_glr_azim_equidistant_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></p>
   <div class="sphx-glr-thumbnail-title">Azimuthal Equidistant</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><img alt="General Perspective" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The general perspective projection imitates the view of the Earth from a finite point in space...."><img alt="" src="../../_images/sphx_glr_azim_general_perspective_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_general_perspective.html#sphx-glr-projections-azim-azim-general-perspective-py"><span class="std std-ref">General Perspective</span></a></p>
   <div class="sphx-glr-thumbnail-title">General Perspective</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><img alt="General Stereographic" src="../../_images/sphx_glr_azim_general_stereographic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This map projection is a conformal, azimuthal projection. It is mainly used with a projection c..."><img alt="" src="../../_images/sphx_glr_azim_general_stereographic_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_general_stereographic.html#sphx-glr-projections-azim-azim-general-stereographic-py"><span class="std std-ref">General Stereographic</span></a></p>
   <div class="sphx-glr-thumbnail-title">General Stereographic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the Earth. As a conse..."><img alt="Gnomonic" src="../../_images/sphx_glr_azim_gnomonic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The point of perspective of the gnomonic projection lies at the center of the Earth. As a conse..."><img alt="" src="../../_images/sphx_glr_azim_gnomonic_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_gnomonic.html#sphx-glr-projections-azim-azim-gnomonic-py"><span class="std std-ref">Gnomonic</span></a></p>
   <div class="sphx-glr-thumbnail-title">Gnomonic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapp..."><img alt="Lambert Azimuthal Equal Area" src="../../_images/sphx_glr_azim_lambert_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This projection was developed by Johann Heinrich Lambert in 1772 and is typically used for mapp..."><img alt="" src="../../_images/sphx_glr_azim_lambert_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_lambert.html#sphx-glr-projections-azim-azim-lambert-py"><span class="std std-ref">Lambert Azimuthal Equal Area</span></a></p>
   <div class="sphx-glr-thumbnail-title">Lambert Azimuthal Equal Area</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><img alt="Orthographic" src="../../_images/sphx_glr_azim_orthographic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This is a perspective projection like the general perspective, but with the difference that the..."><img alt="" src="../../_images/sphx_glr_azim_orthographic_thumb.png" />
 <p><a class="reference internal" href="../../projections/azim/azim_orthographic.html#sphx-glr-projections-azim-azim-orthographic-py"><span class="std std-ref">Orthographic</span></a></p>
   <div class="sphx-glr-thumbnail-title">Orthographic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><img alt="Albers Conic Equal Area" src="../../_images/sphx_glr_conic_albers_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><img alt="" src="../../_images/sphx_glr_conic_albers_thumb.png" />
 <p><a class="reference internal" href="../../projections/conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></p>
   <div class="sphx-glr-thumbnail-title">Albers Conic Equal Area</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about ..."><img alt="Equidistant conic" src="../../_images/sphx_glr_conic_equidistant_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equidistant conic projection was described by the Greek philosopher Claudius Ptolemy about ..."><img alt="" src="../../_images/sphx_glr_conic_equidistant_thumb.png" />
 <p><a class="reference internal" href="../../projections/conic/conic_equidistant.html#sphx-glr-projections-conic-conic-equidistant-py"><span class="std std-ref">Equidistant conic</span></a></p>
   <div class="sphx-glr-thumbnail-title">Equidistant conic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772)..."><img alt="Lambert Conic Conformal Projection" src="../../_images/sphx_glr_conic_lambert_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This conic projection was designed by the Alsatian mathematician Johann Heinrich Lambert (1772)..."><img alt="" src="../../_images/sphx_glr_conic_lambert_thumb.png" />
 <p><a class="reference internal" href="../../projections/conic/conic_lambert.html#sphx-glr-projections-conic-conic-lambert-py"><span class="std std-ref">Lambert Conic Conformal Projection</span></a></p>
   <div class="sphx-glr-thumbnail-title">Lambert Conic Conformal Projection</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, w..."><img alt="Polyconic Projection" src="../../_images/sphx_glr_polyconic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The polyconic projection, in Europe usually referred to as the American polyconic projection, w..."><img alt="" src="../../_images/sphx_glr_polyconic_thumb.png" />
 <p><a class="reference internal" href="../../projections/conic/polyconic.html#sphx-glr-projections-conic-polyconic-py"><span class="std std-ref">Polyconic Projection</span></a></p>
   <div class="sphx-glr-thumbnail-title">Polyconic Projection</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><img alt="Cassini Cylindrical" src="../../_images/sphx_glr_cyl_cassini_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><img alt="" src="../../_images/sphx_glr_cyl_cassini_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cassini Cylindrical</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical pro..."><img alt="Cylindrical Stereographic" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The cylindrical stereographic projections are certainly not as notable as other cylindrical pro..."><img alt="" src="../../_images/sphx_glr_cyl_stereographic_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_stereographic.html#sphx-glr-projections-cyl-cyl-stereographic-py"><span class="std std-ref">Cylindrical Stereographic</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cylindrical Stereographic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is sele..."><img alt="Cylindrical equal-area" src="../../_images/sphx_glr_cyl_equal_area_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection is actually several projections, depending on what latitude is sele..."><img alt="" src="../../_images/sphx_glr_cyl_equal_area_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_equal_area.html#sphx-glr-projections-cyl-cyl-equal-area-py"><span class="std std-ref">Cylindrical equal-area</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cylindrical equal-area</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The ..."><img alt="Cylindrical equidistant" src="../../_images/sphx_glr_cyl_equidistant_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This simple cylindrical projection is really a linear scaling of longitudes and latitudes. The ..."><img alt="" src="../../_images/sphx_glr_cyl_equidistant_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_equidistant.html#sphx-glr-projections-cyl-cyl-equidistant-py"><span class="std std-ref">Cylindrical equidistant</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cylindrical equidistant</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better know..."><img alt="Mercator" src="../../_images/sphx_glr_cyl_mercator_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Mercator projection takes its name from the Flemish cartographer Gheert Cremer, better know..."><img alt="" src="../../_images/sphx_glr_cyl_mercator_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_mercator.html#sphx-glr-projections-cyl-cyl-mercator-py"><span class="std std-ref">Mercator</span></a></p>
   <div class="sphx-glr-thumbnail-title">Mercator</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Soc..."><img alt="Miller cylindrical" src="../../_images/sphx_glr_cyl_miller_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection, presented by Osborn Maitland Miller of the American Geographic Soc..."><img alt="" src="../../_images/sphx_glr_cyl_miller_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_miller.html#sphx-glr-projections-cyl-cyl-miller-py"><span class="std std-ref">Miller cylindrical</span></a></p>
   <div class="sphx-glr-thumbnail-title">Miller cylindrical</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="Oblique Mercator, 1: origin and azimuth" src="../../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_1_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_1.html#sphx-glr-projections-cyl-cyl-oblique-mercator-1-py"><span class="std std-ref">Oblique Mercator, 1: origin and azimuth</span></a></p>
   <div class="sphx-glr-thumbnail-title">Oblique Mercator, 1: origin and azimuth</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="Oblique Mercator, 2: two points" src="../../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_2_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_2.html#sphx-glr-projections-cyl-cyl-oblique-mercator-2-py"><span class="std std-ref">Oblique Mercator, 2: two points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Oblique Mercator, 2: two points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="Oblique Mercator, 3: origin and pole" src="../../_images/sphx_glr_cyl_oblique_mercator_3_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Oblique configurations of the cylinder give rise to the oblique Mercator projection. It is part..."><img alt="" src="../../_images/sphx_glr_cyl_oblique_mercator_3_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_oblique_mercator_3.html#sphx-glr-projections-cyl-cyl-oblique-mercator-3-py"><span class="std std-ref">Oblique Mercator, 3: origin and pole</span></a></p>
   <div class="sphx-glr-thumbnail-title">Oblique Mercator, 3: origin and pole</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the..."><img alt="Transverse Mercator" src="../../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The transverse Mercator was invented by Johann Heinrich Lambert in 1772. In this projection the..."><img alt="" src="../../_images/sphx_glr_cyl_transverse_mercator_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_transverse_mercator.html#sphx-glr-projections-cyl-cyl-transverse-mercator-py"><span class="std std-ref">Transverse Mercator</span></a></p>
   <div class="sphx-glr-thumbnail-title">Transverse Mercator</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Merctor &lt;/projections/cyl/cyl_transverse_mercator&gt; is the..."><img alt="Universal Transverse Mercator" src="../../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="A particular subset of the transverse Merctor &lt;/projections/cyl/cyl_transverse_mercator&gt; is the..."><img alt="" src="../../_images/sphx_glr_cyl_universal_transverse_mercator_thumb.png" />
 <p><a class="reference internal" href="../../projections/cyl/cyl_universal_transverse_mercator.html#sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"><span class="std std-ref">Universal Transverse Mercator</span></a></p>
   <div class="sphx-glr-thumbnail-title">Universal Transverse Mercator</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><img alt="Eckert IV" src="../../_images/sphx_glr_misc_eckertIV_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><img alt="" src="../../_images/sphx_glr_misc_eckertIV_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></p>
   <div class="sphx-glr-thumbnail-title">Eckert IV</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 190..."><img alt="Eckert VI" src="../../_images/sphx_glr_misc_eckertVI_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Eckert VI projections, presented by the German cartographer Max Eckert-Greiffendorff in 190..."><img alt="" src="../../_images/sphx_glr_misc_eckertVI_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_eckertVI.html#sphx-glr-projections-misc-misc-eckertvi-py"><span class="std std-ref">Eckert VI</span></a></p>
   <div class="sphx-glr-thumbnail-title">Eckert VI</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer ..."><img alt="Hammer" src="../../_images/sphx_glr_misc_hammer_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The equal-area Hammer projection, first presented by the German mathematician Ernst von Hammer ..."><img alt="" src="../../_images/sphx_glr_misc_hammer_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_hammer.html#sphx-glr-projections-misc-misc-hammer-py"><span class="std std-ref">Hammer</span></a></p>
   <div class="sphx-glr-thumbnail-title">Hammer</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and as..."><img alt="Mollweide" src="../../_images/sphx_glr_misc_mollweide_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This pseudo-cylindrical, equal-area projection was developed by the German mathematician and as..."><img alt="" src="../../_images/sphx_glr_misc_mollweide_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_mollweide.html#sphx-glr-projections-misc-misc-mollweide-py"><span class="std std-ref">Mollweide</span></a></p>
   <div class="sphx-glr-thumbnail-title">Mollweide</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robins..."><img alt="Robinson" src="../../_images/sphx_glr_misc_robinson_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Robinson projection, presented by the American geographer and cartographer Arthur H. Robins..."><img alt="" src="../../_images/sphx_glr_misc_robinson_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_robinson.html#sphx-glr-projections-misc-misc-robinson-py"><span class="std std-ref">Robinson</span></a></p>
   <div class="sphx-glr-thumbnail-title">Robinson</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been u..."><img alt="Sinusoidal" src="../../_images/sphx_glr_misc_sinusoidal_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The sinusoidal projection is one of the oldest known projections, is equal-area, and has been u..."><img alt="" src="../../_images/sphx_glr_misc_sinusoidal_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_sinusoidal.html#sphx-glr-projections-misc-misc-sinusoidal-py"><span class="std std-ref">Sinusoidal</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sinusoidal</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equ..."><img alt="Van der Grinten" src="../../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The Van der Grinten projection, presented by Alphons J. van der Grinten in 1904, is neither equ..."><img alt="" src="../../_images/sphx_glr_misc_van_der_grinten_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_van_der_grinten.html#sphx-glr-projections-misc-misc-van-der-grinten-py"><span class="std std-ref">Van der Grinten</span></a></p>
   <div class="sphx-glr-thumbnail-title">Van der Grinten</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel made a projection that was to strike a compromi..."><img alt="Winkel Tripel" src="../../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="In 1921, the German mathematician Oswald Winkel made a projection that was to strike a compromi..."><img alt="" src="../../_images/sphx_glr_misc_winkel_tripel_thumb.png" />
 <p><a class="reference internal" href="../../projections/misc/misc_winkel_tripel.html#sphx-glr-projections-misc-misc-winkel-tripel-py"><span class="std std-ref">Winkel Tripel</span></a></p>
   <div class="sphx-glr-thumbnail-title">Winkel Tripel</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*/[*height*]: Give the *width* of the figure and the optional *height*."><img alt="Cartesian linear" src="../../_images/sphx_glr_cartesian_linear_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width/[height]: Give the width of the figure and the optional height."><img alt="" src="../../_images/sphx_glr_cartesian_linear_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian linear</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and the optional *h..."><img alt="Cartesian logarithmic" src="../../_images/sphx_glr_cartesian_logarithmic_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [l]/[height\ [l]]: Give the width of the figure and the optional height. Each axis wi..."><img alt="" src="../../_images/sphx_glr_cartesian_logarithmic_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/cartesian_logarithmic.html#sphx-glr-projections-nongeo-cartesian-logarithmic-py"><span class="std std-ref">Cartesian logarithmic</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian logarithmic</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="**X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the *width* of the figure..."><img alt="Cartesian power" src="../../_images/sphx_glr_cartesian_power_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [p\ pvalue]/[height\ [p\ pvalue]]: Give the width of the figure and the optional argu..."><img alt="" src="../../_images/sphx_glr_cartesian_power_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/cartesian_power.html#sphx-glr-projections-nongeo-cartesian-power-py"><span class="std std-ref">Cartesian power</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian power</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius *r*)."><img alt="Polar" src="../../_images/sphx_glr_polar_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Polar projections allow plotting polar coordinate data (e.g. angle \theta and radius r)."><img alt="" src="../../_images/sphx_glr_polar_thumb.png" />
 <p><a class="reference internal" href="../../projections/nongeo/polar.html#sphx-glr-projections-nongeo-polar-py"><span class="std std-ref">Polar</span></a></p>
   <div class="sphx-glr-thumbnail-title">Polar</div>
 </div></div><div style='clear:both'></div></section>
@@ -532,10 +548,10 @@ Only works if <code class="docutils literal notranslate"><span class="pre">metho
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_advanced_date_time_charts.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_advanced_date_time_charts.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -98,12 +98,6 @@ of 0.3 centimeters.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -161,12 +155,6 @@ Some notable differences to the previous example include
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -216,12 +204,6 @@ over a horizontal range of one year from 2016-01-01 to 2017-01-01.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -263,12 +245,6 @@ between ISO and datetime in order to create valid plots.
    :srcset: /tutorials/advanced/images/sphx_glr_date_time_charts_004.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -318,12 +294,6 @@ in the list ``x`` that will be plotted.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -370,12 +340,6 @@ valid DataArray.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -418,12 +382,6 @@ datatypes.
    :srcset: /tutorials/advanced/images/sphx_glr_date_time_charts_007.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -484,12 +442,6 @@ data points.
    :srcset: /tutorials/advanced/images/sphx_glr_date_time_charts_008.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -553,12 +505,6 @@ date formats can be found on the
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -566,7 +512,7 @@ date formats can be found on the
 
 The same concept shown above can be applied to smaller
 as well as larger intervals. In this example,
-data is plotted for different times throughout two days.
+data are plotted for different times throughout two days.
 Primary x-axis labels are modified to repeat every 6 hours
 and secondary x-axis label repeats every day and shows
 the day of the week.
@@ -617,19 +563,13 @@ time formats can be found on the
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.337 seconds)
+   **Total running time of the script:** ( 0 minutes  4.399 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_date_time_charts.py:
@@ -637,6 +577,8 @@ time formats can be found on the
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

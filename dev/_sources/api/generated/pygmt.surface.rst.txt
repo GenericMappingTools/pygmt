@@ -5,7 +5,8 @@ pygmt.surface
 
 .. autofunction:: surface
 
-.. include:: backreferences/pygmt.surface.examples
+.. minigallery:: pygmt.surface
+    :add-heading:
 
 .. raw:: html
 

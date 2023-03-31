@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -161,7 +161,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.load_dataarray</li>
     <li class="source-link">
@@ -188,13 +188,13 @@
 <span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">load_dataarray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename_or_obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/io.html#load_dataarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.load_dataarray" title="Permalink to this definition"></a></dt>
 <dd><p>Open, load into memory, and close a DataArray from a file or file-like
 object containing a single data variable.</p>
-<p>This is a thin wrapper around <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. It differs
-from <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> in that it loads the DataArray into
+<p>This is a thin wrapper around <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. It differs
+from <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> in that it loads the DataArray into
 memory, gets GMT specific metadata about the grid via
 <a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a>, closes the file, and returns the
-DataArray. In contrast, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> keeps the file
+DataArray. In contrast, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a> keeps the file
 handle open and lazy loads its contents. All parameters are passed directly
-to <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. See that documentation for further
+to <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a>. See that documentation for further
 details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,7 +210,7 @@ objects are opened by scipy.io.netcdf (netCDF3) or h5py (netCDF4/HDF).</p>
 </dl>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a></p>
+<p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.open_dataarray.html#xarray.open_dataarray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xarray.open_dataarray</span></code></a></p>
 </div>
 </dd></dl>
 
@@ -228,10 +228,10 @@ objects are opened by scipy.io.netcdf (netCDF3) or h5py (netCDF4/HDF).</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

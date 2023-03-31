@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -169,7 +169,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.makecpt</li>
     <li class="source-link">
@@ -242,10 +242,10 @@ master CPT, the <a class="reference external" href="https://docs.generic-mapping
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Sets a constant level of transparency (0-100) for all color slices.
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set a constant level of transparency (0-100) for all color slices.
 Append <strong>+a</strong> to also affect the foreground, background, and NaN
-colors [Default is no transparency, i.e., 0 (opaque)].</p></li>
-<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Selects the master color palette table (CPT) to use in the
+colors [Default is no transparency, i.e., <code class="docutils literal notranslate"><span class="pre">0</span></code> (opaque)].</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Select the master color palette table (CPT) to use in the
 interpolation. Full list of built-in color palette tables can be found
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
 <li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
@@ -267,7 +267,7 @@ names (you can skip a category by not giving a name), or give
 labels from <em>start</em> (a single letter or an integer). Append <strong>-</strong> to
 build ranges <em>start</em>-<em>start+1</em> instead.</p></li>
 <li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
-Defines the range of the new CPT by giving the lowest and highest
+Define the range of the new CPT by giving the lowest and highest
 z-value (and optionally an interval). If this is not given, the
 existing range in the master CPT will be used intact. The values
 produced defines the color slice boundaries.  If <strong>+n</strong> is used it
@@ -327,34 +327,40 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 
 <section id="examples-using-pygmt-makecpt">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code><a class="headerlink" href="#examples-using-pygmt-makecpt" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><img alt="Line colors with a custom CPT" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The color of the lines made by pygmt.Figure.plot can be set according to a custom CPT and assig..."><img alt="" src="../../_images/sphx_glr_line_custom_cpt_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/line_custom_cpt.html#sphx-glr-gallery-lines-line-custom-cpt-py"><span class="std std-ref">Line colors with a custom CPT</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line colors with a custom CPT</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><img alt="Color points by categories" src="../../_images/sphx_glr_points_categorical_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Color points by categories"><img alt="" src="../../_images/sphx_glr_points_categorical_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/points_categorical.html#sphx-glr-gallery-symbols-points-categorical-py"><span class="std std-ref">Color points by categories</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color points by categories</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars"><img alt="Vertical or horizontal bars" src="../../_images/sphx_glr_bars_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars"><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/bars.html#sphx-glr-gallery-symbols-bars-py"><span class="std std-ref">Vertical or horizontal bars</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="Calculating grid gradient and radiance" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="Create 'wet-dry' mask grid" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ..."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="3-D Scatter plots" src="../../_images/sphx_glr_scatter3d_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D Scatter plots</span></a></p>
   <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="Ternary diagram" src="../../_images/sphx_glr_ternary_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="Multiple colormaps" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the..."><img alt="" src="../../_images/sphx_glr_colorbar_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbar.html#sphx-glr-gallery-embellishments-colorbar-py"><span class="std std-ref">Colorbar</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Colorbar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting data points</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
 </div></div><div style='clear:both'></div></section>
@@ -372,10 +378,10 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

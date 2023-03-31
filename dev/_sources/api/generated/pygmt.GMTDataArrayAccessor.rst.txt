@@ -5,14 +5,22 @@ pygmt.GMTDataArrayAccessor
 
 .. autoclass:: GMTDataArrayAccessor
 
-.. rubric:: Methods Summary
 
-.. autosummary::
-    
-    
-    
+.. rubric:: Attributes
 
-.. include:: backreferences/pygmt.GMTDataArrayAccessor.examples
+
+.. autoproperty::
+    GMTDataArrayAccessor.gtype
+
+.. autoproperty::
+    GMTDataArrayAccessor.registration
+
+
+
+
+
+.. minigallery:: pygmt.GMTDataArrayAccessor
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.xyz2grd
 
 .. autofunction:: xyz2grd
 
-.. include:: backreferences/pygmt.xyz2grd.examples
+.. minigallery:: pygmt.xyz2grd
+    :add-heading:
 
 .. raw:: html
 

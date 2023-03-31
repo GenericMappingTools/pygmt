@@ -5,7 +5,8 @@ pygmt.Figure.velo
 
 .. automethod:: Figure.velo
 
-.. include:: backreferences/pygmt.Figure.velo.examples
+.. minigallery:: pygmt.Figure.velo
+    :add-heading:
 
 .. raw:: html
 

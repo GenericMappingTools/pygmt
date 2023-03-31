@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.grdinfo</li>
@@ -183,7 +183,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdinfo</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get information about a grid.</span>
 
 <span class="sd">    Can read the grid from a file or given as an xarray.DataArray grid.</span>
@@ -200,7 +200,7 @@
 <span class="sd">    {region}</span>
 <span class="sd">    per_column : str or bool</span>
 <span class="sd">        **n**\|\ **t**.</span>
-<span class="sd">        Formats the report using tab-separated fields on a single line. The</span>
+<span class="sd">        Format the report using tab-separated fields on a single line. The</span>
 <span class="sd">        output is name *w e s n z0 z1 dx dy nx ny* [ *x0 y0 x1 y1* ]</span>
 <span class="sd">        [ *med scale* ] [ *mean std rms* ] [ *n_nan* ] *registration gtype*.</span>
 <span class="sd">        The data in brackets are outputted depending on the ``force_scan``</span>
@@ -237,27 +237,28 @@
 <span class="sd">    force_scan : int or str</span>
 <span class="sd">        **0**\|\ **1**\|\ **2**\|\ **p**\|\ **a**.</span>
 
-<span class="sd">        **0**\ : Report range of z after actually scanning the data, not just</span>
-<span class="sd">        reporting what the header says.</span>
-<span class="sd">        **1**\ : Report median and L1 scale of z (L1 scale = 1.4826 * Median</span>
-<span class="sd">        Absolute Deviation (MAD)).</span>
-<span class="sd">        **2**\ : Report mean, standard deviation, and root-mean-square (rms)</span>
-<span class="sd">        of z.</span>
-<span class="sd">        **p**\ : Report mode (LMS) and LMS scale of z.</span>
-<span class="sd">        **a**\ : Include all of the above.</span>
-<span class="sd">    minxmax_pos : bool</span>
+<span class="sd">        - **0**: Report range of z after actually scanning the data, not just</span>
+<span class="sd">          reporting what the header says.</span>
+<span class="sd">        - **1**: Report median and L1 scale of z (L1 scale = 1.4826 * Median</span>
+<span class="sd">          Absolute Deviation (MAD)).</span>
+<span class="sd">        - **2**: Report mean, standard deviation, and root-mean-square (rms)</span>
+<span class="sd">          of z.</span>
+<span class="sd">        - **p**: Report mode (LMS) and LMS scale of z.</span>
+<span class="sd">        - **a**: Include all of the above.</span>
+<span class="sd">    minmax_pos : bool</span>
 <span class="sd">        Include the x/y values at the location of the minimum and maximum</span>
 <span class="sd">        z-values.</span>
 <span class="sd">    nearest_multiple : str</span>
 <span class="sd">        [*dz*]\ [**+a**\ [*alpha*]]\ [**+s**].</span>
-<span class="sd">        Determine min and max z-value. If *dz* is provided then we first round</span>
-<span class="sd">        these values off to multiples of *dz*. To exclude the two tails of the</span>
-<span class="sd">        distribution when determining the min and max you can add **+a** to</span>
-<span class="sd">        set the *alpha* value (in percent): We then sort the grid, exclude the</span>
-<span class="sd">        data in the 0.5*\ *alpha* and 100 - 0.5*\ *alpha* tails, and revise</span>
-<span class="sd">        the min and max. To force a symmetrical range about zero, using</span>
-<span class="sd">        minus/plus the max absolute value of the two extremes, append **+s**\ .</span>
-<span class="sd">        We report the result via the text string *zmin/zmax* or *zmin/zmax/dz*</span>
+<span class="sd">        Determine minimum and maximum z-values. If *dz* is provided then we</span>
+<span class="sd">        first round these values off to multiples of *dz*. To exclude the</span>
+<span class="sd">        two tails of the distribution when determining the minimum and</span>
+<span class="sd">        maximum you can add **+a** to set the *alpha* value (in percent):</span>
+<span class="sd">        We then sort the grid, exclude the data in the 0.5*\ *alpha* and</span>
+<span class="sd">        100 - 0.5*\ *alpha* tails, and revise the minimum and maximum. To</span>
+<span class="sd">        force a symmetrical range about zero, using minus/plus the maximum</span>
+<span class="sd">        absolute value of the two extremes, append **+s**. We report the</span>
+<span class="sd">        result via the text string *zmin/zmax* or *zmin/zmax/dz*</span>
 <span class="sd">        (if *dz* was given) as expected by :func:`pygmt.makecpt`.</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {coltypes}</span>
@@ -287,10 +288,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

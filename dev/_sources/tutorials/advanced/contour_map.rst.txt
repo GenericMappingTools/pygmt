@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_advanced_contour_map.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_advanced_contour_map.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -71,12 +71,6 @@ equidistant cylindrical projection and with no frame.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -110,12 +104,6 @@ and annotated contour lines every 1,000 meters.
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -152,12 +140,6 @@ below) or a string ``limit="-4000/-2000"``.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -193,12 +175,6 @@ including setting the projection and frame.
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_004.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -245,19 +221,13 @@ the :meth:`pygmt.Figure.colorbar` method.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.522 seconds)
+   **Total running time of the script:** ( 0 minutes  3.704 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_contour_map.py:
@@ -265,6 +235,8 @@ the :meth:`pygmt.Figure.colorbar` method.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

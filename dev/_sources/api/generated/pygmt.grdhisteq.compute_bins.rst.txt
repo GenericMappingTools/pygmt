@@ -5,7 +5,8 @@ pygmt.grdhisteq.compute\_bins
 
 .. automethod:: grdhisteq.compute_bins
 
-.. include:: backreferences/pygmt.grdhisteq.compute_bins.examples
+.. minigallery:: pygmt.grdhisteq.compute_bins
+    :add-heading:
 
 .. raw:: html
 

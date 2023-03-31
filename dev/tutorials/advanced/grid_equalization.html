@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -170,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Performing grid histogram equalization</li>
     <li class="source-link">
@@ -197,7 +197,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-advanced-grid-equalization-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="performing-grid-histogram-equalization">
@@ -210,7 +210,7 @@ statistics based on a cumulative distribution function.</p>
 <section id="load-sample-data">
 <h2>Load sample data<a class="headerlink" href="#load-sample-data" title="Permalink to this heading"></a></h2>
 <p>Load the sample Earth relief data for a region around Yosemite valley
-and use <a class="reference internal" href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2xyz</span></code></a> to create a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the
+and use <a class="reference internal" href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2xyz</span></code></a> to create a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the
 z-values.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">119.825</span><span class="p">,</span> <span class="o">-</span><span class="mf">119.4</span><span class="p">,</span> <span class="mf">37.6</span><span class="p">,</span> <span class="mf">37.825</span><span class="p">]</span>
@@ -253,17 +253,14 @@ model and a histogram showing the distribution of elevation data values.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_grid_equalization_001.png" srcset="../../_images/sphx_glr_grid_equalization_001.png" alt="grid equalization" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_grid_equalization_001.png" srcset="../../_images/sphx_glr_grid_equalization_001.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="equalize-grid-based-on-a-linear-distribution">
 <h2>Equalize grid based on a linear distribution<a class="headerlink" href="#equalize-grid-based-on-a-linear-distribution" title="Permalink to this heading"></a></h2>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> method creates a new grid with the
 z-values representing the position of the original z-values in a given
 cumulative distribution. By default, it computes the position in a linear
 distribution. Here, we equalize the grid into nine divisions based on a
-linear distribution and produce a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values
+linear distribution and produce a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values
 for the new grid.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a> <span class="o">=</span> <span class="mi">9</span>
 <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">linear</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">)</span>
@@ -398,10 +395,7 @@ values.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_grid_equalization_002.png" srcset="../../_images/sphx_glr_grid_equalization_002.png" alt="grid equalization" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_grid_equalization_002.png" srcset="../../_images/sphx_glr_grid_equalization_002.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="transform-grid-based-on-a-normal-distribution">
 <h2>Transform grid based on a normal distribution<a class="headerlink" href="#transform-grid-based-on-a-normal-distribution" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> can be
@@ -446,17 +440,14 @@ a normal distribution and a histogram of the data values.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_grid_equalization_003.png" srcset="../../_images/sphx_glr_grid_equalization_003.png" alt="grid equalization" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_grid_equalization_003.png" srcset="../../_images/sphx_glr_grid_equalization_003.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="equalize-grid-based-on-a-quadratic-distribution">
 <h2>Equalize grid based on a quadratic distribution<a class="headerlink" href="#equalize-grid-based-on-a-quadratic-distribution" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">quadratic</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> can be
 used to transform the z-values relative to their position in a quadratic
 distribution rather than a linear distribution. Here, we equalize the grid
 into nine divisions based on a quadratic distribution and produce a
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values for the new grid.</p>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values for the new grid.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a>
 <span class="p">)</span>
@@ -587,10 +578,7 @@ a quadratic distribution and a histogram of the data values.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_grid_equalization_004.png" srcset="../../_images/sphx_glr_grid_equalization_004.png" alt="grid equalization" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.708 seconds)</p>
+<img src="../../_images/sphx_glr_grid_equalization_004.png" srcset="../../_images/sphx_glr_grid_equalization_004.png" alt="grid equalization" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.410 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-grid-equalization-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bedffbc3da9c4faaf43127f3e1456200/grid_equalization.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grid_equalization.py</span></code></a></p>
@@ -615,10 +603,10 @@ a quadratic distribution and a histogram of the data values.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

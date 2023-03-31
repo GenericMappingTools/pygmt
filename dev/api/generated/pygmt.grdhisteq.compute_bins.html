@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -177,7 +177,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.grdhisteq.compute_bins</li>
     <li class="source-link">
@@ -212,7 +212,7 @@ graytone will result in most of the image being very dark gray, with
 the mountain being almost white. <a class="reference internal" href="#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code></a>
 can provide a list of data values that divide the data range into
 divisions which have an equal area in the image [Default is 16 if
-<code class="docutils literal notranslate"><span class="pre">divisions</span></code> is not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file
+<code class="docutils literal notranslate"><span class="pre">divisions</span></code> is not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file
 output can be used to make a colormap with <a class="reference internal" href="pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a> and an
 image with <a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a> that has all levels of gray
 occurring equally.</p>
@@ -220,7 +220,7 @@ occurring equally.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
 <li><p><strong>outfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><em>None</em>) – The name of the output ASCII file to store the results of the
 histogram equalization in.</p></li>
 <li><p><strong>output_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Determine the format the xyz data will be returned in [Default is
@@ -228,7 +228,7 @@ histogram equalization in.</p></li>
 <blockquote>
 <div><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> - <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>- <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code>- <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> - ASCII file (requires <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
 </ul>
 </div></blockquote>
@@ -278,7 +278,7 @@ line-breaks.</p></li>
 <ul class="simple">
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (output will be stored in file set by
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> if
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not set (depends on <code class="docutils literal notranslate"><span class="pre">output_type</span></code>)</p></li>
 </ul>
 </p>
@@ -317,7 +317,7 @@ grids to account for node area varying with latitude.</p>
 
 <section id="examples-using-pygmt-grdhisteq-compute-bins">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code><a class="headerlink" href="#examples-using-pygmt-grdhisteq-compute-bins" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
 </div></div><div style='clear:both'></div></section>
@@ -335,10 +335,10 @@ grids to account for node area varying with latitude.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

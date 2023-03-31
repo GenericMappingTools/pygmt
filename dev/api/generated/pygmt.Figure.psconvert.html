@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -170,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.psconvert</li>
     <li class="source-link">
@@ -260,9 +260,9 @@ the default pen of 0.25p,black). <strong>Note</strong>: If both <strong>+g</stro
 black. Append <strong>+i</strong> to enforce gray-shades by using ICC profiles.</p></li>
 <li><p><strong>anti_aliasing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>g</strong>|<strong>p</strong>|<strong>t</strong>][<strong>1</strong>|<strong>2</strong>|<strong>4</strong>].
 Set the anti-aliasing options for <strong>g</strong>raphics or <strong>t</strong>ext.
-Append the size of the subsample box (1, 2, or 4) [4]. [Default is
-no anti-aliasing (same as bits = 1)].</p></li>
-<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Sets the output format, where <strong>b</strong> means BMP, <strong>e</strong> means EPS,
+Append the size of the subsample box (1, 2, or 4) [Default is
+<code class="docutils literal notranslate"><span class="pre">&quot;4&quot;</span></code>]. [Default is no anti-aliasing (same as bits = 1).]</p></li>
+<li><p><strong>fmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set the output format, where <strong>b</strong> means BMP, <strong>e</strong> means EPS,
 <strong>E</strong> means EPS with PageSize command, <strong>f</strong> means PDF, <strong>F</strong> means
 multi-page PDF, <strong>j</strong> means JPEG, <strong>g</strong> means PNG, <strong>G</strong> means
 transparent PNG (untouched regions are transparent), <strong>m</strong> means
@@ -304,10 +304,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

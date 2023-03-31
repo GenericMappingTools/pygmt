@@ -36,7 +36,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.datasets.load_earth_relief" href="pygmt.datasets.load_earth_relief.html" />
+    <link rel="next" title="pygmt.datasets.load_earth_mask" href="pygmt.datasets.load_earth_mask.html" />
     <link rel="prev" title="pygmt.datasets.load_earth_geoid" href="pygmt.datasets.load_earth_geoid.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -118,16 +118,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.datasets.load_earth_magnetic_anomaly"><code class="docutils literal notranslate"><span class="pre">load_earth_magnetic_anomaly</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_mask.html">pygmt.datasets.load_earth_mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_relief.html">pygmt.datasets.load_earth_relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_data.html">pygmt.datasets.load_sample_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_fractures_compilation.html">pygmt.datasets.load_fractures_compilation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_hotspots.html">pygmt.datasets.load_hotspots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_japan_quakes.html">pygmt.datasets.load_japan_quakes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_shape.html">pygmt.datasets.load_mars_shape</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_ocean_ridge_points.html">pygmt.datasets.load_ocean_ridge_points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_bathymetry.html">pygmt.datasets.load_sample_bathymetry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_usgs_quakes.html">pygmt.datasets.load_usgs_quakes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_tile_map.html">pygmt.datasets.load_tile_map</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -175,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.load_earth_magnetic_anomaly</li>
     <li class="source-link">
@@ -222,39 +217,45 @@ and <a class="reference external" href="https://www.generic-mapping-tools.org/re
 <li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> stand for
 arc-degrees and arc-minutes. It can be <code class="docutils literal notranslate"><span class="pre">&quot;01d&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;30m&quot;</span></code>,
 <code class="docutils literal notranslate"><span class="pre">&quot;20m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;15m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;10m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;06m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;04m&quot;</span></code>,
-<code class="docutils literal notranslate"><span class="pre">&quot;03m&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code>.</p></li>
+<code class="docutils literal notranslate"><span class="pre">&quot;03m&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code>. The <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code> resolution is not available for
+<code class="docutils literal notranslate"><span class="pre">data_source=&quot;wdmam&quot;</span></code>.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – The subregion of the grid to load, in the form of a list
 [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>] or a string <em>xmin/xmax/ymin/ymax</em>.
 Required for grids with resolutions higher than 5
 arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>).</p></li>
 <li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> for pixel registration or
 <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code>
-for all resolutions except <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code> which is <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> only.</p></li>
-<li><p><strong>data_source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select the source of the magnetic anomaly data.</p>
-<p>Available options:</p>
+for all resolutions except <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code> for <code class="docutils literal notranslate"><span class="pre">data_source=&quot;emag2&quot;</span></code> or
+<code class="docutils literal notranslate"><span class="pre">data_source=&quot;emag2_4km&quot;</span></code>, which are <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> only.</p></li>
+<li><p><strong>data_source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select the source of the magnetic anomaly data. Available options are:</p>
 <ul>
-<li><p><strong>emag2</strong> : EMAG2 Global Earth Magnetic Anomaly Model [Default
-option]. Only includes data is observed from sea level over
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;emag2&quot;</span></code>: EMAG2 Global Earth Magnetic Anomaly Model [Default
+option]. It only includes data observed at sea level over
 oceanic regions. See <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-mag.html">https://www.generic-mapping-tools.org/remote-datasets/earth-mag.html</a>.</p></li>
-<li><p><strong>emag2_4km</strong> : Use a version of EMAG2 where all observations
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;emag2_4km&quot;</span></code>: Use a version of EMAG2 where all observations
 are relative to an altitude of 4 km above the geoid and include
 data over land.</p></li>
-<li><p><strong>wdmam</strong> : World Digital Magnetic Anomaly Map (WDMAM).
-See <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-wdmam.html">https://www.generic-mapping-tools.org/remote-datasets/earth-wdmam.html</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;wdmam&quot;</span></code>: World Digital Magnetic Anomaly Map (WDMAM).
+See <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-wdmam.html">https://www.generic-mapping-tools.org/remote-datasets/earth-wdmam.html</a>.</p></li>
 </ul>
 </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth magnetic anomaly grid. Coordinates are latitude and
-longitude in degrees. Units are in nano Teslas (nT).</p>
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth magnetic anomaly grid. Coordinates are latitude and
+longitude in degrees. Units are in nano Tesla (nT).</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
-Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,
-which are stored as smaller tiles.</p>
+<p>The registration and coordinate system type of the returned
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+(i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
+However, these properties may be lost after specific grid operations (such
+as slicing) and will need to be manually set before passing the grid to any
+PyGMT data processing or plotting functions. Refer to
+<a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> for detailed explanations and
+workarounds.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">load_earth_magnetic_anomaly</span>
@@ -290,16 +291,16 @@ which are stored as smaller tiles.</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.datasets.load_earth_geoid.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_geoid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.datasets.load_earth_relief.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_earth_relief" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.datasets.load_earth_mask.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_earth_mask" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

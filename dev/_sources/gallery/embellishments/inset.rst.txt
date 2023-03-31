@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_embellishments_inset.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_embellishments_inset.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -36,18 +36,8 @@ methods called within the ``with`` statement are applied to the inset figure.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -77,7 +67,7 @@ methods called within the ``with`` statement are applied to the inset figure.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.758 seconds)
+   **Total running time of the script:** ( 0 minutes  1.091 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_inset.py:
@@ -85,6 +75,8 @@ methods called within the ``with`` statement are applied to the inset figure.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

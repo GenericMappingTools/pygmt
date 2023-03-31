@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Day-night terminator line and twilights" href="solar.html" />
-    <link rel="prev" title="Rose diagram" href="../histograms/rose.html" />
+    <link rel="prev" title="Scatter plot with histograms" href="../histograms/scatter_and_histograms.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -112,6 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +164,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Colorbar</li>
     <li class="source-link">
@@ -190,7 +191,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-embellishments-colorbar-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-embellishments-colorbar-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="colorbar">
@@ -201,10 +202,10 @@ placement via the <code class="docutils literal notranslate"><span class="pre">p
 can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html</a>. You can set the <code class="docutils literal notranslate"><span class="pre">position</span></code> of
 the colorbar using the following options:</p>
 <ul class="simple">
-<li><p><strong>j/J</strong>: justified inside/outside the map frame using any 2 character
+<li><p><strong>j/J</strong>: placed inside/outside the plot bounding box using any 2-character
 combination of vertical (<strong>T</strong>op, <strong>M</strong>iddle, <strong>B</strong>ottom) and
 horizontal (<strong>L</strong>eft, <strong>C</strong>enter, <strong>R</strong>ight) alignment codes, e.g.
-<code class="docutils literal notranslate"><span class="pre">position=&quot;jTR&quot;</span></code> for top right.</p></li>
+<code class="docutils literal notranslate"><span class="pre">position=&quot;jTR&quot;</span></code> for Top Right.</p></li>
 <li><p><strong>g</strong>: using map coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;g170/-45&quot;</span></code> for longitude
 170E, latitude 45S.</p></li>
 <li><p><strong>x</strong>: using paper coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;x5c/7c&quot;</span></code> for 5 cm, 7 cm
@@ -213,21 +214,17 @@ from anchor point.</p></li>
 </ul>
 <p>Note that the anchor point defaults to the bottom left (<strong>BL</strong>). Append <code class="docutils literal notranslate"><span class="pre">+h</span></code>
 to <code class="docutils literal notranslate"><span class="pre">position</span></code> to get a horizontal colorbar instead of a vertical one.</p>
-<img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne+tColorbars&quot;</span><span class="p">])</span>
 
+<span class="c1"># ============</span>
 <span class="c1"># Create a colorbar designed for seismic tomography - roma</span>
 <span class="c1"># Colorbar is placed at bottom center (BC) by default if no position is given</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
 
+<span class="c1"># ============</span>
 <span class="c1"># Create a colorbar showing the scientific rainbow - batlow</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;batlow&quot;</span><span class="p">,</span>
@@ -239,10 +236,11 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
     <span class="n">scale</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="c1"># ============</span>
 <span class="c1"># Create a colorbar suitable for surface topography - oleron</span>
 <a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
     <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;oleron&quot;</span><span class="p">,</span>
-    <span class="c1"># Colorbar position justified outside map frame (J) at Middle Right (MR),</span>
+    <span class="c1"># Colorbar placed outside the plot bounding box (J) at Middle Right (MR),</span>
     <span class="c1"># offset (+o) by 1 cm horizontally and 0 cm vertically from anchor point,</span>
     <span class="c1"># with a length/width (+w) of 7 cm by 0.5 cm and a box for NaN values (+n)</span>
     <span class="n">position</span><span class="o">=</span><span class="s2">&quot;JMR+o1c/0c+w7c/0.5c+n+mc&quot;</span><span class="p">,</span>
@@ -253,10 +251,31 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
     <span class="n">scale</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="c1"># ============</span>
+<span class="c1"># Create a colorbar suitable for categorical data - hawaii</span>
+<span class="c1"># Set up the colormap</span>
+<a href="../../api/generated/pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">makecpt</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;hawaii&quot;</span><span class="p">,</span>
+    <span class="n">series</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+    <span class="c1"># Comma-separated string for the annotations of the colorbar</span>
+    <span class="n">color_model</span><span class="o">=</span><span class="s2">&quot;+cA,B,C,D&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="c1"># Plot the colorbar</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use colormap set up above</span>
+    <span class="c1"># Colorbar placed inside the plot bounding box (j) at Bottom Left (BL),</span>
+    <span class="c1"># offset (+o) by 0.5 cm horizontally and 0.8 cm vertically from anchor</span>
+    <span class="c1"># point, and plotted horizontally (+h)</span>
+    <span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBL+o0.5c/0.8c+h&quot;</span><span class="p">,</span>
+    <span class="n">box</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># Divide colorbar into equal-sized rectangles</span>
+    <span class="n">equalsize</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.193 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.879 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbar-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/edef33eec4c45691a58d918ed356bec2/colorbar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbar.py</span></code></a></p>
@@ -273,17 +292,17 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../histograms/rose.html" class="btn btn-neutral float-left" title="Rose diagram" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../histograms/scatter_and_histograms.html" class="btn btn-neutral float-left" title="Scatter plot with histograms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="solar.html" class="btn btn-neutral float-right" title="Day-night terminator line and twilights" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

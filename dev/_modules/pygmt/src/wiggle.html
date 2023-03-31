@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.wiggle</li>
@@ -173,7 +173,6 @@
     <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;track&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
@@ -198,9 +197,9 @@
     <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fillpositive</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fillnegative</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot z=f(x,y) anomalies along tracks.</span>
 
 <span class="sd">    Takes a matrix, (x, y, z) triplets, or a file name as input and plots z</span>
@@ -224,26 +223,25 @@
 <span class="sd">    {projection}</span>
 <span class="sd">    {region}</span>
 <span class="sd">    scale : str or float</span>
-<span class="sd">        Gives anomaly scale in data-units/distance-unit. Append **c**, **i**,</span>
-<span class="sd">        or **p** to indicate the distance unit (cm, inch, or point); if no unit</span>
-<span class="sd">        is given we use the default unit that is controlled by</span>
-<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`.</span>
+<span class="sd">        Give anomaly scale in data-units/distance-unit. Append **c**, **i**,</span>
+<span class="sd">        or **p** to indicate the distance unit (centimeters, inches, or</span>
+<span class="sd">        points); if no unit is given we use the default unit that is</span>
+<span class="sd">        controlled by :gmt-term:`PROJ_LENGTH_UNIT`.</span>
 <span class="sd">    {frame}</span>
 <span class="sd">    position : str</span>
 <span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
 <span class="sd">        **+w**\ *length*\ [**+j**\ *justify*]\ [**+al**\|\ **r**]\</span>
 <span class="sd">        [**+o**\ *dx*\ [/*dy*]][**+l**\ [*label*]].</span>
-<span class="sd">        Defines the reference point on the map for the vertical scale bar.</span>
+<span class="sd">        Define the reference point on the map for the vertical scale bar.</span>
 <span class="sd">    fillpositive : str</span>
-<span class="sd">        Set fill shade, color, or pattern for positive wiggles [Default is no</span>
-<span class="sd">        fill].</span>
+<span class="sd">        Set color or pattern for filling positive wiggles</span>
+<span class="sd">        [Default is no fill].</span>
 <span class="sd">    fillnegative : str</span>
-<span class="sd">        Set fill shade, color, or pattern for negative wiggles [Default is no</span>
-<span class="sd">        fill].</span>
+<span class="sd">        Set color or pattern for filling negative wiggles</span>
+<span class="sd">        [Default is no fill].</span>
 <span class="sd">    track : str</span>
 <span class="sd">        Draw track [Default is no track]. Append pen attributes to use</span>
 <span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``].</span>
-<span class="sd">    {timestamp}</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    pen : str</span>
 <span class="sd">        Specify outline pen attributes [Default is no outline].</span>
@@ -299,10 +297,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

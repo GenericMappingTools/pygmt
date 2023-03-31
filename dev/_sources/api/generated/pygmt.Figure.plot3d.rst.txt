@@ -5,7 +5,8 @@ pygmt.Figure.plot3d
 
 .. automethod:: Figure.plot3d
 
-.. include:: backreferences/pygmt.Figure.plot3d.examples
+.. minigallery:: pygmt.Figure.plot3d
+    :add-heading:
 
 .. raw:: html
 

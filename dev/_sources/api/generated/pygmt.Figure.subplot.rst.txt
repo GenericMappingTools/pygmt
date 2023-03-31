@@ -5,7 +5,8 @@ pygmt.Figure.subplot
 
 .. automethod:: Figure.subplot
 
-.. include:: backreferences/pygmt.Figure.subplot.examples
+.. minigallery:: pygmt.Figure.subplot
+    :add-heading:
 
 .. raw:: html
 

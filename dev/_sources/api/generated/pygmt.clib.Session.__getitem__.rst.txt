@@ -5,7 +5,8 @@ pygmt.clib.Session.\_\_getitem\_\_
 
 .. automethod:: Session.__getitem__
 
-.. include:: backreferences/pygmt.clib.Session.__getitem__.examples
+.. minigallery:: pygmt.clib.Session.__getitem__
+    :add-heading:
 
 .. raw:: html
 

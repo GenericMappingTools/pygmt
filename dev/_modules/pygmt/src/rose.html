@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.rose</li>
@@ -187,7 +187,6 @@
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;norm&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;orientation&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
@@ -203,7 +202,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">rose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot windrose diagrams or polar histograms.</span>
 
 <span class="sd">    Takes a matrix, (length,azimuth) pairs, or a file name as input</span>
@@ -233,10 +232,10 @@
 
 <span class="sd">    length/azimuth : float or 1-D arrays</span>
 <span class="sd">        Length and azimuth values, or arrays of length and azimuth</span>
-<span class="sd">        values</span>
+<span class="sd">        values.</span>
 
 <span class="sd">    orientation : bool</span>
-<span class="sd">        Specifies that the input data are orientation data (i.e., have a</span>
+<span class="sd">        Specify that the input data are orientation data (i.e., have a</span>
 <span class="sd">        180 degree ambiguity) instead of true 0-360 degree directions</span>
 <span class="sd">        [Default is 0-360 degrees]. We compensate by counting each record</span>
 <span class="sd">        twice: First as azimuth and second as azimuth +180. Ignored if</span>
@@ -245,17 +244,17 @@
 <span class="sd">    region : str or list</span>
 <span class="sd">        *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].</span>
 <span class="sd">        *Required if this is the first plot command*.</span>
-<span class="sd">        Specifies the ``region`` of interest in (*r*, *azimuth*) space.</span>
+<span class="sd">        Specify the ``region`` of interest in (*r*, *azimuth*) space.</span>
 <span class="sd">        Here, *r0* is 0 and *r1* is the maximal length in units.</span>
 <span class="sd">        For *az0* and *az1*, specify either (-90, 90) or (0, 180) for</span>
 <span class="sd">        half circle plot or (0, 360) for full circle.</span>
 
 <span class="sd">    diameter : str</span>
-<span class="sd">         Sets the diameter of the rose diagram. If not given,</span>
+<span class="sd">         Set the diameter of the rose diagram. If not given,</span>
 <span class="sd">         then we default to a diameter of 7.5 cm.</span>
 
 <span class="sd">    sector : float or str</span>
-<span class="sd">         Gives the sector width in degrees for sector and rose diagram.</span>
+<span class="sd">         Give the sector width in degrees for sector and rose diagram.</span>
 <span class="sd">         Default ``0`` means windrose diagram. Append **+r** to draw rose</span>
 <span class="sd">         diagram instead of sector diagram (e.g. ``&quot;10+r&quot;``).</span>
 
@@ -277,8 +276,7 @@
 <span class="sd">         [Default is no scaling].</span>
 
 <span class="sd">    fill : str</span>
-<span class="sd">         Selects shade, color or pattern for filling the sectors [Default</span>
-<span class="sd">         is no fill].</span>
+<span class="sd">         Set color or pattern for filling sectors [Default is no fill].</span>
 
 <span class="sd">    cmap : str</span>
 <span class="sd">        Give a CPT. The *r*-value for each sector is used to look-up the</span>
@@ -334,7 +332,7 @@
 <span class="sd">        individual directions using the supplied attributes.</span>
 
 <span class="sd">    alpha : float or str</span>
-<span class="sd">        Sets the confidence level used to determine if the mean</span>
+<span class="sd">        Set the confidence level used to determine if the mean</span>
 <span class="sd">        resultant is significant (i.e., Lord Rayleigh test for</span>
 <span class="sd">        uniformity) [Default is ``alpha=0.05``]. **Note**: The</span>
 <span class="sd">        critical values are approximated [Berens, 2009] and requires</span>
@@ -346,7 +344,6 @@
 <span class="sd">        Statistics, *J. Stat. Software*, 31(10), 1-21,</span>
 <span class="sd">        https://doi.org/10.18637/jss.v031.i10.</span>
 
-<span class="sd">    {timestamp}</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {binary}</span>
 <span class="sd">    {panel}</span>
@@ -379,10 +376,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

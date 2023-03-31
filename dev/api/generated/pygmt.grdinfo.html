@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -163,7 +163,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.grdinfo</li>
     <li class="source-link">
@@ -207,12 +207,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.
 This is the only required parameter.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>per_column</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – <strong>n</strong>|<strong>t</strong>.
-Formats the report using tab-separated fields on a single line. The
+Format the report using tab-separated fields on a single line. The
 output is name <em>w e s n z0 z1 dx dy nx ny</em> [ <em>x0 y0 x1 y1</em> ]
 [ <em>med scale</em> ] [ <em>mean std rms</em> ] [ <em>n_nan</em> ] <em>registration gtype</em>.
 The data in brackets are outputted depending on the <code class="docutils literal notranslate"><span class="pre">force_scan</span></code>
@@ -244,26 +244,29 @@ increment in the form <em>xinc</em>[/<em>yinc</em>]. If <strong>b</strong> is gi
 each grid’s bounding box polygon instead. Finally, if <code class="docutils literal notranslate"><span class="pre">tiles</span></code> is in
 effect then <em>dx</em> and <em>dy</em> are the dimensions of the desired tiles.</p></li>
 <li><p><strong>force_scan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><strong>0</strong>|<strong>1</strong>|<strong>2</strong>|<strong>p</strong>|<strong>a</strong>.</p>
-<p><strong>0</strong>: Report range of z after actually scanning the data, not just
-reporting what the header says.
-<strong>1</strong>: Report median and L1 scale of z (L1 scale = 1.4826 * Median
-Absolute Deviation (MAD)).
-<strong>2</strong>: Report mean, standard deviation, and root-mean-square (rms)
-of z.
-<strong>p</strong>: Report mode (LMS) and LMS scale of z.
-<strong>a</strong>: Include all of the above.</p>
+<ul>
+<li><p><strong>0</strong>: Report range of z after actually scanning the data, not just
+reporting what the header says.</p></li>
+<li><p><strong>1</strong>: Report median and L1 scale of z (L1 scale = 1.4826 * Median
+Absolute Deviation (MAD)).</p></li>
+<li><p><strong>2</strong>: Report mean, standard deviation, and root-mean-square (rms)
+of z.</p></li>
+<li><p><strong>p</strong>: Report mode (LMS) and LMS scale of z.</p></li>
+<li><p><strong>a</strong>: Include all of the above.</p></li>
+</ul>
 </p></li>
-<li><p><strong>minxmax_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Include the x/y values at the location of the minimum and maximum
+<li><p><strong>minmax_pos</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Include the x/y values at the location of the minimum and maximum
 z-values.</p></li>
 <li><p><strong>nearest_multiple</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<em>dz</em>][<strong>+a</strong>[<em>alpha</em>]][<strong>+s</strong>].
-Determine min and max z-value. If <em>dz</em> is provided then we first round
-these values off to multiples of <em>dz</em>. To exclude the two tails of the
-distribution when determining the min and max you can add <strong>+a</strong> to
-set the <em>alpha</em> value (in percent): We then sort the grid, exclude the
-data in the 0.5*<em>alpha</em> and 100 - 0.5*<em>alpha</em> tails, and revise
-the min and max. To force a symmetrical range about zero, using
-minus/plus the max absolute value of the two extremes, append <strong>+s</strong>.
-We report the result via the text string <em>zmin/zmax</em> or <em>zmin/zmax/dz</em>
+Determine minimum and maximum z-values. If <em>dz</em> is provided then we
+first round these values off to multiples of <em>dz</em>. To exclude the
+two tails of the distribution when determining the minimum and
+maximum you can add <strong>+a</strong> to set the <em>alpha</em> value (in percent):
+We then sort the grid, exclude the data in the 0.5*<em>alpha</em> and
+100 - 0.5*<em>alpha</em> tails, and revise the minimum and maximum. To
+force a symmetrical range about zero, using minus/plus the maximum
+absolute value of the two extremes, append <strong>+s</strong>. We report the
+result via the text string <em>zmin/zmax</em> or <em>zmin/zmax/dz</em>
 (if <em>dz</em> was given) as expected by <a class="reference internal" href="pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a>.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
@@ -303,10 +306,10 @@ geographical data). Full documentation is at
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

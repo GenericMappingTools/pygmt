@@ -5,7 +5,8 @@ pygmt.Figure.inset
 
 .. automethod:: Figure.inset
 
-.. include:: backreferences/pygmt.Figure.inset.examples
+.. minigallery:: pygmt.Figure.inset
+    :add-heading:
 
 .. raw:: html
 

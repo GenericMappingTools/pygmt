@@ -5,7 +5,8 @@ pygmt.Figure.wiggle
 
 .. automethod:: Figure.wiggle
 
-.. include:: backreferences/pygmt.Figure.wiggle.examples
+.. minigallery:: pygmt.Figure.wiggle
+    :add-heading:
 
 .. raw:: html
 

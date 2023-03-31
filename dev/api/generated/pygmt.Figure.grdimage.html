@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -112,6 +112,7 @@
 <li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.grdimage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.grdview.html">pygmt.Figure.grdview</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.image.html">pygmt.Figure.image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.tilemap.html">pygmt.Figure.tilemap</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a></li>
@@ -171,7 +172,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.grdimage</li>
     <li class="source-link">
@@ -195,7 +196,7 @@
 <h1>pygmt.Figure.grdimage<a class="headerlink" href="#pygmt-figure-grdimage" title="Permalink to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.grdimage">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monochrome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdimage" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">grdimage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">img_in</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monochrome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_transparent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">panel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coltypes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">perspective</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.grdimage" title="Permalink to this definition"></a></dt>
 <dd><p>Project and plot grids or images.</p>
 <p>Reads a 2-D grid file and produces a gray-shaded (or colored) map by
 building a rectangular image and assigning pixels a gray-shade (or color)
@@ -237,7 +238,6 @@ smaller than that implied by the extent of the grid.</p>
 <li><p>N = no_clip</p></li>
 <li><p>Q = nan_transparent</p></li>
 <li><p>R = region</p></li>
-<li><p>U = timestamp</p></li>
 <li><p>V = verbose</p></li>
 <li><p>c = panel</p></li>
 <li><p>f = coltypes</p></li>
@@ -249,7 +249,7 @@ smaller than that implied by the extent of the grid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – The file name or a DataArray containing the input 2-D gridded data
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name or a DataArray containing the input 2-D gridded data
 set or image to be plotted (See GRID FILE FORMATS at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grdimage.html#grid-file-formats">https://docs.generic-mapping-tools.org/latest/grdimage.html#grid-file-formats</a>).</p></li>
 <li><p><strong>img_out</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <em>out_img</em>[=<em>driver</em>].
@@ -284,11 +284,12 @@ to the image. For example, if you have used <code class="docutils literal notran
 the image will be assigned a global domain. This mode allows you
 to project a raw image (an image without referencing coordinates).</p></li>
 <li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – [<strong>i</strong>|<em>dpi</em>].
-Sets the resolution of the projected grid that will be created if a
-map projection other than Linear or Mercator was selected [100]. By
-default, the projected grid will be of the same size (rows and
-columns) as the input file. Specify <strong>i</strong> to use the PostScript
-image operator to interpolate the image at the device resolution.</p></li>
+Set the resolution of the projected grid that will be created if a
+map projection other than Linear or Mercator was selected [Default
+is <code class="docutils literal notranslate"><span class="pre">100</span></code> dpi]. By default, the projected grid will be of the
+same size (rows and columns) as the input file. Specify <strong>i</strong> to
+use the PostScript image operator to interpolate the image at the
+device resolution.</p></li>
 <li><p><strong>bit_color</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <em>color</em>[<strong>+b</strong>|<strong>f</strong>].
 This parameter only applies when a resulting 1-bit image otherwise
 would consist of only two colors: black (0) and white (255). If so,
@@ -296,7 +297,7 @@ this parameter will instead use the image as a transparent mask and
 paint the mask with the given color. Append <strong>+b</strong> to paint the
 background pixels (1) or <strong>+f</strong> for the foreground pixels
 [Default is <strong>+f</strong>].</p></li>
-<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – [<em>intensfile</em>|<em>intensity</em>|<em>modifiers</em>].
+<li><p><strong>shading</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – [<em>intensfile</em>|<em>intensity</em>|<em>modifiers</em>].
 Give the name of a grid file or a DataArray with intensities in the
 (-1,+1) range, or a constant intensity to apply everywhere (affects the
 ambient light). Alternatively, derive an intensity grid from the input
@@ -314,11 +315,15 @@ must be provided.</p></li>
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>monochrome</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Force conversion to monochrome image using the (television) YIQ
 transformation. Cannot be used with <code class="docutils literal notranslate"><span class="pre">nan_transparent</span></code>.</p></li>
-<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do not clip the image at the map boundary (only relevant for
-non-rectangular maps).</p></li>
-<li><p><strong>nan_transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Make grid nodes with z = NaN transparent, using the color-masking
+<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do <strong>not</strong> clip the image at the frame boundaries (only relevant
+for non-rectangular maps) [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
+<li><p><strong>nan_transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>+z</strong><em>value</em>][<em>color</em>]
+Make grid nodes with z = NaN transparent, using the color-masking
 feature in PostScript Level 3 (the PS device must support PS Level
-3).</p></li>
+3). If the input is a grid, use <strong>+z</strong> with a <em>value</em> to select
+another grid value than NaN. If the input is instead an image,
+append an alternate <em>color</em> to select another pixel value to be
+transparent [Default is <code class="docutils literal notranslate"><span class="pre">&quot;black&quot;</span></code>].</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
@@ -356,10 +361,10 @@ spline used:</p>
 </p></li>
 <li><p><strong>perspective</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>x</strong>|<strong>y</strong>|<strong>z</strong>]<em>azim</em>[/<em>elev</em>[/<em>zlevel</em>]][<strong>+w</strong><em>lon0</em>/<em>lat0</em>[/<em>z0</em>]][<strong>+v</strong><em>x0</em>/<em>y0</em>].
 Select perspective view and set the azimuth and elevation angle of
-the viewpoint. Default is [180, 90]. Full documentation is at
+the viewpoint [Default is <code class="docutils literal notranslate"><span class="pre">[180,</span> <span class="pre">90]</span></code>]. Full documentation is at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full">https://docs.generic-mapping-tools.org/latest/gmt.html#perspective-full</a>.</p></li>
 <li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Set transparency level, in [0-100] percent range
-[Default is 0, i.e., opaque].
+[Default is <code class="docutils literal notranslate"><span class="pre">0</span></code>, i.e., opaque].
 Only visible when PDF or raster format output is selected.
 Only the PNG format selection adds a transparency layer
 in the image (for further processing).</p></li>
@@ -390,34 +395,37 @@ negative number <em>-n</em> to select (all - <em>n</em>) cores (or at least 1 if
 
 <section id="examples-using-pygmt-figure-grdimage">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code><a class="headerlink" href="#examples-using-pygmt-figure-grdimage" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="Calculating grid gradient and radiance" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="Clipping grid values" src="../../_images/sphx_glr_grdclip_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ..."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
   <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="Create 'wet-dry' mask grid" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="" src="../../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="Blockmean" src="../../_images/sphx_glr_blockm_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
   <div class="sphx-glr-thumbnail-title">Blockmean</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="Multiple colormaps" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="Creating a map with contour lines" src="../../_images/sphx_glr_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="2. Create a contour map" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
   <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
 </div></div><div style='clear:both'></div></section>
@@ -435,10 +443,10 @@ negative number <em>-n</em> to select (all - <em>n</em>) cores (or at least 1 if
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

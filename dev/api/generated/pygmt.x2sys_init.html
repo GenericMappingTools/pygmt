@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -164,7 +164,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.x2sys_init</li>
     <li class="source-link">
@@ -231,13 +231,13 @@ current directory.</p>
 <li><p><strong>geoz</strong> (same, with one z-column).</p></li>
 </ul>
 </p></li>
-<li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Specifies the file extension (suffix) for these data files. If not
+<li><p><strong>suffix</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Specify the file extension (suffix) for these data files. If not
 given we use the format definition file prefix as the suffix (see
 <code class="docutils literal notranslate"><span class="pre">fmtfile</span></code>).</p></li>
 <li><p><strong>discontinuity</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <strong>d</strong>|<strong>g</strong>.
-Selects geographical coordinates. Append <strong>d</strong> for discontinuity at the
-Dateline (makes longitude go from -180 to +180) or <strong>g</strong> for
-discontinuity at Greenwich (makes longitude go from 0 to 360
+Select geographical coordinates. Append <strong>d</strong> for discontinuity at the
+Dateline (makes longitude go from -180° to +180°) or <strong>g</strong> for
+discontinuity at Greenwich (makes longitude go from 0° to 360°
 [Default]). If not given we assume the data are Cartesian.</p></li>
 <li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>dx</em>[/<em>dy</em>].
 <em>dx</em> and optionally <em>dy</em> is the grid spacing. Append <strong>m</strong> to
@@ -245,17 +245,17 @@ indicate minutes or <strong>s</strong> to indicate seconds for geographic data.
 These spacings refer to the binning used in the track bin-index data
 base.</p></li>
 <li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <p><strong>d</strong>|<strong>s</strong><em>unit</em>.
-Sets the units used for distance and speed when requested by other
+Set the units used for distance and speed when requested by other
 programs. Append <strong>d</strong> for distance or <strong>s</strong> for speed, then give the
 desired <em>unit</em> as:</p>
 <ul>
 <li><p><strong>c</strong> - Cartesian userdist or userdist/usertime</p></li>
 <li><p><strong>e</strong> - meters or m/s</p></li>
-<li><p><strong>f</strong> - feet or feet/s</p></li>
-<li><p><strong>k</strong> - km or km/hr</p></li>
-<li><p><strong>m</strong> - miles or miles/hr</p></li>
+<li><p><strong>f</strong> - feet or ft/s</p></li>
+<li><p><strong>k</strong> - kilometers or km/hr</p></li>
+<li><p><strong>m</strong> - miles or mi/hr</p></li>
 <li><p><strong>n</strong> - nautical miles or knots</p></li>
-<li><p><strong>u</strong> - survey feet or survey feet/s</p></li>
+<li><p><strong>u</strong> - survey feet or sft/s</p></li>
 </ul>
 <p>[Default is <code class="docutils literal notranslate"><span class="pre">units=[&quot;dk&quot;,</span> <span class="pre">&quot;se&quot;]</span></code> (km and m/s) if <code class="docutils literal notranslate"><span class="pre">discontinuity</span></code> is
 set, and <code class="docutils literal notranslate"><span class="pre">units=[&quot;dc&quot;,</span> <span class="pre">&quot;sc&quot;]</span></code> otherwise (e.g., for Cartesian units)].</p>
@@ -313,10 +313,10 @@ controlled by method (<a class="reference external" href="https://docs.generic-m
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

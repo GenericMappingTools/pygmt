@@ -5,7 +5,8 @@ pygmt.grdlandmask
 
 .. autofunction:: grdlandmask
 
-.. include:: backreferences/pygmt.grdlandmask.examples
+.. minigallery:: pygmt.grdlandmask
+    :add-heading:
 
 .. raw:: html
 

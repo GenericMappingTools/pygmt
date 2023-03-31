@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_basics_coastlines.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_basics_coastlines.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -63,12 +63,6 @@ Use the ``shorelines`` parameter to plot only the shorelines:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -104,12 +98,6 @@ thickness and black lines:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -136,12 +124,6 @@ You can specify multiple levels (with their own pens) by passing a list to
    :srcset: /tutorials/basics/images/sphx_glr_coastlines_003.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -181,12 +163,6 @@ between levels:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -217,19 +193,13 @@ used in HTML and CSS):
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.347 seconds)
+   **Total running time of the script:** ( 0 minutes  3.858 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_coastlines.py:
@@ -237,6 +207,8 @@ used in HTML and CSS):
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

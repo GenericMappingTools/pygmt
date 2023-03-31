@@ -5,7 +5,8 @@ pygmt.clib.Session.put\_matrix
 
 .. automethod:: Session.put_matrix
 
-.. include:: backreferences/pygmt.clib.Session.put_matrix.examples
+.. minigallery:: pygmt.clib.Session.put_matrix
+    :add-heading:
 
 .. raw:: html
 

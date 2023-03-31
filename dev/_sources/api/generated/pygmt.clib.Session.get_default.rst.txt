@@ -5,7 +5,8 @@ pygmt.clib.Session.get\_default
 
 .. automethod:: Session.get_default
 
-.. include:: backreferences/pygmt.clib.Session.get_default.examples
+.. minigallery:: pygmt.clib.Session.get_default
+    :add-heading:
 
 .. raw:: html
 

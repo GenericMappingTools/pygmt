@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_basics_frames.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_basics_frames.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -65,12 +65,6 @@ the coastlines of the world with a Mercator projection:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -98,12 +92,6 @@ To add the default GMT frame style to the plot, use ``frame="f"`` in
    :srcset: /tutorials/basics/images/sphx_glr_frames_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -136,12 +124,6 @@ In GMT the tick labels are called **a**\ nnotations.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -168,12 +150,6 @@ parameter:
    :srcset: /tutorials/basics/images/sphx_glr_frames_004.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -202,12 +178,6 @@ below, the step widths are set to 30°, 7.5°, and 15°, respectively.
    :srcset: /tutorials/basics/images/sphx_glr_frames_005.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -240,12 +210,6 @@ parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
    :srcset: /tutorials/basics/images/sphx_glr_frames_006.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -296,19 +260,13 @@ labels to be set for geographic maps.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.543 seconds)
+   **Total running time of the script:** ( 0 minutes  4.532 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_frames.py:
@@ -316,6 +274,8 @@ labels to be set for geographic maps.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

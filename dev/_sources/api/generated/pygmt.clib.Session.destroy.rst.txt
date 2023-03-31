@@ -5,7 +5,8 @@ pygmt.clib.Session.destroy
 
 .. automethod:: Session.destroy
 
-.. include:: backreferences/pygmt.clib.Session.destroy.examples
+.. minigallery:: pygmt.clib.Session.destroy
+    :add-heading:
 
 .. raw:: html
 

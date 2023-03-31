@@ -36,7 +36,7 @@ Maps and map elements
 .. only:: html
 
   .. image:: /gallery/maps/images/thumb/sphx_glr_land_and_water_thumb.png
-    :alt: Color land and water
+    :alt:
 
   :ref:`sphx_glr_gallery_maps_land_and_water.py`
 
@@ -53,7 +53,7 @@ Maps and map elements
 .. only:: html
 
   .. image:: /gallery/maps/images/thumb/sphx_glr_borders_thumb.png
-    :alt: Political Boundaries
+    :alt:
 
   :ref:`sphx_glr_gallery_maps_borders.py`
 
@@ -70,7 +70,7 @@ Maps and map elements
 .. only:: html
 
   .. image:: /gallery/maps/images/thumb/sphx_glr_shorelines_thumb.png
-    :alt: Shorelines
+    :alt:
 
   :ref:`sphx_glr_gallery_maps_shorelines.py`
 
@@ -109,7 +109,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_vector_styles_thumb.png
-    :alt: Cartesian, circular, and geographic vectors
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_vector_styles.py`
 
@@ -126,7 +126,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_great_circles_thumb.png
-    :alt: Generate points along great circles
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_great_circles.py`
 
@@ -143,7 +143,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_line_custom_cpt_thumb.png
-    :alt: Line colors with a custom CPT
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_line_custom_cpt.py`
 
@@ -155,12 +155,12 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called *front* which allows to plot specif...">
+    <div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called front which allows to plot specific...">
 
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_linefronts_thumb.png
-    :alt: Line fronts
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_linefronts.py`
 
@@ -177,7 +177,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_linestyles_thumb.png
-    :alt: Line styles
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_linestyles.py`
 
@@ -194,7 +194,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_roads_thumb.png
-    :alt: Roads
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_roads.py`
 
@@ -211,7 +211,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_vector_heads_tails_thumb.png
-    :alt: Vector heads and tails
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_vector_heads_tails.py`
 
@@ -228,7 +228,7 @@ Lines and vectors
 .. only:: html
 
   .. image:: /gallery/lines/images/thumb/sphx_glr_wiggle_thumb.png
-    :alt: Wiggle along tracks
+    :alt:
 
   :ref:`sphx_glr_gallery_lines_wiggle.py`
 
@@ -272,7 +272,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_basic_symbols_thumb.png
-    :alt: Basic geometric symbols
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_basic_symbols.py`
 
@@ -284,12 +284,29 @@ Symbols and markers
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="PyGMT allows using bit or hachure patterns via the fill parameter or similar parameters:">
+
+.. only:: html
+
+  .. image:: /gallery/symbols/images/thumb/sphx_glr_patterns_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_symbols_patterns.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Bit and Hachure Patterns</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Color points by categories">
 
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_points_categorical_thumb.png
-    :alt: Color points by categories
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_points_categorical.py`
 
@@ -306,7 +323,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_custom_symbols_thumb.png
-    :alt: Custom symbols
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_custom_symbols.py`
 
@@ -323,7 +340,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_datetime_inputs_thumb.png
-    :alt: Datetime inputs
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_datetime_inputs.py`
 
@@ -340,7 +357,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_multi_parameter_symbols_thumb.png
-    :alt: Multi-parameter symbols
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py`
 
@@ -357,7 +374,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_points_thumb.png
-    :alt: Points
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_points.py`
 
@@ -374,7 +391,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_points_transparency_thumb.png
-    :alt: Points with varying transparency
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_points_transparency.py`
 
@@ -391,7 +408,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_scatter_thumb.png
-    :alt: Scatter plots with a legend
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_scatter.py`
 
@@ -408,7 +425,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_text_symbols_thumb.png
-    :alt: Text symbols
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_text_symbols.py`
 
@@ -425,7 +442,7 @@ Symbols and markers
 .. only:: html
 
   .. image:: /gallery/symbols/images/thumb/sphx_glr_bars_thumb.png
-    :alt: Vertical or horizontal bars
+    :alt:
 
   :ref:`sphx_glr_gallery_symbols_bars.py`
 
@@ -444,6 +461,7 @@ Symbols and markers
    :hidden:
 
    /gallery/symbols/basic_symbols
+   /gallery/symbols/patterns
    /gallery/symbols/points_categorical
    /gallery/symbols/custom_symbols
    /gallery/symbols/datetime_inputs
@@ -471,7 +489,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_grdgradient_thumb.png
-    :alt: Calculating grid gradient and radiance
+    :alt:
 
   :ref:`sphx_glr_gallery_images_grdgradient.py`
 
@@ -483,12 +501,29 @@ Images, contours, and fields
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_grdgradient_shading_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_images_grdgradient_shading.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values">
 
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_grdclip_thumb.png
-    :alt: Clipping grid values
+    :alt:
 
   :ref:`sphx_glr_gallery_images_grdclip.py`
 
@@ -505,7 +540,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_contours_thumb.png
-    :alt: Contours
+    :alt:
 
   :ref:`sphx_glr_gallery_images_contours.py`
 
@@ -522,7 +557,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_grdlandmask_thumb.png
-    :alt: Create 'wet-dry' mask grid
+    :alt:
 
   :ref:`sphx_glr_gallery_images_grdlandmask.py`
 
@@ -539,7 +574,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_image_thumb.png
-    :alt: Images on figures
+    :alt:
 
   :ref:`sphx_glr_gallery_images_image.py`
 
@@ -556,7 +591,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/images/images/thumb/sphx_glr_track_sampling_thumb.png
-    :alt: Sampling along tracks
+    :alt:
 
   :ref:`sphx_glr_gallery_images_track_sampling.py`
 
@@ -575,6 +610,7 @@ Images, contours, and fields
    :hidden:
 
    /gallery/images/grdgradient
+   /gallery/images/grdgradient_shading
    /gallery/images/grdclip
    /gallery/images/contours
    /gallery/images/grdlandmask
@@ -598,7 +634,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/3d_plots/images/thumb/sphx_glr_scatter3d_thumb.png
-    :alt: 3-D Scatter plots
+    :alt:
 
   :ref:`sphx_glr_gallery_3d_plots_scatter3d.py`
 
@@ -615,7 +651,7 @@ Images, contours, and fields
 .. only:: html
 
   .. image:: /gallery/3d_plots/images/thumb/sphx_glr_grdview_surface_thumb.png
-    :alt: Plotting a surface
+    :alt:
 
   :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py`
 
@@ -653,7 +689,7 @@ Seismology and geodesy
 .. only:: html
 
   .. image:: /gallery/seismology/images/thumb/sphx_glr_meca_thumb.png
-    :alt: Focal mechanisms
+    :alt:
 
   :ref:`sphx_glr_gallery_seismology_meca.py`
 
@@ -670,7 +706,7 @@ Seismology and geodesy
 .. only:: html
 
   .. image:: /gallery/seismology/images/thumb/sphx_glr_velo_arrow_ellipse_thumb.png
-    :alt: Velocity arrows and confidence ellipses
+    :alt:
 
   :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py`
 
@@ -708,7 +744,7 @@ Base maps
 .. only:: html
 
   .. image:: /gallery/basemaps/images/thumb/sphx_glr_double_y_axes_thumb.png
-    :alt: Double Y axes graph
+    :alt:
 
   :ref:`sphx_glr_gallery_basemaps_double_y_axes.py`
 
@@ -725,7 +761,7 @@ Base maps
 .. only:: html
 
   .. image:: /gallery/basemaps/images/thumb/sphx_glr_ternary_thumb.png
-    :alt: Ternary diagram
+    :alt:
 
   :ref:`sphx_glr_gallery_basemaps_ternary.py`
 
@@ -763,7 +799,7 @@ Histograms
 .. only:: html
 
   .. image:: /gallery/histograms/images/thumb/sphx_glr_blockm_thumb.png
-    :alt: Blockmean
+    :alt:
 
   :ref:`sphx_glr_gallery_histograms_blockm.py`
 
@@ -780,7 +816,7 @@ Histograms
 .. only:: html
 
   .. image:: /gallery/histograms/images/thumb/sphx_glr_histogram_thumb.png
-    :alt: Histogram
+    :alt:
 
   :ref:`sphx_glr_gallery_histograms_histogram.py`
 
@@ -797,13 +833,30 @@ Histograms
 .. only:: html
 
   .. image:: /gallery/histograms/images/thumb/sphx_glr_rose_thumb.png
-    :alt: Rose diagram
+    :alt:
 
   :ref:`sphx_glr_gallery_histograms_rose.py`
 
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Rose diagram</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Scatter plot with histograms">
+
+.. only:: html
+
+  .. image:: /gallery/histograms/images/thumb/sphx_glr_scatter_and_histograms_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_histograms_scatter_and_histograms.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
     </div>
 
 
@@ -818,6 +871,7 @@ Histograms
    /gallery/histograms/blockm
    /gallery/histograms/histogram
    /gallery/histograms/rose
+   /gallery/histograms/scatter_and_histograms
 
 Plot embellishments
 -------------------
@@ -836,7 +890,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_colorbar_thumb.png
-    :alt: Colorbar
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_colorbar.py`
 
@@ -853,7 +907,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_solar_thumb.png
-    :alt: Day-night terminator line and twilights
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_solar.py`
 
@@ -870,7 +924,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_inset_thumb.png
-    :alt: Inset
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_inset.py`
 
@@ -887,7 +941,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_inset_rectangle_region_thumb.png
-    :alt: Inset map showing a rectangular region
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py`
 
@@ -904,7 +958,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_legend_thumb.png
-    :alt: Legend
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_legend.py`
 
@@ -921,7 +975,7 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_logo_thumb.png
-    :alt: Logo
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_logo.py`
 
@@ -938,13 +992,30 @@ Plot embellishments
 .. only:: html
 
   .. image:: /gallery/embellishments/images/thumb/sphx_glr_colorbars_multiple_thumb.png
-    :alt: Multiple colormaps
+    :alt:
 
   :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py`
 
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Timestamp">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_timestamp_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_embellishments_timestamp.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Timestamp</div>
     </div>
 
 
@@ -963,6 +1034,7 @@ Plot embellishments
    /gallery/embellishments/legend
    /gallery/embellishments/logo
    /gallery/embellishments/colorbars_multiple
+   /gallery/embellishments/timestamp
 
 
 

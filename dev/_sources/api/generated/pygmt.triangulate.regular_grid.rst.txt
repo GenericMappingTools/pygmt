@@ -5,7 +5,8 @@ pygmt.triangulate.regular\_grid
 
 .. automethod:: triangulate.regular_grid
 
-.. include:: backreferences/pygmt.triangulate.regular_grid.examples
+.. minigallery:: pygmt.triangulate.regular_grid
+    :add-heading:
 
 .. raw:: html
 

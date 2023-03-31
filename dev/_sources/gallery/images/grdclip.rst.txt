@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_images_grdclip.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_images_grdclip.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -42,7 +42,6 @@ value of -2000 m via the ``below`` parameter.
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
     grdblend [NOTICE]: SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 90x90 degree grid tile (earth_relief_03m_g): N00W090
-    <IPython.core.display.Image object>
 
 
 
@@ -85,7 +84,7 @@ value of -2000 m via the ``below`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.467 seconds)
+   **Total running time of the script:** ( 0 minutes  5.170 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:
@@ -93,6 +92,8 @@ value of -2000 m via the ``below`` parameter.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

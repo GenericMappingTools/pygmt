@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_symbols.html">Basic geometric symbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patterns.html">Bit and Hachure Patterns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datetime_inputs.html">Datetime inputs</a></li>
@@ -166,7 +167,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Scatter plots with a legend</li>
     <li class="source-link">
@@ -193,7 +194,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-symbols-scatter-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-symbols-scatter-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="scatter-plots-with-a-legend">
@@ -202,13 +203,7 @@ to download the full example code</p>
 scatter plot per item to appear in the legend and set the label accordingly.</p>
 <p>Modified from the matplotlib example:
 <a class="reference external" href="https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html">https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html</a></p>
-<img src="../../_images/sphx_glr_scatter_001.png" srcset="../../_images/sphx_glr_scatter_001.png" alt="scatter" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<img src="../../_images/sphx_glr_scatter_001.png" srcset="../../_images/sphx_glr_scatter_001.png" alt="scatter" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html#numpy.random.seed" title="numpy.random.seed" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span></a><span class="p">(</span><span class="mi">19680801</span><span class="p">)</span>
@@ -240,7 +235,7 @@ scatter plot per item to appear in the legend and set the label accordingly.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.636 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.935 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-scatter-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4a39bafc91b5f2bf95be7036b1ade168/scatter.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">scatter.py</span></code></a></p>
@@ -264,10 +259,10 @@ scatter plot per item to appear in the legend and set the label accordingly.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

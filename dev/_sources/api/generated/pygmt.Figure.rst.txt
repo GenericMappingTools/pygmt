@@ -5,6 +5,16 @@ pygmt.Figure
 
 .. autoclass:: Figure
 
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    Figure.region
+
+
+
+
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -112,6 +122,14 @@ pygmt.Figure
     
     
     
+    Figure.tilemap
+    
+    
+    
+    Figure.timestamp
+    
+    
+    
     Figure.velo
     
     
@@ -120,7 +138,9 @@ pygmt.Figure
     
     
 
-.. include:: backreferences/pygmt.Figure.examples
+
+.. minigallery:: pygmt.Figure
+    :add-heading:
 
 .. raw:: html
 

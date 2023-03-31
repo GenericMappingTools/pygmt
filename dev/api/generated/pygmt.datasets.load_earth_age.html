@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -118,16 +118,11 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_free_air_anomaly.html">pygmt.datasets.load_earth_free_air_anomaly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_geoid.html">pygmt.datasets.load_earth_geoid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_magnetic_anomaly.html">pygmt.datasets.load_earth_magnetic_anomaly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_mask.html">pygmt.datasets.load_earth_mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_relief.html">pygmt.datasets.load_earth_relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_data.html">pygmt.datasets.load_sample_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_fractures_compilation.html">pygmt.datasets.load_fractures_compilation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_hotspots.html">pygmt.datasets.load_hotspots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_japan_quakes.html">pygmt.datasets.load_japan_quakes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_shape.html">pygmt.datasets.load_mars_shape</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_ocean_ridge_points.html">pygmt.datasets.load_ocean_ridge_points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_bathymetry.html">pygmt.datasets.load_sample_bathymetry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_usgs_quakes.html">pygmt.datasets.load_usgs_quakes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_tile_map.html">pygmt.datasets.load_tile_map</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -175,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.load_earth_age</li>
     <li class="source-link">
@@ -227,15 +222,20 @@ arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth seafloor crustal age grid. Coordinates are latitude and
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth seafloor crustal age grid. Coordinates are latitude and
 longitude in degrees. Age is in millions of years (Myr).</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
-Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
-which are stored as smaller tiles.</p>
+<p>The registration and coordinate system type of the returned
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+(i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
+However, these properties may be lost after specific grid operations (such
+as slicing) and will need to be manually set before passing the grid to any
+PyGMT data processing or plotting functions. Refer to
+<a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> for detailed explanations and
+workarounds.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">load_earth_age</span>
@@ -267,10 +267,10 @@ which are stored as smaller tiles.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

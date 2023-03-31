@@ -5,7 +5,8 @@ pygmt.clib.Session.put\_vector
 
 .. automethod:: Session.put_vector
 
-.. include:: backreferences/pygmt.clib.Session.put_vector.examples
+.. minigallery:: pygmt.clib.Session.put_vector
+    :add-heading:
 
 .. raw:: html
 

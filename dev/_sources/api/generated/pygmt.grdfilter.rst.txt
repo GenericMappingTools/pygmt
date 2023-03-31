@@ -5,7 +5,8 @@ pygmt.grdfilter
 
 .. autofunction:: grdfilter
 
-.. include:: backreferences/pygmt.grdfilter.examples
+.. minigallery:: pygmt.grdfilter
+    :add-heading:
 
 .. raw:: html
 

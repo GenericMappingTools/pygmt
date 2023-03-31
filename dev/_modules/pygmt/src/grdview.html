@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.grdview</li>
@@ -170,6 +170,8 @@
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdview&quot;</span><span class="p">]</span>
+
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
@@ -195,7 +197,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create 3-D perspective image or surface mesh from a grid.</span>
 
 <span class="sd">    Reads a 2-D grid file and produces a 3-D perspective plot by drawing a</span>
@@ -234,11 +236,11 @@
 <span class="sd">        (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).</span>
 <span class="sd">    plane : float or str</span>
 <span class="sd">        *level*\ [**+g**\ *fill*].</span>
-<span class="sd">        Draws a plane at this z-level. If the optional color is provided</span>
+<span class="sd">        Draw a plane at this z-level. If the optional color is provided</span>
 <span class="sd">        via the **+g** modifier, and the projection is not oblique, the frontal</span>
 <span class="sd">        facade between the plane and the data perimeter is colored.</span>
 <span class="sd">    surftype : str</span>
-<span class="sd">        Specifies cover type of the grid.</span>
+<span class="sd">        Specify cover type of the grid.</span>
 <span class="sd">        Select one of following settings:</span>
 
 <span class="sd">        - **m** - mesh plot [Default].</span>
@@ -254,10 +256,10 @@
 <span class="sd">        Draw contour lines on top of surface or mesh (not image). Append</span>
 <span class="sd">        pen attributes used for the contours.</span>
 <span class="sd">    meshpen : str</span>
-<span class="sd">        Sets the pen attributes used for the mesh. You must also select</span>
+<span class="sd">        Set the pen attributes used for the mesh. You must also select</span>
 <span class="sd">        ``surftype`` of **m** or **sm** for meshlines to be drawn.</span>
 <span class="sd">    facadepen :str</span>
-<span class="sd">        Sets the pen attributes used for the facade. You must also select</span>
+<span class="sd">        Set the pen attributes used for the facade. You must also select</span>
 <span class="sd">        ``plane`` for the facade outline to be drawn.</span>
 <span class="sd">    shading : str</span>
 <span class="sd">        Provide the name of a grid file with intensities in the (-1,+1)</span>
@@ -274,6 +276,39 @@
 <span class="sd">    {interpolation}</span>
 <span class="sd">    {perspective}</span>
 <span class="sd">    {transparency}</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; # in a specified region</span>
+<span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
+<span class="sd">    ...     resolution=&quot;30m&quot;,</span>
+<span class="sd">    ...     region=[-92.5, -82.5, -3, 7],</span>
+<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # create a new figure instance with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # create the contour plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.grdview(</span>
+<span class="sd">    ...     # pass in the grid downloaded above</span>
+<span class="sd">    ...     grid=grid,</span>
+<span class="sd">    ...     # set the perspective to an azimuth of 130° and an elevation of 30°</span>
+<span class="sd">    ...     perspective=[130, 30],</span>
+<span class="sd">    ...     # add a frame to the x- and y-axes</span>
+<span class="sd">    ...     # specify annotations on the south and east borders of the plot</span>
+<span class="sd">    ...     frame=[&quot;xa&quot;, &quot;ya&quot;, &quot;wSnE&quot;],</span>
+<span class="sd">    ...     # set the projection of the 2-D map to Mercator with a 10 cm width</span>
+<span class="sd">    ...     projection=&quot;M10c&quot;,</span>
+<span class="sd">    ...     # set the vertical scale (z-axis) to 2 cm</span>
+<span class="sd">    ...     zsize=&quot;2c&quot;,</span>
+<span class="sd">    ...     # set &quot;surface plot&quot; to color the surface via a CPT</span>
+<span class="sd">    ...     surftype=&quot;s&quot;,</span>
+<span class="sd">    ...     # specify CPT to &quot;geo&quot;</span>
+<span class="sd">    ...     cmap=&quot;geo&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # show the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -307,10 +342,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

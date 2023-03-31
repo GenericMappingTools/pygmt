@@ -5,7 +5,8 @@ pygmt.Figure.ternary
 
 .. automethod:: Figure.ternary
 
-.. include:: backreferences/pygmt.Figure.ternary.examples
+.. minigallery:: pygmt.Figure.ternary
+    :add-heading:
 
 .. raw:: html
 

@@ -32,7 +32,7 @@ cover all PyGMT methods.
 .. only:: html
 
   .. image:: /get_started/images/thumb/sphx_glr_01_first_figure_thumb.png
-    :alt: 1. Making your first figure
+    :alt:
 
   :ref:`sphx_glr_get_started_01_first_figure.py`
 
@@ -49,7 +49,7 @@ cover all PyGMT methods.
 .. only:: html
 
   .. image:: /get_started/images/thumb/sphx_glr_02_contour_map_thumb.png
-    :alt: 2. Create a contour map
+    :alt:
 
   :ref:`sphx_glr_get_started_02_contour_map.py`
 

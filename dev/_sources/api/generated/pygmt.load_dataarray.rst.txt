@@ -5,7 +5,8 @@ pygmt.load\_dataarray
 
 .. autofunction:: load_dataarray
 
-.. include:: backreferences/pygmt.load_dataarray.examples
+.. minigallery:: pygmt.load_dataarray
+    :add-heading:
 
 .. raw:: html
 

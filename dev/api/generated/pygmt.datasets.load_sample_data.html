@@ -36,7 +36,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.datasets.load_fractures_compilation" href="pygmt.datasets.load_fractures_compilation.html" />
+    <link rel="next" title="pygmt.datasets.load_tile_map" href="pygmt.datasets.load_tile_map.html" />
     <link rel="prev" title="pygmt.datasets.load_earth_vertical_gravity_gradient" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -115,6 +115,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_free_air_anomaly.html">pygmt.datasets.load_earth_free_air_anomaly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_geoid.html">pygmt.datasets.load_earth_geoid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_magnetic_anomaly.html">pygmt.datasets.load_earth_magnetic_anomaly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_mask.html">pygmt.datasets.load_earth_mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_relief.html">pygmt.datasets.load_earth_relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_sample_data</a><ul>
@@ -122,13 +123,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-datasets-load-sample-data">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_fractures_compilation.html">pygmt.datasets.load_fractures_compilation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_hotspots.html">pygmt.datasets.load_hotspots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_japan_quakes.html">pygmt.datasets.load_japan_quakes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_shape.html">pygmt.datasets.load_mars_shape</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_ocean_ridge_points.html">pygmt.datasets.load_ocean_ridge_points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_bathymetry.html">pygmt.datasets.load_sample_bathymetry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_usgs_quakes.html">pygmt.datasets.load_usgs_quakes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_tile_map.html">pygmt.datasets.load_tile_map</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -176,7 +171,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.load_sample_data</li>
     <li class="source-link">
@@ -210,8 +205,8 @@ the cache. So you’ll need an internet connection the first time around.</p>
 <dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the dataset to load.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> – Sample dataset loaded as a pandas.DataFrame for tabular data or
-xarray.DataArray for raster data.</p>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data or
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -221,23 +216,43 @@ xarray.DataArray for raster data.</p>
 </dd>
 </dl>
 </div>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">list_sample_data</span><span class="p">,</span> <span class="n">load_sample_data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># use list_sample_data to see the available datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">list_sample_data</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>  <span class="c1"># noqa: W505</span>
+<span class="go">{&#39;bathymetry&#39;: &#39;Table of ship bathymetric observations off Baja California&#39;,</span>
+<span class="go"> &#39;earth_relief_holes&#39;: &#39;Regional 20 arc-minutes Earth relief grid with holes&#39;,</span>
+<span class="go"> &#39;fractures&#39;: &#39;Table of hypothetical fracture lengths and azimuths&#39;,</span>
+<span class="go"> &#39;hotspots&#39;: &#39;Table of locations, names, and symbol sizes of hotpots from Müller et al. (1993)&#39;,</span>
+<span class="go"> &#39;japan_quakes&#39;: &#39;Table of earthquakes around Japan from the NOAA NGDC database&#39;,</span>
+<span class="go"> &#39;mars_shape&#39;: &#39;Table of topographic signature of the hemispheric dichotomy of Mars from Smith and Zuber (1996)&#39;,</span>
+<span class="go"> &#39;maunaloa_co2&#39;: &#39;Table of CO2 readings from Mauna Loa&#39;,</span>
+<span class="go"> &#39;notre_dame_topography&#39;: &#39;Table 5.11 in Davis: Statistics and Data Analysis in Geology&#39;,</span>
+<span class="go"> &#39;ocean_ridge_points&#39;: &#39;Table of ocean ridge points for the entire world&#39;,</span>
+<span class="go"> &#39;rock_compositions&#39;: &#39;Table of rock sample compositions&#39;,</span>
+<span class="go"> &#39;usgs_quakes&#39;: &#39;Table of earthquakes from the USGS&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># load the sample bathymetry dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">load_sample_data</span><span class="p">(</span><span class="s2">&quot;bathymetry&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <section id="examples-using-pygmt-datasets-load-sample-data">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-sample-data" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="Ternary diagram" src="../../_images/sphx_glr_ternary_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="Blockmean" src="../../_images/sphx_glr_blockm_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
   <div class="sphx-glr-thumbnail-title">Blockmean</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="Rose diagram" src="../../_images/sphx_glr_rose_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="" src="../../_images/sphx_glr_rose_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/rose.html#sphx-glr-gallery-histograms-rose-py"><span class="std std-ref">Rose diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Rose diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="Plotting data points" src="../../_images/sphx_glr_plot_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting data points</div>
 </div></div><div style='clear:both'></div></section>
@@ -249,16 +264,16 @@ xarray.DataArray for raster data.</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_vertical_gravity_gradient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.datasets.load_fractures_compilation.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_fractures_compilation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.datasets.load_tile_map.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_tile_map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

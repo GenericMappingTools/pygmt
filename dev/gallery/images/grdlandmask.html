@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#images-contours-and-fields">Images, contours, and fields</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="grdgradient.html">Calculating grid gradient and radiance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grdgradient_shading.html">Calculating grid gradient with custom <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> and <code class="docutils literal notranslate"><span class="pre">normalize</span></code> parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdclip.html">Clipping grid values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Create ‘wet-dry’ mask grid</a></li>
@@ -162,7 +163,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Create ‘wet-dry’ mask grid</li>
     <li class="source-link">
@@ -189,7 +190,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-images-grdlandmask-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-images-grdlandmask-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="create-wet-dry-mask-grid">
@@ -198,7 +199,6 @@ to download the full example code</p>
 all nodes on land or water to a specified value using
 the <code class="docutils literal notranslate"><span class="pre">maskvalues</span></code> parameter.</p>
 <img src="../../_images/sphx_glr_grdlandmask_001.png" srcset="../../_images/sphx_glr_grdlandmask_001.png" alt="grdlandmask" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>grdimage [WARNING]: Your CPT is categorical. Enabling -nn+a to avoid interpolation across categories.
-&lt;IPython.core.display.Image object&gt;
 </pre></div>
 </div>
 <div class="line-block">
@@ -233,7 +233,7 @@ the <code class="docutils literal notranslate"><span class="pre">maskvalues</spa
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.346 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.821 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-grdlandmask-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/6515d48d2d0eec40239c2a0d13fa81e3/grdlandmask.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grdlandmask.py</span></code></a></p>
@@ -257,10 +257,10 @@ the <code class="docutils literal notranslate"><span class="pre">maskvalues</spa
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

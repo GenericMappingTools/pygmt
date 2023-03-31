@@ -5,7 +5,8 @@ pygmt.datasets.list\_sample\_data
 
 .. autofunction:: list_sample_data
 
-.. include:: backreferences/pygmt.datasets.list_sample_data.examples
+.. minigallery:: pygmt.datasets.list_sample_data
+    :add-heading:
 
 .. raw:: html
 

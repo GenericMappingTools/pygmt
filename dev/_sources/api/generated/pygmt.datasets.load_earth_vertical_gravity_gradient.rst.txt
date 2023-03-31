@@ -5,7 +5,8 @@ pygmt.datasets.load\_earth\_vertical\_gravity\_gradient
 
 .. autofunction:: load_earth_vertical_gravity_gradient
 
-.. include:: backreferences/pygmt.datasets.load_earth_vertical_gravity_gradient.examples
+.. minigallery:: pygmt.datasets.load_earth_vertical_gravity_gradient
+    :add-heading:
 
 .. raw:: html
 

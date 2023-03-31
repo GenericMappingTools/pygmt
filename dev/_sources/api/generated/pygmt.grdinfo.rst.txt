@@ -5,7 +5,8 @@ pygmt.grdinfo
 
 .. autofunction:: grdinfo
 
-.. include:: backreferences/pygmt.grdinfo.examples
+.. minigallery:: pygmt.grdinfo
+    :add-heading:
 
 .. raw:: html
 

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_3d_plots_scatter3d.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_3d_plots_scatter3d.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -42,18 +42,8 @@ the vertical exaggeration factor.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -105,15 +95,15 @@ the vertical exaggeration factor.
     )
 
     fig.plot3d(
-        # Use petal width, sepal length and petal length as x, y and z data input,
-        # respectively
+        # Use petal width, sepal length, and petal length as x, y, and z
+        # data input, respectively
         x=df.petal_width,
         y=df.sepal_length,
         z=df.petal_length,
         # Vary each symbol size according to another feature (sepal width, scaled
         # by 0.1)
         size=0.1 * df.sepal_width,
-        # Use 3-D cubes ("u") as symbols, with size in centimeter units ("c")
+        # Use 3-D cubes ("u") as symbols with size in centimeters ("c")
         style="uc",
         # Points colored by categorical number code
         fill=df.species.cat.codes.astype(int),
@@ -144,7 +134,7 @@ the vertical exaggeration factor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.093 seconds)
+   **Total running time of the script:** ( 0 minutes  0.994 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_scatter3d.py:
@@ -152,6 +142,8 @@ the vertical exaggeration factor.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

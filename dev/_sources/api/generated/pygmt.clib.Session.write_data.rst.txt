@@ -5,7 +5,8 @@ pygmt.clib.Session.write\_data
 
 .. automethod:: Session.write_data
 
-.. include:: backreferences/pygmt.clib.Session.write_data.examples
+.. minigallery:: pygmt.clib.Session.write_data
+    :add-heading:
 
 .. raw:: html
 

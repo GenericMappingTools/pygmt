@@ -5,7 +5,8 @@ pygmt.Figure.shift\_origin
 
 .. automethod:: Figure.shift_origin
 
-.. include:: backreferences/pygmt.Figure.shift_origin.examples
+.. minigallery:: pygmt.Figure.shift_origin
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.filter1d
 
 .. autofunction:: filter1d
 
-.. include:: backreferences/pygmt.filter1d.examples
+.. minigallery:: pygmt.filter1d
+    :add-heading:
 
 .. raw:: html
 

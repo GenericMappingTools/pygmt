@@ -5,7 +5,8 @@ pygmt.Figure.show
 
 .. automethod:: Figure.show
 
-.. include:: backreferences/pygmt.Figure.show.examples
+.. minigallery:: pygmt.Figure.show
+    :add-heading:
 
 .. raw:: html
 

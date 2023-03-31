@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.grdfilter</li>
@@ -185,7 +185,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdfilter</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Filter a grid in the space (or time) domain.</span>
 
 <span class="sd">    Filter a grid file in the time domain using one of the selected convolution</span>
@@ -284,7 +284,7 @@
 <span class="sd">    &gt;&gt;&gt; # Apply a filter of 600km (full width) to the @earth_relief_30m file</span>
 <span class="sd">    &gt;&gt;&gt; # and return a filtered field (saved as netcdf)</span>
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfilter(</span>
-<span class="sd">    ...     grid=&quot;@earth_relief_30m&quot;,</span>
+<span class="sd">    ...     grid=&quot;@earth_relief_30m_g&quot;,</span>
 <span class="sd">    ...     filter=&quot;m600&quot;,</span>
 <span class="sd">    ...     distance=&quot;4&quot;,</span>
 <span class="sd">    ...     region=[150, 250, 10, 40],</span>
@@ -319,10 +319,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

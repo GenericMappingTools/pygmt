@@ -5,7 +5,8 @@ pygmt.which
 
 .. autofunction:: which
 
-.. include:: backreferences/pygmt.which.examples
+.. minigallery:: pygmt.which
+    :add-heading:
 
 .. raw:: html
 

@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -96,7 +96,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-gmt-and-other-dependencies">Installing GMT and other dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installing-pygmt">Installing PyGMT</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#using-conda-mamba-recommended">Using conda/mamba (recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-mamba-conda-recommended">Using mamba/conda (recommended)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#using-pip">Using pip</a></li>
 </ul>
 </li>
@@ -158,7 +158,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Installing</li>
     <li class="source-link">
         
@@ -180,22 +180,22 @@
 <section id="quickstart">
 <h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this heading"></a></h2>
 <p>The fastest way to install PyGMT is with the
+<a class="reference external" href="https://mamba.readthedocs.io/en/latest/">mamba</a> or
 <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">conda</a>
-or <a class="reference external" href="https://mamba.readthedocs.io/en/latest/">mamba</a>
 package manager which takes care of setting up a virtual environment, as well
 as the installation of GMT and all the dependencies PyGMT depends on:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-0">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-0">
+mamba</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-1">
-mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-1">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
@@ -203,16 +203,16 @@ mamba</label><div class="sd-tab-content docutils">
 <p>To activate the virtual environment, you can do:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-2" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-2">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-2">
+mamba</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-3">
-mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-3">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
@@ -235,11 +235,11 @@ want to install the latest development version.</p>
 <section id="which-python">
 <h2>Which Python?<a class="headerlink" href="#which-python" title="Permalink to this heading"></a></h2>
 <p>PyGMT is tested to run on <strong>Python 3.8 or greater</strong>.</p>
-<p>We recommend using the <a class="reference external" href="https://www.anaconda.com/distribution">Anaconda</a>
+<p>We recommend using the <a class="reference external" href="https://github.com/conda-forge/miniforge#mambaforge">Mambaforge</a>
 Python distribution to ensure you have all dependencies installed and the
-<a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/">conda</a>
-package manager is available. Installing Anaconda does not require administrative
-rights to your computer and doesn’t interfere with any other Python
+<a class="reference external" href="https://mamba.readthedocs.io/en/stable/user_guide/mamba.html">mamba</a>
+package manager in the base environment. Installing Mambaforge does not require
+administrative rights to your computer and doesn’t interfere with any other Python
 installations on your system.</p>
 </section>
 <section id="which-gmt">
@@ -261,7 +261,7 @@ instead.</p>
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
 <p>PyGMT requires the following libraries to be installed:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://numpy.org">numpy</a> (&gt;= 1.20)</p></li>
+<li><p><a class="reference external" href="https://numpy.org">numpy</a> (&gt;= 1.21)</p></li>
 <li><p><a class="reference external" href="https://pandas.pydata.org">pandas</a></p></li>
 <li><p><a class="reference external" href="https://xarray.dev/">xarray</a></p></li>
 <li><p><a class="reference external" href="https://unidata.github.io/netcdf4-python">netCDF4</a></p></li>
@@ -270,36 +270,38 @@ instead.</p>
 <p>The following are optional dependencies:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://ipython.org">IPython</a>: For embedding the figures in Jupyter notebooks (recommended).</p></li>
+<li><p><a class="reference external" href="https://contextily.readthedocs.io">Contextily</a>: For retrieving tile maps from the internet.</p></li>
 <li><p><a class="reference external" href="https://geopandas.org">GeoPandas</a>: For using and plotting GeoDataFrame objects.</p></li>
+<li><p><a class="reference external" href="https://corteva.github.io/rioxarray">RioXarray</a>: For saving multi-band rasters to GeoTIFFs.</p></li>
 </ul>
 </section>
 <section id="installing-gmt-and-other-dependencies">
 <h2>Installing GMT and other dependencies<a class="headerlink" href="#installing-gmt-and-other-dependencies" title="Permalink to this heading"></a></h2>
 <p>Before installing PyGMT, we must install GMT itself along with the other
-dependencies. The easiest way to do this is via the <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager.
+dependencies. The easiest way to do this is via the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> package manager.
 We recommend working in an isolated
-<a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">conda environment</a>
+<a class="reference external" href="https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">virtual environment</a>
 to avoid issues with conflicting versions of dependencies.</p>
 <p>First, we must configure conda to get packages from the
 <a class="reference external" href="https://conda-forge.org/">conda-forge channel</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">config</span> <span class="o">--</span><span class="n">prepend</span> <span class="n">channels</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
 </pre></div>
 </div>
-<p>Now we can create a new conda environment with Python and all our dependencies
+<p>Now we can create a new virtual environment with Python and all our dependencies
 installed (we’ll call it <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> but feel free to change it to whatever you
 want):</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-4">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-4">
+mamba</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.11</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-5" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-5">
-mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.9</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-5">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.11</span> <span class="n">numpy</span> <span class="n">pandas</span> <span class="n">xarray</span> <span class="n">netcdf4</span> <span class="n">packaging</span> <span class="n">gmt</span>
 </pre></div>
 </div>
 </div>
@@ -307,43 +309,43 @@ mamba</label><div class="sd-tab-content docutils">
 <p>Activate the environment by running the following (<strong>do not forget this step!</strong>):</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-6">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-7">
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-6">
 mamba</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">activate</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
+<input id="sd-tab-item-7" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-7">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
+</pre></div>
 </div>
-<p>From now on, all commands will take place inside the conda virtual environment
-called <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> and won’t affect your default <code class="docutils literal notranslate"><span class="pre">base</span></code> installation.</p>
+</div>
+</div>
+<p>From now on, all commands will take place inside the virtual environment called
+<code class="docutils literal notranslate"><span class="pre">pygmt</span></code> and won’t affect your default <code class="docutils literal notranslate"><span class="pre">base</span></code> installation.</p>
 </section>
 <section id="installing-pygmt">
 <h2>Installing PyGMT<a class="headerlink" href="#installing-pygmt" title="Permalink to this heading"></a></h2>
-<p>Now that you have GMT installed and your conda virtual environment activated,
-you can install PyGMT using any of the following methods:</p>
-<section id="using-conda-mamba-recommended">
-<h3>Using conda/mamba (recommended)<a class="headerlink" href="#using-conda-mamba-recommended" title="Permalink to this heading"></a></h3>
+<p>Now that you have GMT installed and your virtual environment activated, you can
+install PyGMT using any of the following methods:</p>
+<section id="using-mamba-conda-recommended">
+<h3>Using mamba/conda (recommended)<a class="headerlink" href="#using-mamba-conda-recommended" title="Permalink to this heading"></a></h3>
 <p>This installs the latest stable release of PyGMT from
 <a class="reference external" href="https://anaconda.org/conda-forge/pygmt">conda-forge</a>:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-8">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-8">
+mamba</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-9" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-9">
-mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-9">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
@@ -351,16 +353,16 @@ mamba</label><div class="sd-tab-content docutils">
 <p>This upgrades the installed PyGMT version to be the latest stable release:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-10" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-10">
-conda</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-10">
+mamba</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">update</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
 <input id="sd-tab-item-11" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="mamba" for="sd-tab-item-11">
-mamba</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">update</span> <span class="n">pygmt</span>
+</input><label class="sd-tab-label" data-sync-id="conda" for="sd-tab-item-11">
+conda</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">update</span> <span class="n">pygmt</span>
 </pre></div>
 </div>
 </div>
@@ -385,8 +387,8 @@ all of its optional dependencies.</p>
 </div>
 <p>To upgrade the installed stable release or development version to be the latest
 one, just add <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> to the corresponding command above.</p>
-<p>Any of the above methods (conda/pip) should allow you to use the PyGMT package
-from Python.</p>
+<p>Any of the above methods (mamba/conda/pip) should allow you to use the PyGMT
+package from Python.</p>
 </section>
 </section>
 <section id="testing-your-install">
@@ -414,13 +416,13 @@ This can happen if you have multiple versions of GMT installed.</p>
 respectively.</p>
 <p>For Linux/macOS, add the following line to your shell configuration file
 (usually <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> for Bash on Linux and <code class="docutils literal notranslate"><span class="pre">~/.zshrc</span></code> for Zsh on macOS):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/anaconda3/envs/pygmt/lib
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export GMT_LIBRARY_PATH=$HOME/mambaforge/envs/pygmt/lib
 </pre></div>
 </div>
 <p>For Windows, add the <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> environment variable following these
 <a class="reference external" href="https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10">instructions</a>
 and set its value to a path like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">USERNAME</span>\<span class="n">Anaconda3</span>\<span class="n">envs</span>\<span class="n">pygmt</span>\<span class="n">Library</span>\<span class="nb">bin</span>\
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Users</span>\<span class="n">USERNAME</span>\<span class="n">Mambaforge</span>\<span class="n">envs</span>\<span class="n">pygmt</span>\<span class="n">Library</span>\<span class="nb">bin</span>\
 </pre></div>
 </div>
 </section>
@@ -428,9 +430,9 @@ and set its value to a path like:</p>
 <h2>Notes for Jupyter users<a class="headerlink" href="#notes-for-jupyter-users" title="Permalink to this heading"></a></h2>
 <p>If you can successfully import pygmt in a Python interpreter or IPython, but
 get a <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code> when importing pygmt in Jupyter, you may need to
-install a <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> kernel following the commands below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">pygmt</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">ipykernel</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span>  <span class="c1"># install conda environment properly</span>
+activate your <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> virtual environment (using <code class="docutils literal notranslate"><span class="pre">mamba</span> <span class="pre">activate</span> <span class="pre">pygmt</span></code> or
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">pygmt</span></code>) and install a <code class="docutils literal notranslate"><span class="pre">pygmt</span></code> kernel following the commands below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">ipykernel</span> <span class="n">install</span> <span class="o">--</span><span class="n">user</span> <span class="o">--</span><span class="n">name</span> <span class="n">pygmt</span>  <span class="c1"># install virtual environment properly</span>
 <span class="n">jupyter</span> <span class="n">kernelspec</span> <span class="nb">list</span> <span class="o">--</span><span class="n">json</span>
 </pre></div>
 </div>
@@ -451,10 +453,10 @@ install a <code class="docutils literal notranslate"><span class="pre">pygmt</sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

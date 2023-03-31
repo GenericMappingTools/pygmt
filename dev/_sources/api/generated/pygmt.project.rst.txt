@@ -5,7 +5,8 @@ pygmt.project
 
 .. autofunction:: project
 
-.. include:: backreferences/pygmt.project.examples
+.. minigallery:: pygmt.project
+    :add-heading:
 
 .. raw:: html
 

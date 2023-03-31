@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.earth_magnetic_anomaly</li>
@@ -172,7 +172,7 @@
 <span class="k">def</span> <span class="nf">load_earth_magnetic_anomaly</span><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;emag2&quot;</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load an Earth magnetic anomaly grid in various resolutions.</span>
 
 <span class="sd">    The grids are downloaded to a user data directory</span>
@@ -199,7 +199,8 @@
 <span class="sd">        The grid resolution. The suffix ``d`` and ``m`` stand for</span>
 <span class="sd">        arc-degrees and arc-minutes. It can be ``&quot;01d&quot;``, ``&quot;30m&quot;``,</span>
 <span class="sd">        ``&quot;20m&quot;``, ``&quot;15m&quot;``, ``&quot;10m&quot;``, ``&quot;06m&quot;``, ``&quot;05m&quot;``, ``&quot;04m&quot;``,</span>
-<span class="sd">        ``&quot;03m&quot;``, or ``&quot;02m&quot;``.</span>
+<span class="sd">        ``&quot;03m&quot;``, or ``&quot;02m&quot;``. The ``&quot;02m&quot;`` resolution is not available for</span>
+<span class="sd">        ``data_source=&quot;wdmam&quot;``.</span>
 
 <span class="sd">    region : str or list</span>
 <span class="sd">        The subregion of the grid to load, in the form of a list</span>
@@ -210,35 +211,39 @@
 <span class="sd">    registration : str</span>
 <span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
 <span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``&quot;gridline&quot;``</span>
-<span class="sd">        for all resolutions except ``&quot;02m&quot;`` which is ``&quot;pixel&quot;`` only.</span>
+<span class="sd">        for all resolutions except ``&quot;02m&quot;`` for ``data_source=&quot;emag2&quot;`` or</span>
+<span class="sd">        ``data_source=&quot;emag2_4km&quot;``, which are ``&quot;pixel&quot;`` only.</span>
 
 <span class="sd">    data_source : str</span>
-<span class="sd">        Select the source of the magnetic anomaly data.</span>
+<span class="sd">        Select the source of the magnetic anomaly data. Available options are:</span>
 
-<span class="sd">        Available options:</span>
-
-<span class="sd">        - **emag2** : EMAG2 Global Earth Magnetic Anomaly Model [Default</span>
-<span class="sd">          option]. Only includes data is observed from sea level over</span>
+<span class="sd">        - ``&quot;emag2&quot;``: EMAG2 Global Earth Magnetic Anomaly Model [Default</span>
+<span class="sd">          option]. It only includes data observed at sea level over</span>
 <span class="sd">          oceanic regions. See :gmt-datasets:`earth-mag.html`.</span>
 
-<span class="sd">        - **emag2_4km** : Use a version of EMAG2 where all observations</span>
+<span class="sd">        - ``&quot;emag2_4km&quot;``: Use a version of EMAG2 where all observations</span>
 <span class="sd">          are relative to an altitude of 4 km above the geoid and include</span>
 <span class="sd">          data over land.</span>
 
-<span class="sd">        - **wdmam** : World Digital Magnetic Anomaly Map (WDMAM).</span>
-<span class="sd">          See :gmt-datasets:`earth-wdmam.html`</span>
+<span class="sd">        - ``&quot;wdmam&quot;``: World Digital Magnetic Anomaly Map (WDMAM).</span>
+<span class="sd">          See :gmt-datasets:`earth-wdmam.html`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    grid : :class:`xarray.DataArray`</span>
 <span class="sd">        The Earth magnetic anomaly grid. Coordinates are latitude and</span>
-<span class="sd">        longitude in degrees. Units are in nano Teslas (nT).</span>
+<span class="sd">        longitude in degrees. Units are in nano Tesla (nT).</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    The :class:`xarray.DataArray` grid doesn&#39;t support slice operation, for</span>
-<span class="sd">    Earth magnetic anomaly with resolutions of 5 arc-minutes or higher,</span>
-<span class="sd">    which are stored as smaller tiles.</span>
+<span class="sd">    The registration and coordinate system type of the returned</span>
+<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors</span>
+<span class="sd">    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).</span>
+<span class="sd">    However, these properties may be lost after specific grid operations (such</span>
+<span class="sd">    as slicing) and will need to be manually set before passing the grid to any</span>
+<span class="sd">    PyGMT data processing or plotting functions. Refer to</span>
+<span class="sd">    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and</span>
+<span class="sd">    workarounds.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -272,8 +277,8 @@
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">data_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">magnetic_anomaly_sources</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid earth magnetic anomaly &#39;data_source&#39; </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="s2">&quot;valid values are &#39;emag2&#39;, &#39;emag2_4km&#39;, and &#39;wdmam&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid earth magnetic anomaly data source &#39;</span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="s2">&quot;Valid values are &#39;emag2&#39;, &#39;emag2_4km&#39;, and &#39;wdmam&#39;.&quot;</span>
         <span class="p">)</span>
     <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="n">magnetic_anomaly_sources</span><span class="p">[</span><span class="n">data_source</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;wdmam&quot;</span><span class="p">:</span>
@@ -298,10 +303,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

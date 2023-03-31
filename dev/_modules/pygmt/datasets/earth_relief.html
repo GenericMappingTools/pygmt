@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.earth_relief</li>
@@ -176,11 +176,13 @@
     <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;igpp&quot;</span><span class="p">,</span>
     <span class="n">use_srtm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load Earth relief grids (topography and bathymetry) in various resolutions.</span>
 
 <span class="sd">    The grids are downloaded to a user data directory</span>
-<span class="sd">    (usually a subdirectory under ~/.gmt/server/earth/) the first time you</span>
+<span class="sd">    (usually ``~/.gmt/server/earth/earth_relief``,</span>
+<span class="sd">    ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,</span>
+<span class="sd">    or ``~/.gmt/server/earth/earth_synbath``) the first time you</span>
 <span class="sd">    invoke this function. Afterwards, it will load the grid from the data</span>
 <span class="sd">    directory. So you&#39;ll need an internet connection the first time around.</span>
 
@@ -216,22 +218,20 @@
 <span class="sd">        for all resolutions except ``&quot;15s&quot;`` which is ``&quot;pixel&quot;`` only.</span>
 
 <span class="sd">    data_source : str</span>
-<span class="sd">        Select the source for the Earth relief data.</span>
+<span class="sd">        Select the source for the Earth relief data. Available options are:</span>
 
-<span class="sd">        Available options:</span>
-
-<span class="sd">        - **igpp** : IGPP Global Earth Relief [Default option]. See</span>
+<span class="sd">        - ``&quot;igpp&quot;``: IGPP Global Earth Relief [Default option]. See</span>
 <span class="sd">          :gmt-datasets:`earth-relief.html`.</span>
 
-<span class="sd">        - **synbath** : IGPP Global Earth Relief dataset that uses</span>
-<span class="sd">          stastical properties of young seafloor to provide more realistic</span>
+<span class="sd">        - ``&quot;synbath&quot;``: IGPP Global Earth Relief dataset that uses</span>
+<span class="sd">          stastical properties of young seafloor to provide a more realistic</span>
 <span class="sd">          relief of young areas with small seamounts.</span>
 
-<span class="sd">        - **gebco** : GEBCO Global Earth Relief with only observed relief and</span>
+<span class="sd">        - ``&quot;gebco&quot;``: GEBCO Global Earth Relief with only observed relief and</span>
 <span class="sd">          inferred relief via altimetric gravity. See</span>
 <span class="sd">          :gmt-datasets:`earth-gebco.html`.</span>
 
-<span class="sd">        - **gebcosi** : GEBCO Global Earth Relief that gives sub-ice (si)</span>
+<span class="sd">        - ``&quot;gebcosi&quot;``: GEBCO Global Earth Relief that gives sub-ice (si)</span>
 <span class="sd">          elevations.</span>
 
 <span class="sd">    use_srtm : bool</span>
@@ -249,9 +249,14 @@
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    The :class:`xarray.DataArray` grid doesn&#39;t support slice operation, for</span>
-<span class="sd">    Earth relief data with resolutions of 5 arc-minutes or higher, which are</span>
-<span class="sd">    stored as smaller tiles.</span>
+<span class="sd">    The registration and coordinate system type of the returned</span>
+<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors</span>
+<span class="sd">    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).</span>
+<span class="sd">    However, these properties may be lost after specific grid operations (such</span>
+<span class="sd">    as slicing) and will need to be manually set before passing the grid to any</span>
+<span class="sd">    PyGMT data processing or plotting functions. Refer to</span>
+<span class="sd">    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and</span>
+<span class="sd">    workarounds.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -286,8 +291,8 @@
     <span class="p">}</span>
     <span class="k">if</span> <span class="n">data_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">earth_relief_sources</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Invalid earth relief &#39;data_source&#39; </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">, &quot;</span>
-            <span class="s2">&quot;valid values are &#39;igpp&#39;, &#39;gebco&#39;, &#39;gebcosi&#39; and &#39;synbath&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid earth relief data source &#39;</span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="s2">&quot;Valid values are &#39;igpp&#39;, &#39;gebco&#39;, &#39;gebcosi&#39; and &#39;synbath&#39;.&quot;</span>
         <span class="p">)</span>
     <span class="c1"># Choose earth relief data prefix</span>
     <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">land_only_srtm_resolutions</span><span class="p">:</span>
@@ -295,15 +300,14 @@
             <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief_&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2"> option is not available if &#39;use_srtm=True&#39;.&quot;</span>
-                <span class="s2">&quot; Set data_source to &#39;igpp&#39;.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Option &#39;use_srtm=True&#39; doesn&#39;t work with data source &#39;</span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
+                <span class="s2">&quot; Please set &#39;data_source&#39; to &#39;igpp&#39;.&quot;</span>
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="n">earth_relief_sources</span><span class="p">[</span><span class="n">data_source</span><span class="p">]</span>
 
-    <span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;earth_relief&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
-        <span class="n">dataset_name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;earth_relief&quot;</span><span class="p">,</span>
         <span class="n">dataset_prefix</span><span class="o">=</span><span class="n">dataset_prefix</span><span class="p">,</span>
         <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
@@ -320,10 +324,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

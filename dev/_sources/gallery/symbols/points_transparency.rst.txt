@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_symbols_points_transparency.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_symbols_points_transparency.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -34,18 +34,8 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -71,7 +61,7 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.046 seconds)
+   **Total running time of the script:** ( 0 minutes  0.572 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_transparency.py:
@@ -79,6 +69,8 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

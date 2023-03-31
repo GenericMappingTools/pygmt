@@ -5,7 +5,8 @@ pygmt.grdclip
 
 .. autofunction:: grdclip
 
-.. include:: backreferences/pygmt.grdclip.examples
+.. minigallery:: pygmt.grdclip
+    :add-heading:
 
 .. raw:: html
 

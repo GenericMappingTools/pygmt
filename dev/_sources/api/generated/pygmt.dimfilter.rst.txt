@@ -5,7 +5,8 @@ pygmt.dimfilter
 
 .. autofunction:: dimfilter
 
-.. include:: backreferences/pygmt.dimfilter.examples
+.. minigallery:: pygmt.dimfilter
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.grdproject
 
 .. autofunction:: grdproject
 
-.. include:: backreferences/pygmt.grdproject.examples
+.. minigallery:: pygmt.grdproject
+    :add-heading:
 
 .. raw:: html
 

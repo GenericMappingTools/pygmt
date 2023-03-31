@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_symbols_points_categorical.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_symbols_points_categorical.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -29,7 +29,7 @@ the "species" column directly to the ``color`` parameter via
 ``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
 function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-94
+.. GENERATED FROM PYTHON SOURCE LINES 13-95
 
 
 
@@ -39,18 +39,8 @@ function.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -125,7 +115,8 @@ function.
         cmap=True,
         # Do not clip symbols that fall close to the map bounds
         no_clip=True,
-        # Use circles as symbols with size in centimeter units
+        # Use circles as symbols (the first "c") with diameter in
+        # centimeters (the second "c")
         style="cc",
         # Set transparency level for all symbols to deal with overplotting
         transparency=40,
@@ -139,7 +130,7 @@ function.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.067 seconds)
+   **Total running time of the script:** ( 0 minutes  1.030 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_categorical.py:
@@ -147,6 +138,8 @@ function.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

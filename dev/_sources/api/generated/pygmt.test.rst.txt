@@ -5,7 +5,8 @@ pygmt.test
 
 .. autofunction:: test
 
-.. include:: backreferences/pygmt.test.examples
+.. minigallery:: pygmt.test
+    :add-heading:
 
 .. raw:: html
 

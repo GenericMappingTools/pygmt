@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -170,7 +170,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.savefig</li>
     <li class="source-link">
@@ -208,17 +208,17 @@ The KML output generates a companion PNG file.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The desired figure file name, including the extension. See the list
 of supported formats and their extensions above.</p></li>
-<li><p><strong>transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, will use a transparent background for the figure. Only
-valid for PNG format.</p></li>
-<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, will crop the figure canvas (page) to the plot area.</p></li>
-<li><p><strong>anti_alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, will use anti aliasing when creating raster images (PNG,
-JPG, TIFF). More specifically, it passes arguments <code class="docutils literal notranslate"><span class="pre">t2</span></code>
+<li><p><strong>transparent</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will use a transparent background for the figure.
+Only valid for PNG format.</p></li>
+<li><p><strong>crop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will crop the figure canvas (page) to the plot area.</p></li>
+<li><p><strong>anti_alias</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will use anti-aliasing when creating raster images
+(PNG, JPG, TIFF). More specifically, it passes arguments <code class="docutils literal notranslate"><span class="pre">t2</span></code>
 and <code class="docutils literal notranslate"><span class="pre">g2</span></code> to the <code class="docutils literal notranslate"><span class="pre">anti_aliasing</span></code> parameter of
 <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Ignored if creating vector
 graphics.</p></li>
-<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If True, will open the figure in an external viewer.</p></li>
-<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Set raster resolution in dpi. Default is 720 for PDF, 300 for
-others.</p></li>
+<li><p><strong>show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will open the figure in an external viewer.</p></li>
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Set raster resolution in dpi [Default is <code class="docutils literal notranslate"><span class="pre">720</span></code> for PDF, <code class="docutils literal notranslate"><span class="pre">300</span></code>
+for others].</p></li>
 <li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – Additional keyword arguments passed to
 <a class="reference internal" href="pygmt.Figure.psconvert.html#pygmt.Figure.psconvert" title="pygmt.Figure.psconvert"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.psconvert</span></code></a>. Valid parameters are <code class="docutils literal notranslate"><span class="pre">gs_path</span></code>,
 <code class="docutils literal notranslate"><span class="pre">gs_option</span></code>, <code class="docutils literal notranslate"><span class="pre">resize</span></code>, <code class="docutils literal notranslate"><span class="pre">bb_style</span></code>, and <code class="docutils literal notranslate"><span class="pre">verbose</span></code>.</p></li>
@@ -241,10 +241,10 @@ others.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_symbols.html">Basic geometric symbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patterns.html">Bit and Hachure Patterns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3"><a class="reference internal" href="datetime_inputs.html">Datetime inputs</a></li>
@@ -166,7 +167,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Multi-parameter symbols</li>
     <li class="source-link">
@@ -193,7 +194,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-symbols-multi-parameter-symbols-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="multi-parameter-symbols">
@@ -221,10 +222,10 @@ parameters after those shortcuts via the <code class="docutils literal notransla
 <li><p><strong>j</strong>: rotated rectangle, <code class="docutils literal notranslate"><span class="pre">direction/width/height</span></code></p></li>
 <li><p><strong>r</strong>: rectangle, <code class="docutils literal notranslate"><span class="pre">width/height</span></code></p></li>
 <li><p><strong>R</strong>: rounded rectangle, <code class="docutils literal notranslate"><span class="pre">width/height/radius</span></code></p></li>
-<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">radius/startdir/stopdir</span></code>, the last two arguments are
+<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">diameter/startdir/stopdir</span></code>, the last two arguments are
 directions given in degrees counter-clockwise from horizontal</p></li>
 </ul>
-<p>Upper-case versions <strong>E</strong>, <strong>J</strong>, and <strong>W</strong> are similar to <strong>e</strong>, <strong>j</strong> and
+<p>Upper-case versions <strong>E</strong>, <strong>J</strong>, and <strong>W</strong> are similar to <strong>e</strong>, <strong>j</strong>, and
 <strong>w</strong> but expect geographic azimuths and distances.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -243,10 +244,7 @@ directions given in degrees counter-clockwise from horizontal</p></li>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_multi_parameter_symbols_001.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_001.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>We can also plot symbols with varying parameters via defining those values in
+<img src="../../_images/sphx_glr_multi_parameter_symbols_001.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_001.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p>We can also plot symbols with varying parameters via defining those values in
 a 2-D list or numpy array (<code class="docutils literal notranslate"><span class="pre">[[parameters]]</span></code> for a single symbol or
 <code class="docutils literal notranslate"><span class="pre">[[parameters_1],[parameters_2],[parameters_i]]</span></code> for several ones) or using
 an appropriately formatted input file and passing it to <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
@@ -256,8 +254,9 @@ an appropriately formatted input file and passing it to <code class="docutils li
 <li><p><strong>j</strong>: rotated rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">direction,</span> <span class="pre">width,</span> <span class="pre">height]]</span></code></p></li>
 <li><p><strong>r</strong>: rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">width,</span> <span class="pre">height]]</span></code></p></li>
 <li><p><strong>R</strong>: rounded rectangle, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">width,</span> <span class="pre">height,</span> <span class="pre">radius]]</span></code></p></li>
-<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">radius,</span> <span class="pre">startdir,</span> <span class="pre">stopdir]]</span></code>, the last two
-arguments are directions given in degrees counter-clockwise from horizontal</p></li>
+<li><p><strong>w</strong>: pie wedge, <code class="docutils literal notranslate"><span class="pre">[[lon,</span> <span class="pre">lat,</span> <span class="pre">diameter,</span> <span class="pre">startdir,</span> <span class="pre">stopdir]]</span></code>, the last
+two arguments are directions given in degrees counter-clockwise from
+horizontal</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa1f0.2&quot;</span><span class="p">,</span> <span class="s2">&quot;ya0.5f0.1&quot;</span><span class="p">])</span>
@@ -281,10 +280,7 @@ arguments are directions given in degrees counter-clockwise from horizontal</p><
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_multi_parameter_symbols_002.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_002.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.128 seconds)</p>
+<img src="../../_images/sphx_glr_multi_parameter_symbols_002.png" srcset="../../_images/sphx_glr_multi_parameter_symbols_002.png" alt="multi parameter symbols" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.959 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-multi-parameter-symbols-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/da9e50096234630ead4f2ba7c22d7fad/multi_parameter_symbols.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">multi_parameter_symbols.py</span></code></a></p>
@@ -308,10 +304,10 @@ arguments are directions given in degrees counter-clockwise from horizontal</p><
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

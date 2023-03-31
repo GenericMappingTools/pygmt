@@ -78,7 +78,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -101,6 +101,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#symbols-and-markers">Symbols and markers</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="basic_symbols.html">Basic geometric symbols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="patterns.html">Bit and Hachure Patterns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="points_categorical.html">Color points by categories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="custom_symbols.html">Custom symbols</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Datetime inputs</a></li>
@@ -167,7 +168,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Datetime inputs</li>
     <li class="source-link">
@@ -194,7 +195,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-symbols-datetime-inputs-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-symbols-datetime-inputs-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="datetime-inputs">
@@ -202,8 +203,8 @@ to download the full example code</p>
 <p>Datetime inputs of the following types are supported in PyGMT:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a></p></li>
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a></p></li>
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>: datetimes included in a <em>xarray.DataArray</em></p></li>
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DatetimeIndex.html#pandas.DatetimeIndex" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DatetimeIndex</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>: datetimes included in a <em>xarray.DataArray</em></p></li>
 <li><p>raw datetime strings in
 <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> (e.g.
 <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DD&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DDTHH&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;YYYY-MM-DDTHH:MM:SS&quot;</span></code>)</p></li>
@@ -214,13 +215,7 @@ the <code class="docutils literal notranslate"><span class="pre">x</span></code>
 <p>The <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter has to include the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> axis limits
 in the form [<em>date_min</em>, <em>date_max</em>, <em>ymin</em>, <em>ymax</em>]. Here <em>date_min</em> and
 <em>date_max</em> can be directly defined as datetime input.</p>
-<img src="../../_images/sphx_glr_datetime_inputs_001.png" srcset="../../_images/sphx_glr_datetime_inputs_001.png" alt="datetime inputs" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<img src="../../_images/sphx_glr_datetime_inputs_001.png" srcset="../../_images/sphx_glr_datetime_inputs_001.png" alt="datetime inputs" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -265,7 +260,7 @@ in the form [<em>date_min</em>, <em>date_max</em>, <em>ymin</em>, <em>ymax</em>]
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.324 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.870 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-datetime-inputs-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9682a5b78ad0eabc6ccb1eccfa3d9a71/datetime_inputs.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">datetime_inputs.py</span></code></a></p>
@@ -289,10 +284,10 @@ in the form [<em>date_min</em>, <em>date_max</em>, <em>ymin</em>, <em>ymax</em>]
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

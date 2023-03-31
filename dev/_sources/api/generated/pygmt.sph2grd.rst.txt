@@ -5,7 +5,8 @@ pygmt.sph2grd
 
 .. autofunction:: sph2grd
 
-.. include:: backreferences/pygmt.sph2grd.examples
+.. minigallery:: pygmt.sph2grd
+    :add-heading:
 
 .. raw:: html
 

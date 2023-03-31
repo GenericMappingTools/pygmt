@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -164,7 +164,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Line fronts</li>
     <li class="source-link">
@@ -191,7 +191,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-lines-linefronts-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-lines-linefronts-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="line-fronts">
@@ -210,22 +210,16 @@ missing it is set to 30% of the <em>gap</em>, except when <em>gap</em> is negati
 and <em>size</em> is thus required. Append <strong>+l</strong> or <strong>+r</strong> to plot symbols on
 the left or right side of the front [Default is centered]. Append
 <strong>+</strong><em>type</em> to specify which symbol to plot: <strong>b</strong>ox, <strong>c</strong>ircle,
-<strong>f</strong>ault (default), <strong>s</strong>lip, or <strong>t</strong>riangle. Slip means left-lateral
+<strong>f</strong>ault [Default], <strong>s</strong>lip, or <strong>t</strong>riangle. Slip means left-lateral
 or right-lateral strike-slip arrows (centered is not an option). The <strong>+s</strong>
-modifier optionally accepts the angle used to draw the vector (default is
-20). Alternatively, use <strong>+S</strong> which draws arcuate arrow heads. Append
-<strong>+o</strong><em>offset</em> to offset the first symbol from the beginning of the front
-by that amount (default is 0). The chosen symbol is drawn with the same pen
-as set for the line (i.e., via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter). To use an alternate
-pen, append <strong>+p</strong><em>pen</em>. To skip the outline, just use <strong>+p</strong> with no
-argument. To make the main front line invisible, add <strong>+i</strong>.</p>
-<img src="../../_images/sphx_glr_linefronts_001.png" srcset="../../_images/sphx_glr_linefronts_001.png" alt="linefronts" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+modifier optionally accepts the angle used to draw the vector [Default is
+20 degrees]. Alternatively, use <strong>+S</strong> which draws arcuate arrow heads.
+Append <strong>+o</strong><em>offset</em> to offset the first symbol from the beginning of
+the front by that amount [Default is 0]. The chosen symbol is drawn with
+the same pen as set for the line (i.e., via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter). To use
+an alternate pen, append <strong>+p</strong><em>pen</em>. To skip the outline, just use
+<strong>+p</strong> with no argument. To make the main front line invisible, add <strong>+i</strong>.</p>
+<img src="../../_images/sphx_glr_linefronts_001.png" srcset="../../_images/sphx_glr_linefronts_001.png" alt="linefronts" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
 <span class="c1"># Generate a two-point line for plotting</span>
@@ -237,7 +231,7 @@ argument. To make the main front line invisible, add <strong>+i</strong>.</p>
 
 <span class="c1"># Plot the line using different front styles</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">frontstyle</span></a> <span class="ow">in</span> <span class="p">[</span>
-    <span class="c1"># line with &quot;faults&quot; front style, same as +f (default)</span>
+    <span class="c1"># line with &quot;faults&quot; front style, same as +f [Default]</span>
     <span class="s2">&quot;f1c/0.25c&quot;</span><span class="p">,</span>
     <span class="c1"># line with box front style</span>
     <span class="s2">&quot;f1c/0.25c+b&quot;</span><span class="p">,</span>
@@ -245,8 +239,8 @@ argument. To make the main front line invisible, add <strong>+i</strong>.</p>
     <span class="s2">&quot;f1c/0.25c+c&quot;</span><span class="p">,</span>
     <span class="c1"># line with triangle front style</span>
     <span class="s2">&quot;f1c/0.3c+t&quot;</span><span class="p">,</span>
-    <span class="c1"># line with left-lateral (&quot;+l&quot;) slip (&quot;+s&quot;) front style, angle is set to 45</span>
-    <span class="c1"># and offset to 2.25 cm</span>
+    <span class="c1"># line with left-lateral (&quot;+l&quot;) slip (&quot;+s&quot;) front style, angle is set to</span>
+    <span class="c1"># 45 degrees and offset to 2.25 cm</span>
     <span class="s2">&quot;f5c/1c+l+s45+o2.25c&quot;</span><span class="p">,</span>
     <span class="c1"># line with &quot;faults&quot; front style, symbols are plotted on the left side of</span>
     <span class="c1"># the front</span>
@@ -285,7 +279,7 @@ argument. To make the main front line invisible, add <strong>+i</strong>.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.726 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.762 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-linefronts-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3a771bc6ca136517dbd9054ea380f76e/linefronts.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">linefronts.py</span></code></a></p>
@@ -309,10 +303,10 @@ argument. To make the main front line invisible, add <strong>+i</strong>.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

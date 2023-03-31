@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_basics_lines.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_basics_lines.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -71,12 +71,6 @@ scales using ``region`` (in this case, each axis is 0-10). Pass a list of
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -109,12 +103,6 @@ Additional line segments can be added by including additional values for
    :srcset: /tutorials/basics/images/sphx_glr_lines_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -150,12 +138,6 @@ do not need to be repeated in subsequent uses.
    :srcset: /tutorials/basics/images/sphx_glr_lines_003.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -196,12 +178,6 @@ the default color and ``solid`` as the default style.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -234,12 +210,6 @@ parameter. In the example below, the line color is set to ``red``.
    :srcset: /tutorials/basics/images/sphx_glr_lines_005.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -274,12 +244,6 @@ The line style can be set and is added after the line width or color to the
    :srcset: /tutorials/basics/images/sphx_glr_lines_006.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -317,19 +281,13 @@ For a gallery showing other ``pen`` settings, see
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.991 seconds)
+   **Total running time of the script:** ( 0 minutes  3.031 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_lines.py:
@@ -337,6 +295,8 @@ For a gallery showing other ``pen`` settings, see
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

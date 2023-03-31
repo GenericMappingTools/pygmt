@@ -5,7 +5,8 @@ pygmt.show\_versions
 
 .. autofunction:: show_versions
 
-.. include:: backreferences/pygmt.show_versions.examples
+.. minigallery:: pygmt.show_versions
+    :add-heading:
 
 .. raw:: html
 

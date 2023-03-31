@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -180,7 +180,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.clib.Session.open_virtual_file</li>
     <li class="source-link">
@@ -205,27 +205,29 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.clib.Session.open_virtual_file">
 <span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">open_virtual_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.open_virtual_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.open_virtual_file" title="Permalink to this definition"></a></dt>
-<dd><p>Open a GMT Virtual File to pass data to and from a module.</p>
-<p>GMT uses a virtual file scheme to pass in data to API modules. Use it
-to pass in your GMT data structure (created using
+<dd><p>Open a GMT virtual file to pass data to and from a module.</p>
+<p>GMT uses a virtual file scheme to pass in data or get data from API
+modules. Use it to pass in your GMT data structure (created using
 <a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create_data</span></code></a>) to a module that expects an
-input or output file.</p>
+input file, or get the output from a module that writes to a file.</p>
 <p>Use in a <code class="docutils literal notranslate"><span class="pre">with</span></code> block. Will automatically close the virtual file when
 leaving the <code class="docutils literal notranslate"><span class="pre">with</span></code> block. Because of this, no wrapper for
 <code class="docutils literal notranslate"><span class="pre">GMT_Close_VirtualFile</span></code> is provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_DATASET'</span></code>). Should
+<li><p><strong>family</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – A valid GMT data family name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DATASET&quot;</span></code>). Should
 be the same as the one you used to create your data structure.</p></li>
-<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">'GMT_IS_POINT'</span></code>). Should
+<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – A valid GMT data geometry name (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_POINT&quot;</span></code>). Should
 be the same as the one you used to create your data structure.</p></li>
-<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Either <code class="docutils literal notranslate"><span class="pre">'GMT_IN'</span></code> or <code class="docutils literal notranslate"><span class="pre">'GMT_OUT'</span></code> to indicate if passing data to
+<li><p><strong>direction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Either <code class="docutils literal notranslate"><span class="pre">&quot;GMT_IN&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;GMT_OUT&quot;</span></code> to indicate if passing data to
 GMT or getting it out of GMT, respectively.
 By default, GMT can modify the data you pass in. Add modifier
-<code class="docutils literal notranslate"><span class="pre">'GMT_IS_REFERENCE'</span></code> to tell GMT the data are read-only, or
-<code class="docutils literal notranslate"><span class="pre">'GMT_IS_DUPLICATE'</span></code> to tell GMT to duplicate the data.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The ctypes void pointer to your GMT data structure.</p></li>
+<code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_REFERENCE&quot;</span></code> to tell GMT the data are read-only, or
+<code class="docutils literal notranslate"><span class="pre">&quot;GMT_IS_DUPLICATE&quot;</span></code> to tell GMT to duplicate the data.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><em>None</em>) – The ctypes void pointer to your GMT data structure. For output
+(i.e., <code class="docutils literal notranslate"><span class="pre">direction=&quot;GMT_OUT&quot;</span></code>), it can be <code class="docutils literal notranslate"><span class="pre">None</span></code> to have GMT
+automatically allocate the output GMT data structure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Yields</dt>
@@ -234,7 +236,6 @@ By default, GMT can modify the data you pass in. Add modifier
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">GMTTempFile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
@@ -277,10 +278,10 @@ By default, GMT can modify the data you pass in. Add modifier
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

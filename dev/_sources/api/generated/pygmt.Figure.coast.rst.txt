@@ -5,7 +5,8 @@ pygmt.Figure.coast
 
 .. automethod:: Figure.coast
 
-.. include:: backreferences/pygmt.Figure.coast.examples
+.. minigallery:: pygmt.Figure.coast
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.datasets.load\_earth\_magnetic\_anomaly
 
 .. autofunction:: load_earth_magnetic_anomaly
 
-.. include:: backreferences/pygmt.datasets.load_earth_magnetic_anomaly.examples
+.. minigallery:: pygmt.datasets.load_earth_magnetic_anomaly
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.Figure.colorbar
 
 .. automethod:: Figure.colorbar
 
-.. include:: backreferences/pygmt.Figure.colorbar.examples
+.. minigallery:: pygmt.Figure.colorbar
+    :add-heading:
 
 .. raw:: html
 

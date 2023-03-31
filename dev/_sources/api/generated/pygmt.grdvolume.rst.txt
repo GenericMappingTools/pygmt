@@ -5,7 +5,8 @@ pygmt.grdvolume
 
 .. autofunction:: grdvolume
 
-.. include:: backreferences/pygmt.grdvolume.examples
+.. minigallery:: pygmt.grdvolume
+    :add-heading:
 
 .. raw:: html
 

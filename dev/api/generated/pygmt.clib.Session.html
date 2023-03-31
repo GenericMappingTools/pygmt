@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -180,7 +180,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.clib.Session</li>
     <li class="source-link">
@@ -253,6 +253,25 @@ open session.</p>
 </div>
 </dd></dl>
 
+<p class="rubric">Attributes</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pygmt.clib.Session.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pygmt.clib.Session.info" title="Permalink to this definition"></a></dt>
+<dd><p>Dictionary with the GMT version and default paths and parameters.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pygmt.clib.Session.session_pointer">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">session_pointer</span></span><a class="headerlink" href="#pygmt.clib.Session.session_pointer" title="Permalink to this definition"></a></dt>
+<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer to the current open GMT session.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError" title="pygmt.exceptions.GMTCLibNoSessionError"><strong>GMTCLibNoSessionError</strong></a> – If trying to access without a currently open GMT session (i.e.,
+    outside of the context manager).</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
@@ -282,16 +301,16 @@ open session.</p>
 <td><p>Get a ctypes function from the libgmt shared library.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file" title="pygmt.clib.Session.open_virtual_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtual_file</span></code></a>(family, geometry, ...)</p></td>
-<td><p>Open a GMT Virtual File to pass data to and from a module.</p></td>
+<td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
-<td><p>Attach a numpy 2D array to a GMT dataset.</p></td>
+<td><p>Attach a numpy 2-D array to a GMT dataset.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_strings</span></code></a>(dataset, family, strings)</p></td>
-<td><p>Attach a numpy 1D array of dtype str as a column on a GMT dataset.</p></td>
+<td><p>Attach a numpy 1-D array of dtype str as a column on a GMT dataset.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
-<td><p>Attach a numpy 1D array as a column on a GMT dataset.</p></td>
+<td><p>Attach a numpy 1-D array as a column on a GMT dataset.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data" title="pygmt.clib.Session.virtualfile_from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_data</span></code></a>([check_kind, ...])</p></td>
 <td><p>Store any data inside a virtual file.</p></td>
@@ -300,10 +319,10 @@ open session.</p>
 <td><p>Store a grid in a virtual file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix" title="pygmt.clib.Session.virtualfile_from_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_matrix</span></code></a>(matrix)</p></td>
-<td><p>Store a 2d array as a table inside a virtual file.</p></td>
+<td><p>Store a 2-D array as a table inside a virtual file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors" title="pygmt.clib.Session.virtualfile_from_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_vectors</span></code></a>(*vectors)</p></td>
-<td><p>Store 1d arrays as columns of a table inside a virtual file.</p></td>
+<td><p>Store 1-D arrays as columns of a table inside a virtual file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.write_data</span></code></a>(family, geometry, mode, ...)</p></td>
 <td><p>Write a GMT data container to a file.</p></td>
@@ -324,10 +343,10 @@ open session.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

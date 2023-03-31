@@ -5,7 +5,8 @@ pygmt.grdtrack
 
 .. autofunction:: grdtrack
 
-.. include:: backreferences/pygmt.grdtrack.examples
+.. minigallery:: pygmt.grdtrack
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.Figure.meca
 
 .. automethod:: Figure.meca
 
-.. include:: backreferences/pygmt.Figure.meca.examples
+.. minigallery:: pygmt.Figure.meca
+    :add-heading:
 
 .. raw:: html
 

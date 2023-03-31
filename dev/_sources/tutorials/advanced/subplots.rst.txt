@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_advanced_subplots.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_advanced_subplots.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -119,12 +119,6 @@ layout will look like the following:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -194,12 +188,6 @@ figure. We'll also pick up on some new parameters to configure our subplot.
    :srcset: /tutorials/advanced/images/sphx_glr_subplots_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -291,12 +279,6 @@ common x- and/or y-axis between subplots.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -356,12 +338,6 @@ the first subplot occupying the first row.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -387,7 +363,7 @@ adding a more descriptive subtitle to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.197 seconds)
+   **Total running time of the script:** ( 0 minutes  4.465 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_subplots.py:
@@ -395,6 +371,8 @@ adding a more descriptive subtitle to individual subplots.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

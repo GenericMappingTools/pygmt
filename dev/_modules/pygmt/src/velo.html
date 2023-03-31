@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.velo</li>
@@ -190,7 +190,6 @@
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;spec&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zvalue&quot;</span><span class="p">,</span>
@@ -204,7 +203,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">velo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot velocity vectors, crosses, anisotropy bars, and wedges.</span>
 
 <span class="sd">    Reads data values from files, :class:`numpy.ndarray` or</span>
@@ -229,7 +228,7 @@
 <span class="sd">        :class:`pandas.DataFrame` inputs.</span>
 
 <span class="sd">    spec: str</span>
-<span class="sd">        Selects the meaning of the columns in the data file and the figure to</span>
+<span class="sd">        Select the meaning of the columns in the data file and the figure to</span>
 <span class="sd">        be plotted. In all cases, the scales are in data units per length unit</span>
 <span class="sd">        and sizes are in length units (default length unit is controlled by</span>
 <span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT` unless **c**, **i**, or **p** is</span>
@@ -329,22 +328,22 @@
 <span class="sd">    {frame}</span>
 <span class="sd">    {cmap}</span>
 <span class="sd">    rescale : str</span>
-<span class="sd">        can be used to rescale the uncertainties of velocities (``spec=&quot;e&quot;``</span>
+<span class="sd">        Can be used to rescale the uncertainties of velocities (``spec=&quot;e&quot;``</span>
 <span class="sd">        and ``spec=&quot;r&quot;``) and rotations (``spec=&quot;w&quot;``). Can be combined with</span>
 <span class="sd">        the ``confidence`` variable.</span>
 <span class="sd">    uncertaintyfill : str</span>
-<span class="sd">        Sets the color or shade used for filling uncertainty wedges</span>
-<span class="sd">        (``spec=&quot;w&quot;``) or velocity error ellipses (``spec=&quot;e&quot;`` or</span>
-<span class="sd">        ``spec=&quot;r&quot;``). If ``uncertaintyfill`` is not specified, the</span>
-<span class="sd">        uncertainty regions will be transparent. **Note**: Using ``cmap`` and</span>
-<span class="sd">        ``zvalue=&quot;+e&quot;`` will update the uncertainty fill color based on the</span>
-<span class="sd">        selected measure in ``zvalue`` [magnitude error]. More details at</span>
+<span class="sd">        Set color or pattern for filling uncertainty wedges (``spec=&quot;w&quot;``)</span>
+<span class="sd">        or velocity error ellipses (``spec=&quot;e&quot;`` or ``spec=&quot;r&quot;``).</span>
+<span class="sd">        If ``uncertaintyfill`` is not specified, the uncertainty regions</span>
+<span class="sd">        will be transparent. **Note**: Using ``cmap`` and ``zvalue=&quot;+e&quot;``</span>
+<span class="sd">        will update the uncertainty fill color based on the selected measure</span>
+<span class="sd">        in ``zvalue`` [Default is magnitude error]. More details at</span>
 <span class="sd">        :gmt-docs:`cookbook/features.html#gfill-attrib`.</span>
 <span class="sd">    fill : str</span>
-<span class="sd">        Select color or pattern for filling of symbols [Default is no fill].</span>
+<span class="sd">        Set color or pattern for filling symbols [Default is no fill].</span>
 <span class="sd">        **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the</span>
 <span class="sd">        symbol fill color based on the selected measure in ``zvalue``</span>
-<span class="sd">        [magnitude]. More details at</span>
+<span class="sd">        [Default is magnitude]. More details at</span>
 <span class="sd">        :gmt-docs:`cookbook/features.html#gfill-attrib`.</span>
 <span class="sd">    scale : float or bool</span>
 <span class="sd">        [*scale*].</span>
@@ -370,10 +369,10 @@
 <span class="sd">        ``cmap``). If instead modifier **+cf** is appended then the color from</span>
 <span class="sd">        the cpt file is applied to error fill only [Default]. Use just **+c**</span>
 <span class="sd">        to set both pen and fill color.</span>
-<span class="sd">    no_clip: bool or str</span>
-<span class="sd">        Do NOT skip symbols that fall outside the frame boundary specified</span>
-<span class="sd">        by ``region`` [Default plots symbols inside frame only].</span>
-<span class="sd">    {timestamp}</span>
+<span class="sd">    no_clip: bool</span>
+<span class="sd">        Do **not** skip symbols that fall outside the frame boundaries</span>
+<span class="sd">        [Default is ``False``, i.e., plot symbols inside the frame</span>
+<span class="sd">        boundaries only].</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    pen : str</span>
 <span class="sd">        [*pen*][**+c**\ [**f**\|\ **l**]].</span>
@@ -431,10 +430,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

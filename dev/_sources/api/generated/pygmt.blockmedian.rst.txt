@@ -5,7 +5,8 @@ pygmt.blockmedian
 
 .. autofunction:: blockmedian
 
-.. include:: backreferences/pygmt.blockmedian.examples
+.. minigallery:: pygmt.blockmedian
+    :add-heading:
 
 .. raw:: html
 

@@ -78,7 +78,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -159,7 +159,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Plotting a surface</li>
     <li class="source-link">
@@ -186,13 +186,13 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-3d-plots-grdview-surface-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-a-surface">
 <span id="sphx-glr-gallery-3d-plots-grdview-surface-py"></span><h1>Plotting a surface<a class="headerlink" href="#plotting-a-surface" title="Permalink to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdview</span></code></a> method can plot 3-D surfaces with
-<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">surftype=&quot;s&quot;</span></code>. Here, we supply the data as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> with
 the coordinate vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> defined. Note that the <code class="docutils literal notranslate"><span class="pre">perspective</span></code>
 parameter here controls the azimuth and elevation angle of the view. We provide
 a list of two arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code> - the first argument specifies the
@@ -201,13 +201,7 @@ prepended with <code class="docutils literal notranslate"><span class="pre">&quo
 Specifying the same scale for the <code class="docutils literal notranslate"><span class="pre">projection</span></code> and <code class="docutils literal notranslate"><span class="pre">zscale</span></code> parameters
 ensures equal axis scaling. The <code class="docutils literal notranslate"><span class="pre">shading</span></code> parameter specifies illumination;
 here we choose an azimuth of 45° with <code class="docutils literal notranslate"><span class="pre">shading=&quot;+a45&quot;</span></code>.</p>
-<img src="../../_images/sphx_glr_grdview_surface_001.png" srcset="../../_images/sphx_glr_grdview_surface_001.png" alt="grdview surface" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<img src="../../_images/sphx_glr_grdview_surface_001.png" srcset="../../_images/sphx_glr_grdview_surface_001.png" alt="grdview surface" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
@@ -255,7 +249,7 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.553 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.300 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-plots-grdview-surface-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/78352b72d66ee416c1a6f6886a05fe7f/grdview_surface.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grdview_surface.py</span></code></a></p>
@@ -279,10 +273,10 @@ here we choose an azimuth of 45° with <code class="docutils literal notranslate
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

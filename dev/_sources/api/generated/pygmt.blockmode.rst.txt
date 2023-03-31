@@ -5,7 +5,8 @@ pygmt.blockmode
 
 .. autofunction:: blockmode
 
-.. include:: backreferences/pygmt.blockmode.examples
+.. minigallery:: pygmt.blockmode
+    :add-heading:
 
 .. raw:: html
 

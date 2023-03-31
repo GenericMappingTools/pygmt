@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.grdimage</li>
@@ -186,7 +186,6 @@
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_clip&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;nan_transparent&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
@@ -197,7 +196,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Project and plot grids or images.</span>
 
 <span class="sd">    Reads a 2-D grid file and produces a gray-shaded (or colored) map by</span>
@@ -270,11 +269,12 @@
 <span class="sd">        to project a raw image (an image without referencing coordinates).</span>
 <span class="sd">    dpi : int</span>
 <span class="sd">        [**i**\|\ *dpi*].</span>
-<span class="sd">        Sets the resolution of the projected grid that will be created if a</span>
-<span class="sd">        map projection other than Linear or Mercator was selected [100]. By</span>
-<span class="sd">        default, the projected grid will be of the same size (rows and</span>
-<span class="sd">        columns) as the input file. Specify **i** to use the PostScript</span>
-<span class="sd">        image operator to interpolate the image at the device resolution.</span>
+<span class="sd">        Set the resolution of the projected grid that will be created if a</span>
+<span class="sd">        map projection other than Linear or Mercator was selected [Default</span>
+<span class="sd">        is ``100`` dpi]. By default, the projected grid will be of the</span>
+<span class="sd">        same size (rows and columns) as the input file. Specify **i** to</span>
+<span class="sd">        use the PostScript image operator to interpolate the image at the</span>
+<span class="sd">        device resolution.</span>
 <span class="sd">    bit_color : str</span>
 <span class="sd">        *color*\ [**+b**\|\ **f**\].</span>
 <span class="sd">        This parameter only applies when a resulting 1-bit image otherwise</span>
@@ -303,12 +303,16 @@
 <span class="sd">        Force conversion to monochrome image using the (television) YIQ</span>
 <span class="sd">        transformation. Cannot be used with ``nan_transparent``.</span>
 <span class="sd">    no_clip : bool</span>
-<span class="sd">        Do not clip the image at the map boundary (only relevant for</span>
-<span class="sd">        non-rectangular maps).</span>
-<span class="sd">    nan_transparent : bool</span>
+<span class="sd">        Do **not** clip the image at the frame boundaries (only relevant</span>
+<span class="sd">        for non-rectangular maps) [Default is ``False``].</span>
+<span class="sd">    nan_transparent : bool or str</span>
+<span class="sd">        [**+z**\ *value*][*color*]</span>
 <span class="sd">        Make grid nodes with z = NaN transparent, using the color-masking</span>
 <span class="sd">        feature in PostScript Level 3 (the PS device must support PS Level</span>
-<span class="sd">        3).</span>
+<span class="sd">        3). If the input is a grid, use **+z** with a *value* to select</span>
+<span class="sd">        another grid value than NaN. If the input is instead an image,</span>
+<span class="sd">        append an alternate *color* to select another pixel value to be</span>
+<span class="sd">        transparent [Default is ``&quot;black&quot;``].</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {panel}</span>
@@ -356,10 +360,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

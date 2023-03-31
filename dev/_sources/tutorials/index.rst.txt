@@ -35,7 +35,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_coastlines_thumb.png
-    :alt: Coastlines and borders
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_coastlines.py`
 
@@ -52,7 +52,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_frames_thumb.png
-    :alt: Frames, ticks, titles, and labels
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_frames.py`
 
@@ -69,7 +69,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_plot_thumb.png
-    :alt: Plotting data points
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_plot.py`
 
@@ -86,7 +86,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_lines_thumb.png
-    :alt: Plotting lines
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_lines.py`
 
@@ -103,7 +103,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_text_thumb.png
-    :alt: Plotting text
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_text.py`
 
@@ -120,7 +120,7 @@ Basics
 .. only:: html
 
   .. image:: /tutorials/basics/images/thumb/sphx_glr_regions_thumb.png
-    :alt: Setting the region
+    :alt:
 
   :ref:`sphx_glr_tutorials_basics_regions.py`
 
@@ -162,7 +162,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_insets_thumb.png
-    :alt: Adding an inset to the figure
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_insets.py`
 
@@ -179,7 +179,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_configuration_thumb.png
-    :alt: Configuring PyGMT defaults
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_configuration.py`
 
@@ -196,7 +196,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_3d_perspective_image_thumb.png
-    :alt: Creating a 3-D perspective image
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py`
 
@@ -213,7 +213,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_contour_map_thumb.png
-    :alt: Creating a map with contour lines
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_contour_map.py`
 
@@ -230,7 +230,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_subplots_thumb.png
-    :alt: Making subplots
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_subplots.py`
 
@@ -247,7 +247,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_grid_equalization_thumb.png
-    :alt: Performing grid histogram equalization
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_grid_equalization.py`
 
@@ -264,7 +264,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_earth_relief_thumb.png
-    :alt: Plotting Earth relief
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_earth_relief.py`
 
@@ -281,7 +281,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_date_time_charts_thumb.png
-    :alt: Plotting datetime charts
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_date_time_charts.py`
 
@@ -298,7 +298,7 @@ Advanced
 .. only:: html
 
   .. image:: /tutorials/advanced/images/thumb/sphx_glr_vectors_thumb.png
-    :alt: Plotting vectors
+    :alt:
 
   :ref:`sphx_glr_tutorials_advanced_vectors.py`
 

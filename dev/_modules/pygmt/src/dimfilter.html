@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.dimfilter</li>
@@ -185,7 +185,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">dimfilter</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Filter a grid by dividing the filter circle.</span>
 
 <span class="sd">    Filter a grid in the space (or time) domain by</span>
@@ -200,7 +200,7 @@
 <span class="sd">    may be less frequently sampled than the input. :func:`pygmt.dimfilter`</span>
 <span class="sd">    will not produce a smooth output as other spatial filters</span>
 <span class="sd">    do because it returns a minimum median out of *N* medians of *N*</span>
-<span class="sd">    sectors. The output can be rough unless the input data is noise-free.</span>
+<span class="sd">    sectors. The output can be rough unless the input data are noise-free.</span>
 <span class="sd">    Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)</span>
 <span class="sd">    of the DiM-filtered data is generally recommended.</span>
 
@@ -234,7 +234,7 @@
 <span class="sd">          calculation.</span>
 <span class="sd">    filter : str</span>
 <span class="sd">        **x**\ *width*\ [**+l**\|\ **u**].</span>
-<span class="sd">        Sets the primary filter type. Choose among convolution and</span>
+<span class="sd">        Set the primary filter type. Choose among convolution and</span>
 <span class="sd">        non-convolution filters. Use the filter code **x** followed by</span>
 <span class="sd">        the full diameter *width*. Available convolution filters are:</span>
 
@@ -251,7 +251,7 @@
 <span class="sd">          to return the smallest or largest of each sector&#39;s modal values.</span>
 <span class="sd">    sectors : str</span>
 <span class="sd">        **x**\ *sectors*\ [**+l**\|\ **u**]</span>
-<span class="sd">        Sets the secondary filter type **x** and the number of bow-tie sectors.</span>
+<span class="sd">        Set the secondary filter type **x** and the number of bow-tie sectors.</span>
 <span class="sd">        *sectors* must be integer and larger than 0. When *sectors* is</span>
 <span class="sd">        set to 1, the secondary filter is not effective. Available secondary</span>
 <span class="sd">        filters **x** are:</span>
@@ -265,14 +265,14 @@
 <span class="sd">          value. Append **+l** or **+h** to the sectors if you rather want to</span>
 <span class="sd">          return the smallest or largest of the modal values.</span>
 <span class="sd">    spacing : str or list</span>
-<span class="sd">        *x_inc* [and optionally *y_inc*] is the output Increment. Append</span>
+<span class="sd">        *x_inc* [and optionally *y_inc*] is the output increment. Append</span>
 <span class="sd">        **m** to indicate minutes, or **c** to indicate seconds. If the new</span>
 <span class="sd">        *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the</span>
-<span class="sd">        input data), filtering will be considerably slower. [Default: Same</span>
+<span class="sd">        input data), filtering will be considerably slower. [Default is same</span>
 <span class="sd">        as input.]</span>
 <span class="sd">    region : str or list</span>
 <span class="sd">        [*xmin*, *xmax*, *ymin*, *ymax*].</span>
-<span class="sd">        Defines the region of the output points. [Default: Same as input.]</span>
+<span class="sd">        Define the region of the output points [Default is same as input].</span>
 <span class="sd">    {verbose}</span>
 
 <span class="sd">    Returns</span>
@@ -305,7 +305,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">])</span> <span class="ow">and</span> <span class="s2">&quot;Q&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sd">&quot;&quot;&quot;At least one of the following parameters must be specified:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;At least one of the following parameters must be specified:</span>
 <span class="sd">            distance, filters, or sectors.&quot;&quot;&quot;</span>
         <span class="p">)</span>
 
@@ -330,10 +330,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

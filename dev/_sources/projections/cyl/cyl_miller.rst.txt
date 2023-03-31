@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_projections_cyl_cyl_miller.py>`
+        :ref:`Go to the end <sphx_glr_download_projections_cyl_cyl_miller.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -44,18 +44,8 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -75,7 +65,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.010 seconds)
+   **Total running time of the script:** ( 0 minutes  0.544 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_miller.py:
@@ -83,6 +73,8 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

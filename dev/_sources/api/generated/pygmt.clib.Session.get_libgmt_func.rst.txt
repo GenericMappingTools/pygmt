@@ -5,7 +5,8 @@ pygmt.clib.Session.get\_libgmt\_func
 
 .. automethod:: Session.get_libgmt_func
 
-.. include:: backreferences/pygmt.clib.Session.get_libgmt_func.examples
+.. minigallery:: pygmt.clib.Session.get_libgmt_func
+    :add-heading:
 
 .. raw:: html
 

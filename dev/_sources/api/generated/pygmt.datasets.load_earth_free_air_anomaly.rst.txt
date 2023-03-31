@@ -5,7 +5,8 @@ pygmt.datasets.load\_earth\_free\_air\_anomaly
 
 .. autofunction:: load_earth_free_air_anomaly
 
-.. include:: backreferences/pygmt.datasets.load_earth_free_air_anomaly.examples
+.. minigallery:: pygmt.datasets.load_earth_free_air_anomaly
+    :add-heading:
 
 .. raw:: html
 

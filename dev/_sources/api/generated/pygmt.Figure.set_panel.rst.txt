@@ -5,7 +5,8 @@ pygmt.Figure.set\_panel
 
 .. automethod:: Figure.set_panel
 
-.. include:: backreferences/pygmt.Figure.set_panel.examples
+.. minigallery:: pygmt.Figure.set_panel
+    :add-heading:
 
 .. raw:: html
 

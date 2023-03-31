@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -114,6 +114,7 @@
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.logo.html">pygmt.Figure.logo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.solar.html">pygmt.Figure.solar</a></li>
 <li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.text.html">pygmt.Figure.text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.timestamp.html">pygmt.Figure.timestamp</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
@@ -175,7 +176,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.Figure.inset</li>
     <li class="source-link">
@@ -224,10 +225,10 @@ Define the map inset rectangle on the map. Specify the rectangle
 in one of three ways:</p>
 <p>Append <strong>g</strong><em>lon</em>/<em>lat</em> for map (user) coordinates,
 <strong>j</strong><em>code</em> or <strong>J</strong><em>code</em> for setting the <em>refpoint</em> via a
-2-char justification code that refers to the (invisible)
+2-character justification code that refers to the (invisible)
 projected map bounding box, <strong>n</strong><em>xn</em>/<em>yn</em> for normalized (0-1)
 bounding box coordinates, or <strong>x</strong><em>x</em>/<em>y</em> for plot
-coordinates (inches, cm, points, append unit).
+coordinates (inches, centimeters, points, append unit).
 All but <strong>x</strong> requires both <code class="docutils literal notranslate"><span class="pre">region</span></code> and <code class="docutils literal notranslate"><span class="pre">projection</span></code> to be
 specified. You can offset the reference point via
 <strong>+o</strong><em>dx</em>/<em>dy</em> in the direction implied by <em>code</em> or
@@ -237,19 +238,19 @@ rectangle bounded by parallels and meridians; append <strong>+r</strong> if the
 coordinates instead are the lower left and upper right corners of
 the desired rectangle. (Or, give <em>xmin/xmax/ymin/ymax</em> of bounding
 rectangle in projected coordinates and optionally
-append <strong>+u</strong><em>unit</em> [Default coordinate unit is meter (e)].</p>
+append <strong>+u</strong><em>unit</em> [Default coordinate unit is meters (<strong>e</strong>)].</p>
 <p>Append <strong>+w</strong><em>width</em>[/<em>height</em>] of bounding rectangle or box
-in plot coordinates (inches, cm, etc.). By default, the anchor
-point on the scale is assumed to be the bottom left corner (<strong>BL</strong>),
-but this can be changed by appending <strong>+j</strong> followed by a 2-char
-justification code <em>justify</em>.
+in plot coordinates (inches, centimeters, etc.). By default, the
+anchor point on the scale is assumed to be the bottom left corner
+(<strong>BL</strong>), but this can be changed by appending <strong>+j</strong> followed by
+a 2-character justification code <em>justify</em>.
 <strong>Note</strong>: If <strong>j</strong> is used then <em>justify</em> defaults to the same
 as <em>refpoint</em>, if <strong>J</strong> is used then <em>justify</em> defaults to the
 mirror opposite of <em>refpoint</em>. Specify inset box attributes via
 the <code class="docutils literal notranslate"><span class="pre">box</span></code> parameter [Default is outline only].</p>
 </p></li>
-<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – <p>[<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].</p>
-<p>If passed <code class="docutils literal notranslate"><span class="pre">True</span></code>, this draws a rectangular box around the map
+<li><p><strong>box</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – [<strong>+c</strong><em>clearances</em>][<strong>+g</strong><em>fill</em>][<strong>+i</strong>[[<em>gap</em>/]<em>pen</em>]][<strong>+p</strong>[<em>pen</em>]][<strong>+r</strong>[<em>radius</em>]][<strong>+s</strong>[[<em>dx</em>/<em>dy</em>/][<em>shade</em>]]].
+If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, draw a rectangular box around the map
 inset using the default pen; specify a different pen
 with <strong>+p</strong><em>pen</em>. Add <strong>+g</strong><em>fill</em> to fill the logo box
 [Default is no fill].
@@ -262,10 +263,9 @@ unless other values are specified. Append <strong>+r</strong> to draw rounded
 rectangular borders instead, with a 6p corner radius. You
 can override this radius by appending another value. Append
 <strong>+s</strong> to draw an offset background shaded region. Here, <em>dx</em>/<em>dy</em>
-indicates the shift relative to the foreground frame
-[4p/-4p] and <code class="docutils literal notranslate"><span class="pre">shade</span></code> sets the fill style to use for
-shading [Default is gray50].</p>
-</p></li>
+indicates the shift relative to the foreground frame [Default is
+<code class="docutils literal notranslate"><span class="pre">&quot;4p/-4p&quot;</span></code>] and <code class="docutils literal notranslate"><span class="pre">shade</span></code> sets the fill style to use for
+shading [Default is <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>].</p></li>
 <li><p><strong>margin</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – This is clearance that is added around the inside of the inset.
 Plotting will take place within the inner region only. The margins
 can be a single value, a pair of values separated (for setting
@@ -274,8 +274,8 @@ margins (for setting separate left, right, bottom, and top
 margins). When passing multiple values, it can be either a list or
 a string with the values separated by forward
 slashes [Default is no margins].</p></li>
-<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do NOT clip features extruding outside map inset boundaries [Default
-is clip].</p></li>
+<li><p><strong>no_clip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do <strong>not</strong> clip features extruding outside the inset frame
+boundaries [Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>].</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
 <li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>.
@@ -315,21 +315,20 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <span class="gp">...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Map elements outside the &quot;with&quot; block are plotted in the main figure</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">logo</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="s2">&quot;jBR+o0.2c+w3c&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  
-<span class="go">&lt;IPython.core.display.Image object&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <section id="examples-using-pygmt-figure-inset">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.inset</span></code><a class="headerlink" href="#examples-using-pygmt-figure-inset" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset" src="../../_images/sphx_glr_inset_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="" src="../../_images/sphx_glr_inset_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/inset.html#sphx-glr-gallery-embellishments-inset-py"><span class="std std-ref">Inset</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="Inset map showing a rectangular region" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.inset method adds an inset figure inside a larger figure. The method is called..."><img alt="" src="../../_images/sphx_glr_inset_rectangle_region_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/inset_rectangle_region.html#sphx-glr-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Inset map showing a rectangular region</span></a></p>
   <div class="sphx-glr-thumbnail-title">Inset map showing a rectangular region</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><img alt="Adding an inset to the figure" src="../../_images/sphx_glr_insets_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><img alt="" src="../../_images/sphx_glr_insets_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
 </div></div><div style='clear:both'></div></section>
@@ -347,10 +346,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

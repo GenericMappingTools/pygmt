@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_basics_text.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_basics_text.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -80,12 +80,6 @@ accept either *int* or *float* numbers, or a list/array of numbers.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -123,12 +117,6 @@ including details of how to use non-default fonts.
    :srcset: /tutorials/basics/images/sphx_glr_text_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -181,12 +169,6 @@ and ``text`` columns. Here we give a complete example.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -230,12 +212,6 @@ chosen from:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -266,12 +242,6 @@ rotation in degrees of the text from the horizontal.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -301,12 +271,6 @@ rotation in degrees of the text from the horizontal.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -323,7 +287,7 @@ at :gmt-docs:`text.html` and also the cookbook at
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.322 seconds)
+   **Total running time of the script:** ( 0 minutes  6.440 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_text.py:
@@ -331,6 +295,8 @@ at :gmt-docs:`text.html` and also the cookbook at
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

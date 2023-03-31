@@ -5,7 +5,8 @@ pygmt.Figure.solar
 
 .. automethod:: Figure.solar
 
-.. include:: backreferences/pygmt.Figure.solar.examples
+.. minigallery:: pygmt.Figure.solar
+    :add-heading:
 
 .. raw:: html
 

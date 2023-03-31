@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -112,6 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +164,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Inset map showing a rectangular region</li>
     <li class="source-link">
@@ -190,7 +191,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-embellishments-inset-rectangle-region-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="inset-map-showing-a-rectangular-region">
@@ -199,13 +200,7 @@ to download the full example code</p>
 figure. The method is called using a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, and its
 <code class="docutils literal notranslate"><span class="pre">position</span></code>, <code class="docutils literal notranslate"><span class="pre">box</span></code>, <code class="docutils literal notranslate"><span class="pre">offset</span></code>, and <code class="docutils literal notranslate"><span class="pre">margin</span></code> can be customized. Plotting
 methods called within the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement plot into the inset figure.</p>
-<img src="../../_images/sphx_glr_inset_rectangle_region_001.png" srcset="../../_images/sphx_glr_inset_rectangle_region_001.png" alt="inset rectangle region" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_inset_rectangle_region_001.png" srcset="../../_images/sphx_glr_inset_rectangle_region_001.png" alt="inset rectangle region" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <span class="c1"># Set the region of the main figure</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <span class="p">[</span><span class="mf">137.5</span><span class="p">,</span> <span class="mi">141</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">]</span>
@@ -250,7 +245,7 @@ methods called within the <code class="docutils literal notranslate"><span class
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.749 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.072 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-inset-rectangle-region-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/c196a7ecca2cae2e966ba2dd4a21c656/inset_rectangle_region.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">inset_rectangle_region.py</span></code></a></p>
@@ -274,10 +269,10 @@ methods called within the <code class="docutils literal notranslate"><span class
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

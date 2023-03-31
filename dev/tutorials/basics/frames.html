@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -161,7 +161,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Frames, ticks, titles, and labels</li>
     <li class="source-link">
@@ -188,7 +188,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-basics-frames-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-basics-frames-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="frames-ticks-titles-and-labels">
@@ -208,10 +208,7 @@ the coastlines of the world with a Mercator projection:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_001.png" srcset="../../_images/sphx_glr_frames_001.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>To add the default GMT frame style to the plot, use <code class="docutils literal notranslate"><span class="pre">frame=&quot;f&quot;</span></code> in
+<img src="../../_images/sphx_glr_frames_001.png" srcset="../../_images/sphx_glr_frames_001.png" alt="frames" class = "sphx-glr-single-img"/><p>To add the default GMT frame style to the plot, use <code class="docutils literal notranslate"><span class="pre">frame=&quot;f&quot;</span></code> in
 <a class="reference internal" href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.basemap</span></code></a> or another plotting method (which has the
 <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter, with exception of <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -220,10 +217,7 @@ the coastlines of the world with a Mercator projection:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_002.png" srcset="../../_images/sphx_glr_frames_002.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_frames_002.png" srcset="../../_images/sphx_glr_frames_002.png" alt="frames" class = "sphx-glr-single-img"/></section>
 <section id="ticks-and-grid-lines">
 <h2>Ticks and grid lines<a class="headerlink" href="#ticks-and-grid-lines" title="Permalink to this heading"></a></h2>
 <p>The automatic frame (<code class="docutils literal notranslate"><span class="pre">frame=True</span></code> or <code class="docutils literal notranslate"><span class="pre">frame=&quot;af&quot;</span></code>) adds the default GMT
@@ -235,10 +229,7 @@ In GMT the tick labels are called <strong>a</strong>nnotations.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_003.png" srcset="../../_images/sphx_glr_frames_003.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Add automatic grid lines to the plot by passing <code class="docutils literal notranslate"><span class="pre">g</span></code> through the <code class="docutils literal notranslate"><span class="pre">frame</span></code>
+<img src="../../_images/sphx_glr_frames_003.png" srcset="../../_images/sphx_glr_frames_003.png" alt="frames" class = "sphx-glr-single-img"/><p>Add automatic grid lines to the plot by passing <code class="docutils literal notranslate"><span class="pre">g</span></code> through the <code class="docutils literal notranslate"><span class="pre">frame</span></code>
 parameter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">shorelines</span><span class="o">=</span><span class="s2">&quot;1/0.5p&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M25c&quot;</span><span class="p">)</span>
@@ -246,10 +237,7 @@ parameter:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_004.png" srcset="../../_images/sphx_glr_frames_004.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>To adjust the step widths of annotations, frame, and grid lines we can
+<img src="../../_images/sphx_glr_frames_004.png" srcset="../../_images/sphx_glr_frames_004.png" alt="frames" class = "sphx-glr-single-img"/><p>To adjust the step widths of annotations, frame, and grid lines we can
 add the desired step widths after <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">f</span></code>, or <code class="docutils literal notranslate"><span class="pre">g</span></code>. In the example
 below, the step widths are set to 30°, 7.5°, and 15°, respectively.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -258,10 +246,7 @@ below, the step widths are set to 30°, 7.5°, and 15°, respectively.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_005.png" srcset="../../_images/sphx_glr_frames_005.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_frames_005.png" srcset="../../_images/sphx_glr_frames_005.png" alt="frames" class = "sphx-glr-single-img"/></section>
 <section id="title">
 <h2>Title<a class="headerlink" href="#title" title="Permalink to this heading"></a></h2>
 <p>The figure title can be set by passing <strong>+t</strong><em>title</em> to the <code class="docutils literal notranslate"><span class="pre">frame</span></code>
@@ -274,10 +259,7 @@ parameter of <a class="reference internal" href="../../api/generated/pygmt.Figur
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_006.png" srcset="../../_images/sphx_glr_frames_006.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_frames_006.png" srcset="../../_images/sphx_glr_frames_006.png" alt="frames" class = "sphx-glr-single-img"/></section>
 <section id="axis-labels">
 <h2>Axis labels<a class="headerlink" href="#axis-labels" title="Permalink to this heading"></a></h2>
 <p>Axis labels, in GMT simply called labels, can be set by passing
@@ -307,10 +289,7 @@ labels to be set for geographic maps.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_frames_007.png" srcset="../../_images/sphx_glr_frames_007.png" alt="frames" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.543 seconds)</p>
+<img src="../../_images/sphx_glr_frames_007.png" srcset="../../_images/sphx_glr_frames_007.png" alt="frames" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.532 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-frames-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/1b14aa68579f00ad9a8aa243bb6120ff/frames.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">frames.py</span></code></a></p>
@@ -335,10 +314,10 @@ labels to be set for geographic maps.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

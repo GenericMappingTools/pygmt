@@ -5,7 +5,8 @@ pygmt.blockmean
 
 .. autofunction:: blockmean
 
-.. include:: backreferences/pygmt.blockmean.examples
+.. minigallery:: pygmt.blockmean
+    :add-heading:
 
 .. raw:: html
 

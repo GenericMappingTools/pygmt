@@ -3,24 +3,25 @@
 
 .. _sphx_glr_projections_misc_sg_execution_times:
 
+
 Computation times
 =================
-**00:07.624** total execution time for **projections_misc** files:
+**00:04.185** total execution time for **projections_misc** files:
 
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``) | 00:01.018 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``) | 00:00.553 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)     | 00:00.998 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)     | 00:00.552 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)             | 00:00.967 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)             | 00:00.529 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)               | 00:00.951 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)               | 00:00.522 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)               | 00:00.944 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)               | 00:00.516 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)                   | 00:00.925 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)               | 00:00.509 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)               | 00:00.922 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)                   | 00:00.504 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)           | 00:00.898 | 0.0 MB |
+| :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)           | 00:00.500 | 0.0 MB |
 +----------------------------------------------------------------------------------------+-----------+--------+

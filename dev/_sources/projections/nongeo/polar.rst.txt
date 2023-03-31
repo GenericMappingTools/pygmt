@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_projections_nongeo_polar.py>`
+        :ref:`Go to the end <sphx_glr_download_projections_nongeo_polar.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -39,7 +39,7 @@ The following customizing modifiers are available:
 
 - **+a**: by default, :math:`\theta` refers to the angle that is equivalent to
   a counterclockwise rotation with respect to the east direction (standard
-  definition); **+a** indicates that the input data is rotated clockwise
+  definition); **+a** indicates that the input data are rotated clockwise
   relative to the north direction (geographical azimuth angle).
 
 - **+r**\ *offset*: represents the offset of the r-axis. This modifier allows
@@ -75,18 +75,8 @@ The following customizing modifiers are available:
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -210,7 +200,7 @@ The following customizing modifiers are available:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.410 seconds)
+   **Total running time of the script:** ( 0 minutes  1.626 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_polar.py:
@@ -218,6 +208,8 @@ The following customizing modifiers are available:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

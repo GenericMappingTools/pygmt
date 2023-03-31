@@ -5,7 +5,8 @@ pygmt.nearneighbor
 
 .. autofunction:: nearneighbor
 
-.. include:: backreferences/pygmt.nearneighbor.examples
+.. minigallery:: pygmt.nearneighbor
+    :add-heading:
 
 .. raw:: html
 

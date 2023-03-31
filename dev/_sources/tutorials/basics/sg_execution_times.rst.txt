@@ -3,20 +3,21 @@
 
 .. _sphx_glr_tutorials_basics_sg_execution_times:
 
+
 Computation times
 =================
-**00:48.937** total execution time for **tutorials_basics** files:
+**00:27.452** total execution time for **tutorials_basics** files:
 
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)       | 00:13.372 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)       | 00:07.122 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)             | 00:10.322 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)             | 00:06.440 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)         | 00:08.543 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)         | 00:04.532 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``) | 00:06.347 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``) | 00:03.858 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)           | 00:05.991 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)           | 00:03.031 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)             | 00:04.361 | 0.0 MB |
+| :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)             | 00:02.469 | 0.0 MB |
 +--------------------------------------------------------------------+-----------+--------+

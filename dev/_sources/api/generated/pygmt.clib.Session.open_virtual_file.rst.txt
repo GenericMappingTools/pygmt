@@ -5,7 +5,8 @@ pygmt.clib.Session.open\_virtual\_file
 
 .. automethod:: Session.open_virtual_file
 
-.. include:: backreferences/pygmt.clib.Session.open_virtual_file.examples
+.. minigallery:: pygmt.clib.Session.open_virtual_file
+    :add-heading:
 
 .. raw:: html
 

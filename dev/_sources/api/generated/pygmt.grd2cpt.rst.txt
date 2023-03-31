@@ -5,7 +5,8 @@ pygmt.grd2cpt
 
 .. autofunction:: grd2cpt
 
-.. include:: backreferences/pygmt.grd2cpt.examples
+.. minigallery:: pygmt.grd2cpt
+    :add-heading:
 
 .. raw:: html
 

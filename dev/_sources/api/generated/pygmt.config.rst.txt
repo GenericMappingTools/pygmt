@@ -5,14 +5,12 @@ pygmt.config
 
 .. autoclass:: config
 
-.. rubric:: Methods Summary
 
-.. autosummary::
-    
-    
-    
 
-.. include:: backreferences/pygmt.config.examples
+
+
+.. minigallery:: pygmt.config
+    :add-heading:
 
 .. raw:: html
 

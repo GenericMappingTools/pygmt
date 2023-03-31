@@ -5,7 +5,8 @@ pygmt.Figure.psconvert
 
 .. automethod:: Figure.psconvert
 
-.. include:: backreferences/pygmt.Figure.psconvert.examples
+.. minigallery:: pygmt.Figure.psconvert
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.grdsample
 
 .. autofunction:: grdsample
 
-.. include:: backreferences/pygmt.grdsample.examples
+.. minigallery:: pygmt.grdsample
+    :add-heading:
 
 .. raw:: html
 

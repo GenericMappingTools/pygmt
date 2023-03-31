@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_lines_linefronts.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_lines_linefronts.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -36,17 +36,17 @@ missing it is set to 30% of the *gap*, except when *gap* is negative
 and *size* is thus required. Append **+l** or **+r** to plot symbols on
 the left or right side of the front [Default is centered]. Append
 **+**\ *type* to specify which symbol to plot: **b**\ ox, **c**\ ircle,
-**f**\ ault (default), **s**\ lip, or **t**\ riangle. Slip means left-lateral
+**f**\ ault [Default], **s**\ lip, or **t**\ riangle. Slip means left-lateral
 or right-lateral strike-slip arrows (centered is not an option). The **+s**
-modifier optionally accepts the angle used to draw the vector (default is
-20). Alternatively, use **+S** which draws arcuate arrow heads. Append
-**+o**\ *offset* to offset the first symbol from the beginning of the front
-by that amount (default is 0). The chosen symbol is drawn with the same pen
-as set for the line (i.e., via the ``pen`` parameter). To use an alternate
-pen, append **+p**\ *pen*. To skip the outline, just use **+p** with no
-argument. To make the main front line invisible, add **+i**.
+modifier optionally accepts the angle used to draw the vector [Default is
+20 degrees]. Alternatively, use **+S** which draws arcuate arrow heads.
+Append **+o**\ *offset* to offset the first symbol from the beginning of
+the front by that amount [Default is 0]. The chosen symbol is drawn with
+the same pen as set for the line (i.e., via the ``pen`` parameter). To use
+an alternate pen, append **+p**\ *pen*. To skip the outline, just use
+**+p** with no argument. To make the main front line invisible, add **+i**.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-90
+.. GENERATED FROM PYTHON SOURCE LINES 30-89
 
 
 
@@ -56,18 +56,8 @@ argument. To make the main front line invisible, add **+i**.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -84,7 +74,7 @@ argument. To make the main front line invisible, add **+i**.
 
     # Plot the line using different front styles
     for frontstyle in [
-        # line with "faults" front style, same as +f (default)
+        # line with "faults" front style, same as +f [Default]
         "f1c/0.25c",
         # line with box front style
         "f1c/0.25c+b",
@@ -92,8 +82,8 @@ argument. To make the main front line invisible, add **+i**.
         "f1c/0.25c+c",
         # line with triangle front style
         "f1c/0.3c+t",
-        # line with left-lateral ("+l") slip ("+s") front style, angle is set to 45
-        # and offset to 2.25 cm
+        # line with left-lateral ("+l") slip ("+s") front style, angle is set to
+        # 45 degrees and offset to 2.25 cm
         "f5c/1c+l+s45+o2.25c",
         # line with "faults" front style, symbols are plotted on the left side of
         # the front
@@ -134,7 +124,7 @@ argument. To make the main front line invisible, add **+i**.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.726 seconds)
+   **Total running time of the script:** ( 0 minutes  2.762 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linefronts.py:
@@ -142,6 +132,8 @@ argument. To make the main front line invisible, add **+i**.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

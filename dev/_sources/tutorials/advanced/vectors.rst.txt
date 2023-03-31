@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_advanced_vectors.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_advanced_vectors.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -87,12 +87,6 @@ side of the vector.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -137,12 +131,6 @@ styling attributes can be found in
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -175,7 +163,7 @@ can be changed to inches in the second plotted vector.
         pen="2p",
         fill="red3",
     )
-    # Vector 2 after changing default unit to inch
+    # Vector 2 after changing default unit to inches
     with pygmt.config(PROJ_LENGTH_UNIT="i"):
         fig.plot(
             x=2,
@@ -195,12 +183,6 @@ can be changed to inches in the second plotted vector.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_003.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -245,12 +227,6 @@ used instead of ``x``, ``y`` and  ``direction``.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -294,12 +270,6 @@ array object and passed using ``data`` parameter.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_005.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -372,12 +342,6 @@ this example).
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -430,12 +394,6 @@ is used to create 5 vectors with equal stops.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_007.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -497,12 +455,6 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -549,12 +501,6 @@ appearance on the projection.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_009.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -603,12 +549,6 @@ different measurement unit causes one to be larger than the other.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_010.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -663,12 +603,6 @@ to represent the vector instead of input angle and length.
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_011.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -725,12 +659,6 @@ for each vector.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -776,19 +704,13 @@ locations.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  14.050 seconds)
+   **Total running time of the script:** ( 0 minutes  7.615 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_vectors.py:
@@ -796,6 +718,8 @@ locations.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

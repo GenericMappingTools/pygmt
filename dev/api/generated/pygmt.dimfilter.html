@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -177,7 +177,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.dimfilter</li>
     <li class="source-link">
@@ -215,7 +215,7 @@ effects for the output grid. If the filter is low-pass, then the output
 may be less frequently sampled than the input. <a class="reference internal" href="#pygmt.dimfilter" title="pygmt.dimfilter"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.dimfilter</span></code></a>
 will not produce a smooth output as other spatial filters
 do because it returns a minimum median out of <em>N</em> medians of <em>N</em>
-sectors. The output can be rough unless the input data is noise-free.
+sectors. The output can be rough unless the input data are noise-free.
 Thus, an additional filtering (e.g., Gaussian via <a class="reference internal" href="pygmt.grdfilter.html#pygmt.grdfilter" title="pygmt.grdfilter"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdfilter</span></code></a>)
 of the DiM-filtered data is generally recommended.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/dimfilter.html">https://docs.generic-mapping-tools.org/latest/dimfilter.html</a></p>
@@ -232,7 +232,7 @@ of the DiM-filtered data is generally recommended.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
 <li><p><strong>outgrid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><em>None</em>) – The name of the output netCDF file with extension .nc to store the grid
 in.</p></li>
 <li><p><strong>distance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Distance flag tells how grid (x,y) relates to filter width, as follows:</p>
@@ -254,7 +254,7 @@ calculation.</p></li>
 </ul>
 </p></li>
 <li><p><strong>filter</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><strong>x</strong><em>width</em>[<strong>+l</strong>|<strong>u</strong>].
-Sets the primary filter type. Choose among convolution and
+Set the primary filter type. Choose among convolution and
 non-convolution filters. Use the filter code <strong>x</strong> followed by
 the full diameter <em>width</em>. Available convolution filters are:</p>
 <ul>
@@ -272,7 +272,7 @@ to return the smallest or largest of each sector’s modal values.</p></li>
 </ul>
 </p></li>
 <li><p><strong>sectors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p><strong>x</strong><em>sectors</em>[<strong>+l</strong>|<strong>u</strong>]
-Sets the secondary filter type <strong>x</strong> and the number of bow-tie sectors.
+Set the secondary filter type <strong>x</strong> and the number of bow-tie sectors.
 <em>sectors</em> must be integer and larger than 0. When <em>sectors</em> is
 set to 1, the secondary filter is not effective. Available secondary
 filters <strong>x</strong> are:</p>
@@ -287,13 +287,13 @@ value. Append <strong>+l</strong> or <strong>+h</strong> to the sectors if you r
 return the smallest or largest of the modal values.</p></li>
 </ul>
 </p></li>
-<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>x_inc</em> [and optionally <em>y_inc</em>] is the output Increment. Append
+<li><p><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – <em>x_inc</em> [and optionally <em>y_inc</em>] is the output increment. Append
 <strong>m</strong> to indicate minutes, or <strong>c</strong> to indicate seconds. If the new
 <em>x_inc</em>, <em>y_inc</em> are NOT integer multiples of the old ones (in the
-input data), filtering will be considerably slower. [Default: Same
+input data), filtering will be considerably slower. [Default is same
 as input.]</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>].
-Defines the region of the output points. [Default: Same as input.]</p></li>
+Define the region of the output points [Default is same as input].</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
@@ -311,7 +311,7 @@ written to stderr. Choose among 7 levels of verbosity:</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><p><strong>ret</strong> (<em>xarray.DataArray or None</em>) – Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
+<li><p><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is not set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outgrid</span></code> is set (grid output will be stored in file set by
 <code class="docutils literal notranslate"><span class="pre">outgrid</span></code>)</p></li>
 </ul>
@@ -353,10 +353,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

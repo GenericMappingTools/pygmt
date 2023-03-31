@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -159,7 +159,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Plotting lines</li>
     <li class="source-link">
@@ -186,7 +186,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-basics-lines-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-basics-lines-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-lines">
@@ -212,10 +212,7 @@ scales using <code class="docutils literal notranslate"><span class="pre">region
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_001.png" srcset="../../_images/sphx_glr_lines_001.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Additional line segments can be added by including additional values for
+<img src="../../_images/sphx_glr_lines_001.png" srcset="../../_images/sphx_glr_lines_001.png" alt="lines" class = "sphx-glr-single-img"/><p>Additional line segments can be added by including additional values for
 <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
@@ -229,10 +226,7 @@ scales using <code class="docutils literal notranslate"><span class="pre">region
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_002.png" srcset="../../_images/sphx_glr_lines_002.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>To plot multiple lines, <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> needs to be used for each
+<img src="../../_images/sphx_glr_lines_002.png" srcset="../../_images/sphx_glr_lines_002.png" alt="lines" class = "sphx-glr-single-img"/><p>To plot multiple lines, <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> needs to be used for each
 additional line. Parameters such as <code class="docutils literal notranslate"><span class="pre">region</span></code>, <code class="docutils literal notranslate"><span class="pre">projection</span></code>, and <code class="docutils literal notranslate"><span class="pre">frame</span></code>
 do not need to be repeated in subsequent uses.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -248,10 +242,7 @@ do not need to be repeated in subsequent uses.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_003.png" srcset="../../_images/sphx_glr_lines_003.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_lines_003.png" srcset="../../_images/sphx_glr_lines_003.png" alt="lines" class = "sphx-glr-single-img"/></section>
 <section id="change-line-attributes">
 <h2>Change line attributes<a class="headerlink" href="#change-line-attributes" title="Permalink to this heading"></a></h2>
 <p>The line attributes can be set by the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter. <code class="docutils literal notranslate"><span class="pre">pen</span></code> takes a
@@ -270,10 +261,7 @@ the default color and <code class="docutils literal notranslate"><span class="pr
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_004.png" srcset="../../_images/sphx_glr_lines_004.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The line color can be set and is added after the line width to the <code class="docutils literal notranslate"><span class="pre">pen</span></code>
+<img src="../../_images/sphx_glr_lines_004.png" srcset="../../_images/sphx_glr_lines_004.png" alt="lines" class = "sphx-glr-single-img"/><p>The line color can be set and is added after the line width to the <code class="docutils literal notranslate"><span class="pre">pen</span></code>
 parameter. In the example below, the line color is set to <code class="docutils literal notranslate"><span class="pre">red</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
@@ -287,10 +275,7 @@ parameter. In the example below, the line color is set to <code class="docutils 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_005.png" srcset="../../_images/sphx_glr_lines_005.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The line style can be set and is added after the line width or color to the
+<img src="../../_images/sphx_glr_lines_005.png" srcset="../../_images/sphx_glr_lines_005.png" alt="lines" class = "sphx-glr-single-img"/><p>The line style can be set and is added after the line width or color to the
 <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter.  In the example below, the line style is set to
 <code class="docutils literal notranslate"><span class="pre">..-</span></code> (<em>dot dot dash</em>), and the default color <code class="docutils literal notranslate"><span class="pre">black</span></code> is used.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -305,10 +290,7 @@ parameter. In the example below, the line color is set to <code class="docutils 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_006.png" srcset="../../_images/sphx_glr_lines_006.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The line width, color, and style can all be set in the same <code class="docutils literal notranslate"><span class="pre">pen</span></code>
+<img src="../../_images/sphx_glr_lines_006.png" srcset="../../_images/sphx_glr_lines_006.png" alt="lines" class = "sphx-glr-single-img"/><p>The line width, color, and style can all be set in the same <code class="docutils literal notranslate"><span class="pre">pen</span></code>
 parameter. In the example below, the line width is set to <code class="docutils literal notranslate"><span class="pre">7p</span></code>, the color
 is set to <code class="docutils literal notranslate"><span class="pre">green</span></code>, and the line style is <code class="docutils literal notranslate"><span class="pre">-.-</span></code> (<em>dash dot dash</em>).</p>
 <p>For a gallery showing other <code class="docutils literal notranslate"><span class="pre">pen</span></code> settings, see
@@ -325,10 +307,7 @@ is set to <code class="docutils literal notranslate"><span class="pre">green</sp
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_lines_007.png" srcset="../../_images/sphx_glr_lines_007.png" alt="lines" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.991 seconds)</p>
+<img src="../../_images/sphx_glr_lines_007.png" srcset="../../_images/sphx_glr_lines_007.png" alt="lines" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.031 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-lines-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/afab58cb0532464ba030f144f63848df/lines.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">lines.py</span></code></a></p>
@@ -353,10 +332,10 @@ is set to <code class="docutils literal notranslate"><span class="pre">green</sp
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

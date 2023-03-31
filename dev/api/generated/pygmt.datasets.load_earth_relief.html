@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.datasets.load_earth_vertical_gravity_gradient" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" />
-    <link rel="prev" title="pygmt.datasets.load_earth_magnetic_anomaly" href="pygmt.datasets.load_earth_magnetic_anomaly.html" />
+    <link rel="prev" title="pygmt.datasets.load_earth_mask" href="pygmt.datasets.load_earth_mask.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -115,6 +115,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_free_air_anomaly.html">pygmt.datasets.load_earth_free_air_anomaly</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_geoid.html">pygmt.datasets.load_earth_geoid</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_magnetic_anomaly.html">pygmt.datasets.load_earth_magnetic_anomaly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_mask.html">pygmt.datasets.load_earth_mask</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_earth_relief</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.datasets.load_earth_relief"><code class="docutils literal notranslate"><span class="pre">load_earth_relief</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-datasets-load-earth-relief">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code></a></li>
@@ -122,13 +123,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_data.html">pygmt.datasets.load_sample_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_fractures_compilation.html">pygmt.datasets.load_fractures_compilation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_hotspots.html">pygmt.datasets.load_hotspots</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_japan_quakes.html">pygmt.datasets.load_japan_quakes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_shape.html">pygmt.datasets.load_mars_shape</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_ocean_ridge_points.html">pygmt.datasets.load_ocean_ridge_points</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_bathymetry.html">pygmt.datasets.load_sample_bathymetry</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_usgs_quakes.html">pygmt.datasets.load_usgs_quakes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_tile_map.html">pygmt.datasets.load_tile_map</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
@@ -176,7 +171,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.load_earth_relief</li>
     <li class="source-link">
@@ -203,7 +198,9 @@
 <span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_earth_relief</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'01d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'igpp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_srtm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_relief.html#load_earth_relief"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_earth_relief" title="Permalink to this definition"></a></dt>
 <dd><p>Load Earth relief grids (topography and bathymetry) in various resolutions.</p>
 <p>The grids are downloaded to a user data directory
-(usually a subdirectory under ~/.gmt/server/earth/) the first time you
+(usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_relief</span></code>,
+<code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_gebco</span></code>, <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_gebcosi</span></code>,
+or <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_synbath</span></code>) the first time you
 invoke this function. Afterwards, it will load the grid from the data
 directory. So you’ll need an internet connection the first time around.</p>
 <p>This module downloads the grids that can also be accessed by
@@ -230,18 +227,17 @@ arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">
 <li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> for pixel registration or
 <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code>
 for all resolutions except <code class="docutils literal notranslate"><span class="pre">&quot;15s&quot;</span></code> which is <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> only.</p></li>
-<li><p><strong>data_source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select the source for the Earth relief data.</p>
-<p>Available options:</p>
+<li><p><strong>data_source</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select the source for the Earth relief data. Available options are:</p>
 <ul>
-<li><p><strong>igpp</strong> : IGPP Global Earth Relief [Default option]. See
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;igpp&quot;</span></code>: IGPP Global Earth Relief [Default option]. See
 <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html">https://www.generic-mapping-tools.org/remote-datasets/earth-relief.html</a>.</p></li>
-<li><p><strong>synbath</strong> : IGPP Global Earth Relief dataset that uses
-stastical properties of young seafloor to provide more realistic
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;synbath&quot;</span></code>: IGPP Global Earth Relief dataset that uses
+stastical properties of young seafloor to provide a more realistic
 relief of young areas with small seamounts.</p></li>
-<li><p><strong>gebco</strong> : GEBCO Global Earth Relief with only observed relief and
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gebco&quot;</span></code>: GEBCO Global Earth Relief with only observed relief and
 inferred relief via altimetric gravity. See
 <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-gebco.html">https://www.generic-mapping-tools.org/remote-datasets/earth-gebco.html</a>.</p></li>
-<li><p><strong>gebcosi</strong> : GEBCO Global Earth Relief that gives sub-ice (si)
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;gebcosi&quot;</span></code>: GEBCO Global Earth Relief that gives sub-ice (si)
 elevations.</p></li>
 </ul>
 </p></li>
@@ -253,15 +249,20 @@ land-only SRTM tiles. Only works when <code class="docutils literal notranslate"
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth relief grid. Coordinates are latitude and longitude in
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth relief grid. Coordinates are latitude and longitude in
 degrees. Relief is in meters.</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2022.12.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid doesn’t support slice operation, for
-Earth relief data with resolutions of 5 arc-minutes or higher, which are
-stored as smaller tiles.</p>
+<p>The registration and coordinate system type of the returned
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+(i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
+However, these properties may be lost after specific grid operations (such
+as slicing) and will need to be manually set before passing the grid to any
+PyGMT data processing or plotting functions. Refer to
+<a class="reference internal" href="pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.GMTDataArrayAccessor</span></code></a> for detailed explanations and
+workarounds.</p>
 </div>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">load_earth_relief</span>
@@ -288,31 +289,34 @@ stored as smaller tiles.</p>
 
 <section id="examples-using-pygmt-datasets-load-earth-relief">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_earth_relief</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-earth-relief" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="Calculating grid gradient and radiance" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="Clipping grid values" src="../../_images/sphx_glr_grdclip_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ..."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
   <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="Sampling along tracks" src="../../_images/sphx_glr_track_sampling_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="Multiple colormaps" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps"><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
   <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="Creating a 3-D perspective image" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Create 3-D perspective image or surface mesh from a grid using pygmt.Figure.grdview."><img alt="" src="../../_images/sphx_glr_3d_perspective_image_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/3d_perspective_image.html#sphx-glr-tutorials-advanced-3d-perspective-image-py"><span class="std std-ref">Creating a 3-D perspective image</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a 3-D perspective image</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="Creating a map with contour lines" src="../../_images/sphx_glr_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../../_images/sphx_glr_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="Performing grid histogram equalization" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="Plotting Earth relief" src="../../_images/sphx_glr_earth_relief_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a map of Earth relief can use the data accessed by the pygmt.datasets.load_earth_relie..."><img alt="" src="../../_images/sphx_glr_earth_relief_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/earth_relief.html#sphx-glr-tutorials-advanced-earth-relief-py"><span class="std std-ref">Plotting Earth relief</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting Earth relief</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="2. Create a contour map" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas..."><img alt="" src="../../_images/sphx_glr_02_contour_map_thumb.png" />
 <p><a class="reference internal" href="../../get_started/02_contour_map.html#sphx-glr-get-started-02-contour-map-py"><span class="std std-ref">2. Create a contour map</span></a></p>
   <div class="sphx-glr-thumbnail-title">2. Create a contour map</div>
 </div></div><div style='clear:both'></div></section>
@@ -323,17 +327,17 @@ stored as smaller tiles.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.datasets.load_earth_magnetic_anomaly.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_magnetic_anomaly" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.datasets.load_earth_mask.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_mask" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_earth_vertical_gravity_gradient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

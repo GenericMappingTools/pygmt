@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -155,7 +155,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Plotting data points</li>
     <li class="source-link">
@@ -182,14 +182,14 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-basics-plot-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-basics-plot-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-data-points">
 <span id="sphx-glr-tutorials-basics-plot-py"></span><h1>Plotting data points<a class="headerlink" href="#plotting-data-points" title="Permalink to this heading"></a></h1>
 <p>GMT shines when it comes to plotting data on a map. We can use some sample data
 that is packaged with GMT to try this out. PyGMT provides access to these
-datasets through the <a class="reference internal" href="../../api/index.html#module-pygmt.datasets" title="pygmt.datasets"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.datasets</span></code></a> package. If you don’t have the data
+datasets through the <code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt.datasets</span></code> package. If you don’t have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
@@ -197,7 +197,7 @@ the first time you use them (usually <code class="docutils literal notranslate">
 </div>
 <p>For example, let’s load the sample dataset of tsunami generating earthquakes
 around Japan using <a class="reference internal" href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code></a>.
-The data is loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
+The data are loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;japan_quakes&quot;</span><span class="p">)</span>
 
 <span class="c1"># Set the region for the plot to be slightly larger than the data bounds.</span>
@@ -230,11 +230,8 @@ earthquake epicenters.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_001.png" srcset="../../_images/sphx_glr_plot_001.png" alt="plot" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>We used the style <code class="docutils literal notranslate"><span class="pre">c0.3c</span></code> which means “circles of 0.3 centimeter size”. The
-<code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter controls the outline of the symbols and the <code class="docutils literal notranslate"><span class="pre">fill</span></code>
+<img src="../../_images/sphx_glr_plot_001.png" srcset="../../_images/sphx_glr_plot_001.png" alt="plot" class = "sphx-glr-single-img"/><p>We used the style <code class="docutils literal notranslate"><span class="pre">c0.3c</span></code> which means “circles of 0.3 centimeters size”.
+The <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter controls the outline of the symbols and the <code class="docutils literal notranslate"><span class="pre">fill</span></code>
 parameter controls the fill.</p>
 <p>We can map the size of the circles to the earthquake magnitude by passing an
 array to the <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter. Because the magnitude is on a logarithmic
@@ -254,12 +251,9 @@ law.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_002.png" srcset="../../_images/sphx_glr_plot_002.png" alt="plot" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Notice that we didn’t include the size in the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter this time,
-just the symbol <code class="docutils literal notranslate"><span class="pre">c</span></code> (circles) and the unit <code class="docutils literal notranslate"><span class="pre">c</span></code> (centimeter). So in this
-case, the size will be interpreted as being in centimeters.</p>
+<img src="../../_images/sphx_glr_plot_002.png" srcset="../../_images/sphx_glr_plot_002.png" alt="plot" class = "sphx-glr-single-img"/><p>Notice that we didn’t include the size in the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter this time,
+just the symbol <code class="docutils literal notranslate"><span class="pre">c</span></code> (circles) and the unit <code class="docutils literal notranslate"><span class="pre">c</span></code> (centimeters). So in
+this case, the size will be interpreted as being in centimeters.</p>
 <p>We can also map the colors of the markers to the depths by passing an array
 to the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter and providing a colormap name (<code class="docutils literal notranslate"><span class="pre">cmap</span></code>). We can
 even use the new matplotlib colormap “viridis”. Here, we first create a
@@ -284,10 +278,7 @@ also plot a colorbar showing the colormap used in the plot.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.361 seconds)</p>
+<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.469 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-plot-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/58b941a964130bf352acec2e6ca816e6/plot.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot.py</span></code></a></p>
@@ -311,10 +302,10 @@ also plot a colorbar showing the colormap used in the plot.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

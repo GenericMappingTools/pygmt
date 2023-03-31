@@ -5,7 +5,8 @@ pygmt.clib.Session.call\_module
 
 .. automethod:: Session.call_module
 
-.. include:: backreferences/pygmt.clib.Session.call_module.examples
+.. minigallery:: pygmt.clib.Session.call_module
+    :add-heading:
 
 .. raw:: html
 

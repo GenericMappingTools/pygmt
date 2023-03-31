@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -180,7 +180,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
       <li class="breadcrumb-item active">pygmt.clib.Session.put_vector</li>
     <li class="source-link">
@@ -205,17 +205,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.clib.Session.put_vector">
 <span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">put_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.put_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.put_vector" title="Permalink to this definition"></a></dt>
-<dd><p>Attach a numpy 1D array as a column on a GMT dataset.</p>
+<dd><p>Attach a numpy 1-D array as a column on a GMT dataset.</p>
 <p>Use this function to attach numpy array data to a GMT dataset and pass
 it to GMT modules. Wraps <code class="docutils literal notranslate"><span class="pre">GMT_Put_Vector</span></code>.</p>
 <p>The dataset must be created by <a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create_data</span></code></a>
 first. Use <code class="docutils literal notranslate"><span class="pre">family='GMT_IS_DATASET|GMT_VIA_VECTOR'</span></code>.</p>
 <p>Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-uint8, uint16, uint32, uint64, float32, float64, str_ and datetime64.</p>
+uint8, uint16, uint32, uint64, float32, float64, str_, and datetime64.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The numpy array must be C contiguous in memory. If it comes from a
-column slice of a 2d array, for example, you will have to make a
+column slice of a 2-D array, for example, you will have to make a
 copy. Use <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ascontiguousarray.html#numpy.ascontiguousarray" title="(in NumPy v1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.ascontiguousarray</span></code></a> to make sure your vector
 is contiguous (it won’t copy if it already is).</p>
 </div>
@@ -225,13 +225,13 @@ is contiguous (it won’t copy if it already is).</p>
 <li><p><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a>) – The ctypes void pointer to a <code class="docutils literal notranslate"><span class="pre">GMT_Dataset</span></code>. Create it with
 <a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.clib.Session.create_data</span></code></a>.</p></li>
 <li><p><strong>column</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The column number of this vector in the dataset (starting from 0).</p></li>
-<li><p><strong>vector</strong> (<em>numpy 1d-array</em>) – The array that will be attached to the dataset. Must be a 1d C
+<li><p><strong>vector</strong> (<em>numpy 1-D array</em>) – The array that will be attached to the dataset. Must be a 1-D C
 contiguous array.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError" title="pygmt.exceptions.GMTCLibError"><strong>GMTCLibError</strong></a> – If given invalid input or <code class="docutils literal notranslate"><span class="pre">GMT_Put_Vector</span></code> exits with status !=
-    0.</p>
+<dd class="field-even"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError" title="pygmt.exceptions.GMTCLibError"><strong>GMTCLibError</strong></a> – If given invalid input or <code class="docutils literal notranslate"><span class="pre">GMT_Put_Vector</span></code> exits with
+    status != 0.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -250,10 +250,10 @@ contiguous array.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

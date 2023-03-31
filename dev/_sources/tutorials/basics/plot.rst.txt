@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_basics_plot.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_basics_plot.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -45,7 +45,7 @@ the first time you use them (usually ``~/.gmt/cache``).
 
 For example, let's load the sample dataset of tsunami generating earthquakes
 around Japan using :func:`pygmt.datasets.load_sample_data`.
-The data is loaded as a :class:`pandas.DataFrame`.
+The data are loaded as a :class:`pandas.DataFrame`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-34
 
@@ -110,19 +110,13 @@ earthquake epicenters.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 45-53
 
-We used the style ``c0.3c`` which means "circles of 0.3 centimeter size". The
-``pen`` parameter controls the outline of the symbols and the ``fill``
+We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
+The ``pen`` parameter controls the outline of the symbols and the ``fill``
 parameter controls the fill.
 
 We can map the size of the circles to the earthquake magnitude by passing an
@@ -157,20 +151,14 @@ law.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 68-80
 
 Notice that we didn't include the size in the ``style`` parameter this time,
-just the symbol ``c`` (circles) and the unit ``c`` (centimeter). So in this
-case, the size will be interpreted as being in centimeters.
+just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
+this case, the size will be interpreted as being in centimeters.
 
 We can also map the colors of the markers to the depths by passing an array
 to the ``fill`` parameter and providing a colormap name (``cmap``). We can
@@ -210,19 +198,13 @@ also plot a colorbar showing the colormap used in the plot.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.361 seconds)
+   **Total running time of the script:** ( 0 minutes  2.469 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:
@@ -230,6 +212,8 @@ also plot a colorbar showing the colormap used in the plot.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -5,7 +5,8 @@ pygmt.grdcut
 
 .. autofunction:: grdcut
 
-.. include:: backreferences/pygmt.grdcut.examples
+.. minigallery:: pygmt.grdcut
+    :add-heading:
 
 .. raw:: html
 

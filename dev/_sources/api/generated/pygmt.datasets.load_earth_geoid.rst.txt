@@ -5,7 +5,8 @@ pygmt.datasets.load\_earth\_geoid
 
 .. autofunction:: load_earth_geoid
 
-.. include:: backreferences/pygmt.datasets.load_earth_geoid.examples
+.. minigallery:: pygmt.datasets.load_earth_geoid
+    :add-heading:
 
 .. raw:: html
 

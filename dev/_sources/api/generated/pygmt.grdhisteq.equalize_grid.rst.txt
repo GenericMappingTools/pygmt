@@ -5,7 +5,8 @@ pygmt.grdhisteq.equalize\_grid
 
 .. automethod:: grdhisteq.equalize_grid
 
-.. include:: backreferences/pygmt.grdhisteq.equalize_grid.examples
+.. minigallery:: pygmt.grdhisteq.equalize_grid
+    :add-heading:
 
 .. raw:: html
 

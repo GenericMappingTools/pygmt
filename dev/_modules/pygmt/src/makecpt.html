@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.makecpt</li>
@@ -183,7 +183,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">makecpt</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make GMT color palette tables.</span>
 
 <span class="sd">    This is a function that will help you make static color palette tables</span>
@@ -222,11 +222,11 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    transparency : str</span>
-<span class="sd">        Sets a constant level of transparency (0-100) for all color slices.</span>
+<span class="sd">        Set a constant level of transparency (0-100) for all color slices.</span>
 <span class="sd">        Append **+a** to also affect the foreground, background, and NaN</span>
-<span class="sd">        colors [Default is no transparency, i.e., 0 (opaque)].</span>
+<span class="sd">        colors [Default is no transparency, i.e., ``0`` (opaque)].</span>
 <span class="sd">    cmap : str</span>
-<span class="sd">        Selects the master color palette table (CPT) to use in the</span>
+<span class="sd">        Select the master color palette table (CPT) to use in the</span>
 <span class="sd">        interpolation. Full list of built-in color palette tables can be found</span>
 <span class="sd">        at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.</span>
 <span class="sd">    background : bool or str</span>
@@ -251,7 +251,7 @@
 <span class="sd">        build ranges *start*-*start+1* instead.</span>
 <span class="sd">    series : list or str</span>
 <span class="sd">        [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].</span>
-<span class="sd">        Defines the range of the new CPT by giving the lowest and highest</span>
+<span class="sd">        Define the range of the new CPT by giving the lowest and highest</span>
 <span class="sd">        z-value (and optionally an interval). If this is not given, the</span>
 <span class="sd">        existing range in the master CPT will be used intact. The values</span>
 <span class="sd">        produced defines the color slice boundaries.  If **+n** is used it</span>
@@ -324,10 +324,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_get_started_01_first_figure.py>`
+        :ref:`Go to the end <sphx_glr_download_get_started_01_first_figure.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -137,12 +137,6 @@ To see the figure, call :meth:`pygmt.Figure.show`.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -183,12 +177,6 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
    :srcset: /get_started/images/sphx_glr_01_first_figure_002.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -236,12 +224,6 @@ Mercator projection would use ``"M5i"``).
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -281,12 +263,6 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
    :srcset: /get_started/images/sphx_glr_01_first_figure_004.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -329,12 +305,6 @@ and the figure title.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -356,13 +326,13 @@ for the concepts that were discussed:
 4. Create a global map. Set the region to "d" to center the map at the Prime
    Meridian or "g" to center the map at the International Date Line. When the
    region is set without using a list full of integers or floating numbers,
-   the argument needs to be passed as a Python string. Create a 15 centimeter
-   map using the Mollwide ("W") projection.
+   the argument needs to be passed as a Python string. Create a map with a
+   width of 15 centimeters using the Mollwide ("W") projection.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.158 seconds)
+   **Total running time of the script:** ( 0 minutes  2.590 seconds)
 
 
 .. _sphx_glr_download_get_started_01_first_figure.py:
@@ -370,6 +340,8 @@ for the concepts that were discussed:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

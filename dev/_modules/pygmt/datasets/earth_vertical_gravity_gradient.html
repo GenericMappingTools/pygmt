@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.datasets.earth_vertical_gravity_gradient</li>
@@ -164,12 +164,14 @@
 <span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">kwargs_to_strings</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_earth_vertical_gravity_gradient&quot;</span><span class="p">]</span>
+
 
 <div class="viewcode-block" id="load_earth_vertical_gravity_gradient"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_vertical_gravity_gradient.html#pygmt.datasets.load_earth_vertical_gravity_gradient">[docs]</a><span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">load_earth_vertical_gravity_gradient</span><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load the IGPP Global Earth Vertical Gravity Gradient in various</span>
 <span class="sd">    resolutions.</span>
 
@@ -213,9 +215,31 @@
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    The :class:`xarray.DataArray` grid doesn&#39;t support slice operation, for</span>
-<span class="sd">    Earth vertical gravity gradient grids with resolutions of 5 arc-minutes or</span>
-<span class="sd">    higher, which are stored as smaller tiles.</span>
+<span class="sd">    The registration and coordinate system type of the returned</span>
+<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors</span>
+<span class="sd">    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).</span>
+<span class="sd">    However, these properties may be lost after specific grid operations (such</span>
+<span class="sd">    as slicing) and will need to be manually set before passing the grid to any</span>
+<span class="sd">    PyGMT data processing or plotting functions. Refer to</span>
+<span class="sd">    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and</span>
+<span class="sd">    workarounds.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_earth_vertical_gravity_gradient</span>
+<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_vertical_gravity_gradient()</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_vertical_gravity_gradient(</span>
+<span class="sd">    ...     resolution=&quot;30m&quot;, registration=&quot;gridline&quot;</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_vertical_gravity_gradient(</span>
+<span class="sd">    ...     resolution=&quot;05m&quot;,</span>
+<span class="sd">    ...     region=[120, 160, 30, 60],</span>
+<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;earth_vgg&quot;</span><span class="p">,</span>
@@ -235,10 +259,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

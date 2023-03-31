@@ -5,7 +5,8 @@ pygmt.grdfill
 
 .. autofunction:: grdfill
 
-.. include:: backreferences/pygmt.grdfill.examples
+.. minigallery:: pygmt.grdfill
+    :add-heading:
 
 .. raw:: html
 

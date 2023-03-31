@@ -5,7 +5,8 @@ pygmt.Figure.grdcontour
 
 .. automethod:: Figure.grdcontour
 
-.. include:: backreferences/pygmt.Figure.grdcontour.examples
+.. minigallery:: pygmt.Figure.grdcontour
+    :add-heading:
 
 .. raw:: html
 

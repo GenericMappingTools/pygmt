@@ -5,7 +5,8 @@ pygmt.datasets.load\_earth\_age
 
 .. autofunction:: load_earth_age
 
-.. include:: backreferences/pygmt.datasets.load_earth_age.examples
+.. minigallery:: pygmt.datasets.load_earth_age
+    :add-heading:
 
 .. raw:: html
 

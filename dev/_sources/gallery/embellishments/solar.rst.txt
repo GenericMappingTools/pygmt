@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_embellishments_solar.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_embellishments_solar.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -23,9 +23,9 @@ Day-night terminator line and twilights
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between
 daytime and nighttime. The parameter ``terminator`` is used to set the twilight
-stage, and can be either 'day-night' (brightest), 'civil', 'nautical', or
-'astronomical' (darkest). Refer to https://en.wikipedia.org/wiki/Twilight for
-more information.
+stage, and can be either ``"day_night"`` (brightest), ``"civil"``,
+``"nautical"``, or ``"astronomical"`` (darkest).
+Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 
 .. GENERATED FROM PYTHON SOURCE LINES 11-52
 
@@ -37,18 +37,8 @@ more information.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
-
-
-
-
-|
 
 .. code-block:: default
 
@@ -65,7 +55,7 @@ more information.
     terminator_datetime = datetime.datetime(
         year=2000, month=1, day=1, hour=17, minute=0, second=0
     )
-    # Set the pen line to be 0.5p thick
+    # Set the pen line to be 0.5 points thick
     # Set the fill for the night area to be navy blue at different transparency
     # levels
     fig.solar(
@@ -97,7 +87,7 @@ more information.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.963 seconds)
+   **Total running time of the script:** ( 0 minutes  1.093 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_solar.py:
@@ -105,6 +95,8 @@ more information.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

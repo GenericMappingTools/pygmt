@@ -5,7 +5,8 @@ pygmt.Figure.image
 
 .. automethod:: Figure.image
 
-.. include:: backreferences/pygmt.Figure.image.examples
+.. minigallery:: pygmt.Figure.image
+    :add-heading:
 
 .. raw:: html
 

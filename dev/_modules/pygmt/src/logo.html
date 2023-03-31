@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.logo</li>
@@ -170,14 +170,13 @@
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;style&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the GMT logo.</span>
 
 <span class="sd">    By default, the GMT logo is 2 inches wide and 1 inch high and</span>
@@ -196,9 +195,9 @@
 <span class="sd">    position : str</span>
 <span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
 <span class="sd">        **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].</span>
-<span class="sd">        Sets reference point on the map for the image.</span>
+<span class="sd">        Set reference point on the map for the image.</span>
 <span class="sd">    box : bool or str</span>
-<span class="sd">        Without further arguments, draws a rectangular border around the</span>
+<span class="sd">        If set to ``True``, draw a rectangular border around the</span>
 <span class="sd">        GMT logo.</span>
 <span class="sd">    style : str</span>
 <span class="sd">        [**l**\|\ **n**\|\ **u**].</span>
@@ -208,7 +207,6 @@
 <span class="sd">          [Default]</span>
 <span class="sd">        - **n** to skip the label placement</span>
 <span class="sd">        - **u** to place the URL to the GMT site</span>
-<span class="sd">    {timestamp}</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {panel}</span>
 <span class="sd">    {transparency}</span>
@@ -226,10 +224,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

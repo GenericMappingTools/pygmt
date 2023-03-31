@@ -5,7 +5,8 @@ pygmt.Figure.grdview
 
 .. automethod:: Figure.grdview
 
-.. include:: backreferences/pygmt.Figure.grdview.examples
+.. minigallery:: pygmt.Figure.grdview
+    :add-heading:
 
 .. raw:: html
 

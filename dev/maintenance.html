@@ -76,7 +76,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -160,7 +160,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Maintainers Guide</li>
     <li class="source-link">
         
@@ -231,8 +231,8 @@ consider adding a regression test for serious bugs.</p></li>
 PR.</p></li>
 <li><p>Don’t be harsh with code style or performance. If the code is bad, either (1) merge
 the pull request and open a new one fixing the code and pinging the original submitter
-(2) comment on the PR detailing how the code could be improved. Both ways are focused
-on showing the contributor <strong>how to write good code</strong>, not shaming them.</p></li>
+or (2) comment on the PR detailing how the code could be improved. Both ways are
+focused on showing the contributor <strong>how to write good code</strong>, not shaming them.</p></li>
 </ul>
 <p>Pull requests should be <strong>squash merged</strong>.
 This means that all commits will be collapsed into one.
@@ -294,10 +294,12 @@ Wednesday and Friday on the <em>main</em> branch.</p>
 If new remote files are needed urgently, maintainers can manually uncomment
 the ‘pull_request:’ line in that <code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code> file to refresh the cache.</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code> (Publish wheels to PyPI and TestPyPI)</p>
-<p>This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
-Archives will be pushed to TestPyPI on every commit to the <em>main</em> branch
-and tagged releases, and to PyPI for tagged releases only.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code> (Publish wheels to TestPyPI and PyPI)</p>
+<p>This workflow is ran to publish wheels to TestPyPI (for testing only) and
+PyPI. Archives will be pushed to TestPyPI on every commit to the <em>main</em>
+branch and tagged releases, and to PyPI for tagged releases only. Note that
+authentication to TestPyPI/PyPI is done via OpenID Connect, see also
+https://github.com/pypa/gh-action-pypi-publish/tree/release/v1#publishing-with-openid-connect</p>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code> (Drafts the next release notes)</p>
 <p>This workflow is run to update the next releases notes as pull requests are
@@ -490,10 +492,10 @@ from the PyPI “Download files” section.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

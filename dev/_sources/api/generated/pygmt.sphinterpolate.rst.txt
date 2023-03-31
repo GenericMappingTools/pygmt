@@ -5,7 +5,8 @@ pygmt.sphinterpolate
 
 .. autofunction:: sphinterpolate
 
-.. include:: backreferences/pygmt.sphinterpolate.examples
+.. minigallery:: pygmt.sphinterpolate
+    :add-heading:
 
 .. raw:: html
 

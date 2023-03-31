@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.grdlandmask</li>
@@ -186,7 +186,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdlandmask</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a grid file with set values for land and water.</span>
 
 <span class="sd">    Read the selected shoreline database and create a grid to specify which</span>
@@ -209,7 +209,7 @@
 <span class="sd">    {region}</span>
 <span class="sd">    {area_thresh}</span>
 <span class="sd">    resolution : str</span>
-<span class="sd">        *res*\[\ **+f**\]. Selects the resolution of the data set to use</span>
+<span class="sd">        *res*\[\ **+f**\]. Select the resolution of the data set to use</span>
 <span class="sd">        ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or</span>
 <span class="sd">        (**c**)rude). The resolution drops off by ~80% between data sets.</span>
 <span class="sd">        [Default is **l**]. Append **+f** to automatically select a lower</span>
@@ -234,7 +234,7 @@
 <span class="sd">        ponds-in-islands-in-lakes outlines [Default is no line tracing].</span>
 <span class="sd">    maskvalues : str or list</span>
 <span class="sd">        [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].</span>
-<span class="sd">        Sets the values that will be assigned to nodes. Values can</span>
+<span class="sd">        Set the values that will be assigned to nodes. Values can</span>
 <span class="sd">        be any number, including the textstring NaN</span>
 <span class="sd">        [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select</span>
 <span class="sd">        ``bordervalues`` to let nodes exactly on feature boundaries be</span>
@@ -278,10 +278,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

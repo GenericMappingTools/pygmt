@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -164,7 +164,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Making subplots</li>
     <li class="source-link">
@@ -191,7 +191,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-advanced-subplots-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-advanced-subplots-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="making-subplots">
@@ -244,10 +244,7 @@ layout will look like the following:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_001.png" srcset="../../_images/sphx_glr_subplots_001.png" alt="subplots" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> method activates a specified subplot,
+<img src="../../_images/sphx_glr_subplots_001.png" srcset="../../_images/sphx_glr_subplots_001.png" alt="subplots" class = "sphx-glr-single-img"/><p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.set_panel.html#pygmt.Figure.set_panel" title="pygmt.Figure.set_panel"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.set_panel</span></code></a> method activates a specified subplot,
 and all subsequent plotting methods will take place in that subplot panel.
 This is similar to matplotlib’s <code class="docutils literal notranslate"><span class="pre">plt.sca</span></code> method. In order to specify a
 subplot, you will need to provide the identifier for that subplot via the
@@ -288,10 +285,7 @@ figure. We’ll also pick up on some new parameters to configure our subplot.</p
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_002.png" srcset="../../_images/sphx_glr_subplots_002.png" alt="subplots" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>In this example, we define a 2-row, 2-column (2x2) subplot layout using
+<img src="../../_images/sphx_glr_subplots_002.png" srcset="../../_images/sphx_glr_subplots_002.png" alt="subplots" class = "sphx-glr-single-img"/><p>In this example, we define a 2-row, 2-column (2x2) subplot layout using
 <a class="reference internal" href="../../api/generated/pygmt.Figure.subplot.html#pygmt.Figure.subplot" title="pygmt.Figure.subplot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code></a>. The overall figure dimensions is set to be
 15 cm wide and 6 cm high (<code class="docutils literal notranslate"><span class="pre">figsize=[&quot;15c&quot;,</span> <span class="pre">&quot;6c&quot;]</span></code>). In addition, we use
 some optional parameters to fine-tune some details of the figure creation:</p>
@@ -356,10 +350,7 @@ common x- and/or y-axis between subplots.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_003.png" srcset="../../_images/sphx_glr_subplots_003.png" alt="subplots" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">sharex=&quot;b&quot;</span></code> indicates that subplots in a column will share the x-axis, and
+<img src="../../_images/sphx_glr_subplots_003.png" srcset="../../_images/sphx_glr_subplots_003.png" alt="subplots" class = "sphx-glr-single-img"/><p><code class="docutils literal notranslate"><span class="pre">sharex=&quot;b&quot;</span></code> indicates that subplots in a column will share the x-axis, and
 only the <strong>b</strong>ottom axis is displayed. <code class="docutils literal notranslate"><span class="pre">sharey=&quot;l&quot;</span></code> indicates that
 subplots within a row will share the y-axis, and only the <strong>l</strong>eft axis is
 displayed.</p>
@@ -394,10 +385,7 @@ the first subplot occupying the first row.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_subplots_004.png" srcset="../../_images/sphx_glr_subplots_004.png" alt="subplots" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>We start by drawing the bottom two subplots, setting <code class="docutils literal notranslate"><span class="pre">autolabel=&quot;b)&quot;</span></code> so
+<img src="../../_images/sphx_glr_subplots_004.png" srcset="../../_images/sphx_glr_subplots_004.png" alt="subplots" class = "sphx-glr-single-img"/><p>We start by drawing the bottom two subplots, setting <code class="docutils literal notranslate"><span class="pre">autolabel=&quot;b)&quot;</span></code> so
 that the subplots are labelled ‘b)’ and ‘c)’. Next, we use
 <a class="reference internal" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin" title="pygmt.Figure.shift_origin"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code></a> to move the plot origin 1 cm above the
 <strong>h</strong>eight of the entire figure that is currently plotted (i.e. the bottom
@@ -410,7 +398,7 @@ the subplot according to the size of the subplot area.</p>
 example, <code class="docutils literal notranslate"><span class="pre">fig.set_panel(...,</span> <span class="pre">fixedlabel=&quot;b)</span> <span class="pre">Panel</span> <span class="pre">2&quot;)</span></code> which would allow
 you to manually label a single subplot as you wish. This can be useful for
 adding a more descriptive subtitle to individual subplots.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.197 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.465 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-subplots-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a6814ea8c10c4c0ac301f6afe26df0cb/subplots.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">subplots.py</span></code></a></p>
@@ -435,10 +423,10 @@ adding a more descriptive subtitle to individual subplots.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

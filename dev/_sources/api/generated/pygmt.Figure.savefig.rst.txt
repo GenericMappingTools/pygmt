@@ -5,7 +5,8 @@ pygmt.Figure.savefig
 
 .. automethod:: Figure.savefig
 
-.. include:: backreferences/pygmt.Figure.savefig.examples
+.. minigallery:: pygmt.Figure.savefig
+    :add-heading:
 
 .. raw:: html
 

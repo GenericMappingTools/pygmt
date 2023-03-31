@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.colorbar</li>
@@ -162,19 +162,23 @@
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
 
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;colorbar&quot;</span><span class="p">]</span>
+
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;cmap&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;position&quot;</span><span class="p">,</span>
     <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;shading&quot;</span><span class="p">,</span>
-    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;equalsize&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;zfile&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
     <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
@@ -183,10 +187,10 @@
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">G</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot a gray or color scale-bar on maps.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot colorbars on figures.</span>
 
-<span class="sd">    Both horizontal and vertical scales are supported. For CPTs with</span>
+<span class="sd">    Both horizontal and vertical colorbars are supported. For CPTs with</span>
 <span class="sd">    gradational colors (i.e., the lower and upper boundary of an interval</span>
 <span class="sd">    have different colors) we will interpolate to give a continuous scale.</span>
 <span class="sd">    Variations in intensity due to shading/illumination may be displayed by</span>
@@ -201,7 +205,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    frame : str or list</span>
-<span class="sd">        Set color bar boundary frame, labels, and axes attributes.</span>
+<span class="sd">        Set colorbar boundary frame, labels, and axes attributes.</span>
 <span class="sd">    {cmap}</span>
 <span class="sd">    position : str</span>
 <span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
@@ -209,26 +213,26 @@
 <span class="sd">        [**+h**\|\ **v**][**+j**\ *justify*]\</span>
 <span class="sd">        [**+m**\ [**a**\|\ **c**\|\ **l**\|\ **u**]]\</span>
 <span class="sd">        [**+n**\ [*txt*]][**+o**\ *dx*\ [/*dy*]].</span>
-<span class="sd">        Defines the reference point on the map for the color scale using one of</span>
+<span class="sd">        Define the reference point on the map for the color scale using one of</span>
 <span class="sd">        four coordinate systems: (1) Use **g** for map (user) coordinates, (2)</span>
-<span class="sd">        use **j** or **J** for setting *refpoint* via a 2-char justification</span>
-<span class="sd">        code that refers to the (invisible) map domain rectangle, (3) use **n**</span>
-<span class="sd">        for normalized (0-1) coordinates, or (4) use **x** for plot</span>
-<span class="sd">        coordinates (inches, cm, etc.). All but **x** requires both ``region``</span>
-<span class="sd">        and ``projection`` to be specified. Append **+w** followed by the</span>
-<span class="sd">        length and width of the color bar. If width is not specified then it is</span>
-<span class="sd">        set to 4% of the given length. Give a negative length to reverse</span>
-<span class="sd">        the scale bar. Append **+h** to get a horizontal scale</span>
+<span class="sd">        use **j** or **J** for setting *refpoint* via a 2-character</span>
+<span class="sd">        justification code that refers to the (invisible) map domain rectangle,</span>
+<span class="sd">        (3) use **n** for normalized (0-1) coordinates, or (4) use **x** for</span>
+<span class="sd">        plot coordinates (inches, cm, etc.). All but **x** requires both</span>
+<span class="sd">        ``region`` and ``projection`` to be specified. Append **+w** followed</span>
+<span class="sd">        by the length and width of the colorbar. If width is not specified</span>
+<span class="sd">        then it is set to 4% of the given length. Give a negative length to</span>
+<span class="sd">        reverse the scale bar. Append **+h** to get a horizontal scale</span>
 <span class="sd">        [Default is vertical (**+v**)]. By default, the anchor point on the</span>
-<span class="sd">        scale is assumed to be the bottom left corner (**BL**), but this can be</span>
-<span class="sd">        changed by appending **+j** followed by a 2-char justification code</span>
-<span class="sd">        *justify*.</span>
+<span class="sd">        scale is assumed to be the bottom left corner (**BL**), but this can</span>
+<span class="sd">        be changed by appending **+j** followed by a 2-character</span>
+<span class="sd">        justification code *justify*.</span>
 <span class="sd">    box : bool or str</span>
 <span class="sd">        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\</span>
 <span class="sd">        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].</span>
-<span class="sd">        If set to ``True``, draws a rectangular border around the color scale.</span>
+<span class="sd">        If set to ``True``, draw a rectangular border around the color scale.</span>
 <span class="sd">        Alternatively, specify a different pen with **+p**\ *pen*. Add</span>
-<span class="sd">        **+g**\ *fill* to fill the scale panel [default is no fill]. Append</span>
+<span class="sd">        **+g**\ *fill* to fill the scale panel [Default is no fill]. Append</span>
 <span class="sd">        **+c**\ *clearance* where *clearance* is either gap, xgap/ygap, or</span>
 <span class="sd">        lgap/rgap/bgap/tgap where these items are uniform, separate in x- and</span>
 <span class="sd">        y-direction, or individual side spacings between scale and border.</span>
@@ -239,14 +243,14 @@
 <span class="sd">        this radius by appending another value. Finally, append **+s** to draw</span>
 <span class="sd">        an offset background shaded region. Here, *dx/dy* indicates the shift</span>
 <span class="sd">        relative to the foreground frame [4p/-4p] and shade sets the fill</span>
-<span class="sd">        style to use for shading [default is gray50].</span>
+<span class="sd">        style to use for shading [Default is ``&quot;gray50&quot;``].</span>
 <span class="sd">    truncate : list or str</span>
 <span class="sd">        *zlo*/*zhi*.</span>
 <span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are</span>
 <span class="sd">        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of</span>
 <span class="sd">        the CPT alone. The truncation takes place before the plotting.</span>
 <span class="sd">    scale : float</span>
-<span class="sd">        Multiply all z-values in the CPT by the provided scale. By default</span>
+<span class="sd">        Multiply all z-values in the CPT by the provided scale. By default,</span>
 <span class="sd">        the CPT is used as is.</span>
 <span class="sd">    shading : str or list or bool</span>
 <span class="sd">        Add illumination effects. Passing a single numerical value sets the</span>
@@ -254,10 +258,43 @@
 <span class="sd">        used. Alternatively, set ``shading=[low, high]`` to specify an</span>
 <span class="sd">        asymmetric intensity range from *low* to *high*. [Default is no</span>
 <span class="sd">        illumination].</span>
+<span class="sd">    equalsize : int or float or str</span>
+<span class="sd">        [**i**]\ [*gap*].</span>
+<span class="sd">        Equal-sized color rectangles. By default, the rectangles are scaled</span>
+<span class="sd">        according to the z-range in the CPT (see also ``zfile``). If *gap* is</span>
+<span class="sd">        appended and the CPT is discrete each annotation is centered on each</span>
+<span class="sd">        rectangle, using the lower boundary z-value for the annotation. If</span>
+<span class="sd">        **i** is prepended the interval range is annotated instead. If</span>
+<span class="sd">        ``shading`` is used each rectangle will have its constant color</span>
+<span class="sd">        modified by the specified intensity.</span>
+<span class="sd">    zfile : str</span>
+<span class="sd">        File with colorbar-width per color entry. By default, the width of the</span>
+<span class="sd">        entry is scaled to the color range, i.e., z = 0-100 gives twice the</span>
+<span class="sd">        width as z = 100-150 (see also ``equalsize``). **Note**: The widths</span>
+<span class="sd">        may be in plot distance units or given as relative fractions and will</span>
+<span class="sd">        be automatically scaled so that the sum of the widths equals the</span>
+<span class="sd">        requested colorbar length.</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {panel}</span>
 <span class="sd">    {perspective}</span>
 <span class="sd">    {transparency}</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new figure instance with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # Create a basemap</span>
+<span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 10, 0, 3], projection=&quot;X10c/3c&quot;, frame=True)</span>
+<span class="sd">    &gt;&gt;&gt; # Call the colorbar method for the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.colorbar(</span>
+<span class="sd">    ...     # Set cmap to the &quot;roma&quot; CPT</span>
+<span class="sd">    ...     cmap=&quot;roma&quot;,</span>
+<span class="sd">    ...     # Label the x-axis &quot;Velocity&quot; and the y-axis &quot;m/s&quot;</span>
+<span class="sd">    ...     frame=[&quot;x+lVelocity&quot;, &quot;y+lm/s&quot;],</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; # Show the plot</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -272,10 +309,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

@@ -5,7 +5,8 @@ pygmt.grdgradient
 
 .. autofunction:: grdgradient
 
-.. include:: backreferences/pygmt.grdgradient.examples
+.. minigallery:: pygmt.grdgradient
+    :add-heading:
 
 .. raw:: html
 

@@ -5,6 +5,9 @@ pygmt.grdhisteq
 
 .. autoclass:: grdhisteq
 
+
+
+
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -20,7 +23,9 @@ pygmt.grdhisteq
     
     
 
-.. include:: backreferences/pygmt.grdhisteq.examples
+
+.. minigallery:: pygmt.grdhisteq
+    :add-heading:
 
 .. raw:: html
 

@@ -5,7 +5,8 @@ pygmt.sphdistance
 
 .. autofunction:: sphdistance
 
-.. include:: backreferences/pygmt.sphdistance.examples
+.. minigallery:: pygmt.sphdistance
+    :add-heading:
 
 .. raw:: html
 

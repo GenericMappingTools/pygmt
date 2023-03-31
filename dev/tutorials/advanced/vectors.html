@@ -77,7 +77,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -163,7 +163,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
       <li class="breadcrumb-item active">Plotting vectors</li>
     <li class="source-link">
@@ -190,7 +190,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-tutorials-advanced-vectors-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-tutorials-advanced-vectors-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="plotting-vectors">
@@ -231,10 +231,7 @@ side of the vector.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_001.png" srcset="../../_images/sphx_glr_vectors_001.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>In this example, we apply the same concept shown previously to plot multiple
+<img src="../../_images/sphx_glr_vectors_001.png" srcset="../../_images/sphx_glr_vectors_001.png" alt="vectors" class = "sphx-glr-single-img"/><p>In this example, we apply the same concept shown previously to plot multiple
 vectors. Notice that instead of passing int/float to <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, a list
 of all x and y coordinates will be passed. Similarly, the length of direction
 list will increase accordingly.</p>
@@ -258,10 +255,7 @@ styling attributes can be found in
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_002.png" srcset="../../_images/sphx_glr_vectors_002.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>The default unit of vector length is centimeters,
+<img src="../../_images/sphx_glr_vectors_002.png" srcset="../../_images/sphx_glr_vectors_002.png" alt="vectors" class = "sphx-glr-single-img"/><p>The default unit of vector length is centimeters,
 however, this can be changed to inches or points. Note that, in PyGMT,
 one point is defined as 1/72 inch.</p>
 <p>In this example, the graphed region is 5in X 5in, but
@@ -281,7 +275,7 @@ can be changed to inches in the second plotted vector.</p>
     <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;2p&quot;</span><span class="p">,</span>
     <span class="n">fill</span><span class="o">=</span><span class="s2">&quot;red3&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="c1"># Vector 2 after changing default unit to inch</span>
+<span class="c1"># Vector 2 after changing default unit to inches</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">PROJ_LENGTH_UNIT</span><span class="o">=</span><span class="s2">&quot;i&quot;</span><span class="p">):</span>
     <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span>
         <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -294,10 +288,7 @@ can be changed to inches in the second plotted vector.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_003.png" srcset="../../_images/sphx_glr_vectors_003.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Vectors can also be plotted by including all the information
+<img src="../../_images/sphx_glr_vectors_003.png" srcset="../../_images/sphx_glr_vectors_003.png" alt="vectors" class = "sphx-glr-single-img"/><p>Vectors can also be plotted by including all the information
 about a vector in a single list. However, this requires creating
 a 2-D list or numpy array containing all vectors.
 Each vector list contains the information structured as:
@@ -320,10 +311,7 @@ used instead of <code class="docutils literal notranslate"><span class="pre">x</
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_004.png" srcset="../../_images/sphx_glr_vectors_004.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Using the functionality mentioned in the previous example,
+<img src="../../_images/sphx_glr_vectors_004.png" srcset="../../_images/sphx_glr_vectors_004.png" alt="vectors" class = "sphx-glr-single-img"/><p>Using the functionality mentioned in the previous example,
 multiple vectors can be plotted at the same time. Another
 vector could be simply added to the 2-D list or numpy
 array object and passed using <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter.</p>
@@ -348,10 +336,7 @@ array object and passed using <code class="docutils literal notranslate"><span c
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_005.png" srcset="../../_images/sphx_glr_vectors_005.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>In this example, Cartesian vectors are plotted over a Mercator
+<img src="../../_images/sphx_glr_vectors_005.png" srcset="../../_images/sphx_glr_vectors_005.png" alt="vectors" class = "sphx-glr-single-img"/><p>In this example, Cartesian vectors are plotted over a Mercator
 projection of the continental US. The x values represent the
 longitude and y values represent the latitude where the vector starts.</p>
 <p>This example also shows some of the styles a vector supports.
@@ -402,10 +387,7 @@ this example).</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_006.png" srcset="../../_images/sphx_glr_vectors_006.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Another example of plotting Cartesian vectors over a coast plot. This time a
+<img src="../../_images/sphx_glr_vectors_006.png" srcset="../../_images/sphx_glr_vectors_006.png" alt="vectors" class = "sphx-glr-single-img"/><p>Another example of plotting Cartesian vectors over a coast plot. This time a
 Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
 is used to create 5 vectors with equal stops.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># x values = [36.  37.5 39.  40.5 42. ]</span>
@@ -439,10 +421,7 @@ is used to create 5 vectors with equal stops.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_007.png" srcset="../../_images/sphx_glr_vectors_007.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_vectors_007.png" srcset="../../_images/sphx_glr_vectors_007.png" alt="vectors" class = "sphx-glr-single-img"/></section>
 <section id="plot-circular-vectors">
 <h2>Plot Circular Vectors<a class="headerlink" href="#plot-circular-vectors" title="Permalink to this heading"></a></h2>
 <p>When plotting circular vectors, all of the information for a single vector is
@@ -482,10 +461,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_008.png" srcset="../../_images/sphx_glr_vectors_008.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>When plotting multiple circular vectors, a two dimensional array or numpy
+<img src="../../_images/sphx_glr_vectors_008.png" srcset="../../_images/sphx_glr_vectors_008.png" alt="vectors" class = "sphx-glr-single-img"/><p>When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter. In this example,
 <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
 Other numpy objects are used to generate linear values for the <code class="docutils literal notranslate"><span class="pre">radius</span></code>
@@ -513,10 +489,7 @@ appearance on the projection.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_009.png" srcset="../../_images/sphx_glr_vectors_009.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Much like when plotting Cartesian vectors, the default unit used is
+<img src="../../_images/sphx_glr_vectors_009.png" srcset="../../_images/sphx_glr_vectors_009.png" alt="vectors" class = "sphx-glr-single-img"/><p>Much like when plotting Cartesian vectors, the default unit used is
 centimeters. When this is changed to inches, the size of the plot appears
 larger when the projection units do not change. Below is an example of two
 circular vectors. One is plotted using the default unit, and the second is
@@ -545,10 +518,7 @@ different measurement unit causes one to be larger than the other.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_010.png" srcset="../../_images/sphx_glr_vectors_010.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-</section>
+<img src="../../_images/sphx_glr_vectors_010.png" srcset="../../_images/sphx_glr_vectors_010.png" alt="vectors" class = "sphx-glr-single-img"/></section>
 <section id="plot-geographic-vectors">
 <h2>Plot Geographic Vectors<a class="headerlink" href="#plot-geographic-vectors" title="Permalink to this heading"></a></h2>
 <p>On this map,
@@ -583,10 +553,7 @@ to represent the vector instead of input angle and length.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_011.png" srcset="../../_images/sphx_glr_vectors_011.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>Using the same technique shown in the previous example,
+<img src="../../_images/sphx_glr_vectors_011.png" srcset="../../_images/sphx_glr_vectors_011.png" alt="vectors" class = "sphx-glr-single-img"/><p>Using the same technique shown in the previous example,
 multiple vectors can be plotted in a chain where the endpoint
 of one is the starting point of another. This can be done
 by adding the coordinate lists together to create this structure:
@@ -622,10 +589,7 @@ for each vector.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_012.png" srcset="../../_images/sphx_glr_vectors_012.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p>This example plots vectors over a Mercator projection. The starting points
+<img src="../../_images/sphx_glr_vectors_012.png" srcset="../../_images/sphx_glr_vectors_012.png" alt="vectors" class = "sphx-glr-single-img"/><p>This example plots vectors over a Mercator projection. The starting points
 are located at SA which is South Africa and going to four different
 locations.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">SA</span></a> <span class="o">=</span> <span class="p">[</span><span class="mf">22.9375</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.5595</span><span class="p">]</span>
@@ -652,10 +616,7 @@ locations.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.050 seconds)</p>
+<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.615 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-vectors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ce82c322966fbdc815d1c920e745a571/vectors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">vectors.py</span></code></a></p>
@@ -680,10 +641,10 @@ locations.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

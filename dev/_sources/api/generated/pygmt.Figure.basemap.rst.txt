@@ -5,7 +5,8 @@ pygmt.Figure.basemap
 
 .. automethod:: Figure.basemap
 
-.. include:: backreferences/pygmt.Figure.basemap.examples
+.. minigallery:: pygmt.Figure.basemap
+    :add-heading:
 
 .. raw:: html
 

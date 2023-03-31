@@ -5,7 +5,8 @@ pygmt.clib.Session.put\_strings
 
 .. automethod:: Session.put_strings
 
-.. include:: backreferences/pygmt.clib.Session.put_strings.examples
+.. minigallery:: pygmt.clib.Session.put_strings
+    :add-heading:
 
 .. raw:: html
 

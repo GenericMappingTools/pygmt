@@ -78,7 +78,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -159,7 +159,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Gallery</a></li>
       <li class="breadcrumb-item active">3-D Scatter plots</li>
     <li class="source-link">
@@ -186,7 +186,7 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-3d-plots-scatter3d-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-3d-plots-scatter3d-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="d-scatter-plots">
@@ -201,13 +201,7 @@ using <a class="reference internal" href="../../api/generated/pygmt.info.html#py
 minimum to something like <code class="docutils literal notranslate"><span class="pre">frame=[&quot;WsNeZ&quot;,</span> <span class="pre">&quot;zaf&quot;]</span></code>. Use <code class="docutils literal notranslate"><span class="pre">perspective</span></code> to
 control the azimuth and elevation angle of the view, and <code class="docutils literal notranslate"><span class="pre">zscale</span></code> to adjust
 the vertical exaggeration factor.</p>
-<img src="../../_images/sphx_glr_scatter3d_001.png" srcset="../../_images/sphx_glr_scatter3d_001.png" alt="scatter3d" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;IPython.core.display.Image object&gt;
-</pre></div>
-</div>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<img src="../../_images/sphx_glr_scatter3d_001.png" srcset="../../_images/sphx_glr_scatter3d_001.png" alt="scatter3d" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
 <span class="c1"># Load sample iris data</span>
@@ -254,15 +248,15 @@ the vertical exaggeration factor.</p>
 <span class="p">)</span>
 
 <a href="../../api/generated/pygmt.Figure.plot3d.html#pygmt.Figure.plot3d" title="pygmt.Figure.plot3d" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot3d</span></a><span class="p">(</span>
-    <span class="c1"># Use petal width, sepal length and petal length as x, y and z data input,</span>
-    <span class="c1"># respectively</span>
+    <span class="c1"># Use petal width, sepal length, and petal length as x, y, and z</span>
+    <span class="c1"># data input, respectively</span>
     <span class="n">x</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">petal_width</span></a><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">sepal_length</span></a><span class="p">,</span>
     <span class="n">z</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">petal_length</span></a><span class="p">,</span>
     <span class="c1"># Vary each symbol size according to another feature (sepal width, scaled</span>
     <span class="c1"># by 0.1)</span>
     <span class="n">size</span><span class="o">=</span><span class="mf">0.1</span> <span class="o">*</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">sepal_width</span></a><span class="p">,</span>
-    <span class="c1"># Use 3-D cubes (&quot;u&quot;) as symbols, with size in centimeter units (&quot;c&quot;)</span>
+    <span class="c1"># Use 3-D cubes (&quot;u&quot;) as symbols with size in centimeters (&quot;c&quot;)</span>
     <span class="n">style</span><span class="o">=</span><span class="s2">&quot;uc&quot;</span><span class="p">,</span>
     <span class="c1"># Points colored by categorical number code</span>
     <span class="n">fill</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
@@ -291,7 +285,7 @@ the vertical exaggeration factor.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.093 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.994 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-3d-plots-scatter3d-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/d99c122b2fad1384ab5bf5be5d8c62d5/scatter3d.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">scatter3d.py</span></code></a></p>
@@ -315,10 +309,10 @@ the vertical exaggeration factor.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

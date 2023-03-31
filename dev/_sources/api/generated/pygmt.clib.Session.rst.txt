@@ -5,6 +5,22 @@ pygmt.clib.Session
 
 .. autoclass:: Session
 
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    Session.info
+
+.. autoproperty::
+    Session.required_version
+
+.. autoproperty::
+    Session.session_pointer
+
+
+
+
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -76,7 +92,9 @@ pygmt.clib.Session
     
     
 
-.. include:: backreferences/pygmt.clib.Session.examples
+
+.. minigallery:: pygmt.clib.Session
+    :add-heading:
 
 .. raw:: html
 

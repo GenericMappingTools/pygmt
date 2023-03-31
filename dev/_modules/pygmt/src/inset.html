@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.inset</li>
@@ -179,7 +179,7 @@
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">D</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">inset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create an inset figure to be placed within a larger figure.</span>
 
 <span class="sd">    This method sets the position, frame, and margins for a smaller figure</span>
@@ -204,10 +204,10 @@
 
 <span class="sd">        Append **g**\ *lon*/*lat* for map (user) coordinates,</span>
 <span class="sd">        **j**\ *code* or **J**\ *code* for setting the *refpoint* via a</span>
-<span class="sd">        2-char justification code that refers to the (invisible)</span>
+<span class="sd">        2-character justification code that refers to the (invisible)</span>
 <span class="sd">        projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)</span>
 <span class="sd">        bounding box coordinates, or **x**\ *x*/*y* for plot</span>
-<span class="sd">        coordinates (inches, cm, points, append unit).</span>
+<span class="sd">        coordinates (inches, centimeters, points, append unit).</span>
 <span class="sd">        All but **x** requires both ``region`` and ``projection`` to be</span>
 <span class="sd">        specified. You can offset the reference point via</span>
 <span class="sd">        **+o**\ *dx*/*dy* in the direction implied by *code* or</span>
@@ -218,13 +218,13 @@
 <span class="sd">        coordinates instead are the lower left and upper right corners of</span>
 <span class="sd">        the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding</span>
 <span class="sd">        rectangle in projected coordinates and optionally</span>
-<span class="sd">        append **+u**\ *unit* [Default coordinate unit is meter (e)].</span>
+<span class="sd">        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].</span>
 
 <span class="sd">        Append **+w**\ *width*\ [/*height*] of bounding rectangle or box</span>
-<span class="sd">        in plot coordinates (inches, cm, etc.). By default, the anchor</span>
-<span class="sd">        point on the scale is assumed to be the bottom left corner (**BL**),</span>
-<span class="sd">        but this can be changed by appending **+j** followed by a 2-char</span>
-<span class="sd">        justification code *justify*.</span>
+<span class="sd">        in plot coordinates (inches, centimeters, etc.). By default, the</span>
+<span class="sd">        anchor point on the scale is assumed to be the bottom left corner</span>
+<span class="sd">        (**BL**), but this can be changed by appending **+j** followed by</span>
+<span class="sd">        a 2-character justification code *justify*.</span>
 <span class="sd">        **Note**: If **j** is used then *justify* defaults to the same</span>
 <span class="sd">        as *refpoint*, if **J** is used then *justify* defaults to the</span>
 <span class="sd">        mirror opposite of *refpoint*. Specify inset box attributes via</span>
@@ -233,8 +233,7 @@
 <span class="sd">        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\</span>
 <span class="sd">        *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\</span>
 <span class="sd">        [[*dx*/*dy*/][*shade*]]].</span>
-
-<span class="sd">        If passed ``True``, this draws a rectangular box around the map</span>
+<span class="sd">        If set to ``True``, draw a rectangular box around the map</span>
 <span class="sd">        inset using the default pen; specify a different pen</span>
 <span class="sd">        with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box</span>
 <span class="sd">        [Default is no fill].</span>
@@ -248,9 +247,9 @@
 <span class="sd">        rectangular borders instead, with a 6p corner radius. You</span>
 <span class="sd">        can override this radius by appending another value. Append</span>
 <span class="sd">        **+s** to draw an offset background shaded region. Here, *dx*/*dy*</span>
-<span class="sd">        indicates the shift relative to the foreground frame</span>
-<span class="sd">        [4p/-4p] and ``shade`` sets the fill style to use for</span>
-<span class="sd">        shading [Default is gray50].</span>
+<span class="sd">        indicates the shift relative to the foreground frame [Default is</span>
+<span class="sd">        ``&quot;4p/-4p&quot;``] and ``shade`` sets the fill style to use for</span>
+<span class="sd">        shading [Default is ``&quot;gray50&quot;``].</span>
 <span class="sd">    margin : int or str or list</span>
 <span class="sd">        This is clearance that is added around the inside of the inset.</span>
 <span class="sd">        Plotting will take place within the inner region only. The margins</span>
@@ -261,8 +260,8 @@
 <span class="sd">        a string with the values separated by forward</span>
 <span class="sd">        slashes [Default is no margins].</span>
 <span class="sd">    no_clip : bool</span>
-<span class="sd">        Do NOT clip features extruding outside map inset boundaries [Default</span>
-<span class="sd">        is clip].</span>
+<span class="sd">        Do **not** clip features extruding outside the inset frame</span>
+<span class="sd">        boundaries [Default is ``False``].</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {verbose}</span>
@@ -288,8 +287,7 @@
 <span class="sd">    ...</span>
 <span class="sd">    &gt;&gt;&gt; # Map elements outside the &quot;with&quot; block are plotted in the main figure</span>
 <span class="sd">    &gt;&gt;&gt; fig.logo(position=&quot;jBR+o0.2c+w3c&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; fig.show()  # doctest: +SKIP</span>
-<span class="sd">    &lt;IPython.core.display.Image object&gt;</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
@@ -309,10 +307,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

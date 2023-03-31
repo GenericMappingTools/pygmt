@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_tutorials_advanced_insets.py>`
+        :ref:`Go to the end <sphx_glr_download_tutorials_advanced_insets.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -72,12 +72,6 @@ US state of Massachusetts.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -122,12 +116,6 @@ sets the fill to light red.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
@@ -167,12 +155,6 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
    :srcset: /tutorials/advanced/images/sphx_glr_insets_003.png
    :class: sphx-glr-single-img
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
 
 
 
@@ -227,19 +209,13 @@ location relative to other states.
    :class: sphx-glr-single-img
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    <IPython.core.display.Image object>
-
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.725 seconds)
+   **Total running time of the script:** ( 0 minutes  2.696 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_insets.py:
@@ -247,6 +223,8 @@ location relative to other states.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

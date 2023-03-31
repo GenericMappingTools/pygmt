@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.src.histogram</li>
@@ -178,7 +178,6 @@
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;stairs&quot;</span><span class="p">,</span>
     <span class="n">T</span><span class="o">=</span><span class="s2">&quot;series&quot;</span><span class="p">,</span>
-    <span class="n">U</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">W</span><span class="o">=</span><span class="s2">&quot;pen&quot;</span><span class="p">,</span>
     <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;histtype&quot;</span><span class="p">,</span>
@@ -197,9 +196,8 @@
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span>
 <span class="p">)</span>
 <span class="k">def</span> <span class="nf">histogram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots a histogram, and can read data from a file or list, array, or</span>
-<span class="sd">    dataframe.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot Cartesian histograms.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`histogram.html`</span>
 
@@ -214,21 +212,22 @@
 <span class="sd">    {region}</span>
 <span class="sd">    {frame}</span>
 <span class="sd">    {cmap}</span>
-<span class="sd">    {fill}</span>
+<span class="sd">    fill : str</span>
+<span class="sd">         Set color or pattern for filling bars [Default is no fill].</span>
 <span class="sd">    {pen}</span>
 <span class="sd">    {panel}</span>
 <span class="sd">    annotate : bool or str</span>
 <span class="sd">        [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].</span>
-<span class="sd">        Annotate each bar with the count it represents.  Append any of the</span>
+<span class="sd">        Annotate each bar with the count it represents. Append any of the</span>
 <span class="sd">        following modifiers: Use **+b** to place the labels beneath the bars</span>
 <span class="sd">        instead of above; use **+f** to change to another font than the default</span>
 <span class="sd">        annotation font; use **+o** to change the offset between bar and</span>
-<span class="sd">        label [6p]; use **+r** to rotate the labels from horizontal to</span>
-<span class="sd">        vertical.</span>
+<span class="sd">        label [Default is ``&quot;6p&quot;``]; use **+r** to rotate the labels from</span>
+<span class="sd">        horizontal to vertical.</span>
 <span class="sd">    barwidth : int or float or str</span>
 <span class="sd">        *width*\ [**+o**\ *offset*].</span>
 <span class="sd">        Use an alternative histogram bar width than the default set via</span>
-<span class="sd">        ``series``, and optionally shift all bars by an *offset*.  Here</span>
+<span class="sd">        ``series``, and optionally shift all bars by an *offset*. Here</span>
 <span class="sd">        *width* is either an alternative width in data units, or the user may</span>
 <span class="sd">        append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a</span>
 <span class="sd">        fixed dimension instead. Optionally, all bins may be shifted along the</span>
@@ -239,7 +238,7 @@
 <span class="sd">    distribution : bool or int or float or str</span>
 <span class="sd">        [*mode*][**+p**\ *pen*].</span>
 <span class="sd">        Draw the equivalent normal distribution; append desired</span>
-<span class="sd">        *pen* [Default is 0.25p,black].</span>
+<span class="sd">        *pen* [Default is ``&quot;0.25p,black,solid&quot;``].</span>
 <span class="sd">        The *mode* selects which central location and scale to use:</span>
 
 <span class="sd">        * 0 = mean and standard deviation [Default];</span>
@@ -252,13 +251,13 @@
 <span class="sd">    extreme : str</span>
 <span class="sd">        **l**\|\ **h**\|\ **b**.</span>
 <span class="sd">        The modifiers specify the handling of extreme values that fall outside</span>
-<span class="sd">        the range set by ``series``.  By default these values are ignored.</span>
+<span class="sd">        the range set by ``series``. By default, these values are ignored.</span>
 <span class="sd">        Append **b** to let these values be included in the first or last</span>
 <span class="sd">        bins. To only include extreme values below first bin into the first</span>
 <span class="sd">        bin, use **l**, and to only include extreme values above the last bin</span>
 <span class="sd">        into that last bin, use **h**.</span>
 <span class="sd">    stairs : bool</span>
-<span class="sd">        Draws a stairs-step diagram which does not include the internal bars</span>
+<span class="sd">        Draw a stairs-step diagram which does not include the internal bars</span>
 <span class="sd">        of the default histogram.</span>
 <span class="sd">    horizontal : bool</span>
 <span class="sd">        Plot the histogram using horizontal bars instead of the</span>
@@ -279,7 +278,6 @@
 
 <span class="sd">        To use weights provided as a second data column instead of pure counts,</span>
 <span class="sd">        append **+w**.</span>
-<span class="sd">    {timestamp}</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {binary}</span>
 <span class="sd">    {nodata}</span>
@@ -308,10 +306,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

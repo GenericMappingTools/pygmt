@@ -5,7 +5,8 @@ pygmt.clib.Session.create
 
 .. automethod:: Session.create
 
-.. include:: backreferences/pygmt.clib.Session.create.examples
+.. minigallery:: pygmt.clib.Session.create
+    :add-heading:
 
 .. raw:: html
 

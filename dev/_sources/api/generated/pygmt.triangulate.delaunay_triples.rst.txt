@@ -5,7 +5,8 @@ pygmt.triangulate.delaunay\_triples
 
 .. automethod:: triangulate.delaunay_triples
 
-.. include:: backreferences/pygmt.triangulate.delaunay_triples.examples
+.. minigallery:: pygmt.triangulate.delaunay_triples
+    :add-heading:
 
 .. raw:: html
 

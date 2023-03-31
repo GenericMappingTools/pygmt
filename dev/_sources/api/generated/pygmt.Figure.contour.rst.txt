@@ -5,7 +5,8 @@ pygmt.Figure.contour
 
 .. automethod:: Figure.contour
 
-.. include:: backreferences/pygmt.Figure.contour.examples
+.. minigallery:: pygmt.Figure.contour
+    :add-heading:
 
 .. raw:: html
 

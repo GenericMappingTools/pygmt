@@ -74,7 +74,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -140,7 +140,7 @@
           
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
           <li class="breadcrumb-item"><a href="../pygmt.html">pygmt</a></li>
       <li class="breadcrumb-item active">pygmt.figure</li>
@@ -165,7 +165,7 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">IPython</span>
-<span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">IPython</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># pylint: disable=invalid-name</span>
 
 
@@ -203,7 +203,7 @@
 
 
 <div class="viewcode-block" id="Figure"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.html#pygmt.Figure">[docs]</a><span class="k">class</span> <span class="nc">Figure</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A GMT figure to handle all plotting.</span>
 
 <span class="sd">    Use the plotting methods of this class to add elements to the figure.  You</span>
@@ -250,7 +250,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_activate_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Start and/or activate the current figure.</span>
 
 <span class="sd">        All plotting commands run afterward will append to this figure.</span>
@@ -266,7 +266,7 @@
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call the ``figure`` module before each plotting command to ensure we&#39;re</span>
 <span class="sd">        plotting to this particular figure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -275,7 +275,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">region</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The geographic WESN bounding box for the current figure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
@@ -298,7 +298,7 @@
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">psconvert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert [E]PS file(s) to other formats.</span>
 
 <span class="sd">        Converts one or more PostScript files to other formats (BMP, EPS, JPEG,</span>
@@ -366,10 +366,10 @@
 <span class="sd">        anti_aliasing : str</span>
 <span class="sd">            [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].</span>
 <span class="sd">            Set the anti-aliasing options for **g**\ raphics or **t**\ ext.</span>
-<span class="sd">            Append the size of the subsample box (1, 2, or 4) [4]. [Default is</span>
-<span class="sd">            no anti-aliasing (same as bits = 1)].</span>
+<span class="sd">            Append the size of the subsample box (1, 2, or 4) [Default is</span>
+<span class="sd">            ``&quot;4&quot;``]. [Default is no anti-aliasing (same as bits = 1).]</span>
 <span class="sd">        fmt : str</span>
-<span class="sd">            Sets the output format, where **b** means BMP, **e** means EPS,</span>
+<span class="sd">            Set the output format, where **b** means BMP, **e** means EPS,</span>
 <span class="sd">            **E** means EPS with PageSize command, **f** means PDF, **F** means</span>
 <span class="sd">            multi-page PDF, **j** means JPEG, **g** means PNG, **G** means</span>
 <span class="sd">            transparent PNG (untouched regions are transparent), **m** means</span>
@@ -411,7 +411,7 @@
 <div class="viewcode-block" id="Figure.savefig"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig">[docs]</a>    <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save the figure to a file.</span>
 
 <span class="sd">        This method implements a matplotlib-like interface for</span>
@@ -430,28 +430,36 @@
 <span class="sd">            The desired figure file name, including the extension. See the list</span>
 <span class="sd">            of supported formats and their extensions above.</span>
 <span class="sd">        transparent : bool</span>
-<span class="sd">            If True, will use a transparent background for the figure. Only</span>
-<span class="sd">            valid for PNG format.</span>
+<span class="sd">            If ``True``, will use a transparent background for the figure.</span>
+<span class="sd">            Only valid for PNG format.</span>
 <span class="sd">        crop : bool</span>
-<span class="sd">            If True, will crop the figure canvas (page) to the plot area.</span>
+<span class="sd">            If ``True``, will crop the figure canvas (page) to the plot area.</span>
 <span class="sd">        anti_alias: bool</span>
-<span class="sd">            If True, will use anti aliasing when creating raster images (PNG,</span>
-<span class="sd">            JPG, TIFF). More specifically, it passes arguments ``t2``</span>
+<span class="sd">            If ``True``, will use anti-aliasing when creating raster images</span>
+<span class="sd">            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``</span>
 <span class="sd">            and ``g2`` to the ``anti_aliasing`` parameter of</span>
 <span class="sd">            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector</span>
 <span class="sd">            graphics.</span>
 <span class="sd">        show: bool</span>
-<span class="sd">            If True, will open the figure in an external viewer.</span>
+<span class="sd">            If ``True``, will open the figure in an external viewer.</span>
 <span class="sd">        dpi : int</span>
-<span class="sd">            Set raster resolution in dpi. Default is 720 for PDF, 300 for</span>
-<span class="sd">            others.</span>
+<span class="sd">            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``</span>
+<span class="sd">            for others].</span>
 <span class="sd">        **kwargs : dict</span>
 <span class="sd">            Additional keyword arguments passed to</span>
 <span class="sd">            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,</span>
 <span class="sd">            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># All supported formats</span>
-        <span class="n">fmts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">png</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">pdf</span><span class="o">=</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">jpg</span><span class="o">=</span><span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="n">bmp</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">tif</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">kml</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+        <span class="n">fmts</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;png&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;jpg&quot;</span><span class="p">:</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bmp&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;eps&quot;</span><span class="p">:</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tif&quot;</span><span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kml&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
 
         <span class="n">prefix</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Remove the .</span>
@@ -480,7 +488,7 @@
             <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Figure.show"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Display a preview of the figure.</span>
 
 <span class="sd">        Inserts the preview in the Jupyter notebook output if available,</span>
@@ -488,7 +496,7 @@
 <span class="sd">        (falls back to the default web browser).</span>
 
 <span class="sd">        :func:`pygmt.set_display` can select the default display method</span>
-<span class="sd">        (**notebook**, **external**, or **none**).</span>
+<span class="sd">        (``&quot;notebook&quot;``, ``&quot;external&quot;``, ``&quot;none&quot;`` or ``None``).</span>
 
 <span class="sd">        The ``method`` parameter can also override the default display method</span>
 <span class="sd">        for the current figure. Parameters ``dpi`` and ``width`` can be used</span>
@@ -511,12 +519,17 @@
 <span class="sd">            The image resolution (dots per inch) in Jupyter notebooks.</span>
 <span class="sd">        width : int</span>
 <span class="sd">            The image width (in pixels) in Jupyter notebooks.</span>
-<span class="sd">        method : str</span>
-<span class="sd">            How the current figure will be displayed. Options are</span>
+<span class="sd">        method : str or None</span>
+<span class="sd">            How the current figure will be displayed. Choose from:</span>
 
-<span class="sd">            - **external**: PDF preview in an external program [Default]</span>
-<span class="sd">            - **notebook**: PNG preview [Default in Jupyter notebooks]</span>
-<span class="sd">            - **none**: Disable image preview</span>
+<span class="sd">            - ``&quot;external&quot;``: External PDF preview using the default PDF viewer</span>
+<span class="sd">            - ``&quot;notebook&quot;``: Inline PNG preview in the current notebook</span>
+<span class="sd">            - ``&quot;none&quot;``: Disable image preview</span>
+<span class="sd">            - ``None``: Reset to the default display method</span>
+
+<span class="sd">            The default display method is ``&quot;external&quot;`` in Python consoles or</span>
+<span class="sd">            ``&quot;notebook&quot;`` in Jupyter notebooks, but can be changed by</span>
+<span class="sd">            :func:`pygmt.set_display`.</span>
 <span class="sd">        waiting : float</span>
 <span class="sd">            Suspend the execution of the current process for a given number of</span>
 <span class="sd">            seconds after launching an external viewer.</span>
@@ -542,7 +555,7 @@
                 <span class="p">)</span>
             <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;notebook&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">IPython</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
                     <span class="p">(</span>
@@ -563,7 +576,7 @@
             <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="n">waiting</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Figure.shift_origin"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.shift_origin.html#pygmt.Figure.shift_origin">[docs]</a>    <span class="k">def</span> <span class="nf">shift_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xshift</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yshift</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Shift plot origin in x and/or y directions.</span>
 
 <span class="sd">        This method shifts the plot origin relative to the current origin</span>
@@ -597,7 +610,7 @@
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">args</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">dpi</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Grab a preview of the figure.</span>
 
 <span class="sd">        Parameters</span>
@@ -626,7 +639,7 @@
         <span class="k">return</span> <span class="n">fname</span>
 
     <span class="k">def</span> <span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Show a PNG preview if the object is returned in an interactive shell.</span>
 
 <span class="sd">        For the Jupyter notebook or IPython Qt console.</span>
@@ -635,7 +648,7 @@
         <span class="k">return</span> <span class="n">png</span>
 
     <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Show the PNG image embedded in HTML with a controlled width.</span>
 
 <span class="sd">        Looks better than the raw PNG.</span>
@@ -667,23 +680,50 @@
         <span class="n">subplot</span><span class="p">,</span>
         <span class="n">ternary</span><span class="p">,</span>
         <span class="n">text</span><span class="p">,</span>
+        <span class="n">tilemap</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="p">,</span>
         <span class="n">velo</span><span class="p">,</span>
         <span class="n">wiggle</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="set_display"><a class="viewcode-back" href="../../api/generated/pygmt.set_display.html#pygmt.set_display">[docs]</a><span class="k">def</span> <span class="nf">set_display</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Set the display method.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the display method when calling :meth:`pygmt.Figure.show`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    method : str or None</span>
-<span class="sd">        The method to display an image. Choose from:</span>
+<span class="sd">        The method to display an image preview. Choose from:</span>
 
-<span class="sd">        - **external**: PDF preview in an external program [Default]</span>
-<span class="sd">        - **notebook**: PNG preview [Default in Jupyter notebooks]</span>
-<span class="sd">        - **none**: Disable image preview</span>
+<span class="sd">        - ``&quot;external&quot;``: External PDF preview using the default PDF viewer</span>
+<span class="sd">        - ``&quot;notebook&quot;``: Inline PNG preview in the current notebook</span>
+<span class="sd">        - ``&quot;none&quot;``: Disable image preview</span>
+<span class="sd">        - ``None``: Reset to the default display method</span>
+
+<span class="sd">        The default display method is ``&quot;external&quot;`` in Python consoles or</span>
+<span class="sd">        ``&quot;notebook&quot;`` in Jupyter notebooks.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Let&#39;s assume that you&#39;re using a Jupyter Notebook:</span>
+
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 10, 0, 10], projection=&quot;X10c/5c&quot;, frame=True)</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()  # will display a PNG image in the current notebook</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # set the display method to &quot;external&quot;</span>
+<span class="sd">    &gt;&gt;&gt; pygmt.set_display(method=&quot;external&quot;)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()  # will display a PDF image using the default PDF viewer</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # set the display method to &quot;none&quot;</span>
+<span class="sd">    &gt;&gt;&gt; pygmt.set_display(method=&quot;none&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()  # will not show any image</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # reset to the default display method</span>
+<span class="sd">    &gt;&gt;&gt; pygmt.set_display(method=None)</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()  # again, will show a PNG image in the current notebook</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
         <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
@@ -691,7 +731,7 @@
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
             <span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Invalid display mode &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39; or &#39;none&#39;.&quot;</span>
+                <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, &#39;none&#39; or None.&quot;</span>
             <span class="p">)</span>
         <span class="p">)</span></div>
 </pre></div>
@@ -704,10 +744,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2022, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1bf0c2b2">1bf0c2b2</a></code>.
+    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Dec 29, 2022.
+      <span class="lastupdated">Last updated on Mar 31, 2023.
       </span></p>
   </div>
 

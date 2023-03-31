@@ -5,6 +5,9 @@ pygmt.triangulate
 
 .. autoclass:: triangulate
 
+
+
+
 .. rubric:: Methods Summary
 
 .. autosummary::
@@ -20,7 +23,9 @@ pygmt.triangulate
     
     
 
-.. include:: backreferences/pygmt.triangulate.examples
+
+.. minigallery:: pygmt.triangulate
+    :add-heading:
 
 .. raw:: html
 
