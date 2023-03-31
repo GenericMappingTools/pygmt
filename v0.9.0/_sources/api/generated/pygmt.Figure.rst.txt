@@ -1,0 +1,147 @@
+pygmt.Figure
+============
+
+.. currentmodule:: pygmt
+
+.. autoclass:: Figure
+
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    Figure.region
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    Figure.basemap
+    
+    
+    
+    Figure.coast
+    
+    
+    
+    Figure.colorbar
+    
+    
+    
+    Figure.contour
+    
+    
+    
+    Figure.grdcontour
+    
+    
+    
+    Figure.grdimage
+    
+    
+    
+    Figure.grdview
+    
+    
+    
+    Figure.histogram
+    
+    
+    
+    Figure.image
+    
+    
+    
+    Figure.inset
+    
+    
+    
+    Figure.legend
+    
+    
+    
+    Figure.logo
+    
+    
+    
+    Figure.meca
+    
+    
+    
+    Figure.plot
+    
+    
+    
+    Figure.plot3d
+    
+    
+    
+    Figure.psconvert
+    
+    
+    
+    Figure.rose
+    
+    
+    
+    Figure.savefig
+    
+    
+    
+    Figure.set_panel
+    
+    
+    
+    Figure.shift_origin
+    
+    
+    
+    Figure.show
+    
+    
+    
+    Figure.solar
+    
+    
+    
+    Figure.subplot
+    
+    
+    
+    Figure.ternary
+    
+    
+    
+    Figure.text
+    
+    
+    
+    Figure.tilemap
+    
+    
+    
+    Figure.timestamp
+    
+    
+    
+    Figure.velo
+    
+    
+    
+    Figure.wiggle
+    
+    
+
+
+.. minigallery:: pygmt.Figure
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
