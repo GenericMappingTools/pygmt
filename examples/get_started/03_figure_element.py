@@ -35,8 +35,8 @@ fig.basemap(
 fig.plot(x=x, y=y_1, style="t0.3c", label="fig.plot (style)")
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
 
-mainexplain = {"font" : "12p,2,darkblue", "justify" : "TC", "no_clip" : True}
-minorexplain = {"font" : "10p,8", "justify" : "TC", "no_clip" : True}
+mainexplain = {"font": "12p,2,darkblue", "justify": "TC", "no_clip": True}
+minorexplain = {"font": "10p,8", "justify": "TC", "no_clip": True}
 # ============Figure
 fig.text(x=12, y=22, text="Figure", **mainexplain)
 fig.text(x=12, y=20.5, text="pygmt.Figure()", **minorexplain)
@@ -56,7 +56,7 @@ fig.text(x=0, y=23.5, text="Annonate", **mainexplain)
 fig.text(x=0, y=22, text='frame="ya5"', **minorexplain)
 # ============x-minorticks
 fig.plot(x=1, y=-0.2, style="c0.7c", pen="2p,darkblue", no_clip=True)
-fig.text(x=1, y=-1.4, text="Frame", font="12p,2,darkblue", justify="TC", no_clip=True)
+fig.text(x=1, y=-1.4, text="Frame", **mainexplain)
 fig.text(x=1, y=-2.6, text='frame="xf1"', **minorexplain)
 # ============y-minorticks
 fig.plot(x=0, y=2, style="c0.7c", pen="2p,darkblue", no_clip=True)
