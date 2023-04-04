@@ -88,13 +88,12 @@ jobs:
           use-mamba: true
 
       # Install GMT and other required dependencies from conda-forge
-      # TODO: Remove funcy pin after next DVC release
       - name: Install dependencies
         run: |
           mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
                         pandas xarray netCDF4 packaging \
                         ${{ matrix.optional-packages }} \
-                        build dvc 'funcy=1.18' make 'pytest>=6.0' \
+                        build dvc make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
