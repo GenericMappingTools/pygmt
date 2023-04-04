@@ -7,9 +7,9 @@ The figure shows the naming of figure elements in PyGMT.
   figure must start with the creation of a :meth:`pygmt.Figure()` instance
 - ``frame``: setting plot or map boundaries (**WSNE**, **wsne**, or
   **lbtr**), adding annotations, ticks, gridlines (**afg**), axis labels
-   (**+l**), and title (**+t**), e.g., in :meth:`pygmt.Figure.basemap`.
-  Detailed examples can be found at
-  `frame and axes attributes<https://www.pygmt.org/latest/tutorials/basics/frames.html>`_.
+  (**+l**), and title (**+t**), e.g., in :meth:`pygmt.Figure.basemap`.
+  Detailed examples can be found at `frame and axes attributes<https://www.
+  pygmt.org/latest/tutorials/basics/frames.html>`_.
 - :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen``
   or ``style`` parameters, respectively
 - :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
