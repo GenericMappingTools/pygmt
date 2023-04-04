@@ -84,8 +84,8 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     Raises
     ------
-    ModuleNotFoundError
-        If ``contextily`` is not installed. Follow
+    ImportError
+        If ``contextily`` is not installed or can't be imported. Follow
         :doc:`install instructions for contextily <contextily:index>`, (e.g.
         via ``pip install contextily``) before using this function.
 
@@ -103,16 +103,16 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords
     Coordinates:
-      * band     (band) uint8 0 1 2
-      * y        (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
-      * x        (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+      * band         (band) uint8 0 1 2
+      * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...
+      * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
     """
     # pylint: disable=too-many-locals
     if contextily is None:
-        raise ModuleNotFoundError(
+        raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `pip install contextily` or "
-            "`conda install -c conda-forge contextily` "
+            "`mamba install -c conda-forge contextily` "
             "to install the package."
         )
 
@@ -147,6 +147,6 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
 
     # If rioxarray is installed, set the coordinate reference system
     if hasattr(dataarray, "rio"):
-        dataarray = dataarray.rio.write_crs(input_crs="EPSG:3857")
+        dataarray = dataarray.rio.set_crs(input_crs="EPSG:3857")
 
     return dataarray

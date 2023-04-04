@@ -118,11 +118,13 @@ There are 11 configuration files located in `.github/workflows`:
    If new remote files are needed urgently, maintainers can manually uncomment
    the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
 
-6. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
+6. `publish-to-pypi.yml` (Publish wheels to TestPyPI and PyPI)
 
-   This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
-   Archives will be pushed to TestPyPI on every commit to the *main* branch
-   and tagged releases, and to PyPI for tagged releases only.
+   This workflow is ran to publish wheels to TestPyPI (for testing only) and
+   PyPI. Archives will be pushed to TestPyPI on every commit to the *main*
+   branch and tagged releases, and to PyPI for tagged releases only. Note that
+   authentication to TestPyPI/PyPI is done via OpenID Connect, see also
+   https://github.com/pypa/gh-action-pypi-publish/tree/release/v1#publishing-with-openid-connect
 
 7. `release-drafter.yml` (Drafts the next release notes)
 

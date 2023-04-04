@@ -47,7 +47,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: 'contextily geopandas ipython'
+            optional-packages: 'contextily geopandas ipython rioxarray'
     timeout-minutes: 30
     defaults:
       run:
@@ -68,7 +68,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.5.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0

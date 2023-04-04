@@ -1,0 +1,4 @@
+outs:
+- md5: 1b4ae53658eec125ebf8ab4eac78d729
+  size: 8733
+  path: test_basemap_subplot.png
