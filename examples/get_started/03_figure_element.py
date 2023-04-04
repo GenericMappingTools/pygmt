@@ -1,21 +1,21 @@
 """
 3. Figure elements
-===============
+==================
 The figure shows the naming of figure elements in PyGMT.
 
-- :meth:`pygmt.Figure`: having a number of plotting methods. Every plot or map
-  must start with the creation of a :meth:`pygmt.Figure` instance
-- ``frame``: setting map boundary (**WSNE** or **wsne**), annonate and grid
-  (**afg**), axis label (**+l**) and title (**+t**) in
-  :meth:`pygmt.Figure.basemap`. The detail examples can be found at
-  `frame and axes attributes<https://www.pygmt.org/latest/tutorials/basics/
-  frames.html>`_.
+- :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
+  figure must start with the creation of a :meth:`pygmt.Figure()` instance
+- ``frame``: setting plot or map boundaries (**WSNE**, **wsne**, or
+  **lbtr**), adding annotations, ticks, gridlines (**afg**), axis labels
+   (**+l**), and title (**+t**), e.g., in :meth:`pygmt.Figure.basemap`.
+  Detailed examples can be found at
+  `frame and axes attributes<https://www.pygmt.org/latest/tutorials/basics/frames.html>`_.
 - :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen``
   or ``style`` parameters, respectively
-- :meth:`pygmt.Figure.text`: plottong text strings with ``font`` parameter
-  which adjusts the fontsize, fontstyle and color.
+- :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
+  parameter adjusts fontsize, fontstyle, and color.
 - :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while
-  the ``label`` given in :meth:`pygmt.Figure.plot`
+  the ``label`` is given in :meth:`pygmt.Figure.plot`
 - :meth:`pygmt.Figure.show`: previewing the figure you plotted
 """
 import pygmt
