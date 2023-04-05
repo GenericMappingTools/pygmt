@@ -280,7 +280,7 @@ def array_to_datetime(array):
     >>> # numpy.datetime64 array
     >>> x = np.array(
     ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
-    ...     dtype="datetime64",
+    ...     dtype="datetime64[ns]",
     ... )
     >>> array_to_datetime(x)
     DatetimeIndex(['2010-06-01 00:00:00', '2011-06-01 12:00:00',
