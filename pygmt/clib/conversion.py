@@ -251,7 +251,7 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
 
 def array_to_datetime(array):
     """
-    Convert n 1-D datetime array from various types into numpy.datetime64.
+    Convert a 1-D datetime array from various types into numpy.datetime64.
 
     If the input array is not in legal datetime formats, raise a ValueError
     exception.
