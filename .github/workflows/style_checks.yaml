@@ -16,7 +16,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
 
       # Setup Python
       - name: Set up Python
@@ -26,7 +26,7 @@ jobs:
 
       - name: Install packages
         run: |
-          pip install black blackdoc docformatter flakeheaven pylint isort
+          pip install black blackdoc docformatter==1.5.1 flakeheaven pylint isort
           sudo apt-get install dos2unix
 
       - name: Formatting check (black, blackdoc, docformatter, flakeheaven and isort)

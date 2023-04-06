@@ -125,6 +125,13 @@ fig.plot(
 fig.show()
 
 ###############################################################################
+#
+# PyGMT doesn't recognize non-ISO datetime strings like "Jun 05, 2018". If your
+# data contain non-ISO datetime strings, you can convert them to a recognized
+# format using :func:`pandas.to_datetime` and then pass it to PyGMT.
+#
+
+###############################################################################
 # Mixing and matching Python ``datetime`` and ISO dates
 # -----------------------------------------------------
 #

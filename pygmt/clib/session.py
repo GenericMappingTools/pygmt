@@ -745,7 +745,7 @@ class Session:
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = array_to_datetime(array)
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
