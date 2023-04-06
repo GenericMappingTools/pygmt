@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -16,7 +15,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("incols", "use_word", "v0.8.0", remove_version="v0.10.0")
 @use_alias(
     R="region",
     J="projection",
