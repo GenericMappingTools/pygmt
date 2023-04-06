@@ -65,7 +65,7 @@ jobs:
       - name: Install dependencies
         run: |
           mamba install gmt=${{ matrix.gmt_version }} numpy \
-                        pandas xarray netCDF4 packaging \
+                        'pandas<2.0' xarray netCDF4 packaging \
                         contextily geopandas ipython rioxarray \
                         build dvc make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery

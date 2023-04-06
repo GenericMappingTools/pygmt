@@ -100,7 +100,7 @@ jobs:
                         ninja cmake libblas libcblas liblapack fftw libgdal \
                         geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           pip install --pre --prefer-binary \
-                        numpy pandas xarray netCDF4 packaging \
+                        numpy 'pandas<2.0' xarray netCDF4 packaging \
                         build contextily dvc ipython rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery

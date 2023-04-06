@@ -7,7 +7,7 @@ dependencies:
     - pip
     - gmt=6.4.0
     - numpy>=1.21
-    - pandas
+    - pandas<2.0
     - xarray
     - netCDF4
     - packaging
