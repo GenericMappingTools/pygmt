@@ -4,7 +4,6 @@ Functions to convert data types into ctypes friendly formats.
 import warnings
 
 import numpy as np
-import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
 
 
@@ -252,10 +251,9 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
 
 def array_to_datetime(array):
     """
-    Convert an 1-D datetime array from various types into pandas.DatetimeIndex
-    (i.e., numpy.datetime64).
+    Convert a 1-D datetime array from various types into numpy.datetime64.
 
-    If the input array is not in legal datetime formats, raise a "ParseError"
+    If the input array is not in legal datetime formats, raise a ValueError
     exception.
 
     Parameters
@@ -272,7 +270,12 @@ def array_to_datetime(array):
 
     Returns
     -------
-    array : 1-D datetime array in pandas.DatetimeIndex (i.e., numpy.datetime64)
+    array : 1-D datetime array in numpy.datetime64
+
+    Raises
+    ------
+    ValueError
+        If the datetime string is invalid.
 
     Examples
     --------
@@ -280,24 +283,24 @@ def array_to_datetime(array):
     >>> # numpy.datetime64 array
     >>> x = np.array(
     ...     ["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"],
-    ...     dtype="datetime64",
+    ...     dtype="datetime64[ns]",
     ... )
     >>> array_to_datetime(x)
-    DatetimeIndex(['2010-06-01 00:00:00', '2011-06-01 12:00:00',
-                   '2012-01-01 12:34:56'],
-                  dtype='datetime64[ns]', freq=None)
+    array(['2010-06-01T00:00:00.000000000', '2011-06-01T12:00:00.000000000',
+           '2012-01-01T12:34:56.000000000'], dtype='datetime64[ns]')
 
     >>> # pandas.DateTimeIndex array
+    >>> import pandas as pd
     >>> x = pd.date_range("2013", freq="YS", periods=3)
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2013-01-01', '2014-01-01', '2015-01-01'],
-                  dtype='datetime64[ns]', freq='AS-JAN')
+    >>> array_to_datetime(x)
+    array(['2013-01-01T00:00:00.000000000', '2014-01-01T00:00:00.000000000',
+           '2015-01-01T00:00:00.000000000'], dtype='datetime64[ns]')
 
     >>> # Python's built-in date and datetime
     >>> x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2018-01-01', '2019-01-01'],
-        dtype='datetime64[ns]', freq=None)
+    >>> array_to_datetime(x)
+    array(['2018-01-01T00:00:00.000000', '2019-01-01T00:00:00.000000'],
+          dtype='datetime64[us]')
 
     >>> # Raw datetime strings in various format
     >>> x = [
@@ -305,16 +308,11 @@ def array_to_datetime(array):
     ...     "2018-02",
     ...     "2018-03-01",
     ...     "2018-04-01T01:02:03",
-    ...     "5/1/2018",
-    ...     "Jun 05, 2018",
-    ...     "2018/07/02",
     ... ]
     >>> array_to_datetime(x)
-    DatetimeIndex(['2018-01-01 00:00:00', '2018-02-01 00:00:00',
-                   '2018-03-01 00:00:00', '2018-04-01 01:02:03',
-                   '2018-05-01 00:00:00', '2018-06-05 00:00:00',
-                   '2018-07-02 00:00:00'],
-                  dtype='datetime64[ns]', freq=None)
+    array(['2018-01-01T00:00:00', '2018-02-01T00:00:00',
+           '2018-03-01T00:00:00', '2018-04-01T01:02:03'],
+          dtype='datetime64[s]')
 
     >>> # Mixed datetime types
     >>> x = [
@@ -322,8 +320,8 @@ def array_to_datetime(array):
     ...     np.datetime64("2018-01-01"),
     ...     datetime.datetime(2018, 1, 1),
     ... ]
-    >>> array_to_datetime(x)  # doctest: +NORMALIZE_WHITESPACE
-    DatetimeIndex(['2018-01-01', '2018-01-01', '2018-01-01'],
-                  dtype='datetime64[ns]', freq=None)
+    >>> array_to_datetime(x)
+    array(['2018-01-01T00:00:00.000000', '2018-01-01T00:00:00.000000',
+           '2018-01-01T00:00:00.000000'], dtype='datetime64[us]')
     """
-    return pd.to_datetime(array)
+    return np.asarray(array, dtype=np.datetime64)
