@@ -38,9 +38,9 @@ fig.meca(
     longitude=-124.3,
     latitude=48.1,
     depth=12.0,
-    # Fill compressive quadrants with color "gray70" (light gray)
+    # Fill compressive quadrants with color "red"
     # [Default is "black"]
-    compressionfill="gray70",
+    compressionfill="red",
     # Fill extensive quadrants with color "cornsilk"
     # [Default is "white"]
     extensionfill="cornsilk",
