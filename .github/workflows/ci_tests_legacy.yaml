@@ -53,7 +53,6 @@ jobs:
           environment-file: "ci/requirements/tests_legacy.yml"
           cache-downloads: true
           cache-env: true
-          # override any specifications in the environment file
           extra-specs: |
             python=${{ matrix.python-version }}
             gmt=${{ matrix.gmt_version }}
