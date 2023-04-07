@@ -29,6 +29,7 @@ jobs:
         with:
           environment-name: pygmt
           extra-specs: |
+            python=3.11
             gmt=6.4.0
             numpy
             pandas
