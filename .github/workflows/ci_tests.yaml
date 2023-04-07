@@ -80,7 +80,6 @@ jobs:
           environment-file: ${{ matrix.environment-file }}
           cache-downloads: true
           cache-env: true
-          # override any specifications in the environment file
           extra-specs: |
             python=${{ matrix.python-version }}
             numpy=${{ matrix.numpy-version }}
