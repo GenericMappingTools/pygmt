@@ -1,5 +1,5 @@
 """
-shift_origin - Shift plotting origin.
+shift_origin - Shift plot origin in x and/or y directions.
 """
 
 from pygmt.clib import Session
