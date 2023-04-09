@@ -21,7 +21,6 @@ dependencies:
     - dvc
     - make
     # Dev dependencies (unit testing)
-    - matplotlib
     - pytest-doctestplus
     - pytest-mpl
     - pytest>=6.0
