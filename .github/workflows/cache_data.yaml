@@ -28,6 +28,7 @@ jobs:
         uses: mamba-org/provision-with-micromamba@v15
         with:
           environment-name: pygmt
+          channels: conda-forge,nodefaults
           extra-specs: |
             python=3.11
             gmt=6.4.0
