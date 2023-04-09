@@ -20,9 +20,9 @@ dependencies:
     - pytest-doctestplus
     - pytest-mpl
     - pytest>=6.0
+    - sphinx-gallery
     # optional dependencies
     - contextily
     - geopandas
     - ipython
     - rioxarray
-    - sphinx-gallery
