@@ -11,6 +11,11 @@ dependencies:
     - xarray
     - netCDF4
     - packaging
+    # Optional dependencies
+    - contextily
+    - geopandas
+    - ipython
+    - rioxarray
     # Development dependencies (general)
     - build
     - dvc
@@ -21,8 +26,3 @@ dependencies:
     - pytest-mpl
     - pytest>=6.0
     - sphinx-gallery
-    # optional dependencies
-    - contextily
-    - geopandas
-    - ipython
-    - rioxarray

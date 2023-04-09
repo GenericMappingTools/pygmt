@@ -14,10 +14,10 @@ dependencies:
     # Optional dependencies
     - contextily
     - geopandas
+    - ipython
     - rioxarray
     # Development dependencies (general)
     - build
-    - ipython
     - make
     # Dev dependencies (building documentation)
     - myst-parser
