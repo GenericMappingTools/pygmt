@@ -6,7 +6,7 @@ To create a scatter plot with a legend one may use a loop and create one
 scatter plot per item to appear in the legend and set the label accordingly.
 
 Modified from the matplotlib example:
-https://matplotlib.org/gallery/lines_bars_and_markers/scatter_with_legend.html
+https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend.html
 """
 
 import numpy as np
