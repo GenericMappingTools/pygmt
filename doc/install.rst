@@ -64,7 +64,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.8 or greater**.
+PyGMT is tested to run on Python |requires_python|.
 
 We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
 Python distribution to ensure you have all dependencies installed and the
@@ -77,12 +77,9 @@ installations on your system.
 Which GMT?
 ----------
 
-PyGMT requires Generic Mapping Tools (GMT) version 6 as a minimum, which is the
-latest released version that can be found at
-the `GMT official site <https://www.generic-mapping-tools.org>`__.
-We need the latest GMT (>=6.3.0) since there are many changes being made to GMT
-itself in response to the development of PyGMT, mainly the new
-:gmt-docs:`modern execution mode <cookbook/introduction.html#modern-and-classic-mode>`.
+PyGMT requires Generic Mapping Tools (GMT) |requires_gmt| since there
+are many changes being made to GMT itself in response to the development of PyGMT,
+mainly the new :gmt-docs:`modern execution mode <cookbook/introduction.html#modern-and-classic-mode>`.
 
 Compiled conda packages of GMT for Linux, macOS and Windows are provided
 through `conda-forge <https://anaconda.org/conda-forge/gmt>`__.
