@@ -15,13 +15,14 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None, required_z=False):
+def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=False):
     """
     Check what kind of data is provided to a module.
 
     Possible types:
 
     * a file name provided as 'data'
+    * an option argument provided as 'data'
     * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
@@ -35,18 +36,21 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     data : str or pathlib.Path or xarray.DataArray or {table-like} or None
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
-        {table-classes}.
+        {table-classes} or an option argument.
     x/y : 1-D arrays or None
         x and y columns as numpy arrays.
     z : 1-D array or None
         z column as numpy array. To be used optionally when x and y are given.
     required_z : bool
         State whether the 'z' column is required.
+    optional_data : bool
+        State whether the 'data' is optional.
 
     Returns
     -------
     kind : str
-        One of: ``'file'``, ``'grid'``, ``'matrix'``, ``'vectors'``.
+        One of: ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
+        ``'vectors'``.
 
     Examples
     --------
@@ -62,19 +66,21 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     'file'
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
+    >>> data_kind(data=None, x=None, y=None, optional_data=True)
+    'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
-    if data is None and x is None and y is None:
+    if data is None and not optional_data and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
     if data is not None and (x is not None or y is not None or z is not None):
         raise GMTInvalidInput("Too much data. Use either data or x and y.")
-    if data is None and (x is None or y is None):
+    if data is None and not optional_data and (x is None or y is None):
         raise GMTInvalidInput("Must provide both x and y.")
     if data is None and required_z and z is None:
         raise GMTInvalidInput("Must provide x, y, and z.")
 
-    if isinstance(data, (str, pathlib.PurePath)):
+    if data is None or isinstance(data, (bool, int, float, str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
         kind = "grid"

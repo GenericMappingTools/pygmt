@@ -5,6 +5,7 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
+import pathlib
 import sys
 from contextlib import contextmanager
 
@@ -1383,6 +1384,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_z=False,
+        optional_data=False,
     ):
         """
         Store any data inside a virtual file.
@@ -1407,6 +1409,8 @@ class Session:
             All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
+        optional_data : bool
+            State whether the 'data' is optional.
 
         Returns
         -------
@@ -1437,7 +1441,9 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, x, y, z, required_z=required_z)
+        kind = data_kind(
+            data, x, y, z, required_z=required_z, optional_data=optional_data
+        )
 
         if check_kind == "raster" and kind not in ("file", "grid"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
@@ -1466,7 +1472,7 @@ class Session:
             _data = (data,)
         elif kind == "file":
             # Useful to handle `pathlib.Path` and string file path alike
-            _data = (str(data),)
+            _data = (str(data),) if isinstance(data, pathlib.PurePath) else (data,)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:

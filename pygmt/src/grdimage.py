@@ -180,16 +180,12 @@ def grdimage(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with contextlib.ExitStack() as stack:
-            # shading using an xr.DataArray
-            if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
-                shading_context = lib.virtualfile_from_data(
-                    check_kind="raster", data=kwargs["I"]
-                )
-                kwargs["I"] = stack.enter_context(shading_context)
-
-            fname = stack.enter_context(file_context)
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as infile, lib.virtualfile_from_data(
+            check_kind="raster", data=kwargs.get("I"), optional_data=True
+        ) as shading:
+            kwargs["I"] = shading
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+                module="grdimage", args=build_arg_string(kwargs, infile=infile)
             )
