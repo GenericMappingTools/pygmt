@@ -64,7 +64,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.8 or greater**.
+PyGMT is tested to run on **Python 3.9 or greater**.
 
 We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
 Python distribution to ensure you have all dependencies installed and the
