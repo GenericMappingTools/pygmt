@@ -6,7 +6,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
 import sys
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -25,7 +25,7 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -745,7 +745,7 @@ class Session:
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = array_to_datetime(array)
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -1451,7 +1451,7 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": dummy_context,
+            "file": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be

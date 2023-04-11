@@ -3,13 +3,7 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    args_in_kwargs,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -38,6 +32,9 @@ def basemap(self, **kwargs):
     map projections are available, and the user may specify separate
     tick-mark intervals for boundary annotation, ticking, and [optionally]
     gridlines. A simple map scale or directional rose may also be plotted.
+
+    At least one of the parameters ``frame``, ``map_scale``, ``rose``, or
+    ``compass`` must be specified if not in subplot mode.
 
     Full option list at :gmt-docs:`basemap.html`
 
@@ -86,7 +83,5 @@ def basemap(self, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    if not args_in_kwargs(args=["B", "L", "Td", "Tm", "c"], kwargs=kwargs):
-        kwargs["B"] = True  # Plotting frames if required arguments not given
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_string(kwargs))

@@ -44,7 +44,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         if: github.event_name != 'repository_dispatch'
         with:
           # fetch all history so that setuptools-scm works
@@ -61,7 +61,7 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -133,7 +133,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.26.0
+        uses: dawidd6/action-download-artifact@v2.26.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

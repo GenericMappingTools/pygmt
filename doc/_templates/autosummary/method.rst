@@ -4,7 +4,8 @@
 
 .. automethod:: {{ objname }}
 
-.. include:: backreferences/{{ fullname }}.examples
+.. minigallery:: {{ fullname }}
+    :add-heading:
 
 .. raw:: html
 

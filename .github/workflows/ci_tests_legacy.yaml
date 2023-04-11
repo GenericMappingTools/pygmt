@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8']
+        python-version: ['3.9']
         os: [ubuntu-20.04, macOS-11, windows-2019]
         gmt_version: ['6.3']
     timeout-minutes: 30
@@ -42,7 +42,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.4.0
+        uses: actions/checkout@v3.5.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -76,7 +76,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.26.0
+        uses: dawidd6/action-download-artifact@v2.26.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
