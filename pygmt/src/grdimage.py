@@ -1,16 +1,8 @@
 """
 grdimage - Plot grids or images.
 """
-import contextlib
-
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
