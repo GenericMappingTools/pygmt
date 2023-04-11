@@ -4,7 +4,6 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - pip
     - gmt=6.4.0
     - numpy>=1.21
     - pandas
@@ -20,6 +19,7 @@ dependencies:
     - build
     - dvc
     - make
+    - pip
     # Dev dependencies (unit testing)
     - pytest-cov
     - pytest-doctestplus
