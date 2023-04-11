@@ -155,23 +155,12 @@ def grdview(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-
-        with contextlib.ExitStack() as stack:
-            if kwargs.get("G") is not None:
-                # deal with kwargs["G"] if drapegrid is xr.DataArray
-                drapegrid = kwargs["G"]
-                if data_kind(drapegrid) in ("file", "grid"):
-                    if data_kind(drapegrid) == "grid":
-                        drape_context = lib.virtualfile_from_data(
-                            check_kind="raster", data=drapegrid
-                        )
-                        kwargs["G"] = stack.enter_context(drape_context)
-                else:
-                    raise GMTInvalidInput(
-                        f"Unrecognized data type for drapegrid: {type(drapegrid)}"
-                    )
-            fname = stack.enter_context(file_context)
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as fname, lib.virtualfile_from_data(
+            check_kind="raster", data=kwargs.get("G"), optional_data=True
+        ) as drapegrid:
+            kwargs["G"] = drapegrid
             lib.call_module(
                 module="grdview", args=build_arg_string(kwargs, infile=fname)
             )
