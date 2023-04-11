@@ -80,21 +80,22 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     if data is None and required_z and z is None:
         raise GMTInvalidInput("Must provide x, y, and z.")
 
-    if data is None or isinstance(data, (bool, int, float, str, pathlib.PurePath)):
-        kind = "file"
-    elif isinstance(data, xr.DataArray):
-        kind = "grid"
-    elif hasattr(data, "__geo_interface__"):
-        kind = "geojson"
-    elif data is not None:
-        if required_z and (
-            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
-            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
-        ):
-            raise GMTInvalidInput("data must provide x, y, and z columns.")
-        kind = "matrix"
-    else:
+    if x is not None or y is not None or z is not None:
         kind = "vectors"
+    else:
+        if data is None or isinstance(data, (bool, int, float, str, pathlib.PurePath)):
+            kind = "file"
+        elif isinstance(data, xr.DataArray):
+            kind = "grid"
+        elif hasattr(data, "__geo_interface__"):
+            kind = "geojson"
+        else:
+            if required_z and (
+                getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
+                or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
+            ):
+                raise GMTInvalidInput("data must provide x, y, and z columns.")
+            kind = "matrix"
     return kind
 
 
