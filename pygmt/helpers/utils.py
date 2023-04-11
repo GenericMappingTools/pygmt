@@ -9,7 +9,6 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable
-from contextlib import contextmanager
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -97,33 +96,6 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
             kind = "matrix"
     return kind
-
-
-@contextmanager
-def dummy_context(arg):
-    """
-    Dummy context manager.
-
-    Does nothing when entering or exiting a ``with`` block and yields the
-    argument passed to it.
-
-    Useful when you have a choice of context managers but need one that does
-    nothing.
-
-    Parameters
-    ----------
-    arg : anything
-        The argument that will be returned by the context manager.
-
-    Examples
-    --------
-
-    >>> with dummy_context("some argument") as temp:
-    ...     print(temp)
-    ...
-    some argument
-    """
-    yield arg
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
