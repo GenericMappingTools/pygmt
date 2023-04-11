@@ -17,11 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8', '3.11']
+        python-version: ['3.9', '3.11']
         os: [ubuntu-latest, macOS-latest, windows-latest]
-        # Pair Python 3.8 with NumPy 1.21 and Python 3.11 with NumPy 1.24
+        # Pair Python 3.9 with NumPy 1.21 and Python 3.11 with NumPy 1.24
         include:
-          - python-version: '3.8'
+          - python-version: '3.9'
             numpy-version: '1.21'
           - python-version: '3.11'
             numpy-version: '1.24'
