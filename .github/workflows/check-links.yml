@@ -3,7 +3,7 @@
 # This workflow runs the lychee tool to check all external links in plaintext
 # and HTML files. It will create an issue if broken links are found.
 #
-# It is scheduled to run weekly on 12 noon every Sunday.
+# It is scheduled to run weekly at 12 noon every Sunday.
 #
 name: Check Links
 
