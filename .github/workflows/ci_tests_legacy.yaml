@@ -25,7 +25,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9']
         os: [ubuntu-20.04, macOS-11, windows-2019]
         gmt_version: ['6.3']
     timeout-minutes: 30
@@ -54,7 +53,7 @@ jobs:
           cache-downloads: true
           cache-env: true
           extra-specs: |
-            python=${{ matrix.python-version }}
+            python=3.9
             gmt=${{ matrix.gmt_version }}
 
       # Show installed pkg information for postmortem diagnostic
