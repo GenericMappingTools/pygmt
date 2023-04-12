@@ -1,0 +1,26 @@
+name: pygmt
+channels:
+    - conda-forge
+    - nodefaults
+dependencies:
+    # Required dependencies
+    - gmt=6.4.0
+    - numpy>=1.21
+    - pandas
+    - xarray
+    - netCDF4
+    - packaging
+    # Optional dependencies
+    - contextily
+    - geopandas
+    - ipython
+    - rioxarray
+    # Development dependencies (general)
+    - build
+    - make
+    - pip
+    # Dev dependencies (unit testing)
+    - pytest-doctestplus
+    - pytest-mpl
+    - pytest>=6.0
+    - sphinx-gallery
