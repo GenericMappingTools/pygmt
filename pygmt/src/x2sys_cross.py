@@ -12,7 +12,6 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     unique_name,
@@ -196,7 +195,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         for track in tracks:
             kind = data_kind(track)
             if kind == "file":
-                file_contexts.append(dummy_context(track))
+                file_contexts.append(contextlib.nullcontext(track))
             elif kind == "matrix":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file

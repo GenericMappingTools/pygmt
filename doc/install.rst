@@ -64,7 +64,7 @@ Start by looking at the tutorials on our sidebar, good luck!
 Which Python?
 -------------
 
-PyGMT is tested to run on **Python 3.8 or greater**.
+PyGMT is tested to run on **Python 3.9 or greater**.
 
 We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
 Python distribution to ensure you have all dependencies installed and the
@@ -218,17 +218,17 @@ Using pip
 This installs the latest stable release from
 `PyPI <https://pypi.org/project/pygmt>`__::
 
-    pip install pygmt
+    python -m pip install pygmt
 
 .. tip::
 
-   You can also run ``pip install pygmt[all]`` to install pygmt with
+   You can also run ``python -m pip install pygmt[all]`` to install pygmt with
    all of its optional dependencies.
 
 Alternatively, you can install the latest development version from
 `TestPyPI <https://test.pypi.org/project/pygmt>`__::
 
-    pip install --pre --extra-index-url https://test.pypi.org/simple/ pygmt
+    python -m pip install --pre --extra-index-url https://test.pypi.org/simple/ pygmt
 
 To upgrade the installed stable release or development version to be the latest
 one, just add ``--upgrade`` to the corresponding command above.
