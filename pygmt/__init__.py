@@ -165,6 +165,8 @@ def show_versions(file=sys.stdout):
         "packaging",
         "contextily",
         "geopandas",
+        "IPython",
+        "rioxarray",
     ]
 
     print("PyGMT information:", file=file)
