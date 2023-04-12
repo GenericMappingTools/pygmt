@@ -83,6 +83,7 @@ jobs:
           extra-specs: |
             python=${{ matrix.python-version }}
             numpy=${{ matrix.numpy-version }}
+            gmt=6.4.0
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
