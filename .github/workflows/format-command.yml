@@ -28,7 +28,7 @@ jobs:
       # Install formatting tools
       - name: Install formatting tools
         run: |
-          pip install black blackdoc docformatter==1.5.1 flakeheaven isort
+          python -m pip install black blackdoc docformatter==1.5.1 flakeheaven isort
           sudo apt-get install dos2unix
 
       # Run "make format" and commit the change to the PR branch
@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v2.1.1
+        uses: peter-evans/create-or-update-comment@v3.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
