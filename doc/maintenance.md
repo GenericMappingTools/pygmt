@@ -133,7 +133,7 @@ There are 11 configuration files located in `.github/workflows`:
 8. `release-drafter.yml` (Drafts the next release notes)
 
     This workflow is run to update the next releases notes as pull requests are
-    merged into the main branch.
+    merged into the *main* branch.
 
 9. `check-links.yml` (Check links in the repository and website)
 
