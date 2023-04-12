@@ -54,7 +54,7 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
+          mamba install gmt=6.4.0 numpy \
                         pandas xarray netCDF4 packaging \
                         build make 'pytest>=6.0' \
                         pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \

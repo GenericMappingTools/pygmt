@@ -94,7 +94,7 @@ There are 11 configuration files located in `.github/workflows`:
 
 3. `ci_doctests.yaml` (Doctests on Linux/macOS/Windows)
 
-    This workflow is scheduled to run all doctests on Sunady on the *main*
+    This workflow is scheduled to run all doctests every Sunday on the *main*
     branch.
 
 4. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
