@@ -46,7 +46,7 @@ jobs:
       - name: Install the package
         run: |
           python -m build --sdist
-          pip install dist/*
+          python -m pip install dist/*
 
       # Download remote files
       - name: Download remote data

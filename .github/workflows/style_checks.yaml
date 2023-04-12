@@ -26,7 +26,7 @@ jobs:
 
       - name: Install packages
         run: |
-          pip install black blackdoc docformatter==1.5.1 flakeheaven pylint isort
+          python -m pip install black blackdoc docformatter==1.5.1 flakeheaven pylint isort
           sudo apt-get install dos2unix
 
       - name: Formatting check (black, blackdoc, docformatter, flakeheaven and isort)
