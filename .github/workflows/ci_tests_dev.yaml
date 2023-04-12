@@ -27,7 +27,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11']
         os: [ubuntu-22.04, macOS-12, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
@@ -82,10 +81,12 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/provision-with-micromamba@v15
         with:
+          environment-name: pygmt
+          channels: conda-forge,nodefaults
           cache-downloads: true
           cache-env: true
           extra-specs: |
-            python=${{ matrix.python-version }}
+            python=3.11
             cmake
             make
             ninja
