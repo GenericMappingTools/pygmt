@@ -174,10 +174,10 @@ def grdimage(self, grid, **kwargs):
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as infile, lib.virtualfile_from_data(
+        ) as fname, lib.virtualfile_from_data(
             check_kind="raster", data=kwargs.get("I"), optional_data=True
-        ) as shading:
-            kwargs["I"] = shading
+        ) as shadegrid:
+            kwargs["I"] = shadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=infile)
+                module="grdimage", args=build_arg_string(kwargs, infile=fname)
             )
