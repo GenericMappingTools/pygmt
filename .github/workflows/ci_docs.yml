@@ -100,7 +100,7 @@ jobs:
       - name: Install the package
         run: |
           python -m build --sdist
-          pip install dist/*
+          python -m pip install dist/*
 
       # Build the documentation
       - name: Build the documentation
