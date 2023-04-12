@@ -43,6 +43,7 @@ jobs:
           environment-file: "ci/requirements/doctests.yml"
           extra-specs: |
             python=3.11
+            gmt=6.4.0
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
