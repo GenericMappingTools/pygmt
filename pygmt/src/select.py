@@ -137,7 +137,8 @@ def select(data=None, outfile=None, **kwargs):
         points in the ASCII file *pointfile*. If *dist* is zero then the 3rd
         column of *pointfile* must have each point’s individual radius of
         influence. If you only have a single point then you can specify
-        *lon*/*lat* instead of *pointfile*.
+        *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in
+        user units.
     dist2line : str
         *linefile*\ **+d**\ *dist*\ [**+p**].
         Pass all records whose locations are within *dist* of any of the
@@ -150,7 +151,8 @@ def select(data=None, outfile=None, **kwargs):
         Pass all records whose locations are within one of the closed
         polygons in the multiple-segment file *polygonfile*. For spherical
         polygons (lon, lat), make sure no consecutive points are separated
-        by 180 degrees or more in longitude.
+        by 180 degrees or more in longitude. Distances are Cartesian and in
+        user units.
     {binary}
     {nodata}
     {find}
