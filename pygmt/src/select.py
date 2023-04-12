@@ -134,15 +134,23 @@ def select(data=None, outfile=None, **kwargs):
     dist2pt : str
         *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
         Pass all records whose locations are within *dist* of any of the
-        points in the ASCII file *pointfile*.
+        points in the ASCII file *pointfile*. If *dist* is zero then the 3rd
+        column of *pointfile* must have each point’s individual radius of
+        influence. If you only have a single point then you can specify
+        *lon*/*lat* instead of *pointfile*.
     dist2line : str
         *linefile*\ **+d**\ *dist*\ [**+p**].
         Pass all records whose locations are within *dist* of any of the
         line segments in the ASCII multiple-segment file *linefile*.
+        If *dist* is zero then we will scan each sub-header in *linefile*
+        for an embedded **-D**\ *dist* setting that sets each line’s
+        individual distance value.
     polygon : str
         *polygonfile*.
         Pass all records whose locations are within one of the closed
-        polygons in the multiple-segment file *polygonfile*.
+        polygons in the multiple-segment file *polygonfile*. For spherical
+        polygons (lon, lat), make sure no consecutive points are separated
+        by 180 degrees or more in longitude.
     {binary}
     {nodata}
     {find}
