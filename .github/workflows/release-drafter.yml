@@ -1,3 +1,9 @@
+# Draft the next release notes
+#
+# This workflow is run to update the next releases notes as pull requests are
+# merged into the main branch. The configuration file is located at
+# `.github/release-drafter.yml`.
+#
 name: Release Drafter
 
 on:

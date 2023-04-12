@@ -1,4 +1,12 @@
-# Checks for image diffs in a Pull Request and adds a GitHub comment showing the diff
+# Report changes in test images
+#
+# This workflow checks for image diffs in a pull request and adds a GitHub
+# comment showing the diff.
+#
+# It is triggered in a PR when any *.png.dvc files have been added, modified,
+# or deleted. A GitHub comment will be published that contains a summary table
+# of the images that have changed along with a visual report.
+#
 name: DVC image diff
 
 on:

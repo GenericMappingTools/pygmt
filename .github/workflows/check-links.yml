@@ -1,4 +1,10 @@
-# This workflow checks the links in plaintext and HTML files
+# Check links in the repository and documentation
+#
+# This workflow runs the lychee tool to check all external links in plaintext
+# and HTML files. It will create an issue if broken links are found.
+#
+# It is scheduled to run weekly on 12 noon every Sunday.
+#
 name: Check Links
 
 on:
