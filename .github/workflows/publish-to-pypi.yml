@@ -3,7 +3,7 @@
 # This workflow is ran to publish PyGMT archives (source and binary distributions)
 # to TestPyPI (for testing only) and PyPI.
 #
-# Archives will be pushed to TestPyPI on every commit to the main branch and
+# Archives will be pushed to TestPyPI for every commit to the main branch and
 # tagged releases, and to PyPI for tagged releases only.
 #
 # Note that authentication to TestPyPI/PyPI is done via OpenID Connect, see also
