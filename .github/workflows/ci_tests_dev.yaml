@@ -1,5 +1,16 @@
-# This workflow installs PyGMT and runs tests on GMT dev version
-
+# Tests PyGMT with GMT dev version on Linux/macOS/Windows
+#
+# This workflow runs regular PyGMT tests with the GMT dev version.
+# If any tests fail, it also uploads the diff images as workflow artifacts.
+# On Linux/macOS, GMT dev version is installed by fetching the latest source
+# codes from the GMT master branch and compiling.
+# On Windows, GMT dev version is installed from the conda-forge's dev channel
+# due to the complexity of building GMT source codes on Windows.
+#
+# It is triggered when a pull request is marked as "ready as review", or using
+# the slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
+# Wednesday, and Friday on the main branch.
+#
 name: GMT Dev Tests
 
 on:

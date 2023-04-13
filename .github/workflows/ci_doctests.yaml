@@ -1,5 +1,8 @@
-# This workflow installs PyGMT and runs all doctests
-
+# Run all doctests on Linux/macOS/Windows
+#
+# This workflow runs all PyGMT doctests. It is scheduled to run weekly every
+# Sunday.
+#
 name: Doctests
 
 on:
