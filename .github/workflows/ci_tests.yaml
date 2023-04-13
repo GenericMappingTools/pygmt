@@ -1,5 +1,25 @@
-# This workflow installs PyGMT and runs tests
-
+# Tests PyGMT on Linux/macOS/Windows
+#
+# This workflow runs regular PyGMT tests and uploads test coverage reports stored
+# in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
+# via the [Codecov GitHub Action](https://github.com/codecov/codecov-action).
+# More codecov related configurations are stored in `.github/codecov.yml`.
+# If any tests fail, it also uploads the diff images as workflow artifacts.
+#
+# It is run:
+# 1. on every commit to the main branch
+# 2. on every commit to the pull request branches, unless the pull requests only
+#    contain non-code changes.
+# 3. when a new release is published
+#
+# It is also scheduled to run daily on the main branch.
+#
+# In draft pull request, only two jobs on Linux are triggered to save on
+# Continuous Integration resources:
+#
+# - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy) Python/NumPy versions
+# - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
+#
 name: Tests
 
 on:
