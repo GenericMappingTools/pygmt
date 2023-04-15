@@ -104,39 +104,34 @@ fig.show()
 # Create new figure instance
 fig = pygmt.Figure()
 
-# Set up subplot
-with fig.subplot(
-    nrows=1,
-    ncols=2,
-    figsize=("20c", "10c"),
-):
-    with fig.set_panel(panel=0):
-        # Create histogram for data02 showing counts
-        fig.histogram(
-            region=[0, 200, 0, 10],
-            projection="X10c",
-            frame=["WSnr", "xaf10", "ya2f1+lCounts"],
-            data=data02,
-            series=10,
-            fill="orange",
-            pen="1p,darkgray",
-            # Choose counts via the "histtype" parameter
-            histtype=0,
-        )
+# Create histogram for data02 showing counts
+fig.histogram(
+	region=[0, 200, 0, 10],
+	projection="X10c",
+	frame=["WSnr", "xaf10", "ya2f1+lCounts"],
+	data=data02,
+	series=10,
+	fill="orange",
+	pen="1p,darkgray",
+	# Choose counts via the "histtype" parameter
+	histtype=0,
+)
 
-    with fig.set_panel(panel=1):
-        # Create histogram for data02 showing frequency percent
-        fig.histogram(
-            region=[0, 200, 0, 100],
-            projection="X10c",
-            frame=["lSnE", "xaf10", "ya10f5+lFrequency percent"],
-            data=data02,
-            series=10,
-            fill="orange",
-            pen="1p,darkgray",
-            # Choose frequency percent via the "histtype" parameter
-            histtype=1,
-        )
+# Shift anchor point 11 centimeters to the right
+fig.shift(xshift="11c")
+
+# Create histogram for data02 showing frequency percent
+fig.histogram(
+	region=[0, 200, 0, 100],
+	projection="X10c",
+	frame=["lSnE", "xaf10", "ya10f5+lFrequency percent"],
+	data=data02,
+	series=10,
+	fill="orange",
+	pen="1p,darkgray",
+	# Choose frequency percent via the "histtype" parameter
+	histtype=1,
+)
 
 fig.show()
 
@@ -152,46 +147,41 @@ fig.show()
 # Create new figure instance
 fig = pygmt.Figure()
 
-# Set up subplot
-with fig.subplot(
-    nrows=1,
-    ncols=2,
-    figsize=("20c", "10c"),
-):
-    with fig.set_panel(panel=0):
-        # Create histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 43],
-            projection="X10c",
-            frame=["WSne", "xaf10", "ya5f1+lCounts"],
-            data=data01,
-            series=10,
-            fill="red3",
-            pen="1p,darkgray",
-            histtype=0,
-            # Annotate each bar with the counts it represents
-            annotate=True,
-        )
+# Create histogram for data01 showing the counts per bin
+fig.histogram(
+	region=[0, 200, 0, 43],
+	projection="X10c",
+	frame=["WSne", "xaf10", "ya5f1+lCounts"],
+	data=data01,
+	series=10,
+	fill="red3",
+	pen="1p,darkgray",
+	histtype=0,
+	# Annotate each bar with the counts it represents
+	annotate=True,
+)
 
-    with fig.set_panel(panel=1):
-        # Create cumulative histogram for data01
-        fig.histogram(
-            region=[0, 200, 0, 43],
-            projection="X10c",
-            frame=["wSnE", "xaf10", "ya5f1+lCounts cumulative"],
-            data=data01,
-            series=10,
-            # Use pattern (p) number 8 as fill for the bars
-            # Set the background (+b) to white [Default]
-            # Set the foreground (+f) to black [Default]
-            fill="p8+bwhite+fblack",
-            pen="1p,darkgray",
-            histtype=0,
-            # Show cumulative values
-            cumulative=True,
-            # Offest (+o) the label by 10 points in negative y-direction
-            annotate="+o-10p",
-        )
+# Shift anchor point 11 centimeters to the right
+fig.shift(xshift="11c")
+
+# Create histogram for data01 showing the cumulative counts
+fig.histogram(
+	region=[0, 200, 0, 43],
+	projection="X10c",
+	frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
+	data=data01,
+	series=10,
+	# Use pattern (p) number 8 as fill for the bars
+	# Set the background (+b) to white [Default]
+	# Set the foreground (+f) to black [Default]
+	fill="p8+bwhite+fblack",
+	pen="1p,darkgray",
+	histtype=0,
+	# Show cumulative counts
+	cumulative=True,
+	# Offest (+o) the label by 10 points in negative y-direction
+	annotate="+o-10p",
+)
 
 fig.show()
 
