@@ -53,6 +53,7 @@ slider_lon = pn.widgets.DiscreteSlider(
     value=0,
 )
 
+
 # Define a function for plotting the single slices
 @pn.depends(central_lon=slider_lon)
 def view(central_lon):
