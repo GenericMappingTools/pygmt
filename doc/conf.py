@@ -59,7 +59,7 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "panel": ("https://panel.holoviz.org/index.html", None)
+    "panel": ("https://panel.holoviz.org/index.html", None),
     "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
     "rioxarray": ("https://corteva.github.io/rioxarray/stable/", None),
     "xarray": ("https://docs.xarray.dev/en/stable/", None),
