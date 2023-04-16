@@ -1,3 +1,11 @@
+# Code lint and style checks
+#
+# This workflow runs code style and lint checks to check if the codes have
+# consistent code style and are high-quality.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
 name: Style Checks
 
 on:
