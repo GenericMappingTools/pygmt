@@ -1,3 +1,7 @@
+# Format the codes using slash command
+#
+# This workflow is triggered in a PR if the slash command `/format` is used.
+#
 name: format-command
 on:
   repository_dispatch:
