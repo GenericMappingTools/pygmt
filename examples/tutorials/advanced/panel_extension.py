@@ -69,5 +69,6 @@ def view(central_lon):
     )
     return fig
 
+
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
