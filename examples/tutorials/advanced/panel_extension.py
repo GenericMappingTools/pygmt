@@ -16,7 +16,7 @@ This tutorial is split into three parts:
 - Add a grid for the Earth relief
 """
 
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 1
 
 
 # Import the requiered packages
