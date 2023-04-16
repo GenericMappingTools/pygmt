@@ -86,8 +86,10 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
             raise GMTInvalidInput("Must provide x, y, and z.")
 
     # determine the data kind
-    if isinstance(data, (bool, int, float, str, pathlib.Path)) or (
-        data is None and optional_data
+    if isinstance(data, (str, pathlib.Path)):
+        kind = "file"
+    elif optional_data and (
+        data is None or isinstance(data, (bool, int, float, str, pathlib.Path))
     ):
         # a null context manager will be created for "file-like" kind
         kind = "file"
