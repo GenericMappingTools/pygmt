@@ -1,9 +1,10 @@
 r"""
 Dynamic data visualization using ``Panel``
 ==========================================
-*Please run the following code examples in a notebook environment, e.g.,
-Jupyter notebook, otherwise the interactive parts of this tutorial do
-not work*
+*Please run the following code examples in a notebook environment otherwise
+the interactive parts of this tutorial will not work. You can use the button
+"Download Jupyter notebook: panel_extension.ipynb" at the bottom of this page
+to download this script as a Jupyter notebook.*
 
 The library ``Panel`` (https://panel.holoviz.org/index.html) can be used to
 create interactive dashboards by connecting user-defined widgets to plots.
