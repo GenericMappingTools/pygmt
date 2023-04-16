@@ -12,7 +12,7 @@ create interacitve dashboards by connecting user-defined widgets to plots.
 TODO
 """
 
-# sphinx_gallery_thumbnail_number = 3
+# sphinx_gallery_thumbnail_number = 2
 
 
 # Import the requiered packages
