@@ -119,4 +119,3 @@ def view(central_lon):
 
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
-
