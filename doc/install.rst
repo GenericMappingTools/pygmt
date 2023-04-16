@@ -108,6 +108,7 @@ The following are optional dependencies:
 * `IPython <https://ipython.org>`__: For embedding the figures in Jupyter notebooks (recommended).
 * `Contextily <https://contextily.readthedocs.io>`__: For retrieving tile maps from the internet.
 * `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
+* `Panel <https://panel.holoviz.org/index.html>`__: For creating interactive dashboards.
 * `RioXarray <https://corteva.github.io/rioxarray>`__: For saving multi-band rasters to GeoTIFFs.
 
 Installing GMT and other dependencies
