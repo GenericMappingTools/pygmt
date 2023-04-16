@@ -10,7 +10,10 @@ The library ``Panel`` (https://panel.holoviz.org/index.html) can be used to
 create interactive dashboards by connecting user-defined widgets to plots.
 ``Panel`` can be used as an extension to Jupyter notebook / lab.
 
-TODO
+This tutorial is split into three parts:
+- Make a static map
+- Make a dynamic map
+- Add a grid for the Earth relief
 """
 
 # sphinx_gallery_thumbnail_number = 2
