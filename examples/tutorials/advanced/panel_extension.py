@@ -102,7 +102,7 @@ def view(central_lon):
     # Set up a colormap for the elevation
     pygmt.makecpt(
         cmap="oleron",
-        series=[int(np.min(grd_relief)), int(np.max(grd_relief))+1, 100],
+        series=[int(np.min(grd_relief)), int(np.max(grd_relief)) + 1, 100],
     )
     # Plot the grid for the elevation
     fig.grdimage(
