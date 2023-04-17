@@ -11,6 +11,7 @@ create interactive dashboards by connecting user-defined widgets to plots.
 ``Panel`` can be used as an extension to Jupyter notebook / lab.
 
 This tutorial is split into three parts:
+
 - Make a static map
 - Make a dynamic map
 - Add a grid for Earth relief
