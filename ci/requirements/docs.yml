@@ -14,7 +14,6 @@ dependencies:
     # Optional dependencies
     - contextily
     - geopandas
-    - panel
     - rioxarray
     # Development dependencies (general)
     - build
@@ -22,6 +21,7 @@ dependencies:
     - make
     # Dev dependencies (building documentation)
     - myst-parser
+    - panel
     - sphinx
     - sphinx-copybutton
     - sphinx-design
