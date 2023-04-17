@@ -109,7 +109,7 @@ def view(central_lon):
     fig.grdimage(
         projection="G" + str(central_lon) + "/15/12c",
         region="g",
-        grid=grd_relief,  # Use gird downloaded above
+        grid=grd_relief,  # Use grid downloaded above
         cmap=True,  # Use colormap defined above
         frame="g30",  # Add gridlines in steps of 30 degrees on top
     )
