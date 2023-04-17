@@ -44,7 +44,6 @@ all = [
     "contextily",
     "geopandas",
     "ipython",
-    "panel",
     "rioxarray",
 ]
 
