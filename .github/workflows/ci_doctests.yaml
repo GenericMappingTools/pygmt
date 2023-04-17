@@ -1,39 +1,26 @@
-# Tests PyGMT with GMT legacy versions on Linux/macOS/Windows
+# Run all doctests on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
-# minor baseline image changes between GMT versions, the workflow only runs
-# the tests but doesn't do image comparisons.
+# This workflow runs all PyGMT doctests. It is scheduled to run weekly every
+# Sunday.
 #
-# It is scheduled to run every Tuesday on the main branch.
-#
-name: GMT Legacy Tests
+name: Doctests
 
 on:
   # push:
   #   branches: [ main ]
   # pull_request:
-    # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
-  # Schedule tests on Tuesday
+  # Schedule weekly tests on Sunday
   schedule:
-    - cron: '0 0 * * 2'
+    - cron: '0 0 * * 0'
 
 jobs:
   test:
-    name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9']
-        os: [ubuntu-20.04, macOS-11, windows-2019]
-        gmt_version: ['6.3']
+        os: [ubuntu-latest, macOS-latest, windows-latest]
     timeout-minutes: 30
     defaults:
       run:
@@ -48,7 +35,7 @@ jobs:
 
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.0
+        uses: actions/checkout@v3.4.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -58,7 +45,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2.2.0
         with:
           activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.11'
           channels: conda-forge,nodefaults
           channel-priority: strict
           miniforge-version: latest
@@ -70,11 +57,11 @@ jobs:
       # Install GMT and other required dependencies from conda-forge
       - name: Install dependencies
         run: |
-          mamba install gmt=${{ matrix.gmt_version }} numpy \
+          mamba install gmt=6.4.0 numpy \
                         pandas xarray netCDF4 packaging \
-                        contextily geopandas ipython rioxarray \
-                        build dvc make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
+                        build make 'pytest>=6.0' \
+                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \
+                        contextily geopandas ipython rioxarray
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
@@ -82,7 +69,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.26.1
+        uses: dawidd6/action-download-artifact@v2.26.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -98,16 +85,10 @@ jobs:
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull pygmt/tests/baseline/test_logo.png --verbose
-          ls -lhR pygmt/tests/baseline/
-
       # Install the package that we want to test
       - name: Install the package
         run: make install
 
-      # Run the tests but skip images
-      - name: Run tests
-        run: make test_no_images PYTEST_EXTRA="-r P"
+      # Run the doctests
+      - name: Run doctests
+        run: make doctest PYTEST_EXTRA="-r P"

@@ -115,14 +115,15 @@ def tilemap(
     ImportError
         If ``rioxarray`` is not installed. Follow
         :doc:`install instructions for rioxarray <rioxarray:installation>`,
-        (e.g. via ``pip install rioxarray``) before using this function.
+        (e.g. via ``python -m pip install rioxarray``) before using this
+        function.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     if rioxarray is None:
         raise ImportError(
             "Package `rioxarray` is required to be installed to use this function. "
-            "Please use `pip install rioxarray` or "
+            "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` "
             "to install the package."
         )

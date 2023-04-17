@@ -1,4 +1,13 @@
-# This workflow gets and uploads the GMT data artifacts used in the PyGMT CI tests
+# Cache GMT remote data files and uploads as artifacts
+#
+# This workflow downloads data files needed by PyGMT tests/documentation from
+# the GMT data server and uploads as workflow artifacts which can be accessed
+# by other GitHub Actions workflows.
+#
+# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
+# needed urgently, maintainers can manually uncomment the 'pull_request:' line
+# below to refresh the cache.
+#
 name: Cache data
 
 on:
@@ -46,7 +55,7 @@ jobs:
       - name: Install the package
         run: |
           python -m build --sdist
-          pip install dist/*
+          python -m pip install dist/*
 
       # Download remote files
       - name: Download remote data
