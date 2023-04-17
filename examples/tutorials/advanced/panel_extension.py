@@ -6,7 +6,7 @@ the interactive parts of this tutorial will not work. You can use the button
 "Download Jupyter notebook: panel_extension.ipynb" at the bottom of this page
 to download this script as a Jupyter notebook.*
 
-The library ``Panel`` (https://panel.holoviz.org/index.html) can be used to
+The library `Panel <https://panel.holoviz.org/index.html>`__ can be used to
 create interactive dashboards by connecting user-defined widgets to plots.
 ``Panel`` can be used as an extension to Jupyter notebook / lab.
 
