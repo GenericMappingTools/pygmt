@@ -15,7 +15,6 @@ dependencies:
     - contextily
     - geopandas
     - ipython
-    - panel
     - rioxarray
     # Development dependencies (general)
     - build
@@ -37,6 +36,7 @@ dependencies:
     - pytest>=6.0
     # Dev dependencies (building documentation)
     - myst-parser
+    - panel
     - sphinx
     - sphinx-copybutton
     - sphinx-design
