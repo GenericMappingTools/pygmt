@@ -535,16 +535,24 @@ class Session:
         Examples
         --------
         >>> with Session() as lib:
-        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
         ...     region = lib.get_common("R")
         ...     projection = lib.get_common("J")
         ...     timestamp = lib.get_common("U")
+        ...     verbose = lib.get_common("V")
         ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
         ...
-        >>> print(region, projection, timestamp, xshift, yshift)
-        [ 0. 10. 10. 15.] True False 6.0 1.5
+        >>> print(region, projection, timestamp, verbose, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.get_common("A")
+        ...
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTInvalidInput: Unknown GMT option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
             raise GMTInvalidInput(f"Unknown GMT option flag '{option}'.")
@@ -573,7 +581,7 @@ class Session:
             return value[:status]
         if option in "XY":  # only one valid element in the array
             return value[0]
-        # option is set and the option value (in interger type) is returned via
+        # option is set and the option value (in integer type) is returned via
         # the function return value (i.e., 'status')
         return status
 
