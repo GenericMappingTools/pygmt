@@ -10,8 +10,6 @@ import time
 import webbrowser
 from collections.abc import Iterable
 
-import numpy as np
-import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
@@ -34,7 +32,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
 
     Parameters
     ----------
-    data : str or pathlib.Path or xarray.DataArray or {table-like} or None or bool
+    data : str, pathlib.PurePath, None, bool, xarray.DataArray or {table-like}
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
         table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes} or an option argument.
