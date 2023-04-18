@@ -129,11 +129,11 @@ def grd2cpt(grid, **kwargs):
         the generated CPT file. If not given or ``False`` [Default], saves the
         CPT as the session current CPT.
     reverse : str
-        Set this to True or c [Default] to reverse the sense of color
-        progression in the master CPT. Set this to z to reverse the sign of
-        z-values in the color table. Note that this change of z-direction
-        happens before *truncate* and *series* values are used so the latter
-        must be compatible with the changed *z*-range. See also
+        Set this to ``True`` or **c** [Default] to reverse the sense of color
+        progression in the master CPT. Set this to **z** to reverse the sign
+        of z-values in the color table. Note that this change of z-direction
+        happens before ``truncate`` and ``series`` values are used so the
+        latter must be compatible with the changed z-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
