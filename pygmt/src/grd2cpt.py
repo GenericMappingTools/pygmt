@@ -93,7 +93,7 @@ def grd2cpt(grid, **kwargs):
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
         ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
-    color_model :
+    color_model : str
         [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*\|\ *start*\ [**-**]]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
