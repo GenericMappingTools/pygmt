@@ -102,9 +102,9 @@ def grd2cpt(grid, **kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*\[-], where we automatically build monotonically increasing
+        *start*, where we automatically build monotonically increasing
         labels from *start* (a single letter or an integer). Append ``-`` to
-        build ranges *start*-*start+1* instead.
+        build ranges *start*-*start+1* instead [Default].
     nlevels : bool or int or str
         Set to ``True`` to create a linear color table by using the grid
         z-range as the new limits in the CPT. Alternatively, set *nlevels*
