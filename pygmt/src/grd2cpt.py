@@ -94,7 +94,7 @@ def grd2cpt(grid, **kwargs):
         ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
     color_model :
-        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
+        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*\|\ *start*[-]]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
         (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
@@ -103,8 +103,8 @@ def grd2cpt(grid, **kwargs):
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
         *start*, where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append ``-`` to
-        build ranges *start*-*start+1* instead [Default].
+        labels from *start* (a single letter or an integer). Additionally
+        append **-** to build ranges *start*-*start+1* as labels instead.
     nlevels : bool or int or str
         Set to ``True`` to create a linear color table by using the grid
         z-range as the new limits in the CPT. Alternatively, set *nlevels*
