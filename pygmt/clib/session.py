@@ -552,7 +552,7 @@ class Session:
         ...
         Traceback (most recent call last):
         ...
-        pygmt.exceptions.GMTInvalidInput: Unknown GMT option flag 'A'.
+        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
             raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
