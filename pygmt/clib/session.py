@@ -509,11 +509,11 @@ class Session:
 
         Returns
         -------
-        value : bool or int, float or numpy.ndarray
+        value : bool, int, float, or numpy.ndarray
             Whether the option was set or its value.
 
             If the option was not set, return ``False``. Otherwise,
-            value depends on the choice of the option.
+            the return value depends on the choice of the option.
 
             - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
               and ``"s"``: return ``True``
@@ -555,7 +555,7 @@ class Session:
         pygmt.exceptions.GMTInvalidInput: Unknown GMT option flag 'A'.
         """
         if option not in "BIJRUVXYabfghinoprst:":
-            raise GMTInvalidInput(f"Unknown GMT option flag '{option}'.")
+            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
 
         c_get_common = self.get_libgmt_func(
             "GMT_Get_Common",
