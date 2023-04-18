@@ -126,8 +126,8 @@ def grd2cpt(grid, **kwargs):
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional parameter to set the file name with extension .cpt to store
-        the generated CPT file. If not given or False [Default], saves the CPT
-        as the session current CPT.
+        the generated CPT file. If not given or ``False`` [Default], saves the
+        CPT as the session current CPT.
     reverse : str
         Set this to True or c [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
