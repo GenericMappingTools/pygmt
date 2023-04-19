@@ -75,6 +75,8 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     if x is None and y is None:  # both x and y are not given
         if data is None and not optional_data:
             raise GMTInvalidInput("No input data provides")
+        if data is not None and z is not None:
+            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
     elif x is None or y is None:  # either x or y is not given
         raise GMTInvalidInput("Must provide both x and y.")
     else:  # both x and y are given
