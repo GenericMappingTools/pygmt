@@ -679,7 +679,7 @@ def kwargs_to_strings(**conversions):
     >>> import xarray as xr
     >>> module(
     ...     R=[
-    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
     ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
     ...     ]
     ... )
