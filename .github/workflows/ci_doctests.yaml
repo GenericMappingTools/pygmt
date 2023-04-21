@@ -49,7 +49,7 @@ jobs:
           extra-specs: |
             python=3.11
             gmt=6.4.0
-            numpy>=1.21
+            numpy
             pandas
             xarray
             netCDF4
@@ -63,7 +63,7 @@ jobs:
             pip
             pytest-doctestplus
             pytest-mpl
-            pytest>=6.0
+            pytest
             sphinx-gallery
 
       # Download cached remote files (artifacts) from GitHub

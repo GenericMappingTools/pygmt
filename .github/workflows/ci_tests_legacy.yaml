@@ -63,7 +63,7 @@ jobs:
           extra-specs: |
             python=3.9
             gmt=${{ matrix.gmt_version }}
-            numpy>=1.21
+            numpy
             pandas
             xarray
             netCDF4
@@ -78,7 +78,7 @@ jobs:
             pip
             pytest-doctestplus
             pytest-mpl
-            pytest>=6.0
+            pytest
             sphinx-gallery
 
       # Download cached remote files (artifacts) from GitHub
