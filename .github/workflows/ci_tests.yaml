@@ -67,7 +67,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: 'contextily geopandas ipython rioxarray'
+            optional-packages: 'contextily\n geopandas\n ipython\n rioxarray'
     timeout-minutes: 30
     defaults:
       run:
