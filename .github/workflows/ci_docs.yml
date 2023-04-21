@@ -95,10 +95,6 @@ jobs:
             sphinx-gallery
             sphinx_rtd_theme
 
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: micromamba list
-
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
         uses: dawidd6/action-download-artifact@v2.27.0
