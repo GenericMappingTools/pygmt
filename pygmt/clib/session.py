@@ -523,14 +523,14 @@ class Session:
             - ``"X"``: the xshift (float)
             - ``"Y"``: the yshift (float)
             - ``"a"``: geometry of the dataset (int)
-            - ``"b"``: the option was set for input or output (int)
-            - ``"f"``: the option was set for input or output (int)
+            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
+            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
             - ``"h"``: whether to delete existing header records (int)
             - ``"i"``: number of input columns (int)
             - ``"o"``: number of output columns (int)
             - ``"r"``: registration type (int)
             - ``"t"``: 2-element array for the transparency (float)
-            - ``":"``: the option was set for input or output (int)
+            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
 
         Examples
         --------
