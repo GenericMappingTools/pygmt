@@ -64,10 +64,14 @@ jobs:
         include:
           - python-version: '3.9'
             numpy-version: '1.21'
-            environment-file: 'ci/requirements/tests.yml'
+            optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            environment-file: 'ci/requirements/tests_with_optional_dependencies.yml'
+            optional-packages: |
+              contextily
+              geopandas
+              ipython
+              rioxarray
 
     timeout-minutes: 30
     defaults:
@@ -97,13 +101,29 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/provision-with-micromamba@v15
         with:
-          environment-file: ${{ matrix.environment-file }}
+          environment-name: pygmt
+          environment-file: false
+          channels: conda-forge,nodefaults
           cache-downloads: true
           cache-env: true
           extra-specs: |
             python=${{ matrix.python-version }}
-            numpy=${{ matrix.numpy-version }}
             gmt=6.4.0
+            numpy=${{ matrix.numpy-version }}
+            pandas
+            xarray
+            netCDF4
+            packaging
+            ${{ matrix.optional-packages }}
+            build
+            dvc
+            make
+            pip
+            pytest-cov
+            pytest-doctestplus
+            pytest-mpl
+            pytest>=6.0
+            sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

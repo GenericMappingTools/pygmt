@@ -68,11 +68,32 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/provision-with-micromamba@v15
         with:
-          environment-file: "ci/requirements/docs.yml"
+          environment-name: pygmt
+          environment-file: false
+          channels: conda-forge,nodefaults
           cache-downloads: true
           cache-env: true
           extra-specs: |
             python=3.11
+            gmt=6.4.0
+            numpy>=1.21
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            rioxarray
+            build
+            make
+            pip
+            myst-parser
+            sphinx
+            sphinx-copybutton
+            sphinx-design
+            sphinx-gallery
+            sphinx_rtd_theme
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

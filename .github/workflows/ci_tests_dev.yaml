@@ -93,6 +93,7 @@ jobs:
         uses: mamba-org/provision-with-micromamba@v15
         with:
           environment-name: pygmt
+          environment-file: false
           channels: conda-forge,nodefaults
           cache-downloads: true
           cache-env: true

@@ -55,12 +55,31 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/provision-with-micromamba@v15
         with:
-          environment-file: "ci/requirements/tests_with_optional_dependencies.yml"
+          environment-name: pygmt
+          environment-file: false
+          channels: conda-forge,nodefaults
           cache-downloads: true
           cache-env: true
           extra-specs: |
             python=3.9
             gmt=${{ matrix.gmt_version }}
+            numpy>=1.21
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            rioxarray
+            build
+            dvc
+            make
+            pip
+            pytest-doctestplus
+            pytest-mpl
+            pytest>=6.0
+            sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages

@@ -21,6 +21,7 @@ assignees: ''
   - [ ] Update `ci/requirements/docs.yml`
   - [ ] Update `.github/workflows/cache_data.yaml`
   - [ ] Update `.github/workflows/ci_doctests.yaml`
+  - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
   - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
 - [ ] Fix failing tests (1 or more PRs)
