@@ -44,7 +44,6 @@ assignees: ''
 - [ ] Bump PyGMT version on https://github.com/GenericMappingTools/try-gmt (after conda-forge update)
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
-  - [ ] [ResearchGate](https://www.researchgate.net/project/PyGMT-A-Python-interface-for-the-Generic-Mapping-Tools) (after forum announcement)
   - [ ] [Twitter](https://twitter.com/gmt_dev) (after forum announcement)
 ---
 

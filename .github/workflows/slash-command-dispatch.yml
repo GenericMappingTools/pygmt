@@ -1,3 +1,7 @@
+# Support slash commands in pull requests
+#
+# Currently, two slash commands `format` and `test-gmt-dev` are supported.
+#
 name: Slash Command Dispatch
 on:
   issue_comment:
