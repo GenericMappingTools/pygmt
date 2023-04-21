@@ -55,7 +55,7 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/provision-with-micromamba@v15
         with:
-          environment-file: "ci/requirements/tests_legacy.yml"
+          environment-file: "ci/requirements/tests_with_optional_dependencies.yml"
           cache-downloads: true
           cache-env: true
           extra-specs: |
