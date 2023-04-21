@@ -516,7 +516,7 @@ class Session:
             the return value depends on the choice of the option.
 
             - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
-              and ``"s"``: return ``True``
+              and ``"s"``: return ``True`` if set, else ``False`` (bool)
             - ``"I"``: 2-element array for the increments (float)
             - ``"R"``: 4-element array for the region (float)
             - ``"V"``: the verbose level (int)
