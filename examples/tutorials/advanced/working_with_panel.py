@@ -88,6 +88,8 @@ pn.Column(slider_lon, view)
 ###############################################################################
 # Add a grid for Earth relief
 # ---------------------------
+# Instead of using colors as fill for the land and water masses a grid can be
+# displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 # Download a grid for Earth relief with a resolution of 10 arc-minutes
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m")
