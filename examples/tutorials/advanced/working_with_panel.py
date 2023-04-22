@@ -10,8 +10,11 @@ The library `Panel <https://panel.holoviz.org/index.html>`__ can be used to
 create interactive dashboards by connecting user-defined widgets to plots.
 ``Panel`` can be used as an extension to Jupyter notebook / lab.
 
-This tutorial is split into three parts: (1) Make a static map, (2) Make a
-dynamic map, and (3) Add a grid for Earth relief.
+This tutorial is split into three parts:
+
+- Make a static map
+- Make a dynamic map
+- Add a grid for Earth relief
 """
 
 # sphinx_gallery_thumbnail_number = 1
@@ -30,7 +33,7 @@ pn.extension()
 # -----------------
 # The `Orthographic projection
 # <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
-# (**G**) can be used to show the Earth as a globe. Land and water masses are
+# can be used to show the Earth as a globe. Land and water masses are
 # filled with colors via the ``land`` and  ``water`` parameters of
 # :meth:`pygmt.Figure.coast`, respectively. Coastlines are added using the
 # ``shorelines`` parameter.
@@ -38,8 +41,8 @@ pn.extension()
 # Create a new instance or object of the pygmt.Figure() class
 fig = pygmt.Figure()
 fig.coast(
-    # Orthographic projection with projection center at 0° East and 15° North
-    # and a width of 12 centimeters
+    # Orthographic projection (G) with projection center at 0° East and
+    # 15° North and a width of 12 centimeters
     projection="G0/15/12c",
     region="g",  # global
     frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
