@@ -28,7 +28,6 @@ assignees: ''
 **To-Do for bumping the minimum required GMT version**:
 
 - [ ] Bump the minimum required GMT version (1 PR)
-  - [ ] Update `doc/install.rst`
   - [ ] Update `required_version` in `pygmt/clib/session.py`
   - [ ] Update `test_get_default` in `pygmt/tests/test_clib.py`
   - [ ] Update compatibility table in `README.rst`
