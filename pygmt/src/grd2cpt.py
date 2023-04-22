@@ -40,7 +40,7 @@ def grd2cpt(grid, **kwargs):
     figure, subplot, panel, or inset depending on which level
     :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
     maintains different levels of colormaps please see
-    https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels).
+    :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`).
     You can use ``output`` to save the CPT to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
     to colors is through the data's cumulative distribution function (CDF), so

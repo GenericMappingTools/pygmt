@@ -34,7 +34,7 @@ def makecpt(**kwargs):
     figure, subplot, panel, or inset depending on which level
     :func:`pygmt.makecpt` is called (for details on how GMT modern mode
     maintains different levels of colormaps please see
-    https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels).
+    :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`).
     You can use ``output`` to save the CPT to a file.
     You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
