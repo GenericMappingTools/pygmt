@@ -31,6 +31,12 @@ pn.extension()
 ###############################################################################
 # Make a static map
 # -----------------
+# The `Orthographic projection
+# <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
+# (**G**) can be used to show the Earth as a globe. Land and water masses are
+# filled with colors via the ``land`` and  ``water`` parameters of
+# :meth:`pygmt.Figure.coast`, respectively. Coastlines are added using the
+# ``shorelines`` parameter.
 
 # Create a new instance or object of the pygmt.Figure() class
 fig = pygmt.Figure()
