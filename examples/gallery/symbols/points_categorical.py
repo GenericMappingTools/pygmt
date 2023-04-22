@@ -81,7 +81,7 @@ fig.plot(
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
-    # Do not clip symbols that fall close to the map bounds
+    # Do not clip symbols that fall close to the plot bounds
     no_clip=True,
     # Use circles as symbols (the first "c") with diameter in
     # centimeters (the second "c")
