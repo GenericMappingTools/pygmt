@@ -77,7 +77,7 @@ fig.plot(
     # Vary each symbol size according to another feature (body mass,
     # scaled by 7.5e-5)
     size=df.body_mass_g * 7.5e-5,
-    # Points colored by categorical number code
+    # Points colored by categorical number code (refers to the species)
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
