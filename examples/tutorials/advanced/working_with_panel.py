@@ -35,9 +35,9 @@ pn.extension()
 # Create a new instance or object of the pygmt.Figure() class
 fig = pygmt.Figure()
 fig.coast(
-    # Orthographic projection with projection center at 30° East and 15° North
-    # and a width of 12 centimeters
-    projection="G30/15/12c",
+    # Orthographic projection with projection center at 0° East and 15° North
+    # and a width of 10 centimeters
+    projection="G0/15/10c",
     region="g",  # global
     frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
     land="gray",  # Color land masses in "gray"
