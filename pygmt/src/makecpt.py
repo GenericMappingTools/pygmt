@@ -32,7 +32,7 @@ def makecpt(**kwargs):
     This function will help you to make static color palette tables (CPTs).
     By default, the CPT will be saved as the current CPT of the session,
     figure, subplot, panel, or inset depending on which level
-    :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
+    :func:`pygmt.makecpt` is called (for details on how GMT modern mode
     maintains different levels of colormaps please see
     https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels).
     You can use ``output`` to save the CPT to a file.
