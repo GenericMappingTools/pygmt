@@ -193,11 +193,11 @@ fig.show()
 # histograms, each for one data set, on top of each other. The legend entry
 # can be specified via the ``label`` parameter.
 #
-# Limitations
+# Limitations of histograms with overlaid bars are:
 #
 # - Mixing of colors or/and patterns
-# - More colors or/and patterns than data sets
-# - Visually a "third histogram"
+# - Visually more colors or/and patterns than data sets
+# - Visually a "third histogram" (or more in case of more than two data sets)
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -240,10 +240,10 @@ fig.show()
 # Stacked bars
 # ------------
 # Stacked bars can be achieved similar to overlaid bars via plotting two or
-# several histograms on top of each other. However, before plotting,
-# combined data sets have to be created from the singel data sets.
+# several histograms on top of each other. However, before plotting, combined
+# data sets have to be created from the singel data sets.
 #
-# Limitations
+# Limitations of histograms with stacked bars are:
 #
 # - No common baseline
 # - Partly not directly clear whether overlaid or stacked bars
@@ -290,12 +290,11 @@ fig.show()
 # Grouped bars
 # ------------
 # By setting the ``barwidth`` parameter in respect to the values passed to the
-# ``series`` parameter histgrams with grouped bars can be created.
+# ``series`` parameter histograms with grouped bars can be created.
 #
-# Limitations
+# Limitations of histograms with grouped bars are:
 #
-# - Careful setting the width and position of the bars in respect to the
-#   bin width
+# - Careful setting width and position of the bars in respect to the bin width
 # - Difficult to see the variations of the single data sets
 
 # Width used for binning the data
