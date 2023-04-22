@@ -20,7 +20,7 @@ This tutorial is split into three parts:
 # sphinx_gallery_thumbnail_number = 1
 
 
-# Import the requiered packages
+# Import the required packages
 import numpy as np
 import panel as pn
 import pygmt
@@ -32,14 +32,17 @@ pn.extension()
 # Make a static map
 # -----------------
 
-# Create figure instance
+# Create a new instance or object of the pygmt.Figure() class
 fig = pygmt.Figure()
 fig.coast(
-    projection="G30/15/10c",  # Orthographic projection
+    # Orthographic projection with projection center at 30° East and 15° North
+    # and a width of 12 centimeters
+    projection="G30/15/12c",
     region="g",  # global
-    frame="g30",  # Add gridlines in steps of 30 degrees on top
-    land="gray",
-    water="lightblue",
+    frame="g30",  # Add frame and gridlines in steps of 30 degrees on top
+    land="gray",  # Color land masses in "gray"
+    water="lightblue",  # Color water masses in "lightblue"
+    # Add coastlines with a 0.25 points thick pen in "gray50"
     shorelines="1/0.25p,gray50",
 )
 fig.show()
@@ -48,27 +51,29 @@ fig.show()
 ###############################################################################
 # Make a dynamic map
 # ------------------
-# Vary the central longitude used for the Orthographic projection to create
-# a rotation of the Earth around the vertical axis.
+# To generate a rotation of the Earth around the vertical axis, the central
+# longitude of the Orthographic projection is varied iteratively.
+# Here, we use the library ``Panel`` to create an interactive dashboard with
+# a slider.
 
 # Create a slider
 slider_lon = pn.widgets.DiscreteSlider(
-    name="Central longitude",
-    options=list(np.arange(0, 361, 10)),
-    value=0,
+    name="Central longitude",  # Give name for quantity shown at the slider
+    options=list(np.arange(0, 361, 10)),  # Range corresponding to longitude
+    value=0,  # Set start value
 )
 
 
 # Define a function for plotting the single slices
 @pn.depends(central_lon=slider_lon)
 def view(central_lon):
-    # Create figure instance
+    # Create a new instance or object of the pygmt.Figure() class
     fig = pygmt.Figure()
     fig.coast(
         # Vary the central longitude used for the Orthographic projection
         projection="G" + str(central_lon) + "/15/12c",
         region="g",
-        frame="g30",  # Add gridlines in steps of 30 degrees on top
+        frame="g30",
         land="gray",
         water="lightblue",
         shorelines="1/0.25p,gray50",
@@ -84,7 +89,7 @@ pn.Column(slider_lon, view)
 # Add a grid for Earth relief
 # ---------------------------
 
-# Download a grid for Earth relief
+# Download a grid for Earth relief with a resolution of 10 arc-minutes
 grd_relief = pygmt.datasets.load_earth_relief(resolution="10m")
 
 # Create a slider
@@ -98,11 +103,12 @@ slider_lon = pn.widgets.DiscreteSlider(
 # Define a function for plotting the single slices
 @pn.depends(central_lon=slider_lon)
 def view(central_lon):
-    # Create figure instance
+    # Create a new instance or object of the pygmt.Figure() class
     fig = pygmt.Figure()
-    # Set up a colormap for the elevation
+    # Set up a colormap for the elevation in meters
     pygmt.makecpt(
         cmap="oleron",
+        # minimum, maximum, step
         series=[int(np.min(grd_relief)), int(np.max(grd_relief)) + 1, 100],
     )
     # Plot the grid for the elevation
@@ -111,9 +117,11 @@ def view(central_lon):
         region="g",
         grid=grd_relief,  # Use grid downloaded above
         cmap=True,  # Use colormap defined above
-        frame="g30",  # Add gridlines in steps of 30 degrees on top
+        frame="g30",
     )
-    # Add a colorbar for the elevation
+    # Add a horizontal colorbar for the elevation
+    # with annotations (a) in steps of 2000 and ticks (f) in steps of 1000
+    # and labels (+l) at the x-axis "Elevation" and y-axis "m" (meters)
     fig.colorbar(frame=["a2000f1000", "x+lElevation", "y+lm"])
     return fig
 
