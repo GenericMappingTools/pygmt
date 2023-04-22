@@ -16,6 +16,7 @@ import pygmt
 
 # Load sample penguins data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv")
+
 # Convert 'species' column to categorical dtype
 # By default, pandas sorts the individual categories in an alphabetical order.
 # For a non-alphabetical order, you have to manually adjust the list of
@@ -23,6 +24,7 @@ df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/penguins.cs
 # have a look at:
 # https://pandas.pydata.org/docs/user_guide/categorical.html
 df.species = df.species.astype(dtype="category")
+
 # Make a list of the individual categories of the 'species' column
 # ['Adelie', 'Chinstrap', 'Gentoo']
 # They are (corresponding to the categorical number code) by default in
