@@ -35,8 +35,8 @@ cb_annots = list(df.species.cat.categories)
 # The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]
 region = pygmt.info(
     data=df[["bill_length_mm", "bill_depth_mm"]],  # x and y columns
-    per_column=True,  # report the min/max values per column as a numpy array
-    # round the min/max values of the first two columns to the nearest multiple
+    per_column=True,  # Report the min/max values per column as a numpy array
+    # Round the min/max values of the first two columns to the nearest multiple
     # of 3 and 2, respectively
     spacing=(3, 2),
 )
@@ -66,7 +66,7 @@ pygmt.makecpt(
     # Use the minimum and maximum of the categorical number code
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
-    # convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
+    # Convert ['Adelie', 'Chinstrap', 'Gentoo'] to 'Adelie,Chinstrap,Gentoo'
     color_model="+c" + ",".join(cb_annots),
 )
 
