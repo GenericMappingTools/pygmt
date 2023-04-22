@@ -56,7 +56,7 @@ fig.basemap(
     ],
 )
 
-# Define a colormap to be used for three categories, define the range of the
+# Define a colormap for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
 # use color_model="+cAdelie,Chinstrap,Gentoo" to write the discrete color
 # palette "inferno" in categorical format and add the species names as
