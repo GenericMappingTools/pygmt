@@ -262,7 +262,7 @@ Compatibility with GMT/Python/NumPy versions
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
-      - >=3.8
+      - >=3.9
       - >=1.21
     * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
       - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_

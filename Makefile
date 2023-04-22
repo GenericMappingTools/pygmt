@@ -23,7 +23,7 @@ help:
 	@echo ""
 
 install:
-	pip install --no-deps -e .
+	python -m pip install --no-deps -e .
 
 package:
 	python -m build
