@@ -35,9 +35,13 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a function that will help you make static color palette tables
-    (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use ``output`` to save it to a file. The CPT is based on an
+    This function will help you to make static color palette tables (CPTs).
+    By default, the CPT will be saved as the current CPT of the session,
+    figure, subplot, panel, or inset depending on which level
+    :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
+    maintains different levels of colormaps please see
+    https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels).
+    You can use ``output`` to save the CPT to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
     to colors is through the data's cumulative distribution function (CDF), so
     that the colors are histogram equalized. Thus if the grid(s) and the
@@ -126,9 +130,10 @@ def grd2cpt(grid, **kwargs):
         the CPT alone. The truncation takes place before any resampling. See
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
-        Optional parameter to set the file name with extension .cpt to store
-        the generated CPT file. If not given or ``False`` [Default], saves the
-        CPT as the session current CPT.
+        Optional. The file name with extension .cpt to store the generated CPT
+        file. If not given or ``False`` [Default], saves the CPT as the current
+        CPT of the session, figure, subplot, panel, or inset depending on which
+        level :func:`pygmt.grd2cpt` is called.
     reverse : str
         Set this to ``True`` or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to **z** to reverse the sign

@@ -29,9 +29,14 @@ def makecpt(**kwargs):
     r"""
     Make GMT color palette tables.
 
-    This is a function that will help you make static color palette tables
-    (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use ``output`` to save it to a file. You define an equidistant
+    This function will help you to make static color palette tables (CPTs).
+    By default, the CPT will be saved as the current CPT of the session,
+    figure, subplot, panel, or inset depending on which level
+    :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
+    maintains different levels of colormaps please see
+    https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels).
+    You can use ``output`` to save the CPT to a file.
+    You define an equidistant
     set of contour intervals or pass your own z-table or list, and create a new
     CPT based on an existing master (dynamic) CPT. The resulting CPT can be
     reversed relative to the master cpt, and can be made continuous or
@@ -110,8 +115,9 @@ def makecpt(**kwargs):
         also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
-        file. If not given or False [Default], saves the CPT as the session
-        current CPT.
+        file. If not given or ``False`` [Default], saves the CPT as the current
+        CPT of the session, figure, subplot, panel, or inset depending on which
+        level :func:`pygmt.grd2cpt` is called.
     reverse : str
         Set this to True or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
