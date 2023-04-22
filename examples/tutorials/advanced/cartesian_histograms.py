@@ -118,7 +118,7 @@ fig.histogram(
 )
 
 # Shift anchor point 11 centimeters to the right
-fig.shift(xshift="11c")
+fig.shift_origin(xshift="11c")
 
 # Create histogram for data02 showing frequency percent
 fig.histogram(
@@ -162,7 +162,7 @@ fig.histogram(
 )
 
 # Shift anchor point 11 centimeters to the right
-fig.shift(xshift="11c")
+fig.shift_origin(xshift="11c")
 
 # Create histogram for data01 showing the cumulative counts
 fig.histogram(
