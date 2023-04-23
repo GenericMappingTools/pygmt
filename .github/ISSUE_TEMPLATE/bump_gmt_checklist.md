@@ -17,11 +17,13 @@ assignees: ''
 **To-Do for bumping the GMT version in CI**:
 
 - [ ] Bump the GMT version in CI (1 PR)
+  - [ ] Update `environment.yml`
+  - [ ] Update `ci/requirements/docs.yml`
   - [ ] Update `.github/workflows/cache_data.yaml`
+  - [ ] Update `.github/workflows/ci_doctests.yaml`
   - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
-  - [ ] Update `ci/requirements/docs.yml`
-  - [ ] Update `environment.yml`
+  - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
 
@@ -31,5 +33,6 @@ assignees: ''
   - [ ] Update `required_version` in `pygmt/clib/session.py`
   - [ ] Update `test_get_default` in `pygmt/tests/test_clib.py`
   - [ ] Update compatibility table in `README.rst`
+  - [ ] Remove unsupported GMT version from `.github/workflows/ci_tests_legacy.yaml`
 - [ ] Remove [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)
