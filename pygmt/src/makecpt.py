@@ -117,7 +117,7 @@ def makecpt(**kwargs):
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
         CPT of the session, figure, subplot, panel, or inset depending on which
-        level :func:`pygmt.grd2cpt` is called.
+        level :func:`pygmt.makecpt` is called.
     reverse : str
         Set this to True or **c** [Default] to reverse the sense of color
         progression in the master CPT. Set this to z to reverse the sign of
