@@ -61,9 +61,9 @@ jobs:
             build
             make
             pip
+            pytest
             pytest-doctestplus
             pytest-mpl
-            pytest
             sphinx-gallery
 
       # Download cached remote files (artifacts) from GitHub
