@@ -117,13 +117,14 @@ fig.histogram(
     histtype=0,
 )
 
-# Shift plotting origin 11 centimeters to the right
+# Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
 # Create histogram for data02 showing frequency percent
 fig.histogram(
     region=[0, 200, 0, 100],
     projection="X10c",
+    # Add suffix % (+u)
     frame=["lSnE", "xaf10", "ya10f5+u%+lFrequency percent"],
     data=data02,
     series=10,
@@ -161,7 +162,7 @@ fig.histogram(
     annotate=True,
 )
 
-# Shift plotting origin 11 centimeters to the right
+# Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
 # Create histogram for data01 showing the cumulative counts
