@@ -219,8 +219,6 @@ fig.histogram(
 # Create histogram for data02
 # It is plotted on top of the histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],
-    projection="X10c",
     data=data02,
     series=10,
     # Fill bars with color "orange", use a transparency of 50% ("@50")
@@ -270,8 +268,6 @@ fig.histogram(
 # Create histogram for data01
 # It is plotted on top of the histogram for data02
 fig.histogram(
-    region=[0, 200, 0, 20],
-    projection="X10c",
     data=data01,
     series=10,
     fill="red3",
