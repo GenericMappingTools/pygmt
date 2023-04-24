@@ -112,7 +112,7 @@ fig.plot(
     x=[0, 15],
     y=[0, 0],
     fill="lightblue",  # Fill the polygon in "lightblue"
-	# Draw a 0.25-points thick black solid outline
+    # Draw a 0.25-points thick black solid outline
     pen="0.25p,black,solid",
     close="+y-8000",  # Close to polygon
 )
@@ -121,7 +121,7 @@ fig.plot(
 fig.plot(
     data=track_df,
     fill="gray",  # Fill the polygon in "gray"
-	# Draw a 1-point thick black solid outline
+    # Draw a 1-point thick black solid outline
     pen="1p,black,solid",
     close="+y-8000",  # Close to polygon
     incols=[2, 3],  # Select order of input columns (zero-based indexing)
