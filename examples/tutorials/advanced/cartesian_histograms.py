@@ -21,7 +21,7 @@ import numpy as np
 import pygmt
 
 ###############################################################################
-# Generate random data from a normal distribution
+# Generate random data from a normal distribution:
 
 np.random.seed(100)
 
