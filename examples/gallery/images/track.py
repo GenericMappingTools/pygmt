@@ -1,18 +1,25 @@
 r"""
-Title
-=====
-TODO
+Cross-section along a transect
+==============================
+:func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to estimate
+a quantity along a track.
+In this example, the elevation is extracted from a gird provided via
+:func:`pygmt.datasets.load_earth_relief`.
 
+*The example is orientated on
+https://docs.gmt-china.org/latest/examples/ex026/.*
+TODO
 """
 
 import pygmt
-
 
 region_map = [122, 149, 30, 49]
 
 fig = pygmt.Figure()
 
-#-----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Bottom: Map
+
 fig.basemap(
     region=region_map,
     projection="M12c",
@@ -46,7 +53,9 @@ fig.colorbar(
     frame=["x+lElevation", "y+lm"],
 )
 
-#-----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Top: Profil
+
 fig.shift_origin(yshift="12.5c")
 
 fig.basemap(
