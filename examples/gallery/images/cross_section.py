@@ -114,7 +114,7 @@ fig.plot(
     fill="lightblue",  # Fill the polygon in "lightblue"
     # Draw a 0.25-points thick black solid outline
     pen="0.25p,black,solid",
-    close="+y-8000",  # Close to polygon
+    close="+y-8000",  # Force closed polygon
 )
 
 # Plot elevation along track
@@ -123,7 +123,7 @@ fig.plot(
     fill="gray",  # Fill the polygon in "gray"
     # Draw a 1-point thick black solid outline
     pen="1p,black,solid",
-    close="+y-8000",  # Close the polygon
+    close="+y-8000",  # Force closed polygon
     incols=[2, 3],  # Select order of input columns (zero-based indexing)
 )
 
