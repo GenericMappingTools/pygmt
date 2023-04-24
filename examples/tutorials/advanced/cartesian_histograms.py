@@ -161,7 +161,7 @@ fig.histogram(
     annotate=True,
 )
 
-# Shift anchor point 11 centimeters to the right
+# Shift plotting origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
 # Create histogram for data01 showing the cumulative counts
