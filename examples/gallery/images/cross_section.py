@@ -65,7 +65,7 @@ fig.colorbar(
 # ----------------------------------------------------------------------------
 # Top: Track
 
-# Shift plot origin 12.5 centimeters to the right
+# Shift plot origin 12.5 centimeters to the top
 fig.shift_origin(yshift="12.5c")
 
 fig.basemap(
@@ -81,11 +81,11 @@ fig.text(
     x=[0, 15],
     y=[7000, 7000],
     text=["A", "B"],
-    no_clip=True,
-    font="10p",
+    no_clip=True,  # Do not clip text that fall outside of the plot bounds
+    font="10p",  # Use a font size of 10 points
 )
 
-# Calculate track
+# Set up track and store it in a DataFrame
 track_df = pygmt.project(
     center="126/42",
     endpoint="146/40",
@@ -99,7 +99,8 @@ grid_track = pygmt.datasets.load_earth_relief(
     region=region_map,
 )
 
-# Extract elevation from downloaded grid along calculated track
+# Extract the elevation along the defined track from the downloaded grid
+# and add it as new column "elevation" to the DataFrame
 track_df = pygmt.grdtrack(
     grid=grid_track,
     points=track_df,
@@ -110,18 +111,20 @@ track_df = pygmt.grdtrack(
 fig.plot(
     x=[0, 15],
     y=[0, 0],
-    fill="lightblue",
+    fill="lightblue",  # Fill the polygon in "lightblue"
+	# Draw a 0.25-points thick black solid outline
     pen="0.25p,black,solid",
-    close="+y-8000",
+    close="+y-8000",  # Close to polygon
 )
 
 # Plot elevation along track
 fig.plot(
     data=track_df,
-    fill="gray",
+    fill="gray",  # Fill the polygon in "gray"
+	# Draw a 1-point thick black solid outline
     pen="1p,black,solid",
-    close="+y-8000",
-    incols=[2, 3],
+    close="+y-8000",  # Close to polygon
+    incols=[2, 3],  # Select order of input columns (zero-based indexing)
 )
 
 fig.show()
