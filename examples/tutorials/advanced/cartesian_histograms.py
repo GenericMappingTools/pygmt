@@ -124,7 +124,7 @@ fig.shift_origin(xshift="11c")
 fig.histogram(
     region=[0, 200, 0, 100],
     projection="X10c",
-    frame=["lSnE", "xaf10", "ya10f5+lFrequency percent"],
+    frame=["lSnE", "xaf10", "ya10f5+u%+lFrequency percent"],
     data=data02,
     series=10,
     fill="orange",
