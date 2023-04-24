@@ -42,7 +42,7 @@ fig.grdimage(grid=grid_map, cmap="oleron")
 fig.plot(
     x=[126, 146],  # Longitude in degrees East
     y=[42, 40],  # Latitude in degrees North
-	# Draw a 2-points thick red dashed line for the track
+    # Draw a 2-points thick red dashed line for the track
     pen="2p,red,dashed",
 )
 
@@ -70,7 +70,7 @@ fig.shift_origin(yshift="12.5c")
 
 fig.basemap(
     region=[0, 15, -8000, 6000],
-	# Carthesian projection with a width of 12 centimeters and
+    # Carthesian projection with a width of 12 centimeters and
     # a height of 3 centimeters
     projection="X12/3c",
     frame=["WSrt", "xa2f1+lDistance+u@.", "ya4000+lElevation / m"],
