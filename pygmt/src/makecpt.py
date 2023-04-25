@@ -99,11 +99,11 @@ def makecpt(**kwargs):
         labels from *start* (a single letter or an integer). Additionally
         append **-** to build ranges *start*-*start+1* as labels instead.
     series : list or str
-        [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
+        [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
         Define the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
-        produced defines the color slice boundaries.  If **+n** is used it
+        produced defines the color slice boundaries. If **+n** is used it
         refers to the number of such boundaries and not the number of slices.
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
