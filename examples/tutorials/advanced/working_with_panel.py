@@ -120,7 +120,7 @@ def view(central_lon):
     pygmt.makecpt(
         cmap="oleron",
         # minimum, maximum, step
-        series=[int(grd_relief.data.min()), int(grd_relief.data.max()) + 1, 100],
+        series=[int(grd_relief.data.min()) - 1, int(grd_relief.data.max()) + 1, 100],
     )
     # Plot the grid for the elevation
     fig.grdimage(
