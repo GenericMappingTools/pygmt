@@ -40,11 +40,12 @@ def which(fname, **kwargs):
         One or more file names of any data type (grids, tables, etc.).
     download : bool or str
         [**a**\|\ **c**\|\ **l**\|\ **u**].
-        If the ``fname`` argument is a downloadable file (either a complete URL,
-        an @file special file for downloading from the GMT data server, or an
-        @earth_relief_* topography grid corresponding to `:func:earth_relief`)
-        we will try to download the file if it is not found in your local data
-        or cache directories. By default [``download=True`` or ``download="l"``]
+        If the ``fname`` argument is a downloadable file (either a complete
+        URL, an @file special file for downloading from the GMT data server,
+        or an @earth_relief_* topography grid corresponding to
+        `:func:earth_relief`) we will try to download the file if it is not
+        found in your local data or cache directories.
+        By default [``download=True`` or ``download="l"``]
         we download to the current directory. Use **a** to place files in the
         appropriate folder under the user directory (this is where GMT normally
         places downloaded files), **c** to place it in the user cache
