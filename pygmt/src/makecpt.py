@@ -119,11 +119,11 @@ def makecpt(**kwargs):
         CPT of the session, figure, subplot, panel, or inset depending on which
         level :func:`pygmt.makecpt` is called.
     reverse : str
-        Set this to True or **c** [Default] to reverse the sense of color
-        progression in the master CPT. Set this to z to reverse the sign of
-        z-values in the color table. Note that this change of z-direction
+        Set this to ``True`` or **c** [Default] to reverse the sense of color
+        progression in the master CPT. Set this to **z** to reverse the sign
+        of z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
-        latter must be compatible with the changed *z*-range. See also
+        latter must be compatible with the changed z-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
