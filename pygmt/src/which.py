@@ -26,9 +26,9 @@ def which(fname, **kwargs):
     ``fname`` can also be a downloadable file (either a complete URL,
     an @file special file for downloading from the GMT data server,
     or an @earth_relief_* topography grid corresponding to
-    :func:`earth_relief`). In these cases, use the ``download`` parameter
-    to set the desired behavior. If ``download`` is not used (or ``False``),
-    the file will not be found.
+    :func:`pygmt.datasets.load_earth_relief`). In these cases, use the
+    ``download`` parameter to set the desired behavior. If ``download``
+    is not used (or ``False``), the file will not be found.
 
     Full option list at :gmt-docs:`gmtwhich.html`
 
@@ -43,8 +43,8 @@ def which(fname, **kwargs):
         If the ``fname`` argument is a downloadable file (either a complete
         URL, an @file special file for downloading from the GMT data server,
         or an @earth_relief_* topography grid corresponding to
-        :func:`earth_relief`) we will try to download the file if it is not
-        found in your local data or cache directories.
+        :func:`pygmt.datasets.load_earth_relief`) we will try to download
+        the file if it is not found in your local data or cache directories.
         By default [``download=True`` or ``download="l"``]
         we download to the current directory. Use **a** to place files in the
         appropriate folder under the user directory (this is where GMT normally
