@@ -42,17 +42,17 @@ def select(data=None, outfile=None, **kwargs):
     Select data table subsets based on multiple spatial criteria.
 
     This is a filter that reads (x, y) or (longitude, latitude) positions from
-    the first 2 columns of *data* and uses a combination of 1-7 criteria to
-    pass or reject the records. Records can be selected based on whether or not
-    they are:
+    the first 2 columns of ``data`` and uses a combination of 1-7
+    criteria to pass or reject the records. Records can be selected based on
+    whether or not they:
 
-    1. inside a rectangular region (``region`` [and ``projection``])
-    2. within *dist* km of any point in *pointfile*
-    3. within *dist* km of any line in *linefile*
-    4. inside one of the polygons in the *polygonfile*
-    5. inside geographical features (based on coastlines)
-    6. has z-values within a given range, or
-    7. inside bins of a grid mask whose nodes are non-zero
+    1. are inside a rectangular region (``region`` [and ``projection``])
+    2. are within *dist* km of any point in *pointfile*
+    3. are within *dist* km of any line in *linefile*
+    4. are inside one of the polygons in the *polygonfile*
+    5. are inside geographical features (based on shorelines)
+    6. have z-values within a given range
+    7. are inside bins of a grid mask whose nodes are non-zero
 
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
