@@ -124,7 +124,7 @@ def view(central_lon):
     )
     # Plot the grid for the elevation
     fig.grdimage(
-        projection="G" + str(central_lon) + "/15/12c",
+        projection=f"G{central_lon}/15/12c",
         region="g",
         grid=grd_relief,  # Use grid downloaded above
         cmap=True,  # Use colormap defined above
