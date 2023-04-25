@@ -1,4 +1,4 @@
-r"""
+"""
 Interactive data visualization using ``Panel``
 ==============================================
 
