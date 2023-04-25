@@ -11,7 +11,7 @@ Interactive data visualization using ``Panel``
 
 The library `Panel <https://panel.holoviz.org/index.html>`__ can be used to
 create interactive dashboards by connecting user-defined widgets to plots.
-``Panel`` can be used as an extension to Jupyter notebook / lab.
+``Panel`` can be used as an extension to Jupyter notebook/lab.
 
 This tutorial is split into three parts:
 
