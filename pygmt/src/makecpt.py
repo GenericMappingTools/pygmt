@@ -111,9 +111,8 @@ def makecpt(**kwargs):
         *zlow/zhigh*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlow* and *zhigh*. If one of these equal NaN then we leave that
-        end of the CPT alone. The truncation takes place before any
-        resampling. See
-        also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        end of the CPT alone. The truncation takes place before any resampling.
+        See also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
