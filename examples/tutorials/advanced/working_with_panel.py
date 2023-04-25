@@ -16,7 +16,7 @@ create interactive dashboards by connecting user-defined widgets to plots.
 This tutorial is split into three parts:
 
 - Make a static map
-- Make a dynamic map
+- Make an interactive map
 - Add a grid for Earth relief
 """
 
