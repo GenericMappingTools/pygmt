@@ -1,5 +1,5 @@
 r"""
-Dynamic data visualization using ``Panel``
+Interactive data visualization using ``Panel``
 ==========================================
 
 .. note::
