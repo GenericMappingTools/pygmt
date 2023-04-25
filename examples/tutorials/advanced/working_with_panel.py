@@ -80,7 +80,7 @@ def view(central_lon):
     fig = pygmt.Figure()
     fig.coast(
         # Vary the central longitude used for the Orthographic projection
-        projection="G" + str(central_lon) + "/15/12c",
+        projection=f"G{central_lon}/15/12c",
         region="g",
         frame="g30",
         land="gray",
