@@ -20,7 +20,7 @@ on:
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macOS-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash -l {0}
