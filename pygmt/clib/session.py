@@ -5,7 +5,6 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
-import pathlib
 import sys
 from contextlib import contextmanager, nullcontext
 
@@ -1536,19 +1535,21 @@ class Session:
             data, x, y, z, required_z=required_z, optional_data=optional_data
         )
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
+        if check_kind == "raster" and kind not in ("file", "grid", "null"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
         if check_kind == "vector" and kind not in (
             "file",
             "matrix",
             "vectors",
             "geojson",
+            "null",
         ):
             raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": nullcontext,
+            "null": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
@@ -1559,11 +1560,11 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid"):
+        if kind in ("geojson", "grid", "null"):
             _data = (data,)
         elif kind == "file":
-            # Useful to handle `pathlib.Path` and string file path alike
-            _data = (str(data),) if isinstance(data, pathlib.PurePath) else (data,)
+            # Useful to handle `pathlib.PurePath` and string file path alike
+            _data = (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:

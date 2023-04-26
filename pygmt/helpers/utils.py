@@ -21,12 +21,11 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     Possible types:
 
     * a file name provided as 'data'
-    * a pathlib.Path object provided as 'data'
+    * a pathlib.PurePath object provided as 'data'
     * an xarray.DataArray object provided as 'data'
     * a 2-D matrix provided as 'data'
     * 1-D arrays x and y (and z, optionally)
-    * an optional argument (None, bool, int, float or str type) provided as
-      'data'
+    * an optional argument (None, bool, int or float) provided as 'data'
 
     Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
@@ -50,8 +49,8 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     Returns
     -------
     kind : str
-        One of ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
-        ``'vectors'``.
+        One of ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, ``'null'``,
+        or ``'vectors'``.
 
     Examples
     --------
@@ -68,7 +67,11 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
     >>> data_kind(data=None, x=None, y=None, optional_data=True)
-    'file'
+    'null'
+    >>> data_kind(data=2.0, x=None, y=None, optional_data=True)
+    'null'
+    >>> data_kind(data=True, x=None, y=None, optional_data=True)
+    'null'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
@@ -89,11 +92,9 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     # determine the data kind
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
-    elif optional_data and (
-        data is None or isinstance(data, (bool, int, float, str, pathlib.PurePath))
-    ):
-        # a null context manager will be created for "file-like" kind
-        kind = "file"
+    elif optional_data and (data is None or isinstance(data, (bool, int, float))):
+        # a nullcontext will be created for "null" kind
+        kind = "null"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
     elif hasattr(data, "__geo_interface__"):
