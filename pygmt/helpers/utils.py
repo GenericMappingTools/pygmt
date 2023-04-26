@@ -25,7 +25,8 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     * an xarray.DataArray object provided as 'data'
     * a 2-D matrix provided as 'data'
     * 1-D arrays x and y (and z, optionally)
-    * an option argument (None, bool, int, float or str type) provided as 'data'
+    * an optional argument (None, bool, int, float or str type) provided as
+      'data'
 
     Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
