@@ -75,6 +75,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
+    # pylint: disable=too-many-branches
     # validate the combinations of data/x/y/z
     if x is None and y is None:  # both x and y are not given
         if data is None and not optional_data:
