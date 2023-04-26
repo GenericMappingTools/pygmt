@@ -49,13 +49,13 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.9', '3.11']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
         # Only run two jobs (Ubuntu + Python 3.9/3.11) for draft PRs
         exclude:
-          - os: macOS-latest
+          - os: macos-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
@@ -167,7 +167,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.2
+        uses: codecov/codecov-action@v3.1.3
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
