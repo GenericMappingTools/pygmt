@@ -2,7 +2,14 @@
 grdview - Create a three-dimensional plot from a grid.
 """
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import (
+    build_arg_string,
+    data_kind,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdview"]
 
@@ -145,6 +152,12 @@ def grdview(self, grid, **kwargs):
     >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if kwargs.get("G") is not None and data_kind(kwargs["G"]) not in ("file", "grid"):
+        raise GMTInvalidInput(
+            f"Unrecognized data type for drapegrid: {type(kwargs['G'])}"
+        )
+
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
