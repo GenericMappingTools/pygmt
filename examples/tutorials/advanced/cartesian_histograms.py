@@ -48,11 +48,13 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],  # xmin, xmax, ymin, ymax
+    # Define the plot range as a list of xmin, xmax, ymin, ymax
+    # Let ymin and ymax be determined automatically via setting both to zero
+    region=[0, 200, 0, 0],
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations (a), ticks (f), and y-axis label (+l) "Counts"
     # The numbers give the steps of annotations and ticks
-    frame=["WSne", "xaf10", "ya2f1+lCounts"],
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data01,
     # Set the bin width via the "series" parameter
     series=10,
@@ -76,9 +78,9 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],
+    region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya2f1+lCounts"],
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
@@ -106,9 +108,9 @@ fig = pygmt.Figure()
 
 # Create histogram for data02 showing counts
 fig.histogram(
-    region=[0, 200, 0, 10],
+    region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSnr", "xaf10", "ya2f1+lCounts"],
+    frame=["WSnr", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
     fill="orange",
@@ -122,10 +124,10 @@ fig.shift_origin(xshift="11c")
 
 # Create histogram for data02 showing frequency percent
 fig.histogram(
-    region=[0, 200, 0, 100],
+    region=[0, 200, 0, 0],
     projection="X10c",
     # Add suffix % (+u)
-    frame=["lSnE", "xaf10", "ya10f5+u%+lFrequency percent"],
+    frame=["lSnE", "xaf10", "ya2f1+u%+lFrequency percent"],
     data=data02,
     series=10,
     fill="orange",
@@ -150,7 +152,7 @@ fig = pygmt.Figure()
 
 # Create histogram for data01 showing the counts per bin
 fig.histogram(
-    region=[0, 200, 0, 43],
+    region=[0, 200, 0, len(data01) + 1],
     projection="X10c",
     frame=["WSne", "xaf10", "ya5f1+lCounts"],
     data=data01,
@@ -167,7 +169,7 @@ fig.shift_origin(xshift="11c")
 
 # Create histogram for data01 showing the cumulative counts
 fig.histogram(
-    region=[0, 200, 0, 43],
+    region=[0, 200, 0, len(data01) + 1],
     projection="X10c",
     frame=["wSnE", "xaf10", "ya5f1+lCumulative counts"],
     data=data01,
@@ -205,9 +207,9 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],
+    region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya2f1+lCounts"],
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
@@ -255,9 +257,9 @@ fig = pygmt.Figure()
 
 # Create histogram for data02 by using the combined data set
 fig.histogram(
-    region=[0, 200, 0, 20],
+    region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya2f1+lCounts"],
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data_merge,
     series=10,
     fill="orange",
@@ -302,9 +304,9 @@ fig = pygmt.Figure()
 
 # Create histogram for data01
 fig.histogram(
-    region=[0, 200, 0, 10],
+    region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10g10", "ya2f1+lCounts"],
+    frame=["WSne", "xaf10g10", "ya1f1+lCounts"],
     data=data01,
     series=binwidth,
     fill="red3",
@@ -320,8 +322,6 @@ fig.histogram(
 
 # Create histogram for data02
 fig.histogram(
-    region=[0, 200, 0, 10],
-    projection="X10c",
     data=data02,
     series=binwidth,
     fill="orange",
