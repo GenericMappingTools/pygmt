@@ -47,7 +47,7 @@ def which(fname, **kwargs):
         :doc:`Datasets <https://www.pygmt.org/dev/api/index.html#datasets>`)
         we will try to download the file if it is not found in your
         local data or cache directories.
-        If set to `True` or **l** is passed the file is download to the
+        If set to ``True`` or **l** is passed the file is download to the
         current directory. Use **a** to place files in the appropriate
         folder under the user directory (this is where GMT normally
         places downloaded files), **c** to place it in the user cache
