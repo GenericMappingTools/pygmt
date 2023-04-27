@@ -23,12 +23,12 @@ def which(fname, **kwargs):
     defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
     (if defined).
 
-    ``fname`` can also be a downloadable file (either a complete URL,
-    an @file special file for downloading from the GMT data server,
-    or an @earth_relief_* topography grid corresponding to
-    :func:`pygmt.datasets.load_earth_relief`). In these cases, use the
-    ``download`` parameter to set the desired behavior. If ``download``
-    is not used (or ``False``), the file will not be found.
+    ``fname`` can also be a downloadable file (either a complete URL, a
+    @file for downloading from the GMT data server, or @earth_relief_xxy
+    or any other of the remote datasets at
+    https://www.pygmt.org/dev/api/index.html#datasets). In these cases,
+    use the ``download`` parameter to set the desired behavior. If
+    ``download`` is not used (or ``False``), the file will not be found.
 
     Full option list at :gmt-docs:`gmtwhich.html`
 
@@ -40,11 +40,12 @@ def which(fname, **kwargs):
         One or more file names of any data type (grids, tables, etc.).
     download : bool or str
         [**a**\|\ **c**\|\ **l**\|\ **u**].
-        If the ``fname`` argument is a downloadable file (either a complete
-        URL, an @file special file for downloading from the GMT data server,
-        or an @earth_relief_* topography grid corresponding to
-        :func:`pygmt.datasets.load_earth_relief`) we will try to download
-        the file if it is not found in your local data or cache directories.
+        If the ``fname`` argument is a downloadable file (either a
+        complete URL, a @file for downloading from the GMT data server,
+        or @earth_relief_xxy or any other of the remote datasets at
+        https://www.pygmt.org/dev/api/index.html#datasets) we will try
+        to download the file if it is not found in your local data or
+        cache directories.
         If set to `True` or **l** is passed the file is download to the
         current directory. Use **a** to place files in the appropriate
         folder under the user directory (this is where GMT normally
