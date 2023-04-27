@@ -45,12 +45,12 @@ def which(fname, **kwargs):
         or an @earth_relief_* topography grid corresponding to
         :func:`pygmt.datasets.load_earth_relief`) we will try to download
         the file if it is not found in your local data or cache directories.
-        By default [``download=True`` or ``download="l"``]
-        we download to the current directory. Use **a** to place files in the
-        appropriate folder under the user directory (this is where GMT normally
+        If set to `True` or **l** is passed the file is download to the
+        current directory. Use **a** to place files in the appropriate
+        folder under the user directory (this is where GMT normally
         places downloaded files), **c** to place it in the user cache
-        directory, or **u** for the user data directory instead (i.e., ignoring
-        any subdirectory structure).
+        directory, or **u** for the user data directory instead (i.e.,
+        ignoring any subdirectory structure).
     {verbose}
 
     Returns
