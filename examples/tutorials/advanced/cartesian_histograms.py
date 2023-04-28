@@ -49,8 +49,8 @@ fig = pygmt.Figure()
 # Create histogram for data01
 fig.histogram(
     # Define the plot range as a list of xmin, xmax, ymin, ymax
-    # By giving the same value for ymin and ymax (here zero) ymin will
-    # be always set to zero and ymax will be determined automatically
+    # Let ymin and ymax determined automatically by setting both to the same
+    # value
     region=[0, 200, 0, 0],
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations (a), ticks (f), and y-axis label (+l) "Counts"
