@@ -38,8 +38,8 @@ fig.shift_origin(yshift="10.25c")
 fig.histogram(
     projection="X10c/2c",
     frame=["Wsrt", "xf1", "y+lCounts"],
-    # Give the same value for ymin and ymax to have ymin and ymax
-    # calculated automatically
+    # Give the same value for ymin and ymax to have ymin set to zero
+    # and ymax calculated automatically
     region=[-xymax - 0.5, xymax + 0.5, 0, 0],
     data=x,
     fill=fillcol,
