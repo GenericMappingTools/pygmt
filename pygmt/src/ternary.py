@@ -1,6 +1,9 @@
 """
 ternary - Plot data on ternary diagrams.
 """
+import pandas as pd
+from packaging.version import Version
+from pygmt import __gmt_version__
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -13,7 +16,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     JX="width",
     R="region",
     S="style",
-    U="timestamp",
     V="verbose",
     W="pen",
     c="panel",
@@ -23,6 +25,8 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     r"""
+    Plot ternary diagrams.
+
     Reads (*a*,\ *b*,\ *c*\ [,\ *z*]) records from *data* and plots symbols at
     those locations on a ternary diagram. If a symbol is selected and no symbol
     size given, then we will interpret the fourth column of the input data as
@@ -38,7 +42,7 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     Parameters
     ----------
     data : str or list or {table-like}
-        Pass in either a file name to an ASCII data table, a Python list, a 2D
+        Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str
         Set the width of the figure by passing a number, followed by
@@ -64,7 +68,6 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         *symbol*\[\ *size*].
         Plot individual symbols in a ternary diagram.
     {pen}
-    {timestamp}
     {verbose}
     {panel}
     {perspective}
@@ -77,6 +80,11 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         blabel = str(blabel) if blabel is not None else "-"
         clabel = str(clabel) if clabel is not None else "-"
         kwargs["L"] = "/".join([alabel, blabel, clabel])
+
+    # Patch for GMT < 6.5.0.
+    # See https://github.com/GenericMappingTools/pygmt/pull/2138
+    if Version(__gmt_version__) < Version("6.5.0") and isinstance(data, pd.DataFrame):
+        data = data.to_numpy()
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)

@@ -32,21 +32,19 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ----------
     resolution : str
         The grid resolution. The suffix ``d`` and ``m`` stand for
-        arc-degree and arc-minute. It can be ``"01d"``, ``"30m"``,
+        arc-degrees and arc-minutes. It can be ``"01d"``, ``"30m"``,
         ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
         ``"03m"``, ``"02m"``, or ``"01m"``.
 
     region : str or list
-        The subregion of the grid to load, in the forms of a list
+        The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for grids with resolutions higher than 5
-        arc-minute (i.e., ``"05m"``).
+        arc-minutes (i.e., ``"05m"``).
 
     registration : str
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``None``, where
-        a pixel-registered grid is returned unless only the
-        gridline-registered grid is available.
+        ``"gridline"`` for gridline registration. Default is ``"gridline"``.
 
     Returns
     -------
@@ -56,9 +54,14 @@ def load_earth_age(resolution="01d", region=None, registration=None):
 
     Note
     ----
-    The :class:`xarray.DataArray` grid doesn't support slice operation, for
-    Earth seafloor crustal age with resolutions of 5 arc-minutes or higher,
-    which are stored as smaller tiles.
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
+    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
+    However, these properties may be lost after specific grid operations (such
+    as slicing) and will need to be manually set before passing the grid to any
+    PyGMT data processing or plotting functions. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
+    workarounds.
 
     Examples
     --------
@@ -66,20 +69,18 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     >>> from pygmt.datasets import load_earth_age
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_age()
-    >>> # load the 30 arc-minute grid with "gridline" registration
+    >>> # load the 30 arc-minutes grid with "gridline" registration
     >>> grid = load_earth_age(resolution="30m", registration="gridline")
-    >>> # load high-resolution (5 arc-minute) grid for a specific region
+    >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_age(
     ...     resolution="05m",
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
     """
-    dataset_prefix = "earth_age_"
-    dataset_name = "earth_age"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        dataset_name="earth_age",
+        dataset_prefix="earth_age_",
         resolution=resolution,
         region=region,
         registration=registration,

@@ -84,7 +84,7 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
         {projection}
         {region}
@@ -100,7 +100,7 @@ class triangulate:  # pylint: disable=invalid-name
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
-            Determines the output type. Use "file", "xarray", "pandas", or
+            Determine the output type. Use "file", "xarray", "pandas", or
             "numpy".
         {verbose}
         {binary}
@@ -200,7 +200,7 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
         {projection}
         {region}
@@ -317,7 +317,7 @@ class triangulate:  # pylint: disable=invalid-name
             Arrays of x and y coordinates and values z of the data points.
         data : str or {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
-            providing a file name to an ASCII data table, a 2D
+            providing a file name to an ASCII data table, a 2-D
             {table-classes}.
         {projection}
         {region}

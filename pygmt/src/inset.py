@@ -47,10 +47,10 @@ def inset(self, **kwargs):
 
         Append **g**\ *lon*/*lat* for map (user) coordinates,
         **j**\ *code* or **J**\ *code* for setting the *refpoint* via a
-        2-char justification code that refers to the (invisible)
+        2-character justification code that refers to the (invisible)
         projected map bounding box, **n**\ *xn*/*yn* for normalized (0-1)
         bounding box coordinates, or **x**\ *x*/*y* for plot
-        coordinates (inches, cm, points, append unit).
+        coordinates (inches, centimeters, points, append unit).
         All but **x** requires both ``region`` and ``projection`` to be
         specified. You can offset the reference point via
         **+o**\ *dx*/*dy* in the direction implied by *code* or
@@ -61,13 +61,13 @@ def inset(self, **kwargs):
         coordinates instead are the lower left and upper right corners of
         the desired rectangle. (Or, give *xmin/xmax/ymin/ymax* of bounding
         rectangle in projected coordinates and optionally
-        append **+u**\ *unit* [Default coordinate unit is meter (e)].
+        append **+u**\ *unit* [Default coordinate unit is meters (**e**)].
 
         Append **+w**\ *width*\ [/*height*] of bounding rectangle or box
-        in plot coordinates (inches, cm, etc.). By default, the anchor
-        point on the scale is assumed to be the bottom left corner (**BL**),
-        but this can be changed by appending **+j** followed by a 2-char
-        justification code *justify*.
+        in plot coordinates (inches, centimeters, etc.). By default, the
+        anchor point on the scale is assumed to be the bottom left corner
+        (**BL**), but this can be changed by appending **+j** followed by
+        a 2-character justification code *justify*.
         **Note**: If **j** is used then *justify* defaults to the same
         as *refpoint*, if **J** is used then *justify* defaults to the
         mirror opposite of *refpoint*. Specify inset box attributes via
@@ -76,8 +76,7 @@ def inset(self, **kwargs):
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\
         *pen*]][**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\
         [[*dx*/*dy*/][*shade*]]].
-
-        If passed ``True``, this draws a rectangular box around the map
+        If set to ``True``, draw a rectangular box around the map
         inset using the default pen; specify a different pen
         with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
         [Default is no fill].
@@ -91,9 +90,9 @@ def inset(self, **kwargs):
         rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
-        indicates the shift relative to the foreground frame
-        [4p/-4p] and ``shade`` sets the fill style to use for
-        shading [Default is gray50].
+        indicates the shift relative to the foreground frame [Default is
+        ``"4p/-4p"``] and ``shade`` sets the fill style to use for
+        shading [Default is ``"gray50"``].
     margin : int or str or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
@@ -104,8 +103,8 @@ def inset(self, **kwargs):
         a string with the values separated by forward
         slashes [Default is no margins].
     no_clip : bool
-        Do NOT clip features extruding outside map inset boundaries [Default
-        is clip].
+        Do **not** clip features extruding outside the inset frame
+        boundaries [Default is ``False``].
     {region}
     {projection}
     {verbose}
@@ -131,8 +130,7 @@ def inset(self, **kwargs):
     ...
     >>> # Map elements outside the "with" block are plotted in the main figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
-    >>> fig.show()  # doctest: +SKIP
-    <IPython.core.display.Image object>
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

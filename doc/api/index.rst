@@ -34,6 +34,7 @@ Plotting map elements
     Figure.logo
     Figure.solar
     Figure.text
+    Figure.timestamp
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -61,6 +62,7 @@ Plotting raster data
     Figure.grdimage
     Figure.grdview
     Figure.image
+    Figure.tilemap
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
@@ -206,9 +208,6 @@ Miscellaneous
     print_clib_info
     show_versions
 
-
-.. automodule:: pygmt.datasets
-
 .. currentmodule:: pygmt
 
 Datasets
@@ -223,24 +222,21 @@ and store them in GMT's user data directory.
 
     datasets.list_sample_data
     datasets.load_earth_age
+    datasets.load_earth_free_air_anomaly
+    datasets.load_earth_geoid
+    datasets.load_earth_magnetic_anomaly
+    datasets.load_earth_mask
     datasets.load_earth_relief
+    datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
 
-The following functions are deprecated since v0.6.0 and will be removed in v0.9.0.
-Use :func:`pygmt.datasets.load_sample_data` instead.
+In addition, there is also a special function to load XYZ tile maps via
+:doc:`contextily <contextily:index>` to be used as base maps.
 
 .. autosummary::
     :toctree: generated
 
-    datasets.load_fractures_compilation
-    datasets.load_hotspots
-    datasets.load_japan_quakes
-    datasets.load_mars_shape
-    datasets.load_ocean_ridge_points
-    datasets.load_sample_bathymetry
-    datasets.load_usgs_quakes
-
-.. automodule:: pygmt.exceptions
+    datasets.load_tile_map
 
 .. currentmodule:: pygmt
 
@@ -260,8 +256,6 @@ All custom exceptions are derived from :class:`pygmt.exceptions.GMTError`.
     exceptions.GMTCLibNoSessionError
     exceptions.GMTCLibNotFoundError
 
-
-.. automodule:: pygmt.clib
 
 .. currentmodule:: pygmt
 
@@ -309,6 +303,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.__enter__
     clib.Session.__exit__
     clib.Session.get_default
+    clib.Session.get_common
     clib.Session.create_data
     clib.Session.put_matrix
     clib.Session.put_strings

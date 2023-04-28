@@ -13,6 +13,8 @@ from pygmt.helpers import (
     use_alias,
 )
 
+__doctest_skip__ = ["grdview"]
+
 
 @fmt_docstring
 @use_alias(
@@ -77,11 +79,11 @@ def grdview(self, grid, **kwargs):
         (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
         *level*\ [**+g**\ *fill*].
-        Draws a plane at this z-level. If the optional color is provided
+        Draw a plane at this z-level. If the optional color is provided
         via the **+g** modifier, and the projection is not oblique, the frontal
         facade between the plane and the data perimeter is colored.
     surftype : str
-        Specifies cover type of the grid.
+        Specify cover type of the grid.
         Select one of following settings:
 
         - **m** - mesh plot [Default].
@@ -97,10 +99,10 @@ def grdview(self, grid, **kwargs):
         Draw contour lines on top of surface or mesh (not image). Append
         pen attributes used for the contours.
     meshpen : str
-        Sets the pen attributes used for the mesh. You must also select
+        Set the pen attributes used for the mesh. You must also select
         ``surftype`` of **m** or **sm** for meshlines to be drawn.
     facadepen :str
-        Sets the pen attributes used for the facade. You must also select
+        Set the pen attributes used for the facade. You must also select
         ``plane`` for the facade outline to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1)
@@ -117,6 +119,39 @@ def grdview(self, grid, **kwargs):
     {interpolation}
     {perspective}
     {transparency}
+
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # in a specified region
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m",
+    ...     region=[-92.5, -82.5, -3, 7],
+    ...     registration="gridline",
+    ... )
+    >>> # create a new figure instance with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create the contour plot
+    >>> fig.grdview(
+    ...     # pass in the grid downloaded above
+    ...     grid=grid,
+    ...     # set the perspective to an azimuth of 130° and an elevation of 30°
+    ...     perspective=[130, 30],
+    ...     # add a frame to the x- and y-axes
+    ...     # specify annotations on the south and east borders of the plot
+    ...     frame=["xa", "ya", "wSnE"],
+    ...     # set the projection of the 2-D map to Mercator with a 10 cm width
+    ...     projection="M10c",
+    ...     # set the vertical scale (z-axis) to 2 cm
+    ...     zsize="2c",
+    ...     # set "surface plot" to color the surface via a CPT
+    ...     surftype="s",
+    ...     # specify CPT to "geo"
+    ...     cmap="geo",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

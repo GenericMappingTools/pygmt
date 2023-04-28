@@ -32,7 +32,10 @@ def fixture_region():
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zscale = 5"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting
+    zscale = 5
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -51,7 +54,10 @@ def test_plot3d_red_circles_zscale(data, region):
 
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
-    "Plot the 3D data in red circles passing in vectors and setting zsize = 6c"
+    """
+    Plot the 3-D data in red circles passing in vectors and setting
+    zsize = "6c"
+    """
     fig = Figure()
     fig.plot3d(
         x=data[:, 0],
@@ -74,7 +80,7 @@ def test_plot3d_fail_1d_array_with_data(data, region):
     are used with matrix.
     """
     fig = Figure()
-    kwargs = dict(data=data, region=region, projection="X10c", frame="afg")
+    kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
     with pytest.raises(GMTInvalidInput):
         fig.plot3d(style="c0.2c", fill=data[:, 2], **kwargs)
     with pytest.raises(GMTInvalidInput):
@@ -98,7 +104,7 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/10c",
+        projection="R40/10c",
         style="s1c",
         fill="green",
         frame=["ag", "zag"],

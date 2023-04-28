@@ -1,4 +1,13 @@
-# This workflow gets and uploads the GMT data artifacts used in the PyGMT CI tests
+# Cache GMT remote data files and uploads as artifacts
+#
+# This workflow downloads data files needed by PyGMT tests/documentation from
+# the GMT data server and uploads as workflow artifacts which can be accessed
+# by other GitHub Actions workflows.
+#
+# It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
+# needed urgently, maintainers can manually uncomment the 'pull_request:' line
+# below to refresh the cache.
+#
 name: Cache data
 
 on:
@@ -11,7 +20,7 @@ on:
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macOS-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash -l {0}
@@ -19,34 +28,32 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.5.2
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      - name: Setup Micromamba
+        uses: mamba-org/provision-with-micromamba@v15
         with:
+          environment-name: pygmt
+          environment-file: false
           channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build
+          extra-specs: |
+            python=3.11
+            gmt=6.4.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            build
 
       # Install the package that we want to test
       - name: Install the package
         run: |
           python -m build --sdist
-          pip install dist/*
+          python -m pip install dist/*
 
       # Download remote files
       - name: Download remote data

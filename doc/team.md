@@ -109,4 +109,12 @@ the PyGMT project and have responsibilities detailed in the
 +++
 {bdg-primary}`Maintainer`
 ::::
+
+::::{grid-item-card} Yvonne Fröhlich
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/94163266?v=4
+
+[@yvonnefroehlich](https://github.com/yvonnefroehlich)
+::::
 :::::

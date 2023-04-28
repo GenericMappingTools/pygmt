@@ -52,8 +52,8 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     ----------
     data : str or {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D {table-classes}.
-    x/y/z : 1d arrays
+        providing a file name to an ASCII data table, a 2-D {table-classes}.
+    x/y/z : 1-D arrays
         The arrays of x and y coordinates and z data points.
     outgrid : str or None
         Optional. The name of the output netCDF file with extension .nc to

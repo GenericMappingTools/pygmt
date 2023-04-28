@@ -1,3 +1,11 @@
+# Code lint and style checks
+#
+# This workflow runs code style and lint checks to check if the codes have
+# consistent code style and are high-quality.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
 name: Style Checks
 
 on:
@@ -16,17 +24,17 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v3.5.2
 
-      # Setup Miniconda
+      # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v4.3.0
+        uses: actions/setup-python@v4.5.0
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install packages
         run: |
-          pip install black blackdoc docformatter flakeheaven pylint isort
+          python -m pip install black blackdoc docformatter==1.5.1 flakeheaven pylint isort
           sudo apt-get install dos2unix
 
       - name: Formatting check (black, blackdoc, docformatter, flakeheaven and isort)

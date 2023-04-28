@@ -49,8 +49,8 @@ A few guidelines for reviewing:
   PR.
 * Don't be harsh with code style or performance. If the code is bad, either (1) merge
   the pull request and open a new one fixing the code and pinging the original submitter
-  (2) comment on the PR detailing how the code could be improved. Both ways are focused
-  on showing the contributor **how to write good code**, not shaming them.
+  or (2) comment on the PR detailing how the code could be improved. Both ways are
+  focused on showing the contributor **how to write good code**, not shaming them.
 
 Pull requests should be **squash merged**.
 This means that all commits will be collapsed into one.
@@ -64,90 +64,26 @@ The main advantages of this are:
 
 ## Continuous Integration
 
-We use GitHub Actions continuous integration (CI) services to
-build and test the project on Linux, macOS and Windows.
-They rely on the `environment.yml` file to install required dependencies using
-conda and the `Makefile` to run the tests and checks.
+We use GitHub Actions continuous integration (CI) services to build, test and
+manage the project on Linux, macOS and Windows. The GitHub Actions CI are
+controlled by 14 workflow files located in `.github/workflows`. Here we briefly
+summarize the functions of the workflows. Please refer to the comments in the
+workflow files for more details.
 
-There are 11 configuration files located in `.github/workflows`:
-
-1. `style_checks.yaml` (Code lint and style checks)
-
-   This is run on every commit to the *main* and pull request branches.
-   It is also scheduled to run daily on the *main* branch.
-
-2. `ci_tests.yaml` (Tests on Linux/macOS/Windows)
-
-   This is run on every commit to the *main* and pull request branches.
-   It is also scheduled to run regular tests daily and run full tests
-   (including doctests) on Wednesday on the *main* branch.
-   In draft pull requests, only two jobs on Linux are triggered to save on
-   Continuous Integration resources:
-
-   - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
-     Python/NumPy versions
-   - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
-
-   This workflow is also responsible for uploading test coverage reports stored
-   in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
-   via the [Codecov GitHub Action](https://github.com/codecov/codecov-action).
-   More codecov related configurations are stored in `.github/codecov.yml`.
-
-3. `ci_docs.yml` (Build documentation on Linux/macOS/Windows)
-
-   This is run on every commit to the *main* and pull request branches.
-   In draft pull requests, only the job on Linux is triggered to save on
-   Continuous Integration resources.
-
-   On the *main* branch, the workflow also handles the documentation
-   deployment:
-
-   * Updating the development documentation by pushing the built HTML pages
-     from the *main* branch onto the `dev` folder of the *gh-pages* branch.
-   * Updating the `latest` documentation link to the new release.
-
-4. `ci_tests_dev.yaml` (GMT Dev Tests on Linux/macOS/Windows).
-
-   This is triggered when a PR is marked as "ready for review", or using the
-   slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
-   Wednesday and Friday on the *main* branch.
-
-5. `cache_data.yaml` (Caches GMT remote data files needed for GitHub Actions CI)
-
-   This is scheduled to run every Sunday at 12:00 (UTC).
-   If new remote files are needed urgently, maintainers can manually uncomment
-   the 'pull_request:' line in that `cache_data.yaml` file to refresh the cache.
-
-6. `publish-to-pypi.yml` (Publish wheels to PyPI and TestPyPI)
-
-   This workflow is run to publish wheels to PyPI and TestPyPI (for testing only).
-   Archives will be pushed to TestPyPI on every commit to the *main* branch
-   and tagged releases, and to PyPI for tagged releases only.
-
-7. `release-drafter.yml` (Drafts the next release notes)
-
-    This workflow is run to update the next releases notes as pull requests are
-    merged into the main branch.
-
-8. `check-links.yml` (Check links in the repository and website)
-
-   This workflow is run weekly to check all external links in plaintext and
-   HTML files. It will create an issue if broken links are found.
-
-9. `format-command.yml` (Format the codes using slash command)
-
-   This workflow is triggered in a PR if the slash command `/format` is used.
-
-10. `dvc-diff.yml` (Report changes to test images on dvc remote)
-
-    This workflow is triggered in a PR when any *.png.dvc files have been added,
-    modified, or deleted. A GitHub comment will be published that contains a summary
-    table of the images that have changed along with a visual report.
-
-11. `release-baseline-images.yml` (Upload the ZIP archive of baseline images as a release asset)
-
-    This workflow is run to upload the ZIP archive of baseline images as a release
-    asset when a release is published.
+1. `style_checks.yaml`: Code lint and style checks
+2. `check-links.yml`: Check links in the repository and documentation
+3. `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
+4. `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
+5. `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
+6. `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
+7. `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
+8. `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
+9. `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
+10. `release-drafter.yml`: Draft the next release notes
+11. `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
+12. `format-command.yml`: Format the codes using slash command
+13. `dvc-diff.yml`: Report changes in test images
+14. `slash-command-dispatch.yml`: Support slash commands in pull requests
 
 ## Continuous Documentation
 
@@ -273,14 +209,9 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
 ### Check the README Syntax
 
 GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-So slightly broken RST can cause the PyPI page to not render the correct content. Check
-using the `rst2html.py` script that comes with docutils:
-
-```
-rst2html.py --no-raw README.rst > index.html
-```
-
-Open `index.html` and check for any flaws or error messages.
+To check the README syntax, visit the
+[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
+the latest commit, and review the left sidebar and project description for any errors.
 
 ### Pushing to PyPI and Updating the Documentation
 

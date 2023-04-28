@@ -6,7 +6,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
 import sys
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -25,28 +25,41 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
-    "GMT_IS_DATASET",
-    "GMT_IS_GRID",
-    "GMT_IS_PALETTE",
-    "GMT_IS_MATRIX",
-    "GMT_IS_VECTOR",
+    "GMT_IS_DATASET",  # Entity is a data table
+    "GMT_IS_GRID",  # Entity is a grid
+    "GMT_IS_IMAGE",  # Entity is a 1- or 3-band unsigned char image
+    "GMT_IS_PALETTE",  # Entity is a color palette table
+    "GMT_IS_POSTSCRIPT",  # Entity is a PostScript content struct
+    "GMT_IS_MATRIX",  # Entity is a user matrix
+    "GMT_IS_VECTOR",  # Entity is a set of user vectors
+    "GMT_IS_CUBE",  # Entity is a 3-D data cube
 ]
 
-VIAS = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
+VIAS = [
+    "GMT_VIA_MATRIX",  # dataset is passed as a matrix
+    "GMT_VIA_VECTOR",  # dataset is passed as a set of vectors
+]
 
 GEOMETRIES = [
-    "GMT_IS_NONE",
-    "GMT_IS_POINT",
-    "GMT_IS_LINE",
-    "GMT_IS_POLYGON",
-    "GMT_IS_PLP",
-    "GMT_IS_SURFACE",
+    "GMT_IS_NONE",  # items without geometry (e.g., CPT)
+    "GMT_IS_POINT",  # items are points
+    "GMT_IS_LINE",  # items are lines
+    "GMT_IS_POLY",  # items are polygons
+    "GMT_IS_LP",  # items could be any one of LINE or POLY
+    "GMT_IS_PLP",  # items could be any one of POINT, LINE, or POLY
+    "GMT_IS_SURFACE",  # items are 2-D grid
+    "GMT_IS_VOLUME",  # items are 3-D grid
 ]
 
-METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+METHODS = [
+    "GMT_IS_DUPLICATE",  # tell GMT the data are read-only
+    "GMT_IS_REFERENCE",  # tell GMT to duplicate the data
+]
+
+DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
@@ -166,10 +179,16 @@ class Session:
                 "plugin dir": self.get_default("API_PLUGINDIR"),
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
-                # API_IMAGE_LAYOUT not defined if GMT is not compiled with GDAL
-                # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
+            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
+            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
+            # dependency. The try-except block can be refactored after we bump
+            # the minimum required GMT version to 6.4.0.
+            try:
+                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
+            except GMTCLibError:
+                pass
             # API_BIN_VERSION is new in GMT 6.4.0.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
@@ -430,7 +449,7 @@ class Session:
 
         Possible default parameter names include:
 
-        * ``"API_VERSION"``: The GMT version
+        * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
         * ``"API_BINDIR"``: The binary file directory
         * ``"API_SHAREDIR"``: The share directory
@@ -440,6 +459,7 @@ class Session:
         * ``"API_CORES"``: The number of cores
         * ``"API_IMAGE_LAYOUT"``: The image/band layout
         * ``"API_GRID_LAYOUT"``: The grid layout
+        * ``"API_BIN_VERSION"``: The GMT binary version (with git information)
 
         Parameters
         ----------
@@ -473,6 +493,97 @@ class Session:
             )
 
         return value.value.decode()
+
+    def get_common(self, option):
+        """
+        Inquire if a GMT common option has been set and return its current
+        value if possible.
+
+        Parameters
+        ----------
+        option : str
+            The GMT common option to check. Valid options are ``"B"``, ``"I"``,
+            ``"J"``, ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``,
+            ``"b"``, ``"f"``, ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``,
+            ``"p"``, ``"r"``, ``"s"``, ``"t"``, and ``":"``.
+
+        Returns
+        -------
+        value : bool, int, float, or numpy.ndarray
+            Whether the option was set or its value.
+
+            If the option was not set, return ``False``. Otherwise,
+            the return value depends on the choice of the option.
+
+            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
+              and ``"s"``: return ``True`` if set, else ``False`` (bool)
+            - ``"I"``: 2-element array for the increments (float)
+            - ``"R"``: 4-element array for the region (float)
+            - ``"V"``: the verbose level (int)
+            - ``"X"``: the xshift (float)
+            - ``"Y"``: the yshift (float)
+            - ``"a"``: geometry of the dataset (int)
+            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
+            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
+            - ``"h"``: whether to delete existing header records (int)
+            - ``"i"``: number of input columns (int)
+            - ``"o"``: number of output columns (int)
+            - ``"r"``: registration type (int)
+            - ``"t"``: 2-element array for the transparency (float)
+            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
+
+        Examples
+        --------
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     region = lib.get_common("R")
+        ...     projection = lib.get_common("J")
+        ...     timestamp = lib.get_common("U")
+        ...     verbose = lib.get_common("V")
+        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
+        ...     yshift = lib.get_common("Y")
+        ...
+        >>> print(region, projection, timestamp, verbose, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.get_common("A")
+        ...
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
+        """
+        if option not in "BIJRUVXYabfghinoprst:":
+            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+
+        c_get_common = self.get_libgmt_func(
+            "GMT_Get_Common",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
+            restype=ctp.c_int,
+        )
+        value = np.empty(6)  # numpy array to store the value of the option
+        status = c_get_common(
+            self.session_pointer,
+            ord(option),
+            value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
+
+        # GMT_NOTSET (-1) means the option is not set
+        if status == self["GMT_NOTSET"]:
+            return False
+        # option is set and no other value is returned
+        if status == 0:
+            return True
+        # option is set and option values (in double type) are returned via the
+        # 'value' array. 'status' is number of valid values in the array.
+        if option in "IRt":
+            return value[:status]
+        if option in "XY":  # only one valid element in the array
+            return value[0]
+        # option is set and the option value (in integer type) is returned via
+        # the function return value (i.e., 'status')
+        return status
 
     def call_module(self, module, args):
         """
@@ -677,15 +788,15 @@ class Session:
 
     def _check_dtype_and_dim(self, array, ndim):
         """
-        Check that a numpy array has the given dimensions and is a valid data
-        type.
+        Check that a numpy array has the given number of dimensions and is a
+        valid data type.
 
         Parameters
         ----------
-        array : numpy array
+        array : numpy.ndarray
             The array to be tested.
         ndim : int
-            The desired dimension of the array.
+            The desired number of array dimensions.
 
         Returns
         -------
@@ -694,9 +805,9 @@ class Session:
 
         Raises
         ------
-        GMTCLibError
-            If the array has the wrong dimensions or is an unsupported data
-            type.
+        GMTInvalidInput
+            If the array has the wrong number of dimensions or
+            is an unsupported data type.
 
         Examples
         --------
@@ -715,15 +826,17 @@ class Session:
         ...
         True
         """
-        # check the array has the given dimension
+        # Check that the array has the given number of dimensions
         if array.ndim != ndim:
-            raise GMTInvalidInput(f"Expected a numpy 1d array, got {array.ndim}d.")
+            raise GMTInvalidInput(
+                f"Expected a numpy {ndim}-D array, got {array.ndim}-D."
+            )
 
-        # check the array has a valid/known data type
+        # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = array_to_datetime(array)
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -732,7 +845,7 @@ class Session:
 
     def put_vector(self, dataset, column, vector):
         r"""
-        Attach a numpy 1D array as a column on a GMT dataset.
+        Attach a numpy 1-D array as a column on a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Vector``.
@@ -741,11 +854,11 @@ class Session:
         first. Use ``family='GMT_IS_DATASET|GMT_VIA_VECTOR'``.
 
         Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32, float64, str\_ and datetime64.
+        uint8, uint16, uint32, uint64, float32, float64, str\_, and datetime64.
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2d array, for example, you will have to make a
+            column slice of a 2-D array, for example, you will have to make a
             copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
             is contiguous (it won't copy if it already is).
 
@@ -756,15 +869,15 @@ class Session:
             :meth:`pygmt.clib.Session.create_data`.
         column : int
             The column number of this vector in the dataset (starting from 0).
-        vector : numpy 1d-array
-            The array that will be attached to the dataset. Must be a 1d C
+        vector : numpy 1-D array
+            The array that will be attached to the dataset. Must be a 1-D C
             contiguous array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Vector`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Vector`` exits with
+            status != 0.
         """
         c_put_vector = self.get_libgmt_func(
             "GMT_Put_Vector",
@@ -796,7 +909,7 @@ class Session:
 
     def put_strings(self, dataset, family, strings):
         """
-        Attach a numpy 1D array of dtype str as a column on a GMT dataset.
+        Attach a numpy 1-D array of dtype str as a column on a GMT dataset.
 
         Use this function to attach string type numpy array data to a GMT
         dataset and pass it to GMT modules. Wraps ``GMT_Put_Strings``.
@@ -806,7 +919,7 @@ class Session:
 
         .. warning::
             The numpy array must be C contiguous in memory. If it comes from a
-            column slice of a 2d array, for example, you will have to make a
+            column slice of a 2-D array, for example, you will have to make a
             copy. Use :func:`numpy.ascontiguousarray` to make sure your vector
             is contiguous (it won't copy if it already is).
 
@@ -818,15 +931,15 @@ class Session:
         family : str
             The family type of the dataset. Can be either ``GMT_IS_VECTOR`` or
             ``GMT_IS_MATRIX``.
-        strings : numpy 1d-array
-            The array that will be attached to the dataset. Must be a 1d C
+        strings : numpy 1-D array
+            The array that will be attached to the dataset. Must be a 1-D C
             contiguous array.
 
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Strings`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Strings`` exits with
+            status != 0.
         """
         c_put_strings = self.get_libgmt_func(
             "GMT_Put_Strings",
@@ -856,7 +969,7 @@ class Session:
 
     def put_matrix(self, dataset, matrix, pad=0):
         """
-        Attach a numpy 2D array to a GMT dataset.
+        Attach a numpy 2-D array to a GMT dataset.
 
         Use this function to attach numpy array data to a GMT dataset and pass
         it to GMT modules. Wraps ``GMT_Put_Matrix``.
@@ -865,7 +978,7 @@ class Session:
         first. Use ``|GMT_VIA_MATRIX'`` in the family.
 
         Not all numpy dtypes are supported, only: int8, int16, int32, int64,
-        uint8, uint16, uint32, uint64, float32 and float64.
+        uint8, uint16, uint32, uint64, float32, and float64.
 
         .. warning::
             The numpy array must be C contiguous in memory. Use
@@ -877,8 +990,8 @@ class Session:
         dataset : :class:`ctypes.c_void_p`
             The ctypes void pointer to a ``GMT_Dataset``. Create it with
             :meth:`pygmt.clib.Session.create_data`.
-        matrix : numpy 2d-array
-            The array that will be attached to the dataset. Must be a 2d C
+        matrix : numpy 2-D array
+            The array that will be attached to the dataset. Must be a 2-D C
             contiguous array.
         pad : int
             The amount of padding that should be added to the matrix. Use when
@@ -887,8 +1000,8 @@ class Session:
         Raises
         ------
         GMTCLibError
-            If given invalid input or ``GMT_Put_Matrix`` exits with status !=
-            0.
+            If given invalid input or ``GMT_Put_Matrix`` exits with
+            status != 0.
         """
         c_put_matrix = self.get_libgmt_func(
             "GMT_Put_Matrix",
@@ -976,12 +1089,12 @@ class Session:
     @contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT Virtual File to pass data to and from a module.
+        Open a GMT virtual file to pass data to and from a module.
 
-        GMT uses a virtual file scheme to pass in data to API modules. Use it
-        to pass in your GMT data structure (created using
+        GMT uses a virtual file scheme to pass in data or get data from API
+        modules. Use it to pass in your GMT data structure (created using
         :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input or output file.
+        input file, or get the output from a module that writes to a file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
         leaving the ``with`` block. Because of this, no wrapper for
@@ -990,19 +1103,21 @@ class Session:
         Parameters
         ----------
         family : str
-            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). Should
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
             be the same as the one you used to create your data structure.
         geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). Should
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
             be the same as the one you used to create your data structure.
         direction : str
-            Either ``'GMT_IN'`` or ``'GMT_OUT'`` to indicate if passing data to
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
-            ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
-        data : int
-            The ctypes void pointer to your GMT data structure.
+            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
+            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data : int or None
+            The ctypes void pointer to your GMT data structure. For output
+            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
+            automatically allocate the output GMT data structure.
 
         Yields
         ------
@@ -1013,7 +1128,6 @@ class Session:
         --------
 
         >>> from pygmt.helpers import GMTTempFile
-        >>> import os
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
@@ -1061,20 +1175,17 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS
+            direction, valid=DIRECTIONS, valid_modifiers=METHODS
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
-
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
-
         if status != 0:
             raise GMTCLibError("Failed to create a virtual file.")
 
         vfname = buff.value.decode()
-
         try:
             yield vfname
         finally:
@@ -1085,7 +1196,7 @@ class Session:
     @contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
-        Store 1d arrays as columns of a table inside a virtual file.
+        Store 1-D arrays as columns of a table inside a virtual file.
 
         Use the virtual file name to pass in the data in your vectors to a GMT
         module.
@@ -1100,12 +1211,12 @@ class Session:
         :meth:`pygmt.clib.Session.open_virtual_file`.
 
         If the arrays are C contiguous blocks of memory, they will be passed
-        without copying to GMT. If they are not (e.g., they are columns of a 2D
-        array), they will need to be copied to a contiguous block.
+        without copying to GMT. If they are not (e.g., they are columns of a
+        2-D array), they will need to be copied to a contiguous block.
 
         Parameters
         ----------
-        vectors : 1d arrays
+        vectors : 1-D arrays
             The vectors that will be included in the array. All must be of the
             same size.
 
@@ -1189,7 +1300,7 @@ class Session:
     @contextmanager
     def virtualfile_from_matrix(self, matrix):
         """
-        Store a 2d array as a table inside a virtual file.
+        Store a 2-D array as a table inside a virtual file.
 
         Use the virtual file name to pass in the data in your matrix to a GMT
         module.
@@ -1215,7 +1326,7 @@ class Session:
 
         Parameters
         ----------
-        matrix : 2d array
+        matrix : 2-D array
             The matrix that will be included in the GMT data container.
 
         Yields
@@ -1375,16 +1486,16 @@ class Session:
         ----------
         check_kind : str
             Used to validate the type of data that can be passed in. Choose
-            from 'raster', 'vector' or None. Default is None (no validation).
+            from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
-        x/y/z : 1d arrays or None
-            x, y and z columns as numpy arrays.
-        extra_arrays : list of 1d arrays
-            Optional. A list of numpy arrays in addition to x, y and z. All
-            of these arrays must be of the same size as the x/y/z arrays.
+        x/y/z : 1-D arrays or None
+            x, y, and z columns as numpy arrays.
+        extra_arrays : list of 1-D arrays
+            Optional. A list of numpy arrays in addition to x, y, and z.
+            All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
 
@@ -1431,7 +1542,7 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": dummy_context,
+            "file": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
@@ -1453,22 +1564,23 @@ class Session:
                 _data.append(np.atleast_1d(z))
             if extra_arrays:
                 _data.extend(extra_arrays)
-        elif kind == "matrix":  # turn 2D arrays into list of vectors
+        elif kind == "matrix":  # turn 2-D arrays into list of vectors
             try:
-                # pandas.Series will be handled below like a 1d numpy ndarray
+                # pandas.Series will be handled below like a 1-D numpy.ndarray
                 assert not hasattr(data, "to_frame")
                 # pandas.DataFrame and xarray.Dataset types
                 _data = [array for _, array in data.items()]
             except (AttributeError, AssertionError):
                 try:
-                    # Just use virtualfile_from_matrix for 2D numpy.ndarray
+                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
                     # which are signed integer (i), unsigned integer (u) or
                     # floating point (f) types
                     assert data.ndim == 2 and data.dtype.kind in "iuf"
                     _virtualfile_from = self.virtualfile_from_matrix
                     _data = (data,)
                 except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy ndarray and pandas.Series types
+                    # Python list, tuple, numpy.ndarray, and pandas.Series
+                    # types
                     _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
@@ -1485,8 +1597,8 @@ class Session:
 
         Returns
         -------
-        * wesn : 1d array
-            A 1D numpy array with the west, east, south, and north dimensions
+        * wesn : 1-D array
+            A numpy 1-D array with the west, east, south, and north dimensions
             of the current figure.
 
         Examples

@@ -84,10 +84,10 @@ class grdhisteq:  # pylint: disable=invalid-name
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
-            Determines the output type. Use "file", "xarray", "pandas", or
+            Determine the output type. Use "file", "xarray", "pandas", or
             "numpy".
         divisions : int
-            Set the number of divisions of the data range [Default is 16].
+            Set the number of divisions of the data range [Default is ``16``].
 
         {region}
         {verbose}
@@ -306,11 +306,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         >>> print(bins)
                 start    stop
         bin_id
-        0       179.0   397.5
-        1       397.5   475.5
-        2       475.5   573.5
-        3       573.5   710.5
-        4       710.5  2103.0
+        0       170.0   389.0
+        1       389.0   470.5
+        2       470.5   571.0
+        3       571.0   705.0
+        4       705.0  2275.5
 
         See Also
         -------

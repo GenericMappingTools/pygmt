@@ -34,7 +34,7 @@ __doctest_skip__ = ["grdclip"]
 )
 def grdclip(grid, **kwargs):
     r"""
-    Sets values in a grid that meet certain criteria to a new value.
+    Set values in a grid that meet certain criteria to a new value.
 
     Produce a clipped ``outgrid`` or :class:`xarray.DataArray` version of the
     input ``grid`` file.
@@ -90,7 +90,7 @@ def grdclip(grid, **kwargs):
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
-    [179.0, 2103.0]
+    [170.0, 2275.5]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to
     >>> # 0 and all values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(

@@ -29,36 +29,29 @@ COMMON_DOCSTRINGS = {
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
             hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is 0/0/4 (all
+            *max_level* will not be plotted [Default is ``"0/0/4"`` (all
             features)].""",
     "frame": r"""
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "timestamp": """\
-        timestamp : bool or str
-            Draw GMT time stamp logo on plot.""",
     "cmap": r"""
         cmap : str
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "color": """\
-        color : str or 1d array
-            Select color or pattern for filling of symbols or polygons [Default
-            is no fill].""",
-    "fill": """\
+    "fill": r"""
         fill : str
-            Select color or pattern for filling of symbols or polygons [Default
-            is no fill].""",
+            Set color or pattern for filling symbols or polygons
+            [Default is no fill].""",
     "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
-              increment unit. Choose among **m** to indicate arc minutes or
-              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              increment unit. Choose among **m** to indicate arc-minutes or
+              **s** to indicate arc-seconds. If one of the units **e**, **f**,
               **k**, **M**, **n** or **u** is appended instead, the increment
               is assumed to be given in meter, foot, km, mile, nautical mile or
               US survey foot, respectively, and will be converted to the
@@ -82,7 +75,7 @@ COMMON_DOCSTRINGS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
-    "verbose": """\
+    "verbose": r"""
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
@@ -94,7 +87,7 @@ COMMON_DOCSTRINGS = {
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
-    "pen": """\
+    "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
     "aspatial": r"""
@@ -188,12 +181,12 @@ COMMON_DOCSTRINGS = {
             A unit **u** may be appended to the specified *gap*:
 
                 - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
-                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
+                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
                   **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ter)].
+                  (m)\ **e**\ (ters)].
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
+                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -227,13 +220,13 @@ COMMON_DOCSTRINGS = {
 
             Blank lines and lines starting with \# are always skipped.""",
     "incols": r"""
-        incols : str or 1d array
+        incols : str or 1-D array
             Specify data columns for primary input in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             reads all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in input order (e.g.,
+            - For *1-D array*: specify individual columns in input order (e.g.,
               ``incols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -285,14 +278,14 @@ COMMON_DOCSTRINGS = {
             - **l** for bilinear
             - **n** for nearest-neighbor""",
     "outcols": r"""
-        outcols : str or 1d array
+        outcols : str or 1-D array
             *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             writes all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in output order (e.g.,
+            - For *1-D array*: specify individual columns in output order (e.g.,
               ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -312,13 +305,13 @@ COMMON_DOCSTRINGS = {
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
-            the viewpoint. Default is [180, 90]. Full documentation is at
+            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
     "registration": r"""
         registration : str
             **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration.
+            Force gridline (**g**) or pixel (**p**) node registration
             [Default is **g**\ (ridline)].
         """,
     "skiprows": r"""
@@ -337,10 +330,10 @@ COMMON_DOCSTRINGS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
-    "transparency": """\
+    "transparency": r"""
         transparency : int or float
             Set transparency level, in [0-100] percent range
-            [Default is 0, i.e., opaque].
+            [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
@@ -408,7 +401,7 @@ def fmt_docstring(module_func):
     ...     Parameters
     ...     ----------
     ...     data : str or {table-like}
-    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
     ...     {projection}
@@ -424,9 +417,9 @@ def fmt_docstring(module_func):
     Parameters
     ----------
     data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
@@ -461,7 +454,7 @@ def fmt_docstring(module_func):
     )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
-        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
+        "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
         "    tabular data"
     )
@@ -569,6 +562,17 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
+            # timestamp (U) is deprecated since v0.9.0.
+            if "U" in kwargs or "timestamp" in kwargs:
+                if "timestamp" in kwargs:
+                    kwargs["U"] = kwargs.pop("timestamp")
+                msg = (
+                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.timestamp() instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             # xshift (X) is deprecated since v0.8.0.
             if "X" in kwargs or "xshift" in kwargs:
                 if "xshift" in kwargs:
@@ -675,7 +679,7 @@ def kwargs_to_strings(**conversions):
     >>> import xarray as xr
     >>> module(
     ...     R=[
-    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
     ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
     ...     ]
     ... )

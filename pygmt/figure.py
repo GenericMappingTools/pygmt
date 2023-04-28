@@ -3,13 +3,12 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-import warnings
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except ModuleNotFoundError:
+except ImportError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -141,7 +140,7 @@ class Figure:
         V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, icc_gray=False, **kwargs):
+    def psconvert(self, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
@@ -210,10 +209,10 @@ class Figure:
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
-            no anti-aliasing (same as bits = 1)].
+            Append the size of the subsample box (1, 2, or 4) [Default is
+            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
         fmt : str
-            Sets the output format, where **b** means BMP, **e** means EPS,
+            Set the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
@@ -230,18 +229,6 @@ class Figure:
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-
-        if icc_gray:
-            msg = (
-                "The 'icc_gray' parameter has been deprecated since v0.6.0"
-                " and will be removed in v0.8.0."
-            )
-            warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if kwargs.get("N") is None:
-                kwargs["N"] = "+i"
-            else:
-                kwargs["N"] += "+i"
-
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
@@ -286,28 +273,36 @@ class Figure:
             The desired figure file name, including the extension. See the list
             of supported formats and their extensions above.
         transparent : bool
-            If True, will use a transparent background for the figure. Only
-            valid for PNG format.
+            If ``True``, will use a transparent background for the figure.
+            Only valid for PNG format.
         crop : bool
-            If True, will crop the figure canvas (page) to the plot area.
+            If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIFF). More specifically, it passes arguments ``t2``
+            If ``True``, will use anti-aliasing when creating raster images
+            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
             and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
         show: bool
-            If True, will open the figure in an external viewer.
+            If ``True``, will open the figure in an external viewer.
         dpi : int
-            Set raster resolution in dpi. Default is 720 for PDF, 300 for
-            others.
+            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
+            for others].
         **kwargs : dict
             Additional keyword arguments passed to
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
-        fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
+        fmts = {
+            "png": "g",
+            "pdf": "f",
+            "jpg": "j",
+            "bmp": "b",
+            "eps": "e",
+            "tif": "t",
+            "kml": "g",
+        }
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
@@ -344,7 +339,7 @@ class Figure:
         (falls back to the default web browser).
 
         :func:`pygmt.set_display` can select the default display method
-        (**notebook**, **external**, or **none**).
+        (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
@@ -367,12 +362,17 @@ class Figure:
             The image resolution (dots per inch) in Jupyter notebooks.
         width : int
             The image width (in pixels) in Jupyter notebooks.
-        method : str
-            How the current figure will be displayed. Options are
+        method : str or None
+            How the current figure will be displayed. Choose from:
 
-            - **external**: PDF preview in an external program [Default]
-            - **notebook**: PNG preview [Default in Jupyter notebooks]
-            - **none**: Disable image preview
+            - ``"external"``: External PDF preview using the default PDF viewer
+            - ``"notebook"``: Inline PNG preview in the current notebook
+            - ``"none"``: Disable image preview
+            - ``None``: Reset to the default display method
+
+            The default display method is ``"external"`` in Python consoles or
+            ``"notebook"`` in Jupyter notebooks, but can be changed by
+            :func:`pygmt.set_display`.
         waiting : float
             Suspend the execution of the current process for a given number of
             seconds after launching an external viewer.
@@ -398,7 +398,7 @@ class Figure:
                 )
             )
 
-        if method in ["notebook", "none"]:
+        if method == "notebook":
             if IPython is None:
                 raise GMTError(
                     (
@@ -417,40 +417,6 @@ class Figure:
                 fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
             )
             launch_external_viewer(pdf, waiting=waiting)
-
-    def shift_origin(self, xshift=None, yshift=None):
-        """
-        Shift plot origin in x and/or y directions.
-
-        This method shifts the plot origin relative to the current origin
-        by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
-        **i**, or **p**). Default unit if not given is **c** for centimeter.
-
-        Prepend **a** to shift the origin back to the original position after
-        plotting, prepend **c** to center the plot on the center of the paper
-        (optionally add shift), prepend **f** to shift the origin relative to
-        the fixed lower left corner of the page, or prepend **r** [Default] to
-        move the origin relative to its current location.
-
-        Detailed usage at
-        :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
-
-        Parameters
-        ----------
-        xshift : str
-            Shift plot origin in x direction.
-        yshift : str
-            Shift plot origin in y direction.
-        """
-        self._preprocess()
-        args = ["-T"]
-        if xshift:
-            args.append(f"-X{xshift}")
-        if yshift:
-            args.append(f"-Y{yshift}")
-
-        with Session() as lib:
-            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
@@ -519,10 +485,13 @@ class Figure:
         plot3d,
         rose,
         set_panel,
+        shift_origin,
         solar,
         subplot,
         ternary,
         text,
+        tilemap,
+        timestamp,
         velo,
         wiggle,
     )
@@ -530,16 +499,41 @@ class Figure:
 
 def set_display(method=None):
     """
-    Set the display method.
+    Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
     method : str or None
-        The method to display an image. Choose from:
+        The method to display an image preview. Choose from:
 
-        - **external**: PDF preview in an external program [Default]
-        - **notebook**: PNG preview [Default in Jupyter notebooks]
-        - **none**: Disable image preview
+        - ``"external"``: External PDF preview using the default PDF viewer
+        - ``"notebook"``: Inline PNG preview in the current notebook
+        - ``"none"``: Disable image preview
+        - ``None``: Reset to the default display method
+
+        The default display method is ``"external"`` in Python consoles or
+        ``"notebook"`` in Jupyter notebooks.
+
+    Examples
+    --------
+    Let's assume that you're using a Jupyter Notebook:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
+    >>> fig.show()  # will display a PNG image in the current notebook
+    >>>
+    >>> # set the display method to "external"
+    >>> pygmt.set_display(method="external")  # doctest: +SKIP
+    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>>
+    >>> # set the display method to "none"
+    >>> pygmt.set_display(method="none")
+    >>> fig.show()  # will not show any image
+    >>>
+    >>> # reset to the default display method
+    >>> pygmt.set_display(method=None)
+    >>> fig.show()  # again, will show a PNG image in the current notebook
     """
     if method in ["notebook", "external", "none"]:
         SHOW_CONFIG["method"] = method
@@ -547,6 +541,6 @@ def set_display(method=None):
         raise GMTInvalidInput(
             (
                 f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external' or 'none'."
+                "should be either 'notebook', 'external', 'none' or None."
             )
         )
