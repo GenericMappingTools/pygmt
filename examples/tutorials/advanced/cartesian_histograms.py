@@ -31,8 +31,8 @@ mean = 100
 stddev = 20
 
 # Create two data sets
-data01 = mean + stddev * np.random.randn(42)
-data02 = mean + stddev * 2 * np.random.randn(42)
+data01 = np.random.normal(mean, stddev, 42)
+data02 = np.random.normal(mean, stddev*2, 42)
 
 
 ###############################################################################
