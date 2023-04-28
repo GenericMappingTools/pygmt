@@ -113,14 +113,13 @@ jobs:
             libnetcdf
             pcre
             zlib
-            geopandas
 
       # Install dependencies from PyPI
       - name: Install dependencies
         run: |
           python -m pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc ipython rioxarray \
+                        build contextily dvc geopandas ipython rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
 
