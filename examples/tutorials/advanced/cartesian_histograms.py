@@ -38,10 +38,10 @@ data02 = mean + stddev * 2 * np.random.randn(42)
 ###############################################################################
 # Vertical and horizontal bars
 # ----------------------------
-# To define the width of the bins, the ``series`` parameter has to be specified.
-# The bars can be filled via the ``fill`` parameter with either a color or a
-# pattern (see later in this tutorial). Use the ``pen`` parameter to adjust the
-# outline of the bars.
+# To define the width of the bins, the ``series`` parameter has to be
+# specified. The bars can be filled via the ``fill`` parameter with either a
+# color or a pattern (see later in this tutorial). Use the ``pen`` parameter
+# to adjust the outline of the bars.
 
 # Create new figure instance
 fig = pygmt.Figure()
