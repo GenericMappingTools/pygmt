@@ -32,7 +32,7 @@ stddev = 20
 
 # Create two data sets
 data01 = np.random.normal(mean, stddev, 42)
-data02 = np.random.normal(mean, stddev*2, 42)
+data02 = np.random.normal(mean, stddev * 2, 42)
 
 
 ###############################################################################
