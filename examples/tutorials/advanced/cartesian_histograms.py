@@ -1,4 +1,4 @@
-r"""
+"""
 Cartesian histograms
 ====================
 
