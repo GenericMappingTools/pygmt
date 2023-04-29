@@ -328,7 +328,7 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray",
     histtype=0,
-    barwidth=str(binwidth / 2) + "+o" + str(binwidth / 4),
+    barwidth=f"{binwidth/2}+o{binwidth/4}",
     label="data02",
 )
 
