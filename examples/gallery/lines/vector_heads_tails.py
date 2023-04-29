@@ -20,8 +20,7 @@ The angle of the vector head apex can be set using **+a**\ *angle*
 (default is 30). The shape of the vector head can be adjusted using
 **+h**\ *shape* (e.g. ``+h0.5``).
 
-For further modifiers see the *Vector Attributes* subsection of the
-corresponding method.
+For further modifiers see :gmt-docs:`plot.html#vector-attributes`.
 
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
