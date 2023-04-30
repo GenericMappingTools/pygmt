@@ -57,7 +57,7 @@ fig.histogram(
     projection="X10c",  # Cartesian projection with a width of 10 centimeters
     # Add frame, annotations (a), ticks (f), and y-axis label (+l) "Counts"
     # The numbers give the steps of annotations and ticks
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=["WStr", "xaf10", "ya1f1+lCounts"],
     data=data01,
     # Set the bin width via the "series" parameter
     series=10,
@@ -69,14 +69,14 @@ fig.histogram(
     histtype=0,
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+# Shift plot origin 12 centimeters to the right
+fig.shift_origin(xshift="12c")
 
 # Create histogram for data01 with horizontal bars
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    frame=["lStE", "xaf10", "ya1f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
@@ -115,11 +115,14 @@ fig.histogram(
     stairs=True,
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+# Shift plot origin 12 centimeters to the right
+fig.shift_origin(xshift="12c")
 
 # Create histogram for data02
 fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
     # Draw a 1.5-point thick dotted outline in "red3"
