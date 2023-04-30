@@ -279,9 +279,10 @@ fig.show()
 ###############################################################################
 # Stacked bars
 # ------------
-# Stacked bars can be achieved similar to overlaid bars via plotting two or
-# several histograms on top of each other. However, before plotting, combined
-# data sets have to be created from the singel data sets.
+# Histograms with stacked bars are not directly supported by PyGMT. Thus,
+# before plotting, combined data sets have to be created from the single data
+# sets. Then, stacked bars can be achieved similar to overlaid bars via
+# plotting two or several histograms on top of each other.
 #
 # Limitations of histograms with stacked bars are:
 #
@@ -304,6 +305,8 @@ fig.histogram(
     fill="orange",
     pen="1p,darkgray,solid",
     histtype=0,
+    # The combined data set appears in the final histogram visually
+    # as data set data02
     label="data02",
 )
 
