@@ -6,6 +6,7 @@ Cartesian histograms can be generated using the :meth:`pygmt.Figure.histogram`
 method. In this tutorial, different histogram related aspects are addressed:
 
 - Using vertical and horizontal bars
+- Using stair-steps
 - Showing counts and frequency percent
 - Adding annotations to the bars
 - Showing cumulative values
@@ -86,6 +87,46 @@ fig.histogram(
     # Please note the flip of the x and y axes regarding annotations, ticks,
     # gridlines, and axis labels
     horizontal=True,
+)
+
+fig.show()
+
+
+###############################################################################
+# Stair-steps
+# -----------
+# A stair-step diagram is created by setting ``stairs=True``. Then only the
+# outer outlines of the bars are drawn, and no internal bars are visible. Use
+# the ``pen`` parameter to adjust width, color, and style of the outlines.
+
+# Create new figure instance
+fig = pygmt.Figure()
+
+# Create histogram for data01
+fig.histogram(
+    region=[0, 200, 0, 0],
+    projection="X10c",
+    frame=["WSne", "xaf10", "ya1f1+lCounts"],
+    data=data01,
+    series=10,
+    # Draw a 1-point thick dashed outline in color "orange"
+    pen="1p,orange,dashed",
+    histtype=0,
+    label="data02",
+)
+
+# Shift plot origin 11 centimeters to the right
+fig.shift_origin(xshift="11c")
+
+# Create histogram for data02
+fig.histogram(
+    data=data02,
+    series=10,
+    fill="red3",
+    # Draw a 1.5-point thick dotted outline in color "red3"
+    pen="1.5p,red3,dotted",
+    histtype=0,
+    label="data01",
 )
 
 fig.show()
