@@ -76,7 +76,7 @@ fig.shift_origin(xshift="12c")
 fig.histogram(
     region=[0, 200, 0, 0],
     projection="X10c",
-    frame=["lStE", "xaf10", "ya1f1+lCounts"],
+    frame=["WStr", "xaf10", "ya1f1+lCounts"],
     data=data01,
     series=10,
     fill="red3",
