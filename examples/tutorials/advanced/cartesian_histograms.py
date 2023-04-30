@@ -42,8 +42,9 @@ data02 = np.random.normal(mean, stddev * 2, 42)
 # To define the width of the bins, the ``series`` parameter has to be
 # specified. The bars can be filled via the ``fill`` parameter with either a
 # color or a pattern (see later in this tutorial). Use the ``pen`` parameter
-# to adjust the outline of the bars. By default, a histogram with vertical
-# bars is created. Horizontal bars can be achieved via ``horizontal=True``.
+# to adjust width, color, and style of the outlines. By default, a histogram
+# with vertical bars is created. Horizontal bars can be achieved via
+# ``horizontal=True``.
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -94,9 +95,8 @@ fig.show()
 ###############################################################################
 # Stair-steps
 # -----------
-# A stair-step diagram is created by setting ``stairs=True``. Then only the
-# outer outlines of the bars are drawn, and no internal bars are visible. Use
-# the ``pen`` parameter to adjust width, color, and style of the outlines.
+# A stair-step diagram can be created by setting ``stairs=True``. Then only
+# the outer outlines of the bars are drawn, and no internal bars are visible.
 
 # Create new figure instance
 fig = pygmt.Figure()
