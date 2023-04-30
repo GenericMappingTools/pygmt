@@ -108,8 +108,8 @@ fig.histogram(
     frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data01,
     series=10,
-    # Draw a 1-point thick dashed outline in "red3"
-    pen="1p,red3,dashed",
+    # Draw a 1-point thick dotted outline in "red3"
+    pen="1p,red3,dotted",
     histtype=0,
     # Draw stair-steps in stead of bars
     stairs=True,
@@ -125,8 +125,8 @@ fig.histogram(
     frame=["WSne", "xaf10", "ya1f1+lCounts"],
     data=data02,
     series=10,
-    # Draw a 1.5-point thick dotted outline in "orange"
-    pen="1.5p,orange,dotted",
+    # Draw a 1.5-point thick dashed outline in "orange"
+    pen="1.5p,orange,dashed",
     histtype=0,
     stairs=True,
 )
