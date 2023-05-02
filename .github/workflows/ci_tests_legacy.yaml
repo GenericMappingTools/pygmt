@@ -74,6 +74,7 @@ jobs:
             make
             pip
             pytest
+            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
