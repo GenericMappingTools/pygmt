@@ -89,6 +89,7 @@ jobs:
             make
             pip
             myst-parser
+            panel
             sphinx
             sphinx-copybutton
             sphinx-design

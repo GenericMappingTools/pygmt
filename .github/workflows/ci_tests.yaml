@@ -72,6 +72,7 @@ jobs:
               geopandas
               ipython
               rioxarray
+              sphinx-gallery
 
     timeout-minutes: 30
     defaults:
@@ -123,7 +124,6 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
-            sphinx-gallery
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
