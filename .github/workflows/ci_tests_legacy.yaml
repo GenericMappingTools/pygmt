@@ -58,8 +58,6 @@ jobs:
           environment-name: pygmt
           environment-file: false
           channels: conda-forge,nodefaults
-          cache-downloads: true
-          cache-env: true
           extra-specs: |
             python=3.9
             gmt=${{ matrix.gmt_version }}
