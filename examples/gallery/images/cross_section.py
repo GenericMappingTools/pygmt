@@ -6,9 +6,10 @@ a quantity along a track.
 In this example, the elevation is extracted from a gird provided via
 :func:`pygmt.datasets.load_earth_relief`.
 
-*The example is orientated on
-https://docs.gmt-china.org/latest/examples/ex026/.*
 TODO
+
+*This example is orientated on an example in the GMT/China documentation*: 
+https://docs.gmt-china.org/latest/examples/ex026/
 """
 
 import pygmt
