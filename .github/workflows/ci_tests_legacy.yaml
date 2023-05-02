@@ -75,6 +75,7 @@ jobs:
             make
             pip
             pytest
+            pytest-doctestplus
             pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
