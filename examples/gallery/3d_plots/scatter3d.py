@@ -68,12 +68,11 @@ fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
-    # Vary each symbol size according to another feature (sepal width, scaled
-    # by 0.1)
+    # Vary each symbol size according to the sepal width, scaled by 0.1
     size=0.1 * df.sepal_width,
     # Use 3-D cubes ("u") as symbols with size in centimeters ("c")
     style="uc",
-    # Points colored by categorical number code (refers to the species)
+    # Points colored by categorical number code, refers to the species
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
