@@ -47,7 +47,7 @@ region = pygmt.info(
 # Make a 3-D scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
-# Define a colormap to be used for three categories, define the range of the
+# Define a colormap for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
 # use color_model="+csetosa,versicolor,virginica" to write the discrete color
 # palette "cubhelix" in categorical format and add the species names as
