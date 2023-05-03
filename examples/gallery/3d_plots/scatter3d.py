@@ -19,6 +19,7 @@ import pygmt
 
 # Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
+
 # Convert 'species' column to categorical dtype
 # By default, pandas sorts the individual categories in an alphabetical order.
 # For a non-alphabetical order, you have to manually adjust the list of
@@ -26,6 +27,7 @@ df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
 # have a look at:
 # https://pandas.pydata.org/docs/user_guide/categorical.html
 df.species = df.species.astype(dtype="category")
+
 # Make a list of the individual categories of the 'species' column
 # ['setosa', 'versicolor', 'virginica']
 # They are (corresponding to the categorical number code) by default in
