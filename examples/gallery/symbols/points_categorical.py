@@ -76,7 +76,7 @@ fig.plot(
     y=df.bill_depth_mm,
     # Vary symbol size according to the body mass, scaled by 7.5e-5
     size=df.body_mass_g * 7.5e-5,
-    # Points colored by categorical number code, refers to the species
+    # Points colored by categorical number code (refers to the species)
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
