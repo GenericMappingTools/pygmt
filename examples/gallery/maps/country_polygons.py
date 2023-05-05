@@ -35,7 +35,7 @@ fig.coast(
 fig.show()
 
 ###############################################################################
-# Entire continents can also be highlighted by adding "=" in 
+# Entire continents can also be highlighted by adding "=" in
 # front of the continent code to differentiate it from a country code.
 
 fig = pygmt.Figure()
