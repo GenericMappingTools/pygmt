@@ -14,7 +14,11 @@ import pygmt
 
 fig = pygmt.Figure()
 
-fig.basemap(region=[-12, 32, 34, 62], projection="M6c")
+fig.basemap(
+    region=[-12, 32, 34, 62],
+    projection="M6c",
+    frame=True,
+)
 
 fig.coast(
     land="gray",
@@ -35,11 +39,10 @@ fig.coast(
 fig.show()
 
 ###############################################################################
-# Entire continents can also be highlighted by adding "=" in
+# Entire continents can also be highlighted by adding ``"="`` in
 # front of the continent code to differentiate it from a country code.
 
 fig = pygmt.Figure()
-
 
 fig.coast(
     region="d",
