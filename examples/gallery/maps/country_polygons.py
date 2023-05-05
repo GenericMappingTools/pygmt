@@ -1,6 +1,6 @@
 """
-Highlight country polygons
---------------------------
+Highlight country and continent polygons
+----------------------------------------
 The :meth:`pygmt.Figure.coast` method can
 highlight country polygons via the ``dcw``
 parameter. It accepts the country code, and 
@@ -36,7 +36,7 @@ fig.show()
 
 ###############################################################################
 # Entire continents can also be highlighted by adding "=" in 
-front of the continent code to differentiate it from a country code.
+# front of the continent code to differentiate it from a country code.
 
 fig = pygmt.Figure()
 
