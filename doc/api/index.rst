@@ -62,6 +62,7 @@ Plotting raster data
     Figure.grdimage
     Figure.grdview
     Figure.image
+    Figure.tilemap
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
@@ -301,6 +302,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.__enter__
     clib.Session.__exit__
     clib.Session.get_default
+    clib.Session.get_common
     clib.Session.create_data
     clib.Session.put_matrix
     clib.Session.put_strings

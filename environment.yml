@@ -4,7 +4,6 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - pip
     - gmt=6.4.0
     - numpy>=1.21
     - pandas
@@ -15,15 +14,17 @@ dependencies:
     - contextily
     - geopandas
     - ipython
+    - rioxarray
     # Development dependencies (general)
     - build
     - dvc
     - jupyter
     - make
+    - pip
     # Dev dependencies (style checks)
     - black
     - blackdoc
-    - docformatter>=1.5.0
+    - docformatter>=1.5.0,<1.6.0
     - flakeheaven>=3
     - isort>=5
     - pylint
@@ -35,6 +36,7 @@ dependencies:
     - pytest>=6.0
     # Dev dependencies (building documentation)
     - myst-parser
+    - panel
     - sphinx
     - sphinx-copybutton
     - sphinx-design

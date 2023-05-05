@@ -58,6 +58,17 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         - 4: Smaller lakes in islands that are found within lakes
           inside the land area
 
+    Note
+    ----
+    The registration and coordinate system type of the returned
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
+    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
+    However, these properties may be lost after specific grid operations (such
+    as slicing) and will need to be manually set before passing the grid to any
+    PyGMT data processing or plotting functions. Refer to
+    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
+    workarounds.
+
     Examples
     --------
 

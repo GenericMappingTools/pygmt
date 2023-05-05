@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except ModuleNotFoundError:
+except ImportError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -339,7 +339,7 @@ class Figure:
         (falls back to the default web browser).
 
         :func:`pygmt.set_display` can select the default display method
-        (**notebook**, **external**, or **none**).
+        (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
@@ -362,12 +362,17 @@ class Figure:
             The image resolution (dots per inch) in Jupyter notebooks.
         width : int
             The image width (in pixels) in Jupyter notebooks.
-        method : str
-            How the current figure will be displayed. Options are
+        method : str or None
+            How the current figure will be displayed. Choose from:
 
-            - **external**: PDF preview in an external program [Default]
-            - **notebook**: PNG preview [Default in Jupyter notebooks]
-            - **none**: Disable image preview
+            - ``"external"``: External PDF preview using the default PDF viewer
+            - ``"notebook"``: Inline PNG preview in the current notebook
+            - ``"none"``: Disable image preview
+            - ``None``: Reset to the default display method
+
+            The default display method is ``"external"`` in Python consoles or
+            ``"notebook"`` in Jupyter notebooks, but can be changed by
+            :func:`pygmt.set_display`.
         waiting : float
             Suspend the execution of the current process for a given number of
             seconds after launching an external viewer.
@@ -393,7 +398,7 @@ class Figure:
                 )
             )
 
-        if method in ["notebook", "none"]:
+        if method == "notebook":
             if IPython is None:
                 raise GMTError(
                     (
@@ -412,40 +417,6 @@ class Figure:
                 fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
             )
             launch_external_viewer(pdf, waiting=waiting)
-
-    def shift_origin(self, xshift=None, yshift=None):
-        """
-        Shift plot origin in x and/or y directions.
-
-        This method shifts the plot origin relative to the current origin
-        by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
-        **i**, or **p**). Default unit if not given is **c** for centimeter.
-
-        Prepend **a** to shift the origin back to the original position after
-        plotting, prepend **c** to center the plot on the center of the paper
-        (optionally add shift), prepend **f** to shift the origin relative to
-        the fixed lower left corner of the page, or prepend **r** [Default] to
-        move the origin relative to its current location.
-
-        Detailed usage at
-        :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
-
-        Parameters
-        ----------
-        xshift : str
-            Shift plot origin in x direction.
-        yshift : str
-            Shift plot origin in y direction.
-        """
-        self._preprocess()
-        args = ["-T"]
-        if xshift:
-            args.append(f"-X{xshift}")
-        if yshift:
-            args.append(f"-Y{yshift}")
-
-        with Session() as lib:
-            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
@@ -514,10 +485,12 @@ class Figure:
         plot3d,
         rose,
         set_panel,
+        shift_origin,
         solar,
         subplot,
         ternary,
         text,
+        tilemap,
         timestamp,
         velo,
         wiggle,
@@ -526,16 +499,41 @@ class Figure:
 
 def set_display(method=None):
     """
-    Set the display method.
+    Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
     method : str or None
-        The method to display an image. Choose from:
+        The method to display an image preview. Choose from:
 
-        - **external**: PDF preview in an external program [Default]
-        - **notebook**: PNG preview [Default in Jupyter notebooks]
-        - **none**: Disable image preview
+        - ``"external"``: External PDF preview using the default PDF viewer
+        - ``"notebook"``: Inline PNG preview in the current notebook
+        - ``"none"``: Disable image preview
+        - ``None``: Reset to the default display method
+
+        The default display method is ``"external"`` in Python consoles or
+        ``"notebook"`` in Jupyter notebooks.
+
+    Examples
+    --------
+    Let's assume that you're using a Jupyter Notebook:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
+    >>> fig.show()  # will display a PNG image in the current notebook
+    >>>
+    >>> # set the display method to "external"
+    >>> pygmt.set_display(method="external")  # doctest: +SKIP
+    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>>
+    >>> # set the display method to "none"
+    >>> pygmt.set_display(method="none")
+    >>> fig.show()  # will not show any image
+    >>>
+    >>> # reset to the default display method
+    >>> pygmt.set_display(method=None)
+    >>> fig.show()  # again, will show a PNG image in the current notebook
     """
     if method in ["notebook", "external", "none"]:
         SHOW_CONFIG["method"] = method
@@ -543,6 +541,6 @@ def set_display(method=None):
         raise GMTInvalidInput(
             (
                 f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external' or 'none'."
+                "should be either 'notebook', 'external', 'none' or None."
             )
         )

@@ -1,5 +1,8 @@
 # Upload the ZIP archive of baseline images as a release asset
-
+#
+# This workflow is run to upload the ZIP archive of baseline images as a
+# release asset when a release is published.
+#
 name: Upload baseline images
 
 # Only run for releases
@@ -16,7 +19,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.3.0
+      uses: actions/checkout@v3.5.2
 
     - name: Setup data version control (DVC)
       uses: iterative/setup-dvc@v1.1.1
