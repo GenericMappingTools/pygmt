@@ -93,7 +93,7 @@ track_df = pygmt.project(
     generate="0.1",
 )
 
-# Download grid for Earth relief with a resolution of 4 arc-minutes and
+# Download grid for Earth relief with a resolution of 10 arc-minutes and
 # gridline registration [Default]
 grid_track = pygmt.datasets.load_earth_relief(
     resolution="10m",
