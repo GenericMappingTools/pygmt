@@ -21,7 +21,7 @@ region_map = [122, 149, 30, 49]
 fig = pygmt.Figure()
 
 # ----------------------------------------------------------------------------
-# Bottom: Map
+# Bottom: Map of elevation in study area
 
 fig.basemap(
     region=region_map,
@@ -64,7 +64,7 @@ fig.colorbar(
 )
 
 # ----------------------------------------------------------------------------
-# Top: Track
+# Top: Elevation along track
 
 # Shift plot origin 12.5 centimeters to the top
 fig.shift_origin(yshift="12.5c")
