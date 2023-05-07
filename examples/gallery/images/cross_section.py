@@ -1,4 +1,4 @@
-r"""
+"""
 Cross-section along a transect
 ==============================
 :func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to estimate
