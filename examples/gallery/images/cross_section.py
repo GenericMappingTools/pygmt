@@ -86,7 +86,7 @@ fig.text(
     font="10p",  # Use a font size of 10 points
 )
 
-# Set up track and store it in a DataFrame
+# Set up track and store it in a pandas.DataFrame
 track_df = pygmt.project(
     center="126/42",
     endpoint="146/40",
@@ -101,7 +101,7 @@ grid_track = pygmt.datasets.load_earth_relief(
 )
 
 # Extract the elevation along the defined track from the downloaded grid
-# and add it as new column "elevation" to the DataFrame
+# and add it as new column "elevation" to the pandas.DataFrame
 track_df = pygmt.grdtrack(
     grid=grid_track,
     points=track_df,
