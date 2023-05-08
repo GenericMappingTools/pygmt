@@ -129,14 +129,6 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        if: github.event_name == 'schedule'
-        run: |
-          dvc pull
-          ls -lhR pygmt/tests/baseline/
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        if: github.event_name != 'schedule'
         run: |
           dvc pull
           ls -lhR pygmt/tests/baseline/
