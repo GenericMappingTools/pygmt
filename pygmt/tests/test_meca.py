@@ -9,22 +9,18 @@ from pygmt.helpers import GMTTempFile
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_dictionary():
+def test_meca_spec_single_focalmecha():
     """
-    Test supplying a dictionary containing a single focal mechanism to the spec
-    parameter.
+    Test passing a single focal mechanism to the spec parameter.
     """
     fig = Figure()
-    # Right lateral strike slip focal mechanism
+    fig.basemap(region=[-1, 1, 4, 6], projection="M8c", frame=2)
     fig.meca(
         spec={"strike": 0, "dip": 90, "rake": 0, "magnitude": 5},
         longitude=0,
         latitude=5,
         depth=0,
         scale="2.5c",
-        region=[-1, 1, 4, 6],
-        projection="M14c",
-        frame=2,
     )
     return fig
 
