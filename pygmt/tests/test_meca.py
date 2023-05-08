@@ -8,20 +8,54 @@ from pygmt import Figure
 from pygmt.helpers import GMTTempFile
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_spec_single_focalmecha():
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_single_focalmecha.png")
+@pytest.mark.parametrize("inputtype", ["dict_mecha", "dict_full", "array1d", "pandas"])
+def test_meca_spec_single_focalmecha(inputtype):
     """
     Test passing a single focal mechanism to the spec parameter.
     """
+    if inputtype == "dict_mecha":
+        args = {
+            "spec": {"strike": 0, "dip": 90, "rake": 0, "magnitude": 5},
+            "longitude": 0,
+            "latitude": 5,
+            "depth": 0,
+        }
+    elif inputtype == "dict_full":
+        args = {
+            "spec": {
+                "longitude": 0,
+                "latitude": 5,
+                "depth": 0,
+                "strike": 0,
+                "dip": 90,
+                "rake": 0,
+                "magnitude": 5,
+            }
+        }
+    elif inputtype == "array1d":
+        args = {
+            "spec": np.array([0, 5, 0, 0, 90, 0, 5]),
+            "convention": "a",
+        }
+    elif inputtype == "pandas":
+        args = {
+            "spec": pd.DataFrame(
+                {
+                    "longitude": 0,
+                    "latitude": 5,
+                    "depth": 0,
+                    "strike": 0,
+                    "dip": 90,
+                    "rake": 0,
+                    "magnitude": 5,
+                },
+                index=[0],
+            )
+        }
     fig = Figure()
     fig.basemap(region=[-1, 1, 4, 6], projection="M8c", frame=2)
-    fig.meca(
-        spec={"strike": 0, "dip": 90, "rake": 0, "magnitude": 5},
-        longitude=0,
-        latitude=5,
-        depth=0,
-        scale="2.5c",
-    )
+    fig.meca(scale="2.5c", **args)
     return fig
 
 
