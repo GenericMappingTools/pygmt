@@ -98,8 +98,8 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: false
-          cache-environment: false
+          cache-downloads: true
+          cache-environment: true
           create-args: >-
             python=3.11
             cmake
