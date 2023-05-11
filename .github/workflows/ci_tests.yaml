@@ -67,8 +67,8 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: >-
-               contextily
+            optional-packages: |
+              contextily
               geopandas
               ipython
               rioxarray
