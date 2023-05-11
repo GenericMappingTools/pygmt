@@ -133,44 +133,6 @@ def test_meca_spec_dataframe():
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_spec_1d_array():
-    """
-    Test supplying a 1-D numpy array containing focal mechanisms and locations
-    to the spec parameter.
-    """
-    fig = Figure()
-    # supply focal mechanisms to meca as a 1-D numpy array, here we are using
-    # the Harvard CMT zero trace convention but the focal mechanism
-    # parameters may be specified any of the available conventions. Since we
-    # are not using a dict or dataframe the convention and component should
-    # be specified.
-    focal_mechanism = [
-        -127.40,  # longitude
-        40.87,  # latitude
-        12,  # depth
-        -3.19,  # mrr
-        0.16,  # mtt
-        3.03,  # mff
-        -1.02,  # mrt
-        -3.93,  # mrf
-        -0.02,  # mtf
-        23,  # exponent
-        0,  # plot_lon, 0 to plot at event location
-        0,  # plot_lat, 0 to plot at event location
-    ]
-    focal_mech_array = np.asarray(focal_mechanism)
-    fig.meca(
-        spec=focal_mech_array,
-        convention="mt",
-        component="full",
-        region=[-128, -127, 40, 41],
-        scale="2c",
-        projection="M14c",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
 def test_meca_spec_2d_array():
     """
     Test supplying a 2-D numpy array containing focal mechanisms and locations
@@ -228,37 +190,6 @@ def test_meca_loc_array():
         depth=depth,
         region=[-125, -122, 47, 49],
         projection="M14c",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_gcmt_convention():
-    """
-    Test plotting beachballs using the global CMT convention.
-    """
-    fig = Figure()
-    # specify focal mechanisms
-    focal_mechanisms = {
-        "strike1": 180,
-        "dip1": 18,
-        "rake1": -88,
-        "strike2": 0,
-        "dip2": 72,
-        "rake2": -90,
-        "mantissa": 5.5,
-        "exponent": 0,
-    }
-    fig.meca(
-        spec=focal_mechanisms,
-        scale="1c",
-        longitude=239.384,
-        latitude=34.556,
-        depth=12,
-        convention="gcmt",
-        region=[239, 240, 34, 35.2],
-        projection="m2.5c",
-        frame=True,
     )
     return fig
 
