@@ -67,7 +67,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.11'
             numpy-version: '1.24'
-            optional-packages: |
+            optional-packages: >-
               contextily
               geopandas
               ipython
@@ -111,14 +111,13 @@ jobs:
           cache-downloads: false
           cache-environment: false
           create-args: >-
-            python=${{ matrix.python-version }}
+            python=${{ matrix.python-version }} ${{ matrix.optional-packages }}
             gmt=6.4.0
             numpy=${{ matrix.numpy-version }}
             pandas
             xarray
             netCDF4
             packaging
-            ${{ matrix.optional-packages }}
             build
             dvc
             make
