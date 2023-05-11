@@ -111,7 +111,7 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: false
-          create-args: |
+          create-args: >-
             python=${{ matrix.python-version }}
             gmt=6.4.0
             numpy=${{ matrix.numpy-version }}

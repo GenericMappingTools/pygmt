@@ -50,7 +50,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          create-args: |
+          create-args: >-
             python=3.11
             gmt=6.4.0
             numpy
