@@ -30,7 +30,7 @@ jobs:
       uses: iterative/setup-dvc@v1.1.1
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.2
+      uses: iterative/setup-cml@v1.2.3
 
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
