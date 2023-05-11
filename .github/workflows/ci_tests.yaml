@@ -109,8 +109,8 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
-          cache-environment: true
+          cache-downloads: false
+          cache-environment: false
           create-args: |
             python=${{ matrix.python-version }}
             gmt=6.4.0
