@@ -60,7 +60,7 @@ jobs:
           environment-file: false
           channels: conda-forge,nodefaults
           cache-downloads: true
-          cache-env: true
+          cache-environment: true
           create-args: |
             python=3.9
             gmt=${{ matrix.gmt_version }}
