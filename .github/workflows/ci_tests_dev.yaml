@@ -93,7 +93,7 @@ jobs:
       - name: Setup Micromamba
         uses: mamba-org/setup-micromamba@v1.2.1
         with:
-          environment-file: environment.yml
+          environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
