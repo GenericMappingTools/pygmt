@@ -68,7 +68,7 @@ jobs:
           - python-version: '3.11'
             numpy-version: '1.24'
             optional-packages: >-
-              contextily
+               contextily
               geopandas
               ipython
               rioxarray
@@ -111,7 +111,7 @@ jobs:
           cache-downloads: false
           cache-environment: false
           create-args: >-
-            python=${{ matrix.python-version }} ${{ matrix.optional-packages }}
+            python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.4.0
             numpy=${{ matrix.numpy-version }}
             pandas
