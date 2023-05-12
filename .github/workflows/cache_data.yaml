@@ -52,6 +52,10 @@ jobs:
             packaging
             build
 
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: mamba list
+
       # Install the package that we want to test
       - name: Install the package
         run: |

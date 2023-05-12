@@ -118,6 +118,10 @@ jobs:
             zlib
             geopandas
 
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: mamba list
+
       # Install dependencies from PyPI
       - name: Install dependencies
         run: |
