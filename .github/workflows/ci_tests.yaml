@@ -96,7 +96,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.3.0
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
           condarc: |
@@ -121,10 +121,6 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: micromamba list
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

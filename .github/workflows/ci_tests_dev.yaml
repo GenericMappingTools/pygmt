@@ -91,7 +91,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.3.0
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
           condarc: |
@@ -117,10 +117,6 @@ jobs:
             pcre
             zlib
             geopandas
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: micromamba list
 
       # Install dependencies from PyPI
       - name: Install dependencies
