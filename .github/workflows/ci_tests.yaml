@@ -124,7 +124,7 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: mamba list
+        run: micromamba list
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

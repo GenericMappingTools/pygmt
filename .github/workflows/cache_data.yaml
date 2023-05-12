@@ -54,7 +54,7 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: mamba list
+        run: micromamba list
 
       # Install the package that we want to test
       - name: Install the package
