@@ -47,7 +47,7 @@ fig.plot(
     pen="2p,red,dashed",
 )
 
-# Add labels "A" and "B" for the start and end points of the track, respectively
+# Add labels "A" and "B" for the start and end points of the track
 fig.text(
     x=[126, 146],
     y=[42, 40],
