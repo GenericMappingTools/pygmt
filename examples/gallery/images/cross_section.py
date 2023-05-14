@@ -77,7 +77,7 @@ fig.basemap(
     frame=["WSrt", "xa2f1+lDistance+u@.", "ya4000+lElevation / m"],
 )
 
-# Add labels for start and end points of the track
+# Add labels "A" and "B" for the start and end points of the track, respectively
 fig.text(
     x=[0, 15],
     y=[7000, 7000],
