@@ -191,8 +191,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         Example
         -------
         >>> import pygmt
-        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
-        >>> # 30, and a y-range of 15 to 25
+        >>> # Load a grid of @earth_relief_30m data, with a longitude range
+        >>> # of 10°E to 30°E, and a latitude range of 15°N to 25°N
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )
@@ -295,8 +295,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         Example
         -------
         >>> import pygmt
-        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
-        >>> # 30, and a y-range of 15 to 25
+        >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+        >>> # 10°E to 30°E, and a latitude range of 15°N to 25°N
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )
