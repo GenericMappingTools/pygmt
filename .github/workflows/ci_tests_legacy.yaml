@@ -52,15 +52,18 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/provision-with-micromamba@v15
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
-          environment-file: false
-          channels: conda-forge,nodefaults
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
           cache-downloads: true
-          cache-env: true
-          extra-specs: |
+          cache-environment: true
+          create-args: >-
             python=3.9
             gmt=${{ matrix.gmt_version }}
             numpy
