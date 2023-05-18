@@ -38,7 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macOS-12, windows-2022]
+        os: [ubuntu-22.04, macos-13, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -81,7 +81,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.0.0
+        uses: peter-evans/create-or-update-comment@v3.0.1
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -89,15 +89,18 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
+      # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/provision-with-micromamba@v15
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
-          environment-file: false
-          channels: conda-forge,nodefaults
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
           cache-downloads: true
-          cache-env: true
-          extra-specs: |
+          cache-environment: true
+          create-args: >-
             python=3.11
             cmake
             make

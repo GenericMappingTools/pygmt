@@ -20,7 +20,7 @@ on:
 jobs:
   gmt_cache:
     name: Cache GMT artifacts
-    runs-on: macOS-latest
+    runs-on: macos-latest
     defaults:
       run:
         shell: bash -l {0}
@@ -33,13 +33,16 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/provision-with-micromamba@v15
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
-          environment-file: false
-          channels: conda-forge,nodefaults
-          extra-specs: |
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          create-args: >-
             python=3.11
             gmt=6.4.0
             numpy
