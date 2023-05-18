@@ -31,7 +31,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macOS-11, windows-2019]
+        os: [ubuntu-20.04, macos-11, windows-2019]
         gmt_version: ['6.3']
     timeout-minutes: 30
     defaults:
@@ -52,15 +52,18 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/provision-with-micromamba@v15
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
           environment-name: pygmt
-          environment-file: false
-          channels: conda-forge,nodefaults
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
           cache-downloads: true
-          cache-env: true
-          extra-specs: |
+          cache-environment: true
+          create-args: >-
             python=3.9
             gmt=${{ matrix.gmt_version }}
             numpy
@@ -79,7 +82,6 @@ jobs:
             pytest
             pytest-doctestplus
             pytest-mpl
-            sphinx-gallery
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

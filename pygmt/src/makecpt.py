@@ -85,8 +85,9 @@ def makecpt(**kwargs):
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
         ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
-    color_model :
-        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
+    color_model : str
+        [**R**\|\ **r**\|\ **h**\|\ **c**]\
+        [**+c**\ [*label*\|\ *start*\ [**-**]]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
         (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
@@ -94,15 +95,15 @@ def makecpt(**kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*\[**-**], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append **-** to
-        build ranges *start*-*start+1* instead.
+        *start*, where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Additionally
+        append **-** to build ranges *start*-*start+1* as labels instead.
     series : list or str
-        [*min/max/inc*\[**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
+        [*min/max/inc*\ [**+b**\|\ **l**\|\ **n**]\|\ *file*\|\ *list*].
         Define the range of the new CPT by giving the lowest and highest
         z-value (and optionally an interval). If this is not given, the
         existing range in the master CPT will be used intact. The values
-        produced defines the color slice boundaries.  If **+n** is used it
+        produced defines the color slice boundaries. If **+n** is used it
         refers to the number of such boundaries and not the number of slices.
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
@@ -110,20 +111,19 @@ def makecpt(**kwargs):
         *zlow/zhigh*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlow* and *zhigh*. If one of these equal NaN then we leave that
-        end of the CPT alone. The truncation takes place before any
-        resampling. See
-        also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        end of the CPT alone. The truncation takes place before any resampling.
+        See also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
         CPT of the session, figure, subplot, panel, or inset depending on which
         level :func:`pygmt.makecpt` is called.
     reverse : str
-        Set this to True or **c** [Default] to reverse the sense of color
-        progression in the master CPT. Set this to z to reverse the sign of
-        z-values in the color table. Note that this change of z-direction
+        Set this to ``True`` or **c** [Default] to reverse the sense of color
+        progression in the master CPT. Set this to **z** to reverse the sign
+        of z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
-        latter must be compatible with the changed *z*-range. See also
+        latter must be compatible with the changed z-range. See also
         :gmt-docs:`cookbook/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
