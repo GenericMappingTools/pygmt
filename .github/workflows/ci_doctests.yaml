@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     timeout-minutes: 30
     defaults:
       run:
@@ -40,32 +40,33 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
-          activate-environment: pygmt
-          python-version: '3.11'
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy \
-                        pandas xarray netCDF4 packaging \
-                        build make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \
-                        contextily geopandas ipython rioxarray
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: mamba list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          create-args: >-
+            python=3.11
+            gmt=6.4.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            rioxarray
+            build
+            make
+            pip
+            pytest
+            pytest-doctestplus
+            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

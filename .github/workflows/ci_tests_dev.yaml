@@ -38,8 +38,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11']
-        os: [ubuntu-22.04, macOS-12, windows-2022]
+        os: [ubuntu-22.04, macos-13, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:
@@ -82,7 +81,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.0.0
+        uses: peter-evans/create-or-update-comment@v3.0.1
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -90,31 +89,47 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
-          activate-environment: pygmt
-          # python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: true
+          cache-environment: true
+          create-args: >-
+            python=3.11
+            cmake
+            make
+            ninja
+            curl
+            fftw
+            ghostscript
+            hdf5
+            libblas
+            libcblas
+            libgdal
+            liblapack
+            libnetcdf
+            pcre
+            zlib
+            geopandas
 
-      # Install dependencies from conda-forge
+      # Install dependencies from PyPI
       - name: Install dependencies
         run: |
-          mamba install python=${{ matrix.python-version }} \
-                        ninja cmake libblas libcblas liblapack fftw libgdal \
-                        geopandas ghostscript libnetcdf hdf5 zlib curl pcre make
           python -m pip install --pre --prefer-binary \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc ipython rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: micromamba list
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
@@ -139,7 +154,7 @@ jobs:
         if: runner.os != 'Windows'
 
       - name: Install GMT dev version from conda-forge (Windows)
-        run: mamba install -c conda-forge/label/dev gmt
+        run: micromamba install -c conda-forge/label/dev gmt
         if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub

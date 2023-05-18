@@ -31,19 +31,18 @@ on:
 
 jobs:
   docs:
-    name: ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
         # Only run one job (Ubuntu + Python 3.11) for draft PRs
         exclude:
-          - os: macOS-latest
+          - os: macos-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
@@ -66,30 +65,39 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.4.0
         with:
-          activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy pandas xarray netCDF4 packaging \
-                        build ipython make myst-parser contextily geopandas rioxarray \
-                        sphinx sphinx-copybutton sphinx-design sphinx-gallery sphinx_rtd_theme
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: mamba list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: true
+          cache-environment: true
+          create-args: >-
+            python=3.11
+            gmt=6.4.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            rioxarray
+            build
+            make
+            pip
+            myst-parser
+            panel
+            sphinx
+            sphinx-copybutton
+            sphinx-design
+            sphinx-gallery
+            sphinx_rtd_theme
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
