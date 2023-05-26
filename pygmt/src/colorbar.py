@@ -85,8 +85,8 @@ def colorbar(self, **kwargs):
         rectangular borders instead, with a 6p corner radius. You can override
         this radius by appending another value. Finally, append **+s** to draw
         an offset background shaded region. Here, *dx/dy* indicates the shift
-        relative to the foreground frame [4p/-4p] and shade sets the fill
-        style to use for shading [Default is ``"gray50"``].
+        relative to the foreground frame [Default is ``"4p/-4p"``] and shade
+        sets the fill style to use for shading [Default is ``"gray50"``].
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are

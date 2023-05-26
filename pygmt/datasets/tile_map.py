@@ -87,7 +87,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     ImportError
         If ``contextily`` is not installed or can't be imported. Follow
         :doc:`install instructions for contextily <contextily:index>`, (e.g.
-        via ``pip install contextily``) before using this function.
+        via ``python -m pip install contextily``) before using this function.
 
     Examples
     --------
@@ -111,7 +111,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     if contextily is None:
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
-            "Please use `pip install contextily` or "
+            "Please use `python -m pip install contextily` or "
             "`mamba install -c conda-forge contextily` "
             "to install the package."
         )

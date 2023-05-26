@@ -1,38 +1,26 @@
-# Tests PyGMT with GMT legacy versions on Linux/macOS/Windows
+# Run all doctests on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
-# minor baseline image changes between GMT versions, the workflow only runs
-# the tests but doesn't do image comparisons.
+# This workflow runs all PyGMT doctests. It is scheduled to run weekly every
+# Sunday.
 #
-# It is scheduled to run every Tuesday on the main branch.
-#
-name: GMT Legacy Tests
+name: Doctests
 
 on:
   # push:
   #   branches: [ main ]
   # pull_request:
-    # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
-  # Schedule tests on Tuesday
+  # Schedule weekly tests on Sunday
   schedule:
-    - cron: '0 0 * * 2'
+    - cron: '0 0 * * 0'
 
 jobs:
   test:
-    name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
-        gmt_version: ['6.3']
+        os: [ubuntu-latest, macos-latest, windows-latest]
     timeout-minutes: 30
     defaults:
       run:
@@ -61,11 +49,9 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
-          cache-environment: true
           create-args: >-
-            python=3.9
-            gmt=${{ matrix.gmt_version }}
+            python=3.11
+            gmt=6.4.0
             numpy
             pandas
             xarray
@@ -76,7 +62,6 @@ jobs:
             ipython
             rioxarray
             build
-            dvc
             make
             pip
             pytest
@@ -101,16 +86,10 @@ jobs:
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull pygmt/tests/baseline/test_logo.png --verbose
-          ls -lhR pygmt/tests/baseline/
-
       # Install the package that we want to test
       - name: Install the package
         run: make install
 
-      # Run the tests but skip images
-      - name: Run tests
-        run: make test_no_images PYTEST_EXTRA="-r P"
+      # Run the doctests
+      - name: Run doctests
+        run: make doctest PYTEST_EXTRA="-r P"
