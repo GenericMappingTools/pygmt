@@ -225,7 +225,7 @@ def meca(
         [Default is ``"white"``].
     pen : bool or str
         Set pen attributes for all lines related to beachball(s)
-        [Default is ``"0.25p,black,solid"``]. This settig applies to
+        [Default is ``"0.25p,black,solid"``]. This setting applies to
         ``outline``, ``nodalplanes``, and ``offset``. Draws circumference
         of beachball(s).
     outline : bool or str
