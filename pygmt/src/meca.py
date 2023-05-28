@@ -223,12 +223,15 @@ def meca(
     extensionfill : str
         Set color or pattern for filling extensive quadrants
         [Default is ``"white"``].
-    pen : str
-        Set pen attributes for outline of beachball
-        [Default is ``"0.25p,black,solid"``].
+    pen : bool or str
+        Set pen attributes for all lines related to beachball(s)
+        [Default is ``"0.25p,black,solid"``]. This settig applies to
+        ``outline``, ``nodalplanes``, and ``offset``. Draws circumference
+        of beachball(s).
     outline : bool or str
-        Draw beachball nodal planes and circumference with pen
-        attributes different to the ones set via ``pen``.
+        [*pen*]
+        Draw nodal planes and circumference of the beachaball(s). Use *pen*
+        to use different pen attributes as the ones set via `pen``.
     nodalplanes : bool or int or str
         [*nplane*][/*pen*]
         Plot the nodal planes and outline the bubble which is transparent.
