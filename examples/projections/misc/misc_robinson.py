@@ -11,7 +11,7 @@ table of y-coordinates for latitudes every 5°. To project values for
 intermediate latitudes one must interpolate the table. Different interpolants
 may result in slightly different maps. GMT uses the interpolant selected by
 the parameter :gmt-term:`GMT_INTERPOLANT` in the gmt.conf file.
-The scale is true along latitudes of 38° North and South. The projection was
+The scale is true along latitudes 38° north and south. The projection was
 originally developed for use by Rand McNally and is currently used by the
 National Geographic Society.
 
