@@ -10,9 +10,9 @@ analytic expressions to make the world map "look" right. Robinson provided a
 table of y-coordinates for latitudes every 5 degrees. To project values for
 intermediate latitudes one must interpolate the table. Different interpolants
 may result in slightly different maps. GMT uses the interpolant selected by
-the parameter :gmt-term:`GMT_INTERPOLANT` in the file.
-The scale is true along latitudes 38. The projection was originally developed for use by Rand
-McNally and is currently used by the National Geographic Society.
+the parameter :gmt-term:`GMT_INTERPOLANT` in the file. The scale is true along
+latitudes of 38° North and South. The projection was originally developed for
+use by Rand McNally and is currently used by the National Geographic Society.
 
 **n**\ [*lon0/*]\ *scale* or **N**\ [*lon0/*]\ *width*
 
