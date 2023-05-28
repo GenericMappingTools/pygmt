@@ -230,7 +230,7 @@ def meca(
         of beachball.
     outline : bool or str
         [*pen*]
-        Draw nodal planes and circumference of the beachaball(s). Use *pen*
+        Draw nodal planes and circumference of beachaball. Use *pen*
         to use different pen attributes as the ones set via `pen``.
     nodalplanes : bool, int or str
         [*nplane*][/*pen*]
