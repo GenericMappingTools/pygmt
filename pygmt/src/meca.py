@@ -226,6 +226,24 @@ def meca(
     pen : str
         Set pen attributes for outline of beachball
         [Default is ``"0.25p,black,solid"``].
+    outline : bool or str
+        Draw beachball nodal planes and circumference with pen
+        attributes different to the ones set via ``pen``.
+    nodalplanes : bool or int or str
+        [*nplane*][/*pen*]
+        Plot the nodal planes and outline the bubble which is transparent.
+        If *nplane* is
+
+        - ``0`` or ``True``: both nodal planes are plotted [Default].
+        - ``1``: only the first nodal plane is plotted.
+        - ``2``: only the second nodal plane is plotted.
+
+        Append /*pen* to set the pen attributes for this feature [Default
+        is set via ``pen``].
+        For double couple mechanisms, ``nodalplanes`` renders the beachball
+        transparent by drawing only the nodal planes and the circumference.
+        For non-double couple mechanisms, ``nodalplanes=0`` overlays best
+        double couple transparently.
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those
