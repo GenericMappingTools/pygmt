@@ -6,7 +6,7 @@ The Robinson projection, presented by the American geographer and cartographer
 Arthur H. Robinson in 1963, is a modified cylindrical projection that is
 neither conformal nor equal-area. Central meridian and all parallels are
 straight lines; other meridians are curved. It uses lookup tables rather than
-analytic expressions to make the world map "look" right 22. The scale is true
+analytic expressions to make the world map "look" right. The scale is true
 along latitudes 38. The projection was originally developed for use by Rand
 McNally and is currently used by the National Geographic Society.
 
