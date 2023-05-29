@@ -10,7 +10,7 @@ input types:
 - dictionary
 - pandas DataFrame
 
-Different convention are supported:
+Different conventions are supported:
 TODO add required variables
 
 - ``"aki"``: Aki & Richards -
@@ -86,7 +86,7 @@ fig.coast(
 )
 
 # Pass the focal mechanism data through the spec parameter
-# Addionally scale and event location are required
+# additionally scale and event location are required
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
