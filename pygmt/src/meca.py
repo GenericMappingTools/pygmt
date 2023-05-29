@@ -79,6 +79,7 @@ def data_format_code(convention, component="full"):
     B="frame",
     C="cmap",
     E="extensionfill",
+    Fr="box",
     G="compressionfill",
     J="projection",
     L="outline",
@@ -208,6 +209,10 @@ def meca(
         List must be the same length as the number of events. Will override
         the ``event_name`` values in ``spec`` if ``spec`` is a dictionary
         or pd.DataFrame.
+    box : bool or str
+        [*fill*]
+        Draw a box behind the label if given via parameter or column
+        ``event_name``. Give a color for *fill* [Default is ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to longitude(s) and latitude(s) specified in the
