@@ -28,7 +28,7 @@ This tutorial shows how to adjust the display of the beachballs:
 - Fill quadrants with colors or patterns
 - Highlight nodal plane
 - Offset beachball form event location
-- Size- and color-coding by magnitude or hypocentral depth
+- Size-coding and color-coding
 - Add label
 """
 
@@ -48,22 +48,6 @@ study_area = [-84, -76, -4, 4]
 # Store focal mechanism parameters in a dictionary based on the Aki & Richards
 # convention
 fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
-
-# TODO
-# Set up list of four earthquakes:
-# - Haiti on 2010/01/12
-# - Esmeraldas on 2022/03/27
-# - Afghanistan on 2022/06/21
-# - Syria / Turkey on 2023/02/06
-fm_collection = dict(
-    strike=[116, 116, 166, 166],
-    dip=[80, 80, 80, 80],
-    rake=[74, 74, 74, 74],
-    magnitude=[7.0, 5.8, 6.0, 7.8],
-    longitude=[-72.53, -79.611, 69.46, 37.032],
-    latitude=[18.46, 0.904, 33.02, 37.166],
-    depth=[13, 26.52, 4, 10],
-)
 
 
 ###############################################################################
@@ -332,10 +316,53 @@ fig.show()
 
 
 ###############################################################################
-# Size- and color-coding by magnitude and hypocentral depth
-# ---------------------------------------------------------
+# Plot several beachballs
+# -----------------------
+# TODO
+# Set up list of four earthquakes:
+# - Haiti on 2010/01/12
+# - Esmeraldas on 2022/03/27
+# - Afghanistan on 2022/06/21
+# - Syria / Turkey on 2023/02/06
+fm_collection = dict(
+    strike=[116, 116, 166, 166],
+    dip=[80, 80, 80, 80],
+    rake=[74, 74, 74, 74],
+    magnitude=[7.0, 5.8, 6.0, 7.8],
+    longitude=[-72.53, -79.611, 69.46, 37.032],
+    latitude=[18.46, 0.904, 33.02, 37.166],
+    depth=[13, 26.52, 4, 10],
+)
+
+# fixed size via ``scale`` append **+m**
+
+# Create new figure instance
+fig = pygmt.Figure()
+
+# Create basic map of study area
+fig.coast(
+    region="d",
+    projection="N10c",
+    land="lightgray",
+    water="lightblue",
+    shorelines="1/0.5p,darkgray",
+    frame=["af", "WSnE"],
+)
+
+# Plot focal mechanism
+fig.meca(
+    spec=fm_collection,
+    scale="0.3c+m",  # in centimeters
+)
+
+fig.show()
+
+
+###############################################################################
+# Size-coding and color-coding
+# ----------------------------
+# e.g., by magnitude or hypocentral depth
 # Set up colormap and use parameter ``cmap``
-# e.g. by magnitude and hypocentral depth
 
 # Create new figure instance
 fig = pygmt.Figure()
