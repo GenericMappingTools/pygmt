@@ -237,7 +237,7 @@ def meca(
     outline : bool or str
         [*pen*]
         Draw nodal planes and circumference of beachaball. Use *pen*
-        to use different pen attributes as the ones set via `pen``.
+        to use different pen attributes as the ones set via ``pen``.
     nodalplanes : bool, int or str
         [*nplane*][/*pen*]
         Plot the nodal planes and outline the bubble which is transparent.
