@@ -207,7 +207,7 @@ def meca(
     event_name : str or list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
-        the ``event_name`` values in ``spec`` if ``spec`` is a dictionary
+        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
         or pd.DataFrame.
     box : bool or str
         [*fill*]
@@ -220,15 +220,15 @@ def meca(
         ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
         is plotted at the initial location and a line connects the beachball
         to the circle. Use **+s**\ *size* to set the diameter of the circle
-        [Default is no circle]. Use **+p**\ *pen* to set the line pen
-        attributes [Default is ``"0.25p,black,solid"``].
+        [Default is no circle]. Use **+p**\ *pen* to set the pen attributes
+        for this feature [Default is set via ``pen``].
     compressionfill : str
         Set color or pattern for filling compressive quadrants
         [Default is ``"black"``].
     extensionfill : str
         Set color or pattern for filling extensive quadrants
         [Default is ``"white"``].
-    pen : bool or str
+    pen : str
         Set pen attributes for all lines related to beachball
         [Default is ``"0.25p,black,solid"``]. This setting applies to
         ``outline``, ``nodalplanes``, and ``offset``, unless overruled
@@ -236,9 +236,9 @@ def meca(
         beachball.
     outline : bool or str
         [*pen*]
-        Draw nodal planes and circumference of beachaball. Use *pen*
-        to use different pen attributes as the ones set via ``pen``.
-    nodalplanes : bool, int or str
+        Draw circumference and nodal planes of beachball. Use *pen* to set
+        the pen attributes for this feature [Default is set via ``pen``].
+    nodalplanes : bool, int, or str
         [*nplane*][/*pen*]
         Plot the nodal planes and outline the bubble which is transparent.
         If *nplane* is
@@ -247,8 +247,8 @@ def meca(
         - ``1``: only the first nodal plane is plotted.
         - ``2``: only the second nodal plane is plotted.
 
-        Append /*pen* to set the pen attributes for this feature [Default
-        is set via ``pen``].
+        Use /*pen* to set the pen attributes for this feature [Default is
+        set via ``pen``].
         For double couple mechanisms, ``nodalplanes`` renders the beachball
         transparent by drawing only the nodal planes and the circumference.
         For non-double couple mechanisms, ``nodalplanes=0`` overlays best
