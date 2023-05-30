@@ -6,28 +6,33 @@ Focal mechanisms can be plotted with the :meth:`pygmt.Figure.meca` method.
 Beside an external file containing the input data, PyGMT allows for different
 input types:
 
-- 1-D and 2-D array
+- 1-D (single event) and 2-D array (multiple events)
 - dictionary
 - pandas DataFrame
 
 Different conventions are supported:
-TODO add required variables
 
-- ``"aki"``: Aki & Richards -
-- ``"gcmt"``: Global CMT -
-- ``"mt"``: Seismic moment tensor -
-- ``"partial"``: Partial focal mechanism -
-- ``"principal_axis"``: Principal axis -
+- Aki & Richards - ``"aki"``:
+  *strike*, *dip*, *rake*, *magnitude*
+- Global CMT - ``"gcmt"``:
+  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
+- Seismic moment tensor - ``"mt"``:
+  *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
+- Partial focal mechanism - ``"partial"``:
+  *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
+- Principal axis - ``"principal_axis"``:
+  *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
+  *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-Please refer also the documentation on how to set the input data in respect to
-the chosen convention.
+Please refer also the documentation on how to set up the input data in respect
+to the chosen input type and convention.
 
 This tutorial shows how to adjust the display of the beachballs:
 
 - Adjust outline
-- Fill quadrants with colors or patterns
+- Fill quadrants with colors and patterns
 - Highlight nodal plane
-- Offset beachball form event location
+- Offset beachball from event location
 - Size-coding and color-coding
 - Add label
 """
