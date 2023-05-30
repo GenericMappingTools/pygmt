@@ -47,7 +47,7 @@ import pygmt
 ###############################################################################
 # Set up input data
 # -----------------
-#
+
 # Define study area: lon_min, lon_max, lat_min, lat_max
 # in degrees Eath or North
 study_area = [-84, -76, -4, 4]
