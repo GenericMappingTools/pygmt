@@ -33,7 +33,7 @@ This tutorial shows how to adjust the display of the beachballs:
 - Adjust outline
 - Fill quadrants with colors and patterns
 - Highlight nodal plane
-- Offset beachball from event location
+- Offset from event location
 - Size-coding and color-coding
 - Add label
 """
@@ -47,6 +47,7 @@ import pygmt
 ###############################################################################
 # Set up input data
 # -----------------
+#
 # Define study area: lon_min, lon_max, lat_min, lat_max
 # in degrees Eath or North
 study_area = [-84, -76, -4, 4]
@@ -263,8 +264,8 @@ fig.show()
 
 
 ###############################################################################
-# Offset beachball from event location
-# ------------------------------------
+# Offset from event location
+# --------------------------
 # Prameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
 # Create new figure instance
@@ -331,7 +332,7 @@ fig.show()
 # - Afghanistan on 2022/06/21
 # - Syria / Turkey on 2023/02/06
 fm_collection = dict(
-    strike=[116, 116, 166, 166],
+    strike=[166, 166, 166, 166],
     dip=[80, 80, 80, 80],
     rake=[74, 74, 74, 74],
     magnitude=[7.0, 5.8, 6.0, 7.8],
@@ -351,7 +352,7 @@ fig.coast(
     projection="N10c",
     land="lightgray",
     water="lightblue",
-    shorelines="1/0.5p,darkgray",
+    shorelines="1/0.1p,darkgray",
     frame=["af", "WSnE"],
 )
 
@@ -379,7 +380,7 @@ fig.coast(
     projection="N10c",
     land="lightgray",
     water="lightblue",
-    shorelines="1/0.5p,darkgray",
+    shorelines="1/0.1p,darkgray",
     frame=["af", "WsNE"],
 )
 
@@ -398,7 +399,7 @@ fig.meca(
 )
 
 # Add colorbar
-fig.colorbar(frame="x+lhpyocentral depth / km")
+fig.colorbar(frame=["x+lhpyocentral depth", "y+lkm"])
 
 fig.show()
 
@@ -421,14 +422,14 @@ fig.coast(
     projection="N10c",
     land="lightgray",
     water="lightblue",
-    shorelines="1/0.5p,darkgray",
+    shorelines="1/0.1p,darkgray",
     frame=["af", "WSnE"],
 )
 
 # Plot focal mechanism
 fig.meca(
     spec=fm_collection,
-    scale="0.3c+f5p",  # in centimeters
+    scale="0.3c+m+f5p",  # in centimeters
     # TODO double check dates
     event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
     Fr="white@30",
