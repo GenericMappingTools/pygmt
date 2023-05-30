@@ -212,7 +212,8 @@ def meca(
     box : bool or str
         [*fill*]
         Draw a box behind the label if given via parameter or column
-        ``event_name``. Give a color for *fill* [Default is ``"white"``].
+        ``event_name``. Use *fill* to give a fill color [Default is
+        ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to longitude(s) and latitude(s) specified in the
@@ -229,11 +230,10 @@ def meca(
         Set color or pattern for filling extensive quadrants
         [Default is ``"white"``].
     pen : str
-        Set pen attributes for all lines related to beachball
-        [Default is ``"0.25p,black,solid"``]. This setting applies to
-        ``outline``, ``nodalplanes``, and ``offset``, unless overruled
-        by arguments passed to those parameters. Draws circumference of
-        beachball.
+        Set pen attributes for all lines related to beachball [Default is
+        ``"0.25p,black,solid"``]. This setting applies to ``outline``,
+        ``nodal``, and ``offset``, unless overruled by arguments passed to
+        those parameters. Draws circumference of beachball.
     outline : bool or str
         [*pen*]
         Draw circumference and nodal planes of beachball. Use *pen* to set
@@ -249,9 +249,9 @@ def meca(
 
         Use /*pen* to set the pen attributes for this feature [Default is
         set via ``pen``].
-        For double couple mechanisms, ``nodalplanes`` renders the beachball
+        For double couple mechanisms, ``nodal`` renders the beachball
         transparent by drawing only the nodal planes and the circumference.
-        For non-double couple mechanisms, ``nodalplanes=0`` overlays best
+        For non-double couple mechanisms, ``nodal=0`` overlays best
         double couple transparently.
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
