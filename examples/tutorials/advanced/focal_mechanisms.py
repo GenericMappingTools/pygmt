@@ -392,18 +392,11 @@ fig.coast(
     frame=["af", "WSnE"],
 )
 
-# Set up colormap for hypocentral depth
-pygmt.makecpt(
-    cmap="lajolla",
-    series=[0, 30, 1],
-)
-
 # Plot focal mechanism
 fig.meca(
     spec=fm_collection,
     scale="0.3c+f5p",  # in centimeters
     # TODO double check dates
-    cmap=True,
     event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
     Fr="white@30",
 )
