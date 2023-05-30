@@ -127,7 +127,7 @@ def meca(
           - Columns 1 and 2: event longitude and latitude
           - Column 3: event depth (in km)
           - Columns 4 to 3+n: focal mechanism parameters. The number of columns
-            *n* depends on the choice of ``convection``, which will be
+            *n* depends on the choice of ``convention``, which will be
             described below.
           - Columns 4+n and 5+n: longitude, latitude at which to place
             beachball. Using ``0 0`` will plot the beachball at the longitude,
