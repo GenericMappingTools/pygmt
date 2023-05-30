@@ -85,7 +85,7 @@ def data_format_code(convention, component="full"):
     L="outline",
     N="no_clip",
     R="region",
-    T="nodalplanes",
+    T="nodal",
     V="verbose",
     W="pen",
     c="panel",
@@ -238,7 +238,7 @@ def meca(
         [*pen*]
         Draw circumference and nodal planes of beachball. Use *pen* to set
         the pen attributes for this feature [Default is set via ``pen``].
-    nodalplanes : bool, int, or str
+    nodal : bool, int, or str
         [*nplane*][/*pen*]
         Plot the nodal planes and outline the bubble which is transparent.
         If *nplane* is
