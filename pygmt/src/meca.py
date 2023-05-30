@@ -214,10 +214,13 @@ def meca(
         is plotted at the initial location and a line connects the beachball
         to the circle. Use **+s**\ *size* to set the diameter of the circle
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
-        attributes [Default is ``"0.25p"``].
+        attributes [Default is ``"0.25p"``]. The fill of the circle is set
+        via ``compressionfill``, i.e., corresponds to the fill of the
+        compressive quadrants.
     compressionfill : str
         Set color or pattern for filling compressive quadrants
-        [Default is ``"black"``].
+        [Default is ``"black"``]. This setting applies also to the fill of
+        the circle defined via ``offset``.
     extensionfill : str
         Set color or pattern for filling extensive quadrants
         [Default is ``"white"``].
