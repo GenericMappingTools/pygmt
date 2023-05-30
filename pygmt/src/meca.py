@@ -215,8 +215,8 @@ def meca(
         to the circle. Use **+s**\ *size* to set the diameter of the circle
         [Default is no circle]. Use **+p**\ *pen* to set the line pen
         attributes [Default is ``"0.25p"``]. The fill of the circle is set
-        via ``compressionfill``, i.e., corresponds to the fill of the
-        compressive quadrants.
+        via ``compressionfill`` or ``cmap``, i.e., corresponds to the fill
+        of the compressive quadrants.
     compressionfill : str
         Set color or pattern for filling compressive quadrants
         [Default is ``"black"``]. This setting applies also to the fill of
@@ -232,7 +232,8 @@ def meca(
         *color1,color2,color3*) to build a linear continuous CPT from those
         colors automatically. The color of the compressive quadrants is
         determined by the z-value (i.e., event depth or the third column for
-        an input file).
+        an input file). This setting applies also to the fill of the circle
+        defined via ``offset``.
     no_clip : bool
         Do **not** skip symbols that fall outside the frame boundaries
         [Default is ``False``, i.e., plot symbols inside the frame
