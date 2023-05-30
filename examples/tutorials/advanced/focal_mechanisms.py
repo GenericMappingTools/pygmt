@@ -15,7 +15,8 @@ Different conventions are supported:
 - Aki & Richards - ``"aki"``:
   *strike*, *dip*, *rake*, *magnitude*
 - Global CMT - ``"gcmt"``:
-  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*, *exponent*
+  *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*,
+  *exponent*
 - Seismic moment tensor - ``"mt"``:
   *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
 - Partial focal mechanism - ``"partial"``:
