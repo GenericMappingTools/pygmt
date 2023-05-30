@@ -211,7 +211,7 @@ fig.show()
 ###############################################################################
 # Highlight nodal planes
 # ----------------------
-# parameter **T** -> ``nodalplanes``
+# parameter **T** -> ``nodal``
 # Use stacking concept of GMT - plot on top of each other
 
 # Create new figure instance
@@ -377,7 +377,7 @@ fig.show()
 # **Fr** -> ``box``
 # e.g., event date or time
 #
-# TODO figure out how to change font size of trailing text
+# TODO figure out how to change font size of trailing text -> ``scale``  **+f**
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -401,7 +401,7 @@ pygmt.makecpt(
 # Plot focal mechanism
 fig.meca(
     spec=fm_collection,
-    scale="0.3c",  # in centimeters
+    scale="0.3c+f5p",  # in centimeters
     # TODO double check dates
     cmap=True,
     event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
