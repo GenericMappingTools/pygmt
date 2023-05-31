@@ -219,7 +219,7 @@ def meca(
         of the compressive quadrants.
     compressionfill : str
         Set color or pattern for filling compressive quadrants
-        [Default is ``"black"``]. This setting applies also to the fill of
+        [Default is ``"black"``]. This setting also applies to the fill of
         the circle defined via ``offset``.
     extensionfill : str
         Set color or pattern for filling extensive quadrants
