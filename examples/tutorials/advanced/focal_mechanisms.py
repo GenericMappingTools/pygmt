@@ -11,19 +11,24 @@ input types:
 - pandas DataFrame
 
 Different conventions are supported:
+TODO - input file and arrary, this only is for dictionary and DataFrame
 
-- Aki & Richards - ``"aki"``:
+- ``"aki"`` - Aki & Richards:
   *strike*, *dip*, *rake*, *magnitude*
-- Global CMT - ``"gcmt"``:
+- ``"gcmt"`` - global CMT:
   *strike1*, *dip1*, *rake1*, *strike2*, *dip2*, *rake2*, *mantissa*,
   *exponent*
-- Seismic moment tensor - ``"mt"``:
+- ``"mt"`` - seismic moment tensor:
   *mrr*, *mtt*, *mff*, *mrt*, *mrf*, *mtf*, *exponent*
-- Partial focal mechanism - ``"partial"``:
+- ``"partial"`` - partial focal mechanism:
   *strike1*, *dip1*, *strike2*, *fault_type*, *magnitude*
-- Principal axis - ``"principal_axis"``:
+- ``"principal_axis"`` - principal axis:
   *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
   *p_value*, *p_azimuth*, *p_plunge*, *exponent*
+
+The general structur for the input data is:
+
+-  xxx
 
 Please refer also the documentation on how to set up the input data in respect
 to the chosen input type and convention.
@@ -47,15 +52,19 @@ import pygmt
 ###############################################################################
 # Set up input data
 # -----------------
+# TODO - consistent with lists in introduction
 
-# Define study area: lon_min, lon_max, lat_min, lat_max
-# in degrees Eath or North
-study_area = [-84, -76, -4, 4]
-
-# Store focal mechanism parameters in a dictionary based on the Aki & Richards
-# convention
+# Store focal mechanism parameters
+# in a 1-D array
+fm_sinlge = "xxx"
+# in pandas DataFrame
+fm_single = "xxx"
+# in a dictionary based on the Aki & Richards convention
 fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
 
+# Define study area: lon_min, lon_max, lat_min, lat_max
+# in degrees East or North
+study_area = [-84, -76, -4, 4]
 
 ###############################################################################
 # Plot a single beachball
