@@ -11,17 +11,21 @@ def test_basemap():
     Create a simple basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X10c/6c", frame="afg")
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
     return fig
 
 
 @pytest.mark.mpl_image_compare
-def test_basemap_added():
+def test_basemap_loglog():
     """
-    Create a simple basemap plot.
+    Create a loglog basemap plot.
     """
     fig = Figure()
-    fig.basemap(region=[10, 70, -20, 20], projection="X10c/6c", frame="afg")
+    fig.basemap(
+        region=[1, 10000, 1e20, 1e25],
+        projection="X16cl/12cl",
+        frame=["WS", "x2+lWavelength", "ya1pf3+lPower"],
+    )
     return fig
 
 
