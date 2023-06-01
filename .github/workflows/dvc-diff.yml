@@ -35,6 +35,12 @@ jobs:
     - name: Pull image data from cloud storage
       run: dvc pull --remote upstream
 
+    # workaround from https://github.com/iterative/cml/issues/1377
+    - name: Setup NodeJS
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16'
+
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
     #
@@ -45,10 +51,17 @@ jobs:
     # | added    | pygmt/tests/baseline/test_image.png |
     # | deleted  | pygmt/tests/baseline/test_image2.png |
     # | modified | pygmt/tests/baseline/test_image3.png |
+    #
+    # ## Image diff(s)
+    #
+    # <details>
+    # ...
+    # </details>
+    #
+    # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-      id: image-diff
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
@@ -95,30 +108,5 @@ jobs:
         # Mention git commit SHA in the report
         echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
 
-        # Save the report content to the output parameter 'report'
-        echo 'report<<EOF' >> $GITHUB_OUTPUT
-        cat report.md >> $GITHUB_OUTPUT
-        echo 'EOF' >> $GITHUB_OUTPUT
-
-    - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.4.0
-      id: fc
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: 'This is an auto-generated report of images that have changed on the DVC remote'
-
-    - name: Create comment with image diff report
-      if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v3.0.1
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ steps.image-diff.outputs.report }}
-
-    - name: Update comment with new image diff report
-      if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v3.0.1
-      with:
-        comment-id: ${{ steps.fc.outputs.comment-id }}
-        body: ${{ steps.image-diff.outputs.report }}
-        edit-mode: replace
+        # create/update PR comment
+        cml comment update report.md
