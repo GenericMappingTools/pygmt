@@ -62,7 +62,7 @@ the problem:
   filter the messages to include only the GMT-equivalent commands using a command
   such as:
 
-      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print "gmt", $3}'
+	  python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
   where `<test>` is the name of your test script.
 * If the bug is produced when passing an in-memory data object (e.g., a
