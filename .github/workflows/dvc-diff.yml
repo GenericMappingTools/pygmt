@@ -51,6 +51,14 @@ jobs:
     # | added    | pygmt/tests/baseline/test_image.png |
     # | deleted  | pygmt/tests/baseline/test_image2.png |
     # | modified | pygmt/tests/baseline/test_image3.png |
+    #
+    # ## Image diff(s)
+    #
+    # <details>
+    # ...
+    # </details>
+    #
+    # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
