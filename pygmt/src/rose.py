@@ -108,7 +108,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     frame : str
          Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The ylabel may be
+         here is radial distance and *y* is azimuth. The y label may be
          used to plot a figure caption. The scale bar length is determined
          by the radial gridline spacing.
 
