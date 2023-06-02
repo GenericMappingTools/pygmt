@@ -235,7 +235,7 @@ def meca(
         ``nodal``, and ``offset``, unless overruled by arguments passed to
         those parameters. Draws circumference of beachball.
     outline : bool or str
-        [*pen*]
+        [*pen*].
         Draw circumference and nodal planes of beachball. Use *pen* to set
         the pen attributes for this feature [Default is set via ``pen``].
     nodal : bool, int, or str
