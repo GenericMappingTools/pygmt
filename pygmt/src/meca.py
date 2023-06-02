@@ -239,7 +239,7 @@ def meca(
         Draw circumference and nodal planes of beachball. Use *pen* to set
         the pen attributes for this feature [Default is set via ``pen``].
     nodal : bool, int, or str
-        [*nplane*][/*pen*]
+        [*nplane*][/*pen*].
         Plot the nodal planes and outline the bubble which is transparent.
         If *nplane* is
 
