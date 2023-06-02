@@ -211,9 +211,8 @@ def meca(
         or pd.DataFrame.
     box : bool or str
         [*fill*]
-        Draw a box behind the label if given via parameter or column
-        ``event_name``. Use *fill* to give a fill color [Default is
-        ``"white"``].
+        Draw a box behind the label if given. Use *fill* to give a fill color 
+        [Default is ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to longitude(s) and latitude(s) specified in the
