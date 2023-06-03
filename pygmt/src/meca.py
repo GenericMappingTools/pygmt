@@ -161,7 +161,7 @@ def meca(
           ``convention`` is not needed and is ignored if specified.
     scale : str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
-        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*]
+        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
         Adjust scaling of the radius of the beachball, which is
         proportional to the magnitude. By default, *scale* defines the
         size for magnitude = 5 (i.e., scalar seismic moment
