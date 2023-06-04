@@ -60,7 +60,7 @@ for frontstyle in [
     # xxx
     "~d1c:+sg0.5c+gtan+p1p,black+i",
     # xxx analog N+1 für Ende
-    "~N-1:+sp0.2c+gblack",    
+    "~N-1:+sp0.2c+gblack",
     # xxx
     "~d1c:+sa0.5c+ggold+p1p,black",
     # xxx
