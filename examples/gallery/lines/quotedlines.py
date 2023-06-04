@@ -38,19 +38,13 @@ for quotedline in [
     # xxx
     "qN-1:+ltext",
     # xxx
-    "qN+1:+ltext",
-    # xxx
     "qd1c:+ltext+jTC",
     # xxx
-    "qd1c:+ltext+jBR",
+    "qd1c:+ltext+n-0.5c/0.1c",
     # xxx
     "qd1c:+ltext+a20",
     # xxx
-    "qd1c:+ltext+f13p",
-    # xxx
-    "qd1c:+ltext+fCourier-Bold",
-    # xxx
-    "qd1c:+ltext+fred",
+    "qd1c:+ltext+f12p,Times-Bold,red",
     # xxx
     "qd1c:+ltext+p0.5p,blue",
     # xxx
