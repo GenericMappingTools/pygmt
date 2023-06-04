@@ -32,6 +32,14 @@ for quotedline in [
     # xxx
     "qd1c:+ltext+i",
     # xxx
+    "qn5:+ltext",
+    # xxx
+    "qN5:+ltext",
+    # xxx
+    "qN-1:+ltext",
+    # xxx
+    "qN+1:+ltext",
+    # xxx
     "qd1c:+ltext+jTC",
     # xxx
     "qd1c:+ltext+jBR",
