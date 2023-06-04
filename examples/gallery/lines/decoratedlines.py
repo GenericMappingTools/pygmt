@@ -1,14 +1,16 @@
 """
 Decorated lines
 ---------------
-Use ``style`` parameter with argument ``"~"`` in :meth:`pygmt.Figure.method`
-Similarity to line fronts, for details see
-:doc:`Line styles example </gallery/lines/linesfronts>`
+To draw so-called *decorated lines*, i.e., lines with symbols,
+use the ``style`` parameter of :meth:`pygmt.Figure.plot`
+with argument ``"~"``. There are similarity to line fronts
+(see :doc:`Line styles example </gallery/lines/linesfronts>`).
 Point out what is different
 Also add link in example Line fronts
 Hybrid of fronts and quoted lines
-Unclear `"+a"` does nothing, should change angle similar to quoted lines
-Change base line via ``pen`` parameter, see the 
+Unclear `"+a"` does nothing, should change angle simliar to
+quoted lines
+Change base line via ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 Also, custom symbols can be used, see
 :doc:`Custom symbols example </gallery/symbols/custom_symbols>`.
