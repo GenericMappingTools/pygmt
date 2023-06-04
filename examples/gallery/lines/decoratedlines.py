@@ -34,7 +34,7 @@ fig.basemap(
 )
 
 # Plot different decorated lines
-for frontstyle in [
+for decoline in [
     # xxx
     "~d1c:+sc0.5c",
     # xxx
@@ -73,11 +73,11 @@ for frontstyle in [
     "~d1c:+sksquaroid/0.5c+ggray+p1p,black",
 ]:
     y = y - 1.2  # Move current line down
-    fig.plot(x=x, y=y, pen="1.25p,black")
+    fig.plot(x=x, y=y, style=decoline, pen="1.25p,black")
     fig.text(
         x=x[-1],
         y=y[-1],
-        text=frontstyle,
+        text=decoline,
         font="Courier-Bold",
         justify="ML",
         offset="0.75c/0c",
