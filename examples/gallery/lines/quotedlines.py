@@ -92,14 +92,14 @@ fig.basemap(
 fig.plot(
     x=x,
     y=y + 2,
-    style="qd1.2c:+lwiggly line+f5p",
+    style="qd1.2c:+lstraight text+f5p",
     pen="1p,blue",
 )
 
 fig.plot(
     x=x,
     y=y - 2,
-    style="qd1.2c:+lwiggly line+f5p+v",
+    style="qd1.2c:+lcurved text+f5p+v",
     pen="1p,blue",
 )
 
