@@ -79,7 +79,7 @@ def test_meca_spec_single_focalmecha_file():
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
-@pytest.mark.parametrize("inputtype", ["dict_mecha"])
+@pytest.mark.parametrize("inputtype", ["dict_mecha", "dataframe"])
 def test_meca_spec_multiple_focalmecha(inputtype):
     """
     Test passing multiple focal mechanisms to the spec parameter.
@@ -96,36 +96,24 @@ def test_meca_spec_multiple_focalmecha(inputtype):
             "latitude": [47.5, 48.5],
             "depth": [12.0, 11.0],
         }
+    elif inputtype == "dataframe":
+        args = {
+            "spec": pd.DataFrame(
+                data={
+                    "strike": [330, 350],
+                    "dip": [30, 50],
+                    "rake": [90, 90],
+                    "magnitude": [3, 2],
+                    "longitude": [-123.5, -124.5],
+                    "latitude": [47.5, 48.5],
+                    "depth": [12.0, 11.0],
+                },
+            )
+        }
+
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M8c", frame=True)
     fig.meca(scale="2c", **args)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_dataframe():
-    """
-    Test supplying a pandas.DataFrame containing focal mechanisms and locations
-    to the spec parameter.
-    """
-
-    fig = Figure()
-    # supply focal mechanisms to meca as a dataframe
-    focal_mechanisms = {
-        "strike": [324, 353],
-        "dip": [20.6, 40],
-        "rake": [83, 90],
-        "magnitude": [3.4, 2.9],
-        "longitude": [-124, -124.4],
-        "latitude": [48.1, 48.2],
-        "depth": [12, 11.0],
-    }
-    fig.meca(
-        spec=pd.DataFrame(data=focal_mechanisms),
-        region=[-125, -122, 47, 49],
-        scale="2c",
-        projection="M14c",
-    )
     return fig
 
 
