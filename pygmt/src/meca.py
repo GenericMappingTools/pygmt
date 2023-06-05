@@ -210,7 +210,7 @@ def meca(
         the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
         or pd.DataFrame.
     box : bool or str
-        [*fill*]
+        [*fill*].
         Draw a box behind the label if given. Use *fill* to give a fill color
         [Default is ``"white"``].
     offset : bool or str
