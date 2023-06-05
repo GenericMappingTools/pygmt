@@ -78,30 +78,27 @@ def test_meca_spec_single_focalmecha_file():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_spec_dict_list():
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
+@pytest.mark.parametrize("inputtype", ["dict_mecha"])
+def test_meca_spec_multiple_focalmecha(inputtype):
     """
-    Test supplying a dictionary containing a list of focal mechanism to the
-    spec parameter.
+    Test passing multiple focal mechanisms to the spec parameter.
     """
+    if inputtype == "dict_mecha":
+        args = {
+            "spec": {
+                "strike": [330, 350],
+                "dip": [30, 50],
+                "rake": [90, 90],
+                "magnitude": [3, 2],
+            },
+            "longitude": [-123.5, -124.5],
+            "latitude": [47.5, 48.5],
+            "depth": [12.0, 11.0],
+        }
     fig = Figure()
-    # supply focal mechanisms as a dict of lists
-    focal_mechanisms = {
-        "strike": [330, 350],
-        "dip": [30, 50],
-        "rake": [90, 90],
-        "magnitude": [3, 2],
-    }
-    fig.meca(
-        spec=focal_mechanisms,
-        longitude=[-123.5, -124.5],
-        latitude=[47.5, 48.5],
-        depth=[12.0, 11.0],
-        region=[-125, -122, 47, 49],
-        scale="2c",
-        projection="M8c",
-        frame=True,
-    )
+    fig.basemap(region=[-125, -122, 47, 49], projection="M8c", frame=True)
+    fig.meca(scale="2c", **args)
     return fig
 
 
