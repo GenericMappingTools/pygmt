@@ -209,7 +209,7 @@ def meca(
         List must be the same length as the number of events. Will override
         the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
         or pd.DataFrame.
-    box : bool or str
+    labelbox : bool or str
         [*fill*].
         Draw a box behind the label if given. Use *fill* to give a fill color
         [Default is ``"white"``].
