@@ -79,7 +79,7 @@ def test_meca_spec_single_focalmecha_file():
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
-@pytest.mark.parametrize("inputtype", ["dict_mecha", "dataframe"])
+@pytest.mark.parametrize("inputtype", ["dict_mecha", "dataframe", "array2d"])
 def test_meca_spec_multiple_focalmecha(inputtype):
     """
     Test passing multiple focal mechanisms to the spec parameter.
@@ -110,40 +110,20 @@ def test_meca_spec_multiple_focalmecha(inputtype):
                 },
             )
         }
+    elif inputtype == "array2d":
+        args = {
+            "spec": np.array(
+                [
+                    [-123.5, 47.5, 12.0, 330, 30, 90, 3],
+                    [-124.5, 48.5, 11.0, 350, 50, 90, 2],
+                ]
+            ),
+            "convention": "aki",
+        }
 
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M8c", frame=True)
     fig.meca(scale="2c", **args)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_2d_array():
-    """
-    Test supplying a 2-D numpy array containing focal mechanisms and locations
-    to the spec parameter.
-    """
-    fig = Figure()
-    # supply focal mechanisms to meca as a 2-D numpy array, here we are using
-    # the GCMT convention but the focal mechanism parameters may be
-    # specified any of the available conventions. Since we are not using a
-    # dict or dataframe the convention and component should be specified.
-
-    # longitude, latitude, depth, strike1, rake1, strike2, dip2, rake2,
-    # mantissa, exponent, plot_longitude, plot_latitude
-    focal_mechanisms = np.array(
-        [
-            [-127.40, 40.87, 12, 170, 20, -110, 11, 71, -83, 5.1, 23, 0, 0],
-            [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
-        ]
-    )
-    fig.meca(
-        spec=focal_mechanisms,
-        convention="gcmt",
-        region=[-128, -127, 40, 41],
-        scale="2c",
-        projection="M14c",
-    )
     return fig
 
 
