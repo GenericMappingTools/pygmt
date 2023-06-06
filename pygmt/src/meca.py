@@ -160,7 +160,7 @@ def meca(
           columns. If ``spec`` is a dictionary or a pd.DataFrame,
           ``convention`` is not needed and is ignored if specified.
 
-    scale : str
+    scale : int or float or str
         Adjust the scaling of the radius of the beachball, which is
         proportional to the magnitude. *scale* defines the size for
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
@@ -335,7 +335,7 @@ def meca(
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
-    kwargs["S"] = data_format + scale
+    kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
         # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
