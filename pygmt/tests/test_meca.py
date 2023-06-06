@@ -79,7 +79,9 @@ def test_meca_spec_single_focalmecha_file():
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
-@pytest.mark.parametrize("inputtype", ["dict_mecha", "dataframe", "array2d"])
+@pytest.mark.parametrize(
+    "inputtype", ["dict_mecha", "dict_mecha_mixed", "dataframe", "array2d"]
+)
 def test_meca_spec_multiple_focalmecha(inputtype):
     """
     Test passing multiple focal mechanisms to the spec parameter.
@@ -95,6 +97,18 @@ def test_meca_spec_multiple_focalmecha(inputtype):
             "longitude": [-123.5, -124.5],
             "latitude": [47.5, 48.5],
             "depth": [12.0, 11.0],
+        }
+    elif inputtype == "dict_mecha_mixed":
+        args = {
+            "spec": {
+                "strike": [330, 350],
+                "dip": [30, 50],
+                "rake": [90, 90],
+                "magnitude": [3, 2],
+            },
+            "longitude": np.array([-123.5, -124.5]),
+            "latitude": [47.5, 48.5],
+            "depth": [12, 11],
         }
     elif inputtype == "dataframe":
         args = {
@@ -124,38 +138,6 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M8c", frame=True)
     fig.meca(scale="2c", **args)
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_loc_array():
-    """
-    Test supplying lists and np.ndarrays as the event location (longitude,
-    latitude, and depth).
-    """
-    fig = Figure()
-    # specify focal mechanisms
-    focal_mechanisms = {
-        "strike": [327, 350],
-        "dip": [41, 50],
-        "rake": [68, 90],
-        "magnitude": [3, 2],
-    }
-    # longitude, latitude, and depth may be specified as an int, float,
-    # list, or 1-D numpy array
-    longitude = np.array([-123.3, -124.4])
-    latitude = np.array([48.4, 48.2])
-    depth = [12.0, 11.0]  # to test mixed data types as inputs
-    scale = "2c"
-    fig.meca(
-        focal_mechanisms,
-        scale,
-        longitude=longitude,
-        latitude=latitude,
-        depth=depth,
-        region=[-125, -122, 47, 49],
-        projection="M14c",
-    )
     return fig
 
 
