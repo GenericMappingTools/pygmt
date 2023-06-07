@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 def test_psconvert():
     """
-    psconvert creates a figure in the current directory.
+    Check that psconvert creates a figure in the current directory.
     """
     fig = Figure()
     fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
