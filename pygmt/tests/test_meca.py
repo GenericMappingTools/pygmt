@@ -303,6 +303,6 @@ def test_meca_spec_dict_all_scalars():
             "depth": 12.0,
             "event_name": "Event20220311",
         },
-        scale="1c",
+        scale=1.0,  # make sure a non-str scale works
     )
     return fig
