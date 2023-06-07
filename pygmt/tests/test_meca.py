@@ -78,119 +78,66 @@ def test_meca_spec_single_focalmecha_file():
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_spec_dict_list():
+@pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
+@pytest.mark.parametrize(
+    "inputtype", ["dict_mecha", "dict_mecha_mixed", "dataframe", "array2d"]
+)
+def test_meca_spec_multiple_focalmecha(inputtype):
     """
-    Test supplying a dictionary containing a list of focal mechanism to the
-    spec parameter.
+    Test passing multiple focal mechanisms to the spec parameter.
     """
+    if inputtype == "dict_mecha":
+        args = {
+            "spec": {
+                "strike": [330, 350],
+                "dip": [30, 50],
+                "rake": [90, 90],
+                "magnitude": [3, 2],
+            },
+            "longitude": [-123.5, -124.5],
+            "latitude": [47.5, 48.5],
+            "depth": [12.0, 11.0],
+        }
+    elif inputtype == "dict_mecha_mixed":
+        args = {
+            "spec": {
+                "strike": [330, 350],
+                "dip": [30, 50],
+                "rake": [90, 90],
+                "magnitude": [3, 2],
+            },
+            "longitude": np.array([-123.5, -124.5]),
+            "latitude": [47.5, 48.5],
+            "depth": [12, 11],
+        }
+    elif inputtype == "dataframe":
+        args = {
+            "spec": pd.DataFrame(
+                data={
+                    "strike": [330, 350],
+                    "dip": [30, 50],
+                    "rake": [90, 90],
+                    "magnitude": [3, 2],
+                    "longitude": [-123.5, -124.5],
+                    "latitude": [47.5, 48.5],
+                    "depth": [12.0, 11.0],
+                },
+            )
+        }
+    elif inputtype == "array2d":
+        args = {
+            "spec": np.array(
+                [
+                    [-123.5, 47.5, 12.0, 330, 30, 90, 3],
+                    [-124.5, 48.5, 11.0, 350, 50, 90, 2],
+                ]
+            ),
+            "convention": "aki",
+        }
+
     fig = Figure()
-    # supply focal mechanisms as a dict of lists
-    focal_mechanisms = {
-        "strike": [330, 350],
-        "dip": [30, 50],
-        "rake": [90, 90],
-        "magnitude": [3, 2],
-    }
-    fig.meca(
-        spec=focal_mechanisms,
-        longitude=[-123.5, -124.5],
-        latitude=[47.5, 48.5],
-        depth=[12.0, 11.0],
-        region=[-125, -122, 47, 49],
-        scale="2c",
-        projection="M8c",
-        frame=True,
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_dataframe():
-    """
-    Test supplying a pandas.DataFrame containing focal mechanisms and locations
-    to the spec parameter.
-    """
-
-    fig = Figure()
-    # supply focal mechanisms to meca as a dataframe
-    focal_mechanisms = {
-        "strike": [324, 353],
-        "dip": [20.6, 40],
-        "rake": [83, 90],
-        "magnitude": [3.4, 2.9],
-        "longitude": [-124, -124.4],
-        "latitude": [48.1, 48.2],
-        "depth": [12, 11.0],
-    }
-    fig.meca(
-        spec=pd.DataFrame(data=focal_mechanisms),
-        region=[-125, -122, 47, 49],
-        scale="2c",
-        projection="M14c",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_spec_2d_array():
-    """
-    Test supplying a 2-D numpy array containing focal mechanisms and locations
-    to the spec parameter.
-    """
-    fig = Figure()
-    # supply focal mechanisms to meca as a 2-D numpy array, here we are using
-    # the GCMT convention but the focal mechanism parameters may be
-    # specified any of the available conventions. Since we are not using a
-    # dict or dataframe the convention and component should be specified.
-
-    # longitude, latitude, depth, strike1, rake1, strike2, dip2, rake2,
-    # mantissa, exponent, plot_longitude, plot_latitude
-    focal_mechanisms = np.array(
-        [
-            [-127.40, 40.87, 12, 170, 20, -110, 11, 71, -83, 5.1, 23, 0, 0],
-            [-127.50, 40.88, 12.0, 168, 40, -115, 20, 54, -70, 4.0, 23, 0, 0],
-        ]
-    )
-    fig.meca(
-        spec=focal_mechanisms,
-        convention="gcmt",
-        region=[-128, -127, 40, 41],
-        scale="2c",
-        projection="M14c",
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_loc_array():
-    """
-    Test supplying lists and np.ndarrays as the event location (longitude,
-    latitude, and depth).
-    """
-    fig = Figure()
-    # specify focal mechanisms
-    focal_mechanisms = {
-        "strike": [327, 350],
-        "dip": [41, 50],
-        "rake": [68, 90],
-        "magnitude": [3, 2],
-    }
-    # longitude, latitude, and depth may be specified as an int, float,
-    # list, or 1-D numpy array
-    longitude = np.array([-123.3, -124.4])
-    latitude = np.array([48.4, 48.2])
-    depth = [12.0, 11.0]  # to test mixed data types as inputs
-    scale = "2c"
-    fig.meca(
-        focal_mechanisms,
-        scale,
-        longitude=longitude,
-        latitude=latitude,
-        depth=depth,
-        region=[-125, -122, 47, 49],
-        projection="M14c",
-    )
+    fig.basemap(region=[-125, -122, 47, 49], projection="M8c", frame=True)
+    fig.meca(scale="2c", **args)
     return fig
 
 
@@ -303,6 +250,6 @@ def test_meca_spec_dict_all_scalars():
             "depth": 12.0,
             "event_name": "Event20220311",
         },
-        scale="1c",
+        scale=1.0,  # make sure a non-str scale works
     )
     return fig
