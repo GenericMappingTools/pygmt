@@ -42,7 +42,7 @@ def fixture_expected_grid():
 
 def test_grdproject_file_out(grid, expected_grid):
     """
-    grdproject with an outgrid set.
+    Test grdproject with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdproject(
