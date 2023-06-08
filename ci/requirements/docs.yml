@@ -12,7 +12,7 @@ dependencies:
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas!=0.13.0
+    - geopandas
     - ipython
     - rioxarray
     # Development dependencies (general)
