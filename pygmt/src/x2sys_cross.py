@@ -47,7 +47,7 @@ def tempfile_from_dftrack(track, suffix):
             sep="\t",
             index=False,
             na_rep="NaN",  # write a NaN value explicitly instead of a blank string
-            date_format="%Y-%m-%dT%H:%M:%S.%fZ",
+            date_format="%Y-%m-%dT%H:%M:%S.%fZ",  # ISO8601 format
         )
         yield tmpfilename
     finally:
@@ -235,6 +235,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     header=2,  # Column names are on 2nd row
                     comment=">",  # Skip the 3rd row with a ">"
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
+                    date_format="ISO8601",
                 )
                 # Remove the "# " from "# x" in the first column
                 table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
