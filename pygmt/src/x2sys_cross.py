@@ -241,7 +241,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     header=2,  # Column names are on 2nd row
                     comment=">",  # Skip the 3rd row with a ">"
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
-                    *date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
+                    **date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
                 )
                 # Remove the "# " from "# x" in the first column
                 table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
