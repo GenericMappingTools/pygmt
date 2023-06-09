@@ -11,7 +11,7 @@ name: GMT Legacy Tests
 on:
   # push:
   #   branches: [ main ]
-  # pull_request:
+  pull_request:
     # types: [ready_for_review]
     # paths-ignore:
     #  - 'doc/**'
@@ -67,7 +67,7 @@ jobs:
             python=3.9
             gmt=${{ matrix.gmt_version }}
             numpy
-            pandas
+            pandas<2
             xarray
             netCDF4
             packaging

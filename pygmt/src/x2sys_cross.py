@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 import pandas as pd
+from packaging.version import Version
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -229,13 +230,18 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
                 # Read the tab-separated ASCII table
+                date_format_kwarg = (
+                    {"date_format": "ISO8601"}
+                    if Version(pd.__version__) >= Version("2.0.0")
+                    else {}
+                )
                 table = pd.read_csv(
                     tmpfile.name,
                     sep="\t",
                     header=2,  # Column names are on 2nd row
                     comment=">",  # Skip the 3rd row with a ">"
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
-                    date_format="ISO8601",
+                    *date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
                 )
                 # Remove the "# " from "# x" in the first column
                 table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
