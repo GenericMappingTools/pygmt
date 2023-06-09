@@ -67,7 +67,7 @@ jobs:
             python=3.9
             gmt=${{ matrix.gmt_version }}
             numpy
-            pandas
+            pandas<2
             xarray
             netCDF4
             packaging
