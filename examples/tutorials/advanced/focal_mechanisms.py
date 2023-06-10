@@ -100,7 +100,7 @@ fig.show()
 ###############################################################################
 # Adjust outline
 # --------------
-# parameters ``pen`` and **L** -> ``outline``
+# parameters ``pen`` and ``outline``
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -145,7 +145,7 @@ fig.meca(
     scale="1c",  # in centimeters
     longitude=-79.611,
     latitude=0.904,
-    L="1p,red,solid",
+    outline="1p,red,solid",
 )
 
 fig.show()
@@ -202,7 +202,7 @@ fig.meca(
     latitude=0.904,
     compressionfill="p8",
     extensionfill="p31",
-    L=True,
+    outline=True,
 )
 
 fig.show()
@@ -211,7 +211,7 @@ fig.show()
 ###############################################################################
 # Highlight nodal planes
 # ----------------------
-# parameter **T** -> ``nodal``
+# parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
 
 # Create new figure instance
@@ -234,7 +234,7 @@ fig.meca(
     scale="1c",  # in centimeters
     longitude=-79.611,
     latitude=0.904,
-    T="0/1p,black,solid",
+    nodal="0/1p,black,solid",
 )
 
 # Shift plot origin 11 centimeters to the right
@@ -258,7 +258,7 @@ fig.meca(
     longitude=-79.611,
     latitude=0.904,
     compressionfill="darkgray",
-    L="1p,red,solid",
+    outline="1p,red,solid",
 )
 
 fig.meca(
@@ -266,7 +266,7 @@ fig.meca(
     scale="1c",
     longitude=-79.611,
     latitude=0.904,
-    T="1/1p,black,solid",
+    nodal="1/1p,black,solid",
 )
 
 fig.show()
@@ -336,10 +336,12 @@ fig.show()
 # -----------------------
 # TODO
 # Set up list of four earthquakes:
+
 # - Haiti on 2010/01/12
 # - Esmeraldas on 2022/03/27
 # - Afghanistan on 2022/06/21
 # - Syria / Turkey on 2023/02/06
+
 fm_collection = dict(
     strike=[166, 166, 166, 166],
     dip=[80, 80, 80, 80],
@@ -404,7 +406,7 @@ fig.meca(
     spec=fm_collection,
     scale="0.3c",
     cmap=True,
-    L=True,
+    outline=True,
 )
 
 # Add colorbar
@@ -417,10 +419,10 @@ fig.show()
 # Add label
 # ---------
 # ``event_name`` as parameter or as column
-# **Fr** -> ``box``
+# ``labelbox``
 # e.g., event date or time
 #
-# TODO figure out how to change font size of trailing text -> ``scale``  **+f**
+# change font size of trailing text ``scale`` **+f**
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -441,7 +443,7 @@ fig.meca(
     scale="0.3c+m+f5p",  # in centimeters
     # TODO double check dates
     event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
-    Fr="white@30",
+    labelbox="white@30",
 )
 
 fig.show()
