@@ -1,12 +1,14 @@
 """
 Quoted lines
 ------------
-GMT allows to plot lines with text, so-called *quoted lines*.
-Such lines can be achieved by passing ``"q"`` to the ``style``
-parameter of :meth:`pygmt.Figure.plot`. This example shows how
-the display of the text can be adjusted. To modify the base
-line via the ``pen`` parameter, you may want to have a look at
-the :doc:`Line styles example </gallery/lines/linestyles>`.
+To plot a so-called *quoted line*, i.e., annotations along a line
+or curve, use the ``style`` parameter of the
+:meth:`pygmt.Figure.plot` method with argument ``"q"`` with the
+desired modifiers. This example focuses on adjusting the annotations.
+For modifying the base line via the ``pen`` parameter, see the
+:doc:`Line styles example </gallery/lines/linestyles>`.
+For details on the input data see the upstream GMT documentation
+at https://docs.generic-mapping-tools.org/latest/plot.html#s
 """
 
 import numpy as np
