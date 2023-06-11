@@ -25,33 +25,35 @@ fig.basemap(
 
 # Plot different quoted lines
 for quotedline in [
-    # xxx
+    # Line with labels ("+l") "text" in distance ("d") of 1 centimeter
     "qd1c:+ltext",
-    # xxx
-    "qd1.5c:+ltext",
-    # xxx
+    # Suppress base line by appending "+i"
     "qd1c:+ltext+i",
-    # xxx
+    # Give the number of equally spaced labels by using "n" instead of "d"
     "qn5:+ltext",
-    # xxx
+    # Use upper-case "N" to have labels at the start and end of the line
     "qN5:+ltext",
-    # xxx
+    # To only plot a label at the start of the line use "N-1"
     "qN-1:+ltext",
-    # xxx
+    # To only plot a label at the end of the line use "N+1"
+    "qN+1:+ltext",
+    # Adjust the justification of the labels via "+j", here Top Center
     "qd1c:+ltext+jTC",
-    # xxx
+    # Shift labels using "+n" in x and y directions relative to the base line
     "qd1c:+ltext+n-0.5c/0.1c",
-    # xxx
+    # Rotate labels via "+a" (counter-clockwise from horizontal)
     "qd1c:+ltext+a20",
-    # xxx
+    # Adjust size, type, and color of the front via "+f"
     "qd1c:+ltext+f12p,Times-Bold,red",
-    # xxx
-    "qd1c:+ltext+p0.5p,blue",
-    # xxx
+    # Add a box around the label via "+p"
+    "qd1c:+ltext+p",
+    # Additionally give thickness, color, and style
+    "qd1c:+ltext+p0.5p,blue,dashed",
+    # Append "+o" to get rounded edges
     "qd1c:+ltext+p0.5p,blue+o",
-    # xxx
+    # Adjust the space between label and box in x and y directions via "+c"
     "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
-    # xxx
+    # Give a fill color via "+g"
     "qd1c:+ltext+gdodgerblue",
 ]:
     y -= 1  # Move current line down
