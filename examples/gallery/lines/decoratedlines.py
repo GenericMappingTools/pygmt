@@ -4,15 +4,16 @@ Decorated lines
 To draw a so-called *decorated line*, i.e., symbols along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"~"`` and the
-desired modifiers. This example focuses on adjusting the symbols.
+desired modifiers. This example shows how to adjust the symbols.
 Beside the build-in symbols also custom symbols can be used.
-There are similarities to so-called *fronts*, often used to plot
-fault lines, subduction zones, or weather fronts; for details
-see :doc:`Line styles example </gallery/lines/linesfronts>`.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
+Furthermore, there are so-called *line fronts*, which are often
+used to plot fault lines, subduction zones, or weather fronts;
+for details see
+:doc:`Line fronts example </gallery/lines/linefronts>`.
 
 Also add link in example Line fronts
 Hybrid of fronts and quoted lines
