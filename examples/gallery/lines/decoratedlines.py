@@ -62,7 +62,7 @@ for decoline in [
     # Suppress the base line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",
     # To only plot a symbol at the start of the line use "N-1"
-     "~N-1:+sp0.2c+gblack",
+    "~N-1:+sp0.2c+gblack",
     # To only plot a symbol at the end of the line use "N+1"
     "~N+1:+sp0.2c+gblack",
     # Line with stars ("a")
