@@ -39,7 +39,7 @@ for decoline in [
     # 1 centimeter
     "~d1c:+sc0.5c",
     # Adjust thickness, color, and style of the outline via "+p"
-    # Here, we plot a 1 point thick, blue, dashed outline
+    # Here, we plot a 1-point thick, blue, dashed outline
     "~d1c:+sc0.5c+p1p,blue,-",
     # Add a fill color using "+g" with the desired color
     "~d1c:+sc0.5c+glightblue",
@@ -50,20 +50,20 @@ for decoline in [
     # Line with inverse triangles with a size of 0.3 centimeters in a
     # distance of 0.4 centimeters
     "~d0.4c:+si0.3c+gtan+p1p,black",
-    # Line with squars ("s") with a size of 0.7 centimeters in a distance of
+    # Line with squares ("s") with a size of 0.7 centimeters in a distance of
     # 1 centimeter
     "~d1c:+ss0.7c+gtan+p1p,black",
-    # Shift symobls using "+n" in x and y directions relative to the base line
+    # Shift symbols using "+n" in x and y directions relative to the base line
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
-    # Give the number of equaly spaced symbols by using "n" instead of "d"
+    # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
     # Use upper-case "N" to have symbols at start and end of the line
     "~N6:+sh0.5c+gtan+p1p,black",
     # Suppress the base line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",
-    # To only plot a symoble a the start of the line use "N-1"
+    # To only plot a symbol at the start of the line use "N-1"
      "~N-1:+sp0.2c+gblack",
-    # To only plot a symoble a the end of the line use "N+1"
+    # To only plot a symbol at the end of the line use "N+1"
     "~N+1:+sp0.2c+gblack",
     # Line with stars ("a")
     "~d1c:+sa0.5c+ggold+p1p,black",
