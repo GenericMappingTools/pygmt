@@ -35,7 +35,7 @@ fig.basemap(
 
 # Plot different decorated lines
 for decoline in [
-    # Line with circle ("+sc") of 0.5 centimeters radius in distance of
+    # Line with circles ("c") of 0.5 centimeters radius in distance of
     # 1 centimeter
     "~d1c:+sc0.5c",
     # Adjust thickness, color, and style of the outline via "+p"
@@ -43,9 +43,9 @@ for decoline in [
     "~d1c:+sc0.5c+p1p,blue,-",
     # Add a fill color using "+g" with the desired color
     "~d1c:+sc0.5c+glightblue",
-    # To use a pattern as fill by append "p" and give the pattern number
+    # To use a pattern as fill append "p" and give the pattern number
     "~d1c:+sc0.5c+gp8+p1p,blue",
-    # Line with tringles ("t")
+    # Line with triangles ("t")
     "~d1c:+st0.5c+gtan+p1p,black",
     # Line with inverse triangles with a size of 0.3 centimeters in a
     # distance of 0.4 centimeters
@@ -57,7 +57,7 @@ for decoline in [
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
     # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
-    # Use upper-case "N" to have symbols at start and end of the line
+    # Use upper-case "N" to have symbols at the start and end of the line
     "~N6:+sh0.5c+gtan+p1p,black",
     # Suppress the base line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",
