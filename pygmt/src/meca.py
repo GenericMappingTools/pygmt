@@ -79,10 +79,13 @@ def data_format_code(convention, component="full"):
     B="frame",
     C="cmap",
     E="extensionfill",
+    Fr="labelbox",
     G="compressionfill",
     J="projection",
+    L="outline",
     N="no_clip",
     R="region",
+    T="nodal",
     V="verbose",
     W="pen",
     c="panel",
@@ -160,7 +163,7 @@ def meca(
           columns. If ``spec`` is a dictionary or a pd.DataFrame,
           ``convention`` is not needed and is ignored if specified.
 
-    scale : str
+    scale : int or float or str
         Adjust the scaling of the radius of the beachball, which is
         proportional to the magnitude. *scale* defines the size for
         magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
@@ -204,8 +207,12 @@ def meca(
     event_name : str or list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
-        the ``event_name`` values in ``spec`` if ``spec`` is a dictionary
+        the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
         or pd.DataFrame.
+    labelbox : bool or str
+        [*fill*].
+        Draw a box behind the label if given. Use *fill* to give a fill color
+        [Default is ``"white"``].
     offset : bool or str
         [**+p**\ *pen*][**+s**\ *size*].
         Offset beachball(s) to longitude(s) and latitude(s) specified in the
@@ -213,10 +220,10 @@ def meca(
         ``plot_longitude`` and ``plot_latitude`` if provided. A small circle
         is plotted at the initial location and a line connects the beachball
         to the circle. Use **+s**\ *size* to set the diameter of the circle
-        [Default is no circle]. Use **+p**\ *pen* to set the line pen
-        attributes [Default is ``"0.25p"``]. The fill of the circle is set
-        via ``compressionfill`` or ``cmap``, i.e., corresponds to the fill
-        of the compressive quadrants.
+        [Default is no circle]. Use **+p**\ *pen* to set the pen attributes
+        for this feature [Default is set via ``pen``]. The fill of the
+        circle is set via ``compressionfill`` or ``cmap``, i.e.,
+        corresponds to the fill of the compressive quadrants.
     compressionfill : str
         Set color or pattern for filling compressive quadrants
         [Default is ``"black"``]. This setting also applies to the fill of
@@ -225,8 +232,29 @@ def meca(
         Set color or pattern for filling extensive quadrants
         [Default is ``"white"``].
     pen : str
-        Set pen attributes for outline of beachball
-        [Default is ``"0.25p,black,solid"``].
+        Set pen attributes for all lines related to beachball [Default is
+        ``"0.25p,black,solid"``]. This setting applies to ``outline``,
+        ``nodal``, and ``offset``, unless overruled by arguments passed to
+        those parameters. Draws circumference of beachball.
+    outline : bool or str
+        [*pen*].
+        Draw circumference and nodal planes of beachball. Use *pen* to set
+        the pen attributes for this feature [Default is set via ``pen``].
+    nodal : bool, int, or str
+        [*nplane*][/*pen*].
+        Plot the nodal planes and outline the bubble which is transparent.
+        If *nplane* is
+
+        - ``0`` or ``True``: both nodal planes are plotted [Default].
+        - ``1``: only the first nodal plane is plotted.
+        - ``2``: only the second nodal plane is plotted.
+
+        Use /*pen* to set the pen attributes for this feature [Default is
+        set via ``pen``].
+        For double couple mechanisms, ``nodal`` renders the beachball
+        transparent by drawing only the nodal planes and the circumference.
+        For non-double couple mechanisms, ``nodal=0`` overlays best
+        double couple transparently.
     cmap : str
         File name of a CPT file or a series of comma-separated colors (e.g.,
         *color1,color2,color3*) to build a linear continuous CPT from those
@@ -335,7 +363,7 @@ def meca(
     data_format = data_format_code(convention=convention, component=component)
 
     # Assemble -S flag
-    kwargs["S"] = data_format + scale
+    kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
         # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
