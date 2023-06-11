@@ -1,21 +1,22 @@
 """
 Decorated lines
 ---------------
-To draw so-called *decorated lines*, i.e., lines with symbols,
-use the ``style`` parameter of :meth:`pygmt.Figure.plot`
-with argument ``"~"``. There are similarity to line fronts
-(see :doc:`Line styles example </gallery/lines/linesfronts>`).
-Point out what is different
+To draw a so-called *decorated line*, i.e., symbols along a line
+or curve, use the ``style`` parameter of the
+:meth:`pygmt.Figure.plot` method with argument ``"~"`` with the
+desired modifiers. This example focuses on adjusting the symbols.
+Beside the build-in symbols also custom symbols can be used.
+There are similarities to so-called *fronts*, often used to plot
+fault lines, subduction zones, or weather fronts; for details
+see :doc:`Line styles example </gallery/lines/linesfronts>`.
+For modifying the base line via the ``pen`` parameter, see the
+:doc:`Line styles example </gallery/lines/linestyles>`.
+For details on the input data see the upstream GMT documentation
+at https://docs.generic-mapping-tools.org/latest/plot.html#s
+
 Also add link in example Line fronts
 Hybrid of fronts and quoted lines
-Unclear `"+a"` does nothing, should change angle simliar to
-quoted lines
-Change base line via ``pen`` parameter, see the
-:doc:`Line styles example </gallery/lines/linestyles>`.
-Also, custom symbols can be used, see
-:doc:`Custom symbols example </gallery/symbols/custom_symbols>`.
-For more modifications, see upstream GMT documentation at xyz
-TODO - nice formulation
+Unclear `"+a"` does nothing, should change angle see quoted lines
 """
 
 
