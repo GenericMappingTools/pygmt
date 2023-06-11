@@ -99,8 +99,8 @@ def binstats(data, **kwargs):
         the computed statistics to standard output (or to the file named
         in ``outgrid``). Here, the ``spacing`` setting is expected to
         set the y-increment only and we compute the x-increment given
-        the geometry. Because the horizontal spacing between hexagon
-        centers in x and y has a ratio of :math:`\sqrt{{ 3 }}`, we will
+        the geometry. Because the spacing between hexagon centers in
+        x and y directions have a ratio of :math:`\sqrt{{ 3 }}`, we will
         automatically adjust *xmax* in ``region`` to fit a whole number
         of hexagons. **Note**: Hexagonal tiling requires Cartesian data.
     weight : str
