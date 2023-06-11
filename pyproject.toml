@@ -75,6 +75,7 @@ line-length = 79
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
 [tool.docformatter]
+black = true
 recursive = true
 pre-summary-newline = true
 make-summary-multi-line = true
