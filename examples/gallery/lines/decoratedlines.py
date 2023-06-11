@@ -35,41 +35,43 @@ fig.basemap(
 
 # Plot different decorated lines
 for decoline in [
-    # xxx
+    # Line with circle ("+sc") of 0.5 centimeters radius in distance of
+    # 1 centimeter
     "~d1c:+sc0.5c",
-    # xxx
-    "~d1c:+sc0.5c+p1p,blue",
-    # xxx
+    # Adjust thickness, color, and style of the outline via "+p"
+    # Here, we plot a 1 point thick, blue, dashed outline
     "~d1c:+sc0.5c+p1p,blue,-",
-    # xxx
+    # Add a fill color using "+g" with the desired color
     "~d1c:+sc0.5c+glightblue",
-    # xxx
-    "~d1c:+sc0.5c+glightblue+p1p,blue",
-    # xxx
+    # To use a pattern as fill by append "p" and give the pattern number
     "~d1c:+sc0.5c+gp8+p1p,blue",
-    # xxx
+    # Line with tringles ("t")
     "~d1c:+st0.5c+gtan+p1p,black",
-    # xxx
+    # Line with inverse triangles with a size of 0.3 centimeters in a
+    # distance of 0.4 centimeters
     "~d0.4c:+si0.3c+gtan+p1p,black",
-    # xxx
+    # Line with squars ("s") with a size of 0.7 centimeters in a distance of
+    # 1 centimeter
     "~d1c:+ss0.7c+gtan+p1p,black",
-    # xxx
+    # Shift symobls using "+n" in x and y directions relative to the base line
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
-    # xxx
+    # Give the number of equaly spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
-    # xxx
+    # Use upper-case "N" to have symbols at start and end of the line
     "~N6:+sh0.5c+gtan+p1p,black",
-    # xxx
+    # Suppress the base line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",
-    # xxx analog N+1 für Ende
-    "~N-1:+sp0.2c+gblack",
-    # xxx
+    # To only plot a symoble a the start of the line use "N-1"
+     "~N-1:+sp0.2c+gblack",
+    # To only plot a symoble a the end of the line use "N+1"
+    "~N+1:+sp0.2c+gblack",
+    # Line with stars ("a")
     "~d1c:+sa0.5c+ggold+p1p,black",
-    # xxx
+    # Line with crosses ("x")
     "~d1c:+sx0.5c+p2p,red",
-    # xxx
+    # Line with (vertical) lines or bars ("y")
     "~d0.5c:+sy0.5c+p5p,brown",
-    # xxx
+    # Use custom symbol ("k") "squaroid" with a size of 0.5 centimeters
     "~d1c:+sksquaroid/0.5c+ggray+p1p,black",
 ]:
     y = y - 1.2  # Move current line down
