@@ -3,7 +3,7 @@ Decorated lines
 ---------------
 To draw a so-called *decorated line*, i.e., symbols along a line
 or curve, use the ``style`` parameter of the
-:meth:`pygmt.Figure.plot` method with argument ``"~"`` with the
+:meth:`pygmt.Figure.plot` method with the argument ``"~"`` and the
 desired modifiers. This example focuses on adjusting the symbols.
 Beside the build-in symbols also custom symbols can be used.
 There are similarities to so-called *fronts*, often used to plot
@@ -12,7 +12,7 @@ see :doc:`Line styles example </gallery/lines/linesfronts>`.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
-at https://docs.generic-mapping-tools.org/latest/plot.html#s
+at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 
 Also add link in example Line fronts
 Hybrid of fronts and quoted lines
