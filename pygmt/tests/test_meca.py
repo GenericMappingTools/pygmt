@@ -142,9 +142,9 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare
-def test_meca_dict_offset():
+def test_meca_offset():
     """
-    Test offsetting beachballs for a dict input.
+    Test offsetting beachballs.
     """
     fig = Figure()
     focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
@@ -161,7 +161,7 @@ def test_meca_dict_offset():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_meca_dict_offset.png")
+@pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
 def test_meca_dict_offset_in_dict():
     """
     Test offsetting beachballs for a dict input with offset parameters in the
