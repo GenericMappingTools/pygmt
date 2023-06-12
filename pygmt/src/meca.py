@@ -8,44 +8,71 @@ from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
-def data_format_code(convention, component="full"):
+def convention_code(convention, component="full"):
     """
-    Determine the data format code for meca's -S option.
+    Determine the convention code for focal mechanisms.
 
-    See the meca() method for explanations of the parameters.
+    The convention code can be used in meca's -S option.
+
+    Parameters
+    ----------
+    convention : str
+        The focal mechanism convention. Can be one of the following:
+
+        - ``"aki"``: Aki and Richards
+        - ``"gcmt"``: Global Centroid Moment Tensor
+        - ``"partial"``: Partial focal mechanism
+        - ``"mt"``: Moment tensor
+        - ``"principal_axis"``: Principal axis
+
+        Single letter convention codes like ``"a"`` and ``"c"`` are also
+        supported but undocumented.
+
+    component : str
+        The component of the focal mechanism. Only used when ``convention`` is
+        ``"mt"`` or ``"principal_axis"``. Can be one of the following:
+
+        - ``"full"``: Full moment tensor
+        - ``"deviatoric"``: Deviatoric moment tensor
+        - ``"dc"``: Double couple
+
+    Returns
+    -------
+    str
+        The single-letter convention code used in meca's -S option.
 
     Examples
     --------
-    >>> data_format_code("aki")
+    >>> convention_code("aki")
     'a'
-    >>> data_format_code("gcmt")
+    >>> convention_code("gcmt")
     'c'
-    >>> data_format_code("partial")
+    >>> convention_code("partial")
     'p'
 
-    >>> data_format_code("mt", component="full")
+    >>> convention_code("mt", component="full")
     'm'
-    >>> data_format_code("mt", component="deviatoric")
+    >>> convention_code("mt", component="deviatoric")
     'z'
-    >>> data_format_code("mt", component="dc")
+    >>> convention_code("mt", component="dc")
     'd'
-    >>> data_format_code("principal_axis", component="full")
+    >>> convention_code("principal_axis", component="full")
     'x'
-    >>> data_format_code("principal_axis", component="deviatoric")
+    >>> convention_code("principal_axis", component="deviatoric")
     't'
-    >>> data_format_code("principal_axis", component="dc")
+    >>> convention_code("principal_axis", component="dc")
     'y'
 
     >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
-    ...     assert data_format_code(code) == code
+    ...     assert convention_code(code) == code
     ...
 
-    >>> data_format_code("invalid")
+    >>> convention_code("invalid")
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput: Invalid convention 'invalid'.
 
-    >>> data_format_code("mt", "invalid")  # doctest: +NORMALIZE_WHITESPACE
+    >>> convention_code("mt", "invalid")  # doctest: +NORMALIZE_WHITESPACE
     Traceback (most recent call last):
       ...
     pygmt.exceptions.GMTInvalidInput:
@@ -372,7 +399,7 @@ def meca(
         spec = np.atleast_2d(spec)
 
     # determine data_format from convention and component
-    data_format = data_format_code(convention=convention, component=component)
+    data_format = convention_code(convention=convention, component=component)
 
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
