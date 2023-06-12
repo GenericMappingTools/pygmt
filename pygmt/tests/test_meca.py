@@ -142,7 +142,7 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-@pytest.mark.parametrize("inputtype", ["offset_args"])
+@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict"])
 def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
@@ -156,38 +156,26 @@ def test_meca_offset(inputtype):
             "plot_longitude": -124.5,
             "plot_latitude": 47.5,
         }
+    elif inputtype == "offset_dict":
+        # Test https://github.com/GenericMappingTools/pygmt/issues/2016
+        # offset parameters are in the dict.
+        args = {
+            "spec": {
+                "strike": 330,
+                "dip": 30,
+                "rake": 90,
+                "magnitude": 3,
+                "plot_longitude": -124.5,
+                "plot_latitude": 47.5,
+            },
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+        }
 
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     fig.meca(scale="1c", **args)
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-def test_meca_dict_offset_in_dict():
-    """
-    Test offsetting beachballs for a dict input with offset parameters in the
-    dict.
-
-    See https://github.com/GenericMappingTools/pygmt/issues/2016.
-    """
-    fig = Figure()
-    focal_mechanism = {
-        "strike": 330,
-        "dip": 30,
-        "rake": 90,
-        "magnitude": 3,
-        "plot_longitude": -124.5,
-        "plot_latitude": 47.5,
-    }
-    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-    )
     return fig
 
 
