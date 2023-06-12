@@ -141,23 +141,25 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_offset():
+@pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
+@pytest.mark.parametrize("inputtype", ["offset_args"])
+def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
     """
+    if inputtype == "offset_args":
+        args = {
+            "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "plot_longitude": -124.5,
+            "plot_latitude": 47.5,
+        }
+
     fig = Figure()
-    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-        plot_longitude=-124.5,
-        plot_latitude=47.5,
-    )
+    fig.meca(scale="1c", **args)
     return fig
 
 
