@@ -143,7 +143,7 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict"])
+@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict", "ndarray"])
 def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
@@ -172,6 +172,13 @@ def test_meca_offset(inputtype):
             "longitude": -124,
             "latitude": 48,
             "depth": 12.0,
+        }
+    elif inputtype == "ndarray":
+        # Test ndarray input reported in
+        # https://github.com/GenericMappingTools/pygmt/issues/2016
+        args = {
+            "spec": np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5]]),
+            "convention": "aki",
         }
 
     fig = Figure()
