@@ -135,6 +135,55 @@ def convention_name(code):
     return name if name is not None else code
 
 
+def convention_params(convention):
+    """
+    Return the list of focal mechanism parameters for a given convention.
+
+    Parameters
+    ----------
+    convention : str
+        The focal mechanism convention. Can be one of the following:
+
+        - ``"aki"``: Aki and Richards
+        - ``"gcmt"``: Global Centroid Moment Tensor
+        - ``"partial"``: Partial focal mechanism
+        - ``"mt"``: Moment tensor
+        - ``"principal_axis"``: Principal axis
+
+    Returns
+    -------
+    list
+        The list of focal mechanism parameters.
+    """
+    return {
+        "aki": ["strike", "dip", "rake", "magnitude"],
+        "gcmt": [
+            "strike1",
+            "dip1",
+            "rake1",
+            "strike2",
+            "dip2",
+            "rake2",
+            "mantissa",
+            "exponent",
+        ],
+        "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
+        "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
+        "pricipal_axis": [
+            "t_value",
+            "t_azimuth",
+            "t_plunge",
+            "n_value",
+            "n_azimuth",
+            "n_plunge",
+            "p_value",
+            "p_azimuth",
+            "p_plunge",
+            "exponent",
+        ],
+    }[convention]
+
+
 @fmt_docstring
 @use_alias(
     A="offset",
@@ -351,36 +400,9 @@ def meca(
     # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
-        param_conventions = {
-            "aki": ["strike", "dip", "rake", "magnitude"],
-            "gcmt": [
-                "strike1",
-                "dip1",
-                "rake1",
-                "strike2",
-                "dip2",
-                "rake2",
-                "mantissa",
-                "exponent",
-            ],
-            "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
-            "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-            "pricipal_axis": [
-                "t_value",
-                "t_azimuth",
-                "t_plunge",
-                "n_value",
-                "n_azimuth",
-                "n_plunge",
-                "p_value",
-                "p_azimuth",
-                "p_plunge",
-                "exponent",
-            ],
-        }
         # determine convention from dict keys or pd.DataFrame column names
-        for conv, paras in param_conventions.items():
-            if set(paras).issubset(set(spec.keys())):
+        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
+            if set(convention_params(conv)).issubset(set(spec.keys())):
                 convention = conv
                 break
         else:
@@ -416,7 +438,7 @@ def meca(
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth"] + param_conventions[convention]
+        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             spec[["plot_longitude", "plot_latitude"]] = spec[
