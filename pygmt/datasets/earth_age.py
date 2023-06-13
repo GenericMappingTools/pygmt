@@ -28,7 +28,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
 
     The default color palette table (CPT) for this dataset is *@earth_age.cpt*.
     It's implicitly used when passing in the file name of the dataset to any
-    grid plotting function if no CPT is explicitly specified. When the dataset
+    grid plotting method if no CPT is explicitly specified. When the dataset
     is loaded and plotted as an :class:`xarray.DataArray` object, the default
     CPT is ignored and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_age.cpt"``.
