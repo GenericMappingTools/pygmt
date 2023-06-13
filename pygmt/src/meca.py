@@ -100,6 +100,41 @@ def convention_code(convention, component="full"):
     raise GMTInvalidInput(f"Invalid convention '{convention}'.")
 
 
+def convention_name(code):
+    """
+    Determine the name of a focal mechanism convention from its code.
+
+    Parameters
+    ----------
+    code : str
+        The single-letter convention code.
+
+    Returns
+    -------
+    str
+        The name of the focal mechanism convention.
+
+    Examples
+    --------
+    >>> convention_name("a")
+    'aki'
+    >>> convention_name("aki")
+    'aki'
+    """
+    name = {
+        "a": "aki",
+        "c": "gcmt",
+        "p": "partial",
+        "z": "mt",
+        "d": "mt",
+        "m": "mt",
+        "x": "principal_axis",
+        "y": "principal_axis",
+        "t": "principal_axis",
+    }.get(code)
+    return name if name is not None else code
+
+
 @fmt_docstring
 @use_alias(
     A="offset",
