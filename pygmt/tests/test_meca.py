@@ -143,12 +143,12 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict", "ndarray"])
+@pytest.mark.parametrize("inputtype", ["args", "dict", "ndarray"])
 def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
     """
-    if inputtype == "offset_args":
+    if inputtype == "args":
         args = {
             "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
             "longitude": -124,
@@ -157,7 +157,7 @@ def test_meca_offset(inputtype):
             "plot_longitude": -124.5,
             "plot_latitude": 47.5,
         }
-    elif inputtype == "offset_dict":
+    elif inputtype == "dict":
         # Test https://github.com/GenericMappingTools/pygmt/issues/2016
         # offset parameters are in the dict.
         args = {
