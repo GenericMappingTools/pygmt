@@ -221,7 +221,7 @@ fig.histogram(
     histtype=0,
     # Show cumulative counts
     cumulative=True,
-    # Offest (+o) the label by 10 points in negative y-direction
+    # Offset (+o) the label by 10 points in negative y-direction
     annotate="+o-10p",
 )
 
