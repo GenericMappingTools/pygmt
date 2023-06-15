@@ -1,5 +1,5 @@
 """
-Tests for triangulate.
+Test pygmt.triangulate.
 """
 from pathlib import Path
 

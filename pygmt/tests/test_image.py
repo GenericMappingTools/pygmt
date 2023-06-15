@@ -1,5 +1,5 @@
 """
-Tests image.
+Test Figure.image.
 """
 import os
 import sys

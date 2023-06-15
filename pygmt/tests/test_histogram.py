@@ -1,6 +1,6 @@
 # pylint: disable=redefined-outer-name
 """
-Tests histogram.
+Test Figure.histogram.
 """
 import pandas as pd
 import pytest

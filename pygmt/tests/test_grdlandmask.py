@@ -1,5 +1,5 @@
 """
-Tests for grdlandmask.
+Test pygmt.grdlandmask.
 """
 from pathlib import Path
 

@@ -1,5 +1,5 @@
 """
-Tests plot3d.
+Test Figure.plot3d.
 """
 import os
 from pathlib import Path

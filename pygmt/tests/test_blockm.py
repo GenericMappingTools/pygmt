@@ -1,5 +1,5 @@
 """
-Tests for blockmean and blockmode.
+Test blockmean and blockmode.
 """
 from pathlib import Path
 

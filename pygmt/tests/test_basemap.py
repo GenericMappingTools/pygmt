@@ -1,5 +1,5 @@
 """
-Tests Figure.basemap.
+Test Figure.basemap.
 """
 import pytest
 from pygmt import Figure

@@ -1,5 +1,5 @@
 """
-Tests grdview.
+Test Figure.grdview.
 """
 import pytest
 from pygmt import Figure, grdcut
