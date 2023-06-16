@@ -10,7 +10,7 @@ from pygmt import Figure
 @pytest.fixture(scope="module", name="data", params=[list, pd.Series])
 def fixture_data(request):
     """
-    Returns a list of integers to be used in the histogram.
+    Return a list of integers to be used in the histogram.
     """
     data = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8]
     return request.param(data)
@@ -19,7 +19,7 @@ def fixture_data(request):
 @pytest.mark.mpl_image_compare(filename="test_histogram.png")
 def test_histogram(data):
     """
-    Tests plotting a histogram using a sequence of integers from a table.
+    Test plotting a histogram using a sequence of integers from a table.
     """
     fig = Figure()
     fig.histogram(
