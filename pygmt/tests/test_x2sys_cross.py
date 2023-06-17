@@ -1,6 +1,6 @@
 # pylint: disable=unused-argument
 """
-Tests for x2sys_cross.
+Test pygmt.x2sys_cross.
 """
 import os
 from pathlib import Path

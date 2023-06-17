@@ -1,5 +1,5 @@
 """
-Tests the helper functions/classes/etc used in wrapping GMT.
+Test the helper functions/classes/etc used in wrapping GMT.
 """
 import os
 

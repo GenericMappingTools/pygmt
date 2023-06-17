@@ -1,5 +1,5 @@
 """
-Tests for sphinterpolate.
+Test pygmt.sphinterpolate.
 """
 from pathlib import Path
 

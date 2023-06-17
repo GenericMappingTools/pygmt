@@ -57,7 +57,7 @@ def test_clib_names():
 
 
 ###############################################################################
-# Tests for load_libgmt
+# Test load_libgmt
 def test_load_libgmt():
     """
     Test that loading libgmt works and doesn't crash.
@@ -208,7 +208,7 @@ class TestLibgmtBrokenLibs:
 
 
 ###############################################################################
-# Tests for clib_full_names
+# Test clib_full_names
 @pytest.fixture(scope="module", name="gmt_lib_names")
 def fixture_gmt_lib_names():
     """
