@@ -1,5 +1,5 @@
 """
-Tests for meca.
+Test Figure.meca.
 """
 import numpy as np
 import pandas as pd

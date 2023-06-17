@@ -1,5 +1,5 @@
 """
-Tests for pygmt.which.
+Test pygmt.which.
 """
 import os
 

@@ -1,5 +1,5 @@
 """
-Tests for grdhisteq.
+Test pygmt.grdhisteq.
 """
 from pathlib import Path
 
