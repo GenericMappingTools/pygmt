@@ -84,7 +84,7 @@ fig.basemap(
     # Cartesian projection with a width of 12 centimeters and
     # a height of 3 centimeters
     projection="X12c/3c",
-    # Add annodations ("a") and ticks ("f") as well as labels ("+l")
+    # Add annotations ("a") and ticks ("f") as well as labels ("+l")
     # at the west or left and south or bottom sides ("WSrt")
     frame=["WSrt", "xa2f1+lDistance+u@.", "ya4000+lElevation / m"],
 )
