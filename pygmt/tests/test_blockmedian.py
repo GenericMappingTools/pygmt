@@ -1,5 +1,5 @@
 """
-Tests for blockmedian.
+Test pygmt.blockmedian.
 """
 from pathlib import Path
 

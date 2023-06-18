@@ -1,5 +1,5 @@
 """
-Tests for binstats.
+Test pygmt.binstats.
 """
 from pathlib import Path
 

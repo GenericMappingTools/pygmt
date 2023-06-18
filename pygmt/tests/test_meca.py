@@ -1,5 +1,5 @@
 """
-Tests for meca.
+Test Figure.meca.
 """
 import numpy as np
 import pandas as pd
@@ -141,51 +141,41 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_dict_offset():
+@pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
+@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict"])
+def test_meca_offset(inputtype):
     """
-    Test offsetting beachballs for a dict input.
+    Test offsetting beachballs.
     """
+    if inputtype == "offset_args":
+        args = {
+            "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "plot_longitude": -124.5,
+            "plot_latitude": 47.5,
+        }
+    elif inputtype == "offset_dict":
+        # Test https://github.com/GenericMappingTools/pygmt/issues/2016
+        # offset parameters are in the dict.
+        args = {
+            "spec": {
+                "strike": 330,
+                "dip": 30,
+                "rake": 90,
+                "magnitude": 3,
+                "plot_longitude": -124.5,
+                "plot_latitude": 47.5,
+            },
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+        }
+
     fig = Figure()
-    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-        plot_longitude=-124.5,
-        plot_latitude=47.5,
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare(filename="test_meca_dict_offset.png")
-def test_meca_dict_offset_in_dict():
-    """
-    Test offsetting beachballs for a dict input with offset parameters in the
-    dict.
-
-    See https://github.com/GenericMappingTools/pygmt/issues/2016.
-    """
-    fig = Figure()
-    focal_mechanism = {
-        "strike": 330,
-        "dip": 30,
-        "rake": 90,
-        "magnitude": 3,
-        "plot_longitude": -124.5,
-        "plot_latitude": 47.5,
-    }
-    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-    )
+    fig.meca(scale="1c", **args)
     return fig
 
 
