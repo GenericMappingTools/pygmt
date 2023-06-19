@@ -33,7 +33,7 @@ def load_earth_magnetic_anomaly(
     (see below), and *reg* is grid registration type (**p** for pixel
     registration or **g** for gridline registration).
 
-    The default color palette table (CPT) for this dataset is *@earth_mag.cpt*
+    The default color palette tables (CPTs) for this dataset are *@earth_mag.cpt*
     for ``data_source="emag2"`` and ``data_source="emag2_4km"``, and
     *@earth_wdmam.cpt* for ``data_source="wdmam"``.
     It's implicitly used when passing in the file name of the dataset to any
