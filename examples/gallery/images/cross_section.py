@@ -94,7 +94,7 @@ fig.text(
     x=[0, 15],
     y=[7000, 7000],
     text=["A", "B"],
-    no_clip=True,  # Do not clip text that fall outside of the plot bounds
+    no_clip=True,  # Do not clip text that fall outside the plot bounds
     font="10p",  # Use a font size of 10 points
 )
 
