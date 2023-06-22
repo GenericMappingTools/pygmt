@@ -188,7 +188,7 @@ def test_meca_offset(inputtype):
     [
         "args",
         pytest.param(
-            "pandas",
+            "dataframe",
             marks=pytest.mark.skipif(
                 condition=Version(__gmt_version__) < Version("6.5.0"),
                 reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
@@ -208,8 +208,8 @@ def test_meca_eventname(inputtype):
             "depth": 12.0,
             "event_name": "Event20220311",
         }
-    elif inputtype == "pandas":
-        # Test pandas input. Requires GMT>=6.5.
+    elif inputtype == "dataframe":
+        # Test pandas.DataFrame input. Requires GMT>=6.5.
         # See https://github.com/GenericMappingTools/pygmt/issues/2524.
         # The numeric columns must be in float type to trigger the bug.
         args = {
