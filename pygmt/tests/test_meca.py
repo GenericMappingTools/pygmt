@@ -189,7 +189,7 @@ def test_meca_offset(inputtype):
         "args",
         pytest.param(
             "pandas",
-            marks=pytest.mark.xfail(
+            marks=pytest.mark.skipif(
                 condition=Version(__gmt_version__) < Version("6.5.0"),
                 reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
             ),
