@@ -3,7 +3,7 @@ Cross-section along a transect
 ==============================
 :func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on
 a quantity and its variation along a desired survey line.
-In this example, the elevation is extracted from a gird provided via
+In this example, the elevation is extracted from a grid provided via
 :func:`pygmt.datasets.load_earth_relief`.
 The figure consists of the two parts, a map of the elevation in the study
 area showing the survey line and a Cartesian plot showing the elevation
