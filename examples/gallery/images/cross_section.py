@@ -5,7 +5,7 @@ Cross-section along a transect
 a quantity and its variation along a desired survey line.
 In this example, the elevation is extracted from a grid provided via
 :func:`pygmt.datasets.load_earth_relief`.
-The figure consists of the two parts, a map of the elevation in the study
+The figure consists of two parts, a map of the elevation in the study
 area showing the survey line and a Cartesian plot showing the elevation
 along the survey line.
 
