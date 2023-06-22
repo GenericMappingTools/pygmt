@@ -106,17 +106,10 @@ track_df = pygmt.project(
     generate="0.1",  # Output data in steps of 0.1 degrees
 )
 
-# Download grid for Earth relief with a resolution of 10 arc-minutes and
-# gridline registration [Default]
-grid_track = pygmt.datasets.load_earth_relief(
-    resolution="10m",
-    region=region_map,
-)
-
 # Extract the elevation at the generated points from the downloaded grid
 # and add it as new column "elevation" to the pandas.DataFrame
 track_df = pygmt.grdtrack(
-    grid=grid_track,
+    grid=grid_map,
     points=track_df,
     newcolname="elevation",
 )
