@@ -98,7 +98,7 @@ fig.text(
     font="10p",  # Use a font size of 10 points
 )
 
-# Generate points along a great circle corresponding the survey line
+# Generate points along a great circle corresponding to the survey line
 # and store them in a pandas.DataFrame
 track_df = pygmt.project(
     center="126/42",  # Start point of survey line (longitude/latitude)
