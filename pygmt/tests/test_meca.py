@@ -179,22 +179,23 @@ def test_meca_offset(inputtype):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_dict_eventname():
+@pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
+@pytest.mark.parametrize("inputtype", ["eventname_args"])
+def test_meca_eventname(inputtype):
     """
-    Test offsetting beachballs for a dict input.
+    Test passing event names.
     """
+    if inputtype == "eventname_args":
+        args = {
+            "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "event_name": "Event20220311",
+        }
     fig = Figure()
-    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-        event_name="Event20220311",
-    )
+    fig.meca(scale="1c", **args)
     return fig
 
 
@@ -219,7 +220,7 @@ def test_meca_dict_offset_eventname():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_meca_dict_eventname.png")
+@pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
 def test_meca_spec_dict_all_scalars():
     """
     Test supplying a dict with scalar values for all focal parameters.
