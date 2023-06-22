@@ -19,7 +19,7 @@ import pygmt
 # lon_min, lon_max, lat_min, lat_max in degrees East and North
 region_map = [122, 149, 30, 49]
 
-# Create a new instance or object of the pygmt.Figure() class
+# Create a new pygmt.Figure instance
 fig = pygmt.Figure()
 
 # ----------------------------------------------------------------------------
