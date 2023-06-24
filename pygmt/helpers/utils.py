@@ -91,6 +91,33 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     return kind
 
 
+def non_ascii_to_octal(argstr):
+    r"""
+    Replace non-ASCII characters with their corresponding octal codes.
+
+    Currently, only ISOLatin1+ character set is supported.
+
+    Parameters
+    ----------
+    argstr : str
+        The string to be converted.
+
+    Returns
+    -------
+    str
+        The converted string.
+
+    Examples
+    --------
+    >>> non_ascii_to_octal("ABC°DEF")
+    'ABC\\260DEF'
+    """
+    # list of non-ASCII characters in ISOLatin-1 character set
+    isolatin1 = "°±²³´µ¶·¸¹º»¼½¾¿"  # more to be added
+    isolatin1_mapping = {c: "\\" + format(ord(c), "o") for c in isolatin1}
+    return argstr.translate(str.maketrans(isolatin1_mapping))
+
+
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
     Convert keyword dictionaries and input/output files into a GMT argument
@@ -213,7 +240,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
         gmt_args = [str(infile)] + gmt_args
     if outfile:
         gmt_args.append("->" + str(outfile))
-    return " ".join(gmt_args)
+    return non_ascii_to_octal(" ".join(gmt_args))
 
 
 def is_nonstr_iter(value):
