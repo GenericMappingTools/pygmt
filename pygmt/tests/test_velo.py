@@ -1,5 +1,5 @@
 """
-Tests velo.
+Test Figure.velo.
 """
 import pandas as pd
 import pytest
@@ -77,7 +77,7 @@ def test_velo_pandas_dataframe(dataframe):
         region=[-10, 8, -10, 6],
         projection="x0.8c",
         pen="0.6p,red",
-        uncertaintycolor="lightblue1",
+        uncertaintyfill="lightblue1",
         line=True,
     )
     return fig

@@ -12,21 +12,20 @@ simply append **+b** to the vector-producing option (use **+e** to place
 one at the end). Optionally, append **t** for a terminal line, **c** for a
 circle, **a** for arrow (default), **i** for tail, **A** for plain open
 arrow, and **I** for plain open tail. Further append **l** or **r** (e.g.
-``+bar``) to only draw the left or right half-sides of the selected head/tail
+``"+bar"``) to only draw the left or right half-sides of the selected head/tail
 (default is both sides) or use **+l** or **+r** to apply simultaneously to both
-sides. In this context left and right refer to the side of the vector line
-when viewed from the beginning point to the end point of a line segment.
-The angle of the vector head apex can be set using **+a**\ *angle*
+beginning and end. In this context left and right refer to the side of the
+vector line when viewed from the beginning point to the end point of a line
+segment. The angle of the vector head apex can be set using **+a**\ *angle*
 (default is 30). The shape of the vector head can be adjusted using
-**+h**\ *shape* (e.g. ``+h0.5``).
+**+h**\ *shape* (e.g. ``"+h0.5"``).
 
-For further modifiers see the *Vector Attributes* subsection of the
-corresponding method.
+For further modifiers see :gmt-docs:`plot.html#vector-attributes`.
 
 In the following we use the :meth:`pygmt.Figure.plot` method to plot vectors
 with individual heads and tails. We must specify the modifiers (together with
-the vector type, here ``v``, see also
-:doc:`Vector types documentation </gallery/lines/vector_styles>`)
+the vector type, here ``"v"`` for Cartesian vector, see also
+:doc:`Vector types example </gallery/lines/vector_styles>`)
 by passing the corresponding shortcuts to the ``style`` parameter.
 
 """
@@ -74,7 +73,7 @@ for vecstyle in [
     "v1c+bi+ea+r+h0.5+a45",
 ]:
     fig.plot(
-        x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", color="red3"
+        x=x, y=y, style=vecstyle, direction=([angle], [length]), pen="2p", fill="red3"
     )
     fig.text(
         x=6, y=y, text=vecstyle, font="Courier-Bold", justify="ML", offset="0.2c/0c"

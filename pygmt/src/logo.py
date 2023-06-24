@@ -13,10 +13,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     D="position",
     F="box",
     S="style",
-    U="timestamp",
     V="verbose",
-    X="xshift",
-    Y="yshift",
     c="panel",
     t="transparency",
 )
@@ -36,14 +33,14 @@ def logo(self, **kwargs):
 
     Parameters
     ----------
-    {J}
-    {R}
+    {projection}
+    {region}
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
-        Sets reference point on the map for the image.
+        Set reference point on the map for the image.
     box : bool or str
-        Without further arguments, draws a rectangular border around the
+        If set to ``True``, draw a rectangular border around the
         GMT logo.
     style : str
         [**l**\|\ **n**\|\ **u**].
@@ -53,11 +50,9 @@ def logo(self, **kwargs):
           [Default]
         - **n** to skip the label placement
         - **u** to place the URL to the GMT site
-    {U}
-    {V}
-    {XY}
-    {c}
-    {t}
+    {verbose}
+    {panel}
+    {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

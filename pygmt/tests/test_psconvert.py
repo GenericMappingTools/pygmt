@@ -1,5 +1,5 @@
 """
-Tests psconvert.
+Test Figure.psconvert.
 """
 import os
 
@@ -10,7 +10,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 def test_psconvert():
     """
-    psconvert creates a figure in the current directory.
+    Check that psconvert creates a figure in the current directory.
     """
     fig = Figure()
     fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
@@ -42,8 +42,18 @@ def test_psconvert_twice():
 
 def test_psconvert_without_prefix():
     """
-    Call psconvert without the 'prefix' option.
+    Call psconvert without the 'prefix' parameter.
     """
     fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.psconvert(fmt="g")
+
+
+@pytest.mark.parametrize("prefix", ["", None, False, True])
+def test_psconvert_invalid_prefix(prefix):
+    """
+    Call psconvert with an invalid 'prefix' argument.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.psconvert(fmt="g", prefix=prefix)

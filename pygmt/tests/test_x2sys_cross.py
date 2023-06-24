@@ -1,8 +1,9 @@
 # pylint: disable=unused-argument
 """
-Tests for x2sys_cross.
+Test pygmt.x2sys_cross.
 """
 import os
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import numpy as np
@@ -48,7 +49,7 @@ def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
         )
 
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=outfile)  # check that outfile exists at path
+        assert Path(outfile).stat().st_size > 0  # check that outfile exists at path
         _ = pd.read_csv(outfile, sep="\t", header=2)  # ensure ASCII text file loads ok
 
 
@@ -111,7 +112,7 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         for i in range(2):
             np.random.seed(seed=i)
             track = pd.DataFrame(data=np.random.rand(10, 3), columns=("x", "y", "z"))
-            track["time"] = pd.date_range(start=f"2020-{i}1-01", periods=10, freq="ms")
+            track["time"] = pd.date_range(start=f"2020-{i}1-01", periods=10, freq="min")
             tracks.append(track)
 
         output = x2sys_cross(tracks=tracks, tag=tag, coe="e")

@@ -89,7 +89,7 @@ fig.plot(
     y=y,
     style="c0.4c",
     pen="1p",
-    color="blue",
+    fill="blue",
 )
 fig.show()
 
@@ -120,9 +120,16 @@ fig.plot(
     y=y,
     style="a0.45c",
     pen="1p",
-    color="dodgerblue",
+    fill="dodgerblue",
 )
 fig.show()
+
+###############################################################################
+#
+# PyGMT doesn't recognize non-ISO datetime strings like "Jun 05, 2018". If your
+# data contain non-ISO datetime strings, you can convert them to a recognized
+# format using :func:`pandas.to_datetime` and then pass it to PyGMT.
+#
 
 ###############################################################################
 # Mixing and matching Python ``datetime`` and ISO dates
@@ -144,7 +151,7 @@ fig.plot(
     y=y,
     style="i0.4c",
     pen="1p",
-    color="yellow",
+    fill="yellow",
 )
 fig.show()
 
@@ -174,7 +181,7 @@ fig.plot(
     y=y,
     style="i0.4c",
     pen="1p",
-    color="purple",
+    fill="purple",
 )
 fig.show()
 
@@ -202,7 +209,7 @@ fig.plot(
     y=y,
     style="n0.4c",
     pen="1p",
-    color="red",
+    fill="red",
 )
 fig.show()
 
@@ -227,7 +234,7 @@ fig.plot(
     y=y,
     style="s0.5c",
     pen="1p",
-    color="blue",
+    fill="blue",
 )
 fig.show()
 
@@ -237,7 +244,7 @@ fig.show()
 #
 # Another way of creating charts involving datetime data can be done
 # by automatically generating the region of the plot. This can be done
-# by passing the dataframe to :meth:`pygmt.info`, which will find
+# by passing the dataframe to :func:`pygmt.info`, which will find
 # maximum and minimum values for each column and create a list
 # that could be passed as region. Additionally, the ``spacing`` argument
 # can be passed to increase the range past the maximum and minimum
@@ -268,7 +275,7 @@ fig.plot(
     y=df.Score,
     style="c0.4c",
     pen="1p",
-    color="green3",
+    fill="green3",
 )
 
 fig.show()
@@ -312,7 +319,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
         y=y,
         style="c0.4c",
         pen="1p",
-        color="green3",
+        fill="green3",
     )
 
 fig.show()
@@ -320,7 +327,7 @@ fig.show()
 ###############################################################################
 # The same concept shown above can be applied to smaller
 # as well as larger intervals. In this example,
-# data is plotted for different times throughout two days.
+# data are plotted for different times throughout two days.
 # Primary x-axis labels are modified to repeat every 6 hours
 # and secondary x-axis label repeats every day and shows
 # the day of the week.
@@ -354,6 +361,6 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
         y=y,
         style="n0.4c",
         pen="1p",
-        color="lightseagreen",
+        fill="lightseagreen",
     )
 fig.show()

@@ -9,7 +9,6 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable
-from contextlib import contextmanager
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -25,7 +24,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     * a pathlib.Path provided as 'data'
     * an xarray.DataArray provided as 'data'
     * a matrix provided as 'data'
-    * 1D arrays x and y (and z, optionally)
+    * 1-D arrays x and y (and z, optionally)
 
     Arguments should be ``None`` if not used. If doesn't fit any of these
     categories (or fits more than one), will raise an exception.
@@ -34,11 +33,11 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     ----------
     data : str or pathlib.Path or xarray.DataArray or {table-like} or None
         Pass in either a file name or :class:`pathlib.Path` to an ASCII data
-        table, an :class:`xarray.DataArray`, a 1D/2D
+        table, an :class:`xarray.DataArray`, a 1-D/2-D
         {table-classes}.
-    x/y : 1d arrays or None
+    x/y : 1-D arrays or None
         x and y columns as numpy arrays.
-    z : 1d array or None
+    z : 1-D array or None
         z column as numpy array. To be used optionally when x and y are given.
     required_z : bool
         State whether the 'z' column is required.
@@ -92,43 +91,17 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     return kind
 
 
-@contextmanager
-def dummy_context(arg):
-    """
-    Dummy context manager.
-
-    Does nothing when entering or exiting a ``with`` block and yields the
-    argument passed to it.
-
-    Useful when you have a choice of context managers but need one that does
-    nothing.
-
-    Parameters
-    ----------
-    arg : anything
-        The argument that will be returned by the context manager.
-
-    Examples
-    --------
-
-    >>> with dummy_context("some argument") as temp:
-    ...     print(temp)
-    ...
-    some argument
-    """
-    yield arg
-
-
-def build_arg_string(kwdict, infile=None, outfile=None):
+def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
-    Convert a dict and optional input/output files into a GMT argument string.
+    Convert keyword dictionaries and input/output files into a GMT argument
+    string.
 
     Make sure all values in ``kwdict`` have been previously converted to a
     string representation using the ``kwargs_to_strings`` decorator. The only
     exceptions are True, False and None.
 
     Any lists or tuples left will be interpreted as multiple entries for the
-    same command line argument. For example, the kwargs entry ``'B': ['xa',
+    same command line option. For example, the kwargs entry ``'B': ['xa',
     'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
 
     Note that spaces `` `` in arguments are converted to the equivalent octal
@@ -139,7 +112,9 @@ def build_arg_string(kwdict, infile=None, outfile=None):
     Parameters
     ----------
     kwdict : dict
-        A dict containing parsed keyword arguments.
+        A dictionary containing parsed keyword arguments.
+    confdict : dict
+        A dictionary containing configurable GMT parameters.
     infile : str or pathlib.Path
         The input file.
     outfile : str or pathlib.Path
@@ -149,8 +124,10 @@ def build_arg_string(kwdict, infile=None, outfile=None):
     -------
     args : str
         The space-delimited argument string with '-' inserted before each
-        keyword. The arguments are sorted alphabetically, with optional input
-        file at the beginning and optional output file at the end.
+        keyword, or '--' inserted before GMT configuration key-value pairs.
+        The keyword arguments are sorted alphabetically, followed by GMT
+        configuration key-value pairs, with optional input file at the
+        beginning and optional output file at the end.
 
     Examples
     --------
@@ -199,11 +176,12 @@ def build_arg_string(kwdict, infile=None, outfile=None):
     >>> print(
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
     ...         infile="input.txt",
     ...         outfile="output.txt",
     ...     )
     ... )
-    input.txt -A0 -B -Crainbow ->output.txt
+    input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
     gmt_args = []
 
@@ -227,6 +205,10 @@ def build_arg_string(kwdict, infile=None, outfile=None):
                 _value = str(kwdict[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
     gmt_args = sorted(gmt_args)
+
+    if confdict:
+        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
+
     if infile:
         gmt_args = [str(infile)] + gmt_args
     if outfile:
@@ -283,7 +265,10 @@ def launch_external_viewer(fname, waiting=0):
     """
     # Redirect stdout and stderr to devnull so that the terminal isn't filled
     # with noise
-    run_args = dict(stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    run_args = {
+        "stdout": subprocess.DEVNULL,
+        "stderr": subprocess.DEVNULL,
+    }
 
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.

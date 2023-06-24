@@ -23,17 +23,14 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
-    U="timestamp",
     V="verbose",
     W="pen",
-    X="xshift",
-    Y="yshift",
     a="aspatial",
     c="panel",
     e="find",
     f="coltypes",
     h="header",
-    i="incols",
+    it="use_word",
     p="perspective",
     t="transparency",
     w="wrap",
@@ -45,7 +42,6 @@ from pygmt.helpers import (
     font="sequence_comma",
     justify="sequence_comma",
     c="sequence_comma",
-    i="sequence_comma",
     p="sequence",
 )
 def text_(
@@ -76,24 +72,24 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of filenames containing 1 or more
+        A text data file name, or a list of file names containing 1 or more
         records with (x, y[, angle, font, justify], text).
-    x/y : float or 1d arrays
+    x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
-        the text
+        the text.
     position : str
-        Sets reference point on the map for the text by using x,y
+        Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
-        through ``x``/``y``. Specify with a two letter (order independent)
+        through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
 
         * Horizontal: **L**\ (eft), **C**\ (entre), **R**\ (ight)
         * Vertical: **T**\ (op), **M**\ (iddle), **B**\ (ottom)
 
-        For example, ``position="TL"`` plots the text at the Upper Left corner
+        For example, ``position="TL"`` plots the text at the Top Left corner
         of the map.
-    text : str or 1d array
-        The text string, or an array of strings to plot on the figure
+    text : str or 1-D array
+        The text string, or an array of strings to plot on the figure.
     angle: int, float, str or bool
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
@@ -109,32 +105,34 @@ def text_(
         columns.
     justify : str or bool
         Set the alignment which refers to the part of the text string that
-        will be mapped onto the (x,y) point. Choose a 2 character
+        will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
-        **T**, **M**, **B** for top, middle, or bottom. E.g., **BL** for lower
-        left. If no justification is explicitly given (i.e. ``justify=True``),
-        then the input to ``textfiles`` must have this as a column.
-    {J}
-    {R}
+        **T**, **M**, **B** (for top, middle, or bottom). E.g., **BL** for
+        bottom left. If no justification is explicitly given
+        (i.e. ``justify=True``), then the input to ``textfiles`` must have
+        this as a column.
+    {projection}
+    {region}
         *Required if this is the first plot command.*
     clearance : str
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
-        [Default is 15% of the font size]. Only used if ``pen`` or ``fill`` are
-        specified. Append the unit you want (*c* for cm, *i* for inch, or *p*
-        for point; if not given we consult **PROJ_LENGTH_UNIT**) or *%* for a
-        percentage of the font size. Optionally, use modifier **+t** to set
-        the shape of the textbox when using ``fill`` and/or ``pen``. Append
-        lower case **o** to get a straight rectangle [Default is **o**]. Append
-        upper case **O** to get a rounded rectangle. In paragraph mode
-        (*paragraph*) you can also append lower case **c** to get a concave
-        rectangle or append upper case **C** to get a convex rectangle.
+        [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
+        are specified. Append the unit you want (*c* for centimeters,
+        *i* for inches, or *p* for points; if not given we consult
+        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
+        size. Optionally, use modifier **+t** to set the shape of the text
+        box when using ``fill`` and/or ``pen``. Append lower case **o**
+        to get a straight rectangle [Default is **o**]. Append upper case
+        **O** to get a rounded rectangle. In paragraph mode (*paragraph*)
+        you can also append lower case **c** to get a concave rectangle or
+        append upper case **C** to get a convex rectangle.
     fill : str
-        Sets the shade or color used for filling the text box [Default is
-        no fill].
+        Set color for filling text boxes [Default is no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x,y) point by *dx*,\ *dy* [0/0].
+        Offset the text from the projected (x, y) point by *dx*/\ *dy*
+        [Default is ``"0/0"``].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
         justification will determine the direction of the shift). Using
@@ -143,25 +141,27 @@ def text_(
         point to the shifted point; append a pen to change the attributes
         for this line.
     pen : str
-        Sets the pen used to draw a rectangle around the text string
-        (see ``clearance``) [Default is width = default, color = black,
-        style = solid].
+        Set the pen used to draw a rectangle around the text string
+        (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
-        Do NOT clip text at map boundaries [Default is will clip].
-    {U}
-    {V}
-    {XY}
-    {a}
-    {c}
-    {e}
-    {f}
-    {h}
-    {i}
-    {p}
-    {t}
-        *transparency* can also be a 1d array to set varying transparency
-        for texts, but this option is only valid if using x/y/text.
-    {w}
+        Do **not** clip text at the frame boundaries [Default is
+        ``False``].
+    {verbose}
+    {aspatial}
+    {panel}
+    {find}
+    {coltypes}
+    {header}
+    use_word : int
+        Select a specific word from the trailing text, with the first
+        word being 0 [Default is the entire trailing text]. No numerical
+        columns can be specified.
+    {perspective}
+    {transparency}
+        ``transparency`` can also be a 1-D array to set varying
+        transparency for texts, but this option is only valid if using
+        ``x``/``y`` and ``text``.
+    {wrap}
     """
     # pylint: disable=too-many-branches
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access

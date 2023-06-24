@@ -28,7 +28,7 @@ doc/_build/
 doc/gallery/
 doc/projections/
 doc/tutorials/
-doc/get-started/
+doc/get_started/
 
 # Jupyter Notebook
 .ipynb_checkpoints/

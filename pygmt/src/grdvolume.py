@@ -64,8 +64,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
         between two contours. If no *contour* is given then there is no contour
         and the entire grid area, volume and the mean height is returned and
         *cval* will be reported as 0.
-    {R}
-    {V}
+    {region}
+    {verbose}
 
     Returns
     -------
@@ -94,12 +94,12 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     ...     grid=grid, contour=[200, 400, 50], output_type="pandas"
     ... )
     >>> print(output_dataframe)
-             0             1             2           3
-        0  200  2.144285e+12  7.972228e+14  371.789489
-        1  250  2.104042e+12  6.908183e+14  328.329232
-        2  300  2.014978e+12  5.877195e+14  291.675420
-        3  350  1.892109e+12  4.897545e+14  258.840510
-        4  400  1.744792e+12  3.988316e+14  228.584026
+        0             1             2           3
+    0  200  2.318187e+12  8.533727e+14  368.120722
+    1  250  2.272471e+12  7.383936e+14  324.929840
+    2  300  2.162074e+12  6.273066e+14  290.141086
+    3  350  2.018302e+12  5.222640e+14  258.764032
+    4  400  1.857370e+12  4.252699e+14  228.963499
     """
     if output_type not in ["numpy", "pandas", "file"]:
         raise GMTInvalidInput(

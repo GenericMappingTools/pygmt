@@ -1,7 +1,7 @@
 """
-Tests for grdproject.
+Test pygmt.grdproject.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -32,17 +32,17 @@ def fixture_expected_grid():
             [794.233, 829.4449, 764.12225],
             [749.37445, 834.55994, 831.2627],
         ],
-        coords=dict(
-            x=[1.666667, 5.0, 8.333333],
-            y=[1.572432, 4.717295, 7.862158, 11.007022, 14.151885],
-        ),
+        coords={
+            "x": [1.666667, 5.0, 8.333333],
+            "y": [1.572432, 4.717295, 7.862158, 11.007022, 14.151885],
+        },
         dims=["y", "x"],
     )
 
 
 def test_grdproject_file_out(grid, expected_grid):
     """
-    grdproject with an outgrid set.
+    Test grdproject with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdproject(
@@ -53,7 +53,7 @@ def test_grdproject_file_out(grid, expected_grid):
             region=[-53, -51, -20, -17],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

@@ -37,5 +37,5 @@ and we encourage all to read it carefully.
 * [Ways to Contribute](https://www.pygmt.org/dev/contributing.html#ways-to-contribute)
 * [Getting Help](https://www.pygmt.org/dev/contributing.html#getting-help)
 * [Reporting a Bug](https://www.pygmt.org/dev/contributing.html#reporting-a-bug)
-* [Editing the Documentation](https://www.pygmt.org/dev/contributing.html#editing-the-documentation)
+* [Contributing Documentation](https://www.pygmt.org/dev/contributing.html#contributing-documentation)
 * [Contributing Code](https://www.pygmt.org/dev/contributing.html#contributing-code)

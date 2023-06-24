@@ -48,16 +48,16 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     ----------
     data : str or {table-like}
         Pass in (x, y) or (longitude, latitude) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y : 1d arrays
+    x/y : 1-D arrays
         Arrays of x and y coordinates.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
-    {I}
-    {R}
-    {V}
+    {spacing}
+    {region}
+    {verbose}
     single_form : bool
         For large data sets you can save some memory (at the expense of more
         processing) by only storing one form of location coordinates
@@ -82,8 +82,8 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
-        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
-        (mile), **n** (nautical mile) or **u** survey foot.
+        (spherical degrees), **e** (meters), **f** (feet), **k** (kilometers),
+        **M** (miles), **n** (nautical miles), or **u** (survey feet).
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate

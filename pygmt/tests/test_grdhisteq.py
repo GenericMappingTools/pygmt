@@ -1,7 +1,7 @@
 """
-Tests for grdhisteq.
+Test pygmt.grdhisteq.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -36,7 +36,10 @@ def fixture_expected_grid():
     """
     return xr.DataArray(
         data=[[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 1], [1, 1, 1, 1]],
-        coords=dict(lon=[-51.5, -50.5, -49.5, -48.5], lat=[-21.5, -20.5, -19.5, -18.5]),
+        coords={
+            "lon": [-51.5, -50.5, -49.5, -48.5],
+            "lat": [-21.5, -20.5, -19.5, -18.5],
+        },
         dims=["lat", "lon"],
     )
 
@@ -61,7 +64,7 @@ def test_equalize_grid_outgrid_file(grid, expected_grid, region):
             grid=grid, divisions=2, region=region, outgrid=tmpfile.name
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
@@ -112,7 +115,7 @@ def test_compute_bins_outfile(grid, expected_df, region):
             )
             assert len(record) == 1  # check that only one warning was raised
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         temp_df = pd.read_csv(
             filepath_or_buffer=tmpfile.name,
             sep="\t",

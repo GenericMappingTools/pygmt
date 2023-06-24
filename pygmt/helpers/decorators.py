@@ -14,47 +14,44 @@ import numpy as np
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
-COMMON_OPTIONS = {
-    "R": r"""
+COMMON_DOCSTRINGS = {
+    "region": r"""
         region : str or list
             *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
             Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
-    "J": r"""
+    "projection": r"""
         projection : str
             *projcode*\[*projparams*/]\ *width*.
             Select map :doc:`projection </projections/index>`.""",
-    "A": r"""
+    "area_thresh": r"""
         area_thresh : int or float or str
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
             hierarchical level that is lower than *min_level* or higher than
-            *max_level* will not be plotted [Default is 0/0/4 (all
+            *max_level* will not be plotted [Default is ``"0/0/4"`` (all
             features)].""",
-    "B": r"""
+    "frame": r"""
         frame : bool or str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "U": """\
-        timestamp : bool or str
-            Draw GMT time stamp logo on plot.""",
-    "CPT": r"""
+    "cmap": r"""
         cmap : str
            File name of a CPT file or a series of comma-separated colors
            (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
            CPT from those colors automatically.""",
-    "G": """\
-        color : str or 1d array
-            Select color or pattern for filling of symbols or polygons. Default
-            is no fill.""",
-    "I": r"""
+    "fill": r"""
+        fill : str
+            Set color or pattern for filling symbols or polygons
+            [Default is no fill].""",
+    "spacing": r"""
         spacing : str
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
             - **Geographical (degrees) coordinates**: Optionally, append an
-              increment unit. Choose among **m** to indicate arc minutes or
-              **s** to indicate arc seconds. If one of the units **e**, **f**,
+              increment unit. Choose among **m** to indicate arc-minutes or
+              **s** to indicate arc-seconds. If one of the units **e**, **f**,
               **k**, **M**, **n** or **u** is appended instead, the increment
               is assumed to be given in meter, foot, km, mile, nautical mile or
               US survey foot, respectively, and will be converted to the
@@ -70,7 +67,7 @@ COMMON_OPTIONS = {
               giving an increment you may specify the *number of nodes* desired
               by appending **+n** to the supplied integer argument; the
               increment is then recalculated from the number of nodes, the
-              *registration*, and the domain. The resulting increment value
+              ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
               <cookbook/file-formats.html#gmt-file-formats>` for details.
@@ -78,7 +75,7 @@ COMMON_OPTIONS = {
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
-    "V": """\
+    "verbose": r"""
         verbose : bool or str
             Select verbosity level [Default is **w**], which modulates the messages
             written to stderr. Choose among 7 levels of verbosity:
@@ -86,29 +83,20 @@ COMMON_OPTIONS = {
             - **q** - Quiet, not even fatal error messages are produced
             - **e** - Error messages only
             - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms);
+            - **t** - Timings (report runtimes for time-intensive algorithms)
             - **i** - Informational messages (same as ``verbose=True``)
             - **c** - Compatibility warnings
             - **d** - Debugging messages""",
-    "W": """\
+    "pen": r"""
         pen : str
             Set pen attributes for lines or the outline of symbols.""",
-    "XY": r"""
-        xshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*xshift*].
-            Shift plot origin in x-direction.
-        yshift : str
-            [**a**\|\ **c**\|\ **f**\|\ **r**\][*yshift*].
-            Shift plot origin in y-direction. Full documentation is at
-            :gmt-docs:`gmt.html#xy-full`.
-         """,
-    "a": r"""
+    "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
             Control how aspatial data are handled during input and output.
             Full documentation is at :gmt-docs:`gmt.html#aspatial-full`.
          """,
-    "b": r"""
+    "binary": r"""
         binary : bool or str
             **i**\|\ **o**\ [*ncols*][*type*][**w**][**+l**\|\ **b**].
             Select native binary input (using ``binary="i"``) or output
@@ -136,15 +124,15 @@ COMMON_OPTIONS = {
                   be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
-    "d": r"""
+    "nodata": r"""
         nodata : str
             **i**\|\ **o**\ *nodata*.
             Substitute specific values with NaN (for tabular data). For
-            example, ``d="-9999"`` will replace all values equal to -9999 with
-            NaN during input and all NaN values with -9999 during output.
+            example, ``nodata="-9999"`` will replace all values equal to -9999
+            with NaN during input and all NaN values with -9999 during output.
             Prepend **i** to the *nodata* value for input columns only. Prepend
             **o** to the *nodata* value for output columns only.""",
-    "c": r"""
+    "panel": r"""
         panel : bool or int or list
             [*row,col*\|\ *index*].
             Select a specific subplot panel. Only allowed when in subplot
@@ -154,7 +142,7 @@ COMMON_OPTIONS = {
             when the subplot was defined. **Note**: *row*, *col*, and *index*
             all start at 0.
          """,
-    "e": r"""
+    "find": r"""
         find : str
             [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
             Only pass records that match the given *pattern* or regular
@@ -162,13 +150,13 @@ COMMON_OPTIONS = {
             the *pattern* or *regexp* to instead only pass data expressions
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
-    "f": r"""
+    "coltypes": r"""
         coltypes : str
             [**i**\|\ **o**]\ *colinfo*.
             Specify data types of input and/or output columns (time or
             geographical data). Full documentation is at
             :gmt-docs:`gmt.html#f-full`.""",
-    "g": r"""
+    "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
             **D**\ *gap*\ [**u**][**+a**][**+c**\ *col*][**+n**\|\ **p**].
@@ -193,12 +181,12 @@ COMMON_OPTIONS = {
             A unit **u** may be appended to the specified *gap*:
 
                 - For geographic data (**x**\|\ **y**\|\ **d**), the unit may
-                  be arc **d**\ (egree), **m**\ (inute), and **s**\ (econd), or
-                  (m)\ **e**\ (ter), **f**\ (eet), **k**\ (ilometer),
+                  be arc- **d**\ (egrees), **m**\ (inutes), and **s**\ (econds)
+                  , or (m)\ **e**\ (ters), **f**\ (eet), **k**\ (ilometers),
                   **M**\ (iles), or **n**\ (autical miles) [Default is
-                  (m)\ **e**\ (ter)].
+                  (m)\ **e**\ (ters)].
                 - For projected data (**X**\|\ **Y**\|\ **D**), the unit may be
-                  **i**\ (nch), **c**\ (entimeter), or **p**\ (oint).
+                  **i**\ (nches), **c**\ (entimeters), or **p**\ (oints).
 
             Append modifier **+a** to specify that *all* the criteria must be
             met [default imposes breaks if any one criterion is met].
@@ -209,7 +197,7 @@ COMMON_OPTIONS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
-    "h": r"""
+    "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
             *remark*][**+t**\ *title*].
@@ -231,14 +219,14 @@ COMMON_OPTIONS = {
                   line-breaks.
 
             Blank lines and lines starting with \# are always skipped.""",
-    "i": r"""
-        incols : str or 1d array
+    "incols": r"""
+        incols : str or 1-D array
             Specify data columns for primary input in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             reads all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in input order (e.g.,
+            - For *1-D array*: specify individual columns in input order (e.g.,
               ``incols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -261,7 +249,7 @@ COMMON_OPTIONS = {
                   [Default is 1].
                 - **+o** to add the given *offset* to the input values [Default
                   is 0].""",
-    "j": r"""
+    "distcalc": r"""
         distcalc : str
             **e**\|\ **f**\|\ **g**.
             Determine how spherical distances are calculated.
@@ -275,11 +263,11 @@ COMMON_OPTIONS = {
             (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
             (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
             controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
-    "l": r"""
+    "label": r"""
         label : str
             Add a legend entry for the symbol or line being plotted. Full
             documentation is at :gmt-docs:`gmt.html#l-full`.""",
-    "n": r"""
+    "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
             Select interpolation mode for grids. You can select the type of
@@ -289,15 +277,15 @@ COMMON_OPTIONS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
-    "o": r"""
-        outcols : str or 1d array
+    "outcols": r"""
+        outcols : str or 1-D array
             *cols*\ [,...][,\ **t**\ [*word*]].
             Specify data columns for primary output in arbitrary order. Columns
             can be repeated and columns not listed will be skipped [Default
             writes all columns in order, starting with the first (i.e., column
             0)].
 
-            - For *1d array*: specify individual columns in output order (e.g.,
+            - For *1-D array*: specify individual columns in output order (e.g.,
               ``outcols=[1,0]`` for the 2nd column followed by the 1st column).
             - For :py:class:`str`: specify individual columns or column
               ranges in the format *start*\ [:*inc*]:*stop*, where *inc*
@@ -309,24 +297,24 @@ COMMON_OPTIONS = {
               text, add the column **t**. Append the word number to **t** to
               write only a single word from the trailing text. Instead of
               specifying columns, use ``outcols="n"`` to simply read numerical
-              input and skip trailing text. Note: if ``incols`` is also used
-              then the columns given to ``outcols`` correspond to the order
-              after the ``incols`` selection has taken place.""",
-    "p": r"""
+              input and skip trailing text. **Note**: If ``incols`` is also
+              used then the columns given to ``outcols`` correspond to the
+              order after the ``incols`` selection has taken place.""",
+    "perspective": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
             [**+w**\ *lon0*/*lat0*\[/*z0*]][**+v**\ *x0*/*y0*].
             Select perspective view and set the azimuth and elevation angle of
-            the viewpoint. Default is [180, 90]. Full documentation is at
+            the viewpoint [Default is ``[180, 90]``]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
-    "r": r"""
+    "registration": r"""
         registration : str
             **g**\|\ **p**.
-            Force gridline (**g**) or pixel (**p**) node registration.
+            Force gridline (**g**) or pixel (**p**) node registration
             [Default is **g**\ (ridline)].
         """,
-    "s": r"""
+    "skiprows": r"""
         skiprows : bool or str
             [*cols*][**+a**][**+r**].
             Suppress output for records whose *z*-value equals NaN [Default
@@ -342,14 +330,14 @@ COMMON_OPTIONS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
-    "t": """\
+    "transparency": r"""
         transparency : int or float
-            Set transparency level, in [0-100] percent range.
-            Default is 0, i.e., opaque.
+            Set transparency level, in [0-100] percent range
+            [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
-    "w": r"""
+    "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
             **c**\ *period*\ [/*phase*][**+c**\ *col*].
@@ -367,7 +355,7 @@ COMMON_OPTIONS = {
                 - **c** - custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
-    "x": r"""
+    "cores": r"""
         cores : bool or int
             [[**-**]\ *n*].
             Limit the number of cores to be used in any OpenMP-enabled
@@ -391,17 +379,6 @@ def fmt_docstring(module_func):
     * ``{aliases}``: Insert a section listing the parameter aliases defined by
       decorator ``use_alias``.
 
-    The following are places for common parameter descriptions:
-
-    * ``{R}``: region (bounding box as west, east, south, north)
-    * ``{J}``: projection (coordinate system to use)
-    * ``{B}``: frame (map frame and axes parameters)
-    * ``{U}``: timestamp (insert time stamp logo)
-    * ``{CPT}``: cmap (the color palette table)
-    * ``{G}``: color
-    * ``{W}``: pen
-    * ``{n}``: interpolation
-
     Parameters
     ----------
     module_func : function
@@ -424,14 +401,15 @@ def fmt_docstring(module_func):
     ...     Parameters
     ...     ----------
     ...     data : str or {table-like}
-    ...         Pass in either a file name to an ASCII data table, a 2D
+    ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
-    ...     {R}
-    ...     {J}
+    ...     {region}
+    ...     {projection}
     ...
     ...     {aliases}
     ...     '''
     ...     pass
+    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
@@ -439,9 +417,9 @@ def fmt_docstring(module_func):
     Parameters
     ----------
     data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
-        Pass in either a file name to an ASCII data table, a 2D
+        Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
-        :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`
+        :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
         data variables, or a :class:`geopandas.GeoDataFrame` containing the
         tabular data.
     region : str or list
@@ -476,12 +454,12 @@ def fmt_docstring(module_func):
     )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
-        "    :class:`xarray.Dataset` made up of 1D :class:`xarray.DataArray`\n"
+        "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
         "    data variables, or a :class:`geopandas.GeoDataFrame` containing the\n"
         "    tabular data"
     )
 
-    for marker, text in COMMON_OPTIONS.items():
+    for marker, text in COMMON_DOCSTRINGS.items():
         # Remove the indentation and the first line break from the multiline
         # strings so that it doesn't mess up the original docstring
         filler_text[marker] = textwrap.dedent(text.lstrip("\n"))
@@ -541,6 +519,7 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
+    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -582,6 +561,40 @@ def use_alias(**aliases):
                         f"Use long-form parameter '{long_alias}' instead."
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # timestamp (U) is deprecated since v0.9.0.
+            if "U" in kwargs or "timestamp" in kwargs:
+                if "timestamp" in kwargs:
+                    kwargs["U"] = kwargs.pop("timestamp")
+                msg = (
+                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.timestamp() instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # xshift (X) is deprecated since v0.8.0.
+            if "X" in kwargs or "xshift" in kwargs:
+                if "xshift" in kwargs:
+                    kwargs["X"] = kwargs.pop("xshift")
+                msg = (
+                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(xshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
+            # yshift (Y) is deprecated since v0.8.0.
+            if "Y" in kwargs or "yshift" in kwargs:
+                if "yshift" in kwargs:
+                    kwargs["Y"] = kwargs.pop("yshift")
+                msg = (
+                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.shift_origin(yshift=...) instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             return module_func(*args, **kwargs)
 
         new_module.aliases = aliases
@@ -666,7 +679,7 @@ def kwargs_to_strings(**conversions):
     >>> import xarray as xr
     >>> module(
     ...     R=[
-    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
     ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
     ...     ]
     ... )
@@ -758,6 +771,7 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
+    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red

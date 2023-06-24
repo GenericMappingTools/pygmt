@@ -40,10 +40,10 @@ def dimfilter(grid, **kwargs):
     subregion of the input and/or with a new increment using ``spacing``,
     which may add an "extra space" in the input data to prevent edge
     effects for the output grid. If the filter is low-pass, then the output
-    may be less frequently sampled than the input. **dimfilter** will not
-    produce a smooth output as other spatial filters
+    may be less frequently sampled than the input. :func:`pygmt.dimfilter`
+    will not produce a smooth output as other spatial filters
     do because it returns a minimum median out of *N* medians of *N*
-    sectors. The output can be rough unless the input data is noise-free.
+    sectors. The output can be rough unless the input data are noise-free.
     Thus, an additional filtering (e.g., Gaussian via :func:`pygmt.grdfilter`)
     of the DiM-filtered data is generally recommended.
 
@@ -77,7 +77,7 @@ def dimfilter(grid, **kwargs):
           calculation.
     filter : str
         **x**\ *width*\ [**+l**\|\ **u**].
-        Sets the primary filter type. Choose among convolution and
+        Set the primary filter type. Choose among convolution and
         non-convolution filters. Use the filter code **x** followed by
         the full diameter *width*. Available convolution filters are:
 
@@ -94,7 +94,7 @@ def dimfilter(grid, **kwargs):
           to return the smallest or largest of each sector's modal values.
     sectors : str
         **x**\ *sectors*\ [**+l**\|\ **u**]
-        Sets the secondary filter type **x** and the number of bow-tie sectors.
+        Set the secondary filter type **x** and the number of bow-tie sectors.
         *sectors* must be integer and larger than 0. When *sectors* is
         set to 1, the secondary filter is not effective. Available secondary
         filters **x** are:
@@ -108,15 +108,15 @@ def dimfilter(grid, **kwargs):
           value. Append **+l** or **+h** to the sectors if you rather want to
           return the smallest or largest of the modal values.
     spacing : str or list
-        *x_inc* [and optionally *y_inc*] is the output Increment. Append
+        *x_inc* [and optionally *y_inc*] is the output increment. Append
         **m** to indicate minutes, or **c** to indicate seconds. If the new
         *x_inc*, *y_inc* are NOT integer multiples of the old ones (in the
-        input data), filtering will be considerably slower. [Default: Same
+        input data), filtering will be considerably slower. [Default is same
         as input.]
     region : str or list
         [*xmin*, *xmax*, *ymin*, *ymax*].
-        Defines the region of the output points. [Default: Same as input.]
-    {V}
+        Define the region of the output points [Default is same as input].
+    {verbose}
 
     Returns
     -------

@@ -1,5 +1,5 @@
 """
-Tests for fig.coast.
+Test Figure.coast.
 """
 import pytest
 from pygmt import Figure
@@ -61,7 +61,7 @@ def test_coast_dcw_single():
 @pytest.mark.mpl_image_compare
 def test_coast_dcw_list():
     """
-    Test passing a list of country codes and fill options to dcw.
+    Test passing a list of country codes and fill arguments to dcw.
     """
     fig = Figure()
     fig.coast(

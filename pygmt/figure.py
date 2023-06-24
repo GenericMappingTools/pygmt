@@ -3,12 +3,12 @@ Define the Figure class that handles all plotting.
 """
 import base64
 import os
-import warnings
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 try:
     import IPython
-except ModuleNotFoundError:
+except ImportError:
     IPython = None  # pylint: disable=invalid-name
 
 
@@ -59,8 +59,9 @@ class Figure:
     Examples
     --------
 
-    >>> fig = Figure()
-    >>> fig.basemap(region=[0, 360, -90, 90], projection="W7i", frame=True)
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> import os
@@ -69,10 +70,11 @@ class Figure:
     >>> os.remove("my-figure.png")
 
     The plot region can be specified through ISO country codes (for example,
-    ``'JP'`` for Japan):
+    ``"JP"`` for Japan):
 
-    >>> fig = Figure()
-    >>> fig.basemap(region="JP", projection="M3i", frame=True)
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region="JP", projection="M7c", frame=True)
     >>> # The fig.region attribute shows the WESN bounding box for the figure
     >>> print(", ".join(f"{i:.2f}" for i in fig.region))
     122.94, 145.82, 20.53, 45.52
@@ -130,6 +132,7 @@ class Figure:
         C="gs_option",
         E="dpi",
         F="prefix",
+        G="gs_path",
         I="resize",
         N="bb_style",
         T="fmt",
@@ -137,16 +140,16 @@ class Figure:
         V="verbose",
     )
     @kwargs_to_strings()
-    def psconvert(self, icc_gray=False, **kwargs):
+    def psconvert(self, **kwargs):
         r"""
         Convert [E]PS file(s) to other formats.
 
         Converts one or more PostScript files to other formats (BMP, EPS, JPEG,
-        PDF, PNG, PPM, SVG, TIFF) using GhostScript.
+        PDF, PNG, PPM, TIFF) using Ghostscript.
 
         If no input files are given, will convert the current active figure
-        (see :func:`pygmt.Figure`). In this case, an output name must be given
-        using parameter *prefix*.
+        (see :class:`pygmt.Figure`). In this case, an output name must be given
+        using parameter ``prefix``.
 
         Full option list at :gmt-docs:`psconvert.html`
 
@@ -163,9 +166,11 @@ class Figure:
             creating very small images where the difference of one pixel
             might matter. If ``verbose`` is used we also report the
             dimensions of the final illustration.
+        gs_path : str
+            Full path to the Ghostscript executable.
         gs_option : str
             Specify a single, custom option that will be passed on to
-            GhostScript as is.
+            Ghostscript as is.
         dpi : int
             Set raster resolution in dpi. Default is 720 for PDF, 300 for
             others.
@@ -204,45 +209,42 @@ class Figure:
         anti_aliasing : str
             [**g**\|\ **p**\|\ **t**\][**1**\|\ **2**\|\ **4**].
             Set the anti-aliasing options for **g**\ raphics or **t**\ ext.
-            Append the size of the subsample box (1, 2, or 4) [4]. [Default is
-            no anti-aliasing (same as bits = 1)].
+            Append the size of the subsample box (1, 2, or 4) [Default is
+            ``"4"``]. [Default is no anti-aliasing (same as bits = 1).]
         fmt : str
-            Sets the output format, where **b** means BMP, **e** means EPS,
+            Set the output format, where **b** means BMP, **e** means EPS,
             **E** means EPS with PageSize command, **f** means PDF, **F** means
             multi-page PDF, **j** means JPEG, **g** means PNG, **G** means
             transparent PNG (untouched regions are transparent), **m** means
-            PPM, **s** means SVG, and **t** means TIFF [default is JPEG]. To
+            PPM, and **t** means TIFF [Default is JPEG]. To
             **b**\|\ **j**\|\ **g**\|\ **t**\ , optionally append **+m** in
             order to get a monochrome (grayscale) image. The EPS format can be
             combined with any of the other formats. For example, **ef** creates
             both an EPS and a PDF file. Using **F** creates a multi-page PDF
             file from the list of input PS or PDF files. It requires the
             ``prefix`` parameter.
-        {V}
+        {verbose}
         """
         kwargs = self._preprocess(**kwargs)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-
-        if icc_gray:
-            msg = (
-                "The 'icc_gray' parameter has been deprecated since v0.6.0"
-                " and will be removed in v0.8.0."
-            )
-            warnings.warn(msg, category=FutureWarning, stacklevel=2)
-            if kwargs.get("N") is None:
-                kwargs["N"] = "+i"
-            else:
-                kwargs["N"] += "+i"
-
         # Manually handle prefix -F argument so spaces aren't converted to \040
         # by build_arg_string function. For more information, see
         # https://github.com/GenericMappingTools/pygmt/pull/1487
-        try:
-            prefix_arg = f'-F"{kwargs.pop("F")}"'
-        except KeyError as err:
-            raise GMTInvalidInput("The 'prefix' must be specified.") from err
+        prefix = kwargs.pop("F", None)
+        if prefix in ["", None, False, True]:
+            raise GMTInvalidInput(
+                "The 'prefix' parameter must be specified with a valid value."
+            )
+        prefix_arg = f'-F"{prefix}"'
+
+        # check if the parent directory exists
+        prefix_path = Path(prefix).parent
+        if not prefix_path.exists():
+            raise FileNotFoundError(
+                f"No such directory: '{prefix_path}', please create it first."
+            )
 
         with Session() as lib:
             lib.call_module(
@@ -271,24 +273,36 @@ class Figure:
             The desired figure file name, including the extension. See the list
             of supported formats and their extensions above.
         transparent : bool
-            If True, will use a transparent background for the figure. Only
-            valid for PNG format.
+            If ``True``, will use a transparent background for the figure.
+            Only valid for PNG format.
         crop : bool
-            If True, will crop the figure canvas (page) to the plot area.
+            If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If True, will use anti aliasing when creating raster images (PNG,
-            JPG, TIFF). More specifically, it passes arguments ``t2``
+            If ``True``, will use anti-aliasing when creating raster images
+            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
             and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
         show: bool
-            If True, will open the figure in an external viewer.
+            If ``True``, will open the figure in an external viewer.
         dpi : int
-            Set raster resolution in dpi. Default is 720 for PDF, 300 for
-            others.
+            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
+            for others].
+        **kwargs : dict
+            Additional keyword arguments passed to
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # All supported formats
-        fmts = dict(png="g", pdf="f", jpg="j", bmp="b", eps="e", tif="t", kml="g")
+        fmts = {
+            "png": "g",
+            "pdf": "f",
+            "jpg": "j",
+            "bmp": "b",
+            "eps": "e",
+            "tif": "t",
+            "kml": "g",
+        }
 
         prefix, ext = os.path.splitext(fname)
         ext = ext[1:]  # Remove the .
@@ -316,7 +330,7 @@ class Figure:
         if show:
             launch_external_viewer(fname)
 
-    def show(self, dpi=300, width=500, method=None, waiting=0.5):
+    def show(self, dpi=300, width=500, method=None, waiting=0.5, **kwargs):
         """
         Display a preview of the figure.
 
@@ -325,13 +339,13 @@ class Figure:
         (falls back to the default web browser).
 
         :func:`pygmt.set_display` can select the default display method
-        (**notebook**, **external**, or **none**).
+        (``"notebook"``, ``"external"``, ``"none"`` or ``None``).
 
         The ``method`` parameter can also override the default display method
         for the current figure. Parameters ``dpi`` and ``width`` can be used
         to control the resolution and dimension of the figure in the notebook.
 
-        Note: The external viewer can be disabled by setting the
+        **Note**: The external viewer can be disabled by setting the
         PYGMT_USE_EXTERNAL_DISPLAY environment variable to **false**.
         This is useful when running unit tests and building the documentation
         in consoles without a Graphical User Interface.
@@ -348,16 +362,25 @@ class Figure:
             The image resolution (dots per inch) in Jupyter notebooks.
         width : int
             The image width (in pixels) in Jupyter notebooks.
-        method : str
-            How the current figure will be displayed. Options are
+        method : str or None
+            How the current figure will be displayed. Choose from:
 
-            - **external**: PDF preview in an external program [default]
-            - **notebook**: PNG preview [default in Jupyter notebooks]
-            - **none**: Disable image preview
+            - ``"external"``: External PDF preview using the default PDF viewer
+            - ``"notebook"``: Inline PNG preview in the current notebook
+            - ``"none"``: Disable image preview
+            - ``None``: Reset to the default display method
+
+            The default display method is ``"external"`` in Python consoles or
+            ``"notebook"`` in Jupyter notebooks, but can be changed by
+            :func:`pygmt.set_display`.
         waiting : float
             Suspend the execution of the current process for a given number of
             seconds after launching an external viewer.
             Only works if ``method="external"``.
+        **kwargs : dict
+            Additional keyword arguments passed to
+            :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
+            ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
         # Module level variable to know which figures had their show method
         # called. Needed for the sphinx-gallery scraper.
@@ -375,7 +398,7 @@ class Figure:
                 )
             )
 
-        if method in ["notebook", "none"]:
+        if method == "notebook":
             if IPython is None:
                 raise GMTError(
                     (
@@ -384,46 +407,16 @@ class Figure:
                         "or run the script in a Jupyter notebook."
                     )
                 )
-            png = self._preview(fmt="png", dpi=dpi, anti_alias=True, as_bytes=True)
+            png = self._preview(
+                fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
+            )
             IPython.display.display(IPython.display.Image(data=png, width=width))
 
         if method == "external":
-            pdf = self._preview(fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False)
+            pdf = self._preview(
+                fmt="pdf", dpi=dpi, anti_alias=False, as_bytes=False, **kwargs
+            )
             launch_external_viewer(pdf, waiting=waiting)
-
-    def shift_origin(self, xshift=None, yshift=None):
-        """
-        Shift plot origin in x and/or y directions.
-
-        This method shifts the plot origin relative to the current origin
-        by (*xshift*, *yshift*). Optionally, append the length unit (**c**,
-        **i**, or **p**). Default unit if not given is **c** for centimeter.
-
-        Prepend **a** to shift the origin back to the original position after
-        plotting, prepend **c** to center the plot on the center of the paper
-        (optionally add shift), prepend **f** to shift the origin relative to
-        the fixed lower left corner of the page, or prepend **r** [Default] to
-        move the origin relative to its current location.
-
-        Detailed usage at
-        :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
-
-        Parameters
-        ----------
-        xshift : str
-            Shift plot origin in x direction.
-        yshift : str
-            Shift plot origin in y direction.
-        """
-        self._preprocess()
-        args = ["-T"]
-        if xshift:
-            args.append(f"-X{xshift}")
-        if yshift:
-            args.append(f"-Y{yshift}")
-
-        with Session() as lib:
-            lib.call_module(module="plot", args=" ".join(args))
 
     def _preview(self, fmt, dpi, as_bytes=False, **kwargs):
         """
@@ -492,9 +485,13 @@ class Figure:
         plot3d,
         rose,
         set_panel,
+        shift_origin,
         solar,
         subplot,
+        ternary,
         text,
+        tilemap,
+        timestamp,
         velo,
         wiggle,
     )
@@ -502,16 +499,41 @@ class Figure:
 
 def set_display(method=None):
     """
-    Set the display method.
+    Set the display method when calling :meth:`pygmt.Figure.show`.
 
     Parameters
     ----------
     method : str or None
-        The method to display an image. Choose from:
+        The method to display an image preview. Choose from:
 
-        - **external**: PDF preview in an external program [default]
-        - **notebook**: PNG preview [default in Jupyter notebooks]
-        - **none**: Disable image preview
+        - ``"external"``: External PDF preview using the default PDF viewer
+        - ``"notebook"``: Inline PNG preview in the current notebook
+        - ``"none"``: Disable image preview
+        - ``None``: Reset to the default display method
+
+        The default display method is ``"external"`` in Python consoles or
+        ``"notebook"`` in Jupyter notebooks.
+
+    Examples
+    --------
+    Let's assume that you're using a Jupyter Notebook:
+
+    >>> import pygmt
+    >>> fig = pygmt.Figure()
+    >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/5c", frame=True)
+    >>> fig.show()  # will display a PNG image in the current notebook
+    >>>
+    >>> # set the display method to "external"
+    >>> pygmt.set_display(method="external")  # doctest: +SKIP
+    >>> fig.show()  # will display a PDF image using the default PDF viewer
+    >>>
+    >>> # set the display method to "none"
+    >>> pygmt.set_display(method="none")
+    >>> fig.show()  # will not show any image
+    >>>
+    >>> # reset to the default display method
+    >>> pygmt.set_display(method=None)
+    >>> fig.show()  # again, will show a PNG image in the current notebook
     """
     if method in ["notebook", "external", "none"]:
         SHOW_CONFIG["method"] = method
@@ -519,6 +541,6 @@ def set_display(method=None):
         raise GMTInvalidInput(
             (
                 f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external' or 'none'."
+                "should be either 'notebook', 'external', 'none' or None."
             )
         )

@@ -14,7 +14,7 @@ and we encourage all to read it carefully.
 
 ### Ways to Contribute Documentation and/or Code
 
-* Tackle any issue that you wish! Some issues are labeled as **"good first issues"** to
+* Tackle any issue that you wish! Some issues are labeled as **"good first issue"** to
   indicate that they are beginner friendly, meaning that they don't require extensive
   knowledge of the project.
 * Make a tutorial or gallery example of how to do something.
@@ -44,27 +44,27 @@ and we encourage all to read it carefully.
 ### Reporting a Bug
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-top of the GitHub repository and click *New Issue*.
+top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Bug report*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your bug report, try to answer any follow up questions about the bug
   as best as you can.
 
-#### Reporting upstream bugs
+#### Reporting Upstream Bugs
 
 If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve
 the problem:
 
-* Add the line `pygmt.config(GMT_VERBOSE='d')` after your import statements, which
+* Add the line `pygmt.config(GMT_VERBOSE="d")` after your import statements, which
   will report the equivalent GMT commands as one of the debug messages.
 * Either append all messages from running your script to your GitHub issue, or
   filter the messages to include only the GMT-equivalent commands using a command
   such as:
 
-      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print "gmt", $3}'
+      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script.
+  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
   data to a file (e.g., a NetCDF or ASCII txt file) and passing the data file
@@ -74,7 +74,7 @@ the problem:
 ### Submitting a Feature Request
 
 * Find the [*Issues*](https://github.com/GenericMappingTools/pygmt/issues) tab on the
-  top of the GitHub repository and click *New Issue*.
+  top of the GitHub repository and click *New issue*.
 * Click on *Get started* next to *Feature request*.
 * **Please try to fill out the template with as much detail as you can**.
 * After submitting your feature request, try to answer any follow up questions as best
@@ -186,11 +186,11 @@ These steps for setting up your environment are necessary for
 [contributing code](contributing.md#contributing-code). A local PyGMT development environment
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
-We highly recommend using [Anaconda](https://www.anaconda.com/download/) and the `conda`
-package manager to install and manage your Python packages.
+We highly recommend using [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge/)
+and the `mamba` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
-The repository includes a conda environment file `environment.yml` with the
+The repository includes a virtual environment file `environment.yml` with the
 specification for all development requirements to build and test the project.
 In particular, these are some of the key development dependencies you will need
 to install to build the documentation and run the unit tests locally:
@@ -208,14 +208,14 @@ Run the following on the base of the repository to create a new conda
 environment from the `environment.yml` file:
 
 ```bash
-conda env create --file environment.yml
+mamba env create --file environment.yml
 ```
 
 Before building and testing the project, you have to activate the environment
 (you'll need to do this every time you start a new terminal):
 
 ```bash
-conda activate pygmt
+mamba activate pygmt
 ```
 
 We have a [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
@@ -227,7 +227,7 @@ To install the current source code into your testing environment, run:
 
 ```bash
 make install  # on Linux/macOS
-pip install --no-deps -e .  # on Windows
+python -m pip install --no-deps -e .  # on Windows
 ```
 
 This installs your project in *editable* mode, meaning that changes made to the source
@@ -392,13 +392,14 @@ Guidelines for a good tutorial:
   concise examples while the tutorials are detailed and full of text.
 * SI units should be used in the example code for tutorial plots.
 
-Note that the `Figure.show()` function needs to be called for a plot to be inserted into
-the documentation.
+Note that the <code>pygmt.Figure.show</code> method needs to be called for a plot
+to be inserted into the documentation.
+
 
 ### Editing the API Documentation
 
 The API documentation is built from the docstrings in the Python `*.py` files under
-the `pygmt/src/` and `/pygmt/datasets/` folders. **All docstrings** should follow the
+the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow the
 [NumPy style guide](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard).
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
@@ -524,9 +525,9 @@ Tests also help us be confident that we won't break your code in the future.
 
 When writing tests, don't test everything that the GMT function already tests, such as
 the every unique combination arguments. An exception to this would be the most popular
-methods, such as `plot` and `basemap`. The highest priority for tests should be the
-Python-specific code, such as numpy, pandas, and xarray objects and the virtualfile
-mechanism.
+methods, such as <code>pygmt.Figure.plot</code> and <code>pygmt.Figure.basemap</code>.
+The highest priority for tests should be the Python-specific code, such as numpy,
+pandas, and xarray objects and the virtualfile mechanism.
 
 If you're **new to testing**, see existing test files for examples of things to do.
 **Don't let the tests keep you from submitting your contribution!**
@@ -576,9 +577,9 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting function works"
+    "Test that my plotting method works"
     fig = Figure()
-    fig.basemap(region=[0, 360, -90, 90], projection='W7i', frame=True)
+    fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     return fig
 ```
 
@@ -682,7 +683,7 @@ Here's an example:
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting function works"
+  "Test that my plotting method works"
   fig_ref, fig_test = Figure(), Figure()
   fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
   fig_test.grdimage(grid, projection="W120/15c", cmap="geo")

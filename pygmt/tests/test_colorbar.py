@@ -1,5 +1,5 @@
 """
-Tests colorbar.
+Test Figure.colorbar.
 """
 import pytest
 from pygmt import Figure

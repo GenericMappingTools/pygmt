@@ -1,6 +1,6 @@
 # pylint: disable=redefined-outer-name
 """
-Tests contour.
+Test Figure.contour.
 """
 import os
 
@@ -19,7 +19,7 @@ def fixture_data():
     """
     Load the point data from the test file.
     """
-    return pd.read_table(POINTS_DATA, header=None, sep=r"\s+")
+    return pd.read_table(POINTS_DATA, header=None, delim_whitespace=True)
 
 
 @pytest.fixture(scope="module", name="region")

@@ -94,21 +94,21 @@ def grdfilter(grid, **kwargs):
         4: grid (x,y) in degrees, *width* in km, Spherical distance
         calculation.
 
-        5: grid (x,y) in Mercator ``projection='m1'`` img units, *width* in km,
+        5: grid (x,y) in Mercator ``projection="m1"`` img units, *width* in km,
         Spherical distance calculation.
 
-    {I}
+    {spacing}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affects the filtered output.
-    {R}
+    {region}
     toggle : bool
         Toggle the node registration for the output grid so as to become the
         opposite of the input grid. [Default gives the same registration as the
         input grid].
-    {V}
-    {f}
-    {r}
+    {verbose}
+    {coltypes}
+    {registration}
 
     Returns
     -------
@@ -127,7 +127,7 @@ def grdfilter(grid, **kwargs):
     >>> # Apply a filter of 600km (full width) to the @earth_relief_30m file
     >>> # and return a filtered field (saved as netcdf)
     >>> pygmt.grdfilter(
-    ...     grid="@earth_relief_30m",
+    ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
     ...     distance="4",
     ...     region=[150, 250, 10, 40],

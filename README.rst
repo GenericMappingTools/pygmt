@@ -10,7 +10,7 @@ PyGMT
 .. image:: http://img.shields.io/pypi/v/pygmt.svg?style=flat-square
     :alt: Latest version on PyPI
     :target: https://pypi.python.org/pypi/pygmt
-.. image:: https://anaconda.org/conda-forge/pygmt/badges/installer/conda.svg
+.. image:: https://img.shields.io/conda/v/conda-forge/pygmt?style=flat-square
     :alt: Latest version on conda-forge
     :target: https://anaconda.org/conda-forge/pygmt
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/Tests/badge.svg
@@ -31,9 +31,18 @@ PyGMT
 .. image:: https://zenodo.org/badge/DOI/10.5281/3781524.svg
     :alt: Digital Object Identifier for the Zenodo archive
     :target: https://doi.org/10.5281/zenodo.3781524
+.. image:: https://tinyurl.com/y22nb8up
+    :alt: PyOpenSci
+    :target: https://github.com/pyOpenSci/software-review/issues/43
+.. image:: https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square
+    :alt: GitHub license
+    :target: https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
+.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
+    :alt: Twitter URL
+    :target: https://twitter.com/gmt_dev
 
 .. placeholder-for-doc-index
 
@@ -46,7 +55,7 @@ To truly understand how powerful PyGMT is, play with it online on `Binder <https
 For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
-visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+visit the `Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
 some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
 .. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
@@ -59,9 +68,10 @@ About
 -----
 
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond.
 
 Project goals
 -------------
@@ -82,15 +92,29 @@ Quickstart
 Installation
 ++++++++++++
 
-Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
-
-    conda install --channel conda-forge pygmt
-
-If you use `mamba <https://mamba.readthedocs.org/>`__::
+Simple installation using `mamba <https://mamba.readthedocs.org/>`__::
 
     mamba install --channel conda-forge pygmt
 
+If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
+
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+
+Getting started
++++++++++++++++
+
+As a starting point, you can open a `Python interpreter <https://docs.python.org/3/tutorial/interpreter.html>`__
+or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
+
+    import pygmt
+    fig = pygmt.Figure()
+    fig.coast(projection="H10c", region="g", frame=True, land="gray")
+    fig.show()
+
+For more examples, please have a look at the `Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
 
 
 Contacting Us
@@ -156,18 +180,19 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6702566,
+    @software{pygmt_2023_7772533,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Jones, Max and
                       Schlitzer, William and
                       Grund, Michael and
+                      Jones, Max and
+                      Fröhlich, Yvonne and
                       Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
+                      Tong, Jing-Hui and
                       Materna, Kathryn and
-                      Fröhlich, Yvonne and
                       Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
@@ -175,20 +200,21 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jul,
-      year         = 2022,
+      month        = mar,
+      year         = 2023,
       publisher    = {Zenodo},
-      version      = {v0.7.0},
-      doi          = {10.5281/zenodo.6702566},
-      url          = {https://doi.org/10.5281/zenodo.6702566}
+      version      = {0.9.0},
+      doi          = {10.5281/zenodo.7772533},
+      url          = {https://doi.org/10.5281/zenodo.7772533}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
 https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
 It is also strongly recommended to cite the
-`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
-Note that some modules like ``surface`` and ``x2sys`` also have their dedicated citation.
-Further information for all these can be found at https://www.generic-mapping-tools.org/cite.
+`GMT 6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+Note that some modules like ``dimfilter``, ``surface``, and ``x2sys`` also have their
+dedicated citations. Further information for all these can be found at
+https://www.generic-mapping-tools.org/cite.
 
 
 License
@@ -236,9 +262,19 @@ Compatibility with GMT/Python/NumPy versions
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
+      - >=3.9
+      - >=1.21
+    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
+      - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
+      - >=6.3.0
+      - >=3.8
+      - >=1.21
+    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_
+      - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
+      - >=6.3.0
       - >=3.8
       - >=1.20
-    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_ (latest release)
+    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_
       - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
       - >=6.3.0
       - >=3.8
