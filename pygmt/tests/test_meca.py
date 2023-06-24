@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt import Figure, __gmt_version__
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -297,3 +298,35 @@ def test_meca_spec_dict_all_scalars():
         scale=1.0,  # make sure a non-str scale works
     )
     return fig
+
+
+def test_meca_spec_ndarray_no_convention():
+    """
+    Raise an exception if convention is not given for an ndarray input.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3]]), scale="1c")
+
+
+def test_meca_spec_ndarray_mismatched_columns():
+    """
+    Raise an exception if the ndarray input doesn't have expected number of
+    columns.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(
+            spec=np.array([[-124, 48, 12.0, 330, 30, 90]]), convention="aki", scale="1c"
+        )
+
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(
+            spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5, 30.0, 50.0]]),
+            convention="aki",
+            scale="1c",
+        )
