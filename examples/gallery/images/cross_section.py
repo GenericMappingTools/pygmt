@@ -106,15 +106,15 @@ track_df = pygmt.project(
     endpoint="146/40",  # End point of survey line (longitude/latitude)
     generate="0.5",  # Output data in steps of 0.5 degrees
 )
-"""
+
 # Extract the elevation at the generated points from the downloaded grid
 # and add it as new column "elevation" to the pandas.DataFrame
-track_df = pygmt.grdtrack(
-    grid=grid_map,
-    points=track_df,
-    newcolname="elevation",
-)
-"""
+# track_df = pygmt.grdtrack(
+#     grid=grid_map,
+#     points=track_df,
+#     newcolname="elevation",
+# )
+
 # Plot water masses
 fig.plot(
     x=[0, 15],
@@ -124,15 +124,15 @@ fig.plot(
     pen="0.25p,black,solid",
     close="+y-8000",  # Force closed polygon
 )
-"""
+
 # Plot elevation along the survey line
-fig.plot(
-    data=track_df,
-    fill="gray",  # Fill the polygon in "gray"
-    # Draw a 1-point thick black solid outline
-    pen="1p,black,solid",
-    close="+y-8000",  # Force closed polygon
-    incols=[2, 3],  # Select order of input columns (zero-based indexing)
-)
-"""
+# fig.plot(
+#     data=track_df,
+#     fill="gray",  # Fill the polygon in "gray"
+#     # Draw a 1-point thick black solid outline
+#     pen="1p,black,solid",
+#     close="+y-8000",  # Force closed polygon
+#     incols=[2, 3],  # Select order of input columns (zero-based indexing)
+# )
+
 fig.show()
