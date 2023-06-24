@@ -113,7 +113,7 @@ def non_ascii_to_octal(argstr):
     'ABC\\260DEF'
     """
     # list of non-ASCII characters in ISOLatin-1 character set
-    isolatin1 = "°±²³´µ¶·¸¹º»¼½¾¿"  # more to be added
+    isolatin1 = "¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
     isolatin1_mapping = {c: "\\" + format(ord(c), "o") for c in isolatin1}
     return argstr.translate(str.maketrans(isolatin1_mapping))
 
