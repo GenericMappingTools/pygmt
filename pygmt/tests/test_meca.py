@@ -143,7 +143,20 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-@pytest.mark.parametrize("inputtype", ["args", "dict", "ndarray"])
+@pytest.mark.parametrize(
+    "inputtype",
+    [
+        "args",
+        "dict",
+        pytest.param(
+            "ndarray",
+            marks=pytest.mark.skipif(
+                condition=Version(__gmt_version__) < Version("6.5.0"),
+                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
+            ),
+        ),
+    ],
+)
 def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
