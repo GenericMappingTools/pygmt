@@ -109,13 +109,21 @@ def non_ascii_to_octal(argstr):
 
     Examples
     --------
-    >>> non_ascii_to_octal("ABC°DEF")
-    'ABC\\260DEF'
+    >>> non_ascii_to_octal("ABC ±120° DEF")
+    'ABC \\261120\\260 DEF'
     """
-    # list of non-ASCII characters in ISOLatin-1 character set
-    isolatin1 = "¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ"
-    isolatin1_mapping = {c: "\\" + format(ord(c), "o") for c in isolatin1}
-    return argstr.translate(str.maketrans(isolatin1_mapping))
+    # Mapping for non-ASCII characters in ISOLatin1 charset
+    # Reference: https://www.ascii.ca/adobeiso.htm
+    mapping_isolatin1 = {chr(i): "\\" + format(i, "o") for i in range(160, 256)}
+    # Mapping for extended non-ASCII characters in ISOLatin1+ charset
+    mapping_isolatin1plus = {
+        c: "\\" + format(i, "o")
+        for c, i in zip(
+            "•…™—–ﬁžšŒ†‡Ł⁄‹Š›œŸŽł‰„“”ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",
+            list(range(25, 32)) + list(range(127, 160)),
+        )
+    }
+    return argstr.translate(str.maketrans(mapping_isolatin1 | mapping_isolatin1plus))
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
