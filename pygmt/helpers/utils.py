@@ -93,19 +93,19 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
 
 def non_ascii_to_octal(argstr):
     r"""
-    Replace non-ASCII characters with their corresponding octal codes.
+    Translate non-ASCII characters to their corresponding octal codes.
 
     Currently, only ISOLatin1+ character set is supported.
 
     Parameters
     ----------
     argstr : str
-        The string to be converted.
+        The string to be translated.
 
     Returns
     -------
     str
-        The converted string.
+        The translated string.
 
     Examples
     --------
