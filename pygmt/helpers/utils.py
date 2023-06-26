@@ -95,7 +95,7 @@ def non_ascii_to_octal(argstr):
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
-    Currently, only ISOLatin1+ character set is supported.
+    Currently, only the ISOLatin1+ character set is supported.
 
     Parameters
     ----------
