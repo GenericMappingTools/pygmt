@@ -116,11 +116,41 @@ def non_ascii_to_octal(argstr):
 
     Examples
     --------
-    >>> non_ascii_to_octal("ABC ±120° DEF")
-    'ABC \\261120\\260 DEF'
+    >>> non_ascii_to_octal("•‰“”±°ÿ")
+    '\\31\\214\\216\\217\\261\\260\\377'
+    >>> non_ascii_to_octal("αζ∆Ω∑∏∇")
+    '@~\\141@~@~\\172@~@~\\104@~Ω@~\\345@~@~\\325@~@~\\321@~
+    >>> non_ascii_to_octal("✁❞❡➾")
+    '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
+    >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
+    'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     """
+    # pylint: disable=line-too-long
+
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
+
+    # Symbol charset: \041-\176 and \240-\376
+    mapping.update(
+        {
+            c: "@~\\" + format(i, "o") + "@~"
+            for c, i in zip(
+                "!∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙθΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυπωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
+                [*range(33, 127), *range(160, 255)],
+            )
+        }
+    )
+
+    # ZapfDingbats charset: \041-\176 and \240-\376
+    mapping.update(
+        {
+            c: "@%34%\\" + format(i, "o") + "@%%"
+            for c, i in zip(
+                "✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞❡❢❣❤❥❦❧♣♦♥♠①②③④⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯ ➱➲➳➴➵➶➷➸➹➺➻➼➽➾",
+                [*range(33, 127), *range(161, 255)],
+            )
+        }
+    )
 
     # ISOLatin1+ charset: \031-\037 and \177-\237
     mapping.update(
@@ -134,28 +164,6 @@ def non_ascii_to_octal(argstr):
     )
     # ISOLatin1+ charset: \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
-
-    # Symbol charset: \041-\176 and \240-\376
-    # pylint: disable=line-too-long
-    mapping.update(
-        {
-            c: "@~\\" + format(i, "o") + "@~"
-            for c, i in zip(
-                "!∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙθΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυπωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
-                [*range(33, 127), *range(160, 255)],
-            )
-        }
-    )
-    # ZapfDingbats charset: \041-\176 and \240-\376
-    mapping.update(
-        {
-            c: "@%ZapfDingbats%\\" + format(i, "o") + "@%%"
-            for c, i in zip(
-                "✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞ ❡❢❣❤❥❦❧♣♦♥♠12345678910❶❷❸❹❺❻❼❽❾❿➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯ ➱➲➳➴➵➶➷➸➹➺➻➼➽➾",
-                [*range(33, 127), *range(160, 255)],
-            )
-        }
-    )
 
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
