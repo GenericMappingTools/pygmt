@@ -146,6 +146,17 @@ def non_ascii_to_octal(argstr):
             )
         }
     )
+    # ZapfDingbats charset: \041-\176 and \240-\376
+    mapping.update(
+        {
+            c: "@%ZapfDingbats%\\" + format(i, "o") + "@%%"
+            for c, i in zip(
+                "✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞ ❡❢❣❤❥❦❧♣♦♥♠12345678910❶❷❸❹❺❻❼❽❾❿➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯ ➱➲➳➴➵➶➷➸➹➺➻➼➽➾",
+                [*range(33, 127), *range(160, 255)],
+            )
+        }
+    )
+
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
