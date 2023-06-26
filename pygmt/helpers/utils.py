@@ -120,7 +120,7 @@ def non_ascii_to_octal(argstr):
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
-    # ISOLatin1+ charset: \031-\037, \177-\237
+    # ISOLatin1+ charset: \031-\037 and \177-\237
     mapping.update(
         {
             c: "\\" + format(i, "o")
@@ -130,6 +130,7 @@ def non_ascii_to_octal(argstr):
             )
         }
     )
+    del mapping["'"]  # remove single quote (\234)
     # ISOLatin1+ charset: \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
     return argstr.translate(str.maketrans(mapping))
