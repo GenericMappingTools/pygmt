@@ -97,6 +97,11 @@ def non_ascii_to_octal(argstr):
 
     Currently, only the ISOLatin1+ character set is supported.
 
+    References:
+
+    - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
+    - https://www.ascii.ca/adobeiso.htm
+
     Parameters
     ----------
     argstr : str
@@ -112,18 +117,22 @@ def non_ascii_to_octal(argstr):
     >>> non_ascii_to_octal("ABC ±120° DEF")
     'ABC \\261120\\260 DEF'
     """
-    # Mapping for non-ASCII characters in ISOLatin1 charset
-    # Reference: https://www.ascii.ca/adobeiso.htm
-    mapping_isolatin1 = {chr(i): "\\" + format(i, "o") for i in range(160, 256)}
-    # Mapping for extended non-ASCII characters in ISOLatin1+ charset
-    mapping_isolatin1plus = {
-        c: "\\" + format(i, "o")
-        for c, i in zip(
-            "•…™—–ﬁžšŒ†‡Ł⁄‹Š›œŸŽł‰„“”ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",
-            list(range(25, 32)) + list(range(127, 160)),
-        )
-    }
-    return argstr.translate(str.maketrans(mapping_isolatin1 | mapping_isolatin1plus))
+    # Dictionary mapping non-ASCII characters to octal codes
+    mapping = {}
+
+    # ISOLatin1+ charset: \031-\037, \177-\237
+    mapping.update(
+        {
+            c: "\\" + format(i, "o")
+            for c, i in zip(
+                "•…™—–ﬁžšŒ†‡Ł⁄‹Š›œŸŽł‰„“”ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",
+                [*range(25, 32), *range(127, 160)],
+            )
+        }
+    )
+    # ISOLatin1+ charset: \240-\377
+    mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
+    return argstr.translate(str.maketrans(mapping))
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
