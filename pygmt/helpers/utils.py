@@ -100,7 +100,7 @@ def non_ascii_to_octal(argstr):
     References:
 
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
-    - https://www.ascii.ca/adobeiso.htm
+    - https://www.ascii-code.com/ISO-8859-1
 
     Parameters
     ----------
