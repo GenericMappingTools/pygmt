@@ -4,6 +4,7 @@ Utilities and common tasks for wrapping the GMT modules.
 import os
 import pathlib
 import shutil
+import string
 import subprocess
 import sys
 import time
@@ -101,6 +102,7 @@ def non_ascii_to_octal(argstr):
 
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
     - https://www.ascii-code.com/ISO-8859-1
+    - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 
     Parameters
     ----------
@@ -130,9 +132,22 @@ def non_ascii_to_octal(argstr):
             )
         }
     )
-    del mapping["'"]  # remove single quote (\234)
     # ISOLatin1+ charset: \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
+
+    # Symbol charset: \041-\176 and \240-\376
+    # pylint: disable=line-too-long
+    mapping.update(
+        {
+            c: "@~\\" + format(i, "o") + "@~"
+            for c, i in zip(
+                "!∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙθΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυπωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
+                [*range(33, 127), *range(160, 255)],
+            )
+        }
+    )
+    # Remove any printable characters
+    mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
 
 
