@@ -4,8 +4,8 @@ Tilemaps
 The :meth:`pygmt.Figure.tilemap` method allows to plot
 tiles from a tile server or local file as a basemap or overlay. 
 """
-import pygmt
 import contextily
+import pygmt
 
 fig = pygmt.Figure()
 fig.tilemap(
