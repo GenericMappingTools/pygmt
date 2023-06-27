@@ -49,13 +49,13 @@ for quotedline in [
     "qd1c:+ltext+f12p,Times-Bold,red",
     # Add a box around the label via "+p"
     "qd1c:+ltext+p",
-    # Additionally give thickness, color, and style
+    # Adjust thickness, color, and style of the outline
     "qd1c:+ltext+p0.5p,blue,dashed",
-    # Append "+o" to get rounded edges
+    # Append "+o" to get a box with rounded edges
     "qd1c:+ltext+p0.5p,blue+o",
     # Adjust the space between label and box in x and y directions via "+c"
     "qd1c:+ltext+p0.5p,blue+o+c0.1c/0.1c",
-    # Give a fill color via "+g"
+    # Give a fill of the box via "+g" together with the desired color
     "qd1c:+ltext+gdodgerblue",
 ]:
     y -= 1  # Move current line down
