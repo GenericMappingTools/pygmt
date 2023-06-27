@@ -61,8 +61,8 @@ fig.basemap(
 fig.plot(
     data=df,
     # Add an outline around the envelope
-    # Here, a dashed pen(+p) with 0.5 points thickness and "gray30"
-    # color is used
+    # Here, a dashed pen (+p) with 0.5 points thickness and
+    # "gray30" color is used
     close="+D+p0.5p,gray30,dashed",
     fill="gray@50",
     pen="1p,gray30",
