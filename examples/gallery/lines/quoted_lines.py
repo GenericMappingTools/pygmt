@@ -73,7 +73,8 @@ fig.show()
 
 
 ###############################################################################
-# For curved text following the line, append ``"+v"``.
+# For curved text following the line, append ``"+v"`` to the argument passed
+# to the `style` parameter.
 
 # Generate sinus curve
 x = np.arange(0, 10 * np.pi, 0.1)
