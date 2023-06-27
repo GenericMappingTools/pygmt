@@ -12,7 +12,7 @@ For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 Furthermore, there are so-called *line fronts*, which are often
 used to plot fault lines, subduction zones, or weather fronts;
-for details see
+for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 """
 
