@@ -45,7 +45,7 @@ for quotedline in [
     "qd1c:+ltext+n-0.5c/0.1c",
     # Rotate labels via "+a" (counter-clockwise from horizontal)
     "qd1c:+ltext+a20",
-    # Adjust size, type, and color of the front via "+f"
+    # Adjust size, type, and color of the font via "+f"
     "qd1c:+ltext+f12p,Times-Bold,red",
     # Add a box around the label via "+p"
     "qd1c:+ltext+p",
