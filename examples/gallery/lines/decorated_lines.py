@@ -38,7 +38,7 @@ for decoline in [
     "~d1c:+sc0.5c",
     # Adjust thickness, color, and style of the outline via "+p"
     # Here, we plot a 1-point thick, blue, dashed outline
-    "~d1c:+sc0.5c+p1p,blue,-",
+    "~d1c:+sc0.5c+p1p,blue,dashed",
     # Add a fill color using "+g" with the desired color
     "~d1c:+sc0.5c+glightblue",
     # To use a pattern as fill append "p" and give the pattern number
