@@ -1,10 +1,10 @@
 """
 Envelope
 --------
-The `close` parameter of the :meth:`pygmt.Figure.plot` method can be
-used to build a symmetrical or an asymmetrical envelope. The user
-can give either the deviations or the bounds in y direction. For the
-first case append `"+d"` or `"+D"` and for the later case `"+b"`.
+The ``close`` parameter of the :meth:`pygmt.Figure.plot` method can be
+used to build a symmetrical or an asymmetrical envelope. The user can
+give either the deviations or the bounds in y direction. For the first
+case append ``"+d"`` or ``"+D"`` and for the later case ``"+b"``.
 """
 
 
