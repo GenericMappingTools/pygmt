@@ -44,7 +44,7 @@ fig.plot(
 # Plot the data points on top
 fig.plot(
     data=df,
-    style="c0.2c",  # Circles with a diameter of 0.3 centimeters
+    style="c0.2c",  # Circles with a diameter of 0.2 centimeters
     pen="1p,gray30",
     fill="darkgray",
 )
