@@ -12,8 +12,8 @@ import pandas as pd
 import pygmt
 
 
-# Define DataFrame with columns for x and y as well as the y lower
-# and upper errors
+# Define pandas DataFrame with columns for x and y as well as the 
+# lower and upper deviations
 df = pd.DataFrame(
     data={
         "x": [1, 3, 5, 7, 9],
