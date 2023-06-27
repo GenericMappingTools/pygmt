@@ -162,11 +162,23 @@ def meca(
           ``convention`` parameter is required so we know how to interpret the
           columns. If ``spec`` is a dictionary or a pd.DataFrame,
           ``convention`` is not needed and is ignored if specified.
-
-    scale : int or float or str
-        Adjust the scaling of the radius of the beachball, which is
-        proportional to the magnitude. *scale* defines the size for
-        magnitude = 5 (i.e. scalar seismic moment M0 = 4.0E23 dynes-cm).
+    scale : int, float, or str
+        *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
+        [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
+        Adjust scaling of the radius of the beachball, which is
+        proportional to the magnitude. By default, *scale* defines the
+        size for magnitude = 5 (i.e., scalar seismic moment
+        M0 = 4.0E23 dynes-cm). If **+l** is used the radius will be
+        proportional to the seismic moment instead. Use **+s** and give
+        a *reference* to change the reference magnitude (or moment), and
+        use **+m** to plot all beachballs with the same size. A text
+        string can be specified to appear near the beachball
+        (corresponding to column or parameter ``event_name``).
+        Append **+a**\ *angle* to change the angle of the text string;
+        append **+f**\ *font* to change its font (size,fontname,color);
+        append **+j**\ *justify* to change the text location relative
+        to the beachball [Default is ``"TC"``, i.e., Top Center];
+        append **+o** to offset the text string by *dx*\ /*dy*.
     convention : str
         Focal mechanism convention. Choose from:
 

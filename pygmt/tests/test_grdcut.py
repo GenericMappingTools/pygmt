@@ -1,5 +1,5 @@
 """
-Tests for grdcut.
+Test pygmt.grdcut.
 """
 import numpy as np
 import pytest

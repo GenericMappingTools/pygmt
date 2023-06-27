@@ -1,5 +1,5 @@
 """
-Tests for grd2cpt.
+Test pygmt.grd2cpt.
 """
 import os
 

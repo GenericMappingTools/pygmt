@@ -1,5 +1,5 @@
 """
-Tests for grdproject.
+Test pygmt.grdproject.
 """
 from pathlib import Path
 
