@@ -14,10 +14,6 @@ Furthermore, there are so-called *line fronts*, which are often
 used to plot fault lines, subduction zones, or weather fronts;
 for details see
 :doc:`Line fronts example </gallery/lines/linefronts>`.
-
-Also add link in example Line fronts
-Hybrid of fronts and quoted lines
-Unclear `"+a"` does nothing, should change angle see quoted lines
 """
 
 
