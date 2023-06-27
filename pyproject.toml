@@ -31,7 +31,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.21",
+    "numpy>=1.22",
     "pandas",
     "xarray",
     "netCDF4",
