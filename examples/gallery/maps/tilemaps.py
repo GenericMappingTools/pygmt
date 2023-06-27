@@ -11,6 +11,11 @@ fig = pygmt.Figure()
 fig.tilemap(
     region=[-157.84, -157.8, 21.255, 21.285],
     projection="M12c",
+    # Set level of details (0-22)
+    # Higher levels mean a zoom level closer to the Earth's
+    # surface with more tiles covering a smaller
+    # geographic area and thus more details and vice versa
+    # Please note, not all zoom levels are always available
     zoom=14,
     # Use tiles from OpenStreetMap tile server
     source="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
