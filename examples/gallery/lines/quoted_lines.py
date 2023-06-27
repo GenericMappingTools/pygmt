@@ -1,10 +1,10 @@
 """
 Quoted lines
 ------------
-To plot a so-called *quoted line*, i.e., annotations along a line
+To plot a so-called *quoted line*, i.e., labels along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"q"`` and the
-desired modifiers. This example shows how to adjust the annotations.
+desired modifiers. This example shows how to adjust the labels.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
@@ -73,7 +73,7 @@ fig.show()
 
 
 ###############################################################################
-# For curved text following the line, append ``"+v"`` to the argument passed
+# For curved labels following the line, append ``"+v"`` to the argument passed
 # to the `style` parameter.
 
 # Generate sinus curve
