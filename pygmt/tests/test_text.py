@@ -1,5 +1,5 @@
 """
-Tests text.
+Test Figure.text.
 """
 import os
 

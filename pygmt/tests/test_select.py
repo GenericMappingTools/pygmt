@@ -1,5 +1,5 @@
 """
-Tests for select.
+Test pygmt.select.
 """
 from pathlib import Path
 

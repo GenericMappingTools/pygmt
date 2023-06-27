@@ -1,6 +1,6 @@
 # pylint: disable=redefined-outer-name
 """
-Tests plot.
+Test Figure.plot.
 """
 import datetime
 import os

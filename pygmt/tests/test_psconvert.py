@@ -1,5 +1,5 @@
 """
-Tests psconvert.
+Test Figure.psconvert.
 """
 import os
 
