@@ -98,6 +98,7 @@ fig.plot(
 fig.plot(
     x=x,
     y=y - 2,
+    # Append "+v" to force curved labels
     style="qd1.2c:+lcurved text+f5p+v",
     pen="1p,blue",
 )
