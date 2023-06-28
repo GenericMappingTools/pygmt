@@ -227,7 +227,9 @@ def test_grdview_drapegrid_dataarray(xrgrid):
     drapegrid.gmt.gtype = xrgrid.gmt.gtype
 
     fig = Figure()
-    fig.grdview(grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", verbose="d")
+    fig.grdview(
+        grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", frame=True
+    )
     return fig
 
 
