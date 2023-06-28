@@ -54,7 +54,7 @@ fig.shift_origin(xshift="11c")
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=["wSnE", "a1f1g1"],
+    frame=["wSnE", "a1"],
 )
 
 # Plot a asymmetrical envelope ("+D")
