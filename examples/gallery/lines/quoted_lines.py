@@ -82,11 +82,7 @@ y = np.sin(0.8 * x)
 
 fig = pygmt.Figure()
 
-fig.basemap(
-    region=[0, 30, -4, 4],
-    projection="X10c/5c",
-    frame=True,
-)
+fig.basemap(region=[0, 30, -4, 4], projection="X10c/5c", frame=True)
 
 fig.plot(
     x=x,
