@@ -84,12 +84,7 @@ fig = pygmt.Figure()
 
 fig.basemap(region=[0, 30, -4, 4], projection="X10c/5c", frame=True)
 
-fig.plot(
-    x=x,
-    y=y + 2,
-    style="qd1.2c:+lstraight text+f5p",
-    pen="1p,blue",
-)
+fig.plot(x=x, y=y + 2, style="qd1.2c:+lstraight text+f5p", pen="1p,blue")
 
 fig.plot(
     x=x,
