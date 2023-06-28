@@ -28,7 +28,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame="a1f1g1",
+    frame="a1",
 )
 
 # Plot a symmetrical envelope ("+d")
