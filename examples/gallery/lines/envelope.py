@@ -22,16 +22,30 @@ df = pd.DataFrame(
     }
 )
 
+# Define the same pandas DataFrame with columns for x and y, but
+# with the lower and upper bounds
+df_bound = pd.DataFrame(
+    data={
+        "x": [1, 3, 5, 7, 9],
+        "y":           [0.5, -0.7, 0.8, -0.3, 0.1],
+        "y_bound_low": [0.3, -0.9, 0.5, -0.7, -0.1],
+        "y_bound_upp": [0.6, -0.4, 1.1,  0.1, 0.2],
+    }
+)
+
+
 # Create Figure instance
 fig = pygmt.Figure()
 
+#-----------------------------------------------------------------------------
+# Left
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=True,
+    frame=["WSne+tsymmetric deviation +d", "xa2f1", "ya1f0.1"],
 )
 
-# Plot a symmetrical envelope ("+d")
+# Plot a symmetrical envelope based on the deviations ("+d")
 fig.plot(
     data=df,
     close="+d",
@@ -43,7 +57,7 @@ fig.plot(
 # Plot the data points on top
 fig.plot(
     data=df,
-    style="c0.2c",  # Circles with a diameter of 0.2 centimeters
+    style="c0.2c",  # Use circles with a diameter of 0.2 centimeters
     pen="1p,gray30",
     fill="darkgray",
 )
@@ -51,15 +65,18 @@ fig.plot(
 # Shift plot origin 11 centimeters in x direction
 fig.shift_origin(xshift="11c")
 
+#-----------------------------------------------------------------------------
+# Middle
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=["wSne", "xa2f1"],
+    frame=["WSne+tasymmetric deviation +D", "xa2f1", "yf0.1"],
 )
 
-# Plot an asymmetrical envelope ("+D")
+# Plot an asymmetrical envelope based on the deviations ("+D")
 fig.plot(
     data=df,
+    fill="gray@50",
     # Add an outline around the envelope
     # Here, a dashed pen (+p) with 0.5-points thickness and
     # "gray30" color is used
@@ -70,6 +87,32 @@ fig.plot(
 # Plot the data points on top
 fig.plot(
     data=df,
+    style="c0.2c",
+    pen="1p,gray30",
+    fill="darkgray",
+)
+
+# Shift plot origin 11 centimeters in x direction
+fig.shift_origin(xshift="11c")
+
+#-----------------------------------------------------------------------------
+# Right
+fig.basemap(
+    region=[0, 10, -1.5, 1.5],
+    projection="X10c",
+    frame=["wSnE+tbounds + b", "xa2f1", "ya1f0.1"],
+)
+
+# Plot an envelope based on the bounds ("+b")
+fig.plot(
+    data=df_bound,
+    close="+b+p0.5p,gray30,dashed",
+    pen="1p,gray30",
+)
+
+# Plot the data points on top
+fig.plot(
+    data=df_bound,
     style="c0.2c",
     pen="1p,gray30",
     fill="darkgray",
