@@ -24,6 +24,10 @@ on:
   schedule:
     - cron: '0 0 * * 2'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
@@ -39,12 +43,6 @@ jobs:
         shell: bash -l {0}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v3.5.3
