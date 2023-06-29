@@ -57,7 +57,7 @@ fig.basemap(
     frame=["wSne", "xa2f1"],
 )
 
-# Plot a asymmetrical envelope ("+D")
+# Plot an asymmetrical envelope ("+D")
 fig.plot(
     data=df,
     # Add an outline around the envelope
