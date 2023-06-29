@@ -25,11 +25,7 @@ x = np.array([1, 4])
 y = np.array([24, 24])
 
 fig = pygmt.Figure()
-fig.basemap(
-    region=[0, 10, 0, 24],
-    projection="X15c",
-    frame="+tDecorated Lines",
-)
+fig.basemap(region=[0, 10, 0, 24], projection="X15c", frame="+tDecorated Lines")
 
 # Plot different decorated lines
 for decoline in [
