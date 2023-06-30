@@ -104,7 +104,9 @@ def non_ascii_to_octal(argstr):
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
     - https://www.ascii-code.com/ISO-8859-1
     - https://en.wikipedia.org/wiki/Symbol_(typeface)
+    - https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
     - https://en.wikipedia.org/wiki/Zapf_Dingbats
+    - https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
     - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 
     Parameters
@@ -121,6 +123,8 @@ def non_ascii_to_octal(argstr):
     --------
     >>> non_ascii_to_octal("•‰“”±°ÿ")
     '\\31\\214\\216\\217\\261\\260\\377'
+    >>> non_ascii_to_octal("αζΔΩ∑∏∇")
+    '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\345@~@~\\325@~@~\\321@~'
     >>> non_ascii_to_octal("αζ∆Ω∑∏∇")
     '@~\\141@~@~\\172@~@~\\104@~Ω@~\\345@~@~\\325@~@~\\321@~'
     >>> non_ascii_to_octal("✁❞❡➾")
