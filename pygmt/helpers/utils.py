@@ -96,7 +96,8 @@ def non_ascii_to_octal(argstr):
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
 
-    Currently, only the ISOLatin1+ character set is supported.
+    Currently, only characters in the ISOLatin1+ charset and
+    Symbol/ZapfDingbats fonts are supported.
 
     References:
 
@@ -135,7 +136,7 @@ def non_ascii_to_octal(argstr):
         {
             c: "@~\\" + format(i, "o") + "@~"
             for c, i in zip(
-                "!∀#∃%&∋()∗+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙθΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυϖωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
+                "!∀#∃%&∋()*+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙϑΚΛMΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυϖωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
                 [*range(33, 127), *range(160, 255)],
             )
         }
