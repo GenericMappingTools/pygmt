@@ -104,6 +104,7 @@ def non_ascii_to_octal(argstr):
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
     - https://www.ascii-code.com/ISO-8859-1
     - https://en.wikipedia.org/wiki/Symbol_(typeface)
+    - https://en.wikipedia.org/wiki/Zapf_Dingbats
     - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 
     Parameters
