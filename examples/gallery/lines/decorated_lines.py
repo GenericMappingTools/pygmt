@@ -4,7 +4,9 @@ Decorated lines
 To draw a so-called *decorated line*, i.e., symbols along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"~"`` and the
-desired modifiers. This example shows how to adjust the symbols.
+desired modifiers. A colon (``":"``) is used to separate the
+algorithm settings from the symbol information.
+ This example shows how to adjust the symbols.
 Beside the build-in symbols also custom symbols can be used.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
