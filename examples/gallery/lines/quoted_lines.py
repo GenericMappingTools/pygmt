@@ -4,7 +4,9 @@ Quoted lines
 To plot a so-called *quoted line*, i.e., labels along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"q"`` and the
-desired modifiers. This example shows how to adjust the labels.
+desired modifiers. A colon (``":"``) is used to separate the
+algorithm settings from the label information.
+This example shows how to adjust the labels.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
