@@ -100,7 +100,8 @@ fig.shift_origin(xshift="11c")
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=["wSnE+tbounds + b", "xa2f1", "ya1f0.1"],
+    # Use "\\053" to handle "+b" as string not as a modifier
+    frame=["wSnE+tbounds +\\053b", "xa2f1", "ya1f0.1"],
 )
 
 # Plot an envelope based on the bounds ("+b")
