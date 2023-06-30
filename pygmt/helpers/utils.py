@@ -103,6 +103,7 @@ def non_ascii_to_octal(argstr):
 
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
     - https://www.ascii-code.com/ISO-8859-1
+    - https://en.wikipedia.org/wiki/Symbol_(typeface)
     - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 
     Parameters
@@ -136,7 +137,7 @@ def non_ascii_to_octal(argstr):
         {
             c: "@~\\" + format(i, "o") + "@~"
             for c, i in zip(
-                "!∀#∃%&∋()*+,−./0123456789:;<=>?≅ΑΒΧ∆ΕΦΓΗΙϑΚΛMΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_αβχδεφγηιφκλμνοπθρστυϖωξψζ{|}∼€Υ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…↵אIR℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈∑ 〉∫⌠⌡",
+                "!∀#∃%&∋()*+,−./0123456789:;<=>?≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_‾αβχδεφγηιϕκλμνοπθρστυϖωξψζ{|}~€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…⏐⎯↵ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈®©™∑⎛⎜⎝⎡⎢⎣⎧⎨⎩⎪ 〉∫⌠⎮⌡⎞⎟⎠⎤⎥⎦⎫⎬⎭",
                 [*range(33, 127), *range(160, 255)],
             )
         }
