@@ -103,10 +103,6 @@ def non_ascii_to_octal(argstr):
 
     - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
     - https://www.ascii-code.com/ISO-8859-1
-    - https://en.wikipedia.org/wiki/Symbol_(typeface)
-    - https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
-    - https://en.wikipedia.org/wiki/Zapf_Dingbats
-    - https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
     - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
 
     Parameters
@@ -123,10 +119,8 @@ def non_ascii_to_octal(argstr):
     --------
     >>> non_ascii_to_octal("•‰“”±°ÿ")
     '\\31\\214\\216\\217\\261\\260\\377'
-    >>> non_ascii_to_octal("αζΔΩ∑∏∇")
-    '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\345@~@~\\325@~@~\\321@~'
-    >>> non_ascii_to_octal("αζ∆Ω∑∏∇")
-    '@~\\141@~@~\\172@~@~\\104@~Ω@~\\345@~@~\\325@~@~\\321@~'
+    >>> non_ascii_to_octal("αζΔΩ∑π∇")
+    '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\344@~@~\\160@~@~\\321@~'
     >>> non_ascii_to_octal("✁❞❡➾")
     '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
@@ -137,24 +131,52 @@ def non_ascii_to_octal(argstr):
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
-    # Symbol charset: \041-\176 and \240-\376
+    # Symbol charset
+    # References:
+    # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
+    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
     mapping.update(
         {
             c: "@~\\" + format(i, "o") + "@~"
             for c, i in zip(
-                "!∀#∃%&∋()*+,−./0123456789:;<=>?≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_‾αβχδεφγηιϕκλμνοπθρστυϖωξψζ{|}~€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓°±″≥×∝∂•÷≠≡≈…⏐⎯↵ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓◊〈®©™∑⎛⎜⎝⎡⎢⎣⎧⎨⎩⎪ 〉∫⌠⎮⌡⎞⎟⎠⎤⎥⎦⎫⎬⎭",
-                [*range(33, 127), *range(160, 255)],
+                " !∀#∃%&∋()∗+,−./"  # \04x-05x
+                + "0123456789:;<=>?"  # \06x-07x
+                + "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
+                + "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
+                + "αβχδεφγηιϕκλμνο"  # \14x-15x
+                + "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
+                + "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
+                + "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
+                + "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
+                + "∠∇√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
+                + "◊〈∑"  # \34x-35x
+                + "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
+                [*range(32, 127), *range(160, 240), *range(241, 255)],
             )
         }
     )
 
-    # ZapfDingbats charset: \041-\176 and \240-\376
+    # ZapfDingbats charset
+    # References:
+    # 1. https://en.wikipedia.org/wiki/Zapf_Dingbats
+    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
     mapping.update(
         {
             c: "@%34%\\" + format(i, "o") + "@%%"
             for c, i in zip(
-                "✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞❡❢❣❤❥❦❧♣♦♥♠①②③④⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯ ➱➲➳➴➵➶➷➸➹➺➻➼➽➾",
-                [*range(33, 127), *range(161, 255)],
+                " ✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏"  # \04x-\05x
+                + "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
+                + "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
+                + "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
+                + "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
+                + "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
+                + "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
+                + "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
+                + "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
+                + "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
+                + "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
+                + "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
+                [*range(32, 127), *range(161, 240), *range(241, 255)],
             )
         }
     )
