@@ -72,7 +72,7 @@ fig.show()
 
 ###############################################################################
 # For curved labels following the line, append ``"+v"`` to the argument passed
-# to the `style` parameter.
+# to the ``style`` parameter.
 
 # Generate sinus curve
 x = np.arange(0, 10 * np.pi, 0.1)
