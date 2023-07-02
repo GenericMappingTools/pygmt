@@ -130,10 +130,11 @@ def non_ascii_to_octal(argstr):
     # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
     # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
     # Notes:
-    # \322 and \342 are "REGISTERED SIGN SERIF" and "REGISTERED SIGN SANS SERIF"
-    # respectively, but only "REGISTERED SIGN" is available in the unicode table.
-    # So both are mapped to "REGISTERED SIGN".
-    # \323, \343, \324 and \344 also have the same problem.
+    # 1. \322 and \342 are "REGISTERED SIGN SERIF" and "REGISTERED SIGN SANS SERIF"
+    #    respectively, but only "REGISTERED SIGN" is available in the unicode table.
+    #    So both are mapped to "REGISTERED SIGN". \323, \343, \324 and \344 also
+    #    have the same problem.
+    # 2. Characters for \140, \275, \276 are incorrect.
     mapping.update(
         {
             c: "@~\\" + format(i, "o") + "@~"
