@@ -7,7 +7,7 @@ or curve, use the ``style`` parameter of the
 desired modifiers. A colon (``":"``) is used to separate the
 algorithm settings from the label information.
 This example shows how to adjust the labels.
-For modifying the base line via the ``pen`` parameter, see the
+For modifying the baseline via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
@@ -27,7 +27,7 @@ fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tQuoted Lines"
 for quotedline in [
     # Line with labels ("+l") "text" in distance ("d") of 1 centimeter
     "qd1c:+ltext",
-    # Suppress base line by appending "+i"
+    # Suppress baseline by appending "+i"
     "qd1c:+ltext+i",
     # Give the number of equally spaced labels by using "n" instead of "d"
     "qn5:+ltext",
@@ -39,7 +39,7 @@ for quotedline in [
     "qN+1:+ltext",
     # Adjust the justification of the labels via "+j", here Top Center
     "qd1c:+ltext+jTC",
-    # Shift labels using "+n" in x and y directions relative to the base line
+    # Shift labels using "+n" in x and y directions relative to the baseline
     "qd1c:+ltext+n-0.5c/0.1c",
     # Rotate labels via "+a" (counter-clockwise from horizontal)
     "qd1c:+ltext+a20",
