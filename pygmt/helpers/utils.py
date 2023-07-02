@@ -99,12 +99,6 @@ def non_ascii_to_octal(argstr):
     Currently, only characters in the ISOLatin1+ charset and
     Symbol/ZapfDingbats fonts are supported.
 
-    References:
-
-    - https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
-    - https://www.ascii-code.com/ISO-8859-1
-    - https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
-
     Parameters
     ----------
     argstr : str
@@ -181,17 +175,24 @@ def non_ascii_to_octal(argstr):
         }
     )
 
-    # ISOLatin1+ charset: \031-\037 and \177-\237
+    # Adobe ISOLatin1+ charset (i.e., ISO-8859-1 with extensions)
+    # References:
+    # 1. https://en.wikipedia.org/wiki/ISO/IEC_8859-1
+    # 2. https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
+    # 3. https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
     mapping.update(
         {
             c: "\\" + format(i, "o")
             for c, i in zip(
-                "•…™—–ﬁžšŒ†‡Ł⁄‹Š›œŸŽł‰„“”ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",
+                "•…™—–ﬁž"  # \03x. \030 is undefined
+                + "š"  # \177
+                + "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
+                + "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
                 [*range(25, 32), *range(127, 160)],
             )
         }
     )
-    # ISOLatin1+ charset: \240-\377
+    # \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
 
     # Remove any printable characters
