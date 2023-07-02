@@ -7,7 +7,7 @@ or curve, use the ``style`` parameter of the
 desired modifiers. A colon (``":"``) is used to separate the
 algorithm settings from the symbol information.
  This example shows how to adjust the symbols.
-Beside the build-in symbols also custom symbols can be used.
+Beside the built-in symbols also custom symbols can be used.
 For modifying the base line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
