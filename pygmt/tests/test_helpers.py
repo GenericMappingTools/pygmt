@@ -60,6 +60,9 @@ def test_unique_name():
 
 @pytest.mark.mpl_image_compare
 def test_non_ascii_to_octal():
+    """
+    Test support of non-ASCII characters.
+    """
     fig = Figure()
     fig.basemap(
         region=[0, 10, 0, 5],
