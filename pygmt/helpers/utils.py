@@ -129,6 +129,11 @@ def non_ascii_to_octal(argstr):
     # References:
     # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
     # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
+    # Notes:
+    # \322 and \342 are "REGISTERED SIGN SERIF" and "REGISTERED SIGN SANS SERIF"
+    # respectively, but only "REGISTERED SIGN" is available in the unicode table.
+    # So both are mapped to "REGISTERED SIGN".
+    # \323, \343, \324 and \344 also have the same problem.
     mapping.update(
         {
             c: "@~\\" + format(i, "o") + "@~"
@@ -142,8 +147,8 @@ def non_ascii_to_octal(argstr):
                 + "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
                 + "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
                 + "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
-                + "∠∇√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
-                + "◊〈∑"  # \34x-35x
+                + "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
+                + "◊〈®©™∑"  # \34x-35x
                 + "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
                 [*range(32, 127), *range(160, 240), *range(241, 255)],
             )
