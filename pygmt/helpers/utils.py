@@ -130,10 +130,11 @@ def non_ascii_to_octal(argstr):
     # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
     # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
     # Notes:
-    # 1. \322 and \342 are "REGISTERED SIGN SERIF" and "REGISTERED SIGN SANS SERIF"
-    #    respectively, but only "REGISTERED SIGN" is available in the unicode table.
-    #    So both are mapped to "REGISTERED SIGN". \323, \343, \324 and \344 also
-    #    have the same problem.
+    # 1. \322 and \342 are "REGISTERED SIGN SERIF" and
+    #    "REGISTERED SIGN SANS SERIF" respectively, but only "REGISTERED SIGN"
+    #    is available in the unicode table. So both are mapped to
+    #    "REGISTERED SIGN". \323, \343, \324 and \344 also have the same
+    #    problem.
     # 2. Characters for \140, \275, \276 are incorrect.
     mapping.update(
         {
@@ -184,7 +185,7 @@ def non_ascii_to_octal(argstr):
     # Adobe ISOLatin1+ charset (i.e., ISO-8859-1 with extensions)
     # References:
     # 1. https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-    # 2. https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html
+    # 2. https://docs.generic-mapping-tools.org/dev/cookbook/octal-codes.html
     # 3. https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
     mapping.update(
         {
