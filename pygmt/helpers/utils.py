@@ -131,7 +131,7 @@ def non_ascii_to_octal(argstr):
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
-    # Symbol charset
+    # Adobe Symbol charset
     # References:
     # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
     # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
@@ -156,7 +156,7 @@ def non_ascii_to_octal(argstr):
         }
     )
 
-    # ZapfDingbats charset
+    # Adobe ZapfDingbats charset
     # References:
     # 1. https://en.wikipedia.org/wiki/Zapf_Dingbats
     # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
