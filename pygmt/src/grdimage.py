@@ -5,6 +5,7 @@ import contextlib
 
 from pygmt.clib import Session
 from pygmt.helpers import (
+    GMTTempFile,
     build_arg_string,
     data_kind,
     fmt_docstring,
@@ -179,17 +180,25 @@ def grdimage(self, grid, **kwargs):
     >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with contextlib.ExitStack() as stack:
-            # shading using an xr.DataArray
-            if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
-                shading_context = lib.virtualfile_from_data(
-                    check_kind="raster", data=kwargs["I"]
-                )
-                kwargs["I"] = stack.enter_context(shading_context)
 
-            fname = stack.enter_context(file_context)
-            lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=fname)
-            )
+    with GMTTempFile(suffix=".tif") as tmpfile:
+        if hasattr(grid, "dims") and len(grid.dims) == 3:
+            grid.rio.to_raster(raster_path=tmpfile.name)
+            _grid = tmpfile.name
+        else:
+            _grid = grid
+
+        with Session() as lib:
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=_grid)
+            with contextlib.ExitStack() as stack:
+                # shading using an xr.DataArray
+                if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
+                    shading_context = lib.virtualfile_from_data(
+                        check_kind="raster", data=kwargs["I"]
+                    )
+                    kwargs["I"] = stack.enter_context(shading_context)
+
+                fname = stack.enter_context(file_context)
+                lib.call_module(
+                    module="grdimage", args=build_arg_string(kwargs, infile=fname)
+                )
