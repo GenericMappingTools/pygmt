@@ -154,12 +154,17 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
             "Please provide either one of 'figsize' or 'subsize' only."
         )
 
-    with Session() as lib:
-        try:
+    # Need to use separate sessions for "subplot begin" and "subplot end".
+    # Otherwise, "subplot end" will use the last session, which may cause
+    # strange positioning issues for later plotting calls.
+    # See https://github.com/GenericMappingTools/pygmt/issues/2426.
+    try:
+        with Session() as lib:
             arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
             lib.call_module(module="subplot", args=arg_str)
             yield
-        finally:
+    finally:
+        with Session() as lib:
             v_arg = build_arg_string({"V": kwargs.get("V")})
             lib.call_module(module="subplot", args=f"end {v_arg}")
 

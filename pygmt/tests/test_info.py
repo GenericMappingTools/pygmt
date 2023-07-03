@@ -1,5 +1,5 @@
 """
-Tests for gmtinfo.
+Test pygmt.info.
 """
 import os
 import pathlib

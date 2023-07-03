@@ -1,5 +1,5 @@
 """
-Tests plot3d.
+Test Figure.plot3d.
 """
 import os
 from pathlib import Path
@@ -33,8 +33,7 @@ def fixture_region():
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zscale(data, region):
     """
-    Plot the 3-D data in red circles passing in vectors and setting
-    zscale = 5
+    Plot the 3-D data in red circles passing in vectors and setting zscale=5.
     """
     fig = Figure()
     fig.plot3d(
@@ -55,8 +54,7 @@ def test_plot3d_red_circles_zscale(data, region):
 @pytest.mark.mpl_image_compare
 def test_plot3d_red_circles_zsize(data, region):
     """
-    Plot the 3-D data in red circles passing in vectors and setting
-    zsize = "6c"
+    Plot the 3-D data in red circles passing in vectors and setting zsize="6c".
     """
     fig = Figure()
     fig.plot3d(
@@ -104,7 +102,7 @@ def test_plot3d_projection(data, region):
         zscale=5,
         perspective=[225, 30],
         region=region,
-        projection="R270/10c",
+        projection="R40/10c",
         style="s1c",
         fill="green",
         frame=["ag", "zag"],

@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "BSD License"}
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
@@ -16,7 +16,7 @@ keywords = [
     "geophysics",
     "geospatial",
     "oceanography",
-    "seismology"
+    "seismology",
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -25,25 +25,26 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.20",
+    "numpy>=1.22",
     "pandas",
     "xarray",
     "netCDF4",
-    "packaging"
+    "packaging",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
 all = [
+    "contextily",
     "geopandas",
-    "ipython"
+    "ipython",
+    "rioxarray",
 ]
 
 [project.urls]
@@ -74,6 +75,7 @@ line-length = 79
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
 [tool.docformatter]
+black = true
 recursive = true
 pre-summary-newline = true
 make-summary-multi-line = true

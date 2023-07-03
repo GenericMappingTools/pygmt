@@ -7,7 +7,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -16,7 +15,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("incols", "use_word", "v0.8.0", remove_version="v0.10.0")
 @use_alias(
     R="region",
     J="projection",
@@ -25,7 +23,6 @@ from pygmt.helpers import (
     D="offset",
     G="fill",
     N="no_clip",
-    U="timestamp",
     V="verbose",
     W="pen",
     a="aspatial",
@@ -81,7 +78,7 @@ def text_(
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
     position : str
-        Sets reference point on the map for the text by using x, y
+        Set reference point on the map for the text by using x, y
         coordinates extracted from ``region`` instead of providing them
         through ``x``/``y``. Specify with a two-letter (order independent)
         code, chosen from:
@@ -134,7 +131,7 @@ def text_(
         Set color for filling text boxes [Default is no fill].
     offset : str
         [**j**\|\ **J**]\ *dx*\[/*dy*][**+v**\[*pen*]].
-        Offsets the text from the projected (x, y) point by *dx*/\ *dy*
+        Offset the text from the projected (x, y) point by *dx*/\ *dy*
         [Default is ``"0/0"``].
         If *dy* is not specified then it is set equal to *dx*. Use **j** to
         offset the text away from the point instead (i.e., the text
@@ -144,11 +141,11 @@ def text_(
         point to the shifted point; append a pen to change the attributes
         for this line.
     pen : str
-        Sets the pen used to draw a rectangle around the text string
+        Set the pen used to draw a rectangle around the text string
         (see ``clearance``) [Default is ``"0.25p,black,solid"``].
     no_clip : bool
-        Do NOT clip text at map boundaries [Default is with clip].
-    {timestamp}
+        Do **not** clip text at the frame boundaries [Default is
+        ``False``].
     {verbose}
     {aspatial}
     {panel}

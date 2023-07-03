@@ -29,7 +29,6 @@ __doctest_skip__ = ["grdimage"]
     N="no_clip",
     Q="nan_transparent",
     R="region",
-    U="timestamp",
     V="verbose",
     n="interpolation",
     c="panel",
@@ -113,11 +112,12 @@ def grdimage(self, grid, **kwargs):
         to project a raw image (an image without referencing coordinates).
     dpi : int
         [**i**\|\ *dpi*].
-        Sets the resolution of the projected grid that will be created if a
-        map projection other than Linear or Mercator was selected [100]. By
-        default, the projected grid will be of the same size (rows and
-        columns) as the input file. Specify **i** to use the PostScript
-        image operator to interpolate the image at the device resolution.
+        Set the resolution of the projected grid that will be created if a
+        map projection other than Linear or Mercator was selected [Default
+        is ``100`` dpi]. By default, the projected grid will be of the
+        same size (rows and columns) as the input file. Specify **i** to
+        use the PostScript image operator to interpolate the image at the
+        device resolution.
     bit_color : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
@@ -146,12 +146,16 @@ def grdimage(self, grid, **kwargs):
         Force conversion to monochrome image using the (television) YIQ
         transformation. Cannot be used with ``nan_transparent``.
     no_clip : bool
-        Do not clip the image at the map boundary (only relevant for
-        non-rectangular maps).
-    nan_transparent : bool
+        Do **not** clip the image at the frame boundaries (only relevant
+        for non-rectangular maps) [Default is ``False``].
+    nan_transparent : bool or str
+        [**+z**\ *value*][*color*]
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
-        3).
+        3). If the input is a grid, use **+z** with a *value* to select
+        another grid value than NaN. If the input is instead an image,
+        append an alternate *color* to select another pixel value to be
+        transparent [Default is ``"black"``].
     {region}
     {verbose}
     {panel}
@@ -173,7 +177,6 @@ def grdimage(self, grid, **kwargs):
     >>> fig.grdimage(grid=grid, cmap="geo", projection="W10c", frame="ag")
     >>> # show the plot
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     with Session() as lib:

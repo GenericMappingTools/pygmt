@@ -1,5 +1,5 @@
 """
-Tests for sphdistance.
+Test pygmt.sphdistance.
 """
 from pathlib import Path
 

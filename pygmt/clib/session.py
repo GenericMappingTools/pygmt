@@ -6,7 +6,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
 import sys
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -25,28 +25,41 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
 
 FAMILIES = [
-    "GMT_IS_DATASET",
-    "GMT_IS_GRID",
-    "GMT_IS_PALETTE",
-    "GMT_IS_MATRIX",
-    "GMT_IS_VECTOR",
+    "GMT_IS_DATASET",  # Entity is a data table
+    "GMT_IS_GRID",  # Entity is a grid
+    "GMT_IS_IMAGE",  # Entity is a 1- or 3-band unsigned char image
+    "GMT_IS_PALETTE",  # Entity is a color palette table
+    "GMT_IS_POSTSCRIPT",  # Entity is a PostScript content struct
+    "GMT_IS_MATRIX",  # Entity is a user matrix
+    "GMT_IS_VECTOR",  # Entity is a set of user vectors
+    "GMT_IS_CUBE",  # Entity is a 3-D data cube
 ]
 
-VIAS = ["GMT_VIA_MATRIX", "GMT_VIA_VECTOR"]
+VIAS = [
+    "GMT_VIA_MATRIX",  # dataset is passed as a matrix
+    "GMT_VIA_VECTOR",  # dataset is passed as a set of vectors
+]
 
 GEOMETRIES = [
-    "GMT_IS_NONE",
-    "GMT_IS_POINT",
-    "GMT_IS_LINE",
-    "GMT_IS_POLYGON",
-    "GMT_IS_PLP",
-    "GMT_IS_SURFACE",
+    "GMT_IS_NONE",  # items without geometry (e.g., CPT)
+    "GMT_IS_POINT",  # items are points
+    "GMT_IS_LINE",  # items are lines
+    "GMT_IS_POLY",  # items are polygons
+    "GMT_IS_LP",  # items could be any one of LINE or POLY
+    "GMT_IS_PLP",  # items could be any one of POINT, LINE, or POLY
+    "GMT_IS_SURFACE",  # items are 2-D grid
+    "GMT_IS_VOLUME",  # items are 3-D grid
 ]
 
-METHODS = ["GMT_IS_DUPLICATE", "GMT_IS_REFERENCE"]
+METHODS = [
+    "GMT_IS_DUPLICATE",  # tell GMT the data are read-only
+    "GMT_IS_REFERENCE",  # tell GMT to duplicate the data
+]
+
+DIRECTIONS = ["GMT_IN", "GMT_OUT"]
 
 MODES = ["GMT_CONTAINER_ONLY", "GMT_IS_OUTPUT"]
 
@@ -166,10 +179,16 @@ class Session:
                 "plugin dir": self.get_default("API_PLUGINDIR"),
                 "library path": self.get_default("API_LIBRARY"),
                 "cores": self.get_default("API_CORES"),
-                # API_IMAGE_LAYOUT not defined if GMT is not compiled with GDAL
-                # "image layout": self.get_default("API_IMAGE_LAYOUT"),
                 "grid layout": self.get_default("API_GRID_LAYOUT"),
             }
+            # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
+            # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
+            # dependency. The try-except block can be refactored after we bump
+            # the minimum required GMT version to 6.4.0.
+            try:
+                self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
+            except GMTCLibError:
+                pass
             # API_BIN_VERSION is new in GMT 6.4.0.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
@@ -430,7 +449,7 @@ class Session:
 
         Possible default parameter names include:
 
-        * ``"API_VERSION"``: The GMT version
+        * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
         * ``"API_BINDIR"``: The binary file directory
         * ``"API_SHAREDIR"``: The share directory
@@ -440,6 +459,7 @@ class Session:
         * ``"API_CORES"``: The number of cores
         * ``"API_IMAGE_LAYOUT"``: The image/band layout
         * ``"API_GRID_LAYOUT"``: The grid layout
+        * ``"API_BIN_VERSION"``: The GMT binary version (with git information)
 
         Parameters
         ----------
@@ -473,6 +493,97 @@ class Session:
             )
 
         return value.value.decode()
+
+    def get_common(self, option):
+        """
+        Inquire if a GMT common option has been set and return its current
+        value if possible.
+
+        Parameters
+        ----------
+        option : str
+            The GMT common option to check. Valid options are ``"B"``, ``"I"``,
+            ``"J"``, ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``,
+            ``"b"``, ``"f"``, ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``,
+            ``"p"``, ``"r"``, ``"s"``, ``"t"``, and ``":"``.
+
+        Returns
+        -------
+        value : bool, int, float, or numpy.ndarray
+            Whether the option was set or its value.
+
+            If the option was not set, return ``False``. Otherwise,
+            the return value depends on the choice of the option.
+
+            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
+              and ``"s"``: return ``True`` if set, else ``False`` (bool)
+            - ``"I"``: 2-element array for the increments (float)
+            - ``"R"``: 4-element array for the region (float)
+            - ``"V"``: the verbose level (int)
+            - ``"X"``: the xshift (float)
+            - ``"Y"``: the yshift (float)
+            - ``"a"``: geometry of the dataset (int)
+            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
+            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
+            - ``"h"``: whether to delete existing header records (int)
+            - ``"i"``: number of input columns (int)
+            - ``"o"``: number of output columns (int)
+            - ``"r"``: registration type (int)
+            - ``"t"``: 2-element array for the transparency (float)
+            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
+
+        Examples
+        --------
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     region = lib.get_common("R")
+        ...     projection = lib.get_common("J")
+        ...     timestamp = lib.get_common("U")
+        ...     verbose = lib.get_common("V")
+        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
+        ...     yshift = lib.get_common("Y")
+        ...
+        >>> print(region, projection, timestamp, verbose, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.get_common("A")
+        ...
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
+        """
+        if option not in "BIJRUVXYabfghinoprst:":
+            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+
+        c_get_common = self.get_libgmt_func(
+            "GMT_Get_Common",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
+            restype=ctp.c_int,
+        )
+        value = np.empty(6)  # numpy array to store the value of the option
+        status = c_get_common(
+            self.session_pointer,
+            ord(option),
+            value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
+
+        # GMT_NOTSET (-1) means the option is not set
+        if status == self["GMT_NOTSET"]:
+            return False
+        # option is set and no other value is returned
+        if status == 0:
+            return True
+        # option is set and option values (in double type) are returned via the
+        # 'value' array. 'status' is number of valid values in the array.
+        if option in "IRt":
+            return value[:status]
+        if option in "XY":  # only one valid element in the array
+            return value[0]
+        # option is set and the option value (in integer type) is returned via
+        # the function return value (i.e., 'status')
+        return status
 
     def call_module(self, module, args):
         """
@@ -725,7 +836,7 @@ class Session:
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = array_to_datetime(array)
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -978,12 +1089,12 @@ class Session:
     @contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
-        Open a GMT Virtual File to pass data to and from a module.
+        Open a GMT virtual file to pass data to and from a module.
 
-        GMT uses a virtual file scheme to pass in data to API modules. Use it
-        to pass in your GMT data structure (created using
+        GMT uses a virtual file scheme to pass in data or get data from API
+        modules. Use it to pass in your GMT data structure (created using
         :meth:`pygmt.clib.Session.create_data`) to a module that expects an
-        input or output file.
+        input file, or get the output from a module that writes to a file.
 
         Use in a ``with`` block. Will automatically close the virtual file when
         leaving the ``with`` block. Because of this, no wrapper for
@@ -992,19 +1103,21 @@ class Session:
         Parameters
         ----------
         family : str
-            A valid GMT data family name (e.g., ``'GMT_IS_DATASET'``). Should
+            A valid GMT data family name (e.g., ``"GMT_IS_DATASET"``). Should
             be the same as the one you used to create your data structure.
         geometry : str
-            A valid GMT data geometry name (e.g., ``'GMT_IS_POINT'``). Should
+            A valid GMT data geometry name (e.g., ``"GMT_IS_POINT"``). Should
             be the same as the one you used to create your data structure.
         direction : str
-            Either ``'GMT_IN'`` or ``'GMT_OUT'`` to indicate if passing data to
+            Either ``"GMT_IN"`` or ``"GMT_OUT"`` to indicate if passing data to
             GMT or getting it out of GMT, respectively.
             By default, GMT can modify the data you pass in. Add modifier
-            ``'GMT_IS_REFERENCE'`` to tell GMT the data are read-only, or
-            ``'GMT_IS_DUPLICATE'`` to tell GMT to duplicate the data.
-        data : int
-            The ctypes void pointer to your GMT data structure.
+            ``"GMT_IS_REFERENCE"`` to tell GMT the data are read-only, or
+            ``"GMT_IS_DUPLICATE"`` to tell GMT to duplicate the data.
+        data : int or None
+            The ctypes void pointer to your GMT data structure. For output
+            (i.e., ``direction="GMT_OUT"``), it can be ``None`` to have GMT
+            automatically allocate the output GMT data structure.
 
         Yields
         ------
@@ -1015,7 +1128,6 @@ class Session:
         --------
 
         >>> from pygmt.helpers import GMTTempFile
-        >>> import os
         >>> import numpy as np
         >>> x = np.array([0, 1, 2, 3, 4])
         >>> y = np.array([5, 6, 7, 8, 9])
@@ -1063,20 +1175,17 @@ class Session:
         family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
         direction_int = self._parse_constant(
-            direction, valid=["GMT_IN", "GMT_OUT"], valid_modifiers=METHODS
+            direction, valid=DIRECTIONS, valid_modifiers=METHODS
         )
 
         buff = ctp.create_string_buffer(self["GMT_VF_LEN"])
-
         status = c_open_virtualfile(
             self.session_pointer, family_int, geometry_int, direction_int, data, buff
         )
-
         if status != 0:
             raise GMTCLibError("Failed to create a virtual file.")
 
         vfname = buff.value.decode()
-
         try:
             yield vfname
         finally:
@@ -1433,7 +1542,7 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": dummy_context,
+            "file": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be

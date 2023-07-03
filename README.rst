@@ -92,13 +92,13 @@ Quickstart
 Installation
 ++++++++++++
 
-Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
-
-    conda install --channel conda-forge pygmt
-
-If you use `mamba <https://mamba.readthedocs.org/>`__::
+Simple installation using `mamba <https://mamba.readthedocs.org/>`__::
 
     mamba install --channel conda-forge pygmt
+
+If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
 
 For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
@@ -180,17 +180,18 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_7481934,
+    @software{pygmt_2023_7772533,
       author       = {Uieda, Leonardo and
                       Tian, Dongdong and
                       Leong, Wei Ji and
-                      Jones, Max and
                       Schlitzer, William and
                       Grund, Michael and
-                      Toney, Liam and
+                      Jones, Max and
                       Fröhlich, Yvonne and
+                      Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
+                      Tong, Jing-Hui and
                       Materna, Kathryn and
                       Belem, Andre and
                       Newton, Tyler and
@@ -199,20 +200,21 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = dec,
-      year         = 2022,
+      month        = mar,
+      year         = 2023,
       publisher    = {Zenodo},
-      version      = {0.8.0},
-      doi          = {10.5281/zenodo.7481934},
-      url          = {https://doi.org/10.5281/zenodo.7481934}
+      version      = {0.9.0},
+      doi          = {10.5281/zenodo.7772533},
+      url          = {https://doi.org/10.5281/zenodo.7772533}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
 https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
 It is also strongly recommended to cite the
-`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
-Note that some modules like ``surface`` and ``x2sys`` also have their dedicated citation.
-Further information for all these can be found at https://www.generic-mapping-tools.org/cite.
+`GMT 6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+Note that some modules like ``dimfilter``, ``surface``, and ``x2sys`` also have their
+dedicated citations. Further information for all these can be found at
+https://www.generic-mapping-tools.org/cite.
 
 
 License
@@ -260,9 +262,14 @@ Compatibility with GMT/Python/NumPy versions
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
+      - >=3.9
+      - >=1.22
+    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
+      - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
+      - >=6.3.0
       - >=3.8
-      - >=1.20
-    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_ (latest release)
+      - >=1.21
+    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_
       - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
       - >=6.3.0
       - >=3.8

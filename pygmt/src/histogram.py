@@ -21,7 +21,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     R="region",
     S="stairs",
     T="series",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="histtype",
@@ -62,16 +61,16 @@ def histogram(self, data, **kwargs):
     {panel}
     annotate : bool or str
         [**+b**][**+f**\ *font*][**+o**\ *off*][**+r**].
-        Annotate each bar with the count it represents.  Append any of the
+        Annotate each bar with the count it represents. Append any of the
         following modifiers: Use **+b** to place the labels beneath the bars
         instead of above; use **+f** to change to another font than the default
         annotation font; use **+o** to change the offset between bar and
-        label [6p]; use **+r** to rotate the labels from horizontal to
-        vertical.
+        label [Default is ``"6p"``]; use **+r** to rotate the labels from
+        horizontal to vertical.
     barwidth : int or float or str
         *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via
-        ``series``, and optionally shift all bars by an *offset*.  Here
+        ``series``, and optionally shift all bars by an *offset*. Here
         *width* is either an alternative width in data units, or the user may
         append a valid plot dimension unit (**c**\|\ **i**\|\ **p**) for a
         fixed dimension instead. Optionally, all bins may be shifted along the
@@ -82,7 +81,7 @@ def histogram(self, data, **kwargs):
     distribution : bool or int or float or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
-        *pen* [Default is 0.25p,black].
+        *pen* [Default is ``"0.25p,black,solid"``].
         The *mode* selects which central location and scale to use:
 
         * 0 = mean and standard deviation [Default];
@@ -95,13 +94,13 @@ def histogram(self, data, **kwargs):
     extreme : str
         **l**\|\ **h**\|\ **b**.
         The modifiers specify the handling of extreme values that fall outside
-        the range set by ``series``.  By default these values are ignored.
+        the range set by ``series``. By default, these values are ignored.
         Append **b** to let these values be included in the first or last
         bins. To only include extreme values below first bin into the first
         bin, use **l**, and to only include extreme values above the last bin
         into that last bin, use **h**.
     stairs : bool
-        Draws a stairs-step diagram which does not include the internal bars
+        Draw a stairs-step diagram which does not include the internal bars
         of the default histogram.
     horizontal : bool
         Plot the histogram using horizontal bars instead of the
@@ -122,7 +121,6 @@ def histogram(self, data, **kwargs):
 
         To use weights provided as a second data column instead of pure counts,
         append **+w**.
-    {timestamp}
     {verbose}
     {binary}
     {nodata}

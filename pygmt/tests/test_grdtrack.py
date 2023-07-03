@@ -1,5 +1,5 @@
 """
-Tests for grdtrack.
+Test pygmt.grdtrack.
 """
 import os
 from pathlib import Path

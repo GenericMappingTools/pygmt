@@ -34,6 +34,7 @@ Plotting map elements
     Figure.logo
     Figure.solar
     Figure.text
+    Figure.timestamp
 
 Plotting tabular data
 ~~~~~~~~~~~~~~~~~~~~~
@@ -61,6 +62,7 @@ Plotting raster data
     Figure.grdimage
     Figure.grdview
     Figure.image
+    Figure.tilemap
 
 Configuring layout
 ~~~~~~~~~~~~~~~~~~
@@ -227,6 +229,13 @@ and store them in GMT's user data directory.
     datasets.load_earth_vertical_gravity_gradient
     datasets.load_sample_data
 
+In addition, there is also a special function to load XYZ tile maps via
+:doc:`contextily <contextily:index>` to be used as base maps.
+
+.. autosummary::
+    :toctree: generated
+
+    datasets.load_tile_map
 
 .. currentmodule:: pygmt
 
@@ -293,6 +302,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.__enter__
     clib.Session.__exit__
     clib.Session.get_default
+    clib.Session.get_common
     clib.Session.create_data
     clib.Session.put_matrix
     clib.Session.put_strings

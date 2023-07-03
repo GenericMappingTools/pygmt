@@ -30,7 +30,6 @@ __doctest_skip__ = ["coast"]
     W="shorelines",
     G="land",
     S="water",
-    U="timestamp",
     V="verbose",
     c="panel",
     p="perspective",
@@ -77,7 +76,7 @@ def coast(self, **kwargs):
         strings in a list.
     resolution : str
         **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Selects the resolution of the data set to: (**f**\ )ull,
+        Select the resolution of the data set to: (**f**\ )ull,
         (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
         and (**c**\ )rude.
     land : str
@@ -128,7 +127,7 @@ def coast(self, **kwargs):
     map_scale : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
-        Draws a simple map scale centered on the reference point specified.
+        Draw a simple map scale centered on the reference point specified.
     borders : int or str or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
@@ -147,7 +146,6 @@ def coast(self, **kwargs):
         a = All boundaries (1-3)
     water : str
         Select filling or clipping of "wet" areas.
-    {timestamp}
     shorelines : int or str or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
@@ -202,7 +200,6 @@ def coast(self, **kwargs):
     ... )
     >>> # Show the plot
     >>> fig.show()
-    <IPython.core.display.Image object>
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
     if not args_in_kwargs(args=["C", "G", "S", "I", "N", "E", "Q", "W"], kwargs=kwargs):
