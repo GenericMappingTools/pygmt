@@ -1,5 +1,5 @@
 """
-Tests for filter1d.
+Test pygmt.filter1d.
 """
 from pathlib import Path
 

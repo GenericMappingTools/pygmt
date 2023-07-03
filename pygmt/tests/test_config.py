@@ -1,5 +1,5 @@
 """
-Tests for pygmt.config.
+Test pygmt.config.
 """
 import pytest
 from pygmt import Figure, config

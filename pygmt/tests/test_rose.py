@@ -1,5 +1,5 @@
 """
-Tests for rose.
+Test Figure.rose.
 """
 import numpy as np
 import pytest

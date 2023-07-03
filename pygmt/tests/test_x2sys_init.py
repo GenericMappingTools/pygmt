@@ -1,6 +1,6 @@
 # pylint: disable=unused-argument
 """
-Tests for x2sys_init.
+Test pygmt.x2sys_init.
 """
 import os
 from tempfile import TemporaryDirectory

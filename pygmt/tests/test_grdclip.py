@@ -1,5 +1,5 @@
 """
-Tests for grdclip.
+Test pygmt.grdclip.
 """
 from pathlib import Path
 

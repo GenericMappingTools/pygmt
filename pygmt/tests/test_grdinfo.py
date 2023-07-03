@@ -1,5 +1,5 @@
 """
-Tests for grdinfo.
+Test pygmt.grdinfo.
 """
 import numpy as np
 import pytest

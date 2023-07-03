@@ -1,5 +1,5 @@
 """
-Tests for fig.logo.
+Test Figure.logo.
 """
 import pytest
 from pygmt import Figure

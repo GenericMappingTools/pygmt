@@ -1,5 +1,5 @@
 """
-Tests for dimfilter.
+Test pygmt.dimfilter.
 """
 from pathlib import Path
 
