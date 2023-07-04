@@ -1,5 +1,5 @@
 """
-Tests for blockmean and blockmode.
+Test pygmt.blockmean and pygmt.blockmode.
 """
 from pathlib import Path
 

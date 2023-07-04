@@ -1,5 +1,5 @@
 """
-Tests for nearneighbor.
+Test pygmt.nearneighbor.
 """
 from pathlib import Path
 

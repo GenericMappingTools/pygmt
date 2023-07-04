@@ -1,10 +1,11 @@
 """
-Tests for meca.
+Test Figure.meca.
 """
 import numpy as np
 import pandas as pd
 import pytest
-from pygmt import Figure
+from packaging.version import Version
+from pygmt import Figure, __gmt_version__
 from pygmt.helpers import GMTTempFile
 
 
@@ -141,70 +142,93 @@ def test_meca_spec_multiple_focalmecha(inputtype):
     return fig
 
 
-@pytest.mark.mpl_image_compare
-def test_meca_dict_offset():
+@pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
+@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict"])
+def test_meca_offset(inputtype):
     """
-    Test offsetting beachballs for a dict input.
+    Test offsetting beachballs.
     """
+    if inputtype == "offset_args":
+        args = {
+            "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "plot_longitude": -124.5,
+            "plot_latitude": 47.5,
+        }
+    elif inputtype == "offset_dict":
+        # Test https://github.com/GenericMappingTools/pygmt/issues/2016
+        # offset parameters are in the dict.
+        args = {
+            "spec": {
+                "strike": 330,
+                "dip": 30,
+                "rake": 90,
+                "magnitude": 3,
+                "plot_longitude": -124.5,
+                "plot_latitude": 47.5,
+            },
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+        }
+
     fig = Figure()
-    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-        plot_longitude=-124.5,
-        plot_latitude=47.5,
-    )
+    fig.meca(scale="1c", **args)
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_meca_dict_offset.png")
-def test_meca_dict_offset_in_dict():
+# Passing event names via pandas doesn't work for GMT<=6.4, thus marked as
+# xfail. See https://github.com/GenericMappingTools/pygmt/issues/2524.
+@pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
+@pytest.mark.parametrize(
+    "inputtype",
+    [
+        "args",
+        pytest.param(
+            "dataframe",
+            marks=pytest.mark.skipif(
+                condition=Version(__gmt_version__) < Version("6.5.0"),
+                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
+            ),
+        ),
+    ],
+)
+def test_meca_eventname(inputtype):
     """
-    Test offsetting beachballs for a dict input with offset parameters in the
-    dict.
-
-    See https://github.com/GenericMappingTools/pygmt/issues/2016.
+    Test passing event names.
     """
+    if inputtype == "args":
+        args = {
+            "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
+            "longitude": -124,
+            "latitude": 48,
+            "depth": 12.0,
+            "event_name": "Event20220311",
+        }
+    elif inputtype == "dataframe":
+        # Test pandas.DataFrame input. Requires GMT>=6.5.
+        # See https://github.com/GenericMappingTools/pygmt/issues/2524.
+        # The numeric columns must be in float type to trigger the bug.
+        args = {
+            "spec": pd.DataFrame(
+                {
+                    "longitude": [-124.0],
+                    "latitude": [48.0],
+                    "depth": [12.0],
+                    "strike": [330.0],
+                    "dip": [30.0],
+                    "rake": [90.0],
+                    "magnitude": [3.0],
+                    "event_name": ["Event20220311"],
+                }
+            )
+        }
     fig = Figure()
-    focal_mechanism = {
-        "strike": 330,
-        "dip": 30,
-        "rake": 90,
-        "magnitude": 3,
-        "plot_longitude": -124.5,
-        "plot_latitude": 47.5,
-    }
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-    )
-    return fig
-
-
-@pytest.mark.mpl_image_compare
-def test_meca_dict_eventname():
-    """
-    Test offsetting beachballs for a dict input.
-    """
-    fig = Figure()
-    focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
-    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
-    fig.meca(
-        spec=focal_mechanism,
-        scale="1c",
-        longitude=-124,
-        latitude=48,
-        depth=12.0,
-        event_name="Event20220311",
-    )
+    fig.meca(scale="1c", **args)
     return fig
 
 
@@ -229,7 +253,7 @@ def test_meca_dict_offset_eventname():
     return fig
 
 
-@pytest.mark.mpl_image_compare(filename="test_meca_dict_eventname.png")
+@pytest.mark.mpl_image_compare(filename="test_meca_eventname.png")
 def test_meca_spec_dict_all_scalars():
     """
     Test supplying a dict with scalar values for all focal parameters.

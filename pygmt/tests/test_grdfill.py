@@ -1,5 +1,5 @@
 """
-Tests for grdfill.
+Test pygmt.grdfill.
 """
 from pathlib import Path
 
