@@ -11,11 +11,6 @@ from pygmt.helpers import (
     use_alias,
 )
 
-try:
-    import rioxarray
-except ImportError:
-    rioxarray = None
-
 
 @fmt_docstring
 @use_alias(
@@ -120,14 +115,6 @@ def tilemap(
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if rioxarray is None:
-        raise ImportError(
-            "Package `rioxarray` is required to be installed to use this function. "
-            "Please use `python -m pip install rioxarray` or "
-            "`mamba install -c conda-forge rioxarray` "
-            "to install the package."
-        )
-
     raster = load_tile_map(
         region=region,
         zoom=zoom,
@@ -148,9 +135,9 @@ def tilemap(
     if kwargs.get("N") in [None, False]:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
-    with GMTTempFile(suffix=".tif") as tmpfile:
-        raster.rio.to_raster(raster_path=tmpfile.name)
-        with Session() as lib:
+    with Session() as lib:
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=raster)
+        with file_context as infile:
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=tmpfile.name)
+                module="grdimage", args=build_arg_string(kwargs, infile=infile)
             )
