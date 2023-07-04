@@ -14,7 +14,63 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None, required_z=False):
+def _validate_data_input(data=None, x=None, y=None, z=None, required_z=False):
+    """
+    Check if the combination of data/x/y/z is valid.
+
+    Examples
+    --------
+    >>> _validate_data_input(data="infile")
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> _validate_data_input()
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: No input data provided.
+    >>> _validate_data_input(x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
+    >>> _validate_data_input(data="infile", x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", z=[7, 8, 9])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+
+    Raises
+    ------
+    GMTInvalidInput
+        If the data input is not valid.
+    """
+    if data is None:  # data is None
+        if x is None and y is None:  # both x and y are None
+            raise GMTInvalidInput("No input data provided.")
+        elif x is None or y is None:  # either x or y is None
+            raise GMTInvalidInput("Must provide both x and y.")
+        else:  # both x and y are not None
+            if required_z and z is None:
+                raise GMTInvalidInput("Must provide x, y, and z.")
+    else:  # data is not None
+        if x is not None or y is not None or z is not None:
+            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+
+
+def data_kind(data=None, x=None, y=None, z=None, required_z=False):
     """
     Check what kind of data is provided to a module.
 
@@ -64,14 +120,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
-    if data is None and x is None and y is None:
-        raise GMTInvalidInput("No input data provided.")
-    if data is not None and (x is not None or y is not None or z is not None):
-        raise GMTInvalidInput("Too much data. Use either data or x and y.")
-    if data is None and (x is None or y is None):
-        raise GMTInvalidInput("Must provide both x and y.")
-    if data is None and required_z and z is None:
-        raise GMTInvalidInput("Must provide x, y, and z.")
+    _validate_data_input(data=data, x=x, y=y, z=z, required_z=required_z)
 
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
