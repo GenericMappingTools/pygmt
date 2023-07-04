@@ -25,7 +25,12 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import (
+    data_kind,
+    fmt_docstring,
+    tempfile_from_geojson,
+    tempfile_from_image,
+)
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -1530,7 +1535,7 @@ class Session:
         """
         kind = data_kind(data, x, y, z, required_z=required_z)
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
+        if check_kind == "raster" and kind not in ("file", "grid", "image"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
         if check_kind == "vector" and kind not in (
             "file",
@@ -1545,6 +1550,7 @@ class Session:
             "file": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
+            "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
             # handling of string type inputs (e.g. for datetime data types)
@@ -1553,7 +1559,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid"):
+        if kind in ("geojson", "grid", "image"):
             _data = (data,)
         elif kind == "file":
             # Useful to handle `pathlib.Path` and string file path alike

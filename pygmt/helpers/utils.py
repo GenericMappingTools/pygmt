@@ -45,7 +45,7 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     Returns
     -------
     kind : str
-        One of: ``'file'``, ``'grid'``, ``'matrix'``, ``'vectors'``.
+        One of: ``'file'``, ``'grid'``, ``image``, ``'matrix'``, ``'vectors'``.
 
     Examples
     --------
@@ -63,6 +63,8 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
+    >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
+    'image'
     """
     if data is None and x is None and y is None:
         raise GMTInvalidInput("No input data provided.")
@@ -76,7 +78,10 @@ def data_kind(data, x=None, y=None, z=None, required_z=False):
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
-        kind = "grid"
+        if len(data.dims) == 3:
+            kind = "image"
+        else:
+            kind = "grid"
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
