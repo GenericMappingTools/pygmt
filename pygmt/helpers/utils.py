@@ -63,15 +63,15 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data="my-data-file.txt", x=None, y=None)
-    'file'
+    'file_or_arg'
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
-    'file'
+    'file_or_arg'
     >>> data_kind(data=None, x=None, y=None, optional_data=True)
-    'null'
+    'file_or_arg'
     >>> data_kind(data=2.0, x=None, y=None, optional_data=True)
-    'null'
+    'file_or_arg'
     >>> data_kind(data=True, x=None, y=None, optional_data=True)
-    'null'
+    'file_or_arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
@@ -91,11 +91,10 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
             raise GMTInvalidInput("Must provide x, y, and z.")
 
     # determine the data kind
-    if isinstance(data, (str, pathlib.PurePath)):
-        kind = "file"
-    elif optional_data and (data is None or isinstance(data, (bool, int, float))):
-        # a nullcontext will be created for "null" kind
-        kind = "null"
+    if isinstance(data, (str, pathlib.PurePath)) or (
+        optional_data and (data is None or isinstance(data, (bool, int, float)))
+    ):
+        kind = "file_or_arg"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
     elif hasattr(data, "__geo_interface__"):
