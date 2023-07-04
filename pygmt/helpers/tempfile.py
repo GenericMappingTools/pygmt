@@ -126,18 +126,27 @@ def tempfile_from_geojson(geojson):
         E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
+        # pylint: disable=import-outside-toplevel
+        import geopandas as gpd
+
         os.remove(tmpfile.name)  # ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
+            # Workaround to map int/int64 to int32
+            # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
+            # https://github.com/GenericMappingTools/pygmt/issues/2497
+            schema = gpd.io.file.infer_schema(geojson)
+            for col, dtype in schema["properties"].items():
+                if dtype in ("int", "int64"):
+                    schema["properties"][col] = "int32"
+            ogrgmt_kwargs["schema"] = schema
             # Using geopandas.to_file to directly export to OGR_GMT format
             geojson.to_file(**ogrgmt_kwargs)
         except AttributeError:
-            # pylint: disable=import-outside-toplevel
             # Other 'geo' formats which implement __geo_interface__
             import json
 
             import fiona
-            import geopandas as gpd
 
             with fiona.Env():
                 jsontext = json.dumps(geojson.__geo_interface__)
