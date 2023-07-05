@@ -14,7 +14,76 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=False):
+def _validate_data_input(
+    data=None, x=None, y=None, z=None, required_z=False, optional_data=False, kind=None
+):
+    """
+    Check if the combination of data/x/y/z is valid.
+
+    Examples
+    --------
+    >>> _validate_data_input(data="infile")
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> _validate_data_input()
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: No input data provided.
+    >>> _validate_data_input(x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide both x and y.
+    >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], required_z=True)
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
+    >>> _validate_data_input(data="infile", x=[1, 2, 3])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", y=[4, 5, 6])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+    >>> _validate_data_input(data="infile", z=[7, 8, 9])
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: Too much data. Use either data or x/y/z.
+
+    Raises
+    ------
+    GMTInvalidInput
+        If the data input is not valid.
+    """
+    if data is None:  # data is None
+        # both x and y are None and data is not optional
+        if x is None and y is None and not optional_data:
+            raise GMTInvalidInput("No input data provided.")
+        # either x or y is None
+        if x is None or y is None:
+            raise GMTInvalidInput("Must provide both x and y.")
+        # both x and y are not None, now check z
+        if required_z and z is None:
+            raise GMTInvalidInput("Must provide x, y, and z.")
+    else:  # data is not None
+        if x is not None or y is not None or z is not None:
+            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+        # For 'matrix' kind, check if data has the required z column
+        if kind == "matrix" and required_z:
+            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
+                if len(data.shape) == 1 and data.shape[0] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+                if len(data.shape) > 1 and data.shape[1] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
+                raise GMTInvalidInput("data must provide x, y, and z columns.")
+
+
+def data_kind(data=None, x=None, y=None, z=None, required_z=False, optional_data=False):
     """
     Check what kind of data is provided to a module.
 
@@ -75,21 +144,6 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
-    # pylint: disable=too-many-branches
-    # validate the combinations of data/x/y/z
-    if x is None and y is None:  # both x and y are not given
-        if data is None and not optional_data:
-            raise GMTInvalidInput("No input data provides")
-        if data is not None and z is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
-    elif x is None or y is None:  # either x or y is not given
-        raise GMTInvalidInput("Must provide both x and y.")
-    else:  # both x and y are given
-        if data is not None:
-            raise GMTInvalidInput("Too much data. Use either data or x and y.")
-        if required_z and z is None:
-            raise GMTInvalidInput("Must provide x, y, and z.")
-
     # determine the data kind
     if isinstance(data, (str, pathlib.PurePath)) or (
         optional_data and (data is None or isinstance(data, (bool, int, float)))
@@ -102,14 +156,18 @@ def data_kind(data, x=None, y=None, z=None, required_z=False, optional_data=Fals
         # (geopandas.GeoDataFrame or shapely.geometry)
         kind = "geojson"
     elif data is not None:
-        if required_z and (
-            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
-            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
-        ):
-            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
+    _validate_data_input(
+        data=data,
+        x=x,
+        y=y,
+        z=z,
+        required_z=required_z,
+        optional_data=optional_data,
+        kind=kind,
+    )
     return kind
 
 
