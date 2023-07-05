@@ -8,9 +8,6 @@ or curve. Typical use cases are weather fronts, fault lines,
 subduction zones, and more. To draw general symbols along a line or
 curve, i.e., a so-called *decorated line*, see the
 :doc:`Line fronts example </gallery/lines/decorated_lines>`.
-For modifying the main front line via the ``pen`` parameter, see the
-:doc:`Line styles example </gallery/lines/linestyles>`.
-
 
 A front can be drawn by passing **f**\[±]\ *gap*\[/*size*] to the ``style``
 parameter where *gap* defines the distance gap between the symbols and
@@ -31,6 +28,8 @@ the front by that amount [Default is 0]. The chosen symbol is drawn with
 the same pen as set for the line (i.e., via the ``pen`` parameter). To use
 an alternate pen, append **+p**\ *pen*. To skip the outline, just use
 **+p** with no argument. To make the main front line invisible, add **+i**.
+For modifying the main front line via the ``pen`` parameter, see the
+:doc:`Line styles example </gallery/lines/linestyles>`.
 """
 
 import numpy as np
