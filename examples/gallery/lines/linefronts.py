@@ -8,7 +8,7 @@ or curve. Typical use cases are weather fronts, fault lines,
 subduction zones, and more. To draw general symbols along a line or
 curve, i.e., a so-called *decorated line*, see the
 :doc:`Line fronts example </gallery/lines/decorated_lines>`.
-For modifying the baseline via the ``pen`` parameter, see the
+For modifying the main front line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 
 
