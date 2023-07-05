@@ -64,21 +64,20 @@ def _validate_data_input(
             raise GMTInvalidInput("No input data provided.")
         if x is None or y is None:  # either x or y is None
             raise GMTInvalidInput("Must provide both x and y.")
-        # both x and y are not None, now checks z
+        # both x and y are not None, now check z
         if required_z and z is None:
             raise GMTInvalidInput("Must provide x, y, and z.")
     else:  # data is not None
         if x is not None or y is not None or z is not None:
             raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+        # For 'matrix' kind, check if data has the required z column
         if kind == "matrix" and required_z:
-            # np.ndarray or pd.DataFrame
-            if hasattr(data, "shape"):
+            if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
                 if len(data.shape) == 1 and data.shape[0] < 3:
                     raise GMTInvalidInput("data must provide x, y, and z columns.")
                 if len(data.shape) > 1 and data.shape[1] < 3:
                     raise GMTInvalidInput("data must provide x, y, and z columns.")
-            # xr.Dataset
-            if hasattr(data, "data_vars") and len(data.data_vars) < 3:
+            if hasattr(data, "data_vars") and len(data.data_vars) < 3:  # xr.Dataset
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
