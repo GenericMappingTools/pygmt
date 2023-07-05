@@ -14,7 +14,9 @@ import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
 
-def _validate_data_input(data=None, x=None, y=None, z=None, required_z=False):
+def _validate_data_input(
+    data=None, x=None, y=None, z=None, required_z=False, kind=None
+):
     """
     Check if the combination of data/x/y/z is valid.
 
@@ -68,6 +70,16 @@ def _validate_data_input(data=None, x=None, y=None, z=None, required_z=False):
     else:  # data is not None
         if x is not None or y is not None or z is not None:
             raise GMTInvalidInput("Too much data. Use either data or x/y/z.")
+        if kind == "matrix" and required_z:
+            # np.ndarray or pd.DataFrame
+            if hasattr(data, "shape"):
+                if len(data.shape) == 1 and data.shape[0] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+                if len(data.shape) > 1 and data.shape[1] < 3:
+                    raise GMTInvalidInput("data must provide x, y, and z columns.")
+            # xr.Dataset
+            if hasattr(data, "data_vars") and len(data.data_vars) < 3:
+                raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
 def data_kind(data=None, x=None, y=None, z=None, required_z=False):
@@ -120,8 +132,6 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False):
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
-    _validate_data_input(data=data, x=x, y=y, z=z, required_z=required_z)
-
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
@@ -129,14 +139,10 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False):
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
-        if required_z and (
-            getattr(data, "shape", (3, 3))[1] < 3  # np.array, pd.DataFrame
-            or len(getattr(data, "data_vars", (0, 1, 2))) < 3  # xr.Dataset
-        ):
-            raise GMTInvalidInput("data must provide x, y, and z columns.")
         kind = "matrix"
     else:
         kind = "vectors"
+    _validate_data_input(data=data, x=x, y=y, z=z, required_z=required_z, kind=kind)
     return kind
 
 
