@@ -162,7 +162,7 @@ def grdview(self, grid, **kwargs):
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
         ) as fname, lib.virtualfile_from_data(
-            check_kind="raster", data=kwargs.get("G"), optional_data=True
+            check_kind="raster", data=kwargs.get("G"), required_data=False
         ) as drapegrid:
             kwargs["G"] = drapegrid
             lib.call_module(

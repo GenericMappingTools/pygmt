@@ -15,7 +15,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 def _validate_data_input(
-    data=None, x=None, y=None, z=None, required_z=False, optional_data=False, kind=None
+    data=None, x=None, y=None, z=None, required_z=False, required_data=True, kind=None
 ):
     """
     Check if the combination of data/x/y/z is valid.
@@ -25,6 +25,7 @@ def _validate_data_input(
     >>> _validate_data_input(data="infile")
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6])
     >>> _validate_data_input(x=[1, 2, 3], y=[4, 5, 6], z=[7, 8, 9])
+    >>> _validate_data_input(data=None, required_data=False)
     >>> _validate_data_input()
     Traceback (most recent call last):
         ...
@@ -61,7 +62,7 @@ def _validate_data_input(
     """
     if data is None:  # data is None
         # both x and y are None and data is not optional
-        if x is None and y is None and not optional_data:
+        if x is None and y is None and required_data:
             raise GMTInvalidInput("No input data provided.")
         # either x or y is None
         if x is None or y is None:
@@ -83,7 +84,7 @@ def _validate_data_input(
                 raise GMTInvalidInput("data must provide x, y, and z columns.")
 
 
-def data_kind(data=None, x=None, y=None, z=None, required_z=False, optional_data=False):
+def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data=True):
     """
     Check what kind of data is provided to a module.
 
@@ -111,8 +112,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, optional_data
         z column as numpy array. To be used optionally when x and y are given.
     required_z : bool
         State whether the 'z' column is required.
-    optional_data : bool
-        State whether 'data' is optional (useful for dealing with optional
+    required_data : bool
+        State whether 'data' is required (useful for dealing with optional
         virtual files).
 
     Returns
@@ -135,18 +136,18 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, optional_data
     'file_or_arg'
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file_or_arg'
-    >>> data_kind(data=None, x=None, y=None, optional_data=True)
+    >>> data_kind(data=None, x=None, y=None, required_data=False)
     'file_or_arg'
-    >>> data_kind(data=2.0, x=None, y=None, optional_data=True)
+    >>> data_kind(data=2.0, x=None, y=None, required_data=False)
     'file_or_arg'
-    >>> data_kind(data=True, x=None, y=None, optional_data=True)
+    >>> data_kind(data=True, x=None, y=None, required_data=False)
     'file_or_arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
     # determine the data kind
     if isinstance(data, (str, pathlib.PurePath)) or (
-        optional_data and (data is None or isinstance(data, (bool, int, float)))
+        not required_data and (data is None or isinstance(data, (bool, int, float)))
     ):
         kind = "file_or_arg"
     elif isinstance(data, xr.DataArray):
@@ -165,7 +166,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, optional_data
         y=y,
         z=z,
         required_z=required_z,
-        optional_data=optional_data,
+        required_data=required_data,
         kind=kind,
     )
     return kind

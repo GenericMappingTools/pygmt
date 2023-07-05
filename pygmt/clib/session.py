@@ -1475,7 +1475,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_z=False,
-        optional_data=False,
+        required_data=True,
     ):
         """
         Store any data inside a virtual file.
@@ -1500,7 +1500,7 @@ class Session:
             All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
-        optional_data : bool
+        required_data : bool
             State whether the 'data' is optional.
 
         Returns
@@ -1533,7 +1533,7 @@ class Session:
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
         kind = data_kind(
-            data, x, y, z, required_z=required_z, optional_data=optional_data
+            data, x, y, z, required_z=required_z, required_data=required_data
         )
 
         if check_kind == "raster" and kind not in ("file_or_arg", "grid"):
