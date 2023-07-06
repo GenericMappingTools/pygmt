@@ -117,8 +117,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     Returns
     -------
     kind : str
-        One of ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, ``'null'``,
-        or ``'vectors'``.
+        One of ``'file_or_arg'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
+        ``'vectors'``.
 
     Examples
     --------

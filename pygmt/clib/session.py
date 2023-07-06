@@ -1501,7 +1501,8 @@ class Session:
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
-            State whether the 'data' is optional.
+            State whether 'data' is required (useful for dealing with optional
+            virtual files).
 
         Returns
         -------
