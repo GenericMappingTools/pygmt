@@ -61,14 +61,12 @@ def _validate_data_input(
         If the data input is not valid.
     """
     if data is None:  # data is None
-        # both x and y are None and data is not optional
-        if x is None and y is None and required_data:
-            raise GMTInvalidInput("No input data provided.")
-        # either x or y is None
-        if x is None or y is None:
+        if x is None and y is None:  # both x and y are None
+            if required_data:  # data is not optional
+                raise GMTInvalidInput("No input data provided.")
+        if x is None or y is None:  # either x or y is None
             raise GMTInvalidInput("Must provide both x and y.")
-        # both x and y are not None, now check z
-        if required_z and z is None:
+        if required_z and z is None:  # both x and y are not None, now check z
             raise GMTInvalidInput("Must provide x, y, and z.")
     else:  # data is not None
         if x is not None or y is not None or z is not None:
