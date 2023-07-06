@@ -312,7 +312,7 @@ def test_meca_spec_ndarray_no_convention():
 
 def test_meca_spec_ndarray_mismatched_columns():
     """
-    Raise an exception if the ndarray input doesn't have expected number of
+    Raise an exception if the ndarray input doesn't have the expected number of
     columns.
     """
     with pytest.raises(GMTInvalidInput):
