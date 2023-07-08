@@ -6,6 +6,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
 import sys
+import warnings
 from contextlib import contextmanager, nullcontext
 
 import numpy as np
@@ -1560,6 +1561,15 @@ class Session:
 
         # Ensure the data is an iterable (Python list or tuple)
         if kind in ("geojson", "grid", "image"):
+            if kind == "image" and data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, "
+                    "and may result in an incorrect output. Please recast image "
+                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                    "using a histogram equalization function like "
+                    "skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,)
         elif kind == "file":
             # Useful to handle `pathlib.Path` and string file path alike

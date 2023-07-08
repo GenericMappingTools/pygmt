@@ -61,3 +61,19 @@ def test_grdimage_image_dataarray(xr_image):
     fig = Figure()
     fig.grdimage(grid=xr_image)
     return fig
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    ["int8", "uint16", "int16", "uint32", "int32", "float32", "float64"],
+)
+def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
+    """
+    Plot a 3-band RGB image using xarray.DataArray input, with an unsupported
+    data type.
+    """
+    fig = Figure()
+    image = xr_image.astype(dtype=dtype)
+    with pytest.warns(expected_warning=RuntimeWarning) as record:
+        fig.grdimage(grid=image)
+        assert len(record) == 1
