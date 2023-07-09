@@ -136,10 +136,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False):
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
     elif isinstance(data, xr.DataArray):
-        if len(data.dims) == 3:
-            kind = "image"
-        else:
-            kind = "grid"
+        kind = "image" if len(data.dims) == 3 else "grid"
     elif hasattr(data, "__geo_interface__"):
         kind = "geojson"
     elif data is not None:
