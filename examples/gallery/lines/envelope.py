@@ -41,7 +41,7 @@ fig = pygmt.Figure()
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=["WSne+tsymmetric deviation +d", "xa2f1", "ya1f0.1"],
+    frame=["WSne+tsymmetric deviations +d", "xa2f1", "ya1f0.1"],
 )
 
 # Plot a symmetrical envelope based on the deviations ("+d")
@@ -69,7 +69,7 @@ fig.shift_origin(xshift="11c")
 fig.basemap(
     region=[0, 10, -1.5, 1.5],
     projection="X10c",
-    frame=["WSne+tasymmetric deviation +D", "xa2f1", "yf0.1"],
+    frame=["WSne+tasymmetric deviations +D", "xa2f1", "yf0.1"],
 )
 
 # Plot an asymmetrical envelope based on the deviations ("+D")
