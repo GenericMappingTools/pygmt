@@ -11,7 +11,7 @@ case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 import pandas as pd
 import pygmt
 
-# Define pandas DataFrame with columns for x and y as well as the
+# Define a pandas DataFrame with columns for x and y as well as the
 # lower and upper deviations
 df_devi = pd.DataFrame(
     data={
