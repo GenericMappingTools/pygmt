@@ -13,7 +13,7 @@ import pygmt
 
 # Define pandas DataFrame with columns for x and y as well as the
 # lower and upper deviations
-df = pd.DataFrame(
+df_devi = pd.DataFrame(
     data={
         "x": [1, 3, 5, 7, 9],
         "y": [0.5, -0.7, 0.8, -0.3, 0.1],
@@ -47,7 +47,7 @@ fig.basemap(
 
 # Plot a symmetrical envelope based on the deviations ("+d")
 fig.plot(
-    data=df,
+    data=df_devi,
     close="+d",
     # Fill the envelope in gray color with a transparency of 50 %
     fill="gray@50",
@@ -56,7 +56,7 @@ fig.plot(
 
 # Plot the data points on top
 fig.plot(
-    data=df,
+    data=df_devi,
     style="c0.2c",  # Use circles with a diameter of 0.2 centimeters
     pen="1p,gray30",
     fill="darkgray",
@@ -75,7 +75,7 @@ fig.basemap(
 
 # Plot an asymmetrical envelope based on the deviations ("+D")
 fig.plot(
-    data=df,
+    data=df_devi,
     fill="gray@50",
     # Add an outline around the envelope
     # Here, a dashed pen (+p) with 0.5-points thickness and
@@ -86,7 +86,7 @@ fig.plot(
 
 # Plot the data points on top
 fig.plot(
-    data=df,
+    data=df_devi,
     style="c0.2c",
     pen="1p,gray30",
     fill="darkgray",
