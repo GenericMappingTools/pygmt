@@ -77,7 +77,7 @@ fig.plot(
     data=df_devi,
     fill="gray@50",
     # Add an outline around the envelope
-    # Here, a dashed pen (+p) with 0.5-points thickness and
+    # Here, a dashed pen ("+p") with 0.5-points thickness and
     # "gray30" color is used
     close="+D+p0.5p,gray30,dashed",
     pen="1p,gray30",
