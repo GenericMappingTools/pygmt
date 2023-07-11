@@ -27,7 +27,7 @@ fig.basemap(region=[0, 10, 0, 20], projection="X15c/15c", frame="+tQuoted Lines"
 for quotedline in [
     # Line with labels ("+l") "text" in distance ("d") of 1 centimeter
     "qd1c:+ltext",
-    # Suppress main quoted line by appending "+i"
+    # Suppress the main quoted line by appending "+i"
     "qd1c:+ltext+i",
     # Give the number of equally spaced labels by using "n" instead of "d"
     "qn5:+ltext",
