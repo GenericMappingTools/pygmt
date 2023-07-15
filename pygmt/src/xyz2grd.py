@@ -66,7 +66,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         ignored if ``convention`` is given. Append **f** or **s** to simply
         keep the first or last data point that was assigned to each node.
         Append **l** or **u** or **d** to find the lowest (minimum) or upper
-        (maximum) value or the difference between the maximum and minimum value
+        (maximum) value or the difference between the maximum and minimum values
         at each node, respectively. Append **m** or **r** or **S** to compute
         mean or RMS value or standard deviation at each node, respectively.
         Append **n** to simply count the number of data points that were
