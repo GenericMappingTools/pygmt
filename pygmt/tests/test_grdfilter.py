@@ -1,5 +1,5 @@
 """
-Tests for grdfilter.
+Test pygmt.grdfilter.
 """
 from pathlib import Path
 

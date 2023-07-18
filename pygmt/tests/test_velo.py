@@ -1,5 +1,5 @@
 """
-Tests velo.
+Test Figure.velo.
 """
 import pandas as pd
 import pytest

@@ -1,5 +1,5 @@
 """
-Tests for input/output (I/O) utilities.
+Test input/output (I/O) utilities.
 """
 import numpy as np
 import pytest

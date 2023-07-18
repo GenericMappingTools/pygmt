@@ -1,5 +1,5 @@
 """
-Tests for the inset function.
+Test Figure.inset.
 """
 import pytest
 from pygmt import Figure
