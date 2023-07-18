@@ -18,7 +18,7 @@ __doctest_skip__ = ["colorbar"]
     I="shading",
     J="projection",
     L="equalsize",
-    Q="log"
+    Q="log",
     R="region",
     V="verbose",
     W="scale",
@@ -114,7 +114,7 @@ def colorbar(self, **kwargs):
     log : str
         Select logarithmic scale and power of ten annotations. All z-values in 
         the CPT will be converted to p = log10(z) and only integer p values 
-        will be annotated using the 10^p format [Default is linear scale].
+        will be annotated using the 10^p format. [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the
