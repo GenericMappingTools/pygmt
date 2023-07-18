@@ -112,8 +112,8 @@ def colorbar(self, **kwargs):
         ``shading`` is used each rectangle will have its constant color
         modified by the specified intensity.
     log : str
-        Select logarithmic scale and power of ten annotations. All z-values in 
-        the CPT will be converted to p = log10(z) and only integer p values 
+        Select logarithmic scale and power of ten annotations. All z-values 
+        in the CPT will be converted to p = log10(z) and only integer p values
         will be annotated using the 10^p format. [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
