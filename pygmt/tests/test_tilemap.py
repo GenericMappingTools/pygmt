@@ -1,5 +1,5 @@
 """
-Tests Figure.tilemap.
+Test Figure.tilemap.
 """
 import pytest
 from pygmt import Figure

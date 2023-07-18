@@ -1,5 +1,5 @@
 """
-Tests for grdvolume.
+Test pygmt.grdvolume.
 """
 from pathlib import Path
 
