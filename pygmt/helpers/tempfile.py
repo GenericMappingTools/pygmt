@@ -152,7 +152,7 @@ def tempfile_from_geojson(geojson):
 @contextmanager
 def tempfile_from_image(image):
     """
-    Saves a 3-band `xarray.DataArray` to a temporary GeoTIFF file via
+    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via
     rioxarray.
 
     Parameters
