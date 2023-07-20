@@ -99,11 +99,7 @@ fig.basemap(
 )
 
 # Plot an envelope based on the bounds ("+b")
-fig.plot(
-    data=df_bound,
-    close="+b+p0.5p,gray30,dashed",
-    pen="1p,gray30",
-)
+fig.plot(data=df_bound, close="+b+p0.5p,gray30,dashed", pen="1p,gray30")
 
 # Plot the data points on top
 fig.plot(
