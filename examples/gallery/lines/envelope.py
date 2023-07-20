@@ -102,11 +102,6 @@ fig.basemap(
 fig.plot(data=df_bound, close="+b+p0.5p,gray30,dashed", pen="1p,gray30")
 
 # Plot the data points on top
-fig.plot(
-    data=df_bound,
-    style="c0.2c",
-    pen="1p,gray30",
-    fill="darkgray",
-)
+fig.plot(data=df_bound, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
 fig.show()
