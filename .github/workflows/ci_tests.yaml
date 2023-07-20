@@ -1,4 +1,4 @@
-# Tests PyGMT on Linux/macOS/Windows
+# Test PyGMT on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests and uploads test coverage reports stored
 # in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
