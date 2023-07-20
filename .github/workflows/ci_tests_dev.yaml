@@ -1,4 +1,4 @@
-# Tests PyGMT with GMT dev version on Linux/macOS/Windows
+# Test PyGMT with GMT dev version on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests with the GMT dev version, and also
 # pre-release versions of several dependencies like NumPy, Pandas, Xarray, etc.
