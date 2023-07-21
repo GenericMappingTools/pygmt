@@ -45,7 +45,7 @@ COMMON_DOCSTRINGS = {
             Set color or pattern for filling symbols or polygons
             [Default is no fill].""",
     "spacing": r"""
-        spacing : str
+        spacing : int or float or str or list or tuple
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
