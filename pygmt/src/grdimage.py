@@ -175,7 +175,7 @@ def grdimage(self, grid, **kwargs):
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
         ) as fname, lib.virtualfile_from_data(
-            check_kind="raster", data=kwargs.get("I"), optional_data=False
+            check_kind="raster", data=kwargs.get("I"), required_data=False
         ) as shadegrid:
             kwargs["I"] = shadegrid
             lib.call_module(
