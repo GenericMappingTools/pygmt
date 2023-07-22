@@ -1537,13 +1537,14 @@ class Session:
             data, x, y, z, required_z=required_z, required_data=required_data
         )
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
+        if check_kind == "raster" and kind not in ("file", "grid", "arg"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
         if check_kind == "vector" and kind not in (
             "file",
             "matrix",
             "vectors",
             "geojson",
+            "arg",
         ):
             raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
 
