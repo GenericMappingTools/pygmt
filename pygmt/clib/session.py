@@ -1550,6 +1550,7 @@ class Session:
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": nullcontext,
+            "arg": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
@@ -1560,7 +1561,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid", "file"):
+        if kind in ("geojson", "grid", "file", "arg"):
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]

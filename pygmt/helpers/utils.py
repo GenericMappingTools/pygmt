@@ -117,8 +117,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     Returns
     -------
     kind : str
-        One of ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
-        ``'vectors'``.
+        One of ``'arg'``, ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``,
+        or ``'vectors'``.
 
     Examples
     --------
@@ -135,18 +135,18 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
     'file'
     >>> data_kind(data=None, x=None, y=None, required_data=False)
-    'file'
+    'arg'
     >>> data_kind(data=2.0, x=None, y=None, required_data=False)
-    'file'
+    'arg'
     >>> data_kind(data=True, x=None, y=None, required_data=False)
-    'file'
+    'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
     # determine the data kind
     if isinstance(data, (str, pathlib.PurePath)):
         kind = "file"
-    elif not required_data and (data is None or isinstance(data, (bool, int, float))):
+    elif isinstance(data, (bool, int, float)) or (data is None and not required_data):
         kind = "arg"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
