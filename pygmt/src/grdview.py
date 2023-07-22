@@ -152,12 +152,6 @@ def grdview(self, grid, **kwargs):
     >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-
-    if kwargs.get("G") is not None and data_kind(kwargs["G"]) not in ("file", "grid"):
-        raise GMTInvalidInput(
-            f"Unrecognized data type for drapegrid: {type(kwargs['G'])}"
-        )
-
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
