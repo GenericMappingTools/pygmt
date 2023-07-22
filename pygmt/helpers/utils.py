@@ -117,7 +117,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     Returns
     -------
     kind : str
-        One of ``'file_or_arg'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
+        One of ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``, or
         ``'vectors'``.
 
     Examples
@@ -131,23 +131,23 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     >>> data_kind(data=np.arange(10).reshape((5, 2)), x=None, y=None)
     'matrix'
     >>> data_kind(data="my-data-file.txt", x=None, y=None)
-    'file_or_arg'
+    'file'
     >>> data_kind(data=pathlib.Path("my-data-file.txt"), x=None, y=None)
-    'file_or_arg'
+    'file'
     >>> data_kind(data=None, x=None, y=None, required_data=False)
-    'file_or_arg'
+    'file'
     >>> data_kind(data=2.0, x=None, y=None, required_data=False)
-    'file_or_arg'
+    'file'
     >>> data_kind(data=True, x=None, y=None, required_data=False)
-    'file_or_arg'
+    'file'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
     """
     # determine the data kind
-    if isinstance(data, (str, pathlib.PurePath)) or (
-        not required_data and (data is None or isinstance(data, (bool, int, float)))
-    ):
-        kind = "file_or_arg"
+    if isinstance(data, (str, pathlib.PurePath)):
+        kind = "file"
+    elif not required_data and (data is None or isinstance(data, (bool, int, float))):
+        kind = "arg"
     elif isinstance(data, xr.DataArray):
         kind = "grid"
     elif hasattr(data, "__geo_interface__"):

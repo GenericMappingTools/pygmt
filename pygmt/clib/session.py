@@ -1537,10 +1537,10 @@ class Session:
             data, x, y, z, required_z=required_z, required_data=required_data
         )
 
-        if check_kind == "raster" and kind not in ("file_or_arg", "grid"):
+        if check_kind == "raster" and kind not in ("file", "grid"):
             raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
         if check_kind == "vector" and kind not in (
-            "file_or_arg",
+            "file",
             "matrix",
             "vectors",
             "geojson",
@@ -1549,7 +1549,7 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file_or_arg": nullcontext,
+            "file": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
@@ -1560,7 +1560,7 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid", "file_or_arg"):
+        if kind in ("geojson", "grid", "file"):
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
