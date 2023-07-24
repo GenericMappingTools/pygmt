@@ -39,10 +39,10 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     Create a grid file from table data.
 
     Reads one or more tables with *x, y, z* columns and creates a binary grid
-    file. xyz2grd will report if some of the nodes are not filled in with
-    data. Such unconstrained nodes are set to a value specified by the user
-    [Default is NaN]. Nodes with more than one value will be set to the mean
-    value.
+    file. :func:`pygmt.xyz2grd` will report if some of the nodes are not filled
+    in with data. Such unconstrained nodes are set to a value specified by the
+    user [Default is NaN]. Nodes with more than one value will be set to the
+    mean value.
 
     Full option list at :gmt-docs:`xyz2grd.html`
 
@@ -62,17 +62,17 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
         [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\
         **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**].
         By default we will calculate mean values if multiple entries fall on
-        the same node. Use **-A** to change this behavior, except it is
-        ignored if **-Z** is given. Append **f** or **s** to simply keep the
-        first or last data point that was assigned to each node. Append
-        **l** or **u** or **d** to find the lowest (minimum) or upper (maximum)
-        value or the difference between the maximum and miminum value
-        at each node, respectively. Append **m** or **r** or **S** to compute
-        mean or RMS value or standard deviation at each node, respectively.
-        Append **n** to simply count the number of data points that were
-        assigned to each node (this only requires two input columns *x* and
-        *y* as *z* is not consulted). Append **z** to sum multiple values that
-        belong to the same node.
+        the same node. Use ``duplicate`` to change this behavior, except it is
+        ignored if ``convention`` is given. Append **f** or **s** to simply
+        keep the first or last data point that was assigned to each node.
+        Append **l** or **u** or **d** to find the lowest (minimum) or upper
+        (maximum) value or the difference between the maximum and minimum
+        values at each node, respectively. Append **m** or **r** or **S** to
+        compute mean or RMS value or standard deviation at each node,
+        respectively. Append **n** to simply count the number of data points
+        that were assigned to each node (this only requires two input columns
+        *x* and *y* as *z* is not consulted). Append **z** to sum multiple
+        values that belong to the same node.
     {spacing}
     {projection}
     {region}
@@ -140,7 +140,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     >>> import numpy as np
     >>> import pygmt
     >>> # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,
-    >>> # and a y-range of 10.5 to 12.5. The x- and y-spacing are 1.0 and 0.5.
+    >>> # and a y-range of 10.5 to 12.5. The x- and y-spacings are 1.0 and 0.5.
     >>> x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])
     >>> z = x**2 + y**2
     >>> xx, yy, zz = x.flatten(), y.flatten(), z.flatten()
