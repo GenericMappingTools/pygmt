@@ -86,7 +86,7 @@ fig.plot(
 # Plot the data points on top
 fig.plot(data=df_devi, style="c0.2c", pen="1p,gray30", fill="darkgray")
 
-# Shift plot origin 11 centimeters in x direction
+# Shift plot origin 11 centimeters in x-direction
 fig.shift_origin(xshift="11c")
 
 # -----------------------------------------------------------------------------
