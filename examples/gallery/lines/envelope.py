@@ -22,7 +22,7 @@ df_devi = pd.DataFrame(
     }
 )
 
-# Define the same pandas DataFrame but with the lower and upper bounds
+# Define the same pandas DataFrame but with lower and upper bounds
 df_bound = pd.DataFrame(
     data={
         "x": [1, 3, 5, 7, 9],
