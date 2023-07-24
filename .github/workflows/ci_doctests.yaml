@@ -13,6 +13,10 @@ on:
   schedule:
     - cron: '0 0 * * 0'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   test:
     name: ${{ matrix.os }}
@@ -27,22 +31,16 @@ jobs:
         shell: bash -l {0}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.5.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.4.0
+        uses: mamba-org/setup-micromamba@v1.4.3
         with:
           environment-name: pygmt
           condarc: |

@@ -1,4 +1,4 @@
-# Tests PyGMT on Linux/macOS/Windows
+# Test PyGMT on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests and uploads test coverage reports stored
 # in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
@@ -41,6 +41,10 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
@@ -59,14 +63,14 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.21 and Python 3.11 with NumPy 1.24
-        # Only install optional packages on Python 3.11/NumPy 1.24
+        # Pair Python 3.9 with NumPy 1.22 and Python 3.11 with NumPy 1.25
+        # Only install optional packages on Python 3.11/NumPy 1.25
         include:
           - python-version: '3.9'
-            numpy-version: '1.21'
+            numpy-version: '1.22'
             optional-packages: ''
           - python-version: '3.11'
-            numpy-version: '1.24'
+            numpy-version: '1.25'
             optional-packages: ' contextily geopandas ipython rioxarray sphinx-gallery'
 
     timeout-minutes: 30
@@ -81,22 +85,16 @@ jobs:
       NUMPY: ${{ matrix.numpy-version }}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v3.5.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.4.0
+        uses: mamba-org/setup-micromamba@v1.4.3
         with:
           environment-name: pygmt
           condarc: |
@@ -164,7 +162,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.3
+        uses: codecov/codecov-action@v3.1.4
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

@@ -1,5 +1,5 @@
 """
-Tests for grdgradient.
+Test pygmt.grdgradient.
 """
 from pathlib import Path
 

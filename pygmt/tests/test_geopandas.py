@@ -1,5 +1,5 @@
 """
-Tests on integration with geopandas.
+Test integration with geopandas.
 """
 import numpy.testing as npt
 import pytest

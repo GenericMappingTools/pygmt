@@ -1,5 +1,5 @@
 """
-Tests subplot.
+Test Figure.subplot.
 """
 import pytest
 from pygmt import Figure
