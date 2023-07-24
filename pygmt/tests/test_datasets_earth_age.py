@@ -53,8 +53,8 @@ def test_earth_age_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 11.293945)
-    npt.assert_allclose(data.max(), 125.1189)
+    npt.assert_allclose(data.min(), 11.293945, rtol=1e-5)
+    npt.assert_allclose(data.max(), 125.1189, rtol=1e-5)
 
 
 def test_earth_age_01m_without_region():

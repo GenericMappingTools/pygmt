@@ -5,14 +5,14 @@ channels:
 dependencies:
     # Required dependencies
     - gmt=6.4.0
-    - numpy>=1.21
+    - numpy>=1.22
     - pandas
     - xarray
     - netCDF4
     - packaging
     # Optional dependencies
     - contextily
-    - geopandas!=0.13.0
+    - geopandas
     - ipython
     - rioxarray
     # Development dependencies (general)

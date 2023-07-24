@@ -1,5 +1,5 @@
 """
-Tests for grd2xyz.
+Test pygmt.grd2xyz.
 """
 from pathlib import Path
 

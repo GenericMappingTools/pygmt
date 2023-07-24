@@ -31,7 +31,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.21",
+    "numpy>=1.22",
     "pandas",
     "xarray",
     "netCDF4",
@@ -75,6 +75,7 @@ line-length = 79
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
 [tool.docformatter]
+black = true
 recursive = true
 pre-summary-newline = true
 make-summary-multi-line = true

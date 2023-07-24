@@ -79,9 +79,8 @@ def test_accessor_set_non_boolean():
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/6615",
 )
 @pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="PermissionError on Windows when deleting eraint_uvz.nc file; "
-    "see https://github.com/GenericMappingTools/pygmt/pull/2073",
+    condition=sys.platform == "win32" and Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7573",
 )
 def test_accessor_sliced_datacube():
     """

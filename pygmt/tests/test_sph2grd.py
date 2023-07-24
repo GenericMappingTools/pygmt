@@ -1,5 +1,5 @@
 """
-Tests for sph2grd.
+Test pygmt.sph2grd.
 """
 from pathlib import Path
 

@@ -1,5 +1,5 @@
 """
-Tests for fig.coast.
+Test Figure.coast.
 """
 import pytest
 from pygmt import Figure

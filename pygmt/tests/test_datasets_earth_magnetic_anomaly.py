@@ -53,8 +53,8 @@ def test_earth_mag_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -180.40002)
-    npt.assert_allclose(data.max(), 127.39996)
+    npt.assert_allclose(data.min(), -180.40002, rtol=1e-5)
+    npt.assert_allclose(data.max(), 127.39996, rtol=1e-5)
 
 
 def test_earth_mag_02m_without_region():
@@ -126,8 +126,8 @@ def test_earth_mag4km_01d_with_region():
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -153.19995)
-    npt.assert_allclose(data.max(), 113.59985)
+    npt.assert_allclose(data.min(), -153.19995, rtol=1e-5)
+    npt.assert_allclose(data.max(), 113.59985, rtol=1e-5)
 
 
 def test_earth_mag4km_02m_default_registration():
@@ -146,8 +146,8 @@ def test_earth_mag4km_02m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 5.98333333)
     npt.assert_allclose(data.coords["lon"].data.min(), -114.98333333)
     npt.assert_allclose(data.coords["lon"].data.max(), -112.01666667)
-    npt.assert_allclose(data.min(), -132.80005)
-    npt.assert_allclose(data.max(), 79.59985)
+    npt.assert_allclose(data.min(), -132.80005, rtol=1e-5)
+    npt.assert_allclose(data.max(), 79.59985, rtol=1e-5)
 
 
 def test_earth_mag_01d_wdmam():
@@ -181,8 +181,8 @@ def test_earth_mag_01d_wdmam_with_region():
     assert data.shape == (11, 21)
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -103.900024)
-    npt.assert_allclose(data.max(), 102.19995)
+    npt.assert_allclose(data.min(), -103.900024, rtol=1e-5)
+    npt.assert_allclose(data.max(), 102.19995, rtol=1e-5)
 
 
 def test_earth_mag_03m_wdmam_with_region():

@@ -1,5 +1,5 @@
 """
-Tests for surface.
+Test pygmt.surface.
 """
 from pathlib import Path
 
