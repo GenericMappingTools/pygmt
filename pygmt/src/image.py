@@ -51,7 +51,7 @@ def image(self, imagefile, **kwargs):
         If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
     bitcolor : str
-        [*color*][**+b**\|\ **f**\|\ **t**]
+        [*color*][**+b**\|\ **f**\|\ **t**].
         Change certain pixel values to another color or make them transparent.
         For 1-bit images you can specify an alternate *color* for the
         background (**+b**) or the foreground (**+f**) pixels, or give no color
