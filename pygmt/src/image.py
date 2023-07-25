@@ -11,7 +11,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     J="projection",
     D="position",
     F="box",
-    G="bit_color",
+    G="bitcolor",
     M="monochrome",
     V="verbose",
     c="panel",
@@ -50,7 +50,7 @@ def image(self, imagefile, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
-    bit_color : str
+    bitcolor : str
         [*color*][**+b**\|\ **f**\|\ **t**]
         Change certain pixel values to another color or make them transparent.
         For 1-bit images you can specify an alternate *color* for the
