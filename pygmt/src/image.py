@@ -50,6 +50,8 @@ def image(self, imagefile, **kwargs):
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
+    bit_color : str
+        [*color*][**+b**\|\ **f**\|\ **t**]
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
