@@ -123,7 +123,6 @@ def grdfilter(grid, **kwargs):
     --------
     >>> import os
     >>> import pygmt
-
     >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file
     >>> # and return a filtered field (saved as netcdf)
     >>> pygmt.grdfilter(
@@ -135,7 +134,6 @@ def grdfilter(grid, **kwargs):
     ...     outgrid="filtered_pacific.nc",
     ... )
     >>> os.remove("filtered_pacific.nc")  # Cleanup file
-
     >>> # Apply a gaussian smoothing filter of 600 km to the input DataArray
     >>> # and return a filtered DataArray with the smoothed field
     >>> grid = pygmt.datasets.load_earth_relief()
