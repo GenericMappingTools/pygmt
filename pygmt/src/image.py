@@ -57,7 +57,7 @@ def image(self, imagefile, **kwargs):
         background (**+b**) or the foreground (**+f**) pixels, or give no color
         to make those pixels transparent. Alternatively, for color images you
         can select a single *color* that should be made transparent instead
-        (**+t**).
+        (**+t**). Can be repeated with different settings.
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
