@@ -134,7 +134,7 @@ def grdfilter(grid, **kwargs):
     ...     outgrid="filtered_pacific.nc",
     ... )
     >>> os.remove("filtered_pacific.nc")  # Cleanup file
-    >>> # Apply a gaussian smoothing filter of 600 km to the input DataArray
+    >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray
     >>> # and return a filtered DataArray with the smoothed field
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
