@@ -70,23 +70,24 @@ def grdfilter(grid, **kwargs):
         Distance *flag* tells how grid (x,y) relates to filter width as
         follows:
 
-        - ``"p"``: grid (px,py) with *width* an odd number of pixels; Cartesian
-        distances.
+        - ``"p"``: grid (px,py) with *width* an odd number of pixels,
+          Cartesian distances.
         - ``"0"``: grid (x,y) same units as *width*, Cartesian distances.
-        - ``"1"``: grid (x,y) in degrees, *width* in kilometers, Cartesian distances.
-        - ``"2"``: grid (x,y) in degrees, *width* in km, dx scaled by cos(middle y),
-        Cartesian distances.
+        - ``"1"``: grid (x,y) in degrees, *width* in kilometers, Cartesian
+          distances.
+        - ``"2"``: grid (x,y) in degrees, *width* in km, dx scaled by
+          cos(middle y), Cartesian distances.
 
         The above options are fastest because they allow weight matrix to be
         computed only once. The next three options are slower because they
         recompute weights for each latitude.
 
         - ``"3"``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),
-        Cartesian distance calculation.
+          Cartesian distance calculation.
         - ``"4"``: grid (x,y) in degrees, *width* in km, Spherical distance
-        calculation.
-        - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units, *width* in km,
-        Spherical distance calculation.
+          calculation.
+        - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units,
+          *width* in km, Spherical distance calculation.
 
     {spacing}
     nans : str or float
