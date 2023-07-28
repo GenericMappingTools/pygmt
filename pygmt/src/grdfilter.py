@@ -55,7 +55,7 @@ def grdfilter(grid, **kwargs):
     filter : str
         **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].
-        Name of filter type you which to apply, followed by the width:
+        Name of filter type you which to apply, followed by the *width*:
 
         b: Box Car
 
