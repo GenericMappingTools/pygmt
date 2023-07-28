@@ -57,19 +57,14 @@ def grdfilter(grid, **kwargs):
         [/*width2*\][*modifiers*].
         Name of filter type you wish to apply, followed by the *width*:
 
-        b: Box Car
+        - **b**: Box Car
+        - **c**: Cosine Arch
+        - **g**: Gaussian
+        - **o**: Operator
+        - **m**: Median
+        - **p**: Maximum Likelihood probability
+        - **h**: Histogram
 
-        c: Cosine Arch
-
-        g: Gaussian
-
-        o: Operator
-
-        m: Median
-
-        p: Maximum Likelihood probability
-
-        h: Histogram
     distance : str
         *flag*
         Distance *flag* tells how grid (x,y) relates to filter width as
