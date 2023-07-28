@@ -81,7 +81,7 @@ def grdfilter(grid, **kwargs):
         computed only once. The next three options are slower because they
         recompute weights for each latitude.
 
-        - ``"3"``: grid (x,y) in degrees, *width* in km, dx scaled by cosine(y),
+        - ``"3"``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),
         Cartesian distance calculation.
         - ``"4"``: grid (x,y) in degrees, *width* in km, Spherical distance
         calculation.
