@@ -53,7 +53,7 @@ def grdfilter(grid, **kwargs):
         The name of the output NetCDF file with extension .nc to store the grid
         in.
     filter : str
-        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *xwidth*\
+        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].
         Name of filter type you which to apply, followed by the width:
 
