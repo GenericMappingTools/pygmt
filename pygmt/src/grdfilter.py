@@ -71,6 +71,7 @@ def grdfilter(grid, **kwargs):
 
         h: Histogram
     distance : str
+        *flag*
         Distance *flag* tells how grid (x,y) relates to filter width as
         follows:
 
