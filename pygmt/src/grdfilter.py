@@ -95,9 +95,8 @@ def grdfilter(grid, **kwargs):
         Determine how NaN-values in the input grid affect the filtered output.
     {region}
     toggle : bool
-        Toggle the node registration for the output grid so as to become the
-        opposite of the input grid. [Default gives the same registration as the
-        input grid].
+        Toggle the node registration for the output grid to get the opposite of
+        the input grid [Default gives the same registration as the input grid].
     {verbose}
     {coltypes}
     {registration}
