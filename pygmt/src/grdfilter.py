@@ -69,7 +69,7 @@ def grdfilter(grid, **kwargs):
 
         p: Maximum Likelihood probability
 
-        h: histogram
+        h: Histogram
     distance : str
         Distance *flag* tells how grid (x,y) relates to filter width as
         follows:
