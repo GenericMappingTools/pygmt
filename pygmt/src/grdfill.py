@@ -20,6 +20,7 @@ __doctest_skip__ = ["grdfill"]
 @use_alias(
     A="mode",
     G="outgrid",
+    N="no_data",
     R="region",
     V="verbose",
 )
