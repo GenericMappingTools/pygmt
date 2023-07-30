@@ -53,6 +53,9 @@ def grdfill(grid, **kwargs):
         where (*X,Y*) are the node dimensions of the grid]), or
         **s** for bicubic spline (optionally append a *tension*
         parameter [Default is no tension]).
+    no_data : int or float
+        Set the node value used to identify a point as a member of a hole
+        [Default is NaN].
 
     {region}
     {verbose}
