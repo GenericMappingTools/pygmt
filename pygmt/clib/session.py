@@ -1537,16 +1537,18 @@ class Session:
             data, x, y, z, required_z=required_z, required_data=required_data
         )
 
-        if check_kind == "raster" and kind not in ("file", "grid", "arg"):
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in (
-            "file",
-            "matrix",
-            "vectors",
-            "geojson",
-            "arg",
-        ):
-            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
+        if check_kind == "raster":
+            valid_kinds = ("file", "grid")
+        elif check_kind == "vector":
+            valid_kinds = ("file", "matrix", "vectors", "geojson")
+        else:
+            valid_kinds = ()
+        if required_data is False:
+            valid_kinds += ("arg",)
+        if kind not in valid_kinds:
+            raise GMTInvalidInput(
+                f"Unrecognized data type for {check_kind}: {type(data)}"
+            )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
