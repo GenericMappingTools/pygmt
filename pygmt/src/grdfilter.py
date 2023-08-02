@@ -51,7 +51,7 @@ def grdfilter(grid, **kwargs):
         The file name of the input grid or the grid loaded as a
         :class:`xarray.DataArray`.
     outgrid : str or None
-        The name of the output NetCDF file with extension .nc to store the grid
+        The name of the output netCDF file with extension .nc to store the grid
         in.
     filter : str
         **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
@@ -116,7 +116,7 @@ def grdfilter(grid, **kwargs):
     >>> import os
     >>> import pygmt
     >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file
-    >>> # and return a filtered field (saved as NetCDF)
+    >>> # and return a filtered field (saved as netCDF)
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
