@@ -174,8 +174,6 @@ def non_ascii_to_octal(argstr):
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     """
-    # pylint: disable=line-too-long
-
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
