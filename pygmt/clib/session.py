@@ -1542,7 +1542,9 @@ class Session:
         elif check_kind == "vector":
             valid_kinds = ("file", "matrix", "vectors", "geojson")
         else:
-            valid_kinds = ()
+            raise GMTInvalidInput(
+                "Invalid check_kind. Should be either 'raster' or 'vector'."
+            )
         if required_data is False:
             valid_kinds += ("arg",)
         if kind not in valid_kinds:
