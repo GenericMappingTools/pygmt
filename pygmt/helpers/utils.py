@@ -42,6 +42,30 @@ def _validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: Must provide x, y, and z.
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import xarray as xr
+    >>> data = np.arange(8).reshape((4, 2))
+    >>> _validate_data_input(data=data, required_z=True, kind="matrix")
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    >>> _validate_data_input(
+    ...     data=pd.DataFrame(data, columns=["x", "y"]),
+    ...     required_z=True,
+    ...     kind="matrix",
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
+    >>> _validate_data_input(
+    ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
+    ...     required_z=True,
+    ...     kind="matrix",
+    ... )
+    Traceback (most recent call last):
+        ...
+    pygmt.exceptions.GMTInvalidInput: data must provide x, y, and z columns.
     >>> _validate_data_input(data="infile", x=[1, 2, 3])
     Traceback (most recent call last):
         ...
