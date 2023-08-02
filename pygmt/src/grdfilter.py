@@ -94,6 +94,11 @@ def grdfilter(grid, **kwargs):
     nans : str or float
         **i**\|\ **p**\|\ **r**.
         Determine how NaN-values in the input grid affect the filtered output.
+        Use **i** to ignore all NaNs in the calculation of the filtered value
+        [Default]. **r** is same as **i** except if the input node was NaN then
+        the output node will be set to NaN (only applies if both grids are
+        co-registered). **p** will force the filtered value to be NaN if any
+        grid nodes with NaN-values are found inside the filter circle.
     {region}
     toggle : bool
         Toggle the node registration for the output grid to get the opposite of
