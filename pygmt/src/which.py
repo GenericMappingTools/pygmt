@@ -24,9 +24,8 @@ def which(fname, **kwargs):
     (if defined).
 
     ``fname`` can also be a downloadable file (either a complete URL, a
-    @file for downloading from the GMT data server, or @earth_relief_xxy
-    or any other of the remote datasets at
-    https://www.pygmt.org/dev/api/index.html#datasets).
+    @file for downloading from the GMT data server, or any of the remote
+    datasets at https://www.pygmt.org/latest/api/index.html#datasets).
     In these cases, use the ``download`` parameter to set the desired
     behavior. If ``download`` is not used (or ``False``), the file will
     not be found.
@@ -43,8 +42,8 @@ def which(fname, **kwargs):
         [**a**\|\ **c**\|\ **l**\|\ **u**].
         If the ``fname`` argument is a downloadable file (either a
         complete URL, a @file for downloading from the GMT data server,
-        or @earth_relief_xxy or any other of the remote datasets at
-        https://www.pygmt.org/dev/api/index.html#datasets)
+        or any of the remote datasets at
+        https://www.pygmt.org/latest/api/index.html#datasets)
         we will try to download the file if it is not found in your
         local data or cache directories.
         If set to ``True`` or **l** is passed the file is download to the
