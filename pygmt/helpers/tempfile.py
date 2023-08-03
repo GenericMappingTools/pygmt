@@ -132,7 +132,7 @@ def tempfile_from_geojson(geojson):
         os.remove(tmpfile.name)  # ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
-            # Workaround to map int/int64 to int32
+            # Map int/int64 to int32 because OGR_GMT only supports 32-bit integer
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             schema = gpd.io.file.infer_schema(geojson)
