@@ -6,6 +6,7 @@ import pandas as pd
 import pytest
 from packaging.version import Version
 from pygmt import Figure, __gmt_version__
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
 
@@ -143,12 +144,25 @@ def test_meca_spec_multiple_focalmecha(inputtype):
 
 
 @pytest.mark.mpl_image_compare(filename="test_meca_offset.png")
-@pytest.mark.parametrize("inputtype", ["offset_args", "offset_dict"])
+@pytest.mark.parametrize(
+    "inputtype",
+    [
+        "args",
+        "dict",
+        pytest.param(
+            "ndarray",
+            marks=pytest.mark.skipif(
+                condition=Version(__gmt_version__) < Version("6.5.0"),
+                reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/7557",
+            ),
+        ),
+    ],
+)
 def test_meca_offset(inputtype):
     """
     Test offsetting beachballs.
     """
-    if inputtype == "offset_args":
+    if inputtype == "args":
         args = {
             "spec": {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3},
             "longitude": -124,
@@ -157,7 +171,7 @@ def test_meca_offset(inputtype):
             "plot_longitude": -124.5,
             "plot_latitude": 47.5,
         }
-    elif inputtype == "offset_dict":
+    elif inputtype == "dict":
         # Test https://github.com/GenericMappingTools/pygmt/issues/2016
         # offset parameters are in the dict.
         args = {
@@ -172,6 +186,13 @@ def test_meca_offset(inputtype):
             "longitude": -124,
             "latitude": 48,
             "depth": 12.0,
+        }
+    elif inputtype == "ndarray":
+        # Test ndarray input reported in
+        # https://github.com/GenericMappingTools/pygmt/issues/2016
+        args = {
+            "spec": np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5]]),
+            "convention": "aki",
         }
 
     fig = Figure()
@@ -277,3 +298,35 @@ def test_meca_spec_dict_all_scalars():
         scale=1.0,  # make sure a non-str scale works
     )
     return fig
+
+
+def test_meca_spec_ndarray_no_convention():
+    """
+    Raise an exception if convention is not given for an ndarray input.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3]]), scale="1c")
+
+
+def test_meca_spec_ndarray_mismatched_columns():
+    """
+    Raise an exception if the ndarray input doesn't have the expected number of
+    columns.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(
+            spec=np.array([[-124, 48, 12.0, 330, 30, 90]]), convention="aki", scale="1c"
+        )
+
+    with pytest.raises(GMTInvalidInput):
+        fig = Figure()
+        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
+        fig.meca(
+            spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5, 30.0, 50.0]]),
+            convention="aki",
+            scale="1c",
+        )
