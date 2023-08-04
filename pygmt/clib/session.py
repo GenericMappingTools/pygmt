@@ -1486,7 +1486,7 @@ class Session:
 
         Parameters
         ----------
-        check_kind : str
+        check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
