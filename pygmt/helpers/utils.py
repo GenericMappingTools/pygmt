@@ -135,8 +135,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     required_z : bool
         State whether the 'z' column is required.
     required_data : bool
-        State whether 'data' is required (useful for dealing with optional
-        virtual files).
+        Set to True when 'data' is required, or False when dealing with
+        optional virtual files. [Default is True].
 
     Returns
     -------
