@@ -1501,8 +1501,8 @@ class Session:
         required_z : bool
             State whether the 'z' column is required.
         required_data : bool
-            State whether 'data' is required (useful for dealing with optional
-            virtual files).
+            Set to True when 'data' is required, or False when dealing with
+            optional virtual files. [Default is True].
 
         Returns
         -------
@@ -1537,16 +1537,15 @@ class Session:
             data, x, y, z, required_z=required_z, required_data=required_data
         )
 
+        valid_kinds = ("file", "arg") if required_data is False else ("file",)
         if check_kind == "raster":
-            valid_kinds = ("file", "grid")
+            valid_kinds += ("grid",)
         elif check_kind == "vector":
-            valid_kinds = ("file", "matrix", "vectors", "geojson")
+            valid_kinds += ("matrix", "vectors", "geojson")
         else:
             raise GMTInvalidInput(
                 "Invalid check_kind. Should be either 'raster' or 'vector'."
             )
-        if required_data is False:
-            valid_kinds += ("arg",)
         if kind not in valid_kinds:
             raise GMTInvalidInput(
                 f"Unrecognized data type for {check_kind}: {type(data)}"
