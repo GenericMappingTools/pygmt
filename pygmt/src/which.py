@@ -23,7 +23,7 @@ def which(fname, **kwargs):
     defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
     (if defined).
 
-    ``fname`` can also be a downloadable file (either a complete URL, a
+    ``fname`` can also be a downloadable file (either a complete URL, an
     @file for downloading from the GMT data server, or any of the remote
     datasets at https://www.pygmt.org/latest/api/index.html#datasets).
     In these cases, use the ``download`` parameter to set the desired
@@ -41,7 +41,7 @@ def which(fname, **kwargs):
     download : bool or str
         [**a**\|\ **c**\|\ **l**\|\ **u**].
         If the ``fname`` argument is a downloadable file (either a complete
-        URL, a @file for downloading from the GMT data server, or any of
+        URL, an @file for downloading from the GMT data server, or any of
         the remote datasets at
         https://www.pygmt.org/latest/api/index.html#datasets)
         we will try to download the file if it is not found in your local
