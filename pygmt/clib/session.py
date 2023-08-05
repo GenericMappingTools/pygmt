@@ -5,6 +5,7 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
+import pathlib
 import sys
 from contextlib import contextmanager, nullcontext
 
@@ -1474,6 +1475,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_z=False,
+        required_data=True,
     ):
         """
         Store any data inside a virtual file.
@@ -1484,7 +1486,7 @@ class Session:
 
         Parameters
         ----------
-        check_kind : str
+        check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
@@ -1498,6 +1500,9 @@ class Session:
             All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
+        required_data : bool
+            Set to True when 'data' is required, or False when dealing with
+            optional virtual files. [Default is True].
 
         Returns
         -------
@@ -1528,21 +1533,25 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, x, y, z, required_z=required_z)
+        kind = data_kind(
+            data, x, y, z, required_z=required_z, required_data=required_data
+        )
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in (
-            "file",
-            "matrix",
-            "vectors",
-            "geojson",
-        ):
-            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
+        if check_kind:
+            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            if check_kind == "raster":
+                valid_kinds += ("grid",)
+            elif check_kind == "vector":
+                valid_kinds += ("matrix", "vectors", "geojson")
+            if kind not in valid_kinds:
+                raise GMTInvalidInput(
+                    f"Unrecognized data type for {check_kind}: {type(data)}"
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": nullcontext,
+            "arg": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             # Note: virtualfile_from_matrix is not used because a matrix can be
@@ -1553,11 +1562,8 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid"):
-            _data = (data,)
-        elif kind == "file":
-            # Useful to handle `pathlib.Path` and string file path alike
-            _data = (str(data),)
+        if kind in ("geojson", "grid", "file", "arg"):
+            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:
