@@ -10,6 +10,7 @@ try:
 except ImportError:
     rioxarray = None
 
+
 @fmt_docstring
 @use_alias(
     B="frame",
