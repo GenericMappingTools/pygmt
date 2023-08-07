@@ -67,7 +67,7 @@ def grdfilter(grid, **kwargs):
         - **h** - Histogram
 
     distance : str
-        State how grid (x,y) relates to filter *width*:
+        State how the grid (x,y) relates to filter *width*:
 
         - ``"p"``: grid (px,py) with *width* an odd number of pixels,
           Cartesian distances.
