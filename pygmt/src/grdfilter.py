@@ -68,7 +68,7 @@ def grdfilter(grid, **kwargs):
 
     distance : str
         *flag*.
-        Distance *flag* tells how grid (x,y) relates to filter width as
+        Distance *flag* tells how grid (x,y) relates to filter *width* as
         follows:
 
         - ``"p"``: grid (px,py) with *width* an odd number of pixels,
