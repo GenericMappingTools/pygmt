@@ -1,16 +1,8 @@
 """
 grdimage - Plot grids or images.
 """
-import contextlib
-
 from pygmt.clib import Session
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdimage"]
 
@@ -177,16 +169,12 @@ def grdimage(self, grid, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with contextlib.ExitStack() as stack:
-            # shading using an xr.DataArray
-            if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
-                shading_context = lib.virtualfile_from_data(
-                    check_kind="raster", data=kwargs["I"]
-                )
-                kwargs["I"] = stack.enter_context(shading_context)
-
-            fname = stack.enter_context(file_context)
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as fname, lib.virtualfile_from_data(
+            check_kind="raster", data=kwargs.get("I"), required_data=False
+        ) as shadegrid:
+            kwargs["I"] = shadegrid
             lib.call_module(
                 module="grdimage", args=build_arg_string(kwargs, infile=fname)
             )

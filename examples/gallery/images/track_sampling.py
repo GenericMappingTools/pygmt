@@ -10,7 +10,7 @@ x and y (or longitude and latitude). Note also that there is a ``newcolname``
 parameter that will be used to name the new column of values sampled from the
 grid.
 
-Alternatively, a NetCDF file path can be passed to ``grid``. An ASCII file path
+Alternatively, a netCDF file path can be passed to ``grid``. An ASCII file path
 can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 """
