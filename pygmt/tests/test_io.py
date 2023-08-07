@@ -10,7 +10,7 @@ from pygmt.io import load_dataarray
 
 def test_io_load_dataarray():
     """
-    Check that load_dataarray works to read a NetCDF grid with
+    Check that load_dataarray works to read a netCDF grid with
     GMTDataArrayAccessor information loaded.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
