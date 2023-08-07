@@ -5,6 +5,10 @@ from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
+try:
+    import rioxarray
+except ImportError:
+    rioxarray = None
 
 @fmt_docstring
 @use_alias(
@@ -108,6 +112,14 @@ def tilemap(
         function.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+
+    if rioxarray is None:
+        raise ImportError(
+            "Package `rioxarray` is required to be installed to use this function. "
+            "Please use `python -m pip install rioxarray` or "
+            "`mamba install -c conda-forge rioxarray` "
+            "to install the package."
+        )
 
     raster = load_tile_map(
         region=region,
