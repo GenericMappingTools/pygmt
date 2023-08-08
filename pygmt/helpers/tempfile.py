@@ -147,3 +147,34 @@ def tempfile_from_geojson(geojson):
                     geoseries.to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
+
+
+@contextmanager
+def tempfile_from_image(image):
+    """
+    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via
+    rioxarray.
+
+    Parameters
+    ----------
+    image : xarray.DataArray
+        An xarray.DataArray with three dimensions, having a shape like
+        (3, Y, X).
+
+    Yields
+    ------
+    tmpfilename : str
+        A temporary GeoTIFF file holding the image data. E.g. '1a2b3c4d5.tif'.
+    """
+    with GMTTempFile(suffix=".tif") as tmpfile:
+        os.remove(tmpfile.name)  # ensure file is deleted first
+        try:
+            image.rio.to_raster(raster_path=tmpfile.name)
+        except AttributeError as e:  # object has no attribute 'rio'
+            raise ImportError(
+                "Package `rioxarray` is required to be installed to use this function. "
+                "Please use `python -m pip install rioxarray` or "
+                "`mamba install -c conda-forge rioxarray` "
+                "to install the package."
+            ) from e
+        yield tmpfile.name
