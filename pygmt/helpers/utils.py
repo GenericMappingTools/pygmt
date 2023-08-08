@@ -141,8 +141,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     Returns
     -------
     kind : str
-        One of ``'arg'``, ``'file'``, ``'grid'``, ``'geojson'``, ``'matrix'``,
-        or ``'vectors'``.
+        One of ``'arg'``, ``'file'``, ``'grid'``, ``image``, ``'geojson'``,
+        ``'matrix'``, or ``'vectors'``.
 
     Examples
     --------
@@ -166,6 +166,8 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'arg'
     >>> data_kind(data=xr.DataArray(np.random.rand(4, 3)))
     'grid'
+    >>> data_kind(data=xr.DataArray(np.random.rand(3, 4, 5)))
+    'image'
     """
     # determine the data kind
     if isinstance(data, (str, pathlib.PurePath)):
@@ -173,7 +175,7 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     elif isinstance(data, (bool, int, float)) or (data is None and not required_data):
         kind = "arg"
     elif isinstance(data, xr.DataArray):
-        kind = "grid"
+        kind = "image" if len(data.dims) == 3 else "grid"
     elif hasattr(data, "__geo_interface__"):
         # geo-like Python object that implements ``__geo_interface__``
         # (geopandas.GeoDataFrame or shapely.geometry)

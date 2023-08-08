@@ -7,6 +7,7 @@ Uses ctypes to wrap most of the core functions from the C API.
 import ctypes as ctp
 import pathlib
 import sys
+import warnings
 from contextlib import contextmanager, nullcontext
 
 import numpy as np
@@ -26,7 +27,12 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import (
+    data_kind,
+    fmt_docstring,
+    tempfile_from_geojson,
+    tempfile_from_image,
+)
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -1540,7 +1546,7 @@ class Session:
         if check_kind:
             valid_kinds = ("file", "arg") if required_data is False else ("file",)
             if check_kind == "raster":
-                valid_kinds += ("grid",)
+                valid_kinds += ("grid", "image")
             elif check_kind == "vector":
                 valid_kinds += ("matrix", "vectors", "geojson")
             if kind not in valid_kinds:
@@ -1554,6 +1560,7 @@ class Session:
             "arg": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
+            "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
             # handling of string type inputs (e.g. for datetime data types)
@@ -1562,7 +1569,16 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid", "file", "arg"):
+        if kind in ("geojson", "grid", "image", "file", "arg"):
+            if kind == "image" and data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, "
+                    "and may result in an incorrect output. Please recast image "
+                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                    "using a histogram equalization function like "
+                    "skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
