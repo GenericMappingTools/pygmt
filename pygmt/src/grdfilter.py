@@ -104,6 +104,7 @@ def grdfilter(grid, **kwargs):
     {verbose}
     {coltypes}
     {registration}
+    {cores}
 
     Returns
     -------
