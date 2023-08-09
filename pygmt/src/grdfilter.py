@@ -25,6 +25,7 @@ from pygmt.io import load_dataarray
     V="verbose",
     f="coltypes",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdfilter(grid, **kwargs):
