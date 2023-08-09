@@ -62,12 +62,12 @@ the problem:
   filter the messages to include only the GMT-equivalent commands using a command
   such as:
 
-      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print "gmt", $3}'
+      python <test>.py 2>&1 | awk -F': ' '$2=="GMT_Call_Command string" {print $3}'
 
-  where `<test>` is the name of your test script.
+  where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
-  data to a file (e.g., a NetCDF or ASCII txt file) and passing the data file
+  data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
   to the PyGMT function instead. In the GitHub issue, please share the results
   for both cases along with your code.
 

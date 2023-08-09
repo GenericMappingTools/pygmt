@@ -1,5 +1,5 @@
 """
-Tests for Figure.timestamp.
+Test Figure.timestamp.
 """
 import pytest
 from pygmt import Figure, config

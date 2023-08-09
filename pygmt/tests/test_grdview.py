@@ -1,5 +1,5 @@
 """
-Tests grdview.
+Test Figure.grdview.
 """
 import pytest
 from pygmt import Figure, grdcut
@@ -27,7 +27,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="gridfile")
 def fixture_gridfile(grid, region):
     """
-    Load the NetCDF grid file from the sample earth_relief file.
+    Load the netCDF grid file from the sample earth_relief file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         grdcut(grid=grid, region=region, outgrid=tmpfile.name)
@@ -214,10 +214,6 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
-@pytest.mark.xfail(
-    reason="Generated images are different from the baseline images on three platforms. "
-    "See https://github.com/GenericMappingTools/pygmt/issues/2062#issuecomment-1220680290"
-)
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """
@@ -226,8 +222,14 @@ def test_grdview_drapegrid_dataarray(xrgrid):
     """
     drapegrid = 1.1 * xrgrid
 
+    # accessor information are lost during xarray multiplication
+    drapegrid.gmt.registration = xrgrid.gmt.registration
+    drapegrid.gmt.gtype = xrgrid.gmt.gtype
+
     fig = Figure()
-    fig.grdview(grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c")
+    fig.grdview(
+        grid=xrgrid, drapegrid=drapegrid, cmap="oleron", surftype="c", frame=True
+    )
     return fig
 
 

@@ -1,5 +1,5 @@
 """
-Tests for solar.
+Test Figure.solar.
 """
 import datetime
 

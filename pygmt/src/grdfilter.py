@@ -119,13 +119,12 @@ def grdfilter(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import os
     >>> import pygmt
-
-    >>> # Apply a filter of 600km (full width) to the @earth_relief_30m file
-    >>> # and return a filtered field (saved as netcdf)
+    >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file
+    >>> # and return a filtered field (saved as netCDF)
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
@@ -134,10 +133,9 @@ def grdfilter(grid, **kwargs):
     ...     spacing=0.5,
     ...     outgrid="filtered_pacific.nc",
     ... )
-    >>> os.remove("filtered_pacific.nc")  # cleanup file
-
-    >>> # Apply a gaussian smoothing filter of 600 km in the input data array,
-    >>> # and returns a filtered data array with the smoothed field.
+    >>> os.remove("filtered_pacific.nc")  # Cleanup file
+    >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray
+    >>> # and return a filtered DataArray with the smoothed field
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """

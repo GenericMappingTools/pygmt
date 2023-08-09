@@ -1,6 +1,6 @@
 # pylint: disable=redefined-outer-name
 """
-Tests contour.
+Test Figure.contour.
 """
 import os
 

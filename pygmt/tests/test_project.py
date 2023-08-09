@@ -1,5 +1,5 @@
 """
-Tests for project.
+Test pygmt.project.
 """
 from pathlib import Path
 
