@@ -50,9 +50,9 @@ def select(data=None, outfile=None, **kwargs):
     they:
 
     1. are inside a rectangular region (``region`` [and ``projection``])
-    2. are within *dist* km of any point in *pointfile*
-    3. are within *dist* km of any line in *linefile*
-    4. are inside one of the polygons in *polygonfile*
+    2. are within *dist* km of any point in *pointfile* (``dist2pt``)
+    3. are within *dist* km of any line in *linefile* (``dist2line``)
+    4. are inside one of the polygons in *polygonfile* (``polygon``)
     5. are inside geographical features (based on coastlines)
     6. have z-values within a given range
     7. are inside bins of a grid mask whose nodes are non-zero
