@@ -1,0 +1,4 @@
+outs:
+- md5: 6ce1b73d25ac10900a2ce4c7148d2953
+  size: 43434
+  path: test_geopandas_plot_int_dtypes.png
