@@ -4,7 +4,7 @@ Test integration with geopandas.
 import numpy.testing as npt
 import pandas as pd
 import pytest
-from pygmt import Figure, info, which, makecpt
+from pygmt import Figure, info, makecpt, which
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
