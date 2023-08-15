@@ -83,7 +83,7 @@ fig.show()
 #
 # Standard plotting methods can be called from within the ``inset`` context
 # manager. The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed
-# out map that selectively paints the state of Massachusetts to shows its
+# out map that selectively paints the state of Massachusetts to show its
 # location relative to other states.
 
 fig = pygmt.Figure()
