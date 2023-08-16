@@ -1,0 +1,4 @@
+outs:
+- md5: 2e919645d5af956ec4f8aa054a86a70a
+  size: 110214
+  path: test_grdimage_image.png
