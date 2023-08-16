@@ -89,4 +89,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         region=region,
         registration=registration,
     )
-    return grid.astype("int8")
+    # `return grid.astype("int8")` doesn't work because grid encoding is lost.
+    # See https://github.com/GenericMappingTools/pygmt/issues/2629.
+    grid.data = grid.data.astype("int8")
+    return grid
