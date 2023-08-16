@@ -54,6 +54,7 @@ def test_earth_mask_01d_with_region():
     assert data.shape == (7, 12)
     assert data.gmt.registration == 0
     assert data.gmt.gtype == 1
+    assert data.dtype == "int8"
     npt.assert_allclose(data.lat, np.arange(13, 20, 1))
     npt.assert_allclose(data.lon, np.arange(-7, 5, 1))
     npt.assert_allclose(data[1, 5], 1)
