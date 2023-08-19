@@ -4,8 +4,8 @@ grdimage - Plot grids or images.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
-    fmt_docstring,
     deprecate_parameter,
+    fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
