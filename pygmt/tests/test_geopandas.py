@@ -161,7 +161,7 @@ def test_geopandas_plot_int_dtypes(dtype):
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
-    makecpt(cmap="lajolla", series=[10, 60, 10], continuous=True)
+    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.plot(
         data=gdf,
         frame=True,
