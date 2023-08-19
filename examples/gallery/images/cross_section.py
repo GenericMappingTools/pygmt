@@ -109,11 +109,11 @@ track_df = pygmt.project(
 
 # Extract the elevation at the generated points from the downloaded grid
 # and add it as new column "elevation" to the pandas.DataFrame
-# track_df = pygmt.grdtrack(
-#     grid=grid_map,
-#     points=track_df,
-#     newcolname="elevation",
-# )
+track_df = pygmt.grdtrack(
+    grid=grid_map,
+    points=track_df,
+    newcolname="elevation",
+)
 
 # Plot water masses
 fig.plot(
