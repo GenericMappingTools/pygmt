@@ -14,7 +14,7 @@ __doctest_skip__ = ["grdimage"]
     C="cmap",
     D="img_in",
     E="dpi",
-    G="bit_color",
+    G="bitcolor",
     I="shading",
     J="projection",
     M="monochrome",
@@ -107,7 +107,7 @@ def grdimage(self, grid, **kwargs):
         same size (rows and columns) as the input file. Specify **i** to
         use the PostScript image operator to interpolate the image at the
         device resolution.
-    bit_color : str
+    bitcolor : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
