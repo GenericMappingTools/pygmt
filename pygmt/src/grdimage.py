@@ -2,12 +2,19 @@
 grdimage - Plot grids or images.
 """
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    deprecate_parameter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdimage"]
 
 
 @fmt_docstring
+@deprecate_parameter("bit_color", "bitcolor", "v0.10.0", remove_version="v0.12.0")
 @use_alias(
     A="img_out",
     B="frame",
