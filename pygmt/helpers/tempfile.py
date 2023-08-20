@@ -135,6 +135,9 @@ def tempfile_from_geojson(geojson):
             # Map int/int64 to int32 since OGR_GMT only supports 32-bit integer
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
+            if geojson.index.name is None:
+                geojson.index.name = "index"
+            geojson = geojson.reset_index(drop=False)
             schema = gpd.io.file.infer_schema(geojson)
             for col, dtype in schema["properties"].items():
                 if dtype in ("int", "int64"):
