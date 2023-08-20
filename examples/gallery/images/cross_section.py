@@ -127,14 +127,12 @@ fig.plot(
 
 # Plot elevation along the survey line
 fig.plot(
-    data=track_df.astype(float),
-    # x=track_df.p,
-    # y=track_df.elevation,
+    x=track_df.p,
+    y=track_df.elevation,
     fill="gray",  # Fill the polygon in "gray"
     # Draw a 1-point thick black solid outline
     pen="1p,black,solid",
     close="+y-8000",  # Force closed polygon
-    incols=[2, 3],
 )
 
 fig.show()
