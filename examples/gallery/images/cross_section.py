@@ -127,7 +127,7 @@ fig.plot(
 
 # Plot elevation along the survey line
 fig.plot(
-    data=track_df.astype(int),
+    data=track_df.astype(float),
     # x=track_df.p,
     # y=track_df.elevation,
     fill="gray",  # Fill the polygon in "gray"
