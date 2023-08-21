@@ -40,7 +40,7 @@ fig.colorbar(
     # with a length/width (+w) of 4 cm by 0.5 cm, and plotted horizontally (+h)
     position="g0.3/8.7+w4c/0.5c+h",
     box=True,
-    frame=["x+lTemperature", r"y+l\260C"],
+    frame=["x+lTemperature", "y+l°C"],
     scale=100,
 )
 
