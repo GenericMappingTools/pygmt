@@ -211,7 +211,7 @@ def non_ascii_to_octal(argstr):
 
     Returns
     -------
-    str
+    translated_argstr : str
         The translated string.
 
     Examples
