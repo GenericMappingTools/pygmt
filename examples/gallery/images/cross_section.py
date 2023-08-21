@@ -87,7 +87,7 @@ fig.basemap(
     projection="X12c/3c",
     # Add annotations ("a") and ticks ("f") as well as labels ("+l")
     # at the west or left and south or bottom sides ("WSrt")
-    frame=["WSrt", "xa2f1+lDistance+u@.", "ya4000+lElevation / m"],
+    frame=["WSrt", "xa2f1+lDistance+u°", "ya4000+lElevation / m"],
 )
 
 # Add labels "A" and "B" for the start and end points of the survey line
