@@ -11,3 +11,4 @@ exclude CONTRIBUTING.md
 exclude Makefile
 exclude environment.yml
 exclude requirements.txt
+exclude pygmt/tests/baseline/*.dvc

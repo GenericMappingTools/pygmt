@@ -2,19 +2,26 @@
 grdimage - Plot grids or images.
 """
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    deprecate_parameter,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdimage"]
 
 
 @fmt_docstring
+@deprecate_parameter("bit_color", "bitcolor", "v0.10.0", remove_version="v0.12.0")
 @use_alias(
     A="img_out",
     B="frame",
     C="cmap",
     D="img_in",
     E="dpi",
-    G="bit_color",
+    G="bitcolor",
     I="shading",
     J="projection",
     M="monochrome",
@@ -107,7 +114,7 @@ def grdimage(self, grid, **kwargs):
         same size (rows and columns) as the input file. Specify **i** to
         use the PostScript image operator to interpolate the image at the
         device resolution.
-    bit_color : str
+    bitcolor : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
