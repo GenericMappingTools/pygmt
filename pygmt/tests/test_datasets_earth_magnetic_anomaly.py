@@ -40,7 +40,7 @@ def test_earth_mag_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -384., atol=0.2)
+    npt.assert_allclose(data.min(), -384.0, atol=0.2)
     npt.assert_allclose(data.max(), 1057.2, atol=0.2)
 
 
@@ -92,7 +92,7 @@ def test_earth_mag_02m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.983333333)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.98333333)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.01666667)
-    npt.assert_allclose(data.min(), -231., atol=0.2)
+    npt.assert_allclose(data.min(), -231.0, atol=0.2)
     npt.assert_allclose(data.max(), 131.8, atol=0.2)
 
 
@@ -199,7 +199,7 @@ def test_earth_mag_03m_wdmam_with_region():
     assert data.lon.min() == 10
     assert data.lon.max() == 13
     npt.assert_allclose(data.min(), -790.2, atol=0.2)
-    npt.assert_allclose(data.max(), 528., atol=0.2)
+    npt.assert_allclose(data.max(), 528.0, atol=0.2)
 
 
 def test_earth_mag_03m_wdmam_without_region():
