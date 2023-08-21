@@ -10,6 +10,7 @@ from pygmt.helpers import (
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
+    non_ascii_to_octal,
     use_alias,
 )
 
@@ -223,7 +224,9 @@ def text_(
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
-        extra_arrays.append(np.atleast_1d(text).astype(str))
+        extra_arrays.append(
+            list(map(non_ascii_to_octal, np.atleast_1d(text).astype(str)))
+        )
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
