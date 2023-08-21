@@ -4,6 +4,7 @@ Utilities and common tasks for wrapping the GMT modules.
 import os
 import pathlib
 import shutil
+import string
 import subprocess
 import sys
 import time
@@ -196,6 +197,119 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
+def non_ascii_to_octal(argstr):
+    r"""
+    Translate non-ASCII characters to their corresponding octal codes.
+
+    Currently, only characters in the ISOLatin1+ charset and
+    Symbol/ZapfDingbats fonts are supported.
+
+    Parameters
+    ----------
+    argstr : str
+        The string to be translated.
+
+    Returns
+    -------
+    translated_argstr : str
+        The translated string.
+
+    Examples
+    --------
+    >>> non_ascii_to_octal("•‰“”±°ÿ")
+    '\\31\\214\\216\\217\\261\\260\\377'
+    >>> non_ascii_to_octal("αζΔΩ∑π∇")
+    '@~\\141@~@~\\172@~@~\\104@~@~\\127@~@~\\345@~@~\\160@~@~\\321@~'
+    >>> non_ascii_to_octal("✁❞❡➾")
+    '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
+    >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
+    'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    """
+    # Dictionary mapping non-ASCII characters to octal codes
+    mapping = {}
+
+    # Adobe Symbol charset
+    # References:
+    # 1. https://en.wikipedia.org/wiki/Symbol_(typeface)
+    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
+    # Notes:
+    # 1. \322 and \342 are "REGISTERED SIGN SERIF" and
+    #    "REGISTERED SIGN SANS SERIF" respectively, but only "REGISTERED SIGN"
+    #    is available in the unicode table. So both are mapped to
+    #    "REGISTERED SIGN". \323, \343, \324 and \344 also have the same
+    #    problem.
+    # 2. Characters for \140, \275, \276 are incorrect.
+    mapping.update(
+        {
+            c: "@~\\" + format(i, "o") + "@~"
+            for c, i in zip(
+                " !∀#∃%&∋()∗+,−./"  # \04x-05x
+                + "0123456789:;<=>?"  # \06x-07x
+                + "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
+                + "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
+                + "αβχδεφγηιϕκλμνο"  # \14x-15x
+                + "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
+                + "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
+                + "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
+                + "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
+                + "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
+                + "◊〈®©™∑"  # \34x-35x
+                + "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
+                [*range(32, 127), *range(160, 240), *range(241, 255)],
+            )
+        }
+    )
+
+    # Adobe ZapfDingbats charset
+    # References:
+    # 1. https://en.wikipedia.org/wiki/Zapf_Dingbats
+    # 2. https://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/zdingbat.txt
+    mapping.update(
+        {
+            c: "@%34%\\" + format(i, "o") + "@%%"
+            for c, i in zip(
+                " ✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏"  # \04x-\05x
+                + "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
+                + "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
+                + "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
+                + "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
+                + "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
+                + "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
+                + "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
+                + "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
+                + "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
+                + "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
+                + "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
+                [*range(32, 127), *range(161, 240), *range(241, 255)],
+            )
+        }
+    )
+
+    # Adobe ISOLatin1+ charset (i.e., ISO-8859-1 with extensions)
+    # References:
+    # 1. https://en.wikipedia.org/wiki/ISO/IEC_8859-1
+    # 2. https://docs.generic-mapping-tools.org/dev/cookbook/octal-codes.html
+    # 3. https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
+    mapping.update(
+        {
+            c: "\\" + format(i, "o")
+            for c, i in zip(
+                "•…™—–ﬁž"  # \03x. \030 is undefined
+                + "š"  # \177
+                + "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
+                + "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
+                [*range(25, 32), *range(127, 160)],
+            )
+        }
+    )
+    # \240-\377
+    mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
+
+    # Remove any printable characters
+    mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+    return argstr.translate(str.maketrans(mapping))
+
+
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
     Convert keyword dictionaries and input/output files into a GMT argument
@@ -318,7 +432,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
         gmt_args = [str(infile)] + gmt_args
     if outfile:
         gmt_args.append("->" + str(outfile))
-    return " ".join(gmt_args)
+    return non_ascii_to_octal(" ".join(gmt_args))
 
 
 def is_nonstr_iter(value):
