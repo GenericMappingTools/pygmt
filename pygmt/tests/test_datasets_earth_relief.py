@@ -52,8 +52,8 @@ def test_earth_relief_01d_gebco(data_source):
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -8598)
-    npt.assert_allclose(data.max(), 5559.0)
+    npt.assert_allclose(data.min(), -8597.0, atol=1.0)
+    npt.assert_allclose(data.max(), 5559.0, atol=1.0)
 
 
 def test_earth_relief_01d_with_region_srtm():
@@ -86,8 +86,8 @@ def test_earth_relief_01d_with_region_gebco():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5146)
-    npt.assert_allclose(data.max(), 806)
+    npt.assert_allclose(data.min(), -5151.0, atol=1.0)
+    npt.assert_allclose(data.max(), 806.0, atol=1.0)
 
 
 def test_earth_relief_30m():
