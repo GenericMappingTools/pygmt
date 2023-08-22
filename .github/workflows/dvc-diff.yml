@@ -34,7 +34,7 @@ jobs:
 
     # workaround from https://github.com/iterative/cml/issues/1377
     - name: Setup NodeJS
-      uses: actions/setup-node@v3.8.0
+      uses: actions/setup-node@v3.8.1
       with:
         node-version: '16'
 
