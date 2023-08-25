@@ -231,7 +231,7 @@ def text_(
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
         extra_arrays.append(
-            list(map(non_ascii_to_octal, np.atleast_1d(text).astype(str)))
+            np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
         )
 
     with Session() as lib:
