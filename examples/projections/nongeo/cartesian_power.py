@@ -2,10 +2,12 @@ r"""
 Cartesian power
 ===============
 
-**X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]]: Give the
-*width* of the figure and the optional argument *height*. Each axis with
-a power transformation requires **p** and the exponent for that axis
-after its size argument.
+**X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]] or
+**x**\ *x-scale*\ [**p**\ *pvalue*][/*y-scale*\ [**p**\ *pvalue*]]
+
+Give the *width* of the figure and the optional argument *height*.
+Each axis with a power transformation requires **p** and the exponent
+for that axis after its size argument.
 """
 import numpy as np
 import pygmt
