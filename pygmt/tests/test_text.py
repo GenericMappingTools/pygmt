@@ -371,3 +371,16 @@ def test_text_nonstr_text():
         text=[1, 2, 3.0, 4.0],
     )
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii():
+    """
+    Test passing text strings with non-ascii characters.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    fig.text(position="TL", text="position-text:°α")
+    fig.text(x=1, y=1, text="xytext:°α")
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
+    return fig
