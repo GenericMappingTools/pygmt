@@ -5,6 +5,8 @@ Cartesian linear
 **X**\ *width*[/*height*] or **x**\ *x-scale*[/*y-scale*]
 
 Give the *width* of the figure and the optional *height*.
+The lower-case version **x** is similar to **X** but expects
+a *x-scale* and an optional *y-scale*.
 """
 import pygmt
 
