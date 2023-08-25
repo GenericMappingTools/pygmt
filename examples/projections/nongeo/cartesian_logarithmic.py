@@ -2,7 +2,7 @@ r"""
 Cartesian logarithmic
 =====================
 
-**X**\ *width*\ [**l**]/[*height*\ [**l**]]: Give the *width* of the figure and
+**X**\ *width*\ [**l**][/*height*\ [**l**]]: Give the *width* of the figure and
 the optional *height*. Each axis with a logarithmic transformation
 requires **l** after its size argument.
 """

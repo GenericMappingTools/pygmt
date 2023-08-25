@@ -2,7 +2,7 @@ r"""
 Cartesian power
 ===============
 
-**X**\ *width*\ [**p**\ *pvalue*]/[*height*\ [**p**\ *pvalue*]]: Give the
+**X**\ *width*\ [**p**\ *pvalue*][/*height*\ [**p**\ *pvalue*]]: Give the
 *width* of the figure and the optional argument *height*. Each axis with
 a power transformation requires **p** and the exponent for that axis
 after its size argument.

@@ -2,7 +2,7 @@ r"""
 Cartesian linear
 ================
 
-**X**\ *width*/[*height*]: Give the *width* of the figure and the optional
+**X**\ *width*[/*height*]: Give the *width* of the figure and the optional
 *height*.
 """
 import pygmt
