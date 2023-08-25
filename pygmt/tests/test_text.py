@@ -382,5 +382,5 @@ def test_text_nonascii():
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
     fig.text(position="TL", text="position-text:°α")
     fig.text(x=1, y=1, text="xytext:°α")
-    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:°α", "xytext2:°α"])
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
     return fig
