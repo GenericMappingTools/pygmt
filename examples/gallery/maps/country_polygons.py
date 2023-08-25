@@ -70,3 +70,25 @@ fig.coast(
 )
 
 fig.show()
+
+###############################################################################
+# If available, states/territories of a country can be highlighted, too.
+
+fig = pygmt.Figure()
+
+fig.coast(
+    region=[-130, -70, 24, 52],
+    projection="L-100/35/33/45/12c",
+    land="gray",
+    shorelines="1/0.5p",
+    borders=["1/0.8p,black", "2/0.2p,black"],
+    frame=True,
+    dcw=[
+        # Texas with orange fill
+        "US.TX+gorange",
+        # Kentucky with blue outline
+        "US.KY+p1p,blue",
+    ],
+)
+
+fig.show()
