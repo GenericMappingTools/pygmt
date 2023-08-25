@@ -36,9 +36,8 @@ fig.plot(x=4, y=1.5, style="l3.5c+tZ+fCourier-Bold", fill="seagreen", pen=pen)
 # plot a lowercase "s" of size 3.5c and use the "Times-Italic" font,
 # color fill is set to "gold"
 fig.plot(x=5.5, y=1.5, style="l3.5c+ts+fTimes-Italic", fill="gold", pen=pen)
-# plot the pi symbol (\160 is octal code for pi) of size 3.5c, for this use
-# the "Symbol" font, the outline color of the symbol is set to
+# plot the pi symbol of size 3.5c, the outline color of the symbol is set to
 # "darkorange", the color fill is set to "magenta4"
-fig.plot(x=7, y=1.5, style="l3.5c+t\160+fSymbol,darkorange", fill="magenta4", pen=pen)
+fig.plot(x=7, y=1.5, style="l3.5c+tπ+fdarkorange", fill="magenta4", pen=pen)
 
 fig.show()
