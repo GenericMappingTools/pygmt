@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "BSD License"}
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
@@ -25,14 +25,13 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.21",
+    "numpy>=1.22",
     "pandas",
     "xarray",
     "netCDF4",
@@ -76,6 +75,7 @@ line-length = 79
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
 [tool.docformatter]
+black = true
 recursive = true
 pre-summary-newline = true
 make-summary-multi-line = true

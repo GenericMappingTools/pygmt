@@ -1,5 +1,5 @@
 """
-Tests for legend.
+Test Figure.legend.
 """
 import pytest
 from pygmt import Figure

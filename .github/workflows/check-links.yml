@@ -1,4 +1,10 @@
-# This workflow checks the links in plaintext and HTML files
+# Check links in the repository and documentation
+#
+# This workflow runs the lychee tool to check all external links in plaintext
+# and HTML files. It will create an issue if broken links are found.
+#
+# It is scheduled to run weekly at 12 noon every Sunday.
+#
 name: Check Links
 
 on:
@@ -15,19 +21,19 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3.5.0
+      uses: actions/checkout@v3.5.3
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v3.5.0
+      uses: actions/checkout@v3.5.3
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.6.1
+      uses: lycheeverse/lychee-action@v1.8.0
       with:
         # 429: Too many requests
         args: >

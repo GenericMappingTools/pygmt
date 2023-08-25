@@ -25,7 +25,7 @@ def fixture_grid_360(grid):
     180).
     """
     _grid = grid.copy()  # get a copy of original earth_relief grid
-    _grid.encoding.pop("source")  # unlink earth_relief NetCDF source
+    _grid.encoding.pop("source")  # unlink earth_relief netCDF source
     _grid["lon"] = np.arange(0, 361, 1)  # convert longitude from -180:180 to 0:360
     return _grid
 
@@ -212,7 +212,7 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
     return fig_ref, fig_test
 
 
-# Cylindrical Equidistant (Q) projections plotted with xarray and NetCDF grids
+# Cylindrical Equidistant (Q) projections plotted with xarray and netCDF grids
 # are still slightly different with an RMS error of 25, see issue at
 # https://github.com/GenericMappingTools/pygmt/issues/390
 # TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT

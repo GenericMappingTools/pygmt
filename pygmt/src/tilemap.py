@@ -3,13 +3,7 @@ tilemap - Plot XYZ tile maps.
 """
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
     import rioxarray
@@ -115,14 +109,15 @@ def tilemap(
     ImportError
         If ``rioxarray`` is not installed. Follow
         :doc:`install instructions for rioxarray <rioxarray:installation>`,
-        (e.g. via ``pip install rioxarray``) before using this function.
+        (e.g. via ``python -m pip install rioxarray``) before using this
+        function.
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     if rioxarray is None:
         raise ImportError(
             "Package `rioxarray` is required to be installed to use this function. "
-            "Please use `pip install rioxarray` or "
+            "Please use `python -m pip install rioxarray` or "
             "`mamba install -c conda-forge rioxarray` "
             "to install the package."
         )
@@ -147,9 +142,9 @@ def tilemap(
     if kwargs.get("N") in [None, False]:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
-    with GMTTempFile(suffix=".tif") as tmpfile:
-        raster.rio.to_raster(raster_path=tmpfile.name)
-        with Session() as lib:
+    with Session() as lib:
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=raster)
+        with file_context as infile:
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=tmpfile.name)
+                module="grdimage", args=build_arg_string(kwargs, infile=infile)
             )

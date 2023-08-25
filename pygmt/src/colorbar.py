@@ -18,6 +18,7 @@ __doctest_skip__ = ["colorbar"]
     I="shading",
     J="projection",
     L="equalsize",
+    Q="log",
     R="region",
     V="verbose",
     W="scale",
@@ -85,8 +86,8 @@ def colorbar(self, **kwargs):
         rectangular borders instead, with a 6p corner radius. You can override
         this radius by appending another value. Finally, append **+s** to draw
         an offset background shaded region. Here, *dx/dy* indicates the shift
-        relative to the foreground frame [4p/-4p] and shade sets the fill
-        style to use for shading [Default is ``"gray50"``].
+        relative to the foreground frame [Default is ``"4p/-4p"``] and shade
+        sets the fill style to use for shading [Default is ``"gray50"``].
     truncate : list or str
         *zlo*/*zhi*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
@@ -110,6 +111,10 @@ def colorbar(self, **kwargs):
         **i** is prepended the interval range is annotated instead. If
         ``shading`` is used each rectangle will have its constant color
         modified by the specified intensity.
+    log : bool
+        Select logarithmic scale and power of ten annotations. All z-values
+        in the CPT will be converted to p = log10(z) and only integer p-values
+        will be annotated using the 10^p format [Default is linear scale].
     zfile : str
         File with colorbar-width per color entry. By default, the width of the
         entry is scaled to the color range, i.e., z = 0-100 gives twice the

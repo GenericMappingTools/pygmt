@@ -20,6 +20,10 @@ categories:
     label: 'maintenance'
 exclude-labels:
   - 'skip-changelog'
+exclude-contributors:
+  - 'actions-bot'
+  - 'dependabot'
+  - 'dependabot[bot]'
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'

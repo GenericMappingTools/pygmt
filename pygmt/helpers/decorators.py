@@ -45,7 +45,7 @@ COMMON_DOCSTRINGS = {
             Set color or pattern for filling symbols or polygons
             [Default is no fill].""",
     "spacing": r"""
-        spacing : str
+        spacing : int or float or str or list or tuple
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
@@ -679,7 +679,7 @@ def kwargs_to_strings(**conversions):
     >>> import xarray as xr
     >>> module(
     ...     R=[
-    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00")),
+    ...         xr.DataArray(data=np.datetime64("2005-01-01T08:00:00", "ns")),
     ...         pd.Timestamp("2015-01-01T12:00:00.123456789"),
     ...     ]
     ... )

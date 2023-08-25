@@ -5,8 +5,10 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
+import pathlib
 import sys
-from contextlib import contextmanager
+import warnings
+from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -25,7 +27,12 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, dummy_context, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import (
+    data_kind,
+    fmt_docstring,
+    tempfile_from_geojson,
+    tempfile_from_image,
+)
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -494,6 +501,97 @@ class Session:
 
         return value.value.decode()
 
+    def get_common(self, option):
+        """
+        Inquire if a GMT common option has been set and return its current
+        value if possible.
+
+        Parameters
+        ----------
+        option : str
+            The GMT common option to check. Valid options are ``"B"``, ``"I"``,
+            ``"J"``, ``"R"``, ``"U"``, ``"V"``, ``"X"``, ``"Y"``, ``"a"``,
+            ``"b"``, ``"f"``, ``"g"``, ``"h"``, ``"i"``, ``"n"``, ``"o"``,
+            ``"p"``, ``"r"``, ``"s"``, ``"t"``, and ``":"``.
+
+        Returns
+        -------
+        value : bool, int, float, or numpy.ndarray
+            Whether the option was set or its value.
+
+            If the option was not set, return ``False``. Otherwise,
+            the return value depends on the choice of the option.
+
+            - options ``"B"``, ``"J"``, ``"U"``, ``"g"``, ``"n"``, ``"p"``,
+              and ``"s"``: return ``True`` if set, else ``False`` (bool)
+            - ``"I"``: 2-element array for the increments (float)
+            - ``"R"``: 4-element array for the region (float)
+            - ``"V"``: the verbose level (int)
+            - ``"X"``: the xshift (float)
+            - ``"Y"``: the yshift (float)
+            - ``"a"``: geometry of the dataset (int)
+            - ``"b"``: return 0 if `-bi` was set and 1 if `-bo` was set (int)
+            - ``"f"``: return 0 if `-fi` was set and 1 if `-fo` was set (int)
+            - ``"h"``: whether to delete existing header records (int)
+            - ``"i"``: number of input columns (int)
+            - ``"o"``: number of output columns (int)
+            - ``"r"``: registration type (int)
+            - ``"t"``: 2-element array for the transparency (float)
+            - ``":"``: return 0 if `-:i` was set and 1 if `-:o` was set (int)
+
+        Examples
+        --------
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf -Ve")
+        ...     region = lib.get_common("R")
+        ...     projection = lib.get_common("J")
+        ...     timestamp = lib.get_common("U")
+        ...     verbose = lib.get_common("V")
+        ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
+        ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
+        ...     yshift = lib.get_common("Y")
+        ...
+        >>> print(region, projection, timestamp, verbose, xshift, yshift)
+        [ 0. 10. 10. 15.] True False 3 6.0 1.5
+        >>> with Session() as lib:
+        ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
+        ...     lib.get_common("A")
+        ...
+        Traceback (most recent call last):
+        ...
+        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
+        """
+        if option not in "BIJRUVXYabfghinoprst:":
+            raise GMTInvalidInput(f"Unknown GMT common option flag '{option}'.")
+
+        c_get_common = self.get_libgmt_func(
+            "GMT_Get_Common",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.POINTER(ctp.c_double)],
+            restype=ctp.c_int,
+        )
+        value = np.empty(6)  # numpy array to store the value of the option
+        status = c_get_common(
+            self.session_pointer,
+            ord(option),
+            value.ctypes.data_as(ctp.POINTER(ctp.c_double)),
+        )
+
+        # GMT_NOTSET (-1) means the option is not set
+        if status == self["GMT_NOTSET"]:
+            return False
+        # option is set and no other value is returned
+        if status == 0:
+            return True
+        # option is set and option values (in double type) are returned via the
+        # 'value' array. 'status' is number of valid values in the array.
+        if option in "IRt":
+            return value[:status]
+        if option in "XY":  # only one valid element in the array
+            return value[0]
+        # option is set and the option value (in integer type) is returned via
+        # the function return value (i.e., 'status')
+        return status
+
     def call_module(self, module, args):
         """
         Call a GMT module with the given arguments.
@@ -745,7 +843,7 @@ class Session:
         if array.dtype.type not in DTYPES:
             try:
                 # Try to convert any unknown numpy data types to np.datetime64
-                array = np.asarray(array, dtype=np.datetime64)
+                array = array_to_datetime(array)
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -1383,6 +1481,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_z=False,
+        required_data=True,
     ):
         """
         Store any data inside a virtual file.
@@ -1393,7 +1492,7 @@ class Session:
 
         Parameters
         ----------
-        check_kind : str
+        check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
@@ -1407,6 +1506,9 @@ class Session:
             All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
+        required_data : bool
+            Set to True when 'data' is required, or False when dealing with
+            optional virtual files. [Default is True].
 
         Returns
         -------
@@ -1437,23 +1539,28 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, x, y, z, required_z=required_z)
+        kind = data_kind(
+            data, x, y, z, required_z=required_z, required_data=required_data
+        )
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in (
-            "file",
-            "matrix",
-            "vectors",
-            "geojson",
-        ):
-            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
+        if check_kind:
+            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            if check_kind == "raster":
+                valid_kinds += ("grid", "image")
+            elif check_kind == "vector":
+                valid_kinds += ("matrix", "vectors", "geojson")
+            if kind not in valid_kinds:
+                raise GMTInvalidInput(
+                    f"Unrecognized data type for {check_kind}: {type(data)}"
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": dummy_context,
+            "file": nullcontext,
+            "arg": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
+            "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
             # handling of string type inputs (e.g. for datetime data types)
@@ -1462,11 +1569,17 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid"):
-            _data = (data,)
-        elif kind == "file":
-            # Useful to handle `pathlib.Path` and string file path alike
-            _data = (str(data),)
+        if kind in ("geojson", "grid", "image", "file", "arg"):
+            if kind == "image" and data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, "
+                    "and may result in an incorrect output. Please recast image "
+                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                    "using a histogram equalization function like "
+                    "skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:

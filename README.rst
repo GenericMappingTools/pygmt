@@ -211,7 +211,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 To cite a specific version of PyGMT, go to our Zenodo page at
 https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
 It is also strongly recommended to cite the
-`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+`GMT 6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
 Note that some modules like ``dimfilter``, ``surface``, and ``x2sys`` also have their
 dedicated citations. Further information for all these can be found at
 https://www.generic-mapping-tools.org/cite.
@@ -262,8 +262,8 @@ Compatibility with GMT/Python/NumPy versions
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
-      - >=3.8
-      - >=1.21
+      - >=3.9
+      - >=1.22
     * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
       - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
       - >=6.3.0
