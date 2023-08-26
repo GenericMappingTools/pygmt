@@ -27,7 +27,7 @@ fig = pygmt.Figure()
 # Define target region around Oʻahu (Hawaiʻi)
 region = [-158.3, -157.6, 21.2, 21.75]  # xmin, xmax, ymin, ymax
 
-title = r"Main roads of O\140ahu (Hawai\140i)"  # \140 is octal code for `, approximating the Okina ʻ
+title = "Main roads of O`ahu (Hawai`i)"  # Approximating the Okina letter ʻ with `
 fig.basemap(region=region, projection="M12c", frame=["af", f"WSne+t{title}"])
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 
