@@ -7,7 +7,7 @@ The :meth:`pygmt.Figure.grdimage` method can be used to plot Red, Green, Blue
 :class:`xarray.DataArray` format, and plot it on a map.
 
 The example below shows a Worldview 2 satellite image over
-`Lāhainā, Hawai'i during the August 2023 wildfires
+`Lāhainā, Hawaiʻi during the August 2023 wildfires
 <https://en.wikipedia.org/wiki/2023_Hawaii_wildfires#L%C4%81hain%C4%81>`_.
 Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
@@ -33,7 +33,7 @@ with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
     fig.grdimage(
         grid=image,
         projection="x1:100000",
-        frame=[r"WSne+tL@!a\225hain@!a\225, Hawai\047i on 9 Aug 2023", "af"],
+        frame=[r"WSne+tL@!a\225hain@!a\225, Hawai\140i on 9 Aug 2023", "af"],
     )
 fig.savefig("Lāhainā.png")
 fig.show()
