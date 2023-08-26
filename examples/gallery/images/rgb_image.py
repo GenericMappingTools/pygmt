@@ -33,7 +33,6 @@ with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
     fig.grdimage(
         grid=image,
         projection="x1:100000",  # map scale where 1 cm on map equals 1 km on the ground
-        frame=[r"WSne+tL@!a\225hain@!a\225, Hawai\140i on 9 Aug 2023", "af"],
+        frame=[r"WSne+tL@!a¯hain@!a¯, Hawai`i on 9 Aug 2023", "af"],
     )
-fig.savefig("Lāhainā.png")
 fig.show()
