@@ -29,9 +29,11 @@ image
 ###############################################################################
 # Plot the RGB imagery
 fig = pygmt.Figure()
-fig.grdimage(
-    grid=image,
-    projection="x1:100000",
-    frame=[r"WSne+tL@!a\225hain@!a\225, Hawai\047i on 9 Aug 2023", "af"],
-)
+with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman
+    fig.grdimage(
+        grid=image,
+        projection="x1:100000",
+        frame=[r"WSne+tL@!a\225hain@!a\225, Hawai\047i on 9 Aug 2023", "af"],
+    )
+fig.savefig("Lāhainā.png")
 fig.show()
