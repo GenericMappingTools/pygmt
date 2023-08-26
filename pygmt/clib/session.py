@@ -1641,7 +1641,7 @@ class Session:
         0.00, 10.00, -20.00, -10.00
 
         Using ISO country codes for the regions (for example ``'US.HI'`` for
-        Hawaii):
+        Hawaiʻi):
 
         >>> fig = pygmt.Figure()
         >>> fig.coast(
