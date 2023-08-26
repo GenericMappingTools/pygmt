@@ -9,7 +9,7 @@ The :meth:`pygmt.Figure.grdimage` method can be used to plot Red, Green, Blue
 The example below shows a Worldview 2 satellite image over
 `Lāhainā, Hawai'i during the August 2023 wildfires
 <https://en.wikipedia.org/wiki/2023_Hawaii_wildfires#L%C4%81hain%C4%81>`_.
-Data is sourced from a Cloud-Optimized GeoTIFF file hosted on
+Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
 `CC BY-NC 4.0 <https://creativecommons.org/licenses/by-nc/4.0/>`_ license.
 """
