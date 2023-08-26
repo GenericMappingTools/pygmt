@@ -80,8 +80,8 @@ fig.coast(
     region=[-130, -70, 24, 52],
     projection="L-100/35/33/45/12c",
     land="gray",
-    shorelines="1/0.5p",
-    borders=["1/0.8p,black", "2/0.2p,black"],
+    shorelines="1/0.5p,gray30",
+    borders=["1/0.8p,gray30", "2/0.2p,gray30"],
     frame=True,
     dcw=[
         # Texas with orange fill
