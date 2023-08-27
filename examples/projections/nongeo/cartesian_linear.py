@@ -10,11 +10,11 @@ an *x-scale* and an optional *y-scale*.
 
 The Cartesian linear projection is primarily designed for regular
 floating point data. To plot geographical data in a linear
-projection, please see the upstream GMT docuemntation at
-https://docs.generic-mapping-tools.org/dev/cookbook/coordinate-transformations.html#geographic-coordinates
+projection, see the upstream GMT documentation
+:gmt-docs:`Geographic coordinates </cookbook/coordinate-transformations.html#geographic-coordinates>`.
 To make the linear plot using calendar date/time as the input
-coordinates, please see the GMT docuemntation at
-https://docs.generic-mapping-tools.org/dev/cookbook/coordinate-transformations.html#calendar-time-coordinates
+coordinates, see the GMT documentation
+:gmt-docs:`Calendar time coordinates </cookbook/coordinate-transformations.html#calendar-time-coordinates>`.
 """
 import pygmt
 
