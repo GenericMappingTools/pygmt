@@ -13,7 +13,7 @@ floating point data. To plot geographical data in a linear
 projection, see the upstream GMT documentation
 :gmt-docs:`Geographic coordinates
 <cookbook/coordinate-transformations.html#geographic-coordinates>`.
-To make the linear plot using calendar date/time as the input
+To make the linear plot using calendar date/time as input
 coordinates, see the GMT documentation
 :gmt-docs:`Calendar time coordinates
 <cookbook/coordinate-transformations.html#calendar-time-coordinates>`.
