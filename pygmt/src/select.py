@@ -138,7 +138,7 @@ def select(data=None, outfile=None, **kwargs):
         column of *pointfile* must have each point's individual radius of
         influence. If you only have a single point you can specify
         *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in
-        user units. Alternatively, if ``region`` and ``projection`` are used
+        user units. Alternatively, if ``region`` and ``projection`` are used,
         the geographic coordinates are projected to map coordinates (in
         centimeters, inches, meters, or points, as determined by
         `gmt-term`:PROJ_LENGTH_UNIT) before Cartesian distances are compared
@@ -149,13 +149,13 @@ def select(data=None, outfile=None, **kwargs):
         segments in the ASCII multiple-segment file *linefile*. If *dist* is
         zero, we will scan each sub-header in *linefile* for an embedded
         **-D**\ *dist* setting that sets each line's individual distance value
-        Alternatively, if ``region`` and ``projection`` are used the geographic
-        coordinates are projected to map coordinates (in centimeters, inches,
-        meters, or points, as determined by `gmt-term`:PROJ_LENGTH_UNIT) before
-        Cartesian distances are compared to *dist*. Append **+p** to ensure
-        only points whose orthogonal projections onto the nearest line-segment
-        fall within the segments endpoints [Default considers points "beyond"
-        the line's endpoints].
+        Alternatively, if ``region`` and ``projection`` are used, the
+        geographic coordinates are projected to map coordinates (in centimeters,
+        inches, meters, or points, as determined by `gmt-term`:PROJ_LENGTH_UNIT)
+        before Cartesian distances are compared to *dist*. Append **+p** to
+        ensure only points whose orthogonal projections onto the nearest
+        line-segment fall within the segment's endpoints [Default considers
+        points "beyond" the line's endpoints].
     polygon : str
         *polygonfile*.
         Pass all records whose locations are within one of the closed
