@@ -136,7 +136,7 @@ def select(data=None, outfile=None, **kwargs):
         Pass all records whose locations are within *dist* of any of the
         points in the ASCII file *pointfile*. If *dist* is zero, the 3rd
         column of *pointfile* must have each point's individual radius of
-        influence. If you only have a single point you can specify
+        influence. If you only have a single point, you can specify
         *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in
         user units. Alternatively, if ``region`` and ``projection`` are used,
         the geographic coordinates are projected to map coordinates (in
