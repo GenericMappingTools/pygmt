@@ -7,7 +7,7 @@ Cartesian power
 
 Give the *width* of the figure and the optional argument *height*.
 The lower-case version **x** is similar to **X** but expects
-a *x-scale* and an optional *y-scale*.
+an *x-scale* and an optional *y-scale*.
 Each axis with a power transformation requires **p** and the exponent
 for that axis after its size argument.
 """
