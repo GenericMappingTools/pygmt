@@ -146,6 +146,13 @@ def select(data=None, outfile=None, **kwargs):
         If *dist* is zero, we will scan each sub-header in *linefile*
         for an embedded **-D**\ *dist* setting that sets each line’s
         individual distance value.
+        Alternatively, if ``region`` and ``projection`` are used the
+        geographic coordinates are projected to map coordinates (in
+        centimeters, inches, meters, or points, as determined by
+        `gmt-term`:PROJ_LENGTH_UNIT) before Cartesian distances are compared
+        to *dist*. Append **+p** to ensure only points whose orthogonal
+        projections onto the nearest line-segment fall within the segments
+        endpoints [Default considers points "beyond" the line's endpoints].
     polygon : str
         *polygonfile*.
         Pass all records whose locations are within one of the closed
