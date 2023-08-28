@@ -1,22 +1,22 @@
 """
 3. Figure elements
 ==================
-The figure shows the naming of figure elements in PyGMT.
+The figure below shows the naming of figure elements in PyGMT.
 
 - :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
   figure must start with the creation of a :meth:`pygmt.Figure()` instance
 - ``frame``: setting plot or map boundaries (**WSNE**, **wsne**, or
   **lbtr**), adding annotations, ticks, gridlines (**afg**), axis labels
   (**+l**), and title (**+t**), e.g., in :meth:`pygmt.Figure.basemap`.
-  Detailed examples can be found at `frame and axes attributes
-  <https://www.pygmt.org/latest/tutorials/basics/frames.html>`_.
-- :meth:`pygmt.Figure.plot`: plotting the lines or symbols based on ``pen``
+  Detailed examples can be found at :doc:`frame and axes attributes
+  </tutorials/basics/frames>`.
+- :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen``
   or ``style`` parameters, respectively
 - :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
-  parameter adjusts fontsize, fontstyle, and color.
+  parameter adjusts fontsize, fontstyle, and color
 - :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while
   the ``label`` is given in :meth:`pygmt.Figure.plot`
-- :meth:`pygmt.Figure.show`: previewing the figure you plotted
+- :meth:`pygmt.Figure.show`: previewing the content added to the current figure instance
 """
 import pygmt
 
@@ -47,11 +47,11 @@ fig.text(x=5, y=-3, text='frame="x+lxlabel"', **minorexplain)
 fig.text(x=-1.7, y=10, text='frame="y+lylabel"', angle=90, **minorexplain)
 # ============x-majorticks
 fig.plot(x=10, y=-0.2, style="c1c", pen="2p,darkblue", no_clip=True)
-fig.text(x=10, y=-1.4, text="Annonate", **mainexplain)
+fig.text(x=10, y=-1.4, text="Annotation", **mainexplain)
 fig.text(x=10, y=-2.6, text='frame="xa2"', **minorexplain)
 # ============y-majorticks
 fig.plot(x=-0.2, y=20, style="c1c", pen="2p,darkblue", no_clip=True)
-fig.text(x=0, y=23.5, text="Annonate", **mainexplain)
+fig.text(x=0, y=23.5, text="Annotation", **mainexplain)
 fig.text(x=0, y=22, text='frame="ya5"', **minorexplain)
 # ============x-minorticks
 fig.plot(x=1, y=-0.2, style="c0.7c", pen="2p,darkblue", no_clip=True)
@@ -68,10 +68,12 @@ fig.text(x=2, y=18, text='frame="xg2"', **minorexplain)
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(x=11.5, y=8, text="Map Boundary", **mainexplain)
 fig.text(x=11.5, y=7, text='frame="WSne"', **minorexplain)
-# ============fig.plot
+# ============fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
+fig.text(x=6, y=6.5, text="fig.plot(style)", **minorexplain)
+# ============fig.plot (pen)
 fig.plot(x=4, y=6, style="c0.7c", pen="2p,darkblue")
-fig.text(x=6, y=6.5, text="fig.plot()", **minorexplain)
+fig.text(x=3, y=4.5, text="fig.plot(pen)", **minorexplain)
 # ============Legend
 fig.legend()
 fig.text(x=8, y=17, text="Legend", **mainexplain)
