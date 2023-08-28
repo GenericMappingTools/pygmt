@@ -19,4 +19,5 @@ from pygmt.helpers.utils import (
     data_kind,
     is_nonstr_iter,
     launch_external_viewer,
+    non_ascii_to_octal,
 )
