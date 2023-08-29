@@ -3,8 +3,12 @@ Highlight country and continent polygons
 ----------------------------------------
 The :meth:`pygmt.Figure.coast` method can
 highlight country polygons via the ``dcw``
-parameter. It accepts the country code, and
-can draw its borders and add a color to its landmass.
+parameter. It accepts the country code or
+full country name and can draw its borders 
+and add a color to its landmass. It's also
+possible to define multiple countries at 
+once by separating the indiviudal names 
+with commas.
 """
 
 # sphinx_gallery_thumbnail_number = 2
@@ -24,7 +28,7 @@ fig.coast(
     land="gray",
     water="white",
     dcw=[
-        # Great Britain with seagrean land
+        # Great Britain (country code) with seagrean land
         "GB+gseagreen",
         # Italy with a red border
         "IT+p0.75p,red3",
@@ -34,6 +38,11 @@ fig.coast(
         "RO+p1p,black,.",
         # Germany with orange land and a blue border
         "DE+gorange+p1p,dodgerblue4",
+        # France (full country name) with a steelblue border
+        "France+p1p,steelblue",
+        # Norway, Sweden and Finland (multiple countries) with pink 
+        # land and pink3 borders
+        "Norway,Sweden,Finland+gpink+p0.2p,pink3",
     ],
 )
 
