@@ -16,7 +16,8 @@ The figure below shows the naming of figure elements in PyGMT.
   parameter adjusts fontsize, fontstyle, and color
 - :meth:`pygmt.Figure.legend`: showing the naming of lines or symbols while
   the ``label`` is given in :meth:`pygmt.Figure.plot`
-- :meth:`pygmt.Figure.show`: previewing the content added to the current figure instance
+- :meth:`pygmt.Figure.show`: previewing the content added to the current 
+  figure instance
 """
 import pygmt
 
