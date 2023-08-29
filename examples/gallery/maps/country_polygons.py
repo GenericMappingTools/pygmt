@@ -40,7 +40,7 @@ fig.coast(
         "DE+gorange+p1p,dodgerblue4",
         # France (full country name) with a steelblue border
         "France+p1p,steelblue",
-        # Norway, Sweden and Finland (multiple countries) with pink 
+        # Norway, Sweden and Finland (multiple countries) with pink
         # land and pink3 borders
         "Norway,Sweden,Finland+gpink+p0.2p,pink3",
     ],
