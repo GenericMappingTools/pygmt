@@ -18,15 +18,12 @@ import pygmt
 
 fig = pygmt.Figure()
 
-fig.basemap(
-    region=[-12, 32, 34, 62],
-    projection="M6c",
-    frame=True,
-)
-
 fig.coast(
+    region=[-12, 32, 34, 72],
+    projection="M6c",
     land="gray",
     water="white",
+    frame=True,
     dcw=[
         # Great Britain (country code) with seagrean land
         "GB+gseagreen",
