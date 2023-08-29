@@ -5,11 +5,11 @@ The figure below shows the naming of figure elements in PyGMT.
 
 - :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
   figure must start with the creation of a :meth:`pygmt.Figure()` instance
-- ``frame``: setting plot or map boundaries (**WSNE**, **wsne**, or
-  **lbtr**), adding annotations, ticks, gridlines (**afg**), axis labels
-  (**+l**), and title (**+t**), e.g., in :meth:`pygmt.Figure.basemap`.
-  Detailed examples can be found at :doc:`frame and axes attributes
-  </tutorials/basics/frames>`.
+- ``frame``: setting plot or map boundaries (combination of the single 
+  letter of **WSNE**, **wsne**, or **lbtr**), adding annotations, ticks, 
+  gridlines (**afg**), axis labels (**+l**), and title (**+t**), e.g., 
+  in :meth:`pygmt.Figure.basemap`. Detailed examples can be found at 
+  :doc:`frame and axes attributes </tutorials/basics/frames>`
 - :meth:`pygmt.Figure.plot`: plotting lines or symbols based on ``pen``
   or ``style`` parameters, respectively
 - :meth:`pygmt.Figure.text`: plotting text strings whereby the ``font``
@@ -29,7 +29,7 @@ y_2 = [4, 5, 6, 3, 5, 5]
 fig.basemap(
     region=[0, 10, 0, 20],
     projection="X10c/8c",
-    frame=["WSne+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
+    frame=["WStr+tTitle", "xa2f1g2+lxlabel", "ya5f1g5+lylabel"],
 )
 fig.plot(x=x, y=y_1, style="t0.3c", label="fig.plot (style)")
 fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
@@ -67,7 +67,7 @@ fig.text(x=2, y=18, text='frame="xg2"', **minorexplain)
 # ============map boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(x=11.5, y=8, text="Map Boundary", **mainexplain)
-fig.text(x=11.5, y=7, text='frame="WSne"', **minorexplain)
+fig.text(x=11.5, y=6.5, text='frame="WStr"', **minorexplain)
 # ============fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.text(x=6, y=6.5, text="fig.plot(style)", **minorexplain)
