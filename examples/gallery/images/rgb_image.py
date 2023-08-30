@@ -18,12 +18,13 @@ import rioxarray
 
 ###############################################################################
 # Read 3-band data from GeoTIFF into an xarray.DataArray object
-image = rioxarray.open_rasterio(
+with rioxarray.open_rasterio(
     filename="https://oin-hotosm.s3.us-east-1.amazonaws.com/64d6a49a19cb3a000147a65b/0/64d6a49a19cb3a000147a65c.tif",
     overview_level=5,
-)
-# Subset to area of Lāhainā in EPSG:32604 coordinates
-image = image.rio.clip_box(minx=738000, maxx=755000, miny=2300000, maxy=2318000)
+) as img:
+    # Subset to area of Lāhainā in EPSG:32604 coordinates
+    image = img.rio.clip_box(minx=738000, maxx=755000, miny=2300000, maxy=2318000)
+    image = image.load()  # force loading dataarray into memory
 image
 
 ###############################################################################
