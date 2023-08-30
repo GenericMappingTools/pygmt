@@ -20,10 +20,11 @@ fig = pygmt.Figure()
 
 fig.coast(
     region=[-12, 32, 34, 72],
-    projection="M6c",
+    # Lambert Azimuthal Equal Area lon0/lat0/horizon/width
+    projection="A10/52/25/6c",
     land="gray",
     water="white",
-    frame=True,
+    frame="afg",
     dcw=[
         # Great Britain (country code) with seagrean land
         "GB+gseagreen",
