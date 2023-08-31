@@ -15,13 +15,14 @@
 
 ### Enhancements
 
-* pygmt.grdfill: Add alias "no_data" for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
-* clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
+* Figure.colorbar: Add alias for "Q" ([#2608](https://github.com/GenericMappingTools/pygmt/pull/2608))
+* Figure.image: Add alias for "G" ([#2615](https://github.com/GenericMappingTools/pygmt/pull/2615))
 * Figure.meca:  Add aliases for "L", "T", and "Fr" ([#2546](https://github.com/GenericMappingTools/pygmt/pull/2546))
-* Figure.image: Add alias "bitcolor" for "G" ([#2615](https://github.com/GenericMappingTools/pygmt/pull/2615))
-* Figure.colorbar: Add alias "Q" ([#2608](https://github.com/GenericMappingTools/pygmt/pull/2608))
-* Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
+* pygmt.grdfill: Add alias for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
+* pygmt.select: Add aliases for "C", "F", and "L" ([#2466(https://github.com/GenericMappingTools/pygmt/pull/2466)))
 * Allow passing RGB xarray.DataArray images into grdimage ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
+* Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
+* clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
 
 ### Deprecations
 
