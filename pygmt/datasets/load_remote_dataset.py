@@ -168,9 +168,9 @@ datasets = {
     "earth_relief": GMTRemoteDataset(
         title="Earth relief",
         name="elevation",
-        long_name="Earth elevation relative to the geoid",
+        long_name="Earth elevation relative to the WGS84 reference ellipsoid",
         units="meters",
-        extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
+        extra_attributes={"datum": "WGS84"},
         resolutions={
             "01d": Resolution(["gridline", "pixel"], False),
             "30m": Resolution(["gridline", "pixel"], False),
