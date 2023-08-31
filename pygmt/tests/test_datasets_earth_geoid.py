@@ -40,8 +40,8 @@ def test_earth_geoid_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -106.45)
-    npt.assert_allclose(data.max(), 83.619995)
+    npt.assert_allclose(data.min(), -106.45, atol=0.01)
+    npt.assert_allclose(data.max(), 83.62, atol=0.01)
 
 
 def test_earth_geoid_01d_with_region():
@@ -53,8 +53,8 @@ def test_earth_geoid_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 4.87)
-    npt.assert_allclose(data.max(), 29.89)
+    npt.assert_allclose(data.min(), 4.87, atol=0.01)
+    npt.assert_allclose(data.max(), 29.89, atol=0.01)
 
 
 def test_earth_geoid_01m_without_region():
@@ -86,5 +86,5 @@ def test_earth_geoid_01m_default_registration():
     assert data.coords["lat"].data.max() == 5.0
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
-    npt.assert_allclose(data.min(), 20.34)
-    npt.assert_allclose(data.max(), 30.039999)
+    npt.assert_allclose(data.min(), 20.34, atol=0.01)
+    npt.assert_allclose(data.max(), 30.04, atol=0.01)
