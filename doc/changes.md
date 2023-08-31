@@ -6,7 +6,9 @@
 
 ### Highlights
 
+* 🎉 **Tenth minor release of PyGMT** 🎉
 *
+* Two new tutorials and seven new gallery examples
 
 ### New Features
 
