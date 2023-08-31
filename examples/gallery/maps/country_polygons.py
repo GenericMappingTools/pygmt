@@ -26,15 +26,15 @@ fig.coast(
         # Great Britain (country code) with seagrean land
         "GB+gseagreen",
         # Italy with a red border
-        "IT+p0.75p,red3",
+        "IT+p0.5p,red3",
         # Spain with a magenta dashed border
-        "ES+p0.75p,magenta4,-",
+        "ES+p0.5p,magenta4,-",
         # Romania with a black dotted border
-        "RO+p1p,black,.",
+        "RO+p0.75p,black,.",
         # Germany with orange land and a blue border
-        "DE+gorange+p1p,dodgerblue4",
+        "DE+gorange+p0.5p,dodgerblue4",
         # France (full country name) with a steelblue border
-        "France+p1p,steelblue",
+        "France+p0.5p,steelblue",
         # Norway, Sweden and Finland (multiple countries) with pink
         # land and pink3 borders
         "Norway,Sweden,Finland+gpink+p0.2p,pink3",
