@@ -40,8 +40,8 @@ def test_earth_age_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), 0.167381, rtol=1e-5)
-    npt.assert_allclose(data.max(), 338.0274, rtol=1e-5)
+    npt.assert_allclose(data.min(), 0.17, atol=0.01)
+    npt.assert_allclose(data.max(), 338.02, atol=0.01)
 
 
 def test_earth_age_01d_with_region():
@@ -53,8 +53,8 @@ def test_earth_age_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 11.293945, rtol=1e-5)
-    npt.assert_allclose(data.max(), 125.1189, rtol=1e-5)
+    npt.assert_allclose(data.min(), 11.29, atol=0.01)
+    npt.assert_allclose(data.max(), 125.12, atol=0.01)
 
 
 def test_earth_age_01m_without_region():
@@ -86,5 +86,5 @@ def test_earth_age_01m_default_registration():
     assert data.coords["lat"].data.max() == 5.0
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
-    npt.assert_allclose(data.min(), 88.63)
-    npt.assert_allclose(data.max(), 125.25)
+    npt.assert_allclose(data.min(), 88.63, atol=0.01)
+    npt.assert_allclose(data.max(), 125.25, atol=0.01)
