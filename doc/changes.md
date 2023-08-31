@@ -1,5 +1,87 @@
 # Changelog
 
+## Release v0.10.0 (2023/09/01)
+
+[![Digital Object Identifier for PyGMT v0.10.0](https://zenodo.org/badge/DOI/10.5281/zenodo.8303186.svg)](https://doi.org/10.5281/zenodo.8303186)
+
+### Highlights
+
+*
+
+### New Features
+
+* Support non-ASCII characters in function arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
+* Figure.text: Support non-ASCII characters in the 'text' parameter ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638))
+
+### Enhancements
+
+* pygmt.grdfill: Add alias "no_data" for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
+* clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
+* Figure.meca:  Add aliases for "L", "T", and "Fr" ([#2546](https://github.com/GenericMappingTools/pygmt/pull/2546))
+* Figure.image: Add alias "bitcolor" for "G" ([#2615](https://github.com/GenericMappingTools/pygmt/pull/2615))
+* Figure.colorbar: Add alias "Q" ([#2608](https://github.com/GenericMappingTools/pygmt/pull/2608))
+* Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
+* Allow passing RGB xarray.DataArray images into grdimage ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
+
+### Deprecations
+
+* Remove the deprecated incols parameter from Figure.text (deprecated since v0.8.0) ([#2473](https://github.com/GenericMappingTools/pygmt/pull/2473))
+* NEP29: Set minimum required version to Python 3.9+ ([#2487](https://github.com/GenericMappingTools/pygmt/pull/2487))
+* NEP29: Set minimum required version to NumPy 1.22+ ([#2586](https://github.com/GenericMappingTools/pygmt/pull/2586))
+* Figure.image: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
+
+### Bug Fixes
+
+* load_earth_mask: Keep data's encoding to correctly infer data's registration and gtype information ([#2632](https://github.com/GenericMappingTools/pygmt/pull/2632))
+* geopandas: Mapping int/int64 to int32 for OGR_GMT format ([#2592](https://github.com/GenericMappingTools/pygmt/pull/2592))
+* Figure.meca: the 'scale' parameter can accept int/float/str values ([#2566](https://github.com/GenericMappingTools/pygmt/pull/2566))
+* Figure.meca: Fix beachball offsetting for ndarray input (requires GMT>=6.5.0) ([#2576](https://github.com/GenericMappingTools/pygmt/pull/2576))
+
+### Documentation
+
+* Document the default CPT for GMT remote datasets ([#2573](https://github.com/GenericMappingTools/pygmt/pull/2573))
+* Create gallery example to show usage of tile maps ([#2585](https://github.com/GenericMappingTools/pygmt/pull/2585))
+* Add tutorial to show interactive data visualization via 'panel' ([#2498](https://github.com/GenericMappingTools/pygmt/pull/2498))
+* Add tutorial for cartesian histograms ([#2445](https://github.com/GenericMappingTools/pygmt/pull/2445))
+* Add gallery example to show usage of dcw parameter in Figure.coast ([#2428](https://github.com/GenericMappingTools/pygmt/pull/2428))
+* Add gallery example showing how to build an envelope around a curve  ([#2587](https://github.com/GenericMappingTools/pygmt/pull/2587))
+* Add gallery example for plotting an RGB image from an xarray.DataArray ([#2641](https://github.com/GenericMappingTools/pygmt/pull/2641))
+* Add gallery example "Quoted lines" (`style="q"`) ([#2563](https://github.com/GenericMappingTools/pygmt/pull/2563))
+* Add gallery example "Decorated lines" (`style="~"`) ([#2564](https://github.com/GenericMappingTools/pygmt/pull/2564))
+* Add gallery example "Cross-section along a transect" ([#2515](https://github.com/GenericMappingTools/pygmt/pull/2515))
+
+### Maintenance
+
+* pygmt.show_versions: Show versions of IPython and rioxarray ([#2492](https://github.com/GenericMappingTools/pygmt/pull/2492))
+* Use substitutions to show the minimum required Python and GMT versions dynamically in installation guides ([#2488](https://github.com/GenericMappingTools/pygmt/pull/2488))
+* Use np.asarray to convert a 1-D array to datetime type in array_to_datetime ([#2481](https://github.com/GenericMappingTools/pygmt/pull/2481))
+* Use consistent docstrings for test files ([#2578](https://github.com/GenericMappingTools/pygmt/pull/2578))
+* Use concurrency to cancel previous runs ([#2589](https://github.com/GenericMappingTools/pygmt/pull/2589))
+* Set date_format to ISO8601 to silence pandas 2.0 UserWarning on read_csv ([#2569](https://github.com/GenericMappingTools/pygmt/pull/2569))
+* Remove dummy_context and use contextlib.nullcontext instead ([#2491](https://github.com/GenericMappingTools/pygmt/pull/2491))
+* NEP29: Test PyGMT on NumPy 1.25 ([#2581](https://github.com/GenericMappingTools/pygmt/pull/2581))
+* Migrate provision-with-micromamba to setup-micromamba ([#2536](https://github.com/GenericMappingTools/pygmt/pull/2536))
+* Fix tests for Aug 2023 updated remote datasets ([#2636](https://github.com/GenericMappingTools/pygmt/pull/2636))
+* Figure.meca: Refactor the two tests for offsetting beachballs ([#2572](https://github.com/GenericMappingTools/pygmt/pull/2572))
+* Figure.meca: Refactor tests for plotting multiple focal mechanisms ([#2565](https://github.com/GenericMappingTools/pygmt/pull/2565))
+* Figure.meca: Refactor tests for plotting a single focal mechanism ([#2533](https://github.com/GenericMappingTools/pygmt/pull/2533))
+* Figure.meca: Add a test for passing event names via pandas.DataFrame ([#2582](https://github.com/GenericMappingTools/pygmt/pull/2582))
+* Exclude bots from contributors in release drafter ([#2484](https://github.com/GenericMappingTools/pygmt/pull/2484))
+* Exclude DVC files from source/binary distributions ([#2634](https://github.com/GenericMappingTools/pygmt/pull/2634))
+* CI: Use mamba-org/provision-with-micromamba to setup micromamba ([#2435](https://github.com/GenericMappingTools/pygmt/pull/2435))
+* CI: Run dev tests on Scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
+* CI: Remove the deprecated cml-publish command from the dvc-diff workflow ([#2559](https://github.com/GenericMappingTools/pygmt/pull/2559))
+* CI: Fix and simplify the dvc-diff workflow ([#2549](https://github.com/GenericMappingTools/pygmt/pull/2549))
+* CI: Add the "Doctests" workflow to run doctests weekly ([#2456](https://github.com/GenericMappingTools/pygmt/pull/2456))
+* CI: Add detailed descriptions in the workflow files and update maintainer guides ([#2496](https://github.com/GenericMappingTools/pygmt/pull/2496))
+* Add private function _validate_data_input to validate input data ([#2595](https://github.com/GenericMappingTools/pygmt/pull/2595))
+
+### Contributors
+
+@JingHuiTong, @maxrjones, @michaelgrund, @seisman, @weiji14 and @yvonnefroehlich
+
+---
+
 ## Release v0.9.0 (2023/03/31)
 
 [![Digital Object Identifier for PyGMT v0.9.0](https://zenodo.org/badge/DOI/10.5281/zenodo.7772533.svg)](https://doi.org/10.5281/zenodo.7772533)
