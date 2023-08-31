@@ -43,10 +43,10 @@
 ### Documentation
 
 * Document the default CPT for GMT remote datasets ([#2573](https://github.com/GenericMappingTools/pygmt/pull/2573))
-* Create gallery example to show usage of tile maps ([#2585](https://github.com/GenericMappingTools/pygmt/pull/2585))
 * Add tutorial to show interactive data visualization via 'panel' ([#2498](https://github.com/GenericMappingTools/pygmt/pull/2498))
 * Add tutorial for cartesian histograms ([#2445](https://github.com/GenericMappingTools/pygmt/pull/2445))
 * Add gallery example to show usage of dcw parameter in Figure.coast ([#2428](https://github.com/GenericMappingTools/pygmt/pull/2428))
+* Add gallery example to show usage of tile maps ([#2585](https://github.com/GenericMappingTools/pygmt/pull/2585))
 * Add gallery example showing how to build an envelope around a curve  ([#2587](https://github.com/GenericMappingTools/pygmt/pull/2587))
 * Add gallery example for plotting an RGB image from an xarray.DataArray ([#2641](https://github.com/GenericMappingTools/pygmt/pull/2641))
 * Add gallery example "Quoted lines" (`style="q"`) ([#2563](https://github.com/GenericMappingTools/pygmt/pull/2563))
