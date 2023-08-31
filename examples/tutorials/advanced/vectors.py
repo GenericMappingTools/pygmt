@@ -255,7 +255,7 @@ fig.show()
 #
 # The last two values in the vector list represent the degree at which the plot
 # will start and stop. These values are measured counter-clockwise from the
-# horizontal axis. In this example, the result show is the left half of a
+# horizontal axis. In this example, the result shown is the left half of a
 # circle as the plot starts at 90 degrees and goes until 270. Notice that the
 # ``m`` in the ``style`` parameter stands for circular vectors.
 
