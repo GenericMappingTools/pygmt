@@ -37,47 +37,47 @@ fig.plot(x=x, y=y_2, pen="1.5p,red", label="fig.plot (pen)")
 
 mainexplain = {"font": "12p,2,darkblue", "justify": "TC", "no_clip": True}
 minorexplain = {"font": "10p,8", "justify": "TC", "no_clip": True}
-# ============Figure
+# ============ Figure
 fig.text(x=12, y=22, text="Figure", **mainexplain)
-fig.text(x=12, y=20.5, text="pygmt.Figure()", **minorexplain)
-# ============Title
+fig.text(x=12, y=20.8, text="pygmt.Figure()", **minorexplain)
+# ============ Title
 fig.text(x=7.5, y=22, text='frame="+tTitle"', **minorexplain)
-# ============xlabel
+# ============ xlabel
 fig.text(x=5, y=-3, text='frame="x+lxlabel"', **minorexplain)
-# ============ylabel
+# ============ ylabel
 fig.text(x=-1.7, y=10, text='frame="y+lylabel"', angle=90, **minorexplain)
-# ============x-majorticks
+# ============ x-majorticks
 fig.plot(x=10, y=-0.2, style="c1c", pen="2p,darkblue", no_clip=True)
-fig.text(x=10, y=-1.4, text="Annotation", **mainexplain)
-fig.text(x=10, y=-2.6, text='frame="xa2"', **minorexplain)
-# ============y-majorticks
+fig.text(x=10, y=-1.6, text="Annotation", **mainexplain)
+fig.text(x=10, y=-2.8, text='frame="xa2"', **minorexplain)
+# ============ y-majorticks
 fig.plot(x=-0.2, y=20, style="c1c", pen="2p,darkblue", no_clip=True)
-fig.text(x=0, y=23.5, text="Annotation", **mainexplain)
-fig.text(x=0, y=22, text='frame="ya5"', **minorexplain)
-# ============x-minorticks
+fig.text(x=0, y=23.4, text="Annotation", **mainexplain)
+fig.text(x=0, y=22.2, text='frame="ya5"', **minorexplain)
+# ============ x-minorticks
 fig.plot(x=1, y=-0.2, style="c0.7c", pen="2p,darkblue", no_clip=True)
 fig.text(x=1, y=-1.4, text="Frame", **mainexplain)
 fig.text(x=1, y=-2.6, text='frame="xf1"', **minorexplain)
-# ============y-minorticks
+# ============ y-minorticks
 fig.plot(x=0, y=2, style="c0.7c", pen="2p,darkblue", no_clip=True)
 fig.text(x=-1.5, y=1, text='frame="yf1"', **minorexplain)
-# ============grid
+# ============ Grid
 fig.plot(x=2, y=15, style="c0.5c", pen="2p,darkblue")
 fig.text(x=2, y=17, text="Grid", **mainexplain)
 fig.text(x=2, y=18, text='frame="xg2"', **minorexplain)
-# ============map boundaries
+# ============ Map Boundaries
 fig.plot(x=10, y=9, style="c0.5c", pen="2p,darkblue", no_clip=True)
 fig.text(x=11.5, y=8, text="Map Boundary", **mainexplain)
-fig.text(x=11.5, y=6.5, text='frame="WStr"', **minorexplain)
-# ============fig.plot (style)
+fig.text(x=11.5, y=6.8, text='frame="WStr"', **minorexplain)
+# ============ fig.plot (style)
 fig.plot(x=6, y=8, style="c0.7c", pen="2p,darkblue")
 fig.text(x=6, y=6.5, text="fig.plot(style)", **minorexplain)
-# ============fig.plot (pen)
+# ============ fig.plot (pen)
 fig.plot(x=4, y=6, style="c0.7c", pen="2p,darkblue")
 fig.text(x=3, y=4.5, text="fig.plot(pen)", **minorexplain)
-# ============Legend
+# ============ Legend
 fig.legend()
-fig.text(x=8, y=17, text="Legend", **mainexplain)
+fig.text(x=8, y=16.9, text="Legend", **mainexplain)
 fig.text(x=8, y=15.8, text="fig.legend()", **minorexplain)
 
 fig.show()
