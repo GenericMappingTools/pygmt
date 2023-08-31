@@ -79,7 +79,12 @@
 
 ### Contributors
 
-@JingHuiTong, @maxrjones, @michaelgrund, @seisman, @weiji14 and @yvonnefroehlich
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Jing-Hui Tong](https://github.com/JingHuiTong)
+* [Max Jones](https://github.com/maxrjones)
 
 ---
 
