@@ -7,13 +7,8 @@
 ### Highlights
 
 * 🎉 **Tenth minor release of PyGMT** 🎉
-*
+* Support non-ASCII characters in Figure.text ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638)) and other function arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
 * Two new tutorials and seven new gallery examples
-
-### New Features
-
-* Support non-ASCII characters in function arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
-* Figure.text: Support non-ASCII characters in the 'text' parameter ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638))
 
 ### Enhancements
 
