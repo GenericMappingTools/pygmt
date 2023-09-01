@@ -18,7 +18,7 @@
 * Figure.meca:  Add aliases for "L", "T", and "Fr" ([#2546](https://github.com/GenericMappingTools/pygmt/pull/2546))
 * clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
 * pygmt.grdfill: Add alias for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
-* pygmt.select: Add aliases for "C", "F", and "L" ([#2466(https://github.com/GenericMappingTools/pygmt/pull/2466)))
+* pygmt.select: Add aliases for "C", "F", and "L" ([#2466](https://github.com/GenericMappingTools/pygmt/pull/2466))
 * pygmt.show_versions: Show versions of IPython and rioxarray ([#2492](https://github.com/GenericMappingTools/pygmt/pull/2492))
 * Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
 
