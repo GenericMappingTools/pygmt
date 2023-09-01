@@ -3,8 +3,8 @@
 =======================
 
 This tutorial page covers the basics of creating a figure showing the
-Earth relief with the method :meth:`pygmt.datasets.load_earth_relief`
-using a remote dataset hosted by GMT. It will use the
+Earth relief, using a remote dataset hosted by GMT, using the method
+:meth:`pygmt.datasets.load_earth_relief`. It will use the
 :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
 :meth:`pygmt.Figure.colorbar`, and :meth:`pygmt.Figure.coast` methods for
 plotting.
