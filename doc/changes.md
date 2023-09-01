@@ -7,7 +7,7 @@
 ### Highlights
 
 * 🎉 **Tenth minor release of PyGMT** 🎉
-* Support non-ASCII characters in Figure.text ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638)) and other function arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
+* Support non-ASCII characters in Figure.text ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638)) and other method arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
 * Three new tutorials and seven new gallery examples
 
 ### Enhancements
@@ -34,7 +34,7 @@
 
 * load_earth_mask: Keep data's encoding to correctly infer data's registration and gtype information ([#2632](https://github.com/GenericMappingTools/pygmt/pull/2632))
 * Geopandas integration: Mapping int/int64 to int32 for OGR_GMT format ([#2592](https://github.com/GenericMappingTools/pygmt/pull/2592))
-* Figure.meca: the "scale" parameter can accept int/float/str values ([#2566](https://github.com/GenericMappingTools/pygmt/pull/2566))
+* Figure.meca: Let the "scale" parameter accept int/float/str values ([#2566](https://github.com/GenericMappingTools/pygmt/pull/2566))
 * Figure.meca: Fix beachball offsetting for ndarray input (requires GMT>6.4.0) ([#2576](https://github.com/GenericMappingTools/pygmt/pull/2576))
 
 ### Documentation
