@@ -2,7 +2,7 @@
 2. Create a contour map
 =======================
 
-This tutorial page covers the basics of creating a figure of the
+This tutorial page covers the basics of creating a figure showing the
 Earth relief with the method :meth:`pygmt.datasets.load_earth_relief`
 using a remote dataset hosted by GMT. It will use the
 :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
