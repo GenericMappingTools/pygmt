@@ -57,11 +57,11 @@ fig.show()
 # To show how the plotted colors relate to the Earth relief, a colorbar can be
 # added using the :meth:`pygmt.Figure.colorbar` method.
 #
-# To control the labels on the colorbar, a list is passed to the ``frame``
-# parameter. The value beginning with ``"a"`` sets the interval for the
-# annotation on the colorbar, in this case every 1,000 meters. To set the label
-# for an axis on the colorbar, the argument begins with either ``"x+l"``
-# (x-axis) or ``"y+l"`` (y-axis), followed by the intended label.
+# To control the annotation and labels on the colorbar, a list is passed to
+# the ``frame`` parameter. The value beginning with ``"a"`` sets the interval
+# for the annotation on the colorbar, in this case every 1,000 meters. To set
+# the label for an axis on the colorbar, the argument begins with either
+# ``"x+l"`` (x-axis) or ``"y+l"`` (y-axis), followed by the intended label.
 #
 # By default, the CPT for the colorbar is the same as the one set
 # in :meth:`pygmt.Figure.grdimage`.
