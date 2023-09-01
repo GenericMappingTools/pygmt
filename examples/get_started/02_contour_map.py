@@ -80,9 +80,9 @@ fig.show()
 # ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
 # not needed again. However, the same input for ``grid`` (in this case, the
 # variable named "grid") must be input again. The ``interval`` parameter sets
-# the spacing between two contour lines (in this case, 500 meters), and the
-# ``annotation`` parameter draws darker lines that are annotated with the
-# elevation or bathymetry.
+# the spacing between adjacent contour lines (in this case, 500 meters),
+# and the ``annotation`` parameter draws darker lines that are annotated with
+# the elevation or bathymetry.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
