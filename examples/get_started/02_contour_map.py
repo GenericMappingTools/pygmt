@@ -2,9 +2,9 @@
 2. Create a contour map
 =======================
 
-This tutorial page covers the basics of creating a figure of Earth relief,
-using a remote dataset hosted by GMT, using the method
-:meth:`pygmt.datasets.load_earth_relief`. It will use
+This tutorial page covers the basics of creating a figure of the
+Earth relief with the method :meth:`pygmt.datasets.load_earth_relief`
+using a remote dataset hosted by GMT. It will use the
 :meth:`pygmt.Figure.grdimage`, :meth:`pygmt.Figure.grdcontour`,
 :meth:`pygmt.Figure.colorbar`, and :meth:`pygmt.Figure.coast` methods for
 plotting.
@@ -40,9 +40,9 @@ grid = pygmt.datasets.load_earth_relief(
 # ``region`` parameter is not set, the region boundaries of the input grid are
 # used.
 #
-# The ``cmap`` parameter sets the color palette table (CPT) used for
-# portraying Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the
-# input grid to apply Earth relief values to a specific color within the CPT.
+# The ``cmap`` parameter sets the color palette table (CPT) used for portraying
+# the Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the input
+# grid to apply Earth relief values to a specific color within the CPT.
 # In this case, the CPT used is "oleron"; a full list of CPTs can be found
 # at :gmt-docs:`cookbook/cpts.html`.
 
@@ -58,10 +58,10 @@ fig.show()
 # added using the :meth:`pygmt.Figure.colorbar` method.
 #
 # To control the labels on the colorbar, a list is passed to the ``frame``
-# parameter. The value beginning with "a" sets the interval for annotation on
-# the colorbar, in this case every 1,000 meters. To set the label for an axis
-# on the colorbar, the value begins with either "x+l" (x-axis) or "y+l"
-# (y-axis), followed by the intended label.
+# parameter. The value beginning with ``"a"`` sets the interval for the
+# annotation on the colorbar, in this case every 1,000 meters. To set the label
+# for an axis on the colorbar, the argument begins with either ``"x+l"``
+# (x-axis) or ``"y+l"`` (y-axis), followed by the intended label.
 #
 # By default, the CPT for the colorbar is the same as the one set
 # in :meth:`pygmt.Figure.grdimage`.
@@ -80,9 +80,9 @@ fig.show()
 # ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
 # not needed again. However, the same input for ``grid`` (in this case, the
 # variable named "grid") must be input again. The ``interval`` parameter sets
-# the spacing between lines (in this case, 500 meters), and the ``annotation``
-# parameter draws darker lines that are annotated with the elevation or
-# bathymetry.
+# the spacing between two contour lines (in this case, 500 meters), and the
+# ``annotation`` parameter draws darker lines that are annotated with the
+# elevation or bathymetry.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
@@ -95,8 +95,8 @@ fig.show()
 # -------------
 #
 # To make it clear where the islands are located, the
-# :meth:`pygmt.Figure.coast` method can be used to color in the land. The
-# ``land`` is colored in as "lightgray", and the ``shorelines`` parameters
+# :meth:`pygmt.Figure.coast` method can be used to color in the land-masses.
+# The ``land`` is colored in as "lightgray", and the ``shorelines`` parameter
 # draws a border around the islands.
 
 fig = pygmt.Figure()
@@ -113,9 +113,9 @@ fig.show()
 # This is the end of the second tutorial. Here are some additional exercises
 # for the concepts that were discussed:
 #
-# 1. Change the resolution of the grid file to either "01m" (1 arc-minute, a
-#    lower resolution) or "15s" (15 arc-seconds, a higher resolution). Note
-#    that higher resolution grids will have larger file sizes. Available
+# 1. Change the resolution of the grid file to either ``"01m"`` (1 arc-minute,
+#    a lower resolution) or ``"15s"`` (15 arc-seconds, a higher resolution).
+#    Note that higher resolution grids will have larger file sizes. Available
 #    resolutions can be found `here
 #    <https://www.generic-mapping-tools.org/
 #    remote-datasets/earth-relief.html#usage>`_.
