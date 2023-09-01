@@ -181,8 +181,8 @@ Developers". Feel free to cite our work in your research using the following Bib
 .. code-block::
 
     @software{pygmt_2023_8303186,
-      author       = {Uieda, Leonardo and
-                      Tian, Dongdong and
+      author       = {Tian, Dongdong and
+                      Uieda, Leonardo and
                       Leong, Wei Ji and
                       Schlitzer, William and
                       Grund, Michael and

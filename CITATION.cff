@@ -4,14 +4,14 @@ cff-version: 1.2.0
 message: If you use this software, please cite it as follows.
 title: 'PyGMT: A Python interface for the Generic Mapping Tools'
 authors:
-- given-names: Leonardo
-  family-names: Uieda
-  affiliation: University of Liverpool, United Kingdom
-  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Dongdong
   family-names: Tian
   affiliation: China University of Geosciences, China
   orcid: https://orcid.org/0000-0001-7967-1197
+- given-names: Leonardo
+  family-names: Uieda
+  affiliation: University of Liverpool, United Kingdom
+  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Wei Ji
   family-names: Leong
   affiliation: Development Seed, USA
