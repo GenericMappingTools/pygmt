@@ -8,7 +8,7 @@
 
 * 🎉 **Tenth minor release of PyGMT** 🎉
 * Support non-ASCII characters in Figure.text ([#2638](https://github.com/GenericMappingTools/pygmt/pull/2638)) and other function arguments ([#2584](https://github.com/GenericMappingTools/pygmt/pull/2584))
-* Two new tutorials and seven new gallery examples
+* Three new tutorials and seven new gallery examples
 
 ### Enhancements
 
@@ -32,13 +32,14 @@
 ### Bug Fixes
 
 * load_earth_mask: Keep data's encoding to correctly infer data's registration and gtype information ([#2632](https://github.com/GenericMappingTools/pygmt/pull/2632))
-* geopandas: Mapping int/int64 to int32 for OGR_GMT format ([#2592](https://github.com/GenericMappingTools/pygmt/pull/2592))
+* Geopandas integration: Mapping int/int64 to int32 for OGR_GMT format ([#2592](https://github.com/GenericMappingTools/pygmt/pull/2592))
 * Figure.meca: the 'scale' parameter can accept int/float/str values ([#2566](https://github.com/GenericMappingTools/pygmt/pull/2566))
-* Figure.meca: Fix beachball offsetting for ndarray input (requires GMT>=6.5.0) ([#2576](https://github.com/GenericMappingTools/pygmt/pull/2576))
+* Figure.meca: Fix beachball offsetting for ndarray input (requires GMT>6.4.0) ([#2576](https://github.com/GenericMappingTools/pygmt/pull/2576))
 
 ### Documentation
 
 * Document the default CPT for GMT remote datasets ([#2573](https://github.com/GenericMappingTools/pygmt/pull/2573))
+* Add tutorial to explain naming of PyGMT figure elements ([#2383](https://github.com/GenericMappingTools/pygmt/pull/2383))
 * Add tutorial to show interactive data visualization via 'panel' ([#2498](https://github.com/GenericMappingTools/pygmt/pull/2498))
 * Add tutorial for cartesian histograms ([#2445](https://github.com/GenericMappingTools/pygmt/pull/2445))
 * Add gallery example to show usage of dcw parameter in Figure.coast ([#2428](https://github.com/GenericMappingTools/pygmt/pull/2428))
