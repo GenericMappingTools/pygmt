@@ -18,20 +18,21 @@
 ### Enhancements
 
 * Figure.colorbar: Add alias for "Q" ([#2608](https://github.com/GenericMappingTools/pygmt/pull/2608))
+* Figure.grdimage: Allow passing RGB xarray.DataArray images ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
 * Figure.image: Add alias for "G" ([#2615](https://github.com/GenericMappingTools/pygmt/pull/2615))
 * Figure.meca:  Add aliases for "L", "T", and "Fr" ([#2546](https://github.com/GenericMappingTools/pygmt/pull/2546))
+* clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
 * pygmt.grdfill: Add alias for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
 * pygmt.select: Add aliases for "C", "F", and "L" ([#2466(https://github.com/GenericMappingTools/pygmt/pull/2466)))
-* Figure.grdimage: Allow passing RGB xarray.DataArray images ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
+* pygmt.show_versions: Show versions of IPython and rioxarray ([#2492](https://github.com/GenericMappingTools/pygmt/pull/2492))
 * Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
-* clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
 
 ### Deprecations
 
+* Figure.image: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
 * Figure.text: Remove the deprecated 'incols' parameter (deprecated since v0.8.0) ([#2473](https://github.com/GenericMappingTools/pygmt/pull/2473))
 * NEP29: Set minimum required version to Python 3.9+ ([#2487](https://github.com/GenericMappingTools/pygmt/pull/2487))
 * NEP29: Set minimum required version to NumPy 1.22+ ([#2586](https://github.com/GenericMappingTools/pygmt/pull/2586))
-* Figure.image: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
 
 ### Bug Fixes
 
@@ -55,7 +56,6 @@
 
 ### Maintenance
 
-* pygmt.show_versions: Show versions of IPython and rioxarray ([#2492](https://github.com/GenericMappingTools/pygmt/pull/2492))
 * Use substitutions to show the minimum required Python and GMT versions dynamically in installation guides ([#2488](https://github.com/GenericMappingTools/pygmt/pull/2488))
 * Use np.asarray to convert a 1-D array to datetime type in array_to_datetime ([#2481](https://github.com/GenericMappingTools/pygmt/pull/2481))
 * Use consistent docstrings for test files ([#2578](https://github.com/GenericMappingTools/pygmt/pull/2578))
