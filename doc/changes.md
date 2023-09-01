@@ -22,13 +22,13 @@
 * Figure.meca:  Add aliases for "L", "T", and "Fr" ([#2546](https://github.com/GenericMappingTools/pygmt/pull/2546))
 * pygmt.grdfill: Add alias for "N" ([#2618](https://github.com/GenericMappingTools/pygmt/pull/2618))
 * pygmt.select: Add aliases for "C", "F", and "L" ([#2466(https://github.com/GenericMappingTools/pygmt/pull/2466)))
-* Allow passing RGB xarray.DataArray images into grdimage ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
+* Figure.grdimage: Allow passing RGB xarray.DataArray images ([#2590](https://github.com/GenericMappingTools/pygmt/pull/2590))
 * Better handling of optional virtual files (e.g., shading in Figure.grdimage) ([#2493](https://github.com/GenericMappingTools/pygmt/pull/2493))
 * clib.Session: Wrap the GMT_Get_Common API function ([#2500](https://github.com/GenericMappingTools/pygmt/pull/2500))
 
 ### Deprecations
 
-* Remove the deprecated incols parameter from Figure.text (deprecated since v0.8.0) ([#2473](https://github.com/GenericMappingTools/pygmt/pull/2473))
+* Figure.text: Remove the deprecated 'incols' parameter (deprecated since v0.8.0) ([#2473](https://github.com/GenericMappingTools/pygmt/pull/2473))
 * NEP29: Set minimum required version to Python 3.9+ ([#2487](https://github.com/GenericMappingTools/pygmt/pull/2487))
 * NEP29: Set minimum required version to NumPy 1.22+ ([#2586](https://github.com/GenericMappingTools/pygmt/pull/2586))
 * Figure.image: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
@@ -63,7 +63,6 @@
 * Set date_format to ISO8601 to silence pandas 2.0 UserWarning on read_csv ([#2569](https://github.com/GenericMappingTools/pygmt/pull/2569))
 * Remove dummy_context and use contextlib.nullcontext instead ([#2491](https://github.com/GenericMappingTools/pygmt/pull/2491))
 * NEP29: Test PyGMT on NumPy 1.25 ([#2581](https://github.com/GenericMappingTools/pygmt/pull/2581))
-* Migrate provision-with-micromamba to setup-micromamba ([#2536](https://github.com/GenericMappingTools/pygmt/pull/2536))
 * Fix tests for Aug 2023 updated remote datasets ([#2636](https://github.com/GenericMappingTools/pygmt/pull/2636))
 * Figure.meca: Refactor the two tests for offsetting beachballs ([#2572](https://github.com/GenericMappingTools/pygmt/pull/2572))
 * Figure.meca: Refactor tests for plotting multiple focal mechanisms ([#2565](https://github.com/GenericMappingTools/pygmt/pull/2565))
@@ -72,6 +71,7 @@
 * Exclude bots from contributors in release drafter ([#2484](https://github.com/GenericMappingTools/pygmt/pull/2484))
 * Exclude DVC files from source/binary distributions ([#2634](https://github.com/GenericMappingTools/pygmt/pull/2634))
 * CI: Use mamba-org/provision-with-micromamba to setup micromamba ([#2435](https://github.com/GenericMappingTools/pygmt/pull/2435))
+* CI: Migrate provision-with-micromamba to setup-micromamba ([#2536](https://github.com/GenericMappingTools/pygmt/pull/2536))
 * CI: Run dev tests on Scientific Python nightly wheels ([#2612](https://github.com/GenericMappingTools/pygmt/pull/2612))
 * CI: Remove the deprecated cml-publish command from the dvc-diff workflow ([#2559](https://github.com/GenericMappingTools/pygmt/pull/2559))
 * CI: Fix and simplify the dvc-diff workflow ([#2549](https://github.com/GenericMappingTools/pygmt/pull/2549))
