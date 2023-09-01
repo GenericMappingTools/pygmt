@@ -41,7 +41,7 @@
 
 * Document the default CPT for GMT remote datasets ([#2573](https://github.com/GenericMappingTools/pygmt/pull/2573))
 * Add tutorial to explain naming of PyGMT figure elements ([#2383](https://github.com/GenericMappingTools/pygmt/pull/2383))
-* Add tutorial to show interactive data visualization via 'panel' ([#2498](https://github.com/GenericMappingTools/pygmt/pull/2498))
+* Add tutorial to show interactive data visualization via ``panel`` ([#2498](https://github.com/GenericMappingTools/pygmt/pull/2498))
 * Add tutorial for cartesian histograms ([#2445](https://github.com/GenericMappingTools/pygmt/pull/2445))
 * Add gallery example to show usage of dcw parameter in Figure.coast ([#2428](https://github.com/GenericMappingTools/pygmt/pull/2428))
 * Add gallery example to show usage of tile maps ([#2585](https://github.com/GenericMappingTools/pygmt/pull/2585))
