@@ -95,7 +95,7 @@ fig.show()
 # -------------
 #
 # To make it clear where the islands are located, the
-# :meth:`pygmt.Figure.coast` method can be used to color in the land-masses.
+# :meth:`pygmt.Figure.coast` method can be used to color in the landmasses.
 # The ``land`` is colored in as "lightgray", and the ``shorelines`` parameter
 # draws a border around the islands.
 
