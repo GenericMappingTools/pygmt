@@ -42,7 +42,7 @@ grid = pygmt.datasets.load_earth_relief(
 #
 # The ``cmap`` parameter sets the color palette table (CPT) used for portraying
 # the Earth relief. The :meth:`pygmt.Figure.grdimage` method uses the input
-# grid to apply Earth relief values to a specific color within the CPT.
+# grid to relate the Earth relief values to a specific color within the CPT.
 # In this case, the CPT used is "oleron"; a full list of CPTs can be found
 # at :gmt-docs:`cookbook/cpts.html`.
 
