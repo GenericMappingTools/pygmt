@@ -17,10 +17,13 @@ __doctest_skip__ = ["select"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
+    C="dist2pt",
     D="resolution",
+    F="polygon",
     G="gridmask",
     I="reverse",
     J="projection",
+    L="dist2line",
     N="mask",
     R="region",
     V="verbose",
@@ -42,17 +45,17 @@ def select(data=None, outfile=None, **kwargs):
     Select data table subsets based on multiple spatial criteria.
 
     This is a filter that reads (x, y) or (longitude, latitude) positions from
-    the first 2 columns of *data* and uses a combination of 1-7 criteria to
+    the first 2 columns of ``data`` and uses a combination of 1-7 criteria to
     pass or reject the records. Records can be selected based on whether or not
-    they are:
+    they:
 
-    1. inside a rectangular region (``region`` [and ``projection``])
-    2. within *dist* km of any point in *pointfile*
-    3. within *dist* km of any line in *linefile*
-    4. inside one of the polygons in the *polygonfile*
-    5. inside geographical features (based on coastlines)
-    6. has z-values within a given range, or
-    7. inside bins of a grid mask whose nodes are non-zero
+    1. are inside a rectangular region (``region`` [and ``projection``])
+    2. are within *dist* km of any point in *pointfile* (``dist2pt``)
+    3. are within *dist* km of any line in *linefile* (``dist2line``)
+    4. are inside one of the polygons in *polygonfile* (``polygon``)
+    5. are inside geographical features (based on coastlines)
+    6. have z-values within a given range
+    7. are inside bins of a grid mask whose nodes are non-zero
 
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
@@ -69,6 +72,41 @@ def select(data=None, outfile=None, **kwargs):
     outfile : str
         The file name for the output ASCII file.
     {area_thresh}
+    dist2pt : str
+        *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
+        Pass all records whose locations are within *dist* of any of the
+        points in the ASCII file *pointfile*. If *dist* is zero, the 3rd
+        column of *pointfile* must have each point's individual radius of
+        influence. If you only have a single point, you can specify
+        *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in
+        user units. Alternatively, if ``region`` and ``projection`` are used,
+        the geographic coordinates are projected to map coordinates (in
+        centimeters, inches, meters, or points, as determined by
+        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are compared
+        to *dist*.
+    dist2line : str
+        *linefile*\ **+d**\ *dist*\ [**+p**].
+        Pass all records whose locations are within *dist* of any of the line
+        segments in the ASCII :gmt-docs:`multiple-segment file
+        <cookbook/file-formats.html#optional-segment-header-records>`
+        *linefile*. If *dist* is zero, we will scan each sub-header in
+        *linefile* for an embedded **-D**\ *dist* setting that sets each
+        line's individual distance value. Distances are Cartesian and in
+        user units. Alternatively, if ``region`` and ``projection`` are used,
+        the geographic coordinates are projected to map coordinates (in
+        centimeters, inches, meters, or points, as determined by
+        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are
+        compared to *dist*. Append **+p** to ensure only points whose
+        orthogonal projections onto the nearest line-segment fall within
+        the segment's endpoints [Default considers points "beyond" the
+        line's endpoints].
+    polygon : str
+        *polygonfile*.
+        Pass all records whose locations are within one of the closed
+        polygons in the ASCII :gmt-docs:`multiple-segment file
+        <cookbook/file-formats.html#optional-segment-header-records>`
+        *polygonfile*. For spherical polygons (lon, lat), make sure no
+        consecutive points are separated by 180 degrees or more in longitude.
     resolution : str
         *resolution*\ [**+f**].
         Ignored unless ``mask`` is set. Selects the resolution of the coastline

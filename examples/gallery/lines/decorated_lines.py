@@ -8,8 +8,8 @@ desired modifiers. A colon (``":"``) is used to separate the
 algorithm settings from the symbol information.
 This example shows how to adjust the symbols.
 Beside the built-in symbols also custom symbols can be used.
-For modifying the baseline via the ``pen`` parameter, see the
-:doc:`Line styles example </gallery/lines/linestyles>`.
+For modifying the main decorated line via the ``pen`` parameter,
+see the :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 Furthermore, there are so-called *line fronts*, which are often
@@ -49,13 +49,14 @@ for decoline in [
     # Line with squares ("s") with a size of 0.7 centimeters in a distance of
     # 1 centimeter
     "~d1c:+ss0.7c+gtan+p1p,black",
-    # Shift symbols using "+n" in x and y directions relative to the baseline
+    # Shift symbols using "+n" in x and y directions relative to the main
+    # decorated line
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
     # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
     # Use upper-case "N" to have symbols at the start and end of the line
     "~N6:+sh0.5c+gtan+p1p,black",
-    # Suppress the baseline by appending "+i"
+    # Suppress the main decorated line by appending "+i"
     "~d1c:+sg0.5c+gtan+p1p,black+i",
     # To only plot a symbol at the start of the line use "N-1"
     "~N-1:+sp0.2c+gblack",

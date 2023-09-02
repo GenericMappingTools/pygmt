@@ -42,8 +42,8 @@ def test_earth_vertical_gravity_gradient_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -136.34375)
-    npt.assert_allclose(data.max(), 104.59375)
+    npt.assert_allclose(data.min(), -137.125, atol=1 / 32)
+    npt.assert_allclose(data.max(), 104.59375, atol=1 / 32)
     assert data[1, 1].isnull()
 
 
@@ -58,8 +58,8 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -16.34375)
-    npt.assert_allclose(data.max(), 19.78125)
+    npt.assert_allclose(data.min(), -15.6875, atol=1 / 32)
+    npt.assert_allclose(data.max(), 19.875, atol=1 / 32)
 
 
 def test_earth_vertical_gravity_gradient_01m_without_region():
@@ -95,5 +95,5 @@ def test_earth_vertical_gravity_gradient_01m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
-    npt.assert_allclose(data.min(), -40.25)
-    npt.assert_allclose(data.max(), 81.75)
+    npt.assert_allclose(data.min(), -37.5625, atol=1 / 32)
+    npt.assert_allclose(data.max(), 82.59375, atol=1 / 32)

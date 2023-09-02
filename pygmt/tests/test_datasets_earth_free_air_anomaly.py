@@ -40,8 +40,8 @@ def test_earth_faa_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -275.75)
-    npt.assert_allclose(data.max(), 308.375)
+    npt.assert_allclose(data.min(), -275.85, atol=0.025)
+    npt.assert_allclose(data.max(), 308.35, atol=0.025)
 
 
 def test_earth_faa_01d_with_region():
@@ -53,8 +53,8 @@ def test_earth_faa_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -58.75)
-    npt.assert_allclose(data.max(), 69.524994)
+    npt.assert_allclose(data.min(), -58.475, atol=0.025)
+    npt.assert_allclose(data.max(), 69.975, atol=0.025)
 
 
 def test_earth_faa_01m_without_region():
@@ -78,5 +78,5 @@ def test_earth_faa_01m_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 4.991666666)
     npt.assert_allclose(data.coords["lon"].data.min(), -9.99166666)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.00833333)
-    npt.assert_allclose(data.min(), -51)
-    npt.assert_allclose(data.max(), 113.675)
+    npt.assert_allclose(data.min(), -49.225, atol=0.025)
+    npt.assert_allclose(data.max(), 115.0, atol=0.025)

@@ -1,4 +1,4 @@
-# Tests PyGMT with GMT legacy versions on Linux/macOS/Windows
+# Test PyGMT with GMT legacy versions on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
 # minor baseline image changes between GMT versions, the workflow only runs
@@ -45,7 +45,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0

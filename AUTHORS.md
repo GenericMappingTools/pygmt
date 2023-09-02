@@ -1,9 +1,9 @@
 # Project Contributors
 
-This project was started in 2017 by [Leonardo Uieda](http://www.leouieda.com)
-during [an NSF funded postdoc](http://www.leouieda.com/blog/hawaii-gmt-postdoc.html)
-with [Paul Wessel](http://www.soest.hawaii.edu/wessel) at the University of Hawaii at
-Manoa.
+This project was started in 2017 by [Leonardo Uieda](https://www.leouieda.com)
+during [an NSF funded postdoc](https://www.leouieda.com/blog/hawaii-gmt-postdoc)
+with [Paul Wessel](https://www.soest.hawaii.edu/wessel) at the University of
+Hawaiʻi at Mānoa.
 
 The following people have contributed code and/or documentation to the project
 (alphabetical by name) and are considered to be "PyGMT Developers":
@@ -18,8 +18,8 @@ The following people have contributed code and/or documentation to the project
 * [Leonardo Uieda](http://www.leouieda.com/) | [0000-0001-6123-9515](https://orcid.org/0000-0001-6123-9515) | University of Liverpool, United Kingdom
 * [Liam Toney](https://liam.earth/) | [0000-0003-0167-9433](https://orcid.org/0000-0003-0167-9433) | University of Alaska Fairbanks, USA
 * [Malte Ziebarth](https://github.com/mjziebarth) | [0000-0002-5190-4478](https://orcid.org/0000-0002-5190-4478) | GFZ German Research Centre for Geosciences, Germany
-* [Max Jones](https://github.com/maxrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawai'i at Mānoa, USA
-* [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018) | Innoplexia GmbH, Germany
+* [Max Jones](https://github.com/maxrjones) | [0000-0003-0180-8928](https://orcid.org/0000-0003-0180-8928) | University of Hawaiʻi at Mānoa, USA
+* [Michael Grund](https://github.com/michaelgrund) | [0000-0001-8759-2018](https://orcid.org/0000-0001-8759-2018) | SNP Innovation Lab GmbH, Germany
 * [Tyler Newton](http://www.tnewton.com/) | [0000-0002-1560-6553](https://orcid.org/0000-0002-1560-6553) | University of Oregon, USA
 * [Wei Ji Leong](https://github.com/weiji14) | [0000-0003-2354-1988](https://orcid.org/0000-0003-2354-1988) | Development Seed, USA
 * [William Schlitzer](https://github.com/willschlitzer) | [0000-0002-5843-2282](https://orcid.org/0000-0002-5843-2282) | Unaffiliated
