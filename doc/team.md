@@ -116,5 +116,7 @@ the PyGMT project and have responsibilities detailed in the
 :img-top: https://avatars.githubusercontent.com/u/94163266?v=4
 
 [@yvonnefroehlich](https://github.com/yvonnefroehlich)
++++
+{bdg-primary}`Maintainer`
 ::::
 :::::
