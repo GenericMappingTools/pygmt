@@ -1,0 +1,13 @@
+pygmt.filter1d
+==============
+
+.. currentmodule:: pygmt
+
+.. autofunction:: filter1d
+
+.. minigallery:: pygmt.filter1d
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

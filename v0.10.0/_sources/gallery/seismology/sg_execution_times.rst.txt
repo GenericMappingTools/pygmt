@@ -1,0 +1,15 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_seismology_sg_execution_times:
+
+
+Computation times
+=================
+**00:01.117** total execution time for **gallery_seismology** files:
+
++--------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_seismology_meca.py` (``meca.py``)                             | 00:00.573 | 0.0 MB |
++--------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``velo_arrow_ellipse.py``) | 00:00.544 | 0.0 MB |
++--------------------------------------------------------------------------------------+-----------+--------+
