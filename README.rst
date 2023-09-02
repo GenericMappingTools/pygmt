@@ -185,9 +185,9 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Uieda, Leonardo and
                       Leong, Wei Ji and
                       Schlitzer, William and
+                      Fröhlich, Yvonne and
                       Grund, Michael and
                       Jones, Max and
-                      Fröhlich, Yvonne and
                       Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
