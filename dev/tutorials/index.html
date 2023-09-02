@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/index.html" />
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Coastlines and borders" href="basics/coastlines.html" />
-    <link rel="prev" title="2. Create a contour map" href="../get_started/02_contour_map.html" />
+    <link rel="prev" title="3. Figure elements" href="../get_started/03_figure_element.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -106,9 +106,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced">Advanced</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="advanced/insets.html">Adding an inset to the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/cartesian_histograms.html">Cartesian histograms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/configuration.html">Configuring PyGMT defaults</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/3d_perspective_image.html">Creating a 3-D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced/working_with_panel.html">Interactive data visualization using <code class="docutils literal notranslate"><span class="pre">Panel</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="advanced/earth_relief.html">Plotting Earth relief</a></li>
@@ -221,6 +223,9 @@
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="To plot an inset figure inside another larger figure, we can use the pygmt.Figure.inset method...."><img alt="" src="../_images/sphx_glr_insets_thumb.png" />
 <p><a class="reference internal" href="advanced/insets.html#sphx-glr-tutorials-advanced-insets-py"><span class="std std-ref">Adding an inset to the figure</span></a></p>
   <div class="sphx-glr-thumbnail-title">Adding an inset to the figure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial..."><img alt="" src="../_images/sphx_glr_cartesian_histograms_thumb.png" />
+<p><a class="reference internal" href="advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../_images/sphx_glr_configuration_thumb.png" />
 <p><a class="reference internal" href="advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
   <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
@@ -230,6 +235,9 @@
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting a contour map is handled by pygmt.Figure.grdcontour."><img alt="" src="../_images/sphx_glr_contour_map_thumb.png" />
 <p><a class="reference internal" href="advanced/contour_map.html#sphx-glr-tutorials-advanced-contour-map-py"><span class="std std-ref">Creating a map with contour lines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interact..."><img alt="" src="../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><img alt="" src="../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
@@ -256,7 +264,7 @@
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../get_started/02_contour_map.html" class="btn btn-neutral float-left" title="2. Create a contour map" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../get_started/03_figure_element.html" class="btn btn-neutral float-left" title="3. Figure elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="basics/coastlines.html" class="btn btn-neutral float-right" title="Coastlines and borders" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -264,9 +272,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

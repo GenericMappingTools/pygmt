@@ -121,7 +121,7 @@ fig.show()
 # Add a frame
 # -----------
 #
-# While that the map's colors, projection, and size have been set, the region
+# While the map's colors, projection, and size have been set, the region
 # that is being displayed is not apparent. A frame can be added to
 # annotate the latitude and longitude of the region.
 #
@@ -144,7 +144,7 @@ fig.show()
 # -----------
 #
 # The ``frame`` parameter can be used to add a title to the figure. The title
-# is set with by passing ``"+t"`` followed by the title (e.g. setting the map
+# is set by passing ``"+t"`` followed by the title (e.g. setting the map
 # title to "Title" would be ``"+tTitle"``).
 #
 # To pass multiple arguments to ``frame``, a list can be used, as shown in the
@@ -172,7 +172,7 @@ fig.show()
 # 1. Make a map of Germany using its ISO country code ("DE"). Pass the ISO
 #    code as a Python string to the ``region`` parameter.
 #
-# 2. Change the color of the land to "khaki" and the water to "azure".
+# 2. Change the color of the landmass to "khaki" and the water to "azure".
 #
 # 3. Change the color of the lakes (using the ``lakes`` parameter) to "red".
 #
@@ -180,4 +180,4 @@ fig.show()
 #    Meridian or "g" to center the map at the International Date Line. When the
 #    region is set without using a list full of integers or floating numbers,
 #    the argument needs to be passed as a Python string. Create a map with a
-#    width of 15 centimeters using the Mollwide ("W") projection.
+#    width of 15 centimeters using the Mollweide ("W") projection.

@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/select.html" />
@@ -174,10 +174,13 @@
 <div class="viewcode-block" id="select"><a class="viewcode-back" href="../../../api/generated/pygmt.select.html#pygmt.select">[docs]</a><span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;dist2pt&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;polygon&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;gridmask&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;reverse&quot;</span><span class="p">,</span>
     <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">L</span><span class="o">=</span><span class="s2">&quot;dist2line&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;mask&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
@@ -199,17 +202,17 @@
 <span class="sd">    Select data table subsets based on multiple spatial criteria.</span>
 
 <span class="sd">    This is a filter that reads (x, y) or (longitude, latitude) positions from</span>
-<span class="sd">    the first 2 columns of *data* and uses a combination of 1-7 criteria to</span>
+<span class="sd">    the first 2 columns of ``data`` and uses a combination of 1-7 criteria to</span>
 <span class="sd">    pass or reject the records. Records can be selected based on whether or not</span>
-<span class="sd">    they are:</span>
+<span class="sd">    they:</span>
 
-<span class="sd">    1. inside a rectangular region (``region`` [and ``projection``])</span>
-<span class="sd">    2. within *dist* km of any point in *pointfile*</span>
-<span class="sd">    3. within *dist* km of any line in *linefile*</span>
-<span class="sd">    4. inside one of the polygons in the *polygonfile*</span>
-<span class="sd">    5. inside geographical features (based on coastlines)</span>
-<span class="sd">    6. has z-values within a given range, or</span>
-<span class="sd">    7. inside bins of a grid mask whose nodes are non-zero</span>
+<span class="sd">    1. are inside a rectangular region (``region`` [and ``projection``])</span>
+<span class="sd">    2. are within *dist* km of any point in *pointfile* (``dist2pt``)</span>
+<span class="sd">    3. are within *dist* km of any line in *linefile* (``dist2line``)</span>
+<span class="sd">    4. are inside one of the polygons in *polygonfile* (``polygon``)</span>
+<span class="sd">    5. are inside geographical features (based on coastlines)</span>
+<span class="sd">    6. have z-values within a given range</span>
+<span class="sd">    7. are inside bins of a grid mask whose nodes are non-zero</span>
 
 <span class="sd">    The sense of the tests can be reversed for each of these 7 criteria by</span>
 <span class="sd">    using the ``reverse`` parameter.</span>
@@ -226,6 +229,41 @@
 <span class="sd">    outfile : str</span>
 <span class="sd">        The file name for the output ASCII file.</span>
 <span class="sd">    {area_thresh}</span>
+<span class="sd">    dist2pt : str</span>
+<span class="sd">        *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.</span>
+<span class="sd">        Pass all records whose locations are within *dist* of any of the</span>
+<span class="sd">        points in the ASCII file *pointfile*. If *dist* is zero, the 3rd</span>
+<span class="sd">        column of *pointfile* must have each point&#39;s individual radius of</span>
+<span class="sd">        influence. If you only have a single point, you can specify</span>
+<span class="sd">        *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in</span>
+<span class="sd">        user units. Alternatively, if ``region`` and ``projection`` are used,</span>
+<span class="sd">        the geographic coordinates are projected to map coordinates (in</span>
+<span class="sd">        centimeters, inches, meters, or points, as determined by</span>
+<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are compared</span>
+<span class="sd">        to *dist*.</span>
+<span class="sd">    dist2line : str</span>
+<span class="sd">        *linefile*\ **+d**\ *dist*\ [**+p**].</span>
+<span class="sd">        Pass all records whose locations are within *dist* of any of the line</span>
+<span class="sd">        segments in the ASCII :gmt-docs:`multiple-segment file</span>
+<span class="sd">        &lt;cookbook/file-formats.html#optional-segment-header-records&gt;`</span>
+<span class="sd">        *linefile*. If *dist* is zero, we will scan each sub-header in</span>
+<span class="sd">        *linefile* for an embedded **-D**\ *dist* setting that sets each</span>
+<span class="sd">        line&#39;s individual distance value. Distances are Cartesian and in</span>
+<span class="sd">        user units. Alternatively, if ``region`` and ``projection`` are used,</span>
+<span class="sd">        the geographic coordinates are projected to map coordinates (in</span>
+<span class="sd">        centimeters, inches, meters, or points, as determined by</span>
+<span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are</span>
+<span class="sd">        compared to *dist*. Append **+p** to ensure only points whose</span>
+<span class="sd">        orthogonal projections onto the nearest line-segment fall within</span>
+<span class="sd">        the segment&#39;s endpoints [Default considers points &quot;beyond&quot; the</span>
+<span class="sd">        line&#39;s endpoints].</span>
+<span class="sd">    polygon : str</span>
+<span class="sd">        *polygonfile*.</span>
+<span class="sd">        Pass all records whose locations are within one of the closed</span>
+<span class="sd">        polygons in the ASCII :gmt-docs:`multiple-segment file</span>
+<span class="sd">        &lt;cookbook/file-formats.html#optional-segment-header-records&gt;`</span>
+<span class="sd">        *polygonfile*. For spherical polygons (lon, lat), make sure no</span>
+<span class="sd">        consecutive points are separated by 180 degrees or more in longitude.</span>
 <span class="sd">    resolution : str</span>
 <span class="sd">        *resolution*\ [**+f**].</span>
 <span class="sd">        Ignored unless ``mask`` is set. Selects the resolution of the coastline</span>
@@ -349,9 +387,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

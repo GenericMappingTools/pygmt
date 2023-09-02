@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/x2sys_cross.html" />
@@ -163,13 +163,13 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">build_arg_string</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
-    <span class="n">dummy_context</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">unique_name</span><span class="p">,</span>
@@ -205,7 +205,7 @@
             <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
             <span class="n">na_rep</span><span class="o">=</span><span class="s2">&quot;NaN&quot;</span><span class="p">,</span>  <span class="c1"># write a NaN value explicitly instead of a blank string</span>
-            <span class="n">date_format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">Z&quot;</span><span class="p">,</span>
+            <span class="n">date_format</span><span class="o">=</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S.</span><span class="si">%f</span><span class="s2">Z&quot;</span><span class="p">,</span>  <span class="c1"># ISO8601 format</span>
         <span class="p">)</span>
         <span class="k">yield</span> <span class="n">tmpfilename</span>
     <span class="k">finally</span><span class="p">:</span>
@@ -353,7 +353,7 @@
         <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
             <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">track</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-                <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dummy_context</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
+                <span class="n">file_contexts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contextlib</span><span class="o">.</span><span class="n">nullcontext</span><span class="p">(</span><span class="n">track</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;matrix&quot;</span><span class="p">:</span>
                 <span class="c1"># find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from</span>
                 <span class="c1"># $X2SYS_HOME/TAGNAME/TAGNAME.tag file</span>
@@ -387,12 +387,18 @@
             <span class="c1"># Read temporary csv output to a pandas table</span>
             <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if outfile isn&#39;t set, return pd.DataFrame</span>
                 <span class="c1"># Read the tab-separated ASCII table</span>
+                <span class="n">date_format_kwarg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">{</span><span class="s2">&quot;date_format&quot;</span><span class="p">:</span> <span class="s2">&quot;ISO8601&quot;</span><span class="p">}</span>
+                    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;2.0.0&quot;</span><span class="p">)</span>
+                    <span class="k">else</span> <span class="p">{}</span>
+                <span class="p">)</span>
                 <span class="n">table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
                     <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
                     <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
                     <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># Column names are on 2nd row</span>
                     <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># Skip the 3rd row with a &quot;&gt;&quot;</span>
                     <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># Datetimes on 3rd and 4th column</span>
+                    <span class="o">**</span><span class="n">date_format_kwarg</span><span class="p">,</span>  <span class="c1"># Parse dates in ISO8601 format on pandas&gt;=2</span>
                 <span class="p">)</span>
                 <span class="c1"># Remove the &quot;# &quot; from &quot;# x&quot; in the first column</span>
                 <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]})</span>
@@ -411,9 +417,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

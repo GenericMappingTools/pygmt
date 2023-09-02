@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.which.html" />
@@ -36,7 +36,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.test" href="pygmt.test.html" />
+    <link rel="next" title="pygmt.print_clib_info" href="pygmt.print_clib_info.html" />
     <link rel="prev" title="pygmt.grdinfo" href="pygmt.grdinfo.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -113,7 +113,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.which"><code class="docutils literal notranslate"><span class="pre">which</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.test.html">pygmt.test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.print_clib_info.html">pygmt.print_clib_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.show_versions.html">pygmt.show_versions</a></li>
 </ul>
@@ -194,11 +193,12 @@
 for the file in (1) the current directory, (2) in $GMT_USERDIR (if
 defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
 (if defined).</p>
-<p><code class="docutils literal notranslate"><span class="pre">fname</span></code> can also be a downloadable file (either a full URL, a
-<cite>&#64;file</cite> special file for downloading from the GMT Site Cache, or
-<cite>&#64;earth_relief_*</cite> topography grids). In these cases, use parameter
-<code class="docutils literal notranslate"><span class="pre">download</span></code> to set the desired behavior. If <code class="docutils literal notranslate"><span class="pre">download</span></code> is not used
-(or False), the file will not be found.</p>
+<p><code class="docutils literal notranslate"><span class="pre">fname</span></code> can also be a downloadable file (either a complete URL, an
+&#64;file for downloading from the GMT data server, or any of the remote
+datasets at <a class="reference external" href="https://www.pygmt.org/latest/api/index.html#datasets">https://www.pygmt.org/latest/api/index.html#datasets</a>).
+In these cases, use the <code class="docutils literal notranslate"><span class="pre">download</span></code> parameter to set the desired
+behavior. If <code class="docutils literal notranslate"><span class="pre">download</span></code> is not used (or <code class="docutils literal notranslate"><span class="pre">False</span></code>), the file will
+not be found.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmtwhich.html">https://docs.generic-mapping-tools.org/latest/gmtwhich.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -210,15 +210,17 @@ defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – One or more file names of any data type (grids, tables, etc.).</p></li>
 <li><p><strong>download</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>a</strong>|<strong>c</strong>|<strong>l</strong>|<strong>u</strong>].
-If the fname argument is a downloadable file (either a complete URL, an
-&#64;file for downloading from the GMT data server, or &#64;earth_relief_xxy)
-we will try to download the file if it is not found in your local data
-or cache dirs. By default [<code class="docutils literal notranslate"><span class="pre">download=True</span></code> or <code class="docutils literal notranslate"><span class="pre">download=&quot;l&quot;</span></code>] we
-download to the current directory. Use <strong>a</strong> to place files in the
-appropriate folder under the user directory (this is where GMT normally
-places downloaded files), <strong>c</strong> to place it in the user cache
-directory, or <strong>u</strong> for the user data directory instead (i.e., ignoring
-any subdirectory structure).</p></li>
+If the <code class="docutils literal notranslate"><span class="pre">fname</span></code> argument is a downloadable file (either a complete
+URL, an &#64;file for downloading from the GMT data server, or any of
+the remote datasets at
+<a class="reference external" href="https://www.pygmt.org/latest/api/index.html#datasets">https://www.pygmt.org/latest/api/index.html#datasets</a>)
+we will try to download the file if it is not found in your local
+data or cache directories. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <strong>l</strong> is passed
+the file is downloaded to the current directory. Use <strong>a</strong> to place
+files in the appropriate folder under the user directory (this is
+where GMT normally places downloaded files), <strong>c</strong> to place it in
+the user cache directory, or <strong>u</strong> for the user data directory
+instead (i.e., ignoring any subdirectory structure).</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
@@ -250,16 +252,16 @@ written to stderr. Choose among 7 levels of verbosity:</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.grdinfo.html" class="btn btn-neutral float-left" title="pygmt.grdinfo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.test.html" class="btn btn-neutral float-right" title="pygmt.test" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.print_clib_info.html" class="btn btn-neutral float-right" title="pygmt.print_clib_info" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

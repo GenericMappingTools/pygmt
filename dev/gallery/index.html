@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/index.html" />
@@ -98,16 +98,21 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Gallery</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#maps-and-map-elements">Maps and map elements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="maps/land_and_water.html">Color land and water</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maps/country_polygons.html">Highlight country, continent and state polygons</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/borders.html">Political Boundaries</a></li>
 <li class="toctree-l3"><a class="reference internal" href="maps/shorelines.html">Shorelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maps/tilemaps.html">Tile maps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lines-and-vectors">Lines and vectors</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lines/vector_styles.html">Cartesian, circular, and geographic vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lines/decorated_lines.html">Decorated lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lines/envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/linefronts.html">Line fronts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/linestyles.html">Line styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lines/quoted_lines.html">Quoted lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/roads.html">Roads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/vector_heads_tails.html">Vector heads and tails</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lines/wiggle.html">Wiggle along tracks</a></li>
@@ -133,7 +138,9 @@
 <li class="toctree-l3"><a class="reference internal" href="images/grdclip.html">Clipping grid values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="images/cross_section.html">Cross-section along a transect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/image.html">Images on figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="images/rgb_image.html">RGB Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="images/track_sampling.html">Sampling along tracks</a></li>
 </ul>
 </li>
@@ -252,12 +259,18 @@ code used to generate it.</p>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat..."><img alt="" src="../_images/sphx_glr_land_and_water_thumb.png" />
 <p><a class="reference internal" href="maps/land_and_water.html#sphx-glr-gallery-maps-land-and-water-py"><span class="std std-ref">Color land and water</span></a></p>
   <div class="sphx-glr-thumbnail-title">Color land and water</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Highlight country, continent and state polygons"><img alt="" src="../_images/sphx_glr_country_polygons_thumb.png" />
+<p><a class="reference internal" href="maps/country_polygons.html#sphx-glr-gallery-maps-country-polygons-py"><span class="std std-ref">Highlight country, continent and state polygons</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Highlight country, continent and state polygons</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an..."><img alt="" src="../_images/sphx_glr_borders_thumb.png" />
 <p><a class="reference internal" href="maps/borders.html#sphx-glr-gallery-maps-borders-py"><span class="std std-ref">Political Boundaries</span></a></p>
   <div class="sphx-glr-thumbnail-title">Political Boundaries</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Use pygmt.Figure.coast to display shorelines as black lines."><img alt="" src="../_images/sphx_glr_shorelines_thumb.png" />
 <p><a class="reference internal" href="maps/shorelines.html#sphx-glr-gallery-maps-shorelines-py"><span class="std std-ref">Shorelines</span></a></p>
   <div class="sphx-glr-thumbnail-title">Shorelines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Tile maps"><img alt="" src="../_images/sphx_glr_tilemaps_thumb.png" />
+<p><a class="reference internal" href="maps/tilemaps.html#sphx-glr-gallery-maps-tilemaps-py"><span class="std std-ref">Tile maps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Tile maps</div>
 </div></div><div class="toctree-wrapper compound">
 </div>
 </section>
@@ -266,6 +279,12 @@ code used to generate it.</p>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><img alt="" src="../_images/sphx_glr_vector_styles_thumb.png" />
 <p><a class="reference internal" href="lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Decorated lines"><img alt="" src="../_images/sphx_glr_decorated_lines_thumb.png" />
+<p><a class="reference internal" href="lines/decorated_lines.html#sphx-glr-gallery-lines-decorated-lines-py"><span class="std std-ref">Decorated lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Decorated lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Envelope"><img alt="" src="../_images/sphx_glr_envelope_thumb.png" />
+<p><a class="reference internal" href="lines/envelope.html#sphx-glr-gallery-lines-envelope-py"><span class="std std-ref">Envelope</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Envelope</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.project function can generate points along a great circle whose center and end points..."><img alt="" src="../_images/sphx_glr_great_circles_thumb.png" />
 <p><a class="reference internal" href="lines/great_circles.html#sphx-glr-gallery-lines-great-circles-py"><span class="std std-ref">Generate points along great circles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Generate points along great circles</div>
@@ -278,6 +297,9 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><img alt="" src="../_images/sphx_glr_linestyles_thumb.png" />
 <p><a class="reference internal" href="lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line styles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Quoted lines"><img alt="" src="../_images/sphx_glr_quoted_lines_thumb.png" />
+<p><a class="reference internal" href="lines/quoted_lines.html#sphx-glr-gallery-lines-quoted-lines-py"><span class="std std-ref">Quoted lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Quoted lines</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Roads"><img alt="" src="../_images/sphx_glr_roads_thumb.png" />
 <p><a class="reference internal" href="lines/roads.html#sphx-glr-gallery-lines-roads-py"><span class="std std-ref">Roads</span></a></p>
   <div class="sphx-glr-thumbnail-title">Roads</div>
@@ -345,9 +367,15 @@ code used to generate it.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid"><img alt="" src="../_images/sphx_glr_grdlandmask_thumb.png" />
 <p><a class="reference internal" href="images/grdlandmask.html#sphx-glr-gallery-images-grdlandmask-py"><span class="std std-ref">Create ‘wet-dry’ mask grid</span></a></p>
   <div class="sphx-glr-thumbnail-title">Create 'wet-dry' mask grid</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china..."><img alt="" src="../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Images on figures"><img alt="" src="../_images/sphx_glr_image_thumb.png" />
 <p><a class="reference internal" href="images/image.html#sphx-glr-gallery-images-image-py"><span class="std std-ref">Images on figures</span></a></p>
   <div class="sphx-glr-thumbnail-title">Images on figures</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The example below shows a Worldview 2 satellite image over Lāhainā, Hawaiʻi during the August 2..."><img alt="" src="../_images/sphx_glr_rgb_image_thumb.png" />
+<p><a class="reference internal" href="images/rgb_image.html#sphx-glr-gallery-images-rgb-image-py"><span class="std std-ref">RGB Image</span></a></p>
+  <div class="sphx-glr-thumbnail-title">RGB Image</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
@@ -449,9 +477,9 @@ code used to generate it.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

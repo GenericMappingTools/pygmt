@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/vectors.html" />
@@ -98,9 +98,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#basics">Basics</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#advanced">Advanced</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="insets.html">Adding an inset to the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cartesian_histograms.html">Cartesian histograms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="configuration.html">Configuring PyGMT defaults</a></li>
 <li class="toctree-l3"><a class="reference internal" href="3d_perspective_image.html">Creating a 3-D perspective image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contour_map.html">Creating a map with contour lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="working_with_panel.html">Interactive data visualization using <code class="docutils literal notranslate"><span class="pre">Panel</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="subplots.html">Making subplots</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grid_equalization.html">Performing grid histogram equalization</a></li>
 <li class="toctree-l3"><a class="reference internal" href="earth_relief.html">Plotting Earth relief</a></li>
@@ -388,7 +390,7 @@ this example).</p>
 </pre></div>
 </div>
 <img src="../../_images/sphx_glr_vectors_006.png" srcset="../../_images/sphx_glr_vectors_006.png" alt="vectors" class = "sphx-glr-single-img"/><p>Another example of plotting Cartesian vectors over a coast plot. This time a
-Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
+Transverse Mercator projection is used. Additionally, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="(in NumPy v1.25)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.linspace</span></code></a>
 is used to create 5 vectors with equal stops.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">36</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># x values = [36.  37.5 39.  40.5 42. ]</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mi">39</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># y values = [39. 39. 39. 39.]</span>
@@ -431,7 +433,7 @@ values in the vector list represent the origin of the circle that will be
 plotted. The next value is the radius which is represented on the plot in cm.</p>
 <p>The last two values in the vector list represent the degree at which the plot
 will start and stop. These values are measured counter-clockwise from the
-horizontal axis. In this example, the result show is the left half of a
+horizontal axis. In this example, the result shown is the left half of a
 circle as the plot starts at 90 degrees and goes until 270. Notice that the
 <code class="docutils literal notranslate"><span class="pre">m</span></code> in the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter stands for circular vectors.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -463,7 +465,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 </div>
 <img src="../../_images/sphx_glr_vectors_008.png" srcset="../../_images/sphx_glr_vectors_008.png" alt="vectors" class = "sphx-glr-single-img"/><p>When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter. In this example,
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v1.24)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.column_stack.html#numpy.column_stack" title="(in NumPy v1.25)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.column_stack</span></code></a> is used to generate this two dimensional array.
 Other numpy objects are used to generate linear values for the <code class="docutils literal notranslate"><span class="pre">radius</span></code>
 parameter and random values for the <code class="docutils literal notranslate"><span class="pre">degree_stop</span></code> parameter discussed in
 the previous example. This is the reason in which each vector has a different
@@ -616,7 +618,7 @@ locations.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.615 seconds)</p>
+<img src="../../_images/sphx_glr_vectors_013.png" srcset="../../_images/sphx_glr_vectors_013.png" alt="vectors" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.300 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-vectors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ce82c322966fbdc815d1c920e745a571/vectors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">vectors.py</span></code></a></p>
@@ -642,9 +644,9 @@ locations.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

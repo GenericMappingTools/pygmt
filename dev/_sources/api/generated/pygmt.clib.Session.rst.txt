@@ -48,6 +48,10 @@ pygmt.clib.Session
     
     
     
+    Session.get_common
+    
+    
+    
     Session.get_default
     
     

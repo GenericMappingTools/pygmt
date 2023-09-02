@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_earth_free_air_anomaly.html" />
@@ -205,6 +205,12 @@ So you’ll need an internet connection the first time around.</p>
 function. <em>res</em> is the grid resolution (see below), and <em>reg</em> is grid
 registration type (<strong>p</strong> for pixel registration or <strong>g</strong> for gridline
 registration).</p>
+<p>The default color palette table (CPT) for this dataset is <em>&#64;earth_faa.cpt</em>.
+It’s implicitly used when passing in the file name of the dataset to any
+grid plotting method if no CPT is explicitly specified. When the dataset
+is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
+CPT is ignored and GMT’s default CPT (<em>turbo</em>) is used. To use the
+dataset-specific CPT, you need to explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;&#64;earth_faa.cpt&quot;</span></code>.</p>
 <p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-faa.html">https://www.generic-mapping-tools.org/remote-datasets/earth-faa.html</a> for more details.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -223,14 +229,14 @@ for all resolutions except <code class="docutils literal notranslate"><span clas
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth free-air anomaly grid. Coordinates are latitude and
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth free-air anomaly grid. Coordinates are latitude and
 longitude in degrees. Units are in mGal.</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -271,9 +277,9 @@ workarounds.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

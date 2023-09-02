@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grd2cpt.html" />
@@ -192,9 +192,13 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make GMT color palette tables from a grid file.</span>
 
-<span class="sd">    This is a function that will help you make static color palette tables</span>
-<span class="sd">    (CPTs). By default, the CPT will simply be saved to the current session,</span>
-<span class="sd">    but you can use ``output`` to save it to a file. The CPT is based on an</span>
+<span class="sd">    This function will help you to make static color palette tables (CPTs).</span>
+<span class="sd">    By default, the CPT will be saved as the current CPT of the session,</span>
+<span class="sd">    figure, subplot, panel, or inset depending on which level</span>
+<span class="sd">    :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode</span>
+<span class="sd">    maintains different levels of colormaps please see</span>
+<span class="sd">    :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`).</span>
+<span class="sd">    You can use ``output`` to save the CPT to a file. The CPT is based on an</span>
 <span class="sd">    existing dynamic master CPT of your choice, and the mapping from data value</span>
 <span class="sd">    to colors is through the data&#39;s cumulative distribution function (CDF), so</span>
 <span class="sd">    that the colors are histogram equalized. Thus if the grid(s) and the</span>
@@ -250,8 +254,9 @@
 <span class="sd">        :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use</span>
 <span class="sd">        ``background=&quot;i&quot;`` to match the colors for the lowest and highest</span>
 <span class="sd">        values in the input (instead of the output) CPT.</span>
-<span class="sd">    color_model :</span>
-<span class="sd">        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].</span>
+<span class="sd">    color_model : str</span>
+<span class="sd">        [**R**\|\ **r**\|\ **h**\|\ **c**]\</span>
+<span class="sd">        [**+c**\ [*label*\|\ *start*\ [**-**]]].</span>
 <span class="sd">        Force output CPT to be written with r/g/b codes, gray-scale values or</span>
 <span class="sd">        color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes</span>
 <span class="sd">        (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append</span>
@@ -259,9 +264,9 @@
 <span class="sd">        appended then we create labels for each category to be used when the</span>
 <span class="sd">        CPT is plotted. The *label* may be a comma-separated list of category</span>
 <span class="sd">        names (you can skip a category by not giving a name), or give</span>
-<span class="sd">        *start*\[-], where we automatically build monotonically increasing</span>
-<span class="sd">        labels from *start* (a single letter or an integer). Append ``-`` to</span>
-<span class="sd">        build ranges *start*-*start+1* instead.</span>
+<span class="sd">        *start*, where we automatically build monotonically increasing</span>
+<span class="sd">        labels from *start* (a single letter or an integer). Additionally</span>
+<span class="sd">        append **-** to build ranges *start*-*start+1* as labels instead.</span>
 <span class="sd">    nlevels : bool or int or str</span>
 <span class="sd">        Set to ``True`` to create a linear color table by using the grid</span>
 <span class="sd">        z-range as the new limits in the CPT. Alternatively, set *nlevels*</span>
@@ -276,21 +281,22 @@
 <span class="sd">        For details on array creation, see</span>
 <span class="sd">        :gmt-docs:`makecpt.html#generate-1d-array`.</span>
 <span class="sd">    truncate : list or str</span>
-<span class="sd">        *zlo/zhi*.</span>
+<span class="sd">        *zlow/zhigh*.</span>
 <span class="sd">        Truncate the incoming CPT so that the lowest and highest z-levels are</span>
-<span class="sd">        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of</span>
-<span class="sd">        the CPT alone. The truncation takes place before any resampling. See</span>
-<span class="sd">        also :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
+<span class="sd">        to *zlow* and *zhigh*. If one of these equal NaN then we leave that</span>
+<span class="sd">        end of the CPT alone. The truncation takes place before any resampling.</span>
+<span class="sd">        See also :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
 <span class="sd">    output : str</span>
-<span class="sd">        Optional parameter to set the file name with extension .cpt to store</span>
-<span class="sd">        the generated CPT file. If not given or False [Default], saves the CPT</span>
-<span class="sd">        as the session current CPT.</span>
+<span class="sd">        Optional. The file name with extension .cpt to store the generated CPT</span>
+<span class="sd">        file. If not given or ``False`` [Default], saves the CPT as the current</span>
+<span class="sd">        CPT of the session, figure, subplot, panel, or inset depending on which</span>
+<span class="sd">        level :func:`pygmt.grd2cpt` is called.</span>
 <span class="sd">    reverse : str</span>
-<span class="sd">        Set this to True or c [Default] to reverse the sense of color</span>
-<span class="sd">        progression in the master CPT. Set this to z to reverse the sign of</span>
-<span class="sd">        z-values in the color table. Note that this change of z-direction</span>
-<span class="sd">        happens before *truncate* and *series* values are used so the latter</span>
-<span class="sd">        must be compatible with the changed *z*-range. See also</span>
+<span class="sd">        Set this to ``True`` or **c** [Default] to reverse the sense of color</span>
+<span class="sd">        progression in the master CPT. Set this to **z** to reverse the sign</span>
+<span class="sd">        of z-values in the color table. Note that this change of z-direction</span>
+<span class="sd">        happens before ``truncate`` and ``series`` values are used so the</span>
+<span class="sd">        latter must be compatible with the changed z-range. See also</span>
 <span class="sd">        :gmt-docs:`cookbook/features.html#manipulating-cpts`.</span>
 <span class="sd">    overrule_bg : str</span>
 <span class="sd">        Overrule background, foreground, and NaN colors specified in the master</span>
@@ -357,9 +363,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

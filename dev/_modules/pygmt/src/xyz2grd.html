@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/xyz2grd.html" />
@@ -196,10 +196,10 @@
 <span class="sd">    Create a grid file from table data.</span>
 
 <span class="sd">    Reads one or more tables with *x, y, z* columns and creates a binary grid</span>
-<span class="sd">    file. xyz2grd will report if some of the nodes are not filled in with</span>
-<span class="sd">    data. Such unconstrained nodes are set to a value specified by the user</span>
-<span class="sd">    [Default is NaN]. Nodes with more than one value will be set to the mean</span>
-<span class="sd">    value.</span>
+<span class="sd">    file. :func:`pygmt.xyz2grd` will report if some of the nodes are not filled</span>
+<span class="sd">    in with data. Such unconstrained nodes are set to a value specified by the</span>
+<span class="sd">    user [Default is NaN]. Nodes with more than one value will be set to the</span>
+<span class="sd">    mean value.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`xyz2grd.html`</span>
 
@@ -219,17 +219,17 @@
 <span class="sd">        [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\</span>
 <span class="sd">        **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**].</span>
 <span class="sd">        By default we will calculate mean values if multiple entries fall on</span>
-<span class="sd">        the same node. Use **-A** to change this behavior, except it is</span>
-<span class="sd">        ignored if **-Z** is given. Append **f** or **s** to simply keep the</span>
-<span class="sd">        first or last data point that was assigned to each node. Append</span>
-<span class="sd">        **l** or **u** or **d** to find the lowest (minimum) or upper (maximum)</span>
-<span class="sd">        value or the difference between the maximum and miminum value</span>
-<span class="sd">        at each node, respectively. Append **m** or **r** or **S** to compute</span>
-<span class="sd">        mean or RMS value or standard deviation at each node, respectively.</span>
-<span class="sd">        Append **n** to simply count the number of data points that were</span>
-<span class="sd">        assigned to each node (this only requires two input columns *x* and</span>
-<span class="sd">        *y* as *z* is not consulted). Append **z** to sum multiple values that</span>
-<span class="sd">        belong to the same node.</span>
+<span class="sd">        the same node. Use ``duplicate`` to change this behavior, except it is</span>
+<span class="sd">        ignored if ``convention`` is given. Append **f** or **s** to simply</span>
+<span class="sd">        keep the first or last data point that was assigned to each node.</span>
+<span class="sd">        Append **l** or **u** or **d** to find the lowest (minimum) or upper</span>
+<span class="sd">        (maximum) value or the difference between the maximum and minimum</span>
+<span class="sd">        values at each node, respectively. Append **m** or **r** or **S** to</span>
+<span class="sd">        compute mean or RMS value or standard deviation at each node,</span>
+<span class="sd">        respectively. Append **n** to simply count the number of data points</span>
+<span class="sd">        that were assigned to each node (this only requires two input columns</span>
+<span class="sd">        *x* and *y* as *z* is not consulted). Append **z** to sum multiple</span>
+<span class="sd">        values that belong to the same node.</span>
 <span class="sd">    {spacing}</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {region}</span>
@@ -297,7 +297,7 @@
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,</span>
-<span class="sd">    &gt;&gt;&gt; # and a y-range of 10.5 to 12.5. The x- and y-spacing are 1.0 and 0.5.</span>
+<span class="sd">    &gt;&gt;&gt; # and a y-range of 10.5 to 12.5. The x- and y-spacings are 1.0 and 0.5.</span>
 <span class="sd">    &gt;&gt;&gt; x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])</span>
 <span class="sd">    &gt;&gt;&gt; z = x**2 + y**2</span>
 <span class="sd">    &gt;&gt;&gt; xx, yy, zz = x.flatten(), y.flatten(), z.flatten()</span>
@@ -332,9 +332,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

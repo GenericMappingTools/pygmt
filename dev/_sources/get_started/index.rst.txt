@@ -61,6 +61,23 @@ cover all PyGMT methods.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="- pygmt.Figure(): having a number of plotting methods. Every new   figure must start with the c...">
+
+.. only:: html
+
+  .. image:: /get_started/images/thumb/sphx_glr_03_figure_element_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_get_started_03_figure_element.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
@@ -69,6 +86,7 @@ cover all PyGMT methods.
 
    /get_started/01_first_figure
    /get_started/02_contour_map
+   /get_started/03_figure_element
 
 
 

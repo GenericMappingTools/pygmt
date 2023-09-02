@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.text.html" />
@@ -208,6 +208,11 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>/<code class="docutils literal notranslate"><span class="pre">y</span></code>, and <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">position</span></code> and <code class="docutils literal notranslate"><span class="pre">text</span></code></p></li>
 </ul>
+<p>The text strings passed via the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter can contain ASCII
+characters and non-ASCII characters defined in the ISOLatin1+ encoding
+(i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
+See <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html">https://docs.generic-mapping-tools.org/latest/cookbook/octal-codes.html</a> for the full list of supported
+non-ASCII characters.</p>
 <p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/text.html">https://docs.generic-mapping-tools.org/latest/text.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
@@ -396,12 +401,18 @@ cyclical coordinate transformations are supported:</p>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot Cartesian, circular, and geographic vectors. The style pa..."><img alt="" src="../../_images/sphx_glr_vector_styles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_styles.html#sphx-glr-gallery-lines-vector-styles-py"><span class="std std-ref">Cartesian, circular, and geographic vectors</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Decorated lines"><img alt="" src="../../_images/sphx_glr_decorated_lines_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/decorated_lines.html#sphx-glr-gallery-lines-decorated-lines-py"><span class="std std-ref">Decorated lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Decorated lines</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Using the pygmt.Figure.plot method you can draw a so-called front which allows to plot specific..."><img alt="" src="../../_images/sphx_glr_linefronts_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/linefronts.html#sphx-glr-gallery-lines-linefronts-py"><span class="std std-ref">Line fronts</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line fronts</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0...."><img alt="" src="../../_images/sphx_glr_linestyles_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/linestyles.html#sphx-glr-gallery-lines-linestyles-py"><span class="std std-ref">Line styles</span></a></p>
   <div class="sphx-glr-thumbnail-title">Line styles</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Quoted lines"><img alt="" src="../../_images/sphx_glr_quoted_lines_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/quoted_lines.html#sphx-glr-gallery-lines-quoted-lines-py"><span class="std std-ref">Quoted lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Quoted lines</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Many methods in PyGMT allow plotting vectors with individual heads and tails. For this purpose,..."><img alt="" src="../../_images/sphx_glr_vector_heads_tails_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/vector_heads_tails.html#sphx-glr-gallery-lines-vector-heads-tails-py"><span class="std std-ref">Vector heads and tails</span></a></p>
   <div class="sphx-glr-thumbnail-title">Vector heads and tails</div>
@@ -417,12 +428,18 @@ cyclical coordinate transformations are supported:</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Text symbols"><img alt="" src="../../_images/sphx_glr_text_symbols_thumb.png" />
 <p><a class="reference internal" href="../../gallery/symbols/text_symbols.html#sphx-glr-gallery-symbols-text-symbols-py"><span class="std std-ref">Text symbols</span></a></p>
   <div class="sphx-glr-thumbnail-title">Text symbols</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china..."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a plot. This is handled by pygmt.Figure.text."><img alt="" src="../../_images/sphx_glr_text_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/text.html#sphx-glr-tutorials-basics-text-py"><span class="std std-ref">Plotting text</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting text</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
   <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="- pygmt.Figure(): having a number of plotting methods. Every new   figure must start with the c..."><img alt="" src="../../_images/sphx_glr_03_figure_element_thumb.png" />
+<p><a class="reference internal" href="../../get_started/03_figure_element.html#sphx-glr-get-started-03-figure-element-py"><span class="std std-ref">3. Figure elements</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3. Figure elements</div>
 </div></div><div style='clear:both'></div></section>
 </section>
 
@@ -439,9 +456,9 @@ cyclical coordinate transformations are supported:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

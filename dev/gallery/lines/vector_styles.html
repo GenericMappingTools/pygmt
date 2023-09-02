@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/lines/vector_styles.html" />
@@ -36,8 +36,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Generate points along great circles" href="great_circles.html" />
-    <link rel="prev" title="Shorelines" href="../maps/shorelines.html" />
+    <link rel="next" title="Decorated lines" href="decorated_lines.html" />
+    <link rel="prev" title="Tile maps" href="../maps/tilemaps.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -99,10 +99,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Cartesian, circular, and geographic vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decorated_lines.html">Decorated lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linefronts.html">Line fronts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestyles.html">Line styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quoted_lines.html">Quoted lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="roads.html">Roads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vector_heads_tails.html">Vector heads and tails</a></li>
 <li class="toctree-l3"><a class="reference internal" href="wiggle.html">Wiggle along tracks</a></li>
@@ -199,7 +202,7 @@ to download the full example code</p>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method can plot Cartesian, circular, and
 geographic vectors. The <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter controls vector attributes.
 See also
-<a class="reference internal" href="vector_heads_tails.html"><span class="doc">Vector attributes documentation</span></a>.</p>
+<a class="reference internal" href="vector_heads_tails.html"><span class="doc">Vector attributes example</span></a>.</p>
 <img src="../../_images/sphx_glr_vector_styles_001.png" srcset="../../_images/sphx_glr_vector_styles_001.png" alt="vector styles" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
@@ -220,7 +223,7 @@ See also
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">33.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>  <span class="c1"># y vector coordinates</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">direction</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.zeros.html#numpy.zeros" title="numpy.zeros" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span><span class="o">.</span><span class="n">shape</span></a><span class="p">)</span>  <span class="c1"># direction of vectors</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">length</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>  <span class="c1"># length of vectors</span>
-<span class="c1"># Cartesian vectors (v) with red pen and fill (+g, +p), vector head at</span>
+<span class="c1"># Cartesian vectors (v) with red fill and pen (+g, +p), vector head at</span>
 <span class="c1"># end (+e), and 40 degree angle (+a) with no indentation for vector head (+h)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">style</span></a> <span class="o">=</span> <span class="s2">&quot;v0.2c+e+a40+gred+h0+p1p,red&quot;</span>
 <a href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">plot</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">style</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">style</span></a><span class="p">,</span> <span class="n">pen</span><span class="o">=</span><span class="s2">&quot;1p,red&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">direction</span></a><span class="o">=</span><span class="p">[</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">direction</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">length</span></a><span class="p">])</span>
@@ -258,7 +261,7 @@ See also
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.205 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.157 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-vector-styles-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a2b63055fd3d9f92ea8060873e4fa4cd/vector_styles.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">vector_styles.py</span></code></a></p>
@@ -275,17 +278,17 @@ See also
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../maps/shorelines.html" class="btn btn-neutral float-left" title="Shorelines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="great_circles.html" class="btn btn-neutral float-right" title="Generate points along great circles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../maps/tilemaps.html" class="btn btn-neutral float-left" title="Tile maps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="decorated_lines.html" class="btn btn-neutral float-right" title="Decorated lines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

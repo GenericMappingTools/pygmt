@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.shift_origin.html" />
@@ -194,11 +194,11 @@
 <h1>pygmt.Figure.shift_origin<a class="headerlink" href="#pygmt-figure-shift-origin" title="Permalink to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.shift_origin">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">shift_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/figure.html#Figure.shift_origin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">shift_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Permalink to this definition"></a></dt>
 <dd><p>Shift plot origin in x and/or y directions.</p>
 <p>This method shifts the plot origin relative to the current origin
 by (<em>xshift</em>, <em>yshift</em>). Optionally, append the length unit (<strong>c</strong>,
-<strong>i</strong>, or <strong>p</strong>). Default unit if not given is <strong>c</strong> for centimeter.</p>
+<strong>i</strong>, or <strong>p</strong>). Default unit if not given is <strong>c</strong> for centimeters.</p>
 <p>Prepend <strong>a</strong> to shift the origin back to the original position after
 plotting, prepend <strong>c</strong> to center the plot on the center of the paper
 (optionally add shift), prepend <strong>f</strong> to shift the origin relative to
@@ -218,12 +218,18 @@ move the origin relative to its current location.</p>
 
 <section id="examples-using-pygmt-figure-shift-origin">
 <h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code><a class="headerlink" href="#examples-using-pygmt-figure-shift-origin" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Envelope"><img alt="" src="../../_images/sphx_glr_envelope_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/envelope.html#sphx-glr-gallery-lines-envelope-py"><span class="std std-ref">Envelope</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Envelope</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
   <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china..."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
 <p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D Scatter plots</span></a></p>
   <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
@@ -236,6 +242,9 @@ move the origin relative to its current location.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/coastlines.html#sphx-glr-tutorials-basics-coastlines-py"><span class="std std-ref">Coastlines and borders</span></a></p>
   <div class="sphx-glr-thumbnail-title">Coastlines and borders</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial..."><img alt="" src="../../_images/sphx_glr_cartesian_histograms_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/cartesian_histograms.html#sphx-glr-tutorials-advanced-cartesian-histograms-py"><span class="std std-ref">Cartesian histograms</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config."><img alt="" src="../../_images/sphx_glr_configuration_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/configuration.html#sphx-glr-tutorials-advanced-configuration-py"><span class="std std-ref">Configuring PyGMT defaults</span></a></p>
   <div class="sphx-glr-thumbnail-title">Configuring PyGMT defaults</div>
@@ -261,9 +270,9 @@ move the origin relative to its current location.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

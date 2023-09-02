@@ -98,7 +98,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.300 seconds)
+   **Total running time of the script:** ( 0 minutes  3.288 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:

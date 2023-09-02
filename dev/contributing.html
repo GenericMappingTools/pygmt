@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/contributing.html" />
@@ -280,14 +280,14 @@ will report the equivalent GMT commands as one of the debug messages.</p></li>
 <li><p>Either append all messages from running your script to your GitHub issue, or
 filter the messages to include only the GMT-equivalent commands using a command
 such as:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F&#39;: &#39; &#39;$2==&quot;GMT_Call_Command string&quot; {print &quot;gmt&quot;, $3}&#39;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python &lt;test&gt;.py 2&gt;&amp;1 | awk -F&#39;: &#39; &#39;$2==&quot;GMT_Call_Command string&quot; {print $3}&#39;
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">&lt;test&gt;</span></code> is the name of your test script. Note that this script works only with GMT&gt;=6.4</p>
 </li>
 <li><p>If the bug is produced when passing an in-memory data object (e.g., a
 pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
-data to a file (e.g., a NetCDF or ASCII txt file) and passing the data file
+data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
 to the PyGMT function instead. In the GitHub issue, please share the results
 for both cases along with your code.</p></li>
 </ul>
@@ -462,7 +462,7 @@ running linters, etc. If you don’t want to use <code class="docutils literal n
 copy the commands you want to run.</p>
 <p>To install the current source code into your testing environment, run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install<span class="w">  </span><span class="c1"># on Linux/macOS</span>
-pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>-e<span class="w"> </span>.<span class="w">  </span><span class="c1"># on Windows</span>
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-deps<span class="w"> </span>-e<span class="w"> </span>.<span class="w">  </span><span class="c1"># on Windows</span>
 </pre></div>
 </div>
 <p>This installs your project in <em>editable</em> mode, meaning that changes made to the source
@@ -912,9 +912,9 @@ Here’s an example:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

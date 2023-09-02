@@ -6,10 +6,10 @@
 
 Computation times
 =================
-**00:02.173** total execution time for **gallery_basemaps** files:
+**00:02.015** total execution time for **gallery_basemaps** files:
 
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``double_y_axes.py``) | 00:01.483 | 0.0 MB |
+| :ref:`sphx_glr_gallery_basemaps_double_y_axes.py` (``double_y_axes.py``) | 00:01.356 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_basemaps_ternary.py` (``ternary.py``)             | 00:00.690 | 0.0 MB |
+| :ref:`sphx_glr_gallery_basemaps_ternary.py` (``ternary.py``)             | 00:00.658 | 0.0 MB |
 +--------------------------------------------------------------------------+-----------+--------+

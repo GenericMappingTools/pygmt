@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/lines/linefronts.html" />
@@ -99,10 +99,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="vector_styles.html">Cartesian, circular, and geographic vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="decorated_lines.html">Decorated lines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Line fronts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestyles.html">Line styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quoted_lines.html">Quoted lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="roads.html">Roads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vector_heads_tails.html">Vector heads and tails</a></li>
 <li class="toctree-l3"><a class="reference internal" href="wiggle.html">Wiggle along tracks</a></li>
@@ -199,7 +202,9 @@ to download the full example code</p>
 <p>Using the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method you can draw a so-called
 <em>front</em> which allows to plot specific symbols distributed along a line
 or curve. Typical use cases are weather fronts, fault lines,
-subduction zones, and more.</p>
+subduction zones, and more. To draw general symbols along a line or
+curve, i.e., a so-called <em>decorated line</em>, see the
+<a class="reference internal" href="decorated_lines.html"><span class="doc">Decorated lines example</span></a>.</p>
 <p>A front can be drawn by passing <strong>f</strong>[±]<em>gap</em>[/<em>size</em>] to the <code class="docutils literal notranslate"><span class="pre">style</span></code>
 parameter where <em>gap</em> defines the distance gap between the symbols and
 <em>size</em> the symbol size. If <em>gap</em> is negative, it is interpreted to mean
@@ -218,7 +223,9 @@ Append <strong>+o</strong><em>offset</em> to offset the first symbol from the be
 the front by that amount [Default is 0]. The chosen symbol is drawn with
 the same pen as set for the line (i.e., via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter). To use
 an alternate pen, append <strong>+p</strong><em>pen</em>. To skip the outline, just use
-<strong>+p</strong> with no argument. To make the main front line invisible, add <strong>+i</strong>.</p>
+<strong>+p</strong> with no argument. To make the main front line invisible, add <strong>+i</strong>.
+For modifying the main front line via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter, see the
+<a class="reference internal" href="linestyles.html"><span class="doc">Line styles example</span></a>.</p>
 <img src="../../_images/sphx_glr_linefronts_001.png" srcset="../../_images/sphx_glr_linefronts_001.png" alt="linefronts" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
@@ -279,7 +286,7 @@ an alternate pen, append <strong>+p</strong><em>pen</em>. To skip the outline, j
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.762 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.587 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-linefronts-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3a771bc6ca136517dbd9054ea380f76e/linefronts.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">linefronts.py</span></code></a></p>
@@ -304,9 +311,9 @@ an alternate pen, append <strong>+p</strong><em>pen</em>. To skip the outline, j
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

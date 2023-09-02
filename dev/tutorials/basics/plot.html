@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/basics/plot.html" />
@@ -197,7 +197,7 @@ the first time you use them (usually <code class="docutils literal notranslate">
 </div>
 <p>For example, let’s load the sample dataset of tsunami generating earthquakes
 around Japan using <a class="reference internal" href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code></a>.
-The data are loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
+The data are loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data" title="pygmt.datasets.load_sample_data" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_sample_data</span></a><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;japan_quakes&quot;</span><span class="p">)</span>
 
 <span class="c1"># Set the region for the plot to be slightly larger than the data bounds.</span>
@@ -278,7 +278,7 @@ also plot a colorbar showing the colormap used in the plot.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.469 seconds)</p>
+<img src="../../_images/sphx_glr_plot_003.png" srcset="../../_images/sphx_glr_plot_003.png" alt="plot" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.357 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-plot-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/58b941a964130bf352acec2e6ca816e6/plot.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot.py</span></code></a></p>
@@ -303,9 +303,9 @@ also plot a colorbar showing the colormap used in the plot.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

@@ -632,7 +632,7 @@ Non-geographic Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="X\ width/[height]: Give the width of the figure and the optional height.">
+    <div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [/height] or x\ x-scale\ [/y-scale]">
 
 .. only:: html
 
@@ -649,7 +649,7 @@ Non-geographic Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [l]/[height\ [l]]: Give the width of the figure and the optional height. Each axis wi...">
+    <div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [l][/height\ [l]] or x\ x-scale\ [l][/y-scale\ [l]]">
 
 .. only:: html
 
@@ -666,7 +666,7 @@ Non-geographic Projections
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [p\ pvalue]/[height\ [p\ pvalue]]: Give the width of the figure and the optional argu...">
+    <div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [p\ pvalue][/height\ [p\ pvalue]] or x\ x-scale\ [p\ pvalue][/y-scale\ [p\ pvalue]]">
 
 .. only:: html
 

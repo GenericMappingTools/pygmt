@@ -174,6 +174,23 @@ Advanced
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartesian histograms can be generated using the pygmt.Figure.histogram method. In this tutorial...">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_cartesian_histograms_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cartesian histograms</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Default GMT parameters can be set globally or locally using pygmt.config.">
 
 .. only:: html
@@ -220,6 +237,23 @@ Advanced
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Creating a map with contour lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interact...">
+
+.. only:: html
+
+  .. image:: /tutorials/advanced/images/thumb/sphx_glr_working_with_panel_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_tutorials_advanced_working_with_panel.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
     </div>
 
 
@@ -317,9 +351,11 @@ Advanced
    :hidden:
 
    /tutorials/advanced/insets
+   /tutorials/advanced/cartesian_histograms
    /tutorials/advanced/configuration
    /tutorials/advanced/3d_perspective_image
    /tutorials/advanced/contour_map
+   /tutorials/advanced/working_with_panel
    /tutorials/advanced/subplots
    /tutorials/advanced/grid_equalization
    /tutorials/advanced/earth_relief

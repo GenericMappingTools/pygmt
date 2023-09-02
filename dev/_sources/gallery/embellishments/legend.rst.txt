@@ -23,9 +23,14 @@ Legend
 
 The :meth:`pygmt.Figure.legend` method can automatically create a legend for
 symbols plotted using :meth:`pygmt.Figure.plot`. Legend entries are only
-created when the ``label`` parameter is used.
+created when the ``label`` parameter is used. For more complicated legends,
+including legends with multiple columns, users have to write an ASCII file
+with instructions for the layout of the legend items and pass it
+to the ``spec`` parameter of :meth:`pygmt.Figure.legend`. For details on
+how to set up such a file, please see the GMT documentation at
+https://docs.generic-mapping-tools.org/latest/legend.html#legend-codes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-28
+.. GENERATED FROM PYTHON SOURCE LINES 14-33
 
 
 
@@ -63,7 +68,7 @@ created when the ``label`` parameter is used.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.831 seconds)
+   **Total running time of the script:** ( 0 minutes  0.777 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_legend.py:

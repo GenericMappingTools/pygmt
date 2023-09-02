@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/clib/session.html" />
@@ -162,8 +162,10 @@
 <span class="sd">Uses ctypes to wrap most of the core functions from the C API.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">ctypes</span> <span class="k">as</span> <span class="nn">ctp</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span><span class="p">,</span> <span class="n">nullcontext</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -182,7 +184,12 @@
     <span class="n">GMTInvalidInput</span><span class="p">,</span>
     <span class="n">GMTVersionError</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">data_kind</span><span class="p">,</span> <span class="n">dummy_context</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">tempfile_from_geojson</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">data_kind</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">tempfile_from_geojson</span><span class="p">,</span>
+    <span class="n">tempfile_from_image</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">FAMILIES</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;GMT_IS_DATASET&quot;</span><span class="p">,</span>  <span class="c1"># Entity is a data table</span>
@@ -651,6 +658,97 @@
 
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span></div>
 
+<div class="viewcode-block" id="Session.get_common"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.get_common.html#pygmt.clib.Session.get_common">[docs]</a>    <span class="k">def</span> <span class="nf">get_common</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">option</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inquire if a GMT common option has been set and return its current</span>
+<span class="sd">        value if possible.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        option : str</span>
+<span class="sd">            The GMT common option to check. Valid options are ``&quot;B&quot;``, ``&quot;I&quot;``,</span>
+<span class="sd">            ``&quot;J&quot;``, ``&quot;R&quot;``, ``&quot;U&quot;``, ``&quot;V&quot;``, ``&quot;X&quot;``, ``&quot;Y&quot;``, ``&quot;a&quot;``,</span>
+<span class="sd">            ``&quot;b&quot;``, ``&quot;f&quot;``, ``&quot;g&quot;``, ``&quot;h&quot;``, ``&quot;i&quot;``, ``&quot;n&quot;``, ``&quot;o&quot;``,</span>
+<span class="sd">            ``&quot;p&quot;``, ``&quot;r&quot;``, ``&quot;s&quot;``, ``&quot;t&quot;``, and ``&quot;:&quot;``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        value : bool, int, float, or numpy.ndarray</span>
+<span class="sd">            Whether the option was set or its value.</span>
+
+<span class="sd">            If the option was not set, return ``False``. Otherwise,</span>
+<span class="sd">            the return value depends on the choice of the option.</span>
+
+<span class="sd">            - options ``&quot;B&quot;``, ``&quot;J&quot;``, ``&quot;U&quot;``, ``&quot;g&quot;``, ``&quot;n&quot;``, ``&quot;p&quot;``,</span>
+<span class="sd">              and ``&quot;s&quot;``: return ``True`` if set, else ``False`` (bool)</span>
+<span class="sd">            - ``&quot;I&quot;``: 2-element array for the increments (float)</span>
+<span class="sd">            - ``&quot;R&quot;``: 4-element array for the region (float)</span>
+<span class="sd">            - ``&quot;V&quot;``: the verbose level (int)</span>
+<span class="sd">            - ``&quot;X&quot;``: the xshift (float)</span>
+<span class="sd">            - ``&quot;Y&quot;``: the yshift (float)</span>
+<span class="sd">            - ``&quot;a&quot;``: geometry of the dataset (int)</span>
+<span class="sd">            - ``&quot;b&quot;``: return 0 if `-bi` was set and 1 if `-bo` was set (int)</span>
+<span class="sd">            - ``&quot;f&quot;``: return 0 if `-fi` was set and 1 if `-fo` was set (int)</span>
+<span class="sd">            - ``&quot;h&quot;``: whether to delete existing header records (int)</span>
+<span class="sd">            - ``&quot;i&quot;``: number of input columns (int)</span>
+<span class="sd">            - ``&quot;o&quot;``: number of output columns (int)</span>
+<span class="sd">            - ``&quot;r&quot;``: registration type (int)</span>
+<span class="sd">            - ``&quot;t&quot;``: 2-element array for the transparency (float)</span>
+<span class="sd">            - ``&quot;:&quot;``: return 0 if `-:i` was set and 1 if `-:o` was set (int)</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
+<span class="sd">        ...     lib.call_module(&quot;basemap&quot;, &quot;-R0/10/10/15 -JX5i/2.5i -Baf -Ve&quot;)</span>
+<span class="sd">        ...     region = lib.get_common(&quot;R&quot;)</span>
+<span class="sd">        ...     projection = lib.get_common(&quot;J&quot;)</span>
+<span class="sd">        ...     timestamp = lib.get_common(&quot;U&quot;)</span>
+<span class="sd">        ...     verbose = lib.get_common(&quot;V&quot;)</span>
+<span class="sd">        ...     lib.call_module(&quot;plot&quot;, &quot;-T -Xw+1i -Yh-1i&quot;)</span>
+<span class="sd">        ...     xshift = lib.get_common(&quot;X&quot;)  # xshift/yshift are in inches</span>
+<span class="sd">        ...     yshift = lib.get_common(&quot;Y&quot;)</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; print(region, projection, timestamp, verbose, xshift, yshift)</span>
+<span class="sd">        [ 0. 10. 10. 15.] True False 3 6.0 1.5</span>
+<span class="sd">        &gt;&gt;&gt; with Session() as lib:</span>
+<span class="sd">        ...     lib.call_module(&quot;basemap&quot;, &quot;-R0/10/10/15 -JX5i/2.5i -Baf&quot;)</span>
+<span class="sd">        ...     lib.get_common(&quot;A&quot;)</span>
+<span class="sd">        ...</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">        pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag &#39;A&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;BIJRUVXYabfghinoprst:&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown GMT common option flag &#39;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+
+        <span class="n">c_get_common</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_libgmt_func</span><span class="p">(</span>
+            <span class="s2">&quot;GMT_Get_Common&quot;</span><span class="p">,</span>
+            <span class="n">argtypes</span><span class="o">=</span><span class="p">[</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">)],</span>
+            <span class="n">restype</span><span class="o">=</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>  <span class="c1"># numpy array to store the value of the option</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">c_get_common</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session_pointer</span><span class="p">,</span>
+            <span class="nb">ord</span><span class="p">(</span><span class="n">option</span><span class="p">),</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctp</span><span class="o">.</span><span class="n">c_double</span><span class="p">)),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># GMT_NOTSET (-1) means the option is not set</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;GMT_NOTSET&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="c1"># option is set and no other value is returned</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="c1"># option is set and option values (in double type) are returned via the</span>
+        <span class="c1"># &#39;value&#39; array. &#39;status&#39; is number of valid values in the array.</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="ow">in</span> <span class="s2">&quot;IRt&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span><span class="p">[:</span><span class="n">status</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="ow">in</span> <span class="s2">&quot;XY&quot;</span><span class="p">:</span>  <span class="c1"># only one valid element in the array</span>
+            <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># option is set and the option value (in integer type) is returned via</span>
+        <span class="c1"># the function return value (i.e., &#39;status&#39;)</span>
+        <span class="k">return</span> <span class="n">status</span></div>
+
 <div class="viewcode-block" id="Session.call_module"><a class="viewcode-back" href="../../../api/generated/pygmt.clib.Session.call_module.html#pygmt.clib.Session.call_module">[docs]</a>    <span class="k">def</span> <span class="nf">call_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call a GMT module with the given arguments.</span>
@@ -902,7 +1000,7 @@
         <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DTYPES</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="c1"># Try to convert any unknown numpy data types to np.datetime64</span>
-                <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">)</span>
+                <span class="n">array</span> <span class="o">=</span> <span class="n">array_to_datetime</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Unsupported numpy data type &#39;</span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
@@ -1540,6 +1638,7 @@
         <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">extra_arrays</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">required_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Store any data inside a virtual file.</span>
@@ -1550,7 +1649,7 @@
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        check_kind : str</span>
+<span class="sd">        check_kind : str or None</span>
 <span class="sd">            Used to validate the type of data that can be passed in. Choose</span>
 <span class="sd">            from &#39;raster&#39;, &#39;vector&#39;, or None. Default is None (no validation).</span>
 <span class="sd">        data : str or pathlib.Path or xarray.DataArray or {table-like} or None</span>
@@ -1564,6 +1663,9 @@
 <span class="sd">            All of these arrays must be of the same size as the x/y/z arrays.</span>
 <span class="sd">        required_z : bool</span>
 <span class="sd">            State whether the &#39;z&#39; column is required.</span>
+<span class="sd">        required_data : bool</span>
+<span class="sd">            Set to True when &#39;data&#39; is required, or False when dealing with</span>
+<span class="sd">            optional virtual files. [Default is True].</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -1594,23 +1696,28 @@
 <span class="sd">        ...</span>
 <span class="sd">        &lt;vector memory&gt;: N = 3 &lt;7/9&gt; &lt;4/6&gt; &lt;1/3&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">)</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="n">required_z</span><span class="p">,</span> <span class="n">required_data</span><span class="o">=</span><span class="n">required_data</span>
+        <span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;raster&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type for grid: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;vector&quot;</span> <span class="ow">and</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;matrix&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;vectors&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;geojson&quot;</span><span class="p">,</span>
-        <span class="p">):</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unrecognized data type for vector: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check_kind</span><span class="p">:</span>
+            <span class="n">valid_kinds</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">required_data</span> <span class="ow">is</span> <span class="kc">False</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;file&quot;</span><span class="p">,)</span>
+            <span class="k">if</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;raster&quot;</span><span class="p">:</span>
+                <span class="n">valid_kinds</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">check_kind</span> <span class="o">==</span> <span class="s2">&quot;vector&quot;</span><span class="p">:</span>
+                <span class="n">valid_kinds</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;vectors&quot;</span><span class="p">,</span> <span class="s2">&quot;geojson&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_kinds</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unrecognized data type for </span><span class="si">{</span><span class="n">check_kind</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
 
         <span class="c1"># Decide which virtualfile_from_ function to use</span>
         <span class="n">_virtualfile_from</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">dummy_context</span><span class="p">,</span>
+            <span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">nullcontext</span><span class="p">,</span>
+            <span class="s2">&quot;arg&quot;</span><span class="p">:</span> <span class="n">nullcontext</span><span class="p">,</span>
             <span class="s2">&quot;geojson&quot;</span><span class="p">:</span> <span class="n">tempfile_from_geojson</span><span class="p">,</span>
             <span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">virtualfile_from_grid</span><span class="p">,</span>
+            <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">tempfile_from_image</span><span class="p">,</span>
             <span class="c1"># Note: virtualfile_from_matrix is not used because a matrix can be</span>
             <span class="c1"># converted to vectors instead, and using vectors allows for better</span>
             <span class="c1"># handling of string type inputs (e.g. for datetime data types)</span>
@@ -1619,11 +1726,17 @@
         <span class="p">}[</span><span class="n">kind</span><span class="p">]</span>
 
         <span class="c1"># Ensure the data is an iterable (Python list or tuple)</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">):</span>
-            <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span>
-        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-            <span class="c1"># Useful to handle `pathlib.Path` and string file path alike</span>
-            <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">),)</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;geojson&quot;</span><span class="p">,</span> <span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="s2">&quot;arg&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="s2">&quot;uint8&quot;</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Input image has dtype: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2"> which is unsupported, &quot;</span>
+                    <span class="s2">&quot;and may result in an incorrect output. Please recast image &quot;</span>
+                    <span class="s2">&quot;to a uint8 dtype and/or scale to 0-255 range, e.g. &quot;</span>
+                    <span class="s2">&quot;using a histogram equalization function like &quot;</span>
+                    <span class="s2">&quot;skimage.exposure.equalize_hist.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">,)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">PurePath</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">),)</span>
         <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
             <span class="n">_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span>
             <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1684,8 +1797,8 @@
 <span class="sd">        &gt;&gt;&gt; print(&quot;, &quot;.join([f&quot;{x:.2f}&quot; for x in wesn]))</span>
 <span class="sd">        0.00, 10.00, -20.00, -10.00</span>
 
-<span class="sd">        Using ISO country codes for the regions (for example ``&#39;US.HI&#39;`` for</span>
-<span class="sd">        Hawaii):</span>
+<span class="sd">        Using ISO country codes for the regions (for example ``&quot;US.HI&quot;`` for</span>
+<span class="sd">        Hawaiʻi):</span>
 
 <span class="sd">        &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">        &gt;&gt;&gt; fig.coast(</span>
@@ -1698,7 +1811,7 @@
 <span class="sd">        -164.71, -154.81, 18.91, 23.58</span>
 
 <span class="sd">        The country codes can have an extra argument that rounds the region a</span>
-<span class="sd">        multiple of the argument (for example, ``&#39;US.HI+r5&#39;`` will round the</span>
+<span class="sd">        multiple of the argument (for example, ``&quot;US.HI+r5&quot;`` will round the</span>
 <span class="sd">        region to multiples of 5):</span>
 
 <span class="sd">        &gt;&gt;&gt; fig = pygmt.Figure()</span>
@@ -1737,9 +1850,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

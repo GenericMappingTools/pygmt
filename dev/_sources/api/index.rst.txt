@@ -203,7 +203,6 @@ Miscellaneous
     :toctree: generated
 
     which
-    test
     print_clib_info
     show_versions
 
@@ -302,6 +301,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.__enter__
     clib.Session.__exit__
     clib.Session.get_default
+    clib.Session.get_common
     clib.Session.create_data
     clib.Session.put_matrix
     clib.Session.put_strings

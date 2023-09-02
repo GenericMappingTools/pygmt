@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.makecpt.html" />
@@ -195,9 +195,14 @@
 <dt class="sig sig-object py" id="pygmt.makecpt">
 <span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">makecpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrule_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuous</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/makecpt.html#makecpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.makecpt" title="Permalink to this definition"></a></dt>
 <dd><p>Make GMT color palette tables.</p>
-<p>This is a function that will help you make static color palette tables
-(CPTs). By default, the CPT will simply be saved to the current session,
-but you can use <code class="docutils literal notranslate"><span class="pre">output</span></code> to save it to a file. You define an equidistant
+<p>This function will help you to make static color palette tables (CPTs).
+By default, the CPT will be saved as the current CPT of the session,
+figure, subplot, panel, or inset depending on which level
+<a class="reference internal" href="#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a> is called (for details on how GMT modern mode
+maintains different levels of colormaps please see
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels</a>).
+You can use <code class="docutils literal notranslate"><span class="pre">output</span></code> to save the CPT to a file.
+You define an equidistant
 set of contour intervals or pass your own z-table or list, and create a new
 CPT based on an existing master (dynamic) CPT. The resulting CPT can be
 reversed relative to the master cpt, and can be made continuous or
@@ -255,7 +260,7 @@ those defined by the parameters <a class="reference external" href="https://docs
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a>]. Use
 <code class="docutils literal notranslate"><span class="pre">background=&quot;i&quot;</span></code> to match the colors for the lowest and highest
 values in the input (instead of the output) CPT.</p></li>
-<li><p><strong>color_model</strong> – [<strong>R</strong>|<strong>r</strong>|<strong>h</strong>|<strong>c</strong>][<strong>+c</strong>[<em>label</em>]].
+<li><p><strong>color_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>R</strong>|<strong>r</strong>|<strong>h</strong>|<strong>c</strong>][<strong>+c</strong>[<em>label</em>|<em>start</em>[<strong>-</strong>]]].
 Force output CPT to be written with r/g/b codes, gray-scale values or
 color name (<strong>R</strong>, default) or r/g/b codes only (<strong>r</strong>), or h-s-v codes
 (<strong>h</strong>), or c/m/y/k codes (<strong>c</strong>).  Optionally or alternatively, append
@@ -263,31 +268,31 @@ color name (<strong>R</strong>, default) or r/g/b codes only (<strong>r</strong>
 appended then we create labels for each category to be used when the
 CPT is plotted. The <em>label</em> may be a comma-separated list of category
 names (you can skip a category by not giving a name), or give
-<em>start</em>[<strong>-</strong>], where we automatically build monotonically increasing
-labels from <em>start</em> (a single letter or an integer). Append <strong>-</strong> to
-build ranges <em>start</em>-<em>start+1</em> instead.</p></li>
+<em>start</em>, where we automatically build monotonically increasing
+labels from <em>start</em> (a single letter or an integer). Additionally
+append <strong>-</strong> to build ranges <em>start</em>-<em>start+1</em> as labels instead.</p></li>
 <li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
 Define the range of the new CPT by giving the lowest and highest
 z-value (and optionally an interval). If this is not given, the
 existing range in the master CPT will be used intact. The values
-produced defines the color slice boundaries.  If <strong>+n</strong> is used it
+produced defines the color slice boundaries. If <strong>+n</strong> is used it
 refers to the number of such boundaries and not the number of slices.
 For details on array creation, see
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array</a>.</p></li>
 <li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <em>zlow/zhigh</em>.
 Truncate the incoming CPT so that the lowest and highest z-levels are
 to <em>zlow</em> and <em>zhigh</em>. If one of these equal NaN then we leave that
-end of the CPT alone. The truncation takes place before any
-resampling. See
-also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
+end of the CPT alone. The truncation takes place before any resampling.
+See also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
 <li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
-file. If not given or False [Default], saves the CPT as the session
-current CPT.</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set this to True or <strong>c</strong> [Default] to reverse the sense of color
-progression in the master CPT. Set this to z to reverse the sign of
-z-values in the color table. Note that this change of z-direction
+file. If not given or <code class="docutils literal notranslate"><span class="pre">False</span></code> [Default], saves the CPT as the current
+CPT of the session, figure, subplot, panel, or inset depending on which
+level <a class="reference internal" href="#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a> is called.</p></li>
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set this to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <strong>c</strong> [Default] to reverse the sense of color
+progression in the master CPT. Set this to <strong>z</strong> to reverse the sign
+of z-values in the color table. Note that this change of z-direction
 happens before <code class="docutils literal notranslate"><span class="pre">truncate</span></code> and <code class="docutils literal notranslate"><span class="pre">series</span></code> values are used so the
-latter must be compatible with the changed <em>z</em>-range. See also
+latter must be compatible with the changed z-range. See also
 <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
 <li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
 CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
@@ -360,6 +365,9 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 </div><div class="sphx-glr-thumbcontainer" tooltip="GMT shines when it comes to plotting data on a map. We can use some sample data that is package..."><img alt="" src="../../_images/sphx_glr_plot_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/basics/plot.html#sphx-glr-tutorials-basics-plot-py"><span class="std std-ref">Plotting data points</span></a></p>
   <div class="sphx-glr-thumbnail-title">Plotting data points</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Please run the following code examples in a notebook environment     otherwise the interact..."><img alt="" src="../../_images/sphx_glr_working_with_panel_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/working_with_panel.html#sphx-glr-tutorials-advanced-working-with-panel-py"><span class="std std-ref">Interactive data visualization using Panel</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Interactive data visualization using Panel</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization"><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
   <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
@@ -379,9 +387,9 @@ range. Note that <code class="docutils literal notranslate"><span class="pre">cy
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

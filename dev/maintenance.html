@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/maintenance.html" />
@@ -246,81 +246,26 @@ descriptive.</p></li>
 </section>
 <section id="continuous-integration">
 <h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this heading"></a></h2>
-<p>We use GitHub Actions continuous integration (CI) services to
-build and test the project on Linux, macOS and Windows.
-They rely on the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file to install required dependencies using
-conda and the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> to run the tests and checks.</p>
-<p>There are 11 configuration files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>:</p>
-<ol class="arabic">
-<li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code> (Code lint and style checks)</p>
-<p>This is run on every commit to the <em>main</em> and pull request branches.
-It is also scheduled to run daily on the <em>main</em> branch.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code> (Tests on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>main</em> and pull request branches.
-It is also scheduled to run regular tests daily and run full tests
-(including doctests) on Wednesday on the <em>main</em> branch.
-In draft pull requests, only two jobs on Linux are triggered to save on
-Continuous Integration resources:</p>
-<ul class="simple">
-<li><p>Minimum <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy">NEP29</a>
-Python/NumPy versions</p></li>
-<li><p>Latest Python/NumPy versions + optional packages (e.g. GeoPandas)</p></li>
-</ul>
-<p>This workflow is also responsible for uploading test coverage reports stored
-in <code class="docutils literal notranslate"><span class="pre">.coverage.xml</span></code> to https://app.codecov.io/gh/GenericMappingTools/pygmt
-via the <a class="reference external" href="https://github.com/codecov/codecov-action">Codecov GitHub Action</a>.
-More codecov related configurations are stored in <code class="docutils literal notranslate"><span class="pre">.github/codecov.yml</span></code>.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code> (Build documentation on Linux/macOS/Windows)</p>
-<p>This is run on every commit to the <em>main</em> and pull request branches.
-In draft pull requests, only the job on Linux is triggered to save on
-Continuous Integration resources.</p>
-<p>On the <em>main</em> branch, the workflow also handles the documentation
-deployment:</p>
-<ul class="simple">
-<li><p>Updating the development documentation by pushing the built HTML pages
-from the <em>main</em> branch onto the <code class="docutils literal notranslate"><span class="pre">dev</span></code> folder of the <em>gh-pages</em> branch.</p></li>
-<li><p>Updating the <code class="docutils literal notranslate"><span class="pre">latest</span></code> documentation link to the new release.</p></li>
-</ul>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code> (GMT Dev Tests on Linux/macOS/Windows).</p>
-<p>This is triggered when a PR is marked as “ready for review”, or using the
-slash command <code class="docutils literal notranslate"><span class="pre">/test-gmt-dev</span></code>. It is also scheduled to run on Monday,
-Wednesday and Friday on the <em>main</em> branch.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code> (Caches GMT remote data files needed for GitHub Actions CI)</p>
-<p>This is scheduled to run every Sunday at 12:00 (UTC).
-If new remote files are needed urgently, maintainers can manually uncomment
-the ‘pull_request:’ line in that <code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code> file to refresh the cache.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code> (Publish wheels to TestPyPI and PyPI)</p>
-<p>This workflow is ran to publish wheels to TestPyPI (for testing only) and
-PyPI. Archives will be pushed to TestPyPI on every commit to the <em>main</em>
-branch and tagged releases, and to PyPI for tagged releases only. Note that
-authentication to TestPyPI/PyPI is done via OpenID Connect, see also
-https://github.com/pypa/gh-action-pypi-publish/tree/release/v1#publishing-with-openid-connect</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code> (Drafts the next release notes)</p>
-<p>This workflow is run to update the next releases notes as pull requests are
-merged into the main branch.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">check-links.yml</span></code> (Check links in the repository and website)</p>
-<p>This workflow is run weekly to check all external links in plaintext and
-HTML files. It will create an issue if broken links are found.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">format-command.yml</span></code> (Format the codes using slash command)</p>
-<p>This workflow is triggered in a PR if the slash command <code class="docutils literal notranslate"><span class="pre">/format</span></code> is used.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dvc-diff.yml</span></code> (Report changes to test images on dvc remote)</p>
-<p>This workflow is triggered in a PR when any *.png.dvc files have been added,
-modified, or deleted. A GitHub comment will be published that contains a summary
-table of the images that have changed along with a visual report.</p>
-</li>
-<li><p><code class="docutils literal notranslate"><span class="pre">release-baseline-images.yml</span></code> (Upload the ZIP archive of baseline images as a release asset)</p>
-<p>This workflow is run to upload the ZIP archive of baseline images as a release
-asset when a release is published.</p>
-</li>
+<p>We use GitHub Actions continuous integration (CI) services to build, test and
+manage the project on Linux, macOS and Windows. The GitHub Actions CI are
+controlled by 14 workflow files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>. Here we briefly
+summarize the functions of the workflows. Please refer to the comments in the
+workflow files for more details.</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code>: Code lint and style checks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">check-links.yml</span></code>: Check links in the repository and documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code>: Run regular PyGMT tests on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code>: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_legacy.yaml</span></code>: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code>: Build documentation on Linux/macOS/Windows and deploy to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_doctest.yaml</span></code>: Run all doctests on Linux/macOS/Windows</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code>: Cache GMT remote data files and uplodas as artifacts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code>: Publish archives to PyPI and TestPyPI</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code>: Draft the next release notes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-baseline-images.yml</span></code>: Upload the ZIP archive of baseline images as a release asset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format-command.yml</span></code>: Format the codes using slash command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dvc-diff.yml</span></code>: Report changes in test images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slash-command-dispatch.yml</span></code>: Support slash commands in pull requests</p></li>
 </ol>
 </section>
 <section id="continuous-documentation">
@@ -493,9 +438,9 @@ from the PyPI “Download files” section.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

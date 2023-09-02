@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/index.html" />
@@ -224,7 +224,6 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.which.html">pygmt.which</a></li>
-<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.test.html">pygmt.test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.print_clib_info.html">pygmt.print_clib_info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.show_versions.html">pygmt.show_versions</a></li>
 </ul>
@@ -265,6 +264,7 @@
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.__enter__.html">pygmt.clib.Session.__enter__</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.__exit__.html">pygmt.clib.Session.__exit__</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.get_default.html">pygmt.clib.Session.get_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.get_common.html">pygmt.clib.Session.get_common</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.create_data.html">pygmt.clib.Session.create_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.put_matrix.html">pygmt.clib.Session.put_matrix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated/pygmt.clib.Session.put_strings.html">pygmt.clib.Session.put_strings</a></li>
@@ -467,7 +467,7 @@ lines, vectors, polygons, and symbols (pre-defined and customized).</p></li>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.grdview.html#pygmt.Figure.grdview" title="pygmt.Figure.grdview"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.grdview</span></code></a>(grid, *[, region, ...])</p></td>
 <td><p>Create 3-D perspective image or surface mesh from a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, *[, region, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.Figure.image.html#pygmt.Figure.image" title="pygmt.Figure.image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.image</span></code></a>(imagefile, *[, position, box, ...])</p></td>
 <td><p>Place images or EPS files on maps.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.Figure.tilemap.html#pygmt.Figure.tilemap" title="pygmt.Figure.tilemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Figure.tilemap</span></code></a>(region[, zoom, source, ...])</p></td>
@@ -633,7 +633,7 @@ package.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdcut.html#pygmt.grdcut" title="pygmt.grdcut"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdcut</span></code></a>(grid, *[, outgrid, region, ...])</p></td>
 <td><p>Extract subregion from a grid.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdfill.html#pygmt.grdfill" title="pygmt.grdfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdfill</span></code></a>(grid, *[, mode, outgrid, region, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.grdfill.html#pygmt.grdfill" title="pygmt.grdfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdfill</span></code></a>(grid, *[, mode, outgrid, no_data, ...])</p></td>
 <td><p>Fill blank areas from a grid file.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.grdfilter.html#pygmt.grdfilter" title="pygmt.grdfilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdfilter</span></code></a>(grid, *[, distance, filter, ...])</p></td>
@@ -726,7 +726,7 @@ package.</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.GMTDataArrayAccessor.html#pygmt.GMTDataArrayAccessor" title="pygmt.GMTDataArrayAccessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GMTDataArrayAccessor</span></code></a>(xarray_obj)</p></td>
-<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
+<td><p>GMT accessor for <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.info.html#pygmt.info" title="pygmt.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">info</span></code></a>(data, *[, per_column, spacing, ...])</p></td>
 <td><p>Get information about data tables.</p></td>
@@ -748,13 +748,10 @@ package.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.which.html#pygmt.which" title="pygmt.which"><code class="xref py py-obj docutils literal notranslate"><span class="pre">which</span></code></a>(fname, *[, download, verbose])</p></td>
 <td><p>Find the full path to specified files.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.test.html#pygmt.test" title="pygmt.test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test</span></code></a>([doctest, verbose, coverage, figures])</p></td>
-<td><p>Run the test suite.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.print_clib_info.html#pygmt.print_clib_info" title="pygmt.print_clib_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_clib_info</span></code></a>([file])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.print_clib_info.html#pygmt.print_clib_info" title="pygmt.print_clib_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_clib_info</span></code></a>([file])</p></td>
 <td><p>Print information about the GMT shared library that we can find.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.show_versions.html#pygmt.show_versions" title="pygmt.show_versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_versions</span></code></a>([file])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.show_versions.html#pygmt.show_versions" title="pygmt.show_versions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">show_versions</span></code></a>([file])</p></td>
 <td><p>Print various dependency versions which are useful when submitting bug reports.</p></td>
 </tr>
 </tbody>
@@ -875,8 +872,8 @@ the <a class="reference internal" href="generated/pygmt.clib.Session.call_module
 </tr>
 </tbody>
 </table>
-<p>Passing memory blocks between Python data objects (e.g. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
+<p>Passing memory blocks between Python data objects (e.g. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a>, <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>, etc) and GMT happens through
 <em>virtual files</em>. These methods are context managers that automate the
 conversion of Python variables to GMT virtual files:</p>
 <table class="autosummary longtable docutils align-default">
@@ -924,28 +921,31 @@ conversion of Python variables to GMT virtual files:</p>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.get_default.html#pygmt.clib.Session.get_default" title="pygmt.clib.Session.get_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.get_default</span></code></a>(name)</p></td>
 <td><p>Get the value of a GMT default parameter (library version, paths, etc).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.create_data</span></code></a>(family, geometry, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.get_common.html#pygmt.clib.Session.get_common" title="pygmt.clib.Session.get_common"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.get_common</span></code></a>(option)</p></td>
+<td><p>Inquire if a GMT common option has been set and return its current value if possible.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.create_data</span></code></a>(family, geometry, ...)</p></td>
 <td><p>Create an empty GMT data container.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
 <td><p>Attach a numpy 2-D array to a GMT dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_strings</span></code></a>(dataset, family, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_strings</span></code></a>(dataset, family, ...)</p></td>
 <td><p>Attach a numpy 1-D array of dtype str as a column on a GMT dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
 <td><p>Attach a numpy 1-D array as a column on a GMT dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.write_data</span></code></a>(family, geometry, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.write_data</span></code></a>(family, geometry, ...)</p></td>
 <td><p>Write a GMT data container to a file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file" title="pygmt.clib.Session.open_virtual_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.open_virtual_file</span></code></a>(family, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file" title="pygmt.clib.Session.open_virtual_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.open_virtual_file</span></code></a>(family, ...)</p></td>
 <td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.extract_region.html#pygmt.clib.Session.extract_region" title="pygmt.clib.Session.extract_region"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.extract_region</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.extract_region.html#pygmt.clib.Session.extract_region" title="pygmt.clib.Session.extract_region"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.extract_region</span></code></a>()</p></td>
 <td><p>Extract the WESN bounding box of the currently active figure.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func" title="pygmt.clib.Session.get_libgmt_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.get_libgmt_func</span></code></a>(name[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func" title="pygmt.clib.Session.get_libgmt_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clib.Session.get_libgmt_func</span></code></a>(name[, ...])</p></td>
 <td><p>Get a ctypes function from the libgmt shared library.</p></td>
 </tr>
 </tbody>
@@ -966,9 +966,9 @@ conversion of Python variables to GMT virtual files:</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

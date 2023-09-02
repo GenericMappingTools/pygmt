@@ -6,10 +6,10 @@
 
 Computation times
 =================
-**00:04.295** total execution time for **gallery_3d_plots** files:
+**00:04.252** total execution time for **gallery_3d_plots** files:
 
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``grdview_surface.py``) | 00:03.300 | 0.0 MB |
+| :ref:`sphx_glr_gallery_3d_plots_grdview_surface.py` (``grdview_surface.py``) | 00:03.288 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``scatter3d.py``)             | 00:00.994 | 0.0 MB |
+| :ref:`sphx_glr_gallery_3d_plots_scatter3d.py` (``scatter3d.py``)             | 00:00.963 | 0.0 MB |
 +------------------------------------------------------------------------------+-----------+--------+

@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/images/grdclip.html" />
@@ -105,7 +105,9 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Clipping grid values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cross_section.html">Cross-section along a transect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="image.html">Images on figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rgb_image.html">RGB Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="track_sampling.html">Sampling along tracks</a></li>
 </ul>
 </li>
@@ -200,7 +202,7 @@ values. In the example shown below we set all elevation values (grid points)
 smaller than 0 m (in general the bathymetric part of the grid) to a common
 value of -2000 m via the <code class="docutils literal notranslate"><span class="pre">below</span></code> parameter.</p>
 <img src="../../_images/sphx_glr_grdclip_001.png" srcset="../../_images/sphx_glr_grdclip_001.png" alt="grdclip" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-grdblend [NOTICE]: SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
+grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
 grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g): N00W090
 </pre></div>
 </div>
@@ -236,7 +238,7 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.170 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.179 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-grdclip-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/4144da9c7d744c41d3bfb63e10acce46/grdclip.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grdclip.py</span></code></a></p>
@@ -261,9 +263,9 @@ grdblend [NOTICE]:   -&gt; Download 90x90 degree grid tile (earth_relief_03m_g):
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

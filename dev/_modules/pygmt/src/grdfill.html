@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdfill.html" />
@@ -177,6 +177,7 @@
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
+    <span class="n">N</span><span class="o">=</span><span class="s2">&quot;no_data&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -185,10 +186,10 @@
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Fill blank areas from a grid file.</span>
 
-<span class="sd">    Read a grid that presumably has unfilled holes that the user</span>
-<span class="sd">    wants to fill in some fashion. Holes are identified by NaN values but</span>
-<span class="sd">    this criteria can be changed. There are several different algorithms that</span>
-<span class="sd">    can be used to replace the hole values.</span>
+<span class="sd">    Read a grid that presumably has unfilled holes that the user wants to</span>
+<span class="sd">    fill in some fashion. Holes are identified by NaN values but this</span>
+<span class="sd">    criteria can be changed via the ``no_data`` parameter. There are several</span>
+<span class="sd">    different algorithms that can be used to replace the hole values.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`grdfill.html`</span>
 
@@ -209,6 +210,9 @@
 <span class="sd">        where (*X,Y*) are the node dimensions of the grid]), or</span>
 <span class="sd">        **s** for bicubic spline (optionally append a *tension*</span>
 <span class="sd">        parameter [Default is no tension]).</span>
+<span class="sd">    no_data : int or float</span>
+<span class="sd">        Set the node value used to identify a point as a member of a hole</span>
+<span class="sd">        [Default is NaN].</span>
 
 <span class="sd">    {region}</span>
 <span class="sd">    {verbose}</span>
@@ -257,9 +261,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

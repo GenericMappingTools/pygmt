@@ -40,7 +40,7 @@ value of -2000 m via the ``below`` parameter.
  .. code-block:: none
 
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: SRTM15 Earth Relief at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
+    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 90x90 degree grid tile (earth_relief_03m_g): N00W090
 
 
@@ -84,7 +84,7 @@ value of -2000 m via the ``below`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.170 seconds)
+   **Total running time of the script:** ( 0 minutes  5.179 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:

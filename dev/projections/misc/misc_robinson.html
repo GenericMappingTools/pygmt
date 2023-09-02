@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/projections/misc/misc_robinson.html" />
@@ -197,12 +197,23 @@ to download the full example code</p>
 Arthur H. Robinson in 1963, is a modified cylindrical projection that is
 neither conformal nor equal-area. Central meridian and all parallels are
 straight lines; other meridians are curved. It uses lookup tables rather than
-analytic expressions to make the world map “look” right 22. The scale is true
-along latitudes 38. The projection was originally developed for use by Rand
-McNally and is currently used by the National Geographic Society.</p>
+analytic expressions to make the world map “look” right <a class="footnote-reference brackets" href="#f1" id="id1">1</a>.
+The scale is true along latitudes 38° north and south. The projection was
+originally developed for use by Rand McNally and is currently used by the
+National Geographic Society.</p>
 <p><strong>n</strong>[<em>lon0/</em>]<em>scale</em> or <strong>N</strong>[<em>lon0/</em>]<em>width</em></p>
 <p>The projection is set with <strong>n</strong> or <strong>N</strong>. The central meridian is set with the
 optional <em>lon0</em>, and the figure size is set with <em>scale</em> or <em>width</em>.</p>
+<p class="rubric">Footnotes</p>
+<dl class="footnote brackets">
+<dt class="label" id="f1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Robinson provided a table of y-coordinates for latitudes every 5°.
+To project values for intermediate latitudes one must interpolate
+the table. Different interpolants may result in slightly different
+maps. GMT uses the interpolant selected by the parameter
+<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-GMT_INTERPOLANT">GMT_INTERPOLANT</a> in the gmt.conf file.</p>
+</dd>
+</dl>
 <img src="../../_images/sphx_glr_misc_robinson_001.png" srcset="../../_images/sphx_glr_misc_robinson_001.png" alt="misc robinson" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -211,7 +222,7 @@ optional <em>lon0</em>, and the figure size is set with <em>scale</em> or <em>wi
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.509 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.486 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-misc-misc-robinson-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/bc4b83bc11e3949f149129331c20e59b/misc_robinson.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">misc_robinson.py</span></code></a></p>
@@ -236,9 +247,9 @@ optional <em>lon0</em>, and the figure size is set with <em>scale</em> or <em>wi
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

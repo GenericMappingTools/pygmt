@@ -48,6 +48,23 @@ Maps and map elements
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Highlight country, continent and state polygons">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_country_polygons_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_maps_country_polygons.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Highlight country, continent and state polygons</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The borders parameter of pygmt.Figure.coast specifies levels of political boundaries to plot an...">
 
 .. only:: html
@@ -82,6 +99,23 @@ Maps and map elements
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Tile maps">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_tilemaps_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_maps_tilemaps.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Tile maps</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
@@ -89,8 +123,10 @@ Maps and map elements
    :hidden:
 
    /gallery/maps/land_and_water
+   /gallery/maps/country_polygons
    /gallery/maps/borders
    /gallery/maps/shorelines
+   /gallery/maps/tilemaps
 
 Lines and vectors
 -----------------
@@ -116,6 +152,40 @@ Lines and vectors
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Cartesian, circular, and geographic vectors</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Decorated lines">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_decorated_lines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_decorated_lines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Decorated lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Envelope">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_envelope_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_envelope.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Envelope</div>
     </div>
 
 
@@ -189,6 +259,23 @@ Lines and vectors
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Quoted lines">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_quoted_lines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_quoted_lines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Quoted lines</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Roads">
 
 .. only:: html
@@ -247,10 +334,13 @@ Lines and vectors
    :hidden:
 
    /gallery/lines/vector_styles
+   /gallery/lines/decorated_lines
+   /gallery/lines/envelope
    /gallery/lines/great_circles
    /gallery/lines/line_custom_cpt
    /gallery/lines/linefronts
    /gallery/lines/linestyles
+   /gallery/lines/quoted_lines
    /gallery/lines/roads
    /gallery/lines/vector_heads_tails
    /gallery/lines/wiggle
@@ -569,6 +659,23 @@ Images, contours, and fields
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china...">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_cross_section_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_images_cross_section.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Images on figures">
 
 .. only:: html
@@ -581,6 +688,23 @@ Images, contours, and fields
 .. raw:: html
 
       <div class="sphx-glr-thumbnail-title">Images on figures</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The example below shows a Worldview 2 satellite image over Lāhainā, Hawaiʻi during the August 2...">
+
+.. only:: html
+
+  .. image:: /gallery/images/images/thumb/sphx_glr_rgb_image_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_images_rgb_image.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">RGB Image</div>
     </div>
 
 
@@ -614,7 +738,9 @@ Images, contours, and fields
    /gallery/images/grdclip
    /gallery/images/contours
    /gallery/images/grdlandmask
+   /gallery/images/cross_section
    /gallery/images/image
+   /gallery/images/rgb_image
    /gallery/images/track_sampling
 
 3D Plots

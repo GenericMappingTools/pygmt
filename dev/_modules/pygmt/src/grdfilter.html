@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdfilter.html" />
@@ -182,16 +182,17 @@
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
     <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
     <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;cores&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdfilter</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Filter a grid in the space (or time) domain.</span>
 
-<span class="sd">    Filter a grid file in the time domain using one of the selected convolution</span>
-<span class="sd">    or non-convolution isotropic or rectangular filters and compute distances</span>
-<span class="sd">    using Cartesian or Spherical geometries. The output grid file can</span>
-<span class="sd">    optionally be generated as a sub-region of the input (via ``region``)</span>
+<span class="sd">    Filter a grid file in the space (or time) domain using one of the selected</span>
+<span class="sd">    convolution or non-convolution isotropic or rectangular filters and compute</span>
+<span class="sd">    distances using Cartesian or Spherical geometries. The output grid file</span>
+<span class="sd">    can optionally be generated as a sub-region of the input (via ``region``)</span>
 <span class="sd">    and/or with new increment (via ``spacing``) or registration</span>
 <span class="sd">    (via ``toggle``). In this way, one may have &quot;extra space&quot; in the input</span>
 <span class="sd">    data so that the edges will not be used and the output can be within one</span>
@@ -205,67 +206,63 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    grid : str or xarray.DataArray</span>
-<span class="sd">        The file name of the input grid or the grid loaded as a DataArray.</span>
+<span class="sd">        The file name of the input grid or the grid loaded as a</span>
+<span class="sd">        :class:`xarray.DataArray`.</span>
 <span class="sd">    outgrid : str or None</span>
 <span class="sd">        The name of the output netCDF file with extension .nc to store the grid</span>
 <span class="sd">        in.</span>
 <span class="sd">    filter : str</span>
-<span class="sd">        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *xwidth*\</span>
+<span class="sd">        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\</span>
 <span class="sd">        [/*width2*\][*modifiers*].</span>
-<span class="sd">        Name of filter type you which to apply, followed by the width:</span>
+<span class="sd">        Name of the filter type you wish to apply, followed by the *width*:</span>
 
-<span class="sd">        b: Box Car</span>
+<span class="sd">        - **b** - Box Car</span>
+<span class="sd">        - **c** - Cosine Arch</span>
+<span class="sd">        - **g** - Gaussian</span>
+<span class="sd">        - **o** - Operator</span>
+<span class="sd">        - **m** - Median</span>
+<span class="sd">        - **p** - Maximum Likelihood probability</span>
+<span class="sd">        - **h** - Histogram</span>
 
-<span class="sd">        c: Cosine Arch</span>
-
-<span class="sd">        g: Gaussian</span>
-
-<span class="sd">        o: Operator</span>
-
-<span class="sd">        m: Median</span>
-
-<span class="sd">        p: Maximum Likelihood probability</span>
-
-<span class="sd">        h: histogram</span>
 <span class="sd">    distance : str</span>
-<span class="sd">        Distance *flag* tells how grid (x,y) relates to filter width as</span>
-<span class="sd">        follows:</span>
+<span class="sd">        State how the grid (x,y) relates to the filter *width*:</span>
 
-<span class="sd">        p: grid (px,py) with *width* an odd number of pixels; Cartesian</span>
-<span class="sd">        distances.</span>
-
-<span class="sd">        0: grid (x,y) same units as *width*, Cartesian distances.</span>
-
-<span class="sd">        1: grid (x,y) in degrees, *width* in kilometers, Cartesian distances.</span>
-
-<span class="sd">        2: grid (x,y) in degrees, *width* in km, dx scaled by cos(middle y),</span>
-<span class="sd">        Cartesian distances.</span>
+<span class="sd">        - ``&quot;p&quot;``: grid (px,py) with *width* an odd number of pixels,</span>
+<span class="sd">          Cartesian distances.</span>
+<span class="sd">        - ``&quot;0&quot;``: grid (x,y) same units as *width*, Cartesian distances.</span>
+<span class="sd">        - ``&quot;1&quot;``: grid (x,y) in degrees, *width* in kilometers, Cartesian</span>
+<span class="sd">          distances.</span>
+<span class="sd">        - ``&quot;2&quot;``: grid (x,y) in degrees, *width* in km, dx scaled by</span>
+<span class="sd">          cos(middle y), Cartesian distances.</span>
 
 <span class="sd">        The above options are fastest because they allow weight matrix to be</span>
 <span class="sd">        computed only once. The next three options are slower because they</span>
 <span class="sd">        recompute weights for each latitude.</span>
 
-<span class="sd">        3: grid (x,y) in degrees, *width* in km, dx scaled by cosine(y),</span>
-<span class="sd">        Cartesian distance calculation.</span>
-
-<span class="sd">        4: grid (x,y) in degrees, *width* in km, Spherical distance</span>
-<span class="sd">        calculation.</span>
-
-<span class="sd">        5: grid (x,y) in Mercator ``projection=&quot;m1&quot;`` img units, *width* in km,</span>
-<span class="sd">        Spherical distance calculation.</span>
+<span class="sd">        - ``&quot;3&quot;``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),</span>
+<span class="sd">          Cartesian distance calculation.</span>
+<span class="sd">        - ``&quot;4&quot;``: grid (x,y) in degrees, *width* in km, Spherical distance</span>
+<span class="sd">          calculation.</span>
+<span class="sd">        - ``&quot;5&quot;``: grid (x,y) in Mercator ``projection=&quot;m1&quot;`` img units,</span>
+<span class="sd">          *width* in km, Spherical distance calculation.</span>
 
 <span class="sd">    {spacing}</span>
 <span class="sd">    nans : str or float</span>
 <span class="sd">        **i**\|\ **p**\|\ **r**.</span>
-<span class="sd">        Determine how NaN-values in the input grid affects the filtered output.</span>
+<span class="sd">        Determine how NaN-values in the input grid affect the filtered output.</span>
+<span class="sd">        Use **i** to ignore all NaNs in the calculation of the filtered value</span>
+<span class="sd">        [Default]. **r** is same as **i** except if the input node was NaN then</span>
+<span class="sd">        the output node will be set to NaN (only applies if both grids are</span>
+<span class="sd">        co-registered). **p** will force the filtered value to be NaN if any</span>
+<span class="sd">        grid nodes with NaN-values are found inside the filter circle.</span>
 <span class="sd">    {region}</span>
 <span class="sd">    toggle : bool</span>
-<span class="sd">        Toggle the node registration for the output grid so as to become the</span>
-<span class="sd">        opposite of the input grid. [Default gives the same registration as the</span>
-<span class="sd">        input grid].</span>
+<span class="sd">        Toggle the node registration for the output grid to get the opposite of</span>
+<span class="sd">        the input grid [Default gives the same registration as the input grid].</span>
 <span class="sd">    {verbose}</span>
 <span class="sd">    {coltypes}</span>
 <span class="sd">    {registration}</span>
+<span class="sd">    {cores}</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -276,13 +273,12 @@
 <span class="sd">        - None if ``outgrid`` is set (grid output will be stored in file set by</span>
 <span class="sd">          ``outgrid``)</span>
 
-<span class="sd">    Example</span>
-<span class="sd">    -------</span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import os</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-
-<span class="sd">    &gt;&gt;&gt; # Apply a filter of 600km (full width) to the @earth_relief_30m file</span>
-<span class="sd">    &gt;&gt;&gt; # and return a filtered field (saved as netcdf)</span>
+<span class="sd">    &gt;&gt;&gt; # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file</span>
+<span class="sd">    &gt;&gt;&gt; # and return a filtered field (saved as netCDF)</span>
 <span class="sd">    &gt;&gt;&gt; pygmt.grdfilter(</span>
 <span class="sd">    ...     grid=&quot;@earth_relief_30m_g&quot;,</span>
 <span class="sd">    ...     filter=&quot;m600&quot;,</span>
@@ -291,10 +287,9 @@
 <span class="sd">    ...     spacing=0.5,</span>
 <span class="sd">    ...     outgrid=&quot;filtered_pacific.nc&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; os.remove(&quot;filtered_pacific.nc&quot;)  # cleanup file</span>
-
-<span class="sd">    &gt;&gt;&gt; # Apply a gaussian smoothing filter of 600 km in the input data array,</span>
-<span class="sd">    &gt;&gt;&gt; # and returns a filtered data array with the smoothed field.</span>
+<span class="sd">    &gt;&gt;&gt; os.remove(&quot;filtered_pacific.nc&quot;)  # Cleanup file</span>
+<span class="sd">    &gt;&gt;&gt; # Apply a Gaussian smoothing filter of 600 km to the input DataArray</span>
+<span class="sd">    &gt;&gt;&gt; # and return a filtered DataArray with the smoothed field</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief()</span>
 <span class="sd">    &gt;&gt;&gt; smooth_field = pygmt.grdfilter(grid=grid, filter=&quot;g600&quot;, distance=&quot;4&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -320,9 +315,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

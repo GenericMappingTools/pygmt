@@ -6,10 +6,10 @@
 
 Computation times
 =================
-**00:01.068** total execution time for **gallery_seismology** files:
+**00:01.020** total execution time for **gallery_seismology** files:
 
 +--------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_seismology_meca.py` (``meca.py``)                             | 00:00.546 | 0.0 MB |
+| :ref:`sphx_glr_gallery_seismology_meca.py` (``meca.py``)                             | 00:00.518 | 0.0 MB |
 +--------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``velo_arrow_ellipse.py``) | 00:00.522 | 0.0 MB |
+| :ref:`sphx_glr_gallery_seismology_velo_arrow_ellipse.py` (``velo_arrow_ellipse.py``) | 00:00.502 | 0.0 MB |
 +--------------------------------------------------------------------------------------+-----------+--------+

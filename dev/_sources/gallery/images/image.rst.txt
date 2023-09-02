@@ -66,7 +66,7 @@ the image.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.846 seconds)
+   **Total running time of the script:** ( 0 minutes  0.769 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:

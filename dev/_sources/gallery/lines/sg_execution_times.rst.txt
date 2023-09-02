@@ -6,22 +6,28 @@
 
 Computation times
 =================
-**00:15.563** total execution time for **gallery_lines** files:
+**00:24.269** total execution time for **gallery_lines** files:
 
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:03.030 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_quoted_lines.py` (``quoted_lines.py``)             | 00:04.578 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_roads.py` (``roads.py``)                           | 00:02.994 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_decorated_lines.py` (``decorated_lines.py``)       | 00:03.607 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:02.762 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_vector_heads_tails.py` (``vector_heads_tails.py``) | 00:02.864 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:02.143 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_roads.py` (``roads.py``)                           | 00:02.683 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:01.607 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linefronts.py` (``linefronts.py``)                 | 00:02.587 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_great_circles.py` (``great_circles.py``)           | 00:01.309 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_linestyles.py` (``linestyles.py``)                 | 00:02.029 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)           | 00:01.205 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_line_custom_cpt.py` (``line_custom_cpt.py``)       | 00:01.526 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)                         | 00:00.512 | 0.0 MB |
+| :ref:`sphx_glr_gallery_lines_envelope.py` (``envelope.py``)                     | 00:01.509 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_lines_great_circles.py` (``great_circles.py``)           | 00:01.250 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_lines_vector_styles.py` (``vector_styles.py``)           | 00:01.157 | 0.0 MB |
++---------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_lines_wiggle.py` (``wiggle.py``)                         | 00:00.478 | 0.0 MB |
 +---------------------------------------------------------------------------------+-----------+--------+

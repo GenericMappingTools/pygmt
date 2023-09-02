@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdhisteq.html" />
@@ -348,8 +348,8 @@
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
 <span class="sd">        &gt;&gt;&gt; import pygmt</span>
-<span class="sd">        &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with an x-range of 10 to</span>
-<span class="sd">        &gt;&gt;&gt; # 30, and a y-range of 15 to 25</span>
+<span class="sd">        &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with a longitude range</span>
+<span class="sd">        &gt;&gt;&gt; # of 10°E to 30°E, and a latitude range of 15°N to 25°N</span>
 <span class="sd">        &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
 <span class="sd">        ...     resolution=&quot;30m&quot;, region=[10, 30, 15, 25]</span>
 <span class="sd">        ... )</span>
@@ -452,12 +452,12 @@
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
 <span class="sd">        &gt;&gt;&gt; import pygmt</span>
-<span class="sd">        &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with an x-range of 10 to</span>
-<span class="sd">        &gt;&gt;&gt; # 30, and a y-range of 15 to 25</span>
+<span class="sd">        &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with a longitude range of</span>
+<span class="sd">        &gt;&gt;&gt; # 10°E to 30°E, and a latitude range of 15°N to 25°N</span>
 <span class="sd">        &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
 <span class="sd">        ...     resolution=&quot;30m&quot;, region=[10, 30, 15, 25]</span>
 <span class="sd">        ... )</span>
-<span class="sd">        &gt;&gt;&gt; # Find elevation intervals that splits the data range into 5</span>
+<span class="sd">        &gt;&gt;&gt; # Find elevation intervals that split the data range into 5</span>
 <span class="sd">        &gt;&gt;&gt; # divisions, each of which have an equal area in the original grid.</span>
 <span class="sd">        &gt;&gt;&gt; bins = pygmt.grdhisteq.compute_bins(grid=grid, divisions=5)</span>
 <span class="sd">        &gt;&gt;&gt; print(bins)</span>
@@ -519,9 +519,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

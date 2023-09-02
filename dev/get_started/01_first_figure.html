@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/get_started/01_first_figure.html" />
@@ -103,6 +103,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="02_contour_map.html">2. Create a contour map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03_figure_element.html">3. Figure elements</a></li>
 </ul>
 </li>
 </ul>
@@ -290,7 +291,7 @@ Mercator projection would use <code class="docutils literal notranslate"><span c
 <img src="../_images/sphx_glr_01_first_figure_003.png" srcset="../_images/sphx_glr_01_first_figure_003.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="add-a-frame">
 <h2>Add a frame<a class="headerlink" href="#add-a-frame" title="Permalink to this heading"></a></h2>
-<p>While that the map’s colors, projection, and size have been set, the region
+<p>While the map’s colors, projection, and size have been set, the region
 that is being displayed is not apparent. A frame can be added to
 annotate the latitude and longitude of the region.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter is used to add a frame to the figure. For now, it
@@ -311,7 +312,7 @@ will be set to <code class="docutils literal notranslate"><span class="pre">&quo
 <section id="add-a-title">
 <h2>Add a title<a class="headerlink" href="#add-a-title" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter can be used to add a title to the figure. The title
-is set with by passing <code class="docutils literal notranslate"><span class="pre">&quot;+t&quot;</span></code> followed by the title (e.g. setting the map
+is set by passing <code class="docutils literal notranslate"><span class="pre">&quot;+t&quot;</span></code> followed by the title (e.g. setting the map
 title to “Title” would be <code class="docutils literal notranslate"><span class="pre">&quot;+tTitle&quot;</span></code>).</p>
 <p>To pass multiple arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code>, a list can be used, as shown in the
 example below. This format uses <code class="docutils literal notranslate"><span class="pre">frame</span></code> to set both the axes annotations
@@ -336,15 +337,15 @@ for the concepts that were discussed:</p>
 <ol class="arabic simple">
 <li><p>Make a map of Germany using its ISO country code (“DE”). Pass the ISO
 code as a Python string to the <code class="docutils literal notranslate"><span class="pre">region</span></code> parameter.</p></li>
-<li><p>Change the color of the land to “khaki” and the water to “azure”.</p></li>
+<li><p>Change the color of the landmass to “khaki” and the water to “azure”.</p></li>
 <li><p>Change the color of the lakes (using the <code class="docutils literal notranslate"><span class="pre">lakes</span></code> parameter) to “red”.</p></li>
 <li><p>Create a global map. Set the region to “d” to center the map at the Prime
 Meridian or “g” to center the map at the International Date Line. When the
 region is set without using a list full of integers or floating numbers,
 the argument needs to be passed as a Python string. Create a map with a
-width of 15 centimeters using the Mollwide (“W”) projection.</p></li>
+width of 15 centimeters using the Mollweide (“W”) projection.</p></li>
 </ol>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.590 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.493 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-get-started-01-first-figure-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/e7196a0cb51ccdae1ba86802ada224ec/01_first_figure.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_first_figure.py</span></code></a></p>
@@ -370,9 +371,9 @@ width of 15 centimeters using the Mollwide (“W”) projection.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/symbols/points_categorical.html" />
@@ -212,6 +212,7 @@ function.</p>
 
 <span class="c1"># Load sample penguins data</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html#pandas.read_csv" title="pandas.read_csv" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-function"><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span></a><span class="p">(</span><span class="s2">&quot;https://github.com/mwaskom/seaborn-data/raw/master/penguins.csv&quot;</span><span class="p">)</span>
+
 <span class="c1"># Convert &#39;species&#39; column to categorical dtype</span>
 <span class="c1"># By default, pandas sorts the individual categories in an alphabetical order.</span>
 <span class="c1"># For a non-alphabetical order, you have to manually adjust the list of</span>
@@ -219,6 +220,7 @@ function.</p>
 <span class="c1"># have a look at:</span>
 <span class="c1"># https://pandas.pydata.org/docs/user_guide/categorical.html</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.astype.html#pandas.Series.astype" title="pandas.Series.astype" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">df</span><span class="o">.</span><span class="n">species</span><span class="o">.</span><span class="n">astype</span></a><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+
 <span class="c1"># Make a list of the individual categories of the &#39;species&#39; column</span>
 <span class="c1"># [&#39;Adelie&#39;, &#39;Chinstrap&#39;, &#39;Gentoo&#39;]</span>
 <span class="c1"># They are (corresponding to the categorical number code) by default in</span>
@@ -229,8 +231,8 @@ function.</p>
 <span class="c1"># The below example will return a numpy array like [30.0, 60.0, 12.0, 22.0]</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">region</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.info.html#pygmt.info" title="pygmt.info" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">info</span></a><span class="p">(</span>
     <span class="n">data</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span></a><span class="p">[[</span><span class="s2">&quot;bill_length_mm&quot;</span><span class="p">,</span> <span class="s2">&quot;bill_depth_mm&quot;</span><span class="p">]],</span>  <span class="c1"># x and y columns</span>
-    <span class="n">per_column</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># report the min/max values per column as a numpy array</span>
-    <span class="c1"># round the min/max values of the first two columns to the nearest multiple</span>
+    <span class="n">per_column</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Report the min/max values per column as a numpy array</span>
+    <span class="c1"># Round the min/max values of the first two columns to the nearest multiple</span>
     <span class="c1"># of 3 and 2, respectively</span>
     <span class="n">spacing</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="p">)</span>
@@ -250,7 +252,7 @@ function.</p>
     <span class="p">],</span>
 <span class="p">)</span>
 
-<span class="c1"># Define a colormap to be used for three categories, define the range of the</span>
+<span class="c1"># Define a colormap for three categories, define the range of the</span>
 <span class="c1"># new discrete CPT using series=(lowest_value, highest_value, interval),</span>
 <span class="c1"># use color_model=&quot;+cAdelie,Chinstrap,Gentoo&quot; to write the discrete color</span>
 <span class="c1"># palette &quot;inferno&quot; in categorical format and add the species names as</span>
@@ -260,7 +262,7 @@ function.</p>
     <span class="c1"># Use the minimum and maximum of the categorical number code</span>
     <span class="c1"># to set the lowest_value and the highest_value of the CPT</span>
     <span class="n">series</span><span class="o">=</span><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="c1"># convert [&#39;Adelie&#39;, &#39;Chinstrap&#39;, &#39;Gentoo&#39;] to &#39;Adelie,Chinstrap,Gentoo&#39;</span>
+    <span class="c1"># Convert [&#39;Adelie&#39;, &#39;Chinstrap&#39;, &#39;Gentoo&#39;] to &#39;Adelie,Chinstrap,Gentoo&#39;</span>
     <span class="n">color_model</span><span class="o">=</span><span class="s2">&quot;+c&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cb_annots</span></a><span class="p">),</span>
 <span class="p">)</span>
 
@@ -268,14 +270,13 @@ function.</p>
     <span class="c1"># Use bill length and bill depth as x and y data input, respectively</span>
     <span class="n">x</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">bill_length_mm</span></a><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">bill_depth_mm</span></a><span class="p">,</span>
-    <span class="c1"># Vary each symbol size according to another feature (body mass,</span>
-    <span class="c1"># scaled by 7.5*10e-5)</span>
+    <span class="c1"># Vary symbol size according to the body mass, scaled by 7.5e-5</span>
     <span class="n">size</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">body_mass_g</span></a> <span class="o">*</span> <span class="mf">7.5e-5</span><span class="p">,</span>
-    <span class="c1"># Points colored by categorical number code</span>
+    <span class="c1"># Points colored by categorical number code (refers to the species)</span>
     <span class="n">fill</span><span class="o">=</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">df</span><span class="o">.</span><span class="n">species</span></a><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
     <span class="c1"># Use colormap created by makecpt</span>
     <span class="n">cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="c1"># Do not clip symbols that fall close to the map bounds</span>
+    <span class="c1"># Do not clip symbols that fall close to the plot bounds</span>
     <span class="n">no_clip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="c1"># Use circles as symbols (the first &quot;c&quot;) with diameter in</span>
     <span class="c1"># centimeters (the second &quot;c&quot;)</span>
@@ -290,7 +291,7 @@ function.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.030 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.968 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-symbols-points-categorical-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/8a998ea7970b7cc7853db8048acd71c0/points_categorical.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">points_categorical.py</span></code></a></p>
@@ -315,9 +316,9 @@ function.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

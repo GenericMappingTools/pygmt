@@ -207,7 +207,14 @@ over a horizontal range of one year from 2016-01-01 to 2017-01-01.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-135
+.. GENERATED FROM PYTHON SOURCE LINES 128-132
+
+PyGMT doesn't recognize non-ISO datetime strings like "Jun 05, 2018". If your
+data contain non-ISO datetime strings, you can convert them to a recognized
+format using :func:`pandas.to_datetime` and then pass it to PyGMT.
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 135-142
 
 Mixing and matching Python ``datetime`` and ISO dates
 -----------------------------------------------------
@@ -217,7 +224,7 @@ data can be plotted using PyGMT. This can be helpful when dates and times are
 coming from different sources, meaning conversions do not need to take place
 between ISO and datetime in order to create valid plots.
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-151
+.. GENERATED FROM PYTHON SOURCE LINES 142-158
 
 .. code-block:: default
 
@@ -249,7 +256,7 @@ between ISO and datetime in order to create valid plots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-164
+.. GENERATED FROM PYTHON SOURCE LINES 159-171
 
 Using :meth:`pandas.date_range`
 -------------------------------
@@ -264,7 +271,7 @@ passed to the ``periods`` parameter. The initial date is the first argument
 that is passed to :func:`pandas.date_range` and it marks the first data point
 in the list ``x`` that will be plotted.
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-181
+.. GENERATED FROM PYTHON SOURCE LINES 171-188
 
 .. code-block:: default
 
@@ -297,7 +304,7 @@ in the list ``x`` that will be plotted.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-192
+.. GENERATED FROM PYTHON SOURCE LINES 189-199
 
 Using :class:`xarray.DataArray`
 -------------------------------
@@ -310,7 +317,7 @@ of metadata.The following code uses :func:`pandas.date_range` object to fill
 the DataArray with data, but this is not essential for the creation of a
 valid DataArray.
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-209
+.. GENERATED FROM PYTHON SOURCE LINES 199-216
 
 .. code-block:: default
 
@@ -343,7 +350,7 @@ valid DataArray.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 210-217
+.. GENERATED FROM PYTHON SOURCE LINES 217-224
 
 Using :class:`numpy.datetime64`
 -------------------------------
@@ -353,7 +360,7 @@ this wraps the dataset before passing it as a parameter. However,
 ``np.array`` objects use less memory and allow developers to specify
 datatypes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 217-234
+.. GENERATED FROM PYTHON SOURCE LINES 224-241
 
 .. code-block:: default
 
@@ -386,7 +393,7 @@ datatypes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 235-245
+.. GENERATED FROM PYTHON SOURCE LINES 242-252
 
 Generating an automatic region
 ------------------------------
@@ -399,7 +406,7 @@ that could be passed as region. Additionally, the ``spacing`` argument
 can be passed to increase the range past the maximum and minimum
 data points.
 
-.. GENERATED FROM PYTHON SOURCE LINES 245-276
+.. GENERATED FROM PYTHON SOURCE LINES 252-283
 
 .. code-block:: default
 
@@ -446,7 +453,7 @@ data points.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 277-301
+.. GENERATED FROM PYTHON SOURCE LINES 284-308
 
 Setting Primary and Secondary Time Axes
 ---------------------------------------
@@ -473,7 +480,7 @@ name instead of its number. More information about configuring
 date formats can be found on the
 :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 301-320
+.. GENERATED FROM PYTHON SOURCE LINES 308-327
 
 .. code-block:: default
 
@@ -508,7 +515,7 @@ date formats can be found on the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 321-337
+.. GENERATED FROM PYTHON SOURCE LINES 328-344
 
 The same concept shown above can be applied to smaller
 as well as larger intervals. In this example,
@@ -527,7 +534,7 @@ instead of a 24-hour system. More information about configuring
 time formats can be found on the
 :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 337-360
+.. GENERATED FROM PYTHON SOURCE LINES 344-367
 
 .. code-block:: default
 
@@ -569,7 +576,7 @@ time formats can be found on the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.399 seconds)
+   **Total running time of the script:** ( 0 minutes  4.220 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_date_time_charts.py:

@@ -12,11 +12,11 @@
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/images/grdgradient.html" />
@@ -105,7 +105,9 @@
 <li class="toctree-l3"><a class="reference internal" href="grdclip.html">Clipping grid values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="contours.html">Contours</a></li>
 <li class="toctree-l3"><a class="reference internal" href="grdlandmask.html">Create ‘wet-dry’ mask grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cross_section.html">Cross-section along a transect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="image.html">Images on figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="rgb_image.html">RGB Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="track_sampling.html">Sampling along tracks</a></li>
 </ul>
 </li>
@@ -198,8 +200,8 @@ to download the full example code</p>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> function calculates the gradient of a grid file.
 In the example shown below we will see how to calculate a hillshade map based
 on a Data Elevation Model (DEM). As input <a class="reference internal" href="../../api/generated/pygmt.grdgradient.html#pygmt.grdgradient" title="pygmt.grdgradient"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grdgradient</span></code></a> gets
-a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object or a path string to a grid file, calculates
-the respective gradient and returns it as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.
+a <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object or a path string to a grid file, calculates
+the respective gradient and returns it as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.
 We will use the <code class="docutils literal notranslate"><span class="pre">radiance</span></code> parameter in order to set the illumination source
 direction and altitude.</p>
 <img src="../../_images/sphx_glr_grdgradient_001.png" srcset="../../_images/sphx_glr_grdgradient_001.png" alt="grdgradient" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
@@ -246,7 +248,7 @@ direction and altitude.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.469 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  1.432 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-images-grdgradient-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/37bbfd67d313fb487d8d7ab3e42dd351/grdgradient.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grdgradient.py</span></code></a></p>
@@ -271,9 +273,9 @@ direction and altitude.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 

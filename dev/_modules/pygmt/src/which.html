@@ -11,11 +11,11 @@
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/which.html" />
@@ -180,11 +180,12 @@
 <span class="sd">    defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR</span>
 <span class="sd">    (if defined).</span>
 
-<span class="sd">    ``fname`` can also be a downloadable file (either a full URL, a</span>
-<span class="sd">    `@file` special file for downloading from the GMT Site Cache, or</span>
-<span class="sd">    `@earth_relief_*` topography grids). In these cases, use parameter</span>
-<span class="sd">    ``download`` to set the desired behavior. If ``download`` is not used</span>
-<span class="sd">    (or False), the file will not be found.</span>
+<span class="sd">    ``fname`` can also be a downloadable file (either a complete URL, an</span>
+<span class="sd">    @file for downloading from the GMT data server, or any of the remote</span>
+<span class="sd">    datasets at https://www.pygmt.org/latest/api/index.html#datasets).</span>
+<span class="sd">    In these cases, use the ``download`` parameter to set the desired</span>
+<span class="sd">    behavior. If ``download`` is not used (or ``False``), the file will</span>
+<span class="sd">    not be found.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`gmtwhich.html`</span>
 
@@ -196,15 +197,17 @@
 <span class="sd">        One or more file names of any data type (grids, tables, etc.).</span>
 <span class="sd">    download : bool or str</span>
 <span class="sd">        [**a**\|\ **c**\|\ **l**\|\ **u**].</span>
-<span class="sd">        If the fname argument is a downloadable file (either a complete URL, an</span>
-<span class="sd">        @file for downloading from the GMT data server, or @earth_relief_xxy)</span>
-<span class="sd">        we will try to download the file if it is not found in your local data</span>
-<span class="sd">        or cache dirs. By default [``download=True`` or ``download=&quot;l&quot;``] we</span>
-<span class="sd">        download to the current directory. Use **a** to place files in the</span>
-<span class="sd">        appropriate folder under the user directory (this is where GMT normally</span>
-<span class="sd">        places downloaded files), **c** to place it in the user cache</span>
-<span class="sd">        directory, or **u** for the user data directory instead (i.e., ignoring</span>
-<span class="sd">        any subdirectory structure).</span>
+<span class="sd">        If the ``fname`` argument is a downloadable file (either a complete</span>
+<span class="sd">        URL, an @file for downloading from the GMT data server, or any of</span>
+<span class="sd">        the remote datasets at</span>
+<span class="sd">        https://www.pygmt.org/latest/api/index.html#datasets)</span>
+<span class="sd">        we will try to download the file if it is not found in your local</span>
+<span class="sd">        data or cache directories. If set to ``True`` or **l** is passed</span>
+<span class="sd">        the file is downloaded to the current directory. Use **a** to place</span>
+<span class="sd">        files in the appropriate folder under the user directory (this is</span>
+<span class="sd">        where GMT normally places downloaded files), **c** to place it in</span>
+<span class="sd">        the user cache directory, or **u** for the user data directory</span>
+<span class="sd">        instead (i.e., ignoring any subdirectory structure).</span>
 <span class="sd">    {verbose}</span>
 
 <span class="sd">    Returns</span>
@@ -239,9 +242,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/1d8944fc">1d8944fc</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Mar 31, 2023.
+      <span class="lastupdated">Last updated on Sep 01, 2023.
       </span></p>
   </div>
 
