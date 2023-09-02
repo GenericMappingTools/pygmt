@@ -180,14 +180,14 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2023_7772533,
-      author       = {Uieda, Leonardo and
-                      Tian, Dongdong and
+    @software{pygmt_2023_8303186,
+      author       = {Tian, Dongdong and
+                      Uieda, Leonardo and
                       Leong, Wei Ji and
                       Schlitzer, William and
+                      Fröhlich, Yvonne and
                       Grund, Michael and
                       Jones, Max and
-                      Fröhlich, Yvonne and
                       Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
@@ -200,12 +200,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = mar,
+      month        = sep,
       year         = 2023,
       publisher    = {Zenodo},
-      version      = {0.9.0},
-      doi          = {10.5281/zenodo.7772533},
-      url          = {https://doi.org/10.5281/zenodo.7772533}
+      version      = {0.10.0},
+      doi          = {10.5281/zenodo.8303186},
+      url          = {https://doi.org/10.5281/zenodo.8303186}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -264,7 +264,12 @@ Compatibility with GMT/Python/NumPy versions
       - >=6.3.0
       - >=3.9
       - >=1.22
-    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_ (latest release)
+    * - `v0.10.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0>`_ (latest release)
+      - `v0.10.0 Documentation <https://www.pygmt.org/v0.10.0>`_
+      - >=6.3.0
+      - >=3.9
+      - >=1.22
+    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_
       - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
       - >=6.3.0
       - >=3.8
