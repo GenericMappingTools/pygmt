@@ -9,12 +9,22 @@ instead.
 
 ## Onboarding Access Checklist
 
-- Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
+### As a Contributor
+
 - Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
+- Added to [pygmt-contributors](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) team
 - Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 - Added as member on [HackMD](https://hackmd.io/@pygmt) [optional]
+
+### As a Maintainer
+
+- Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
+- Update the roles in the Team Gallery page
+- Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
+
+### As an Administrator
+
+- Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 ## Branches
 
