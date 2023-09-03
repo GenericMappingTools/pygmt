@@ -11,21 +11,21 @@ instead.
 
 ### As a Contributor
 
+- Added to the [pygmt-contributors](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) team (gives 'write' permission to the repository)
 - Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added to [pygmt-contributors](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) team (gives 'write' permission to the repository)
 - Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
-- Added as member on [HackMD](https://hackmd.io/@pygmt) (for draft annoucements) [optional]
+- Added as member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
 ### As a Maintainer
 
-- Added to [pygmt-maintainers](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) team (gives 'maintain' permission to the repository)
+- Added to the [pygmt-maintainers](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) team (gives 'maintain' permission to the repository)
 - Update the roles in the {doc}`Team Gallery <team>` page
-- Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
+- Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
 
 ### As an Administrator
 
+- Added to the [pygmt-admin](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) team (gives 'admin' permission to the repository)
 - Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
-- Added to [pygmt-admin](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
 
 ## Branches
 
