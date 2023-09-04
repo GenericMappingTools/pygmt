@@ -18,7 +18,7 @@ symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
 
 import pygmt
 
-###############################################################################
+# %%
 # We can plot multi-parameter symbols using the same symbol style. We need to
 # define locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for
 # a single symbol or 1-D list for several ones) and two or three symbol
@@ -52,7 +52,7 @@ fig.plot(x=5.5, y=1, style="w2.5/45/330", fill="lightgray", pen="2p,black")
 
 fig.show()
 
-###############################################################################
+# %%
 # We can also plot symbols with varying parameters via defining those values in
 # a 2-D list or numpy array (``[[parameters]]`` for a single symbol or
 # ``[[parameters_1],[parameters_2],[parameters_i]]`` for several ones) or using
