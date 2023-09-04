@@ -8,7 +8,7 @@ the :meth:`pygmt.Figure.coast` method for plotting. Later examples will
 address other PyGMT methods.
 """
 
-###############################################################################
+# %%
 # Setting up the development environment
 # --------------------------------------
 #
@@ -17,7 +17,7 @@ address other PyGMT methods.
 # code will be for a notebook environment.
 
 
-###############################################################################
+# %%
 # Loading the library
 # -------------------
 #
@@ -27,7 +27,7 @@ address other PyGMT methods.
 # sphinx_gallery_thumbnail_number = 4
 import pygmt
 
-###############################################################################
+# %%
 # Creating a figure
 # -----------------
 #
@@ -36,7 +36,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-###############################################################################
+# %%
 # To add elements to the figure instance or object (``fig`` in this example)
 # different methods can be called on it. This example will use the
 # :meth:`pygmt.Figure.coast` method, which can be used to create a map without
@@ -61,12 +61,12 @@ fig = pygmt.Figure()
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
-###############################################################################
+# %%
 # To see the figure, call :meth:`pygmt.Figure.show`.
 
 fig.show()
 
-###############################################################################
+# %%
 # Color the land and water
 # ------------------------
 #
@@ -89,7 +89,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Set the projection
 # ------------------
 #
@@ -117,7 +117,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Add a frame
 # -----------
 #
@@ -139,7 +139,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Add a title
 # -----------
 #
@@ -162,7 +162,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Additional exercises
 # --------------------
 #
