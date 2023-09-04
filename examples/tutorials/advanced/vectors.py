@@ -9,7 +9,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-###############################################################################
+# %%
 # Plot Cartesian Vectors
 # ----------------------
 #
@@ -43,7 +43,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In this example, we apply the same concept shown previously to plot multiple
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
 # of all x and y coordinates will be passed. Similarly, the length of direction
@@ -69,7 +69,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The default unit of vector length is centimeters,
 # however, this can be changed to inches or points. Note that, in PyGMT,
 # one point is defined as 1/72 inch.
@@ -104,7 +104,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
     )
 fig.show()
 
-###############################################################################
+# %%
 # Vectors can also be plotted by including all the information
 # about a vector in a single list. However, this requires creating
 # a 2-D list or numpy array containing all vectors.
@@ -129,7 +129,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
 # vector could be simply added to the 2-D list or numpy
@@ -155,7 +155,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In this example, Cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
 # longitude and y values represent the latitude where the vector starts.
@@ -208,7 +208,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Another example of plotting Cartesian vectors over a coast plot. This time a
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
@@ -243,7 +243,7 @@ fig.plot(
 
 fig.show()
 
-###############################################################################
+# %%
 # Plot Circular Vectors
 # ---------------------
 #
@@ -285,7 +285,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # When plotting multiple circular vectors, a two dimensional array or numpy
 # array object should be passed as the ``data`` parameter. In this example,
 # :func:`numpy.column_stack` is used to generate this two dimensional array.
@@ -314,7 +314,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Much like when plotting Cartesian vectors, the default unit used is
 # centimeters. When this is changed to inches, the size of the plot appears
 # larger when the projection units do not change. Below is an example of two
@@ -344,7 +344,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
     )
 fig.show()
 
-###############################################################################
+# %%
 # Plot Geographic Vectors
 # -----------------------
 # On this map,
@@ -380,7 +380,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Using the same technique shown in the previous example,
 # multiple vectors can be plotted in a chain where the endpoint
 # of one is the starting point of another. This can be done
@@ -417,7 +417,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # This example plots vectors over a Mercator projection. The starting points
 # are located at SA which is South Africa and going to four different
 # locations.
