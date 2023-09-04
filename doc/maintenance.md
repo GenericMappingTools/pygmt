@@ -9,6 +9,11 @@ instead.
 
 ## Onboarding Access Checklist
 
+Note that anyone can contribute to PyGMT, even without being added to the
+[GenericMappingTools team](https://github.com/orgs/GenericMappingTools/teams).
+The onboarding items below are for people who would like to make regular
+contributions, and could benefit from extra permissions to the developer and
+communication tools we use.
 ### As a Contributor
 
 - Added to the [pygmt-contributors](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) team (gives 'write' permission to the repository)
@@ -21,10 +26,12 @@ instead.
 - Added to the [pygmt-maintainers](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) team (gives 'maintain' permission to the repository)
 - Update the roles in the {doc}`Team Gallery <team>` page
 - Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
+- Added as a maintainer on [Readthedocs](https://readthedocs.org/projects/pygmt-dev) [optional]
 
 ### As an Administrator
 
 - Added to the [pygmt-admin](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) team (gives 'admin' permission to the repository)
+- Added as admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
 - Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
 
 ## Branches
