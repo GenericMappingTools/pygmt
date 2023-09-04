@@ -75,7 +75,7 @@ fig.show()
 # Adding contour lines
 # --------------------
 #
-# To add contour lines to the color coded figured, the
+# To add contour lines to the color-coded figured, the
 # :meth:`pygmt.Figure.grdcontour` method is used. The ``frame`` and
 # ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
 # not needed again. However, the same input for ``grid`` (in this case, the
