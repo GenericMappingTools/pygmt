@@ -1,6 +1,7 @@
 """
 Plotting focal mechanisms
 =========================
+
 Focal mechanisms can be plotted with the :meth:`pygmt.Figure.meca` method.
 
 TODO: Check GMT issue #7777 and PR #7778
