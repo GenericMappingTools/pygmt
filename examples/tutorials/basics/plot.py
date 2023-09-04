@@ -12,7 +12,7 @@ the first time you use them (usually ``~/.gmt/cache``).
 
 import pygmt
 
-###############################################################################
+# %%
 # For example, let's load the sample dataset of tsunami generating earthquakes
 # around Japan using :func:`pygmt.datasets.load_sample_data`.
 # The data are loaded as a :class:`pandas.DataFrame`.
@@ -30,8 +30,7 @@ region = [
 print(region)
 print(data.head())
 
-
-###############################################################################
+# %%
 # We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
 # earthquake epicenters.
 
@@ -41,7 +40,7 @@ fig.coast(land="black", water="skyblue")
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="black")
 fig.show()
 
-###############################################################################
+# %%
 # We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
 # The ``pen`` parameter controls the outline of the symbols and the ``fill``
 # parameter controls the fill.
@@ -64,7 +63,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Notice that we didn't include the size in the ``style`` parameter this time,
 # just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
 # this case, the size will be interpreted as being in centimeters.
