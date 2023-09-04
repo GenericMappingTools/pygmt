@@ -29,6 +29,7 @@ import pygmt
 # %%
 # Symmetric error
 # ---------------
+#
 
 # Define DataFrame with columns for x and y as well as x-error and y-error
 df = pd.DataFrame(
@@ -107,6 +108,7 @@ fig.show()
 # %%
 # Asymmetric errors
 # -----------------
+#
 
 # Define DataFrame with columns for x and y as well as lower and upper x-error
 # and y-error
@@ -143,6 +145,7 @@ fig.show()
 # %%
 # Low and high bounds
 # -------------------
+#
 
 # Define DataFrame with columns for x and y as well as x and y low and high
 # bounds
@@ -180,3 +183,4 @@ fig.show()
 # %%
 # Box-and-whisker (or stem-and-leaf) symbols
 # ------------------------------------------
+#
