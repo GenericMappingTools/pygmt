@@ -70,8 +70,7 @@ for quotedline in [
 
 fig.show()
 
-
-###############################################################################
+# %%
 # For curved labels following the line, append ``"+v"`` to the argument passed
 # to the ``style`` parameter.
 
