@@ -13,7 +13,7 @@ plotting.
 # sphinx_gallery_thumbnail_number = 4
 import pygmt
 
-###############################################################################
+# %%
 # Loading the Earth relief dataset
 # --------------------------------
 #
@@ -29,7 +29,7 @@ grid = pygmt.datasets.load_earth_relief(
     resolution="30s", region=[144.5, 145.5, 13, 14.5], registration="gridline"
 )
 
-###############################################################################
+# %%
 # Plotting Earth relief
 # ---------------------
 #
@@ -50,7 +50,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.show()
 
-###############################################################################
+# %%
 # Adding a colorbar
 # -----------------
 #
@@ -71,7 +71,7 @@ fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 
-###############################################################################
+# %%
 # Adding contour lines
 # --------------------
 #
@@ -90,7 +90,7 @@ fig.grdcontour(grid=grid, interval=500, annotation=1000)
 fig.colorbar(frame=["a1000", "x+lElevation (m)"])
 fig.show()
 
-###############################################################################
+# %%
 # Color in land
 # -------------
 #
@@ -106,7 +106,7 @@ fig.coast(shorelines="2p", land="lightgray")
 fig.colorbar(frame=["a1000", "x+lElevation (m)"])
 fig.show()
 
-###############################################################################
+# %%
 # Additional exercises
 # --------------------
 #
