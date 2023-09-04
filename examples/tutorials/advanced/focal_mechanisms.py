@@ -55,6 +55,7 @@ import pygmt
 # %%
 # Set up input data
 # -----------------
+#
 # TODO - consistent with lists in introduction
 
 # Store focal mechanism parameters
@@ -73,6 +74,7 @@ study_area = [-84, -76, -4, 4]
 # %%
 # Plot a single beachball
 # -----------------------
+#
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
 # (event location)
 
@@ -104,6 +106,7 @@ fig.show()
 # %%
 # Adjust outline
 # --------------
+#
 # parameters ``pen`` and ``outline``
 
 # Create new figure instance
@@ -158,6 +161,7 @@ fig.show()
 # %%
 # Fill quadrants with colors and patterns
 # ---------------------------------------
+#
 # parameters ``compressionfill`` and ``extensionfill``
 
 # Create new figure instance
@@ -215,6 +219,7 @@ fig.show()
 # %%
 # Highlight nodal planes
 # ----------------------
+#
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
 
@@ -279,6 +284,7 @@ fig.show()
 # %%
 # Offset from event location
 # --------------------------
+#
 # Prameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
 # Create new figure instance
@@ -338,6 +344,7 @@ fig.show()
 # %%
 # Plot several beachballs
 # -----------------------
+#
 # TODO
 # Set up list of four earthquakes:
 
@@ -383,6 +390,7 @@ fig.show()
 # %%
 # Size-coding and color-coding
 # ----------------------------
+#
 # e.g., by magnitude or hypocentral depth
 # Set up colormap and use parameter ``cmap``
 
@@ -422,6 +430,7 @@ fig.show()
 # %%
 # Add label
 # ---------
+#
 # ``event_name`` as parameter or as column
 # ``labelbox``
 # e.g., event date or time
