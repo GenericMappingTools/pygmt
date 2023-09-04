@@ -24,7 +24,7 @@ fig.tilemap(
 
 fig.show()
 
-###############################################################################
+# %%
 # It's also possible to use tiles provided via the
 # `contextily <https://github.com/geopandas/contextily>`__
 # library. See :doc:`Contextily providers <contextily:providers_deepdive>`
