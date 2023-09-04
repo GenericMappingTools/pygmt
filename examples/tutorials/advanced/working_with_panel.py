@@ -31,7 +31,7 @@ import pygmt
 pn.extension()
 
 
-###############################################################################
+# %%
 # Make a static map
 # -----------------
 # The `Orthographic projection
@@ -57,7 +57,7 @@ fig.coast(
 fig.show()
 
 
-###############################################################################
+# %%
 # Make an interactive map
 # -----------------------
 # To generate a rotation of the Earth around the vertical axis, the central
@@ -94,7 +94,7 @@ def view(central_lon):
 pn.Column(slider_lon, view)
 
 
-###############################################################################
+# %%
 # Add a grid for Earth relief
 # ---------------------------
 # Instead of using colors as fill for the land and water masses a grid can be
