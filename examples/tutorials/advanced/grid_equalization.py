@@ -8,6 +8,7 @@ statistics based on a cumulative distribution function.
 
 import pygmt
 
+
 # %%
 # Load sample data
 # ----------------
@@ -19,6 +20,7 @@ grid = pygmt.datasets.load_earth_relief(
     resolution="03s", region=[-119.825, -119.4, 37.6, 37.825]
 )
 grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
+
 
 # %%
 # Plot the original digital elevation model and data distribution
@@ -55,6 +57,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
+
 # %%
 # Equalize grid based on a linear distribution
 # --------------------------------------------
@@ -69,6 +72,7 @@ divisions = 9
 linear = pygmt.grdhisteq.equalize_grid(grid=grid, divisions=divisions)
 linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 
+
 # %%
 # Calculate the bins used for data transformation
 # -----------------------------------------------
@@ -81,6 +85,7 @@ linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 # the value 1, and so on.
 
 pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions)
+
 
 # %%
 # Plot the equally distributed data
@@ -118,6 +123,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
+
 # %%
 # Transform grid based on a normal distribution
 # ---------------------------------------------
@@ -128,6 +134,7 @@ fig.show()
 
 normal = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 normal_dist = pygmt.grd2xyz(grid=normal, output_type="pandas")["z"]
+
 
 # %%
 # Plot the normally distributed data
@@ -163,6 +170,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
+
 # %%
 # Equalize grid based on a quadratic distribution
 # -----------------------------------------------
@@ -177,6 +185,7 @@ quadratic = pygmt.grdhisteq.equalize_grid(
 )
 quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 
+
 # %%
 # Calculate the bins used for data transformation
 # -----------------------------------------------
@@ -186,6 +195,7 @@ quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 # distribution.
 
 pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions, quadratic=True)
+
 
 # %%
 # Plot the quadratic distribution of data

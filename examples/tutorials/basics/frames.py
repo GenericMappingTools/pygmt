@@ -10,6 +10,7 @@ contain.
 
 import pygmt
 
+
 # %%
 # Plot frame
 # ----------
@@ -30,6 +31,7 @@ fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="f")
 fig.show()
+
 
 # %%
 # Ticks and grid lines
@@ -63,6 +65,7 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="a30f7.5g15")
 fig.show()
 
+
 # %%
 # Title
 # -----
@@ -76,6 +79,7 @@ fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
 fig.basemap(frame=["a", "+tTrinidad and Tobago"])
 fig.show()
+
 
 # %%
 # Axis labels

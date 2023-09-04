@@ -11,6 +11,7 @@ import pygmt
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-92.5, -82.5, -3, 7])
 
+
 # %%
 # Create contour plot
 # -------------------
@@ -27,6 +28,7 @@ fig = pygmt.Figure()
 fig.grdcontour(grid=grid)
 fig.show()
 
+
 # %%
 # Contour line settings
 # ---------------------
@@ -42,6 +44,7 @@ fig.grdcontour(
     grid=grid,
 )
 fig.show()
+
 
 # %%
 # Contour limits
@@ -60,6 +63,7 @@ fig.grdcontour(
 )
 fig.show()
 
+
 # %%
 # Map settings
 # ------------
@@ -77,6 +81,7 @@ fig.grdcontour(
     frame=True,
 )
 fig.show()
+
 
 # %%
 # Adding a colormap

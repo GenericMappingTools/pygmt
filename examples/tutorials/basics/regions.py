@@ -9,6 +9,7 @@ of inputs that it can accept.
 
 import pygmt
 
+
 # %%
 # Coordinates
 # -----------
@@ -72,6 +73,7 @@ fig.coast(
 )
 fig.show()
 
+
 # %%
 # Global regions
 # --------------
@@ -112,6 +114,7 @@ fig.coast(
     frame="ag",
 )
 fig.show()
+
 
 # %%
 # ISO code

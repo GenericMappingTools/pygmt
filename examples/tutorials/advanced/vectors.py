@@ -9,6 +9,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
+
 # %%
 # Plot Cartesian Vectors
 # ----------------------
@@ -243,6 +244,7 @@ fig.plot(
 
 fig.show()
 
+
 # %%
 # Plot Circular Vectors
 # ---------------------
@@ -343,6 +345,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
         fill="red3",
     )
 fig.show()
+
 
 # %%
 # Plot Geographic Vectors

@@ -26,6 +26,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
+
 # %%
 # Define subplot layout
 # ---------------------
@@ -85,6 +86,7 @@ fig.show()
 #
 #     with fig.set_panel(panel=[0, 2]):
 #         ...
+
 
 # %%
 # Making your first subplot
@@ -151,6 +153,7 @@ fig.show()
 #     set a ``panel`` will have their elements added to the same panel as
 #     before.
 
+
 # %%
 # Shared x- and y-axes
 # --------------------
@@ -186,6 +189,7 @@ fig.show()
 # Of course, instead of using the ``sharex``/``sharey`` parameters, you can
 # also set a different ``frame`` for each subplot to control the axis
 # properties individually for each subplot.
+
 
 # %%
 # Advanced subplot layouts

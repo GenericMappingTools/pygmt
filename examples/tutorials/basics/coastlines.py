@@ -8,6 +8,7 @@ Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 
 import pygmt
 
+
 # %%
 # Shorelines
 # ----------
@@ -45,6 +46,7 @@ fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=["1/1p,black", "2/0.5p,red"])
 fig.show()
 
+
 # %%
 # Resolutions
 # -----------
@@ -64,6 +66,7 @@ for res in ["c", "l", "i", "h", "f"]:
     fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5c")
     fig.shift_origin(xshift="5c")
 fig.show()
+
 
 # %%
 # Land and water

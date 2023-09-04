@@ -16,6 +16,7 @@ import pygmt
 # at :gmt-datasets:`earth-relief.html`.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
+
 # %%
 # Create a plot
 # -------------
@@ -39,6 +40,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c")
 fig.show()
 
+
 # %%
 # Set a color map
 # ---------------
@@ -61,6 +63,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="relief")
 fig.show()
 
+
 # %%
 # Add a color bar
 # ---------------
@@ -77,6 +80,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
+
 
 # %%
 # Create a region map

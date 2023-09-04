@@ -20,6 +20,7 @@ import pandas as pd
 import pygmt
 import xarray as xr
 
+
 # %%
 # Using Python's ``datetime``
 # ---------------------------
@@ -93,6 +94,7 @@ fig.plot(
 )
 fig.show()
 
+
 # %%
 # Using ISO Format
 # ----------------
@@ -130,6 +132,7 @@ fig.show()
 # format using :func:`pandas.to_datetime` and then pass it to PyGMT.
 #
 
+
 # %%
 # Mixing and matching Python ``datetime`` and ISO dates
 # -----------------------------------------------------
@@ -153,6 +156,7 @@ fig.plot(
     fill="yellow",
 )
 fig.show()
+
 
 # %%
 # Using :meth:`pandas.date_range`
@@ -184,6 +188,7 @@ fig.plot(
 )
 fig.show()
 
+
 # %%
 # Using :class:`xarray.DataArray`
 # -------------------------------
@@ -212,6 +217,7 @@ fig.plot(
 )
 fig.show()
 
+
 # %%
 # Using :class:`numpy.datetime64`
 # -------------------------------
@@ -236,6 +242,7 @@ fig.plot(
     fill="blue",
 )
 fig.show()
+
 
 # %%
 # Generating an automatic region
@@ -278,6 +285,7 @@ fig.plot(
 )
 
 fig.show()
+
 
 # %%
 # Setting Primary and Secondary Time Axes
@@ -340,7 +348,6 @@ fig.show()
 # instead of a 24-hour system. More information about configuring
 # time formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
-
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]

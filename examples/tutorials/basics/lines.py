@@ -8,6 +8,7 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
 import pygmt
 
+
 # %%
 # Plot lines
 # ----------
@@ -58,6 +59,7 @@ fig.plot(
 )
 fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
 fig.show()
+
 
 # %%
 # Change line attributes
