@@ -81,8 +81,9 @@ fig.show()
 # not needed again. However, the same input for ``grid`` (in this case, the
 # variable named "grid") must be input again. The ``interval`` parameter sets
 # the spacing between adjacent contour lines (in this case, 500 meters),
-# and the ``annotation`` parameter draws darker lines that are annotated with
-# the elevation or bathymetry.
+# and the ``annotation`` parameter annotates the contour lines corresponding
+# to the given interval (in this case, 1,000 meters) with the related values,
+# here elevation or bathymetry.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
