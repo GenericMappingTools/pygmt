@@ -18,7 +18,7 @@ fig.basemap(region=[20, 30, -10, 10], projection="X10c/5c", frame=True)
 fig.timestamp()
 fig.show()
 
-###############################################################################
+# %%
 # Additionally, a custom label can be added via the ``label`` parameter. The
 # font can be defined via the ``font`` parameter and the timestamp string
 # format via ``timefmt``.
