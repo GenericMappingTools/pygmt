@@ -11,7 +11,6 @@ import os
 
 import pygmt
 
-
 # %%
 # Basic map annotation
 # --------------------

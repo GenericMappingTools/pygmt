@@ -10,7 +10,6 @@ contain.
 
 import pygmt
 
-
 # %%
 # Plot frame
 # ----------

@@ -8,7 +8,6 @@ statistics based on a cumulative distribution function.
 
 import pygmt
 
-
 # %%
 # Load sample data
 # ----------------

@@ -8,7 +8,6 @@ Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 
 import pygmt
 
-
 # %%
 # Shorelines
 # ----------

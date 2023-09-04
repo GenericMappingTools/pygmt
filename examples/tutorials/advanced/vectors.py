@@ -9,7 +9,6 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 import numpy as np
 import pygmt
 
-
 # %%
 # Plot Cartesian Vectors
 # ----------------------

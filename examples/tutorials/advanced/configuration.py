@@ -9,7 +9,6 @@ Default GMT parameters can be set globally or locally using
 
 import pygmt
 
-
 # %%
 # Configuring default GMT parameters
 # ----------------------------------

@@ -20,7 +20,6 @@ import pandas as pd
 import pygmt
 import xarray as xr
 
-
 # %%
 # Using Python's ``datetime``
 # ---------------------------

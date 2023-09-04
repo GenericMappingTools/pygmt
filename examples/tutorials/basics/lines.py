@@ -8,7 +8,6 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
 import pygmt
 
-
 # %%
 # Plot lines
 # ----------

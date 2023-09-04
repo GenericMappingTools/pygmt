@@ -9,7 +9,6 @@ of inputs that it can accept.
 
 import pygmt
 
-
 # %%
 # Coordinates
 # -----------
