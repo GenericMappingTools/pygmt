@@ -9,7 +9,7 @@ Default GMT parameters can be set globally or locally using
 
 import pygmt
 
-###############################################################################
+# %%
 # Configuring default GMT parameters
 # ----------------------------------
 #
@@ -26,7 +26,7 @@ fig.coast(land="black", water="skyblue")
 
 fig.show()
 
-###############################################################################
+# %%
 # Globally overriding defaults
 # ----------------------------
 #
@@ -50,7 +50,7 @@ fig.coast(land="black", water="skyblue")
 
 fig.show()
 
-###############################################################################
+# %%
 # Locally overriding defaults
 # ---------------------------
 #
