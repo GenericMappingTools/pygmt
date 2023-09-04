@@ -14,6 +14,7 @@ Note that anyone can contribute to PyGMT, even without being added to the
 The onboarding items below are for people who would like to make regular
 contributions, and could benefit from extra permissions to the developer and
 communication tools we use.
+
 ### As a Contributor
 
 - Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
