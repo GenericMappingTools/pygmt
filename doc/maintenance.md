@@ -24,7 +24,7 @@ communication tools we use.
 ### As a Maintainer
 
 - Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
-- Update the roles in the {doc}`Team Gallery <team>` page
+- Update the role on the {doc}`Team Gallery page <team>`
 - Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 - Added as a maintainer on [Readthedocs](https://readthedocs.org/projects/pygmt-dev) [optional]
 
