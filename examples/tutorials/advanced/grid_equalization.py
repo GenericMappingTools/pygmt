@@ -8,7 +8,7 @@ statistics based on a cumulative distribution function.
 
 import pygmt
 
-###############################################################################
+# %%
 # Load sample data
 # ----------------
 # Load the sample Earth relief data for a region around Yosemite valley
@@ -20,7 +20,7 @@ grid = pygmt.datasets.load_earth_relief(
 )
 grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
 
-###############################################################################
+# %%
 # Plot the original digital elevation model and data distribution
 # ---------------------------------------------------------------
 # For comparison, we will create a map of the original digital elevation
@@ -55,7 +55,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
-###############################################################################
+# %%
 # Equalize grid based on a linear distribution
 # --------------------------------------------
 # The :meth:`pygmt.grdhisteq.equalize_grid` method creates a new grid with the
@@ -69,7 +69,7 @@ divisions = 9
 linear = pygmt.grdhisteq.equalize_grid(grid=grid, divisions=divisions)
 linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 
-###############################################################################
+# %%
 # Calculate the bins used for data transformation
 # -----------------------------------------------
 # The :meth:`pygmt.grdhisteq.compute_bins` method reports statistics about the
@@ -82,7 +82,7 @@ linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 
 pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions)
 
-###############################################################################
+# %%
 # Plot the equally distributed data
 # ---------------------------------------------------------------
 # Here we create a map showing the grid that has been transformed to
@@ -118,7 +118,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
-###############################################################################
+# %%
 # Transform grid based on a normal distribution
 # ---------------------------------------------
 # The ``gaussian`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
@@ -129,7 +129,7 @@ fig.show()
 normal = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 normal_dist = pygmt.grd2xyz(grid=normal, output_type="pandas")["z"]
 
-###############################################################################
+# %%
 # Plot the normally distributed data
 # ----------------------------------
 # Here we create a map showing the grid that has been transformed to have
@@ -163,7 +163,7 @@ with fig.subplot(
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
 
-###############################################################################
+# %%
 # Equalize grid based on a quadratic distribution
 # -----------------------------------------------
 # The ``quadratic`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
@@ -177,7 +177,7 @@ quadratic = pygmt.grdhisteq.equalize_grid(
 )
 quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 
-###############################################################################
+# %%
 # Calculate the bins used for data transformation
 # -----------------------------------------------
 # We can also use the ``quadratic`` parameter of
@@ -187,7 +187,7 @@ quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 
 pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions, quadratic=True)
 
-###############################################################################
+# %%
 # Plot the quadratic distribution of data
 # ---------------------------------------
 # Here we create a map showing the grid that has been transformed to have
