@@ -20,7 +20,7 @@ instead.
 
 - Added to the [pygmt-maintainers](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) team (gives 'maintain' permission to the repository)
 - Update the roles in the {doc}`Team Gallery <team>` page
-- Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
+- Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 
 ### As an Administrator
 
