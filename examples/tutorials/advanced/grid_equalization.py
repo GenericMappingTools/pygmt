@@ -12,6 +12,7 @@ import pygmt
 ###############################################################################
 # Load sample data
 # ----------------
+#
 # Load the sample Earth relief data for a region around Yosemite valley
 # and use :func:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
 # z-values.
@@ -24,6 +25,7 @@ grid_dist = pygmt.grd2xyz(grid=grid, output_type="pandas")["elevation"]
 ###############################################################################
 # Plot the original digital elevation model and data distribution
 # ---------------------------------------------------------------
+#
 # For comparison, we will create a map of the original digital elevation
 # model and a histogram showing the distribution of elevation data values.
 
@@ -59,6 +61,7 @@ fig.show()
 ###############################################################################
 # Equalize grid based on a linear distribution
 # --------------------------------------------
+#
 # The :meth:`pygmt.grdhisteq.equalize_grid` method creates a new grid with the
 # z-values representing the position of the original z-values in a given
 # cumulative distribution. By default, it computes the position in a linear
@@ -73,6 +76,7 @@ linear_dist = pygmt.grd2xyz(grid=linear, output_type="pandas")["z"]
 ###############################################################################
 # Calculate the bins used for data transformation
 # -----------------------------------------------
+#
 # The :meth:`pygmt.grdhisteq.compute_bins` method reports statistics about the
 # grid equalization. Here, we report the bins that would linearly divide the
 # original data into 9 divisions with equal area. In our new grid produced by
@@ -85,7 +89,8 @@ pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions)
 
 ###############################################################################
 # Plot the equally distributed data
-# ---------------------------------------------------------------
+# ---------------------------------
+#
 # Here we create a map showing the grid that has been transformed to
 # have a linear distribution with nine divisions and a histogram of the data
 # values.
@@ -122,6 +127,7 @@ fig.show()
 ###############################################################################
 # Transform grid based on a normal distribution
 # ---------------------------------------------
+#
 # The ``gaussian`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
 # used to transform the z-values relative to their position in a normal
 # distribution rather than a linear distribution. In this case, the output
@@ -133,6 +139,7 @@ normal_dist = pygmt.grd2xyz(grid=normal, output_type="pandas")["z"]
 ###############################################################################
 # Plot the normally distributed data
 # ----------------------------------
+#
 # Here we create a map showing the grid that has been transformed to have
 # a normal distribution and a histogram of the data values.
 
@@ -167,6 +174,7 @@ fig.show()
 ###############################################################################
 # Equalize grid based on a quadratic distribution
 # -----------------------------------------------
+#
 # The ``quadratic`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
 # used to transform the z-values relative to their position in a quadratic
 # distribution rather than a linear distribution. Here, we equalize the grid
@@ -181,6 +189,7 @@ quadratic_dist = pygmt.grd2xyz(grid=quadratic, output_type="pandas")["z"]
 ###############################################################################
 # Calculate the bins used for data transformation
 # -----------------------------------------------
+#
 # We can also use the ``quadratic`` parameter of
 # :meth:`pygmt.grdhisteq.compute_bins` to report the bins used for dividing
 # the grid into 9 divisions based on their position in a quadratic
@@ -191,6 +200,7 @@ pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions, quadratic=True)
 ###############################################################################
 # Plot the quadratic distribution of data
 # ---------------------------------------
+#
 # Here we create a map showing the grid that has been transformed to have
 # a quadratic distribution and a histogram of the data values.
 
