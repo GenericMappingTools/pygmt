@@ -11,8 +11,7 @@ added to the inset figure instead of the larger figure.
 
 import pygmt
 
-###############################################################################
-#
+# %%
 # Prior to creating an inset figure, a larger figure must first be plotted. In
 # the example below, :meth:`pygmt.Figure.coast` is used to create a map of the
 # US state of Massachusetts.
@@ -29,8 +28,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The :meth:`pygmt.Figure.inset` method uses a context manager, and is called
 # using a ``with`` statement. The ``position`` parameter, including the inset
 # width, is required to plot the inset. Using the **j** argument, the location
@@ -56,8 +54,7 @@ with fig.inset(position="jBL+w3c", box="+pblack+glightred"):
     pass
 fig.show()
 
-###############################################################################
-#
+# %%
 # When using **j** to set the anchor of the inset, the default location is in
 # contact with the nearby axis or axes. The offset of the inset can be set with
 # **+o**, followed by the offsets along the x- and y-axis. If only one offset
@@ -79,8 +76,7 @@ with fig.inset(position="jBL+w3c+o0.5c/0.2c", box="+pblack+glightred"):
     pass
 fig.show()
 
-###############################################################################
-#
+# %%
 # Standard plotting methods can be called from within the ``inset`` context
 # manager. The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed
 # out map that selectively paints the state of Massachusetts to show its
