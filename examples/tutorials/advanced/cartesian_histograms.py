@@ -21,7 +21,7 @@ method. In this tutorial, different histogram related aspects are addressed:
 import numpy as np
 import pygmt
 
-###############################################################################
+# %%
 # Generate random data from a normal distribution:
 
 np.random.seed(100)
@@ -36,7 +36,7 @@ data01 = np.random.normal(mean, stddev, 42)
 data02 = np.random.normal(mean, stddev * 2, 42)
 
 
-###############################################################################
+# %%
 # Vertical and horizontal bars
 # ----------------------------
 # To define the width of the bins, the ``series`` parameter has to be
@@ -92,7 +92,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Stair-steps
 # -----------
 # A stair-step diagram can be created by setting ``stairs=True``. Then only
@@ -134,7 +134,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Counts and frequency percent
 # ----------------------------
 # By default, a histogram showing the counts in each bin is created
@@ -178,7 +178,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Cumulative values
 # -----------------
 # To create a histogram showing the cumulative values set ``cumulative=True``.
@@ -228,7 +228,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Overlaid bars
 # -------------
 # Overlaid or overlapping bars can be achieved by plotting two or serveral
@@ -276,7 +276,7 @@ fig.legend()
 fig.show()
 
 
-###############################################################################
+# %%
 # Stacked bars
 # ------------
 # Histograms with stacked bars are not directly supported by PyGMT. Thus,
@@ -327,7 +327,7 @@ fig.legend()
 fig.show()
 
 
-###############################################################################
+# %%
 # Grouped bars
 # ------------
 # By setting the ``barwidth`` parameter in respect to the values passed to the
