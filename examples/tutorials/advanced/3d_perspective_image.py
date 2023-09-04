@@ -12,7 +12,7 @@ import pygmt
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
-###############################################################################
+# %%
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
 # The ``perspective`` parameter changes the azimuth and elevation of the
 # viewpoint; the default is [180, 90], which is looking directly down on the
@@ -37,7 +37,7 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The grid surface type can be set with the ``surftype`` parameter.
 # The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
@@ -55,7 +55,7 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The ``plane`` parameter sets the elevation and color of a plane that provides
 # a fill below the surface relief.
 
@@ -73,7 +73,7 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
 # in the figure. The ``contourpen`` parameter sets the pen used to draw contour
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
