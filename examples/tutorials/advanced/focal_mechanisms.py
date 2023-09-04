@@ -69,6 +69,7 @@ fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
 # in degrees East or North
 study_area = [-84, -76, -4, 4]
 
+
 # %%
 # Plot a single beachball
 # -----------------------
