@@ -52,7 +52,7 @@ This tutorial shows how to adjust the display of the beachballs:
 # Import the required packages
 import pygmt
 
-###############################################################################
+# %%
 # Set up input data
 # -----------------
 # TODO - consistent with lists in introduction
@@ -69,7 +69,7 @@ fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
 # in degrees East or North
 study_area = [-84, -76, -4, 4]
 
-###############################################################################
+# %%
 # Plot a single beachball
 # -----------------------
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
@@ -100,7 +100,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Adjust outline
 # --------------
 # parameters ``pen`` and ``outline``
@@ -154,7 +154,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Fill quadrants with colors and patterns
 # ---------------------------------------
 # parameters ``compressionfill`` and ``extensionfill``
@@ -211,7 +211,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Highlight nodal planes
 # ----------------------
 # parameter ``nodal``
@@ -275,7 +275,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Offset from event location
 # --------------------------
 # Prameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
@@ -334,7 +334,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Plot several beachballs
 # -----------------------
 # TODO
@@ -379,7 +379,7 @@ fig.meca(
 fig.show()
 
 
-###############################################################################
+# %%
 # Size-coding and color-coding
 # ----------------------------
 # e.g., by magnitude or hypocentral depth
@@ -418,7 +418,7 @@ fig.colorbar(frame=["x+lhpyocentral depth", "y+lkm"])
 fig.show()
 
 
-###############################################################################
+# %%
 # Add label
 # ---------
 # ``event_name`` as parameter or as column
