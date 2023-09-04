@@ -1,6 +1,7 @@
 """
 Multiple colormaps
 ------------------
+
 This gallery example shows how to create multiple colormaps for different
 subplots. To better understand how GMT modern mode maintains several levels of
 colormaps, please refer to
