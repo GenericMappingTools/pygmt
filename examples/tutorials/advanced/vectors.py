@@ -112,7 +112,7 @@ fig.show()
 # ``[x_start, y_start, direction_degrees, length]``.
 #
 # If this approach is chosen, the ``data`` parameter must be
-# used instead of ``x``, ``y`` and  ``direction``.
+# used instead of ``x``, ``y``, and ``direction``.
 
 # Create a list of lists that include each vector information
 vectors = [[2, 3, 45, 4]]
