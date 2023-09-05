@@ -46,7 +46,7 @@ with fig.inset(
     # Plot a rectangle ("r") in the inset map to show the area of the main
     # figure. "+s" means that the first two columns are the longitude and
     # latitude of the bottom left corner of the rectangle, and the last two
-    # columns the longitude and latitude of the uppper right corner.
+    # columns the longitude and latitude of the upper right corner.
     rectangle = [[region[0], region[2], region[1], region[3]]]
     fig.plot(data=rectangle, style="r+s", pen="2p,blue")
 
