@@ -13,7 +13,7 @@ import pygmt
 # Plot Cartesian Vectors
 # ----------------------
 #
-# Create a simple Cartesian vector using a starting point through
+# Create a simple Cartesian vector using a start point through
 # ``x``, ``y``, and ``direction`` parameters.
 # On the shown figure, the plot is projected on a 10cm X 10cm region,
 # which is specified by the ``projection`` parameter.
@@ -356,7 +356,7 @@ fig.show()
 # Other styling features such as vector stem thickness and head color
 # can be passed into the ``pen`` and ``fill`` parameters.
 #
-# Note that the **+s** is added to use a startpoint and an endpoint
+# Note that the **+s** is added to use a start point and an end point
 # to represent the vector instead of input angle and length.
 
 point_1 = [-114.7420, 44.0682]
@@ -382,8 +382,8 @@ fig.show()
 
 ###############################################################################
 # Using the same technique shown in the previous example,
-# multiple vectors can be plotted in a chain where the endpoint
-# of one is the starting point of another. This can be done
+# multiple vectors can be plotted in a chain where the end point
+# of one is the start point of another. This can be done
 # by adding the coordinate lists together to create this structure:
 # ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
 # Each list within the 2-D list contains the start and end information
@@ -418,7 +418,7 @@ fig.plot(
 fig.show()
 
 ###############################################################################
-# This example plots vectors over a Mercator projection. The starting points
+# This example plots vectors over a Mercator projection. The start points
 # are located at SA which is South Africa and going to four different
 # locations.
 
