@@ -90,7 +90,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.grdcontour(grid=grid, interval=500, annotation=1000)
-fig.colorbar(frame=["a1000", "x+lElevation (m)"])
+fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 
 ###############################################################################
@@ -106,7 +106,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
 fig.grdcontour(grid=grid, interval=500, annotation=1000)
 fig.coast(shorelines="2p", land="lightgray")
-fig.colorbar(frame=["a1000", "x+lElevation (m)"])
+fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 
 ###############################################################################
