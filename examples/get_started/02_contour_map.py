@@ -80,10 +80,12 @@ fig.show()
 # ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
 # not needed again. However, the same input for ``grid`` (in this case, the
 # variable named "grid") must be input again. The ``interval`` parameter sets
-# the spacing between adjacent contour lines (in this case, 500 meters),
-# and the ``annotation`` parameter annotates the contour lines corresponding
-# to the given interval (in this case, 1,000 meters) with the related values,
-# here elevation or bathymetry.
+# the spacing between adjacent contour lines (in this case, 500 meters). The
+# ``annotation`` parameter annotates the contour lines corresponding to the
+# given interval (in this case, 1,000 meters) with the related values, here
+# elevation or bathymetry. By default, these contour lines are drawn thicker.
+# These settings can be overruled by specifying a desired ``pen``, which then
+# applies for all contour lines.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
