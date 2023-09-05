@@ -84,8 +84,8 @@ fig.show()
 # ``annotation`` parameter annotates the contour lines corresponding to the
 # given interval (in this case, 1,000 meters) with the related values, here
 # elevation or bathymetry. By default, these contour lines are drawn thicker.
-# These settings can be overruled by specifying a desired ``pen``, which then
-# applies for all contour lines.
+# The appearance (thickness, color, style) of the contour lines can be adjusted
+# by specifying a desired ``pen``, which then applies to all contour lines.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
