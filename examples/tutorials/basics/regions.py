@@ -82,7 +82,7 @@ fig.show()
 # the region to the entire globe. The range is 180W to 180E (-180, 180) and 90S
 # to 90N (-90 to 90). With no parameters set for the projection, the figure
 # defaults to be centered at the mid-point of both x- and y-axes. Using
-# **d**\ , the figure is centered at (0, 0), or the intersection of the equator
+# **d**, the figure is centered at (0, 0), or the intersection of the equator
 # and prime meridian.
 
 fig = pygmt.Figure()
