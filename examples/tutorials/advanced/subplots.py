@@ -124,8 +124,7 @@ fig.show()
 # Notice that each subplot was set to use a linear projection ``"X?"``.
 # Usually, we need to specify the width and height of the map frame, but it is
 # also possible to use a question mark ``"?"`` to let GMT decide automatically
-# on what is the most appropriate width/height for the each subplot's map
-# frame.
+# on what is the most appropriate width/height for each subplot's map frame.
 
 ###############################################################################
 # .. tip::
