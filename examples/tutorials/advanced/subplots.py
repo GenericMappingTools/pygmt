@@ -191,7 +191,7 @@ fig.show()
 # Advanced subplot layouts
 # ------------------------
 #
-# Nested subplot are currently not supported. If you want to create more
+# Nested subplots are currently not supported. If you want to create more
 # complex subplot layouts, some manual adjustments are needed.
 #
 # The following example draws three subplots in a 2-row, 2-column layout, with
