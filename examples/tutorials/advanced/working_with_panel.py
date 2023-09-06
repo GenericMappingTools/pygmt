@@ -65,7 +65,7 @@ fig.show()
 # To generate a rotation of the Earth around the vertical axis, the central
 # longitude of the Orthographic projection is varied iteratively in steps of
 # 10 degrees. The library ``Panel`` is used to create an interactive dashboard
-# with a slider (works only in a notebook environment, e.g. Jupyter notebook).
+# with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
 # Create a slider
 slider_lon = pn.widgets.DiscreteSlider(
