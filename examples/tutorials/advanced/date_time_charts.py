@@ -160,7 +160,7 @@ fig.show()
 # -------------------------------
 #
 # In the following example, :func:`pandas.date_range` produces a list of
-# :class:`pandas.DatetimeIndex` objects, which gets is used to pass date
+# :class:`pandas.DatetimeIndex` objects, which is used to pass date
 # data to the PyGMT figure.
 # Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex`
 # objects, with the number being manipulated by the ``periods`` parameter. Each
