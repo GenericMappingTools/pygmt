@@ -34,6 +34,7 @@ pn.extension()
 # %%
 # Make a static map
 # -----------------
+#
 # The `Orthographic projection
 # <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
 # can be used to show the Earth as a globe. Land and water masses are
@@ -60,6 +61,7 @@ fig.show()
 # %%
 # Make an interactive map
 # -----------------------
+#
 # To generate a rotation of the Earth around the vertical axis, the central
 # longitude of the Orthographic projection is varied iteratively in steps of
 # 10 degrees. The library ``Panel`` is used to create an interactive dashboard
@@ -97,6 +99,7 @@ pn.Column(slider_lon, view)
 # %%
 # Add a grid for Earth relief
 # ---------------------------
+#
 # Instead of using colors as fill for the land and water masses a grid can be
 # displayed. Here, the Earth relief is shown by color-coding the elevation.
 

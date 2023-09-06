@@ -24,7 +24,7 @@ fig.show()
 ###############################################################################
 # To add the default GMT frame style to the plot, use ``frame="f"`` in
 # :meth:`pygmt.Figure.basemap` or another plotting method (which has the
-# ``frame`` parameter, with exception of :meth:`pygmt.Figure.colorbar`):
+# ``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
@@ -71,7 +71,7 @@ fig.show()
 #
 # The figure title can be set by passing **+t**\ *title* to the ``frame``
 # parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-# ``frame`` can be done by using a list, as show in the example below.
+# ``frame`` can be done by using a list, as shown in the example below.
 
 fig = pygmt.Figure()
 # region="TT" specifies Trinidad and Tobago using the ISO country code

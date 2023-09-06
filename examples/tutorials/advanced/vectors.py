@@ -349,6 +349,7 @@ fig.show()
 # %%
 # Plot Geographic Vectors
 # -----------------------
+#
 # On this map,
 # ``point_1`` and ``point_2`` are coordinate pairs used to set the
 # start and end points of the geographic vector.

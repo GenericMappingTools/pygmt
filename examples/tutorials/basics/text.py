@@ -40,6 +40,7 @@ fig.show()
 # %%
 # Changing font style
 # -------------------
+#
 # The size, family/weight, and color of an annotation can be specified using
 # the ``font`` parameter.
 #
@@ -121,6 +122,7 @@ fig.show()
 # %%
 # ``angle`` parameter
 # -------------------
+#
 # ``angle`` is an optional parameter used to specify the counter-clockwise
 # rotation in degrees of the text from the horizontal.
 
