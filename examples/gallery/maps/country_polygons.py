@@ -5,7 +5,7 @@ The :meth:`pygmt.Figure.coast` method can highlight country polygons
 via the ``dcw`` parameter. It accepts the country code or full
 country name and can draw its borders and add a color to its landmass.
 It's also possible to define multiple countries at once by separating
-the indiviudal names with commas.
+the individual names with commas.
 """
 
 # sphinx_gallery_thumbnail_number = 1
