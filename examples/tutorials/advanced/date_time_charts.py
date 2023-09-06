@@ -60,11 +60,11 @@ fig.show()
 # ``region`` parameter as well as data points can be created with both date and
 # time information.
 #
-# Some notable differences to the previous example include
+# Some notable differences to the previous example include:
 #
 # - Modifying ``frame`` to only include West (left) and South (bottom) borders,
 #   and removing grid lines
-# - Using circles to plot data points defined through ``c`` in ``style``
+# - Using circles to plot data points defined through ``c`` in the ``style``
 #   parameter
 
 x = [
@@ -189,13 +189,13 @@ fig.show()
 # Using :class:`xarray.DataArray`
 # -------------------------------
 #
-# In this example, instead of using a :func:`pandas.date_range`, ``x`` is
+# In this example, instead of using :func:`pandas.date_range`, ``x`` is
 # initialized as a list of :class:`xarray.DataArray` objects. This object
 # provides a wrapper around regular PyData formats. It also allows the data to
 # have labeled dimensions while supporting operations that use various pieces
-# of metadata.The following code uses :func:`pandas.date_range` object to fill
-# the DataArray with data, but this is not essential for the creation of a
-# valid DataArray.
+# of metadata. The following code uses a :func:`pandas.date_range` object to
+# fill the DataArray with data, but this is not essential for the creation of
+# a valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
 y = [4, 7, 5, 6]
@@ -217,7 +217,7 @@ fig.show()
 # Using :class:`numpy.datetime64`
 # -------------------------------
 #
-# In this example, instead of using a :func:`pd.date_range`, ``x`` is
+# In this example, instead of using :func:`pd.date_range`, ``x`` is
 # initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
 # this wraps the dataset before passing it as a parameter. However,
 # ``np.array`` objects use less memory and allow developers to specify
@@ -245,7 +245,7 @@ fig.show()
 #
 # Another way of creating charts involving datetime data can be done
 # by automatically generating the region of the plot. This can be done
-# by passing the dataframe to :func:`pygmt.info`, which will find
+# by passing the dataframe to :func:`pygmt.info`, which will find the
 # maximum and minimum values for each column and create a list
 # that could be passed as region. Additionally, the ``spacing`` argument
 # can be passed to increase the range past the maximum and minimum
@@ -299,10 +299,10 @@ fig.show()
 # ``"sxa1Of1D"``. This string modifies the secondary
 # labeling (**s**) of the x-axis (**x**). Specifically,
 # it sets the main annotation and major tick spacing interval
-# to one month (**a1O**) (capital letter o, not zero). Additionally,
+# to one month (**a1O**) (capital letter O, not zero). Additionally,
 # it sets the minor tick spacing interval to 1 day (**f1D**).
 # The labeling of this axis can be modified by setting
-# :gmt-term:`FORMAT_DATE_MAP` to 'o' to use the month's
+# :gmt-term:`FORMAT_DATE_MAP` to ``"o"`` to use the month's
 # name instead of its number. More information about configuring
 # date formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
@@ -334,7 +334,7 @@ fig.show()
 # the day of the week.
 #
 # Another notable mention in this example is
-# setting :gmt-term:`FORMAT_CLOCK_MAP` to "-hhAM"
+# setting :gmt-term:`FORMAT_CLOCK_MAP` to ``"-hhAM"``
 # which specifies the format used for time.
 # In this case, leading zeros are removed
 # using (**-**), and only hours are displayed.
