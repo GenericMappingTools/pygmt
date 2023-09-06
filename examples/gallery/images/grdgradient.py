@@ -1,6 +1,7 @@
 """
 Calculating grid gradient and radiance
 --------------------------------------
+
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
 In the example shown below we will see how to calculate a hillshade map based
 on a Data Elevation Model (DEM). As input :func:`pygmt.grdgradient` gets
