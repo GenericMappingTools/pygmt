@@ -283,25 +283,23 @@ fig.show()
 # Setting Primary and Secondary Time Axes
 # ---------------------------------------
 #
-# This example focuses on labeling the axes and setting intervals at which the
-# labels are expected to appear. All of these modifications are added to the
-# ``frame`` parameter and each item in that list modifies a specific section
-# of the plot.
+# This example focuses on annotating the axes and setting the interval in which
+# the annotations are expected to appear. All of these modifications are passed
+# to the ``frame`` parameter and each item in that list modifies a specific
+# aspect of the frame.
 #
-# Starting off with ``WS``, adding this string means that only Western/Left
-# (**W**) and Southern/Bottom (**S**) borders of the plot will be shown.
-# For more information on this, please refer to
-# :doc:`frame instructions </tutorials/basics/frames>`.
+# Adding ``"WS"`` means that only the Western/Left (**W**) and Southern/Bottom
+# (**S**) borders of the plot are annotated. For more information on this,
+# please refer to :doc:`frame instructions </tutorials/basics/frames>`.
 #
-# The other important item in the ``frame`` list is ``"sxa1Of1D"``. This
-# string modifies the secondary labeling (**s**) of the x-axis (**x**).
+# The other important item in the list passed to ``frame`` is ``"sxa1Of1D"``.
+# This string modifies the secondary annotation (**s**) of the x-axis (**x**).
 # Specifically, it sets the main annotation and major tick spacing interval
 # to one month (**a1O**) (capital letter O, not zero). Additionally, it sets
-# the minor tick spacing interval to 1 day (**f1D**). The labeling of this
-# axis can be modified by setting :gmt-term:`FORMAT_DATE_MAP` to **o** to
-# use the month's name instead of its number. More information about
-# configuring date formats can be found on the
-# :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
+# the minor tick spacing interval to 1 day (**f1D**). To use the month's name
+# instead of its number set :gmt-term:`FORMAT_DATE_MAP` to **o**. More
+# information on configuring date formats can be found at
+# # https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
