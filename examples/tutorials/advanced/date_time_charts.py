@@ -329,11 +329,12 @@ fig.show()
 #
 # Another notable mention in this example is setting
 # :gmt-term:`FORMAT_CLOCK_MAP` to **-hhAM** which specifies the format
-# used for time. In this case, leading zeros are removed using (**-**), and
-# only hours are displayed. Additionally, an AM/PM system is being used
-# instead of a 24-hour system. More information about configuring time
-# formats can be found on the
-# :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
+# used for time. In this case, leading zeros are removed using (**-**),
+# and only hours are displayed. Additionally, an AM/PM system is being
+# used instead of a 24-hour system. More information about configuring
+# time formats can be found at :gmt-docs:
+# `https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters
+
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
