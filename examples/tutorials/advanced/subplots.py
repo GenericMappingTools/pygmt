@@ -90,6 +90,7 @@ fig.show()
 ###############################################################################
 # Making your first subplot
 # -------------------------
+#
 # Next, let's use what we learned above to make a 2 row by 2 column subplot
 # figure. We'll also pick up on some new parameters to configure our subplot.
 
@@ -155,6 +156,7 @@ fig.show()
 ###############################################################################
 # Shared x- and y-axes
 # --------------------
+#
 # In the example above with the four subplots, the two subplots for each row
 # have the same y-axis range, and the two subplots for each column have the
 # same x-axis range. You can use the ``sharex``/``sharey`` parameters to set a

@@ -1,6 +1,7 @@
 """
 3. Figure elements
 ==================
+
 The figure below shows the naming of figure elements in PyGMT.
 
 - :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
