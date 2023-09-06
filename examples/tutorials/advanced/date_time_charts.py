@@ -5,7 +5,7 @@ Plotting datetime charts
 PyGMT accepts a variety of datetime objects to plot data and create charts.
 Aside from the built-in Python ``datetime`` module, PyGMT supports inputs
 containing ISO formatted strings as well as objects generated with
-``pandas``, ``xarray``, and``numpy``. These data types can be used to plot
+``pandas``, ``xarray``, and ``numpy``. These data types can be used to plot
 specific points as well as get passed into the ``region`` parameter to
 create a range of the data on an axis.
 
