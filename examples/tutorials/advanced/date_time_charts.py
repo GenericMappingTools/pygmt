@@ -25,15 +25,12 @@ import xarray as xr
 # Using Python's ``datetime``
 # ---------------------------
 #
-# In this example, Python's built-in ``datetime`` module is used
-# to create data points stored in the list ``x``. Additionally,
-# dates are passed into the ``region`` parameter in the format
-# ``[x_start, x_end, y_start, y_end]``,
-# where the date range is plotted on the x-axis.
-# An additional notable parameter is ``style``, where it's specified
-# that data points are to be plotted in an **X** shape with a size
-# of 0.3 centimeters.
-#
+# In this example, Python's built-in ``datetime`` module is used to create
+# data points stored in the list ``x``. Additionally, dates are passed into
+# the ``region`` parameter in the format ``[x_start, x_end, y_start, y_end]``,
+# where the date range is plotted on the x-axis. An additional notable
+# parameter is ``style``, where it's specified that data points are to be
+# plotted in an **X** shape with a size of 0.3 centimeters.
 
 x = [
     datetime.date(2010, 6, 1),
