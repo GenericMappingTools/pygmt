@@ -14,6 +14,8 @@ Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
 `CC BY-NC 4.0 <https://creativecommons.org/licenses/by-nc/4.0/>`_ license.
 """
+
+# %%
 import pygmt
 import rioxarray
 

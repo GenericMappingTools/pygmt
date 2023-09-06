@@ -9,6 +9,7 @@ Modified from the matplotlib example:
 https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend.html
 """
 
+# %%
 import numpy as np
 import pygmt
 

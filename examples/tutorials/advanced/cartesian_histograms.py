@@ -16,7 +16,7 @@ method. In this tutorial, different histogram related aspects are addressed:
 
 # sphinx_gallery_thumbnail_number = 4
 
-
+# %%
 # Import the required packages
 import numpy as np
 import pygmt

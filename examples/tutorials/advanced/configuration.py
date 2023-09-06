@@ -5,8 +5,10 @@ Configuring PyGMT defaults
 Default GMT parameters can be set globally or locally using
 :class:`pygmt.config`.
 """
+
 # sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
 # %%

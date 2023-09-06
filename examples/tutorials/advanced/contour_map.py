@@ -4,8 +4,10 @@ Creating a map with contour lines
 
 Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 """
+
 # sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
 # Load sample earth relief data

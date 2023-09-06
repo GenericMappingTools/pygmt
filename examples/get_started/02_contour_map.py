@@ -11,6 +11,8 @@ plotting.
 """
 
 # sphinx_gallery_thumbnail_number = 4
+
+# %%
 import pygmt
 
 # %%

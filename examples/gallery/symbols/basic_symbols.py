@@ -12,6 +12,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

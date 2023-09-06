@@ -8,8 +8,10 @@ of the plot. By default, the ``offset`` and ``justification`` parameters are
 set to ``("-54p", "-54p")`` (x, y directions) and ``"BL"`` (bottom-left),
 respectively.
 """
+
 # sphinx_gallery_thumbnail_number = 2
 
+# %%
 import os
 
 import pygmt

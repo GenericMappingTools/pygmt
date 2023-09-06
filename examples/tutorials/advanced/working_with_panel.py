@@ -22,7 +22,7 @@ This tutorial is split into three parts:
 
 # sphinx_gallery_thumbnail_number = 1
 
-
+# %%
 # Import the required packages
 import numpy as np
 import panel as pn

@@ -9,6 +9,7 @@ by offseting them from the main scatter plot figure using
 :meth:`pygmt.Figure.shift_origin`.
 """
 
+# %%
 import numpy as np
 import pygmt
 

@@ -6,8 +6,10 @@ Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
 parameter that most plotting methods of the :class:`pygmt.Figure` class
 contain.
 """
+
 # sphinx_gallery_thumbnail_number = 4
 
+# %%
 import pygmt
 
 # %%

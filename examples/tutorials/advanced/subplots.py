@@ -17,8 +17,10 @@ couple of subplots. For more advanced subplot layouts, however, we recommend
 the use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 """
+
 # sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
 # %%

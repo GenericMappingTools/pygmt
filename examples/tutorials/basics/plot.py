@@ -8,8 +8,10 @@ datasets through the :mod:`pygmt.datasets` package. If you don't have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually ``~/.gmt/cache``).
 """
+
 # sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
 # %%

@@ -7,6 +7,7 @@ all nodes on land or water to a specified value using
 the ``maskvalues`` parameter.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

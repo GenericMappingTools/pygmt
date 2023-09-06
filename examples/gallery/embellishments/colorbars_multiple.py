@@ -8,6 +8,8 @@ colormaps, please refer to
 :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels` for
 details.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

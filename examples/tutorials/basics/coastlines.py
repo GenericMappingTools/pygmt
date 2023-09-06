@@ -4,8 +4,10 @@ Coastlines and borders
 
 Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 """
+
 # sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
 # %%
