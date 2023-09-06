@@ -100,10 +100,10 @@ fig.show()
 # each ``-`` delineated section marking the four-digit year value, two-digit
 # month value, and two-digit day value, respectively.
 #
-# When including time of day into ISO strings, the ``T`` character is used, as
+# For including the time into an ISO string, the ``T`` character is used, as it
 # can be seen in the following example. This character is immediately followed
 # by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
-# marking the two-digit hour value, two-digit minute value, and two- digit
+# marking the two-digit hour value, two-digit minute value, and two-digit
 # second value, respectively. The figure in the following example is plotted
 # over a horizontal range of one year from 2016-01-01 to 2017-01-01.
 
