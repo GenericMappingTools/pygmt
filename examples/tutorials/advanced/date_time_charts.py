@@ -298,7 +298,7 @@ fig.show()
 # Specifically, it sets the main annotation and major tick spacing interval
 # to one month (**a1O**) (capital letter O, not zero). Additionally, it sets
 # the minor tick spacing interval to 1 day (**f1D**). The labeling of this
-# axis can be modified by setting :gmt-term:`FORMAT_DATE_MAP` to ``"o"`` to
+# axis can be modified by setting :gmt-term:`FORMAT_DATE_MAP` to **o** to
 # use the month's name instead of its number. More information about
 # configuring date formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
@@ -328,7 +328,7 @@ fig.show()
 # secondary x-axis label repeats every day and shows the day of the week.
 #
 # Another notable mention in this example is setting
-# :gmt-term:`FORMAT_CLOCK_MAP` to ``"-hhAM"`` which specifies the format
+# :gmt-term:`FORMAT_CLOCK_MAP` to **-hhAM** which specifies the format
 # used for time. In this case, leading zeros are removed using (**-**), and
 # only hours are displayed. Additionally, an AM/PM system is being used
 # instead of a 24-hour system. More information about configuring time
