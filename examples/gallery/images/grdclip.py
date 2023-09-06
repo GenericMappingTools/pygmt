@@ -1,6 +1,7 @@
 """
 Clipping grid values
 --------------------
+
 The :func:`pygmt.grdclip` function allows to clip defined ranges of grid
 values. In the example shown below we set all elevation values (grid points)
 smaller than 0 m (in general the bathymetric part of the grid) to a common

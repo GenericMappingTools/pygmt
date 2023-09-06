@@ -216,6 +216,7 @@ fig.show()
 ###############################################################################
 # Using :class:`numpy.datetime64`
 # -------------------------------
+#
 # In this example, instead of using a :func:`pd.date_range`, ``x`` is
 # initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
 # this wraps the dataset before passing it as a parameter. However,

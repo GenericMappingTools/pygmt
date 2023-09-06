@@ -39,6 +39,7 @@ data02 = np.random.normal(mean, stddev * 2, 42)
 ###############################################################################
 # Vertical and horizontal bars
 # ----------------------------
+#
 # To define the width of the bins, the ``series`` parameter has to be
 # specified. The bars can be filled via the ``fill`` parameter with either a
 # color or a pattern (see later in this tutorial). Use the ``pen`` parameter
@@ -95,6 +96,7 @@ fig.show()
 ###############################################################################
 # Stair-steps
 # -----------
+#
 # A stair-step diagram can be created by setting ``stairs=True``. Then only
 # the outer outlines of the bars are drawn, and no internal bars are visible.
 
@@ -137,6 +139,7 @@ fig.show()
 ###############################################################################
 # Counts and frequency percent
 # ----------------------------
+#
 # By default, a histogram showing the counts in each bin is created
 # (``histtype=0``). To show the frequency percent set the ``histtpye``
 # parameter to ``1``. For further options please have a look at the
@@ -181,6 +184,7 @@ fig.show()
 ###############################################################################
 # Cumulative values
 # -----------------
+#
 # To create a histogram showing the cumulative values set ``cumulative=True``.
 # Here, the bars of the cumulative histogram are filled with a pattern via
 # the ``fill`` parameter. Annotate each bar with the counts it represents
@@ -231,6 +235,7 @@ fig.show()
 ###############################################################################
 # Overlaid bars
 # -------------
+#
 # Overlaid or overlapping bars can be achieved by plotting two or several
 # histograms, each for one data set, on top of each other. The legend entry
 # can be specified via the ``label`` parameter.
@@ -279,6 +284,7 @@ fig.show()
 ###############################################################################
 # Stacked bars
 # ------------
+#
 # Histograms with stacked bars are not directly supported by PyGMT. Thus,
 # before plotting, combined data sets have to be created from the single data
 # sets. Then, stacked bars can be achieved similar to overlaid bars via
@@ -330,6 +336,7 @@ fig.show()
 ###############################################################################
 # Grouped bars
 # ------------
+#
 # By setting the ``barwidth`` parameter in respect to the values passed to the
 # ``series`` parameter histograms with grouped bars can be created.
 #

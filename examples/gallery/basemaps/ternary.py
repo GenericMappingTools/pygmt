@@ -1,6 +1,7 @@
 """
 Ternary diagram
 ---------------
+
 The :meth:`pygmt.Figure.ternary` method can draw ternary diagrams. The example
 shows how to plot circles with a diameter of 0.1 centimeters
 (``style="c0.1c"``) on a 10-centimeter-wide (``width="10c"``) ternary diagram

@@ -1,6 +1,7 @@
 """
 Roads
 -----
+
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as

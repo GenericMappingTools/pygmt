@@ -1,6 +1,7 @@
 """
 Tile maps
 ---------
+
 The :meth:`pygmt.Figure.tilemap` method allows to plot
 tiles from a tile server or local file as a basemap or overlay.
 """
