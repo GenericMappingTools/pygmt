@@ -189,13 +189,13 @@ fig.show()
 # Using :class:`xarray.DataArray`
 # -------------------------------
 #
-# In this example, instead of using :func:`pandas.date_range`, ``x`` is
-# initialized as a list of individual dates within an xarray.DataArray object.
-# This object provides a wrapper around regular PyData formats. It also allows
-# the data to have labeled dimensions while supporting operations that use
-# various pieces of metadata. The following code uses a
-# :func:`pandas.date_range` object to fill the DataArray with data, but this
-# is not essential for the creation of a valid DataArray.
+# In this example, instead of using a list of :class:`pandas.DatetimeIndex`
+# objects, ``x`` is initialized as an :class:`xarray.DataArray` object. This
+# object provides a wrapper around regular PyData formats. It also allows the
+# data to have labeled dimensions while supporting operations that use various
+# pieces of metadata. The following code uses a :func:`pandas.date_range`
+# object to fill the DataArray withcdata, but this is not essential for the
+# creation of a valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
 y = [4, 7, 5, 6]
