@@ -1,6 +1,6 @@
 """
 Plotting data points
-====================
+--------------------
 
 GMT shines when it comes to plotting data on a map. We can use some sample data
 that is packaged with GMT to try this out. PyGMT provides access to these
