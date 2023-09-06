@@ -3,13 +3,14 @@ Plotting datetime charts
 ========================
 
 PyGMT accepts a variety of datetime objects to plot data and create charts.
-Aside from the built-in Python ``datetime`` object, PyGMT supports input using
-ISO formatted strings, ``pandas``, ``xarray``, as well as ``numpy``.
-These data types can be used to plot specific points as well as get
-passed into the ``region`` parameter to create a range of the data on an axis.
+Aside from the built-in Python ``datetime`` module, PyGMT supports inputs
+containing ISO formatted strings as well as objects generated with
+``pandas``, ``xarray``, and``numpy``. These data types can be used to plot
+specific points as well as get passed into the ``region`` parameter to
+create a range of the data on an axis.
 
-The following examples will demonstrate how to create plots
-using the different datetime objects.
+The following examples will demonstrate how to create plots using these
+different datetime objects.
 """
 # sphinx_gallery_thumbnail_number = 8
 
@@ -25,9 +26,9 @@ import xarray as xr
 # ---------------------------
 #
 # In this example, Python's built-in ``datetime`` module is used
-# to create data points stored in list ``x``. Additionally,
+# to create data points stored in the list ``x``. Additionally,
 # dates are passed into the ``region`` parameter in the format
-# ``(x_start, x_end, y_start, y_end)``,
+# ``[x_start, x_end, y_start, y_end]``,
 # where the date range is plotted on the x-axis.
 # An additional notable parameter is ``style``, where it's specified
 # that data points are to be plotted in an **X** shape with a size
@@ -97,16 +98,16 @@ fig.show()
 # Using ISO Format
 # ----------------
 #
-# In addition to Python's ``datetime`` library, PyGMT also supports passing
+# In addition to Python's ``datetime`` module, PyGMT also supports passing
 # times in ISO format. Basic ISO strings are formatted as ``YYYY-MM-DD`` with
-# each ``-`` delineated section marking the four digit year value, two digit
-# month value, and two digit day value respectively.
+# each ``-`` delineated section marking the four-digit year value, two-digit
+# month value, and two-digit day value, respectively.
 #
 # When including time of day into ISO strings, the ``T`` character is used, as
 # can be seen in the following example. This character is immediately followed
 # by a string formatted as ``hh:mm:ss`` where each ``:`` delineated section
-# marking the two digit hour value, two digit minute value, and two digit
-# second value respectively. The figure in the following example is plotted
+# marking the two-digit hour value, two-digit minute value, and two- digit
+# second value, respectively. The figure in the following example is plotted
 # over a horizontal range of one year from 2016-01-01 to 2017-01-01.
 
 x = ["2016-02-01", "2016-06-04T14", "2016-10-04T00:00:15", "2016-12-01T05:00:15"]
