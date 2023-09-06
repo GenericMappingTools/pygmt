@@ -79,7 +79,7 @@ fig.show()
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
 # color bar to the figure. The ``cmap`` parameter does not need to be passed
 # again. To keep the color bar's alignment similar to the figure, use ``True``
-# as the ``perspective`` parameter.
+# as argument for the ``perspective`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
