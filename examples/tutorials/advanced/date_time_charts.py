@@ -193,7 +193,7 @@ fig.show()
 # initialized as a list of individual dates within an xarray.DataArray object.
 # This object provides a wrapper around regular PyData formats. It also allows
 # the data to have labeled dimensions while supporting operations that use
-# various pieces of metadata. The following code uses a
+# various pieces of metadata. The following code uses
 # :func:`pandas.date_range` object to fill the DataArray with data, but this
 # is not essential for the creation of a valid DataArray.
 
