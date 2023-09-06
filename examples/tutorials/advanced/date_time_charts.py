@@ -158,8 +158,8 @@ fig.show()
 # -------------------------------
 #
 # In the following example, :func:`pandas.date_range` produces a list of
-# :class:`pandas.DatetimeIndex` objects, which is used to pass date
-# data to the PyGMT figure.
+# :class:`pandas.DatetimeIndex` objects, which is used to pass date data to
+# the PyGMT figure.
 # Specifically ``x`` contains 7 different :class:`pandas.DatetimeIndex`
 # objects, with the number being manipulated by the ``periods`` parameter. Each
 # period begins at the start of a business quarter as denoted by BQS when
@@ -219,7 +219,7 @@ fig.show()
 # initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
 # this wraps the dataset before passing it as a parameter. However,
 # ``np.array`` objects use less memory and allow developers to specify
-# datatypes.
+# data types.
 
 x = np.array(["2010-06-01", "2011-06-01T12", "2012-01-01T12:34:56"], dtype="datetime64")
 y = [2, 7, 5]
@@ -241,13 +241,12 @@ fig.show()
 # Generating an automatic region
 # ------------------------------
 #
-# Another way of creating charts involving datetime data can be done
-# by automatically generating the region of the plot. This can be done
-# by passing the DataFrame to :func:`pygmt.info`, which will find the
-# maximum and minimum values for each column and create a list
-# that could be passed as region. Additionally, the ``spacing`` argument
-# can be passed to increase the range past the maximum and minimum
-# data points.
+# Another way of creating charts involving datetime data can be done by
+# automatically generating the region of the plot. This can be done by
+# passing the DataFrame to :func:`pygmt.info`, which will find the maximum and
+# minimum values for each column and create a list that could be passed as
+# region. Additionally, the ``spacing`` argument can be passed to increase the
+# range past the maximum and minimum data points.
 
 data = [
     ["20200712", 1000],
@@ -283,26 +282,24 @@ fig.show()
 # Setting Primary and Secondary Time Axes
 # ---------------------------------------
 #
-# This example focuses on labeling the axes and setting intervals
-# at which the labels are expected to appear. All of these modifications
-# are added to the ``frame`` parameter and each item in that list modifies
-# a specific section of the plot.
+# This example focuses on labeling the axes and setting intervals at which the
+# labels are expected to appear. All of these modifications are added to the
+# ``frame`` parameter and each item in that list modifies a specific section
+# of the plot.
 #
-# Starting off with ``WS``, adding this string means that only
-# Western/Left (**W**) and Southern/Bottom (**S**) borders of
-# the plot will be shown. For more information on this, please
-# refer to :doc:`frame instructions </tutorials/basics/frames>`.
+# Starting off with ``WS``, adding this string means that only Western/Left
+# (**W**) and Southern/Bottom (**S**) borders of the plot will be shown.
+# For more information on this, please refer to
+# :doc:`frame instructions </tutorials/basics/frames>`.
 #
-# The other important item in the ``frame`` list is
-# ``"sxa1Of1D"``. This string modifies the secondary
-# labeling (**s**) of the x-axis (**x**). Specifically,
-# it sets the main annotation and major tick spacing interval
-# to one month (**a1O**) (capital letter O, not zero). Additionally,
-# it sets the minor tick spacing interval to 1 day (**f1D**).
-# The labeling of this axis can be modified by setting
-# :gmt-term:`FORMAT_DATE_MAP` to ``"o"`` to use the month's
-# name instead of its number. More information about configuring
-# date formats can be found on the
+# The other important item in the ``frame`` list is ``"sxa1Of1D"``. This
+# string modifies the secondary labeling (**s**) of the x-axis (**x**).
+# Specifically, it sets the main annotation and major tick spacing interval
+# to one month (**a1O**) (capital letter O, not zero). Additionally, it sets
+# the minor tick spacing interval to 1 day (**f1D**). The labeling of this
+# axis can be modified by setting :gmt-term:`FORMAT_DATE_MAP` to ``"o"`` to
+# use the month's name instead of its number. More information about
+# configuring date formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_DATE_MAP>`.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
@@ -324,23 +321,18 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
 fig.show()
 
 ###############################################################################
-# The same concept shown above can be applied to smaller
-# as well as larger intervals. In this example,
-# data are plotted for different times throughout two days.
-# Primary x-axis labels are modified to repeat every 6 hours
-# and secondary x-axis label repeats every day and shows
-# the day of the week.
+# The same concept shown above can be applied to smaller as well as larger
+# intervals. In this example, data are plotted for different times throughout
+# two days. Primary x-axis labels are modified to repeat every 6 hours and
+# secondary x-axis label repeats every day and shows the day of the week.
 #
-# Another notable mention in this example is
-# setting :gmt-term:`FORMAT_CLOCK_MAP` to ``"-hhAM"``
-# which specifies the format used for time.
-# In this case, leading zeros are removed
-# using (**-**), and only hours are displayed.
-# Additionally, an AM/PM system is being used
-# instead of a 24-hour system. More information about configuring
-# time formats can be found on the
+# Another notable mention in this example is setting
+# :gmt-term:`FORMAT_CLOCK_MAP` to ``"-hhAM"`` which specifies the format
+# used for time. In this case, leading zeros are removed using (**-**), and
+# only hours are displayed. Additionally, an AM/PM system is being used
+# instead of a 24-hour system. More information about configuring time
+# formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
-
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
