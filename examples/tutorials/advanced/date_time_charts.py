@@ -333,7 +333,7 @@ fig.show()
 # and only hours are displayed. Additionally, an AM/PM system is being
 # used instead of a 24-hour system. More information on configuring
 # time formats can be found at
-# https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters
+# https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters.
 
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
