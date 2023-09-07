@@ -248,10 +248,10 @@ def meca(
 
         - *1-D array*: focal mechanism parameters of a single event.
           The meanings of columns are the same as above.
-        - *2-D array*: focal mechanim parameters of multiple events.
+        - *2-D array*: focal mechanism parameters of multiple events.
           The meanings of columns are the same as above.
         - *dictionary or pd.DataFrame*: The dictionary keys or pd.DataFrame
-          column names determine the focal mechanims convention. For
+          column names determine the focal mechanism convention. For
           different conventions, the following combination of keys are allowed:
 
           - ``"aki"``: *strike, dip, rake, magnitude*
