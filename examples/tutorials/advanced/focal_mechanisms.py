@@ -46,10 +46,10 @@ This tutorial shows how to adjust the display of the beachballs:
 - Add label
 """
 
-# sphinx_gallery_thumbnail_number = 7
-
-
+# %%
 # Import the required packages
+
+# sphinx_gallery_thumbnail_number = 7
 import pygmt
 
 # %%
