@@ -14,7 +14,7 @@ input types:
 - pandas DataFrame
 
 Different conventions are supported:
-TODO - input file and arrary, this only is for dictionary and DataFrame
+TODO - input file and array, this only is for dictionary and DataFrame
 
 - ``"aki"`` - Aki & Richards:
   *strike*, *dip*, *rake*, *magnitude*
@@ -29,7 +29,7 @@ TODO - input file and arrary, this only is for dictionary and DataFrame
   *t_value*, *t_azimuth*, *t_plunge*, *n_value*, *n_azimuth*, *n_plunge*,
   *p_value*, *p_azimuth*, *p_plunge*, *exponent*
 
-The general structur for the input data is:
+The general structure for the input data is:
 
 -  xxx
 
@@ -285,7 +285,7 @@ fig.show()
 # Offset from event location
 # --------------------------
 #
-# Prameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
+# Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
 # Create new figure instance
 fig = pygmt.Figure()
@@ -422,7 +422,7 @@ fig.meca(
 )
 
 # Add colorbar
-fig.colorbar(frame=["x+lhpyocentral depth", "y+lkm"])
+fig.colorbar(frame=["x+lhypocentral depth", "y+lkm"])
 
 fig.show()
 
