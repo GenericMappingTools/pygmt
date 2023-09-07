@@ -43,9 +43,9 @@ fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="bl
 fig.show()
 
 # %%
-# We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
-# The ``pen`` parameter controls the outline of the symbols and the ``fill``
-# parameter controls the fill.
+# We used the style ``c0.3c`` which means "circles with a diameter of 0.3
+# centimeters". The ``pen`` parameter controls the outline of the symbols and
+# the ``fill`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an
 # array to the ``size`` parameter. Because the magnitude is on a logarithmic

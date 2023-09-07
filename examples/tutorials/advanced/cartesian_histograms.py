@@ -236,7 +236,7 @@ fig.show()
 # Overlaid bars
 # -------------
 #
-# Overlaid or overlapping bars can be achieved by plotting two or serveral
+# Overlaid or overlapping bars can be achieved by plotting two or several
 # histograms, each for one data set, on top of each other. The legend entry
 # can be specified via the ``label`` parameter.
 #
