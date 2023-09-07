@@ -76,7 +76,7 @@ fig.coast(
 
 fig.show()
 
-###############################################################################
+# %%
 # If available, states/territories of a country can be highlighted, too.
 
 fig = pygmt.Figure()
