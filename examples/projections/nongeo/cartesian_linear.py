@@ -18,6 +18,8 @@ coordinates, see the GMT documentation
 :gmt-docs:`Calendar time coordinates
 <cookbook/coordinate-transformations.html#calendar-time-coordinates>`.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()
