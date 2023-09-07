@@ -6,9 +6,9 @@ The :meth:`pygmt.grdhisteq.equalize_grid` method creates a grid using
 statistics based on a cumulative distribution function.
 """
 
-# sphinx_gallery_thumbnail_number = 3
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 3
 import pygmt
 
 # %%

@@ -9,9 +9,9 @@ set to ``("-54p", "-54p")`` (x, y directions) and ``"BL"`` (bottom-left),
 respectively.
 """
 
-# sphinx_gallery_thumbnail_number = 2
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 2
 import os
 
 import pygmt

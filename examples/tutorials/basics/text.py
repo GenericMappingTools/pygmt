@@ -6,9 +6,10 @@ It is often useful to add annotations to a plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
 
-# sphinx_gallery_thumbnail_number = 3
 
 # %%
+
+# sphinx_gallery_thumbnail_number = 3
 import os
 
 import pygmt

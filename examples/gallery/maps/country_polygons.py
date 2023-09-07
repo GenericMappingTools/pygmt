@@ -9,9 +9,9 @@ It's also possible to define multiple countries at once by separating
 the individual names with commas.
 """
 
-# sphinx_gallery_thumbnail_number = 1
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 1
 import pygmt
 
 fig = pygmt.Figure()

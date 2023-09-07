@@ -5,9 +5,9 @@ Plotting vectors
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 """
 
-# sphinx_gallery_thumbnail_number = 6
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 6
 import numpy as np
 import pygmt
 

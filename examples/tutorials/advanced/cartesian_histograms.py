@@ -14,10 +14,11 @@ method. In this tutorial, different histogram related aspects are addressed:
 - Using overlaid, stacked, and grouped bars
 """
 
-# sphinx_gallery_thumbnail_number = 4
 
 # %%
 # Import the required packages
+
+# sphinx_gallery_thumbnail_number = 4
 import numpy as np
 import pygmt
 

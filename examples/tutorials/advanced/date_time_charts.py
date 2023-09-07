@@ -12,9 +12,9 @@ The following examples will demonstrate how to create plots
 using the different datetime objects.
 """
 
-# sphinx_gallery_thumbnail_number = 8
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 8
 import datetime
 
 import numpy as np

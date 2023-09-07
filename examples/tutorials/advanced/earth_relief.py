@@ -7,9 +7,9 @@ Plotting a map of Earth relief can use the data accessed by the
 plotted using the :meth:`pygmt.Figure.grdimage` method.
 """
 
-# sphinx_gallery_thumbnail_number = 5
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 5
 import pygmt
 
 # %%

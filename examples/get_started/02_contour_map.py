@@ -10,9 +10,9 @@ relief, using a remote dataset hosted by GMT, using the method
 plotting.
 """
 
-# sphinx_gallery_thumbnail_number = 4
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # %%

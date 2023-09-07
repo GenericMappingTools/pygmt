@@ -8,9 +8,9 @@ call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
 """
 
-# sphinx_gallery_thumbnail_number = 4
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # %%

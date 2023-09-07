@@ -14,9 +14,9 @@ symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
 
 """
 
-# sphinx_gallery_thumbnail_number = 2
-
 # %%
+
+# sphinx_gallery_thumbnail_number = 2
 import pygmt
 
 # %%

@@ -20,10 +20,10 @@ This tutorial is split into three parts:
 - Add a grid for Earth relief
 """
 
-# sphinx_gallery_thumbnail_number = 1
-
 # %%
 # Import the required packages
+
+# sphinx_gallery_thumbnail_number = 1
 import numpy as np
 import panel as pn
 import pygmt
