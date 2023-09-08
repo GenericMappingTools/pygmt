@@ -94,7 +94,7 @@ class GMTDataArrayAccessor:
     >>> grid2.gmt.registration, grid2.gmt.gtype
     (0, 1)
 
-    Accesing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always
+    Accessing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always
     creates new instances, so these properties are always lost. The workaround
     is to assign the :class:`xarray.DataArray` into a variable:
 

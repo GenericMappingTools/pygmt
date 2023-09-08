@@ -106,7 +106,7 @@ sphinx_gallery_conf = {
             "../examples/get_started",
         ]
     ),
-    # Patter to search for example files
+    # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
