@@ -66,6 +66,7 @@ fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
 fig.show()
 
+
 # %%
 # Color the land and water
 # ------------------------
@@ -88,6 +89,7 @@ fig.coast(
     water="lightblue",
 )
 fig.show()
+
 
 # %%
 # Set the projection
@@ -117,6 +119,7 @@ fig.coast(
 )
 fig.show()
 
+
 # %%
 # Add a frame
 # -----------
@@ -138,6 +141,7 @@ fig.coast(
     frame="a",
 )
 fig.show()
+
 
 # %%
 # Add a title
@@ -161,6 +165,7 @@ fig.coast(
     frame=["a", "+tMaine"],
 )
 fig.show()
+
 
 # %%
 # Additional exercises
