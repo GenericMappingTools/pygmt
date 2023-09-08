@@ -28,7 +28,6 @@ The standard parallel is typically one of these (but can be any value):
 
 """
 
-
 # %%
 import pygmt
 
