@@ -290,7 +290,7 @@ fig.show()
 #
 # Adding ``"WS"`` means that only the Western/Left (**W**) and Southern/Bottom
 # (**S**) borders of the plot are annotated. For more information on this,
-# please refer to the :doc:`Frames, ticks, titles, and labels tutorial 
+# please refer to the :doc:`Frames, ticks, titles, and labels tutorial
 # </tutorials/basics/frames>`.
 #
 # Another important item in the list passed to ``frame`` is ``"sxa1Of1D"``.
@@ -323,7 +323,7 @@ fig.show()
 ###############################################################################
 # The same concept shown above can be applied to smaller as well as larger
 # intervals. In this example, data are plotted for different times throughout
-# two days. The primary x-axis annotations are modified to repeat every 6 
+# two days. The primary x-axis annotations are modified to repeat every 6
 # hours, and the secondary x-axis annotations repeat every day and show the
 # day of the week.
 #
