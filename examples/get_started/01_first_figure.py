@@ -2,20 +2,11 @@
 1. Making your first figure
 ===========================
 
-This tutorial page covers the basics of creating a figure using PyGMT - a
+This tutorial covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the :meth:`pygmt.Figure.coast` method for plotting. Later examples will
+the :meth:`pygmt.Figure.coast` method for plotting. Later tutorials will
 address other PyGMT methods.
 """
-
-###############################################################################
-# Setting up the development environment
-# --------------------------------------
-#
-# PyGMT can be used in both a Python script and a notebook environment, such
-# as Jupyter. The tutorial's recommended method is to use a notebook, and the
-# code will be for a notebook environment.
-
 
 ###############################################################################
 # Loading the library
