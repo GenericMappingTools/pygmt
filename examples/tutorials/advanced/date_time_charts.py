@@ -334,7 +334,6 @@ fig.show()
 # 24-hour system. More information on configuring time formats can be found at
 # https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters.
 
-
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
 
