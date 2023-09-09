@@ -20,9 +20,6 @@ In this tutorial different error bars related aspects are addressed:
 TODO
 """
 
-# sphinx_gallery_thumbnail_number = 2
-
-
 import pandas as pd
 import pygmt
 
@@ -184,3 +181,5 @@ fig.show()
 # Box-and-whisker (or stem-and-leaf) symbols
 # ------------------------------------------
 #
+
+# sphinx_gallery_thumbnail_number = 2
