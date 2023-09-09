@@ -48,8 +48,6 @@ This tutorial shows how to adjust the display of the beachballs:
 
 # %%
 # Import the required packages
-
-# sphinx_gallery_thumbnail_number = 7
 import pygmt
 
 # %%
@@ -460,3 +458,5 @@ fig.meca(
 )
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 7
