@@ -22,8 +22,6 @@ This tutorial is split into three parts:
 
 # %%
 # Import the required packages
-
-# sphinx_gallery_thumbnail_number = 1
 import numpy as np
 import panel as pn
 import pygmt
@@ -142,3 +140,5 @@ def view(central_lon):
 
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
+
+# sphinx_gallery_thumbnail_number = 1

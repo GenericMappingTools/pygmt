@@ -7,8 +7,6 @@ statistics based on a cumulative distribution function.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 3
 import pygmt
 
 # %%
@@ -243,3 +241,5 @@ with fig.subplot(
         )
         fig.colorbar(position="JMR+o1.5c/0c+w3c/0.3c", frame=True)
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

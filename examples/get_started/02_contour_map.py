@@ -11,8 +11,6 @@ plotting.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # %%
@@ -142,3 +140,5 @@ fig.show()
 #    the land.
 #
 # 4. Try other CPTs, such as "SCM/fes" or "geo".
+
+# sphinx_gallery_thumbnail_number = 4

@@ -19,8 +19,6 @@ this is what the tutorial below will cover.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 3
 import pygmt
 
 # %%
@@ -240,3 +238,5 @@ fig.show()
 # example, ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow
 # you to manually label a single subplot as you wish. This can be useful for
 # adding a more descriptive subtitle to individual subplots.
+
+# sphinx_gallery_thumbnail_number = 3

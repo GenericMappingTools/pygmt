@@ -6,10 +6,7 @@ It is often useful to add annotations to a plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
 
-
 # %%
-
-# sphinx_gallery_thumbnail_number = 3
 import os
 
 import pygmt
@@ -156,3 +153,5 @@ fig.show()
 # other character sets, be sure to check out the GMT documentation
 # at :gmt-docs:`text.html` and also the cookbook at
 # :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+
+# sphinx_gallery_thumbnail_number = 3

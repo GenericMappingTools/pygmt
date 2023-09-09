@@ -24,7 +24,6 @@ address other PyGMT methods.
 # The first step is to import :mod:`pygmt`. All methods and figure generation
 # are accessible from the :mod:`pygmt` top level package.
 
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # %%
@@ -186,3 +185,5 @@ fig.show()
 #    region is set without using a list full of integers or floating numbers,
 #    the argument needs to be passed as a Python string. Create a map with a
 #    width of 15 centimeters using the Mollweide ("W") projection.
+
+# sphinx_gallery_thumbnail_number = 4

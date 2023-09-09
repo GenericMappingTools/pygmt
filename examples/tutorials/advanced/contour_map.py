@@ -6,8 +6,6 @@ Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 5
 import pygmt
 
 # Load sample earth relief data
@@ -112,3 +110,5 @@ fig.grdcontour(
 )
 fig.colorbar(frame=["x+lelevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

@@ -8,8 +8,6 @@ plotted using the :meth:`pygmt.Figure.grdimage` method.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 5
 import pygmt
 
 # %%
@@ -103,3 +101,5 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

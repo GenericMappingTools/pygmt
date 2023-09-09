@@ -6,8 +6,6 @@ Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 5
 import pygmt
 
 # %%
@@ -81,3 +79,5 @@ fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(land="#666666", water="skyblue")
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

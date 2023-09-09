@@ -10,8 +10,6 @@ the first time you use them (usually ``~/.gmt/cache``).
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 3
 import pygmt
 
 # %%
@@ -94,3 +92,5 @@ fig.plot(
 )
 fig.colorbar(frame="af+lDepth (km)")
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

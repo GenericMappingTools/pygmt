@@ -8,8 +8,6 @@ contain.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # %%
@@ -113,3 +111,5 @@ fig.basemap(
     frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 4

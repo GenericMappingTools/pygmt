@@ -6,8 +6,6 @@ Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 3
 import pygmt
 
 # %%
@@ -132,3 +130,5 @@ fig.plot(
     pen="7p,green,-.-",
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

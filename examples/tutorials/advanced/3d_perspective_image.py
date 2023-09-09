@@ -7,8 +7,6 @@ using :meth:`pygmt.Figure.grdview`.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
 # Load sample earth relief data
@@ -99,3 +97,5 @@ fig.grdview(
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 4
