@@ -15,8 +15,6 @@ symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 2
 import pygmt
 
 # %%
@@ -89,3 +87,5 @@ data = [[5.5, 1, 2.5, 45, 330], [5.5, 3, 1.5, 60, 300]]
 fig.plot(data=data, style="w", fill="lightgray", pen="2p,black")
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 2

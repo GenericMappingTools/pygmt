@@ -10,8 +10,6 @@ respectively.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 2
 import os
 
 import pygmt
@@ -37,3 +35,5 @@ fig.timestamp(
     timefmt="%Y-%m-%dT%H:%M:%S%z",
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 2
