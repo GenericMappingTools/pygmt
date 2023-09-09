@@ -1,6 +1,6 @@
 """
 Color points by categories
----------------------------
+==========================
 
 The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the

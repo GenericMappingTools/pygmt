@@ -1,6 +1,6 @@
 """
 Plotting a surface
-------------------
+==================
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with
 ``surftype="s"``. Here, we supply the data as an :class:`xarray.DataArray` with

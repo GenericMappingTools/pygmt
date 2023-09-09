@@ -1,6 +1,6 @@
 """
 Roads
------
+=====
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use

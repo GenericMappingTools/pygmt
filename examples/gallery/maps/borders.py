@@ -1,6 +1,6 @@
 """
 Political Boundaries
---------------------
+====================
 
 The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of
 political boundaries to plot and the pen used to draw them. Choose from the

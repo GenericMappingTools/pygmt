@@ -1,6 +1,6 @@
 """
 Line colors with a custom CPT
------------------------------
+=============================
 
 The color of the lines made by :meth:`pygmt.Figure.plot` can be set according
 to a custom CPT and assigned with the ``pen`` parameter.

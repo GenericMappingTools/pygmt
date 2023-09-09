@@ -1,6 +1,6 @@
 """
 Points with varying transparency
---------------------------------
+================================
 
 Points can be plotted with different transparency levels by passing in an array
 argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.

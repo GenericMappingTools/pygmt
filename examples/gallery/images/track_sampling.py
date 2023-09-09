@@ -1,6 +1,6 @@
 """
 Sampling along tracks
----------------------
+=====================
 
 The :func:`pygmt.grdtrack` function samples a raster grid's value along
 specified points. We will need to input a 2-D raster to ``grid`` which can be

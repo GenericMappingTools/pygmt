@@ -1,6 +1,6 @@
 r"""
 Vector heads and tails
-----------------------
+======================
 
 Many methods in PyGMT allow plotting vectors with individual
 heads and tails. For this purpose, several modifiers may be appended to

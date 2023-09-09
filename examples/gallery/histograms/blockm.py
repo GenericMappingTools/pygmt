@@ -1,6 +1,6 @@
 """
 Blockmean
----------
+=========
 
 The :func:`pygmt.blockmean` function calculates different quantities
 inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.

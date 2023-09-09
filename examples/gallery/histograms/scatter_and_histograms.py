@@ -1,6 +1,6 @@
 """
 Scatter plot with histograms
-----------------------------
+============================
 
 To create a scatter plot with histograms at the sides of the plot one
 can use :meth:`pygmt.Figure.plot` in combination with

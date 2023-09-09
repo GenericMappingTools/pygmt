@@ -1,6 +1,6 @@
 """
 Contours
---------
+========
 
 The :meth:`pygmt.Figure.contour` method can plot contour lines from a table of
 points by direct triangulation. The data for the triangulation can be provided

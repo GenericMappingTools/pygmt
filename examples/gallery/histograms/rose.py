@@ -1,6 +1,6 @@
 """
 Rose diagram
-------------
+============
 
 The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar
 histograms.

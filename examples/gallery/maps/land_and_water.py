@@ -1,6 +1,6 @@
 """
 Color land and water
---------------------
+====================
 
 The ``land`` and ``water`` parameters of :meth:`pygmt.Figure.coast` specify
 a color to fill in the land and water masses, respectively. There are many

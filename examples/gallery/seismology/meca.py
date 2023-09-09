@@ -1,6 +1,6 @@
 """
 Focal mechanisms
-----------------
+================
 
 The :meth:`pygmt.Figure.meca` method can plot focal mechanisms or beachballs.
 We can specify the focal mechanism nodal planes or moment tensor components

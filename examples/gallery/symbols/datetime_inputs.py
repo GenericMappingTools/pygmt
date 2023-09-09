@@ -1,6 +1,6 @@
 """
 Datetime inputs
----------------
+===============
 
 Datetime inputs of the following types are supported in PyGMT:
 
