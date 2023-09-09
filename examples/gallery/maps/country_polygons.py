@@ -10,8 +10,6 @@ the individual names with commas.
 """
 
 # %%
-
-# sphinx_gallery_thumbnail_number = 1
 import pygmt
 
 fig = pygmt.Figure()
@@ -97,3 +95,5 @@ fig.coast(
 )
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 1
