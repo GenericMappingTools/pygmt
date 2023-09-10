@@ -14,6 +14,7 @@ ensures equal axis scaling. The ``shading`` parameter specifies illumination;
 here we choose an azimuth of 45° with ``shading="+a45"``.
 """
 
+# %%
 import numpy as np
 import pygmt
 import xarray as xr

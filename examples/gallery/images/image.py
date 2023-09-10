@@ -9,6 +9,8 @@ the first argument. You can also use a full URL pointing to your desired image.
 The ``position`` parameter allows us to set a reference point on the map for
 the image.
 """
+
+# %%
 import os
 
 import pygmt

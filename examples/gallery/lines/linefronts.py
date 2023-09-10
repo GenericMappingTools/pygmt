@@ -32,6 +32,7 @@ For modifying the main front line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 """
 
+# %%
 import numpy as np
 import pygmt
 

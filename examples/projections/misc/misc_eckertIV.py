@@ -12,6 +12,8 @@ equally spaced elliptical arcs. The scale is true along latitude 40°30’.
 The projection is set with **kf** or **Kf**. The central meridian is set with
 the optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

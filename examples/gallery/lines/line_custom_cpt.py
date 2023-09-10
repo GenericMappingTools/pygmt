@@ -12,6 +12,7 @@ setting the ``pen`` color.
 
 """
 
+# %%
 import numpy as np
 import pygmt
 

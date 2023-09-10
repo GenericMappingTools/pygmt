@@ -17,6 +17,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 """
 
+# %%
 import numpy as np
 import pygmt
 

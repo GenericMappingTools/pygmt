@@ -10,6 +10,7 @@ scaled by 0.2 and the 39% confidence limit will give an ellipse which fits
 inside a rectangle of dimension east_sigma by north_sigma.
 """
 
+# %%
 import pandas as pd
 import pygmt
 

@@ -10,6 +10,7 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 :meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
 """
 
+# %%
 import geopandas as gpd
 import pygmt
 

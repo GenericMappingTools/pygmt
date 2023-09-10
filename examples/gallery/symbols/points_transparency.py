@@ -6,6 +6,7 @@ Points can be plotted with different transparency levels by passing in an array
 argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 """
 
+# %%
 import numpy as np
 import pygmt
 

@@ -5,6 +5,8 @@ Tile maps
 The :meth:`pygmt.Figure.tilemap` method allows to plot
 tiles from a tile server or local file as a basemap or overlay.
 """
+
+# %%
 import contextily
 import pygmt
 
@@ -25,7 +27,7 @@ fig.tilemap(
 
 fig.show()
 
-###############################################################################
+# %%
 # It's also possible to use tiles provided via the
 # `contextily <https://github.com/geopandas/contextily>`__
 # library. See :doc:`Contextily providers <contextily:providers_deepdive>`

@@ -20,7 +20,7 @@ In this example we supply the data as 1-D :class:`numpy.ndarray` with the
 contours every 10 ``z`` values and annotations every 20 ``z`` values.
 """
 
-
+# %%
 import numpy as np
 import pygmt
 

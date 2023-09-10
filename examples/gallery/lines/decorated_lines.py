@@ -19,7 +19,7 @@ for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 """
 
-
+# %%
 import numpy as np
 import pygmt
 

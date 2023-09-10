@@ -21,6 +21,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 """
 
+# %%
 import datetime
 
 import numpy as np

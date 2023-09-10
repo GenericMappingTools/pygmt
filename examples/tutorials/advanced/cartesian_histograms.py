@@ -14,14 +14,12 @@ method. In this tutorial, different histogram related aspects are addressed:
 - Using overlaid, stacked, and grouped bars
 """
 
-# sphinx_gallery_thumbnail_number = 4
-
-
+# %%
 # Import the required packages
 import numpy as np
 import pygmt
 
-###############################################################################
+# %%
 # Generate random data from a normal distribution:
 
 np.random.seed(100)
@@ -36,7 +34,7 @@ data01 = np.random.normal(mean, stddev, 42)
 data02 = np.random.normal(mean, stddev * 2, 42)
 
 
-###############################################################################
+# %%
 # Vertical and horizontal bars
 # ----------------------------
 #
@@ -93,7 +91,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Stair-steps
 # -----------
 #
@@ -136,7 +134,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Counts and frequency percent
 # ----------------------------
 #
@@ -181,7 +179,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Cumulative values
 # -----------------
 #
@@ -232,7 +230,7 @@ fig.histogram(
 fig.show()
 
 
-###############################################################################
+# %%
 # Overlaid bars
 # -------------
 #
@@ -281,7 +279,7 @@ fig.legend()
 fig.show()
 
 
-###############################################################################
+# %%
 # Stacked bars
 # ------------
 #
@@ -333,7 +331,7 @@ fig.legend()
 fig.show()
 
 
-###############################################################################
+# %%
 # Grouped bars
 # ------------
 #
@@ -384,3 +382,5 @@ fig.histogram(
 fig.legend()
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 4

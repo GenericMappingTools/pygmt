@@ -17,6 +17,7 @@ help:
 	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
 	@echo "  format         run black, blackdoc, docformatter and isort to automatically format the code"
 	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, flakeheaven and isort)"
+	@echo "  codespell      run codespell to check common misspellings"
 	@echo "  lint           run pylint for a deeper (and slower) quality check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
@@ -70,6 +71,9 @@ check:
 	black --check $(FORMAT_FILES)
 	blackdoc --check $(FORMAT_FILES)
 	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FORMAT_FILES)
+
+codespell:
+	@codespell
 
 lint:
 	pylint $(LINT_FILES)

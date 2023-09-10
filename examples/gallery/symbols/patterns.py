@@ -40,6 +40,7 @@ a transparent image where only the back- or foreground pixels will be painted.
 The **+r**\ *dpi* modifier sets the resolution in dpi.
 """
 
+# %%
 import pygmt
 
 y = 11

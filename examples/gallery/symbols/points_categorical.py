@@ -12,6 +12,7 @@ the "species" column directly to the ``color`` parameter via
 function.
 """
 
+# %%
 import pandas as pd
 import pygmt
 

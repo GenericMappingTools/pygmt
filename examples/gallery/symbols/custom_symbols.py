@@ -10,6 +10,7 @@ underneath their corresponding names. For the remaining symbols see the GMT
 cookbook :gmt-docs:`cookbook/custom-symbols.html`.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

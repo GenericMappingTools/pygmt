@@ -378,9 +378,9 @@ The tutorials (the User Guide in the docs) are also built by sphinx-gallery from
 * Create a `.py` file in the `examples/tutorials/advanced` folder.
 * Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
   is being done. See the other tutorials for the format.
-* Choose the most representative figure as the thumbnail figure by adding a comment line
-  `# sphinx_gallery_thumbnail_number = <fig_number>` to any place (usually at the top)
-  in the tutorial. The *fig_number* starts from 1.
+* Choose the most representative figure as the thumbnail figure by adding the comment
+  line `# sphinx_gallery_thumbnail_number = <fig_number>` at the end of the tutorial.
+  The *fig_number* starts from 1.
 
 Guidelines for a good tutorial:
 

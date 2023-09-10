@@ -17,6 +17,7 @@ maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
+# %%
 import numpy as np
 import pygmt
 

@@ -14,10 +14,12 @@ Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
 `CC BY-NC 4.0 <https://creativecommons.org/licenses/by-nc/4.0/>`_ license.
 """
+
+# %%
 import pygmt
 import rioxarray
 
-###############################################################################
+# %%
 # Read 3-band data from GeoTIFF into an xarray.DataArray object:
 with rioxarray.open_rasterio(
     filename="https://oin-hotosm.s3.us-east-1.amazonaws.com/64d6a49a19cb3a000147a65b/0/64d6a49a19cb3a000147a65c.tif",
@@ -28,7 +30,7 @@ with rioxarray.open_rasterio(
     image = image.load()  # Force loading the DataArray into memory
 image
 
-###############################################################################
+# %%
 # Plot the RGB imagery:
 fig = pygmt.Figure()
 with pygmt.config(FONT_TITLE="Times-Roman"):  # Set title font to Times-Roman

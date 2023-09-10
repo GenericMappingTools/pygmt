@@ -12,6 +12,7 @@ be filled either with a color or a pattern via the ``compressionfill`` and
 adjust the outline of the beachballs.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

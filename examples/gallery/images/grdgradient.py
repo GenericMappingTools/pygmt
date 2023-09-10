@@ -11,6 +11,7 @@ We will use the ``radiance`` parameter in order to set the illumination source
 direction and altitude.
 """
 
+# %%
 import pygmt
 
 # Define region of interest around Yosemite valley
