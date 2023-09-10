@@ -8,6 +8,8 @@ See also
 :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
 
 """
+
+# %%
 import numpy as np
 import pygmt
 

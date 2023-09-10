@@ -11,6 +11,8 @@ an *x-scale* and an optional *y-scale*.
 Each axis with a power transformation requires **p** and the exponent
 for that axis after its size argument.
 """
+
+# %%
 import numpy as np
 import pygmt
 

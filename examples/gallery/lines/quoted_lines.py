@@ -1,6 +1,7 @@
 """
 Quoted lines
 ------------
+
 To plot a so-called *quoted line*, i.e., labels along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"q"`` and the
@@ -13,6 +14,7 @@ For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -70,8 +72,7 @@ for quotedline in [
 
 fig.show()
 
-
-###############################################################################
+# %%
 # For curved labels following the line, append ``"+v"`` to the argument passed
 # to the ``style`` parameter.
 

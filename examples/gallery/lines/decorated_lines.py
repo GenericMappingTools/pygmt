@@ -1,6 +1,7 @@
 """
 Decorated lines
 ---------------
+
 To draw a so-called *decorated line*, i.e., symbols along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"~"`` and the
@@ -18,7 +19,7 @@ for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 """
 
-
+# %%
 import numpy as np
 import pygmt
 

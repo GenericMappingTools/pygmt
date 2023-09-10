@@ -1,6 +1,7 @@
 """
 Cross-section along a transect
 ==============================
+
 :func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on
 a quantity and its variation along a desired survey line.
 In this example, the elevation is extracted from a grid provided via
@@ -13,6 +14,7 @@ along the survey line.
 https://docs.gmt-china.org/latest/examples/ex026/
 """
 
+# %%
 import pygmt
 
 # Define region of study area

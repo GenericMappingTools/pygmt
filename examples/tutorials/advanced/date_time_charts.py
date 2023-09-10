@@ -11,8 +11,8 @@ passed into the ``region`` parameter to create a range of the data on an axis.
 The following examples will demonstrate how to create plots
 using the different datetime objects.
 """
-# sphinx_gallery_thumbnail_number = 8
 
+# %%
 import datetime
 
 import numpy as np
@@ -20,7 +20,7 @@ import pandas as pd
 import pygmt
 import xarray as xr
 
-###############################################################################
+# %%
 # Using Python's ``datetime``
 # ---------------------------
 #
@@ -54,7 +54,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In addition to specifying the date, ``datetime`` supports the exact time at
 # which the data points were recorded. Using :meth:`datetime.datetime` the
 # ``region`` parameter as well as data points can be created with both date and
@@ -93,7 +93,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using ISO Format
 # ----------------
 #
@@ -124,14 +125,14 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # PyGMT doesn't recognize non-ISO datetime strings like "Jun 05, 2018". If your
 # data contain non-ISO datetime strings, you can convert them to a recognized
 # format using :func:`pandas.to_datetime` and then pass it to PyGMT.
 #
 
-###############################################################################
+
+# %%
 # Mixing and matching Python ``datetime`` and ISO dates
 # -----------------------------------------------------
 #
@@ -155,7 +156,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :meth:`pandas.date_range`
 # -------------------------------
 #
@@ -185,7 +187,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :class:`xarray.DataArray`
 # -------------------------------
 #
@@ -193,9 +196,9 @@ fig.show()
 # initialized as a list of :class:`xarray.DataArray` objects. This object
 # provides a wrapper around regular PyData formats. It also allows the data to
 # have labeled dimensions while supporting operations that use various pieces
-# of metadata.The following code uses :func:`pandas.date_range` object to fill
-# the DataArray with data, but this is not essential for the creation of a
-# valid DataArray.
+# of metadata.The following code uses :func:`pandas.date_range` object to
+# fill the DataArray with data, but this is not essential for the creation of
+# a valid DataArray.
 
 x = xr.DataArray(data=pd.date_range(start="2020-01-01", periods=4, freq="Q"))
 y = [4, 7, 5, 6]
@@ -213,9 +216,11 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :class:`numpy.datetime64`
 # -------------------------------
+#
 # In this example, instead of using a :func:`pd.date_range`, ``x`` is
 # initialized as an ``np.array`` object. Similar to :class:`xarray.DataArray`
 # this wraps the dataset before passing it as a parameter. However,
@@ -238,7 +243,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Generating an automatic region
 # ------------------------------
 #
@@ -280,7 +286,8 @@ fig.plot(
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Setting Primary and Secondary Time Axes
 # ---------------------------------------
 #
@@ -324,7 +331,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
 
 fig.show()
 
-###############################################################################
+# %%
 # The same concept shown above can be applied to smaller
 # as well as larger intervals. In this example,
 # data are plotted for different times throughout two days.
@@ -341,7 +348,6 @@ fig.show()
 # instead of a 24-hour system. More information about configuring
 # time formats can be found on the
 # :gmt-term:`official GMT documentation page <FORMAT_CLOCK_MAP>`.
-
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
@@ -364,3 +370,5 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
         fill="lightseagreen",
     )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 8

@@ -5,13 +5,13 @@ Plotting text
 It is often useful to add annotations to a plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
-# sphinx_gallery_thumbnail_number = 3
 
+# %%
 import os
 
 import pygmt
 
-###############################################################################
+# %%
 # Basic map annotation
 # --------------------
 #
@@ -36,9 +36,11 @@ fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Changing font style
 # -------------------
+#
 # The size, family/weight, and color of an annotation can be specified using
 # the ``font`` parameter.
 #
@@ -56,7 +58,8 @@ fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Plotting from a text file
 # -------------------------
 #
@@ -89,7 +92,8 @@ os.remove("examples.txt")
 
 fig.show()
 
-###############################################################################
+
+# %%
 # ``justify`` parameter
 # ---------------------
 #
@@ -114,9 +118,11 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
     )
 fig.show()
 
-###############################################################################
+
+# %%
 # ``angle`` parameter
 # -------------------
+#
 # ``angle`` is an optional parameter used to specify the counter-clockwise
 # rotation in degrees of the text from the horizontal.
 
@@ -126,7 +132,8 @@ for i in range(0, 360, 30):
     fig.text(text=f"`          {i}@.", x=2, y=2, justify="LM", angle=i)
 fig.show()
 
-###############################################################################
+
+# %%
 # ``fill`` parameter
 # ------------------
 #
@@ -137,7 +144,8 @@ fig.basemap(region=[0, 1, 0, 1], projection="X5c", frame="WSen")
 fig.text(text="Green", x=0.5, y=0.5, fill="green")
 fig.show()
 
-###############################################################################
+
+# %%
 # Advanced configuration
 # ----------------------
 #
@@ -145,3 +153,5 @@ fig.show()
 # other character sets, be sure to check out the GMT documentation
 # at :gmt-docs:`text.html` and also the cookbook at
 # :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+
+# sphinx_gallery_thumbnail_number = 3
