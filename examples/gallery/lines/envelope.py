@@ -8,7 +8,7 @@ give either the deviations or the bounds in y-direction. For the first
 case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 """
 
-
+# %%
 import pandas as pd
 import pygmt
 

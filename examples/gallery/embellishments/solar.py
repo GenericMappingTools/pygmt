@@ -8,6 +8,8 @@ stage, and can be either ``"day_night"`` (brightest), ``"civil"``,
 ``"nautical"``, or ``"astronomical"`` (darkest).
 Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 """
+
+# %%
 import datetime
 
 import pygmt

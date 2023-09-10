@@ -26,6 +26,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one
 (``+v``).
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
