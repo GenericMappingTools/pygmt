@@ -8,17 +8,16 @@ the :meth:`pygmt.Figure.coast` method for plotting. Later tutorials will
 address other PyGMT methods.
 """
 
-###############################################################################
+# %%
 # Loading the library
 # -------------------
 #
 # The first step is to import :mod:`pygmt`. All methods and figure generation
 # are accessible from the :mod:`pygmt` top level package.
 
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
-###############################################################################
+# %%
 # Creating a figure
 # -----------------
 #
@@ -27,7 +26,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-###############################################################################
+# %%
 # To add elements to the figure instance or object (``fig`` in this example)
 # different methods can be called on it. This example will use the
 # :meth:`pygmt.Figure.coast` method, which can be used to create a map without
@@ -52,12 +51,13 @@ fig = pygmt.Figure()
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
-###############################################################################
+# %%
 # To see the figure, call :meth:`pygmt.Figure.show`.
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Color the land and water
 # ------------------------
 #
@@ -80,7 +80,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Set the projection
 # ------------------
 #
@@ -108,7 +109,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a frame
 # -----------
 #
@@ -130,7 +132,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a title
 # -----------
 #
@@ -153,7 +156,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Additional exercises
 # --------------------
 #
@@ -172,3 +176,5 @@ fig.show()
 #    region is set without using a list full of integers or floating numbers,
 #    the argument needs to be passed as a Python string. Create a map with a
 #    width of 15 centimeters using the Mollweide ("W") projection.
+
+# sphinx_gallery_thumbnail_number = 4

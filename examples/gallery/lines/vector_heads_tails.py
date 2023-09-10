@@ -30,6 +30,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

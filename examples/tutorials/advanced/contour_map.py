@@ -4,14 +4,15 @@ Creating a map with contour lines
 
 Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 """
-# sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="05m", region=[-92.5, -82.5, -3, 7])
 
-###############################################################################
+
+# %%
 # Create contour plot
 # -------------------
 #
@@ -27,7 +28,8 @@ fig = pygmt.Figure()
 fig.grdcontour(grid=grid)
 fig.show()
 
-###############################################################################
+
+# %%
 # Contour line settings
 # ---------------------
 #
@@ -43,7 +45,8 @@ fig.grdcontour(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Contour limits
 # --------------
 #
@@ -60,7 +63,8 @@ fig.grdcontour(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Map settings
 # ------------
 #
@@ -78,7 +82,8 @@ fig.grdcontour(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Adding a colormap
 # -----------------
 #
@@ -105,3 +110,5 @@ fig.grdcontour(
 )
 fig.colorbar(frame=["x+lelevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

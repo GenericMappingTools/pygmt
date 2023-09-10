@@ -20,6 +20,7 @@ For all supported octal codes and fonts see the GMT cookbook
 :gmt-docs:`cookbook/postscript-fonts.html`.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

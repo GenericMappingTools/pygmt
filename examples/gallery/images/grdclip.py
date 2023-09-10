@@ -8,6 +8,7 @@ smaller than 0 m (in general the bathymetric part of the grid) to a common
 value of -2000 m via the ``below`` parameter.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

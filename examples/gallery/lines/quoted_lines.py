@@ -14,6 +14,7 @@ For details on the input data see the upstream GMT documentation
 at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 """
 
+# %%
 import numpy as np
 import pygmt
 
@@ -71,8 +72,7 @@ for quotedline in [
 
 fig.show()
 
-
-###############################################################################
+# %%
 # For curved labels following the line, append ``"+v"`` to the argument passed
 # to the ``style`` parameter.
 

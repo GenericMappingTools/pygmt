@@ -20,9 +20,7 @@ This tutorial is split into three parts:
 - Add a grid for Earth relief
 """
 
-# sphinx_gallery_thumbnail_number = 1
-
-
+# %%
 # Import the required packages
 import numpy as np
 import panel as pn
@@ -31,7 +29,7 @@ import pygmt
 pn.extension()
 
 
-###############################################################################
+# %%
 # Make a static map
 # -----------------
 #
@@ -58,7 +56,7 @@ fig.coast(
 fig.show()
 
 
-###############################################################################
+# %%
 # Make an interactive map
 # -----------------------
 #
@@ -96,7 +94,7 @@ def view(central_lon):
 pn.Column(slider_lon, view)
 
 
-###############################################################################
+# %%
 # Add a grid for Earth relief
 # ---------------------------
 #
@@ -142,3 +140,5 @@ def view(central_lon):
 
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
+
+# sphinx_gallery_thumbnail_number = 1

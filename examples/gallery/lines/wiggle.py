@@ -10,6 +10,7 @@ filled with color by setting the ``fillpositive`` and/or ``fillnegative``
 parameters.
 """
 
+# %%
 import numpy as np
 import pygmt
 

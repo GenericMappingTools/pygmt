@@ -18,6 +18,7 @@ according to the positive/negative of the azimuthal gradient and the amplitude
 of each point.
 """
 
+# %%
 import pygmt
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus

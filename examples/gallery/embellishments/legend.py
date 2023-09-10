@@ -11,6 +11,8 @@ to the ``spec`` parameter of :meth:`pygmt.Figure.legend`. For details on
 how to set up such a file, please see the GMT documentation at
 https://docs.generic-mapping-tools.org/latest/legend.html#legend-codes.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

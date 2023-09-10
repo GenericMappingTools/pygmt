@@ -24,6 +24,8 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
          maps. GMT uses the interpolant selected by the parameter
          :gmt-term:`GMT_INTERPOLANT` in the gmt.conf file.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

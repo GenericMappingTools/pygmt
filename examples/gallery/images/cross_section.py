@@ -14,6 +14,7 @@ along the survey line.
 https://docs.gmt-china.org/latest/examples/ex026/
 """
 
+# %%
 import pygmt
 
 # Define region of study area

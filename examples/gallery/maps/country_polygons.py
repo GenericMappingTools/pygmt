@@ -9,9 +9,7 @@ It's also possible to define multiple countries at once by separating
 the individual names with commas.
 """
 
-# sphinx_gallery_thumbnail_number = 1
-
-
+# %%
 import pygmt
 
 fig = pygmt.Figure()
@@ -44,7 +42,7 @@ fig.coast(
 
 fig.show()
 
-###############################################################################
+# %%
 # Entire continents can also be highlighted by adding ``"="`` in
 # front of the continent code to differentiate it from a country code.
 
@@ -76,7 +74,7 @@ fig.coast(
 
 fig.show()
 
-###############################################################################
+# %%
 # If available, states/territories of a country can be highlighted, too.
 
 fig = pygmt.Figure()
@@ -97,3 +95,5 @@ fig.coast(
 )
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 1
