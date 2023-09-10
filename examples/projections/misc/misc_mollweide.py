@@ -14,6 +14,8 @@ occasionally referenced under the name homalographic projection.
 The projection is set with **w** or **W**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

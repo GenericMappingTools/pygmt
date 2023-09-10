@@ -12,8 +12,8 @@ create a range of the data on an axis.
 The following examples will demonstrate how to create plots using these
 different datetime objects.
 """
-# sphinx_gallery_thumbnail_number = 8
 
+# %%
 import datetime
 
 import numpy as np
@@ -21,7 +21,7 @@ import pandas as pd
 import pygmt
 import xarray as xr
 
-###############################################################################
+# %%
 # Using Python's ``datetime``
 # ---------------------------
 #
@@ -52,7 +52,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In addition to specifying the date, ``datetime`` supports the time at
 # which the data points were recorded. Using :meth:`datetime.datetime` the
 # ``region`` parameter as well as data points can be created with both date and
@@ -91,7 +91,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using ISO Format
 # ----------------
 #
@@ -122,7 +123,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # .. note::
 #
 #     PyGMT doesn't recognize non-ISO datetime strings like "Jun 05, 2018". If
@@ -130,7 +131,8 @@ fig.show()
 #     recognized format using :func:`pandas.to_datetime` and then pass it to
 #     PyGMT.
 
-###############################################################################
+
+# %%
 # Mixing and matching Python ``datetime`` and ISO dates
 # -----------------------------------------------------
 #
@@ -154,7 +156,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :meth:`pandas.date_range`
 # -------------------------------
 #
@@ -184,7 +187,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :class:`xarray.DataArray`
 # -------------------------------
 #
@@ -212,7 +216,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Using :class:`numpy.datetime64`
 # -------------------------------
 #
@@ -238,7 +243,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Generating an automatic region
 # ------------------------------
 #
@@ -279,7 +285,8 @@ fig.plot(
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Setting Primary and Secondary Time Axes
 # ---------------------------------------
 #
@@ -320,7 +327,7 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
 
 fig.show()
 
-###############################################################################
+# %%
 # The same concept shown above can be applied to smaller as well as larger
 # intervals. In this example, data are plotted for different times throughout
 # two days. The primary x-axis annotations are modified to repeat every 6
@@ -355,3 +362,5 @@ with pygmt.config(FORMAT_CLOCK_MAP="-hhAM"):
         fill="lightseagreen",
     )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 8

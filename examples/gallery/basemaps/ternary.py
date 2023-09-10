@@ -12,6 +12,7 @@ Points are colored based on the values given in the fourth columns of the
 sample dataset via ``cmap=True``.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
