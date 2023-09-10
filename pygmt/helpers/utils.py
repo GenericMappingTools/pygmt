@@ -288,7 +288,7 @@ def non_ascii_to_octal(argstr):
     # Adobe ISOLatin1+ charset (i.e., ISO-8859-1 with extensions)
     # References:
     # 1. https://en.wikipedia.org/wiki/ISO/IEC_8859-1
-    # 2. https://docs.generic-mapping-tools.org/dev/cookbook/octal-codes.html
+    # 2. https://docs.generic-mapping-tools.org/dev/reference/octal-codes.html
     # 3. https://www.adobe.com/jp/print/postscript/pdfs/PLRM.pdf
     mapping.update(
         {
