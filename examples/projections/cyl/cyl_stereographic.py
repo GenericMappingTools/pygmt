@@ -27,6 +27,8 @@ The standard parallel is typically one of these (but can be any value):
 * 0 - Braun's Cylindrical
 
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

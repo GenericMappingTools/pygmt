@@ -8,6 +8,7 @@ figure. The method is called using a ``with`` statement, and its
 methods called within the ``with`` statement plot into the inset figure.
 """
 
+# %%
 import pygmt
 
 # Set the region of the main figure

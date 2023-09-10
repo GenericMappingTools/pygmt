@@ -14,6 +14,7 @@ control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 """
 
+# %%
 import pandas as pd
 import pygmt
 

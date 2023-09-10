@@ -10,6 +10,7 @@ output. By default, all units (*r*, *s* and *p*) are set to degrees while
 ``unit=True`` allows to set the unit for *p* to km.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
