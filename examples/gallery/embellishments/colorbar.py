@@ -1,6 +1,6 @@
 r"""
 Colorbar
---------
+========
 
 The :meth:`pygmt.Figure.colorbar` method creates a color scalebar.
 The colormap is set via the ``cmap`` parameter. A full list of available

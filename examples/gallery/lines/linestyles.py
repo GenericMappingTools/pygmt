@@ -1,6 +1,6 @@
 """
 Line styles
------------
+===========
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
