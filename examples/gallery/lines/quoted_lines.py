@@ -1,6 +1,6 @@
 """
 Quoted lines
-------------
+============
 
 To plot a so-called *quoted line*, i.e., labels along a line
 or curve, use the ``style`` parameter of the

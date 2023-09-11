@@ -1,6 +1,6 @@
 """
 Generate points along great circles
------------------------------------
+===================================
 
 The :func:`pygmt.project` function can generate points along a great circle
 whose center and end points can be defined via the ``center`` and ``endpoint``

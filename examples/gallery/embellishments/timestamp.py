@@ -1,6 +1,6 @@
 """
 Timestamp
----------
+=========
 
 The :meth:`pygmt.Figure.timestamp` method can draw the GMT timestamp logo on
 the plot. The timestamp will always be shown relative to the bottom-left corner
