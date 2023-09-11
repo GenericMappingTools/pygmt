@@ -12,7 +12,7 @@ Beside the built-in symbols also custom symbols can be used.
 For modifying the main decorated line via the ``pen`` parameter,
 see the :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
-at https://docs.generic-mapping-tools.org/latest/plot.html#s.
+at :gmt-docs:`plot.html#s`.
 Furthermore, there are so-called *line fronts*, which are often
 used to plot fault lines, subduction zones, or weather fronts;
 for details see the

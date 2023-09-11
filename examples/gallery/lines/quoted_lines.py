@@ -11,7 +11,7 @@ This example shows how to adjust the labels.
 For modifying the main quoted line via the ``pen`` parameter,
 see the :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
-at https://docs.generic-mapping-tools.org/latest/plot.html#s.
+at :gmt-docs:`plot.html#s`.
 """
 
 # %%
