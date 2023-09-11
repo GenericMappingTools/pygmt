@@ -1,6 +1,6 @@
 """
 RGB Image
----------
+=========
 
 The :meth:`pygmt.Figure.grdimage` method can be used to plot Red, Green, Blue
 (RGB) images, or any 3-band false color combination. Here, we'll use
