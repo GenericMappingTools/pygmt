@@ -24,6 +24,7 @@ assignees: ''
   - [ ] Update `.github/workflows/ci_docs.yml`
   - [ ] Update `.github/workflows/ci_tests.yaml`
   - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
+  - [ ] Update `extlinks` in `doc/conf.py`
 - [ ] Fix failing tests (1 or more PRs)
 - [ ] Fix [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
 
