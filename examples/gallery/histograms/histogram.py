@@ -1,6 +1,6 @@
 """
 Histogram
----------
+=========
 
 The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of

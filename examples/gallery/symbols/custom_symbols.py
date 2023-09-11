@@ -1,6 +1,6 @@
 """
 Custom symbols
---------------
+==============
 
 The :meth:`pygmt.Figure.plot` method can plot individual custom symbols
 by passing the corresponding symbol name together with the **k** shortcut to

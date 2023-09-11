@@ -1,6 +1,6 @@
 r"""
 Bit and Hachure Patterns
-------------------------
+========================
 
 PyGMT allows using bit or hachure patterns via the ``fill`` parameter
 or similar parameters:
