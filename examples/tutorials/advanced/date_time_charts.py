@@ -307,7 +307,8 @@ fig.show()
 # the minor tick spacing interval to 1 day (**f1D**). To use the month's name
 # instead of its number set :gmt-term:`FORMAT_DATE_MAP` to **o**. More
 # information on configuring date formats can be found at
-# # https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters.
+# :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
+# :gmt-term:`FORMAT_DATE_OUT`.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
 y = [4, 5, 6, 8, 9, 5, 8, 9, 4, 2]
@@ -338,8 +339,9 @@ fig.show()
 # :gmt-term:`FORMAT_CLOCK_MAP` to **-hhAM** which specifies the format used
 # for time. In this case, leading zeros are removed using (**-**), and only
 # hours are displayed. Additionally, an AM/PM system is used instead of a
-# 24-hour system. More information on configuring time formats can be found at
-# https://docs.generic-mapping-tools.org/latest/gmt.conf#format-parameters.
+# 24-hour system. More information on configuring time formats can be found
+# at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
+# :gmt-term:`FORMAT_CLOCK_OUT`.
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
