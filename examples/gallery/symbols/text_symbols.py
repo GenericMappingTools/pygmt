@@ -1,6 +1,6 @@
 r"""
 Text symbols
-------------
+============
 
 The :meth:`pygmt.Figure.plot` method allows to plot text symbols. Text is
 normally placed with the :meth:`pygmt.Figure.text` method but there are times

@@ -1,6 +1,6 @@
 r"""
 Line fronts
------------
+===========
 
 Using the :meth:`pygmt.Figure.plot` method you can draw a so-called
 *front* which allows to plot specific symbols distributed along a line

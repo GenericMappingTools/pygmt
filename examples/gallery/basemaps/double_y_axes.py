@@ -1,6 +1,6 @@
 """
 Double Y axes graph
--------------------
+===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,

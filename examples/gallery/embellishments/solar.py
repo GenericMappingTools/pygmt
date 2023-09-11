@@ -1,6 +1,6 @@
 """
 Day-night terminator line and twilights
----------------------------------------
+=======================================
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between
 daytime and nighttime. The parameter ``terminator`` is used to set the twilight

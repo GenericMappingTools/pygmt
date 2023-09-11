@@ -49,8 +49,8 @@ napoleon_use_ivar = True
 
 # configure links to GMT docs
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.4/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.4/gmt.conf#term-%s", ""),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
