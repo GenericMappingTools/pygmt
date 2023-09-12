@@ -80,7 +80,7 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
 
 def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
     """
-    Run grdtrack by passing in a pandas.DataFrame and netcdf file as inputs.
+    Run grdtrack by passing in a pandas.DataFrame and netCDF file as inputs.
     """
     output = grdtrack(
         points=dataframe, grid="@static_earth_relief.nc", newcolname="bathymetry"
@@ -92,7 +92,7 @@ def test_grdtrack_input_dataframe_and_ncfile(dataframe, expected_array):
 
 def test_grdtrack_input_csvfile_and_ncfile_to_dataframe(expected_array):
     """
-    Run grdtrack by passing in a csv file and netcdf file as inputs with a
+    Run grdtrack by passing in a csv file and netCDF file as inputs with a
     pandas.DataFrame output.
     """
     output = grdtrack(points=POINTS_DATA, grid="@static_earth_relief.nc")

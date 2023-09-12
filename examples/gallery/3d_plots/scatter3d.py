@@ -1,6 +1,6 @@
 """
 3-D Scatter plots
------------------
+=================
 
 The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3-D.
 In the example below, we show how the
@@ -14,6 +14,7 @@ control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 """
 
+# %%
 import pandas as pd
 import pygmt
 

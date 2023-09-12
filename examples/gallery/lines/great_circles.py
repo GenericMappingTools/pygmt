@@ -1,15 +1,16 @@
 """
 Generate points along great circles
------------------------------------
+===================================
 
 The :func:`pygmt.project` function can generate points along a great circle
 whose center and end points can be defined via the ``center`` and ``endpoint``
 parameters, respectively. Using the ``generate`` parameter allows to generate
 (*r*, *s*, *p*) points every *dist* units of *p* along a profile as
-output. By default all units (*r*, *s* and *p*) are set to degrees while
+output. By default, all units (*r*, *s* and *p*) are set to degrees while
 ``unit=True`` allows to set the unit for *p* to km.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

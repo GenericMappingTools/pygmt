@@ -1,6 +1,6 @@
 r"""
 Colorbar
---------
+========
 
 The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. We must
 specify the colormap via the ``cmap`` parameter, and optionally set the
@@ -22,6 +22,7 @@ Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
 to ``position`` to get a horizontal colorbar instead of a vertical one.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()
@@ -40,7 +41,7 @@ fig.colorbar(
     # with a length/width (+w) of 4 cm by 0.5 cm, and plotted horizontally (+h)
     position="g0.3/8.7+w4c/0.5c+h",
     box=True,
-    frame=["x+lTemperature", r"y+l\260C"],
+    frame=["x+lTemperature", "y+l°C"],
     scale=100,
 )
 

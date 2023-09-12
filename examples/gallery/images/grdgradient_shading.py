@@ -1,11 +1,12 @@
 """
 Calculating grid gradient with custom ``azimuth`` and ``normalize`` parameters
-------------------------------------------------------------------------------
+==============================================================================
+
 The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
-As input, :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
-a path string to a grid file. It then calculates the respective gradient and
-returns an :class:`xarray.DataArray` object. The example below sets two main
-parameters:
+As input, :func:`pygmt.grdgradient` gets an :class:`xarray.DataArray` object
+or a path string to a grid file. It then calculates the respective gradient
+and returns an :class:`xarray.DataArray` object. The example below sets two
+main parameters:
 
 - ``azimuth``: to set the illumination light source direction (0° is North,
   90° is East, 180° is South, 270° is West).
@@ -17,6 +18,7 @@ according to the positive/negative of the azimuthal gradient and the amplitude
 of each point.
 """
 
+# %%
 import pygmt
 
 # Load the 3 arc-minutes global relief grid in the target area around Caucasus

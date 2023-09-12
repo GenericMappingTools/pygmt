@@ -67,7 +67,7 @@ the problem:
   where `<test>` is the name of your test script. Note that this script works only with GMT>=6.4
 * If the bug is produced when passing an in-memory data object (e.g., a
   pandas.DataFrame or xarray.DataArray) to a PyGMT function, try writing the
-  data to a file (e.g., a NetCDF or ASCII txt file) and passing the data file
+  data to a file (e.g., a netCDF or ASCII txt file) and passing the data file
   to the PyGMT function instead. In the GitHub issue, please share the results
   for both cases along with your code.
 
@@ -378,9 +378,9 @@ The tutorials (the User Guide in the docs) are also built by sphinx-gallery from
 * Create a `.py` file in the `examples/tutorials/advanced` folder.
 * Write the tutorial in "notebook" style with code mixed with paragraphs explaining what
   is being done. See the other tutorials for the format.
-* Choose the most representative figure as the thumbnail figure by adding a comment line
-  `# sphinx_gallery_thumbnail_number = <fig_number>` to any place (usually at the top)
-  in the tutorial. The *fig_number* starts from 1.
+* Choose the most representative figure as the thumbnail figure by adding the comment
+  line `# sphinx_gallery_thumbnail_number = <fig_number>` at the end of the tutorial.
+  The *fig_number* starts from 1.
 
 Guidelines for a good tutorial:
 

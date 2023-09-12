@@ -1,6 +1,7 @@
 """
 Images on figures
------------------
+=================
+
 The :meth:`pygmt.Figure.image` method can be used to read and place an image
 file in many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify
 the filename via the ``imagefile`` parameter or simply use the filename as
@@ -8,6 +9,8 @@ the first argument. You can also use a full URL pointing to your desired image.
 The ``position`` parameter allows us to set a reference point on the map for
 the image.
 """
+
+# %%
 import os
 
 import pygmt

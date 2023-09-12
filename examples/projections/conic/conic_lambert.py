@@ -17,6 +17,8 @@ The projection is set with **l** or **L**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

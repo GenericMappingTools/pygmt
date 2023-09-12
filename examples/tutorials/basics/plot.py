@@ -1,6 +1,6 @@
 """
 Plotting data points
---------------------
+====================
 
 GMT shines when it comes to plotting data on a map. We can use some sample data
 that is packaged with GMT to try this out. PyGMT provides access to these
@@ -8,11 +8,11 @@ datasets through the :mod:`pygmt.datasets` package. If you don't have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually ``~/.gmt/cache``).
 """
-# sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # For example, let's load the sample dataset of tsunami generating earthquakes
 # around Japan using :func:`pygmt.datasets.load_sample_data`.
 # The data are loaded as a :class:`pandas.DataFrame`.
@@ -30,8 +30,7 @@ region = [
 print(region)
 print(data.head())
 
-
-###############################################################################
+# %%
 # We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
 # earthquake epicenters.
 
@@ -41,10 +40,10 @@ fig.coast(land="black", water="skyblue")
 fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="black")
 fig.show()
 
-###############################################################################
-# We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
-# The ``pen`` parameter controls the outline of the symbols and the ``fill``
-# parameter controls the fill.
+# %%
+# We used the style ``c0.3c`` which means "circles with a diameter of 0.3
+# centimeters". The ``pen`` parameter controls the outline of the symbols and
+# the ``fill`` parameter controls the fill.
 #
 # We can map the size of the circles to the earthquake magnitude by passing an
 # array to the ``size`` parameter. Because the magnitude is on a logarithmic
@@ -64,7 +63,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Notice that we didn't include the size in the ``style`` parameter this time,
 # just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
 # this case, the size will be interpreted as being in centimeters.
@@ -93,3 +92,5 @@ fig.plot(
 )
 fig.colorbar(frame="af+lDepth (km)")
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

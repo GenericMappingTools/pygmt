@@ -1,6 +1,6 @@
 """
 Line styles
------------
+===========
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
@@ -17,6 +17,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 """
 
+# %%
 import numpy as np
 import pygmt
 

@@ -5,7 +5,9 @@ access to the API functions.
 Uses ctypes to wrap most of the core functions from the C API.
 """
 import ctypes as ctp
+import pathlib
 import sys
+import warnings
 from contextlib import contextmanager, nullcontext
 
 import numpy as np
@@ -25,7 +27,12 @@ from pygmt.exceptions import (
     GMTInvalidInput,
     GMTVersionError,
 )
-from pygmt.helpers import data_kind, fmt_docstring, tempfile_from_geojson
+from pygmt.helpers import (
+    data_kind,
+    fmt_docstring,
+    tempfile_from_geojson,
+    tempfile_from_image,
+)
 
 FAMILIES = [
     "GMT_IS_DATASET",  # Entity is a data table
@@ -1474,6 +1481,7 @@ class Session:
         z=None,
         extra_arrays=None,
         required_z=False,
+        required_data=True,
     ):
         """
         Store any data inside a virtual file.
@@ -1484,7 +1492,7 @@ class Session:
 
         Parameters
         ----------
-        check_kind : str
+        check_kind : str or None
             Used to validate the type of data that can be passed in. Choose
             from 'raster', 'vector', or None. Default is None (no validation).
         data : str or pathlib.Path or xarray.DataArray or {table-like} or None
@@ -1498,6 +1506,9 @@ class Session:
             All of these arrays must be of the same size as the x/y/z arrays.
         required_z : bool
             State whether the 'z' column is required.
+        required_data : bool
+            Set to True when 'data' is required, or False when dealing with
+            optional virtual files. [Default is True].
 
         Returns
         -------
@@ -1528,23 +1539,28 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(data, x, y, z, required_z=required_z)
+        kind = data_kind(
+            data, x, y, z, required_z=required_z, required_data=required_data
+        )
 
-        if check_kind == "raster" and kind not in ("file", "grid"):
-            raise GMTInvalidInput(f"Unrecognized data type for grid: {type(data)}")
-        if check_kind == "vector" and kind not in (
-            "file",
-            "matrix",
-            "vectors",
-            "geojson",
-        ):
-            raise GMTInvalidInput(f"Unrecognized data type for vector: {type(data)}")
+        if check_kind:
+            valid_kinds = ("file", "arg") if required_data is False else ("file",)
+            if check_kind == "raster":
+                valid_kinds += ("grid", "image")
+            elif check_kind == "vector":
+                valid_kinds += ("matrix", "vectors", "geojson")
+            if kind not in valid_kinds:
+                raise GMTInvalidInput(
+                    f"Unrecognized data type for {check_kind}: {type(data)}"
+                )
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
             "file": nullcontext,
+            "arg": nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
+            "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
             # handling of string type inputs (e.g. for datetime data types)
@@ -1553,11 +1569,17 @@ class Session:
         }[kind]
 
         # Ensure the data is an iterable (Python list or tuple)
-        if kind in ("geojson", "grid"):
-            _data = (data,)
-        elif kind == "file":
-            # Useful to handle `pathlib.Path` and string file path alike
-            _data = (str(data),)
+        if kind in ("geojson", "grid", "image", "file", "arg"):
+            if kind == "image" and data.dtype != "uint8":
+                msg = (
+                    f"Input image has dtype: {data.dtype} which is unsupported, "
+                    "and may result in an incorrect output. Please recast image "
+                    "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                    "using a histogram equalization function like "
+                    "skimage.exposure.equalize_hist."
+                )
+                warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+            _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
             _data = [np.atleast_1d(x), np.atleast_1d(y)]
             if z is not None:
@@ -1618,8 +1640,8 @@ class Session:
         >>> print(", ".join([f"{x:.2f}" for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
-        Using ISO country codes for the regions (for example ``'US.HI'`` for
-        Hawaii):
+        Using ISO country codes for the regions (for example ``"US.HI"`` for
+        Hawaiʻi):
 
         >>> fig = pygmt.Figure()
         >>> fig.coast(
@@ -1632,7 +1654,7 @@ class Session:
         -164.71, -154.81, 18.91, 23.58
 
         The country codes can have an extra argument that rounds the region a
-        multiple of the argument (for example, ``'US.HI+r5'`` will round the
+        multiple of the argument (for example, ``"US.HI+r5"`` will round the
         region to multiples of 5):
 
         >>> fig = pygmt.Figure()

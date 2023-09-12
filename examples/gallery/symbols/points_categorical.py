@@ -1,6 +1,7 @@
 """
 Color points by categories
----------------------------
+==========================
+
 The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the
 `Palmer Penguins dataset <https://github.com/allisonhorst/palmerpenguins>`__
@@ -11,6 +12,7 @@ the "species" column directly to the ``color`` parameter via
 function.
 """
 
+# %%
 import pandas as pd
 import pygmt
 

@@ -15,6 +15,8 @@ The projection is set with **t** or **T**. The central meridian is set
 by  *lon0*, the latitude of the origin is set by the optional *lat0*, and the
 figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

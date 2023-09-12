@@ -21,12 +21,12 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3.5.3
+      uses: actions/checkout@v4.0.0
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v3.5.3
+      uses: actions/checkout@v4.0.0
       with:
         ref: gh-pages
         path: documentation
@@ -47,8 +47,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^git"
           --exclude "^file://"
-          --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
-          --exclude "^https://docs.generic-mapping-tools.org/latest/%3Cmodule-name%3E.html$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.4/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.4/%3Cmodule-name%3E.html$"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
