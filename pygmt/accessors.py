@@ -167,9 +167,9 @@ class GMTDataArrayAccessor:
             )
         self._gtype = value
 
-    def imshow(self):
+    def imshow(self, fig=None):
         """
-        Image plot of 2D DataArray.
+        Image plot of 2D :class:`xarray.DataArray`.
 
         Examples
         --------
@@ -178,7 +178,13 @@ class GMTDataArrayAccessor:
         >>> grid = load_earth_relief()
         >>> grid.gmt.imshow()
         """
-        fig = Figure()
+        newfig = False
+        if fig is None:
+            fig = Figure()
+            newfig = True
         fig.grdimage(self._obj, frame=True)
-        fig.colorbar()
-        fig.show()
+        fig.colorbar(frame=True)
+
+        if newfig:
+            fig.show()
+            return fig
