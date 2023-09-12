@@ -4,7 +4,7 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - gmt=6.4.0=h4733502_10
+    - gmt=6.4.0
     - numpy>=1.22
     - pandas
     - xarray
