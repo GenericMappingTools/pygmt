@@ -22,9 +22,9 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
 
     These grids can also be accessed by passing in the file name
     **@earth_mask**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    function. *res* is the grid resolution (see below), and *reg* is the
+    grid registration type (**p** for pixel registration or **g** for
+    gridline registration).
 
     Refer to :gmt-datasets:`earth-mask.html` for more details.
 

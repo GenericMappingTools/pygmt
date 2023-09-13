@@ -25,9 +25,9 @@ def load_earth_vertical_gravity_gradient(
 
     These grids can also be accessed by passing in the file name
     **@earth_vgg**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    function. *res* is the grid resolution (see below), and *reg* is the
+    grid registration type (**p** for pixel registration or **g** for
+    gridline registration).
 
     The default color palette table (CPT) for this dataset is *@earth_vgg.cpt*.
     It's implicitly used when passing in the file name of the dataset to any

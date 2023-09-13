@@ -34,7 +34,7 @@ def load_earth_relief(
     any grid plotting/processing function. *earth_relief_type* is the GMT name
     for the dataset. The available options are **earth_relief**\,
     **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
-    grid resolution (see below), and *reg* is grid registration type
+    grid resolution (see below), and *reg* is the grid registration type
     (**p** for pixel registration or **g** for gridline registration).
 
     The default color palette table (CPT) for this dataset is *geo*.

@@ -30,7 +30,7 @@ def load_earth_magnetic_anomaly(
     function. *earth_mag_type* is the GMT name
     for the dataset. The available options are **earth_mag**,
     **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution
-    (see below), and *reg* is grid registration type (**p** for pixel
+    (see below), and *reg* is the grid registration type (**p** for pixel
     registration or **g** for gridline registration).
 
     The default color palette tables (CPTs) for this dataset are
