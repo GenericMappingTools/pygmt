@@ -26,8 +26,8 @@ def load_earth_magnetic_anomaly(
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *earth_mag_type* is the GMT name
+    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid processing/
+    plotting function/method. *earth_mag_type* is the GMT name
     for the dataset. The available options are **earth_mag**,
     **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution
     (see below), and *reg* is the grid registration type (**p** for pixel

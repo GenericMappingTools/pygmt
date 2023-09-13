@@ -31,8 +31,8 @@ def load_earth_relief(
 
     This module downloads the grids that can also be accessed by
     passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid plotting/processing function. *earth_relief_type* is the GMT name
-    for the dataset. The available options are **earth_relief**\,
+    any grid processing/plotting function/method. *earth_relief_type* is the
+    GMT name for the dataset. The available options are **earth_relief**\,
     **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
     grid resolution (see below), and *reg* is the grid registration type
     (**p** for pixel registration or **g** for gridline registration).

@@ -21,9 +21,9 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_geoid**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is the
-    grid registration type (**p** for pixel registration or **g** for
+    **@earth_geoid**\_\ *res*\[_\ *reg*] to any grid processing/plotting
+    function/method. *res* is the grid resolution (see below), and *reg* is
+    the grid registration type (**p** for pixel registration or **g** for
     gridline registration).
 
     Refer to :gmt-datasets:`earth-geoid.html` for more details.

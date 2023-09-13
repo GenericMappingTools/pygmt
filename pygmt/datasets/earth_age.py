@@ -21,10 +21,10 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_age**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is the
+    **@earth_age**\_\ *res*\[_\ *reg*] to any grid processing/plotting
+    function/method. *res* is the grid resolution (see below), and *reg* is
     grid registration type (**p** for pixel registration or **g** for
-    gridline registration).
+    the gridline registration).
 
     The default color palette table (CPT) for this dataset is *@earth_age.cpt*.
     It's implicitly used when passing in the file name of the dataset to any
