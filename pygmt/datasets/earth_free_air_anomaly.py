@@ -21,8 +21,8 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_faa**\_\ *res*\[_\ *reg*] to any grid processing/plotting
-    function/method. *res* is the grid resolution (see below), and *reg* is
+    **@earth_faa**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *res* is the grid resolution (see below), and *reg* is
     the grid registration type (**p** for pixel registration or **g** for
     gridline registration).
 
