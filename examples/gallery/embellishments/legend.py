@@ -9,7 +9,7 @@ including legends with multiple columns, users have to write an ASCII file
 with instructions for the layout of the legend items and pass it
 to the ``spec`` parameter of :meth:`pygmt.Figure.legend`. For details on
 how to set up such a file, please see the GMT documentation at
-https://docs.generic-mapping-tools.org/latest/legend.html#legend-codes.
+:gmt-docs:`legend.html#legend-codes`.
 """
 
 # %%
