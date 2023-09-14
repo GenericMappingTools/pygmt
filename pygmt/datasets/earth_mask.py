@@ -1,6 +1,6 @@
 """
-Function to download the GSHHG Global Earth Mask dataset from the
-GMT data server, and load as :class:`xarray.DataArray`.
+Function to download the GSHHG Global Earth Mask dataset from the GMT data
+server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
