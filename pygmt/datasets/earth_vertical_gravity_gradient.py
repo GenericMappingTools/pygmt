@@ -33,7 +33,7 @@ def load_earth_vertical_gravity_gradient(
     It's implicitly used when passing in the file name of the dataset to any
     grid plotting method if no CPT is explicitly specified. When the dataset
     is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored and GMT's default CPT (*turbo*) is used. To use the
+    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_vgg.cpt"``.
 
     Refer to :gmt-datasets:`earth-vgg.html` for more details.
