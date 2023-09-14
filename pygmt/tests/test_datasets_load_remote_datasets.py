@@ -36,3 +36,12 @@ def test_load_remote_dataset_invalid_registration():
     """
     with pytest.raises(GMTInvalidInput):
         load_remote_dataset_wrapper(registration="improper_type")
+
+
+def test_load_remote_dataset_tiled_grid_without_region():
+    """
+    Make sure _load_remote_dataset fails when trying to load a tiled grid
+    without specifying a region.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_remote_dataset_wrapper(resolution="01m")

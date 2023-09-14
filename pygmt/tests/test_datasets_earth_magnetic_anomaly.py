@@ -38,15 +38,6 @@ def test_earth_mag_01d_with_region():
     npt.assert_allclose(data.max(), 127.4, atol=0.2)
 
 
-def test_earth_mag_02m_without_region():
-    """
-    Test loading high-resolution earth magnetic anomaly without passing
-    'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly("02m")
-
-
 def test_earth_mag_incorrect_resolution_registration():
     """
     Test that an error is raised when trying to load a EMAG2 grid registration
@@ -181,16 +172,6 @@ def test_earth_mag_03m_wdmam_with_region():
     assert data.lon.max() == 13
     npt.assert_allclose(data.min(), -790.2, atol=0.2)
     npt.assert_allclose(data.max(), 528.0, atol=0.2)
-
-
-def test_earth_mag_03m_wdmam_without_region():
-    """
-    Test loading a high-resolution WDMAM grid without passing 'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(
-            resolution="03m", registration="gridline", data_source="wdmam"
-        )
 
 
 def test_earth_mag_wdmam_incorrect_resolution_registration():

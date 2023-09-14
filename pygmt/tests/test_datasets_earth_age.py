@@ -38,14 +38,6 @@ def test_earth_age_01d_with_region():
     npt.assert_allclose(data.max(), 125.12, atol=0.01)
 
 
-def test_earth_age_01m_without_region():
-    """
-    Test loading high-resolution earth age without passing 'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_age("01m")
-
-
 def test_earth_age_incorrect_resolution_registration():
     """
     Test that an error is raised when trying to load a grid registration with

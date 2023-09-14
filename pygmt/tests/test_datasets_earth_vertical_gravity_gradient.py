@@ -41,14 +41,6 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     npt.assert_allclose(data.max(), 19.875, atol=1 / 32)
 
 
-def test_earth_vertical_gravity_gradient_01m_without_region():
-    """
-    Test loading high-resolution earth vgg without passing 'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_vertical_gravity_gradient("01m")
-
-
 def test_earth_vertical_gravity_gradient_incorrect_resolution_registration():
     """
     Test that an error is raised when trying to load a grid registration with
