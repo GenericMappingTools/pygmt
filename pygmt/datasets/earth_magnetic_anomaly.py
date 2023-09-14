@@ -1,6 +1,6 @@
 """
-Function to download the Earth magnetic anomaly datasets from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the Earth magnetic anomaly datasets from the
+GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -16,7 +16,7 @@ def load_earth_magnetic_anomaly(
     resolution="01d", region=None, registration=None, data_source="emag2"
 ):
     r"""
-    Load an Earth magnetic anomaly grid in various resolutions.
+    Load the Earth magnetic anomaly datasets in various resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mag/``,

@@ -1,6 +1,6 @@
 """
-Function to download the EGM2008 Global Earth Geoid from the GMT data server,
-and load as :class:`xarray.DataArray`.
+Function to download the EGM2008 Global Earth Geoid dataset from the
+GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -13,7 +13,7 @@ __doctest_skip__ = ["load_earth_geoid"]
 @kwargs_to_strings(region="sequence")
 def load_earth_geoid(resolution="01d", region=None, registration=None):
     r"""
-    Load the EGM2008 Global Earth Geoid in various resolutions.
+    Load the EGM2008 Global Earth Geoid dataset in various resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_geoid/``) the first time you invoke
