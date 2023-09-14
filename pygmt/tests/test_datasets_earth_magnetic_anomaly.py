@@ -8,14 +8,6 @@ from pygmt.datasets import load_earth_magnetic_anomaly
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_mag_incorrect_registration():
-    """
-    Test loading earth_magnetic_anomaly with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(registration="improper_type")
-
-
 def test_earth_mag_01d():
     """
     Test some properties of the magnetic anomaly 01d data.

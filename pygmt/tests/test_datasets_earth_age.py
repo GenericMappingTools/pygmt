@@ -8,14 +8,6 @@ from pygmt.datasets import load_earth_age
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_age_incorrect_registration():
-    """
-    Test loading earth_age with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_age(registration="improper_type")
-
-
 def test_earth_age_01d():
     """
     Test some properties of the earth age 01d data.

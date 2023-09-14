@@ -8,15 +8,6 @@ from pygmt.datasets import load_earth_vertical_gravity_gradient
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_vertical_gravity_gradient_incorrect_registration():
-    """
-    Test loading load_earth_vertical_gravity_gradient with incorrect
-    registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_vertical_gravity_gradient(registration="improper_type")
-
-
 def test_earth_vertical_gravity_gradient_01d():
     """
     Test some properties of the earth vgg 01d data.

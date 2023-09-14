@@ -28,3 +28,11 @@ def test_load_remote_dataset_invalid_resolutions():
     for resolution in resolutions:
         with pytest.raises(GMTInvalidInput):
             load_remote_dataset_wrapper(resolution=resolution)
+
+
+def test_load_remote_dataset_invalid_registration():
+    """
+    Make sure _load_remote_dataset fails for invalid registrations.
+    """
+    with pytest.raises(GMTInvalidInput):
+        load_remote_dataset_wrapper(registration="improper_type")

@@ -8,14 +8,6 @@ from pygmt.datasets import load_earth_mask
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_mask_incorrect_registration():
-    """
-    Test loading load_earth_mask with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_mask(registration="improper_type")
-
-
 def test_earth_mask_01d():
     """
     Test some properties of the Earth mask 01d data.

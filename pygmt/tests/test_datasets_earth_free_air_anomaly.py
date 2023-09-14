@@ -8,14 +8,6 @@ from pygmt.datasets import load_earth_free_air_anomaly
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_faa_incorrect_registration():
-    """
-    Test loading earth_free_air_anomaly with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_free_air_anomaly(registration="improper_type")
-
-
 def test_earth_faa_01d():
     """
     Test some properties of the free air anomaly 01d data.

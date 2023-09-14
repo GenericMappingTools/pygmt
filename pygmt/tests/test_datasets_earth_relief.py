@@ -155,14 +155,6 @@ def test_earth_relief_03s_landonly_srtm():
     assert data.sizes["lon"] == 1201
 
 
-def test_earth_relief_incorrect_registration():
-    """
-    Test loading earth relief with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_relief(registration="improper_type")
-
-
 def test_earth_relief_invalid_resolution_registration_combination():
     """
     Test loading earth relief with invalid combination of resolution and
