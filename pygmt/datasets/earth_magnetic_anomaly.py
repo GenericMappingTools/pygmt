@@ -44,7 +44,8 @@ def load_earth_magnetic_anomaly(
     explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``.
 
     Refer to :gmt-datasets:`earth-mag.html`
-    and :gmt-datasets:`earth-wdmam.html` for more details.
+    and :gmt-datasets:`earth-wdmam.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

@@ -26,7 +26,8 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     the grid registration type (**p** for pixel registration or **g** for
     gridline registration).
 
-    Refer to :gmt-datasets:`earth-mask.html` for more details.
+    Refer to :gmt-datasets:`earth-mask.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

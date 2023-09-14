@@ -33,7 +33,8 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_age.cpt"``.
 
-    Refer to :gmt-datasets:`earth-age.html` for more details.
+    Refer to :gmt-datasets:`earth-age.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

@@ -33,7 +33,8 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_faa.cpt"``.
 
-    Refer to :gmt-datasets:`earth-faa.html` for more details.
+    Refer to :gmt-datasets:`earth-faa.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

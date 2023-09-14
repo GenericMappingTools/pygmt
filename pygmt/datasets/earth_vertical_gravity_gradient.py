@@ -36,7 +36,8 @@ def load_earth_vertical_gravity_gradient(
     CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_vgg.cpt"``.
 
-    Refer to :gmt-datasets:`earth-vgg.html` for more details.
+    Refer to :gmt-datasets:`earth-vgg.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------
