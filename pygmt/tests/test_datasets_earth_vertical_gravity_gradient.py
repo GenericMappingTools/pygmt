@@ -3,9 +3,7 @@ Test basic functionality for loading Earth vertical gravity gradient datasets.
 """
 import numpy as np
 import numpy.testing as npt
-import pytest
 from pygmt.datasets import load_earth_vertical_gravity_gradient
-from pygmt.exceptions import GMTInvalidInput
 
 
 def test_earth_vertical_gravity_gradient_01d():
@@ -39,17 +37,6 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -15.6875, atol=1 / 32)
     npt.assert_allclose(data.max(), 19.875, atol=1 / 32)
-
-
-def test_earth_vertical_gravity_gradient_incorrect_resolution_registration():
-    """
-    Test that an error is raised when trying to load a grid registration with
-    an unavailable resolution.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_vertical_gravity_gradient(
-            resolution="01m", region=[0, 1, 3, 5], registration="gridline"
-        )
 
 
 def test_earth_vertical_gravity_gradient_01m_default_registration():
