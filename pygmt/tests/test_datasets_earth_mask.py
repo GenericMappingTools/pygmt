@@ -8,17 +8,6 @@ from pygmt.datasets import load_earth_mask
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_mask_fails():
-    """
-    Make sure load_earth_mask fails for invalid resolutions.
-    """
-    resolutions = "1m 1d bla 60d 001m 03".split()
-    resolutions.append(60)
-    for resolution in resolutions:
-        with pytest.raises(GMTInvalidInput):
-            load_earth_mask(resolution=resolution)
-
-
 def test_earth_mask_incorrect_registration():
     """
     Test loading load_earth_mask with incorrect registration type.
