@@ -61,7 +61,7 @@ jobs:
 
       # Generate token from GenericMappingTools bot
       - name: Generate token from GenericMappingTools bot
-        uses: tibdex/github-app-token@v1
+        uses: tibdex/github-app-token@v2
         if: github.event_name == 'repository_dispatch'
         id: generate-token
         with:
