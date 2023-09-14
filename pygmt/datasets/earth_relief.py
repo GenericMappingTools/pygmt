@@ -1,6 +1,6 @@
 """
-Function to download the Earth relief dataset from the GMT data server, and
-load as :class:`xarray.DataArray`.
+Function to download the Earth relief datasets from the GMT data server,
+and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -20,7 +20,7 @@ def load_earth_relief(
     use_srtm=False,
 ):
     r"""
-    Load the Earth relief dataset (topography and bathymetry) in various
+    Load the Earth relief datasets (topography and bathymetry) in various
     resolutions.
 
     The grids are downloaded to a user data directory
