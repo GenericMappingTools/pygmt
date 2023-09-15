@@ -260,9 +260,9 @@ class Figure:
         This method implements a matplotlib-like interface for
         :meth:`pygmt.Figure.psconvert`.
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
-        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
-        The KML output generates a companion PNG file.
+        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg),
+        PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
+        KML (``.kml``). The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -298,14 +298,15 @@ class Figure:
             "png": "g",
             "pdf": "f",
             "jpg": "j",
+            "jpeg": "j",
             "bmp": "b",
             "eps": "e",
             "tif": "t",
             "kml": "g",
         }
 
-        prefix, ext = os.path.splitext(fname)
-        ext = ext[1:]  # Remove the .
+        prefix = Path(fname).with_suffix("")
+        ext = Path(fname).suffix[1:]  # suffix without .
         if ext not in fmts:
             if ext == "ps":
                 raise GMTInvalidInput(
@@ -327,6 +328,11 @@ class Figure:
             kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # rename .jpg to .jpeg
+        if ext == "jpeg":
+            Path(fname).with_suffix(".jpg").rename(fname)
+
         if show:
             launch_external_viewer(fname)
 
