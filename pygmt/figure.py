@@ -305,7 +305,7 @@ class Figure:
             "kml": "g",
         }
 
-        prefix = Path(fname).with_suffix("")
+        prefix = Path(fname).with_suffix("").as_posix()
         ext = Path(fname).suffix[1:]  # suffix without .
         if ext not in fmts:
             if ext == "ps":
