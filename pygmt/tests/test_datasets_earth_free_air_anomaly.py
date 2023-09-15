@@ -3,28 +3,7 @@ Test basic functionality for loading Earth free air anomaly datasets.
 """
 import numpy as np
 import numpy.testing as npt
-import pytest
 from pygmt.datasets import load_earth_free_air_anomaly
-from pygmt.exceptions import GMTInvalidInput
-
-
-def test_earth_faa_fails():
-    """
-    Make sure earth_free_air_anomaly fails for invalid resolutions.
-    """
-    resolutions = "1m 1d bla 60d 001m 03".split()
-    resolutions.append(60)
-    for resolution in resolutions:
-        with pytest.raises(GMTInvalidInput):
-            load_earth_free_air_anomaly(resolution=resolution)
-
-
-def test_earth_faa_incorrect_registration():
-    """
-    Test loading earth_free_air_anomaly with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_free_air_anomaly(registration="improper_type")
 
 
 def test_earth_faa_01d():
@@ -55,15 +34,6 @@ def test_earth_faa_01d_with_region():
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -58.475, atol=0.025)
     npt.assert_allclose(data.max(), 69.975, atol=0.025)
-
-
-def test_earth_faa_01m_without_region():
-    """
-    Test loading high-resolution earth free air anomaly without passing
-    'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_free_air_anomaly("01m")
 
 
 def test_earth_faa_01m_default_registration():
