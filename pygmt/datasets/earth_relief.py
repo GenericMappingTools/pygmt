@@ -20,7 +20,8 @@ def load_earth_relief(
     use_srtm=False,
 ):
     r"""
-    Load Earth relief grids (topography and bathymetry) in various resolutions.
+    Load the Earth relief datasets (topography and bathymetry) in various
+    resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_relief``,
@@ -31,17 +32,17 @@ def load_earth_relief(
 
     This module downloads the grids that can also be accessed by
     passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid plotting/processing function. *earth_relief_type* is the GMT name
-    for the dataset. The available options are **earth_relief**\,
+    any grid processing function or plotting method. *earth_relief_type* is
+    the GMT name for the dataset. The available options are **earth_relief**\,
     **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
-    grid resolution (see below), and *reg* is grid registration type
+    grid resolution (see below), and *reg* is the grid registration type
     (**p** for pixel registration or **g** for gridline registration).
 
     The default color palette table (CPT) for this dataset is *geo*.
     It's implicitly used when passing in the file name of the dataset to any
     grid plotting method if no CPT is explicitly specified. When the dataset
     is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored and GMT's default CPT (*turbo*) is used. To use the
+    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="geo"``.
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available

@@ -1,6 +1,6 @@
 """
-Function to download the IGPP Global Earth Vertical Gravity Gradient from the
-GMT data server, and load as :class:`xarray.DataArray`.
+Function to download the IGPP Global Earth Vertical Gravity Gradient dataset
+from the GMT data server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -15,7 +15,7 @@ def load_earth_vertical_gravity_gradient(
     resolution="01d", region=None, registration=None
 ):
     r"""
-    Load the IGPP Global Earth Vertical Gravity Gradient in various
+    Load the IGPP Global Earth Vertical Gravity Gradient dataset in various
     resolutions.
 
     The grids are downloaded to a user data directory
@@ -24,19 +24,20 @@ def load_earth_vertical_gravity_gradient(
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_vgg**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@earth_vgg**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *res* is the grid resolution (see below), and *reg* is
+    the grid registration type (**p** for pixel registration or **g** for
+    gridline registration).
 
     The default color palette table (CPT) for this dataset is *@earth_vgg.cpt*.
     It's implicitly used when passing in the file name of the dataset to any
     grid plotting method if no CPT is explicitly specified. When the dataset
     is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored and GMT's default CPT (*turbo*) is used. To use the
+    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_vgg.cpt"``.
 
-    Refer to :gmt-datasets:`earth-vgg.html` for more details.
+    Refer to :gmt-datasets:`earth-vgg.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------
