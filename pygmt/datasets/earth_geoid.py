@@ -1,6 +1,6 @@
 """
-Function to download the EGM2008 Global Earth Geoid from the GMT data server,
-and load as :class:`xarray.DataArray`.
+Function to download the EGM2008 Global Earth Geoid dataset from the GMT data
+server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -13,7 +13,7 @@ __doctest_skip__ = ["load_earth_geoid"]
 @kwargs_to_strings(region="sequence")
 def load_earth_geoid(resolution="01d", region=None, registration=None):
     r"""
-    Load the EGM2008 Global Earth Geoid in various resolutions.
+    Load the EGM2008 Global Earth Geoid dataset in various resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_geoid/``) the first time you invoke
@@ -21,12 +21,13 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_geoid**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@earth_geoid**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *res* is the grid resolution (see below), and *reg* is
+    the grid registration type (**p** for pixel registration or **g** for
+    gridline registration).
 
-    Refer to :gmt-datasets:`earth-geoid.html` for more details.
+    Refer to :gmt-datasets:`earth-geoid.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

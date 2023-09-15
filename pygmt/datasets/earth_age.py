@@ -1,6 +1,6 @@
 """
-Function to download the Earth seafloor age datasets from the GMT data server,
-and load as :class:`xarray.DataArray`.
+Function to download the Earth seafloor crustal age dataset from the GMT data
+server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -13,7 +13,7 @@ __doctest_skip__ = ["load_earth_age"]
 @kwargs_to_strings(region="sequence")
 def load_earth_age(resolution="01d", region=None, registration=None):
     r"""
-    Load Earth seafloor crustal ages in various resolutions.
+    Load the Earth seafloor crustal age dataset in various resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_age/``) the first time you invoke
@@ -21,19 +21,20 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_age**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@earth_age**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *res* is the grid resolution (see below), and *reg* is
+    the grid registration type (**p** for pixel registration or **g** for
+    the gridline registration).
 
     The default color palette table (CPT) for this dataset is *@earth_age.cpt*.
     It's implicitly used when passing in the file name of the dataset to any
     grid plotting method if no CPT is explicitly specified. When the dataset
     is loaded and plotted as an :class:`xarray.DataArray` object, the default
-    CPT is ignored and GMT's default CPT (*turbo*) is used. To use the
+    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
     dataset-specific CPT, you need to explicitly set ``cmap="@earth_age.cpt"``.
 
-    Refer to :gmt-datasets:`earth-age.html` for more details.
+    Refer to :gmt-datasets:`earth-age.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------

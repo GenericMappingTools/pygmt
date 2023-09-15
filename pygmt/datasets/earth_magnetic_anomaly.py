@@ -16,7 +16,7 @@ def load_earth_magnetic_anomaly(
     resolution="01d", region=None, registration=None, data_source="emag2"
 ):
     r"""
-    Load an Earth magnetic anomaly grid in various resolutions.
+    Load the Earth magnetic anomaly datasets in various resolutions.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mag/``,
@@ -26,11 +26,11 @@ def load_earth_magnetic_anomaly(
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *earth_mag_type* is the GMT name
+    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid processing
+    function or plotting method. *earth_mag_type* is the GMT name
     for the dataset. The available options are **earth_mag**,
     **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution
-    (see below), and *reg* is grid registration type (**p** for pixel
+    (see below), and *reg* is the grid registration type (**p** for pixel
     registration or **g** for gridline registration).
 
     The default color palette tables (CPTs) for this dataset are
@@ -39,12 +39,13 @@ def load_earth_magnetic_anomaly(
     ``data_source="wdmam"``. The dataset-specific CPT is implicitly used when
     passing in the file name of the dataset to any grid plotting method if no
     CPT is explicitly specified. When the dataset is loaded and plotted as an
-    :class:`xarray.DataArray` object, the default CPT is ignored and GMT's
+    :class:`xarray.DataArray` object, the default CPT is ignored, and GMT's
     default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to
     explicitly set ``cmap="@earth_mag.cpt"`` or ``cmap="@earth_wdmam.cpt"``.
 
     Refer to :gmt-datasets:`earth-mag.html`
-    and :gmt-datasets:`earth-wdmam.html` for more details.
+    and :gmt-datasets:`earth-wdmam.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------
