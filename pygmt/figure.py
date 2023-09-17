@@ -260,7 +260,7 @@ class Figure:
         This method implements a matplotlib-like interface for
         :meth:`pygmt.Figure.psconvert`.
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg),
+        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg``),
         PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
         KML (``.kml``). The KML output generates a companion PNG file.
 
