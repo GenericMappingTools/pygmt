@@ -298,15 +298,19 @@ class Figure:
             "png": "g",
             "pdf": "f",
             "jpg": "j",
-            "jpeg": "j",
             "bmp": "b",
             "eps": "e",
             "tif": "t",
             "kml": "g",
         }
 
-        prefix = Path(fname).with_suffix("").as_posix()
-        ext = Path(fname).suffix[1:]  # suffix without .
+        fname = Path(fname)
+        prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
+        ext = suffix[1:]
+        # alias jpeg to jpg
+        if ext == "jpeg":
+            ext = "jpg"
+
         if ext not in fmts:
             if ext == "ps":
                 raise GMTInvalidInput(
@@ -329,9 +333,9 @@ class Figure:
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
-        # rename .jpg to .jpeg
-        if ext == "jpeg":
-            Path(fname).with_suffix(".jpg").rename(fname)
+        # Rename if file extension doesn't match the input file suffix
+        if ext != suffix[1:]:
+            fname.with_suffix("." + ext).rename(fname)
 
         if show:
             launch_external_viewer(fname)
