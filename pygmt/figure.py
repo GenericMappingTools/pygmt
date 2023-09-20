@@ -306,7 +306,7 @@ class Figure:
 
         fname = Path(fname)
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
-        ext = suffix[1:]  # Remove the .
+        ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
         # alias jpeg to jpg
         if ext == "jpeg":
             ext = "jpg"
