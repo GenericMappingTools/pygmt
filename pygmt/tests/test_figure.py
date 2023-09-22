@@ -113,6 +113,7 @@ def test_figure_savefig_geotiff():
 
     # Check is a TIFF is georeferenced or not
     try:
+        # pylint: disable=import-outside-toplevel
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
 
