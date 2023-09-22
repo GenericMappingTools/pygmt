@@ -94,7 +94,8 @@ def test_figure_savefig_exists():
 
 def test_figure_savefig_geotiff():
     """
-    Make sure the extension .tiff generates a GeoTIFF file.
+    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF
+    file.
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
@@ -102,33 +103,31 @@ def test_figure_savefig_geotiff():
     # save as GeoTIFF
     geofname = Path("test_figure_savefig_geotiff.tiff")
     fig.savefig(geofname)
-
     assert geofname.exists()
-    # Is a GeoTIFF file
-    try:
-        import rioxarray
+    assert geofname.with_suffix(".pgw").exists()  # The companion world file
 
-        with rioxarray.open_rasterio(geofname) as xds:
-            assert xds.rio.crs is not None
-    except ImportError:
-        pass
-    geofname.unlink()
-
-    # save as TIFF
+    # Save as TIFF
     fname = Path("test_figure_savefig_geotiff.tif")
     fig.savefig(fname)
     assert fname.exists()
-    # Is a normal TIFF file
+
+    # Check is a TIFF is georeferenced or not
     try:
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
 
+        # GeoTIFF
+        with rioxarray.open_rasterio(geofname) as xds:
+            assert xds.rio.crs is not None
+        # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
                 assert xds.rio.crs is None
             assert len(record) == 1
     except ImportError:
         pass
+    geofname.unlink()
+    geofname.with_suffix(".pgw").unlink()
     fname.unlink()
 
 
