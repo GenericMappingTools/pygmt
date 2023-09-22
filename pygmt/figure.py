@@ -257,12 +257,19 @@ class Figure:
         """
         Save the figure to a file.
 
-        This method implements a matplotlib-like interface for
-        :meth:`pygmt.Figure.psconvert`.
+        Supported file formats and their extensions:
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg``),
-        PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
-        KML (``.kml``). The KML output generates a companion PNG file.
+        - PNG (``.png``)
+        - JPEG (``.jpg`` or ``.jpeg``)
+        - PDF (``.pdf``)
+        - BMP (``.bmp``)
+        - TIFF (``.tif`` or `.tiff`)
+        - EPS (``.eps``)
+        - KML (``.kml``)
+
+        For TIFF format, ``.tiff`` generates a GeoTIFF file with embedded
+        georeferencing information and a companion world file. For KML format,
+        a companion PNG file is also generated.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -279,8 +286,8 @@ class Figure:
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If ``True``, will use anti-aliasing when creating raster images
-            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
-            and ``g2`` to the ``anti_aliasing`` parameter of
+            (BMP, PNG, JPEG and TIFF). More specifically, it passes arguments
+            ``t2`` and ``g2`` to the ``anti_aliasing`` parameter of
             :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
             graphics.
         show: bool
@@ -307,9 +314,14 @@ class Figure:
         fname = Path(fname)
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
-        # alias jpeg to jpg
-        if ext == "jpeg":
+
+        if ext == "jpeg":  # Alias jpeg to jpg
             ext = "jpg"
+        elif ext == "tiff":  # Alias tif to tiff and make it a GeoTIFF
+            ext = "tif"
+            kwargs["W"] = "+g"
+        elif ext == "kml":
+            kwargs["W"] = "+k"
 
         if ext not in fmts:
             if ext == "ps":
@@ -328,8 +340,6 @@ class Figure:
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
-        if ext == "kml":
-            kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
