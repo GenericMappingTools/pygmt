@@ -308,6 +308,7 @@ class Figure:
             "bmp": "b",
             "eps": "e",
             "tif": "t",
+            "tiff": None,  # GeoTIFF doesn't need the -T option
             "kml": "g",
         }
 
@@ -317,10 +318,9 @@ class Figure:
 
         if ext == "jpeg":  # Alias jpeg to jpg
             ext = "jpg"
-        elif ext == "tiff":  # Alias tif to tiff and make it a GeoTIFF
-            ext = "tif"
+        elif ext == "tiff":  # GeoTIFF
             kwargs["W"] = "+g"
-        elif ext == "kml":
+        elif ext == "kml":  # KML
             kwargs["W"] = "+k"
 
         if ext not in fmts:
