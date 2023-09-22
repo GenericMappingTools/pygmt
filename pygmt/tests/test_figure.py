@@ -92,6 +92,46 @@ def test_figure_savefig_exists():
         fname.unlink()
 
 
+def test_figure_savefig_geotiff():
+    """
+    Make sure the extension .tiff generates a GeoTIFF file.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
+
+    # save as GeoTIFF
+    geofname = Path("test_figure_savefig_geotiff.tiff")
+    fig.savefig(geofname)
+
+    assert geofname.exists()
+    # Is a GeoTIFF file
+    try:
+        import rioxarray
+
+        with rioxarray.open_rasterio(geofname) as xds:
+            assert xds.rio.crs is not None
+    except ImportError:
+        pass
+    geofname.unlink()
+
+    # save as TIFF
+    fname = Path("test_figure_savefig_geotiff.tif")
+    fig.savefig(fname)
+    assert fname.exists()
+    # Is a normal TIFF file
+    try:
+        import rioxarray
+        from rasterio.errors import NotGeoreferencedWarning
+
+        with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
+            with rioxarray.open_rasterio(fname) as xds:
+                assert xds.rio.crs is None
+            assert len(record) == 1
+    except ImportError:
+        pass
+    fname.unlink()
+
+
 def test_figure_savefig_directory_nonexists():
     """
     Make sure that Figure.savefig() raises a FileNotFoundError when the parent
