@@ -263,7 +263,8 @@ class Figure:
         - JPEG (``.jpg`` or ``.jpeg``)
         - PDF (``.pdf``)
         - BMP (``.bmp``)
-        - TIFF (``.tif`` or ``.tiff``)
+        - TIFF (``.tif``)
+        - GeoTIFF (``.tiff``)
         - EPS (``.eps``)
         - KML (``.kml``)
 
