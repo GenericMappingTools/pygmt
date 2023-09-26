@@ -83,11 +83,13 @@ def test_figure_savefig_exists():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
-    for fmt in "png pdf jpg bmp eps tif".split():
+    for fmt in "png pdf jpg jpeg bmp eps tif PNG JPG JPEG Png".split():
         fname = ".".join([prefix, fmt])
         fig.savefig(fname)
-        assert os.path.exists(fname)
-        os.remove(fname)
+
+        fname = Path(fname)
+        assert fname.exists()
+        fname.unlink()
 
 
 def test_figure_savefig_directory_nonexists():

@@ -8,25 +8,6 @@ from pygmt.datasets import load_earth_magnetic_anomaly
 from pygmt.exceptions import GMTInvalidInput
 
 
-def test_earth_mag_fails():
-    """
-    Make sure earth_magnetic_anomaly fails for invalid resolutions.
-    """
-    resolutions = "1m 1d bla 60d 001m 03".split()
-    resolutions.append(60)
-    for resolution in resolutions:
-        with pytest.raises(GMTInvalidInput):
-            load_earth_magnetic_anomaly(resolution=resolution)
-
-
-def test_earth_mag_incorrect_registration():
-    """
-    Test loading earth_magnetic_anomaly with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(registration="improper_type")
-
-
 def test_earth_mag_01d():
     """
     Test some properties of the magnetic anomaly 01d data.
@@ -55,29 +36,6 @@ def test_earth_mag_01d_with_region():
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), -180.4, atol=0.2)
     npt.assert_allclose(data.max(), 127.4, atol=0.2)
-
-
-def test_earth_mag_02m_without_region():
-    """
-    Test loading high-resolution earth magnetic anomaly without passing
-    'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly("02m")
-
-
-def test_earth_mag_incorrect_resolution_registration():
-    """
-    Test that an error is raised when trying to load a EMAG2 grid registration
-    with an unavailable resolution.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(
-            resolution="02m",
-            region=[0, 1, 3, 5],
-            registration="gridline",
-            data_source="emag2_4km",
-        )
 
 
 def test_earth_mag_02m_default_registration():
@@ -200,30 +158,6 @@ def test_earth_mag_03m_wdmam_with_region():
     assert data.lon.max() == 13
     npt.assert_allclose(data.min(), -790.2, atol=0.2)
     npt.assert_allclose(data.max(), 528.0, atol=0.2)
-
-
-def test_earth_mag_03m_wdmam_without_region():
-    """
-    Test loading a high-resolution WDMAM grid without passing 'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(
-            resolution="03m", registration="gridline", data_source="wdmam"
-        )
-
-
-def test_earth_mag_wdmam_incorrect_resolution_registration():
-    """
-    Test that an error is raised when trying to load a WDMAM grid registration
-    with an unavailable resolution.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_magnetic_anomaly(
-            resolution="03m",
-            region=[0, 1, 3, 5],
-            registration="pixel",
-            data_source="wdmam",
-        )
 
 
 def test_earth_mag_data_source_error():

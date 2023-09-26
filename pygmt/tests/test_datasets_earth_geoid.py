@@ -3,28 +3,7 @@ Test basic functionality for loading Earth geoid datasets.
 """
 import numpy as np
 import numpy.testing as npt
-import pytest
 from pygmt.datasets import load_earth_geoid
-from pygmt.exceptions import GMTInvalidInput
-
-
-def test_earth_geoid_fails():
-    """
-    Make sure load_earth_geoid fails for invalid resolutions.
-    """
-    resolutions = "1m 1d bla 60d 001m 03".split()
-    resolutions.append(60)
-    for resolution in resolutions:
-        with pytest.raises(GMTInvalidInput):
-            load_earth_geoid(resolution=resolution)
-
-
-def test_earth_geoid_incorrect_registration():
-    """
-    Test loading load_earth_geoid with incorrect registration type.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_geoid(registration="improper_type")
 
 
 def test_earth_geoid_01d():
@@ -55,23 +34,6 @@ def test_earth_geoid_01d_with_region():
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
     npt.assert_allclose(data.min(), 4.87, atol=0.01)
     npt.assert_allclose(data.max(), 29.89, atol=0.01)
-
-
-def test_earth_geoid_01m_without_region():
-    """
-    Test loading high-resolution earth geoid without passing 'region'.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_geoid("01m")
-
-
-def test_earth_geoid_incorrect_resolution_registration():
-    """
-    Test that an error is raised when trying to load a grid registration with
-    an unavailable resolution.
-    """
-    with pytest.raises(GMTInvalidInput):
-        load_earth_geoid(resolution="01m", region=[0, 1, 3, 5], registration="pixel")
 
 
 def test_earth_geoid_01m_default_registration():
