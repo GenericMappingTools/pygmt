@@ -1,5 +1,4 @@
 outs:
 - md5: 7362261406771b5cfe1bcfb7a292105a
   size: 62463
-  hash: md5
   path: test_tilemap_web_mercator.png
