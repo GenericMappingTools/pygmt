@@ -1,4 +1,4 @@
 outs:
-- md5: 9a076934efe119c318bd2ba311fb7c27
-  size: 37339
+- md5: 6da0601f305a6c3391e4a1aa0aee6173
+  size: 37139
   path: test_tilemap_ogc_wgs84.png
