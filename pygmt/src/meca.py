@@ -269,10 +269,10 @@ def meca(
           keys/column names: ``latitude``, ``longitude``, ``depth``,
           ``plot_longitude``, ``plot_latitude``, and/or ``event_name``.
 
-          If ``spec`` is either a str, a 1-D array or a 2-D array, the
-          ``convention`` parameter is required so we know how to interpret the
-          columns. If ``spec`` is a dictionary or a pd.DataFrame,
-          ``convention`` is not needed and is ignored if specified.
+        If ``spec`` is either a str, a 1-D array or a 2-D array, the
+        ``convention`` parameter is required so we know how to interpret the
+        columns. If ``spec`` is a dictionary or a pd.DataFrame,
+        ``convention`` is not needed and is ignored if specified.
     scale : int, float, or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
