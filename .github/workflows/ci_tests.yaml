@@ -89,8 +89,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.0
         with:
-          # fetch all history with treeless clone so that setuptools-scm works
-          filter: tree:0
+          # fetch all history so that setuptools-scm works
+          fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
