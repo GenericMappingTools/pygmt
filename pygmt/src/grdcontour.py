@@ -43,7 +43,7 @@ def grdcontour(self, grid, **kwargs):
     ----------
     grid : str or xarray.DataArray
         The file name of the input grid or the grid loaded as a DataArray.
-    interval : str or int
+    interval : bool, str, int, or float
         Specify the contour lines to generate.
 
         - The file name of a CPT file where the color boundaries will
@@ -53,7 +53,7 @@ def grdcontour(self, grid, **kwargs):
           angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
           +\ *cont_int*.
-    annotation : str,  int, or list
+    annotation : str, int, float, or list
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
