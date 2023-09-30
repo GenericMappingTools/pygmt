@@ -54,14 +54,14 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         Arrays of x and y coordinates and values z of the data points.
     {projection}
     {region}
-    annotation : str, int, or float
+    annotation : str or int or float
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``levels``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level +\ *annot_int*.
     {frame}
-    levels : bool, str, int, or float
+    levels : bool or str or int or float
         Specify the contour lines to generate.
 
         - The file name of a CPT file where the color boundaries will
