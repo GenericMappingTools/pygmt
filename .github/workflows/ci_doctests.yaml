@@ -48,7 +48,7 @@ jobs:
               - conda-forge
               - nodefaults
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=6.4.0
             numpy
             pandas
