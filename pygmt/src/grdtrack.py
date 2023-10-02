@@ -295,31 +295,18 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Store the xarray.DataArray grid in virtualfile
-            grid_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-
-            with grid_context as grdfile:
-                kwargs.update({"G": grdfile})
+            with lib.virtualfile_from_data(
+                check_kind="raster", data=grid
+            ) as grdfile, lib.virtualfile_from_data(
+                check_kind="vector", data=points, required_data=False
+            ) as csvfile:
+                kwargs["G"] = grdfile
                 if outfile is None:  # Output to tmpfile if outfile is not set
                     outfile = tmpfile.name
-
-                if points is not None:
-                    # Choose how data will be passed into the module
-                    table_context = lib.virtualfile_from_data(
-                        check_kind="vector", data=points
-                    )
-                    with table_context as csvfile:
-                        lib.call_module(
-                            module="grdtrack",
-                            args=build_arg_string(
-                                kwargs, infile=csvfile, outfile=outfile
-                            ),
-                        )
-                else:
-                    lib.call_module(
-                        module="grdtrack",
-                        args=build_arg_string(kwargs, outfile=outfile),
-                    )
+                lib.call_module(
+                    module="grdtrack",
+                    args=build_arg_string(kwargs, infile=csvfile, outfile=outfile),
+                )
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
