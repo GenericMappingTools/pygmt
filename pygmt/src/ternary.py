@@ -3,8 +3,7 @@ ternary - Plot data on ternary diagrams.
 """
 import pandas as pd
 from packaging.version import Version
-from pygmt import __gmt_version__
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
