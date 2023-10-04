@@ -104,7 +104,8 @@ def test_figure_savefig_geotiff():
     geofname = Path("test_figure_savefig_geotiff.tiff")
     fig.savefig(geofname)
     assert geofname.exists()
-    assert geofname.with_suffix(".pgw").exists()  # The companion world file
+    # The .pgw should not exist
+    assert not geofname.with_suffix(".pgw").exists()
 
     # Save as TIFF
     fname = Path("test_figure_savefig_tiff.tif")
@@ -128,7 +129,6 @@ def test_figure_savefig_geotiff():
     except ImportError:
         pass
     geofname.unlink()
-    geofname.with_suffix(".pgw").unlink()
     fname.unlink()
 
 

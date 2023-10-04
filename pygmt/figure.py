@@ -268,9 +268,7 @@ class Figure:
         - EPS (``.eps``)
         - KML (``.kml``)
 
-        For TIFF format, ``.tiff`` generates a GeoTIFF file with embedded
-        georeferencing information and a companion world file. For KML format,
-        a companion PNG file is also generated.
+        For KML format, a companion PNG file is also generated.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -287,10 +285,10 @@ class Figure:
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If ``True``, will use anti-aliasing when creating raster images
-            (BMP, PNG, JPEG, and TIFF). More specifically, it passes the
-            arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
-            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if
-            creating vector graphics.
+            (BMP, PNG, JPEG, TIFF, and GeoTIFF). More specifically, it passes
+            the arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
+            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if creating
+            vector graphics.
         show: bool
             If ``True``, will open the figure in an external viewer.
         dpi : int
@@ -343,6 +341,11 @@ class Figure:
             kwargs["Qg"] = 2
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # Remove the .pgw world file if exists
+        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
+        if ext == "tiff" and fname.with_suffix(".pgw").exists():
+            fname.with_suffix(".pgw").unlink()
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:
