@@ -26,20 +26,3 @@ fig.tilemap(
 )
 
 fig.show()
-
-# %%
-# It's also possible to use tiles provided via the
-# `contextily <https://github.com/geopandas/contextily>`__
-# library. See :doc:`Contextily providers <contextily:providers_deepdive>`
-# for a list of possible tilemap options.
-
-fig = pygmt.Figure()
-fig.tilemap(
-    region=[-157.84, -157.8, 21.255, 21.285],
-    projection="M12c",
-    # Use the Stamen.Watercolor option from contextily
-    source=contextily.providers.Stamen.Watercolor,
-    frame="afg",
-)
-
-fig.show()
