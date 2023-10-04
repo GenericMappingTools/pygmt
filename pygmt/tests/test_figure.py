@@ -100,18 +100,18 @@ def test_figure_savefig_geotiff():
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
 
-    # save as GeoTIFF
+    # Save as GeoTIFF
     geofname = Path("test_figure_savefig_geotiff.tiff")
     fig.savefig(geofname)
     assert geofname.exists()
     assert geofname.with_suffix(".pgw").exists()  # The companion world file
 
     # Save as TIFF
-    fname = Path("test_figure_savefig_geotiff.tif")
+    fname = Path("test_figure_savefig_tiff.tif")
     fig.savefig(fname)
     assert fname.exists()
 
-    # Check is a TIFF is georeferenced or not
+    # Check if a TIFF is georeferenced or not
     try:
         # pylint: disable=import-outside-toplevel
         import rioxarray

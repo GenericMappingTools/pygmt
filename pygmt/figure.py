@@ -263,7 +263,8 @@ class Figure:
         - JPEG (``.jpg`` or ``.jpeg``)
         - PDF (``.pdf``)
         - BMP (``.bmp``)
-        - TIFF (``.tif`` or `.tiff`)
+        - TIFF (``.tif``)
+        - GeoTIFF (``.tiff``)
         - EPS (``.eps``)
         - KML (``.kml``)
 
@@ -286,10 +287,10 @@ class Figure:
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If ``True``, will use anti-aliasing when creating raster images
-            (BMP, PNG, JPEG and TIFF). More specifically, it passes arguments
-            ``t2`` and ``g2`` to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
-            graphics.
+            (BMP, PNG, JPEG, and TIFF). More specifically, it passes the
+            arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
+            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if
+            creating vector graphics.
         show: bool
             If ``True``, will open the figure in an external viewer.
         dpi : int
