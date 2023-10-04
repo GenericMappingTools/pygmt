@@ -37,8 +37,8 @@ fig = pygmt.Figure()
 fig.tilemap(
     region=[-157.84, -157.8, 21.255, 21.285],
     projection="M12c",
-    # Use the Stamen.Watercolor option from contextily
-    source=contextily.providers.Stamen.Watercolor,
+    # Use the U.S. Geological Survey  Imagery Topo web tiles from contextily
+    source=contextily.providers.USGS.USImageryTopo,
     frame="afg",
 )
 
