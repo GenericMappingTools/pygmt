@@ -5,7 +5,8 @@ import numpy as np
 import pandas as pd
 import pytest
 from packaging.version import Version
-from pygmt import Figure, __gmt_version__
+from pygmt import Figure
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 

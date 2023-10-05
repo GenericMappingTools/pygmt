@@ -4,8 +4,7 @@ timestamp - Plot the GMT timestamp logo.
 import warnings
 
 from packaging.version import Version
-from pygmt import __gmt_version__
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_string, is_nonstr_iter
 
 __doctest_skip__ = ["timestamp"]
