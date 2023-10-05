@@ -15,14 +15,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
-    "region": r"""
-        region : str or list
-            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
-            Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
-    "projection": r"""
-        projection : str
-            *projcode*\[*projparams*/]\ *width*.
-            Select map :doc:`projection </projections/index>`.""",
     "area_thresh": r"""
         area_thresh : int or float or str
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
@@ -31,65 +23,6 @@ COMMON_DOCSTRINGS = {
             hierarchical level that is lower than *min_level* or higher than
             *max_level* will not be plotted [Default is ``"0/0/4"`` (all
             features)].""",
-    "frame": r"""
-        frame : bool or str or list
-            Set map boundary
-            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
-    "cmap": r"""
-        cmap : str
-           File name of a CPT file or a series of comma-separated colors
-           (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
-           CPT from those colors automatically.""",
-    "fill": r"""
-        fill : str
-            Set color or pattern for filling symbols or polygons
-            [Default is no fill].""",
-    "spacing": r"""
-        spacing : int or float or str or list or tuple
-            *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
-            *x_inc* [and optionally *y_inc*] is the grid spacing.
-
-            - **Geographical (degrees) coordinates**: Optionally, append an
-              increment unit. Choose among **m** to indicate arc-minutes or
-              **s** to indicate arc-seconds. If one of the units **e**, **f**,
-              **k**, **M**, **n** or **u** is appended instead, the increment
-              is assumed to be given in meter, foot, km, mile, nautical mile or
-              US survey foot, respectively, and will be converted to the
-              equivalent degrees longitude at the middle latitude of the region
-              (the conversion depends on :gmt-term:`PROJ_ELLIPSOID`). If
-              *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
-              otherwise it will be converted to degrees latitude.
-
-            - **All coordinates**: If **+e** is appended then the corresponding
-              max *x* (*east*) or *y* (*north*) may be slightly adjusted to fit
-              exactly the given increment [by default the increment may be
-              adjusted slightly to fit the given domain]. Finally, instead of
-              giving an increment you may specify the *number of nodes* desired
-              by appending **+n** to the supplied integer argument; the
-              increment is then recalculated from the number of nodes, the
-              ``registration``, and the domain. The resulting increment value
-              depends on whether you have selected a gridline-registered or
-              pixel-registered grid; see :gmt-docs:`GMT File Formats
-              <cookbook/file-formats.html#gmt-file-formats>` for details.
-
-            **Note**: If ``region=grdfile`` is used then the grid spacing and
-            the registration have already been initialized; use ``spacing`` and
-            ``registration`` to override these values.""",
-    "verbose": r"""
-        verbose : bool or str
-            Select verbosity level [Default is **w**], which modulates the messages
-            written to stderr. Choose among 7 levels of verbosity:
-
-            - **q** - Quiet, not even fatal error messages are produced
-            - **e** - Error messages only
-            - **w** - Warnings [Default]
-            - **t** - Timings (report runtimes for time-intensive algorithms)
-            - **i** - Informational messages (same as ``verbose=True``)
-            - **c** - Compatibility warnings
-            - **d** - Debugging messages""",
-    "pen": r"""
-        pen : str
-            Set pen attributes for lines or the outline of symbols.""",
     "aspatial": r"""
         aspatial : bool or str
             [*col*\ =]\ *name*\ [,...].
@@ -124,24 +57,45 @@ COMMON_DOCSTRINGS = {
                   be read as little- or big-endian, respectively.
 
             Full documentation is at :gmt-docs:`gmt.html#bi-full`.""",
-    "nodata": r"""
-        nodata : str
-            **i**\|\ **o**\ *nodata*.
-            Substitute specific values with NaN (for tabular data). For
-            example, ``nodata="-9999"`` will replace all values equal to -9999
-            with NaN during input and all NaN values with -9999 during output.
-            Prepend **i** to the *nodata* value for input columns only. Prepend
-            **o** to the *nodata* value for output columns only.""",
-    "panel": r"""
-        panel : bool or int or list
-            [*row,col*\|\ *index*].
-            Select a specific subplot panel. Only allowed when in subplot
-            mode. Use ``panel=True`` to advance to the next panel in the
-            selected order. Instead of *row,col* you may also give a scalar
-            value *index* which depends on the order you set via ``autolabel``
-            when the subplot was defined. **Note**: *row*, *col*, and *index*
-            all start at 0.
-         """,
+    "cmap": r"""
+        cmap : str
+           File name of a CPT file or a series of comma-separated colors
+           (e.g., *color1*,\ *color2*,\ *color3*) to build a linear continuous
+           CPT from those colors automatically.""",
+    "coltypes": r"""
+        coltypes : str
+            [**i**\|\ **o**]\ *colinfo*.
+            Specify data types of input and/or output columns (time or
+            geographical data). Full documentation is at
+            :gmt-docs:`gmt.html#f-full`.""",
+    "cores": r"""
+        cores : bool or int
+            [[**-**]\ *n*].
+            Limit the number of cores to be used in any OpenMP-enabled
+            multi-threaded algorithms. By default we try to use all available
+            cores. Set a number *n* to only use n cores (if too large it will
+            be truncated to the maximum cores available). Finally, give a
+            negative number *-n* to select (all - *n*) cores (or at least 1 if
+            *n* equals or exceeds all).
+            """,
+    "distcalc": r"""
+        distcalc : str
+            **e**\|\ **f**\|\ **g**.
+            Determine how spherical distances are calculated.
+
+            - **e** - Ellipsoidal (or geodesic) mode
+            - **f** - Flat Earth mode
+            - **g** - Great circle distance [Default]
+
+            All spherical distance calculations depend on the current ellipsoid
+            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
+            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
+            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
+            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
+    "fill": r"""
+        fill : str
+            Set color or pattern for filling symbols or polygons
+            [Default is no fill].""",
     "find": r"""
         find : str
             [**~**]\ *"pattern"* \| [**~**]/\ *regexp*/[**i**].
@@ -150,12 +104,10 @@ COMMON_DOCSTRINGS = {
             the *pattern* or *regexp* to instead only pass data expressions
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
-    "coltypes": r"""
-        coltypes : str
-            [**i**\|\ **o**]\ *colinfo*.
-            Specify data types of input and/or output columns (time or
-            geographical data). Full documentation is at
-            :gmt-docs:`gmt.html#f-full`.""",
+    "frame": r"""
+        frame : bool or str or list
+            Set map boundary
+            :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "gap": r"""
         gap : str or list
             **x**\|\ **y**\|\ **z**\|\ **d**\|\ **X**\|\ **Y**\|\
@@ -249,24 +201,6 @@ COMMON_DOCSTRINGS = {
                   [Default is 1].
                 - **+o** to add the given *offset* to the input values [Default
                   is 0].""",
-    "distcalc": r"""
-        distcalc : str
-            **e**\|\ **f**\|\ **g**.
-            Determine how spherical distances are calculated.
-
-            - **e** - Ellipsoidal (or geodesic) mode
-            - **f** - Flat Earth mode
-            - **g** - Great circle distance [Default]
-
-            All spherical distance calculations depend on the current ellipsoid
-            (:gmt-term:`PROJ_ELLIPSOID`), the definition of the mean radius
-            (:gmt-term:`PROJ_MEAN_RADIUS`), and the specification of latitude type
-            (:gmt-term:`PROJ_AUX_LATITUDE`). Geodesic distance calculations is also
-            controlled by method (:gmt-term:`PROJ_GEODESIC`).""",
-    "label": r"""
-        label : str
-            Add a legend entry for the symbol or line being plotted. Full
-            documentation is at :gmt-docs:`gmt.html#l-full`.""",
     "interpolation": r"""
         interpolation : str
             [**b**\|\ **c**\|\ **l**\|\ **n**][**+a**][**+b**\ *BC*][**+c**][**+t**\ *threshold*].
@@ -277,6 +211,18 @@ COMMON_DOCSTRINGS = {
             - **c** for bicubic [Default]
             - **l** for bilinear
             - **n** for nearest-neighbor""",
+    "label": r"""
+        label : str
+            Add a legend entry for the symbol or line being plotted. Full
+            documentation is at :gmt-docs:`gmt.html#l-full`.""",
+    "nodata": r"""
+        nodata : str
+            **i**\|\ **o**\ *nodata*.
+            Substitute specific values with NaN (for tabular data). For
+            example, ``nodata="-9999"`` will replace all values equal to -9999
+            with NaN during input and all NaN values with -9999 during output.
+            Prepend **i** to the *nodata* value for input columns only. Prepend
+            **o** to the *nodata* value for output columns only.""",
     "outcols": r"""
         outcols : str or 1-D array
             *cols*\ [,...][,\ **t**\ [*word*]].
@@ -300,6 +246,19 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "panel": r"""
+        panel : bool or int or list
+            [*row,col*\|\ *index*].
+            Select a specific subplot panel. Only allowed when in subplot
+            mode. Use ``panel=True`` to advance to the next panel in the
+            selected order. Instead of *row,col* you may also give a scalar
+            value *index* which depends on the order you set via ``autolabel``
+            when the subplot was defined. **Note**: *row*, *col*, and *index*
+            all start at 0.
+         """,
+    "pen": r"""
+        pen : str
+            Set pen attributes for lines or the outline of symbols.""",
     "perspective": r"""
         perspective : list or str
             [**x**\|\ **y**\|\ **z**]\ *azim*\[/*elev*\[/*zlevel*]]\
@@ -308,6 +267,14 @@ COMMON_DOCSTRINGS = {
             the viewpoint [Default is ``[180, 90]``]. Full documentation is at
             :gmt-docs:`gmt.html#perspective-full`.
         """,
+    "projection": r"""
+        projection : str
+            *projcode*\[*projparams*/]\ *width*.
+            Select map :doc:`projection </projections/index>`.""",
+    "region": r"""
+        region : str or list
+            *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
+            Specify the :doc:`region </tutorials/basics/regions>` of interest.""",
     "registration": r"""
         registration : str
             **g**\|\ **p**.
@@ -330,6 +297,37 @@ COMMON_DOCSTRINGS = {
                 - **+a** to suppress the output of the record if just one or
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
+    "spacing": r"""
+        spacing : int or float or str or list or tuple
+            *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
+            *x_inc* [and optionally *y_inc*] is the grid spacing.
+
+            - **Geographical (degrees) coordinates**: Optionally, append an
+              increment unit. Choose among **m** to indicate arc-minutes or
+              **s** to indicate arc-seconds. If one of the units **e**, **f**,
+              **k**, **M**, **n** or **u** is appended instead, the increment
+              is assumed to be given in meter, foot, km, mile, nautical mile or
+              US survey foot, respectively, and will be converted to the
+              equivalent degrees longitude at the middle latitude of the region
+              (the conversion depends on :gmt-term:`PROJ_ELLIPSOID`). If
+              *y_inc* is given but set to 0 it will be reset equal to *x_inc*;
+              otherwise it will be converted to degrees latitude.
+
+            - **All coordinates**: If **+e** is appended then the corresponding
+              max *x* (*east*) or *y* (*north*) may be slightly adjusted to fit
+              exactly the given increment [by default the increment may be
+              adjusted slightly to fit the given domain]. Finally, instead of
+              giving an increment you may specify the *number of nodes* desired
+              by appending **+n** to the supplied integer argument; the
+              increment is then recalculated from the number of nodes, the
+              ``registration``, and the domain. The resulting increment value
+              depends on whether you have selected a gridline-registered or
+              pixel-registered grid; see :gmt-docs:`GMT File Formats
+              <cookbook/file-formats.html#gmt-file-formats>` for details.
+
+            **Note**: If ``region=grdfile`` is used then the grid spacing and
+            the registration have already been initialized; use ``spacing`` and
+            ``registration`` to override these values.""",
     "transparency": r"""
         transparency : int or float
             Set transparency level, in [0-100] percent range
@@ -337,6 +335,18 @@ COMMON_DOCSTRINGS = {
             Only visible when PDF or raster format output is selected.
             Only the PNG format selection adds a transparency layer
             in the image (for further processing). """,
+    "verbose": r"""
+        verbose : bool or str
+            Select verbosity level [Default is **w**], which modulates the messages
+            written to stderr. Choose among 7 levels of verbosity:
+
+            - **q** - Quiet, not even fatal error messages are produced
+            - **e** - Error messages only
+            - **w** - Warnings [Default]
+            - **t** - Timings (report runtimes for time-intensive algorithms)
+            - **i** - Informational messages (same as ``verbose=True``)
+            - **c** - Compatibility warnings
+            - **d** - Debugging messages""",
     "wrap": r"""
         wrap : str
             **y**\|\ **a**\|\ **w**\|\ **d**\|\ **h**\|\ **m**\|\ **s**\|\
@@ -355,16 +365,6 @@ COMMON_DOCSTRINGS = {
                 - **c** - custom cycle (normalized)
 
             Full documentation is at :gmt-docs:`gmt.html#w-full`.""",
-    "cores": r"""
-        cores : bool or int
-            [[**-**]\ *n*].
-            Limit the number of cores to be used in any OpenMP-enabled
-            multi-threaded algorithms. By default we try to use all available
-            cores. Set a number *n* to only use n cores (if too large it will
-            be truncated to the maximum cores available). Finally, give a
-            negative number *-n* to select (all - *n*) cores (or at least 1 if
-            *n* equals or exceeds all).
-            """,
 }
 
 
