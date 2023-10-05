@@ -37,7 +37,6 @@ fig = pygmt.Figure()
 fig.tilemap(
     region=[-157.84, -157.8, 21.255, 21.285],
     projection="M12c",
-    zoom=15,
     # Use the Stamen.Watercolor option from contextily
     source=contextily.providers.Stamen.Watercolor,
     frame="afg",
