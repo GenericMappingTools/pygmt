@@ -37,8 +37,8 @@ fig = pygmt.Figure()
 fig.tilemap(
     region=[-157.84, -157.8, 21.255, 21.285],
     projection="M12c",
-    # Use the U.S. Geological Survey  Imagery Topo web tiles from contextily
-    source=contextily.providers.USGS.USImageryTopo,
+    # Use the CartoDB Positron option from contextily
+    source=contextily.providers.CartoDB.Positron,
     frame="afg",
 )
 
