@@ -21,13 +21,9 @@ import atexit as _atexit
 import sys
 from importlib.metadata import version
 
-from pygmt import clib
-
 # Get semantic version through setuptools-scm
 __version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
-with clib.Session() as lib:
-    __gmt_version__ = lib.info["version"]
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets

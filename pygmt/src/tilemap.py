@@ -74,8 +74,8 @@ def tilemap(
           :class:`xyzservices.TileProvider` object. See
           :doc:`Contextily providers <contextily:providers_deepdive>` for a
           list of tile providers [Default is
-          ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
-          tiles].
+          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap
+          Humanitarian web tiles].
         - A web tile provider in the form of a URL. The placeholders for the
           XYZ in the URL need to be {{x}}, {{y}}, {{z}}, respectively. E.g.
           ``https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png``.
