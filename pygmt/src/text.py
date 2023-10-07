@@ -201,29 +201,17 @@ def text_(
         kwargs.update({"F": ""})
 
     extra_arrays = []
-    if angle is True:
-        kwargs["F"] += "+a"
-    elif is_nonstr_iter(angle):
-        kwargs["F"] += "+a"
-        extra_arrays.append(np.atleast_1d(angle))
-    elif isinstance(angle, (int, float, str)):
-        kwargs["F"] += f"+a{str(angle)}"
-
-    if font is True:
-        kwargs["F"] += "+f"
-    elif is_nonstr_iter(font):
-        kwargs["F"] += "+f"
-        extra_arrays.append(np.atleast_1d(font).astype(str))
-    elif isinstance(font, str):
-        kwargs["F"] += f"+f{font}"
-
-    if justify is True:
-        kwargs["F"] += "+j"
-    elif is_nonstr_iter(justify):
-        kwargs["F"] += "+j"
-        extra_arrays.append(np.atleast_1d(justify).astype(str))
-    elif isinstance(justify, str):
-        kwargs["F"] += f"+j{justify}"
+    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+        if arg is True:
+            kwargs["F"] += flag
+        elif is_nonstr_iter(arg):
+            kwargs["F"] += flag
+            if flag == "+a":  # angle is numeric type
+                extra_arrays.append(np.atleast_1d(arg))  # numeric
+            else:  # font or justify is str type
+                extra_arrays.append(np.atleast_1d(arg).astype(str))
+        elif isinstance(arg, (int, float, str)):
+            kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
