@@ -311,6 +311,24 @@ def test_text_angle_font_justify_from_textfile():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_text_position.png")
+def test_text_justify_array(region):
+    """
+    Test passing an array of justify codes.
+
+    Re-use the baseline image from test_text_position().
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="x1c", frame="a")
+    fig.text(
+        x=[0, 2.5, 5.0, 0, 2.5, 5.0, 0, 2.5, 5.0],
+        y=[0, 0, 0, 1.25, 1.25, 1.25, 2.5, 2.5, 2.5],
+        justify=["BL", "BC", "BR", "ML", "MC", "MR", "TL", "TC", "TR"],
+        text=["BL", "BC", "BR", "ML", "C M", "MR", "TL", "TC", "TR"],
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_text_transparency():
     """
