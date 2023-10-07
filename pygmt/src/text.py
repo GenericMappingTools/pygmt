@@ -207,7 +207,7 @@ def text_(
         elif is_nonstr_iter(arg):
             kwargs["F"] += flag
             if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))  # numeric
+                extra_arrays.append(np.atleast_1d(arg))
             else:  # font or justify is str type
                 extra_arrays.append(np.atleast_1d(arg).astype(str))
         elif isinstance(arg, (int, float, str)):
