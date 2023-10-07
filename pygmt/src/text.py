@@ -39,9 +39,6 @@ from pygmt.helpers import (
 @kwargs_to_strings(
     R="sequence",
     textfiles="sequence_space",
-    angle="sequence_comma",
-    font="sequence_comma",
-    justify="sequence_comma",
     c="sequence_comma",
     p="sequence",
 )
@@ -203,25 +200,34 @@ def text_(
     ):
         kwargs.update({"F": ""})
 
+    extra_arrays = []
     if angle is True:
         kwargs["F"] += "+a"
+    elif is_nonstr_iter(angle):
+        kwargs["F"] += "+a"
+        extra_arrays.append(np.atleast_1d(angle))
     elif isinstance(angle, (int, float, str)):
         kwargs["F"] += f"+a{str(angle)}"
 
     if font is True:
         kwargs["F"] += "+f"
+    elif is_nonstr_iter(font):
+        kwargs["F"] += "+f"
+        extra_arrays.append(np.atleast_1d(font).astype(str))
     elif isinstance(font, str):
         kwargs["F"] += f"+f{font}"
 
     if justify is True:
         kwargs["F"] += "+j"
+    elif is_nonstr_iter(justify):
+        kwargs["F"] += "+j"
+        extra_arrays.append(np.atleast_1d(justify).astype(str))
     elif isinstance(justify, str):
         kwargs["F"] += f"+j{justify}"
 
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
 
-    extra_arrays = []
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
