@@ -94,12 +94,12 @@ def text_(
         of the map.
     text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
-    angle: int, float, str or bool
+    angle: int, float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
         must have this as a column.
-    font : str or bool
+    font : str, bool or list of str
         Set the font specification with format *size*\ ,\ *font*\ ,\ *color*
         where *size* is text size in points, *font* is the font to use, and
         *color* sets the font color. For example,
@@ -107,7 +107,7 @@ def text_(
         font. If no font info is explicitly given (i.e. ``font=True``), then
         the input to ``textfiles`` must have this information in one of its
         columns.
-    justify : str or bool
+    justify : str, bool or list of str
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
