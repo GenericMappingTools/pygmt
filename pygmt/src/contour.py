@@ -115,7 +115,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     with Session() as lib:
-        # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
