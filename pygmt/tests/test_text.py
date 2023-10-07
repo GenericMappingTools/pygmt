@@ -330,6 +330,24 @@ def test_text_justify_array(region):
 
 
 @pytest.mark.mpl_image_compare
+def test_text_angle_justify_font_arrays(region):
+    """
+    Test passing arrays of angle, justify and font.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="X5c/2.5c", frame=True)
+    fig.text(
+        x=[2.5, 2.5],
+        y=[1.0, 2.0],
+        angle=[30, 50],
+        justify=["TL", "BR"],
+        font=["15p,Helvetica-Bold,red", "5p,Times-Italic,blue"],
+        text=["TEXT1", "TEXT2 with spaces"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
 def test_text_transparency():
     """
     Add texts with a constant transparency.
