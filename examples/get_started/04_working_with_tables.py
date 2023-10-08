@@ -45,6 +45,7 @@ from pathlib import Path
 
 Path("input_data.dat").unlink()
 
+# %%
 # Besides a plain string to a table file, following variants are also accepted:
 #
 # - a `pathlib.Path` object
