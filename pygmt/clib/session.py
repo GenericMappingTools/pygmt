@@ -1708,7 +1708,7 @@ class Session:
     @contextmanager
     def virtualfile_to_gmtdataset(self):
         """
-        Create a virtual file for writing a GMT_GRID object.
+        Create a virtual file for writing a GMT_DATASET object.
 
         Yields
         ------
@@ -1721,12 +1721,26 @@ class Session:
             yield vfile
 
     def gmtdataset_to_vectors(self, vfile):
-        data = ctp.cast(self.read_virtualfile(f"{vfile}"), ctp.POINTER(GMT_DATASET))
-        ds = data.contents
+        """
+        Read GMT_DATASET object from a virtual file and convert to vectors.
 
+        Parameters
+        ----------
+        vfile : str
+            Name of the virtual file.
+
+        Returns
+        -------
+        vectors : list of 1-D arrays
+            List of vectors containing the data from the GMT_DATASET object.
+        """
+        # Read the virtual file and cast it to a pointer to a GMT_DATASET
+        ds = ctp.cast(self.read_virtualfile(vfile), ctp.POINTER(GMT_DATASET)).contents
+
+        # Loop over the tables, segments, and columns to get the data as vectors
         vectors = []
-        for itble in range(ds.n_tables):
-            dtbl = ds.table[itble].contents
+        for itbl in range(ds.n_tables):
+            dtbl = ds.table[itbl].contents
             for iseg in range(dtbl.n_segments):
                 dseg = dtbl.segment[iseg].contents
                 for icol in range(dseg.n_columns):
