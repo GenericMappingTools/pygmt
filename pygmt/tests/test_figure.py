@@ -121,10 +121,24 @@ def test_figure_savefig_geotiff():
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:
             assert xds.rio.crs is not None
+npt.assert_allclose(
+                actual=xds.rio.bounds(),
+                desired=(
+                    -667728.5869475466,
+                    6356999.491390044,
+                    594269.0244906943,
+                    8381540.2498699855,
+                ),
+            )
+            assert xds.rio.shape == (2149, 1340)
         # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
                 assert xds.rio.crs is None
+                npt.assert_allclose(
+                    actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
+                )
+                assert xds.rio.shape == (1257, 1331)
             assert len(record) == 1
     except ImportError:
         pass
