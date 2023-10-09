@@ -29,7 +29,11 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     Refer to :gmt-datasets:`earth-geoid.html` for more details about available
     datasets, including version information and references.
 
-    .. image::  https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_geoid.jpg
+    .. figure::  https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_geoid.jpg# noqa: W505
+       :width: 700 px
+       :align: center
+
+       EGM2008 Global Earth Geoid dataset.
 
     Parameters
     ----------

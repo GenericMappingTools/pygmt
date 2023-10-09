@@ -29,7 +29,11 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     Refer to :gmt-datasets:`earth-mask.html` for more details about available
     datasets, including version information and references.
 
-    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png # noqa: W505
+       :width: 700 px
+       :align: center
+
+       GSHHG Global Earth Mask dataset.
 
     Parameters
     ----------

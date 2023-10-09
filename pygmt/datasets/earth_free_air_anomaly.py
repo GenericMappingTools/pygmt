@@ -37,7 +37,11 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     Refer to :gmt-datasets:`earth-faa.html` for more details about available
     datasets, including version information and references.
 
-    .. image::  https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_faa.jpg
+    .. figure::  https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_faa.jpg # noqa: W505
+       :width: 700 px
+       :align: center
+
+       IGPP Global Earth Free-Air Anomaly datatset.
 
     Parameters
     ----------
