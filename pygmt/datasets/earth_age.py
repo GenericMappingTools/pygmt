@@ -40,7 +40,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
        :width: 700 px
        :align: center
 
-    Earth seafloor crustal age dataset.
+       Earth seafloor crustal age dataset.
 
     Parameters
     ----------
