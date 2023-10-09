@@ -8,12 +8,7 @@ import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -178,25 +173,22 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
         ) as invfile, lib.virtualfile_to_gmtdataset() as outvfile:
+            # Option 1
             lib.call_module(
                 module="grd2xyz",
                 args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
             )
+
             if output_type == "file":
                 lib.call_module("write", f"{outvfile} {outfile} -Td")
                 return None
-
             vectors = lib.gmtdataset_to_vectors(outvfile)
             if output_type == "numpy":
                 return np.array(vectors).T
             return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
 
-    """
-    # Option 2
-    with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as invfile, lib.virtualfile_to_gmtdataset() as outvfile:
+            """
+            # Option 2
             if output_type == "file":
                 outvfile = outfile
             lib.call_module(
@@ -206,9 +198,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
             if output_type == "file":
                 return None
-
             vectors = lib.gmtdataset_to_vectors(outvfile)
             if output_type == "numpy":
                 return np.array(vectors).T
             return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
-    """
+            """
