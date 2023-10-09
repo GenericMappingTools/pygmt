@@ -23,6 +23,12 @@ def load_earth_relief(
     Load the Earth relief datasets (topography and bathymetry) in various
     resolutions.
 
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_gebcosi.jpg # noqa: W505
+       :width: 700 px
+       :align: center
+
+       Earth relief datasets (topography and bathymetry).
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_relief``,
     ``~/.gmt/server/earth/earth_gebco``, ``~/.gmt/server/earth/earth_gebcosi``,
@@ -47,12 +53,6 @@ def load_earth_relief(
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
-
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_gebcosi.jpg # noqa: W505
-       :width: 700 px
-       :align: center
-
-       Earth relief datasets (topography and bathymetry).
 
     Parameters
     ----------

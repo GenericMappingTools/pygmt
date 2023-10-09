@@ -15,6 +15,12 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     r"""
     Load the Earth seafloor crustal age dataset in various resolutions.
 
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_age.png # noqa: W505
+       :width: 700 px
+       :align: center
+
+       Earth seafloor crustal age dataset.
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_age/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
@@ -35,12 +41,6 @@ def load_earth_age(resolution="01d", region=None, registration=None):
 
     Refer to :gmt-datasets:`earth-age.html` for more details about available
     datasets, including version information and references.
-
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_age.png # noqa: W505
-       :width: 700 px
-       :align: center
-
-       Earth seafloor crustal age dataset.
 
     Parameters
     ----------
