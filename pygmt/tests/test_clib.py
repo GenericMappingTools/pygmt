@@ -439,7 +439,9 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_from_data(data=data, required_z=True) as vfile:
+        with lib.virtualfile_from_data(
+            data=data, required_z=True, check_kind="vector"
+        ) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
@@ -461,7 +463,9 @@ def test_virtualfile_from_data_required_z_matrix_missing():
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(data=data, required_z=True):
+            with lib.virtualfile_from_data(
+                data=data, required_z=True, check_kind="vector"
+            ):
                 pass
 
 
@@ -552,7 +556,8 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings1 = np.array(["a", "bc", "def", "ghij", "klmno"], dtype=dtype)
+    # Catch bug in https://github.com/GenericMappingTools/pygmt/pull/2719
+    strings1 = np.array(["a", "bc", "def", "ghij", "klmnolooong"], dtype=dtype)
     strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=dtype)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:

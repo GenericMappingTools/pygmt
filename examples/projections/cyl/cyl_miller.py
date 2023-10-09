@@ -15,6 +15,8 @@ by 0.8.
 The projection is set with **j** or **J**. The central meridian is set by the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

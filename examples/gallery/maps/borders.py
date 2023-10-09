@@ -1,6 +1,6 @@
 """
 Political Boundaries
---------------------
+====================
 
 The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of
 political boundaries to plot and the pen used to draw them. Choose from the
@@ -15,6 +15,8 @@ For example, to draw national boundaries with a line thickness of 1p and black
 line color use ``borders="1/1p,black"``. You can draw multiple boundaries by
 passing in a list to ``borders``.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

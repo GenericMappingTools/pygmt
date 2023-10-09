@@ -9,12 +9,31 @@ instead.
 
 ## Onboarding Access Checklist
 
-- Added to [python-maintainers](https://github.com/orgs/GenericMappingTools/teams/python-maintainers) team in the [GenericMappingTools](https://github.com/orgs/GenericMappingTools/teams/) organization on GitHub (gives 'maintain' permissions)
+Note that anyone can contribute to PyGMT, even without being added to the
+[GenericMappingTools team](https://github.com/orgs/GenericMappingTools/teams).
+The onboarding items below are for people who would like to make regular
+contributions, and could benefit from extra permissions to the developer and
+communication tools we use.
+
+### As a Contributor
+
+- Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
 - Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
-- Added as moderator on [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions)
 - Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
+- Added as member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
+
+### As a Maintainer
+
+- Added to the [pygmt-maintainers team](https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers) (gives 'maintain' permission to the repository)
+- Update the role on the {doc}`Team Gallery page <team>`
+- Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
+- Added as a maintainer on [Readthedocs](https://readthedocs.org/projects/pygmt-dev) [optional]
+
+### As an Administrator
+
+- Added to the [pygmt-admin team](https://github.com/orgs/GenericMappingTools/teams/pygmt-admin) (gives 'admin' permission to the repository)
+- Added as admin on [DAGsHub](https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration)
 - Added as maintainer on [PyPI](https://pypi.org/project/pygmt/) and [Test PyPI](https://test.pypi.org/project/pygmt) [optional]
-- Added as member on [HackMD](https://hackmd.io/@pygmt) [optional]
 
 ## Branches
 

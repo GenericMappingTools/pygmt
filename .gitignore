@@ -12,11 +12,12 @@ dist/
 .eggs/
 MANIFEST
 
-# Unit test / coverage reports
+# Unit test / coverage reports / linter cache
 .cache
 .coverage
 coverage.xml
 htmlcov/
+.flakeheaven_cache/
 .pytest_cache/
 results/
 result_images/

@@ -5,11 +5,11 @@ Configuring PyGMT defaults
 Default GMT parameters can be set globally or locally using
 :class:`pygmt.config`.
 """
-# sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Configuring default GMT parameters
 # ----------------------------------
 #
@@ -26,7 +26,8 @@ fig.coast(land="black", water="skyblue")
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Globally overriding defaults
 # ----------------------------
 #
@@ -50,7 +51,8 @@ fig.coast(land="black", water="skyblue")
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Locally overriding defaults
 # ---------------------------
 #
@@ -78,3 +80,5 @@ fig.basemap(region=[115, 119.5, 4, 7.5], projection="M10c", frame=True)
 fig.coast(land="black", water="skyblue")
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

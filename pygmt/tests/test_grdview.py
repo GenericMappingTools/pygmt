@@ -27,7 +27,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="gridfile")
 def fixture_gridfile(grid, region):
     """
-    Load the NetCDF grid file from the sample earth_relief file.
+    Load the netCDF grid file from the sample earth_relief file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         grdcut(grid=grid, region=region, outgrid=tmpfile.name)

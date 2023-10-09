@@ -1,6 +1,6 @@
 r"""
 Vector heads and tails
-----------------------
+======================
 
 Many methods in PyGMT allow plotting vectors with individual
 heads and tails. For this purpose, several modifiers may be appended to
@@ -30,6 +30,7 @@ by passing the corresponding shortcuts to the ``style`` parameter.
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

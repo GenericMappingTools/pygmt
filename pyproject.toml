@@ -71,6 +71,9 @@ fallback_version = "999.999.999+unknown"
 [tool.blackdoc]
 line-length = 79
 
+[tool.codespell]
+ignore-words-list = "astroid,oints,reenable,tripel,trough"
+
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 

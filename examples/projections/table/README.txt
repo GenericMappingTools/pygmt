@@ -1,7 +1,7 @@
 Projection Table
 ----------------
 
-The below table shows the projection codes for the 31 GMT projections.
+The table below shows the projection codes for the 31 GMT projections:
 
 .. Substitution definitions:
 .. |lon0| replace:: lon\ :sub:`0`

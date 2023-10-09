@@ -24,7 +24,7 @@ files and get only the more convenient formats like PDF and PNG.
 
 The project was started in 2017 by `Leonardo Uieda <http://www.leouieda.com>`__
 and `Paul Wessel <http://www.soest.hawaii.edu/wessel>`__ (the co-creator and main
-developer of GMT) at the University of Hawaii at Manoa.
+developer of GMT) at the University of Hawaiʻi at Mānoa.
 The development of PyGMT has been supported by NSF grants
 `OCE-1558403 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403>`__ and
 `EAR-1948603 <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602>`__.

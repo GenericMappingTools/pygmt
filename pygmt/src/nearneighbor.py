@@ -93,7 +93,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
         close to a node.
 
     outgrid : str
-        Optional. The file name for the output netcdf file with extension .nc
+        Optional. The file name for the output netCDF file with extension .nc
         to store the grid in.
 
     empty : str
@@ -149,7 +149,6 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )

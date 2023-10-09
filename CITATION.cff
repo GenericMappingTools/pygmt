@@ -4,14 +4,14 @@ cff-version: 1.2.0
 message: If you use this software, please cite it as follows.
 title: 'PyGMT: A Python interface for the Generic Mapping Tools'
 authors:
-- given-names: Leonardo
-  family-names: Uieda
-  affiliation: University of Liverpool, United Kingdom
-  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Dongdong
   family-names: Tian
   affiliation: China University of Geosciences, China
   orcid: https://orcid.org/0000-0001-7967-1197
+- given-names: Leonardo
+  family-names: Uieda
+  affiliation: University of Liverpool, United Kingdom
+  orcid: https://orcid.org/0000-0001-6123-9515
 - given-names: Wei Ji
   family-names: Leong
   affiliation: Development Seed, USA
@@ -20,18 +20,18 @@ authors:
   family-names: Schlitzer
   affiliation: Unaffiliated
   orcid: https://orcid.org/0000-0002-5843-2282
-- given-names: Michael
-  family-names: Grund
-  affiliation: Innoplexia GmbH, Germany
-  orcid: https://orcid.org/0000-0001-8759-2018
-- given-names: Max
-  family-names: Jones
-  affiliation: University of Hawai'i at Mānoa, USA
-  orcid: https://orcid.org/0000-0003-0180-8928
 - given-names: Yvonne
   family-names: Fröhlich
   affiliation: Karlsruhe Institute of Technology, Germany
   orcid: https://orcid.org/0000-0002-8566-0619
+- given-names: Michael
+  family-names: Grund
+  affiliation: SNP Innovation Lab GmbH, Germany
+  orcid: https://orcid.org/0000-0001-8759-2018
+- given-names: Max
+  family-names: Jones
+  affiliation: University of Hawaiʻi at Mānoa, USA
+  orcid: https://orcid.org/0000-0003-0180-8928
 - given-names: Liam
   family-names: Toney
   affiliation: University of Alaska Fairbanks, USA
@@ -74,11 +74,11 @@ authors:
   orcid: https://orcid.org/0000-0002-0268-7032
 - given-names: Paul
   family-names: Wessel
-  affiliation: University of Hawai'i at Mānoa, USA
+  affiliation: University of Hawaiʻi at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2023-03-31
-doi: 10.5281/zenodo.7772533
+date-released: 2023-09-02
+doi: 10.5281/zenodo.8303186
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.9.0
+version: 0.10.0

@@ -6,6 +6,7 @@ import os
 import numpy as np
 import pytest
 import xarray as xr
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
@@ -55,6 +56,24 @@ def test_unique_name():
     """
     names = [unique_name() for i in range(100)]
     assert len(names) == len(set(names))
+
+
+@pytest.mark.mpl_image_compare
+def test_non_ascii_to_octal():
+    """
+    Test support of non-ASCII characters.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=[
+            "xaf+lISOLatin1: ﬁ‰“”¥",
+            "yaf+lSymbol: αβ∇∋∈",
+            "WSen+tZapfDingbats: ①❷➂➍✦❝❞",
+        ],
+    )
+    return fig
 
 
 def test_kwargs_to_strings_fails():

@@ -10,6 +10,7 @@ from pygmt.helpers import (
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
+    non_ascii_to_octal,
     use_alias,
 )
 
@@ -64,6 +65,12 @@ def text_(
     - ``textfiles``
     - ``x``/``y``, and ``text``
     - ``position`` and ``text``
+
+    The text strings passed via the ``text`` parameter can contain ASCII
+    characters and non-ASCII characters defined in the ISOLatin1+ encoding
+    (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
+    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
+    non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
 
@@ -223,7 +230,9 @@ def text_(
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
-        extra_arrays.append(np.atleast_1d(text).astype(str))
+        extra_arrays.append(
+            np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
+        )
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(

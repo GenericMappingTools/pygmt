@@ -17,6 +17,8 @@ projection center, the optional *horizon* parameter specifies the maximum
 distance from projection center (in degrees, < 180, default 90), and the
 *scale* or *width* sets the size of the figure.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

@@ -203,7 +203,6 @@ Miscellaneous
     :toctree: generated
 
     which
-    test
     print_clib_info
     show_versions
 

@@ -35,6 +35,8 @@ conformal latitude in the general spherical formulae instead.
 The projection is set with **u** or **U**. *zone* sets the zone for the figure,
 and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

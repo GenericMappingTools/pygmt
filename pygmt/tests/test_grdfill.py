@@ -7,7 +7,8 @@ import numpy as np
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import __gmt_version__, grdfill, load_dataarray
+from pygmt import grdfill, load_dataarray
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief

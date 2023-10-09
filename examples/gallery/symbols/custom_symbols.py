@@ -1,6 +1,6 @@
 """
 Custom symbols
---------------
+==============
 
 The :meth:`pygmt.Figure.plot` method can plot individual custom symbols
 by passing the corresponding symbol name together with the **k** shortcut to
@@ -10,6 +10,7 @@ underneath their corresponding names. For the remaining symbols see the GMT
 cookbook :gmt-docs:`cookbook/custom-symbols.html`.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

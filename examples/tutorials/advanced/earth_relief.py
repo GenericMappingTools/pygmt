@@ -6,17 +6,18 @@ Plotting a map of Earth relief can use the data accessed by the
 :func:`pygmt.datasets.load_earth_relief` function. The data can then be
 plotted using the :meth:`pygmt.Figure.grdimage` method.
 """
-# sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Load sample Earth relief data for the entire globe at a resolution of
 # 1 arc-degree. The other available resolutions are show
 # at :gmt-datasets:`earth-relief.html`.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
-###############################################################################
+
+# %%
 # Create a plot
 # -------------
 #
@@ -29,8 +30,7 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid)
 fig.show()
 
-###############################################################################
-#
+# %%
 # :meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection``
 # for the map. In the example below, the ``projection`` is set as ``R12c`` for
 # 12 centimeter figure with a Winkel Tripel projection. For a list of available
@@ -40,7 +40,8 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c")
 fig.show()
 
-###############################################################################
+
+# %%
 # Set a color map
 # ---------------
 #
@@ -48,23 +49,22 @@ fig.show()
 # the figure. Examples of common CPTs for Earth relief are shown below.
 # A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
 
-###############################################################################
-#
+# %%
 # Using the *geo* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.show()
 
-###############################################################################
-#
+# %%
 # Using the *relief* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="relief")
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a color bar
 # ---------------
 #
@@ -81,7 +81,8 @@ fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
 
-###############################################################################
+
+# %%
 # Create a region map
 # -------------------
 #
@@ -100,3 +101,5 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

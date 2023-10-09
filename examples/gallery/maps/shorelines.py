@@ -1,9 +1,11 @@
 """
 Shorelines
-----------
+==========
 
 Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

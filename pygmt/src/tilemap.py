@@ -3,13 +3,7 @@ tilemap - Plot XYZ tile maps.
 """
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
     import rioxarray
@@ -80,8 +74,8 @@ def tilemap(
           :class:`xyzservices.TileProvider` object. See
           :doc:`Contextily providers <contextily:providers_deepdive>` for a
           list of tile providers [Default is
-          ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
-          tiles].
+          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap
+          Humanitarian web tiles].
         - A web tile provider in the form of a URL. The placeholders for the
           XYZ in the URL need to be {{x}}, {{y}}, {{z}}, respectively. E.g.
           ``https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png``.
@@ -148,9 +142,9 @@ def tilemap(
     if kwargs.get("N") in [None, False]:
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
-    with GMTTempFile(suffix=".tif") as tmpfile:
-        raster.rio.to_raster(raster_path=tmpfile.name)
-        with Session() as lib:
+    with Session() as lib:
+        file_context = lib.virtualfile_from_data(check_kind="raster", data=raster)
+        with file_context as infile:
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=tmpfile.name)
+                module="grdimage", args=build_arg_string(kwargs, infile=infile)
             )

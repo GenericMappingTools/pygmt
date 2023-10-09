@@ -1,0 +1,5 @@
+outs:
+- md5: aca7c6732bc8410a6299582a2bf3b997
+  size: 17350
+  hash: md5
+  path: test_text_nonascii.png

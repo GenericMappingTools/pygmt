@@ -17,6 +17,8 @@ curves.
 The projection is set with **c** or **C**. The projection center is set by
 *lon0/lat0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

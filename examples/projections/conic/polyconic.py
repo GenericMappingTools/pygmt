@@ -24,6 +24,8 @@ is lost with the lengthening of the meridians.
 The projection is set with **poly** or **Poly**. The figure size is set
 with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

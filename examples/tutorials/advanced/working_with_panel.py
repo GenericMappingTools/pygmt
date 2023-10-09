@@ -20,9 +20,7 @@ This tutorial is split into three parts:
 - Add a grid for Earth relief
 """
 
-# sphinx_gallery_thumbnail_number = 1
-
-
+# %%
 # Import the required packages
 import numpy as np
 import panel as pn
@@ -31,9 +29,10 @@ import pygmt
 pn.extension()
 
 
-###############################################################################
+# %%
 # Make a static map
 # -----------------
+#
 # The `Orthographic projection
 # <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
 # can be used to show the Earth as a globe. Land and water masses are
@@ -57,13 +56,14 @@ fig.coast(
 fig.show()
 
 
-###############################################################################
+# %%
 # Make an interactive map
 # -----------------------
+#
 # To generate a rotation of the Earth around the vertical axis, the central
 # longitude of the Orthographic projection is varied iteratively in steps of
 # 10 degrees. The library ``Panel`` is used to create an interactive dashboard
-# with a slider (works only in a notebook environment, e.g. Jupyter notebook).
+# with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
 # Create a slider
 slider_lon = pn.widgets.DiscreteSlider(
@@ -94,9 +94,10 @@ def view(central_lon):
 pn.Column(slider_lon, view)
 
 
-###############################################################################
+# %%
 # Add a grid for Earth relief
 # ---------------------------
+#
 # Instead of using colors as fill for the land and water masses a grid can be
 # displayed. Here, the Earth relief is shown by color-coding the elevation.
 
@@ -139,3 +140,5 @@ def view(central_lon):
 
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
+
+# sphinx_gallery_thumbnail_number = 1

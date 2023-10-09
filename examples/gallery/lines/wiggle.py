@@ -1,6 +1,6 @@
 """
 Wiggle along tracks
--------------------
+===================
 
 The :meth:`pygmt.Figure.wiggle` method can plot z = f(x,y) anomalies along
 tracks. ``x``, ``y``, ``z`` can be specified as 1-D arrays or within a
@@ -10,6 +10,7 @@ filled with color by setting the ``fillpositive`` and/or ``fillnegative``
 parameters.
 """
 
+# %%
 import numpy as np
 import pygmt
 

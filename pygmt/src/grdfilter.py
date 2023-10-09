@@ -25,16 +25,17 @@ from pygmt.io import load_dataarray
     V="verbose",
     f="coltypes",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
 def grdfilter(grid, **kwargs):
     r"""
     Filter a grid in the space (or time) domain.
 
-    Filter a grid file in the time domain using one of the selected convolution
-    or non-convolution isotropic or rectangular filters and compute distances
-    using Cartesian or Spherical geometries. The output grid file can
-    optionally be generated as a sub-region of the input (via ``region``)
+    Filter a grid file in the space (or time) domain using one of the selected
+    convolution or non-convolution isotropic or rectangular filters and compute
+    distances using Cartesian or Spherical geometries. The output grid file
+    can optionally be generated as a sub-region of the input (via ``region``)
     and/or with new increment (via ``spacing``) or registration
     (via ``toggle``). In this way, one may have "extra space" in the input
     data so that the edges will not be used and the output can be within one
@@ -48,67 +49,63 @@ def grdfilter(grid, **kwargs):
     Parameters
     ----------
     grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+        The file name of the input grid or the grid loaded as a
+        :class:`xarray.DataArray`.
     outgrid : str or None
         The name of the output netCDF file with extension .nc to store the grid
         in.
     filter : str
-        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *xwidth*\
+        **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].
-        Name of filter type you which to apply, followed by the width:
+        Name of the filter type you wish to apply, followed by the *width*:
 
-        b: Box Car
+        - **b** - Box Car
+        - **c** - Cosine Arch
+        - **g** - Gaussian
+        - **o** - Operator
+        - **m** - Median
+        - **p** - Maximum Likelihood probability
+        - **h** - Histogram
 
-        c: Cosine Arch
-
-        g: Gaussian
-
-        o: Operator
-
-        m: Median
-
-        p: Maximum Likelihood probability
-
-        h: histogram
     distance : str
-        Distance *flag* tells how grid (x,y) relates to filter width as
-        follows:
+        State how the grid (x,y) relates to the filter *width*:
 
-        p: grid (px,py) with *width* an odd number of pixels; Cartesian
-        distances.
-
-        0: grid (x,y) same units as *width*, Cartesian distances.
-
-        1: grid (x,y) in degrees, *width* in kilometers, Cartesian distances.
-
-        2: grid (x,y) in degrees, *width* in km, dx scaled by cos(middle y),
-        Cartesian distances.
+        - ``"p"``: grid (px,py) with *width* an odd number of pixels,
+          Cartesian distances.
+        - ``"0"``: grid (x,y) same units as *width*, Cartesian distances.
+        - ``"1"``: grid (x,y) in degrees, *width* in kilometers, Cartesian
+          distances.
+        - ``"2"``: grid (x,y) in degrees, *width* in km, dx scaled by
+          cos(middle y), Cartesian distances.
 
         The above options are fastest because they allow weight matrix to be
         computed only once. The next three options are slower because they
         recompute weights for each latitude.
 
-        3: grid (x,y) in degrees, *width* in km, dx scaled by cosine(y),
-        Cartesian distance calculation.
-
-        4: grid (x,y) in degrees, *width* in km, Spherical distance
-        calculation.
-
-        5: grid (x,y) in Mercator ``projection="m1"`` img units, *width* in km,
-        Spherical distance calculation.
+        - ``"3"``: grid (x,y) in degrees, *width* in km, dx scaled by cos(y),
+          Cartesian distance calculation.
+        - ``"4"``: grid (x,y) in degrees, *width* in km, Spherical distance
+          calculation.
+        - ``"5"``: grid (x,y) in Mercator ``projection="m1"`` img units,
+          *width* in km, Spherical distance calculation.
 
     {spacing}
     nans : str or float
         **i**\|\ **p**\|\ **r**.
-        Determine how NaN-values in the input grid affects the filtered output.
+        Determine how NaN-values in the input grid affect the filtered output.
+        Use **i** to ignore all NaNs in the calculation of the filtered value
+        [Default]. **r** is same as **i** except if the input node was NaN then
+        the output node will be set to NaN (only applies if both grids are
+        co-registered). **p** will force the filtered value to be NaN if any
+        grid nodes with NaN-values are found inside the filter circle.
     {region}
     toggle : bool
-        Toggle the node registration for the output grid so as to become the
-        opposite of the input grid. [Default gives the same registration as the
-        input grid].
+        Toggle the node registration for the output grid to get the opposite of
+        the input grid [Default gives the same registration as the input grid].
     {verbose}
     {coltypes}
     {registration}
+    {cores}
 
     Returns
     -------
@@ -119,13 +116,12 @@ def grdfilter(grid, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
 
-    Example
-    -------
+    Examples
+    --------
     >>> import os
     >>> import pygmt
-
-    >>> # Apply a filter of 600km (full width) to the @earth_relief_30m file
-    >>> # and return a filtered field (saved as netcdf)
+    >>> # Apply a filter of 600 km (full width) to the @earth_relief_30m_g file
+    >>> # and return a filtered field (saved as netCDF)
     >>> pygmt.grdfilter(
     ...     grid="@earth_relief_30m_g",
     ...     filter="m600",
@@ -134,10 +130,9 @@ def grdfilter(grid, **kwargs):
     ...     spacing=0.5,
     ...     outgrid="filtered_pacific.nc",
     ... )
-    >>> os.remove("filtered_pacific.nc")  # cleanup file
-
-    >>> # Apply a gaussian smoothing filter of 600 km in the input data array,
-    >>> # and returns a filtered data array with the smoothed field.
+    >>> os.remove("filtered_pacific.nc")  # Cleanup file
+    >>> # Apply a Gaussian smoothing filter of 600 km to the input DataArray
+    >>> # and return a filtered DataArray with the smoothed field
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """

@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.3
+      uses: actions/checkout@v4.1.0
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
@@ -30,11 +30,11 @@ jobs:
       uses: iterative/setup-dvc@v1.1.2
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.3
+      uses: iterative/setup-cml@v2.0.0
 
     # workaround from https://github.com/iterative/cml/issues/1377
     - name: Setup NodeJS
-      uses: actions/setup-node@v3.6.0
+      uses: actions/setup-node@v3.8.1
       with:
         node-version: '16'
 

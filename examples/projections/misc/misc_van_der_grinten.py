@@ -13,6 +13,8 @@ circle.
 The projection is set with **v** or **V**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

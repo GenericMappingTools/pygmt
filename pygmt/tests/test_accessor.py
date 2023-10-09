@@ -8,7 +8,8 @@ from pathlib import Path
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import __gmt_version__, which
+from pygmt import which
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 

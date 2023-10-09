@@ -7,9 +7,10 @@ area that will be shown in the figure. This tutorial covers the different types
 of inputs that it can accept.
 """
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Coordinates
 # -----------
 #
@@ -35,8 +36,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The coordinates can be passed to ``region`` as a list, in the form of
 # [*xmin*, *xmax*, *ymin*, *ymax*].
 
@@ -53,8 +53,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # Instead of passing axes minima and maxima, the coordinates can be passed for
 # the bottom-left and top-right corners. The string format takes the
 # coordinates for the bottom-left and top-right coordinates. To specify corner
@@ -74,7 +73,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Global regions
 # --------------
 #
@@ -97,8 +97,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The argument **g** can be passed, which encompasses the entire globe. The
 # range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
 # set for the projection, the figure is centered at (180, 0), or the
@@ -116,7 +115,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # ISO code
 # --------
 #
@@ -137,8 +137,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The area encompassed by the ISO code can be expanded by appending
 # **+r**\ *increment* to the ISO code. The *increment* unit is in degrees, and
 # if only one value is added it expands the range of the region in all
@@ -159,8 +158,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # Instead of expanding the range of the plot uniformly in all directions, two
 # values can be passed to expand differently on each axis. The format is
 # *xinc*/*yinc*.
@@ -179,8 +177,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # Instead of expanding the range of the plot uniformly in all directions, four
 # values can be passed to expand differently in each direction.
 # The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
@@ -200,8 +197,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The ``region`` increment can be appended with **+R**, which adds the
 # increment without rounding.
 
@@ -219,8 +215,7 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
-#
+# %%
 # The ``region`` increment can be appended with **+e**, which is like **+r**
 # and expands the final region boundaries to be multiples of *increment*.
 # However, it ensures that the bounding box extends by at least 0.25 times the

@@ -20,6 +20,7 @@ __doctest_skip__ = ["grdfill"]
 @use_alias(
     A="mode",
     G="outgrid",
+    N="no_data",
     R="region",
     V="verbose",
 )
@@ -28,10 +29,10 @@ def grdfill(grid, **kwargs):
     r"""
     Fill blank areas from a grid file.
 
-    Read a grid that presumably has unfilled holes that the user
-    wants to fill in some fashion. Holes are identified by NaN values but
-    this criteria can be changed. There are several different algorithms that
-    can be used to replace the hole values.
+    Read a grid that presumably has unfilled holes that the user wants to
+    fill in some fashion. Holes are identified by NaN values but this
+    criteria can be changed via the ``no_data`` parameter. There are several
+    different algorithms that can be used to replace the hole values.
 
     Full option list at :gmt-docs:`grdfill.html`
 
@@ -52,6 +53,9 @@ def grdfill(grid, **kwargs):
         where (*X,Y*) are the node dimensions of the grid]), or
         **s** for bicubic spline (optionally append a *tension*
         parameter [Default is no tension]).
+    no_data : int or float
+        Set the node value used to identify a point as a member of a hole
+        [Default is NaN].
 
     {region}
     {verbose}

@@ -3,7 +3,7 @@ Test integration with geopandas.
 """
 import numpy.testing as npt
 import pytest
-from pygmt import Figure, info
+from pygmt import Figure, info, makecpt, which
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -130,4 +130,55 @@ def test_geopandas_plot3d_non_default_circle():
         zscale=1.5,
         style="c0.2c",
     )
+    return fig
+
+
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "int32",
+        "int64",
+        # Enable Int32/Int64 dtypes when geopandas>=0.13.3 is released with
+        # patch https://github.com/geopandas/geopandas/pull/2950
+        # pd.Int32Dtype(),
+        # pd.Int64Dtype(),
+    ],
+)
+@pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
+def test_geopandas_plot_int_dtypes(dtype):
+    """
+    Check that plotting a geopandas GeoDataFrame with integer columns works,
+    including int32 and int64 (non-nullable), Int32 and Int64 (nullable).
+
+    This is a regression test for
+    https://github.com/GenericMappingTools/pygmt/issues/2497
+    """
+    # Read shapefile in geopandas.GeoDataFrame
+    shapefile = which(
+        fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
+        download="c",
+    )
+    gdf = gpd.read_file(shapefile[0])
+
+    # Reproject geometry and change dtype of NPOINTS column
+    gdf["geometry"] = (
+        gdf.to_crs(crs="EPSG:3857")
+        .buffer(distance=100000)
+        .to_crs(crs="OGC:CRS84")  # convert to lon/lat to prevent @null in PROJ CRS
+    )
+    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype=dtype)
+
+    # Plot figure with three polygons colored based on NPOINTS value
+    fig = Figure()
+    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
+    fig.plot(
+        data=gdf,
+        frame=True,
+        pen="1p,black",
+        close=True,
+        fill="+z",
+        cmap=True,
+        aspatial="Z=NPOINTS",
+    )
+    fig.colorbar()
     return fig
