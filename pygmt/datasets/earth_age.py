@@ -37,8 +37,8 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     datasets, including version information and references.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_age.png # noqa: W505
-    :width: 700 px
-    :align: center
+       :width: 700 px
+       :align: center
 
     Earth seafloor crustal age dataset.
 
