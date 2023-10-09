@@ -342,7 +342,8 @@ class Figure:
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
-        # Remove the .pgw world file if exists
+        # Remove the .pgw world file if exists 
+        # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
         if ext == "tiff" and fname.with_suffix(".pgw").exists():
             fname.with_suffix(".pgw").unlink()
