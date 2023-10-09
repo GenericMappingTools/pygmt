@@ -18,13 +18,15 @@ def load_earth_magnetic_anomaly(
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
+    .. figure::
+       https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
        :width: 400 px
        :align: left
 
        Earth magnetic anomaly dataset EMAG2.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
+    .. figure::
+       https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
        :width: 400 px
        :align: right
 
