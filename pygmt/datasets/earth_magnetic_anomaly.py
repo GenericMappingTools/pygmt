@@ -18,19 +18,13 @@ def load_earth_magnetic_anomaly(
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
 
-    .. figure::
-       https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
-       :width: 45 %
-       :align: left
-
-       Earth magnetic anomaly dataset EMAG2.
-
-    .. figure::
-       https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
-       :width: 45 %
-       :align: right
-
-       Earth magnetic anomaly dataset WDMAM.
+    +---------------------------------------------+--------------------------------------------+
+    | Global Earth Magnetic Anomaly Model (EMAG2) | World Digital Magnetic Anomaly Map (WDMAM) |
+    +=============================================+============================================+
+    | .. figure::                                 | .. figure::                                |
+    |    https://www.generic-mapping-tools.org/   |    https://www.generic-mapping-tools.org/  |
+    |    remote-datasets/_images/GMT_mag.jpg      |    remote-datasets/_images/GMT_wdmam.jpg   |
+    +---------------------------------------------+--------------------------------------------+
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mag/``,
