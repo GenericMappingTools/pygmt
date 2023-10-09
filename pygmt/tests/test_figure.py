@@ -121,7 +121,7 @@ def test_figure_savefig_geotiff():
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:
             assert xds.rio.crs is not None
-npt.assert_allclose(
+            npt.assert_allclose(
                 actual=xds.rio.bounds(),
                 desired=(
                     -667728.5869475466,
