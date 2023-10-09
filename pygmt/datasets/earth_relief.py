@@ -48,6 +48,8 @@ def load_earth_relief(
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
 
+    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_gebcosi.jpg
+
     Parameters
     ----------
     resolution : str

@@ -39,6 +39,8 @@ def load_earth_vertical_gravity_gradient(
     Refer to :gmt-datasets:`earth-vgg.html` for more details about available
     datasets, including version information and references.
 
+    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_vgg.jpg
+
     Parameters
     ----------
     resolution : str
