@@ -25,7 +25,7 @@ def load_earth_relief(
 
     .. figure::
        https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_gebcosi.jpg # noqa: W505
-       :width: 700 px
+       :width: 80 %
        :align: center
 
        Earth relief datasets (topography and bathymetry).

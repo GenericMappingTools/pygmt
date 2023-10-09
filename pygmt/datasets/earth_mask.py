@@ -17,7 +17,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
 
     .. figure::
        https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png # noqa: W505
-       :width: 700 px
+       :width: 80 %
        :align: center
 
        GSHHG Global Earth Mask dataset.

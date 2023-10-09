@@ -20,14 +20,14 @@ def load_earth_magnetic_anomaly(
 
     .. figure::
        https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
-       :width: 350 px
+       :width: 45 %
        :align: left
 
        Earth magnetic anomaly dataset EMAG2.
 
     .. figure::
        https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
-       :width: 350 px
+       :width: 45 %
        :align: right
 
        Earth magnetic anomaly dataset WDMAM.
