@@ -48,7 +48,7 @@ def load_earth_magnetic_anomaly(
     datasets, including version information and references.
 
     .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg
-    .. image.. https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg
+    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg
 
     Parameters
     ----------
