@@ -28,6 +28,7 @@ def load_earth_magnetic_anomaly(
     |    remote-datasets/               |    remote-datasets/               |
     |    _images/GMT_mag.jpg            |    _images/GMT_wdmam.jpg          |
     +-----------------------------------+-----------------------------------+
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mag/``,
     ``~/.gmt/server/earth/earth_mag4km/``,
