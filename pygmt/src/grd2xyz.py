@@ -167,8 +167,6 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         # Reverse the dims because it is rows, columns ordered.
         dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
 
-    # Two different options to output the data
-    # Option 1
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
