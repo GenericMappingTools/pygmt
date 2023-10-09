@@ -1,7 +1,7 @@
 """
 Test pygmt.which.
 """
-import os
+from pathlib import Path
 
 import pytest
 from pygmt import which
@@ -14,8 +14,8 @@ def test_which():
     """
     for fname in ["tut_quakes.ngdc", "tut_bathy.nc"]:
         cached_file = which(f"@{fname}", download="c")
-        assert os.path.exists(cached_file)
-        assert os.path.basename(cached_file) == fname
+        assert Path(cached_file).exists()
+        assert Path(cached_file).name == fname
 
 
 def test_which_multiple():
@@ -23,10 +23,10 @@ def test_which_multiple():
     Make sure `which` returns file paths for multiple @files correctly.
     """
     filenames = ["ridge.txt", "tut_ship.xyz"]
-    cached_files = which(fname=[f"@{fname}" for fname in filenames], download="c")
+    cached_files = which([f"@{fname}" for fname in filenames], download="c")
     for cached_file in cached_files:
-        assert os.path.exists(cached_file)
-        assert os.path.basename(cached_file) in filenames
+        assert Path(cached_file).exists()
+        assert Path(cached_file).name in filenames
 
 
 def test_which_fails():
