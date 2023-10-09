@@ -283,7 +283,6 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     ...     points=points, grid=grid, newcolname="bathymetry"
     ... )
     """
-    # pylint: disable=too-many-branches
     if points is not None and kwargs.get("E") is not None:
         raise GMTInvalidInput("Can't set both 'points' and 'profile'.")
 
