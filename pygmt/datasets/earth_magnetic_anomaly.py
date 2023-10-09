@@ -47,8 +47,17 @@ def load_earth_magnetic_anomaly(
     and :gmt-datasets:`earth-wdmam.html` for more details about available
     datasets, including version information and references.
 
-    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg
-    .. image:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
+       :width: 400 px
+       :align: left
+
+       Earth magnetic anomaly dataset EMAG2.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
+       :width: 400 px
+       :align: right
+
+       Earth magnetic anomaly dataset WDMAM.
 
     Parameters
     ----------
