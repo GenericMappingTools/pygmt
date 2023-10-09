@@ -182,15 +182,14 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
                 module="grd2xyz",
                 args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
             )
-            vectors = lib.gmtdataset_to_vectors(outvfile)
-
             if output_type == "file":
                 lib.call_module("write", f"{outvfile} {outfile} -Td")
                 return None
 
-        if output_type == "numpy":
-            return np.array(vectors).T
-        return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+            vectors = lib.gmtdataset_to_vectors(outvfile)
+            if output_type == "numpy":
+                return np.array(vectors).T
+            return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
 
     """
     # Option 2
@@ -205,11 +204,11 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
                 args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
             )
 
-        if output_type == "file":
-            return None
+            if output_type == "file":
+                return None
 
-        vectors = lib.gmtdataset_to_vectors(outvfile)
-        if output_type == "numpy":
-            return np.array(vectors).T
-        return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+            vectors = lib.gmtdataset_to_vectors(outvfile)
+            if output_type == "numpy":
+                return np.array(vectors).T
+            return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
     """
