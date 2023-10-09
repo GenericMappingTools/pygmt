@@ -1,3 +1,8 @@
+"""
+GMT data types for ctypes.
+
+See the GMT source code gmt_resources.h for the original C struct definitions.
+"""
 import ctypes as ctp
 
 
@@ -43,7 +48,7 @@ class GMT_DATATABLE(ctp.Structure):
 
 class GMT_DATASET(ctp.Structure):
     """
-    Single container for an array of GMT tables (files)
+    Single container for an array of GMT tables (files).
     """
 
     _fields_ = [
