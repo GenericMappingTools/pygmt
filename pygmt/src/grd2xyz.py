@@ -3,12 +3,12 @@ grd2xyz - Convert grid to data table
 """
 import warnings
 
+import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -172,25 +172,44 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         # Reverse the dims because it is rows, columns ordered.
         dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grd2xyz",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+    # Two different options to output the data
+    # Option 1
+    with Session() as lib:
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as invfile, lib.virtualfile_to_gmtdataset() as outvfile:
+            lib.call_module(
+                module="grd2xyz",
+                args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
             )
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
+            vectors = lib.gmtdataset_to_vectors(outvfile)
+
+            if output_type == "file":
+                lib.call_module("write", f"{outvfile} {outfile} -Td")
+                return None
 
         if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+            return np.array(vectors).T
+        return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+
+    """
+    # Option 2
+    with Session() as lib:
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as invfile, lib.virtualfile_to_gmtdataset() as outvfile:
+            if output_type == "file":
+                outvfile = outfile
+            lib.call_module(
+                module="grd2xyz",
+                args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
+            )
+
+        if output_type == "file":
+            return None
+
+        vectors = lib.gmtdataset_to_vectors(outvfile)
+        if output_type == "numpy":
+            return np.array(vectors).T
+        return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+    """

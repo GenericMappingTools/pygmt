@@ -21,6 +21,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
+from pygmt.datatypes import GMT_DATASET
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -1703,3 +1704,33 @@ class Session:
             restype=ctp.c_void_p,
         )
         return c_read_virtualfile(self.session_pointer, vfname.encode())
+
+    @contextmanager
+    def virtualfile_to_gmtdataset(self):
+        """
+        Create a virtual file for writing a GMT_GRID object.
+
+        Yields
+        ------
+        vfile : str
+            Name of the virtual file.
+        """
+        family = "GMT_IS_DATASET"
+        geometry = "GMT_IS_PLP"
+        with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
+            yield vfile
+
+    def gmtdataset_to_vectors(self, vfile):
+        data = ctp.cast(self.read_virtualfile(f"{vfile}"), ctp.POINTER(GMT_DATASET))
+        ds = data.contents
+
+        vectors = []
+        for itble in range(ds.n_tables):
+            dtbl = ds.table[itble].contents
+            for iseg in range(dtbl.n_segments):
+                dseg = dtbl.segment[iseg].contents
+                for icol in range(dseg.n_columns):
+                    vectors.append(
+                        np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
+                    )
+        return vectors
