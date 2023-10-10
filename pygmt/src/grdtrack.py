@@ -1,11 +1,16 @@
 """
 grdtrack - Sample grids at specified (x,y) locations.
 """
-import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdtrack"]
 
@@ -38,9 +43,7 @@ __doctest_skip__ = ["grdtrack"]
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
-def grdtrack(
-    grid, points=None, newcolname=None, output_type="pandas", outfile=None, **kwargs
-):
+def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
 
@@ -289,30 +292,29 @@ def grdtrack(
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
-    with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as grdfile, lib.virtualfile_from_data(
-            check_kind="vector", data=points, required_data=False
-        ) as csvfile, lib.virtualfile_to_gmtdataset() as outvfile:
-            kwargs["G"] = grdfile
-            lib.call_module(
-                module="grdtrack",
-                args=build_arg_string(kwargs, infile=csvfile, outfile=outvfile),
-            )
-        if outfile is not None:
-            # if output_type == "file":
-            lib.call_module("write", f"{outvfile} {outfile} -Td")
-            return None
+    with GMTTempFile(suffix=".csv") as tmpfile:
+        with Session() as lib:
+            with lib.virtualfile_from_data(
+                check_kind="raster", data=grid
+            ) as grdfile, lib.virtualfile_from_data(
+                check_kind="vector", data=points, required_data=False
+            ) as csvfile:
+                kwargs["G"] = grdfile
+                if outfile is None:  # Output to tmpfile if outfile is not set
+                    outfile = tmpfile.name
+                lib.call_module(
+                    module="grdtrack",
+                    args=build_arg_string(kwargs, infile=csvfile, outfile=outfile),
+                )
 
-        vectors = lib.gmtdataset_to_vectors(outvfile)
+        # Read temporary csv output to a pandas table
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            try:
+                column_names = points.columns.to_list() + [newcolname]
+                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+            except AttributeError:  # 'str' object has no attribute 'columns'
+                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
 
-        if output_type == "numpy":
-            return np.array(vectors).T
-
-        if isinstance(points, pd.DataFrame):
-            column_names = points.columns.to_list() + [newcolname]
-        else:
-            column_names = None
-
-        return pd.DataFrame(np.array(vectors).T, columns=column_names)
+    return result
