@@ -1705,6 +1705,28 @@ class Session:
         )
         return c_read_virtualfile(self.session_pointer, vfname.encode())
 
+    def read_virtualfile_to_data(self, vfname, kind):
+        """
+        Read a virtual file and convert to a GMT data container.
+
+        Parameters
+        ----------
+        vfname : str
+            Name of the virtual file to read.
+        kind : str
+            The kind of data container to create. Choose from "grid" or
+            "dataset".
+
+        Returns
+        -------
+        Pointer to the GMT_GRID or GMT_DATASET data container.
+        """
+        type = {
+            # "grid": GMT_GRID,  # implemented in PR #2398
+            "dataset": GMT_DATASET,
+        }[kind]
+        return ctp.cast(self.read_virtualfile(vfname), ctp.POINTER(type))
+
     @contextmanager
     def virtualfile_to_data(self, kind):
         """
@@ -1743,7 +1765,7 @@ class Session:
             List of vectors containing the data from the GMT_DATASET object.
         """
         # Read the virtual file and cast it to a pointer to a GMT_DATASET
-        ds = ctp.cast(self.read_virtualfile(vfile), ctp.POINTER(GMT_DATASET)).contents
+        ds = self.read_virtualfile_to_data(vfile, kind="dataset").contents
 
         # Loop over the tables, segments, and columns to get the data as vectors
         vectors = []
