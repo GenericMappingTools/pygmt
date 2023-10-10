@@ -312,7 +312,7 @@ def grdtrack(
             check_kind="raster", data=grid
         ) as ingrid, lib.virtualfile_from_data(
             check_kind="vector", data=points, required_data=False
-        ) as infile, lib.virtualfile_to_gmtdataset() as outvfile:
+        ) as infile, lib.virtualfile_to_data(kind="dataset") as outvfile:
             kwargs["G"] = ingrid
             lib.call_module(
                 module="grdtrack",
