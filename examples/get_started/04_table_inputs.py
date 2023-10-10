@@ -1,21 +1,21 @@
 """
-4. Working with table inputs
-============================
+4. PyGMT I/O: Table inputs
+==========================
 
 Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
-- A table is a 2-D array of data, with *M* rows and *N* columns. Each column 
-  represents a different variable (e.g., *x*, *y* and *z*) and each row 
-  represents a different record. 
-- A grid is a 2-D array of data that is regularly spaced in the x and y directions. 
+- A table is a 2-D array of data, with *M* rows and *N* columns. Each column
+  represents a different variable (e.g., *x*, *y* and *z*) and each row
+  represents a different record.
+- A grid is a 2-D array of data that is regularly spaced in the x and y directions.
 
-In this tutorial, we'll focus on working with table inputs, and cover grids in 
+In this tutorial, we'll focus on working with table inputs, and cover grids in
 the next tutorial.
 
 PyGMT supports a variety of table input types that allow you to work with data
-in a format that suits your needs. In this tutorial, we'll explore the different 
-table input types available in PyGMT and provide examples for each. 
-By understanding the different table input types, you can choose the one that best fits 
+in a format that suits your needs. In this tutorial, we'll explore the different
+table input types available in PyGMT and provide examples for each.
+By understanding the different table input types, you can choose the one that best fits
 your data and analysis needs, and work more efficiently with PyGMT.
 """
 
