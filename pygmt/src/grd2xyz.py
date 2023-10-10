@@ -170,7 +170,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as invfile, lib.virtualfile_to_gmtdataset() as outvfile:
+        ) as invfile, lib.virtualfile_to_data(kind="dataset") as outvfile:
             # Option 1
             lib.call_module(
                 module="grd2xyz",
