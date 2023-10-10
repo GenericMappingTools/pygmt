@@ -100,7 +100,7 @@ def grdcut(grid, outgrid=None, **kwargs):
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as infile, lib.virtualfile_to_gmtgrid() as outfile:
+        ) as infile, lib.virtualfile_to_data(kind="grid") as outfile:
             kwargs["G"] = f"{outfile}"
             lib.call_module(
                 module="grdcut", args=build_arg_string(kwargs, infile=infile)

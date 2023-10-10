@@ -1648,6 +1648,29 @@ class Session:
         return c_read_virtualfile(self.session_pointer, vfname.encode())
 
     @contextmanager
+    def virtualfile_to_data(self, kind):
+        """
+        Create a virtual file for writing a GMT data container.
+
+        Parameters
+        ----------
+        kind : str
+            The kind of data container to create. Choose from "grid" or
+            "dataset".
+
+        Yields
+        ------
+        vfile : str
+            Name of the virtual file.
+        """
+        family, geometry = {
+            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
+        }[kind]
+        with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
+            yield vfile
+
+    @contextmanager
     def virtualfile_from_gmtgrid(self, grid_pointer):
         """
         Create a virtual file for reading a GMT_GRID object.
@@ -1665,21 +1688,6 @@ class Session:
         family = "GMT_IS_GRID"
         geometry = "GMT_IS_SURFACE"
         with self.open_virtual_file(family, geometry, "GMT_IN", grid_pointer) as vfile:
-            yield vfile
-
-    @contextmanager
-    def virtualfile_to_gmtgrid(self):
-        """
-        Create a virtual file for writing a GMT_GRID object.
-
-        Yields
-        ------
-        vfile : str
-            Name of the virtual file.
-        """
-        family = "GMT_IS_GRID"
-        geometry = "GMT_IS_SURFACE"
-        with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
             yield vfile
 
     @contextmanager
