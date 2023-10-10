@@ -10,6 +10,7 @@ import sys
 import warnings
 from contextlib import contextmanager, nullcontext
 
+from pygmt.datatypes import GMT_GRID
 import numpy as np
 import pandas as pd
 from packaging.version import Version
@@ -1647,6 +1648,28 @@ class Session:
         )
         return c_read_virtualfile(self.session_pointer, vfname.encode())
 
+    def read_virtualfile_to_data(self, vfname, kind):
+        """
+        Read a virtual file and convert to a GMT data container.
+
+        Parameters
+        ----------
+        vfname : str
+            Name of the virtual file to read.
+        kind : str
+            The kind of data container to create. Choose from "grid" or
+            "dataset".
+
+        Returns
+        -------
+        Pointer to the GMT_GRID or GMT_DATASET data container.
+        """
+        type = {
+            "grid": GMT_GRID,
+            # "dataset": GMT_DATASET, # implemented in PR #2729
+        }[kind]
+        return ctp.cast(self.read_virtualfile(vfname), ctp.POINTER(type))
+
     @contextmanager
     def virtualfile_to_data(self, kind):
         """
@@ -1702,8 +1725,6 @@ class Session:
                 np.c_[np.zeros((x.shape[0], 2)), x, np.zeros((x.shape[0], 2))],
                 np.zeros((2, x.shape[1] + 4)),
             ]
-
-        from pygmt.datatypes import GMT_GRID
 
         family = "GMT_IS_GRID"
         geometry = "GMT_IS_SURFACE"

@@ -7,14 +7,22 @@ import ctypes as ctp
 
 import numpy as np
 import xarray as xr
-from pygmt.clib.session import Session
 
-# Lengths of grid header variables
-with Session() as lib:
-    GMT_GRID_UNIT_LEN80 = lib["GMT_GRID_UNIT_LEN80"]
-    GMT_GRID_TITLE_LEN80 = lib["GMT_GRID_TITLE_LEN80"]
-    GMT_GRID_COMMAND_LEN320 = lib["GMT_GRID_COMMAND_LEN320"]
-    GMT_GRID_REMARK_LEN160 = lib["GMT_GRID_REMARK_LEN160"]
+# from pygmt.clib.session import Session
+
+# # Lengths of grid header variables
+# with Session() as lib:
+#     GMT_GRID_UNIT_LEN80 = lib["GMT_GRID_UNIT_LEN80"]
+#     GMT_GRID_TITLE_LEN80 = lib["GMT_GRID_TITLE_LEN80"]
+#     GMT_GRID_COMMAND_LEN320 = lib["GMT_GRID_COMMAND_LEN320"]
+#     GMT_GRID_REMARK_LEN160 = lib["GMT_GRID_REMARK_LEN160"]
+# Ideally we should be able to get the lengths of grid header variables
+# from GMT shared library, but it cause cyclic import error.
+# So we hardcode the values here.
+GMT_GRID_UNIT_LEN80 = 80
+GMT_GRID_TITLE_LEN80 = 80
+GMT_GRID_COMMAND_LEN320 = 320
+GMT_GRID_REMARK_LEN160 = 160
 
 # GMT uses single-precision for grids by default, but can be built to use
 # double-precision. Currently, only single-precision is supported.
