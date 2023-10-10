@@ -105,10 +105,9 @@ def grdcut(grid, outgrid=None, **kwargs):
             lib.call_module(
                 module="grdcut", args=build_arg_string(kwargs, infile=infile)
             )
+            # Output to a file or return an xarray.DataArray object
+            if outgrid is not None:
+                lib.call_module("write", f"{outfile} {outgrid} -Tg")
+                return None
             gmtgrid = lib.read_virtualfile(outfile)
-
-        if outgrid is not None:
-            with lib.virtualfile_from_gmtgrid(gmtgrid) as infile:
-                lib.call_module("write", f"{infile} {outgrid} -Tg")
-            return None
-        return ctp.cast(gmtgrid, ctp.POINTER(GMT_GRID)).contents.to_dataarray()
+            return ctp.cast(gmtgrid, ctp.POINTER(GMT_GRID)).contents.to_dataarray()
