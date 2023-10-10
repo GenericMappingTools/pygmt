@@ -141,4 +141,4 @@ def view(central_lon):
 # Make an interactive dashboard
 pn.Column(slider_lon, view)
 
-# sphinx_gallery_thumbnail_number = 1
+# sphinx_gallery_thumbnail_path = "_static/sphinx-gallery_panel_image.png"
