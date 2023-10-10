@@ -76,30 +76,6 @@ fig.plot(data=df, style="a0.5c", fill="blue")
 fig.show()
 
 # %%
-# Scalar values or 1-D arrays
-# ---------------------------
-#
-# In addition to the ``data`` parameter, some PyGMT functions/methods also provide
-# invididual parameters (e.g., ``x`` and ``y`` for data coordinates) which allow you
-# to specify the data. These parameters accept individual scalar values or 1-D arrays
-# (lists or 1-D numpy arrays). This is useful if you want to plot a single data
-# point or already have arrays of data in memory.
-
-fig = pygmt.Figure()
-
-fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
-# Pass scalar values to plot a single data point
-fig.plot(x=1.0, y=2.0, style="a0.2c", fill="blue")
-# Pass 1-D lists to plot multiple data points
-fig.plot(x=[5.0, 5.0, 5.0], y=[2.0, 3.0, 4.0], style="t0.2c", fill="green")
-# Pass 1-D numpy arrays to plot multiple data points
-fig.plot(
-    x=np.array([8.0, 8.0, 8.0]), y=np.array([2.0, 3.0, 4.0]), style="c0.2c", fill="red"
-)
-
-fig.show()
-
-# %%
 # geopandas.GeoDataFrame
 # ----------------------
 #
@@ -121,6 +97,30 @@ gdf = gpd.GeoDataFrame(
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
 fig.plot(data=gdf, style="c0.2c", fill="purple")
+fig.show()
+
+# %%
+# Scalar values or 1-D arrays
+# ---------------------------
+#
+# In addition to the ``data`` parameter, some PyGMT functions/methods also provide
+# invididual parameters (e.g., ``x`` and ``y`` for data coordinates) which allow you
+# to specify the data. These parameters accept individual scalar values or 1-D arrays
+# (lists or 1-D numpy arrays). This is useful if you want to plot a single data
+# point or already have arrays of data in memory.
+
+fig = pygmt.Figure()
+
+fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
+# Pass scalar values to plot a single data point
+fig.plot(x=1.0, y=2.0, style="a0.2c", fill="blue")
+# Pass 1-D lists to plot multiple data points
+fig.plot(x=[5.0, 5.0, 5.0], y=[2.0, 3.0, 4.0], style="t0.2c", fill="green")
+# Pass 1-D numpy arrays to plot multiple data points
+fig.plot(
+    x=np.array([8.0, 8.0, 8.0]), y=np.array([2.0, 3.0, 4.0]), style="c0.2c", fill="red"
+)
+
 fig.show()
 
 # %%
