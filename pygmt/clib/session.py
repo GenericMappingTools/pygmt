@@ -1684,7 +1684,8 @@ class Session:
 
     def read_virtualfile(self, vfname, kind=None):
         """
-        Read data from a virtual file and cast it into a GMT data container if requested.
+        Read data from a virtual file and cast it into a GMT data container if
+        requested.
 
         Parameters
         ----------
@@ -1722,27 +1723,37 @@ class Session:
         return ctp.cast(pointer, ctp.POINTER(type))
 
     @contextmanager
-    def virtualfile_to_data(self, kind):
+    def virtualfile_to_data(self, kind, fname=None):
         """
-        Create a virtual file for writing a GMT data container.
+        Create a virtual file for writing a GMT data container or yield the
+        output file name.
 
         Parameters
         ----------
         kind : str
             The kind of data container to create. Choose from "grid" or
-            "dataset".
+            "dataset". It has no effect if ``fname`` is given.
+
+        fname : str or None
+            If given, yield the output file name instead of the virtual file.
 
         Yields
         ------
         vfile : str
-            Name of the virtual file.
+            Name of the virtual file or the output file name.
         """
-        family, geometry = {
-            "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
-            "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
-        }[kind]
-        with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
-            yield vfile
+        # If fname is given, yield the output file name.
+        if fname is not None:
+            yield fname
+        # Otherwise, create a virtual file for writing a GMT data container.
+        else:
+            # Determine the family and geometry of the data container based on 'kind'.
+            family, geometry = {
+                "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
+            }[kind]
+            with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
+                yield vfile
 
     def gmtdataset_to_vectors(self, vfile):
         """
