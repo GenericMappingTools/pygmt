@@ -1625,18 +1625,23 @@ class Session:
 
         return file_context
 
-    def read_virtualfile(self, vfname):
+    def read_virtualfile(self, vfname, kind=None):
         """
-        Read data from a virtual file.
+        Read data from a virtual file and cast it into a GMT data container if requested.
 
         Parameters
         ----------
         vfname : str
             Name of the virtual file to read.
 
+        kind : str
+            Cast the data into a GMT data container. Choose from "grid" or
+            "dataset". If None, will return a ctypes void pointer.
+
         Returns
         -------
-        Pointer to the data, which can be casted into GMT data types.
+        Pointer to the GMT data container. If ``kind`` is None, returns a
+        ctypes void pointer instead.
         """
         c_read_virtualfile = self.get_libgmt_func(
             "GMT_Read_VirtualFile",
@@ -1646,29 +1651,18 @@ class Session:
             ],
             restype=ctp.c_void_p,
         )
-        return c_read_virtualfile(self.session_pointer, vfname.encode())
+        pointer = c_read_virtualfile(self.session_pointer, vfname.encode())
+        if kind is None:  # Return the ctypes void pointer
+            return pointer
 
-    def read_virtualfile_to_data(self, vfname, kind):
-        """
-        Read a virtual file and convert to a GMT data container.
-
-        Parameters
-        ----------
-        vfname : str
-            Name of the virtual file to read.
-        kind : str
-            The kind of data container to create. Choose from "grid" or
-            "dataset".
-
-        Returns
-        -------
-        Pointer to the GMT_GRID or GMT_DATASET data container.
-        """
+        # The GMT C API function GMT_Read_VirtualFile returns a void pointer.
+        # It usually needs to be cast to a pointer to GMT data container (e.g.,
+        # GMT_GRID or GMT_DATASET).
         type = {
             "grid": GMT_GRID,
-            # "dataset": GMT_DATASET, # implemented in PR #2729
+            # "dataset": GMT_DATASET,  # implemented in PR #2729
         }[kind]
-        return ctp.cast(self.read_virtualfile(vfname), ctp.POINTER(type))
+        return ctp.cast(pointer, ctp.POINTER(type))
 
     @contextmanager
     def virtualfile_to_data(self, kind):
