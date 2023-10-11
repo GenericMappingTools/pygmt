@@ -33,7 +33,8 @@ class GMT_GRID_HEADER(ctp.Structure):
     """
     Structure for GMT grid header.
 
-    See https://docs.generic-mapping-tools.org/dev/devdocs/api.html#gmt-grid
+    See
+    https://docs.generic-mapping-tools.org/dev/devdocs/api.html#gmt-grid
     for definition.
     """
 
