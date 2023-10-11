@@ -307,12 +307,19 @@ def grdtrack(
     elif outfile is None and output_type == "file":
         raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
+    if isinstance(points, pd.DataFrame):
+        column_names = points.columns.to_list() + [newcolname]
+    else:
+        column_names = None
+
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
         ) as ingrid, lib.virtualfile_from_data(
             check_kind="vector", data=points, required_data=False
-        ) as infile, lib.virtualfile_to_data(kind="dataset") as outvfile:
+        ) as infile, lib.virtualfile_to_data(
+            kind="dataset", fname=outfile
+        ) as outvfile:
             kwargs["G"] = ingrid
             lib.call_module(
                 module="grdtrack",
@@ -320,16 +327,8 @@ def grdtrack(
             )
 
         if output_type == "file":
-            lib.call_module("write", f"{outvfile} {outfile} -Td")
             return None
-
         vectors = lib.gmtdataset_to_vectors(outvfile)
         if output_type == "numpy":
             return np.array(vectors).T
-
-        if isinstance(points, pd.DataFrame):
-            column_names = points.columns.to_list() + [newcolname]
-        else:
-            column_names = None
-
         return pd.DataFrame(np.array(vectors).T, columns=column_names)
