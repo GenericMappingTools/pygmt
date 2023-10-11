@@ -50,8 +50,8 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
           :class:`xyzservices.TileProvider` object. See
           :doc:`Contextily providers <contextily:providers_deepdive>` for a
           list of tile providers [Default is
-          ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web
-          tiles].
+          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap
+          Humanitarian web tiles].
         - A web tile provider in the form of a URL. The placeholders for the
           XYZ in the URL need to be {x}, {y}, {z}, respectively. E.g.
           ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
@@ -96,7 +96,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     >>> raster = load_tile_map(
     ...     region=[-180.0, 180.0, -90.0, 0.0],  # West, East, South, North
     ...     zoom=1,  # less detailed zoom level
-    ...     source=contextily.providers.Stamen.TerrainBackground,
+    ...     source=contextily.providers.OpenTopoMap,
     ...     lonlat=True,  # bounding box coordinates are longitude/latitude
     ... )
     >>> raster.sizes

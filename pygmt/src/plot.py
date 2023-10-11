@@ -258,7 +258,6 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
             kwargs[flag] = ""
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
         )
