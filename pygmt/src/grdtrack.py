@@ -328,7 +328,7 @@ def grdtrack(
 
         if output_type == "file":
             return None
-        vectors = lib.gmtdataset_to_vectors(outvfile)
+        vectors = lib.read_virtualfile(outvfile, kind="dataset").contents.to_vectors()
         if output_type == "numpy":
             return np.array(vectors).T
         return pd.DataFrame(np.array(vectors).T, columns=column_names)
