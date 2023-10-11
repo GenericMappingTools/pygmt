@@ -15,8 +15,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     r"""
     Load the GSHHG Global Earth Mask dataset in various resolutions.
 
-    .. figure::
-       https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png # noqa: W505
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png # noqa: W505
        :width: 80 %
        :align: center
 
