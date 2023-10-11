@@ -1754,32 +1754,3 @@ class Session:
             }[kind]
             with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
-
-    def gmtdataset_to_vectors(self, vfile):
-        """
-        Read GMT_DATASET object from a virtual file and convert to vectors.
-
-        Parameters
-        ----------
-        vfile : str
-            Name of the virtual file.
-
-        Returns
-        -------
-        vectors : list of 1-D arrays
-            List of vectors containing the data from the GMT_DATASET object.
-        """
-        # Read the virtual file and cast it to a pointer to a GMT_DATASET
-        ds = self.read_virtualfile(vfile, kind="dataset").contents
-
-        # Loop over the tables, segments, and columns to get the data as vectors
-        vectors = []
-        for itbl in range(ds.n_tables):
-            dtbl = ds.table[itbl].contents
-            for iseg in range(dtbl.n_segments):
-                dseg = dtbl.segment[iseg].contents
-                for icol in range(dseg.n_columns):
-                    vectors.append(
-                        np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
-                    )
-        return vectors

@@ -5,6 +5,8 @@ See the GMT source code gmt_resources.h for the original C struct definitions.
 """
 import ctypes as ctp
 
+import numpy as np
+
 
 class GMT_DATASEGMENT(ctp.Structure):
     """
@@ -71,3 +73,24 @@ class GMT_DATASET(ctp.Structure):
         ("ProjRefEPSG", ctp.c_int),  # To store a referencing system EPSG code
         ("hidden", ctp.c_void_p),  # Book-keeping variables "hidden" from the API
     ]
+
+    def to_vectors(self):
+        """
+        Convert the GMT_DATASET object to a list of vectors.
+
+        Returns
+        -------
+        vectors : list of 1-D arrays
+            List of vectors containing the data from the GMT_DATASET object.
+        """
+        # Loop over the tables, segments, and columns to get the data as vectors
+        vectors = []
+        for itbl in range(self.n_tables):
+            dtbl = self.table[itbl].contents
+            for iseg in range(dtbl.n_segments):
+                dseg = dtbl.segment[iseg].contents
+                for icol in range(dseg.n_columns):
+                    vectors.append(
+                        np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
+                    )
+        return vectors
