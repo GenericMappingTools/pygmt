@@ -160,6 +160,16 @@ class GMT_DATASET(ctp.Structure):
         memory allocated by GMT, so the data will be destroyed when the Session ends.
         We may need to copy the data to a new memory location if we want to use the
         data after the Session ends.
+
+        Notes
+        -----
+        In GMT.jl, the GMT_DATASET is defined in
+        https://github.com/GenericMappingTools/GMT.jl/blob/master/src/libgmt_h.jl#L119.
+        It also provides the more friendly data type GMTdataset.
+        See https://www.generic-mapping-tools.org/GMT.jl/dev/types/#Dataset-type.
+
+        A `get_dataset` function is provided to convert GMT's GMT_DATASET
+        to GMT.jl's GMTdataset.
         """
         table = []
         for itbl in range(self.n_tables):
