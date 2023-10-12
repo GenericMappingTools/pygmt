@@ -29,6 +29,24 @@ class GMT_DATASET(ctp.Structure):
 
     See the GMT source code gmt_resources.h for the original C struct
     definitions.
+
+    Examples
+    --------
+    >>> from pygmt.clib import Session
+    >>> with Session() as lib:
+    ...     with lib.virtualfile_to_data(kind="dataset") as vfout:
+    ...         lib.call_module("read", f"@App_O_cross.txt {vfout} -Td")
+    ...         ds = lib.read_virtualfile(vfout, kind="dataset").contents
+    ...         print(ds.n_tables, ds.n_columns, ds.n_segments, ds.n_records)
+    ...         print(ds.min[0], ds.max[0], ds.min[1], ds.max[1])
+    ...         seg = ds.table[0].contents.segment[0].contents
+    ...         print(seg.data[0][: seg.n_rows])
+    ...         print(seg.data[1][: seg.n_rows])
+    ...
+    1 2 3 14
+    59.0 158.0 -12.0 13.0
+    [59.0, 62.0, 66.0, 71.0, 77.0]
+    [-12.0, -7.0, -3.0, -1.0, 3.0]
     """
 
     class GMT_DATATABLE(ctp.Structure):
@@ -118,21 +136,42 @@ class GMT_DATASET(ctp.Structure):
         """
         Convert the GMT_DATASET object to a list of vectors.
 
+        Examples
+        --------
+
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_to_data(kind="dataset") as vfout:
+        ...         lib.call_module("read", f"@App_O_cross.txt {vfout} -Td")
+        ...         ds = lib.read_virtualfile(vfout, kind="dataset")
+        ...         vectors = ds.contents.to_vectors()
+        ...
+        >>> len(vectors)  # 2 columns
+        2
+        >>> vectors[0]
+        array([ 59.,  62.,  66.,  71.,  77.,  94., 100., 105., 109., 114., 119.,
+               126., 148., 158.])
+        >>> vectors[1]
+        array([-12. ,  -7. ,  -3. ,  -1. ,   3. , -11. , -10.5,  -9.5,  -8.6,
+                -6.5,  -4. ,   2. ,   3. ,  13. ])
+
         Returns
         -------
         vectors : list of 1-D arrays
             List of vectors containing the data from the GMT_DATASET object.
         """
-        # Loop over the tables, segments, and columns to get the data as vectors
+        # Currently, the same column in all segments of all tables are concatenated.
         vectors = []
-        for itbl in range(self.n_tables):
-            dtbl = self.table[itbl].contents
-            for iseg in range(dtbl.n_segments):
-                dseg = dtbl.segment[iseg].contents
-                for icol in range(dseg.n_columns):
-                    vectors.append(
+        for icol in range(self.n_columns):  # all have the same number of columns?
+            colvector = []
+            for itbl in range(self.n_tables):
+                dtbl = self.table[itbl].contents
+                for iseg in range(dtbl.n_segments):
+                    dseg = dtbl.segment[iseg].contents
+                    colvector.append(
                         np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
                     )
+            vectors.append(np.concatenate(colvector))
         return vectors
 
     def to_pydata(self):
