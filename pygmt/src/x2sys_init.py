@@ -67,8 +67,8 @@ def x2sys_init(tag, **kwargs):
     discontinuity : str
         **d**\|\ **g**.
         Select geographical coordinates. Append **d** for discontinuity at the
-        Dateline (makes longitude go from -180 E to +180 E) or **g** for
-        discontinuity at Greenwich (makes longitude go from 0 E to 360 E
+        Dateline (makes longitude go from -180° to +180°) or **g** for
+        discontinuity at Greenwich (makes longitude go from 0° to 360°
         [Default]). If not given we assume the data are Cartesian.
 
     spacing : str or list
