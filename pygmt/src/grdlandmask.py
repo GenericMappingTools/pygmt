@@ -97,8 +97,8 @@ def grdlandmask(**kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Create a landmask grid with a longitude range of 125° E to 130° E, a
-    >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
+    >>> # Create a landmask grid with a longitude range of 125 E to 130 E, a
+    >>> # latitude range of 30 N to 35 N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
