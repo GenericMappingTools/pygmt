@@ -172,6 +172,18 @@ class GMT_DATASET(ctp.Structure):
                         np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
                     )
             vectors.append(np.concatenate(colvector))
+
+        # deal with trailing text column
+        textvector = []
+        for itbl in range(self.n_tables):
+            dtbl = self.table[itbl].contents
+            for iseg in range(dtbl.n_segments):
+                dseg = dtbl.segment[iseg].contents
+                if dseg.text:
+                    textvector.extend(dseg.text[: dseg.n_rows])
+        if textvector:
+            vectors.append(np.char.decode(textvector))
+
         return vectors
 
     def to_pydata(self):
