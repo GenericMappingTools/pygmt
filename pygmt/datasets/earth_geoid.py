@@ -15,6 +15,12 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     r"""
     Load the EGM2008 Global Earth Geoid dataset in various resolutions.
 
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_geoid.jpg # noqa: W505
+       :width: 80 %
+       :align: center
+
+       EGM2008 Global Earth Geoid dataset.
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_geoid/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
