@@ -32,6 +32,7 @@ from pygmt.helpers import (
     fmt_docstring,
     tempfile_from_geojson,
     tempfile_from_image,
+    validate_data_input,
 )
 
 FAMILIES = [
@@ -1474,11 +1475,8 @@ class Session:
         self,
         check_kind=None,
         data=None,
-        x=None,
-        y=None,
-        z=None,
-        extra_arrays=None,
-        required_z=False,
+        vectors=None,
+        ncols=2,
         required_data=True,
     ):
         """
@@ -1497,13 +1495,11 @@ class Session:
             Any raster or vector data format. This could be a file name or
             path, a raster grid, a vector matrix/arrays, or other supported
             data input.
-        x/y/z : 1-D arrays or None
-            x, y, and z columns as numpy arrays.
-        extra_arrays : list of 1-D arrays
-            Optional. A list of numpy arrays in addition to x, y, and z.
-            All of these arrays must be of the same size as the x/y/z arrays.
-        required_z : bool
-            State whether the 'z' column is required.
+        vectors : list of 1-D arrays or None
+            A list of 1-D arrays. Each array will be a column in the table.
+            All of these arrays must be of the same size.
+        ncols : int
+            The minimum number of columns required for the data.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
@@ -1537,8 +1533,13 @@ class Session:
         ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
-        kind = data_kind(
-            data, x, y, z, required_z=required_z, required_data=required_data
+        kind = data_kind(data, required=required_data)
+        validate_data_input(
+            data=data,
+            vectors=vectors,
+            ncols=ncols,
+            required_data=required_data,
+            kind=kind,
         )
 
         if check_kind:
@@ -1579,11 +1580,7 @@ class Session:
                 warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
             _data = (data,) if not isinstance(data, pathlib.PurePath) else (str(data),)
         elif kind == "vectors":
-            _data = [np.atleast_1d(x), np.atleast_1d(y)]
-            if z is not None:
-                _data.append(np.atleast_1d(z))
-            if extra_arrays:
-                _data.extend(extra_arrays)
+            _data = [np.atleast_1d(v) for v in vectors]
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
             try:
                 # pandas.Series will be handled below like a 1-D numpy.ndarray
