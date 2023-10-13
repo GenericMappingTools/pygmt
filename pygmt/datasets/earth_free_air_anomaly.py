@@ -16,6 +16,12 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     Load the IGPP Global Earth Free-Air Anomaly datatset in various
     resolutions.
 
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_faa.jpg # noqa: W505
+       :width: 80 %
+       :align: center
+
+       IGPP Global Earth Free-Air Anomaly datatset.
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.
