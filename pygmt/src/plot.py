@@ -216,8 +216,8 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     kind = data_kind(data, x, y)
     extra_arrays = []
 
+    # Some Parameters can't be 1-D arrays if the data kind is not vectors
     if kind != "vectors":
-        # Parameters can't be 1-D arrays if "data" is used
         for arg, name in [
             (direction, "direction"),
             (kwargs.get("G"), "fill"),
@@ -228,35 +228,35 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
             if is_nonstr_iter(arg):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
-        # Set the default style if data has a geometry of Point or MultiPoint
-        if kwargs.get("S") is None:
-            if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
-                kwargs["S"] = "s0.2c"
-            elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
-                try:
-                    with open(which(data), mode="r", encoding="utf8") as file:
-                        line = file.readline()
-                    if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                        kwargs["S"] = "s0.2c"
-                except FileNotFoundError:
-                    pass
-    else:
-        if (
-            kwargs.get("S") is not None
-            and kwargs["S"][0] in "vV"
-            and direction is not None
-        ):
-            extra_arrays.extend(direction)
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None:
+        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
+            kwargs["S"] = "s0.2c"
+        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
+            try:
+                with open(which(data), mode="r", encoding="utf8") as file:
+                    line = file.readline()
+                if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                    kwargs["S"] = "s0.2c"
+            except FileNotFoundError:
+                pass
 
-        if is_nonstr_iter(kwargs.get("G")):
-            extra_arrays.append(kwargs.get("G"))
-            del kwargs["G"]
-        if is_nonstr_iter(size):
-            extra_arrays.append(size)
-        for flag in ["I", "t"]:
-            if is_nonstr_iter(kwargs.get(flag)):
-                extra_arrays.append(kwargs.get(flag))
-                kwargs[flag] = ""
+    # prepare 1-D arrays for input
+    if (
+        kwargs.get("S") is not None
+        and kwargs["S"][0] in "vV"
+        and is_nonstr_iter(direction)
+    ):
+        extra_arrays.extend(direction)
+    if is_nonstr_iter(kwargs.get("G")):
+        extra_arrays.append(kwargs.get("G"))
+        del kwargs["G"]
+    if is_nonstr_iter(size):
+        extra_arrays.append(size)
+    for flag in ["I", "t"]:
+        if is_nonstr_iter(kwargs.get(flag)):
+            extra_arrays.append(kwargs.get(flag))
+            kwargs[flag] = ""
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
