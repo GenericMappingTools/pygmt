@@ -16,7 +16,7 @@ from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
     "area_thresh": r"""
-        area_thresh : int or float or str
+        area_thresh : float or str
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
@@ -298,7 +298,7 @@ COMMON_DOCSTRINGS = {
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
     "spacing": r"""
-        spacing : int or float or str or list or tuple
+        spacing : float, str or list
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
@@ -329,7 +329,7 @@ COMMON_DOCSTRINGS = {
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
     "transparency": r"""
-        transparency : int or float
+        transparency : float
             Set transparency level, in [0-100] percent range
             [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
@@ -444,14 +444,13 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = " or ".join(
+    filler_text["table-like"] = ", ".join(
         [
             "numpy.ndarray",
             "pandas.DataFrame",
             "xarray.Dataset",
-            "geopandas.GeoDataFrame",
         ]
-    )
+    ) + " or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
