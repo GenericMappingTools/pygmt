@@ -51,10 +51,10 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         Number of vertical rows of the subplot grid.
     ncols : int
         Number of horizontal columns of the subplot grid.
-    figsize : tuple
-        Specify the final figure dimensions as (*width*, *height*).
-    subsize : tuple
-        Specify the dimensions of each subplot directly as (*width*, *height*).
+    figsize : list
+        Specify the final figure dimensions as [*width*, *height*].
+    subsize : list
+        Specify the dimensions of each subplot directly as [*width*, *height*].
         Note that only one of ``figsize`` or ``subsize`` can be provided at
         once.
 
