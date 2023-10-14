@@ -227,7 +227,7 @@ def meca(
 
     Parameters
     ----------
-    spec : str, 1-D array, 2-D array, dict or pd.DataFrame
+    spec : str, 1-D array, 2-D array, dict, or pd.DataFrame
         Data that contain focal mechanism parameters.
 
         ``spec`` can be specified in either of the following types:
