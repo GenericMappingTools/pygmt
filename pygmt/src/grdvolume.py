@@ -50,7 +50,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
-    contour : str or int or float or list
+    contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
         *cval* contour. Alternatively, search using all contours from *low* to

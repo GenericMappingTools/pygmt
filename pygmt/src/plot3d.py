@@ -80,7 +80,7 @@ def plot3d(
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.

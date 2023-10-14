@@ -105,7 +105,9 @@ COMMON_DOCSTRINGS = {
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
-        frame : bool or str or list
+        frame : bool,
+
+		str or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "gap": r"""
@@ -247,7 +249,7 @@ COMMON_DOCSTRINGS = {
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
     "panel": r"""
-        panel : bool or int or list
+        panel : bool, int or list
             [*row,col*\|\ *index*].
             Select a specific subplot panel. Only allowed when in subplot
             mode. Use ``panel=True`` to advance to the next panel in the
@@ -450,7 +452,7 @@ def fmt_docstring(module_func):
             "pandas.DataFrame",
             "xarray.Dataset",
         ]
-    ) + " or geopandas.GeoDataFrame"
+    ) + ", or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
