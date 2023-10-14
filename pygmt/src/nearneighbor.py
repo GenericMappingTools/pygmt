@@ -150,7 +150,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, vectors=[x, y, z], ncols=3
             )
             with table_context as infile:
                 if (outgrid := kwargs.get("G")) is None:

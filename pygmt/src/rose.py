@@ -203,7 +203,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=length, y=azimuth
+            check_kind="vector", data=data, vectors=[length, azimuth], ncols=2
         )
 
         with file_context as fname:

@@ -179,7 +179,7 @@ def text_(
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
-        kind = data_kind(textfiles, x, y, text)
+        kind = data_kind(textfiles)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
@@ -221,22 +221,25 @@ def text_(
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
 
-    extra_arrays = []
+    vectors = [x, y]
+    ncols = 2
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
-        extra_arrays.append(kwargs["t"])
+        vectors.append(kwargs["t"])
         kwargs["t"] = ""
+        ncols += 1
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
-        extra_arrays.append(
+        vectors.append(
             np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
         )
+        ncols += 1
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
+            check_kind="vector", data=textfiles, vectors=vectors, ncols=ncols
         )
         with file_context as fname:
             lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))

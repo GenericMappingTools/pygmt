@@ -44,7 +44,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+                check_kind="vector", data=data, vectors=[x, y, z], ncols=3
             )
             # Run blockm* on data table
             with table_context as infile:
