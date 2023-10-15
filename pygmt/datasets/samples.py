@@ -344,7 +344,7 @@ def load_sample_data(name):
      'usgs_quakes': 'Table of earthquakes from the USGS'}
     >>> # load the sample bathymetry dataset
     >>> data = load_sample_data("bathymetry")
-    """
+    """  # noqa: W505
     if name not in datasets:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
     return datasets[name].func()
