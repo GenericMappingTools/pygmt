@@ -198,7 +198,6 @@ def select(data=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
             with table_context as infile:
                 if outfile is None:
