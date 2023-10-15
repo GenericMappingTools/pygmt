@@ -16,7 +16,7 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     Load the IGPP Global Earth Free-Air Anomaly datatset in various
     resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg # noqa: W505
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
        :width: 80 %
        :align: center
 
