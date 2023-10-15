@@ -13,7 +13,7 @@ def test_which():
     Make sure `which` returns file paths for @files correctly without errors.
     """
     for fname in ["tut_quakes.ngdc", "tut_bathy.nc"]:
-        cached_file = which(f"@{fname}", download="c")
+        cached_file = which(fname=f"@{fname}", download="c")
         assert Path(cached_file).exists()
         assert Path(cached_file).name == fname
 
