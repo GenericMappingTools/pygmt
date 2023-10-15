@@ -62,13 +62,15 @@ def timestamp(
 
     Examples
     --------
-    >>> # Plot the GMT timestamp logo.
+    Plot the GMT timestamp logo.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.timestamp()
     >>> fig.show()
 
-    >>> # Plot the GMT timestamp logo with a custom label.
+    Plot the GMT timestamp logo with a custom label.
+
     >>> fig = pygmt.Figure()
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
