@@ -13,8 +13,7 @@ __doctest_skip__ = ["load_earth_free_air_anomaly"]
 @kwargs_to_strings(region="sequence")
 def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None):
     r"""
-    Load the IGPP Global Earth Free-Air Anomaly dataset in various
-    resolutions.
+    Load the IGPP Global Earth Free-Air Anomaly dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
        :width: 80 %
