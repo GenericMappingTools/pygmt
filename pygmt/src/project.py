@@ -227,8 +227,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
+                # passed three vectors but only x/y are required
                 table_context = lib.virtualfile_from_data(
-                    check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
+                    check_kind="vector", data=data, vectors=[x, y, z], names="xy"
                 )
 
                 # Run project on the temporary (csv) data table
