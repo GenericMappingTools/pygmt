@@ -146,7 +146,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     ...     region=[245, 255, 20, 30],
     ...     search_radius="10m",
     ... )
-    """  # noqa: W505
+    """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             table_context = lib.virtualfile_from_data(

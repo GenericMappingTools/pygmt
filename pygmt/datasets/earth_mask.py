@@ -88,7 +88,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     >>> # location (170°E, 50°N) is in oceanic area (0)
     >>> grid.sel(lon=170, lat=50).values
     array(0, dtype=int8)
-    """  # noqa: W505
+    """
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
         dataset_prefix="earth_mask_",

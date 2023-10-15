@@ -132,7 +132,7 @@ def load_earth_magnetic_anomaly(
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )
-    """  # noqa: W505
+    """
     magnetic_anomaly_sources = {
         "emag2": "earth_mag_",
         "emag2_4km": "earth_mag4km_",

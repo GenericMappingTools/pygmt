@@ -136,7 +136,7 @@ def load_earth_relief(
     ...     registration="gridline",
     ...     use_srtm=True,
     ... )
-    """  # noqa: W505
+    """
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
 

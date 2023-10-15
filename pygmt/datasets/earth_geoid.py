@@ -84,7 +84,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    """  # noqa: W505
+    """
     grid = _load_remote_dataset(
         dataset_name="earth_geoid",
         dataset_prefix="earth_geoid_",

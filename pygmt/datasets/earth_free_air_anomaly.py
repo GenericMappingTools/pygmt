@@ -95,7 +95,7 @@ def load_earth_free_air_anomaly(resolution="01d", region=None, registration=None
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    """  # noqa: W505
+    """
     grid = _load_remote_dataset(
         dataset_name="earth_free_air_anomaly",
         dataset_prefix="earth_faa_",

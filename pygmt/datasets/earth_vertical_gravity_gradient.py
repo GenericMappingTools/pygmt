@@ -97,7 +97,7 @@ def load_earth_vertical_gravity_gradient(
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    """  # noqa: W505
+    """
     grid = _load_remote_dataset(
         dataset_name="earth_vgg",
         dataset_prefix="earth_vgg_",

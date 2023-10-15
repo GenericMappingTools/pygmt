@@ -72,8 +72,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     :class:`xarray.DataArray` grid can be accessed via the GMT accessors
     (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
     However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
+    as slicing) and will need to be manually set before passing the grid to any PyGMT data processing or plotting functions. Refer to
     :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
     workarounds.
 
@@ -91,7 +90,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     ...     region=[120, 160, 30, 60],
     ...     registration="gridline",
     ... )
-    """  # noqa: W505
+    """
     grid = _load_remote_dataset(
         dataset_name="earth_age",
         dataset_prefix="earth_age_",
