@@ -1476,7 +1476,7 @@ class Session:
         check_kind=None,
         data=None,
         vectors=None,
-        ncols=2,
+        names=["x", "y"],
         required_data=True,
     ):
         """
@@ -1498,8 +1498,9 @@ class Session:
         vectors : list of 1-D arrays or None
             A list of 1-D arrays. Each array will be a column in the table.
             All of these arrays must be of the same size.
-        ncols : int
-            The minimum number of columns required for the data.
+        names : list of str
+            A list of names for each of the columns. Must be of the same size
+            as the number of vectors. Default is ``["x", "y"]``.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
@@ -1537,7 +1538,7 @@ class Session:
         validate_data_input(
             data=data,
             vectors=vectors,
-            ncols=ncols,
+            names=names,
             required_data=required_data,
             kind=kind,
         )

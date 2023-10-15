@@ -222,24 +222,24 @@ def text_(
         kwargs["F"] += f"+c{position}+t{text}"
 
     vectors = [x, y]
-    ncols = 2
+    names = ["x", "y"]
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
         vectors.append(kwargs["t"])
         kwargs["t"] = ""
-        ncols += 1
+        names.append("transparency")
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
         vectors.append(
             np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
         )
-        ncols += 1
+        names.append("text")
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
-            check_kind="vector", data=textfiles, vectors=vectors, ncols=ncols
+            check_kind="vector", data=textfiles, vectors=vectors, names=names
         )
         with file_context as fname:
             lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))

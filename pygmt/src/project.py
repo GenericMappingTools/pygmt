@@ -228,7 +228,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         with Session() as lib:
             if kwargs.get("G") is None:
                 table_context = lib.virtualfile_from_data(
-                    check_kind="vector", data=data, vectors=[x, y, z], ncols=3
+                    check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
                 )
 
                 # Run project on the temporary (csv) data table

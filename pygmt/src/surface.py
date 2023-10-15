@@ -165,7 +165,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, vectors=[x, y, z], ncols=3
+                check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
             )
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:

@@ -120,7 +120,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, vectors=[x, y], ncols=2
+                check_kind="vector", data=data, vectors=[x, y], names="xy"
             )
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
