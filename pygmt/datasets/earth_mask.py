@@ -15,7 +15,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     r"""
     Load the GSHHG Global Earth Mask dataset in various resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.png # noqa: W505
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.png
        :width: 80 %
        :align: center
 
@@ -88,7 +88,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     >>> # location (170°E, 50°N) is in oceanic area (0)
     >>> grid.sel(lon=170, lat=50).values
     array(0, dtype=int8)
-    """
+    """  # noqa: W505
     grid = _load_remote_dataset(
         dataset_name="earth_mask",
         dataset_prefix="earth_mask_",

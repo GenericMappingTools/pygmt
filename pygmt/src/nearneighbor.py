@@ -57,7 +57,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     criteria and :math:`r_i` is the distance from the node to the *i*'th data
     point. If no data weights are supplied then :math:`w_i = 1`.
 
-    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_nearneighbor.png # noqa: W505
+    .. figure:: https://docs.generic-mapping-tools.org/dev/_images/GMT_nearneighbor.png
        :width: 300 px
        :align: center
 
@@ -146,7 +146,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     ...     region=[245, 255, 20, 30],
     ...     search_radius="10m",
     ... )
-    """
+    """  # noqa: W505
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             table_context = lib.virtualfile_from_data(
