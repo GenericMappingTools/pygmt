@@ -7,7 +7,7 @@ Sphinx documentation configuration file.
 import datetime
 from importlib.metadata import metadata
 
-# isort: off
+# ruff: isort: off
 from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
     ExplicitOrder,
     ExampleTitleSortKey,
@@ -16,7 +16,7 @@ import pygmt
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
 
-# isort: on
+# ruff: isort: on
 
 extensions = [
     "myst_parser",
