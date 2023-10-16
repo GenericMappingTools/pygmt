@@ -476,7 +476,7 @@ We use some tools to format the code so we don't have to think about it:
 - [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
-- [isort](https://pycqa.github.io/isort/)
+- [ruff](https://docs.astral.sh/ruff)
 
 Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
 differences. Regardless, you won't have to worry about formatting the code yourself.
@@ -499,14 +499,14 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
+We also use [ruff](https://docs.astral.sh/ruff) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
+make check   # Runs black, blackdoc, docformatter, ruff (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 

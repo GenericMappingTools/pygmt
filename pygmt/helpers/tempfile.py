@@ -83,7 +83,7 @@ class GMTTempFile:
         content : str
             Content of the temporary file as a Unicode string.
         """
-        with open(self.name, mode="r", encoding="utf8") as tmpfile:
+        with open(self.name, encoding="utf8") as tmpfile:
             content = tmpfile.read()
             if not keep_tabs:
                 content = content.replace("\t", " ")
