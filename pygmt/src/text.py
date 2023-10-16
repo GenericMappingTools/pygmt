@@ -94,7 +94,7 @@ def text_(
         of the map.
     text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
-    angle: int, float, str, bool or list
+    angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
