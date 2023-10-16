@@ -15,6 +15,12 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     r"""
     Load the GSHHG Global Earth Mask dataset in various resolutions.
 
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.png
+       :width: 80 %
+       :align: center
+
+       GSHHG Global Earth Mask dataset.
+
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke
     this function. Afterwards, it will load the grid from the data directory.

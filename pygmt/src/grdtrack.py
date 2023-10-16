@@ -270,8 +270,8 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of -118 to
-    >>> # -107, and a y-range of -49 to -42
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # -118° E to -107° E, and a latitude range of -49° N to -42° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[-118, -107, -49, -42]
     ... )

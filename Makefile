@@ -15,8 +15,8 @@ help:
 	@echo "  fulltest       run the test suite (including all doctests)"
 	@echo "  doctest        run the doctests only"
 	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
-	@echo "  format         run black, blackdoc, docformatter and isort to automatically format the code"
-	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, flakeheaven and isort)"
+	@echo "  format         run black, blackdoc, docformatter and ruff to automatically format the code"
+	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, ruff)"
 	@echo "  codespell      run codespell to check common misspellings"
 	@echo "  lint           run pylint for a deeper (and slower) quality check"
 	@echo "  clean          clean up build and generated files"
@@ -60,17 +60,16 @@ test_no_images: PYTEST_ARGS=-o addopts="--verbose --durations=0 --durations-min=
 test_no_images: _runtest
 
 format:
-	isort .
 	docformatter --in-place $(FORMAT_FILES)
 	black $(FORMAT_FILES)
 	blackdoc $(FORMAT_FILES)
+	ruff check --fix $(FORMAT_FILES)
 
 check:
-	isort . --check
 	docformatter --check $(FORMAT_FILES)
 	black --check $(FORMAT_FILES)
 	blackdoc --check $(FORMAT_FILES)
-	FLAKEHEAVEN_CACHE_TIMEOUT=0 flakeheaven lint $(FORMAT_FILES)
+	ruff check $(FORMAT_FILES)
 
 codespell:
 	@codespell
