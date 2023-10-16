@@ -53,15 +53,15 @@ def validate_data_input(
     >>> validate_data_input(vectors=[[1, 2, 3], None], names="xy")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: The 'y' column can't be None.
+    pygmt.exceptions.GMTInvalidInput: Column 1 ('y') can't be None.
     >>> validate_data_input(vectors=[None, [4, 5, 6]], names="xy")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: The 'x' column can't be None.
+    pygmt.exceptions.GMTInvalidInput: Column 0 ('x') can't be None.
     >>> validate_data_input(vectors=[[1, 2, 3], [4, 5, 6], None], names="xyz")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: The 'z' column can't be None.
+    pygmt.exceptions.GMTInvalidInput: Column 2 ('z') can't be None.
     >>> import numpy as np
     >>> import pandas as pd
     >>> import xarray as xr
