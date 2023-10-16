@@ -15,7 +15,7 @@ def load_earth_age(resolution="01d", region=None, registration=None):
     r"""
     Load the Earth seafloor crustal age dataset in various resolutions.
 
-    .. figure:: :gmt-dataset:`_images/GMT_earth_age.pn`
+    .. figure:: :gmt-dataset:`_images/GMT_earth_age.png`
        :width: 80 %
        :align: center
 
