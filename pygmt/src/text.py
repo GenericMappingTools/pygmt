@@ -194,12 +194,10 @@ def text_(
 
     # Build the -F option in gmt text.
     if kwargs.get("F") is None and (
-        (
-            position is not None
-            or angle is not None
-            or font is not None
-            or justify is not None
-        )
+        position is not None
+        or angle is not None
+        or font is not None
+        or justify is not None
     ):
         kwargs.update({"F": ""})
 
