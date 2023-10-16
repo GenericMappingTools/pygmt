@@ -416,7 +416,8 @@ def fmt_docstring(module_func):
     <BLANKLINE>
     Parameters
     ----------
-    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame
+    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or
+           geopandas.GeoDataFrame
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
