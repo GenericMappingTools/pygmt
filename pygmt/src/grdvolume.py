@@ -50,7 +50,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
             - ``file`` - ASCII file (requires ``outfile``)
     outfile : str
         The file name for the output ASCII file.
-    contour : str or int or float or list
+    contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
         *cval* contour. Alternatively, search using all contours from *low* to
@@ -81,8 +81,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30
-    >>> # degrees, and a y-range of 15 to 25 degrees
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )

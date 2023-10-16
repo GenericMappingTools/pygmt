@@ -260,9 +260,9 @@ class Figure:
         This method implements a matplotlib-like interface for
         :meth:`pygmt.Figure.psconvert`.
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
-        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
-        The KML output generates a companion PNG file.
+        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg``),
+        PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
+        KML (``.kml``). The KML output generates a companion PNG file.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -304,8 +304,13 @@ class Figure:
             "kml": "g",
         }
 
-        prefix, ext = os.path.splitext(fname)
-        ext = ext[1:]  # Remove the .
+        fname = Path(fname)
+        prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
+        ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
+        # alias jpeg to jpg
+        if ext == "jpeg":
+            ext = "jpg"
+
         if ext not in fmts:
             if ext == "ps":
                 raise GMTInvalidInput(
@@ -327,6 +332,11 @@ class Figure:
             kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # Rename if file extension doesn't match the input file suffix
+        if ext != suffix[1:]:
+            fname.with_suffix("." + ext).rename(fname)
+
         if show:
             launch_external_viewer(fname)
 
@@ -392,20 +402,16 @@ class Figure:
 
         if method not in ["external", "notebook", "none"]:
             raise GMTInvalidInput(
-                (
-                    f"Invalid display method '{method}', "
-                    "should be either 'notebook', 'external', or 'none'."
-                )
+                f"Invalid display method '{method}', "
+                "should be either 'notebook', 'external', or 'none'."
             )
 
         if method == "notebook":
             if IPython is None:
                 raise GMTError(
-                    (
-                        "Notebook display is selected, but IPython is not available. "
-                        "Make sure you have IPython installed, "
-                        "or run the script in a Jupyter notebook."
-                    )
+                    "Notebook display is selected, but IPython is not available. "
+                    "Make sure you have IPython installed, "
+                    "or run the script in a Jupyter notebook."
                 )
             png = self._preview(
                 fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
@@ -539,8 +545,6 @@ def set_display(method=None):
         SHOW_CONFIG["method"] = method
     elif method is not None:
         raise GMTInvalidInput(
-            (
-                f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external', 'none' or None."
-            )
+            f"Invalid display mode '{method}', "
+            "should be either 'notebook', 'external', 'none' or None."
         )

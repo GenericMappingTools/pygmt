@@ -908,10 +908,8 @@ class Session:
         )
         if status != 0:
             raise GMTCLibError(
-                (
-                    f"Failed to put vector of type {vector.dtype} "
-                    f"in column {column} of dataset."
-                )
+                f"Failed to put vector of type {vector.dtype} "
+                f"in column {column} of dataset."
             )
 
     def put_strings(self, dataset, family, strings):
@@ -1291,9 +1289,7 @@ class Session:
             if len(string_arrays) == 1:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
-                strings = np.apply_along_axis(
-                    func1d=" ".join, axis=0, arr=string_arrays
-                )
+                strings = np.array([" ".join(vals) for vals in zip(*string_arrays)])
             strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings

@@ -82,7 +82,7 @@ class triangulate:  # pylint: disable=invalid-name
         ----------
         x/y/z : np.ndarray
             Arrays of x and y coordinates and values z of the data points.
-        data : str or {table-like}
+        data : str, {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
             {table-classes}.
@@ -96,7 +96,7 @@ class triangulate:  # pylint: disable=invalid-name
             better off projecting all data to a local coordinate system before
             using ``triangulate`` (this is true of all gridding routines) or
             instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
-        outfile : str or bool or None
+        outfile : str, bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
@@ -126,7 +126,6 @@ class triangulate:  # pylint: disable=invalid-name
               ``outgrid`` or ``outfile``)
         """
         with Session() as lib:
-            # Choose how data will be passed into the module
             table_context = lib.virtualfile_from_data(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
             )
@@ -198,7 +197,7 @@ class triangulate:  # pylint: disable=invalid-name
         ----------
         x/y/z : np.ndarray
             Arrays of x and y coordinates and values z of the data points.
-        data : str or {table-like}
+        data : str, {table-like}
             Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by
             providing a file name to an ASCII data table, a 2-D
             {table-classes}.
@@ -315,7 +314,7 @@ class triangulate:  # pylint: disable=invalid-name
         ----------
         x/y/z : np.ndarray
             Arrays of x and y coordinates and values z of the data points.
-        data : str or {table-like}
+        data : str, {table-like}
             Pass in (x, y, z) or (longitude, latitude, elevation) values by
             providing a file name to an ASCII data table, a 2-D
             {table-classes}.

@@ -97,7 +97,7 @@ def text_(
         of the map.
     text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
-    angle: int, float, str or bool
+    angle: float, str, or bool
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
@@ -194,12 +194,10 @@ def text_(
 
     # Build the -F option in gmt text.
     if kwargs.get("F") is None and (
-        (
-            position is not None
-            or angle is not None
-            or font is not None
-            or justify is not None
-        )
+        position is not None
+        or angle is not None
+        or font is not None
+        or justify is not None
     ):
         kwargs.update({"F": ""})
 

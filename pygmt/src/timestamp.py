@@ -4,8 +4,7 @@ timestamp - Plot the GMT timestamp logo.
 import warnings
 
 from packaging.version import Version
-from pygmt import __gmt_version__
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_string, is_nonstr_iter
 
 __doctest_skip__ = ["timestamp"]
@@ -46,8 +45,8 @@ def timestamp(
         **M**\ (iddle), or **B**\ (ottom)) code. For example,
         ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of
         the timestamp as the anchor point.
-    offset : str or tuple
-        *offset* or (*offset_x*, *offset_y*).
+    offset : str or list
+        *offset* or [*offset_x*, *offset_y*].
         Offset the anchor point of the timestamp box by *offset_x* and
         *offset_y*. If a single value *offset* is given, *offset_y* =
         *offset_x* = *offset*.
@@ -63,13 +62,15 @@ def timestamp(
 
     Examples
     --------
-    >>> # Plot the GMT timestamp logo.
+    Plot the GMT timestamp logo.
+
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.timestamp()
     >>> fig.show()
 
-    >>> # Plot the GMT timestamp logo with a custom label.
+    Plot the GMT timestamp logo with a custom label.
+
     >>> fig = pygmt.Figure()
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
