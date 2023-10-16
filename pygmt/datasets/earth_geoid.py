@@ -15,7 +15,7 @@ def load_earth_geoid(resolution="01d", region=None, registration=None):
     r"""
     Load the EGM2008 Global Earth Geoid dataset in various resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_geoid.jpg
+    .. figure:: :gmt-datasets:`_images/GMT_earth_geoid.jpg`
        :width: 80 %
        :align: center
 
