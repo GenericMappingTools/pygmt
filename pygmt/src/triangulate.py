@@ -125,9 +125,13 @@ class triangulate:  # pylint: disable=invalid-name
             - None if ``output_type`` is "file" (output is stored in
               ``outgrid`` or ``outfile``)
         """
+        vectors, names = [x, y], "xy"
+        if z is not None:
+            vectors.append(z)
+
         with Session() as lib:
             table_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
+                check_kind="vector", data=data, vectors=[x, y, z], names="xy"
             )
             with table_context as infile:
                 # table output if outgrid is unset, else output to outgrid
