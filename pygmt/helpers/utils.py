@@ -70,6 +70,7 @@ def validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
     >>> validate_data_input(
     ...     data=pd.DataFrame(data, columns=["x", "y"]),
     ...     names="xyz",
@@ -78,6 +79,7 @@ def validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
     >>> validate_data_input(
     ...     data=xr.Dataset(pd.DataFrame(data, columns=["x", "y"])),
     ...     names="xyz",
@@ -86,6 +88,7 @@ def validate_data_input(
     Traceback (most recent call last):
         ...
     pygmt.exceptions.GMTInvalidInput: data must have at least 3 columns.
+    x y z
     >>> validate_data_input(data="infile", vectors=[[1, 2, 3], None])
     Traceback (most recent call last):
         ...
