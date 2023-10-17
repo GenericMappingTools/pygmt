@@ -92,15 +92,15 @@ def validate_data_input(
     >>> validate_data_input(data="infile", vectors=[[1, 2, 3], None])
     Traceback (most recent call last):
         ...
-    ...GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
     >>> validate_data_input(data="infile", vectors=[None, [4, 5, 6]])
     Traceback (most recent call last):
         ...
-    ...GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
     >>> validate_data_input(data="infile", vectors=[None, None, [7, 8, 9]])
     Traceback (most recent call last):
         ...
-    ...GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
+    pygmt...GMTInvalidInput: Too much data. Use either 'data' or 1-D arrays.
 
     Raises
     ------
@@ -122,7 +122,7 @@ def validate_data_input(
                 raise GMTInvalidInput(f"Column {i} ('{names[i]}') can't be None.")
     else:
         if vectors is not None and any(v is not None for v in vectors):
-            raise GMTInvalidInput("Too much data. Pass in either 'data' or 1-D arrays.")
+            raise GMTInvalidInput("Too much data. Use either 'data' or 1-D arrays.")
         if kind == "matrix":  # check number of columns for matrix-like data
             msg = f"data must have at least {len(names)} columns.\n" + " ".join(names)
             if hasattr(data, "shape"):  # np.ndarray or pd.DataFrame
