@@ -100,7 +100,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -227,7 +227,6 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
-                # Choose how data will be passed into the module
                 table_context = lib.virtualfile_from_data(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
                 )

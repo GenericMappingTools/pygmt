@@ -64,7 +64,7 @@ def velo(self, data=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -258,7 +258,6 @@ def velo(self, data=None, **kwargs):
         )
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
 
         with file_context as fname:

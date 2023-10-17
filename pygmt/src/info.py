@@ -47,7 +47,7 @@ def info(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 1-D/2-D
         {table-classes}.
     per_column : bool
