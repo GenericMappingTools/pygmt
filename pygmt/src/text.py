@@ -198,24 +198,29 @@ def text_(
     ):
         kwargs.update({"F": ""})
 
-    extra_arrays = []
-    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+    vectors = [x, y]
+    names = ["x", "y"]
+    for arg, flag, name in [
+        (angle, "+a", "angle"),
+        (font, "+f", "font"),
+        (justify, "+j", "justify"),
+    ]:
         if arg is True:
             kwargs["F"] += flag
         elif is_nonstr_iter(arg):
             kwargs["F"] += flag
             if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))
+                vectors.append(np.atleast_1d(arg))
+                names.append(name)
             else:  # font or justify is str type
-                extra_arrays.append(np.atleast_1d(arg).astype(str))
+                vectors.append(np.atleast_1d(arg).astype(str))
+                names.append(name)
         elif isinstance(arg, (int, float, str)):
             kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
 
-    vectors = [x, y]
-    names = ["x", "y"]
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
