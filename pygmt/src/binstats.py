@@ -48,7 +48,7 @@ def binstats(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         A file name of an ASCII data table or a 2-D
         {table-classes}.
     outgrid : str or None
@@ -78,7 +78,7 @@ def binstats(data, **kwargs):
         - **u** for maximum (upper)
         - **U** for maximum of negative values only
         - **z** for the sum
-    empty : float or int
+    empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
