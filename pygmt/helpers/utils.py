@@ -92,15 +92,15 @@ def validate_data_input(
     >>> validate_data_input(data="infile", vectors=[[1, 2, 3], None])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.  # noqa: W505
+    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
     >>> validate_data_input(data="infile", vectors=[None, [4, 5, 6]])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays. # noqa: W505
+    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
     >>> validate_data_input(data="infile", vectors=[None, None, [7, 8, 9]])
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.  # noqa: W505
+    pygmt.exceptions.GMTInvalidInput: Too much data. Pass in either 'data' or 1-D arrays.
 
     Raises
     ------

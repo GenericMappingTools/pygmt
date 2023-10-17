@@ -179,6 +179,8 @@ def text_(
         kind = data_kind(textfiles)
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
+        if kind != "vectors" and text is not None:
+            raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
         if x is not None or y is not None or textfiles is not None:
             raise GMTInvalidInput(
