@@ -74,7 +74,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -98,7 +98,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
         divided by the grid spacing multiplier.
-    maxradius : int or str
+    maxradius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
         farther than ``maxradius`` away from a data constraint are set to NaN
         [Default is no masking]. Append a distance unit (see

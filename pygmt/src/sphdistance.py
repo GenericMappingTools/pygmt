@@ -46,7 +46,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y) or (longitude, latitude) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -93,6 +93,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
         [Default performs the Voronoi construction on input data].
+
     Returns
     -------
     ret: xarray.DataArray or None
