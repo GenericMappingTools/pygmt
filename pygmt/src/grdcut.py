@@ -53,7 +53,7 @@ def grdcut(grid, **kwargs):
         in.
     {projection}
     {region}
-    extend : bool or int or float
+    extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str

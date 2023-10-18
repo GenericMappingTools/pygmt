@@ -18,7 +18,7 @@ def load_earth_vertical_gravity_gradient(
     Load the IGPP Global Earth Vertical Gravity Gradient dataset in various
     resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_vgg.jpg # noqa: W505
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg
        :width: 80 %
        :align: center
 

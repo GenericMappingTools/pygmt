@@ -77,7 +77,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are x, y, fill, and
@@ -154,7 +154,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1-D array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
@@ -234,7 +234,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
             kwargs["S"] = "s0.2c"
         elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
             try:
-                with open(which(data), mode="r", encoding="utf8") as file:
+                with open(which(data), encoding="utf8") as file:
                     line = file.readline()
                 if "@GMULTIPOINT" in line or "@GPOINT" in line:
                     kwargs["S"] = "s0.2c"
