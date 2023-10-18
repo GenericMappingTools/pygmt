@@ -1474,7 +1474,7 @@ class Session:
         check_kind=None,
         data=None,
         vectors=None,
-        names=["x", "y"],
+        names="xy",
         required_data=True,
     ):
         """

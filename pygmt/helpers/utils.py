@@ -16,7 +16,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 
 def validate_data_input(
-    data=None, vectors=None, names=["x", "y"], required_data=True, kind=None
+    data=None, vectors=None, names="xy", required_data=True, kind=None
 ):
     """
     Check if the data input is valid.
