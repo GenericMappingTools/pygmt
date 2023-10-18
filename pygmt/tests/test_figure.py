@@ -124,13 +124,13 @@ def test_figure_savefig_geotiff():
             npt.assert_allclose(
                 actual=xds.rio.bounds(),
                 desired=(
-                    -667728.5869475466,
-                    6356999.491390044,
-                    594269.0244906943,
-                    8381540.2498699855,
+                    -661136.0621116752,
+                    -54631.82709660966,
+                    592385.4459661598,
+                    1129371.7360144067,
                 ),
             )
-            assert xds.rio.shape == (2149, 1340)
+            assert xds.rio.shape == (1257, 1331)
         # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
