@@ -53,7 +53,7 @@ def grdcut(grid, **kwargs):
         in.
     {projection}
     {region}
-    extend : bool or int or float
+    extend : bool or float
         Allow grid to be extended if new ``region`` exceeds existing
         boundaries. Give a value to initialize nodes outside current region.
     circ_subregion : str
@@ -93,13 +93,13 @@ def grdcut(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
-    >>> # Create a new grid from an input grid, with an x-range of 12 to 15,
-    >>> # and a y-range of 21 to 24
+    >>> # Create a new grid from an input grid, with a longitude range of
+    >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
