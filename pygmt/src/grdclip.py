@@ -56,16 +56,16 @@ def grdclip(grid, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {region}
-    above : str or list or tuple
+    above : str or list
         [*high*, *above*].
         Set all data[i] > *high* to *above*.
-    below : str or list or tuple
+    below : str or list
         [*low*, *below*].
         Set all data[i] < *low* to *below*.
-    between : str or list or tuple
+    between : str or list
         [*low*, *high*, *between*].
         Set all data[i] >= *low* and <= *high* to *between*.
-    new : str or list or tuple
+    new : str or list
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.
@@ -83,8 +83,8 @@ def grdclip(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
