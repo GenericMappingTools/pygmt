@@ -216,7 +216,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
     kind = data_kind(data, x, y)
     extra_arrays = []
 
-    # Some Parameters can't be 1-D arrays if the data kind is not vectors
+    # Some parameters can't be 1-D arrays if the data kind is not vectors
     if kind != "vectors":
         for arg, name in [
             (direction, "direction"),
