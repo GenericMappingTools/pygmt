@@ -80,7 +80,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         outgrid : str or bool or None
             The name of the output netCDF file with extension .nc to store the
             grid in.
-        outfile : str or bool or None
+        outfile : str, bool, or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
@@ -296,7 +296,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         >>> import pygmt
         >>> # Load a grid of @earth_relief_30m data, with a longitude range of
-        >>> # 10°E to 30°E, and a latitude range of 15°N to 25°N
+        >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )

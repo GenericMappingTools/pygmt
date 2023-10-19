@@ -105,7 +105,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -155,7 +155,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
-    >>> # Calculate block mean values within 5 by 5 minute bins
+    >>> # Calculate block mean values within 5 by 5 arc-minute bins
     >>> data_bmean = pygmt.blockmean(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
@@ -201,7 +201,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -242,7 +242,7 @@ def blockmedian(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
-    >>> # Calculate block median values within 5 by 5 minute bins
+    >>> # Calculate block median values within 5 by 5 arc-minute bins
     >>> data_bmedian = pygmt.blockmedian(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )
@@ -288,7 +288,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -329,7 +329,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     >>> import pygmt
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
-    >>> # Calculate block mode values within 5 by 5 minute bins
+    >>> # Calculate block mode values within 5 by 5 arc-minute bins
     >>> data_bmode = pygmt.blockmode(
     ...     data=data, region=[245, 255, 20, 30], spacing="5m"
     ... )

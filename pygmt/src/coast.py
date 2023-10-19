@@ -81,7 +81,7 @@ def coast(self, **kwargs):
         and (**c**\ )rude.
     land : str
         Select filling or clipping of "dry" areas.
-    rivers : int or str or list
+    rivers : int, str, or list
         *river*\ [/*pen*].
         Draw rivers. Specify the type of rivers and [optionally] append
         pen attributes [Default is ``"0.25p,black,solid"``].
@@ -128,7 +128,7 @@ def coast(self, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
-    borders : int or str or list
+    borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
         [optionally] append pen attributes
@@ -146,7 +146,7 @@ def coast(self, **kwargs):
         a = All boundaries (1-3)
     water : str
         Select filling or clipping of "wet" areas.
-    shorelines : int or str or list
+    shorelines : int, str, or list
         [*level*\ /]\ *pen*.
         Draw shorelines [Default is no shorelines]. Append pen attributes
         [Default is ``"0.25p,black,solid"``] which
