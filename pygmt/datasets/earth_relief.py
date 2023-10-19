@@ -77,18 +77,18 @@ def load_earth_relief(
     data_source : str
         Select the source for the Earth relief data. Available options are:
 
-        - ``"igpp"``: IGPP Global Earth Relief [Default option]. See
+        - ``"igpp"``: IGPP Earth Relief [Default option]. See
           :gmt-datasets:`earth-relief.html`.
 
-        - ``"synbath"``: IGPP Global Earth Relief dataset that uses
+        - ``"synbath"``: IGPP Earth Relief dataset that uses
           stastical properties of young seafloor to provide a more realistic
           relief of young areas with small seamounts.
 
-        - ``"gebco"``: GEBCO Global Earth Relief with only observed relief and
+        - ``"gebco"``: GEBCO Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
 
-        - ``"gebcosi"``: GEBCO Global Earth Relief that gives sub-ice (si)
+        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si)
           elevations.
 
     use_srtm : bool
