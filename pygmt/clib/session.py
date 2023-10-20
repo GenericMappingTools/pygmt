@@ -1496,9 +1496,9 @@ class Session:
         vectors : list of 1-D arrays or None
             A list of 1-D arrays. Each array will be a column in the table.
             All of these arrays must be of the same size.
-        names : list of str
+        names : str or list of str
             A list of names for each of the columns. Must be of the same size
-            as the number of vectors. Default is ``["x", "y"]``.
+            as the number of vectors. Default is ``"xy"``.
         required_data : bool
             Set to True when 'data' is required, or False when dealing with
             optional virtual files. [Default is True].
