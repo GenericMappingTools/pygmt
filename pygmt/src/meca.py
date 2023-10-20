@@ -451,7 +451,7 @@ def meca(
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
         # override the values in pd.DataFrame if parameters are given
-        for var, name in [
+        for arg, name in [
             (longitude, "longitude"),
             (latitude, "latitude"),
             (depth, "depth"),
@@ -459,8 +459,8 @@ def meca(
             (plot_latitude, "plot_latitude"),
             (event_name, "event_name"),
         ]:
-            if var is not None:
-                spec[name] = np.atleast_1d(var)
+            if arg is not None:
+                spec[name] = np.atleast_1d(arg)
 
         # Due to the internal implementation of the meca module, we need to
         # convert the following columns to strings if they exist
