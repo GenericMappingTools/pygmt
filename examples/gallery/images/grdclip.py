@@ -20,7 +20,11 @@ region = [-28, -10, 62, 68]
 grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
 # Plot original grid
-fig.basemap(region=region, projection="M12c", frame=["f", "+toriginal grid"])
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
+)
 fig.grdimage(grid=grid, cmap="oleron")
 
 # Shift plot origin of the second map by "width of the first map + 0.5 cm"
@@ -31,7 +35,11 @@ fig.shift_origin(xshift="w+0.5c")
 grid = pygmt.grdclip(grid, below=[0, -2000])
 
 # Plot clipped grid
-fig.basemap(region=region, projection="M12c", frame=["f", "+tclipped grid"])
+fig.basemap(
+    region=region,
+    projection="M12c",
+    frame=["wSne+tclipped grid", "xa5f1", "ya2f1"],
+)
 fig.grdimage(grid=grid)
 fig.colorbar(frame=["x+lElevation", "y+lm"], position="JMR+o0.5c/0c+w8c")
 

@@ -17,6 +17,7 @@ def test_tilemap_web_mercator():
     fig.tilemap(
         region=[-20000000.0, 20000000.0, -20000000.0, 20000000.0],
         zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
         lonlat=False,
         frame="afg",
     )
@@ -31,7 +32,11 @@ def test_tilemap_ogc_wgs84():
     """
     fig = Figure()
     fig.tilemap(
-        region=[-180.0, 180.0, -90, 90], zoom=0, frame="afg", projection="R180/5c"
+        region=[-180.0, 180.0, -90, 90],
+        zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
+        frame="afg",
+        projection="R180/5c",
     )
     return fig
 
@@ -47,6 +52,7 @@ def test_tilemap_no_clip(no_clip):
     fig.tilemap(
         region=[-180.0, 180.0, -90, 0.6886],
         zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
         frame="afg",
         projection="H180/5c",
         no_clip=no_clip,
