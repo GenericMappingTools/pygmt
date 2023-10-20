@@ -12,7 +12,7 @@ def test_earth_faa_01d():
     """
     data = load_earth_free_air_anomaly(resolution="01d")
     assert data.name == "free_air_anomaly"
-    assert data.attrs["long_name"] == "IGPP Global Earth Free-Air Anomaly"
+    assert data.attrs["long_name"] == "IGPP Earth Free-Air Anomaly"
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
