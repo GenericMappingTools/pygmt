@@ -236,7 +236,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
                 kwargs["S"] = "s0.2c"
         except FileNotFoundError:
             pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
+    if is_nonstr_iter(kwargs.get("G")):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
@@ -253,7 +253,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         names.append("size")
 
     for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
+        if is_nonstr_iter(kwargs.get(flag)):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
