@@ -15,8 +15,10 @@
 name: GMT Dev Tests
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches:
+      - main
+      - gmt-in
   pull_request:
     types: [ready_for_review]
     paths-ignore:
