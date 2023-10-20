@@ -216,7 +216,7 @@ def text_(
 
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
+    if is_nonstr_iter(kwargs.get("t")):
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
