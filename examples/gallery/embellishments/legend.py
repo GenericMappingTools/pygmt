@@ -17,45 +17,45 @@ and then with a horizontal legend.
 """
 
 # %%
+import numpy as np
 import pygmt
 
+# Set up some test data
+x = np.arange(-10, 10, 0.1)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+
+# Create new Figure() object
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: Vertical legend (one column, default)
-fig.basemap(projection="x2c", region=[0, 7, 3, 7], frame=["WSne", "af"])
+fig.basemap(projection="X10c", region=[-10, 10, -1.5, 1.5], frame=True)
 
-fig.plot(
-    data="@Table_5_11.txt",
-    style="c0.40c",
-    fill="lightgreen",
-    pen="faint",
-    label="Apples",
-)
-fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-fig.plot(data="@Table_5_11.txt", style="t0.40c", fill="orange", label="Oranges")
+# Use the label parameter to state to text label for the legend entery
+fig.plot(x=x, y=y1, pen="1p,green3", label="Sine")
 
+fig.plot(x=x, y=y2, style="c0.1c", fill="dodgerblue", label="Cosine")
+
+# Add a legend to the plot; place it within the plot bounding box at position
+# ("J") TopRight with a anchor point ("j") TopRight and an offset of 0.2
+# centimeters in x and y directions; sourond the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 fig.shift_origin(xshift="+w1c")
 
 # -----------------------------------------------------------------------------
-# Right: Horizontal legend (here three columns)
-fig.basemap(projection="x2c", region=[0, 7, 3, 7], frame=["wSne", "af"])
+# Right: Horizontal legend (here two columns)
+fig.basemap(projection="X10c", region=[-10, 10, -1.5, 1.5], frame=["wStr", "af"])
 
-fig.plot(
-    data="@Table_5_11.txt",
-    style="c0.40c",
-    fill="lightgreen",
-    pen="faint",
-    # +N sets the number of columns corresponding to the given number
-    label="Apples+N3",
-)
-fig.plot(data="@Table_5_11.txt", pen="1.5p,gray", label="My lines")
-fig.plot(data="@Table_5_11.txt", style="t0.40c", fill="orange", label="Oranges")
+# +N sets the number of columns corresponding to the given number, here two
+fig.plot(x=x, y=y1, pen="1p,green3", label="Sine+N2")
+
+fig.plot(x=x, y=y2, style="c0.1c", fill="dodgerblue", label="Cosine")
 
 # For multi-column legends users have to provide the width via +w, here it is
-# set to 6.5 centimeters
-fig.legend(position="JTR+jTR+o0.2c+w6.5c", box=True)
+# set to 4.5 centimeters
+fig.legend(position="JTR+jTR+o0.2c+w4.5c", box=True)
 
 fig.show()
