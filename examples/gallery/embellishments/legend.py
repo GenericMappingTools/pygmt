@@ -33,14 +33,14 @@ fig = pygmt.Figure()
 # Left: Vertical legend (one column, default)
 fig.basemap(projection="X10c", region=[-10, 10, -1.5, 1.5], frame=True)
 
-# Use the label parameter to state to text label for the legend entery
+# Use the label parameter to state to text label for the legend entry
 fig.plot(x=x, y=y1, pen="1p,green3", label="Sine")
 
 fig.plot(x=x, y=y2, style="c0.1c", fill="dodgerblue", label="Cosine")
 
 # Add a legend to the plot; place it within the plot bounding box at position
 # ("J") TopRight with a anchor point ("j") TopRight and an offset of 0.2
-# centimeters in x and y directions; sourond the legend with a box
+# centimeters in x and y directions; surround the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 fig.shift_origin(xshift="+w1c")
