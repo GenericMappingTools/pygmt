@@ -28,7 +28,7 @@ communication tools we use.
 - Update the role on the {doc}`Team Gallery page <team>`
 - Added as moderator on the [GMT forum](https://forum.generic-mapping-tools.org) (to see mod-only discussions) [optional]
 - Added as a maintainer on [Readthedocs](https://readthedocs.org/projects/pygmt-dev) [optional]
-- Added as a Curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
+- Added as a curator to the [GMT community](https://zenodo.org/communities/generic-mapping-tools/) on Zenodo (for making releases) [optional]
 
 ### As an Administrator
 
