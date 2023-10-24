@@ -117,6 +117,7 @@ def test_figure_savefig_geotiff():
         # pylint: disable=import-outside-toplevel
         import rioxarray
         from rasterio.errors import NotGeoreferencedWarning
+        from rasterio.transform import Affine
 
         # GeoTIFF
         with rioxarray.open_rasterio(geofname) as xds:
@@ -131,6 +132,14 @@ def test_figure_savefig_geotiff():
                 ),
             )
             assert xds.rio.shape == (1257, 1331)
+            assert xds.rio.transform() == Affine(
+                a=941.789262267344,
+                b=0.0,
+                c=-661136.0621116752,
+                d=0.0,
+                e=-941.92805338983,
+                f=1129371.7360144067,
+            )
         # TIFF
         with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
             with rioxarray.open_rasterio(fname) as xds:
@@ -139,6 +148,9 @@ def test_figure_savefig_geotiff():
                     actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
                 )
                 assert xds.rio.shape == (1257, 1331)
+                assert xds.rio.transform() == Affine(
+                    a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
+                )
             assert len(record) == 1
     except ImportError:
         pass
