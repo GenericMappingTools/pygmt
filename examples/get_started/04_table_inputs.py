@@ -29,7 +29,11 @@ best fits your data and analysis needs, and work more efficiently with PyGMT.
 # specifying the file name of an ASCII table (e.g., ``data="input_data.dat"``).
 # This is useful when your data is stored in a separate text file.
 
+from pathlib import Path
+
+import geopandas as gpd
 import numpy as np
+import pandas as pd
 import pygmt
 
 # Create an example file with 3 rows and 2 columns
@@ -43,8 +47,6 @@ fig.plot(data="input_data.dat", style="p0.2c", fill="blue")
 fig.show()
 
 # Now let's delete the example file
-from pathlib import Path
-
 Path("input_data.dat").unlink()
 
 # %%
@@ -67,8 +69,6 @@ Path("input_data.dat").unlink()
 # - A :class:`pandas.DataFrame` object
 #
 # This is useful when you want to plot data that is already in memory.
-
-import pandas as pd
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
@@ -93,8 +93,6 @@ fig.show()
 # :class:`geopandas.GeoDataFrames` object and pass it to the ``data``
 # parameter. This is useful if your data is stored in a geospatial data format
 # (e.g., GeoJSON, etc.) that GMT and PyGMT do not support natively.
-
-import geopandas as gpd
 
 # Example GeoDataFrame
 gdf = gpd.GeoDataFrame(
