@@ -39,9 +39,6 @@ from pygmt.helpers import (
 @kwargs_to_strings(
     R="sequence",
     textfiles="sequence_space",
-    angle="sequence_comma",
-    font="sequence_comma",
-    justify="sequence_comma",
     c="sequence_comma",
     p="sequence",
 )
@@ -97,12 +94,12 @@ def text_(
         of the map.
     text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
-    angle: float, str, or bool
+    angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
         must have this as a column.
-    font : str or bool
+    font : str, bool or list of str
         Set the font specification with format *size*\ ,\ *font*\ ,\ *color*
         where *size* is text size in points, *font* is the font to use, and
         *color* sets the font color. For example,
@@ -110,7 +107,7 @@ def text_(
         font. If no font info is explicitly given (i.e. ``font=True``), then
         the input to ``textfiles`` must have this information in one of its
         columns.
-    justify : str or bool
+    justify : str, bool or list of str
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
@@ -170,7 +167,7 @@ def text_(
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,too-many-locals
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
@@ -201,28 +198,25 @@ def text_(
     ):
         kwargs.update({"F": ""})
 
-    if angle is True:
-        kwargs["F"] += "+a"
-    elif isinstance(angle, (int, float, str)):
-        kwargs["F"] += f"+a{str(angle)}"
-
-    if font is True:
-        kwargs["F"] += "+f"
-    elif isinstance(font, str):
-        kwargs["F"] += f"+f{font}"
-
-    if justify is True:
-        kwargs["F"] += "+j"
-    elif isinstance(justify, str):
-        kwargs["F"] += f"+j{justify}"
+    extra_arrays = []
+    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+        if arg is True:
+            kwargs["F"] += flag
+        elif is_nonstr_iter(arg):
+            kwargs["F"] += flag
+            if flag == "+a":  # angle is numeric type
+                extra_arrays.append(np.atleast_1d(arg))
+            else:  # font or justify is str type
+                extra_arrays.append(np.atleast_1d(arg).astype(str))
+        elif isinstance(arg, (int, float, str)):
+            kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
 
-    extra_arrays = []
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
+    if is_nonstr_iter(kwargs.get("t")):
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 
