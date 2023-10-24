@@ -252,7 +252,14 @@ class Figure:
             )
 
     def savefig(
-        self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
+        self,
+        fname,
+        transparent=False,
+        crop=True,
+        anti_alias=True,
+        show=False,
+        worldfile=False,
+        **kwargs,
     ):
         """
         Save the figure to a file.
@@ -291,6 +298,14 @@ class Figure:
             vector graphics.
         show: bool
             If ``True``, will open the figure in an external viewer.
+        worldfile: bool
+            If ``True``, will create a companion
+            `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
+            figure. The world file will have the same name as the figure file
+            but with different extension. See
+            https://en.wikipedia.org/wiki/World_file#Filename_extension
+            for the convention of world file extensions.
+            This parameter does not work for KML and GeoTIFF formats.
         dpi : int
             Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
             for others].
@@ -339,6 +354,13 @@ class Figure:
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
+
+        if worldfile:
+            if ext in ["kml", "tiff"]:
+                raise GMTInvalidInput(
+                    f"World file is not supported for '{ext}' format."
+                )
+            kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
 
