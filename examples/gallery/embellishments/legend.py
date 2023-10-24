@@ -39,9 +39,9 @@ fig.basemap(
 # Top: Vertical legend (one column, default)
 
 # Use the label parameter to state to text label for the legend entry
-fig.plot(x=x, y=y1, pen="1p,green3", label="Sine(x)")
+fig.plot(x=x, y=y1, pen="1p,green3", label="Sine(x)+1.1")
 
-fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="Cosine(x)")
+fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="Cosine(x)+1.1")
 
 # Add a legend to the plot; place it within the plot bounding box with both
 # reference ("J") and anchor ("+j") points being TopRight and with an offset
@@ -53,13 +53,13 @@ fig.legend(position="JTR+jTR+o0.2c", box=True)
 # Bottom: Horizontal legend (here two columns)
 
 # +N sets the number of columns corresponding to the given number, here 2
-fig.plot(x=x, y=y3, pen="1p,darkred,-", label="Sine(x/2)+N2")
+fig.plot(x=x, y=y3, pen="1p,darkred,-", label="Sine(x/2)-1.1+N2")
 
-fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="Cosine(x/2)")
+fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="Cosine(x/2)-1.1")
 
 # For a multi-column legend, users have to provide the width via "+w", here it
-# is set to 5 centimeters; reference and anchor points are set to BottomRight
-fig.legend(position="JBR+jBR+o0.2c+w5c", box=True)
+# is set to 6 centimeters; reference and anchor points are set to BottomRight
+fig.legend(position="JBR+jBR+o0.2c+w6c", box=True)
 
 
 fig.show()
