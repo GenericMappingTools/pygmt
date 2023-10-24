@@ -402,20 +402,16 @@ class Figure:
 
         if method not in ["external", "notebook", "none"]:
             raise GMTInvalidInput(
-                (
-                    f"Invalid display method '{method}', "
-                    "should be either 'notebook', 'external', or 'none'."
-                )
+                f"Invalid display method '{method}', "
+                "should be either 'notebook', 'external', or 'none'."
             )
 
         if method == "notebook":
             if IPython is None:
                 raise GMTError(
-                    (
-                        "Notebook display is selected, but IPython is not available. "
-                        "Make sure you have IPython installed, "
-                        "or run the script in a Jupyter notebook."
-                    )
+                    "Notebook display is selected, but IPython is not available. "
+                    "Make sure you have IPython installed, "
+                    "or run the script in a Jupyter notebook."
                 )
             png = self._preview(
                 fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
@@ -549,8 +545,6 @@ def set_display(method=None):
         SHOW_CONFIG["method"] = method
     elif method is not None:
         raise GMTInvalidInput(
-            (
-                f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external', 'none' or None."
-            )
+            f"Invalid display mode '{method}', "
+            "should be either 'notebook', 'external', 'none' or None."
         )

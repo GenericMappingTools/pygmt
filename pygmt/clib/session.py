@@ -908,10 +908,8 @@ class Session:
         )
         if status != 0:
             raise GMTCLibError(
-                (
-                    f"Failed to put vector of type {vector.dtype} "
-                    f"in column {column} of dataset."
-                )
+                f"Failed to put vector of type {vector.dtype} "
+                f"in column {column} of dataset."
             )
 
     def put_strings(self, dataset, family, strings):

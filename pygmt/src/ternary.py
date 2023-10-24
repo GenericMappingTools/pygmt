@@ -40,7 +40,7 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
 
     Parameters
     ----------
-    data : str or list or {table-like}
+    data : str, list, {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str

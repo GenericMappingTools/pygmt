@@ -93,6 +93,7 @@ select = [
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
+    "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
 ignore = ["E501"]  # Avoid enforcing line-length violations

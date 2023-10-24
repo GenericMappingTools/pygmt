@@ -71,7 +71,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         Gridded array from which to sample values from, or a file name (netCDF
         format).
 
-    points : str or {table-like}
+    points : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
 
@@ -228,7 +228,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
            by deviations (**+d**) and finally residuals (**+r**). When more
            than one grid is sampled this sequence of 1-3 columns is repeated
            for each grid.
-    radius : bool or int or float or str
+    radius : bool, float, or str
         [*radius*][**+e**\|\ **p**].
         To be used with normal grid sampling, and limited to a single, non-IMG
         grid. If the nearest node to the input point is NaN, search outwards

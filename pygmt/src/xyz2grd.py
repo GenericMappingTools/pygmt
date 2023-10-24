@@ -50,7 +50,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D {table-classes}.
     x/y/z : 1-D arrays

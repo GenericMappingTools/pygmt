@@ -62,7 +62,7 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : bool or str or float or list
+    bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
         inside]. Alternatively, append either a list of four values
