@@ -19,7 +19,7 @@ import numpy as np
 import pygmt
 
 # Set up some test data
-x = np.arange(-10, 10, 0.2)
+x = np.arange(-10, 10.2, 0.2)
 y1 = np.sin(x) + 1.1
 y2 = np.cos(x) + 1.1
 y3 = np.sin(x / 2) - 1.1
