@@ -43,22 +43,22 @@ fig.plot(x=x, y=y1, pen="1p,green3", label="Sine(x)")
 
 fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="Cosine(x)")
 
-# Add a legend to the plot; place it within the plot bounding box at position
-# ("J") TopRight with a anchor point ("j") TopRight and an offset of 0.2
-# centimeters in x and y directions; surround the legend with a box
+# Add a legend to the plot; place it within the plot bounding box with both
+# reference ("J") and anchor ("+j") points being TopRight and with an offset
+# of 0.2 centimeters in x and y directions; surround the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
 
 # -----------------------------------------------------------------------------
 # Bottom: Horizontal legend (here two columns)
 
-# +N sets the number of columns corresponding to the given number, here two
+# +N sets the number of columns corresponding to the given number, here 2
 fig.plot(x=x, y=y3, pen="1p,darkred,-", label="Sine(x/2)+N2")
 
 fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="Cosine(x/2)")
 
-# For a multi-column legend, users have to provide the width via +w, here it
-# is set to 5 centimeters; position and anchor point are set to BottomRight
+# For a multi-column legend, users have to provide the width via "+w", here it
+# is set to 5 centimeters; reference and anchor points are set to BottomRight
 fig.legend(position="JBR+jBR+o0.2c+w5c", box=True)
 
 
