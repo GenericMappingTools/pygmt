@@ -22,8 +22,8 @@ import pygmt
 x = np.arange(-10, 10, 0.2)
 y1 = np.sin(x) + 1.1
 y2 = np.cos(x) + 1.1
-y3 = np.sin(x/2) - 1.1
-y4 = np.cos(x/2) - 1.1
+y3 = np.sin(x / 2) - 1.1
+y4 = np.cos(x / 2) - 1.1
 
 
 # Create new Figure() object
