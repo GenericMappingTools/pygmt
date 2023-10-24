@@ -62,7 +62,7 @@ Path("input_data.dat").unlink()
 #
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
-# - A list of list
+# - A 2-D list
 # - A :class:`numpy.ndarray` object with with a dimension of 2
 # - A :class:`pandas.DataFrame` object
 #
@@ -104,7 +104,7 @@ gdf = gpd.GeoDataFrame(
     }
 )
 
-# Use the GeoDataFrame to specify the data
+# Use the GeoDataFrame to specify the 'data' parameter
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
 fig.plot(data=gdf, style="c0.2c", fill="purple")
