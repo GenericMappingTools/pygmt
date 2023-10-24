@@ -57,8 +57,8 @@ fig.plot(x=x, y=y3, pen="1p,darkred,-", label="Sine(x/2)+N2")
 
 fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="Cosine(x/2)")
 
-# For multi-column legends, users have to provide the width via +w, here it is
-# set to 5 centimeters; position and anchor point are set to BottoRight
+# For a multi-column legend, users have to provide the width via +w, here it
+# is set to 5 centimeters; position and anchor point are set to BottomRight
 fig.legend(position="JBR+jBR+o0.2c+w5c", box=True)
 
 
