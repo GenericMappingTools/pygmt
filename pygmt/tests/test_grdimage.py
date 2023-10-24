@@ -251,7 +251,7 @@ def test_grdimage_img_out(grid):
     Test that the img_out (-A) parameter works as expected.
     """
     fig = Figure()
-    for suffix in [".png", ".jpg", ".tiff", ".pdf=PDF"]:
+    for suffix in [".png", ".jpg", ".tiff", ".pdf:PDF"]:
         with GMTTempFile(suffix=suffix) as tmpfile:
             fig.grdimage(grid, cmap="earth", projection="W0/6i", img_out=tmpfile.name)
             # Remove the driver string
