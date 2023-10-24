@@ -1,12 +1,15 @@
 """
 Test Figure.grdimage.
 """
+from pathlib import Path
+
 import numpy as np
 import pytest
 import xarray as xr
 from pygmt import Figure
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import check_figures_equal
 
 
@@ -241,3 +244,16 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     )
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
     return fig_ref, fig_test
+
+
+def test_grdimage_img_out(grid):
+    """
+    Test that the img_out (-A) parameter works as expected.
+    """
+    fig = Figure()
+    for suffix in [".png", ".jpg", ".tiff", ".pdf=PDF"]:
+        with GMTTempFile(suffix=suffix) as tmpfile:
+            fig.grdimage(grid, cmap="earth", projection="W0/6i", img_out=tmpfile.name)
+            # Remove the driver string
+            filename = tmpfile.name.split("=")[0]
+            assert Path(filename).stat().st_size > 0

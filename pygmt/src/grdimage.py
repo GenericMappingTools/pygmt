@@ -175,6 +175,14 @@ def grdimage(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
+    # Special handling of -A option.
+    # For -A option, the syntax is different for GMT CLI and external wrappers.
+    # For GMT CLI, "gmt grdimage ingrid.nc -Aimg_out;xxx".
+    # For external wrappers, "gmt grdimage ingrid.nc -A > img_out.xxx".
+    outfile = kwargs.pop("A", None)
+    if outfile is not None:
+        kwargs["A"] = True
+
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
@@ -183,5 +191,6 @@ def grdimage(self, grid, **kwargs):
         ) as shadegrid:
             kwargs["I"] = shadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+                module="grdimage",
+                args=build_arg_string(kwargs, infile=fname, outfile=outfile),
             )
