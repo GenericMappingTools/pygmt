@@ -314,6 +314,7 @@ class Figure:
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
+        # pylint: disable=too-many-branches
         # All supported formats
         fmts = {
             "png": "g",
