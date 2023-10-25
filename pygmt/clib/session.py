@@ -1745,7 +1745,7 @@ class Session:
             yield fname
         # Otherwise, create a virtual file for writing a GMT data container.
         else:
-            # Determine the family and geometry of the data container based on 'kind'.
+            # Determine the family and geometry of the data container from kind
             family, geometry = {
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
