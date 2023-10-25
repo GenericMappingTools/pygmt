@@ -1,5 +1,5 @@
 """
-GMT data types.
+Wrappers for GMT data types.
 """
 import ctypes as ctp
 
@@ -27,26 +27,56 @@ class GMT_DATASET(ctp.Structure):
     """
     GMT dataset structure for holding multiple tables (files).
 
+    This class is only meant for internal use by PyGMT. It is not exposed to
+    users.
+
     See the GMT source code gmt_resources.h for the original C struct
     definitions.
 
     Examples
     --------
+    >>> from pygmt.helpers import GMTTempFile
     >>> from pygmt.clib import Session
-    >>> with Session() as lib:
-    ...     with lib.virtualfile_to_data(kind="dataset") as vfout:
-    ...         lib.call_module("read", f"@App_O_cross.txt {vfout} -Td")
-    ...         ds = lib.read_virtualfile(vfout, kind="dataset").contents
-    ...         print(ds.n_tables, ds.n_columns, ds.n_segments, ds.n_records)
-    ...         print(ds.min[0], ds.max[0], ds.min[1], ds.max[1])
-    ...         seg = ds.table[0].contents.segment[0].contents
-    ...         print(seg.data[0][: seg.n_rows])
-    ...         print(seg.data[1][: seg.n_rows])
+    >>>
+    >>> with GMTTempFile(suffix=".txt") as tmpfile:
+    ...     # prepare the sample data file
+    ...     with open(tmpfile.name, mode="w") as fp:
+    ...         print(">", file=fp)
+    ...         print("1.0 2.0 3.0 TEXT1 TEXT2", file=fp)
+    ...         print("4.0 5.0 6.0 TEXT3 TEXT4", file=fp)
+    ...         print(">", file=fp)
+    ...         print("7.0 8.0 9.0 TEXT5 TEXT6", file=fp)
+    ...         print("10.0 11.0 12.0 TEXT7 TEXT8", file=fp)
+    ...     # read the data file
+    ...     with Session() as lib:
+    ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+    ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+    ...             # the dataset
+    ...             ds = lib.read_virtualfile(vouttbl, kind="dataset").contents
+    ...             print(ds.n_tables, ds.n_columns, ds.n_segments)
+    ...             print(ds.min[: ds.n_columns], ds.max[: ds.n_columns])
+    ...             # the table
+    ...             tbl = ds.table[0].contents
+    ...             print(tbl.n_columns, tbl.n_segments, tbl.n_records)
+    ...             print(tbl.min[: tbl.n_columns], ds.max[: tbl.n_columns])
+    ...             for i in range(tbl.n_segments):
+    ...                 seg = tbl.segment[i].contents
+    ...                 for j in range(seg.n_columns):
+    ...                     print(seg.data[j][:seg.n_rows])
+    ...                 print(seg.text[: seg.n_rows])
     ...
-    1 2 3 14
-    59.0 158.0 -12.0 13.0
-    [59.0, 62.0, 66.0, 71.0, 77.0]
-    [-12.0, -7.0, -3.0, -1.0, 3.0]
+    1 3 2
+    [1.0, 2.0, 3.0] [10.0, 11.0, 12.0]
+    3 2 4
+    [1.0, 2.0, 3.0] [10.0, 11.0, 12.0]
+    [1.0, 4.0]
+    [2.0, 5.0]
+    [3.0, 6.0]
+    [b'TEXT1 TEXT2', b'TEXT3 TEXT4']
+    [7.0, 10.0]
+    [8.0, 11.0]
+    [9.0, 12.0]
+    [b'TEXT5 TEXT6', b'TEXT7 TEXT8']
     """
 
     class GMT_DATATABLE(ctp.Structure):
