@@ -1689,7 +1689,6 @@ class Session:
         ----------
         vfname : str
             Name of the virtual file to read.
-
         kind : str
             Cast the data into a GMT data container. Choose from "grid" or
             "dataset". If None, will return a ctypes void pointer.
@@ -1731,7 +1730,6 @@ class Session:
         kind : str
             The kind of data container to create. Choose from "grid" or
             "dataset". It has no effect if ``fname`` is given.
-
         fname : str or None
             If given, yield the output file name instead of the virtual file.
 
