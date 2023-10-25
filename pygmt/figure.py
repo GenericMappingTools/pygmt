@@ -296,13 +296,13 @@ class Figure:
             the arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
             parameter of :meth:`pygmt.Figure.psconvert`. Ignored if creating
             vector graphics.
-        show: bool
+        show : bool
             If ``True``, will open the figure in an external viewer.
-        worldfile: bool
+        worldfile : bool
             If ``True``, will create a companion
             `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
             figure. The world file will have the same name as the figure file
-            but with different extension. See
+            but with different extension (e.g. tfw for tif). See
             https://en.wikipedia.org/wiki/World_file#Filename_extension
             for the convention of world file extensions.
             This parameter does not work for KML and GeoTIFF formats.
@@ -359,7 +359,7 @@ class Figure:
         if worldfile:
             if ext in ["kml", "tiff"]:
                 raise GMTInvalidInput(
-                    f"World file is not supported for '{ext}' format."
+                    f"Saving a world file is not supported for '{ext}' format."
                 )
             kwargs["W"] = True
 
