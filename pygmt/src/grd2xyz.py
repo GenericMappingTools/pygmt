@@ -170,19 +170,17 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as invfile, lib.virtualfile_to_data(
-            kind="dataset", fname=outfile
-        ) as outvfile:
+        ) as vingrd, lib.virtualfile_to_data(kind="dataset", fname=outfile) as vouttbl:
             lib.call_module(
                 module="grd2xyz",
-                args=build_arg_string(kwargs, infile=invfile, outfile=outvfile),
+                args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
 
             if output_type == "file":
                 return None
-            # vectors = lib.read_virtualfile(outvfile, kind="dataset").contents.to_vectors()
+            # vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
             vectors = lib.read_virtualfile(
-                outvfile, kind="dataset"
+                vouttbl, kind="dataset"
             ).contents.to_vectors_v2()
             if output_type == "numpy":
                 return np.array(vectors).T

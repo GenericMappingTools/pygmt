@@ -315,20 +315,20 @@ def grdtrack(
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as ingrid, lib.virtualfile_from_data(
+        ) as vingrd, lib.virtualfile_from_data(
             check_kind="vector", data=points, required_data=False
-        ) as infile, lib.virtualfile_to_data(
+        ) as vintbl, lib.virtualfile_to_data(
             kind="dataset", fname=outfile
-        ) as outvfile:
-            kwargs["G"] = ingrid
+        ) as vouttbl:
+            kwargs["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_string(kwargs, infile=infile, outfile=outvfile),
+                args=build_arg_string(kwargs, vintbl=vintbl, outfile=vouttbl),
             )
 
         if output_type == "file":
             return None
-        vectors = lib.read_virtualfile(outvfile, kind="dataset").contents.to_vectors()
+        vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
         if output_type == "numpy":
             return np.array(vectors).T
         return pd.DataFrame(np.array(vectors).T, columns=column_names)
