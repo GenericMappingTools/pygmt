@@ -33,7 +33,7 @@ def validate_data_input(
         List of column names.
     required_data : bool
         Set to True when 'data' is required, or False when dealing with
-        optional virtual files. [Default is True].
+        optional virtual files [Default is True].
     kind : str or None
         The kind of data that will be passed to a module. If not given, it
         will be determined by calling :func:`data_kind`.
@@ -145,7 +145,7 @@ def data_kind(data=None, required=True):
 
     Possible data kinds:
 
-    - ``'file'``: a file name or a pathlib.PurePath object providfed as 'data'
+    - ``'file'``: a file name or a pathlib.PurePath object provided as 'data'
     - ``'arg'``: an optional argument (None, bool, int or float) provided
       as 'data'
     - ``'grid'``: an xarray.DataArray with 2 dimensions provided as 'data'
