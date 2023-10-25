@@ -257,12 +257,18 @@ class Figure:
         """
         Save the figure to a file.
 
-        This method implements a matplotlib-like interface for
-        :meth:`pygmt.Figure.psconvert`.
+        Supported file formats and their extensions:
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg``),
-        PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
-        KML (``.kml``). The KML output generates a companion PNG file.
+        - PNG (``.png``)
+        - JPEG (``.jpg`` or ``.jpeg``)
+        - PDF (``.pdf``)
+        - BMP (``.bmp``)
+        - TIFF (``.tif``)
+        - GeoTIFF (``.tiff``)
+        - EPS (``.eps``)
+        - KML (``.kml``)
+
+        For KML format, a companion PNG file is also generated.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -279,10 +285,10 @@ class Figure:
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
             If ``True``, will use anti-aliasing when creating raster images
-            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
-            and ``g2`` to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
-            graphics.
+            (BMP, PNG, JPEG, TIFF, and GeoTIFF). More specifically, it passes
+            the arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
+            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if creating
+            vector graphics.
         show: bool
             If ``True``, will open the figure in an external viewer.
         dpi : int
@@ -301,15 +307,20 @@ class Figure:
             "bmp": "b",
             "eps": "e",
             "tif": "t",
+            "tiff": None,  # GeoTIFF doesn't need the -T option
             "kml": "g",
         }
 
         fname = Path(fname)
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
-        # alias jpeg to jpg
-        if ext == "jpeg":
+
+        if ext == "jpeg":  # Alias jpeg to jpg
             ext = "jpg"
+        elif ext == "tiff":  # GeoTIFF
+            kwargs["W"] = "+g"
+        elif ext == "kml":  # KML
+            kwargs["W"] = "+k"
 
         if ext not in fmts:
             if ext == "ps":
@@ -328,10 +339,14 @@ class Figure:
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
-        if ext == "kml":
-            kwargs["W"] = "+k"
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # Remove the .pgw world file if exists
+        # Not necessary after GMT 6.5.0.
+        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
+        if ext == "tiff" and fname.with_suffix(".pgw").exists():
+            fname.with_suffix(".pgw").unlink()
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:
