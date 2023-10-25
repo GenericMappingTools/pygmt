@@ -25,7 +25,6 @@ y2 = np.cos(x) + 1.1
 y3 = np.sin(x / 2) - 1.1
 y4 = np.cos(x / 2) - 1.1
 
-
 # Create new Figure() object
 fig = pygmt.Figure()
 
@@ -48,7 +47,6 @@ fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="cos(x)+1.1")
 # of 0.2 centimeters in x and y directions; surround the legend with a box
 fig.legend(position="JTR+jTR+o0.2c", box=True)
 
-
 # -----------------------------------------------------------------------------
 # Bottom: Horizontal legend (here two columns)
 
@@ -60,6 +58,5 @@ fig.plot(x=x, y=y4, style="s0.07c", fill="orange", label="cos(x/2)-1.1")
 # For a multi-column legend, users have to provide the width via "+w", here it
 # is set to 6 centimeters; reference and anchor points are set to BottomRight
 fig.legend(position="JBR+jBR+o0.2c+w6c", box=True)
-
 
 fig.show()
