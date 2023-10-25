@@ -323,7 +323,7 @@ def grdtrack(
             kwargs["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_string(kwargs, vintbl=vintbl, outfile=vouttbl),
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
 
         if output_type == "file":
