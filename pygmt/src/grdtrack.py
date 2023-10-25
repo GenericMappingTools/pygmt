@@ -329,6 +329,7 @@ def grdtrack(
         if output_type == "file":
             return None
         vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
-        if output_type == "numpy":
-            return np.array(vectors).T
-        return pd.DataFrame(np.array(vectors).T, columns=column_names)
+        result = pd.DataFrame(data=np.array(vectors).T, columns=column_names)
+        if output_type == "pandas":
+            return result
+        return result.to_numpy()

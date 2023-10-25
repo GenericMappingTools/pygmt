@@ -163,7 +163,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     # Set the default column names for the pandas dataframe header
     dataframe_header = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
-    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+    if isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
         dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
 
@@ -176,11 +176,10 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
                 args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
 
-            if output_type == "file":
-                return None
-            vectors = lib.read_virtualfile(
-                vouttbl, kind="dataset"
-            ).contents.to_vectors()
-            if output_type == "numpy":
-                return np.array(vectors).T
-            return pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+        if output_type == "file":
+            return None
+        vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
+        result = pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+        if output_type == "pandas":
+            return result
+        return result.to_numpy()
