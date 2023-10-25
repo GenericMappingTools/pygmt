@@ -456,6 +456,8 @@ def is_nonstr_iter(value):
     False
     >>> is_nonstr_iter(10)
     False
+    >>> is_nonstr_iter(None)
+    False
     >>> is_nonstr_iter([1, 2, 3])
     True
     >>> is_nonstr_iter((1, 2, 3))

@@ -85,26 +85,30 @@ make-summary-multi-line = true
 wrap-summaries = 79
 wrap-descriptions = 79
 
-[tool.flakeheaven]
-max_line_length = 88
-max_doc_length = 79
-show_source = true
+[tool.ruff]
+line-length = 88  # E501 (line-too-long)
+show-source = true
+select = [
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "W",    # pycodestyle warnings
+]
+ignore = ["E501"]  # Avoid enforcing line-length violations
 
-[tool.flakeheaven.plugins]
-pycodestyle = ["+*", "-E501", "-W503"]
-pyflakes = ["+*"]
+[tool.ruff.pycodestyle]
+max-doc-length = 79
 
-[tool.flakeheaven.exceptions."**/__init__.py"]
-pyflakes = ["-F401"]
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+
+[tool.ruff.isort]
+known-third-party = ["pygmt"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
-
-[tool.isort]
-profile = "black"
-skip_gitignore = true
-known_third_party = "pygmt"
 
 [tool.pylint.MASTER]
 # Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
@@ -136,5 +140,5 @@ max-module-lines=2000
 disable=[
     "duplicate-code",
     "import-error",
-    "line-too-long",  # Already checked by flakeheaven/pycodestyle
+    "line-too-long",  # Already checked by ruff's pycodestyle
 ]

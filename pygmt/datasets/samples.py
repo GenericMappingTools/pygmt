@@ -301,7 +301,6 @@ def list_sample_data():
 
 
 def load_sample_data(name):
-    # pylint: disable=line-too-long
     """
     Load an example dataset from the GMT server.
 
@@ -317,8 +316,8 @@ def load_sample_data(name):
     Returns
     -------
     :class:`pandas.DataFrame` or :class:`xarray.DataArray`
-        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data or
-        :class:`xarray.DataArray` for raster data.
+        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data
+        or :class:`xarray.DataArray` for raster data.
 
     See Also
     --------
@@ -331,7 +330,7 @@ def load_sample_data(name):
     >>> from pprint import pprint
     >>> from pygmt.datasets import list_sample_data, load_sample_data
     >>> # use list_sample_data to see the available datasets
-    >>> pprint(list_sample_data(), width=120)  # noqa: W505
+    >>> pprint(list_sample_data(), width=120)
     {'bathymetry': 'Table of ship bathymetric observations off Baja California',
      'earth_relief_holes': 'Regional 20 arc-minutes Earth relief grid with holes',
      'fractures': 'Table of hypothetical fracture lengths and azimuths',
@@ -345,7 +344,7 @@ def load_sample_data(name):
      'usgs_quakes': 'Table of earthquakes from the USGS'}
     >>> # load the sample bathymetry dataset
     >>> data = load_sample_data("bathymetry")
-    """
+    """  # noqa: W505
     if name not in datasets:
         raise GMTInvalidInput(f"Invalid dataset name '{name}'.")
     return datasets[name].func()

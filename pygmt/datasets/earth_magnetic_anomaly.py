@@ -22,10 +22,10 @@ def load_earth_magnetic_anomaly(
        :widths: 50 50
        :header-rows: 1
 
-       * - Global Earth Magnetic Anomaly Model (EMAG2)
+       * - Earth Magnetic Anomaly Model (EMAG2)
          - World Digital Magnetic Anomaly Map (WDMAM)
-       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_mag.jpg # noqa: W505
-         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_wdmam.jpg # noqa: W505
+       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag4km.jpg
+         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_wdmam.jpg
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mag/``,
@@ -80,7 +80,7 @@ def load_earth_magnetic_anomaly(
     data_source : str
         Select the source of the magnetic anomaly data. Available options are:
 
-        - ``"emag2"``: EMAG2 Global Earth Magnetic Anomaly Model [Default
+        - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model [Default
           option]. It only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
 

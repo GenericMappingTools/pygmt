@@ -80,7 +80,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         outgrid : str or bool or None
             The name of the output netCDF file with extension .nc to store the
             grid in.
-        outfile : str or bool or None
+        outfile : str, bool, or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str

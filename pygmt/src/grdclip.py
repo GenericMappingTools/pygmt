@@ -56,16 +56,16 @@ def grdclip(grid, **kwargs):
         The name of the output netCDF file with extension .nc to store the grid
         in.
     {region}
-    above : str or list or tuple
+    above : str or list
         [*high*, *above*].
         Set all data[i] > *high* to *above*.
-    below : str or list or tuple
+    below : str or list
         [*low*, *below*].
         Set all data[i] < *low* to *below*.
-    between : str or list or tuple
+    between : str or list
         [*low*, *high*, *between*].
         Set all data[i] >= *low* and <= *high* to *between*.
-    new : str or list or tuple
+    new : str or list
         [*old*, *new*].
         Set all data[i] == *old* to *new*. This is mostly useful when
         your data are known to be integer values.

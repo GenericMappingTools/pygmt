@@ -26,9 +26,8 @@ dependencies:
     - blackdoc
     - codespell
     - docformatter>=1.7.2
-    - flakeheaven>=3
-    - isort>=5
     - pylint
+    - ruff
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov

@@ -110,7 +110,7 @@ def grd2cpt(grid, **kwargs):
         *start*, where we automatically build monotonically increasing
         labels from *start* (a single letter or an integer). Additionally
         append **-** to build ranges *start*-*start+1* as labels instead.
-    nlevels : bool or int or str
+    nlevels : bool, int, or str
         Set to ``True`` to create a linear color table by using the grid
         z-range as the new limits in the CPT. Alternatively, set *nlevels*
         to resample the color table into *nlevels* equidistant slices.

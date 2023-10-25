@@ -29,7 +29,7 @@ def test_x2sys_init_region_spacing(mock_x2sys_home):
             tag=tag, fmtfile="xyz", force=True, region=[0, 10, 20, 30], spacing=[5, 5]
         )
 
-        with open(os.path.join(tmpdir, f"{tag}.tag"), "r", encoding="utf8") as tagpath:
+        with open(os.path.join(tmpdir, f"{tag}.tag"), encoding="utf8") as tagpath:
             tail_line = tagpath.readlines()[-1]
             assert "-R0/10/20/30" in tail_line
             assert "-I5/5" in tail_line
@@ -50,7 +50,7 @@ def test_x2sys_init_units_gap(mock_x2sys_home):
             gap=["tseconds", "de"],
         )
 
-        with open(os.path.join(tmpdir, f"{tag}.tag"), "r", encoding="utf8") as tagpath:
+        with open(os.path.join(tmpdir, f"{tag}.tag"), encoding="utf8") as tagpath:
             tail_line = tagpath.readlines()[-1]
             assert "-Nse -Nde" in tail_line
             assert "-Wtseconds -Wde" in tail_line

@@ -1,6 +1,6 @@
 """
-Function to download the GSHHG Global Earth Mask dataset from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the GSHHG Earth Mask dataset from the GMT data server, and
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -13,13 +13,13 @@ __doctest_skip__ = ["load_earth_mask"]
 @kwargs_to_strings(region="sequence")
 def load_earth_mask(resolution="01d", region=None, registration=None):
     r"""
-    Load the GSHHG Global Earth Mask dataset in various resolutions.
+    Load the GSHHG Earth Mask dataset in various resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earthmask.png # noqa: W505
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.png
        :width: 80 %
        :align: center
 
-       GSHHG Global Earth Mask dataset.
+       GSHHG Earth Mask dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke

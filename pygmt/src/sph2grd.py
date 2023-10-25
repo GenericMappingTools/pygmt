@@ -41,7 +41,7 @@ def sph2grd(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in data with L, M, C[L,M], S[L,M] values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
