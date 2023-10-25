@@ -38,7 +38,7 @@ fig.basemap(
 # -----------------------------------------------------------------------------
 # Top: Vertical legend (one column, default)
 
-# Use the label parameter to state to text label for the legend entry
+# Use the label parameter to state the text label for the legend entry
 fig.plot(x=x, y=y1, pen="1p,green3", label="Sine(x)+1.1")
 
 fig.plot(x=x, y=y2, style="c0.07c", fill="dodgerblue", label="Cosine(x)+1.1")
