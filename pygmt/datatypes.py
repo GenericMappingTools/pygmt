@@ -312,11 +312,3 @@ class GMT_DATASET(ctp.Structure):
         pydata = PyGMT_DATASET(table=table)
         pydata.n_columns = self.n_columns
         return pydata
-
-    def to_vectors_v2(self):
-        pydata = self.to_pydata()
-        vectors = [
-            np.concatenate([seg.data[i] for tbl in pydata.table for seg in tbl.segment])
-            for i in range(pydata.n_columns)
-        ]
-        return vectors
