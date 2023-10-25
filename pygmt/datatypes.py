@@ -42,11 +42,11 @@ class GMT_DATASET(ctp.Structure):
     ...     # prepare the sample data file
     ...     with open(tmpfile.name, mode="w") as fp:
     ...         print(">", file=fp)
-    ...         print("1.0 2.0 3.0 TEXT1 TEXT2", file=fp)
-    ...         print("4.0 5.0 6.0 TEXT3 TEXT4", file=fp)
+    ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
+    ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
     ...         print(">", file=fp)
-    ...         print("7.0 8.0 9.0 TEXT5 TEXT6", file=fp)
-    ...         print("10.0 11.0 12.0 TEXT7 TEXT8", file=fp)
+    ...         print("7.0 8.0 9.0 TEXT8 TEXT90", file=fp)
+    ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
     ...     # read the data file
     ...     with Session() as lib:
     ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
@@ -62,7 +62,7 @@ class GMT_DATASET(ctp.Structure):
     ...             for i in range(tbl.n_segments):
     ...                 seg = tbl.segment[i].contents
     ...                 for j in range(seg.n_columns):
-    ...                     print(seg.data[j][:seg.n_rows])
+    ...                     print(seg.data[j][: seg.n_rows])
     ...                 print(seg.text[: seg.n_rows])
     ...
     1 3 2
@@ -72,11 +72,11 @@ class GMT_DATASET(ctp.Structure):
     [1.0, 4.0]
     [2.0, 5.0]
     [3.0, 6.0]
-    [b'TEXT1 TEXT2', b'TEXT3 TEXT4']
+    [b'TEXT1 TEXT23', b'TEXT4 TEXT567']
     [7.0, 10.0]
     [8.0, 11.0]
     [9.0, 12.0]
-    [b'TEXT5 TEXT6', b'TEXT7 TEXT8']
+    [b'TEXT8 TEXT90', b'TEXT123 TEXT456789']
     """
 
     class GMT_DATATABLE(ctp.Structure):
@@ -164,26 +164,41 @@ class GMT_DATASET(ctp.Structure):
 
     def to_vectors(self):
         """
-        Convert the GMT_DATASET object to a list of vectors.
+        Convert a GMT_DATASET object to a list of vectors.
 
         Examples
         --------
-
+        >>> from pygmt.helpers import GMTTempFile
         >>> from pygmt.clib import Session
-        >>> with Session() as lib:
-        ...     with lib.virtualfile_to_data(kind="dataset") as vfout:
-        ...         lib.call_module("read", f"@App_O_cross.txt {vfout} -Td")
-        ...         ds = lib.read_virtualfile(vfout, kind="dataset")
-        ...         vectors = ds.contents.to_vectors()
+        >>>
+        >>> with GMTTempFile(suffix=".txt") as tmpfile:
+        ...     # prepare the sample data file
+        ...     with open(tmpfile.name, mode="w") as fp:
+        ...         print(">", file=fp)
+        ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
+        ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
+        ...         print(">", file=fp)
+        ...         print("7.0 8.0 9.0 TEXT8 TEXT90", file=fp)
+        ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+        ...             lib.call_module(
+        ...                 "read", f"{tmpfile.name} {vouttbl} -Td"
+        ...             )
+        ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
+        ...             vectors = ds.contents.to_vectors()
         ...
-        >>> len(vectors)  # 2 columns
-        2
+        >>> len(vectors)  # 4 columns
+        4
         >>> vectors[0]
-        array([ 59.,  62.,  66.,  71.,  77.,  94., 100., 105., 109., 114., 119.,
-               126., 148., 158.])
+        array([ 1.,  4.,  7., 10.])
         >>> vectors[1]
-        array([-12. ,  -7. ,  -3. ,  -1. ,   3. , -11. , -10.5,  -9.5,  -8.6,
-                -6.5,  -4. ,   2. ,   3. ,  13. ])
+        array([ 2.,  5.,  8., 11.])
+        >>> vectors[2]
+        array([ 3.,  6.,  9., 12.])
+        >>> vectors[3]
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+                'TEXT123 TEXT456789'], dtype='<U18')
 
         Returns
         -------
