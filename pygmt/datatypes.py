@@ -191,49 +191,52 @@ class GMT_DATASET(ctp.Structure):
         Convert the ctypes GMT_DATASET object to the Python PyGMT_DATASET
         object.
 
-        The ctypes GMT_DATASET/GMT_DATATABLE/GMT_DATASEGMENT objects are difficult to use,
-        because most of attributes are pointers to other objects or ctypes arrays.
-        For example, let's say `dataset` is a GMT_DATASET object, and you want to access
-        the data of the first segment of the first table,
-        you have to use the following code (note the `contents` attribute):
+        The ctypes GMT_DATASET/GMT_DATATABLE/GMT_DATASEGMENT objects are
+        difficult to use, because most of attributes are pointers to other
+        objects or ctypes arrays. For example, let's say ``dataset`` is a
+        GMT_DATASET object, and you want to access the data of the first
+        segment of the first table, you have to use the following code
+        (note the ``contents`` attribute)::
 
-        >>> data = dataset.table[0].contents.segment[0].contents.data
+            data = dataset.table[0].contents.segment[0].contents.data
 
-        Now `data` is a `POINTER(POINTER(c_double))` object.
-        The first column is `data[0]`, but you can't use `print(data[0])` to print the
-        data, because it will print the memory address of the data. You have to use
+        Now ``data`` is a ``POINTER(POINTER(c_double))`` object. The first
+        column is ``data[0]``, but you can't use ``print(data[0])`` to print
+        the data, because it will print the memory address of the data.
+        You have to use::
 
-        >>> print(np.ctypeslib.as_array(data[0], shape=(n_rows,)))
+            print(np.ctypeslib.as_array(data[0], shape=(n_rows,)))
 
-        to print the data. It's difficult to use for us developers (see the `to_vectors`
-        above for example). It will be even more difficult to understand for users.
-        So, exposing the ctypes objects to users is a bad idea.
+        to print the data. It's difficult to use for us developers (see the
+        ``to_vectors`` above for example). It will be even more difficult to
+        understand for users. So, exposing the ctypes objects to users is a
+        bad idea.
 
-        This method converts the ctypes object to a Python object, which is easier to
-        use. For example, the following code converts the `dataset` to a Python object:
+        This method converts the ctypes object to a Python object, which is
+        easier to use. For example, the following code converts the ``dataset``
+        to a Python object::
 
-        >>> pydata = dataset.to_pydata()
+            pydata = dataset.to_pydata()
 
-        Now `pydata` is a PyGMT_DATASET object.
+        Now ``pydata`` is a PyGMT_DATASET object.
 
-        To get the number of tables, you can use the following code:
+        To get the number of tables, you can use the following code::
 
-        >>> len(
-        ...     pydata.table
-        ... )  # table is a list. That's why we don't need the `n_tables` attribute.
+            len(pydata.table)
 
         To get the first column of the first  segment of the first table::
 
-        >>> pydata.table[0].segment[0].data[0]
+            pydata.table[0].segment[0].data[0]
 
         The PyGMT_DATASET object is more Pythonic and can be exposed to users.
-        The most big benefit is that now it's possible to support multiple-segment files
-        with headers (e.g., a segment with header `> -Z1.0`).
+        The most big benefit is that now it's possible to support
+        multiple-segment files with headers (e.g., a segment with header
+        ``> -Z1.0``).
 
-        However, the arrays in the Python object are still pointers to the original
-        memory allocated by GMT, so the data will be destroyed when the Session ends.
-        We may need to copy the data to a new memory location if we want to use the
-        data after the Session ends.
+        However, the arrays in the Python object are still pointers to the
+        original memory allocated by GMT, so the data will be destroyed when
+        the Session ends. We may need to copy the data to a new memory location
+        if we want to use the data after the Session ends.
 
         Notes
         -----
