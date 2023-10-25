@@ -63,14 +63,14 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.22 and Python 3.12 with NumPy 1.25
-        # Only install optional packages on Python 3.12/NumPy 1.25
+        # Pair Python 3.9 with NumPy 1.22 and Python 3.12 with NumPy 1.26
+        # Only install optional packages on Python 3.12/NumPy 1.26
         include:
           - python-version: '3.9'
             numpy-version: '1.22'
             optional-packages: ''
           - python-version: '3.12'
-            numpy-version: '1.25'
+            numpy-version: '1.26'
             optional-packages: ' contextily geopandas ipython rioxarray sphinx-gallery'
 
     timeout-minutes: 30
@@ -87,7 +87,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
