@@ -166,6 +166,11 @@ class GMT_DATASET(ctp.Structure):
         """
         Convert a GMT_DATASET object to a list of vectors.
 
+        Currently, the number of columns in all segments of all tables are
+        assumed to be the same. The same column in all segments of all tables
+        are concatenated. The trailing text column is also concatenated as a
+        string vector.
+
         Examples
         --------
         >>> from pygmt.helpers import GMTTempFile
@@ -205,9 +210,8 @@ class GMT_DATASET(ctp.Structure):
         vectors : list of 1-D arrays
             List of vectors containing the data from the GMT_DATASET object.
         """
-        # Currently, the same column in all segments of all tables are concatenated.
         vectors = []
-        for icol in range(self.n_columns):  # all have the same number of columns?
+        for icol in range(self.n_columns):
             colvector = []
             for itbl in range(self.n_tables):
                 dtbl = self.table[itbl].contents
