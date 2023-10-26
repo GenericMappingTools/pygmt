@@ -3,7 +3,6 @@ grd2xyz - Convert grid to data table
 """
 import warnings
 
-import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
@@ -179,7 +178,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         if output_type == "file":
             return None
         vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
-        result = pd.DataFrame(data=np.array(vectors).T, columns=dataframe_header)
+        result = pd.DataFrame(data=vectors, index=dataframe_header).T
         if output_type == "pandas":
             return result
         return result.to_numpy()

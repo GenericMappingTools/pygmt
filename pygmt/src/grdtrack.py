@@ -3,7 +3,6 @@ grdtrack - Sample grids at specified (x,y) locations.
 """
 import warnings
 
-import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -329,7 +328,7 @@ def grdtrack(
         if output_type == "file":
             return None
         vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
-        result = pd.DataFrame(data=np.array(vectors).T, columns=column_names)
+        result = pd.DataFrame(data=vectors, index=column_names).T
         if output_type == "pandas":
             return result
         return result.to_numpy()
