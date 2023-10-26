@@ -357,7 +357,7 @@ class Figure:
             kwargs["Qg"] = 2
 
         if worldfile:
-            if ext in ["kml", "tiff"]:
+            if ext in ["eps", "kml", "pdf", "tiff"]:
                 raise GMTInvalidInput(
                     f"Saving a world file is not supported for '{ext}' format."
                 )
