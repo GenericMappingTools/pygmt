@@ -6,7 +6,7 @@ import ctypes as ctp
 import numpy as np
 
 
-class GMT_DATASET(ctp.Structure):
+class GMT_DATASET(ctp.Structure):  # pylint: disable=invalid-name,too-few-public-methods
     """
     GMT dataset structure for holding multiple tables (files).
 
@@ -63,12 +63,14 @@ class GMT_DATASET(ctp.Structure):
     """
 
     class GMT_DATATABLE(ctp.Structure):
+        # pylint: disable=invalid-name,too-few-public-methods
         """
         GMT datatable structure for holding a single table with multiple
         segments.
         """
 
         class GMT_DATASEGMENT(ctp.Structure):
+            # pylint: disable=invalid-name,too-few-public-methods
             """
             GMT datasegment structure for holding a single segment with
             multiple columns.
