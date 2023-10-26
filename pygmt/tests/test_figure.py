@@ -309,8 +309,8 @@ def test_figure_savefig_worldfile(fmt):
 @pytest.mark.parametrize("fmt", [".tiff", ".kml"])
 def test_figure_savefig_worldfile_unsupported_format(fmt):
     """
-    Figure.savefig should raise an error when a world file is requested for
-    an unsupported format.
+    Figure.savefig should raise an error when a world file is requested for an
+    unsupported format.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
