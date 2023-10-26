@@ -292,31 +292,25 @@ def test_figure_savefig():
     }
 
 
-@pytest.mark.parametrize("fmt", [".bmp", ".jpg", ".pdf", ".png", ".tif"])
-def test_figure_savefig_worldfile(fmt):
+def test_figure_savefig_worldfile():
     """
-    Check if a world file is created when requested.
-    """
-    fig = Figure()
-    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
-        fig.savefig(fname=imgfile.name, worldfile=True)
-        assert Path(imgfile.name).stat().st_size > 0
-        worldfile_suffix = "." + fmt[1] + fmt[3] + "w"
-        assert Path(imgfile.name).with_suffix(worldfile_suffix).stat().st_size > 0
-
-
-@pytest.mark.parametrize("fmt", [".tiff", ".kml"])
-def test_figure_savefig_worldfile_unsupported_format(fmt):
-    """
-    Figure.savefig should raise an error when a world file is requested for an
-    unsupported format.
+    Check if a world file is created for supported formats and raise an error
+    for unsupported formats.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
-        with pytest.raises(GMTInvalidInput):
+    # supported formats
+    for fmt in [".bmp", ".jpg", ".png", ".tif"]:
+        with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
             fig.savefig(fname=imgfile.name, worldfile=True)
+            assert Path(imgfile.name).stat().st_size > 0
+            worldfile_suffix = "." + fmt[1] + fmt[3] + "w"
+            assert Path(imgfile.name).with_suffix(worldfile_suffix).stat().st_size > 0
+    # unsupported formats
+    for fmt in [".eps", ".kml", ".pdf", ".tiff"]:
+        with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
+            with pytest.raises(GMTInvalidInput):
+                fig.savefig(fname=imgfile.name, worldfile=True)
 
 
 @pytest.mark.skipif(IPython is None, reason="run when IPython is installed")
