@@ -83,7 +83,7 @@ def test_figure_savefig_exists():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
-    for fmt in "png pdf jpg jpeg bmp eps tif PNG JPG JPEG Png".split():
+    for fmt in "png pdf jpg jpeg bmp ppm eps tif PNG JPG JPEG Png".split():
         fname = ".".join([prefix, fmt])
         fig.savefig(fname)
 

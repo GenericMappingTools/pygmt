@@ -263,6 +263,7 @@ class Figure:
         - JPEG (``.jpg`` or ``.jpeg``)
         - PDF (``.pdf``)
         - BMP (``.bmp``)
+        - PPM (``.ppm``)
         - TIFF (``.tif``)
         - GeoTIFF (``.tiff``)
         - EPS (``.eps``)
@@ -305,6 +306,7 @@ class Figure:
             "pdf": "f",
             "jpg": "j",
             "bmp": "b",
+            "ppm": "m",
             "eps": "e",
             "tif": "t",
             "tiff": None,  # GeoTIFF doesn't need the -T option
