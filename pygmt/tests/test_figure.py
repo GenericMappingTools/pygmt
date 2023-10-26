@@ -292,7 +292,7 @@ def test_figure_savefig():
     }
 
 
-@pytest.mark.parametrize("fmt", [".png", ".pdf", ".jpg", ".tif"])
+@pytest.mark.parametrize("fmt", ["bmp", ".jpg", ".pdf", ".png", ".tif"])
 def test_figure_savefig_worldfile(fmt):
     """
     Check if a world file is created when requested.
