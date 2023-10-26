@@ -302,15 +302,15 @@ class Figure:
         """
         # All supported formats
         fmts = {
-            "png": "g",
-            "pdf": "f",
-            "jpg": "j",
             "bmp": "b",
-            "ppm": "m",
             "eps": "e",
+            "jpg": "j",
+            "kml": "g",
+            "pdf": "f",
+            "png": "g",
+            "ppm": "m",
             "tif": "t",
             "tiff": None,  # GeoTIFF doesn't need the -T option
-            "kml": "g",
         }
 
         fname = Path(fname)
