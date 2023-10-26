@@ -59,12 +59,12 @@ Path("input_data.dat").unlink()
 #   hosted on the GMT data server.
 
 # %%
-# 2-D array: list, numpy.ndarray, and pandas.DataFrame
-# ----------------------------------------------------
+# 2-D array: list, :class:`numpy.ndarray`, and :class:`pandas.DataFrame`
+# ----------------------------------------------------------------------
 #
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
-# - A 2-D list
+# - A 2-D list (i.e., a list of lists)
 # - A :class:`numpy.ndarray` object with with a dimension of 2
 # - A :class:`pandas.DataFrame` object
 #
@@ -86,8 +86,8 @@ fig.plot(data=df, style="a0.5c", fill="blue")
 fig.show()
 
 # %%
-# geopandas.GeoDataFrame
-# ----------------------
+# :class:`geopandas.GeoDataFrame`
+# -------------------------------
 #
 # If you're working with geospatial data, you can read your data as a
 # :class:`geopandas.GeoDataFrames` object and pass it to the ``data``
