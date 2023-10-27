@@ -6,7 +6,13 @@ import warnings
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    return_table,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdtrack"]
 
@@ -325,10 +331,9 @@ def grdtrack(
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
 
-        if output_type == "file":
-            return None
-        vectors = lib.read_virtualfile(vouttbl, kind="dataset").contents.to_vectors()
-        result = pd.DataFrame(data=vectors, index=column_names).T
-        if output_type == "pandas":
-            return result
-        return result.to_numpy()
+        return return_table(
+            session=lib,
+            output_type=output_type,
+            vfile=vouttbl,
+            colnames=column_names,
+        )

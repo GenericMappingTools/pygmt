@@ -11,6 +11,7 @@ import time
 import webbrowser
 from collections.abc import Iterable
 
+import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
@@ -550,3 +551,35 @@ def args_in_kwargs(args, kwargs):
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
+
+
+def return_table(session, output_type, vfile, colnames):
+    """
+    Return an output table from a virtual file based on the output type.
+
+    Parameters
+    ----------
+    session : :class:`pygmt.clib.Session`
+        The current session.
+    output_type : str
+        The output type. Can be ``"pandas"``, ``"numpy"``, or ``"file"``.
+    vfile : str
+        The virtual file name.
+    colnames : list of str
+        The column names for the :class:`pandas.DataFrame` output.
+
+    Returns
+    -------
+    :class:`pandas.DataFrame` or :class:`numpy.ndarray` or None
+        The output table. If ``output_type`` is ``"file"``, returns ``None``.
+    """
+    if output_type == "file":  # Already written to file, so return None
+        return None
+    # Read the virtual file as a GMT dataset and convert to vectors
+    vectors = session.read_virtualfile(vfile, kind="dataset").contents.to_vectors()
+    # pandas.DataFrame output
+    result = pd.DataFrame(data=vectors, index=colnames).T
+    if output_type == "pandas":
+        return result
+    # NumPy.ndarray output
+    return result.to_numpy()
