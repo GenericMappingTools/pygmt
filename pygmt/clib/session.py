@@ -90,6 +90,7 @@ DTYPES = {
 
 
 class Session:
+    # pylint: disable=too-many-public-methods
     """
     A GMT API session where most operations involving the C API happen.
 
@@ -1713,11 +1714,11 @@ class Session:
         # The GMT C API function GMT_Read_VirtualFile returns a void pointer.
         # It usually needs to be cast to a pointer to GMT data container (e.g.,
         # GMT_GRID or GMT_DATASET).
-        type = {
+        dtype = {
             # "grid": GMT_GRID,  # implemented in PR #2398
             "dataset": GMT_DATASET,
         }[kind]
-        return ctp.cast(pointer, ctp.POINTER(type))
+        return ctp.cast(pointer, ctp.POINTER(dtype))
 
     @contextmanager
     def virtualfile_to_data(self, kind, fname=None):
