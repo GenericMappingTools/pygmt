@@ -1,7 +1,6 @@
 """
 grdhisteq - Perform histogram equalization for a grid.
 """
-import warnings
 
 import numpy as np
 import pandas as pd
@@ -13,6 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_type,
 )
 from pygmt.io import load_dataarray
 
@@ -321,23 +321,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        # Return a pandas.DataFrame if ``outfile`` is not set
-        if output_type not in ["numpy", "pandas", "file"]:
-            raise GMTInvalidInput(
-                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-            )
+        output_type = validate_output_type(output_type, outfile=outfile)
 
         if header is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
-        if isinstance(outfile, str) and output_type != "file":
-            msg = (
-                f"Changing 'output_type' from '{output_type}' to 'file' "
-                "since 'outfile' parameter is set. Please use output_type='file' "
-                "to silence this warning."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            output_type = "file"
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
                 outfile = tmpfile.name
