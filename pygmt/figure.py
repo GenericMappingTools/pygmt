@@ -255,21 +255,27 @@ class Figure:
         self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
     ):
         """
-        Save the figure to a file.
+        Save the figure to an image file.
 
-        Supported file formats and their extensions:
+        Supported image formats and their extensions:
+
+        **Raster image formats**
 
         - BMP (``.bmp``)
-        - EPS (``.eps``)
-        - GeoTIFF (``.tiff``)
         - JPEG (``.jpg`` or ``.jpeg``)
-        - KML (``.kml``)
-        - PDF (``.pdf``)
+        - GeoTIFF (``.tiff``)
         - PNG (``.png``)
         - PPM (``.ppm``)
         - TIFF (``.tif``)
 
-        For KML format, a companion PNG file is also generated.
+        **Vector image formats**
+
+        - EPS (``.eps``)
+        - PDF (``.pdf``)
+
+        Beside the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML
+        file can be viewed in Google Earth.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -285,11 +291,10 @@ class Figure:
         crop : bool
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images
-            (BMP, PNG, JPEG, TIFF, and GeoTIFF). More specifically, it passes
-            the arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
-            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if creating
-            vector graphics.
+            If ``True``, will use anti-aliasing when creating raster images.
+            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
+            to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
         show: bool
             If ``True``, will open the figure in an external viewer.
         dpi : int
