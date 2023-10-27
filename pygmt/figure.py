@@ -259,15 +259,15 @@ class Figure:
 
         Supported file formats and their extensions:
 
-        - PNG (``.png``)
-        - JPEG (``.jpg`` or ``.jpeg``)
-        - PDF (``.pdf``)
         - BMP (``.bmp``)
+        - EPS (``.eps``)
+        - GeoTIFF (``.tiff``)
+        - JPEG (``.jpg`` or ``.jpeg``)
+        - KML (``.kml``)
+        - PDF (``.pdf``)
+        - PNG (``.png``)
         - PPM (``.ppm``)
         - TIFF (``.tif``)
-        - GeoTIFF (``.tiff``)
-        - EPS (``.eps``)
-        - KML (``.kml``)
 
         For KML format, a companion PNG file is also generated.
 
