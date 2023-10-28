@@ -300,7 +300,7 @@ def test_figure_savefig_worldfile():
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     # supported formats
-    for fmt in [".bmp", ".jpg", ".png", ".tif"]:
+    for fmt in [".bmp", ".jpg", ".png", ".ppm", ".tif"]:
         with GMTTempFile(prefix="pygmt-worldfile", suffix=fmt) as imgfile:
             fig.savefig(fname=imgfile.name, worldfile=True)
             assert Path(imgfile.name).stat().st_size > 0
