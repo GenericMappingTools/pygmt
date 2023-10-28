@@ -1,13 +1,16 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+import warnings
+
 import pandas as pd
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    return_table,
     use_alias,
 )
 
@@ -40,7 +43,7 @@ __doctest_skip__ = ["select"]
     w="wrap",
 )
 @kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
-def select(data=None, outfile=None, **kwargs):
+def select(data=None, output_type="pandas", outfile=None, **kwargs):
     r"""
     Select data table subsets based on multiple spatial criteria.
 
@@ -196,25 +199,38 @@ def select(data=None, outfile=None, **kwargs):
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with table_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="select",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
+    if output_type not in ["numpy", "pandas", "file"]:
+        raise GMTInvalidInput(
+            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
+        )
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = data.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
+    if outfile is not None and output_type != "file":
+        msg = (
+            f"Changing 'output_type'  from '{output_type}' to 'file' "
+            "since 'outfile' parameter is set. Please use output_type='file' "
+            "to silence this warning."
+        )
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        output_type = "file"
+    elif outfile is None and output_type == "file":
+        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
 
-    return result
+    with Session() as lib:
+        with lib.virtualfile_from_data(
+            check_kind="vector", data=data
+        ) as vintbl, lib.virtualfile_to_data(kind="dataset", fname=outfile) as vouttbl:
+            lib.call_module(
+                module="select",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+
+        column_names = (
+            data.columns.to_list() if isinstance(data, pd.DataFrame) else None
+        )
+
+        return return_table(
+            session=lib,
+            output_type=output_type,
+            vfile=vouttbl,
+            colnames=column_names,
+        )
