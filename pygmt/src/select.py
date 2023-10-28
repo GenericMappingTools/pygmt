@@ -1,17 +1,16 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
-import warnings
 
 import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
     return_table,
     use_alias,
+    validate_output_type,
 )
 
 __doctest_skip__ = ["select"]
@@ -198,22 +197,7 @@ def select(data=None, output_type="pandas", outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-        )
-
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing 'output_type'  from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
+    output_type = validate_output_type(output_type, outfile=outfile)
 
     with Session() as lib:
         with lib.virtualfile_from_data(
