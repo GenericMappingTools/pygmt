@@ -578,7 +578,9 @@ def return_table(session, output_type, vfile, colnames):
     # Read the virtual file as a GMT dataset and convert to vectors
     vectors = session.read_virtualfile(vfile, kind="dataset").contents.to_vectors()
     # pandas.DataFrame output
-    result = pd.DataFrame(data=vectors, index=colnames).T
+    if colnames is None:
+        colnames = pd.RangeIndex(0, len(vectors))
+    result = pd.DataFrame.from_dict(dict(zip(colnames, vectors)))
     if output_type == "pandas":
         return result
     # NumPy.ndarray output
