@@ -1,7 +1,6 @@
 """
 grd2xyz - Convert grid to data table
 """
-import warnings
 
 import xarray as xr
 from pygmt.clib import Session
@@ -12,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
+    validate_output_type,
 )
 
 __doctest_skip__ = ["grd2xyz"]
@@ -142,21 +142,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     0  10.0  25.0      863.0
     1  10.5  25.0      985.5
     """
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-        )
-
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
+    output_type = validate_output_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
