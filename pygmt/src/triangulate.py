@@ -3,7 +3,6 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
 
-import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -11,6 +10,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    return_table,
     use_alias,
     validate_output_type,
 )
@@ -126,26 +126,27 @@ class triangulate:  # pylint: disable=invalid-name
               ``outgrid`` or ``outfile``)
         """
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(
+            with lib.virtualfile_from_data(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-            )
-            with table_context as infile:
+            ) as vintbl, lib.virtualfile_to_data(
+                kind="dataset", fname=outfile
+            ) as vouttbl:
                 # table output if outgrid is unset, else output to outgrid
                 if (outgrid := kwargs.get("G")) is None:
-                    kwargs.update({">": outfile})
+                    kwargs.update({">": vouttbl})
                 lib.call_module(
-                    module="triangulate", args=build_arg_string(kwargs, infile=infile)
+                    module="triangulate", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
-        if output_type == "file":
-            return None
-        if output_type == "xarray":
-            return load_dataarray(outgrid)
+            if output_type == "xarray":
+                return load_dataarray(outgrid)
 
-        result = pd.read_csv(outfile, sep="\t", header=None)
-        if output_type == "numpy":
-            return result.to_numpy()
-        return result
+            return return_table(
+                session=lib,
+                output_type=output_type,
+                vfile=vouttbl,
+                colnames=None,
+            )
 
     @staticmethod
     @fmt_docstring
@@ -359,26 +360,22 @@ class triangulate:  # pylint: disable=invalid-name
         """
         output_type = validate_output_type(output_type, outfile)
 
-        # Return a pandas.DataFrame if ``outfile`` is not set
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            if output_type != "file":
-                outfile = tmpfile.name
-            return triangulate._triangulate(
-                data=data,
-                x=x,
-                y=y,
-                z=z,
-                output_type=output_type,
-                outfile=outfile,
-                projection=projection,
-                verbose=verbose,
-                binary=binary,
-                nodata=nodata,
-                find=find,
-                coltypes=coltypes,
-                header=header,
-                incols=incols,
-                skiprows=skiprows,
-                wrap=wrap,
-                **kwargs,
-            )
+        return triangulate._triangulate(
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            output_type=output_type,
+            outfile=outfile,
+            projection=projection,
+            verbose=verbose,
+            binary=binary,
+            nodata=nodata,
+            find=find,
+            coltypes=coltypes,
+            header=header,
+            incols=incols,
+            skiprows=skiprows,
+            wrap=wrap,
+            **kwargs,
+        )
