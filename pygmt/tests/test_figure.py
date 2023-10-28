@@ -83,13 +83,79 @@ def test_figure_savefig_exists():
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
-    for fmt in "png pdf jpg jpeg bmp eps tif PNG JPG JPEG Png".split():
+    for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
         fname = ".".join([prefix, fmt])
         fig.savefig(fname)
 
         fname = Path(fname)
         assert fname.exists()
         fname.unlink()
+
+
+def test_figure_savefig_geotiff():
+    """
+    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF
+    file.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
+
+    # Save as GeoTIFF
+    geofname = Path("test_figure_savefig_geotiff.tiff")
+    fig.savefig(geofname)
+    assert geofname.exists()
+    # The .pgw should not exist
+    assert not geofname.with_suffix(".pgw").exists()
+
+    # Save as TIFF
+    fname = Path("test_figure_savefig_tiff.tif")
+    fig.savefig(fname)
+    assert fname.exists()
+
+    # Check if a TIFF is georeferenced or not
+    try:
+        # pylint: disable=import-outside-toplevel
+        import rioxarray
+        from rasterio.errors import NotGeoreferencedWarning
+        from rasterio.transform import Affine
+
+        # GeoTIFF
+        with rioxarray.open_rasterio(geofname) as xds:
+            assert xds.rio.crs is not None
+            npt.assert_allclose(
+                actual=xds.rio.bounds(),
+                desired=(
+                    -661136.0621116752,
+                    -54631.82709660966,
+                    592385.4459661598,
+                    1129371.7360144067,
+                ),
+            )
+            assert xds.rio.shape == (1257, 1331)
+            assert xds.rio.transform() == Affine(
+                a=941.789262267344,
+                b=0.0,
+                c=-661136.0621116752,
+                d=0.0,
+                e=-941.92805338983,
+                f=1129371.7360144067,
+            )
+        # TIFF
+        with pytest.warns(expected_warning=NotGeoreferencedWarning) as record:
+            with rioxarray.open_rasterio(fname) as xds:
+                assert xds.rio.crs is None
+                npt.assert_allclose(
+                    actual=xds.rio.bounds(), desired=(0.0, 0.0, 1331.0, 1257.0)
+                )
+                assert xds.rio.shape == (1257, 1331)
+                assert xds.rio.transform() == Affine(
+                    a=1.0, b=0.0, c=0.0, d=0.0, e=1.0, f=0.0
+                )
+            assert len(record) == 1
+    except ImportError:
+        pass
+    geofname.unlink()
+    fname.unlink()
 
 
 def test_figure_savefig_directory_nonexists():
