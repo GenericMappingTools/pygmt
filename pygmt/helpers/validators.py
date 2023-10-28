@@ -8,7 +8,7 @@ from pygmt.exceptions import GMTInvalidInput
 
 def validate_output_type(output_type, outfile=None):
     """
-    Check if the 'output_type' and 'outfile' parameters are valid.
+    Check if the ``output_type`` and ``outfile`` parameters are valid.
 
     Parameters
     ----------
