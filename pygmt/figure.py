@@ -262,20 +262,27 @@ class Figure:
         **kwargs,
     ):
         """
-        Save the figure to a file.
+        Save the figure to an image file.
 
-        Supported file formats and their extensions:
+        Supported image formats and their extensions:
 
-        - PNG (``.png``)
-        - JPEG (``.jpg`` or ``.jpeg``)
-        - PDF (``.pdf``)
+        **Raster image formats**
+
         - BMP (``.bmp``)
-        - TIFF (``.tif``)
+        - JPEG (``.jpg`` or ``.jpeg``)
         - GeoTIFF (``.tiff``)
-        - EPS (``.eps``)
-        - KML (``.kml``)
+        - PNG (``.png``)
+        - PPM (``.ppm``)
+        - TIFF (``.tif``)
 
-        For KML format, a companion PNG file is also generated.
+        **Vector image formats**
+
+        - EPS (``.eps``)
+        - PDF (``.pdf``)
+
+        Beside the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML
+        file can be viewed in Google Earth.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -291,12 +298,11 @@ class Figure:
         crop : bool
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images
-            (BMP, PNG, JPEG, TIFF, and GeoTIFF). More specifically, it passes
-            the arguments ``"t2"`` and ``"g2"`` to the ``anti_aliasing``
-            parameter of :meth:`pygmt.Figure.psconvert`. Ignored if creating
-            vector graphics.
-        show : bool
+            If ``True``, will use anti-aliasing when creating raster images.
+            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
+            to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
+        show: bool
             If ``True``, will open the figure in an external viewer.
         worldfile : bool
             If ``True``, will create a companion
@@ -317,14 +323,15 @@ class Figure:
         # pylint: disable=too-many-branches
         # All supported formats
         fmts = {
-            "png": "g",
-            "pdf": "f",
-            "jpg": "j",
             "bmp": "b",
             "eps": "e",
+            "jpg": "j",
+            "kml": "g",
+            "pdf": "f",
+            "png": "g",
+            "ppm": "m",
             "tif": "t",
             "tiff": None,  # GeoTIFF doesn't need the -T option
-            "kml": "g",
         }
 
         fname = Path(fname)
