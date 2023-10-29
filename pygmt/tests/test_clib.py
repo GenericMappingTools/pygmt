@@ -639,16 +639,24 @@ def test_virtualfile_from_matrix_slice(dtypes):
 
 def test_virtualfile_from_vectors_pandas(dtypes):
     """
-    Pass vectors to a dataset using pandas Series.
+    Pass vectors to a dataset using pandas Series, checking both numpy and
+    pyarrow dtypes.
     """
     size = 13
+    try:
+        pd.ArrowDtype(pyarrow_dtype="bool")  # check is pyarrow is installed
+
+        dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
+    except ImportError:
+        pass
     for dtype in dtypes:
         data = pd.DataFrame(
             data={
-                "x": np.arange(size, dtype=dtype),
-                "y": np.arange(size, size * 2, 1, dtype=dtype),
-                "z": np.arange(size * 2, size * 3, 1, dtype=dtype),
-            }
+                "x": np.arange(size),
+                "y": np.arange(size, size * 2, 1),
+                "z": np.arange(size * 2, size * 3, 1),
+            },
+            dtype=dtype,
         )
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
