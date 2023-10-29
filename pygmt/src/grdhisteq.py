@@ -63,7 +63,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def _grdhisteq(grid, output_type, **kwargs):
+    def _grdhisteq(caller, grid, output_type, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -108,13 +108,16 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :func:`pygmt.grd2cpt`
         """
+        if caller not in ["compute_bins", "equalize_grid"]:
+            raise GMTInvalidInput(f"Unrecognized caller: {caller}.")
+
         with Session() as lib:
             with lib.virtualfile_from_data(
                 check_kind="raster", data=grid
             ) as vingrid, lib.virtualfile_to_data(
                 kind="dataset", fname=kwargs.get("D")
             ) as vouttbl:
-                if kwargs.get("D"):
+                if caller == "compute_bins":
                     kwargs["D"] = vouttbl
                 lib.call_module(
                     module="grdhisteq", args=build_arg_string(kwargs, infile=vingrid)
@@ -217,6 +220,7 @@ class grdhisteq:  # pylint: disable=invalid-name
             else:
                 raise GMTInvalidInput("Must specify 'outgrid' as a string or None.")
             return grdhisteq._grdhisteq(
+                caller="equalize_grid",
                 grid=grid,
                 output_type=output_type,
                 outgrid=outgrid,
@@ -326,7 +330,8 @@ class grdhisteq:  # pylint: disable=invalid-name
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
         return grdhisteq._grdhisteq(
-            grid,
+            caller="compute_bins",
+            grid=grid,
             output_type=output_type,
             outfile=outfile,
             divisions=divisions,
