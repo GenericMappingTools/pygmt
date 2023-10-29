@@ -30,26 +30,26 @@ fig.show()
 # Adjust text labels
 # ------------------
 #
-# The size, family/weight, and color of an annotation can be specified using
-# the ``font`` parameter. A list of all recognized fonts can be found at
-# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
-# including details of how to use non-default fonts.
-# The ``angle`` parameter is used to specify the counter-clockwise rotation in
-# degrees of the text from the horizontal.
-# The ``justify`` parameter is used to define the anchor point for the bounding
-# box for the text. it is specified by a two-letter (order independent) code,
-# chosen from:
+# There are several optional parameters to adjust a text label:
 #
-# * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
-# * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
+# * ``font``: Sets the size, family/weight, and color of the text.
+#   A list of all recognized fonts can be found at
+#   :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+#   including details of how to use non-default fonts.
+# * ``angle``: Specifies the counter-clockwise rotation from the horizontal in
+#   degrees of the text.
+# * ``justify``: Defines the anchor point for the bounding box for the text.
+#   It is specified by a two-letter (order independent) code, chosen from:
 #
-# The ``offset`` parameter can be used to shift the text label relative to the
-# reference point. This can be used full when adding labels to data points.
+#   * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
+#   * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 #
-# The ``fill`` parameter is used to set the fill color of the area surrounding
-# the text. Add an outline to the text box via the ``pen`` parameter. The add
-# a margin between the text and the box as well as to force rounded corner the
-# ``clearance`` parameter can be used.
+# * ``offset``: Shifts the text label relative to the reference point.
+#   This can be usedful when adding labels to data points.
+# * ``fill``: Sets the fill color of the text box.
+# * ``pen``: Adds an outline to the text box. Give thickness,color,style.
+# * ``clearance``: Adds a margin between the text and the box. Can be used to
+#   force a text box with rounded corners.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WSte", "af"])
@@ -70,12 +70,12 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["wStr", "af"])
 
 # Add box with green fill
 fig.text(x=0, y=2, text="My text", fill="green")
-# Add box with an darkgreen, 0.5 points thick outline
-fig.text(x=0, y=0, text="My text", pen="0.5p,darkgreen")
+# Add box with an seagreen, 0.5 points thick, solid outline
+fig.text(x=0, y=0, text="My text", pen="0.5p,seagreen,solid")
 # Add box with a margin in x and y directions
-fig.text(x=0, y=-2, text="My text", pen="0.5p,darkgreen", clearance="0.2c/0.2c")
+fig.text(x=0, y=-2, text="My text", pen="0.5p,seagreen,solid", clearance="0.2c/0.2c")
 # Add outline with roundet corners
-fig.text(x=0, y=-4, text="My text", pen="0.5p,darkgreen", clearance="+tO")
+fig.text(x=0, y=-4, text="My text", pen="0.5p,seagreen,solid", clearance="+tO")
 
 fig.show()
 
