@@ -45,7 +45,7 @@ fig.show()
 #   * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 #
 # * ``offset``: Shifts the text label relative to the reference point.
-#   This can be usedful when adding labels to data points.
+#   This can be useful when adding a label to a data point.
 # * ``fill``: Sets the fill color of the text box.
 # * ``pen``: Adds an outline to the text box. Give thickness,color,style.
 # * ``clearance``: Adds a margin between the text and the box. Can be used to
