@@ -108,14 +108,14 @@ class grdhisteq:  # pylint: disable=invalid-name
         -------
         :func:`pygmt.grd2cpt`
         """
-
         with Session() as lib:
             with lib.virtualfile_from_data(
                 check_kind="raster", data=grid
             ) as vingrid, lib.virtualfile_to_data(
                 kind="dataset", fname=kwargs.get("D")
             ) as vouttbl:
-                kwargs["D"] = vouttbl
+                if kwargs.get("D"):
+                    kwargs["D"] = vouttbl
                 lib.call_module(
                     module="grdhisteq", args=build_arg_string(kwargs, infile=vingrid)
                 )
