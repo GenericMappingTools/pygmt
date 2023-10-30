@@ -13,14 +13,15 @@ by offsetting them from the main scatter plot figure using
 import numpy as np
 import pygmt
 
-np.random.seed(19680801)
-
 # Generate random data from a standard normal distribution centered on 0
-x = np.random.randn(1000)
-y = np.random.randn(1000)
+# with a standard deviation of 1
+rng = np.random.default_rng(seed=19680801)
+x = rng.normal(0, 1, 1000)
+y = rng.normal(0, 1, 1000)
 
 # Get axis limits
 xymax = max(np.max(np.abs(x)), np.max(np.abs(y)))
+
 
 fig = pygmt.Figure()
 fig.basemap(
