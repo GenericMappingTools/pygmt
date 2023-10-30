@@ -8,7 +8,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grdvolume"]
@@ -100,7 +100,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     3  350  2.018302e+12  5.222640e+14  258.764032
     4  400  1.857370e+12  4.252699e+14  228.963499
     """
-    output_type = validate_output_type(output_type, outfile=outfile)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with Session() as lib:
         with lib.virtualfile_from_data(

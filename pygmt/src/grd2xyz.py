@@ -11,7 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grd2xyz"]
@@ -142,7 +142,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     0  10.0  25.0      863.0
     1  10.5  25.0      985.5
     """
-    output_type = validate_output_type(output_type, outfile=outfile)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
