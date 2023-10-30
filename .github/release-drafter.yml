@@ -27,6 +27,19 @@ exclude-contributors:
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
+replaces:
+  - search: '@(\w+)(,\s| and )?'
+    replace: '- [@$1](https://github.com/$1)\n'
+  - search: '@seisman'
+    replace: 'Dongdong Tian'
+  - search: '@maxrjones'
+    replace: 'Max Jones'
+  - search: '@michaelgrund'
+    replace: 'Michael Grund'
+  - search: '@weiji14'
+    replace: 'Wei Ji'
+  - search: 'yvonnefroehlich'
+    replace: 'Yvonne Fröhlich'
 template: |
   ## Release v$RESOLVED_VERSION (20YY/MM/DD)
 
