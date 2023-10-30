@@ -1,7 +1,6 @@
 """
 grdtrack - Sample grids at specified (x,y) locations.
 """
-import warnings
 
 import pandas as pd
 from pygmt.clib import Session
@@ -12,6 +11,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grdtrack"]
@@ -296,21 +296,7 @@ def grdtrack(
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-        )
-
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing 'output_type'  from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if isinstance(points, pd.DataFrame):
         column_names = points.columns.to_list() + [newcolname]
