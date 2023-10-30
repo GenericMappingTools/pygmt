@@ -311,7 +311,7 @@ class Figure:
             but with different extension (e.g. tfw for tif). See
             https://en.wikipedia.org/wiki/World_file#Filename_extension
             for the convention of world file extensions. This parameter only
-            works for raster image formats.
+            works for raster image formats (except GeoTIFF).
         dpi : int
             Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
             for others].
