@@ -12,7 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 from pygmt.io import load_dataarray
 
@@ -321,7 +321,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        output_type = validate_output_type(output_type, outfile=outfile)
+        output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if header is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")

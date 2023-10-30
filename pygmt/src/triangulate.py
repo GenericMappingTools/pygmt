@@ -12,7 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 from pygmt.io import load_dataarray
 
@@ -357,7 +357,7 @@ class triangulate:  # pylint: disable=invalid-name
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        output_type = validate_output_type(output_type, outfile)
+        output_type = validate_output_table_type(output_type, outfile)
 
         # Return a pandas.DataFrame if ``outfile`` is not set
         with GMTTempFile(suffix=".txt") as tmpfile:

@@ -6,7 +6,7 @@ import warnings
 from pygmt.exceptions import GMTInvalidInput
 
 
-def validate_output_type(output_type, outfile=None):
+def validate_output_table_type(output_type, outfile=None):
     """
     Check if the ``output_type`` and ``outfile`` parameters are valid.
 

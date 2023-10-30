@@ -10,7 +10,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 
 
@@ -115,7 +115,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     if kwargs.get("F") is None:
         raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
 
-    output_type = validate_output_type(output_type, outfile=outfile)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
