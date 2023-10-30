@@ -28,7 +28,7 @@ category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
 replaces:
-  - search: '@(\w+)(,\s| and )?'
+  - search: '/@(\w+)(,\s| and )?/g'
     replace: '- [@$1](https://github.com/$1)\n'
   - search: '@seisman'
     replace: 'Dongdong Tian'
