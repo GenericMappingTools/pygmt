@@ -38,7 +38,7 @@ replacers:
     replace: 'Michael Grund'
   - search: '@weiji14'
     replace: 'Wei Ji'
-  - search: 'yvonnefroehlich'
+  - search: '@yvonnefroehlich'
     replace: 'Yvonne Fröhlich'
 template: |
   ## Release v$RESOLVED_VERSION (20YY/MM/DD)
