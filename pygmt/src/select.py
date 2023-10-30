@@ -10,7 +10,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["select"]
@@ -197,7 +197,7 @@ def select(data=None, output_type="pandas", outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
-    output_type = validate_output_type(output_type, outfile=outfile)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with Session() as lib:
         with lib.virtualfile_from_data(

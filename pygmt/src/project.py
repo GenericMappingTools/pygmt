@@ -9,7 +9,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     return_table,
     use_alias,
-    validate_output_type,
+    validate_output_table_type,
 )
 
 
@@ -224,7 +224,7 @@ def project(
             "The `convention` parameter is not allowed with `generate`."
         )
 
-    output_type = validate_output_type(output_type, outfile=outfile)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with Session() as lib:
         with lib.virtualfile_from_data(
