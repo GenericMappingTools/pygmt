@@ -13,8 +13,8 @@ import pygmt
 # Generate a random set of points to plot
 rng = np.random.default_rng(seed=42)
 region = [150, 240, -10, 60]
-x = rng.uniform(region[0], region[1], 100)
-y = rng.uniform(region[2], region[3], 100)
+x = rng.uniform(low=region[0], high=region[1], size=100)
+y = rng.uniform(low=region[2], high=region[3], size=100)
 
 
 fig = pygmt.Figure()
