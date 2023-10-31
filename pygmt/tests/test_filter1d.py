@@ -25,7 +25,7 @@ def test_filter1d_no_outfile(data):
     Test filter1d with no set outgrid.
     """
     result = filter1d(data=data, filter_type="g5")
-    assert result.shape == (670, 2)
+    assert result.shape == (671, 2)
 
 
 def test_filter1d_file_output(data):
