@@ -11,6 +11,7 @@ import time
 import webbrowser
 from collections.abc import Iterable
 
+import numpy as np
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
@@ -308,6 +309,39 @@ def non_ascii_to_octal(argstr):
     # Remove any printable characters
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
     return argstr.translate(str.maketrans(mapping))
+
+
+def kwargs_to_strings(kwargs, **conversions):
+    separators = {
+        "sequence": "/",
+        "sequence_comma": ",",
+        "sequence_plus": "+",
+        "sequence_space": " ",
+    }
+
+    for arg, fmt in conversions.items():
+        if arg in kwargs:
+            if fmt not in separators:
+                raise GMTInvalidInput(
+                    f"Invalid conversion type '{fmt}' for argument '{arg}'."
+                )
+
+            value = kwargs[arg]
+            if is_nonstr_iter(value):
+                for index, item in enumerate(value):
+                    try:
+                        # check if there is a space " " when converting
+                        # a pandas.Timestamp/xr.DataArray to a string.
+                        # If so, use np.datetime_as_string instead.
+                        assert " " not in str(item)
+                    except AssertionError:
+                        # convert datetime-like item to ISO 8601
+                        # string format like YYYY-MM-DDThh:mm:ss.ffffff
+                        value[index] = np.datetime_as_string(
+                            np.asarray(item, dtype=np.datetime64)
+                        )
+                kwargs[arg] = separators[fmt].join(f"{item}" for item in value)
+    return kwargs
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):

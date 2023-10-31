@@ -3,7 +3,8 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers.utils import kwargs_to_strings
 
 
 @fmt_docstring
@@ -23,7 +24,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def basemap(self, **kwargs):
     r"""
     Plot base maps and frames for the figure.
@@ -83,5 +83,7 @@ def basemap(self, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = kwargs_to_strings(kwargs, R="sequence", c="sequence_comma", p="sequence")
+
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_string(kwargs))
