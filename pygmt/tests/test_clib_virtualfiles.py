@@ -1,6 +1,7 @@
 """
 Test the API functions related to virtual files.
 """
+import os
 from contextlib import contextmanager
 from itertools import product
 
@@ -12,6 +13,9 @@ from pygmt import clib
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
+TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+
 
 @pytest.fixture(scope="module", name="dtypes")
 def fixture_dtypes():
@@ -19,6 +23,14 @@ def fixture_dtypes():
     List of supported numpy dtypes.
     """
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
+
+
+@pytest.fixture(scope="module", name="data")
+def fixture_data():
+    """
+    Load the point data from the test file.
+    """
+    return np.loadtxt(POINTS_DATA)
 
 
 @contextmanager
