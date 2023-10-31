@@ -23,9 +23,11 @@ fig.basemap(
     frame=["xa0.5fg", "ya0.5fg", "WSrt"],
 )
 for fill in ["gray73", "darkorange", "slateblue"]:
+    # Generate standard normal distributions centered on 0
+    # with a standard deviation of 1
     x = rng.normal(loc=0, scale=0.5, size=n)  # random x data
     y = rng.normal(loc=0, scale=0.5, size=n)  # random y data
-    size = rng.normal(0, 0.5, n) * 0.5  # random size, in cm
+    size = rng.normal(loc=0, sclae=0.5, size=n) * 0.5  # random size, in cm
 
     # plot data points as circles (style="c"), with different sizes
     fig.plot(
