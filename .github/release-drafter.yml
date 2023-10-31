@@ -37,7 +37,7 @@ replacers:
   - search: '@seisman'
     replace: 'Dongdong Tian'
   - search: '@weiji14'
-    replace: 'Wei Ji'
+    replace: 'Wei Ji Leong'
   - search: '@willschlitzer'
     replace: 'Will Schlitzer'
   - search: '@yvonnefroehlich'
