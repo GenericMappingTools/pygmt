@@ -2,7 +2,6 @@
 Test the C API functions related to virtual files.
 """
 import os
-from contextlib import contextmanager
 from itertools import product
 
 import numpy as np
@@ -12,6 +11,7 @@ import xarray as xr
 from pygmt import clib
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.tests.test_clib import mock
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -31,45 +31,6 @@ def fixture_dtypes():
     List of supported numpy dtypes.
     """
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
-
-
-@contextmanager
-def mock(session, func, returns=None, mock_func=None):
-    """
-    Mock a GMT C API function to make it always return a given value.
-
-    Used to test that exceptions are raised when API functions fail by
-    producing a NULL pointer as output or non-zero status codes.
-
-    Needed because it's not easy to get some API functions to fail without
-    inducing a Segmentation Fault (which is a good thing because libgmt usually
-    only fails with errors).
-    """
-    if mock_func is None:
-
-        def mock_api_function(*args):  # pylint: disable=unused-argument
-            """
-            A mock GMT API function that always returns a given value.
-            """
-            return returns
-
-        mock_func = mock_api_function
-
-    get_libgmt_func = session.get_libgmt_func
-
-    def mock_get_libgmt_func(name, argtypes=None, restype=None):
-        """
-        Return our mock function.
-        """
-        if name == func:
-            return mock_func
-        return get_libgmt_func(name, argtypes, restype)
-
-    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
-
-    yield
-
-    setattr(session, "get_libgmt_func", get_libgmt_func)
 
 
 def test_virtual_file(dtypes):
