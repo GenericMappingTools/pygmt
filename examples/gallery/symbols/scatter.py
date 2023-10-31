@@ -13,18 +13,22 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/scatter_with_legend
 import numpy as np
 import pygmt
 
-np.random.seed(19680801)
+rng = np.random.default_rng(seed=19680801)
 n = 200  # number of random data points
 
 fig = pygmt.Figure()
 fig.basemap(
-    region=[-0.1, 1.1, -0.1, 1.1],
+    region=[-1, 1, -1, 1],
     projection="X10c/10c",
-    frame=["xa0.2fg", "ya0.2fg", "WSrt"],
+    frame=["xa0.5fg", "ya0.5fg", "WSrt"],
 )
 for fill in ["gray73", "darkorange", "slateblue"]:
-    x, y = np.random.rand(2, n)  # random X and Y data in [0,1]
-    size = np.random.rand(n) * 0.5  # random size [0,0.5], in cm
+    # Generate standard normal distributions centered on 0
+    # with standard deviations of 1
+    x = rng.normal(loc=0, scale=0.5, size=n)  # random x data
+    y = rng.normal(loc=0, scale=0.5, size=n)  # random y data
+    size = rng.normal(loc=0, scale=0.5, size=n) * 0.5  # random size, in cm
+
     # plot data points as circles (style="c"), with different sizes
     fig.plot(
         x=x,
