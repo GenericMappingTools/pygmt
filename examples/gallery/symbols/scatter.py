@@ -23,8 +23,8 @@ fig.basemap(
     frame=["xa0.5fg", "ya0.5fg", "WSrt"],
 )
 for fill in ["gray73", "darkorange", "slateblue"]:
-    x = rng.normal(0, 0.5, n)  # random x data
-    y = rng.normal(0, 0.5, n)  # random y data
+    x = rng.normal(loc=0, scale=0.5, size=n)  # random x data
+    y = rng.normal(loc=0, scale=0.5, size=n)  # random y data
     size = rng.normal(0, 0.5, n) * 0.5  # random size, in cm
 
     # plot data points as circles (style="c"), with different sizes
