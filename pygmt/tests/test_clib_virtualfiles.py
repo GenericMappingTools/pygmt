@@ -1,5 +1,5 @@
 """
-Test the API functions related to virtual files.
+Test the C API functions related to virtual files.
 """
 import os
 from contextlib import contextmanager
@@ -17,20 +17,20 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
 
-@pytest.fixture(scope="module", name="dtypes")
-def fixture_dtypes():
-    """
-    List of supported numpy dtypes.
-    """
-    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
-
-
 @pytest.fixture(scope="module", name="data")
 def fixture_data():
     """
     Load the point data from the test file.
     """
     return np.loadtxt(POINTS_DATA)
+
+
+@pytest.fixture(scope="module", name="dtypes")
+def fixture_dtypes():
+    """
+    List of supported numpy dtypes.
+    """
+    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
 @contextmanager
@@ -205,10 +205,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(
-                    x=variable[0],
-                    y=variable[1],
-                )
+                lib.virtualfile_from_data(x=variable[0], y=variable[1])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
