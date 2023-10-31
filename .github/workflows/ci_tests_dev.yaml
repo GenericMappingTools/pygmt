@@ -78,7 +78,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.0.2
+        uses: peter-evans/create-or-update-comment@v3.1.0
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
