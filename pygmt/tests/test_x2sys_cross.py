@@ -110,8 +110,8 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         # Create pandas.DataFrame track tables
         tracks = []
         for i in range(2):
-            np.random.seed(seed=i)
-            track = pd.DataFrame(data=np.random.rand(10, 3), columns=("x", "y", "z"))
+            rng = np.random.default_rng(seed=i)
+            track = pd.DataFrame(data=rng.random((10, 3)), columns=("x", "y", "z"))
             track["time"] = pd.date_range(start=f"2020-{i}1-01", periods=10, freq="min")
             tracks.append(track)
 
@@ -160,11 +160,11 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
 
         # Create temporary xyz files
         for i in range(2):
-            np.random.seed(seed=i)
+            rng = np.random.default_rng(seed=i)
             with open(
                 os.path.join(os.getcwd(), f"track_{i}.xyz"), mode="w", encoding="utf8"
             ) as fname:
-                np.savetxt(fname=fname, X=np.random.rand(10, 3))
+                np.savetxt(fname=fname, X=rng.random((10, 3)))
 
         output = x2sys_cross(tracks=["track_0.xyz", "track_1.xyz"], tag=tag, coe="e")
 
