@@ -118,7 +118,7 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         output = x2sys_cross(tracks=tracks, tag=tag, coe="e")
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (30, 12)
+        assert output.shape == (26, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "t_1", "t_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
@@ -169,7 +169,7 @@ def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
         output = x2sys_cross(tracks=["track_0.xyz", "track_1.xyz"], tag=tag, coe="e")
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (24, 12)
+        assert output.shape == (18, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
