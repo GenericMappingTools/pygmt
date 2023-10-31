@@ -1,5 +1,4 @@
 # pylint: disable=protected-access
-# pylint: disable=redefined-outer-name
 """
 Test the wrappers for the C API.
 """
