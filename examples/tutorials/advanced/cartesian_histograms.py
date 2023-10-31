@@ -30,8 +30,8 @@ mean = 100
 stddev = 20
 
 # Create two data sets
-data01 = rng.normal(mean, stddev, 42)
-data02 = rng.normal(mean, stddev * 2, 42)
+data01 = rng.normal(loc=mean, scale=stddev, size=42)
+data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
