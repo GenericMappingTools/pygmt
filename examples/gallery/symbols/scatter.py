@@ -27,7 +27,7 @@ for fill in ["gray73", "darkorange", "slateblue"]:
     # with standard deviations of 1
     x = rng.normal(loc=0, scale=0.5, size=n)  # random x data
     y = rng.normal(loc=0, scale=0.5, size=n)  # random y data
-    size = rng.normal(loc=0, sclae=0.5, size=n) * 0.5  # random size, in cm
+    size = rng.normal(loc=0, scale=0.5, size=n) * 0.5  # random size, in cm
 
     # plot data points as circles (style="c"), with different sizes
     fig.plot(
