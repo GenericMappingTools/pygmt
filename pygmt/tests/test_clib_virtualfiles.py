@@ -13,6 +13,11 @@ from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
+
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
@@ -325,12 +330,9 @@ def test_virtualfile_from_vectors_pandas(dtypes):
     pyarrow dtypes.
     """
     size = 13
-    try:
-        pd.ArrowDtype(pyarrow_dtype="bool")  # check is pyarrow is installed
-
+    if pa is not None:
         dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
-    except ImportError:
-        pass
+
     for dtype in dtypes:
         data = pd.DataFrame(
             data={
