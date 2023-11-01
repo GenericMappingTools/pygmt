@@ -46,9 +46,8 @@ fig.show()
 # * ``offset``: Shifts the text relatively to the reference point.
 # * ``fill``: Fills the text box with a color.
 # * ``pen``: Outlines the text box.
-# * ``clearance``: Defines the margins in x and y directions between the text
-#   and the borders of the text box. Can be used to force a text box with
-#   rounded corners.
+# * ``clearance``: Adds a margin in x and y directions between the text and the
+#   borders of the text box. Can be used to get a text box with rounded edges.
 
 fig = pygmt.Figure()
 
@@ -57,12 +56,16 @@ fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Change the font size, family/weight, color of the text
-fig.text(x=0, y=3, text="My text", font="12p,Helvetica-Bold,blue")
+fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
+
 # Rotate the text by 30 degrees counter-clockwise from the horizontal
-fig.text(x=0, y=0, text="My text", angle=30)
-# Shift the text relatively to the x and y positions by 0.7 centimeters to the
-# right (positive x direction) and 0.2 centimeters down (negative y direction)
-fig.text(x=0, y=-3, text="My text", offset="0.7c/-0.2c")
+fig.text(x=0, y=0, text="my text", angle=30)
+
+# Shift the text relatively to the x and y positions by 1 centimeter to the
+# right (positive x direction) and 0.5 centimeters down (negative y direction)
+fig.plot(x=0, y=-3, style="s0.2c", fill="darkorange", pen="0.7p,darkgray")
+fig.text(x=0, y=-3, text="my text")
+fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
 
 fig.shift_origin(xshift="+w0.5c")
 
@@ -75,12 +78,12 @@ fig.plot(
     x=[-0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0, 0.5],
     y=[0.5, 0.5, 0.5, 0, 0, 0, -0.5, -0.5, -0.5],
     style="s0.2c",
-    fill="darkred",
-    pen="0.7p,pink",
+    fill="darkorange",
+    pen="0.7p,darkgray",
 )
 
-# Plot text labels at the same position as the markers but
-# with different justifications
+# Plot text at the same x and y positions as the markers
+# but with varying justifications
 fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
 fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
 fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
@@ -97,14 +100,18 @@ fig.shift_origin(xshift="+w0.5c")
 # Right: "fill", "pen", and "clearance" parameters
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
 
-# Add box with green fill
+# Add a box with a fill in green color
 fig.text(x=0, y=3, text="My text", fill="green")
-# Add box with an seagreen, 0.5 points thick, solid outline
-fig.text(x=0, y=1, text="My text", pen="0.5p,seagreen,solid")
-# Add box with a margin in x and y directions of 0.2 centimeters
-fig.text(x=0, y=-1, text="My text", pen="0.5p,seagreen,solid", clearance="0.2c/0.2c")
-# Add outline with rounded corners
-fig.text(x=0, y=-3, text="My text", pen="0.5p,seagreen,solid", clearance="+tO")
+
+# Add box with a seagreen, 1 point thick, solid outline
+fig.text(x=0, y=1, text="My text", pen="1p,seagreen,solid")
+
+# Add a margin between the text and border of the text box of 0.1 centimeters
+# in x direction and 0.2 centimeters in y direction
+fig.text(x=0, y=-1, text="My text", pen="1p,seagreen,dashed", clearance="0.2c/0.2c")
+
+# Get rounded edges by appending "+tO" to the "clearance" parameter
+fig.text(x=0, y=-3, text="My text", pen="1p,seagreen,solid", clearance="0.2c/0.2c+tO")
 
 fig.show()
 
