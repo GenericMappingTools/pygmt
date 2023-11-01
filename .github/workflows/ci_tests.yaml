@@ -149,9 +149,22 @@ jobs:
       - name: Install the package
         run: make install
 
+      # Run Codecov Automated Test Selection
+      - name: Run ATS
+        uses: codecov/codecov-ats@v0
+        env:
+          CODECOV_STATIC_TOKEN: ${{ secrets.CODECOV_STATIC_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # Run Selected tests
+      - name: Run selected tests
+        run: make test PYTEST_EXTRA="-r P ${{ env.CODECOV_ATS_TESTS}}"
+        if: github.event_name == 'pull_request'
+
       # Run the regular tests
       - name: Run tests
         run: make test PYTEST_EXTRA="-r P"
+        if: github.event_name != 'pull_request'
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
@@ -163,8 +176,12 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v4-beta
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
+          flags: smart-tests
+          plugins: pycoverage,compress-pycoverage
