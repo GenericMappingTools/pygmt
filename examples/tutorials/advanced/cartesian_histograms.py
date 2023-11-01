@@ -22,7 +22,7 @@ import pygmt
 # %%
 # Generate random data from a normal distribution:
 
-np.random.seed(100)
+rng = np.random.default_rng(seed=100)
 
 # Mean of distribution
 mean = 100
@@ -30,8 +30,8 @@ mean = 100
 stddev = 20
 
 # Create two data sets
-data01 = np.random.normal(mean, stddev, 42)
-data02 = np.random.normal(mean, stddev * 2, 42)
+data01 = rng.normal(loc=mean, scale=stddev, size=42)
+data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 # %%
