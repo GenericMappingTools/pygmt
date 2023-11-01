@@ -19,7 +19,7 @@ import pygmt
 # parameters to specify the text and position within the plot frame.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="af")
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 fig.text(text="My text", x=0, y=0)
 
@@ -32,50 +32,72 @@ fig.show()
 #
 # There are several optional parameters to adjust a text label:
 #
-# * ``font``: Sets the size, family/weight, and color of the text.
-#   A list of all recognized fonts can be found at
+# * ``font``: Sets size, family/weight, and color of the font for the text.
 #   :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
 #   including details of how to use non-default fonts.
-# * ``angle``: Specifies the counter-clockwise rotation from the horizontal in
-#   degrees of the text.
-# * ``justify``: Defines the anchor point for the bounding box for the text.
+# * ``angle``: Specifies the rotation of the text. It is measured counter-
+#   clockwise from the horizontal in degrees.
+# * ``justify``: Defines the anchor point of the bounding box for the text.
 #   It is specified by a two-letter (order independent) code, chosen from:
 #
 #   * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
 #   * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 #
-# * ``offset``: Shifts the text label relative to the reference point.
+# * ``offset``: Shifts the text relatively to the reference point.
 #   This can be useful when adding a label to a data point.
-# * ``fill``: Sets the fill color of the text box.
-# * ``pen``: Adds an outline to the text box. Give thickness,color,style.
-# * ``clearance``: Adds a margin between the text and the box. Can be used to
+# * ``fill``: Adds a fill color to the text box.
+# * ``pen``: Adds an outline to the text box.
+# * ``clearance``: Defines the margin between text and box. Can be used to
 #   force a text box with rounded corners.
 
 fig = pygmt.Figure()
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WSte", "af"])
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
 # Change font size, family/weight, color
-fig.text(x=0, y=2, text="My Text", font="12p,Helvetica-Bold,blue")
+fig.text(x=0, y=3, text="My text", font="12p,Helvetica-Bold,blue")
 # Rotate text by 30 degrees counter-clockwise from the horizontal
-fig.text(x=0, y=0, text="My Text", angle=30)
-# Set the anchor point to TopLeft
-fig.text(x=0, y=-2, text="My Text", justify="TL")
-# Offset text by 0.2 centimeters in x and y-directions
-fig.text(x=0, y=-4, text="My Text", offset="1c/-0.2c")
+fig.text(x=0, y=0, text="My text", angle=30)
+# Shift text relatively to the x and y positions by 0.7 centimeters to the
+# right (position x directions) and 0.2 centimeters down (negative y direction)
+fig.text(x=0, y=-3, text="My text", offset="0.7c/-0.2c")
 
 # -----------------------------------------------------------------------------
 fig.shift_origin(xshift="+w0.5c")
 
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["wStr", "af"])
+fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame="rtlb")
+
+fig.plot(
+    x=[-0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0, 0.5],
+    y=[0.5, 0.5, 0.5, 0, 0, 0, -0.5, -0.5, -0.5],
+    style="s0.2c",
+    fill="darkred",
+    pen="0.7p,pink",
+)
+
+# Plot text labels with different justifications
+fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
+fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
+fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
+fig.text(x=-0.5, y=0, text="ML", justify="ML")  # MiddleLeft
+fig.text(x=0, y=0, text="MC", justify="MC")  # MiddleCenter
+fig.text(x=0.5, y=0, text="MR", justify="MR")  # MiddleRight
+fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # BottomLeft
+fig.text(x=0, y=-0.5, text="BC", justify="BC")  # BottomCenter
+fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # BottomRight
+
+# -----------------------------------------------------------------------------
+fig.shift_origin(xshift="+w0.5c")
+
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
 
 # Add box with green fill
-fig.text(x=0, y=2, text="My text", fill="green")
+fig.text(x=0, y=3, text="My text", fill="green")
 # Add box with an seagreen, 0.5 points thick, solid outline
-fig.text(x=0, y=0, text="My text", pen="0.5p,seagreen,solid")
-# Add box with a margin in x and y directions
-fig.text(x=0, y=-2, text="My text", pen="0.5p,seagreen,solid", clearance="0.2c/0.2c")
-# Add outline with roundet corners
-fig.text(x=0, y=-4, text="My text", pen="0.5p,seagreen,solid", clearance="+tO")
+fig.text(x=0, y=1, text="My text", pen="0.5p,seagreen,solid")
+# Add box with a margin in x and y directions of 0.2 centimeters
+fig.text(x=0, y=-1, text="My text", pen="0.5p,seagreen,solid", clearance="0.2c/0.2c")
+# Add outline with rounded corners
+fig.text(x=0, y=-3, text="My text", pen="0.5p,seagreen,solid", clearance="+tO")
 
 fig.show()
 
