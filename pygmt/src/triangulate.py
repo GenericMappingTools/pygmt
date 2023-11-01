@@ -2,7 +2,6 @@
 triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
-import warnings
 
 import pandas as pd
 from pygmt.clib import Session
@@ -13,6 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 from pygmt.io import load_dataarray
 
@@ -357,20 +357,7 @@ class triangulate:  # pylint: disable=invalid-name
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        # Return a pandas.DataFrame if ``outfile`` is not set
-        if output_type not in ["numpy", "pandas", "file"]:
-            raise GMTInvalidInput(
-                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-            )
-
-        if isinstance(outfile, str) and output_type != "file":
-            msg = (
-                f"Changing 'output_type' from '{output_type}' to 'file' "
-                "since 'outfile' parameter is set. Please use output_type='file' "
-                "to silence this warning."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            output_type = "file"
+        output_type = validate_output_table_type(output_type, outfile)
 
         # Return a pandas.DataFrame if ``outfile`` is not set
         with GMTTempFile(suffix=".txt") as tmpfile:

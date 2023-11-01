@@ -1,12 +1,17 @@
 """
 filter1d - Time domain filtering of 1-D data tables
 """
-import warnings
 
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers import (
+    GMTTempFile,
+    build_arg_string,
+    fmt_docstring,
+    use_alias,
+    validate_output_table_type,
+)
 
 
 @fmt_docstring
@@ -109,18 +114,8 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
     """
     if kwargs.get("F") is None:
         raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing `output_type` of filter1d from '{output_type}' to 'file' "
-            "since `outfile` parameter is set. Please use `output_type='file'` "
-            "to silence this warning."
-        )
-        warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif output_type == "file" and outfile is None:
-        raise GMTInvalidInput("Must specify outfile for ASCII output.")
+
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
@@ -135,7 +130,7 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
+            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 

@@ -32,12 +32,6 @@ jobs:
     - name: Setup continuous machine learning (CML)
       uses: iterative/setup-cml@v2.0.0
 
-    # workaround from https://github.com/iterative/cml/issues/1377
-    - name: Setup NodeJS
-      uses: actions/setup-node@v3.8.1
-      with:
-        node-version: '16'
-
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
     #
@@ -76,7 +70,7 @@ jobs:
         cp pygmt/tests/baseline/*.png pygmt/tests/baseline-new/
         # Pull images in the main branch from cloud storage
         git checkout main
-        dvc pull --remote upstream
+        dvc pull --remote upstream --force
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
