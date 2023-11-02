@@ -204,7 +204,7 @@ def plot3d(
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
+    if is_nonstr_iter(kwargs.get("G")):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
@@ -219,7 +219,7 @@ def plot3d(
         extra_arrays.append(size)
 
     for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
+        if is_nonstr_iter(kwargs.get(flag)):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
