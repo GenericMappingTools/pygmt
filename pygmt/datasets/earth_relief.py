@@ -4,6 +4,9 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from collections.abc import Sequence
+from typing import Literal, Union
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -14,9 +17,9 @@ __doctest_skip__ = ["load_earth_relief"]
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(
     resolution="01d",
-    region=None,
-    registration=None,
-    data_source="igpp",
+    region: Union[str, Sequence, None] = None,
+    registration: Literal["gridline", "pixel", None] = None,
+    data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm=False,
 ):
     r"""
@@ -63,18 +66,18 @@ def load_earth_relief(
         ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``,
         ``"03s"``, or ``"01s"``.
 
-    region : str or list
+    region
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for Earth relief grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
         for all resolutions except ``"15s"`` which is ``"pixel"`` only.
 
-    data_source : str
+    data_source
         Select the source for the Earth relief data. Available options are:
 
         - ``"igpp"``: IGPP Earth Relief [Default option]. See
