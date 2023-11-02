@@ -21,3 +21,4 @@ from pygmt.helpers.utils import (
     launch_external_viewer,
     non_ascii_to_octal,
 )
+from pygmt.helpers.validators import validate_output_table_type

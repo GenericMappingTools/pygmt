@@ -252,17 +252,37 @@ class Figure:
             )
 
     def savefig(
-        self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
+        self,
+        fname,
+        transparent=False,
+        crop=True,
+        anti_alias=True,
+        show=False,
+        worldfile=False,
+        **kwargs,
     ):
         """
-        Save the figure to a file.
+        Save the figure to an image file.
 
-        This method implements a matplotlib-like interface for
-        :meth:`pygmt.Figure.psconvert`.
+        Supported image formats and their extensions:
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg`` or ``.jpeg``),
-        PDF (``.pdf``), BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and
-        KML (``.kml``). The KML output generates a companion PNG file.
+        **Raster image formats**
+
+        - BMP (``.bmp``)
+        - JPEG (``.jpg`` or ``.jpeg``)
+        - GeoTIFF (``.tiff``)
+        - PNG (``.png``)
+        - PPM (``.ppm``)
+        - TIFF (``.tif``)
+
+        **Vector image formats**
+
+        - EPS (``.eps``)
+        - PDF (``.pdf``)
+
+        Beside the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML
+        file can be viewed in Google Earth.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -278,13 +298,20 @@ class Figure:
         crop : bool
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images
-            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
-            and ``g2`` to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
-            graphics.
+            If ``True``, will use anti-aliasing when creating raster images.
+            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
+            to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
         show: bool
             If ``True``, will open the figure in an external viewer.
+        worldfile : bool
+            If ``True``, will create a companion
+            `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
+            figure. The world file will have the same name as the figure file
+            but with different extension (e.g. tfw for tif). See
+            https://en.wikipedia.org/wiki/World_file#Filename_extension
+            for the convention of world file extensions. This parameter only
+            works for raster image formats (except GeoTIFF).
         dpi : int
             Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
             for others].
@@ -293,23 +320,30 @@ class Figure:
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
+        # pylint: disable=too-many-branches
         # All supported formats
         fmts = {
-            "png": "g",
-            "pdf": "f",
-            "jpg": "j",
             "bmp": "b",
             "eps": "e",
-            "tif": "t",
+            "jpg": "j",
             "kml": "g",
+            "pdf": "f",
+            "png": "g",
+            "ppm": "m",
+            "tif": "t",
+            "tiff": None,  # GeoTIFF doesn't need the -T option
         }
 
         fname = Path(fname)
         prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
         ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
-        # alias jpeg to jpg
-        if ext == "jpeg":
+
+        if ext == "jpeg":  # Alias jpeg to jpg
             ext = "jpg"
+        elif ext == "tiff":  # GeoTIFF
+            kwargs["W"] = "+g"
+        elif ext == "kml":  # KML
+            kwargs["W"] = "+k"
 
         if ext not in fmts:
             if ext == "ps":
@@ -328,10 +362,21 @@ class Figure:
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
-        if ext == "kml":
-            kwargs["W"] = "+k"
+
+        if worldfile:
+            if ext in ["eps", "kml", "pdf", "tiff"]:
+                raise GMTInvalidInput(
+                    f"Saving a world file is not supported for '{ext}' format."
+                )
+            kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # Remove the .pgw world file if exists
+        # Not necessary after GMT 6.5.0.
+        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
+        if ext == "tiff" and fname.with_suffix(".pgw").exists():
+            fname.with_suffix(".pgw").unlink()
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:

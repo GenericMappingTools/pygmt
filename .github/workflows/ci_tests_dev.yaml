@@ -3,10 +3,8 @@
 # This workflow runs regular PyGMT tests with the GMT dev version, and also
 # pre-release versions of several dependencies like NumPy, Pandas, Xarray, etc.
 # If any tests fail, it also uploads the diff images as workflow artifacts.
-# On Linux/macOS, GMT dev version is installed by fetching the latest source
-# codes from the GMT master branch and compiling.
-# On Windows, GMT dev version is installed from the conda-forge's dev channel
-# due to the complexity of building GMT source codes on Windows.
+# The GMT dev version is installed by fetching the latest source codes from
+# the GMT master branch and compiling.
 #
 # It is triggered when a pull request is marked as "ready as review", or using
 # the slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
@@ -53,7 +51,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         if: github.event_name != 'repository_dispatch'
         with:
           # fetch all history so that setuptools-scm works
@@ -70,7 +68,7 @@ jobs:
 
       # Checkout the pull request branch
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         if: github.event_name == 'repository_dispatch'
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -80,7 +78,7 @@ jobs:
           fetch-depth: 0
 
       - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.0.2
+        uses: peter-evans/create-or-update-comment@v3.1.0
         if: github.event_name == 'repository_dispatch' && (matrix.os == 'ubuntu-latest')
         with:
           token: ${{ steps.generate-token.outputs.token }}
@@ -90,7 +88,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.4.4
+        uses: mamba-org/setup-micromamba@v1.5.0
         with:
           environment-name: pygmt
           condarc: |
@@ -106,7 +104,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript
+            ghostscript=9.54.0
             hdf5
             libblas
             libcblas
@@ -115,6 +113,38 @@ jobs:
             libnetcdf
             pcre
             zlib
+
+      # Build and install latest GMT from GitHub
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
+        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
+        env:
+          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
+          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+        if: runner.os != 'Windows'
+
+      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
+        shell: cmd
+        run: |
+          git clone --depth=1 --single-branch --branch ${{ env.GMT_GIT_REF }} https://github.com/GenericMappingTools/gmt
+          cd gmt/
+          mkdir build
+          cd build
+          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          cmake -G Ninja .. ^
+            -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} ^
+            -DCMAKE_BUILD_TYPE=Release ^
+            -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}\envs\pygmt\Library ^
+            -DGMT_ENABLE_OPENMP=TRUE ^
+            -DGMT_USE_THREADS=TRUE
+          cmake --build .
+          cmake --build . --target install
+        env:
+          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
+          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+        if: runner.os == 'Windows'
+
+      - name: Add GMT's bin to PATH
+        run: echo '${{ github.workspace }}/gmt-install-dir/bin' >> $GITHUB_PATH
 
       # Install dependencies from PyPI
       - name: Install dependencies
@@ -135,18 +165,6 @@ jobs:
         run: |
           dvc pull
           ls -lhR pygmt/tests/baseline/
-
-      # Build and install latest GMT from GitHub
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
-        env:
-          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
-          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
-        if: runner.os != 'Windows'
-
-      - name: Install GMT dev version from conda-forge (Windows)
-        run: micromamba install -c conda-forge/label/dev gmt
-        if: runner.os == 'Windows'
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
@@ -170,21 +188,11 @@ jobs:
       - name: Install the package
         run: make install
 
-      - name: Add GMT's bin to PATH (Linux/macOS)
-        run: echo ${GITHUB_WORKSPACE}/gmt-install-dir/bin >> $GITHUB_PATH
-        if: runner.os != 'Windows'
-
       # Run the tests
-      - name: Test with pytest (Linux/macOS)
+      - name: Test with pytest
         run: make test PYTEST_EXTRA="-r P"
         env:
           GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
-        if: runner.os != 'Windows'
-
-      # Run the tests
-      - name: Test with pytest (Windows)
-        run: make test PYTEST_EXTRA="-r P"
-        if: runner.os == 'Windows'
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails

@@ -11,10 +11,11 @@ import numpy as np
 import pygmt
 
 # Generate a random set of points to plot
-np.random.seed(42)
+rng = np.random.default_rng(seed=42)
 region = [150, 240, -10, 60]
-x = np.random.uniform(region[0], region[1], 100)
-y = np.random.uniform(region[2], region[3], 100)
+x = rng.uniform(low=region[0], high=region[1], size=100)
+y = rng.uniform(low=region[2], high=region[3], size=100)
+
 
 fig = pygmt.Figure()
 # Create a 15 cm x 15 cm basemap with a Cartesian projection (X) using the
