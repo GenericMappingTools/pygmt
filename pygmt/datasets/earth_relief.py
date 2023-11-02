@@ -4,6 +4,9 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from collections.abc import Sequence
+from typing import Literal, Union
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -13,11 +16,11 @@ __doctest_skip__ = ["load_earth_relief"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_relief(
-    resolution="01d",
-    region=None,
-    registration=None,
-    data_source="igpp",
-    use_srtm=False,
+    resolution: str = "01d",
+    region: Union[str, Sequence, None] = None,
+    registration: Literal["registration", "pixel", None] = None,
+    data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
+    use_srtm: bool = False,
 ):
     r"""
     Load the Earth relief datasets (topography and bathymetry) in various
