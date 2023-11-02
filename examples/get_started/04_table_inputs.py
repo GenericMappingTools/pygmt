@@ -113,7 +113,7 @@ fig.show()
 # ---------------------------
 #
 # In addition to the ``data`` parameter, some PyGMT functions/methods also
-# provide invididual parameters (e.g., ``x`` and ``y`` for data coordinates)
+# provide individual parameters (e.g., ``x`` and ``y`` for data coordinates)
 # which allow you to specify the data. These parameters accept individual
 # scalar values or 1-D arrays (lists or 1-D numpy arrays). This is useful if
 # you want to plot a single data point or already have 1-D arrays of data in
