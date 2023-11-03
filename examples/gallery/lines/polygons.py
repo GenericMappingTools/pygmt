@@ -15,7 +15,6 @@ parameter as shown in the example below.
 """
 
 import geopandas as gpd
-import numpy as np
 import pygmt
 
 # Read polygon data using geopandas
