@@ -1,6 +1,6 @@
 """
-Filled polygons
-===============
+Choropleth Map
+==============
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
