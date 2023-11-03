@@ -7,10 +7,10 @@ as polygons which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as
 a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. You can also
 use a full URL pointing to your desired data source. Then, pass the
-:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter in
+:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
 :meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
 To fill the polygons based on a corresponding column you need to set
-``fill="+z"```as well as select the appropriate column using the ``aspatial``
+``fill="+z"`` as well as select the appropriate column using the ``aspatial``
 parameter as shown in the example below.
 """
 
@@ -27,23 +27,20 @@ edge = 0.02
 
 fig = pygmt.Figure()
 
-fig.coast(
+fig.basemap(
     region=[bounds[0] - edge, bounds[2] + edge, bounds[1] - edge, bounds[3] + edge],
     projection="M10c",
-    frame=["af", "+tPopulation of Chicago"],
-    water="lightblue",
-    land="gray70",
-    shorelines="1/1p,gray70",
+    frame="+tPopulation of Chicago",
 )
 
 # The dataset contains different parameters, here we select
 # the "population" column to plot.
 
 # First, we define the colormap to fill the polygons based on
-# only the "population" column.
+# the "population" column.
 pygmt.makecpt(
     cmap="acton",
-    series=[np.min(gdf["population"]), np.max(gdf["population"]), 10],
+    series=[gdf["population"].min(), gdf["population"].max(), 10],
     continuous=True,
     reverse=True,
 )
