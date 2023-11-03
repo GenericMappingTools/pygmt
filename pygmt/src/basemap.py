@@ -2,8 +2,27 @@
 basemap - Plot base maps and frames for the figure.
 """
 
+from typing import Any, TypedDict, Unpack
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+
+
+class Parameters(TypedDict):
+    region: Any
+    projection: Any
+    zscale: Any
+    zsize: Any
+    frame: Any
+    map_scale: Any
+    box: Any
+    rose: Any
+    compass: Any
+    verbose: bool
+    panel: Any
+    coltypes: Any
+    perspective: Any
+    transparency: Any
 
 
 @fmt_docstring
@@ -24,7 +43,7 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+def basemap(self, **kwargs: Unpack[Parameters]):
     r"""
     Plot base maps and frames for the figure.
 
