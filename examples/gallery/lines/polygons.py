@@ -19,15 +19,12 @@ import pygmt
 
 # Read polygon data using geopandas
 gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab//data/airbnb.zip")
-# Automatically get min/max coordinates of polygon set
-bounds = gdf.total_bounds
-# Define an edge in degrees to add in each direction to the min/max coordinates
-edge = 0.02
 
 fig = pygmt.Figure()
 
 fig.basemap(
-    region=[bounds[0] - edge, bounds[2] + edge, bounds[1] - edge, bounds[3] + edge],
+    # Automatically get min/max coordinates of polygon set
+    region=gdf.total_bounds[[0, 2, 1, 3]],
     projection="M10c",
     frame="+tPopulation of Chicago",
 )
