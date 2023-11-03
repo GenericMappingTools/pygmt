@@ -1,6 +1,8 @@
 """
 text - Plot text on a figure.
 """
+from typing import TypedDict
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -15,6 +17,12 @@ from pygmt.helpers import (
 )
 
 
+class Paragraph(TypedDict):
+    linewidth: str
+    width: str
+    justify: str
+
+
 @fmt_docstring
 @use_alias(
     R="region",
@@ -23,6 +31,7 @@ from pygmt.helpers import (
     C="clearance",
     D="offset",
     G="fill",
+    M="paragraph",
     N="no_clip",
     V="verbose",
     W="pen",
@@ -52,6 +61,7 @@ def text_(
     angle=None,
     font=None,
     justify=None,
+    paragraph: Paragraph = None,
     **kwargs,
 ):
     r"""
