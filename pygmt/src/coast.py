@@ -1,6 +1,7 @@
 """
 coast - Plot land and water.
 """
+from typing import Any, Literal
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -36,7 +37,26 @@ __doctest_skip__ = ["coast"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    region: Any = None,
+    projection: Any = None,
+    area_thresh: Any = None,
+    frame: Any = None,
+    resolution: Literal["f", "h", "i", "l", "c", "a", None] = None,
+    land: Any = None,
+    water: Any = None,
+    rivers: Any = None,
+    borders: Any = None,
+    lakes: Any = None,
+    map_scale: Any = None,
+    dcw: Any = None,
+    shorelines: Any = None,
+    perspective: Any = None,
+    transparency: Any = None,
+    verbose: Any = None,
+    **kwargs,
+):
     r"""
     Plot continents, shorelines, rivers, and borders on maps.
 
