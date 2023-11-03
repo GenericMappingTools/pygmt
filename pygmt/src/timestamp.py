@@ -14,7 +14,7 @@ def timestamp(
     self,
     text=None,
     label=None,
-    justification="BR",
+    justification="BL",
     offset=("-54p", "-54p"),
     font="Helvetica,black",
     timefmt="%Y %b %d %H:%M:%S",
