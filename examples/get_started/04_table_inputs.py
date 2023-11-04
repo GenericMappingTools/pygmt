@@ -10,8 +10,8 @@ Generally, PyGMT accepts two different types of data inputs: tables and grids.
 - A grid is a 2-D array of data that is regularly spaced in the x and y
   directions (or longitude and latitude). 
 
-In this tutorial, we'll focus on working with table inputs, and cover grid inputs
-in the following tutorials.
+In this tutorial, we'll focus on working with table inputs, and cover grid
+inputs in a separate tutorial.
 
 PyGMT supports a variety of table input types that allow you to work with data
 in a format that suits your needs. In this tutorial, we'll explore the
@@ -20,7 +20,7 @@ By understanding the different table input types, you can choose the one that
 best fits your data and analysis needs, and work more efficiently with PyGMT.
 """
 
-#%%
+# %%
 from pathlib import Path
 
 import geopandas as gpd
