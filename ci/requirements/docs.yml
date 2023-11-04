@@ -5,7 +5,7 @@ channels:
 dependencies:
     # Required dependencies
     - gmt=6.4.0
-    - ghostscript=10.02.0
+    - ghostscript=10.02.1
     - numpy>=1.22
     - pandas
     - xarray
