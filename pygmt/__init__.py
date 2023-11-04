@@ -109,6 +109,8 @@ def show_versions(file=sys.stdout):
     import platform
     import subprocess
 
+    from packaging.requirements import Requirement
+
     def _get_module_version(modname):
         """
         Get version information of a Python module.
@@ -153,17 +155,7 @@ def show_versions(file=sys.stdout):
         "machine": platform.platform(),
     }
 
-    deps = [
-        "numpy",
-        "pandas",
-        "xarray",
-        "netCDF4",
-        "packaging",
-        "contextily",
-        "geopandas",
-        "IPython",
-        "rioxarray",
-    ]
+    deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
 
     print("PyGMT information:", file=file)
     print(f"  version: {__version__}", file=file)
