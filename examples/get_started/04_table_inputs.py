@@ -4,11 +4,11 @@
 
 Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
-- A table is a 2-D array with rows and columns. Each column represents a 
-  different variable (e.g., *x*, *y* and *z*) and each row represents a 
+- A table is a 2-D array with rows and columns. Each column represents a
+  different variable (e.g., *x*, *y* and *z*) and each row represents a
   different record.
 - A grid is a 2-D array of data that is regularly spaced in the x and y
-  directions (or longitude and latitude). 
+  directions (or longitude and latitude).
 
 In this tutorial, we'll focus on working with table inputs, and cover grid
 inputs in a separate tutorial.
@@ -116,7 +116,7 @@ fig.show()
 # In addition to the ``data`` parameter, some PyGMT functions/methods also
 # provide individual parameters (e.g., ``x`` and ``y`` for data coordinates)
 # which allow you to specify the data. These parameters accept individual
-# scalar values or 1-D arrays (lists or 1-D numpy arrays). 
+# scalar values or 1-D arrays (lists or 1-D numpy arrays).
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
