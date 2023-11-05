@@ -177,7 +177,7 @@ def grdimage(self, grid, **kwargs):
 
     # Special handling of -A option.
     # For -A option, the syntax is different for GMT CLI and external wrappers.
-    # For GMT CLI, "gmt grdimage ingrid.nc -Aimg_out;xxx".
+    # For GMT CLI, "gmt grdimage ingrid.nc -Aimg_out.xxx".
     # For external wrappers, "gmt grdimage ingrid.nc -A > img_out.xxx".
     outfile = kwargs.pop("A", None)
     if outfile is not None:
