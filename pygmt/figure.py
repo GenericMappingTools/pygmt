@@ -520,6 +520,7 @@ class Figure:
 
     from pygmt.src import (  # pylint: disable=import-outside-toplevel
         basemap,
+        choropleth,
         coast,
         colorbar,
         contour,
