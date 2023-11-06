@@ -23,7 +23,6 @@ gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab/data/airbnb.zip"
 fig = pygmt.Figure()
 
 fig.basemap(
-    # Automatically get min/max coordinates of polygon set
     region=gdf.total_bounds[[0, 2, 1, 3]],
     projection="M10c",
     frame="+tPopulation of Chicago",
