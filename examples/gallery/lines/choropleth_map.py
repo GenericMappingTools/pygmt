@@ -18,7 +18,7 @@ import geopandas as gpd
 import pygmt
 
 # Read polygon data using geopandas
-gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab//data/airbnb.zip")
+gdf = gpd.read_file("https://geodacenter.github.io/data-and-lab/data/airbnb.zip")
 
 fig = pygmt.Figure()
 
@@ -29,7 +29,7 @@ fig.basemap(
     frame="+tPopulation of Chicago",
 )
 
-# The dataset contains different parameters, here we select
+# The dataset contains different attributes, here we select
 # the "population" column to plot.
 
 # First, we define the colormap to fill the polygons based on
