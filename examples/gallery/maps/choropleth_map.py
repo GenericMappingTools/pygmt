@@ -54,6 +54,6 @@ fig.plot(
 
 
 # Add colorbar legend
-fig.colorbar(frame="x+lPopulation")
+fig.colorbar(frame="x+lPopulation", position="jML+w6c/0.5c")
 
 fig.show()
