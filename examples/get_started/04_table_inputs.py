@@ -51,7 +51,7 @@ fig.show()
 Path("input_data.dat").unlink()
 
 # %%
-# Besides a plain string to a table file, following variants are also accepted:
+# Besides a plain string to a table file, the following variants are also accepted:
 #
 # - A :class:`pathlib.Path` object.
 # - A full URL. PyGMT will download the file to the current directory first.
@@ -139,7 +139,7 @@ fig.show()
 # ----------
 #
 # In PyGMT, you have the flexibility to provide data in various table input
-# types, including file names, 2-D array (2-D list, :class:`numpy.ndarray`,
+# types, including file names, 2-D arrays (2-D list, :class:`numpy.ndarray`,
 # :class:`pandas.DataFrames`), scalar values or a series of 1-D arrays, and
 # :class:`geopandas.GeoDataFrame`. Choose the input type that best suits your
 # data source and analysis requirements.
