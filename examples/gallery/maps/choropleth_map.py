@@ -24,7 +24,7 @@ fig = pygmt.Figure()
 
 fig.basemap(
     region=gdf.total_bounds[[0, 2, 1, 3]],
-    projection="M10c",
+    projection="M6c",
     frame="+tPopulation of Chicago",
 )
 
