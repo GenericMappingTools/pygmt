@@ -44,7 +44,7 @@ pygmt.makecpt(
 # colormap. The target column is defined by the aspatial
 # parameter.
 fig.plot(
-    data=gdf[["population", "geometry"]],
+    data=gdf,
     pen="0.3p,gray10",
     close=True,
     fill="+z",
