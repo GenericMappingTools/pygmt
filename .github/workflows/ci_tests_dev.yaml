@@ -98,7 +98,7 @@ jobs:
           cache-downloads: true
           cache-environment: true
           create-args: >-
-            python=3.11
+            python=3.12
             cmake
             make
             ninja

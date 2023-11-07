@@ -52,24 +52,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9', '3.11']
+        python-version: ['3.9', '3.12']
         os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run two jobs (Ubuntu + Python 3.9/3.11) for draft PRs
+        # Only run two jobs (Ubuntu + Python 3.9/3.12) for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.22 and Python 3.11 with NumPy 1.26
-        # Only install optional packages on Python 3.11/NumPy 1.26
+        # Pair Python 3.9 with NumPy 1.22 and Python 3.12 with NumPy 1.26
+        # Only install optional packages on Python 3.12/NumPy 1.26
         include:
           - python-version: '3.9'
             numpy-version: '1.22'
             optional-packages: ''
-          - python-version: '3.11'
+          - python-version: '3.12'
             numpy-version: '1.26'
             optional-packages: ' contextily geopandas ipython rioxarray sphinx-gallery'
 

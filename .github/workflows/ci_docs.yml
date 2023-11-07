@@ -44,7 +44,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.11) for draft PRs
+        # Only run one job (Ubuntu + Python 3.12) for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -75,7 +75,7 @@ jobs:
           cache-downloads: true
           cache-environment: true
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=6.4.0
             ghostscript=9.54.0
             numpy

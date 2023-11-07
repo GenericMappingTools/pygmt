@@ -132,14 +132,14 @@ want):
 
         ::
 
-            mamba create --name pygmt python=3.11 numpy pandas xarray netcdf4 packaging gmt
+            mamba create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
 
     .. tab-item:: conda
         :sync: conda
 
         ::
 
-            conda create --name pygmt python=3.11 numpy pandas xarray netcdf4 packaging gmt
+            conda create --name pygmt python=3.12 numpy pandas xarray netcdf4 packaging gmt
 
 Activate the environment by running the following (**do not forget this step!**):
 
