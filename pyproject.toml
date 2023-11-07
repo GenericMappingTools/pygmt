@@ -93,6 +93,7 @@ select = [
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
+    "NPY",  # numpy
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
