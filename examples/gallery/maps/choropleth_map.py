@@ -46,7 +46,6 @@ pygmt.makecpt(
 fig.plot(
     data=gdf,
     pen="0.3p,gray10",
-    close=True,
     fill="+z",
     cmap=True,
     aspatial="Z=population",
