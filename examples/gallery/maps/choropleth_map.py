@@ -40,9 +40,8 @@ pygmt.makecpt(
     reverse=True,
 )
 
-# Next, we plot the polygons and fill them using the defined
-# colormap. The target column is defined by the aspatial
-# parameter.
+# Next, we plot the polygons and fill them using the defined colormap.
+# The target column is defined by the aspatial parameter.
 fig.plot(
     data=gdf,
     pen="0.3p,gray10",
@@ -50,7 +49,6 @@ fig.plot(
     cmap=True,
     aspatial="Z=population",
 )
-
 
 # Add colorbar legend
 fig.colorbar(frame="x+lPopulation", position="jML+o-0.5c+w3.5c/0.2c")
