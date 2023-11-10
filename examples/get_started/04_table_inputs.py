@@ -51,7 +51,8 @@ fig.show()
 Path("input_data.dat").unlink()
 
 # %%
-# Besides a plain string to a table file, the following variants are also accepted:
+# Besides a plain string to a table file, the following variants are also
+# accepted:
 #
 # - A :class:`pathlib.Path` object.
 # - A full URL. PyGMT will download the file to the current directory first.
