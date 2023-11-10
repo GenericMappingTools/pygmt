@@ -8,7 +8,7 @@ or a path string to a grid file. It then calculates the respective gradient
 and returns an :class:`xarray.DataArray` object. The example below sets two
 main parameters:
 
-- ``azimuth``: to set the illumination light source direction (0° is North,
+- ``azimuth`` to set the illumination light source direction (0° is North,
   90° is East, 180° is South, 270° is West).
 - ``normalize`` to enhance the three-dimensional sense of the topography.
 
