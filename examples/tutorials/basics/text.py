@@ -2,8 +2,8 @@
 Plotting text
 =============
 
-It is often useful to add annotations to a plot. This is handled by the
-:meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
+It is often useful to add text annotations to a plot or map. This is handled
+by the :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 """
 
 import os
@@ -12,25 +12,25 @@ import numpy as np
 import pygmt
 
 # %%
-# Add a single text label
-# -----------------------
+# Adding a single text label
+# --------------------------
 #
-# To add a single text label to a plot or map the ``text``, ``x``, and ``y``
-# parameters to specify the text and position within the plot frame.
+# To add a single text label to a plot the ``text`` and ``x`` and ``y``
+# parameters to specify the text and position.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-fig.text(text="My text", x=0, y=0)
+fig.text(x=0, y=0, text="My text")
 
 fig.show()
 
 
 # %%
-# Adjust text labels
-# ------------------
+# Adjusting the text label
+# ------------------------
 #
-# There are several optional parameters to adjust a text label:
+# There are several optional parameters to adjust the text label:
 #
 # * ``font``: Sets the size, family/weight, and color of the font for the text.
 #   :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
@@ -46,8 +46,8 @@ fig.show()
 # * ``offset``: Shifts the text relatively to the reference point.
 # * ``fill``: Fills the text box with a color.
 # * ``pen``: Outlines the text box.
-# * ``clearance``: Adds a margin in x and y directions between the text and the
-#   borders of the text box. Can be used to get a text box with rounded edges.
+# * ``clearance``: Adds margins in x and y directions between the text and the
+#   outline of the text box. Can be used to get a text box with rounded edges.
 
 fig = pygmt.Figure()
 
@@ -55,14 +55,15 @@ fig = pygmt.Figure()
 # Left: "font", "angle", and "offset" parameters
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 
-# Change the font size, family/weight, color of the text
+# Change font size, family/weight, color of the text
 fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
 
 # Rotate the text by 30 degrees counter-clockwise from the horizontal
 fig.text(x=0, y=0, text="my text", angle=30)
 
-# Shift the text relatively to the x and y positions by 1 centimeter to the
-# right (positive x direction) and 0.5 centimeters down (negative y direction)
+# Shift the text relatively to the position given via the x and y parameters
+# by 1 centimeter to the right (positive x direction) and 0.5 centimeters down
+# (negative y direction)
 fig.plot(x=0, y=-3, style="s0.2c", fill="darkorange", pen="0.7p,darkgray")
 fig.text(x=0, y=-3, text="my text")
 fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
@@ -82,8 +83,8 @@ fig.plot(
     pen="0.7p,darkgray",
 )
 
-# Plot text at the same x and y positions as the markers
-# but with varying justifications
+# Plot text labels at the x and y positions of the markers
+# while using varying justifications
 fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
 fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
 fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
@@ -103,25 +104,25 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
 # Add a box with a fill in green color
 fig.text(x=0, y=3, text="My text", fill="green")
 
-# Add box with a seagreen, 1 point thick, solid outline
+# Add box with a seagreen, 1-point thick, solid outline
 fig.text(x=0, y=1, text="My text", pen="1p,seagreen,solid")
 
-# Add a margin between the text and border of the text box of 0.1 centimeters
-# in x direction and 0.2 centimeters in y direction
-fig.text(x=0, y=-1, text="My text", pen="1p,seagreen,dashed", clearance="0.2c/0.2c")
+# Add margins between the text and the outline of the text box of 0.1
+# centimeters in x direction and 0.2 centimeters in y direction
+fig.text(x=0, y=-1, text="My text", pen="1p,seagreen,dashed", clearance="0.1c/0.2c")
 
-# Get rounded edges by appending "+tO" to the "clearance" parameter
+# Get rounded edges by passing "+tO" to the "clearance" parameter
 fig.text(x=0, y=-3, text="My text", pen="1p,seagreen,solid", clearance="0.2c/0.2c+tO")
 
 fig.show()
 
 
 # %%
-# Plotting text with individual configurations
-# --------------------------------------------
+# Adding multiple text labels with individual configurations
+# ----------------------------------------------------------
 #
-# To add text with individual ``font``, ``angle``, and ``justify`` one can
-# provide lists with the corresponding arguments.
+# To add mulitple text labels with individual ``font``, ``angle``, and ``justify``
+# one can provide lists with the corresponding arguments.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -143,12 +144,12 @@ fig.show()
 
 
 # %%
-# Use an external txt file
-# ------------------------
+# Using an external input file
+# ----------------------------
 #
-# It is also possible to add text labels via an external text file containing
+# It is also possible to add text labels via an external input file containing
 # ``x``, ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``,
-# ``front``, and ``justify`` parameters can be provided. Here we give a
+# ``front``, and ``justify`` parameters can be provided. Here, we give a
 # complete example.
 
 fig = pygmt.Figure()
@@ -178,8 +179,8 @@ fig.show()
 
 
 # %%
-# The position parameter
-# ----------------------
+# Using the position parameter
+# ----------------------------
 #
 # Instead of using ``x`` and ``y``, the ``position`` parameter can be
 # specified to set the reference point for the text on the plot.
@@ -208,7 +209,7 @@ fig.text(
 fig.shift_origin(xshift="+w1c")
 
 # -----------------------------------------------------------------------------
-# Right: Add a text label out of the plot or map frame
+# Right: Add a text label outside of the plot or map frame
 
 # Define region limits
 lon_min = -30
@@ -234,7 +235,7 @@ fig.text(
     position="TC",
     justify="MC",
     offset="0c/0.2c",
-    no_clip=True,  # Allow plotting out of map or plot frame
+    no_clip=True,  # Allow plotting outside of the map or plot frame
 )
 
 fig.show()
