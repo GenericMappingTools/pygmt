@@ -121,8 +121,8 @@ fig.show()
 # Adding multiple text labels with individual configurations
 # ----------------------------------------------------------
 #
-# To add mulitple text labels with individual ``font``, ``angle``, and ``justify``
-# one can provide lists with the corresponding arguments.
+# To add multiple text labels with individual ``font``, ``angle``, and
+# ``justify`` one can provide lists with the corresponding arguments.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
