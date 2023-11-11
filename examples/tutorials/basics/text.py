@@ -44,16 +44,12 @@ fig.show()
 #   * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
 #
 # * ``offset``: Shifts the text relatively to the reference point.
-# * ``fill``: Fills the text box with a color.
-# * ``pen``: Outlines the text box.
-# * ``clearance``: Adds margins in x and y directions between the text and the
-#   outline of the text box. Can be used to get a text box with rounded edges.
 
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: "font", "angle", and "offset" parameters
-fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
+fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
 
 # Change font size, family/weight, color of the text
 fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
@@ -61,20 +57,21 @@ fig.text(x=0, y=3, text="my text", font="12p,Helvetica-Bold,blue")
 # Rotate the text by 30 degrees counter-clockwise from the horizontal
 fig.text(x=0, y=0, text="my text", angle=30)
 
-# Shift the text relatively to the position given via the x and y parameters
-# by 1 centimeter to the right (positive x direction) and 0.5 centimeters down
-# (negative y direction)
+# Plot marker and text label for reference
 fig.plot(x=0, y=-3, style="s0.2c", fill="darkorange", pen="0.7p,darkgray")
 fig.text(x=0, y=-3, text="my text")
+# Shift the text label relatively to the position given via the x and y
+# parameters by 1 centimeter to the right (positive x direction) and 0.5
+# centimeters down (negative y direction)
 fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
 
 fig.shift_origin(xshift="+w0.5c")
 
 # -----------------------------------------------------------------------------
-# Middle: "justify" parameter
+# Right: "justify" parameter
 fig.basemap(region=[-1, 1, -1, 1], projection="X5c", frame="rtlb")
 
-# Plot markers
+# Plot markers for reference
 fig.plot(
     x=[-0.5, 0, 0.5, -0.5, 0, 0.5, -0.5, 0, 0.5],
     y=[0.5, 0.5, 0.5, 0, 0, 0, -0.5, -0.5, -0.5],
@@ -83,8 +80,8 @@ fig.plot(
     pen="0.7p,darkgray",
 )
 
-# Plot text labels at the x and y positions of the markers
-# while using varying justifications
+# Plot text labels at the x and y positions of the markers while varying the
+# anchor point via the justify parameter
 fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
 fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
 fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
@@ -95,10 +92,22 @@ fig.text(x=-0.5, y=-0.5, text="BL", justify="BL")  # BottomLeft
 fig.text(x=0, y=-0.5, text="BC", justify="BC")  # BottomCenter
 fig.text(x=0.5, y=-0.5, text="BR", justify="BR")  # BottomRight
 
-fig.shift_origin(xshift="+w0.5c")
+fig.show()
 
-# -----------------------------------------------------------------------------
-# Right: "fill", "pen", and "clearance" parameters
+
+# %%
+# Adding a text box
+# -----------------
+#
+# There are different optional parameters to add and customize a text box:
+#
+# * ``fill``: Fills the text box with a color.
+# * ``pen``: Outlines the text box.
+# * ``clearance``: Adds margins in x and y directions between the text and the
+#   outline of the text box. Can be used to get a text box with rounded edges.
+
+fig = pygmt.Figure()
+
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame="rtlb")
 
 # Add a box with a fill in green color
