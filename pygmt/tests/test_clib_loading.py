@@ -73,7 +73,12 @@ def test_load_libgmt_fails(monkeypatch):
     be found.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
+        mpatch.setattr(
+            sys,
+            "platform",
+            # Pretend to be on macOS if running on Linux, and vice versa
+            "darwin" if sys.platform == "linux" else "linux",
+        )
         mpatch.setattr(
             subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
         )
