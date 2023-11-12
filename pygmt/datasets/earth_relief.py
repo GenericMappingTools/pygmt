@@ -23,7 +23,7 @@ def load_earth_relief(
     Load the Earth relief datasets (topography and bathymetry) in various
     resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebcosi.jpg
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
        :width: 80 %
        :align: center
 
