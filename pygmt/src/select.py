@@ -216,5 +216,5 @@ def select(data=None, output_type="pandas", outfile=None, **kwargs):
             session=lib,
             output_type=output_type,
             vfile=vouttbl,
-            colnames=column_names,
+            column_names=column_names,
         )

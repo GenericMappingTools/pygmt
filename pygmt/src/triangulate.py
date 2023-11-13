@@ -145,7 +145,7 @@ class triangulate:  # pylint: disable=invalid-name
                 session=lib,
                 output_type=output_type,
                 vfile=vouttbl,
-                colnames=None,
+                column_names=None,
             )
 
     @staticmethod

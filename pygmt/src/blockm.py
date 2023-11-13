@@ -61,7 +61,7 @@ def _blockm(block_method, data, x, y, z, output_type, outfile, **kwargs):
             session=lib,
             output_type=output_type,
             vfile=vouttbl,
-            colnames=column_names,
+            column_names=column_names,
         )
 
 

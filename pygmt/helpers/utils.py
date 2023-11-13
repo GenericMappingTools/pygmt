@@ -553,7 +553,7 @@ def args_in_kwargs(args, kwargs):
     )
 
 
-def return_table(session, output_type, vfile, colnames):
+def return_table(session, output_type, vfile, column_names):
     """
     Return an output table from a virtual file based on the output type.
 
@@ -565,7 +565,7 @@ def return_table(session, output_type, vfile, colnames):
         The output type. Can be ``"pandas"``, ``"numpy"``, or ``"file"``.
     vfile : str
         The virtual file name.
-    colnames : list of str
+    column_names : list of str
         The column names for the :class:`pandas.DataFrame` output.
 
     Returns
@@ -578,9 +578,9 @@ def return_table(session, output_type, vfile, colnames):
     # Read the virtual file as a GMT dataset and convert to vectors
     vectors = session.read_virtualfile(vfile, kind="dataset").contents.to_vectors()
     # pandas.DataFrame output
-    if colnames is None:
-        colnames = pd.RangeIndex(0, len(vectors))
-    result = pd.DataFrame.from_dict(dict(zip(colnames, vectors)))
+    if column_names is None:
+        column_names = pd.RangeIndex(0, len(vectors))
+    result = pd.DataFrame.from_dict(dict(zip(column_names, vectors)))
     if output_type == "pandas":
         return result
     # NumPy.ndarray output

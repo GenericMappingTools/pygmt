@@ -321,5 +321,5 @@ def grdtrack(
             session=lib,
             output_type=output_type,
             vfile=vouttbl,
-            colnames=column_names,
+            column_names=column_names,
         )

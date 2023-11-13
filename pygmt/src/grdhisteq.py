@@ -130,7 +130,7 @@ class grdhisteq:  # pylint: disable=invalid-name
                 session=lib,
                 output_type=output_type,
                 vfile=vouttbl,
-                colnames=["start", "stop", "bin_id"],
+                column_names=["start", "stop", "bin_id"],
             )
             if output_type == "pandas":
                 result = result.astype(

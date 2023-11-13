@@ -151,11 +151,11 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         )
 
     # Set the default column names for the pandas dataframe header
-    dataframe_header = ["x", "y", "z"]
+    column_names = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
-        dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
+        column_names = [grid.dims[1], grid.dims[0], grid.name]
 
     with Session() as lib:
         with lib.virtualfile_from_data(
@@ -170,5 +170,5 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             session=lib,
             output_type=output_type,
             vfile=vouttbl,
-            colnames=dataframe_header,
+            column_names=column_names,
         )

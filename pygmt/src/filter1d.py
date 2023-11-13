@@ -129,5 +129,5 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
             session=lib,
             output_type=output_type,
             vfile=vouttbl,
-            colnames=None,
+            column_names=None,
         )
