@@ -86,6 +86,9 @@ make-summary-multi-line = true
 wrap-summaries = 79
 wrap-descriptions = 79
 
+[tool.mypy]
+exclude = ["pygmt/tests/"]
+
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
 show-source = true
