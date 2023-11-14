@@ -35,7 +35,7 @@ jobs:
       - name: Install packages
         run: |
           python -m pip install black blackdoc docformatter pylint ruff \
-            mypy pandas-stubs xarray geopandas fiona contextily rioxarray IPython pytest matplotlib sphinx-gallery
+            mypy IPython matplotlib pandas-stubs pytest rioxarray xarray
           python -m pip list
           sudo apt-get install dos2unix
 
