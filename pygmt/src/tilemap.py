@@ -6,7 +6,7 @@ from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
-    import rioxarray  # noqa: F401
+    import rioxarray  # noqa: F401  # pylint: disable=unused-import
 
     _HAS_RIOXARRAY = True
 except ImportError:
