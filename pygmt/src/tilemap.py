@@ -7,8 +7,10 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 
 try:
     import rioxarray
+
+    _has_rioxarray = True
 except ImportError:
-    rioxarray = None
+    _has_rioxarray = False
 
 
 @fmt_docstring
@@ -114,7 +116,7 @@ def tilemap(
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if rioxarray is None:
+    if not _has_rioxarray:
         raise ImportError(
             "Package `rioxarray` is required to be installed to use this function. "
             "Please use `python -m pip install rioxarray` or "
