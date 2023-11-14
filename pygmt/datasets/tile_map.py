@@ -6,9 +6,9 @@ Function to load raster tile maps from XYZ tile providers, and load as
 try:
     import contextily
 
-    _has_contextily = True
+    _HAS_CONTEXTILY = True
 except ImportError:
-    _has_contextily = False
+    _HAS_CONTEXTILY = False
 
 import numpy as np
 import xarray as xr
@@ -110,7 +110,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
       * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
     """
     # pylint: disable=too-many-locals
-    if not _has_contextily:
+    if not _HAS_CONTEXTILY:
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "

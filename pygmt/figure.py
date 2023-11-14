@@ -9,9 +9,9 @@ from tempfile import TemporaryDirectory
 try:
     import IPython
 
-    _has_ipython = True
+    _HAS_IPYTHON = True
 except ImportError:
-    _has_ipython = False
+    _HAS_IPYTHON = False
 
 
 from pygmt.clib import Session
@@ -35,7 +35,7 @@ SHOW_CONFIG = {
 }
 
 # Show figures in Jupyter notebooks if available
-if _has_ipython:
+if _HAS_IPYTHON:
     get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["method"] = "notebook"
@@ -454,7 +454,7 @@ class Figure:
             )
 
         if method == "notebook":
-            if not _has_ipython:
+            if not _HAS_IPYTHON:
                 raise GMTError(
                     "Notebook display is selected, but IPython is not available. "
                     "Make sure you have IPython installed, "
