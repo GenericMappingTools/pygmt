@@ -1,16 +1,11 @@
 """
 tilemap - Plot XYZ tile maps.
 """
+import importlib
+
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
-
-try:
-    import rioxarray
-
-    _has_rioxarray = True
-except ImportError:
-    _has_rioxarray = False
 
 
 @fmt_docstring
@@ -116,7 +111,7 @@ def tilemap(
     """
     kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
 
-    if not _has_rioxarray:
+    if importlib.util.find_spec("rioxarray") is None:
         raise ImportError(
             "Package `rioxarray` is required to be installed to use this function. "
             "Please use `python -m pip install rioxarray` or "

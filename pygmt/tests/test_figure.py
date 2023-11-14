@@ -3,16 +3,9 @@ Test the behavior of the Figure class.
 
 Doesn't include the plotting commands which have their own test files.
 """
+import importlib
 import os
 from pathlib import Path
-
-try:
-    import IPython
-
-    _has_ipython = True
-except ImportError:
-    _has_ipython = False
-
 
 import numpy as np
 import numpy.testing as npt
@@ -20,6 +13,8 @@ import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+
+HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
 
 
 def test_figure_region():
@@ -315,7 +310,7 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
-@pytest.mark.skipif(not _has_ipython, reason="run when IPython is installed")
+@pytest.mark.skipif(not HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
@@ -356,7 +351,7 @@ def test_figure_show_invalid_method():
         fig.show(method="test")
 
 
-@pytest.mark.skipif(_has_ipython, reason="run without IPython installed")
+@pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
     Test to check if an error is raised when display method is 'notebook', but
