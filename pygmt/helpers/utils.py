@@ -581,6 +581,13 @@ def return_table(session, output_type, vfile, column_names):
     if column_names is None:
         column_names = pd.RangeIndex(0, len(vectors))
     result = pd.DataFrame.from_dict(dict(zip(column_names, vectors)))
+    # convert text data from object dtype to string dtype
+    result = result.convert_dtypes(
+        convert_string=True,
+        convert_integer=False,
+        convert_floating=False,
+        convert_boolean=False,
+    )
     if output_type == "pandas":
         return result
     # NumPy.ndarray output
