@@ -4,6 +4,7 @@ Wrappers for GMT data types.
 import ctypes as ctp
 
 import numpy as np
+import pandas as pd
 
 
 class GMT_DATASET(ctp.Structure):  # pylint: disable=invalid-name,too-few-public-methods
@@ -147,14 +148,19 @@ class GMT_DATASET(ctp.Structure):  # pylint: disable=invalid-name,too-few-public
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_vectors(self):
+    def to_dataframe(self):
         """
-        Convert a GMT_DATASET object to a list of vectors.
+        Convert a GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
         Currently, the number of columns in all segments of all tables are
         assumed to be the same. The same column in all segments of all tables
         are concatenated. The trailing text column is also concatenated as a
-        string vector.
+        single string column.
+
+        Returns
+        -------
+        :class:`pandas.DataFrame`
+            A :class:`pandas.DataFrame` object.
 
         Examples
         --------
@@ -176,24 +182,14 @@ class GMT_DATASET(ctp.Structure):  # pylint: disable=invalid-name,too-few-public
         ...                 "read", f"{tmpfile.name} {vouttbl} -Td"
         ...             )
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
-        ...             vectors = ds.contents.to_vectors()
+        ...             df = ds.contents.to_dataframe()
         ...
-        >>> len(vectors)  # 4 columns
-        4
-        >>> vectors[0]
-        array([ 1.,  4.,  7., 10.])
-        >>> vectors[1]
-        array([ 2.,  5.,  8., 11.])
-        >>> vectors[2]
-        array([ 3.,  6.,  9., 12.])
-        >>> vectors[3]
-        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
-                'TEXT123 TEXT456789'], dtype='<U18')
-
-        Returns
-        -------
-        vectors : list of 1-D arrays
-            List of vectors containing the data from the GMT_DATASET object.
+        >>> df
+              0     1     2                   3
+        0   1.0   2.0   3.0        TEXT1 TEXT23
+        1   4.0   5.0   6.0       TEXT4 TEXT567
+        2   7.0   8.0   9.0        TEXT8 TEXT90
+        3  10.0  11.0  12.0  TEXT123 TEXT456789
         """
         vectors = []
         for icol in range(self.n_columns):
@@ -218,4 +214,4 @@ class GMT_DATASET(ctp.Structure):  # pylint: disable=invalid-name,too-few-public
         if textvector:
             vectors.append(np.char.decode(textvector))
 
-        return vectors
+        return pd.concat([pd.Series(v) for v in vectors], axis=1)

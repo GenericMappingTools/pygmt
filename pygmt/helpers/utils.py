@@ -11,7 +11,6 @@ import time
 import webbrowser
 from collections.abc import Iterable
 
-import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
@@ -575,12 +574,11 @@ def return_table(session, output_type, vfile, column_names):
     """
     if output_type == "file":  # Already written to file, so return None
         return None
-    # Read the virtual file as a GMT dataset and convert to vectors
-    vectors = session.read_virtualfile(vfile, kind="dataset").contents.to_vectors()
-    # pandas.DataFrame output
-    if column_names is None:
-        column_names = pd.RangeIndex(0, len(vectors))
-    result = pd.DataFrame.from_dict(dict(zip(column_names, vectors)))
+    # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
+    result = session.read_virtualfile(vfile, kind="dataset").contents.to_dataframe()
+    # assign column names
+    if column_names is not None:
+        result.columns = column_names
     # convert text data from object dtype to string dtype
     result = result.convert_dtypes(
         convert_string=True,
