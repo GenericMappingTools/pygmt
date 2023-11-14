@@ -14,7 +14,6 @@ To fill the polygons based on a corresponding column you need to set
 parameter as shown in the example below.
 """
 
-# %%
 import geopandas as gpd
 import pygmt
 
