@@ -88,6 +88,7 @@ wrap-descriptions = 79
 
 [tool.mypy]
 exclude = ["pygmt/tests/"]
+ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
