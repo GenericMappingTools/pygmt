@@ -37,7 +37,8 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-parser
     - panel
-    - sphinx
+    - sphinx>=3.0
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery

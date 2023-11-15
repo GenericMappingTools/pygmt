@@ -24,6 +24,7 @@ dependencies:
     - myst-parser
     - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
