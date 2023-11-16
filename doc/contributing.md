@@ -499,6 +499,13 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
+When working on a tutorial or a gallery plot, it's a good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter Notebook in some modern text
+editors or IDEs. We consistenly use `# %%` as our code block separators (please
+refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
+for the discussions). We also require at least one separator in all example files.
+
 We also use [ruff](https://docs.astral.sh/ruff) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
 common errors.
