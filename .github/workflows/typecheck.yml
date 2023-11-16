@@ -1,0 +1,44 @@
+# Static type check
+#
+# This workflow runs static type check.
+#
+# It is run on every commit to the main and pull request branches. It is also
+# scheduled to run daily on the main branch.
+#
+name: Static Type Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  # Schedule daily tests
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  static_check:
+    name: Static Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      # Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v4.7.1
+        with:
+          python-version: '3.12'
+
+      - name: Install packages
+        run: |
+          python -m pip install \
+            numpy pandas xarray netcdf4 packaging \
+            contextily geopandas ipython rioxarray \
+            mypy pandas-stubs \
+            matplotlib pytest
+          python -m pip list
+
+      - name: Static type check
+        run: make typecheck
