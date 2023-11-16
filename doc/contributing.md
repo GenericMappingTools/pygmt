@@ -499,7 +499,7 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-When working on a tutorial or a gallery plot, it's a good practice to use code
+When working on a tutorial or a gallery plot, it is good practice to use code
 block separators to split a long script into multiple blocks. The separators also
 make it possible to run the script like a Jupyter Notebook in some modern text
 editors or IDEs. We consistenly use `# %%` as our code block separators (please
