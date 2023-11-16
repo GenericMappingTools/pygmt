@@ -28,6 +28,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
@@ -92,6 +93,7 @@ select = [
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
+    "NPY",  # numpy
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]

@@ -2,6 +2,7 @@
 Test the functions that load libgmt.
 """
 import ctypes
+import os
 import shutil
 import subprocess
 import sys
@@ -72,7 +73,12 @@ def test_load_libgmt_fails(monkeypatch):
     be found.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
+        mpatch.setattr(
+            sys,
+            "platform",
+            # Pretend to be on macOS if running on Linux, and vice versa
+            "darwin" if sys.platform == "linux" else "linux",
+        )
         mpatch.setattr(
             subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
         )
@@ -280,9 +286,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
-
         assert isinstance(lib_fullpaths, types.GeneratorType)
         # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if sys.platform == "win32" else 1
@@ -298,7 +303,7 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
@@ -317,7 +322,7 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)

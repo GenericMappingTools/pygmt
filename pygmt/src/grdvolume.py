@@ -3,13 +3,13 @@ grdvolume - Calculate grid volume and area constrained by a contour.
 """
 import pandas as pd
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grdvolume"]
@@ -101,12 +101,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     3  350  2.018302e+12  5.222640e+14  258.764032
     4  400  1.857370e+12  4.252699e+14  228.963499
     """
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            """Must specify format as either numpy, pandas, or file."""
-        )
-    if output_type == "file" and outfile is None:
-        raise GMTInvalidInput("""Must specify outfile for ASCII output.""")
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:

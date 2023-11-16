@@ -27,7 +27,7 @@ jobs:
       # Setup Python environment
       - uses: actions/setup-python@v4.7.1
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       # Install formatting tools
       - name: Install formatting tools
@@ -50,7 +50,7 @@ jobs:
           fi
 
       - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v3.0.2
+        uses: peter-evans/create-or-update-comment@v3.1.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
