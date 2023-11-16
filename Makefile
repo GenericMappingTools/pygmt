@@ -65,12 +65,14 @@ format:
 	black $(FORMAT_FILES)
 	blackdoc $(FORMAT_FILES)
 	ruff check --fix $(FORMAT_FILES)
+	ruff format $(FORMAT_FILES)
 
 check:
 	docformatter --check $(FORMAT_FILES)
 	black --check $(FORMAT_FILES)
 	blackdoc --check $(FORMAT_FILES)
 	ruff check $(FORMAT_FILES)
+	ruff format --check $(FORMAT_FILES)
 
 codespell:
 	@codespell
