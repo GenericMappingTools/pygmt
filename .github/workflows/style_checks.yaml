@@ -52,8 +52,8 @@ jobs:
 
       - name: Ensure example scripts have at least one code block separator
         run: |
-          grep -L '# %%' $(find 'examples' -name '*.py') > output.txt
-          nfiles=$(wc -l output.txt | awk '{print $1}')
+          grep --files-without-match '# %%' $(find 'examples' -name '*.py') > output.txt
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Code block separator '# %%' is required in following example files:"
             cat output.txt
