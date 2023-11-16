@@ -99,10 +99,14 @@ select = [
     "F",    # pyflakes
     "I",    # isort
     "NPY",  # numpy
+    "PL",   # pylint
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
-ignore = ["E501"]  # Avoid enforcing line-length violations
+ignore = [
+    "E501", # Avoid enforcing line-length violations
+    "PLR2004",  # Allow any magic values
+]
 
 [tool.ruff.lint.isort]
 known-third-party = ["pygmt"]
@@ -112,6 +116,9 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 79
+
+[tool.ruff.lint.pylint]
+max-args=10
 
 [tool.pytest.ini_options]
 minversion = "6.0"
