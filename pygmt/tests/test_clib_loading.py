@@ -98,6 +98,7 @@ class TestLibgmtBrokenLibs:
     """
     Test that load_libgmt still works when a broken library is found.
     """
+
     # load the GMT library before mocking the ctypes.CDLL function
     loaded_libgmt = load_libgmt()
     invalid_path = "/invalid/path/to/libgmt.so"
