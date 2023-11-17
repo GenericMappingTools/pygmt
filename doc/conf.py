@@ -5,10 +5,7 @@ import datetime
 from importlib.metadata import metadata
 
 # ruff: isort: off
-from sphinx_gallery.sorting import (
-    ExplicitOrder,
-    ExampleTitleSortKey,
-)
+from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
 import pygmt
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
