@@ -11,7 +11,7 @@ name: GMT Legacy Tests
 on:
   # push:
   #   branches: [ main ]
-  # pull_request:
+  pull_request:
     # types: [ready_for_review]
     # paths-ignore:
     #  - 'doc/**'
