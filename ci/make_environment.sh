@@ -75,7 +75,7 @@ EOF
 echo "dependencies:"
 add_package "python" ${PYTHON_VERSION}
 add_package "gmt" ${GMT_VERSION}
-add_package "ghostscipt" ${GS_VERSION}
+add_package "ghostscript" ${GS_VERSION}
 
 for package in $packages; do
     if [[ $package == "numpy" ]]; then
