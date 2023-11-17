@@ -204,7 +204,7 @@ def convention_params(convention):
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(
+def meca(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     spec,
     scale,

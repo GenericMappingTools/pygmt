@@ -42,7 +42,7 @@ from pygmt.helpers import (
     c="sequence_comma",
     p="sequence",
 )
-def text_(
+def text_(  # noqa: PLR0912
     self,
     textfiles=None,
     x=None,

@@ -1466,7 +1466,7 @@ class Session:
             yield vfile
 
     @fmt_docstring
-    def virtualfile_from_data(
+    def virtualfile_from_data(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,

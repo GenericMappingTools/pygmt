@@ -248,7 +248,7 @@ class Figure:
                 module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
             )
 
-    def savefig(
+    def savefig(  # noqa: PLR0912
         self,
         fname,
         transparent=False,

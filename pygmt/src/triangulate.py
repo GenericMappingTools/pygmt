@@ -149,7 +149,7 @@ class triangulate:
 
     @staticmethod
     @fmt_docstring
-    def regular_grid(
+    def regular_grid(  # noqa: PLR0913
         data=None,
         x=None,
         y=None,
@@ -275,7 +275,7 @@ class triangulate:
 
     @staticmethod
     @fmt_docstring
-    def delaunay_triples(
+    def delaunay_triples(  # noqa: PLR0913
         data=None,
         x=None,
         y=None,
