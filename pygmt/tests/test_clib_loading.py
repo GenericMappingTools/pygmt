@@ -14,7 +14,7 @@ from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_l
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-class FakedLibGMT:  # pylint: disable=too-few-public-methods
+class FakedLibGMT:
     """
     Class for faking a GMT library.
     """
@@ -32,7 +32,6 @@ def test_check_libgmt():
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
     msg = (
-        # pylint: disable=protected-access
         f"Error loading '{libgmt._name}'. "
         "Couldn't access function GMT_Create_Session. "
         "Ensure that you have installed an up-to-date GMT version 6 library. "
@@ -99,7 +98,6 @@ class TestLibgmtBrokenLibs:
     """
     Test that load_libgmt still works when a broken library is found.
     """
-
     # load the GMT library before mocking the ctypes.CDLL function
     loaded_libgmt = load_libgmt()
     invalid_path = "/invalid/path/to/libgmt.so"
@@ -138,14 +136,13 @@ class TestLibgmtBrokenLibs:
         """
         monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
 
-    def test_two_broken_libraries(self, mock_ctypes):  # pylint: disable=unused-argument
+    def test_two_broken_libraries(self, mock_ctypes):
         """
         Case 1: two broken libraries.
 
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of both libraries that failed to load properly.
         """
-        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
@@ -156,16 +153,13 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_load_brokenlib_invalidpath(  # pylint: disable=unused-argument
-        self, mock_ctypes
-    ):
+    def test_load_brokenlib_invalidpath(self, mock_ctypes):
         """
         Case 2: broken library + invalid path.
 
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of one library that failed to load and one invalid path.
         """
-        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
@@ -176,36 +170,28 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_brokenlib_invalidpath_workinglib(  # pylint: disable=unused-argument
-        self, mock_ctypes
-    ):
+    def test_brokenlib_invalidpath_workinglib(self, mock_ctypes):
         """
         Case 3: broken library + invalid path + working library.
         """
         lib_fullnames = [self.faked_libgmt1, self.invalid_path, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_invalidpath_brokenlib_workinglib(  # pylint: disable=unused-argument
-        self, mock_ctypes
-    ):
+    def test_invalidpath_brokenlib_workinglib(self, mock_ctypes):
         """
         Case 4: invalid path + broken library + working library.
         """
         lib_fullnames = [self.invalid_path, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_workinglib_brokenlib_invalidpath(  # pylint: disable=unused-argument
-        self, mock_ctypes
-    ):
+    def test_workinglib_brokenlib_invalidpath(self, mock_ctypes):
         """
         Case 5: working library + broken library + invalid path.
         """
         lib_fullnames = [self.loaded_libgmt, self.faked_libgmt1, self.invalid_path]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_brokenlib_brokenlib_workinglib(  # pylint: disable=unused-argument
-        self, mock_ctypes
-    ):
+    def test_brokenlib_brokenlib_workinglib(self, mock_ctypes):
         """
         Case 6: repeating broken libraries + working library.
         """

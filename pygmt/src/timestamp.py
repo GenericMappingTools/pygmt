@@ -75,7 +75,7 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()  # pylint: disable=protected-access
+    self._preprocess()
 
     # Build the options passed to the "plot" module
     kwdict = {"T": True, "U": ""}

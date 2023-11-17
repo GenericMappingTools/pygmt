@@ -167,8 +167,7 @@ def text_(
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    # pylint: disable=too-many-branches,too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:

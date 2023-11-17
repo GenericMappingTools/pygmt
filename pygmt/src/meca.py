@@ -397,9 +397,7 @@ def meca(
     {perspective}
     {transparency}
     """
-    # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
-    # pylint: disable=too-many-statements
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
