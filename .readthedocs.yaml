@@ -10,6 +10,8 @@ build:
   tools:
     python: "mambaforge-4.10"
   jobs:
+    pre_create_environment: # create the environment.yml file
+      - bash ci/make_environment.sh docs | tee ci/environment.yml
     pre_build: # Generate api stub files before building
       - make -C doc api
 
@@ -23,7 +25,7 @@ sphinx:
 
 # Optionally declare the Python requirements required to build your docs
 conda:
-  environment: ci/requirements/docs.yml
+  environment: ci/environment.yml
 python:
    install:
    - method: pip
