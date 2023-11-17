@@ -499,15 +499,13 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [ruff](https://docs.astral.sh/ruff) and
-[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
-common errors.
+We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
+and quickly catch common errors.
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
 contains rules for running both checks:
 
 ```bash
 make check   # Runs black, blackdoc, docformatter, ruff (in check mode)
-make lint    # Runs pylint, which is a bit slower
 ```
 
 ### Testing your Code

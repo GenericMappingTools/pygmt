@@ -18,7 +18,6 @@ help:
 	@echo "  format         run black, blackdoc, docformatter and ruff to automatically format the code"
 	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, ruff)"
 	@echo "  codespell      run codespell to check common misspellings"
-	@echo "  lint           run pylint for a deeper (and slower) quality check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
 	@echo ""
@@ -75,9 +74,6 @@ check:
 
 codespell:
 	@codespell
-
-lint:
-	pylint $(LINT_FILES)
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} +
