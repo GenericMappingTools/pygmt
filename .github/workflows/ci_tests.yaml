@@ -68,10 +68,10 @@ jobs:
         include:
           - python-version: '3.9'
             numpy-version: '1.22'
-            optional-packages: ''
+            optional-packages: 'no'
           - python-version: '3.12'
             numpy-version: '1.26'
-            optional-packages: ' contextily geopandas ipython rioxarray sphinx-gallery'
+            optional-packages: 'yes'
 
     timeout-minutes: 30
     defaults:
@@ -92,34 +92,18 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Make an enviroment.yml file
+        run: bash ci/make_environment.sh tests | tee ci/environment.yml
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+          NUMPY_VERSION: ${{ matrix.numpy-version }}
+          OPTIONAL_PACKAGES: ${{ matrix.optional-packages }}
+
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
         uses: mamba-org/setup-micromamba@v1.6.0
         with:
-          environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: true
-          cache-environment: true
-          create-args: >-
-            python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.4.0
-            ghostscript=9.54.0
-            numpy=${{ matrix.numpy-version }}
-            pandas
-            xarray
-            netCDF4
-            packaging
-            build
-            dvc
-            make
-            pip
-            pytest
-            pytest-cov
-            pytest-doctestplus
-            pytest-mpl
+          environment-file: ci/environment.yml
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
