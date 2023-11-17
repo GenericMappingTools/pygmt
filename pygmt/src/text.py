@@ -180,7 +180,7 @@ def text_(
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
-        if x is not None or y is not None or textfiles is not None:
+        if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
