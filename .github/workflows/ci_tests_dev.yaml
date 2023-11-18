@@ -105,6 +105,7 @@ jobs:
             curl
             fftw
             ghostscript=9.54.0
+            glib
             hdf5
             libblas
             libcblas
