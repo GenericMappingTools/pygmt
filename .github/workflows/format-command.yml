@@ -27,7 +27,7 @@ jobs:
       # Setup Python environment
       - uses: actions/setup-python@v4.7.1
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       # Install formatting tools
       - name: Install formatting tools

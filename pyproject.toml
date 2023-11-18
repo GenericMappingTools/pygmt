@@ -28,6 +28,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
@@ -88,6 +89,11 @@ wrap-descriptions = 79
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
 show-source = true
+
+[tool.ruff.format]
+line-ending = "lf"  # Use UNIX `\n` line endings for all files
+
+[tool.ruff.lint]
 select = [
     "E",    # pycodestyle
     "F",    # pyflakes
@@ -98,14 +104,14 @@ select = [
 ]
 ignore = ["E501"]  # Avoid enforcing line-length violations
 
-[tool.ruff.pycodestyle]
-max-doc-length = 79
+[tool.ruff.lint.isort]
+known-third-party = ["pygmt"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 
-[tool.ruff.isort]
-known-third-party = ["pygmt"]
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 79
 
 [tool.pytest.ini_options]
 minversion = "6.0"
