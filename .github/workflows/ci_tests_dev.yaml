@@ -86,34 +86,16 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
+      - name: Make an enviroment.yml file
+        run: bash ci/make_environment.sh tests | tee ci/environment.yml
+
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
         uses: mamba-org/setup-micromamba@v1.6.0
         with:
-          environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
+          environment-file: ci/environment.yml
           cache-downloads: true
           cache-environment: true
-          create-args: >-
-            python=3.12
-            cmake
-            make
-            ninja
-            curl
-            fftw
-            ghostscript=9.54.0
-            glib
-            hdf5
-            libblas
-            libcblas
-            libgdal
-            liblapack
-            libnetcdf
-            pcre
-            zlib
 
       # Build and install latest GMT from GitHub
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
