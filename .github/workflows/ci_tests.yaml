@@ -92,7 +92,7 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      - name: Make an enviroment.yml file
+      - name: Make an environment.yml file
         run: bash ci/make_environment.sh tests | tee ci/environment.yml
         env:
           PYTHON_VERSION: ${{ matrix.python-version }}

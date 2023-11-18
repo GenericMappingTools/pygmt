@@ -86,7 +86,7 @@ jobs:
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-      - name: Make an enviroment.yml file
+      - name: Make an environment.yml file
         run: bash ci/make_environment.sh tests_dev | tee ci/environment.yml
 
       # Install Micromamba with conda-forge dependencies
