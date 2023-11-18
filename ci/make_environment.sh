@@ -12,16 +12,18 @@
 # - OPTIONAL_PACKAGES
 #
 if [ "$#" -ne 1 ]; then
-  echo "Usage: bash make_environment.sh tests|tests_legacy|tests_dev|docs|doctests"
-  exit 1
+    echo "Usage: bash make_environment.sh tests|tests_legacy|tests_dev|docs|doctests|cache_data"
+    exit 1
 fi
 
-# pinned packages
+# Pin packages to default versions if environmental variables are not given
 PYTHON_VERSION=${PYTHON_VERSION:-3.12}
 GMT_VERSION=${GMT_VERSION:-6.4.0}
 GS_VERSION=${GS_VERSION:-9.54.0}
 
+# Groups of packages
 gmt="gmt"
+gs="ghostscript"
 required="numpy pandas xarray netCDF4 packaging"
 optional="contextily geopandas ipython rioxarray"
 build="build make pip"
@@ -45,23 +47,24 @@ add_package() {
 # decide the packages to install
 case $1 in
     tests)
-        if [[ $OPTIONAL_PACKAGES == "yes" ]]; then
-            packages="$gmt $required $optional $build $dvc $pytest $cov"
-        else
-            packages="$gmt $required $build $dvc $pytest $cov"
-        fi
+        packages="$gmt $gs $required"
+        if [[ $OPTIONAL_PACKAGES == "yes" ]]; then packages+=" $optional"; fi
+        packages+=" $build $dvc $pytest $cov"
         ;;
     tests_legacy)
-        packages="$gmt $required $optional $build $dvc $pytest sphinx-gallery"
+        packages="$gmt $gs $required $optional $build $dvc $pytest sphinx-gallery"
         ;;
     tests_dev)
-        packages="$gmtdev"
+        packages="$gs $gmtdev"
         ;;
     docs)
-        packages="$gmt $required $optional $build $docs"
+        packages="$gmt $gs $required $optional $build $docs"
         ;;
     doctest)
-        packages="$gmt $required $optional $build $pytest"
+        packages="$gmt $gs $required $optional $build $pytest"
+        ;;
+    cache_data)
+        packages="$gmt $required build"
         ;;
     *)
         exit 1
@@ -79,14 +82,18 @@ EOF
 # Dependencies
 echo "dependencies:"
 add_package "python" ${PYTHON_VERSION}
-add_package "ghostscript" ${GS_VERSION}
 
 for package in $packages; do
-    if [[ $package == "numpy" ]]; then
-        add_package "numpy" $NUMPY_VERSION
+    if [[ $package == "gmt" ]]; then
+        version=$GMT_VERSION
+    elif [[ $package == "ghostscript" ]]; then
+        version=$GS_VERSION
+    elif [[ $package == "numpy" ]]; then
+        version=$NUMPY_VERSION
     elif [[ $package == "pandas" ]]; then
-        add_package "pandas" $PANDAS_VERSION
+        version=$PANDAS_VERSION
     else
-        add_package "$package"
+        version=""
     fi
+    add_package $package $version
 done
