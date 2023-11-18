@@ -33,24 +33,14 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
+      - name: Make an enviroment.yml file
+        run: bash ci/make_environment.sh cache_data | tee ci/environment.yml
+
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
         uses: mamba-org/setup-micromamba@v1.6.0
         with:
-          environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          create-args: >-
-            python=3.12
-            gmt=6.4.0
-            numpy
-            pandas
-            xarray
-            netCDF4
-            packaging
-            build
+          environment-file: ci/environment.yml
 
       # Install the package that we want to test
       - name: Install the package
