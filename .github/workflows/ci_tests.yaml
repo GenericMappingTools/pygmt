@@ -104,6 +104,8 @@ jobs:
         uses: mamba-org/setup-micromamba@v1.6.0
         with:
           environment-file: ci/environment.yml
+          cache-downloads: true
+          cache-environment: true
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
