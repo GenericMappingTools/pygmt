@@ -18,12 +18,7 @@ assignees: ''
 
 - [ ] Bump the GMT version in CI (1 PR)
   - [ ] Update `environment.yml`
-  - [ ] Update `ci/requirements/docs.yml`
-  - [ ] Update `.github/workflows/cache_data.yaml`
-  - [ ] Update `.github/workflows/ci_doctests.yaml`
-  - [ ] Update `.github/workflows/ci_docs.yml`
-  - [ ] Update `.github/workflows/ci_tests.yaml`
-  - [ ] Add the legacy GMT version to `.github/workflows/ci_tests_legacy.yaml`
+  - [ ] Update `GMT_VERSION`'s default value in `ci/make_environment.sh`
   - [ ] Update GMT 6.x minor version for `extlinks` urls in `doc/conf.py`
   - [ ] Update GMT 6.x minor version in `.github/workflows/check-links.yml`
 - [ ] Fix failing tests (1 or more PRs)
