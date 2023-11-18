@@ -79,7 +79,8 @@ def test_basemap_utm_projection(projection):
     works.
     """
     projection = projection.replace(
-        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
+        "EPSG_",
+        "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
     fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
