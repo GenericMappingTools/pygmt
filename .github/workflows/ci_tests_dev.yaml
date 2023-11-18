@@ -87,7 +87,7 @@ jobs:
           body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Make an enviroment.yml file
-        run: bash ci/make_environment.sh tests | tee ci/environment.yml
+        run: bash ci/make_environment.sh tests_dev | tee ci/environment.yml
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
