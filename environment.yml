@@ -6,7 +6,7 @@ dependencies:
     # Required dependencies
     - gmt=6.4.0
     - numpy>=1.22
-    - pandas
+    - pandas>=1.2.0
     - xarray
     - netCDF4
     - packaging

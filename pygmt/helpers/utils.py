@@ -583,7 +583,7 @@ def return_table(session, output_type, vfile, column_names):
     result = result.convert_dtypes(
         convert_string=True,
         convert_integer=False,
-        convert_floating=False,
+        convert_floating=False,  # requires pandas>=1.2.0
         convert_boolean=False,
     )
     if output_type == "pandas":
