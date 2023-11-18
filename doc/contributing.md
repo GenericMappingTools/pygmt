@@ -501,10 +501,10 @@ will comment on any pull requests as needed.
 
 When working on a tutorial or a gallery plot, it is good practice to use code
 block separators to split a long script into multiple blocks. The separators also
-make it possible to run the script like a Jupyter Notebook in some modern text
-editors or IDEs. We consistenly use `# %%` as our code block separators (please
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use `# %%` as code block separators (please
 refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
-for the discussions). We also require at least one separator in all example files.
+for the discussions) and require at least one separator in all example files.
 
 We also use [ruff](https://docs.astral.sh/ruff) and
 [pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
