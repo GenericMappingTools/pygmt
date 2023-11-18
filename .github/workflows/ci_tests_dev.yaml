@@ -16,7 +16,7 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    types: [ready_for_review]
+    #types: [ready_for_review]
     paths-ignore:
       - 'doc/**'
       - 'examples/**'
