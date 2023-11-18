@@ -12,7 +12,7 @@
 # - OPTIONAL_PACKAGES
 #
 if [ "$#" -ne 1 ]; then
-  echo "Usage: bash make_environment.sh tests|docs|doctests|tests_legacy"
+  echo "Usage: bash make_environment.sh tests|tests_legacy|tests_dev|docs|doctests"
   exit 1
 fi
 
@@ -21,6 +21,7 @@ PYTHON_VERSION=${PYTHON_VERSION:-3.12}
 GMT_VERSION=${GMT_VERSION:-6.4.0}
 GS_VERSION=${GS_VERSION:-9.54.0}
 
+gmt="gmt"
 required="numpy pandas xarray netCDF4 packaging"
 optional="contextily geopandas ipython rioxarray"
 build="build make pip"
@@ -28,6 +29,7 @@ docs="myst-parser panel sphinx sphinx-copybutton sphinx-design sphinx-gallery sp
 pytest="pytest pytest-doctestplus pytest-mpl"
 cov="pytest-cov"
 dvc="dvc"
+gmtdev="cmake make ninja curl fftw glib hdf5 libblas libcblas libgdal liblapack libnetcdf pcre zlib"
 
 # function to add a package and optionally pin its version
 add_package() {
@@ -44,19 +46,22 @@ add_package() {
 case $1 in
     tests)
         if [[ $OPTIONAL_PACKAGES == "yes" ]]; then
-            packages="$required $optional $build $dvc $pytest $cov"
+            packages="$gmt $required $optional $build $dvc $pytest $cov"
         else
-            packages="$required $build $dvc $pytest $cov"
+            packages="$gmt $required $build $dvc $pytest $cov"
         fi
         ;;
     tests_legacy)
-        packages="$required $optional $build $dvc $pytest sphinx-gallery"
+        packages="$gmt $required $optional $build $dvc $pytest sphinx-gallery"
+        ;;
+    tests_dev)
+        packages="$gmtdev"
         ;;
     docs)
-        packages="$required $optional $build $docs"
+        packages="$gmt $required $optional $build $docs"
         ;;
     doctest)
-        packages="$required $optional $build $pytest"
+        packages="$gmt $required $optional $build $pytest"
         ;;
     *)
         exit 1
@@ -74,7 +79,6 @@ EOF
 # Dependencies
 echo "dependencies:"
 add_package "python" ${PYTHON_VERSION}
-add_package "gmt" ${GMT_VERSION}
 add_package "ghostscript" ${GS_VERSION}
 
 for package in $packages; do
