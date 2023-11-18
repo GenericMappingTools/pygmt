@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
 
       - name: Make an enviroment.yml file
-        run: bash ci/make_environment.sh doctest | tee ci/environment.yml
+        run: bash ci/make_environment.sh doctests | tee ci/environment.yml
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba

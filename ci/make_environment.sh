@@ -60,7 +60,7 @@ case $1 in
     docs)
         packages="$gmt $gs $required $optional $build $docs"
         ;;
-    doctest)
+    doctests)
         packages="$gmt $gs $required $optional $build $pytest"
         ;;
     cache_data)
