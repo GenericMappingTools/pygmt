@@ -308,9 +308,7 @@ def grdtrack(
             check_kind="raster", data=grid
         ) as vingrd, lib.virtualfile_from_data(
             check_kind="vector", data=points, required_data=False
-        ) as vintbl, lib.virtualfile_to_data(
-            kind="dataset", fname=outfile
-        ) as vouttbl:
+        ) as vintbl, lib.virtualfile_to_data(kind="dataset", fname=outfile) as vouttbl:
             kwargs["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
