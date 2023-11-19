@@ -73,7 +73,6 @@ fig.basemap(
     projection="M10c",
     frame=["wSnE", "af"],
     map_scale="jBL+o1c/1c+c-35/-5+w1000k+f+lscale at 35° W and 5° S+ukm",
-    box="+gwhite@30+p1p,gray30+r5p",
 )
 
 fig.show()
