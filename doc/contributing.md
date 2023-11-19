@@ -404,7 +404,7 @@ the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by Black, docstrings
+While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
 limited to 79 characters** per line.
 
@@ -473,12 +473,11 @@ code, be sure to follow the general guidelines in the
 
 We use some tools to format the code so we don't have to think about it:
 
-- [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [ruff](https://docs.astral.sh/ruff)
 
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
+Blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
 differences. Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
@@ -513,7 +512,7 @@ The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile
 contains rules for running both checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, ruff (in check mode)
+make check   # Runs blackdoc, docformatter, ruff (in check mode)
 make lint    # Runs pylint, which is a bit slower
 ```
 
