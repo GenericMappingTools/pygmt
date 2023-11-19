@@ -26,6 +26,7 @@ __doctest_skip__ = ["coast"]
     E="dcw",
     I="rivers",
     L="map_scale",
+    F="box",
     N="borders",
     W="shorelines",
     G="land",
@@ -128,6 +129,24 @@ def coast(self, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *length*.
         Draw a simple map scale centered on the reference point specified.
+    box : bool or str
+        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
+        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
+        If set to ``True``, draw a rectangular border around the
+        map scale or rose. Alternatively, specify a different pen with
+        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
+        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
+        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
+        separate in x- and y-direction, or individual side spacings between
+        scale and border. Append **+i** to draw a secondary, inner border as
+        well. We use a uniform gap between borders of 2p and the
+        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append
+        **+r** to draw rounded rectangular borders instead, with a 6p corner
+        radius. You can override this radius by appending another value.
+        Finally, append **+s** to draw an offset background shaded region.
+        Here, *dx/dy* indicates the shift relative to the foreground frame
+        [Default is ``"4p/-4p"``] and shade sets the fill style to use for
+        shading [Default is ``"gray50"``].
     borders : int, str, or list
         *border*\ [/*pen*].
         Draw political boundaries. Specify the type of boundary and
