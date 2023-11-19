@@ -12,12 +12,12 @@ selected via the ``histtype`` parameter.
 import numpy as np
 import pygmt
 
-np.random.seed(100)
-
 # Generate random elevation data from a normal distribution
+rng = np.random.default_rng(seed=100)
 mean = 100  # mean of distribution
 stddev = 25  # standard deviation of distribution
-data = mean + stddev * np.random.randn(521)
+data = rng.normal(loc=mean, scale=stddev, size=521)
+
 
 fig = pygmt.Figure()
 

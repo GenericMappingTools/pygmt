@@ -73,7 +73,12 @@ def test_load_libgmt_fails(monkeypatch):
     be found.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
+        mpatch.setattr(
+            sys,
+            "platform",
+            # Pretend to be on macOS if running on Linux, and vice versa
+            "darwin" if sys.platform == "linux" else "linux",
+        )
         mpatch.setattr(
             subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
         )
@@ -151,9 +156,9 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_load_brokenlib_invalidpath(
+    def test_load_brokenlib_invalidpath(  # pylint: disable=unused-argument
         self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    ):
         """
         Case 2: broken library + invalid path.
 
@@ -171,36 +176,36 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_brokenlib_invalidpath_workinglib(
+    def test_brokenlib_invalidpath_workinglib(  # pylint: disable=unused-argument
         self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    ):
         """
         Case 3: broken library + invalid path + working library.
         """
         lib_fullnames = [self.faked_libgmt1, self.invalid_path, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_invalidpath_brokenlib_workinglib(
+    def test_invalidpath_brokenlib_workinglib(  # pylint: disable=unused-argument
         self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    ):
         """
         Case 4: invalid path + broken library + working library.
         """
         lib_fullnames = [self.invalid_path, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_workinglib_brokenlib_invalidpath(
+    def test_workinglib_brokenlib_invalidpath(  # pylint: disable=unused-argument
         self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    ):
         """
         Case 5: working library + broken library + invalid path.
         """
         lib_fullnames = [self.loaded_libgmt, self.faked_libgmt1, self.invalid_path]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_brokenlib_brokenlib_workinglib(
+    def test_brokenlib_brokenlib_workinglib(  # pylint: disable=unused-argument
         self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    ):
         """
         Case 6: repeating broken libraries + working library.
         """
