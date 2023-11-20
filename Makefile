@@ -64,12 +64,14 @@ format:
 	black $(FORMAT_FILES)
 	blackdoc $(FORMAT_FILES)
 	ruff check --fix $(FORMAT_FILES)
+	ruff format $(FORMAT_FILES)
 
 check:
 	docformatter --check $(FORMAT_FILES)
 	black --check $(FORMAT_FILES)
 	blackdoc --check $(FORMAT_FILES)
 	ruff check $(FORMAT_FILES)
+	ruff format --check $(FORMAT_FILES)
 
 codespell:
 	@codespell
@@ -81,7 +83,8 @@ clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist .eggs MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
+	rm -rvf build dist .eggs MANIFEST .coverage htmlcov coverage.xml
+	rm -rvf .cache .pytest_cache .ruff_cache
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
