@@ -477,7 +477,7 @@ We use some tools to format the code so we don't have to think about it:
 - [docformatter](https://github.com/myint/docformatter)
 - [ruff](https://docs.astral.sh/ruff)
 
-Blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
+These tools loosely follow the [PEP8](http://pep8.org) guide but with a few
 differences. Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
