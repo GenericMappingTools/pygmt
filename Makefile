@@ -87,8 +87,8 @@ clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
-	rm -rvf build dist .eggs MANIFEST .coverage .cache .pytest_cache htmlcov coverage.xml
-	rm -rvf .mypy_cache
+	rm -rvf build dist .eggs MANIFEST .coverage htmlcov coverage.xml
+	rm -rvf .cache .mypy_cache .pytest_cache .ruff_cache
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
