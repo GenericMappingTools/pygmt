@@ -24,7 +24,7 @@ def load_earth_magnetic_anomaly(
 
        * - Earth Magnetic Anomaly Model (EMAG2)
          - World Digital Magnetic Anomaly Map (WDMAM)
-       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag4km.jpg
+       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_wdmam.jpg
 
     The grids are downloaded to a user data directory

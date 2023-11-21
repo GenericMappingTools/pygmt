@@ -499,7 +499,7 @@ def launch_external_viewer(fname, waiting=0):
     elif os_name == "darwin":  # Darwin is macOS
         subprocess.run(["open", fname], check=False, **run_args)
     elif os_name == "win32":
-        os.startfile(fname)  # pylint: disable=no-member
+        os.startfile(fname)
     else:
         webbrowser.open_new_tab(f"file://{fname}")
     if waiting > 0:

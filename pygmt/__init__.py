@@ -83,7 +83,7 @@ def print_clib_info(file=sys.stdout):
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
+    from pygmt.clib import Session
 
     lines = ["GMT library information:"]
     with Session() as ses:
@@ -104,7 +104,7 @@ def show_versions(file=sys.stdout):
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-    # pylint: disable=import-outside-toplevel
+
     import importlib
     import platform
     import subprocess

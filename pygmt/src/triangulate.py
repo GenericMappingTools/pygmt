@@ -17,7 +17,7 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-class triangulate:  # pylint: disable=invalid-name
+class triangulate:
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
     data.
@@ -150,7 +150,7 @@ class triangulate:  # pylint: disable=invalid-name
 
     @staticmethod
     @fmt_docstring
-    def regular_grid(  # pylint: disable=too-many-arguments,too-many-locals
+    def regular_grid(  # noqa: PLR0913
         data=None,
         x=None,
         y=None,
@@ -276,7 +276,7 @@ class triangulate:  # pylint: disable=invalid-name
 
     @staticmethod
     @fmt_docstring
-    def delaunay_triples(  # pylint: disable=too-many-arguments,too-many-locals
+    def delaunay_triples(  # noqa: PLR0913
         data=None,
         x=None,
         y=None,

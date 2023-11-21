@@ -112,7 +112,7 @@ def tilemap(
         (e.g. via ``python -m pip install rioxarray``) before using this
         function.
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if rioxarray is None:
         raise ImportError(
