@@ -90,7 +90,6 @@ DTYPES = {
 
 
 class Session:
-    # pylint: disable=too-many-public-methods
     """
     A GMT API session where most operations involving the C API happen.
 
