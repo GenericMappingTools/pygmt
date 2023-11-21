@@ -509,7 +509,7 @@ We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
 and quickly catch common errors.
 
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
-contains rules for running both checks:
+contains rules for running the linter checks:
 
 ```bash
 make check   # Runs blackdoc, docformatter, ruff (in check mode)
