@@ -36,7 +36,7 @@ SHOW_CONFIG = {
 
 # Show figures in Jupyter notebooks if available
 if _HAS_IPYTHON:
-    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
+    get_ipython = IPython.get_ipython()
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["method"] = "notebook"
 
@@ -84,9 +84,7 @@ class Figure:
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
-            prefix=f"{self._name}-preview-"
-        )
+        self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
     def __del__(self):
@@ -253,7 +251,7 @@ class Figure:
                 module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
             )
 
-    def savefig(
+    def savefig(  # noqa: PLR0912
         self,
         fname,
         transparent=False,
@@ -322,7 +320,6 @@ class Figure:
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
-        # pylint: disable=too-many-branches
         # All supported formats
         fmts = {
             "bmp": "b",
@@ -520,7 +517,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+    from pygmt.src import (
         basemap,
         coast,
         colorbar,

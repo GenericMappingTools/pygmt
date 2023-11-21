@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Test Figure.contour.
 """
