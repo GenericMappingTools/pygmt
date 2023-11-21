@@ -29,7 +29,7 @@ def shift_origin(self, xshift=None, yshift=None):
     yshift : str
         Shift plot origin in y direction.
     """
-    self._preprocess()  # pylint: disable=protected-access
+    self._preprocess()
     args = ["-T"]
     if xshift:
         args.append(f"-X{xshift}")

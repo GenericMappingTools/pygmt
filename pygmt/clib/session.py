@@ -175,7 +175,7 @@ class Session:
         Dictionary with the GMT version and default paths and parameters.
         """
         if not hasattr(self, "_info"):
-            self._info = {  # pylint: disable=attribute-defined-outside-init
+            self._info = {
                 "version": self.get_default("API_VERSION"),
                 "padding": self.get_default("API_PAD"),
                 # API_BINDIR points to the directory of the Python interpreter
@@ -312,7 +312,6 @@ class Session:
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
         if not hasattr(self, "_libgmt"):
-            # pylint: disable=attribute-defined-outside-init
             self._libgmt = load_libgmt()
         function = getattr(self._libgmt, name)
         if argtypes is not None:
@@ -349,7 +348,7 @@ class Session:
         """
         try:
             # Won't raise an exception if there is a currently open session
-            self.session_pointer  # pylint: disable=pointless-statement
+            self.session_pointer
             # In this case, fail to create a new session until the old one is
             # destroyed
             raise GMTCLibError(
@@ -369,10 +368,10 @@ class Session:
 
         # Capture the output printed by GMT into this list. Will use it later
         # to generate error messages for the exceptions raised by API calls.
-        self._error_log = []  # pylint: disable=attribute-defined-outside-init
+        self._error_log = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
-        def print_func(file_pointer, message):  # pylint: disable=unused-argument
+        def print_func(file_pointer, message):
             """
             Callback function that the GMT C API will use to print log and
             error messages.
@@ -389,7 +388,6 @@ class Session:
 
         # Need to store a copy of the function because ctypes doesn't and it
         # will be garbage collected otherwise
-        # pylint: disable=attribute-defined-outside-init
         self._print_callback = print_func
 
         padding = self["GMT_PAD_DEFAULT"]
@@ -1468,7 +1466,7 @@ class Session:
             yield vfile
 
     @fmt_docstring
-    def virtualfile_from_data(
+    def virtualfile_from_data(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,

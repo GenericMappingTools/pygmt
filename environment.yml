@@ -22,11 +22,9 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - black
     - blackdoc
     - codespell
     - docformatter>=1.7.2
-    - pylint
     - ruff
     # Dev dependencies (unit testing)
     - matplotlib

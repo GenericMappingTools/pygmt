@@ -126,7 +126,6 @@ def tempfile_from_geojson(geojson):
         E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
-        # pylint: disable=import-outside-toplevel
         import geopandas as gpd
 
         os.remove(tmpfile.name)  # ensure file is deleted first
