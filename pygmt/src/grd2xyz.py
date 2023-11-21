@@ -12,8 +12,8 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
-    validate_output_table_type,
 )
+from pygmt.helpers.validators import validator
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -33,6 +33,7 @@ __doctest_skip__ = ["grd2xyz"]
     s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
+@validator(types="output_table_type")
 def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     r"""
     Convert grid to data table.
@@ -143,8 +144,6 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     0  10.0  25.0      863.0
     1  10.5  25.0      985.5
     """
-    output_type = validate_output_table_type(output_type, outfile=outfile)
-
     if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(
             "If 'outcols' is specified, 'output_type' must be either 'numpy'"

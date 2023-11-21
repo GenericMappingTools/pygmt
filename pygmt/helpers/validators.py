@@ -1,7 +1,9 @@
 """
 Functions to check if given arguments are valid.
 """
+import functools
 import warnings
+from inspect import signature
 
 from pygmt.exceptions import GMTInvalidInput
 
@@ -39,3 +41,24 @@ def validate_output_table_type(output_type, outfile=None):
         warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
         output_type = "file"
     return output_type
+
+
+def validator(types=None):
+    def validator_decorator(func):
+        sig = signature(func)
+
+        @functools.wraps(func)
+        def newfunc(*args, **kwargs):
+            bound = sig.bind(*args, **kwargs)
+            bound.apply_defaults()
+            print(bound.arguments)
+            if types == "output_table_type":
+                bound.arguments["output_type"] = validate_output_table_type(
+                    output_type=bound.arguments["output_type"],
+                    outfile=bound.arguments["outfile"],
+                )
+            return func(*bound.args, **bound.kwargs)
+
+        return newfunc
+
+    return validator_decorator
