@@ -191,7 +191,7 @@ def text_(
 
     # Build the -F option in gmt text.
     if kwargs.get("F") is None and 
-        any(v is not None for v in (position, angle, font, justify))
+        any(v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
