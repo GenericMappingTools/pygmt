@@ -34,11 +34,11 @@ jobs:
 
       - name: Install packages
         run: |
-          python -m pip install black blackdoc docformatter ruff
+          python -m pip install blackdoc docformatter ruff
           python -m pip list
           sudo apt-get install dos2unix
 
-      - name: Formatting check (black, blackdoc, docformatter, ruff)
+      - name: Formatting check (blackdoc, docformatter, ruff)
         run: make check
 
       - name: Ensure files use UNIX line breaks and have 644 permission

@@ -22,7 +22,6 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - black
     - blackdoc
     - codespell
     - docformatter>=1.7.2
