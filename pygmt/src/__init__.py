@@ -1,8 +1,6 @@
 """
 Source code for PyGMT methods.
 """
-# pylint: disable=import-outside-toplevel
-
 from pygmt.src.basemap import basemap
 from pygmt.src.binstats import binstats
 from pygmt.src.blockm import blockmean, blockmedian, blockmode

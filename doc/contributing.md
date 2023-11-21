@@ -505,15 +505,14 @@ editors or IDEs. We consistently use `# %%` as code block separators (please
 refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
 for the discussions) and require at least one separator in all example files.
 
-We also use [ruff](https://docs.astral.sh/ruff) and
-[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
-common errors.
+We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
+and quickly catch common errors.
+
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
-contains rules for running both checks:
+contains rules for running the linter checks:
 
 ```bash
 make check   # Runs blackdoc, docformatter, ruff (in check mode)
-make lint    # Runs pylint, which is a bit slower
 ```
 
 ### Testing your Code

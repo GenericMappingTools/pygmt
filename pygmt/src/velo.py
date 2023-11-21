@@ -242,7 +242,7 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)

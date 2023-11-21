@@ -66,6 +66,6 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))

@@ -25,7 +25,6 @@ dependencies:
     - blackdoc
     - codespell
     - docformatter>=1.7.2
-    - pylint
     - ruff
     # Dev dependencies (unit testing)
     - matplotlib
