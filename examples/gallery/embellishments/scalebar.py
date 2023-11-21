@@ -23,10 +23,7 @@ This example shows how such a scale bar can be customized:
  - label alignment: **+a**. Append **t**\(op) [Default], **b**\(ottom),
    **l**\(eft), or **r**\(ight).
  - distance unit: **+u**. Add the distance unit to the distance values.
-
-Via the ``box`` parameter a box can be added around the scale bar.
 """
-
 
 # %%
 import pygmt
@@ -34,6 +31,8 @@ import pygmt
 # Create a new Figure instance
 fig = pygmt.Figure()
 
+# -----------------------------------------------------------------------------
+# Add a basic scale bar
 fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",  # Mercator projection with 10 centimeters width
@@ -43,6 +42,8 @@ fig.basemap(
 
 fig.shift_origin(xshift="+w1c")
 
+# -----------------------------------------------------------------------------
+# Add a fancy scale bar
 fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
@@ -53,11 +54,12 @@ fig.basemap(
 fig.show()
 
 # %%
-# Amazing text
 
 # Create a new Figure instance
 fig = pygmt.Figure()
 
+# -----------------------------------------------------------------------------
+# Add a thick scale bar
 with pygmt.config(MAP_SCALE_HEIGHT="20p"):
     fig.basemap(
         region=[-45, -25, -15, 0],
@@ -68,6 +70,8 @@ with pygmt.config(MAP_SCALE_HEIGHT="20p"):
 
 fig.shift_origin(xshift="+w1c")
 
+# -----------------------------------------------------------------------------
+# Add a scale bar for a specific origin
 fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
@@ -78,7 +82,11 @@ fig.basemap(
 fig.show()
 
 # %%
-# Amazing text
+# The ``box`` parameter allows to surround the scale bar. This can be useful
+# when adding a scale bar to a colorful plot. The outline of the box can be
+# adjusted by appending **+p** and the desired thickness, color, and style.
+# To fill the box append **+g** with the desired color (or pattern). To force
+# rounded eges append **+r** with the desired radius.
 
 # Create a new Figure instance
 fig = pygmt.Figure()
