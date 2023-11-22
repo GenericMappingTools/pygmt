@@ -189,8 +189,8 @@ def text_(  # noqa: PLR0912
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if kwargs.get("F") is None and 
-        any(v is not None for v in (position, angle, font, justify)
+    if kwargs.get("F") is None and any(
+        v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
