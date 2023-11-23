@@ -112,7 +112,7 @@ fig.meca(
     scale="1c",
     longitude=37.042,
     latitude=37.166,
-	# Use a 1.5-point thick, green and solid outline
+    # Use a 1.5-point thick, green and solid outline
     pen="1.5p,green,solid",
 )
 
