@@ -4,7 +4,10 @@ Plotting focal mechanisms
 
 Focal mechanisms can be plotted with the :meth:`pygmt.Figure.meca` method.
 
-TODO: Check GMT issue #7777 and PR #7778
+TODO: Check GMT
+- issue #7777 and PR #7778
+- issue #8053
+- PR #8059 ->  T pen
 
 Beside an external file containing the input data, PyGMT allows for different
 input types:
@@ -59,12 +62,12 @@ import pygmt
 # Store focal mechanism parameters
 # in a 1-D array
 fm_sinlge = "xxx"
-# in pandas DataFrame
+# in a pandas DataFrame
 fm_single = "xxx"
 # in a dictionary based on the Aki & Richards convention
 fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
 
-# Define study area: lon_min, lon_max, lat_min, lat_max
+# Define the study area: lon_min, lon_max, lat_min, lat_max
 # in degrees East or North
 study_area = [-84, -76, -4, 4]
 
@@ -76,26 +79,17 @@ study_area = [-84, -76, -4, 4]
 # Required parameters are ``spec``, ``scale``, ``longitude`` and ``latitude``
 # (event location)
 
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=True,
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=True)
 
-# Pass the focal mechanism data through the spec parameter
-# additionally scale and event location are required
+# Plot a single focal mechanism as beachball
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=-79.611,  # event longitude
+    latitude=0.904,  # event latitude
 )
 
 fig.show()
@@ -107,50 +101,33 @@ fig.show()
 #
 # parameters ``pen`` and ``outline``
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",  # Mercator projection with width 10 centimeters
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "WSne"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "WSne"])
 
 # Plot focal mechanism
 fig.meca(
     spec=fm_single,
-    scale="1c",  # in centimeters
-    longitude=-79.611,  # event longitude
-    latitude=0.904,  # event latitude
-    pen="1p,blue,solid",
+    scale="1c",
+    longitude=-79.611,
+    latitude=0.904,
+	# Use a 1.5-point thick, blue and solid outline
+    pen="1.5p,magenta,solid",
 )
 
 # Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "wSnE"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "wSnE"])
 
 # Plot focal mechanism
 fig.meca(
     spec=fm_single,
-    scale="1c",  # in centimeters
+    scale="1c",
     longitude=-79.611,
     latitude=0.904,
-    outline="1p,red,solid",
+    outline="1.5p,red,solid",
 )
 
 fig.show()
@@ -162,19 +139,10 @@ fig.show()
 #
 # parameters ``compressionfill`` and ``extensionfill``
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "WSne"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "WSne"])
 
 # Plot focal mechanism
 fig.meca(
@@ -182,23 +150,14 @@ fig.meca(
     scale="1c",  # in centimeters
     longitude=-79.611,
     latitude=0.904,
-    compressionfill="lightred",
-    extensionfill="cornsilk",
+    compressionfill="darkred",
+    extensionfill="gold",
 )
 
 # Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "wSnE"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "wSnE"])
 
 # Plot focal mechanism
 fig.meca(
@@ -221,19 +180,10 @@ fig.show()
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "WSne"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "WSne"])
 
 # Plot focal mechanism
 fig.meca(
@@ -247,16 +197,7 @@ fig.meca(
 # Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "wSnE"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "wSnE"])
 
 # Plot focal mechanism
 fig.meca(
@@ -285,19 +226,10 @@ fig.show()
 #
 # Parameters ``plot_longitude`` and ``plot_latitude`` as well as ``offset``
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "WSne"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "WSne"])
 
 # Plot focal mechanism
 fig.meca(
@@ -313,16 +245,7 @@ fig.meca(
 # Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
-# Create basic map of study area
-fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.5p,darkgray",
-    borders="1/0.5p,darkred",
-    frame=["af", "wSnE"],
-)
+fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", frame=["af", "wSnE"])
 
 # Plot focal mechanism
 fig.meca(
@@ -363,18 +286,10 @@ fm_collection = dict(
 
 # fixed size via ``scale`` append **+m**
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region="d",
-    projection="N10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.1p,darkgray",
-    frame=["af", "WSnE"],
-)
+fig.coast(region="d", projection="N10c",land="tan", water="steelblue", frame=["af", "WSnE"])
 
 # Plot focal mechanism
 fig.meca(
@@ -392,24 +307,13 @@ fig.show()
 # e.g., by magnitude or hypocentral depth
 # Set up colormap and use parameter ``cmap``
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region="d",
-    projection="N10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.1p,darkgray",
-    frame=["af", "WsNE"],
-)
+fig.coast(region="d", projection="N10c", land="tan", water="steelblue", frame=["af", "WsNE"])
 
 # Set up colormap for hypocentral depth
-pygmt.makecpt(
-    cmap="lajolla",
-    series=[0, 30, 1],
-)
+pygmt.makecpt(cmap="lajolla", series=[0, 30, 1])
 
 # Plot focal mechanism
 fig.meca(
@@ -435,23 +339,15 @@ fig.show()
 #
 # change font size of trailing text ``scale`` **+f**
 
-# Create new figure instance
+# Create a new Figure instance
 fig = pygmt.Figure()
 
-# Create basic map of study area
-fig.coast(
-    region="d",
-    projection="N10c",
-    land="lightgray",
-    water="lightblue",
-    shorelines="1/0.1p,darkgray",
-    frame=["af", "WSnE"],
-)
+fig.coast(region="d", projection="N10c", land="tan", water="steelblue", frame=["af", "WSnE"])
 
 # Plot focal mechanism
 fig.meca(
     spec=fm_collection,
-    scale="0.3c+m+f5p",  # in centimeters
+    scale="0.3c+m+f5p",
     # TODO double check dates
     event_name=["2010/01/12", "2022/03/27", "2022/06/21", "2023/02/06"],
     labelbox="white@30",
