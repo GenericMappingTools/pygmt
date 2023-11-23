@@ -65,11 +65,11 @@ fm_sinlge = "xxx"
 # in a pandas DataFrame
 fm_single = "xxx"
 # in a dictionary based on the Aki & Richards convention
-fm_single = dict(strike=166, dip=80, rake=74, magnitude=5.8)
+fm_single = dict(strike=318, dip=89, rake=-179, magnitude=7.75)
 
 # Define the study area: lon_min, lon_max, lat_min, lat_max
 # in degrees East or North
-study_area = [-84, -76, -4, 4]
+study_area = [30, 40, 30, 40]
 
 
 # %%
@@ -88,8 +88,8 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
-    longitude=-79.611,  # event longitude
-    latitude=0.904,  # event latitude
+    longitude=37.042,  # event longitude
+    latitude=37.166,  # event latitude
 )
 
 fig.show()
@@ -110,10 +110,10 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
-	# Use a 1.5-point thick, blue and solid outline
-    pen="1.5p,magenta,solid",
+    longitude=37.042,
+    latitude=37.166,
+	# Use a 1.5-point thick, green and solid outline
+    pen="1.5p,green,solid",
 )
 
 # Shift plot origin 11 centimeters to the right
@@ -125,9 +125,9 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
-    outline="1.5p,red,solid",
+    longitude=37.042,
+    latitude=37.166,
+    outline="1.5p,green,solid",
 )
 
 fig.show()
@@ -148,8 +148,8 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=37.042,
+    latitude=37.166,
     compressionfill="darkred",
     extensionfill="gold",
 )
@@ -163,8 +163,8 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=37.042,
+    latitude=37.166,
     compressionfill="p8",
     extensionfill="p31",
     outline=True,
@@ -189,8 +189,8 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=37.042,
+    latitude=37.166,
     nodal="0/1p,black,solid",
 )
 
@@ -203,8 +203,8 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=37.042,
+    latitude=37.166,
     compressionfill="darkgray",
     outline="1p,red,solid",
 )
@@ -212,8 +212,8 @@ fig.meca(
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
+    longitude=37.042,
+    latitude=37.166,
     nodal="1/1p,black,solid",
 )
 
@@ -235,10 +235,10 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",  # in centimeters
-    longitude=-79.611,
-    latitude=0.904,
-    plot_longitude=-78,
-    plot_latitude=0,
+    longitude=37.042,
+    latitude=37.166,
+    plot_longitude=35,
+    plot_latitude=38,
     offset=True,
 )
 
@@ -251,10 +251,10 @@ fig.coast(region=study_area, projection="M10c", land="tan", water="steelblue", f
 fig.meca(
     spec=fm_single,
     scale="1c",
-    longitude=-79.611,
-    latitude=0.904,
-    plot_longitude=-78,
-    plot_latitude=0,
+    longitude=37.042,
+    latitude=37.166,
+    plot_longitude=35,
+    plot_latitude=38,
     offset="+p1p,red+s0.25c",
     compressionfill="lightred",
 )
