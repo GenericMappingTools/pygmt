@@ -75,7 +75,6 @@ fig.show()
 # the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 # :meth:`pygmt.Figure.plot` to use the colormap. At the end of the plot, we
 # also plot a colorbar showing the colormap used in the plot.
-#
 
 fig = pygmt.Figure()
 fig.basemap(region=region, projection="M15c", frame=True)
