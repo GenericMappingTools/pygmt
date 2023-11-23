@@ -9,7 +9,7 @@ except ImportError:
 from pygmt.figure import SHOWED_FIGURES
 
 
-class PyGMTScraper:  # pylint: disable=too-few-public-methods
+class PyGMTScraper:
     """
     Save ``pygmt.Figure`` objects that had their ``show`` method called.
 
