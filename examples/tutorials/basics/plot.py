@@ -88,7 +88,7 @@ fig.plot(
     fill=data.depth_km,
     cmap=True,
     style="cc",
-    pen="black",
+    pen="white",
 )
 fig.colorbar(frame="af+lDepth (km)")
 fig.show()
