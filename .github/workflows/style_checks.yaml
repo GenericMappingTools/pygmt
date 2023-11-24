@@ -30,22 +30,30 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4.7.1
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install packages
         run: |
-          python -m pip install black blackdoc docformatter pylint ruff
+          python -m pip install blackdoc docformatter ruff
           python -m pip list
           sudo apt-get install dos2unix
 
-      - name: Formatting check (black, blackdoc, docformatter, ruff)
+      - name: Formatting check (blackdoc, docformatter, ruff)
         run: make check
-
-      - name: Linting (pylint)
-        run: make lint
 
       - name: Ensure files use UNIX line breaks and have 644 permission
         run: |
           find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
           find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+
+      - name: Ensure example scripts have at least one code block separator
+        run: |
+          grep --files-without-match '# %%' $(find 'examples' -name '*.py') > output.txt
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Code block separator '# %%' is required in following example files:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi

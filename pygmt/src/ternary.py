@@ -72,7 +72,7 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if alabel or blabel or clabel:
         alabel = str(alabel) if alabel is not None else "-"
