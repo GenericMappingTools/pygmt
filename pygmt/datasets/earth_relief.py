@@ -18,7 +18,7 @@ __doctest_skip__ = ["load_earth_relief"]
 def load_earth_relief(
     resolution: str = "01d",
     region: Union[str, Sequence, None] = None,
-    registration: Literal["registration", "pixel", None] = None,
+    registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm: bool = False,
 ):
