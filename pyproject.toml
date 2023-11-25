@@ -100,6 +100,7 @@ select = [
     "F",    # pyflakes
     "I",    # isort
     "NPY",  # numpy
+    "PD",   # pandas-vet
     "PL",   # pylint
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
