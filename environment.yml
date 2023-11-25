@@ -3,6 +3,7 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
+    - python=3.12
     # Required dependencies
     - gmt=6.4.0
     - numpy>=1.22

@@ -99,6 +99,7 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 
 [tool.ruff.lint]
 select = [
+    "B",    # flake8-bugbear
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
