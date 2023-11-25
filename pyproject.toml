@@ -101,6 +101,7 @@ select = [
     "I",    # isort
     "NPY",  # numpy
     "PL",   # pylint
+    "SIM",  # flake8-simplify
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
