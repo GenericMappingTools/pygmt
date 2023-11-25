@@ -28,7 +28,7 @@ with rioxarray.open_rasterio(
     # Subset to area of Lāhainā in EPSG:32604 coordinates
     image = img.rio.clip_box(minx=738000, maxx=755000, miny=2300000, maxy=2318000)
     image = image.load()  # Force loading the DataArray into memory
-repr(image)
+image  # noqa: B018
 
 # %%
 # Plot the RGB imagery:
