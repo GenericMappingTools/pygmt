@@ -108,6 +108,7 @@ select = [
 ignore = [
     "E501", # Avoid enforcing line-length violations
     "PLR2004",  # Allow any magic values
+    "SIM117",  # Allow nested `with` statements
 ]
 
 [tool.ruff.lint.isort]
