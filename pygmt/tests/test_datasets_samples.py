@@ -189,7 +189,7 @@ def test_earth_relief_holes():
     npt.assert_allclose(grid.max(), 1601)
     npt.assert_allclose(grid.min(), -4929.5)
     # Test for the NaN values in the remote file
-    assert grid[2, 21].isnull()
+    assert grid[2, 21].isna()
 
 
 def test_maunaloa_co2():
