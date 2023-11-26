@@ -103,7 +103,7 @@ def dataarray_to_matrix(grid):
                 "but GMT only supports regular spacing. Calculated regular spacing "
                 f"{coord_inc} is assumed in the '{dim}' dimension."
             )
-            warnings.warn(msg, category=RuntimeWarning)
+            warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
             raise GMTInvalidInput(
                 f"Grid has a zero increment in the '{dim}' dimension."

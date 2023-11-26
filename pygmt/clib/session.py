@@ -349,7 +349,7 @@ class Session:
         """
         try:
             # Won't raise an exception if there is a currently open session
-            self.session_pointer
+            _ = self.session_pointer
             # In this case, fail to create a new session until the old one is
             # destroyed
             raise GMTCLibError(
