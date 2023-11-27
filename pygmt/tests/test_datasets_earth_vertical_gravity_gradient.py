@@ -21,7 +21,7 @@ def test_earth_vertical_gravity_gradient_01d():
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -137.125, atol=1 / 32)
     npt.assert_allclose(data.max(), 104.59375, atol=1 / 32)
-    assert data[1, 1].isna()
+    assert data[1, 1].isnull()  # noqa: PD003  # ruff's bug
 
 
 def test_earth_vertical_gravity_gradient_01d_with_region():
