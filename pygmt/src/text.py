@@ -77,7 +77,7 @@ def text_(  # noqa: PLR0912
     ----------
     textfiles : str or list
         A file name or a list of file names containing one or more records.
-        Each record has following columns:
+        Each record has the following columns:
 
         * *x* : X coordinate or longitude
         * *y* : Y coordinate or latitude
@@ -87,8 +87,8 @@ def text_(  # noqa: PLR0912
         * *text* : The text string to typeset
 
         The *angle*, *font*, and *justify* columns are optional and can be set
-        by using ``angle``, ``font``, and ``justify`` parameters, respectively.
-        If thse parameters are set to ``True``, then the corresponding columns
+        by using the ``angle``, ``font``, and ``justify`` parameters, respectively.
+        If these parameters are set to ``True``, then the corresponding columns
         must be present in the input file(s) and the columns must be in the
         order mentioned above.
 
