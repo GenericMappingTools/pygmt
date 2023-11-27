@@ -87,11 +87,10 @@ def text_(  # noqa: PLR0912
         * *text* : The text string to typeset
 
         The *angle*, *font*, and *justify* columns are optional and can be set
-        by using the ``angle``, ``font``, and ``justify`` parameters, respectively.
-        If these parameters are set to ``True``, then the corresponding columns
-        must be present in the input file(s) and the columns must be in the
-        order mentioned above.
-
+        by using the ``angle``, ``font``, and ``justify`` parameters,
+        respectively. If these parameters are set to ``True``, then the
+        corresponding columns must be present in the input file(s) and the
+        columns must be in the order mentioned above.
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
