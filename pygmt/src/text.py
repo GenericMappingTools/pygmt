@@ -82,7 +82,7 @@ def text_(  # noqa: PLR0912
         * *x* : X coordinate or longitude
         * *y* : Y coordinate or latitude
         * *angle* : Angle in degrees counter-clockwise from horizontal
-        * *font* : Text font
+        * *font* : Text size, font, and color
         * *justify* : Two-character justification code
         * *text* : The text string to typeset
 
