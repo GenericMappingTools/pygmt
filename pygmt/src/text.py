@@ -79,12 +79,12 @@ def text_(  # noqa: PLR0912
         A file name or a list of file names containing one or more records.
         Each record has the following columns:
 
-        * *x* : X coordinate or longitude
-        * *y* : Y coordinate or latitude
-        * *angle* : Angle in degrees counter-clockwise from horizontal
-        * *font* : Text size, font, and color
-        * *justify* : Two-character justification code
-        * *text* : The text string to typeset
+        * *x*: X coordinate or longitude
+        * *y*: Y coordinate or latitude
+        * *angle*: Angle in degrees counter-clockwise from horizontal
+        * *font*: Text size, font, and color
+        * *justify*: Two-character justification code
+        * *text*: The text string to typeset
 
         The *angle*, *font*, and *justify* columns are optional and can be set
         by using the ``angle``, ``font``, and ``justify`` parameters,
