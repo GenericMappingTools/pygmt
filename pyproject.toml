@@ -100,6 +100,7 @@ select = [
     "F",    # pyflakes
     "I",    # isort
     "NPY",  # numpy
+    "PD",   # pandas-vet
     "PL",   # pylint
     "SIM",  # flake8-simplify
     "UP",   # pyupgrade
@@ -107,6 +108,7 @@ select = [
 ]
 ignore = [
     "E501", # Avoid enforcing line-length violations
+    "PD901",  # Allow using the generic variable name `df` for DataFrames
     "PLR2004",  # Allow any magic values
     "SIM117",  # Allow nested `with` statements
 ]
