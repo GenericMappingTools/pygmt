@@ -1,6 +1,6 @@
 # Static type check
 #
-# This workflow runs static type check.
+# This workflow runs static type checks using mypy.
 #
 # It is run on every commit to the main and pull request branches. It is also
 # scheduled to run daily on the main branch.

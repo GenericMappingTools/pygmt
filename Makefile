@@ -18,7 +18,7 @@ help:
 	@echo "  format         run blackdoc, docformatter and ruff to automatically format the code"
 	@echo "  check          run code style and quality checks (blackdoc, docformatter, ruff)"
 	@echo "  codespell      run codespell to check common misspellings"
-	@echo "  typecheck      run Mypy for static type check"
+	@echo "  typecheck      run mypy for static type check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
 	@echo ""
