@@ -31,3 +31,8 @@ cli:
   plugins:
     pycoverage:
       report_type: "json"
+
+cli:
+  runners:
+    pytest:
+      pytest_command: ["/home/runner/micromamba/envs/pygmt/bin/python", "-m", "pytest"]
