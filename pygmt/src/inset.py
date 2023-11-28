@@ -132,7 +132,7 @@ def inset(self, **kwargs):
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         try:
             lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")

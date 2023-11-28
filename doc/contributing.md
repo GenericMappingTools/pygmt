@@ -404,7 +404,7 @@ the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by Black, docstrings
+While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
 limited to 79 characters** per line.
 
@@ -473,12 +473,11 @@ code, be sure to follow the general guidelines in the
 
 We use some tools to format the code so we don't have to think about it:
 
-- [Black](https://github.com/psf/black)
 - [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [ruff](https://docs.astral.sh/ruff)
 
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
+These tools loosely follow the [PEP8](http://pep8.org) guide but with a few
 differences. Regardless, you won't have to worry about formatting the code yourself.
 Before committing, run it to automatically format your code:
 
@@ -499,15 +498,21 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [ruff](https://docs.astral.sh/ruff) and
-[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
-common errors.
+When working on a tutorial or a gallery plot, it is good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use `# %%` as code block separators (please
+refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
+for the discussions) and require at least one separator in all example files.
+
+We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
+and quickly catch common errors.
+
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
-contains rules for running both checks:
+contains rules for running the linter checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, ruff (in check mode)
-make lint    # Runs pylint, which is a bit slower
+make check   # Runs blackdoc, docformatter, ruff (in check mode)
 ```
 
 ### Testing your Code
