@@ -445,14 +445,7 @@ def fmt_docstring(module_func):
         filler_text["aliases"] = "\n".join(aliases)
 
     filler_text["table-like"] = (
-        ", ".join(
-            [
-                "numpy.ndarray",
-                "pandas.DataFrame",
-                "xarray.Dataset",
-            ]
-        )
-        + ", or geopandas.GeoDataFrame"
+        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, " "or geopandas.GeoDataFrame"
     )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
