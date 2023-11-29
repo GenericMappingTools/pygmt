@@ -66,10 +66,10 @@ Which Python?
 
 PyGMT is tested to run on Python |requires_python|.
 
-We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
+We recommend using the `Miniforge <https://github.com/conda-forge/miniforge#miniforge3>`__
 Python distribution to ensure you have all dependencies installed and the
 `mamba <https://mamba.readthedocs.io/en/stable/user_guide/mamba.html>`__
-package manager in the base environment. Installing Mambaforge does not require
+package manager in the base environment. Installing Miniforge does not require
 administrative rights to your computer and doesn't interfere with any other Python
 installations on your system.
 
@@ -264,13 +264,13 @@ respectively.
 For Linux/macOS, add the following line to your shell configuration file
 (usually ``~/.bashrc`` for Bash on Linux and ``~/.zshrc`` for Zsh on macOS)::
 
-    export GMT_LIBRARY_PATH=$HOME/mambaforge/envs/pygmt/lib
+    export GMT_LIBRARY_PATH=$HOME/miniforge3/envs/pygmt/lib
 
 For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 `instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
 and set its value to a path like::
 
-    C:\Users\USERNAME\Mambaforge\envs\pygmt\Library\bin\
+    C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
 Notes for Jupyter users
 -----------------------
