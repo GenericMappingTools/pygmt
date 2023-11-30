@@ -24,7 +24,7 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-parser
     - panel
-    - sphinx=6
+    - sphinx=7.1
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
