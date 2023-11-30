@@ -24,7 +24,7 @@ dependencies:
     # Dev dependencies (building documentation)
     - myst-parser
     - panel
-    - sphinx
+    - sphinx=5
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
