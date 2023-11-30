@@ -15,10 +15,9 @@ help:
 	@echo "  fulltest       run the test suite (including all doctests)"
 	@echo "  doctest        run the doctests only"
 	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
-	@echo "  format         run black, blackdoc, docformatter and ruff to automatically format the code"
-	@echo "  check          run code style and quality checks (black, blackdoc, docformatter, ruff)"
+	@echo "  format         run blackdoc, docformatter and ruff to automatically format the code"
+	@echo "  check          run code style and quality checks (blackdoc, docformatter, ruff)"
 	@echo "  codespell      run codespell to check common misspellings"
-	@echo "  lint           run pylint for a deeper (and slower) quality check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
 	@echo ""
@@ -61,23 +60,18 @@ test_no_images: _runtest
 
 format:
 	docformatter --in-place $(FORMAT_FILES)
-	black $(FORMAT_FILES)
 	blackdoc $(FORMAT_FILES)
 	ruff check --fix $(FORMAT_FILES)
 	ruff format $(FORMAT_FILES)
 
 check:
 	docformatter --check $(FORMAT_FILES)
-	black --check $(FORMAT_FILES)
 	blackdoc --check $(FORMAT_FILES)
 	ruff check $(FORMAT_FILES)
 	ruff format --check $(FORMAT_FILES)
 
 codespell:
 	@codespell
-
-lint:
-	pylint $(LINT_FILES)
 
 clean:
 	find . -name "*.pyc" -exec rm -v {} +

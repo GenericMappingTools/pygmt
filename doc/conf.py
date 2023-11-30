@@ -1,16 +1,11 @@
 """
 Sphinx documentation configuration file.
 """
-# pylint: disable=invalid-name
-
 import datetime
 from importlib.metadata import metadata
 
 # ruff: isort: off
-from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
-    ExplicitOrder,
-    ExampleTitleSortKey,
-)
+from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
 import pygmt
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
@@ -139,7 +134,7 @@ root_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
+copyright = f"2017-{year}, The PyGMT Developers"
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
     # Set base_url for stable version

@@ -145,7 +145,7 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
         [no heading]. Font is determined by setting :gmt-term:`FONT_HEADING`.
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if nrows < 1 or ncols < 1:
         raise GMTInvalidInput("Please ensure that both 'nrows'>=1 and 'ncols'>=1.")
@@ -220,7 +220,7 @@ def set_panel(self, panel=None, **kwargs):
 
     {verbose}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     # convert tuple or list to comma-separated str
     panel = ",".join(map(str, panel)) if is_nonstr_iter(panel) else panel
 

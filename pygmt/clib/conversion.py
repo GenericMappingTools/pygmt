@@ -92,7 +92,7 @@ def dataarray_to_matrix(grid):
     # grids, this would be North-South, East-West. GMT's region and inc are
     # East-West, North-South.
     for dim in grid.dims[::-1]:
-        coord = grid.coords[dim].values
+        coord = grid.coords[dim].to_numpy()
         coord_incs = coord[1:] - coord[0:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
@@ -103,7 +103,7 @@ def dataarray_to_matrix(grid):
                 "but GMT only supports regular spacing. Calculated regular spacing "
                 f"{coord_inc} is assumed in the '{dim}' dimension."
             )
-            warnings.warn(msg, category=RuntimeWarning)
+            warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
             raise GMTInvalidInput(
                 f"Grid has a zero increment in the '{dim}' dimension."
@@ -120,7 +120,7 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid[::-1].values)
+    matrix = as_c_contiguous(grid[::-1].to_numpy())
     return matrix, region, inc
 
 
