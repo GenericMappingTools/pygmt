@@ -36,7 +36,27 @@ def fixture_gdf():
         index=["multipolygon", "polygon", "linestring"],
         geometry=[multipolygon, polygon, linestring],
     )
+    return gdf
 
+
+@pytest.fixture(scope="module", name="gdf_ridge")
+def fixture_gdf_ridge():
+    """
+    Read a @RidgeTest.shp shapefile with geopandas.GeoDataFrame and reproject
+    the geometry.
+    """
+    # Read shapefile in geopandas.GeoDataFrame
+    shapefile = which(
+        fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
+        download="c",
+    )
+    gdf = gpd.read_file(shapefile[0])
+    # Reproject geometry
+    gdf["geometry"] = (
+        gdf.to_crs(crs="EPSG:3857")
+        .buffer(distance=100000)
+        .to_crs(crs="OGC:CRS84")  # convert to lon/lat to prevent @null in PROJ CRS
+    )
     return gdf
 
 
@@ -144,7 +164,7 @@ def test_geopandas_plot3d_non_default_circle():
     ],
 )
 @pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
-def test_geopandas_plot_int_dtypes(dtype):
+def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
     """
     Check that plotting a geopandas GeoDataFrame with integer columns works,
     including int32 and int64 (non-nullable), Int32 and Int64 (nullable).
@@ -152,26 +172,14 @@ def test_geopandas_plot_int_dtypes(dtype):
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/2497
     """
-    # Read shapefile in geopandas.GeoDataFrame
-    shapefile = which(
-        fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
-        download="c",
-    )
-    gdf = gpd.read_file(shapefile[0])
-
-    # Reproject geometry and change dtype of NPOINTS column
-    gdf["geometry"] = (
-        gdf.to_crs(crs="EPSG:3857")
-        .buffer(distance=100000)
-        .to_crs(crs="OGC:CRS84")  # convert to lon/lat to prevent @null in PROJ CRS
-    )
-    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype=dtype)
+    # Convert NPOINTS column to integer type
+    gdf_ridge["NPOINTS"] = gdf_ridge.NPOINTS.astype(dtype=dtype)
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
     makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.plot(
-        data=gdf,
+        data=gdf_ridge,
         frame=True,
         pen="1p,black",
         close=True,
@@ -179,5 +187,39 @@ def test_geopandas_plot_int_dtypes(dtype):
         cmap=True,
         aspatial="Z=NPOINTS",
     )
+    fig.colorbar()
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
+def test_geopandas_plot_int64_as_float(gdf_ridge):
+    """
+    Check that big 64-bit integers are correctly mapped to float type in
+    geopandas.GeoDataFrame object.
+    """
+    factor = 2**32
+    # Convert NPOINTS column to int64 type and make big integers
+    gdf_ridge["NPOINTS"] = gdf_ridge.NPOINTS.astype(dtype="int64")
+    gdf_ridge["NPOINTS"] *= factor
+
+    # Make sure the column is bigger than the largest 32-bit integer
+    assert gdf_ridge["NPOINTS"].abs().max() > 2**31 - 1
+
+    # Plot figure with three polygons colored based on NPOINTS value
+    fig = Figure()
+    makecpt(
+        cmap="lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
+    )
+    fig.plot(
+        data=gdf_ridge,
+        frame=True,
+        pen="1p,black",
+        close=True,
+        fill="+z",
+        cmap=True,
+        aspatial="Z=NPOINTS",
+    )
+    # Generate a CPT for 10-60 range and plot to reuse the baseline image
+    makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.colorbar()
     return fig
