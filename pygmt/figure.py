@@ -514,7 +514,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # type: ignore
+    from pygmt.src import (  # type: ignore [misc]
         basemap,
         coast,
         colorbar,
