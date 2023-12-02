@@ -83,12 +83,12 @@ def inset(self, **kwargs):
         Append **+c**\ *clearance* where *clearance* is either
         *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
         *tgap* where these items are uniform, separate in x- and
-        y-directions, or individual side spacings between map embellishment
-        and border. Append **+i** to draw a secondary, inner border as well.
-        We use a uniform *gap* between borders of 2p and the default pen
-        unless other values are specified. Append **+r** to draw rounded
-        rectangular borders instead, with a 6p corner radius. You
-        can override this radius by appending another value. Append
+        y-directions, or individual side spacings between the map
+        embellishment and border. Append **+i** to draw a secondary, inner
+        border as well. We use a uniform *gap* between borders of 2p and
+        the default pen unless other values are specified. Append **+r** to
+        draw rounded rectangular borders instead, with a 6p corner radius.
+        You can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
         indicates the shift relative to the foreground frame [Default is
         ``"4p/-4p"``] and *shade* sets the fill style to use for
