@@ -273,7 +273,7 @@ def _load_remote_dataset(
     dataset = datasets[dataset_name]
 
     # check resolution
-    if resolution not in dataset.resolutions.keys():
+    if resolution not in dataset.resolutions:
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
 
     # check registration
