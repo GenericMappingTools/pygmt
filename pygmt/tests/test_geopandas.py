@@ -3,6 +3,7 @@ Test integration with geopandas.
 """
 import numpy.testing as npt
 import pandas as pd
+import pandas.util._test_decorators as td
 import pytest
 from pygmt import Figure, info, makecpt, which
 
@@ -141,6 +142,24 @@ def test_geopandas_plot3d_non_default_circle():
         "int64",
         pd.Int32Dtype(),
         pd.Int64Dtype(),
+        pytest.param(
+            "int32[pyarrow]",
+            marks=[
+                td.skip_if_no(package="pyarrow"),
+                pytest.mark.xfail(
+                    reason="geopandas doesn't support casting to pyarrow dtypes yet."
+                ),
+            ],
+        ),
+        pytest.param(
+            "int64[pyarrow]",
+            marks=[
+                td.skip_if_no(package="pyarrow"),
+                pytest.mark.xfail(
+                    reason="geopandas doesn't support casting to pyarrow dtypes yet."
+                ),
+            ],
+        ),
     ],
 )
 @pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
