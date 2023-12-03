@@ -226,6 +226,7 @@ and store them in GMT's user data directory.
     datasets.load_earth_mask
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
+    datasets.load_mars_relief
     datasets.load_sample_data
 
 In addition, there is also a special function to load XYZ tile maps via
