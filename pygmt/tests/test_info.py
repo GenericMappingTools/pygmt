@@ -8,6 +8,7 @@ import sys
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
+import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import info
@@ -74,16 +75,30 @@ def test_info_2d_list():
     assert output == expected_output
 
 
-def test_info_series():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "int64",
+        pytest.param("int64[pyarrow]", marks=td.skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_series(dtype):
     """
     Make sure info works on a pandas.Series input.
     """
-    output = info(pd.Series(data=[0, 4, 2, 8, 6]))
+    output = info(pd.Series(data=[0, 4, 2, 8, 6], dtype=dtype))
     expected_output = "<vector memory>: N = 5 <0/8>\n"
     assert output == expected_output
 
 
-def test_info_dataframe():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "float64",
+        pytest.param("float64[pyarrow]", marks=td.skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_dataframe(dtype):
     """
     Make sure info works on pandas.DataFrame inputs.
     """
