@@ -131,10 +131,9 @@ def tempfile_from_geojson(geojson):
         os.remove(tmpfile.name)  # ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
-            # OGR_GMT only supports 32-bit integers.
-            # We need to map int/int64 types:
-            # 1. to int32 type if the column is a 32-bit integer
-            # 2. to float64 type if the column is big 64-bit integer
+            # OGR_GMT only supports 32-bit integers. We need to map int/int64
+            # types to int32/float type depending on if the column has an
+            # 32-bit integer overflow issue. Related issues:
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             if geojson.index.name is None:
