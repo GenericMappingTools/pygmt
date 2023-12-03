@@ -8,6 +8,7 @@ import sys
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
+import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import info
@@ -107,14 +108,22 @@ def test_info_numpy_array_time_column():
     assert output == expected_output
 
 
-def test_info_pandas_dataframe_time_column():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "datetime64[ns]",
+        pytest.param("date32[day][pyarrow]", marks=td.skip_if_no(package="pyarrow")),
+        pytest.param("date64[ms][pyarrow]", marks=td.skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_pandas_dataframe_date_column(dtype):
     """
-    Make sure info works on pandas.DataFrame inputs with a time column.
+    Make sure info works on pandas.DataFrame inputs with a date column.
     """
     table = pd.DataFrame(
         data={
             "z": [10, 13, 12, 15, 14],
-            "time": pd.date_range(start="2020-01-01", periods=5),
+            "date": pd.date_range(start="2020-01-01", periods=5).astype(dtype=dtype),
         }
     )
     output = info(data=table)
