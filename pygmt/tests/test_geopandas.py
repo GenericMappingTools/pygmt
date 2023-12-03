@@ -147,7 +147,7 @@ def test_geopandas_plot3d_non_default_circle():
             marks=[
                 td.skip_if_no(package="pyarrow"),
                 pytest.mark.xfail(
-                    reason="geopandas doesn't support casting to pyarrow dtypes yet."
+                    reason="geopandas doesn't support writing columns with pyarrow dtypes to OGR_GMT yet."
                 ),
             ],
         ),
@@ -156,7 +156,7 @@ def test_geopandas_plot3d_non_default_circle():
             marks=[
                 td.skip_if_no(package="pyarrow"),
                 pytest.mark.xfail(
-                    reason="geopandas doesn't support casting to pyarrow dtypes yet."
+                    reason="geopandas doesn't support writing columns with pyarrow dtypes to OGR_GMT yet."
                 ),
             ],
         ),
