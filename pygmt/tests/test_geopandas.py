@@ -42,16 +42,16 @@ def fixture_gdf():
 @pytest.fixture(scope="module", name="gdf_ridge")
 def fixture_gdf_ridge():
     """
-    Read a @RidgeTest.shp shapefile with geopandas.GeoDataFrame and reproject
+    Read a @RidgeTest.shp shapefile into a geopandas.GeoDataFrame and reproject
     the geometry.
     """
-    # Read shapefile in geopandas.GeoDataFrame
+    # Read shapefile into a geopandas.GeoDataFrame
     shapefile = which(
         fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
         download="c",
     )
     gdf = gpd.read_file(shapefile[0])
-    # Reproject geometry
+    # Reproject the geometry
     gdf["geometry"] = (
         gdf.to_crs(crs="EPSG:3857")
         .buffer(distance=100000)
@@ -166,7 +166,7 @@ def test_geopandas_plot3d_non_default_circle():
 @pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
 def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
     """
-    Check that plotting a geopandas GeoDataFrame with integer columns works,
+    Check that plotting a geopandas.GeoDataFrame with integer columns works,
     including int32 and int64 (non-nullable), Int32 and Int64 (nullable).
 
     This is a regression test for
@@ -182,7 +182,6 @@ def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
         data=gdf_ridge,
         frame=True,
         pen="1p,black",
-        close=True,
         fill="+z",
         cmap=True,
         aspatial="Z=NPOINTS",
@@ -214,7 +213,6 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
         data=gdf_ridge,
         frame=True,
         pen="1p,black",
-        close=True,
         fill="+z",
         cmap=True,
         aspatial="Z=NPOINTS",

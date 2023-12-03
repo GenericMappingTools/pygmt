@@ -132,7 +132,7 @@ def tempfile_from_geojson(geojson):
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
             # OGR_GMT only supports 32-bit integers. We need to map int/int64
-            # types to int32/float type depending on if the column has an
+            # types to int32/float types depending on if the column has an
             # 32-bit integer overflow issue. Related issues:
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
