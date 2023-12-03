@@ -6,7 +6,7 @@ from inspect import Parameter, Signature
 from pygmt.clib import Session
 
 
-class config:  # pylint: disable=invalid-name
+class config:
     """
     Set GMT defaults globally or locally.
 

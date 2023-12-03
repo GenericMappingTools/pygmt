@@ -2,6 +2,7 @@
 Test integration with geopandas.
 """
 import numpy.testing as npt
+import pandas as pd
 import pytest
 from pygmt import Figure, info, makecpt, which
 
@@ -138,10 +139,8 @@ def test_geopandas_plot3d_non_default_circle():
     [
         "int32",
         "int64",
-        # Enable Int32/Int64 dtypes when geopandas>=0.13.3 is released with
-        # patch https://github.com/geopandas/geopandas/pull/2950
-        # pd.Int32Dtype(),
-        # pd.Int64Dtype(),
+        pd.Int32Dtype(),
+        pd.Int64Dtype(),
     ],
 )
 @pytest.mark.mpl_image_compare(filename="test_geopandas_plot_int_dtypes.png")
