@@ -179,7 +179,7 @@ def text_(  # noqa: PLR0912
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
-        if x is not None or y is not None or textfiles is not None:
+        if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
@@ -189,11 +189,8 @@ def text_(  # noqa: PLR0912
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if kwargs.get("F") is None and (
-        position is not None
-        or angle is not None
-        or font is not None
-        or justify is not None
+    if kwargs.get("F") is None and any(
+        v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 

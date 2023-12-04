@@ -86,6 +86,10 @@ make-summary-multi-line = true
 wrap-summaries = 79
 wrap-descriptions = 79
 
+[tool.mypy]
+exclude = ["pygmt/tests/"]
+ignore_missing_imports = true
+
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
 show-source = true
@@ -95,17 +99,22 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 
 [tool.ruff.lint]
 select = [
+    "B",    # flake8-bugbear
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
     "NPY",  # numpy
+    "PD",   # pandas-vet
     "PL",   # pylint
+    "SIM",  # flake8-simplify
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
 ignore = [
     "E501", # Avoid enforcing line-length violations
+    "PD901",  # Allow using the generic variable name `df` for DataFrames
     "PLR2004",  # Allow any magic values
+    "SIM117",  # Allow nested `with` statements
 ]
 
 [tool.ruff.lint.isort]

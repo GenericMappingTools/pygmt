@@ -4,11 +4,11 @@ access to the API functions.
 
 Uses ctypes to wrap most of the core functions from the C API.
 """
+import contextlib
 import ctypes as ctp
 import pathlib
 import sys
 import warnings
-from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -190,12 +190,10 @@ class Session:
             }
             # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
             # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency. The try-except block can be refactored after we bump
+            # dependency. The code block can be refactored after we bump
             # the minimum required GMT version to 6.4.0.
-            try:
+            with contextlib.suppress(GMTCLibError):
                 self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-            except GMTCLibError:
-                pass
             # API_BIN_VERSION is new in GMT 6.4.0.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
@@ -348,7 +346,7 @@ class Session:
         """
         try:
             # Won't raise an exception if there is a currently open session
-            self.session_pointer
+            _ = self.session_pointer
             # In this case, fail to create a new session until the old one is
             # destroyed
             raise GMTCLibError(
@@ -732,10 +730,7 @@ class Session:
         """
         pad = kwargs.get("pad", None)
         if pad is None:
-            if "MATRIX" in family:
-                pad = 0
-            else:
-                pad = self["GMT_PAD_DEFAULT"]
+            pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
 
     def _parse_constant(self, constant, valid, valid_modifiers=None):
@@ -1089,7 +1084,7 @@ class Session:
         if status != 0:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
-    @contextmanager
+    @contextlib.contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
         Open a GMT virtual file to pass data to and from a module.
@@ -1196,7 +1191,7 @@ class Session:
             if status != 0:
                 raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
         Store 1-D arrays as columns of a table inside a virtual file.
@@ -1298,7 +1293,7 @@ class Session:
         ) as vfile:
             yield vfile
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_matrix(self, matrix):
         """
         Store a 2-D array as a table inside a virtual file.
@@ -1379,7 +1374,7 @@ class Session:
         ) as vfile:
             yield vfile
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_grid(self, grid):
         """
         Store a grid in a virtual file.
@@ -1550,8 +1545,8 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": nullcontext,
-            "arg": nullcontext,
+            "file": contextlib.nullcontext,
+            "arg": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
