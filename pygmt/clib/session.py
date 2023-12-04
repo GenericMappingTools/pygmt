@@ -1712,7 +1712,7 @@ class Session:
         }[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_to_data(self, kind, fname=None):
         """
         Create a virtual file for writing a GMT data container or yield the
