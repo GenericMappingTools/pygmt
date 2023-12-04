@@ -41,3 +41,6 @@ dependencies:
     - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme
+    # Dev dependencies (type hints)
+    - mypy
+    - pandas-stubs

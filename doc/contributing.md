@@ -186,7 +186,7 @@ These steps for setting up your environment are necessary for
 [contributing code](contributing.md#contributing-code). A local PyGMT development environment
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
-We highly recommend using [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge/)
+We highly recommend using [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
 and the `mamba` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 

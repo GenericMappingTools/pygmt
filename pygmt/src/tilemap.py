@@ -6,9 +6,11 @@ from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 try:
-    import rioxarray
+    import rioxarray  # noqa: F401
+
+    _HAS_RIOXARRAY = True
 except ImportError:
-    rioxarray = None
+    _HAS_RIOXARRAY = False
 
 
 @fmt_docstring
@@ -114,7 +116,7 @@ def tilemap(
     """
     kwargs = self._preprocess(**kwargs)
 
-    if rioxarray is None:
+    if not _HAS_RIOXARRAY:
         raise ImportError(
             "Package `rioxarray` is required to be installed to use this function. "
             "Please use `python -m pip install rioxarray` or "
