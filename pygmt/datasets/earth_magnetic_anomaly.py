@@ -24,7 +24,7 @@ def load_earth_magnetic_anomaly(
 
        * - Earth Magnetic Anomaly Model (EMAG2)
          - World Digital Magnetic Anomaly Map (WDMAM)
-       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag4km.jpg
+       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag.jpg
          - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_wdmam.jpg
 
     The grids are downloaded to a user data directory
@@ -144,10 +144,7 @@ def load_earth_magnetic_anomaly(
             "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
     dataset_prefix = magnetic_anomaly_sources[data_source]
-    if data_source == "wdmam":
-        dataset_name = "earth_wdmam"
-    else:
-        dataset_name = "earth_magnetic_anomaly"
+    dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_magnetic_anomaly"
     grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,

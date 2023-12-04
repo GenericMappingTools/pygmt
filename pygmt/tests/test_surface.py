@@ -93,7 +93,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     """
     Run surface by passing in a numpy array into data.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     output = surface(
         data=data,
         spacing=spacing,
@@ -132,7 +132,7 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
     """
     Run surface with the -Goutputfile.nc parameter.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = surface(
             data=data,

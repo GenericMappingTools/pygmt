@@ -82,6 +82,6 @@ def basemap(self, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_string(kwargs))
