@@ -1,7 +1,7 @@
 """
 Internal function to load GMT remote datasets.
 """
-from typing import NamedTuple
+from typing import NamedTuple, Union
 
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -58,7 +58,7 @@ class GMTRemoteDataset(NamedTuple):
     title: str
     name: str
     long_name: str
-    units: str
+    units: Union[str, None]
     resolutions: dict[str, Resolution]
     extra_attributes: dict
 
