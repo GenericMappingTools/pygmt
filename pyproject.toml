@@ -102,6 +102,7 @@ select = [
     "B",    # flake8-bugbear
     "E",    # pycodestyle
     "F",    # pyflakes
+    "FLY",  # flynt
     "I",    # isort
     "ISC",  # flake8-implicit-str-concat
     "NPY",  # numpy
