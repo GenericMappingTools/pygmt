@@ -17,6 +17,7 @@ MANIFEST
 .coverage
 coverage.xml
 htmlcov/
+.mypy_cache/
 .pytest_cache/
 .ruff_cache/
 results/
