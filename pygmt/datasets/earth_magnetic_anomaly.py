@@ -4,6 +4,8 @@ server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -13,7 +15,10 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d", region=None, registration=None, data_source="emag2"
+    resolution="01d",
+    region=None,
+    registration=None,
+    data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ):
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
@@ -77,17 +82,15 @@ def load_earth_magnetic_anomaly(
         for all resolutions except ``"02m"`` for ``data_source="emag2"`` or
         ``data_source="emag2_4km"``, which are ``"pixel"`` only.
 
-    data_source : str
+    data_source
         Select the source of the magnetic anomaly data. Available options are:
 
         - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model [Default
           option]. It only includes data observed at sea level over
           oceanic regions. See :gmt-datasets:`earth-mag.html`.
-
         - ``"emag2_4km"``: Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
           data over land.
-
         - ``"wdmam"``: World Digital Magnetic Anomaly Map (WDMAM).
           See :gmt-datasets:`earth-wdmam.html`.
 
