@@ -103,6 +103,7 @@ select = [
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
+    "ISC",  # flake8-implicit-str-concat
     "NPY",  # numpy
     "PD",   # pandas-vet
     "PL",   # pylint
@@ -112,6 +113,7 @@ select = [
 ]
 ignore = [
     "E501", # Avoid enforcing line-length violations
+    "ISC001", # single-line-implicit-string-concatenation, conflict with formatter
     "PD901",  # Allow using the generic variable name `df` for DataFrames
     "PLR2004",  # Allow any magic values
     "SIM117",  # Allow nested `with` statements
