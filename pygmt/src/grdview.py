@@ -144,7 +144,7 @@ def grdview(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid

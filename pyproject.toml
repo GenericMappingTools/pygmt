@@ -86,61 +86,49 @@ make-summary-multi-line = true
 wrap-summaries = 79
 wrap-descriptions = 79
 
+[tool.mypy]
+exclude = ["pygmt/tests/"]
+ignore_missing_imports = true
+
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
 show-source = true
+
+[tool.ruff.format]
+line-ending = "lf"  # Use UNIX `\n` line endings for all files
+
+[tool.ruff.lint]
 select = [
+    "B",    # flake8-bugbear
     "E",    # pycodestyle
     "F",    # pyflakes
     "I",    # isort
     "NPY",  # numpy
+    "PD",   # pandas-vet
+    "PL",   # pylint
+    "SIM",  # flake8-simplify
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
 ]
-ignore = ["E501"]  # Avoid enforcing line-length violations
+ignore = [
+    "E501", # Avoid enforcing line-length violations
+    "PD901",  # Allow using the generic variable name `df` for DataFrames
+    "PLR2004",  # Allow any magic values
+    "SIM117",  # Allow nested `with` statements
+]
 
-[tool.ruff.pycodestyle]
-max-doc-length = 79
+[tool.ruff.lint.isort]
+known-third-party = ["pygmt"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 
-[tool.ruff.isort]
-known-third-party = ["pygmt"]
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 79
+
+[tool.ruff.lint.pylint]
+max-args=10
 
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--verbose --durations=0 --durations-min=0.2 --doctest-modules --mpl --mpl-results-path=results"
-
-[tool.pylint.MASTER]
-# Use multiple processes to speed up Pylint. Specifying 0 will auto-detect the
-# number of processors available to use.
-jobs=0
-
-[tool.pylint.BASIC]
-# Good variable names which should always be accepted, separated by a comma.
-good-names="i,j,k,ex,Run,_,w,e,s,n,x,y,z"
-
-[tool.pylint.DESIGN]
-# Maximum number of arguments for function / method.
-max-args=10
-
-[tool.pylint.FORMAT]
-# Maximum number of lines in a module.
-max-module-lines=2000
-
-[tool.pylint.'MESSAGE CONTROL']
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifiers separated by comma (,) or put this
-# option multiple times (only on the command line, not in the configuration
-# file where it should appear only once). You can also use "--disable=all" to
-# disable everything first and then reenable specific checks. For example, if
-# you want to run only the similarities checker, you can use "--disable=all
-# --enable=similarities". If you want to run only the classes checker, but have
-# no Warning level messages displayed, use "--disable=all --enable=classes
-# --disable=W".
-disable=[
-    "duplicate-code",
-    "import-error",
-    "line-too-long",  # Already checked by ruff's pycodestyle
-]

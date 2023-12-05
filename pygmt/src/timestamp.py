@@ -75,7 +75,7 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()  # pylint: disable=protected-access
+    self._preprocess()
 
     # Build the options passed to the "plot" module
     kwdict = {"T": True, "U": ""}
@@ -85,13 +85,12 @@ def timestamp(
 
     if is_nonstr_iter(offset):  # given a tuple
         kwdict["U"] += "+o" + "/".join(f"{item}" for item in offset)
-    else:  # given a single value
-        if "/" not in offset and Version(__gmt_version__) <= Version("6.4.0"):
-            # Giving a single offset doesn't work in GMT <= 6.4.0.
-            # See https://github.com/GenericMappingTools/gmt/issues/7107.
-            kwdict["U"] += f"+o{offset}/{offset}"
-        else:
-            kwdict["U"] += f"+o{offset}"
+    elif "/" not in offset and Version(__gmt_version__) <= Version("6.4.0"):
+        # Giving a single offset doesn't work in GMT <= 6.4.0.
+        # See https://github.com/GenericMappingTools/gmt/issues/7107.
+        kwdict["U"] += f"+o{offset}/{offset}"
+    else:
+        kwdict["U"] += f"+o{offset}"
 
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.
