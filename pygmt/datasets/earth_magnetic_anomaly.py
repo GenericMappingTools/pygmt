@@ -85,9 +85,9 @@ def load_earth_magnetic_anomaly(
     data_source
         Select the source of the magnetic anomaly data. Available options are:
 
-        - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model [Default
-          option]. It only includes data observed at sea level over
-          oceanic regions. See :gmt-datasets:`earth-mag.html`.
+        - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model. It only includes
+          data observed at sea level over oceanic regions.
+          See :gmt-datasets:`earth-mag.html`.
         - ``"emag2_4km"``: Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
           data over land.
