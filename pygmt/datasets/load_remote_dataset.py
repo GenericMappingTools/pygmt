@@ -3,7 +3,7 @@ Internal function to load GMT remote datasets.
 """
 from __future__ import annotations
 
-from typing import NamedTuple, Union
+from typing import NamedTuple
 
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -60,7 +60,7 @@ class GMTRemoteDataset(NamedTuple):
     title: str
     name: str
     long_name: str
-    units: Union[str, None]
+    units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict
 
