@@ -768,8 +768,7 @@ class Session:
             )
         if nmodifiers > 0 and valid_modifiers is None:
             raise GMTInvalidInput(
-                "Constant modifiers not allowed since valid values were not "
-                + f"given: '{constant}'"
+                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
             )
         if name not in valid:
             raise GMTInvalidInput(
