@@ -170,16 +170,24 @@ def test_put_vector_invalid_dtype():
     """
     Check that it fails with an exception for invalid data types.
     """
-    with clib.Session() as lib:
-        dataset = lib.create_data(
-            family="GMT_IS_DATASET|GMT_VIA_VECTOR",
-            geometry="GMT_IS_POINT",
-            mode="GMT_CONTAINER_ONLY",
-            dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
-        )
-        data = np.array([37, 12, 556], dtype="object")
-        with pytest.raises(GMTInvalidInput):
-            lib.put_vector(dataset, column=1, vector=data)
+    for dtype in [
+        np.float16,
+        np.object_,
+        np.bool_,
+        np.csingle,
+        np.complex_,
+        np.clongfloat,
+    ]:
+        with clib.Session() as lib:
+            dataset = lib.create_data(
+                family="GMT_IS_DATASET|GMT_VIA_VECTOR",
+                geometry="GMT_IS_POINT",
+                mode="GMT_CONTAINER_ONLY",
+                dim=[2, 3, 1, 0],  # columns, rows, layers, dtype
+            )
+            data = np.array([37, 12, 556], dtype=dtype)
+            with pytest.raises(GMTInvalidInput, match="Unsupported numpy data type"):
+                lib.put_vector(dataset, column=1, vector=data)
 
 
 def test_put_vector_wrong_column():
