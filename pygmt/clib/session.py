@@ -768,8 +768,7 @@ class Session:
             )
         if nmodifiers > 0 and valid_modifiers is None:
             raise GMTInvalidInput(
-                "Constant modifiers not allowed since valid values were not "
-                + f"given: '{constant}'"
+                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
             )
         if name not in valid:
             raise GMTInvalidInput(
@@ -1576,23 +1575,19 @@ class Session:
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            try:
-                # pandas.Series will be handled below like a 1-D numpy.ndarray
-                assert not hasattr(data, "to_frame")
-                # pandas.DataFrame and xarray.Dataset types
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # pandas.DataFrame or xarray.Dataset types.
+                # pandas.Series will be handled below like a 1-D numpy.ndarray.
                 _data = [array for _, array in data.items()]
-            except (AttributeError, AssertionError):
-                try:
-                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                    # which are signed integer (i), unsigned integer (u) or
-                    # floating point (f) types
-                    assert data.ndim == 2 and data.dtype.kind in "iuf"
-                    _virtualfile_from = self.virtualfile_from_matrix
-                    _data = (data,)
-                except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy.ndarray, and pandas.Series
-                    # types
-                    _data = np.atleast_2d(np.asanyarray(data).T)
+            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
+                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
+                # which are signed integer (i), unsigned integer (u) or
+                # floating point (f) types
+                _virtualfile_from = self.virtualfile_from_matrix
+                _data = (data,)
+            else:
+                # Python list, tuple, numpy.ndarray, and pandas.Series types
+                _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
