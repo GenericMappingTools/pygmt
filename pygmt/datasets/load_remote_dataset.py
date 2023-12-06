@@ -1,6 +1,8 @@
 """
 Internal function to load GMT remote datasets.
 """
+from __future__ import annotations
+
 from typing import NamedTuple, Union
 
 from pygmt.exceptions import GMTInvalidInput
