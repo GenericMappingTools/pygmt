@@ -174,10 +174,10 @@ def test_put_vector_invalid_dtype():
         np.bool_,
         np.bytes_,
         np.csingle,
-        np.complex_,
+        np.cdouble,
         np.clongfloat,
-        np.float16,
-        np.float128,
+        np.half,
+        np.longdouble,
         np.object_,
     ]:
         with clib.Session() as lib:
