@@ -82,11 +82,11 @@ fig.basemap(
 fig.show()
 
 # %%
-# The ``box`` parameter allows to surround the scale bar. This can be useful
+# The ``box`` parameter allows surrounding the scale bar. This can be useful
 # when adding a scale bar to a colorful plot. The outline of the box can be
 # adjusted by appending **+p** and the desired thickness, color, and style.
-# To fill the box append **+g** with the desired color (or pattern). To force
-# rounded eges append **+r** with the desired radius.
+# To fill the box, append **+g** with the desired color (or pattern). To force
+# rounded edges append **+r** with the desired radius.
 
 # Create a new Figure instance
 fig = pygmt.Figure()
