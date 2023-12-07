@@ -269,7 +269,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*.
+            *projcode*\[*projparams*/]\ *width*\ |*scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
