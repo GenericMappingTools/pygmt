@@ -173,9 +173,9 @@ def test_put_vector_invalid_dtype():
     for dtype in [
         np.bool_,
         np.bytes_,
-        np.complex64,
-        np.complex128,
-        np.complex256,
+        np.csingle,
+        np.complex_,
+        np.clongfloat,
         np.float16,
         np.float128,
         np.object_,
