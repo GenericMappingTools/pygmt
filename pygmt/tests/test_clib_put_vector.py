@@ -171,12 +171,14 @@ def test_put_vector_invalid_dtype():
     Check that it fails with an exception for invalid data types.
     """
     for dtype in [
-        np.float16,
-        np.object_,
         np.bool_,
-        np.csingle,
-        np.complex_,
-        np.clongfloat,
+        np.bytes_,
+        np.complex64,
+        np.complex128,
+        np.complex256,
+        np.float16,
+        np.float128,
+        np.object_,
     ]:
         with clib.Session() as lib:
             dataset = lib.create_data(
