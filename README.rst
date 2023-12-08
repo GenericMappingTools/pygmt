@@ -254,7 +254,7 @@ Compatibility with GMT/Python/NumPy versions
 
 For the supported GMT versions as well as the minimum required Python and NumPy
 versions please see the
-`Compatibility table <https://github.com/GenericMappingTools/pygmt/tree/main/doc/compatibility.rst>`__.
+`Compatibility Table <https://github.com/GenericMappingTools/pygmt/tree/main/doc/compatibility.rst>`__.
 
 PyGMT has adopted `NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy>`__
 alongside the rest of the Scientific Python ecosystem, and therefore supports:

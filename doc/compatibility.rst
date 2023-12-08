@@ -1,4 +1,4 @@
-Compatibility table
+Compatibility Table
 -------------------
 
 .. list-table::
