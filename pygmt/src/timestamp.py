@@ -1,7 +1,13 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
+from __future__ import annotations
+
 import warnings
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Sequence
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
@@ -13,13 +19,13 @@ __doctest_skip__ = ["timestamp"]
 @kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
-    text=None,
-    label=None,
-    justification="BL",
-    offset=("-54p", "-54p"),
-    font="Helvetica,black",
-    timefmt="%Y %b %d %H:%M:%S",
-):
+    text: str | None = None,
+    label: str | None = None,
+    justification: str = "BL",
+    offset: float | str | Sequence[float | str] = ("-54p", "-54p"),
+    font: str = "Helvetica,black",
+    timefmt: str = "%Y %b %d %H:%M:%S",
+) -> None:
     r"""
     Plot the GMT timestamp logo.
 
@@ -32,13 +38,13 @@ def timestamp(
 
     Parameters
     ----------
-    text : None or str
+    text
         If ``None``, the current UNIX timestamp is shown in the GMT timestamp
         logo. Set this parameter to replace the UNIX timestamp with a custom
         text string instead. The text must be no longer than 64 characters.
-    label : None or str
+    label
         The text string shown after the GMT timestamp logo.
-    justification : str
+    justification
         Justification of the timestamp box relative to the plot's bottom-left
         corner (i.e., the plot origin). The *justification* is a two-character
         code that is a combination of a horizontal (**L**\ (eft),
@@ -46,17 +52,17 @@ def timestamp(
         **M**\ (iddle), or **B**\ (ottom)) code. For example,
         ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of
         the timestamp as the anchor point.
-    offset : str or list
+    offset
         *offset* or [*offset_x*, *offset_y*].
         Offset the anchor point of the timestamp box by *offset_x* and
         *offset_y*. If a single value *offset* is given, *offset_y* =
         *offset_x* = *offset*.
-    font : str
+    font
         Font of the timestamp and the optional label. Since the GMT logo has a
         fixed height, the font sizes are fixed to be 8-point for the timestamp
         and 7-point for the label. The parameter can't change the font color
         for GMT<=6.4.0, only the font style.
-    timefmt : str
+    timefmt
         Format string for the UNIX timestamp. The format string is parsed by
         the C function ``strftime``, so that virtually any text can be used
         (even not containing any time information).
@@ -79,7 +85,7 @@ def timestamp(
     self._preprocess()
 
     # Build the options passed to the "plot" module
-    kwdict = {"T": True, "U": ""}
+    kwdict: dict = {"T": True, "U": ""}
     if label is not None:
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justification}"
