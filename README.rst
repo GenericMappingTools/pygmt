@@ -236,11 +236,13 @@ The development of PyGMT has been supported by NSF grants
 Related projects
 ----------------
 
+Other official wrappers for GMT:
+
 * `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__: A Julia wrapper for GMT.
 * `gmtmex <https://github.com/GenericMappingTools/gmtmex>`__: A Matlab/Octave wrapper
   for GMT.
 
-Other Python wrappers for GMT (not maintained):
+Other non-official Python wrappers for GMT (not maintained):
 
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
