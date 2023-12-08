@@ -426,7 +426,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*.
+        *projcode*\[*projparams*/]\ *width*\ |*scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
