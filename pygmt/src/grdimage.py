@@ -75,10 +75,7 @@ def grdimage(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name or a DataArray containing the input 2-D gridded data
-        set or image to be plotted (See GRID FILE FORMATS at
-        :gmt-docs:`grdimage.html#grid-file-formats`).
+    {grid}
     img_out : str
         *out_img*\[=\ *driver*].
         Save an image in a raster format instead of PostScript. Append

@@ -149,6 +149,13 @@ COMMON_DOCSTRINGS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
+    "grid": r"""
+        grid : str or xarray.DataArray
+            Name of the input grid file or the grid loaded as a
+            :class:`xarray.DataArray` object.
+
+            For name of the input grid file, see
+            :gmt-docs:`gmt.html#grd-inout-full` for available modifiers.""",
     "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
