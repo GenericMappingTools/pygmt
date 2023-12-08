@@ -135,7 +135,7 @@ def coast(self, **kwargs):
         If set to ``True``, draw a rectangular border around the
         map scale or rose. Alternatively, specify a different pen with
         **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is
-        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,
+        no fill]. Append **+c**\ *clearances* where *clearances* is either gap,
         xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,
         separate in x- and y-direction, or individual side spacings between
         scale and border. Append **+i** to draw a secondary, inner border as
