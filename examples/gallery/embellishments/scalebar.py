@@ -98,7 +98,7 @@ fig.coast(
     water="steelblue",
     frame=["WSne+gtan", "af"],
     map_scale="jBL+o1c/1c+w1000k+f+lkm+ar",
-    F="+gwhite@30+p0.5p,gray30+r3p",
+    box="+gwhite@30+p0.5p,gray30+r3p",
 )
 
 fig.show()
