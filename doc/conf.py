@@ -23,6 +23,7 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
@@ -40,6 +41,9 @@ myst_enable_extensions = ["colon_fence"]
 # parameters list
 napoleon_use_rtype = False
 napoleon_use_ivar = True
+
+# sphinx_auto_typehints
+typehints_defaults = "comma"
 
 # configure links to GMT docs
 extlinks = {

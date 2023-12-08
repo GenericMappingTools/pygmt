@@ -78,7 +78,7 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         alabel = str(alabel) if alabel is not None else "-"
         blabel = str(blabel) if blabel is not None else "-"
         clabel = str(clabel) if clabel is not None else "-"
-        kwargs["L"] = "/".join([alabel, blabel, clabel])
+        kwargs["L"] = f"{alabel}/{blabel}/{clabel}"
 
     # Patch for GMT < 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
