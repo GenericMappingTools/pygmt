@@ -5,12 +5,18 @@ from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
+import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import nearneighbor
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="ship_data")
@@ -21,10 +27,20 @@ def fixture_ship_data():
     return load_sample_data(name="bathymetry")
 
 
-@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(
+            getattr(pa, "table", None), marks=td.skip_if_no(package="pyarrow")
+        ),
+        xr.Dataset,
+    ],
+)
 def test_nearneighbor_input_data(array_func, ship_data):
     """
-    Run nearneighbor by passing in a numpy.array or xarray.Dataset.
+    Run nearneighbor by passing in a numpy.array, pyarrow.table or
+    xarray.Dataset.
     """
     data = array_func(ship_data)
     output = nearneighbor(

@@ -158,15 +158,24 @@ def test_info_xarray_dataset_time_column():
     assert output == expected_output
 
 
-def test_info_2d_array():
+@pytest.mark.parametrize(
+    "array_func,expected_memory",
+    [
+        (np.array, "matrix memory"),
+        pytest.param(
+            getattr(pa, "table", None),
+            "vector memory",
+            marks=td.skip_if_no(package="pyarrow"),
+        ),
+    ],
+)
+def test_info_2d_array(array_func, expected_memory):
     """
-    Make sure info works on 2-D numpy.ndarray inputs.
+    Make sure info works on 2-D numpy.ndarray and pyarrow.table inputs.
     """
-    table = np.loadtxt(POINTS_DATA)
+    table = array_func(pd.read_csv(POINTS_DATA, sep=" ", header=None))
     output = info(data=table)
-    expected_output = (
-        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
-    )
+    expected_output = f"<{expected_memory}>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     assert output == expected_output
 
 

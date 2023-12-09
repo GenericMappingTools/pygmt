@@ -6,12 +6,18 @@ from pathlib import Path
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
+import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import blockmean, blockmode
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -33,7 +39,16 @@ def test_blockmean_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
-@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(
+            getattr(pa, "table", None), marks=td.skip_if_no(package="pyarrow")
+        ),
+        xr.Dataset,
+    ],
+)
 def test_blockmean_input_table_matrix(array_func, dataframe):
     """
     Run blockmean using table input that is not a pandas.DataFrame but still a
