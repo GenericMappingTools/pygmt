@@ -8,10 +8,16 @@ import sys
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
+import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -95,11 +101,21 @@ def test_info_dataframe():
     assert output == expected_output
 
 
-def test_info_numpy_array_time_column():
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(
+            getattr(pa, "array", None), marks=td.skip_if_no(package="pyarrow")
+        ),
+    ],
+)
+def test_info_array_time_column(array_func):
     """
-    Make sure info works on a numpy.ndarray input with a datetime type.
+    Make sure info works on a numpy.ndarray input with a datetime type, or a
+    pyarrow.array input with a timestamp type.
     """
-    table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
+    table = array_func(pd.date_range(start="2020-01-01", periods=5))
     output = info(data=table)
     expected_output = (
         "<vector memory>: N = 5 <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
@@ -154,11 +170,20 @@ def test_info_2d_array():
     assert output == expected_output
 
 
-def test_info_1d_array():
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(
+            getattr(pa, "array", None), marks=td.skip_if_no(package="pyarrow")
+        ),
+    ],
+)
+def test_info_1d_array(array_func):
     """
-    Make sure info works on 1-D numpy.ndarray inputs.
+    Make sure info works on 1-D numpy.ndarray and pyarrow.array inputs.
     """
-    output = info(data=np.arange(20))
+    output = info(data=array_func(range(20)))
     expected_output = "<vector memory>: N = 20 <0/19>\n"
     assert output == expected_output
 
