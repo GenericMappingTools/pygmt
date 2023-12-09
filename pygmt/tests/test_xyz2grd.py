@@ -17,6 +17,7 @@ try:
 except ImportError:
     pa = None
 
+
 @pytest.fixture(scope="module", name="ship_data")
 def fixture_ship_data():
     """
