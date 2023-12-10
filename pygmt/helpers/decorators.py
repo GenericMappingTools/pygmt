@@ -154,8 +154,8 @@ COMMON_DOCSTRINGS = {
             Name of the input grid file or the grid loaded as a
             :class:`xarray.DataArray` object.
 
-            For name of the input grid file, see
-            :gmt-docs:`gmt.html#grd-inout-full` for available modifiers.""",
+            For reading a specific grid file format or applying basic data operations,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
