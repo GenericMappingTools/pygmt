@@ -28,21 +28,18 @@ jobs:
 
       # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v4.7.1
+        uses: actions/setup-python@v4.8.0
         with:
           python-version: '3.12'
 
       - name: Install packages
         run: |
-          python -m pip install black blackdoc docformatter pylint ruff
+          python -m pip install blackdoc docformatter ruff
           python -m pip list
           sudo apt-get install dos2unix
 
-      - name: Formatting check (black, blackdoc, docformatter, ruff)
+      - name: Formatting check (blackdoc, docformatter, ruff)
         run: make check
-
-      - name: Linting (pylint)
-        run: make lint
 
       - name: Ensure files use UNIX line breaks and have 644 permission
         run: |

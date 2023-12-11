@@ -173,7 +173,7 @@ def grdimage(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Special handling of -A option.
     # For -A option, the syntax is different for GMT CLI and external wrappers.

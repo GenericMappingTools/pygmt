@@ -121,9 +121,9 @@ def clib_full_names(env=None):
         libfullpath = Path(
             sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
         )
-        assert libfullpath.exists()
-        yield str(libfullpath)
-    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
+        if libfullpath.exists():
+            yield str(libfullpath)
+    except (FileNotFoundError, sp.CalledProcessError):
         # the 'gmt' executable  is not found
         # the gmt library is not found
         # the 'gmt' executable is broken
@@ -163,7 +163,6 @@ def check_libgmt(libgmt):
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
         if not hasattr(libgmt, "GMT_" + func):
-            # pylint: disable=protected-access
             msg = (
                 f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
                 "Ensure that you have installed an up-to-date GMT version 6 library. "
