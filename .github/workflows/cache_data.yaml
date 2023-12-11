@@ -35,7 +35,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.5.0
+        uses: mamba-org/setup-micromamba@v1.7.0
         with:
           environment-name: pygmt
           condarc: |
@@ -43,7 +43,7 @@ jobs:
               - conda-forge
               - nodefaults
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=6.4.0
             numpy
             pandas

@@ -269,7 +269,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*.
+            *projcode*\[*projparams*/]\ *width*\ |*scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
@@ -426,7 +426,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*.
+        *projcode*\[*projparams*/]\ *width*\ |*scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
@@ -444,16 +444,9 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        ", ".join(
-            [
-                "numpy.ndarray",
-                "pandas.DataFrame",
-                "xarray.Dataset",
-            ]
-        )
-        + ", or geopandas.GeoDataFrame"
-    )
+    filler_text[
+        "table-like"
+    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"

@@ -1,16 +1,11 @@
 """
 Sphinx documentation configuration file.
 """
-# pylint: disable=invalid-name
-
 import datetime
 from importlib.metadata import metadata
 
 # ruff: isort: off
-from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
-    ExplicitOrder,
-    ExampleTitleSortKey,
-)
+from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
 import pygmt
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
@@ -28,6 +23,7 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
@@ -46,10 +42,13 @@ myst_enable_extensions = ["colon_fence"]
 napoleon_use_rtype = False
 napoleon_use_ivar = True
 
+# sphinx_auto_typehints
+typehints_defaults = "comma"
+
 # configure links to GMT docs
 extlinks = {
     "gmt-docs": ("https://docs.generic-mapping-tools.org/6.4/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/6.4/gmt.conf#term-%s", ""),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.4/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
@@ -139,7 +138,7 @@ root_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
+copyright = f"2017-{year}, The PyGMT Developers"
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
     # Set base_url for stable version

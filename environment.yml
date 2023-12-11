@@ -3,6 +3,7 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
+    - python=3.12
     # Required dependencies
     - gmt=6.4.0
     - numpy>=1.22
@@ -22,11 +23,9 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - black
     - blackdoc
     - codespell
     - docformatter>=1.7.2
-    - pylint
     - ruff
     # Dev dependencies (unit testing)
     - matplotlib
@@ -38,7 +37,11 @@ dependencies:
     - myst-parser
     - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme
+    # Dev dependencies (type hints)
+    - mypy
+    - pandas-stubs

@@ -37,7 +37,7 @@ def test_select_input_table_matrix(dataframe):
 
     Also testing the reverse (I) alias.
     """
-    data = dataframe.values
+    data = dataframe.to_numpy()
     output = select(data=data, region=[245.5, 254.5, 20.5, 29.5], reverse="r")
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (9177, 3)

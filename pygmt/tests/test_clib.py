@@ -1,4 +1,3 @@
-# pylint: disable=protected-access
 """
 Test the wrappers for the C API.
 """
@@ -39,7 +38,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):  # pylint: disable=unused-argument
+        def mock_api_function(*args):
             """
             A mock GMT API function that always returns a given value.
             """
@@ -57,11 +56,11 @@ def mock(session, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
+    session.get_libgmt_func = mock_get_libgmt_func
 
     yield
 
-    setattr(session, "get_libgmt_func", get_libgmt_func)
+    session.get_libgmt_func = get_libgmt_func
 
 
 def test_getitem():
@@ -74,7 +73,7 @@ def test_getitem():
     assert ses["GMT_PAD_DEFAULT"] != -99999
     assert ses["GMT_DOUBLE"] != -99999
     with pytest.raises(GMTCLibError):
-        ses["A_WHOLE_LOT_OF_JUNK"]  # pylint: disable=pointless-statement
+        ses["A_WHOLE_LOT_OF_JUNK"]
 
 
 def test_create_destroy_session():
@@ -95,12 +94,12 @@ def test_create_destroy_session():
     ses = clib.Session()
     for __ in range(2):
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
         ses.create("session1")
         assert ses.session_pointer is not None
         ses.destroy()
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
 
 
 def test_create_session_fails():
@@ -184,7 +183,7 @@ def test_method_no_session():
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.session_pointer  # pylint: disable=pointless-statement
+        _ = lib.session_pointer
 
 
 def test_parse_constant_single():
@@ -204,7 +203,7 @@ def test_parse_constant_composite():
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
-        composite = "|".join([family, via])
+        composite = f"{family}|{via}"
         expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
@@ -523,7 +522,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):
         """
         Put 'bla' in the value buffer.
         """
@@ -552,7 +551,7 @@ def test_fails_for_wrong_version():
     """
 
     # Mock GMT_Get_Default to return an old version
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):
         """
         Return an old version.
         """

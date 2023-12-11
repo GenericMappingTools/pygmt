@@ -87,7 +87,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``fill``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or pattern
           specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -120,7 +120,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``fill``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or pattern
           specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -140,9 +140,9 @@ def velo(self, data=None, **kwargs):
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
           rotations of the order of 100 nanoradians/yr. Use ``fill`` to set
-          the fill color or shade for the wedge, and ``uncertaintyfill`` to
-          set the color or shade for the uncertainty. Parameters are expected
-          to be in the following columns:
+          the fill color or pattern for the wedge, and ``uncertaintyfill`` to
+          set the color or pattern for the uncertainty. Parameters are
+          expected to be in the following columns:
 
             - **1**,\ **2**: longitude, latitude of station
             - **3**: rotation in radians
@@ -242,7 +242,7 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)

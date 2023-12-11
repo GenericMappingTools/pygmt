@@ -44,7 +44,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.11) for draft PRs
+        # Only run one job (Ubuntu + Python 3.12) for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -65,7 +65,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.5.0
+        uses: mamba-org/setup-micromamba@v1.7.0
         with:
           environment-name: pygmt
           condarc: |
@@ -75,7 +75,7 @@ jobs:
           cache-downloads: true
           cache-environment: true
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=6.4.0
             ghostscript=10.02.1
             numpy
@@ -93,6 +93,7 @@ jobs:
             myst-parser
             panel
             sphinx
+            sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery

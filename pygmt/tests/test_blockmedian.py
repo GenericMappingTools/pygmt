@@ -36,7 +36,7 @@ def test_blockmedian_input_table_matrix(dataframe):
     Run blockmedian using table input that is not a pandas.DataFrame but still
     a matrix.
     """
-    table = dataframe.values
+    table = dataframe.to_numpy()
     output = blockmedian(data=table, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)

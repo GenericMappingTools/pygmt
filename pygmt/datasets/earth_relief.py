@@ -4,6 +4,8 @@ load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -16,14 +18,14 @@ def load_earth_relief(
     resolution="01d",
     region=None,
     registration=None,
-    data_source="igpp",
+    data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm=False,
 ):
     r"""
     Load the Earth relief datasets (topography and bathymetry) in various
     resolutions.
 
-    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebcosi.jpg
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
        :width: 80 %
        :align: center
 
@@ -74,22 +76,18 @@ def load_earth_relief(
         ``"gridline"`` for gridline registration. Default is ``"gridline"``
         for all resolutions except ``"15s"`` which is ``"pixel"`` only.
 
-    data_source : str
+    data_source
         Select the source for the Earth relief data. Available options are:
 
-        - ``"igpp"``: IGPP Earth Relief [Default option]. See
+        - ``"igpp"``: IGPP Earth Relief. See
           :gmt-datasets:`earth-relief.html`.
-
-        - ``"synbath"``: IGPP Earth Relief dataset that uses
-          stastical properties of young seafloor to provide a more realistic
-          relief of young areas with small seamounts.
-
+        - ``"synbath"``: IGPP Earth Relief dataset that uses stastical
+          properties of young seafloor to provide a more realistic relief
+          of young areas with small seamounts.
         - ``"gebco"``: GEBCO Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
-
-        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si)
-          elevations.
+        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
 
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the
