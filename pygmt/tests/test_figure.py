@@ -3,13 +3,9 @@ Test the behavior of the Figure class.
 
 Doesn't include the plotting commands which have their own test files.
 """
+import importlib
 import os
 from pathlib import Path
-
-try:
-    import IPython
-except ImportError:
-    IPython = None
 
 import numpy as np
 import numpy.testing as npt
@@ -17,6 +13,8 @@ import pytest
 from pygmt import Figure, set_display
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+
+HAS_IPYTHON = bool(importlib.util.find_spec("IPython"))
 
 
 def test_figure_region():
@@ -83,7 +81,7 @@ def test_figure_savefig_exists():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
     for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
-        fname = ".".join([prefix, fmt])
+        fname = f"{prefix}.{fmt}"
         fig.savefig(fname)
 
         fname = Path(fname)
@@ -175,7 +173,7 @@ def test_figure_savefig_unknown_extension():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_unknown_extension"
     fmt = "test"
-    fname = ".".join([prefix, fmt])
+    fname = f"{prefix}.{fmt}"
     with pytest.raises(GMTInvalidInput, match="Unknown extension '.test'."):
         fig.savefig(fname)
 
@@ -199,11 +197,11 @@ def test_figure_savefig_transparent():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_transparent"
     for fmt in "pdf jpg bmp eps tif".split():
-        fname = ".".join([prefix, fmt])
+        fname = f"{prefix}.{fmt}"
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
     # png should not raise an error
-    fname = ".".join([prefix, "png"])
+    fname = f"{prefix}.png"
     fig.savefig(fname, transparent=True)
     assert os.path.exists(fname)
     os.remove(fname)
@@ -238,7 +236,7 @@ def test_figure_savefig():
 
     prefix = "test_figure_savefig"
 
-    fname = ".".join([prefix, "png"])
+    fname = f"{prefix}.png"
     fig.savefig(fname)
     assert kwargs_saved[-1] == {
         "prefix": prefix,
@@ -248,7 +246,7 @@ def test_figure_savefig():
         "Qg": 2,
     }
 
-    fname = ".".join([prefix, "pdf"])
+    fname = f"{prefix}.pdf"
     fig.savefig(fname)
     assert kwargs_saved[-1] == {
         "prefix": prefix,
@@ -258,7 +256,7 @@ def test_figure_savefig():
         "Qg": 2,
     }
 
-    fname = ".".join([prefix, "png"])
+    fname = f"{prefix}.png"
     fig.savefig(fname, transparent=True)
     assert kwargs_saved[-1] == {
         "prefix": prefix,
@@ -268,7 +266,7 @@ def test_figure_savefig():
         "Qg": 2,
     }
 
-    fname = ".".join([prefix, "eps"])
+    fname = f"{prefix}.eps"
     fig.savefig(fname)
     assert kwargs_saved[-1] == {
         "prefix": prefix,
@@ -278,7 +276,7 @@ def test_figure_savefig():
         "Qg": 2,
     }
 
-    fname = ".".join([prefix, "kml"])
+    fname = f"{prefix}.kml"
     fig.savefig(fname)
     assert kwargs_saved[-1] == {
         "prefix": prefix,
@@ -311,7 +309,7 @@ def test_figure_savefig_worldfile():
                 fig.savefig(fname=imgfile.name, worldfile=True)
 
 
-@pytest.mark.skipif(IPython is None, reason="run when IPython is installed")
+@pytest.mark.skipif(not HAS_IPYTHON, reason="run when IPython is installed")
 def test_figure_show():
     """
     Test that show creates the correct file name and deletes the temp dir.
@@ -352,7 +350,7 @@ def test_figure_show_invalid_method():
         fig.show(method="test")
 
 
-@pytest.mark.skipif(IPython is not None, reason="run without IPython installed")
+@pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
     Test to check if an error is raised when display method is 'notebook', but

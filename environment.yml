@@ -3,6 +3,7 @@ channels:
     - conda-forge
     - nodefaults
 dependencies:
+    - python=3.12
     # Required dependencies
     - gmt=6.4.0
     - numpy>=1.22
@@ -36,7 +37,11 @@ dependencies:
     - myst-parser
     - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery
     - sphinx_rtd_theme
+    # Dev dependencies (type hints)
+    - mypy
+    - pandas-stubs
