@@ -429,7 +429,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth"] + convention_params(convention)
+        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -472,7 +472,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
+        newcols = ["longitude", "latitude", "depth", *convention_params(convention)]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             if kwargs.get("A") is None:
