@@ -321,7 +321,7 @@ def load_sample_data(
 
     Parameters
     ----------
-    name : str
+    name
         Name of the dataset to load.
 
     Returns
