@@ -253,7 +253,6 @@ def test_grdimage_img_out(grid):
     fig = Figure()
     for suffix in [".png", ".jpg", ".tiff"]:  # suffix=".pdf=PDF" crashes
         with GMTTempFile(suffix=suffix) as tmpfile:
-            fig.grdimage(grid, cmap="earth", projection="W0/6i", img_out=tmpfile.name)
-            # Remove the driver string
-            filename = tmpfile.name.split("=")[0]
+            fig.grdimage(grid, cmap="earth", projection="W0/6c", img_out=tmpfile.name)
+            filename = tmpfile.name.split("=")[0]  # Remove the driver if any
             assert Path(filename).stat().st_size > 0

@@ -175,12 +175,13 @@ def grdimage(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Special handling of -A option.
-    # For -A option, the syntax is different for GMT CLI and external wrappers.
-    # For GMT CLI, "gmt grdimage ingrid.nc -Aimg_out.xxx".
-    # For external wrappers, "gmt grdimage ingrid.nc -A > img_out.xxx".
-    outfile = kwargs.pop("A", None)
-    if outfile is not None:
+    # grdimage's -A option requires special handling.
+    # The -A syntax is different in GMT CLI and external wrappers.
+    # In GMT CLI, the syntax is like:
+    #     gmt grdimage ingrid.nc -Aimg_out.xxx
+    # In external wrappers, the syntax is like:
+    #     gmt grdimage ingrid.nc -A > img_out.xxx
+    if (outfile := kwargs.get("A")) is not None:
         kwargs["A"] = True
 
     with Session() as lib:
