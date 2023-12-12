@@ -61,8 +61,8 @@ Path("input_data.dat").unlink()
 #   hosted on the GMT data server.
 
 # %%
-# 2-D array: list, :class:`numpy.ndarray`, and :class:`pandas.DataFrame`
-# ----------------------------------------------------------------------
+# 2-D array: :class:`list`, :class:`numpy.ndarray`, and :class:`pandas.DataFrame`
+# -------------------------------------------------------------------------------
 #
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
@@ -140,7 +140,7 @@ fig.show()
 # ----------
 #
 # In PyGMT, you have the flexibility to provide data in various table input
-# types, including file names, 2-D arrays (2-D list, :class:`numpy.ndarray`,
-# :class:`pandas.DataFrames`), scalar values or a series of 1-D arrays, and
-# :class:`geopandas.GeoDataFrame`. Choose the input type that best suits your
-# data source and analysis requirements.
+# types, including file names, 2-D arrays (2-D :class:`list`,
+# :class:`numpy.ndarray`, :class:`pandas.DataFrames`), scalar values or a
+# series of 1-D arrays, and :class:`geopandas.GeoDataFrame`. Choose the input
+# type that best suits your data source and analysis requirements.
