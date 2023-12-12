@@ -94,12 +94,12 @@ fig.show()
 # If you're working with geospatial data, you can read your data as a
 # :class:`geopandas.GeoDataFrame` object and pass it to the ``data``
 # parameter. This is useful if your data is stored in a geospatial data format
-# (e.g., GeoJSON, etc.) that GMT and PyGMT do not support natively.
+# (e.g., GeoJSON, etc.) that GMT and PyGMT does not support natively.
 
 # Example GeoDataFrame
 gdf = gpd.GeoDataFrame(
     {
-        "geometry": gpd.points_from_xy([1, 2, 3], [2, 3, 4]),
+        "geometry": gpd.points_from_xy([2, 5, 9], [2, 3, 4]),
         "value": [10, 20, 30],
     }
 )
