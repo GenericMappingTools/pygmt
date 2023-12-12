@@ -66,7 +66,7 @@ Path("input_data.dat").unlink()
 #
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
-# - A 2-D list (i.e., a list of lists)
+# - A 2-D :class:`list` (i.e., a list of lists)
 # - A :class:`numpy.ndarray` object with with a dimension of 2
 # - A :class:`pandas.DataFrame` object
 #
