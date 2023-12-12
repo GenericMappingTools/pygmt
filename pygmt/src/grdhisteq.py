@@ -75,8 +75,7 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outgrid : str or bool or None
             The name of the output netCDF file with extension .nc to store the
             grid in.
@@ -162,8 +161,7 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outgrid : str or None
             The name of the output netCDF file with extension .nc to store the
             grid in.
@@ -262,8 +260,7 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
