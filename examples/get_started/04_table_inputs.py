@@ -61,8 +61,8 @@ Path("input_data.dat").unlink()
 #   hosted on the GMT data server.
 
 # %%
-# 2-D array: :class:`list`, :class:`numpy.ndarray`, and :class:`pandas.DataFrame`
-# -------------------------------------------------------------------------------
+# 2-D array: `list`, `numpy.ndarray`, and `pandas.DataFrame`
+# ----------------------------------------------------------
 #
 # The ``data`` parameter also accepts a 2-D array, e.g.,
 #
