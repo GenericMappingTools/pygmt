@@ -34,3 +34,5 @@ cli:
   runners:
     pytest:
       pytest_command: ["/home/runner/micromamba/envs/pygmt/bin/python", "-m", "pytest"]
+      collect_tests_options:
+        - "pygmt/"
