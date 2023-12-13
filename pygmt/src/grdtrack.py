@@ -67,9 +67,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a file name (netCDF
-        format).
+    {grid}
 
     points : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D

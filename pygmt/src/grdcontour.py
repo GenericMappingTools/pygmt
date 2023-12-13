@@ -41,8 +41,7 @@ def grdcontour(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     interval : str or int
         Specify the contour lines to generate.
 

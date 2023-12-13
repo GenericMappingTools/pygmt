@@ -37,9 +37,7 @@ def grdinfo(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
+    {grid}
     {region}
     per_column : str or bool
         **n**\|\ **t**.
@@ -63,7 +61,7 @@ def grdinfo(grid, **kwargs):
         xmin xmax ymin ymax per tile, or use ``per_column="t"`` to also have
         the region string appended as trailing text.
     geographic : bool
-        Report grid domain and x/y-increments in world mapping format
+        Report grid domain and x/y-increments in world mapping format.
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
     spacing : str or list
