@@ -108,6 +108,7 @@ select = [
     "I",    # isort
     "ICN",  # flake8-import-conventions
     "ISC",  # flake8-implicit-str-concat
+    "N",    # flake8-naming
     "NPY",  # numpy
     "PD",   # pandas-vet
     "PGH",  # pygrep-hooks
