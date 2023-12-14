@@ -49,9 +49,7 @@ def grdfilter(grid, **kwargs):
     Parameters
     ----------
     {grid}
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     filter : str
         **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].

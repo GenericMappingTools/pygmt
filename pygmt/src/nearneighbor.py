@@ -91,11 +91,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     search_radius : str
         Set the search radius that determines which data points are considered
         close to a node.
-
-    outgrid : str
-        Optional. The file name for the output netCDF file with extension .nc
-        to store the grid in.
-
+    {outgrid}
     empty : str
         Optional. Set the value assigned to empty nodes. Defaults to NaN.
 
