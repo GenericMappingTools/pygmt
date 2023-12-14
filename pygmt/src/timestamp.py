@@ -84,7 +84,7 @@ def timestamp(
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justification}"
 
-    if "/" not in offset and Version(__gmt_version__) <= Version("6.4.0"):
+    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
         # Giving a single offset doesn't work in GMT <= 6.4.0.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
         offset = f"{offset}/{offset}"
