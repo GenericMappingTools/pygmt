@@ -203,13 +203,12 @@ class triangulate:
         {projection}
         {region}
         {spacing}
-        outgrid : str or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in. The interpolation is performed in the original
-            coordinates, so if your triangles are close to the poles you are
-            better off projecting all data to a local coordinate system before
-            using ``triangulate`` (this is true of all gridding routines) or
-            instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        {outgrid}
+            The interpolation is performed in the original coordinates, so if
+            your triangles are close to the poles you are better off projecting
+            all data to a local coordinate system before using ``triangulate``
+            (this is true of all gridding routines) or instead select
+            :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         {verbose}
         {binary}
         {nodata}
