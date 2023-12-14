@@ -19,7 +19,7 @@ from pygmt.io import load_dataarray
 __doctest_skip__ = ["grdhisteq.*"]
 
 
-class grdhisteq:
+class grdhisteq:  # noqa: N801
     r"""
     Perform histogram equalization for a grid.
 

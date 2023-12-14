@@ -6,7 +6,7 @@ from inspect import Parameter, Signature
 from pygmt.clib import Session
 
 
-class config:
+class config:  # noqa: N801
     """
     Set GMT defaults globally or locally.
 

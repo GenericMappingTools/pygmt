@@ -73,8 +73,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
-    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
-    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
+    allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
+    keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
         import pytest
@@ -90,7 +90,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if "request" in old_sig.parameters:
                 kwargs["request"] = request
             try:
-                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+                file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
             try:
@@ -129,9 +129,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if param.name not in {"fig_test", "fig_ref"}
         ]
         if "ext" not in old_sig.parameters:
-            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("ext", keyword_only)]
         if "request" not in old_sig.parameters:
-            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("request", keyword_only)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
 
