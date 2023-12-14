@@ -772,7 +772,7 @@ class Session:
             )
         if name not in valid:
             raise GMTInvalidInput(
-                f"Invalid constant argument '{name}'. Must be one of {str(valid)}."
+                f"Invalid constant argument '{name}'. Must be one of {valid}."
             )
         if (
             nmodifiers > 0
@@ -780,7 +780,7 @@ class Session:
             and parts[1] not in valid_modifiers
         ):
             raise GMTInvalidInput(
-                f"Invalid constant modifier '{parts[1]}'. Must be one of {str(valid_modifiers)}."
+                f"Invalid constant modifier '{parts[1]}'. Must be one of {valid_modifiers}."
             )
         integer_value = sum(self[part] for part in parts)
         return integer_value
