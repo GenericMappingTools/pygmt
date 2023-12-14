@@ -489,8 +489,8 @@ def _insert_alias(module_func, default_value=None):
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
+            wrapped_params = [*wrapped_params, new_param]
+    all_params = [*wrapped_params, kwargs_param]
     # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
