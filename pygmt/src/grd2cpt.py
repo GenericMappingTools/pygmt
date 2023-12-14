@@ -79,8 +79,7 @@ def grd2cpt(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     transparency : int or float or str
         Set a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the foreground, background, and NaN
