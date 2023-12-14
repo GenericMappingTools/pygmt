@@ -251,7 +251,7 @@ If you see a global map with shorelines, then you're all set.
 Common installation issues
 --------------------------
 
-If you have any issues with the installation, please check the following
+If you have any issues with the installation, please check out the following
 common problems and solutions.
 
 "Error loading GMT shared library at ..."
