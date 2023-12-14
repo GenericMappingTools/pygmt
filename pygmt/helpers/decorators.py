@@ -149,6 +149,13 @@ COMMON_DOCSTRINGS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
+    "grid": r"""
+        grid : str or xarray.DataArray
+            Name of the input grid file or the grid loaded as a
+            :class:`xarray.DataArray` object.
+
+            For reading a specific grid file format or applying basic data operations,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
@@ -482,8 +489,8 @@ def _insert_alias(module_func, default_value=None):
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
+            wrapped_params = [*wrapped_params, new_param]
+    all_params = [*wrapped_params, kwargs_param]
     # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
