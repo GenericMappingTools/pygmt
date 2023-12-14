@@ -15,7 +15,7 @@ def shift_origin(
     This method shifts the plot origin relative to the current origin by
     *xshift* and *yshift* in x and y directions, respectively. Optionally,
     append the length unit (**c** for centimeters, **i** for inches, or **p**
-    for points) to the shifts. Default unit if not explicitely given is **c**,
+    for points) to the shifts. Default unit if not explicitly given is **c**,
     but can be changed to other units via :gmt-term:`PROJ_LENGTH_UNIT`.
 
     For *xshift*, a special character **w** can also be used, which represents
@@ -23,7 +23,7 @@ def shift_origin(
     [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f*
     and divisor *d* can be used to compute an offset that may be adjusted
     further by ±*off*. For example, assuming that the previous plot has a width
-    of 10 centimeter, here are some example values for *xshift*:
+    of 10 centimeters, here are some example values for *xshift*:
 
     - ``w``: x-shift is 10 cm
     - ``w+2c``: x-shift is 10+2=12 cm
