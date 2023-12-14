@@ -100,19 +100,25 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 [tool.ruff.lint]
 select = [
     "B",    # flake8-bugbear
+    "BLE",  # flake8-blind-except
     "E",    # pycodestyle
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
     "FLY",  # flynt
     "I",    # isort
+    "ICN",  # flake8-import-conventions
     "ISC",  # flake8-implicit-str-concat
     "NPY",  # numpy
     "PD",   # pandas-vet
+    "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
+    "RSE",  # flake8-raise
     "SIM",  # flake8-simplify
+    "TID",  # flake8-tidy-imports
     "UP",   # pyupgrade
     "W",    # pycodestyle warnings
+    "YTT",  # flake8-2020
 ]
 ignore = [
     "E501", # Avoid enforcing line-length violations
