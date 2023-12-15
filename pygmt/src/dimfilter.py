@@ -54,9 +54,7 @@ def dimfilter(grid, **kwargs):
     Parameters
     ----------
     {grid}
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 

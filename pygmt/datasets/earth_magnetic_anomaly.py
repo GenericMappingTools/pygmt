@@ -17,7 +17,7 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 def load_earth_magnetic_anomaly(
     resolution="01d",
     region=None,
-    registration=None,
+    registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ):
     r"""
@@ -76,11 +76,12 @@ def load_earth_magnetic_anomaly(
         Required for grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"02m"`` for ``data_source="emag2"`` or
-        ``data_source="emag2_4km"``, which are ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for all resolutions except ``"02m"`` for
+        ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are
+        ``"pixel"`` only.
 
     data_source
         Select the source of the magnetic anomaly data. Available options are:
