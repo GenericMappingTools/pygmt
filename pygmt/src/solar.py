@@ -1,6 +1,10 @@
 """
 solar - Plot day-night terminators and twilight.
 """
+from __future__ import annotations
+
+from typing import Literal
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -22,7 +26,12 @@ __doctest_skip__ = ["solar"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def solar(self, terminator="d", terminator_datetime=None, **kwargs):
+def solar(
+    self,
+    terminator: Literal["day_night", "civil", "nautical", "astronomical"] = "day_night",
+    terminator_datetime=None,
+    **kwargs,
+):
     r"""
     Plot day-light terminators or twilights.
 
@@ -36,11 +45,11 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
 
     Parameters
     ----------
-    terminator : str
+    terminator
         Set the type of terminator displayed. Valid arguments are
         ``"day_night"``, ``"civil"``, ``"nautical"``, and ``"astronomical"``,
         which can be set with either the full name or the first letter of the
-        name [Default is ``"day_night"``].
+        name.
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
         different types of twilight.
@@ -88,25 +97,16 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-
     kwargs = self._preprocess(**kwargs)
     if kwargs.get("T") is not None:
         raise GMTInvalidInput(
             "Use 'terminator' and 'terminator_datetime' instead of 'T'."
         )
-    if terminator not in [
-        "day_night",
-        "civil",
-        "nautical",
-        "astronomical",
-        "d",
-        "c",
-        "n",
-        "a",
-    ]:
+    valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
+    if terminator not in valid_terminators and terminator not in "dcna":
         raise GMTInvalidInput(
-            f"Unrecognized solar terminator type '{terminator}'. Valid values "
-            "are 'day_night', 'civil', 'nautical', and 'astronomical'."
+            f"Unrecognized solar terminator type '{terminator}'. "
+            f"Valid values are {valid_terminators}."
         )
     kwargs["T"] = terminator[0]
     if terminator_datetime:
