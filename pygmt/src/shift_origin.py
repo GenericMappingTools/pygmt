@@ -22,7 +22,7 @@ def shift_origin(
     the bounding box **width** of the previous plot. The full syntax is
     [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f*
     and divisor *d* can be used to compute an offset that may be adjusted
-    further by ±*off*. For example, assuming that the previous plot has a width
+    further by ±\ *xoff*. For example, assuming that the previous plot has a width
     of 10 centimeters, here are some example values for *xshift*:
 
     - ``w``: x-shift is 10 cm
