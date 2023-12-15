@@ -203,7 +203,7 @@ def test_parse_constant_composite():
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
-        composite = "|".join([family, via])
+        composite = f"{family}|{via}"
         expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected

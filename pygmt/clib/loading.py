@@ -121,9 +121,9 @@ def clib_full_names(env=None):
         libfullpath = Path(
             sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
         )
-        assert libfullpath.exists()
-        yield str(libfullpath)
-    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
+        if libfullpath.exists():
+            yield str(libfullpath)
+    except (FileNotFoundError, sp.CalledProcessError):
         # the 'gmt' executable  is not found
         # the gmt library is not found
         # the 'gmt' executable is broken

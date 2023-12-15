@@ -51,9 +51,7 @@ def binstats(data, **kwargs):
     data : str, {table-like}
         A file name of an ASCII data table or a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\

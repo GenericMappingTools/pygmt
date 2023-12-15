@@ -43,7 +43,7 @@ def image(self, imagefile, **kwargs):
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
-        [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
+        [**+n**\ *nx*\ [/*ny*]]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
