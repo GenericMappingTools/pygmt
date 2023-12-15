@@ -99,6 +99,7 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 
 [tool.ruff.lint]
 select = [
+    "A",    # flake8-builtins
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "E",    # pycodestyle

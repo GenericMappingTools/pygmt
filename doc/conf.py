@@ -138,7 +138,7 @@ root_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = f"2017-{year}, The PyGMT Developers"
+copyright = f"2017-{year}, The PyGMT Developers"  # noqa: A001
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
     # Set base_url for stable version
