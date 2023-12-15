@@ -17,7 +17,7 @@ __doctest_skip__ = ["load_earth_relief"]
 def load_earth_relief(
     resolution="01d",
     region=None,
-    registration=None,
+    registration: Literal["gridline", "pixel", None] = None,
     data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm=False,
 ):
@@ -71,10 +71,11 @@ def load_earth_relief(
         Required for Earth relief grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"15s"`` which is ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for all resolutions except ``"15s"`` which is
+        ``"pixel"`` only.
 
     data_source
         Select the source for the Earth relief data. Available options are:

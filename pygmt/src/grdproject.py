@@ -57,9 +57,7 @@ def grdproject(grid, **kwargs):
     Parameters
     ----------
     {grid}
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     inverse : bool
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
