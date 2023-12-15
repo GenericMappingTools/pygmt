@@ -429,7 +429,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
         gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
 
     if infile:
-        gmt_args = [str(infile)] + gmt_args
+        gmt_args = [str(infile), *gmt_args]
     if outfile:
         gmt_args.append("->" + str(outfile))
     return non_ascii_to_octal(" ".join(gmt_args))

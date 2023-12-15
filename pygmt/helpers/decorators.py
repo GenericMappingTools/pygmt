@@ -253,6 +253,11 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outgrid": """
+        outgrid : str or None
+            Name of the output netCDF grid file. For writing a specific grid
+            file format or applying basic data operations to the output grid,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "panel": r"""
         panel : bool, int, or list
             [*row,col*\|\ *index*].
@@ -489,8 +494,8 @@ def _insert_alias(module_func, default_value=None):
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
+            wrapped_params = [*wrapped_params, new_param]
+    all_params = [*wrapped_params, kwargs_param]
     # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
