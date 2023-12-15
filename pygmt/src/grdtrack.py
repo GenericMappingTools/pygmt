@@ -67,9 +67,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a file name (netCDF
-        format).
+    {grid}
 
     points : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
@@ -310,7 +308,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
             try:
-                column_names = points.columns.to_list() + [newcolname]
+                column_names = [*points.columns.to_list(), newcolname]
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             except AttributeError:  # 'str' object has no attribute 'columns'
                 result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
