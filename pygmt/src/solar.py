@@ -28,7 +28,7 @@ __doctest_skip__ = ["solar"]
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def solar(
     self,
-    terminator: Literal["day_night", "civil", "nautical", "astronomical"] = "day_night",
+    terminator: Literal["astronomical", "civil", "day_night", "nautical"] = "day_night",
     terminator_datetime=None,
     **kwargs,
 ):
