@@ -46,10 +46,13 @@ def solar(
     Parameters
     ----------
     terminator
-        Set the type of terminator displayed. Valid arguments are
-        ``"day_night"``, ``"civil"``, ``"nautical"``, and ``"astronomical"``,
-        which can be set with either the full name or the first letter of the
-        name.
+        Set the type of terminator displayed, which can be set with either the
+        full name or the first letter of the name. Available options are:
+
+        - ``"astronomical"``: Astronomical twilight
+        - ``"civil"``: Civil twilight
+        - ``"day_night"``: Day/night terminator
+        - ``"nautical"``: Nautical twilight
 
         Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
         different types of twilight.
