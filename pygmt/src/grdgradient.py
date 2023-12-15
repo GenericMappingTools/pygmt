@@ -46,9 +46,7 @@ def grdgradient(grid, **kwargs):
     Parameters
     ----------
     {grid}
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     azimuth : float, str, or list
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
