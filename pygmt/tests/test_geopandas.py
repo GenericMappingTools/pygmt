@@ -3,9 +3,9 @@ Test integration with geopandas.
 """
 import numpy.testing as npt
 import pandas as pd
-import pandas.util._test_decorators as td
 import pytest
 from pygmt import Figure, info, makecpt, which
+from pygmt.helpers.testing import skip_if_no
 
 gpd = pytest.importorskip("geopandas")
 shapely = pytest.importorskip("shapely")
@@ -165,7 +165,7 @@ def test_geopandas_plot3d_non_default_circle():
         pytest.param(
             "int32[pyarrow]",
             marks=[
-                td.skip_if_no(package="pyarrow"),
+                skip_if_no(package="pyarrow"),
                 pytest.mark.xfail(
                     reason="geopandas doesn't support writing columns with pyarrow dtypes to OGR_GMT yet."
                 ),
@@ -174,7 +174,7 @@ def test_geopandas_plot3d_non_default_circle():
         pytest.param(
             "int64[pyarrow]",
             marks=[
-                td.skip_if_no(package="pyarrow"),
+                skip_if_no(package="pyarrow"),
                 pytest.mark.xfail(
                     reason="geopandas doesn't support writing columns with pyarrow dtypes to OGR_GMT yet."
                 ),

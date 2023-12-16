@@ -12,13 +12,7 @@ import pytest
 import xarray as xr
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
-
-try:
-    import pyarrow  # noqa: F401
-
-    HAS_PYARROW = True
-except ImportError:
-    HAS_PYARROW = False
+from pygmt.helpers.testing import skip_if_no
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -83,15 +77,7 @@ def test_info_2d_list():
 
 @pytest.mark.parametrize(
     "dtype",
-    [
-        "int64",
-        pytest.param(
-            "int64[pyarrow]",
-            marks=pytest.mark.skipif(
-                condition=not HAS_PYARROW, reason="Could not import 'pyarrow'"
-            ),
-        ),
-    ],
+    ["int64", pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
 )
 def test_info_series(dtype):
     """
@@ -106,12 +92,7 @@ def test_info_series(dtype):
     "dtype",
     [
         "float64",
-        pytest.param(
-            "float64[pyarrow]",
-            marks=pytest.mark.skipif(
-                condition=not HAS_PYARROW, reason="Could not import 'pyarrow'"
-            ),
-        ),
+        pytest.param("float64[pyarrow]", marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_info_dataframe(dtype):
