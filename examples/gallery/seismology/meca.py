@@ -29,7 +29,7 @@ fig.coast(
 
 # Store focal mechanism parameters in a dictionary based on the Aki & Richards
 # convention
-focal_mechanism = dict(strike=330, dip=30, rake=90, magnitude=3)
+focal_mechanism = {"strike": 330, "dip": 30, "rake": 90, "magnitude": 3}
 
 # Pass the focal mechanism data through the spec parameter. In addition provide
 # scale, event location, and event depth
