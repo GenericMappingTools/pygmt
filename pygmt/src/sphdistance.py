@@ -52,9 +52,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         {table-classes}.
     x/y : 1-D arrays
         Arrays of x and y coordinates.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}

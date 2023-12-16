@@ -45,9 +45,7 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
