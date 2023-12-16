@@ -255,9 +255,8 @@ def skip_if_no(package):
     fixtures. Use pytest.importorskip if an imported moduled is later needed
     or for test functions.
 
-    If the import and version check are unsuccessful, then the test function
-    (or test case when used in conjunction with parametrization) will be
-    skipped.
+    If the import is unsuccessful, then the test function (or test case when
+    used in conjunction with parametrization) will be skipped.
 
     Adapted from
     https://github.com/pandas-dev/pandas/blob/v2.1.4/pandas/util/_test_decorators.py#L121
