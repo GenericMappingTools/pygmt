@@ -107,6 +107,7 @@ def show_versions(file=sys.stdout):
 
     import importlib
     import platform
+    import shutil
     import subprocess
 
     from packaging.requirements import Requirement
@@ -141,12 +142,10 @@ def show_versions(file=sys.stdout):
             return None
 
         for gs_cmd in cmds:
-            try:
+            if (gsfullpath := shutil.which(gs_cmd)) is not None:
                 return subprocess.check_output(
-                    [gs_cmd, "--version"], universal_newlines=True
+                    [gsfullpath, "--version"], universal_newlines=True
                 ).strip()
-            except FileNotFoundError:
-                continue
         return None
 
     sys_info = {
