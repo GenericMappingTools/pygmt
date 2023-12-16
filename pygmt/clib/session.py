@@ -85,6 +85,7 @@ DTYPES = {
     np.float64: "GMT_DOUBLE",
     np.str_: "GMT_TEXT",
     np.datetime64: "GMT_DATETIME",
+    np.timedelta64: "GMT_LONG",
 }
 
 
