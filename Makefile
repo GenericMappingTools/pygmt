@@ -18,6 +18,7 @@ help:
 	@echo "  format         run blackdoc, docformatter and ruff to automatically format the code"
 	@echo "  check          run code style and quality checks (blackdoc, docformatter, ruff)"
 	@echo "  codespell      run codespell to check common misspellings"
+	@echo "  typecheck      run mypy for static type check"
 	@echo "  clean          clean up build and generated files"
 	@echo "  distclean      clean up build and generated files, including project metadata files"
 	@echo ""
@@ -73,12 +74,15 @@ check:
 codespell:
 	@codespell
 
+typecheck:
+	mypy ${PROJECT}
+
 clean:
 	find . -name "*.pyc" -exec rm -v {} +
 	find . -name "*~" -exec rm -v {} +
 	find . -type d -name  "__pycache__" -exec rm -rv {} +
 	rm -rvf build dist .eggs MANIFEST .coverage htmlcov coverage.xml
-	rm -rvf .cache .pytest_cache .ruff_cache
+	rm -rvf .cache .mypy_cache .pytest_cache .ruff_cache
 	rm -rvf $(TESTDIR)
 	rm -rvf baseline
 	rm -rvf result_images
