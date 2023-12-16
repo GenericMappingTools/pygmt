@@ -99,6 +99,7 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 
 [tool.ruff.lint]
 select = [
+    "A",    # flake8-builtins
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "E",    # pycodestyle
@@ -108,6 +109,7 @@ select = [
     "I",    # isort
     "ICN",  # flake8-import-conventions
     "ISC",  # flake8-implicit-str-concat
+    "N",    # pep8-naming
     "NPY",  # numpy
     "PD",   # pandas-vet
     "PGH",  # pygrep-hooks

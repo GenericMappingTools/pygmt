@@ -17,7 +17,7 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-class triangulate:
+class triangulate:  # noqa: N801
     """
     Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
     data.
