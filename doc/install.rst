@@ -107,6 +107,15 @@ The following are optional dependencies:
 * `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 * `RioXarray <https://corteva.github.io/rioxarray>`__: For saving multi-band rasters to GeoTIFFs.
 
+.. note::
+
+    If you have `PyArrow <https://arrow.apache.org/docs/python/index.html>`__
+    installed, PyGMT does have some initial support for ``pandas.Series`` and
+    ``pandas.DataFrame`` objects with Apache Arrow-backed arrays. Specifically,
+    only uint/int/float dtypes are supported for now. Support for datetime and
+    string Arrow dtypes are still working in progress. For more details, see
+    `issue #2800 <https://github.com/GenericMappingTools/pygmt/issues/2800>`__.
+
 Installing GMT and other dependencies
 -------------------------------------
 
