@@ -85,10 +85,9 @@ def print_clib_info(file=sys.stdout):
     """
     from pygmt.clib import Session
 
-    lines = ["GMT library information:"]
+    print("GMT library information:", file=file)
     with Session() as ses:
-        for key in sorted(ses.info):
-            lines.append(f"  {key}: {ses.info[key]}")
+        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
     print("\n".join(lines), file=file)
 
 
