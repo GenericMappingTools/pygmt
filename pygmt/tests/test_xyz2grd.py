@@ -4,13 +4,13 @@ Test pygmt.xyz2grd.
 from pathlib import Path
 
 import numpy as np
-import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
@@ -49,9 +49,7 @@ def fixture_expected_grid():
     "array_func",
     [
         np.array,
-        pytest.param(
-            getattr(pa, "table", None), marks=td.skip_if_no(package="pyarrow")
-        ),
+        pytest.param(getattr(pa, "table", None), marks=skip_if_no(package="pyarrow")),
         xr.Dataset,
     ],
 )

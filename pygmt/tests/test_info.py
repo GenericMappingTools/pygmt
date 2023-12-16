@@ -8,11 +8,11 @@ import sys
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
-import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
@@ -105,9 +105,7 @@ def test_info_dataframe():
     "array_func",
     [
         np.array,
-        pytest.param(
-            getattr(pa, "array", None), marks=td.skip_if_no(package="pyarrow")
-        ),
+        pytest.param(getattr(pa, "array", None), marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_info_array_time_column(array_func):
@@ -165,7 +163,7 @@ def test_info_xarray_dataset_time_column():
         pytest.param(
             getattr(pa, "table", None),
             "vector memory",
-            marks=td.skip_if_no(package="pyarrow"),
+            marks=skip_if_no(package="pyarrow"),
         ),
     ],
 )
@@ -183,9 +181,7 @@ def test_info_2d_array(array_func, expected_memory):
     "array_func",
     [
         np.array,
-        pytest.param(
-            getattr(pa, "array", None), marks=td.skip_if_no(package="pyarrow")
-        ),
+        pytest.param(getattr(pa, "array", None), marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_info_1d_array(array_func):

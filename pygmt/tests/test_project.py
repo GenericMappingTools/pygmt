@@ -6,12 +6,12 @@ from pathlib import Path
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
-import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import project
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
 
 try:
     import pyarrow as pa
@@ -44,9 +44,7 @@ def test_project_generate():
     "array_func",
     [
         np.array,
-        pytest.param(
-            getattr(pa, "table", None), marks=td.skip_if_no(package="pyarrow")
-        ),
+        pytest.param(getattr(pa, "table", None), marks=skip_if_no(package="pyarrow")),
         pd.DataFrame,
         xr.Dataset,
     ],
