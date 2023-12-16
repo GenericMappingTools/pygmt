@@ -5,7 +5,6 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
-import datetime
 import functools
 import textwrap
 import warnings
