@@ -8,11 +8,11 @@ import sys
 import numpy as np
 import numpy.testing as npt
 import pandas as pd
-import pandas.util._test_decorators as td
 import pytest
 import xarray as xr
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import skip_if_no
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -112,8 +112,8 @@ def test_info_numpy_array_time_column():
     "dtype",
     [
         "datetime64[ns]",
-        pytest.param("date32[day][pyarrow]", marks=td.skip_if_no(package="pyarrow")),
-        pytest.param("date64[ms][pyarrow]", marks=td.skip_if_no(package="pyarrow")),
+        pytest.param("date32[day][pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("date64[ms][pyarrow]", marks=skip_if_no(package="pyarrow")),
     ],
 )
 def test_info_pandas_dataframe_date_column(dtype):
