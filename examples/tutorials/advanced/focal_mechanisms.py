@@ -83,7 +83,7 @@ study_area = [30, 40, 30, 40]
 fig = pygmt.Figure()
 
 fig.coast(
-    region=study_area, projection="M10c", land="tan", water="steelblue", frame=True
+    region=study_area, projection="M10c", land="lightgray", frame=True
 )
 
 # Plot a single focal mechanism as beachball
@@ -107,11 +107,7 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "WSne"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"]
 )
 
 # Plot focal mechanism
@@ -120,19 +116,15 @@ fig.meca(
     scale="1c",
     longitude=37.042,
     latitude=37.166,
-    # Use a 1.5-point thick, green and solid outline
-    pen="1.5p,green,solid",
+    # Use a 1.5-point thick, red and solid outline
+    pen="1.5p,red,solid",
 )
 
 # Shift plot origin 11 centimeters to the right
 fig.shift_origin(xshift="11c")
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "wSnE"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"]
 )
 
 # Plot focal mechanism
@@ -141,7 +133,7 @@ fig.meca(
     scale="1c",
     longitude=37.042,
     latitude=37.166,
-    outline="1.5p,green,solid",
+    outline="1.5p,red,solid",
 )
 
 fig.show()
@@ -157,11 +149,7 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "WSne"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"]
 )
 
 # Plot focal mechanism
@@ -178,11 +166,7 @@ fig.meca(
 fig.shift_origin(xshift="11c")
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "wSnE"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"]
 )
 
 # Plot focal mechanism
@@ -210,11 +194,7 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "WSne"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"]
 )
 
 # Plot focal mechanism
@@ -230,11 +210,7 @@ fig.meca(
 fig.shift_origin(xshift="11c")
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "wSnE"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"]
 )
 
 # Plot focal mechanism
@@ -243,7 +219,7 @@ fig.meca(
     scale="1c",
     longitude=37.042,
     latitude=37.166,
-    compressionfill="darkgray",
+    compressionfill="lightred",
     outline="1p,red,solid",
 )
 
@@ -268,11 +244,7 @@ fig.show()
 fig = pygmt.Figure()
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "WSne"],
+   region=study_area, projection="M10c", land="lightgray", frame=["af", "WSne"]
 )
 
 # Plot focal mechanism
@@ -290,11 +262,7 @@ fig.meca(
 fig.shift_origin(xshift="11c")
 
 fig.coast(
-    region=study_area,
-    projection="M10c",
-    land="tan",
-    water="steelblue",
-    frame=["af", "wSnE"],
+    region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"]
 )
 
 # Plot focal mechanism
@@ -339,9 +307,7 @@ fm_collection = {
 # Create a new Figure instance
 fig = pygmt.Figure()
 
-fig.coast(
-    region="d", projection="N10c", land="tan", water="steelblue", frame=["af", "WSnE"]
-)
+fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Plot focal mechanism
 fig.meca(
@@ -362,9 +328,7 @@ fig.show()
 # Create a new Figure instance
 fig = pygmt.Figure()
 
-fig.coast(
-    region="d", projection="N10c", land="tan", water="steelblue", frame=["af", "WsNE"]
-)
+fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Set up colormap for hypocentral depth
 pygmt.makecpt(cmap="lajolla", series=[0, 30, 1])
@@ -396,9 +360,7 @@ fig.show()
 # Create a new Figure instance
 fig = pygmt.Figure()
 
-fig.coast(
-    region="d", projection="N10c", land="tan", water="steelblue", frame=["af", "WSnE"]
-)
+fig.coast(region="d", projection="N10c", land="lightgray", frame=True)
 
 # Plot focal mechanism
 fig.meca(
