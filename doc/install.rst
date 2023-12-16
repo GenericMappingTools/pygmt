@@ -66,10 +66,10 @@ Which Python?
 
 PyGMT is tested to run on Python |requires_python|.
 
-We recommend using the `Mambaforge <https://github.com/conda-forge/miniforge#mambaforge>`__
+We recommend using the `Miniforge <https://github.com/conda-forge/miniforge#miniforge3>`__
 Python distribution to ensure you have all dependencies installed and the
 `mamba <https://mamba.readthedocs.io/en/stable/user_guide/mamba.html>`__
-package manager in the base environment. Installing Mambaforge does not require
+package manager in the base environment. Installing Miniforge does not require
 administrative rights to your computer and doesn't interfere with any other Python
 installations on your system.
 
@@ -106,6 +106,15 @@ The following are optional dependencies:
 * `Contextily <https://contextily.readthedocs.io>`__: For retrieving tile maps from the internet.
 * `GeoPandas <https://geopandas.org>`__: For using and plotting GeoDataFrame objects.
 * `RioXarray <https://corteva.github.io/rioxarray>`__: For saving multi-band rasters to GeoTIFFs.
+
+.. note::
+
+    If you have `PyArrow <https://arrow.apache.org/docs/python/index.html>`__
+    installed, PyGMT does have some initial support for ``pandas.Series`` and
+    ``pandas.DataFrame`` objects with Apache Arrow-backed arrays. Specifically,
+    only uint/int/float dtypes are supported for now. Support for datetime and
+    string Arrow dtypes are still working in progress. For more details, see
+    `issue #2800 <https://github.com/GenericMappingTools/pygmt/issues/2800>`__.
 
 Installing GMT and other dependencies
 -------------------------------------
@@ -248,9 +257,14 @@ following in your Python interpreter::
 
 If you see a global map with shorelines, then you're all set.
 
+Common installation issues
+--------------------------
 
-Finding the GMT shared library
-------------------------------
+If you have any issues with the installation, please check out the following
+common problems and solutions.
+
+"Error loading GMT shared library at ..."
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes, PyGMT will be unable to find the correct version of the GMT shared
 library (``libgmt``).
@@ -264,16 +278,16 @@ respectively.
 For Linux/macOS, add the following line to your shell configuration file
 (usually ``~/.bashrc`` for Bash on Linux and ``~/.zshrc`` for Zsh on macOS)::
 
-    export GMT_LIBRARY_PATH=$HOME/mambaforge/envs/pygmt/lib
+    export GMT_LIBRARY_PATH=$HOME/miniforge3/envs/pygmt/lib
 
 For Windows, add the ``GMT_LIBRARY_PATH`` environment variable following these
 `instructions <https://www.wikihow.com/Create-an-Environment-Variable-in-Windows-10>`__
 and set its value to a path like::
 
-    C:\Users\USERNAME\Mambaforge\envs\pygmt\Library\bin\
+    C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
-Notes for Jupyter users
------------------------
+``ModuleNotFoundError`` in Jupyter notebook environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you can successfully import pygmt in a Python interpreter or IPython, but
 get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to

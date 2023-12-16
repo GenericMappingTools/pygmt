@@ -52,7 +52,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.6.0
+        uses: mamba-org/setup-micromamba@v1.7.0
         with:
           environment-name: pygmt
           condarc: |
@@ -72,6 +72,7 @@ jobs:
             contextily
             geopandas
             ipython
+            pyarrow
             rioxarray
             sphinx-gallery
             build

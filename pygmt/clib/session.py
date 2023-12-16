@@ -4,11 +4,11 @@ access to the API functions.
 
 Uses ctypes to wrap most of the core functions from the C API.
 """
+import contextlib
 import ctypes as ctp
 import pathlib
 import sys
 import warnings
-from contextlib import contextmanager, nullcontext
 
 import numpy as np
 import pandas as pd
@@ -190,12 +190,10 @@ class Session:
             }
             # For GMT<6.4.0, API_IMAGE_LAYOUT is not defined if GMT is not
             # compiled with GDAL. Since GMT 6.4.0, GDAL is a required GMT
-            # dependency. The try-except block can be refactored after we bump
+            # dependency. The code block can be refactored after we bump
             # the minimum required GMT version to 6.4.0.
-            try:
+            with contextlib.suppress(GMTCLibError):
                 self._info["image layout"] = self.get_default("API_IMAGE_LAYOUT")
-            except GMTCLibError:
-                pass
             # API_BIN_VERSION is new in GMT 6.4.0.
             if Version(self._info["version"]) >= Version("6.4.0"):
                 self._info["binary version"] = self.get_default("API_BIN_VERSION")
@@ -348,7 +346,7 @@ class Session:
         """
         try:
             # Won't raise an exception if there is a currently open session
-            self.session_pointer
+            _ = self.session_pointer
             # In this case, fail to create a new session until the old one is
             # destroyed
             raise GMTCLibError(
@@ -732,10 +730,7 @@ class Session:
         """
         pad = kwargs.get("pad", None)
         if pad is None:
-            if "MATRIX" in family:
-                pad = 0
-            else:
-                pad = self["GMT_PAD_DEFAULT"]
+            pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
 
     def _parse_constant(self, constant, valid, valid_modifiers=None):
@@ -773,12 +768,11 @@ class Session:
             )
         if nmodifiers > 0 and valid_modifiers is None:
             raise GMTInvalidInput(
-                "Constant modifiers not allowed since valid values were not "
-                + f"given: '{constant}'"
+                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
             )
         if name not in valid:
             raise GMTInvalidInput(
-                f"Invalid constant argument '{name}'. Must be one of {str(valid)}."
+                f"Invalid constant argument '{name}'. Must be one of {valid}."
             )
         if (
             nmodifiers > 0
@@ -786,7 +780,7 @@ class Session:
             and parts[1] not in valid_modifiers
         ):
             raise GMTInvalidInput(
-                f"Invalid constant modifier '{parts[1]}'. Must be one of {str(valid_modifiers)}."
+                f"Invalid constant modifier '{parts[1]}'. Must be one of {valid_modifiers}."
             )
         integer_value = sum(self[part] for part in parts)
         return integer_value
@@ -840,8 +834,11 @@ class Session:
         # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
             try:
-                # Try to convert any unknown numpy data types to np.datetime64
-                array = array_to_datetime(array)
+                if array.dtype.type is np.object_:
+                    # Try to convert unknown object type to np.datetime64
+                    array = array_to_datetime(array)
+                else:
+                    raise ValueError
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -1089,7 +1086,7 @@ class Session:
         if status != 0:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
-    @contextmanager
+    @contextlib.contextmanager
     def open_virtual_file(self, family, geometry, direction, data):
         """
         Open a GMT virtual file to pass data to and from a module.
@@ -1196,7 +1193,7 @@ class Session:
             if status != 0:
                 raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
         Store 1-D arrays as columns of a table inside a virtual file.
@@ -1298,7 +1295,7 @@ class Session:
         ) as vfile:
             yield vfile
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_matrix(self, matrix):
         """
         Store a 2-D array as a table inside a virtual file.
@@ -1379,7 +1376,7 @@ class Session:
         ) as vfile:
             yield vfile
 
-    @contextmanager
+    @contextlib.contextmanager
     def virtualfile_from_grid(self, grid):
         """
         Store a grid in a virtual file.
@@ -1550,8 +1547,8 @@ class Session:
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
-            "file": nullcontext,
-            "arg": nullcontext,
+            "file": contextlib.nullcontext,
+            "arg": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
             "grid": self.virtualfile_from_grid,
             "image": tempfile_from_image,
@@ -1581,23 +1578,19 @@ class Session:
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            try:
-                # pandas.Series will be handled below like a 1-D numpy.ndarray
-                assert not hasattr(data, "to_frame")
-                # pandas.DataFrame and xarray.Dataset types
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # pandas.DataFrame or xarray.Dataset types.
+                # pandas.Series will be handled below like a 1-D numpy.ndarray.
                 _data = [array for _, array in data.items()]
-            except (AttributeError, AssertionError):
-                try:
-                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                    # which are signed integer (i), unsigned integer (u) or
-                    # floating point (f) types
-                    assert data.ndim == 2 and data.dtype.kind in "iuf"
-                    _virtualfile_from = self.virtualfile_from_matrix
-                    _data = (data,)
-                except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy.ndarray, and pandas.Series
-                    # types
-                    _data = np.atleast_2d(np.asanyarray(data).T)
+            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
+                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
+                # which are signed integer (i), unsigned integer (u) or
+                # floating point (f) types
+                _virtualfile_from = self.virtualfile_from_matrix
+                _data = (data,)
+            else:
+                # Python list, tuple, numpy.ndarray, and pandas.Series types
+                _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)

@@ -56,11 +56,11 @@ def mock(session, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
+    session.get_libgmt_func = mock_get_libgmt_func
 
     yield
 
-    setattr(session, "get_libgmt_func", get_libgmt_func)
+    session.get_libgmt_func = get_libgmt_func
 
 
 def test_getitem():
@@ -94,12 +94,12 @@ def test_create_destroy_session():
     ses = clib.Session()
     for __ in range(2):
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer
+            _ = ses.session_pointer
         ses.create("session1")
         assert ses.session_pointer is not None
         ses.destroy()
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer
+            _ = ses.session_pointer
 
 
 def test_create_session_fails():
@@ -183,7 +183,7 @@ def test_method_no_session():
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.session_pointer
+        _ = lib.session_pointer
 
 
 def test_parse_constant_single():
@@ -203,7 +203,7 @@ def test_parse_constant_composite():
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
-        composite = "|".join([family, via])
+        composite = f"{family}|{via}"
         expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
