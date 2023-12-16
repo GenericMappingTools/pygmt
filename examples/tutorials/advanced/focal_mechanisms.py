@@ -65,7 +65,7 @@ fm_sinlge = "xxx"
 # in a pandas DataFrame
 fm_single = "xxx"
 # in a dictionary based on the Aki & Richards convention
-fm_single = dict(strike=318, dip=89, rake=-179, magnitude=7.75)
+fm_single = {"strike": 318, "dip": 89, "rake": -179, "magnitude": 7.75}
 
 # Define the study area: lon_min, lon_max, lat_min, lat_max
 # in degrees East or North
@@ -324,15 +324,15 @@ fig.show()
 # - Afghanistan on 2022/06/21
 # - Syria / Turkey on 2023/02/06
 
-fm_collection = dict(
-    strike=[166, 166, 166, 166],
-    dip=[80, 80, 80, 80],
-    rake=[74, 74, 74, 74],
-    magnitude=[7.0, 5.8, 6.0, 7.8],
-    longitude=[-72.53, -79.611, 69.46, 37.032],
-    latitude=[18.46, 0.904, 33.02, 37.166],
-    depth=[13, 26.52, 4, 10],
-)
+fm_collection = {
+    "strike": [166, 166, 166, 166],
+    "dip": [80, 80, 80, 80],
+    "rake": [74, 74, 74, 74],
+    "magnitude": [7.0, 5.8, 6.0, 7.8],
+    "longitude": [-72.53, -79.611, 69.46, 37.032],
+    "latitude": [18.46, 0.904, 33.02, 37.166],
+    "depth": [13, 26.52, 4, 10],
+}
 
 # fixed size via ``scale`` append **+m**
 
