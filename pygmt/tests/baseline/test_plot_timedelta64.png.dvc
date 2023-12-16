@@ -1,4 +1,4 @@
 outs:
-- md5: 9b4172c3c587ab31b7dac5fad2de0718
-  size: 13189
+- md5: a045e84c478a7ebc5a62c5b39b8229a5
+  size: 13016
   path: test_plot_timedelta64.png
