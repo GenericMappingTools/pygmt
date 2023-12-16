@@ -113,7 +113,7 @@ The following are optional dependencies:
     installed, PyGMT does have some initial support for ``pandas.Series`` and
     ``pandas.DataFrame`` objects with Apache Arrow-backed arrays. Specifically,
     only uint/int/float dtypes are supported for now. Support for datetime and
-    string Arrow dtypes are still works in progress. For more details, see
+    string Arrow dtypes are still working in progress. For more details, see
     `issue #2800 <https://github.com/GenericMappingTools/pygmt/issues/2800>`__.
 
 Installing GMT and other dependencies
