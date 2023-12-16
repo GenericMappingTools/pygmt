@@ -471,6 +471,7 @@ def test_plot_timedelta64():
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare(
     filename="test_plot_ogrgmt_file_multipoint_default_style.png"
 )
