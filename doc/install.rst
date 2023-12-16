@@ -257,9 +257,14 @@ following in your Python interpreter::
 
 If you see a global map with shorelines, then you're all set.
 
+Common installation issues
+--------------------------
 
-Finding the GMT shared library
-------------------------------
+If you have any issues with the installation, please check out the following
+common problems and solutions.
+
+"Error loading GMT shared library at ..."
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes, PyGMT will be unable to find the correct version of the GMT shared
 library (``libgmt``).
@@ -281,8 +286,8 @@ and set its value to a path like::
 
     C:\Users\USERNAME\Miniforge3\envs\pygmt\Library\bin\
 
-Notes for Jupyter users
------------------------
+``ModuleNotFoundError`` in Jupyter notebook environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you can successfully import pygmt in a Python interpreter or IPython, but
 get a ``ModuleNotFoundError`` when importing pygmt in Jupyter, you may need to

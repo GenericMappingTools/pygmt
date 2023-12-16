@@ -149,6 +149,13 @@ COMMON_DOCSTRINGS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
+    "grid": r"""
+        grid : str or xarray.DataArray
+            Name of the input grid file or the grid loaded as a
+            :class:`xarray.DataArray` object.
+
+            For reading a specific grid file format or applying basic data operations,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
@@ -246,6 +253,11 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outgrid": """
+        outgrid : str or None
+            Name of the output netCDF grid file. For writing a specific grid
+            file format or applying basic data operations to the output grid,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "panel": r"""
         panel : bool, int, or list
             [*row,col*\|\ *index*].
@@ -269,7 +281,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*.
+            *projcode*\[*projparams*/]\ *width*\ |*scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
@@ -426,7 +438,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*.
+        *projcode*\[*projparams*/]\ *width*\ |*scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
@@ -444,16 +456,9 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = (
-        ", ".join(
-            [
-                "numpy.ndarray",
-                "pandas.DataFrame",
-                "xarray.Dataset",
-            ]
-        )
-        + ", or geopandas.GeoDataFrame"
-    )
+    filler_text[
+        "table-like"
+    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -489,8 +494,8 @@ def _insert_alias(module_func, default_value=None):
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
+            wrapped_params = [*wrapped_params, new_param]
+    all_params = [*wrapped_params, kwargs_param]
     # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
@@ -636,7 +641,6 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-
     >>> @kwargs_to_strings(
     ...     R="sequence", i="sequence_comma", files="sequence_space"
     ... )
@@ -686,20 +690,35 @@ def kwargs_to_strings(**conversions):
     ...     ]
     ... )
     {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
+    >>> # Here is a more realistic example
+    >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
+    >>> @kwargs_to_strings(
+    ...     files="sequence_space",
+    ...     offset="sequence",
+    ...     R="sequence",
+    ...     i="sequence_comma",
+    ... )
+    ... def module(files, offset=("-54p", "-54p"), **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(files, end=" ")
+    ...     print(offset, end=" ")
+    ...     print("{", end="")
+    ...     print(
+    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         end="",
+    ...     )
+    ...     print("}")
+    >>> module(files=["data1.txt", "data2.txt"])
+    data1.txt data2.txt -54p/-54p {}
+    >>> module(["data1.txt", "data2.txt"])
+    data1.txt data2.txt -54p/-54p {}
+    >>> module(files=["data1.txt", "data2.txt"], offset=("20p", "20p"))
+    data1.txt data2.txt 20p/20p {}
+    >>> module(["data1.txt", "data2.txt"], ("20p", "20p"))
+    data1.txt data2.txt 20p/20p {}
+    >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
+    data1.txt data2.txt 20p/20p {'R': '1/2/3/4'}
     """
-    valid_conversions = [
-        "sequence",
-        "sequence_comma",
-        "sequence_plus",
-        "sequence_space",
-    ]
-
-    for arg, fmt in conversions.items():
-        if fmt not in valid_conversions:
-            raise GMTInvalidInput(
-                f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            )
-
     separators = {
         "sequence": "/",
         "sequence_comma": ",",
@@ -707,37 +726,61 @@ def kwargs_to_strings(**conversions):
         "sequence_space": " ",
     }
 
+    for arg, fmt in conversions.items():
+        if fmt not in separators:
+            raise GMTInvalidInput(
+                f"Invalid conversion type '{fmt}' for argument '{arg}'."
+            )
+
     # Make the actual decorator function
     def converter(module_func):
         """
         The decorator that creates our new function with the conversions.
         """
+        sig = signature(module_func)
 
         @functools.wraps(module_func)
         def new_module(*args, **kwargs):
             """
             New module instance that converts the arguments first.
             """
+            # Inspired by https://stackoverflow.com/a/69170441
+            bound = sig.bind(*args, **kwargs)
+            bound.apply_defaults()
+
             for arg, fmt in conversions.items():
-                if arg in kwargs:
-                    value = kwargs[arg]
-                    issequence = fmt in separators
-                    if issequence and is_nonstr_iter(value):
-                        for index, item in enumerate(value):
-                            try:
-                                # check if there is a space " " when converting
-                                # a pandas.Timestamp/xr.DataArray to a string.
-                                # If so, use np.datetime_as_string instead.
-                                assert " " not in str(item)
-                            except AssertionError:
-                                # convert datetime-like item to ISO 8601
-                                # string format like YYYY-MM-DDThh:mm:ss.ffffff
-                                value[index] = np.datetime_as_string(
-                                    np.asarray(item, dtype=np.datetime64)
-                                )
-                        kwargs[arg] = separators[fmt].join(f"{item}" for item in value)
+                # The arg may be in args or kwargs
+                if arg in bound.arguments:
+                    value = bound.arguments[arg]
+                elif arg in bound.arguments.get("kwargs"):
+                    value = bound.arguments["kwargs"][arg]
+                else:
+                    continue
+
+                issequence = fmt in separators
+                if issequence and is_nonstr_iter(value):
+                    for index, item in enumerate(value):
+                        try:
+                            # Check if there is a space " " when converting
+                            # a pandas.Timestamp/xr.DataArray to a string.
+                            # If so, use np.datetime_as_string instead.
+                            assert " " not in str(item)
+                        except AssertionError:
+                            # Convert datetime-like item to ISO 8601
+                            # string format like YYYY-MM-DDThh:mm:ss.ffffff.
+                            value[index] = np.datetime_as_string(
+                                np.asarray(item, dtype=np.datetime64)
+                            )
+                    newvalue = separators[fmt].join(f"{item}" for item in value)
+                    # Changes in bound.arguments will reflect in bound.args
+                    # and bound.kwargs.
+                    if arg in bound.arguments:
+                        bound.arguments[arg] = newvalue
+                    elif arg in bound.arguments.get("kwargs"):
+                        bound.arguments["kwargs"][arg] = newvalue
+
             # Execute the original function and return its output
-            return module_func(*args, **kwargs)
+            return module_func(*bound.args, **bound.kwargs)
 
         return new_module
 
