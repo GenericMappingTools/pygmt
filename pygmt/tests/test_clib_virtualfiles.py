@@ -326,7 +326,7 @@ def test_virtualfile_from_matrix_slice(dtypes):
 
 def test_virtualfile_from_vectors_pandas(dtypes):
     """
-    Pass vectors to a dataset using pandas Series, checking both numpy and
+    Pass vectors to a dataset using pandas.Series, checking both numpy and
     pyarrow dtypes.
     """
     size = 13
