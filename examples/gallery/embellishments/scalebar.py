@@ -12,12 +12,12 @@ This example shows how such a scale bar can be customized:
  - justify: **+j**. Set the anchor point by specifying a two-letter (order
    independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
- - offset: **+o**\ *xoffset*/*yoffset*. Shift from ``position`` in x
+ - offset: **+o**\ *xoffset*/*yoffset*. Shift from the reference point in x
    (longitude) and y (latitude) directions.
  - length: **+w**\ *length*. Give value and unit.
- - height: :gmt-term:`MAP_SCALE_HEIGHT`
- - origin on map: **+c**\ [*slon*/]\ *slat*. *slon* is only optional for
-   projections with constant scale along parallels.
+ - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
+ - origin on map: **+c**\ [*slon*/]\ *slat*. Note *slon* is only optional
+   for projections with constant scale along parallels.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
  - label: **+l**. Use another label as the unit given via **+w**.
  - label alignment: **+a**. Append **t**\(op) [Default], **b**\(ottom),
@@ -83,7 +83,7 @@ fig.show()
 
 # %%
 # The ``box`` parameter allows surrounding the scale bar. This can be useful
-# when adding a scale bar to a colorful plot. The outline of the box can be
+# when adding a scale bar to a colorful map. The outline of the box can be
 # adjusted by appending **+p** and the desired thickness, color, and style.
 # To fill the box, append **+g** with the desired color (or pattern). To force
 # rounded edges append **+r** with the desired radius.
@@ -102,3 +102,5 @@ fig.coast(
 )
 
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3
