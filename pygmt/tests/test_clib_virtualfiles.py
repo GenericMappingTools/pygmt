@@ -2,6 +2,7 @@
 Test the C API functions related to virtual files.
 """
 import os
+from importlib.util import find_spec
 from itertools import product
 
 import numpy as np
@@ -12,11 +13,6 @@ from pygmt import clib
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
-
-try:
-    import pyarrow as pa
-except ImportError:
-    pa = None
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -330,7 +326,7 @@ def test_virtualfile_from_vectors_pandas(dtypes):
     pyarrow dtypes.
     """
     size = 13
-    if pa is not None:
+    if find_spec("pyarrow") is not None:
         dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
 
     for dtype in dtypes:
