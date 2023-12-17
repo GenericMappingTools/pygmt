@@ -12,7 +12,7 @@ This example shows how such a scale bar can be customized:
  - justify: **+j**. Set the anchor point by specifying a two-letter (order
    independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
- - offset: **+o**\ *offset*\ |\ *xoffset*/\ *yoffset*. Give either a common
+ - offset: **+o**\ *offset*\|\ *xoffset*/\ *yoffset*. Give either a common
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - length: **+w**. Give value and unit.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
