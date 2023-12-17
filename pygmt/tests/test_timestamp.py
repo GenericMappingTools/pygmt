@@ -56,7 +56,7 @@ def test_timestamp_offset():
     """
     fig = Figure()
     fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame="g1")
-    for offset in ["1c", "1c/2c", ("1c", "3c")]:
+    for offset in ["1c", "1c/2c", ("1c", "3c"), 4, (4, 1)]:
         fig.timestamp(offset=offset, timefmt=f"offset={offset}")
     return fig
 
