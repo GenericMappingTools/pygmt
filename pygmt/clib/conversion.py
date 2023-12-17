@@ -188,15 +188,14 @@ def vectors_to_arrays(vectors):
     >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
     True
     """
+    dtypes = {
+        "date32[day][pyarrow]": np.datetime64,
+        "date64[ms][pyarrow]": np.datetime64,
+    }
     arrays = []
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
-        if "[pyarrow]" in vec_dtype:  # handle pyarrow date32/date64 dtypes
-            array = vector.to_numpy(
-                dtype=np.datetime64 if vec_dtype.startswith("date") else None
-            )
-        else:
-            array = np.asarray(vector)
+        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype, None))
         arrays.append(as_c_contiguous(array))
 
     return arrays
