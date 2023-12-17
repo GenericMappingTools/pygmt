@@ -1,10 +1,12 @@
 """
 Helper functions for testing.
 """
+import importlib
 import inspect
 import os
 import string
 
+import pytest
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -73,8 +75,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
-    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
-    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
+    allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
+    keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
         import pytest
@@ -90,7 +92,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if "request" in old_sig.parameters:
                 kwargs["request"] = request
             try:
-                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+                file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
             try:
@@ -129,9 +131,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if param.name not in {"fig_test", "fig_ref"}
         ]
         if "ext" not in old_sig.parameters:
-            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("ext", keyword_only)]
         if "request" not in old_sig.parameters:
-            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("request", keyword_only)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
 
@@ -237,3 +239,42 @@ def load_static_earth_relief():
     """
     fname = which("@static_earth_relief.nc", download="c")
     return load_dataarray(fname)
+
+
+def skip_if_no(package):
+    """
+    Generic function to help skip tests when required packages are not present
+    on the testing system.
+
+    This function returns a pytest mark with a skip condition that will be
+    evaluated during test collection. An attempt will be made to import the
+    specified ``package``.
+
+    The mark can be used as either a decorator for a test class or to be
+    applied to parameters in pytest.mark.parametrize calls or parametrized
+    fixtures. Use pytest.importorskip if an imported moduled is later needed
+    or for test functions.
+
+    If the import is unsuccessful, then the test function (or test case when
+    used in conjunction with parametrization) will be skipped.
+
+    Adapted from
+    https://github.com/pandas-dev/pandas/blob/v2.1.4/pandas/util/_test_decorators.py#L121
+
+    Parameters
+    ----------
+    package : str
+        The name of the required package.
+
+    Returns
+    -------
+    pytest.MarkDecorator
+        A pytest.mark.skipif to use as either a test decorator or a
+        parametrization mark.
+    """
+    try:
+        _ = importlib.import_module(name=package)
+        has_package = True
+    except ImportError:
+        has_package = False
+    return pytest.mark.skipif(not has_package, reason=f"Could not import '{package}'")
