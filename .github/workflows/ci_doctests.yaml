@@ -58,6 +58,7 @@ jobs:
             contextily
             geopandas
             ipython
+            pyarrow
             rioxarray
             build
             make
