@@ -50,9 +50,9 @@ fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
     frame=["wSnE", "af"],
-    # Place the scale bar at position MittleLeft by using BootomLeft as anchor
+    # Place the scale bar at position MittleLeft by using BottomLeft as anchor
     # point with an offset of 1 centimeter in both x and y directions
-    # Use a fancy (+f) style which looks like train tracks
+    # Use a fancy style (+f) to get a scale bar that looks like train tracks
     # Add the distance unit (+u) to the distance values
     map_scale="jML+jBL+o1c/1c+w1000k+f+u",
 )
@@ -94,9 +94,9 @@ fig.show()
 
 # %%
 # The ``box`` parameter allows surrounding the scale bar. This can be useful
-# when adding a scale bar to a colorful map. The outline of the box can be
-# adjusted by appending **+p** and the desired thickness, color, and style.
-# To fill the box, append **+g** with the desired color (or pattern). To force
+# when adding a scale bar to a colorful map. To fill the box, append **+g**
+# with the desired color (or pattern). The outline of the box can be adjusted
+# by appending **+p** with the desired thickness, color, and style. To force
 # rounded edges append **+r** with the desired radius.
 
 # Create a new Figure instance
@@ -110,10 +110,10 @@ fig.coast(
     frame=["WSne", "af"],
     # Move the label (+a) to the right (r)
     map_scale="jBL+o1c/1c+w1000k+f+lkm+ar",
-    # Fill the box in white with a transparence of 30 percantage, add an
+    # Fill the box in white with a transparency of 30 percent, add an solid
     # outline in darkgray (gray30) with a thickness of 0.5 points, and use
     # rounded edges with a radius of 3 points
-    box="+gwhite@30+p0.5p,gray30+r3p",
+    box="+gwhite@30+p0.5p,gray30,solid+r3p",
 )
 
 fig.show()
