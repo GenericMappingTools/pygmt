@@ -111,7 +111,7 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     kwargs["T"] = terminator[0]
     if terminator_datetime:
         try:
-            datetime_string = pd.to_datetime(terminator_datetime).strftime(
+            datetime_string = pd.to_datetime(str(terminator_datetime)).strftime(
                 "%Y-%m-%dT%H:%M:%S.%f"
             )
         except ValueError as verr:
