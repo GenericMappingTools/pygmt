@@ -3,28 +3,29 @@ basemap - Plot base maps and frames for the figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import Alias, apply_alias, build_arg_string, fmt_docstring
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    Jz="zscale",
-    JZ="zsize",
-    B="frame",
-    L="map_scale",
-    F="box",
-    Td="rose",
-    Tm="compass",
-    V="verbose",
-    c="panel",
-    f="coltypes",
-    p="perspective",
-    t="transparency",
+@apply_alias(
+    [
+        Alias("region", "R", "", "/"),
+        Alias("projection", "J", "", ""),
+        Alias("zscale", "Jz", "", ""),
+        Alias("zsize", "JZ", "", ""),
+        Alias("frame", "B", "", ""),
+        Alias("map_scale", "L", "", ""),
+        Alias("box", "F", "", ""),
+        Alias("rose", "Td", "", ""),
+        Alias("compass", "Tm", "", ""),
+        Alias("verbose", "V", "", ""),
+        Alias("panel", "c", "", ","),
+        Alias("coltypes", "f", "", ""),
+        Alias("perspective", "p", "", "/"),
+        Alias("transparency", "t", "", ""),
+    ]
 )
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def basemap(self, **kwargs):
+def basemap(self, region=None, projection=None, frame=None, **kwargs):
     r"""
     Plot base maps and frames for the figure.
 
@@ -83,5 +84,6 @@ def basemap(self, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)
+    print(kwargs)
     with Session() as lib:
         lib.call_module(module="basemap", args=build_arg_string(kwargs))
