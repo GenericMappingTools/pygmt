@@ -102,6 +102,7 @@ select = [
     "A",    # flake8-builtins
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
+    "C4",   # flake8-comprehensions
     "E",    # pycodestyle
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
@@ -112,6 +113,7 @@ select = [
     "N",    # pep8-naming
     "NPY",  # numpy
     "PD",   # pandas-vet
+    "PERF", # perflint
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
