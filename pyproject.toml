@@ -118,6 +118,7 @@ select = [
     "PIE",  # flake8-pie
     "PL",   # pylint
     "RSE",  # flake8-raise
+    "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "TCH",  # flake8-type-checking
     "TID",  # flake8-tidy-imports
@@ -126,11 +127,12 @@ select = [
     "YTT",  # flake8-2020
 ]
 ignore = [
-    "E501", # Avoid enforcing line-length violations
-    "ISC001", # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",  # Allow using the generic variable name `df` for DataFrames
+    "E501",     # Avoid enforcing line-length violations
+    "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
+    "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PLR2004",  # Allow any magic values
-    "SIM117",  # Allow nested `with` statements
+    "S603",     # Allow method calls that initiate a subprocess without a shell
+    "SIM117",   # Allow nested `with` statements
 ]
 
 [tool.ruff.lint.isort]
@@ -138,6 +140,7 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+"*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 79
