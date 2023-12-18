@@ -6,12 +6,15 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 :meth:`pygmt.Figure.coast` methods is used to add a scale bar to a map.
 This example shows how such a scale bar can be customized:
 
- - length: **+w**. Give value and distance unit.
- - origin: **+c**\ [*slon*/]\ *slat*. Note that *slon* is only optional for
-   projections with constant scale along parallels, e.g., Mercator projection.
  - position: **j**. Set the reference point by specifying a two-letter (order
    independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
+ - length: **+w**. Give value and distance unit.
+ - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
+   applies. If **+c** is not given the reference point is used. If only
+   **+c** is appended the middle of the map is used. Note that *slon* is only
+   optional for projections with constant scale along parallels, e.g.,
+   Mercator projection.
  - justify: **+j**. Set the anchor point by specifying a two-letter (order
    independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
@@ -33,14 +36,15 @@ import pygmt
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
-# Add a basic scale bar
+# Add a plain scale bar
 fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M0/0/10c",  # Mercator projection with 10 centimeters width
     frame=["WSne", "af"],
-    # The scale bar is placed at position (j) MiddleCenter, valid at 7° S (+c),
-    # and represents a length (+w) of 1000 kilometers
-    map_scale="jMC+c-7+w1000k",
+    # The scale bar is placed at position (j) MiddleCenter, applies at the
+    # reference point (+c is not given), and represents a length (+w) of 1000
+    # kilometers
+    map_scale="jMC+w1000k",
 )
 
 fig.shift_origin(xshift="+w1c")
@@ -51,12 +55,12 @@ fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
     frame=["wSnE", "af"],
-    # Place the scale bar at position MiddleLeft by using BottomLeft as anchor
-    # point with an offset of 1 centimeter in x direction (longitude) and 0
-    # centimeters in y direction (latitude)
+    # Place the scale bar at position (j) MiddleLeft by using MiddleLeft as
+    # anchor point (+j) with an offset (+o) of 1 centimeter in x direction
+    # (longitude) and 0 centimeters in y direction (latitude)
     # Use a fancy style (+f) to get a scale bar that looks like train tracks
     # Add the distance unit (+u) to the single distance values
-    map_scale="jML+jBL+o1c/0c+c-7+w1000k+f+u",
+    map_scale="jML+jML+o1c/0+w1000k+f+u",
 )
 
 fig.show()
@@ -75,18 +79,22 @@ with pygmt.config(MAP_SCALE_HEIGHT="20p"):
         region=[-45, -25, -15, 0],
         projection="M10c",
         frame=["WSne", "af"],
+        # The scale bar applies (+c) at the middle of the map (no location is
+        # appended to +c)
         # Without appending text, +l adds the distance unit as label
-        map_scale="jBL+o1c/1c+c-7+w1000k+f+l",
+        map_scale="jMC+c+w1000k+f+l",
     )
 
 fig.shift_origin(xshift="+w1c")
 
 # -----------------------------------------------------------------------------
-# Add a scale bar with a customized label
+# Add a scale bar valid for a specific location
 fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
     frame=["wSnE", "af"],
+    # The scale bar applies (+c) at -7° S
+    # Add a customized label by appending text to +l
     map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
 )
 
