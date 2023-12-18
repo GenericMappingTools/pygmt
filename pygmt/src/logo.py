@@ -4,6 +4,7 @@ logo - Plot the GMT logo
 
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.params import Box
 
 
 @fmt_docstring
@@ -18,7 +19,7 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def logo(self, **kwargs):
+def logo(self, box: bool | Box = False, **kwargs):  # noqa: ARG001
     r"""
     Plot the GMT logo.
 
@@ -39,7 +40,7 @@ def logo(self, **kwargs):
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\
         **+w**\ *width*\ [**+j**\ *justify*]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
-    box : bool or str
+    box
         If set to ``True``, draw a rectangular border around the
         GMT logo.
     style : str
