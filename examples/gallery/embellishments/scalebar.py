@@ -90,7 +90,6 @@ fig.basemap(
     map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
 )
 
-
 fig.show()
 
 # %%
