@@ -6,7 +6,7 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 :meth:`pygmt.Figure.coast` methods is used to add a scale bar to a map.
 This example shows how such a scale bar can be customized:
 
- - length: **+w**. Give value and unit.
+ - length: **+w**. Give value and distance unit.
  - origin: **+c**\ [*slon*/]\ *slat*. Note that *slon* is only optional for
    projections with constant scale along parallels, e.g., Mercator projection.
  - position: **j**. Set the reference point by specifying a two-letter (order
@@ -19,10 +19,11 @@ This example shows how such a scale bar can be customized:
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
- - label: **+l**. Use another label as the unit given via **+w**.
+ - label: **+l**. Add the distance unit given via **+w** as label. Append any
+   desired text to get a customized label instead.
  - label alignment: **+a**. Append **t**\(op) [Default], **b**\(ottom),
    **l**\(eft), or **r**\(ight).
- - distance unit: **+u**. Add the distance unit to the distance values.
+ - distance unit: **+u**. Add the distance unit to the single distance values.
 """
 
 # %%
@@ -66,17 +67,6 @@ fig.show()
 fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
-# Add a scale bar with a label
-fig.basemap(
-    region=[-45, -25, -15, 0],
-    projection="M10c",
-    frame=["wSnE", "af"],
-    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
-)
-
-fig.shift_origin(xshift="+w1c")
-
-# -----------------------------------------------------------------------------
 # Add a thick scale bar
 # Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
 # only to the code within the "with" block)
@@ -85,8 +75,21 @@ with pygmt.config(MAP_SCALE_HEIGHT="20p"):
         region=[-45, -25, -15, 0],
         projection="M10c",
         frame=["WSne", "af"],
-        map_scale="jBL+o1c/1c+c-7+w1000k+f+u",
+        # Without appending text, +l adds the distance unit as label
+        map_scale="jBL+o1c/1c+c-7+w1000k+f+l",
     )
+
+fig.shift_origin(xshift="+w1c")
+
+# -----------------------------------------------------------------------------
+# Add a scale bar with a customized label
+fig.basemap(
+    region=[-45, -25, -15, 0],
+    projection="M10c",
+    frame=["wSnE", "af"],
+    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
+)
+
 
 fig.show()
 
