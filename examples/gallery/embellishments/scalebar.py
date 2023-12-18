@@ -71,7 +71,7 @@ fig.basemap(
     region=[-45, -25, -15, 0],
     projection="M10c",
     frame=["wSnE", "af"],
-    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalide a 7° S",
+    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
 )
 
 fig.shift_origin(xshift="+w1c")
