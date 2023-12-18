@@ -22,8 +22,8 @@ This example shows how such a scale bar can be customized:
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
- - label: **+l**. Add the distance unit given via **+w** as label. Append any
-   desired text to get a customized label instead.
+ - label: **+l**. Add the distance unit given via **+w** as label. Append
+   text to get a customized label instead.
  - label alignment: **+a**. Append **t**\(op) [Default], **b**\(ottom),
    **l**\(eft), or **r**\(ight).
  - distance unit: **+u**. Add the distance unit to the single distance values.
