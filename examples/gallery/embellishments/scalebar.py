@@ -7,7 +7,7 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 This example shows how such a scale bar can be customized:
 
  - position: **j**. Set the reference point by specifying a two-letter (order
-   independent) code. Chosen from vertical **T**\(op), **M**\(iddle), or
+   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - length: **+w**. Give value and distance unit.
  - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
@@ -16,8 +16,8 @@ This example shows how such a scale bar can be customized:
    optional for projections with constant scale along parallels, e.g.,
    Mercator projection.
  - justify: **+j**. Set the anchor point by specifying a two-letter (order
-   independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
-   **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
+   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
+   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - offset: **+o**\ *offset*\|\ *xoffset*/\ *yoffset*. Give either a common
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
