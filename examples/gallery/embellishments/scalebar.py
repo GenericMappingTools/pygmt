@@ -7,8 +7,8 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 This example shows how such a scale bar can be customized:
 
  - position: **j**. Set the reference point by specifying a two-letter (order
-   independent) code. Chosen from vertically **T**\(op), **M**\(iddle), or
-   **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
+   independent) code. Chosen from vertical **T**\(op), **M**\(iddle), or
+   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - length: **+w**. Give value and distance unit.
  - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
    applies. If **+c** is not given the reference point is used. If only
