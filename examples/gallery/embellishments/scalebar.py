@@ -7,7 +7,7 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 This example shows how such a scale bar can be customized:
 
  - position: **j**. Set the reference point by specifying a two-letter (order
-   independent) code, chosen from vertically **T**\(op), **M**\(iddle), or
+   independent) code. Chosen from vertically **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontally **L**\(eft), **C**\(entre), or **R**\(ight).
  - length: **+w**. Give value and distance unit.
  - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
@@ -60,7 +60,7 @@ fig.basemap(
     # (longitude) and 0 centimeters in y direction (latitude)
     # Use a fancy style (+f) to get a scale bar that looks like train tracks
     # Add the distance unit (+u) to the single distance values
-    map_scale="jML+jML+o1c/0+w1000k+f+u",
+    map_scale="jML+jML+o1c/0c+w1000k+f+u",
 )
 
 fig.show()
