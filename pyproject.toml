@@ -120,6 +120,7 @@ select = [
     "RSE",  # flake8-raise
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
+    "T20",  # flake8-print
     "TCH",  # flake8-type-checking
     "TID",  # flake8-tidy-imports
     "UP",   # pyupgrade
@@ -141,6 +142,7 @@ known-third-party = ["pygmt"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
+"examples/**/*.py" = ["T201"]  # Allow `print` in examples
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 79
