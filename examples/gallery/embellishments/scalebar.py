@@ -79,7 +79,7 @@ fig.shift_origin(xshift="+w1c")
 # -----------------------------------------------------------------------------
 # Add a thick scale bar
 # Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
-# only to the code within the with block)
+# only to the code within the "with" block)
 with pygmt.config(MAP_SCALE_HEIGHT="20p"):
     fig.basemap(
         region=[-45, -25, -15, 0],
@@ -108,7 +108,7 @@ fig.coast(
     frame=["WSne", "af"],
     # Set the label alignment (+a) to right (r)
     map_scale="jBL+o1c/1c+c-7+w1000k+f+lkm+ar",
-    # Fill the box in white with a transparency of 30 percent, add an solid
+    # Fill the box in white with a transparency of 30 percent, add a solid
     # outline in darkgray (gray30) with a thickness of 0.5 points, and use
     # rounded edges with a radius of 3 points
     box="+gwhite@30+p0.5p,gray30,solid+r3p",
