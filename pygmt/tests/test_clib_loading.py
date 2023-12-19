@@ -130,7 +130,7 @@ class TestLibgmtBrokenLibs:
         # libname is a loaded GMT library
         return self.loaded_libgmt
 
-    @pytest.fixture
+    @pytest.fixture()
     def mock_ctypes(self, monkeypatch):
         """
         Patch the ctypes.CDLL function.
