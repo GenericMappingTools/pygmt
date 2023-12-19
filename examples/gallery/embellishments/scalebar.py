@@ -6,8 +6,8 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 :meth:`pygmt.Figure.coast` methods is used to add a scale bar to a map.
 This example shows how such a scale bar can be customized:
 
- - position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the reference
-   point. Choose from
+ - position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the position of 
+   reference point. Choose from
 
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
    - **j**\|\ **J**: Specify a two-character (order independent) code.
