@@ -11,23 +11,23 @@ This example shows how such a scale bar can be customized:
 
    - **g**: Give map coordinates as *longitude*\/\ *latitude*.
    - **j**\|\ **J**: Specify a two-character (order independent) code.
-     Choose from vertical **T**\(op), **M**\(iddle), **B**\(ottom) and
-     horizontal **L**\(eft), **C**\(entre), **R**\(ight). Lower / upper
+     Choose from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and
+     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower / upper
      case **j** / **J** mean inside / outside of the map bounding box.
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
    - **x**: Give plot coordinates as *y*\/\ *x*.
 
  - length: **+w**. Give a distance value, and, optionally a distance unit.
    Choose from **e** (meters), **f** (feet), **k** (kilometers) [Default],
-   **M** (statute miles), **n** (nautical miles), **u** (US survey feet).
+   **M** (statute miles), **n** (nautical miles), or **u** (US survey feet).
  - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
    applies. If **+c** is not given the reference point is used. If only
    **+c** is appended the middle of the map is used. Note that *slon* is only
    optional for projections with constant scale along parallels, e.g.,
    Mercator projection.
  - justify: **+j**. Set the anchor point. Specify a two-character (order
-   independent) code. Choose from vertical **T**\(op), **M**\(iddle),
-   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), **R**\(ight).
+   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
+   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - offset: **+o**\ *offset*\|\ *xoffset*/\ *yoffset*. Give either a common
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
