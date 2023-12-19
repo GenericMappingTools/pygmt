@@ -10,10 +10,8 @@ class Alias(NamedTuple):
     modifier: str
     separator: str
 
-
 def sequence_to_str(seq, separator):
     return separator.join(str(item) for item in seq)
-
 
 def apply_alias(aliases):
     def alias_decorator(module_func):
@@ -27,19 +25,25 @@ def apply_alias(aliases):
             bound = sig.bind(*args, **kwargs)
             bound.apply_defaults()
 
+            bound.arguments["options"] = {}
             for alias in aliases:
                 if alias.name not in bound.arguments:
                     continue
-                value = bound.arguments.pop(alias.name)
-                if alias.separator != "" and is_nonstr_iter(value):
+                value = bound.arguments.get(alias.name)
+                if value in (None, False):
+                    continue
+                if alias.separator and is_nonstr_iter(value):
                     value = sequence_to_str(value, alias.separator)
-                if alias.modifier != "":
-                    if isinstance(value, bool):
-                        value = f"+{alias.modifier}"
-                    else:
-                        value = f"+{alias.modifier}{value}"
-                bound.arguments[alias.flag] = bound.arguments.get(alias.flag, "") + value
-            return module_func(*args, **kwargs)
+                if value is True:
+                    value = ""
+                value = f"{alias.modifier}{value}"
+                bound.arguments["options"][alias.flag] = bound.arguments["options"].get(alias.flag, "") + value
+                print(bound.arguments)
+
+            print(bound.arguments)
+            print(bound.args)
+            print(bound.kwargs)
+            return module_func(*bound.args, **bound.kwargs)
 
         new_module.aliases = {alias.flag: alias.name for alias in aliases}
         return new_module

@@ -6,11 +6,18 @@ import warnings
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_string, kwargs_to_strings
+from pygmt.helpers import Alias, apply_alias
 
 __doctest_skip__ = ["timestamp"]
 
-
-@kwargs_to_strings(offset="sequence")
+@apply_alias(
+    [
+        Alias("label", "U", "", ""),
+        Alias("offset", "U", "+o", "/"),
+        Alias("text", "U", "+t", ""),
+        Alias("justification", "U", "+j", "")
+    ]
+)
 def timestamp(
     self,
     text=None,
@@ -77,6 +84,7 @@ def timestamp(
     >>> fig.show()
     """
     self._preprocess()
+    print(__options__)
 
     # Build the options passed to the "plot" module
     kwdict = {"T": True, "U": ""}
