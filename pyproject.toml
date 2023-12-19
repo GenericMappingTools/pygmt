@@ -119,6 +119,7 @@ select = [
     "PL",   # pylint
     "RET",  # flake8-return
     "RSE",  # flake8-raise
+    "RUF",  # ruff-specific
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
