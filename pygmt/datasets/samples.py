@@ -1,7 +1,7 @@
 """
 Functions to load sample data.
 """
-from typing import Callable, NamedTuple
+from typing import Callable, Literal, NamedTuple
 
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
@@ -70,7 +70,6 @@ def _load_baja_california_bathymetry():
         The data table. The column names are "longitude", "latitude",
         and "bathymetry".
     """
-
     fname = which("@tut_ship.xyz", download="c")
     return pd.read_csv(
         fname, sep="\t", header=None, names=["longitude", "latitude", "bathymetry"]
@@ -99,10 +98,9 @@ def _load_fractures_compilation():
     Returns
     -------
     data : pandas.DataFrame
-        The data table. The column names are "length" and
-        "azimuth" of the fractures.
+        The data table. The column names are "length" and "azimuth" of
+        the fractures.
     """
-
     fname = which("@fractures_06.txt", download="c")
     data = pd.read_csv(
         fname, header=None, delim_whitespace=True, names=["azimuth", "length"]
@@ -166,7 +164,6 @@ def _load_rock_sample_compositions():
         The data table with columns "limestone", "water", "air",
         and "permittivity".
     """
-
     fname = which("@ternary.txt", download="c")
     return pd.read_csv(
         fname,
@@ -300,7 +297,21 @@ def list_sample_data():
     return {name: dataset.description for name, dataset in datasets.items()}
 
 
-def load_sample_data(name):
+def load_sample_data(
+    name: Literal[
+        "bathymetry",
+        "earth_relief_holes",
+        "fractures",
+        "hotspots",
+        "japan_quakes",
+        "mars_shape",
+        "maunaloa_co2",
+        "notre_dame_topography",
+        "ocean_ridge_points",
+        "rock_compositions",
+        "usgs_quakes",
+    ],
+):
     """
     Load an example dataset from the GMT server.
 
@@ -310,7 +321,7 @@ def load_sample_data(name):
 
     Parameters
     ----------
-    name : str
+    name
         Name of the dataset to load.
 
     Returns

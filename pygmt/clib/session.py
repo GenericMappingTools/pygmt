@@ -382,7 +382,7 @@ class Session:
             self._error_log.append(message)
             # flush to make sure the messages are printed even if we have a
             # crash.
-            print(message, file=sys.stderr, flush=True)
+            print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it
@@ -769,12 +769,11 @@ class Session:
             )
         if nmodifiers > 0 and valid_modifiers is None:
             raise GMTInvalidInput(
-                "Constant modifiers not allowed since valid values were not "
-                + f"given: '{constant}'"
+                "Constant modifiers are not allowed since valid values were not given: '{constant}'"
             )
         if name not in valid:
             raise GMTInvalidInput(
-                f"Invalid constant argument '{name}'. Must be one of {str(valid)}."
+                f"Invalid constant argument '{name}'. Must be one of {valid}."
             )
         if (
             nmodifiers > 0
@@ -782,7 +781,7 @@ class Session:
             and parts[1] not in valid_modifiers
         ):
             raise GMTInvalidInput(
-                f"Invalid constant modifier '{parts[1]}'. Must be one of {str(valid_modifiers)}."
+                f"Invalid constant modifier '{parts[1]}'. Must be one of {valid_modifiers}."
             )
         integer_value = sum(self[part] for part in parts)
         return integer_value
@@ -836,8 +835,11 @@ class Session:
         # Check that the array has a valid/known data type
         if array.dtype.type not in DTYPES:
             try:
-                # Try to convert any unknown numpy data types to np.datetime64
-                array = array_to_datetime(array)
+                if array.dtype.type is np.object_:
+                    # Try to convert unknown object type to np.datetime64
+                    array = array_to_datetime(array)
+                else:
+                    raise ValueError
             except ValueError as e:
                 raise GMTInvalidInput(
                     f"Unsupported numpy data type '{array.dtype.type}'."
@@ -1577,23 +1579,19 @@ class Session:
             if extra_arrays:
                 _data.extend(extra_arrays)
         elif kind == "matrix":  # turn 2-D arrays into list of vectors
-            try:
-                # pandas.Series will be handled below like a 1-D numpy.ndarray
-                assert not hasattr(data, "to_frame")
-                # pandas.DataFrame and xarray.Dataset types
+            if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                # pandas.DataFrame or xarray.Dataset types.
+                # pandas.Series will be handled below like a 1-D numpy.ndarray.
                 _data = [array for _, array in data.items()]
-            except (AttributeError, AssertionError):
-                try:
-                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
-                    # which are signed integer (i), unsigned integer (u) or
-                    # floating point (f) types
-                    assert data.ndim == 2 and data.dtype.kind in "iuf"
-                    _virtualfile_from = self.virtualfile_from_matrix
-                    _data = (data,)
-                except (AssertionError, AttributeError):
-                    # Python list, tuple, numpy.ndarray, and pandas.Series
-                    # types
-                    _data = np.atleast_2d(np.asanyarray(data).T)
+            elif hasattr(data, "ndim") and data.ndim == 2 and data.dtype.kind in "iuf":
+                # Just use virtualfile_from_matrix for 2-D numpy.ndarray
+                # which are signed integer (i), unsigned integer (u) or
+                # floating point (f) types
+                _virtualfile_from = self.virtualfile_from_matrix
+                _data = (data,)
+            else:
+                # Python list, tuple, numpy.ndarray, and pandas.Series types
+                _data = np.atleast_2d(np.asanyarray(data).T)
 
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)

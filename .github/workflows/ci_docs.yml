@@ -65,7 +65,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.6.0
+        uses: mamba-org/setup-micromamba@v1.7.0
         with:
           environment-name: pygmt
           condarc: |
@@ -93,6 +93,7 @@ jobs:
             myst-parser
             panel
             sphinx
+            sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery

@@ -84,10 +84,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     {spacing}
 
     {region}
-
-    outgrid : str
-        Optional. The file name for the output netCDF file with extension .nc
-        to store the grid in.
+    {outgrid}
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than

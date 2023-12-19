@@ -45,9 +45,7 @@ def sph2grd(data, **kwargs):
         Pass in data with L, M, C[L,M], S[L,M] values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}

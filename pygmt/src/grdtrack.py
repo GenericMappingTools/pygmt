@@ -71,9 +71,7 @@ def grdtrack(
 
     Parameters
     ----------
-    grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a file name (netCDF
-        format).
+    {grid}
 
     points : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
@@ -299,7 +297,7 @@ def grdtrack(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if isinstance(points, pd.DataFrame):
-        column_names = points.columns.to_list() + [newcolname]
+        column_names = [*points.columns.to_list(), newcolname]
     else:
         column_names = None
 
@@ -314,7 +312,6 @@ def grdtrack(
                 module="grdtrack",
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
-
         return return_table(
             session=lib,
             output_type=output_type,

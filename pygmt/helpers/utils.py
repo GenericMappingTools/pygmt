@@ -244,17 +244,17 @@ def non_ascii_to_octal(argstr):
             c: "@~\\" + format(i, "o") + "@~"
             for c, i in zip(
                 " !∀#∃%&∋()∗+,−./"  # \04x-05x
-                + "0123456789:;<=>?"  # \06x-07x
-                + "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
-                + "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
-                + "αβχδεφγηιϕκλμνο"  # \14x-15x
-                + "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
-                + "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
-                + "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
-                + "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
-                + "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
-                + "◊〈®©™∑"  # \34x-35x
-                + "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
+                "0123456789:;<=>?"  # \06x-07x
+                "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
+                "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
+                "αβχδεφγηιϕκλμνο"  # \14x-15x
+                "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
+                "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
+                "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
+                "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
+                "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
+                "◊〈®©™∑"  # \34x-35x
+                "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
                 [*range(32, 127), *range(160, 240), *range(241, 255)],
             )
         }
@@ -269,17 +269,17 @@ def non_ascii_to_octal(argstr):
             c: "@%34%\\" + format(i, "o") + "@%%"
             for c, i in zip(
                 " ✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏"  # \04x-\05x
-                + "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
-                + "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
-                + "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
-                + "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
-                + "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
-                + "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
-                + "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
-                + "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
-                + "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
-                + "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
-                + "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
+                "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
+                "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
+                "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
+                "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
+                "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
+                "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
+                "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
+                "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
+                "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
+                "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
+                "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
                 [*range(32, 127), *range(161, 240), *range(241, 255)],
             )
         }
@@ -295,9 +295,9 @@ def non_ascii_to_octal(argstr):
             c: "\\" + format(i, "o")
             for c, i in zip(
                 "•…™—–ﬁž"  # \03x. \030 is undefined
-                + "š"  # \177
-                + "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
-                + "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
+                "š"  # \177
+                "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
+                "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
                 [*range(25, 32), *range(127, 160)],
             )
         }
@@ -429,7 +429,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
         gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
 
     if infile:
-        gmt_args = [str(infile)] + gmt_args
+        gmt_args = [str(infile), *gmt_args]
     if outfile:
         gmt_args.append("->" + str(outfile))
     return non_ascii_to_octal(" ".join(gmt_args))
@@ -494,12 +494,14 @@ def launch_external_viewer(fname, waiting=0):
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
     os_name = sys.platform
-    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
-        subprocess.run(["xdg-open", fname], check=False, **run_args)
+    if os_name.startswith(("linux", "freebsd")) and (
+        xdgopen := shutil.which("xdg-open")
+    ):
+        subprocess.run([xdgopen, fname], check=False, **run_args)
     elif os_name == "darwin":  # Darwin is macOS
-        subprocess.run(["open", fname], check=False, **run_args)
+        subprocess.run([shutil.which("open"), fname], check=False, **run_args)
     elif os_name == "win32":
-        os.startfile(fname)
+        os.startfile(fname)  # noqa: S606
     else:
         webbrowser.open_new_tab(f"file://{fname}")
     if waiting > 0:

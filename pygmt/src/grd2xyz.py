@@ -45,9 +45,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a
-        :class:`xarray.DataArray`. This is the only required parameter.
+    {grid}
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:

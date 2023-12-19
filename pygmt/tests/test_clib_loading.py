@@ -224,7 +224,7 @@ def fixture_gmt_lib_realpath():
     Return the real path of the GMT library.
     """
     lib_realpath = subprocess.check_output(
-        ["gmt", "--show-library"], encoding="utf-8"
+        [shutil.which("gmt"), "--show-library"], encoding="utf-8"
     ).rstrip("\n")
     # On Windows, clib_full_names() returns paths with separator "\\",
     # but "gmt --show-library" returns paths with separator "/".
@@ -261,7 +261,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
-        assert list(lib_fullpaths) == [gmt_lib_realpath] + gmt_lib_names
+        assert list(lib_fullpaths) == [gmt_lib_realpath, *gmt_lib_names]
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_included(
