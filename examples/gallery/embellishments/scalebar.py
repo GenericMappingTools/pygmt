@@ -28,8 +28,9 @@ This example shows how such a scale bar can be customized:
  - justify: **+j**. Set the anchor point. Specify a two-character (order
    independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
- - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a common
-   shift or individual shifts in x (longitude) and y (latitude) directions.
+ - offset: **+o**\ *offset* or **+o**\ *xoffset*/\ *yoffset*. Give either a
+   common shift or individual shifts in x (longitude) and y (latitude)
+   directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
  - unit: **+u**. Add the distance unit given via **+w** to the single
