@@ -15,7 +15,7 @@ This example shows how such a scale bar can be customized:
      horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower / upper
      case **j** / **J** mean inside / outside of the map bounding box.
    - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
-   - **x**: Give plot coordinates as *y*\/\ *x*.
+   - **x**: Give plot coordinates as *x*\/\ *y*.
 
  - length: **+w**. Give a distance value, and, optionally a distance unit.
    Choose from **e** (meters), **f** (feet), **k** (kilometers) [Default],
