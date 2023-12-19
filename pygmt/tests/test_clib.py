@@ -170,7 +170,9 @@ def test_call_module_error_message():
         with pytest.raises(GMTCLibError) as exc_info:
             lib.call_module("info", "bogus-data.bla")
         assert "Module 'info' failed with status code" in exc_info.value.args[0]
-        assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
+        assert (
+            "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
+        )
 
 
 def test_method_no_session():
