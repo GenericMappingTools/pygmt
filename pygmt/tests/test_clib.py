@@ -38,7 +38,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):
+        def mock_api_function(*args):  # noqa: ARG001
             """
             A mock GMT API function that always returns a given value.
             """
@@ -522,7 +522,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Put 'bla' in the value buffer.
         """
@@ -551,7 +551,7 @@ def test_fails_for_wrong_version():
     """
 
     # Mock GMT_Get_Default to return an old version
-    def mock_defaults(api, name, value):
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Return an old version.
         """

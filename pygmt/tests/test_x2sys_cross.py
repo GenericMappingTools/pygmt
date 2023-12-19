@@ -34,7 +34,7 @@ def fixture_tracks():
     return [dataframe.query(expr="z > -20")]  # reduce size of dataset
 
 
-def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
+def test_x2sys_cross_input_file_output_file(mock_x2sys_home):  # noqa: ARG001
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to
     an ASCII txt file.
@@ -52,7 +52,7 @@ def test_x2sys_cross_input_file_output_file(mock_x2sys_home):
         _ = pd.read_csv(outfile, sep="\t", header=2)  # ensure ASCII text file loads ok
 
 
-def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
+def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):  # noqa: ARG001
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to
     a pandas.DataFrame.
@@ -69,7 +69,7 @@ def test_x2sys_cross_input_file_output_dataframe(mock_x2sys_home):
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
 
 
-def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
+def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):  # noqa: ARG001
     """
     Run x2sys_cross by passing in one dataframe, and output internal crossovers
     to a pandas.DataFrame.
@@ -89,7 +89,7 @@ def test_x2sys_cross_input_dataframe_output_dataframe(mock_x2sys_home, tracks):
         assert output.dtypes["i_2"].type == np.object_
 
 
-def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
+def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):  # noqa: ARG001
     """
     Run x2sys_cross by passing in two pandas.DataFrame tables with a time
     column, and output external crossovers to a pandas.DataFrame.
@@ -125,7 +125,7 @@ def test_x2sys_cross_input_two_dataframes(mock_x2sys_home):
         assert output.dtypes["t_2"].type == np.datetime64
 
 
-def test_x2sys_cross_input_dataframe_with_nan(mock_x2sys_home, tracks):
+def test_x2sys_cross_input_dataframe_with_nan(mock_x2sys_home, tracks):  # noqa: ARG001
     """
     Run x2sys_cross by passing in one dataframe with NaN values, and output
     internal crossovers to a pandas.DataFrame.
@@ -148,7 +148,7 @@ def test_x2sys_cross_input_dataframe_with_nan(mock_x2sys_home, tracks):
         assert output.dtypes["i_2"].type == np.object_
 
 
-def test_x2sys_cross_input_two_filenames(mock_x2sys_home):
+def test_x2sys_cross_input_two_filenames(mock_x2sys_home):  # noqa: ARG001
     """
     Run x2sys_cross by passing in two filenames, and output external crossovers
     to a pandas.DataFrame.
@@ -186,7 +186,7 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
         x2sys_cross(tracks=[invalid_tracks])
 
 
-def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):
+def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):  # noqa: ARG001
     """
     Test that x2sys_cross's region (R), interpolation (l) and numpoints (W)
     arguments work.
@@ -210,7 +210,7 @@ def test_x2sys_cross_region_interpolation_numpoints(mock_x2sys_home):
         npt.assert_allclose(output.z_M.mean(), -2890.465813)
 
 
-def test_x2sys_cross_trackvalues(mock_x2sys_home):
+def test_x2sys_cross_trackvalues(mock_x2sys_home):  # noqa: ARG001
     """
     Test that x2sys_cross's trackvalues (Z) argument work.
     """

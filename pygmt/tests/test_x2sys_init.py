@@ -17,7 +17,7 @@ def fixture_mock_x2sys_home(monkeypatch):
     monkeypatch.setenv("X2SYS_HOME", os.getcwd())
 
 
-def test_x2sys_init_region_spacing(mock_x2sys_home):
+def test_x2sys_init_region_spacing(mock_x2sys_home):  # noqa: ARG001
     """
     Test that x2sys_init's region (R) and spacing (I) sequence arguments accept
     a list properly.
@@ -34,7 +34,7 @@ def test_x2sys_init_region_spacing(mock_x2sys_home):
             assert "-I5/5" in tail_line
 
 
-def test_x2sys_init_units_gap(mock_x2sys_home):
+def test_x2sys_init_units_gap(mock_x2sys_home):  # noqa: ARG001
     """
     Test that x2sys_init's units (N) and gap (W) arguments accept a list
     properly.
