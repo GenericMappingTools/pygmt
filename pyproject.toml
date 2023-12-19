@@ -117,6 +117,7 @@ select = [
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
+    "PT",   # flake8-pytest-style
     "RET",  # flake8-return
     "RSE",  # flake8-raise
     "S",    # flake8-bandit
