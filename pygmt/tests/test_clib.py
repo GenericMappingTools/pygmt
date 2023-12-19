@@ -315,9 +315,9 @@ def test_create_data_fails():
             )
 
     # If the data pointer returned is None (NULL pointer)
-    with pytest.raises(GMTCLibError):
-        with clib.Session() as lib:
-            with mock(lib, "GMT_Create_Data", returns=None):
+    with clib.Session() as lib:
+        with mock(lib, "GMT_Create_Data", returns=None):
+            with pytest.raises(GMTCLibError):
                 lib.create_data(
                     family="GMT_IS_DATASET",
                     geometry="GMT_IS_SURFACE",
