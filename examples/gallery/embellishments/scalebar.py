@@ -6,27 +6,36 @@ The ``map_scale`` parameter of the :meth:`pygmt.Figure.basemap` and
 :meth:`pygmt.Figure.coast` methods is used to add a scale bar to a map.
 This example shows how such a scale bar can be customized:
 
- - position: **j**. Set the reference point by specifying a two-letter (order
-   independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
-   **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
+ - position: **g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**. Set the reference
+   point:
+
+   - **g**: Give map coordinates as *longitude*\/\ *latitude*.
+   - **j**\|\ **J**: Specify a two-character (order independent) code.
+     Choose from vertical **T**\(op), **M**\(iddle), or **B**\(ottom) and
+     horizontal **L**\(eft), **C**\(entre), or **R**\(ight). Lower / upper
+     case **j** / **J** mean inside / outside of the map bounding box.
+   - **n**: Give normalized bounding box coordinates as *nx*\/\ *ny*.
+   - **x**: Give plot coordinates as *y*\/\ *x*.
+
  - length: **+w**. Give value and distance unit.
  - origin: **+c**\ [*slon*/]\ *slat*. Control where on the map the scale bar
    applies. If **+c** is not given the reference point is used. If only
    **+c** is appended the middle of the map is used. Note that *slon* is only
    optional for projections with constant scale along parallels, e.g.,
    Mercator projection.
- - justify: **+j**. Set the anchor point by specifying a two-letter (order
+ - justify: **+j**. Set the anchor point. Specify a two-character (order
    independent) code. Choose from vertical **T**\(op), **M**\(iddle), or
    **B**\(ottom) and horizontal **L**\(eft), **C**\(entre), or **R**\(ight).
  - offset: **+o**\ *offset*\|\ *xoffset*/\ *yoffset*. Give either a common
    shift or individual shifts in x (longitude) and y (latitude) directions.
  - height: Use :gmt-term:`MAP_SCALE_HEIGHT` via :func:`pygmt.config`.
  - fancy style: **+f**. Get a scale bar that looks like train tracks.
+ - unit: **+u**. Add the distance unit given via **+w** to the single
+   distance values.
  - label: **+l**. Add the distance unit given via **+w** as label. Append
    text to get a customized label instead.
- - label alignment: **+a**. Append **t**\(op) [Default], **b**\(ottom),
-   **l**\(eft), or **r**\(ight).
- - distance unit: **+u**. Add the distance unit to the single distance values.
+ - alignment: **+a**. Set the label alignment. Choose from **t**\(op)
+   [Default], **b**\(ottom), **l**\(eft), or **r**\(ight).
 """
 
 # %%
