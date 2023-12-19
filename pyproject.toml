@@ -133,6 +133,7 @@ ignore = [
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
+    "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
