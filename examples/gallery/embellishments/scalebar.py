@@ -107,7 +107,7 @@ fig.basemap(
     frame=["wSnE", "af"],
     # The scale bar applies (+c) at -7° S
     # Add a customized label by appending text to +l
-    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid a 7° S",
+    map_scale="jBL+o1c/1c+c-7+w1000k+f+u+lvalid at 7° S",
 )
 
 fig.show()
