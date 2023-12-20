@@ -14,7 +14,7 @@ class Alias(NamedTuple):
 class BaseParams:
     def __str__(self):
         values = []
-        for alias in self.aliases:
+        for alias in self.__aliases__:
             value = getattr(self, alias.name)
             if value in (None, False):
                 continue
@@ -27,7 +27,7 @@ class BaseParams:
 
     def __repr__(self):
         string = []
-        for alias in self.aliases:
+        for alias in self.__aliases__:
             value = getattr(self, alias.name)
             if value is None or value is False:
                 continue

@@ -18,7 +18,7 @@ class Box(BaseParams):
     radius: float | bool | None = False
     shading: str | Sequence | None = None
 
-    aliases = [
+    __aliases__ = [
         Alias("clearance", "+c", "/"),
         Alias("fill", "+g"),
         Alias("innerborder", "+i", "/"),
