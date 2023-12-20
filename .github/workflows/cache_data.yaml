@@ -60,7 +60,7 @@ jobs:
 
       # Download remote files
       - name: Download remote data
-        shell: python
+        shell: micromamba-shell {0}
         run: |
           from pygmt.helpers.testing import download_test_data
           download_test_data()
