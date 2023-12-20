@@ -60,8 +60,10 @@ jobs:
 
       # Download remote files
       - name: Download remote data
+        shell: python
         run: |
-          python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
+          from pygmt.helpers.testing import download_test_data
+          download_test_data()
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
