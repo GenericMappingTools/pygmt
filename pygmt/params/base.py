@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Iterable
 from typing import NamedTuple
+
+from pygmt.helpers import is_nonstr_iter
 
 
 class Alias(NamedTuple):
@@ -19,7 +20,7 @@ class BaseParams:
                 continue
             if value is True:
                 value = ""
-            if isinstance(value, Iterable) and not isinstance(value, str):
+            if is_nonstr_iter(value):
                 value = alias.separator.join(map(str, value))
             values.append(f"{alias.modifier}{value}")
         return "".join(values)
