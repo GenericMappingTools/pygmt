@@ -12,6 +12,29 @@ class Alias(NamedTuple):
 
 
 class BaseParams:
+    """
+    Examples
+    --------
+    >>> import dataclasses
+    >>> from pygmt.params.base import BaseParams
+    >>>
+    >>> @dataclasses.dataclass(repr=False)
+    ... class Test(BaseParams):
+    ...     attr1 : Any = None
+    ...     attr2 : Any = None
+    ...     attr3 : Any = None
+    ...
+    ...     __aliases__ = [
+    ...         Alias("attr1", ""),
+    ...         Alias("attr2", "+a"),
+    ...         Alias("attr3", "+b", "/"),
+    ...     ]
+    >>> var = Test(attr1="val1")
+    >>> str(var)
+    'val1'
+    >>> repr(var)
+    "Test(attr1='val1')"
+    """
     def __str__(self):
         values = []
         for alias in self.__aliases__:
