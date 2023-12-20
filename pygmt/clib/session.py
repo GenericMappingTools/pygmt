@@ -381,7 +381,7 @@ class Session:
             self._error_log.append(message)
             # flush to make sure the messages are printed even if we have a
             # crash.
-            print(message, file=sys.stderr, flush=True)
+            print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it

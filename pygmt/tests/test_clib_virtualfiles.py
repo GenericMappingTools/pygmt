@@ -80,7 +80,7 @@ def test_virtual_file_fails():
     with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
-                print("Should not get to this code")
+                pass
 
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
@@ -91,7 +91,6 @@ def test_virtual_file_fails():
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
                 pass
-            print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
@@ -107,7 +106,7 @@ def test_virtual_file_bad_direction():
         )
         with pytest.raises(GMTInvalidInput):
             with lib.open_virtual_file(*vfargs):
-                print("This should have failed")
+                pass
 
 
 @pytest.mark.parametrize(
@@ -280,7 +279,7 @@ def test_virtualfile_from_vectors_diff_size():
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
             with lib.virtualfile_from_vectors(x, y):
-                print("This should have failed")
+                pass
 
 
 def test_virtualfile_from_matrix(dtypes):

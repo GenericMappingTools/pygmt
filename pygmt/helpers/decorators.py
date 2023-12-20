@@ -281,7 +281,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*\ |*scale*.
+            *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
@@ -438,7 +438,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*\ |*scale*.
+        *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**

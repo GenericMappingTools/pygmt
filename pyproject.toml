@@ -117,9 +117,11 @@ select = [
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
+    "RET",  # flake8-return
     "RSE",  # flake8-raise
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
+    "T20",  # flake8-print
     "TCH",  # flake8-type-checking
     "TID",  # flake8-tidy-imports
     "UP",   # pyupgrade
@@ -131,6 +133,7 @@ ignore = [
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
     "PLR2004",  # Allow any magic values
+    "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
     "SIM117",   # Allow nested `with` statements
 ]
@@ -141,6 +144,7 @@ known-third-party = ["pygmt"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
 "*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
+"examples/**/*.py" = ["T201"]  # Allow `print` in examples
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 79
