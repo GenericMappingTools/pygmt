@@ -32,7 +32,7 @@ def test_load_static_earth_relief():
 
 
 @pytest.mark.parametrize(
-    "data,x,y",
+    ("data", "x", "y"),
     [
         (None, None, None),
         ("data.txt", np.array([1, 2]), np.array([4, 5])),
