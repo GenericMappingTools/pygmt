@@ -105,6 +105,7 @@ select = [
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
     "E",    # pycodestyle
+    "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
     "FLY",  # flynt
@@ -118,8 +119,10 @@ select = [
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
+    "PT",   # flake8-pytest-style
     "RET",  # flake8-return
     "RSE",  # flake8-raise
+    "RUF",  # ruff-specific
     "S",    # flake8-bandit
     "SIM",  # flake8-simplify
     "T20",  # flake8-print
@@ -133,6 +136,7 @@ ignore = [
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
+    "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
     "RET504",   # Allow variable assignment and return immediately for readability
     "S603",     # Allow method calls that initiate a subprocess without a shell
