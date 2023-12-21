@@ -100,6 +100,7 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 [tool.ruff.lint]
 select = [
     "A",    # flake8-builtins
+    "ARG",  # flake8-unused-arguments
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
