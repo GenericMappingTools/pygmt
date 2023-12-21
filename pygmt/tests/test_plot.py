@@ -460,7 +460,7 @@ def test_plot_timedelta64():
     fig = Figure()
     fig.basemap(
         projection="X8c/5c",
-        region=[np.timedelta64(0, "D"), np.timedelta64(8, "D"), 0, 10],
+        region=[0, 8, 0, 10],
         frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
     )
     fig.plot(

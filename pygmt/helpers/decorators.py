@@ -673,19 +673,14 @@ def kwargs_to_strings(**conversions):
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
     args: 123
-
-    >>> # Test that region accepts arguments with datetime or timedelta type
     >>> import datetime
     >>> module(
     ...     R=[
     ...         np.datetime64("2010-01-01T16:00:00"),
     ...         datetime.datetime(2020, 1, 1, 12, 23, 45),
-    ...         np.timedelta64(0, "h"),
-    ...         np.timedelta64(24, "h"),
     ...     ]
     ... )
-    {'R': '2010-01-01T16:00:00/2020-01-01T12:23:45.000000/0/24'}
-
+    {'R': '2010-01-01T16:00:00/2020-01-01T12:23:45.000000'}
     >>> import pandas as pd
     >>> import xarray as xr
     >>> module(
@@ -695,7 +690,6 @@ def kwargs_to_strings(**conversions):
     ...     ]
     ... )
     {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
-
     >>> # Here is a more realistic example
     >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
     >>> @kwargs_to_strings(
@@ -766,23 +760,14 @@ def kwargs_to_strings(**conversions):
                 if fmt in separators and is_nonstr_iter(value):
                     for index, item in enumerate(value):
                         if " " in str(item):
-                            # Check if there is a space " " in the item, which
-                            # is typically present in objects such as
-                            # np.timedelta64, pd.Timestamp, or xr.DataArray.
-                            # If so, convert the item to a numerical or string
-                            # type that is understood by GMT as follows:
-                            if getattr(
-                                getattr(item, "dtype", ""), "name", ""
-                            ).startswith("timedelta"):
-                                # A np.timedelta64 item is cast to integer
-                                value[index] = item.astype("int")
-                            else:
-                                # A pandas.Timestamp/xr.DataArray containing
-                                # a datetime-like object is cast to ISO 8601
-                                # string format like YYYY-MM-DDThh:mm:ss.ffffff
-                                value[index] = np.datetime_as_string(
-                                    np.asarray(item, dtype=np.datetime64)
-                                )
+                            # Check if there is a space " " when converting
+                            # a pandas.Timestamp/xr.DataArray to a string.
+                            # If so, use np.datetime_as_string instead.
+                            # Convert datetime-like item to ISO 8601
+                            # string format like YYYY-MM-DDThh:mm:ss.ffffff.
+                            value[index] = np.datetime_as_string(
+                                np.asarray(item, dtype=np.datetime64)
+                            )
                     newvalue = separators[fmt].join(f"{item}" for item in value)
                     # Changes in bound.arguments will reflect in bound.args
                     # and bound.kwargs.
