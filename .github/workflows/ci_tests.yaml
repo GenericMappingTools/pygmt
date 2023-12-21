@@ -71,7 +71,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
-            optional-packages: ' contextily geopandas ipython rioxarray sphinx-gallery'
+            optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
 
     timeout-minutes: 30
     defaults:
@@ -94,7 +94,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
@@ -123,7 +123,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

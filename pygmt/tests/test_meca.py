@@ -305,9 +305,9 @@ def test_meca_spec_ndarray_no_convention():
     """
     Raise an exception if convention is not given for an ndarray input.
     """
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     with pytest.raises(GMTInvalidInput):
-        fig = Figure()
-        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
         fig.meca(spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3]]), scale="1c")
 
 
@@ -316,16 +316,16 @@ def test_meca_spec_ndarray_mismatched_columns():
     Raise an exception if the ndarray input doesn't have the expected number of
     columns.
     """
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     with pytest.raises(GMTInvalidInput):
-        fig = Figure()
-        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
         fig.meca(
             spec=np.array([[-124, 48, 12.0, 330, 30, 90]]), convention="aki", scale="1c"
         )
 
+    fig = Figure()
+    fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
     with pytest.raises(GMTInvalidInput):
-        fig = Figure()
-        fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)
         fig.meca(
             spec=np.array([[-124, 48, 12.0, 330, 30, 90, 3, -124.5, 47.5, 30.0, 50.0]]),
             convention="aki",

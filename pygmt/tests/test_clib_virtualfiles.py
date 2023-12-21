@@ -2,6 +2,7 @@
 Test the C API functions related to virtual files.
 """
 import os
+from importlib.util import find_spec
 from itertools import product
 
 import numpy as np
@@ -79,7 +80,7 @@ def test_virtual_file_fails():
     with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
-                print("Should not get to this code")
+                pass
 
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
@@ -90,7 +91,6 @@ def test_virtual_file_fails():
         with pytest.raises(GMTCLibError):
             with lib.open_virtual_file(*vfargs):
                 pass
-            print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
@@ -106,11 +106,11 @@ def test_virtual_file_bad_direction():
         )
         with pytest.raises(GMTInvalidInput):
             with lib.open_virtual_file(*vfargs):
-                print("This should have failed")
+                pass
 
 
 @pytest.mark.parametrize(
-    "array_func,kind",
+    ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
 def test_virtualfile_from_data_required_z_matrix(array_func, kind):
@@ -279,7 +279,7 @@ def test_virtualfile_from_vectors_diff_size():
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
             with lib.virtualfile_from_vectors(x, y):
-                print("This should have failed")
+                pass
 
 
 def test_virtualfile_from_matrix(dtypes):
@@ -321,16 +321,21 @@ def test_virtualfile_from_matrix_slice(dtypes):
 
 def test_virtualfile_from_vectors_pandas(dtypes):
     """
-    Pass vectors to a dataset using pandas Series.
+    Pass vectors to a dataset using pandas.Series, checking both numpy and
+    pyarrow dtypes.
     """
     size = 13
+    if find_spec("pyarrow") is not None:
+        dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
+
     for dtype in dtypes:
         data = pd.DataFrame(
             data={
-                "x": np.arange(size, dtype=dtype),
-                "y": np.arange(size, size * 2, 1, dtype=dtype),
-                "z": np.arange(size * 2, size * 3, 1, dtype=dtype),
-            }
+                "x": np.arange(size),
+                "y": np.arange(size, size * 2, 1),
+                "z": np.arange(size * 2, size * 3, 1),
+            },
+            dtype=dtype,
         )
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
