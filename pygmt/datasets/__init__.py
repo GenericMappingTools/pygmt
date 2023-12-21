@@ -15,3 +15,4 @@ from pygmt.datasets.earth_vertical_gravity_gradient import (
 )
 from pygmt.datasets.samples import list_sample_data, load_sample_data
 from pygmt.datasets.tile_map import load_tile_map
+from pygmt.datasets.venus_relief import load_venus_relief

@@ -229,6 +229,26 @@ datasets = {
             "03m": Resolution(["gridline"], True),
         },
     ),
+    "venus_relief": GMTRemoteDataset(
+        title="Venus relief",
+        name="venus relief",
+        long_name="Venus relief",
+        units="meters",
+        extra_attributes={},
+        resolutions={
+            "01d": Resolution(["gridline", "pixel"], False),
+            "30m": Resolution(["gridline", "pixel"], False),
+            "20m": Resolution(["gridline", "pixel"], False),
+            "15m": Resolution(["gridline", "pixel"], False),
+            "10m": Resolution(["gridline", "pixel"], False),
+            "06m": Resolution(["gridline", "pixel"], False),
+            "05m": Resolution(["gridline", "pixel"], True),
+            "04m": Resolution(["gridline", "pixel"], True),
+            "03m": Resolution(["gridline", "pixel"], True),
+            "02m": Resolution(["gridline", "pixel"], True),
+            "01m": Resolution(["gridline"], True),
+        },
+    ),
 }
 
 
