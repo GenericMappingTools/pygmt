@@ -79,7 +79,9 @@ def test_load_libgmt_fails(monkeypatch):
             "darwin" if sys.platform == "linux" else "linux",
         )
         mpatch.setattr(
-            subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"  # noqa: ARG005
+            subprocess,
+            "check_output",
+            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
         )
         with pytest.raises(GMTCLibNotFoundError):
             check_libgmt(load_libgmt())
