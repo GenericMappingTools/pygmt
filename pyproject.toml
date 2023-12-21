@@ -100,9 +100,12 @@ line-ending = "lf"  # Use UNIX `\n` line endings for all files
 [tool.ruff.lint]
 select = [
     "A",    # flake8-builtins
+    "ARG",  # flake8-unused-arguments
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
+    "C4",   # flake8-comprehensions
     "E",    # pycodestyle
+    "EXE",  # flake8-executable
     "F",    # pyflakes
     "FA",   # flake8-future-annotations
     "FLY",  # flynt
@@ -112,11 +115,17 @@ select = [
     "N",    # pep8-naming
     "NPY",  # numpy
     "PD",   # pandas-vet
+    "PERF", # perflint
     "PGH",  # pygrep-hooks
     "PIE",  # flake8-pie
     "PL",   # pylint
+    "PT",   # flake8-pytest-style
+    "RET",  # flake8-return
     "RSE",  # flake8-raise
+    "RUF",  # ruff-specific
+    "S",    # flake8-bandit
     "SIM",  # flake8-simplify
+    "T20",  # flake8-print
     "TCH",  # flake8-type-checking
     "TID",  # flake8-tidy-imports
     "UP",   # pyupgrade
@@ -124,11 +133,14 @@ select = [
     "YTT",  # flake8-2020
 ]
 ignore = [
-    "E501", # Avoid enforcing line-length violations
-    "ISC001", # Single-line-implicit-string-concatenation, conflict with formatter
-    "PD901",  # Allow using the generic variable name `df` for DataFrames
+    "E501",     # Avoid enforcing line-length violations
+    "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
+    "PD901",    # Allow using the generic variable name `df` for DataFrames
+    "PT023",    # Allow using pytest marker without parentheses
     "PLR2004",  # Allow any magic values
-    "SIM117",  # Allow nested `with` statements
+    "RET504",   # Allow variable assignment and return immediately for readability
+    "S603",     # Allow method calls that initiate a subprocess without a shell
+    "SIM117",   # Allow nested `with` statements
 ]
 
 [tool.ruff.lint.isort]
@@ -136,6 +148,8 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Ignore `F401` (unused-import) in all `__init__.py` files
+"*/tests/test_*.py" = ["S101"]  # Ignore `S101` (use of assert) in all tests files
+"examples/**/*.py" = ["T201"]  # Allow `print` in examples
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 79

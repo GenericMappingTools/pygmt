@@ -38,7 +38,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):
+        def mock_api_function(*args):  # noqa: ARG001
             """
             A mock GMT API function that always returns a given value.
             """
@@ -167,11 +167,12 @@ def test_call_module_error_message():
     Check is the GMT error message was captured.
     """
     with clib.Session() as lib:
-        try:
+        with pytest.raises(GMTCLibError) as exc_info:
             lib.call_module("info", "bogus-data.bla")
-        except GMTCLibError as error:
-            assert "Module 'info' failed with status code" in str(error)
-            assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in str(error)
+        assert "Module 'info' failed with status code" in exc_info.value.args[0]
+        assert (
+            "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
+        )
 
 
 def test_method_no_session():
@@ -316,9 +317,9 @@ def test_create_data_fails():
             )
 
     # If the data pointer returned is None (NULL pointer)
-    with pytest.raises(GMTCLibError):
-        with clib.Session() as lib:
-            with mock(lib, "GMT_Create_Data", returns=None):
+    with clib.Session() as lib:
+        with mock(lib, "GMT_Create_Data", returns=None):
+            with pytest.raises(GMTCLibError):
                 lib.create_data(
                     family="GMT_IS_DATASET",
                     geometry="GMT_IS_SURFACE",
@@ -522,7 +523,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Put 'bla' in the value buffer.
         """
@@ -551,7 +552,7 @@ def test_fails_for_wrong_version():
     """
 
     # Mock GMT_Get_Default to return an old version
-    def mock_defaults(api, name, value):
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Return an old version.
         """
