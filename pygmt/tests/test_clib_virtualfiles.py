@@ -110,7 +110,7 @@ def test_virtual_file_bad_direction():
 
 
 @pytest.mark.parametrize(
-    "array_func,kind",
+    ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
 def test_virtualfile_from_data_required_z_matrix(array_func, kind):
