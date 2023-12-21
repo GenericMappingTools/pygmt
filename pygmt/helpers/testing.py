@@ -6,7 +6,6 @@ import inspect
 import os
 import string
 
-import pytest
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -272,6 +271,8 @@ def skip_if_no(package):
         A pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
+    import pytest
+
     try:
         _ = importlib.import_module(name=package)
         has_package = True

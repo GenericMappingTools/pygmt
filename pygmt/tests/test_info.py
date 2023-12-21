@@ -99,7 +99,7 @@ def test_info_dataframe(dtype):
     """
     Make sure info works on pandas.DataFrame inputs.
     """
-    table = pd.read_csv(POINTS_DATA, sep=" ", header=None)
+    table = pd.read_csv(POINTS_DATA, sep=" ", header=None, dtype=dtype)
     output = info(data=table)
     expected_output = (
         "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
@@ -119,14 +119,22 @@ def test_info_numpy_array_time_column():
     assert output == expected_output
 
 
-def test_info_pandas_dataframe_time_column():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "datetime64[ns]",
+        pytest.param("date32[day][pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("date64[ms][pyarrow]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_pandas_dataframe_date_column(dtype):
     """
-    Make sure info works on pandas.DataFrame inputs with a time column.
+    Make sure info works on pandas.DataFrame inputs with a date column.
     """
     table = pd.DataFrame(
         data={
             "z": [10, 13, 12, 15, 14],
-            "time": pd.date_range(start="2020-01-01", periods=5),
+            "date": pd.date_range(start="2020-01-01", periods=5).astype(dtype=dtype),
         }
     )
     output = info(data=table)

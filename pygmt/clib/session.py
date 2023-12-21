@@ -370,7 +370,7 @@ class Session:
         self._error_log = []
 
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
-        def print_func(file_pointer, message):
+        def print_func(file_pointer, message):  # noqa: ARG001
             """
             Callback function that the GMT C API will use to print log and
             error messages.
@@ -382,7 +382,7 @@ class Session:
             self._error_log.append(message)
             # flush to make sure the messages are printed even if we have a
             # crash.
-            print(message, file=sys.stderr, flush=True)
+            print(message, file=sys.stderr, flush=True)  # noqa: T201
             return 0
 
         # Need to store a copy of the function because ctypes doesn't and it
@@ -1654,7 +1654,7 @@ class Session:
         ...
         >>> print(", ".join([f"{x:.2f}" for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
-        """
+        """  # noqa: RUF002
         c_extract_region = self.get_libgmt_func(
             "GMT_Extract_Region",
             argtypes=[ctp.c_void_p, ctp.c_char_p, ctp.POINTER(ctp.c_double)],
