@@ -416,7 +416,7 @@ def test_text_nonascii():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    fig.text(position="TL", text="position-text:°α")
-    fig.text(x=1, y=1, text="xytext:°α")
+    fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
+    fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
     return fig
