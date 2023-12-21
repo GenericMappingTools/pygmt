@@ -8,7 +8,6 @@ by the :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 
 import os
 
-import numpy as np
 import pygmt
 
 # %%
