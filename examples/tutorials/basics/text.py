@@ -219,25 +219,9 @@ fig.shift_origin(xshift="+w1c")
 
 # -----------------------------------------------------------------------------
 # Right: Add a text label outside of the plot or map frame
-
-# Define region limits
-lon_min = -30
-lon_max = 30
-lat_min = 10
-lat_max = 60
-# Determine projection center
-lon0 = np.mean([lon_min, lon_max])
-lat0 = np.mean([lat_min, lat_max])
-# Determine the two standard parallels (only these two distortion-free)
-lat1 = (lat_min + lat_max) / 3
-lat2 = (lat_min + lat_max) / 3 * 2
-# Set up arguments for the region and projection parameters
-region_use = [lon_min, lon_max, lat_min, lat_max]
-projection_use = (
-    "L" + str(lon0) + "/" + str(lat0) + "/" + str(lat1) + "/" + str(lat2) + "/5c"
+fig.basemap(
+    region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["lStE", "af"]
 )
-
-fig.basemap(region=region_use, projection=projection_use, frame=["lStE", "af"])
 
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
