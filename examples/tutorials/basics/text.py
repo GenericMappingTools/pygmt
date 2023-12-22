@@ -34,8 +34,8 @@ fig.show()
 # * ``font``: Sets the size, family/weight, and color of the font for the text.
 #   :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
 #   including details of how to use non-default fonts.
-# * ``angle``: Specifies the rotation of the text. It is measured counter-
-#   clockwise from the horizontal in degrees.
+# * ``angle``: Specifies the rotation of the text. It is measured
+#   counter-clockwise from the horizontal in degrees.
 # * ``justify``: Defines the anchor point of the bounding box for the text.
 #   It is specified by a two-letter (order independent) code, chosen from:
 #
