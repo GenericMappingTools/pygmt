@@ -97,7 +97,7 @@ with pygmt.config(MAP_SCALE_HEIGHT="20p"):
         map_scale="jMC+c+w1000k+f+l",
     )
 
-fig.shift_origin(xshift="+w1c")
+fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Add a scale bar valid for a specific location
