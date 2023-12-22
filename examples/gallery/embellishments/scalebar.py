@@ -85,7 +85,7 @@ fig = pygmt.Figure()
 # -----------------------------------------------------------------------------
 # Add a thick scale bar
 # Adjust the GMT default parameter MAP_SCALE_HEIGHT locally (the change applies
-# only to the code within the "with" block)
+# only to the code within the "with" statement)
 with pygmt.config(MAP_SCALE_HEIGHT="20p"):
     fig.basemap(
         region=[-45, -25, -15, 0],
