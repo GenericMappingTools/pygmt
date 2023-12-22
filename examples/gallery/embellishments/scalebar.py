@@ -59,7 +59,7 @@ fig.basemap(
     map_scale="jMC+w1000k",
 )
 
-fig.shift_origin(xshift="+w1c")
+fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Add a fancy scale bar
