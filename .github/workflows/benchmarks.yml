@@ -62,7 +62,9 @@ jobs:
         with:
           run: |
             python -m pip install numpy pandas xarray netCDF4 packaging \
-                                  pytest pytest-benchmark pytest-codspeed
+                                  pytest pytest-benchmark pytest-codspeed \
+                                  setuptools
+            python -m pip list
             make install
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
