@@ -61,13 +61,13 @@ jobs:
         run: |
           python -m pip install pytest-codspeed
 
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: micromamba list
-
       # Install the package that we want to test
       - name: Install the package
         run: make install
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: micromamba list
 
       # Run the benchmark tests
       - name: Run benchmarks
