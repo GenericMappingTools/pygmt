@@ -63,6 +63,7 @@ jobs:
                                   setuptools
             python -m pip list
             make install
+            which gmt
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
           GMT_LIBRARY_PATH: /home/runner/micromamba/envs/pygmt/lib/
