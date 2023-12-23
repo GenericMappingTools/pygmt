@@ -49,21 +49,10 @@ jobs:
             python=3.12
             gmt=6.4.0
 
-      # Install dependencies from PyPI
-      - name: Install dependencies
-        run: |
-          python -m pip install numpy pandas xarray netCDF4 packaging \
-                                pytest pytest-benchmark pytest-codspeed
-
-      # Install the package that we want to test
-      - name: Install the package
-        run: make install
-
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
         run: |
           micromamba list
-          pip list
           which gmt
           echo ${{ github.workspace }}
 
@@ -72,7 +61,9 @@ jobs:
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
-            python -m pip list
+            python -m pip install numpy pandas xarray netCDF4 packaging \
+                                  pytest pytest-benchmark pytest-codspeed
+            make install
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
-          GMT_LIBRARY_PATH: ${{ github.workspace }}/micromamba/envs/pygmt/lib/
+          GMT_LIBRARY_PATH: /home/runner/micromamba/envs/pygmt/lib/
