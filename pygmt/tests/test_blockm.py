@@ -22,6 +22,7 @@ def fixture_dataframe():
     return load_sample_data(name="bathymetry")
 
 
+@pytest.mark.benchmark
 def test_blockmean_input_dataframe(dataframe):
     """
     Run blockmean by passing in a pandas.DataFrame as input.

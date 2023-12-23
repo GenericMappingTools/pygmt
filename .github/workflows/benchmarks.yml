@@ -1,0 +1,73 @@
+# Run performance benchmarks
+#
+# Continuous benchmarking using pytest-codspeed. Measures the execution speed
+# of tests marked with @pytest.mark.benchmark decorator.
+
+name: Benchmarks
+
+on:
+  # Run on pushes to the main branch
+  push:
+    branches: [ main ]
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
+  pull_request:
+  # `workflow_dispatch` allows CodSpeed to trigger backtest
+  # performance analysis in order to generate initial data.
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.7.3
+        with:
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: true
+          cache-environment: true
+          create-args: >-
+            python=3.12
+            gmt=6.4.0
+            numpy=${{ matrix.numpy-version }}
+            pandas
+            xarray
+            netCDF4
+            packaging
+            pytest
+            pytest-benchmark
+
+      # Install dependencies from PyPI
+      - name: Install dependencies
+        run: |
+          python -m pip install pytest-codspeed
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: micromamba list
+
+      # Install the package that we want to test
+      - name: Install the package
+        run: make install
+
+      # Run the benchmark tests
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v2.0.2
+        with:
+          run: make test PYTEST_EXTRA="-r P --codspeed"
