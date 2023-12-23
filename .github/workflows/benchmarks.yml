@@ -51,19 +51,17 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: |
-          micromamba list
-          which gmt
-          echo ${{ github.workspace }}
+        run: micromamba list
 
       # Run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
-            python -m pip install numpy pandas xarray netCDF4 packaging \
+            python -m pip install -U pip
+            python -m pip install -U numpy pandas xarray netCDF4 packaging \
                                   pytest pytest-benchmark pytest-codspeed \
-                                  setuptools
+                                  'setuptools>64'
             python -m pip list
             make install
             make test PYTEST_EXTRA="-r P --codspeed"
