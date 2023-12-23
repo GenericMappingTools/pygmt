@@ -67,10 +67,14 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: micromamba list
+        run: |
+          micromamba list
+          pip list
 
       # Run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
-          run: make test PYTEST_EXTRA="-r P --codspeed"
+          run: |
+            bash -el -c which python
+            make test PYTEST_EXTRA="-r P --codspeed"
