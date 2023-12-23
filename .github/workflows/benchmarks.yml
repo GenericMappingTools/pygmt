@@ -61,4 +61,4 @@ jobs:
             make install
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
-          GMT_LIBRARY_PATH: /home/runner/miniconda/envs/pygmt/lib/
+          GMT_LIBRARY_PATH: /usr/share/miniconda/envs/pygmt/lib/
