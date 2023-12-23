@@ -34,26 +34,22 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Micromamba with conda-forge dependencies
-      - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+      # Install Miniconda with conda-forge dependencies
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3.0.1
         with:
-          environment-name: pygmt
-          condarc: |
-            channels:
-              - conda-forge
-              - nodefaults
-          cache-downloads: true
-          cache-environment: true
-          create-args: >-
-            python=3.12
-            gmt=6.4.0
+          activate-environment: pygmt
+          python-version: '3.12'
+          channels: conda-forge,nodefaults
+          channel-priority: strict
 
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: micromamba list
+      # Install GMT from conda-forge
+      - name: Install GMT
+        run: |
+          conda install --solver=libmamba gmt=6.4.0
+          which gmt
 
-      # Run the benchmark tests
+      # Install dependencies from PyPI and run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
@@ -63,7 +59,6 @@ jobs:
                                   setuptools
             python -m pip list
             make install
-            which gmt
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
-          GMT_LIBRARY_PATH: /home/runner/micromamba/envs/pygmt/lib/
+          GMT_LIBRARY_PATH: /home/runner/miniconda/envs/pygmt/lib/
