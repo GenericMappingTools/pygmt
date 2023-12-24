@@ -71,7 +71,7 @@ def test_geopandas_info_geodataframe(gdf):
 
 
 @pytest.mark.parametrize(
-    "geomtype,desired",
+    ("geomtype", "desired"),
     [
         ("multipolygon", [0.0, 35.0, 0.0, 20.0]),
         ("polygon", [20.0, 23.0, 10.0, 14.0]),
