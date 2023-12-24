@@ -150,7 +150,7 @@ known-third-party = ["pygmt"]
 "examples/**/*.py" = ["T201"]  # Allow `print` in examples
 
 [tool.ruff.lint.pycodestyle]
-max-doc-length = 79
+max-doc-length = 88
 
 [tool.ruff.lint.pylint]
 max-args=10

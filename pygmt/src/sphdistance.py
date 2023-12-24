@@ -110,7 +110,9 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     >>> coords_array = np.array(coords_list)
     >>> # Perform a calculation of the distance to
     >>> # each point from Voronoi polygons
-    >>> grid = pygmt.sphdistance(data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24])
+    >>> grid = pygmt.sphdistance(
+    ...     data=coords_array, spacing=[1, 2], region=[82, 87, 22, 24]
+    ... )
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")

@@ -131,7 +131,9 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m", region=[10, 30, 15, 25]
+    ... )
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)

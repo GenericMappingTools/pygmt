@@ -44,7 +44,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_ref = Figure()
     ...     fig_ref.basemap(projection="X5c", region=[0, 5, 0, 5], frame=True)
     ...     fig_test = Figure()
-    ...     fig_test.basemap(projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"])
+    ...     fig_test.basemap(
+    ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
+    ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
