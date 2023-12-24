@@ -20,7 +20,6 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
-@pytest.mark.benchmark
 def test_grd2xyz(grid):
     """
     Make sure grd2xyz works as expected.
