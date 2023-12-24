@@ -100,7 +100,7 @@ fig.coast(
     water="steelblue",
     frame=["WSne", "af"],
     # Set the label alignment (+a) to right (r)
-    map_scale="jBL+o1c/1c+c-7+w1000k+f+lkm+ar",
+    map_scale="jBL+o1c/1c+c-7+w500k+f+lkm+ar",
     # Fill the box in white with a transparency of 30 percent, add a solid
     # outline in darkgray (gray30) with a thickness of 0.5 points, and use
     # rounded edges with a radius of 3 points
