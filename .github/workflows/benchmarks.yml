@@ -54,6 +54,7 @@ jobs:
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
+            ls -lh /usr/share/miniconda/envs/pygmt/lib/
             python -m pip install -U numpy pandas xarray netCDF4 packaging \
                                   pip pytest pytest-benchmark pytest-codspeed \
                                   setuptools
