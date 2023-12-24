@@ -46,7 +46,7 @@ jobs:
       # Install GMT and dependencies from conda-forge
       - name: Install dependencies
         run: |
-          conda install --solver=libmamba gmt=6.4.0 \
+          conda install --solver=libmamba gmt=6.4.0 python=3.12 \
                         numpy pandas xarray netCDF4 packaging \
                         pytest pytest-benchmark pytest-mpl
           $CONDA/bin/python -m pip install -U pytest-codspeed setuptools
