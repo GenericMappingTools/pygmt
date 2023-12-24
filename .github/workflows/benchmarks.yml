@@ -46,18 +46,16 @@ jobs:
       # Install GMT and dependencies from conda-forge
       - name: Install dependencies
         run: |
-          which conda
-          echo $CONDA
           conda install --solver=libmamba gmt=6.4.0 \
                         numpy pandas xarray netCDF4 packaging \
-                        pytest pytest-benchmark
+                        pytest pytest-benchmark pytest-mpl
           $CONDA/bin/python -m pip install -U pytest-codspeed setuptools
 
       # Install the package that we want to test
       - name: Install the package
         run: $CONDA/bin/python -m pip install --no-deps -e .
 
-      # Install dependencies from PyPI and run the benchmark tests
+      # Run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
