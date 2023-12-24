@@ -104,6 +104,8 @@ workflow files for more details.
 12. `format-command.yml`: Format the codes using slash command
 13. `dvc-diff.yml`: Report changes in test images
 14. `slash-command-dispatch.yml`: Support slash commands in pull requests
+15. `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
+
 
 ## Continuous Documentation
 
