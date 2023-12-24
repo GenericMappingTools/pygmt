@@ -49,21 +49,24 @@ jobs:
       # Install GMT and dependencies from conda-forge
       - name: Install dependencies
         run: |
+          # $CONDA is an environment variable pointing to the root of the miniconda directory
+          # Preprend $CONDA/bin to $PATH so that conda's python is used over system python
+          echo $CONDA/bin >> $GITHUB_PATH
           conda install --solver=libmamba gmt=6.4.0 python=3.12 \
                         numpy pandas xarray netCDF4 packaging \
                         pytest pytest-benchmark pytest-mpl
-          $CONDA/bin/python -m pip install -U pytest-codspeed setuptools
+          python -m pip install -U pytest-codspeed setuptools
 
       # Install the package that we want to test
       - name: Install the package
-        run: $CONDA/bin/python -m pip install --no-deps -e .
+        run: python -m pip install --no-deps -e .
 
       # Run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
-            $CONDA/bin/python -c "import pygmt; pygmt.show_versions()"
-            PYGMT_USE_EXTERNAL_DISPLAY="false" $CONDA/bin/python -m pytest -r P --pyargs pygmt --codspeed
+            python -c "import pygmt; pygmt.show_versions()"
+            PYGMT_USE_EXTERNAL_DISPLAY="false" python -m pytest -r P --pyargs pygmt --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
