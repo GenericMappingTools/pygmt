@@ -43,11 +43,12 @@ jobs:
           channels: conda-forge,nodefaults
           channel-priority: strict
 
-      # Install GMT from conda-forge
-      - name: Install GMT
+      # Install GMT and dependencies from conda-forge
+      - name: Install dependencies
         run: |
-          conda install --solver=libmamba gmt=6.4.0
-          which gmt
+          conda install --solver=libmamba gmt=6.4.0 \
+                        numpy pandas xarray netCDF4 packaging \
+                        pytest pytest-benchmark pytest-codspeed setuptools
 
       # Install dependencies from PyPI and run the benchmark tests
       - name: Run benchmarks
@@ -55,10 +56,6 @@ jobs:
         with:
           run: |
             ls -lh /usr/share/miniconda/envs/pygmt/lib/
-            python -m pip install -U numpy pandas xarray netCDF4 packaging \
-                                  pip pytest pytest-benchmark pytest-codspeed \
-                                  setuptools
-            python -m pip list
             make install
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
