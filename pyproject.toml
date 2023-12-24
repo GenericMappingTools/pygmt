@@ -96,6 +96,7 @@ show-source = true
 
 [tool.ruff.format]
 line-ending = "lf"  # Use UNIX `\n` line endings for all files
+docstring-code-format = true
 
 [tool.ruff.lint]
 select = [

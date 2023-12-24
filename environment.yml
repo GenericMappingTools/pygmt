@@ -26,7 +26,7 @@ dependencies:
     - blackdoc
     - codespell
     - docformatter>=1.7.2
-    - ruff
+    - ruff>=0.1.8
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov
