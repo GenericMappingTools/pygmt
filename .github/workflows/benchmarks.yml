@@ -40,7 +40,6 @@ jobs:
         with:
           auto-activate-base: true
           activate-environment: ""  # base environment
-          python-version: '3.12'
           channels: conda-forge,nodefaults
           channel-priority: strict
 
