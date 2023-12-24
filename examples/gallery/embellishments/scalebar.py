@@ -70,7 +70,7 @@ fig.basemap(map_scale="n0.8/0.95+w500k+f+u")
 # only to the code within the "with" statement)
 # It applies (+c) at the middle of the map (no location is appended to +c)
 # Without appending text, +l adds the distance unit as label
-with pygmt.config(MAP_SCALE_HEIGHT="20p"):
+with pygmt.config(MAP_SCALE_HEIGHT="10p"):
     fig.basemap(map_scale="n0.2/0.15+c+w500k+f+l")
 
 # -----------------------------------------------------------------------------
