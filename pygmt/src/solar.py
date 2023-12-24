@@ -66,15 +66,11 @@ def solar(self, terminator="d", terminator_datetime=None, **kwargs):
     >>> import datetime
     >>> import pygmt
     >>> # create a datetime object at 8:52:18 on June 24, 1997 (time in UTC)
-    >>> date = datetime.datetime(
-    ...     year=1997, month=6, day=24, hour=8, minute=52, second=18
-    ... )
+    >>> date = datetime.datetime(year=1997, month=6, day=24, hour=8, minute=52, second=18)
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # create a map of the Earth with the coast method
-    >>> fig.coast(
-    ...     land="darkgreen", water="lightblue", projection="W10c", region="d"
-    ... )
+    >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
     >>> fig.solar(
     ...     # set the terminator to "day_night"
     ...     terminator="day_night",

@@ -80,14 +80,10 @@ def grdsample(grid, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
     >>> # Create a new grid from an input grid, change the registration,
     >>> # and set both x- and y-spacing to 0.5 arc-degrees
-    >>> new_grid = pygmt.grdsample(
-    ...     grid=grid, translate=True, spacing=[0.5, 0.5]
-    ... )
+    >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:

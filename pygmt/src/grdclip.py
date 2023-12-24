@@ -82,17 +82,13 @@ def grdclip(grid, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
     [170.0, 2275.5]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to
     >>> # 0 and all values above 1,500 to 10,000
-    >>> new_grid = pygmt.grdclip(
-    ...     grid=grid, below=[1000, 0], above=[1500, 10000]
-    ... )
+    >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])
     >>> # Report the minimum and maximum data values
     >>> [new_grid.data.min(), new_grid.data.max()]
     [0.0, 10000.0]

@@ -82,9 +82,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
     >>> # Create a pandas dataframe that contains the contour, area, volume,
     >>> # and maximum mean height above the plane specified by the given
     >>> # contour and below the surface; set the minimum contour z-value to

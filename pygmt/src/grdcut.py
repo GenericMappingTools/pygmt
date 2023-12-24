@@ -92,9 +92,7 @@ def grdcut(grid, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=[10, 30, 15, 25])
     >>> # Create a new grid from an input grid, with a longitude range of
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])

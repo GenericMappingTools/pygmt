@@ -140,7 +140,6 @@ class Session:
     ...             ses.call_module("grdinfo", f"{fin} -C ->{fout.name}")
     ...             # Read the contents of the temp file before it's deleted.
     ...             print(fout.read().strip())
-    ...
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
@@ -305,7 +304,6 @@ class Session:
         ...     func = lib.get_libgmt_func(
         ...         "GMT_Destroy_Session", argtypes=[c_void_p], restype=c_int
         ...     )
-        ...
         >>> type(func)
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
@@ -546,13 +544,11 @@ class Session:
         ...     lib.call_module("plot", "-T -Xw+1i -Yh-1i")
         ...     xshift = lib.get_common("X")  # xshift/yshift are in inches
         ...     yshift = lib.get_common("Y")
-        ...
         >>> print(region, projection, timestamp, verbose, xshift, yshift)
         [ 0. 10. 10. 15.] True False 3 6.0 1.5
         >>> with Session() as lib:
         ...     lib.call_module("basemap", "-R0/10/10/15 -JX5i/2.5i -Baf")
         ...     lib.get_common("A")
-        ...
         Traceback (most recent call last):
         ...
         pygmt.exceptions.GMTInvalidInput: Unknown GMT common option flag 'A'.
@@ -816,13 +812,11 @@ class Session:
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=1)
         ...     gmttype == ses["GMT_DOUBLE"]
-        ...
         True
         >>> data = np.ones((5, 2), dtype="float32")
         >>> with Session() as ses:
         ...     gmttype = ses._check_dtype_and_dim(data, ndim=2)
         ...     gmttype == ses["GMT_FLOAT"]
-        ...
         True
         """
         # Check that the array has the given number of dimensions
@@ -1150,7 +1144,6 @@ class Session:
         ...             args = f"{vfile} ->{ofile.name}"
         ...             lib.call_module("info", args)
         ...             print(ofile.read().strip())
-        ...
         <vector memory>: N = 5 <0/4> <5/9>
         """
         c_open_virtualfile = self.get_libgmt_func(
@@ -1241,7 +1234,6 @@ class Session:
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", f"{fin} ->{fout.name}")
         ...             print(fout.read().strip())
-        ...
         <vector memory>: N = 3 <1/3> <4/6> <7/9>
         """
         # Conversion to a C-contiguous array needs to be done here and not in
@@ -1350,7 +1342,6 @@ class Session:
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", f"{fin} ->{fout.name}")
         ...             print(fout.read().strip())
-        ...
         <matrix memory>: N = 4 <0/9> <1/10> <2/11>
         """
         # Conversion to a C-contiguous array needs to be done here and not in
@@ -1432,7 +1423,6 @@ class Session:
         ...             args = f"{fin} -L0 -Cn ->{fout.name}"
         ...             ses.call_module("grdinfo", args)
         ...             print(fout.read().strip())
-        ...
         -55 -47 -24 -10 190 981 1 1 8 14 1 1
         >>> # The output is: w e s n z0 z1 dx dy n_columns n_rows reg gtype
         """
@@ -1520,14 +1510,11 @@ class Session:
         ...     ),
         ... )
         >>> with Session() as ses:
-        ...     with ses.virtualfile_from_data(
-        ...         check_kind="vector", data=data
-        ...     ) as fin:
+        ...     with ses.virtualfile_from_data(check_kind="vector", data=data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", fin + " ->" + fout.name)
         ...             print(fout.read().strip())
-        ...
         <vector memory>: N = 3 <7/9> <4/6> <1/3>
         """
         kind = data_kind(
@@ -1623,7 +1610,6 @@ class Session:
         ... )
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        ...
         >>> print(", ".join([f"{x:.2f}" for x in wesn]))
         0.00, 10.00, -20.00, -10.00
 
@@ -1631,12 +1617,9 @@ class Session:
         Hawaiʻi):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(
-        ...     region="US.HI", projection="M6i", frame=True, land="black"
-        ... )
+        >>> fig.coast(region="US.HI", projection="M6i", frame=True, land="black")
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        ...
         >>> print(", ".join([f"{x:.2f}" for x in wesn]))
         -164.71, -154.81, 18.91, 23.58
 
@@ -1645,12 +1628,9 @@ class Session:
         region to multiples of 5):
 
         >>> fig = pygmt.Figure()
-        >>> fig.coast(
-        ...     region="US.HI+r5", projection="M6i", frame=True, land="black"
-        ... )
+        >>> fig.coast(region="US.HI+r5", projection="M6i", frame=True, land="black")
         >>> with Session() as lib:
         ...     wesn = lib.extract_region()
-        ...
         >>> print(", ".join([f"{x:.2f}" for x in wesn]))
         -165.00, -150.00, 15.00, 25.00
         """  # noqa: RUF002
