@@ -59,7 +59,8 @@ jobs:
         with:
           run: |
             ls -lh /usr/share/miniconda/lib/
-            make install
+            which python
+            $CONDA/bin/python -m pip install --no-deps -e .
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
