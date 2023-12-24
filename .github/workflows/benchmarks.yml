@@ -59,8 +59,8 @@ jobs:
         with:
           run: |
             ls -lh /usr/share/miniconda/lib/
-            which python
             $CONDA/bin/python -m pip install --no-deps -e .
-            make test PYTEST_EXTRA="-r P --codspeed"
+            $CONDA/bin/python -c "import pygmt; pygmt.show_versions()"
+            PYGMT_USE_EXTERNAL_DISPLAY="false" pytest -r P --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
