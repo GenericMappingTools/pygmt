@@ -50,16 +50,16 @@ jobs:
           echo $CONDA
           conda install --solver=libmamba gmt=6.4.0 \
                         numpy pandas xarray netCDF4 packaging \
-                        pytest pytest-benchmark setuptools
-          $CONDA/bin/python -m pip install pytest-codspeed
+                        pytest pytest-benchmarks
+          $CONDA/bin/python -m pip install pytest-codspeed setuptools
 
       # Install dependencies from PyPI and run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
-            ls -lh /usr/share/miniconda/envs/pygmt/lib/
+            ls -lh /usr/share/miniconda/lib/
             make install
             make test PYTEST_EXTRA="-r P --codspeed"
         env:
-          GMT_LIBRARY_PATH: /usr/share/miniconda/envs/pygmt/lib/
+          GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
