@@ -53,14 +53,16 @@ jobs:
                         pytest pytest-benchmark
           $CONDA/bin/python -m pip install -U pytest-codspeed setuptools
 
+      # Install the package that we want to test
+      - name: Install the package
+        run: $CONDA/bin/python -m pip install --no-deps -e .
+
       # Install dependencies from PyPI and run the benchmark tests
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
           run: |
-            ls -lh /usr/share/miniconda/lib/
-            $CONDA/bin/python -m pip install --no-deps -e .
             $CONDA/bin/python -c "import pygmt; pygmt.show_versions()"
-            PYGMT_USE_EXTERNAL_DISPLAY="false" pytest -r P --codspeed
+            PYGMT_USE_EXTERNAL_DISPLAY="false" $CONDA/bin/python -m pytest -r P --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
