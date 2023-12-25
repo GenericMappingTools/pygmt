@@ -24,6 +24,7 @@ def test_tilemap_web_mercator():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_tilemap_ogc_wgs84():
     """
