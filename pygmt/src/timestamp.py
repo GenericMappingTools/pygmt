@@ -54,7 +54,7 @@ def timestamp(
         ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of
         the timestamp as the anchor point.
     offset
-        *offset* or [*offset_x*, *offset_y*].
+        *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and
         *offset_y*. If a single value *offset* is given, *offset_y* =
         *offset_x* = *offset*.
