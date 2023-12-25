@@ -65,6 +65,8 @@ jobs:
       - name: Run benchmarks
         uses: CodSpeedHQ/action@v2.0.2
         with:
-          run: make test PYTEST_EXTRA="-r P --codspeed"
+          run: |
+            python -c "import pygmt; pygmt.show_versions()"
+            PYGMT_USE_EXTERNAL_DISPLAY="false" python -m pytest -r P --pyargs pygmt --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
