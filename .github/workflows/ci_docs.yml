@@ -44,7 +44,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.11) for draft PRs
+        # Only run one job (Ubuntu + Python 3.12) for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -58,14 +58,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.5.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
@@ -75,8 +75,9 @@ jobs:
           cache-downloads: true
           cache-environment: true
           create-args: >-
-            python=3.11
+            python=3.12
             gmt=6.4.0
+            ghostscript=9.54.0
             numpy
             pandas
             xarray
@@ -92,6 +93,7 @@ jobs:
             myst-parser
             panel
             sphinx
+            sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
@@ -99,7 +101,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -126,7 +128,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one

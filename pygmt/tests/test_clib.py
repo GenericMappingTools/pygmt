@@ -1,16 +1,12 @@
-# pylint: disable=protected-access
-# pylint: disable=redefined-outer-name
 """
 Test the wrappers for the C API.
 """
 import os
 from contextlib import contextmanager
-from itertools import product
 from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
-import pandas as pd
 import pytest
 import xarray as xr
 from packaging.version import Version
@@ -26,23 +22,6 @@ from pygmt.exceptions import (
 from pygmt.helpers import GMTTempFile
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-
-
-@pytest.fixture(scope="module", name="data")
-def fixture_data():
-    """
-    Load the point data from the test file.
-    """
-    return np.loadtxt(POINTS_DATA)
-
-
-@pytest.fixture(scope="module", name="dtypes")
-def fixture_dtypes():
-    """
-    List of supported numpy dtypes.
-    """
-    return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
 @contextmanager
@@ -59,7 +38,7 @@ def mock(session, func, returns=None, mock_func=None):
     """
     if mock_func is None:
 
-        def mock_api_function(*args):  # pylint: disable=unused-argument
+        def mock_api_function(*args):  # noqa: ARG001
             """
             A mock GMT API function that always returns a given value.
             """
@@ -77,11 +56,11 @@ def mock(session, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
+    session.get_libgmt_func = mock_get_libgmt_func
 
     yield
 
-    setattr(session, "get_libgmt_func", get_libgmt_func)
+    session.get_libgmt_func = get_libgmt_func
 
 
 def test_getitem():
@@ -94,7 +73,7 @@ def test_getitem():
     assert ses["GMT_PAD_DEFAULT"] != -99999
     assert ses["GMT_DOUBLE"] != -99999
     with pytest.raises(GMTCLibError):
-        ses["A_WHOLE_LOT_OF_JUNK"]  # pylint: disable=pointless-statement
+        ses["A_WHOLE_LOT_OF_JUNK"]
 
 
 def test_create_destroy_session():
@@ -115,12 +94,12 @@ def test_create_destroy_session():
     ses = clib.Session()
     for __ in range(2):
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
         ses.create("session1")
         assert ses.session_pointer is not None
         ses.destroy()
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
 
 
 def test_create_session_fails():
@@ -188,11 +167,12 @@ def test_call_module_error_message():
     Check is the GMT error message was captured.
     """
     with clib.Session() as lib:
-        try:
+        with pytest.raises(GMTCLibError) as exc_info:
             lib.call_module("info", "bogus-data.bla")
-        except GMTCLibError as error:
-            assert "Module 'info' failed with status code" in str(error)
-            assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in str(error)
+        assert "Module 'info' failed with status code" in exc_info.value.args[0]
+        assert (
+            "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
+        )
 
 
 def test_method_no_session():
@@ -204,7 +184,7 @@ def test_method_no_session():
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.session_pointer  # pylint: disable=pointless-statement
+        _ = lib.session_pointer
 
 
 def test_parse_constant_single():
@@ -224,7 +204,7 @@ def test_parse_constant_composite():
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
-        composite = "|".join([family, via])
+        composite = f"{family}|{via}"
         expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
@@ -337,335 +317,15 @@ def test_create_data_fails():
             )
 
     # If the data pointer returned is None (NULL pointer)
-    with pytest.raises(GMTCLibError):
-        with clib.Session() as lib:
-            with mock(lib, "GMT_Create_Data", returns=None):
+    with clib.Session() as lib:
+        with mock(lib, "GMT_Create_Data", returns=None):
+            with pytest.raises(GMTCLibError):
                 lib.create_data(
                     family="GMT_IS_DATASET",
                     geometry="GMT_IS_SURFACE",
                     mode="GMT_CONTAINER_ONLY",
                     dim=[11, 10, 2, 0],
                 )
-
-
-def test_virtual_file(dtypes):
-    """
-    Test passing in data via a virtual file with a Dataset.
-    """
-    shape = (5, 3)
-    for dtype in dtypes:
-        with clib.Session() as lib:
-            family = "GMT_IS_DATASET|GMT_VIA_MATRIX"
-            geometry = "GMT_IS_POINT"
-            dataset = lib.create_data(
-                family=family,
-                geometry=geometry,
-                mode="GMT_CONTAINER_ONLY",
-                dim=[shape[1], shape[0], 1, 0],  # columns, rows, layers, dtype
-            )
-            data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-            lib.put_matrix(dataset, matrix=data)
-            # Add the dataset to a virtual file and pass it along to gmt info
-            vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-            with lib.open_virtual_file(*vfargs) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
-            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
-            assert output == expected
-
-
-def test_virtual_file_fails():
-    """
-    Check that opening and closing virtual files raises an exception for non-
-    zero return codes.
-    """
-    vfargs = (
-        "GMT_IS_DATASET|GMT_VIA_MATRIX",
-        "GMT_IS_POINT",
-        "GMT_IN|GMT_IS_REFERENCE",
-        None,
-    )
-
-    # Mock Open_VirtualFile to test the status check when entering the context.
-    # If the exception is raised, the code won't get to the closing of the
-    # virtual file.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
-        with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
-                print("Should not get to this code")
-
-    # Test the status check when closing the virtual file
-    # Mock the opening to return 0 (success) so that we don't open a file that
-    # we won't close later.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
-        lib, "GMT_Close_VirtualFile", returns=1
-    ):
-        with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
-                pass
-            print("Shouldn't get to this code either")
-
-
-def test_virtual_file_bad_direction():
-    """
-    Test passing an invalid direction argument.
-    """
-    with clib.Session() as lib:
-        vfargs = (
-            "GMT_IS_DATASET|GMT_VIA_MATRIX",
-            "GMT_IS_POINT",
-            "GMT_IS_GRID",  # The invalid direction argument
-            0,
-        )
-        with pytest.raises(GMTInvalidInput):
-            with lib.open_virtual_file(*vfargs):
-                print("This should have failed")
-
-
-@pytest.mark.parametrize(
-    "array_func,kind",
-    [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
-)
-def test_virtualfile_from_data_required_z_matrix(array_func, kind):
-    """
-    Test that function works when third z column in a matrix is needed and
-    provided.
-    """
-    shape = (5, 3)
-    dataframe = pd.DataFrame(
-        data=np.arange(shape[0] * shape[1]).reshape(shape), columns=["x", "y", "z"]
-    )
-    data = array_func(dataframe)
-    with clib.Session() as lib:
-        with lib.virtualfile_from_data(
-            data=data, names="xyz", check_kind="vector"
-        ) as vfile:
-            with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
-                output = outfile.read(keep_tabs=True)
-        bounds = "\t".join(
-            [
-                f"<{i.min():.0f}/{i.max():.0f}>"
-                for i in (dataframe.x, dataframe.y, dataframe.z)
-            ]
-        )
-        expected = f"<{kind} memory>: N = {shape[0]}\t{bounds}\n"
-        assert output == expected
-
-
-def test_virtualfile_from_data_required_z_matrix_missing():
-    """
-    Test that function fails when third z column in a matrix is needed but not
-    provided.
-    """
-    data = np.ones((5, 2))
-    with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(data=data, names="xyz", check_kind="vector"):
-                pass
-
-
-def test_virtualfile_from_data_fail_non_valid_data(data):
-    """
-    Should raise an exception if too few or too much data is given.
-    """
-    # Test all combinations where at least one data variable
-    # is not given in the x, y case:
-    for variable in product([None, data[:, 0]], repeat=2):
-        # Filter one valid configuration:
-        if not any(item is None for item in variable):
-            continue
-        with clib.Session() as lib:
-            with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(vectors=variable[:2])
-
-    # Test all combinations where at least one data variable
-    # is not given in the x, y, z case:
-    for variable in product([None, data[:, 0]], repeat=3):
-        # Filter one valid configuration:
-        if not any(item is None for item in variable):
-            continue
-        with clib.Session() as lib:
-            with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(vectors=variable[:3], names="xyz")
-
-    # Should also fail if given too much data
-    with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_from_data(vectors=data[:, :3], data=data, names="xyz")
-
-
-def test_virtualfile_from_vectors(dtypes):
-    """
-    Test the automation for transforming vectors to virtual file dataset.
-    """
-    size = 10
-    for dtype in dtypes:
-        x = np.arange(size, dtype=dtype)
-        y = np.arange(size, size * 2, 1, dtype=dtype)
-        z = np.arange(size * 2, size * 3, 1, dtype=dtype)
-        with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(x, y, z) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{i.min():.0f}/{i.max():.0f}>" for i in (x, y, z)])
-            expected = f"<vector memory>: N = {size}\t{bounds}\n"
-            assert output == expected
-
-
-@pytest.mark.parametrize("dtype", [str, object])
-def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
-    """
-    Test passing in one column with string or object dtype into virtual file
-    dataset.
-    """
-    size = 5
-    x = np.arange(size, dtype=np.int32)
-    y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=dtype)
-    with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings) as vfile:
-            with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
-                output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
-        assert output == expected
-
-
-@pytest.mark.parametrize("dtype", [str, object])
-def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
-    """
-    Test passing in two columns of string or object dtype into virtual file
-    dataset.
-    """
-    size = 5
-    x = np.arange(size, dtype=np.int32)
-    y = np.arange(size, size * 2, 1, dtype=np.int32)
-    # Catch bug in https://github.com/GenericMappingTools/pygmt/pull/2719
-    strings1 = np.array(["a", "bc", "def", "ghij", "klmnolooong"], dtype=dtype)
-    strings2 = np.array(["pqrst", "uvwx", "yz!", "@#", "$"], dtype=dtype)
-    with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, strings1, strings2) as vfile:
-            with GMTTempFile() as outfile:
-                lib.call_module("convert", f"{vfile} ->{outfile.name}")
-                output = outfile.read(keep_tabs=True)
-        expected = "".join(
-            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
-        )
-        assert output == expected
-
-
-def test_virtualfile_from_vectors_transpose():
-    """
-    Test transforming matrix columns to virtual file dataset.
-    """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
-    shape = (7, 5)
-    for dtype in dtypes:
-        data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-        with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(*data.T) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} -C ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"{col.min():.0f}\t{col.max():.0f}" for col in data.T])
-            expected = f"{bounds}\n"
-            assert output == expected
-
-
-def test_virtualfile_from_vectors_diff_size():
-    """
-    Test the function fails for arrays of different sizes.
-    """
-    x = np.arange(5)
-    y = np.arange(6)
-    with clib.Session() as lib:
-        with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_vectors(x, y):
-                print("This should have failed")
-
-
-def test_virtualfile_from_matrix(dtypes):
-    """
-    Test transforming a matrix to virtual file dataset.
-    """
-    shape = (7, 5)
-    for dtype in dtypes:
-        data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-        with clib.Session() as lib:
-            with lib.virtualfile_from_matrix(data) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
-            expected = f"<matrix memory>: N = {shape[0]}\t{bounds}\n"
-            assert output == expected
-
-
-def test_virtualfile_from_matrix_slice(dtypes):
-    """
-    Test transforming a slice of a larger array to virtual file dataset.
-    """
-    shape = (10, 6)
-    for dtype in dtypes:
-        full_data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
-        rows = 5
-        cols = 3
-        data = full_data[:rows, :cols]
-        with clib.Session() as lib:
-            with lib.virtualfile_from_matrix(data) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join([f"<{col.min():.0f}/{col.max():.0f}>" for col in data.T])
-            expected = f"<matrix memory>: N = {rows}\t{bounds}\n"
-            assert output == expected
-
-
-def test_virtualfile_from_vectors_pandas(dtypes):
-    """
-    Pass vectors to a dataset using pandas Series.
-    """
-    size = 13
-    for dtype in dtypes:
-        data = pd.DataFrame(
-            data={
-                "x": np.arange(size, dtype=dtype),
-                "y": np.arange(size, size * 2, 1, dtype=dtype),
-                "z": np.arange(size * 2, size * 3, 1, dtype=dtype),
-            }
-        )
-        with clib.Session() as lib:
-            with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:
-                with GMTTempFile() as outfile:
-                    lib.call_module("info", f"{vfile} ->{outfile.name}")
-                    output = outfile.read(keep_tabs=True)
-            bounds = "\t".join(
-                [f"<{i.min():.0f}/{i.max():.0f}>" for i in (data.x, data.y, data.z)]
-            )
-            expected = f"<vector memory>: N = {size}\t{bounds}\n"
-            assert output == expected
-
-
-def test_virtualfile_from_vectors_arraylike():
-    """
-    Pass array-like vectors to a dataset.
-    """
-    size = 13
-    x = list(range(0, size, 1))
-    y = tuple(range(size, size * 2, 1))
-    z = range(size * 2, size * 3, 1)
-    with clib.Session() as lib:
-        with lib.virtualfile_from_vectors(x, y, z) as vfile:
-            with GMTTempFile() as outfile:
-                lib.call_module("info", f"{vfile} ->{outfile.name}")
-                output = outfile.read(keep_tabs=True)
-        bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
-        expected = f"<vector memory>: N = {size}\t{bounds}\n"
-        assert output == expected
 
 
 def test_extract_region_fails():
@@ -863,7 +523,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Put 'bla' in the value buffer.
         """
@@ -892,7 +552,7 @@ def test_fails_for_wrong_version():
     """
 
     # Mock GMT_Get_Default to return an old version
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Return an old version.
         """

@@ -204,7 +204,7 @@ def convention_params(convention):
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(
+def meca(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     spec,
     scale,
@@ -397,9 +397,7 @@ def meca(
     {perspective}
     {transparency}
     """
-    # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
-    # pylint: disable=too-many-statements
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
@@ -431,7 +429,7 @@ def meca(
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth"] + convention_params(convention)
+        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -451,18 +449,16 @@ def meca(
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
         # override the values in pd.DataFrame if parameters are given
-        if longitude is not None:
-            spec["longitude"] = np.atleast_1d(longitude)
-        if latitude is not None:
-            spec["latitude"] = np.atleast_1d(latitude)
-        if depth is not None:
-            spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:
-            spec["plot_longitude"] = np.atleast_1d(plot_longitude)
-        if plot_latitude is not None:
-            spec["plot_latitude"] = np.atleast_1d(plot_latitude)
-        if event_name is not None:
-            spec["event_name"] = np.atleast_1d(event_name)
+        for arg, name in [
+            (longitude, "longitude"),
+            (latitude, "latitude"),
+            (depth, "depth"),
+            (plot_longitude, "plot_longitude"),
+            (plot_latitude, "plot_latitude"),
+            (event_name, "event_name"),
+        ]:
+            if arg is not None:
+                spec[name] = np.atleast_1d(arg)
 
         # Due to the internal implementation of the meca module, we need to
         # convert the following columns to strings if they exist
@@ -476,7 +472,7 @@ def meca(
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
+        newcols = ["longitude", "latitude", "depth", *convention_params(convention)]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             if kwargs.get("A") is None:

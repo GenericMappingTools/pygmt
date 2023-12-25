@@ -49,7 +49,9 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
+def plot(  # noqa: PLR0912
+    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
+):
     r"""
     Plot lines, polygons, and symbols in 2-D.
 
@@ -210,8 +212,7 @@ def plot(self, data=None, x=None, y=None, size=None, direction=None, **kwargs):
         ``x``/``y``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
     vectors = [x, y]

@@ -83,12 +83,11 @@ def print_clib_info(file=sys.stdout):
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
+    from pygmt.clib import Session
 
-    lines = ["GMT library information:"]
+    print("GMT library information:", file=file)
     with Session() as ses:
-        for key in sorted(ses.info):
-            lines.append(f"  {key}: {ses.info[key]}")
+        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
     print("\n".join(lines), file=file)
 
 
@@ -104,10 +103,13 @@ def show_versions(file=sys.stdout):
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-    # pylint: disable=import-outside-toplevel
+
     import importlib
     import platform
+    import shutil
     import subprocess
+
+    from packaging.requirements import Requirement
 
     def _get_module_version(modname):
         """
@@ -139,12 +141,10 @@ def show_versions(file=sys.stdout):
             return None
 
         for gs_cmd in cmds:
-            try:
+            if (gsfullpath := shutil.which(gs_cmd)) is not None:
                 return subprocess.check_output(
-                    [gs_cmd, "--version"], universal_newlines=True
+                    [gsfullpath, "--version"], universal_newlines=True
                 ).strip()
-            except FileNotFoundError:
-                continue
         return None
 
     sys_info = {
@@ -153,17 +153,7 @@ def show_versions(file=sys.stdout):
         "machine": platform.platform(),
     }
 
-    deps = [
-        "numpy",
-        "pandas",
-        "xarray",
-        "netCDF4",
-        "packaging",
-        "contextily",
-        "geopandas",
-        "IPython",
-        "rioxarray",
-    ]
+    deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
 
     print("PyGMT information:", file=file)
     print(f"  version: {__version__}", file=file)

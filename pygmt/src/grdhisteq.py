@@ -1,7 +1,6 @@
 """
 grdhisteq - Perform histogram equalization for a grid.
 """
-import warnings
 
 import numpy as np
 import pandas as pd
@@ -13,13 +12,14 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdhisteq.*"]
 
 
-class grdhisteq:  # pylint: disable=invalid-name
+class grdhisteq:  # noqa: N801
     r"""
     Perform histogram equalization for a grid.
 
@@ -75,11 +75,8 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or bool or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
+        {grid}
+        {outgrid}
         outfile : str, bool, or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -162,11 +159,8 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
+        {grid}
+        {outgrid}
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
@@ -262,8 +256,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -321,23 +314,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        # Return a pandas.DataFrame if ``outfile`` is not set
-        if output_type not in ["numpy", "pandas", "file"]:
-            raise GMTInvalidInput(
-                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-            )
+        output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if header is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
-        if isinstance(outfile, str) and output_type != "file":
-            msg = (
-                f"Changing 'output_type' from '{output_type}' to 'file' "
-                "since 'outfile' parameter is set. Please use output_type='file' "
-                "to silence this warning."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            output_type = "file"
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
                 outfile = tmpfile.name

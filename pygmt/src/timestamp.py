@@ -5,11 +5,12 @@ import warnings
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, is_nonstr_iter
+from pygmt.helpers import build_arg_string, kwargs_to_strings
 
 __doctest_skip__ = ["timestamp"]
 
 
+@kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
     text=None,
@@ -75,7 +76,7 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
-    self._preprocess()  # pylint: disable=protected-access
+    self._preprocess()
 
     # Build the options passed to the "plot" module
     kwdict = {"T": True, "U": ""}
@@ -83,15 +84,11 @@ def timestamp(
         kwdict["U"] += f"{label}"
     kwdict["U"] += f"+j{justification}"
 
-    if is_nonstr_iter(offset):  # given a tuple
-        kwdict["U"] += "+o" + "/".join(f"{item}" for item in offset)
-    else:  # given a single value
-        if "/" not in offset and Version(__gmt_version__) <= Version("6.4.0"):
-            # Giving a single offset doesn't work in GMT <= 6.4.0.
-            # See https://github.com/GenericMappingTools/gmt/issues/7107.
-            kwdict["U"] += f"+o{offset}/{offset}"
-        else:
-            kwdict["U"] += f"+o{offset}"
+    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
+        # Giving a single offset doesn't work in GMT <= 6.4.0.
+        # See https://github.com/GenericMappingTools/gmt/issues/7107.
+        offset = f"{offset}/{offset}"
+    kwdict["U"] += f"+o{offset}"
 
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.

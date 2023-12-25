@@ -27,6 +27,21 @@ exclude-contributors:
 category-template: '### $TITLE'
 change-template: '* $TITLE ([#$NUMBER]($URL))'
 sort-by: 'title'
+replacers:
+  - search: '/@(\w+)?/g'
+    replace: '[@$1](https://github.com/$1)'
+  - search: '@maxrjones'
+    replace: 'Max Jones'
+  - search: '@michaelgrund'
+    replace: 'Michael Grund'
+  - search: '@seisman'
+    replace: 'Dongdong Tian'
+  - search: '@weiji14'
+    replace: 'Wei Ji Leong'
+  - search: '@willschlitzer'
+    replace: 'Will Schlitzer'
+  - search: '@yvonnefroehlich'
+    replace: 'Yvonne Fröhlich'
 template: |
   ## Release v$RESOLVED_VERSION (20YY/MM/DD)
 
@@ -37,6 +52,8 @@ template: |
   *
 
   $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
 
   ### Contributors
 

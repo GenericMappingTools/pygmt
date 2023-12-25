@@ -50,7 +50,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
+def plot3d(  # noqa: PLR0912
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -180,8 +180,7 @@ def plot3d(
         ``x``/``y``/``z``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data)
     vectors = [x, y, z]

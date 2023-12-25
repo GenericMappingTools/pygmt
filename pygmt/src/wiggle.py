@@ -100,7 +100,7 @@ def wiggle(
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if (fillpositive or fillnegative) and kwargs.get("G") is not None:
         raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")

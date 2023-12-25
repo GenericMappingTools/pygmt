@@ -2,11 +2,12 @@
 config - set GMT defaults globally or locally.
 """
 from inspect import Parameter, Signature
+from typing import ClassVar
 
 from pygmt.clib import Session
 
 
-class config:  # pylint: disable=invalid-name
+class config:  # noqa: N801
     """
     Set GMT defaults globally or locally.
 
@@ -23,7 +24,7 @@ class config:  # pylint: disable=invalid-name
     """
 
     # Manually set the __signature__ attribute to enable tab autocompletion
-    _keywords = [
+    _keywords: ClassVar = [
         "COLOR_BACKGROUND",
         "COLOR_FOREGROUND",
         "COLOR_CPT",
@@ -154,7 +155,7 @@ class config:  # pylint: disable=invalid-name
         "TIME_Y2K_OFFSET_YEAR",
     ]
 
-    _special_keywords = {
+    _special_keywords: ClassVar = {
         "FONT": [
             "FONT_ANNOT_PRIMARY",
             "FONT_ANNOT_SECONDARY",

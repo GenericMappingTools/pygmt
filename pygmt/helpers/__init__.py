@@ -22,3 +22,4 @@ from pygmt.helpers.utils import (
     non_ascii_to_octal,
     validate_data_input,
 )
+from pygmt.helpers.validators import validate_output_table_type

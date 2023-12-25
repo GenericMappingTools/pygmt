@@ -2,6 +2,7 @@
 Test the functions that load libgmt.
 """
 import ctypes
+import os
 import shutil
 import subprocess
 import sys
@@ -13,7 +14,7 @@ from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_l
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-class FakedLibGMT:  # pylint: disable=too-few-public-methods
+class FakedLibGMT:
     """
     Class for faking a GMT library.
     """
@@ -31,7 +32,6 @@ def test_check_libgmt():
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
     msg = (
-        # pylint: disable=protected-access
         f"Error loading '{libgmt._name}'. "
         "Couldn't access function GMT_Create_Session. "
         "Ensure that you have installed an up-to-date GMT version 6 library. "
@@ -72,9 +72,16 @@ def test_load_libgmt_fails(monkeypatch):
     be found.
     """
     with monkeypatch.context() as mpatch:
-        mpatch.setattr(sys, "platform", "win32")  # pretend to be on Windows
         mpatch.setattr(
-            subprocess, "check_output", lambda cmd, encoding: "libfakegmt.so"
+            sys,
+            "platform",
+            # Pretend to be on macOS if running on Linux, and vice versa
+            "darwin" if sys.platform == "linux" else "linux",
+        )
+        mpatch.setattr(
+            subprocess,
+            "check_output",
+            lambda cmd, encoding: "libfakegmt.so",  # noqa: ARG005
         )
         with pytest.raises(GMTCLibNotFoundError):
             check_libgmt(load_libgmt())
@@ -125,21 +132,21 @@ class TestLibgmtBrokenLibs:
         # libname is a loaded GMT library
         return self.loaded_libgmt
 
-    @pytest.fixture
-    def mock_ctypes(self, monkeypatch):
+    @pytest.fixture()
+    def _mock_ctypes(self, monkeypatch):
         """
         Patch the ctypes.CDLL function.
         """
         monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
 
-    def test_two_broken_libraries(self, mock_ctypes):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_two_broken_libraries(self):
         """
         Case 1: two broken libraries.
 
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of both libraries that failed to load properly.
         """
-        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt2]
         msg_regex = (
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
@@ -150,16 +157,14 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_load_brokenlib_invalidpath(
-        self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_load_brokenlib_invalidpath(self):
         """
         Case 2: broken library + invalid path.
 
         Raise the GMTCLibNotFoundError exception. Error message should contain
         information of one library that failed to load and one invalid path.
         """
-        # pylint: disable=protected-access
         lib_fullnames = [self.faked_libgmt1, self.invalid_path]
         msg_regex = (
             rf"Error loading GMT shared library at '{self.faked_libgmt1._name}'.\n"
@@ -170,36 +175,32 @@ class TestLibgmtBrokenLibs:
         with pytest.raises(GMTCLibNotFoundError, match=msg_regex):
             load_libgmt(lib_fullnames=lib_fullnames)
 
-    def test_brokenlib_invalidpath_workinglib(
-        self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_brokenlib_invalidpath_workinglib(self):
         """
         Case 3: broken library + invalid path + working library.
         """
         lib_fullnames = [self.faked_libgmt1, self.invalid_path, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_invalidpath_brokenlib_workinglib(
-        self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_invalidpath_brokenlib_workinglib(self):
         """
         Case 4: invalid path + broken library + working library.
         """
         lib_fullnames = [self.invalid_path, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_workinglib_brokenlib_invalidpath(
-        self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_workinglib_brokenlib_invalidpath(self):
         """
         Case 5: working library + broken library + invalid path.
         """
         lib_fullnames = [self.loaded_libgmt, self.faked_libgmt1, self.invalid_path]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
-    def test_brokenlib_brokenlib_workinglib(
-        self, mock_ctypes
-    ):  # pylint: disable=unused-argument
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_brokenlib_brokenlib_workinglib(self):
         """
         Case 6: repeating broken libraries + working library.
         """
@@ -231,7 +232,7 @@ def fixture_gmt_lib_realpath():
     Return the real path of the GMT library.
     """
     lib_realpath = subprocess.check_output(
-        ["gmt", "--show-library"], encoding="utf-8"
+        [shutil.which("gmt"), "--show-library"], encoding="utf-8"
     ).rstrip("\n")
     # On Windows, clib_full_names() returns paths with separator "\\",
     # but "gmt --show-library" returns paths with separator "/".
@@ -268,7 +269,7 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
-        assert list(lib_fullpaths) == [gmt_lib_realpath] + gmt_lib_names
+        assert list(lib_fullpaths) == [gmt_lib_realpath, *gmt_lib_names]
 
 
 def test_clib_full_names_gmt_library_path_undefined_path_included(
@@ -280,9 +281,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
-
         assert isinstance(lib_fullpaths, types.GeneratorType)
         # Windows: find_library() searches the library in PATH, so one more
         npath = 2 if sys.platform == "win32" else 1
@@ -298,7 +298,7 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)
@@ -317,7 +317,7 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
-        mpatch.setenv("PATH", gmt_bin_dir)
+        mpatch.setenv("PATH", gmt_bin_dir, prepend=os.pathsep)
         lib_fullpaths = clib_full_names()
 
         assert isinstance(lib_fullpaths, types.GeneratorType)

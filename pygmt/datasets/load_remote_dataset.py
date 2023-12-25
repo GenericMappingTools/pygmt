@@ -1,6 +1,8 @@
 """
 Internal function to load GMT remote datasets.
 """
+from __future__ import annotations
+
 from typing import NamedTuple
 
 from pygmt.exceptions import GMTInvalidInput
@@ -58,7 +60,7 @@ class GMTRemoteDataset(NamedTuple):
     title: str
     name: str
     long_name: str
-    units: str
+    units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict
 
@@ -87,7 +89,7 @@ datasets = {
     "earth_free_air_anomaly": GMTRemoteDataset(
         title="free air anomaly",
         name="free_air_anomaly",
-        long_name="IGPP Global Earth Free-Air Anomaly",
+        long_name="IGPP Earth Free-Air Anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -107,7 +109,7 @@ datasets = {
     "earth_geoid": GMTRemoteDataset(
         title="Earth geoid",
         name="earth_geoid",
-        long_name="EGM2008 Global Earth Geoid",
+        long_name="EGM2008 Earth Geoid",
         units="m",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -192,7 +194,7 @@ datasets = {
     "earth_vgg": GMTRemoteDataset(
         title="Earth vertical gravity gradient",
         name="earth_vgg",
-        long_name="IGPP Global Earth Vertical Gravity Gradient",
+        long_name="IGPP Earth Vertical Gravity Gradient",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -273,7 +275,7 @@ def _load_remote_dataset(
     dataset = datasets[dataset_name]
 
     # check resolution
-    if resolution not in dataset.resolutions.keys():
+    if resolution not in dataset.resolutions:
         raise GMTInvalidInput(f"Invalid resolution '{resolution}'.")
 
     # check registration

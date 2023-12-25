@@ -42,7 +42,7 @@ from pygmt.helpers import (
     c="sequence_comma",
     p="sequence",
 )
-def text_(
+def text_(  # noqa: PLR0912
     self,
     textfiles=None,
     x=None,
@@ -76,8 +76,21 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of file names containing 1 or more
-        records with (x, y[, angle, font, justify], text).
+        A file name or a list of file names containing one or more records.
+        Each record has the following columns:
+
+        * *x*: X coordinate or longitude
+        * *y*: Y coordinate or latitude
+        * *angle*: Angle in degrees counter-clockwise from horizontal
+        * *font*: Text size, font, and color
+        * *justify*: Two-character justification code
+        * *text*: The text string to typeset
+
+        The *angle*, *font*, and *justify* columns are optional and can be set
+        by using the ``angle``, ``font``, and ``justify`` parameters,
+        respectively. If these parameters are set to ``True``, then the
+        corresponding columns must be present in the input file(s) and the
+        columns must be in the order mentioned above.
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
@@ -167,8 +180,7 @@ def text_(
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    # pylint: disable=too-many-branches,too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
@@ -182,7 +194,7 @@ def text_(
         if kind != "vectors" and text is not None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
-        if x is not None or y is not None or textfiles is not None:
+        if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
@@ -192,11 +204,8 @@ def text_(
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if kwargs.get("F") is None and (
-        position is not None
-        or angle is not None
-        or font is not None
-        or justify is not None
+    if kwargs.get("F") is None and any(
+        v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 

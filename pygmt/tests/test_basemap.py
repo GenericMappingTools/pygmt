@@ -5,6 +5,7 @@ import pytest
 from pygmt import Figure
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_basemap():
     """
@@ -79,7 +80,8 @@ def test_basemap_utm_projection(projection):
     works.
     """
     projection = projection.replace(
-        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
+        "EPSG_",
+        "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
     fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")

@@ -45,14 +45,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.0
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.5.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
@@ -72,6 +72,7 @@ jobs:
             contextily
             geopandas
             ipython
+            pyarrow
             rioxarray
             sphinx-gallery
             build
@@ -84,7 +85,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -102,9 +103,7 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull pygmt/tests/baseline/test_logo.png --verbose
-          ls -lhR pygmt/tests/baseline/
+        run: dvc pull pygmt/tests/baseline/test_logo.png && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package

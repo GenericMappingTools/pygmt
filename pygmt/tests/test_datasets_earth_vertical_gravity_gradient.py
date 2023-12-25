@@ -13,7 +13,7 @@ def test_earth_vertical_gravity_gradient_01d():
     data = load_earth_vertical_gravity_gradient(resolution="01d")
     assert data.name == "earth_vgg"
     assert data.attrs["units"] == "Eotvos"
-    assert data.attrs["long_name"] == "IGPP Global Earth Vertical Gravity Gradient"
+    assert data.attrs["long_name"] == "IGPP Earth Vertical Gravity Gradient"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
@@ -21,7 +21,7 @@ def test_earth_vertical_gravity_gradient_01d():
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -137.125, atol=1 / 32)
     npt.assert_allclose(data.max(), 104.59375, atol=1 / 32)
-    assert data[1, 1].isnull()
+    assert data[1, 1].isnull()  # noqa: PD003  # ruff's bug
 
 
 def test_earth_vertical_gravity_gradient_01d_with_region():

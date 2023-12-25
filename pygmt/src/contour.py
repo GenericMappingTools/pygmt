@@ -112,7 +112,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
