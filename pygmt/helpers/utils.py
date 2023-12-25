@@ -1,6 +1,7 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+# ruff: noqa: RUF001
 import os
 import pathlib
 import shutil
@@ -224,7 +225,7 @@ def non_ascii_to_octal(argstr):
     '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
-    """
+    """  # noqa: RUF002
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
