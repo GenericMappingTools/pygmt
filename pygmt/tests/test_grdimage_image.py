@@ -53,6 +53,7 @@ def test_grdimage_image():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_grdimage_image.png")
 def test_grdimage_image_dataarray(xr_image):
     """
