@@ -243,7 +243,7 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     return fig_ref, fig_test
 
 
-def test_grdimage_imgout(grid):
+def test_grdimage_imgout_fails(grid):
     """
     Test that an exception is raised if img_out/A is given.
     """
