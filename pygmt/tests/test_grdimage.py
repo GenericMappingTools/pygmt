@@ -131,6 +131,7 @@ def test_grdimage_shading_xarray(grid, shading):
     return fig_ref, fig_test
 
 
+@pytest.mark.benchmark
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
