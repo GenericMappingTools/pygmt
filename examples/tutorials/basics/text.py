@@ -64,7 +64,7 @@ fig.text(x=0, y=-3, text="my text")
 # centimeters down (negative y direction)
 fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
 
-fig.shift_origin(xshift="+w0.5c")
+fig.shift_origin(xshift="w+0.5c")
 
 # -----------------------------------------------------------------------------
 # Right: "justify" parameter
@@ -214,7 +214,7 @@ fig.text(
     justify="TL",
 )
 
-fig.shift_origin(xshift="+w1c")
+fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Right: Add a text label outside of the plot or map frame
