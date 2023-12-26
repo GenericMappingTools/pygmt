@@ -83,7 +83,7 @@ fig.plot(data=np.array([[4.0, 2.0], [6.0, 4.0]]), style="t0.2c", fill="red")
 
 # Pass a pandas.DataFrame to the 'data' parameter
 df = pd.DataFrame(np.array([[7.0, 3.0], [9.0, 2.0]]), columns=["x", "y"])
-fig.plot(data=df, style="a0.5c", fill="blue")
+fig.plot(data=df, style="a0.2c", fill="blue")
 
 fig.show()
 
