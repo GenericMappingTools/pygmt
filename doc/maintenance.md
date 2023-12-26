@@ -19,6 +19,7 @@ communication tools we use.
 
 - Added to the [pygmt-contributors team](https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors) (gives 'write' permission to the repository)
 - Added as collaborator on [DAGsHub](https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration) (gives 'write' permission to dvc remote storage)
+- Added to the {doc}`Team Gallery page <team>`
 - Added as member on the [PyGMT devs Slack channel](https://pygmtdevs.slack.com) (for casual conversations)
 - Added as member on [HackMD](https://hackmd.io/@pygmt) (for draft announcements) [optional]
 
@@ -86,25 +87,26 @@ The main advantages of this are:
 
 We use GitHub Actions continuous integration (CI) services to build, test and
 manage the project on Linux, macOS and Windows. The GitHub Actions CI are
-controlled by 14 workflow files located in `.github/workflows`. Here we briefly
+controlled by workflow files located in `.github/workflows`. Here we briefly
 summarize the functions of the workflows. Please refer to the comments in the
 workflow files for more details.
 
-1. `style_checks.yaml`: Code lint and style checks
-2. `check-links.yml`: Check links in the repository and documentation
-3. `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
-4. `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
-5. `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
-6. `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
-7. `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
-8. `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
-9. `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
-10. `release-drafter.yml`: Draft the next release notes
-11. `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
-12. `format-command.yml`: Format the codes using slash command
-13. `dvc-diff.yml`: Report changes in test images
-14. `slash-command-dispatch.yml`: Support slash commands in pull requests
-15. `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
+- `style_checks.yaml`: Code lint and style checks
+- `type_checks.yml`: Static type checks
+- `check-links.yml`: Check links in the repository and documentation
+- `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
+- `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
+- `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
+- `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
+- `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
+- `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
+- `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
+- `release-drafter.yml`: Draft the next release notes
+- `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
+- `format-command.yml`: Format the codes using slash command
+- `dvc-diff.yml`: Report changes in test images
+- `slash-command-dispatch.yml`: Support slash commands in pull requests
+- `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
 
 
 ## Continuous Documentation
@@ -112,7 +114,7 @@ workflow files for more details.
 We use the [ReadtheDocs](https://readthedocs.org/) service to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file `.readthedocs.yaml`, with a list of options
-to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.
+to change the default behaviour at <https://docs.readthedocs.io/en/stable/config-file/index.html>.
 
 
 ## Dependencies Policy
@@ -134,7 +136,8 @@ adjusted upward on every major and minor release, but never on a patch release.
 
 PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
-[semantic versioning specification](https://semver.org/spec/v2.0.0.html) (e.g. vMAJOR.MINOR.PATCH).
+[semantic versioning specification](https://semver.org/spec/v2.0.0.html)
+(i.e., v*MAJOR*.*MINOR*.*PATCH*).
 Basic policy for backwards compatibility:
 
 - Any incompatible changes should go through the deprecation process below.
@@ -175,24 +178,25 @@ will be fully removed in v0.6.0. The new parameter name is `incols`.
 
 We try to automate the release process as much as possible.
 GitHub Actions workflow handles publishing new releases to PyPI and updating the documentation.
-The version number is set automatically using setuptools_scm based information
-obtained from git.
+The version number is set automatically using [setuptools_scm](https://pypi.org/project/setuptools-scm/)
+based information obtained from git.
 There are a few steps that still must be done manually, though.
 
 ### Updating the Changelog
 
-The Release Drafter GitHub Action will automatically keep a draft changelog at
-https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
+The [Release Drafter](https://github.com/release-drafter/release-drafter) GitHub Action
+will automatically keep a draft changelog at
+<https://github.com/GenericMappingTools/pygmt/releases>, adding a new entry
 every time a pull request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
-at .github/workflows/release-drafter.yml, and one for the changelog template
-at .github/release-drafter.yml. Configuration settings can be found at
-https://github.com/release-drafter/release-drafter.
+at `.github/workflows/release-drafter.yml`, and one for the changelog template
+at `.github/release-drafter.yml`. Configuration settings can be found at
+<https://github.com/release-drafter/release-drafter>.
 
 The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at https://www.pygmt.org/latest/changes.html.
+publishing the actual release notes at {doc}`changes`.
 
-1. Go to https://github.com/GenericMappingTools/pygmt/releases and click on the
+1. Go to <https://github.com/GenericMappingTools/pygmt/releases> and click on the
    'Edit' button next to the current draft release note. Copy the text of the
    automatically drafted release notes under the 'Write' tab to
    `doc/changes.md`. Add a section separator `---` between the new and old
@@ -212,7 +216,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    such that similar items are located near each other (e.g., new wrapped
    modules and methods, gallery examples, API docs changes) and entries within each group
    are alphabetical.
-6. Move a few important items from the main sections to the highlights section.
+6. Move a few important items from the main sections to the Highlights section.
 7. Edit the list of people who contributed to the release, linking to their
    GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
@@ -226,7 +230,7 @@ publishing the actual release notes at https://www.pygmt.org/latest/changes.html
    DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
    More information about the `CITATION.cff` specification can be found at
-   https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md
+   <https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md>.
 
 ### Check the README Syntax
 
@@ -238,10 +242,10 @@ the latest commit, and review the left sidebar and project description for any e
 ### Pushing to PyPI and Updating the Documentation
 
 After the changelog is updated, making a release can be done by going to
-https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
+<https://github.com/GenericMappingTools/pygmt/releases>, editing the draft release,
 and clicking on publish. A git tag will also be created, make sure that this
 tag is a proper version number (following [Semantic Versioning](https://semver.org/))
-with a leading `v`. E.g. `v0.2.1`.
+with a leading `v` (e.g., `v0.2.1`).
 
 Once the release/tag is created, this should trigger GitHub Actions to do all the work for us.
 A new source distribution will be uploaded to PyPI, a new folder with the documentation
@@ -263,8 +267,9 @@ If changes need to be done manually, you can:
 1. Fork the [pygmt feedstock repository](https://github.com/conda-forge/pygmt-feedstock) if
    you haven't already. If you have a fork, update it.
 2. Update the version number and sha256 hash on `recipe/meta.yaml`. You can get the hash
-   from the PyPI "Download files" section.
+   from the [PyPI "Download files" section](https://pypi.org/project/pygmt/#files).
 3. Add or remove any new dependencies (most are probably only `run` dependencies).
+4. Make sure the mimimum support versions of all dependencies are correctly pinned.
 4. Make a new branch, commit, and push the changes **to your personal fork**.
 5. Create a PR against the original feedstock main.
 6. Once the CI tests pass, merge the PR or ask a maintainer to do so.
