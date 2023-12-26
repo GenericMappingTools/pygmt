@@ -56,7 +56,7 @@ def load_mars_relief(
         arc-degrees, arc-minutes and arc-seconds. It can be ``"01d"``,
         ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``,
         ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``, and
-        ``"14s"``.
+        ``"12s"``.
     region : str or list
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
