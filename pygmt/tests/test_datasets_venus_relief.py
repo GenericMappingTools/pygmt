@@ -3,15 +3,21 @@ Test basic functionality for loading Venus relief datasets.
 """
 import numpy as np
 import numpy.testing as npt
+import pytest
 from pygmt.datasets import load_venus_relief
 
 
-def test_mars_relief_01d():
+@pytest.fixture(autouse=True)
+def _use_candidate_server(monkeypatch):
+    monkeypatch.setenv("GMT_DATA_SERVER", "candidate")
+
+
+def test_venus_relief_01d():
     """
     Test some properties of the Venus relief 01d data.
     """
     data = load_venus_relief(resolution="01d")
-    assert data.name == "mars relief"
+    assert data.name == "venus relief"
     assert data.attrs["units"] == "meters"
     assert data.attrs["long_name"] == "Venus relief"
     assert data.shape == (181, 361)
@@ -22,7 +28,7 @@ def test_mars_relief_01d():
     npt.assert_allclose(data.max(), 19587.5, atol=0.5)
 
 
-def test_mars_relief_01d_with_region():
+def test_venus_relief_01d_with_region():
     """
     Test loading low-resolution Venus relief with 'region'.
     """
@@ -35,7 +41,7 @@ def test_mars_relief_01d_with_region():
     npt.assert_allclose(data.max(), -135.5, atol=0.5)
 
 
-def test_mars_relief_01m_default_registration():
+def test_venus_relief_01m_default_registration():
     """
     Test that the grid returned by default for the 1 arc-minute resolution has
     a "gridline" registration.
