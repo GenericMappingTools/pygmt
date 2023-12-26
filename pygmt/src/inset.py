@@ -128,7 +128,8 @@ def inset(self, **kwargs):
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" statement are plotted in the main figure
+    >>> # Map elements outside the "with" statement are plotted in the main
+    >>> # figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
