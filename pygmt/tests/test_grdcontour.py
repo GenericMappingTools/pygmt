@@ -33,6 +33,7 @@ def test_grdcontour(grid):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdcontour_labels(grid):
     """

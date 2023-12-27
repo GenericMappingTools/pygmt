@@ -53,6 +53,7 @@ def test_grdgradient_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdgradient_no_outgrid(grid, expected_grid):
     """
     Test the azimuth and direction parameters for grdgradient with no set
