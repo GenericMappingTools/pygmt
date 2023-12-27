@@ -91,6 +91,7 @@ def test_rose_2d_array_multiple(data):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_rose_plot_data_using_cpt(data):
     """
