@@ -244,22 +244,18 @@ def _load_remote_dataset(  # noqa: PLR0912
 
     Parameters
     ----------
-    dataset_name : str
+    dataset_name
         The name for the dataset in the 'datasets' dictionary.
-
-    dataset_prefix : str
+    dataset_prefix
         The prefix for the dataset that will be passed to the GMT C API.
-
-    resolution : str
+    resolution
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
         arc-degrees, arc-minutes, and arc-seconds, respectively.
-
-    region : str or list
+    region
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
         Required for tiled grids.
-
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
         a gridline-registered grid is returned unless only the
