@@ -65,7 +65,6 @@ def convention_code(convention, component="full"):
 
     >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
     ...     assert convention_code(code) == code
-    ...
 
     >>> convention_code("invalid")
     Traceback (most recent call last):

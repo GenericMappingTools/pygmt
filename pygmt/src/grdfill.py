@@ -70,9 +70,7 @@ def grdfill(grid, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
-    >>> earth_relief_holes = pygmt.datasets.load_sample_data(
-    ...     name="earth_relief_holes"
-    ... )
+    >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
     >>> # Perform grid filling operations on the sample grid
     >>> # Set all empty values to "20"
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, mode="c20")

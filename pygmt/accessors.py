@@ -57,9 +57,7 @@ class GMTDataArrayAccessor:
     >>> lon = np.arange(0, 360 + interval, interval)
     >>> longrid, latgrid = np.meshgrid(lon, lat)
     >>> data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))
-    >>> grid = xr.DataArray(
-    ...     data, coords=[("latitude", lat), ("longitude", lon)]
-    ... )
+    >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
     >>> # default to a gridline-registrated Cartesian grid
     >>> grid.gmt.registration, grid.gmt.gtype
     (0, 0)
