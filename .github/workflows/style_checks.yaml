@@ -38,7 +38,7 @@ jobs:
           python -m pip list
           sudo apt-get install dos2unix
 
-      - name: Formatting check
+      - name: Formatting check (docformatter, ruff)
         run: make check
 
       - name: Ensure files use UNIX line breaks and have 644 permission
