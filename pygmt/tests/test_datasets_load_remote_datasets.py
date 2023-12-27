@@ -19,6 +19,21 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
     )
 
 
+@pytest.mark.benchmark
+def test_load_remote_dataset_benchmark_with_region():
+    """
+    Benchmark loading a remote dataset with 'region'.
+    """
+    data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
+    assert data.name == "seafloor_age"
+    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.attrs["cpt"] == "@earth_age.cpt"
+    assert data.attrs["units"] == "Myr"
+    assert data.attrs["horizontal_datum"] == "WGS84"
+    assert data.gmt.registration == 0
+    assert data.shape == (11, 21)
+
+
 def test_load_remote_dataset_invalid_resolutions():
     """
     Make sure _load_remote_dataset fails for invalid resolutions.
