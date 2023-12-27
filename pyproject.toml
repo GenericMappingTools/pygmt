@@ -132,6 +132,10 @@ select = [
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
 ]
+extend-select = [
+    "D213",  # Summary lines should be positioned on the second physical line of the docstring.
+    "D410",  # A blank line after section headings.
+]
 ignore = [
     "D200",     # One-line docstring should fit on one line
     "D205",     # 1 blank line required between summary line and description
@@ -161,6 +165,8 @@ known-third-party = ["pygmt"]
 max-doc-length = 88
 
 [tool.ruff.lint.pydocstyle]
+# See https://docs.astral.sh/ruff/faq/#does-ruff-support-numpy-or-google-style-docstrings
+# for the enabled/disabled rules for the "numpy" convention.
 convention = "numpy"
 
 [tool.ruff.lint.pylint]
