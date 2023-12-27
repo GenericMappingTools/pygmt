@@ -46,6 +46,7 @@ def test_blockmean_input_table_matrix(array_func, dataframe):
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
+@pytest.mark.benchmark
 def test_blockmean_input_xyz(dataframe):
     """
     Run blockmean by passing in x/y/z as input.
@@ -101,6 +102,7 @@ def test_blockmean_without_outfile_setting():
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
+@pytest.mark.benchmark
 def test_blockmode_input_dataframe(dataframe):
     """
     Run blockmode by passing in a pandas.DataFrame as input.
