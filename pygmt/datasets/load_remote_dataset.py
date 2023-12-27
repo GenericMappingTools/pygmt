@@ -3,12 +3,15 @@ Internal function to load GMT remote datasets.
 """
 from __future__ import annotations
 
-from typing import ClassVar, NamedTuple
+from typing import TYPE_CHECKING, ClassVar, NamedTuple
 
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
 from pygmt.io import load_dataarray
 from pygmt.src import grdcut, which
+
+if TYPE_CHECKING:
+    import xarray as xr
 
 
 class Resolution(NamedTuple):
@@ -230,8 +233,12 @@ datasets = {
 
 @kwargs_to_strings(region="sequence")
 def _load_remote_dataset(  # noqa: PLR0912
-    dataset_name, dataset_prefix, resolution, region, registration
-):
+    dataset_name: str,
+    dataset_prefix: str,
+    resolution: str,
+    region: str | list,
+    registration: str,
+) -> xr.DataArray:
     r"""
     Load GMT remote datasets.
 
