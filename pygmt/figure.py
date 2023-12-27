@@ -88,7 +88,9 @@ class Figure:
         self._activate_figure()
 
     def __del__(self):
-        # Clean up the temporary directory that stores the previews
+        """
+        Clean up the temporary directory that stores the previews.
+        """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 

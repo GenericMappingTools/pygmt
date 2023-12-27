@@ -203,10 +203,15 @@ class config:  # noqa: N801
             lib.call_module(module="set", args=arg_str)
 
     def __enter__(self):
+        """
+        Do nothing but return the object.
+        """
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        # revert to initial values
+        """
+        Revert the configurations to initial values.
+        """
         arg_str = " ".join(
             [f'{key}="{value}"' for key, value in self.old_defaults.items()]
         )
