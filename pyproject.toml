@@ -103,6 +103,7 @@ select = [
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
+    "D",    # pydocstyle
     "E",    # pycodestyle
     "EXE",  # flake8-executable
     "F",    # pyflakes
@@ -152,6 +153,9 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 88
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
 
 [tool.ruff.lint.pylint]
 max-args=10
