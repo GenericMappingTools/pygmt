@@ -55,6 +55,7 @@ def test_grdclip_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdclip_no_outgrid(grid, expected_grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.
