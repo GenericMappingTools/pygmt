@@ -3,10 +3,12 @@ Test the session management modules.
 """
 import os
 
+import pytest
 from pygmt.clib import Session
 from pygmt.session_management import begin, end
 
 
+@pytest.mark.benchmark
 def test_begin_end():
     """
     Run a command inside a begin-end modern mode block.

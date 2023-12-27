@@ -103,6 +103,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     check_values(output, expected_grid)
 
 
+@pytest.mark.benchmark
 def test_surface_input_xyz(data, region, spacing, expected_grid):
     """
     Run surface by passing in x, y, z numpy.ndarrays individually.

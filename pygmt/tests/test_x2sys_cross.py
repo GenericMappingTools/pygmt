@@ -71,6 +71,7 @@ def test_x2sys_cross_input_file_output_dataframe():
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
 
 
+@pytest.mark.benchmark
 @pytest.mark.usefixtures("mock_x2sys_home")
 def test_x2sys_cross_input_dataframe_output_dataframe(tracks):
     """

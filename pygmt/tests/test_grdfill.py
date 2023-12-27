@@ -71,6 +71,7 @@ def fixture_expected_grid():
     )
 
 
+@pytest.mark.benchmark
 def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.

@@ -198,6 +198,7 @@ def download_test_data():
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
         # Other cache files
         "@capitals.gmt",
+        "@circuit.png",
         "@earth_relief_20m_holes.grd",
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
