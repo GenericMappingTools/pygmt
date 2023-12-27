@@ -75,14 +75,6 @@ ignore-words-list = "astroid,oints,reenable,tripel,trough"
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
-[tool.docformatter]
-black = true
-recursive = true
-pre-summary-newline = true
-make-summary-multi-line = true
-wrap-summaries = 79
-wrap-descriptions = 79
-
 [tool.mypy]
 exclude = ["pygmt/tests/"]
 ignore_missing_imports = true

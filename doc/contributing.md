@@ -473,7 +473,6 @@ code, be sure to follow the general guidelines in the
 
 We use some tools to format the code so we don't have to think about it:
 
-- [docformatter](https://github.com/myint/docformatter)
 - [ruff](https://docs.astral.sh/ruff)
 
 These tools loosely follow the [PEP8](http://pep8.org) guide but with a few
@@ -511,7 +510,7 @@ The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile
 contains rules for running the linter checks:
 
 ```bash
-make check   # Runs docformatter and ruff (in check mode)
+make check   # Runs ruff in check mode
 ```
 
 ### Testing your Code
