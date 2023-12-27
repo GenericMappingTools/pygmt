@@ -61,6 +61,7 @@ def test_timestamp_offset():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_timestamp_font(faketime):
     """

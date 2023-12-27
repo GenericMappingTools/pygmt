@@ -61,6 +61,7 @@ def fixture_gdf_ridge():
     return gdf
 
 
+@pytest.mark.benchmark
 def test_geopandas_info_geodataframe(gdf):
     """
     Check that info can return the bounding box region from a

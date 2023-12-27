@@ -214,6 +214,7 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """

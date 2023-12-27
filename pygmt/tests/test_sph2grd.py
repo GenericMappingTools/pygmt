@@ -4,6 +4,7 @@ Test pygmt.sph2grd.
 from pathlib import Path
 
 import numpy.testing as npt
+import pytest
 from pygmt import sph2grd
 from pygmt.helpers import GMTTempFile
 
@@ -20,6 +21,7 @@ def test_sph2grd_outgrid():
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sph2grd_no_outgrid():
     """
     Test sph2grd with no set outgrid.

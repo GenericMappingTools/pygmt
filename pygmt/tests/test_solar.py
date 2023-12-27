@@ -39,6 +39,7 @@ def test_solar_terminators():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
 @pytest.mark.parametrize(
     "terminator_datetime",
