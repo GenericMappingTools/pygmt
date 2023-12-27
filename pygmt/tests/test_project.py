@@ -34,6 +34,7 @@ def test_project_generate():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
 def test_project_input_matrix(array_func, dataframe):
     """
