@@ -71,6 +71,7 @@ def test_makecpt_plot_colorbar_scaled_with_series(position):
     return fig
 
 
+@pytest.mark.benchmark
 def test_makecpt_output_cpt_file():
     """
     Save the generated static color palette table to a .cpt file.
