@@ -270,6 +270,6 @@ If changes need to be done manually, you can:
    from the [PyPI "Download files" section](https://pypi.org/project/pygmt/#files).
 3. Add or remove any new dependencies (most are probably only `run` dependencies).
 4. Make sure the mimimum support versions of all dependencies are correctly pinned.
-4. Make a new branch, commit, and push the changes **to your personal fork**.
-5. Create a PR against the original feedstock main.
-6. Once the CI tests pass, merge the PR or ask a maintainer to do so.
+5. Make a new branch, commit, and push the changes **to your personal fork**.
+6. Create a PR against the original feedstock main.
+7. Once the CI tests pass, merge the PR or ask a maintainer to do so.
