@@ -91,22 +91,22 @@ controlled by workflow files located in `.github/workflows`. Here we briefly
 summarize the functions of the workflows. Please refer to the comments in the
 workflow files for more details.
 
-- `style_checks.yaml`: Code lint and style checks
-- `type_checks.yml`: Static type checks
+- `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
+- `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
 - `check-links.yml`: Check links in the repository and documentation
+- `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
+- `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
 - `ci_tests.yaml`: Run regular PyGMT tests on Linux/macOS/Windows
 - `ci_tests_dev.yaml`: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows
 - `ci_tests_legacy.yaml`: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows
-- `ci_docs.yml`: Build documentation on Linux/macOS/Windows and deploy to GitHub
-- `ci_doctest.yaml`: Run all doctests on Linux/macOS/Windows
-- `cache_data.yaml`: Cache GMT remote data files and uplodas as artifacts
-- `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
-- `release-drafter.yml`: Draft the next release notes
-- `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
-- `format-command.yml`: Format the codes using slash command
 - `dvc-diff.yml`: Report changes in test images
+- `format-command.yml`: Format the codes using slash command
+- `publish-to-pypi.yml`: Publish archives to PyPI and TestPyPI
+- `release-baseline-images.yml`: Upload the ZIP archive of baseline images as a release asset
+- `release-drafter.yml`: Draft the next release notes
 - `slash-command-dispatch.yml`: Support slash commands in pull requests
-- `benchmarks.yml`: Benchmarks the execution speed of tests to track performance of PyGMT functions
+- `style_checks.yaml`: Code lint and style checks
+- `type_checks.yml`: Static type checks
 
 
 ## Continuous Documentation
