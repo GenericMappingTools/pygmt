@@ -406,7 +406,7 @@ arguments and return values.
 
 While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
+limited to 88 characters** per line.
 
 ### Standards for Example Code
 
@@ -471,13 +471,10 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to format the code so we don't have to think about it:
-
-- [ruff](https://docs.astral.sh/ruff)
-
-These tools loosely follow the [PEP8](http://pep8.org) guide but with a few
-differences. Regardless, you won't have to worry about formatting the code yourself.
-Before committing, run it to automatically format your code:
+We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
+don't have to think about it. It loosely follow the [PEP8](http://pep8.org) guide
+but with a few differences. Regardless, you won't have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:
 
 ```bash
 make format
