@@ -47,6 +47,7 @@ def test_accessor_set_pixel_registration():
     assert grid.gmt.registration == 1  # ensure changed to pixel registration
 
 
+@pytest.mark.benchmark
 def test_accessor_set_geographic_cartesian_roundtrip():
     """
     Check that we can set a grid to switch between the default Cartesian
