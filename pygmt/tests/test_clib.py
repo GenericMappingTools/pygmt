@@ -130,6 +130,7 @@ def test_destroy_session_fails():
     ses.destroy()
 
 
+@pytest.mark.benchmark
 def test_call_module():
     """
     Run a command to see if call_module works.
@@ -388,6 +389,7 @@ def test_write_data_fails():
                 )
 
 
+@pytest.mark.benchmark
 def test_dataarray_to_matrix_works():
     """
     Check that dataarray_to_matrix returns correct output.
