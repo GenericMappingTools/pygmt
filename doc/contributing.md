@@ -473,7 +473,6 @@ code, be sure to follow the general guidelines in the
 
 We use some tools to format the code so we don't have to think about it:
 
-- [blackdoc](https://github.com/keewis/blackdoc)
 - [docformatter](https://github.com/myint/docformatter)
 - [ruff](https://docs.astral.sh/ruff)
 
@@ -512,7 +511,7 @@ The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile
 contains rules for running the linter checks:
 
 ```bash
-make check   # Runs blackdoc, docformatter, ruff (in check mode)
+make check   # Runs docformatter and ruff (in check mode)
 ```
 
 ### Testing your Code

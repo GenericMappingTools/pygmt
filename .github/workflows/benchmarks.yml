@@ -64,6 +64,24 @@ jobs:
                         geopandas pyarrow pytest pytest-benchmark pytest-mpl
           python -m pip install -U pytest-codspeed setuptools
 
+      # Download cached remote files (artifacts) from GitHub
+      - name: Download remote data from GitHub
+        uses: dawidd6/action-download-artifact@v3.0.0
+        with:
+          workflow: cache_data.yaml
+          workflow_conclusion: success
+          name: gmt-cache
+          path: .gmt
+
+      # Move downloaded files to ~/.gmt directory and list them
+      - name: Move and list downloaded remote files
+        run: |
+          mkdir -p ~/.gmt
+          mv .gmt/* ~/.gmt
+          # Change modification times of the two files, so GMT won't refresh it
+          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          ls -lhR ~/.gmt
+
       # Install the package that we want to test
       - name: Install the package
         run: make install
