@@ -18,6 +18,7 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grd2cpt(grid):
     """

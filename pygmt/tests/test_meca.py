@@ -81,6 +81,7 @@ def test_meca_spec_single_focalmecha_file():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_meca_spec_multiple_focalmecha.png")
 @pytest.mark.parametrize(
     "inputtype", ["dict_mecha", "dict_mecha_mixed", "dataframe", "array2d"]

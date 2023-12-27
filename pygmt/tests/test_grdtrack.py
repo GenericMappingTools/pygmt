@@ -55,6 +55,7 @@ def fixture_dataframe():
     )
 
 
+@pytest.mark.benchmark
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_array):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as
