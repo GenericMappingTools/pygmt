@@ -133,6 +133,12 @@ select = [
     "YTT",  # flake8-2020
 ]
 ignore = [
+    "D200",     # One-line docstring should fit on one line
+    "D205",     # 1 blank line required between summary line and description
+    "D400",     # First line should end with a period
+    "D401",     # First line of docstring should be in imperative mood
+    "D412",     # No blank lines allowed between a section header and its content
+    "D202",     # No blank lines allowed after function docstring
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
