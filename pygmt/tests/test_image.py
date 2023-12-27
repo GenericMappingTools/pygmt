@@ -1,13 +1,10 @@
 """
 Test Figure.image.
 """
-import sys
-
 import pytest
 from pygmt import Figure
 
 
-@pytest.mark.skipif(sys.platform == "win32", reason="crashes on Windows")
 @pytest.mark.mpl_image_compare
 def test_image():
     """
