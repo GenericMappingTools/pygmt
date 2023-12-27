@@ -18,16 +18,17 @@ class Resolution(NamedTuple):
 
     Attributes
     ----------
+    code : str
+        The resolution code.
     registrations : list
         A list of the accepted registrations for a given resolution.
         Can be either "pixel" or "gridline".
-
     tiled : bool
         States if the given resolution is tiled, which requires an
         argument for ``region``.
     """
 
-    code : str
+    code: str
     registrations: ClassVar = ["gridline", "pixel"]
     tiled: bool = False
 
@@ -40,20 +41,14 @@ class GMTRemoteDataset(NamedTuple):
     ----------
     title : str
         The title of the dataset, used in error messages.
-
     name : str
         The name assigned as an attribute to the DataArray.
-
     long_name : str
         The long name assigned as an attribute to the DataArray.
-
     units : str
         The units of the values in the DataArray.
-
-    resolutions : dict
-        Dictionary of available resolution as keys and the values are
-        Resolution objects.
-
+    resolutions : list
+        List of Resolution objects.
     extra_attributes : dict
         A dictionary of extra or unique attributes of the dataset.
     """
@@ -62,7 +57,7 @@ class GMTRemoteDataset(NamedTuple):
     name: str
     long_name: str
     units: str | None
-    resolutions: [Resolution]
+    resolutions: list[Resolution]
     extra_attributes: dict
 
 
@@ -85,156 +80,156 @@ datasets = {
             Resolution("03m", tiled=True),
             Resolution("02m", tiled=True),
             Resolution("01m", registrations=["gridline"], tiled=True),
-        ]
+        ],
     ),
-    # "earth_free_air_anomaly": GMTRemoteDataset(
-    #     title="free air anomaly",
-    #     name="free_air_anomaly",
-    #     long_name="IGPP Earth Free-Air Anomaly",
-    #     units="mGal",
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline", "pixel"], True),
-    #         "02m": Resolution(["gridline", "pixel"], True),
-    #         "01m": Resolution(["pixel"], True),
-    #     },
-    # ),
-    # "earth_geoid": GMTRemoteDataset(
-    #     title="Earth geoid",
-    #     name="earth_geoid",
-    #     long_name="EGM2008 Earth Geoid",
-    #     units="m",
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline", "pixel"], True),
-    #         "02m": Resolution(["gridline", "pixel"], True),
-    #         "01m": Resolution(["gridline"], True),
-    #     },
-    # ),
-    # "earth_magnetic_anomaly": GMTRemoteDataset(
-    #     title="Earth magnetic anomaly",
-    #     name="magnetic_anomaly",
-    #     long_name="Earth magnetic anomaly",
-    #     units="nT",
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline", "pixel"], True),
-    #         "02m": Resolution(["pixel"], True),
-    #     },
-    # ),
-    # "earth_mask": GMTRemoteDataset(
-    #     title="Earth mask",
-    #     name="earth_mask",
-    #     long_name="Mask of land and water features",
-    #     units=None,
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], False),
-    #         "04m": Resolution(["gridline", "pixel"], False),
-    #         "03m": Resolution(["gridline", "pixel"], False),
-    #         "02m": Resolution(["gridline", "pixel"], False),
-    #         "01m": Resolution(["gridline", "pixel"], False),
-    #         "30s": Resolution(["gridline", "pixel"], False),
-    #         "15s": Resolution(["gridline", "pixel"], False),
-    #     },
-    # ),
-    # "earth_relief": GMTRemoteDataset(
-    #     title="Earth relief",
-    #     name="elevation",
-    #     long_name="Earth elevation relative to the geoid",
-    #     units="meters",
-    #     extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline", "pixel"], True),
-    #         "02m": Resolution(["gridline", "pixel"], True),
-    #         "01m": Resolution(["gridline", "pixel"], True),
-    #         "30s": Resolution(["gridline", "pixel"], True),
-    #         "15s": Resolution(["pixel"], True),
-    #         "03s": Resolution(["gridline"], True),
-    #         "01s": Resolution(["gridline"], True),
-    #     },
-    # ),
-    # "earth_vgg": GMTRemoteDataset(
-    #     title="Earth vertical gravity gradient",
-    #     name="earth_vgg",
-    #     long_name="IGPP Earth Vertical Gravity Gradient",
-    #     units="Eotvos",
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline", "pixel"], True),
-    #         "02m": Resolution(["gridline", "pixel"], True),
-    #         "01m": Resolution(["pixel"], True),
-    #     },
-    # ),
-    # "earth_wdmam": GMTRemoteDataset(
-    #     title="WDMAM magnetic anomaly",
-    #     name="wdmam",
-    #     long_name="World Digital Magnetic Anomaly Map",
-    #     units="nT",
-    #     extra_attributes={"horizontal_datum": "WGS84"},
-    #     resolutions={
-    #         "01d": Resolution(["gridline", "pixel"], False),
-    #         "30m": Resolution(["gridline", "pixel"], False),
-    #         "20m": Resolution(["gridline", "pixel"], False),
-    #         "15m": Resolution(["gridline", "pixel"], False),
-    #         "10m": Resolution(["gridline", "pixel"], False),
-    #         "06m": Resolution(["gridline", "pixel"], False),
-    #         "05m": Resolution(["gridline", "pixel"], True),
-    #         "04m": Resolution(["gridline", "pixel"], True),
-    #         "03m": Resolution(["gridline"], True),
-    #     },
-    # ),
+    "earth_free_air_anomaly": GMTRemoteDataset(
+        title="free air anomaly",
+        name="free_air_anomaly",
+        long_name="IGPP Earth Free-Air Anomaly",
+        units="mGal",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", tiled=True),
+            Resolution("02m", tiled=True),
+            Resolution("01m", registrations=["pixel"], tiled=True),
+        ],
+    ),
+    "earth_geoid": GMTRemoteDataset(
+        title="Earth geoid",
+        name="earth_geoid",
+        long_name="EGM2008 Earth Geoid",
+        units="m",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", tiled=True),
+            Resolution("02m", tiled=True),
+            Resolution("01m", registrations=["gridline"], tiled=True),
+        ],
+    ),
+    "earth_magnetic_anomaly": GMTRemoteDataset(
+        title="Earth magnetic anomaly",
+        name="magnetic_anomaly",
+        long_name="Earth magnetic anomaly",
+        units="nT",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", tiled=True),
+            Resolution("02m", registrations=["pixel"], tiled=True),
+        ],
+    ),
+    "earth_mask": GMTRemoteDataset(
+        title="Earth mask",
+        name="earth_mask",
+        long_name="Mask of land and water features",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m"),
+            Resolution("04m"),
+            Resolution("03m"),
+            Resolution("02m"),
+            Resolution("01m"),
+            Resolution("30s"),
+            Resolution("15s"),
+        ],
+    ),
+    "earth_relief": GMTRemoteDataset(
+        title="Earth relief",
+        name="elevation",
+        long_name="Earth elevation relative to the geoid",
+        units="meters",
+        extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", tiled=True),
+            Resolution("02m", tiled=True),
+            Resolution("01m", tiled=True),
+            Resolution("30s", tiled=True),
+            Resolution("15s", registrations=["pixel"], tiled=True),
+            Resolution("03s", registrations=["gridline"], tiled=True),
+            Resolution("01s", registrations=["gridline"], tiled=True),
+        ],
+    ),
+    "earth_vgg": GMTRemoteDataset(
+        title="Earth vertical gravity gradient",
+        name="earth_vgg",
+        long_name="IGPP Earth Vertical Gravity Gradient",
+        units="Eotvos",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", tiled=True),
+            Resolution("02m", tiled=True),
+            Resolution("01m", registrations=["pixel"], tiled=True),
+        ],
+    ),
+    "earth_wdmam": GMTRemoteDataset(
+        title="WDMAM magnetic anomaly",
+        name="wdmam",
+        long_name="World Digital Magnetic Anomaly Map",
+        units="nT",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions=[
+            Resolution("01d"),
+            Resolution("30m"),
+            Resolution("20m"),
+            Resolution("15m"),
+            Resolution("10m"),
+            Resolution("06m"),
+            Resolution("05m", tiled=True),
+            Resolution("04m", tiled=True),
+            Resolution("03m", registrations=["gridline"], tiled=True),
+        ],
+    ),
 }
 
 
 @kwargs_to_strings(region="sequence")
-def _load_remote_dataset(
+def _load_remote_dataset(  # noqa: PLR0912
     dataset_name, dataset_prefix, resolution, region, registration
 ):
     r"""
