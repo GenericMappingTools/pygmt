@@ -103,7 +103,7 @@ If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/ind
 
     conda install --channel conda-forge pygmt
 
-For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+For other ways to install ``pygmt``, see the `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
 Getting started
 +++++++++++++++
