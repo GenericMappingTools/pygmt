@@ -144,8 +144,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
+    Convenience function to download remote data files used in PyGMT tests and docs.
     """
     # List of datasets to download
     datasets = [
@@ -239,8 +238,8 @@ def load_static_earth_relief():
 
 def skip_if_no(package):
     """
-    Generic function to help skip tests when required packages are not present
-    on the testing system.
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
 
     This function returns a pytest mark with a skip condition that will be
     evaluated during test collection. An attempt will be made to import the

@@ -65,8 +65,7 @@ def test_sphdistance_no_outgrid(array):
 
 def test_sphdistance_fails(array):
     """
-    Check that sphdistance fails correctly when neither increment nor region is
-    given.
+    Check that sphdistance fails correctly when neither increment nor region is given.
     """
     with pytest.raises(GMTInvalidInput):
         sphdistance(data=array)
