@@ -32,7 +32,7 @@ class Resolution(NamedTuple):
     """
 
     code: str
-    registrations: ClassVar = ["gridline", "pixel"]
+    registrations: ClassVar[list] = ["gridline", "pixel"]
     tiled: bool = False
 
 
