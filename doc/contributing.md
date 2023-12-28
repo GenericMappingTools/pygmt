@@ -333,11 +333,11 @@ __doctest_skip__ = ["module_name"]
 At the end of the function's docstring:
 
 ```python
-    Example
-    -------
-    >>> import pygmt
-    >>> # Comment describing what is happening
-    >>> Code example
+Example
+-------
+>>> import pygmt
+>>> # Comment describing what is happening
+>>> Code example
 ```
 
 ### Contributing Gallery Plots
