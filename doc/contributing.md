@@ -326,18 +326,19 @@ begin with `>>>`.  To keep this example code from being run during testing, add 
 
 Below the import statements at the top of the file
 
-``
+```
 __doctest_skip__ = ["module_name"]
-``
+```
 
-At the end of the function's docstring
+At the end of the function's docstring:
 
+```python
     Example
     -------
     >>> import pygmt
     >>> # Comment describing what is happening
     >>> Code example
-
+```
 
 ### Contributing Gallery Plots
 
@@ -580,7 +581,9 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting method works"
+    """
+    Test that my plotting method works.
+    """
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     return fig
