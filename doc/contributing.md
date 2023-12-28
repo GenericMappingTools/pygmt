@@ -675,20 +675,22 @@ summarized as follows:
     dvc push  # Run before git push to enable automated testing with the new images
     git push
 
-#### Using check_figures_equal
+#### Using `check_figures_equal`
 
 This approach draws the same figure using two different methods (the reference
 method and the tested method), and checks that both of them are the same.
-It takes two `pygmt.Figure` objects ('fig_ref' and 'fig_test'), generates a png
+It takes two `pygmt.Figure` objects (`fig_ref` and `fig_test`), generates a png
 image, and checks for the Root Mean Square (RMS) error between the two.
 Here's an example:
 
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting method works"
-  fig_ref, fig_test = Figure(), Figure()
-  fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-  fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
-  return fig_ref, fig_test
+    """
+    Test that my plotting method works.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    return fig_ref, fig_test
 ```
