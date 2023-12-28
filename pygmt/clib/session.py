@@ -87,6 +87,9 @@ DTYPES = {
     np.datetime64: "GMT_DATETIME",
 }
 
+# load the GMT library outside the Session class so it's loaded once.
+_libgmt = load_libgmt()
+
 
 class Session:
     """
@@ -308,7 +311,7 @@ class Session:
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
         if not hasattr(self, "_libgmt"):
-            self._libgmt = load_libgmt()
+            self._libgmt = _libgmt
         function = getattr(self._libgmt, name)
         if argtypes is not None:
             function.argtypes = argtypes
