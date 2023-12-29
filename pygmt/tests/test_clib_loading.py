@@ -11,6 +11,7 @@ from pathlib import PurePath
 
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
+from pygmt.clib.session import Session
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
@@ -206,6 +207,45 @@ class TestLibgmtBrokenLibs:
         """
         lib_fullnames = [self.faked_libgmt1, self.faked_libgmt1, self.loaded_libgmt]
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
+
+
+class TestLibgmtCount:
+    """
+    Test that the GMT library is not repeatly loaded in every session.
+    """
+
+    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
+    counter = 0  # Count how many times ctypes.CDLL is called
+
+    def _mock_ctypes_cdll_return(self, libname):  # noqa: ARG002
+        """
+        Mock ctypes.CDLL to count how many times the function is called.
+
+        If ctypes.CDLL is called, the counter increases by one.
+        """
+        self.counter += 1  # Increase the counter
+        return self.loaded_libgmt
+
+    @pytest.fixture()
+    def _mock_ctypes(self, monkeypatch):
+        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
+
+    @pytest.mark.usefixtures("_mock_ctypes")
+    def test_libgmt_load_counter(self):
+        """
+        Make sure that the GMT library is not loaded in every session.
+        """
+        with Session() as lib:
+            _ = lib
+        with Session() as lib:
+            _ = lib
+        assert self.counter == 0  # ctypes.CDLL is not called after two sessions.
+
+        # Explicitly calling load_libgmt to make sure the mock function is correct
+        load_libgmt()
+        assert self.counter == 1
+        load_libgmt()
+        assert self.counter == 2
 
 
 ###############################################################################
