@@ -19,7 +19,7 @@ def fixture_dataframe():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
+        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )[:10]
 
 

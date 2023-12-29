@@ -26,7 +26,7 @@ def _load_japan_quakes():
     return pd.read_csv(
         fname,
         header=1,
-        delim_whitespace=True,
+        sep=r"\s+",
         names=[
             "year",
             "month",
@@ -52,7 +52,7 @@ def _load_ocean_ridge_points():
     fname = which("@ridge.txt", download="c")
     return pd.read_csv(
         fname,
-        delim_whitespace=True,
+        sep=r"\s+",
         names=["longitude", "latitude"],
         skiprows=1,
         comment=">",
@@ -102,9 +102,7 @@ def _load_fractures_compilation():
         the fractures.
     """
     fname = which("@fractures_06.txt", download="c")
-    data = pd.read_csv(
-        fname, header=None, delim_whitespace=True, names=["azimuth", "length"]
-    )
+    data = pd.read_csv(fname, header=None, sep=r"\s+", names=["azimuth", "length"])
     return data[["length", "azimuth"]]
 
 
@@ -167,7 +165,7 @@ def _load_rock_sample_compositions():
     fname = which("@ternary.txt", download="c")
     return pd.read_csv(
         fname,
-        delim_whitespace=True,
+        sep=r"\s+",
         header=None,
         names=["limestone", "water", "air", "permittivity"],
     )
@@ -183,7 +181,7 @@ def _load_notre_dame_topography():
         The data table with columns "x", "y", and "z".
     """
     fname = which("@Table_5_11.txt", download="c")
-    return pd.read_csv(fname, delim_whitespace=True, header=None, names=["x", "y", "z"])
+    return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
 
 
 def _load_maunaloa_co2():
@@ -197,7 +195,7 @@ def _load_maunaloa_co2():
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     return pd.read_csv(
-        fname, header=None, skiprows=1, delim_whitespace=True, names=["date", "co2_ppm"]
+        fname, header=None, skiprows=1, sep=r"\s+", names=["date", "co2_ppm"]
     )
 
 
