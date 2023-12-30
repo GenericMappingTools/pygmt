@@ -12,7 +12,13 @@ import xarray as xr
 from pygmt import clib
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
 from pygmt.tests.test_clib import mock
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -210,16 +216,28 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
-@pytest.mark.parametrize("dtype", [str, object])
-def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
+@pytest.mark.parametrize(
+    ("array_func", "dtype"),
+    [
+        pytest.param(np.array, {"dtype": str}, id="str"),
+        pytest.param(np.array, {"dtype": object}, id="object"),
+        pytest.param(
+            getattr(pa, "array", None),
+            {},  # pa.string()
+            marks=skip_if_no(package="pyarrow"),
+            id="pyarrow",
+        ),
+    ],
+)
+def test_virtualfile_from_vectors_one_string_or_object_column(array_func, dtype):
     """
-    Test passing in one column with string or object dtype into virtual file
-    dataset.
+    Test passing in one column with string (numpy/pyarrow) or object (numpy)
+    dtype into virtual file dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
     y = np.arange(size, size * 2, 1, dtype=np.int32)
-    strings = np.array(["a", "bc", "defg", "hijklmn", "opqrst"], dtype=dtype)
+    strings = array_func(["a", "bc", "defg", "hijklmn", "opqrst"], **dtype)
     with clib.Session() as lib:
         with lib.virtualfile_from_vectors(x, y, strings) as vfile:
             with GMTTempFile() as outfile:
