@@ -213,6 +213,7 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
