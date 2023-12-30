@@ -58,6 +58,7 @@ def test_grdproject_file_out(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "projection",
     ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],

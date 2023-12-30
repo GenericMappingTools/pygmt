@@ -40,6 +40,7 @@ def test_project_generate():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "array_func",
     [

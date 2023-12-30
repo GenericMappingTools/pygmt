@@ -378,6 +378,7 @@ def test_plot3d_from_file(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_plot3d_vectors():
     """

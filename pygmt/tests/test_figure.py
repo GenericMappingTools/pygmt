@@ -225,7 +225,7 @@ def test_figure_savefig():
     """
     kwargs_saved = []
 
-    def mock_psconvert(*args, **kwargs):
+    def mock_psconvert(*args, **kwargs):  # noqa: ARG001
         """
         Just record the arguments.
         """

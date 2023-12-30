@@ -51,10 +51,11 @@ def fixture_dataframe():
     Load a pandas DataFrame with points.
     """
     return pd.read_csv(
-        POINTS_DATA, delim_whitespace=True, header=None, names=["longitude", "latitude"]
+        POINTS_DATA, sep=r"\s+", header=None, names=["longitude", "latitude"]
     )
 
 
+@pytest.mark.benchmark
 def test_grdtrack_input_dataframe_and_dataarray(dataarray, dataframe, expected_array):
     """
     Run grdtrack by passing in a pandas.DataFrame and xarray.DataArray as

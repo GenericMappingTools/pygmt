@@ -6,7 +6,6 @@ import inspect
 import os
 import string
 
-import pytest
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
 from pygmt.src import which
@@ -49,7 +48,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
     ...     )
     ...     return fig_ref, fig_test
-    ...
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
@@ -61,10 +59,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
     ...     return fig_ref, fig_test
-    ...
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
-    ...
     >>> for suffix in ["", "-expected", "-failed-diff"]:
     ...     assert os.path.exists(
     ...         os.path.join(
@@ -72,7 +68,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...             f"test_check_figures_unequal{suffix}.png",
     ...         )
     ...     )
-    ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
@@ -203,6 +198,7 @@ def download_test_data():
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
         # Other cache files
         "@capitals.gmt",
+        "@circuit.png",
         "@earth_relief_20m_holes.grd",
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
@@ -272,6 +268,8 @@ def skip_if_no(package):
         A pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
+    import pytest
+
     try:
         _ = importlib.import_module(name=package)
         has_package = True

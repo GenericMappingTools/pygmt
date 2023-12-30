@@ -33,6 +33,7 @@ def test_wiggle():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_wiggle.png")
 def test_wiggle_data_incols():
     """

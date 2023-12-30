@@ -131,6 +131,7 @@ def test_grdimage_shading_xarray(grid, shading):
     return fig_ref, fig_test
 
 
+@pytest.mark.benchmark
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
@@ -241,3 +242,14 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     )
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
     return fig_ref, fig_test
+
+
+def test_grdimage_imgout_fails(grid):
+    """
+    Test that an exception is raised if img_out/A is given.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdimage(grid, img_out="out.png")
+    with pytest.raises(GMTInvalidInput):
+        fig.grdimage(grid, A="out.png")

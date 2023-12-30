@@ -281,7 +281,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*\ |*scale*.
+            *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
@@ -421,7 +421,6 @@ def fmt_docstring(module_func):
     ...     {aliases}
     ...     '''
     ...     pass
-    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
@@ -438,7 +437,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*\ |*scale*.
+        *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
@@ -526,7 +525,6 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
-    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -641,9 +639,7 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-    >>> @kwargs_to_strings(
-    ...     R="sequence", i="sequence_comma", files="sequence_space"
-    ... )
+    >>> @kwargs_to_strings(R="sequence", i="sequence_comma", files="sequence_space")
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
@@ -813,7 +809,6 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
-    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red
@@ -825,13 +820,11 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ...     for i in range(len(w)):
     ...         assert issubclass(w[i].category, FutureWarning)
     ...         assert "deprecated" in str(w[i].message)
-    ...
     data=table.txt, size=5.0, color=red
     >>> # using both old and new names will raise an GMTInvalidInput exception
     >>> import pytest
     >>> with pytest.raises(GMTInvalidInput):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
-    ...
     """
 
     def deprecator(module_func):

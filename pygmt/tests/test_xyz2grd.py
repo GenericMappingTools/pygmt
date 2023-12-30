@@ -45,6 +45,7 @@ def fixture_expected_grid():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "array_func",
     [
