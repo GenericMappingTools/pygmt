@@ -178,7 +178,7 @@ def test_info_xarray_dataset_time_column():
 
 
 @pytest.mark.parametrize(
-    "array_func,expected_memory",
+    ("array_func", "expected_memory"),
     [
         (np.array, "matrix memory"),
         pytest.param(
