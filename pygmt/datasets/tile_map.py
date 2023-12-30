@@ -16,7 +16,15 @@ import xarray as xr
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
-def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2):
+def load_tile_map(
+    region,
+    zoom="auto",
+    source=None,
+    lonlat=True,
+    wait=0,
+    max_retries=2,
+    zoom_adjust=None,
+):
     """
     Load a georeferenced raster tile map from XYZ tile providers.
 
@@ -79,6 +87,11 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         will stop trying to fetch more tiles from a rate-limited API [Default
         is ``2``].
 
+    zoom_adjust : int or None
+        Optional. The amount to adjust a chosen zoom level if it is chosen
+        automatically. Values outside of -1 to 1 are not recommended as they
+        can lead to slow execution. [Default is ``None``].
+
     Returns
     -------
     raster : xarray.DataArray
@@ -128,6 +141,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         ll=lonlat,
         wait=wait,
         max_retries=max_retries,
+        zoom_adjust=zoom_adjust,
     )
 
     # Turn RGBA img from channel-last to channel-first and get 3-band RGB only

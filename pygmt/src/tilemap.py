@@ -30,7 +30,15 @@ except ImportError:
 )
 @kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
 def tilemap(
-    self, region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2, **kwargs
+    self,
+    region,
+    zoom="auto",
+    source=None,
+    lonlat=True,
+    wait=0,
+    max_retries=2,
+    zoom_adjust=None,
+    **kwargs,
 ):
     r"""
     Plots an XYZ tile map.
@@ -103,6 +111,11 @@ def tilemap(
         will stop trying to fetch more tiles from a rate-limited API [Default
         is ``2``].
 
+    zoom_adjust : int or None
+        Optional. The amount to adjust a chosen zoom level if it is chosen
+        automatically. Values outside of -1 to 1 are not recommended as they
+        can lead to slow execution. [Default is ``None``].
+
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
 
@@ -131,6 +144,7 @@ def tilemap(
         lonlat=lonlat,
         wait=wait,
         max_retries=max_retries,
+        zoom_adjust=zoom_adjust,
     )
 
     # Reproject raster from Spherical Mercator (EPSG:3857) to
