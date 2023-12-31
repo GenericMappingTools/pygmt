@@ -87,7 +87,7 @@ DTYPES = {
     np.datetime64: "GMT_DATETIME",
 }
 
-# Load the GMT library outside the Session class to avoid repeating loading.
+# Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
 
 

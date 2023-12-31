@@ -211,7 +211,7 @@ class TestLibgmtBrokenLibs:
 
 class TestLibgmtCount:
     """
-    Test that the GMT library is not repeatly loaded in every session.
+    Test that the GMT library is not repeatedly loaded in every session.
     """
 
     loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
