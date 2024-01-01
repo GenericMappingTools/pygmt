@@ -1,7 +1,9 @@
 """
 Test the session management modules.
 """
+import multiprocessing as mp
 import os
+from importlib import reload
 from pathlib import Path
 
 import pytest
@@ -67,8 +69,6 @@ def _gmt_func_wrapper(figname):
     Currently, we have to import pygmt and reload it in each process. Workaround from
     https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
     """
-    from importlib import reload
-
     import pygmt
 
     reload(pygmt)
@@ -81,9 +81,6 @@ def test_session_multiprocessing():
     """
     Make sure that multiprocessing is supported if pygmt is re-imported.
     """
-
-    import multiprocessing as mp
-
     prefix = "test_session_multiprocessing"
     with mp.Pool(2) as p:
         p.map(_gmt_func_wrapper, [f"{prefix}-1.png", f"{prefix}-2.png"])
