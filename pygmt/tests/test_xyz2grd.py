@@ -10,6 +10,12 @@ from pygmt import load_dataarray, xyz2grd
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="ship_data")
@@ -40,10 +46,17 @@ def fixture_expected_grid():
 
 
 @pytest.mark.benchmark
-@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
-def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(getattr(pa, "table", None), marks=skip_if_no(package="pyarrow")),
+        xr.Dataset,
+    ],
+)
+def test_xyz2grd_input_table_matrix(array_func, ship_data, expected_grid):
     """
-    Run xyz2grd by passing in an xarray dataset or numpy array.
+    Run xyz2grd by passing in a numpy.array, pyarrow.table or xarray.Dataset.
     """
     output = xyz2grd(data=array_func(ship_data), spacing=5, region=[245, 255, 20, 30])
     assert isinstance(output, xr.DataArray)

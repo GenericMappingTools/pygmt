@@ -14,6 +14,11 @@ from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import skip_if_no
 
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
+
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
 
@@ -107,11 +112,19 @@ def test_info_dataframe(dtype):
     assert output == expected_output
 
 
-def test_info_numpy_array_time_column():
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(getattr(pa, "array", None), marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_array_time_column(array_func):
     """
-    Make sure info works on a numpy.ndarray input with a datetime type.
+    Make sure info works on a numpy.ndarray input with a datetime type, or a
+    pyarrow.array input with a timestamp type.
     """
-    table = pd.date_range(start="2020-01-01", periods=5).to_numpy()
+    table = array_func(pd.date_range(start="2020-01-01", periods=5))
     output = info(data=table)
     expected_output = (
         "<vector memory>: N = 5 <2020-01-01T00:00:00/2020-01-05T00:00:00>\n"
@@ -164,23 +177,39 @@ def test_info_xarray_dataset_time_column():
     assert output == expected_output
 
 
-def test_info_2d_array():
+@pytest.mark.parametrize(
+    ("array_func", "expected_memory"),
+    [
+        (np.array, "matrix memory"),
+        pytest.param(
+            getattr(pa, "table", None),
+            "vector memory",
+            marks=skip_if_no(package="pyarrow"),
+        ),
+    ],
+)
+def test_info_2d_array(array_func, expected_memory):
     """
-    Make sure info works on 2-D numpy.ndarray inputs.
+    Make sure info works on 2-D numpy.ndarray and pyarrow.table inputs.
     """
-    table = np.loadtxt(POINTS_DATA)
+    table = array_func(pd.read_csv(POINTS_DATA, sep=" ", header=None))
     output = info(data=table)
-    expected_output = (
-        "<matrix memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
-    )
+    expected_output = f"<{expected_memory}>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
     assert output == expected_output
 
 
-def test_info_1d_array():
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(getattr(pa, "array", None), marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_1d_array(array_func):
     """
-    Make sure info works on 1-D numpy.ndarray inputs.
+    Make sure info works on 1-D numpy.ndarray and pyarrow.array inputs.
     """
-    output = info(data=np.arange(20))
+    output = info(data=array_func(range(20)))
     expected_output = "<vector memory>: N = 20 <0/19>\n"
     assert output == expected_output
 

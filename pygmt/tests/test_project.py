@@ -11,6 +11,12 @@ import xarray as xr
 from pygmt import project
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -35,10 +41,19 @@ def test_project_generate():
 
 
 @pytest.mark.benchmark
-@pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
-def test_project_input_matrix(array_func, dataframe):
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(getattr(pa, "table", None), marks=skip_if_no(package="pyarrow")),
+        pd.DataFrame,
+        xr.Dataset,
+    ],
+)
+def test_project_input_table_matrix(array_func, dataframe):
     """
-    Run project by passing in a matrix as input.
+    Run project by passing in a numpy.array, pyarrow.table, pandas.DataFrame or
+    xarray.Dataset.
     """
     table = array_func(dataframe)
     output = project(data=table, center=[0, -1], azimuth=45, flat_earth=True)

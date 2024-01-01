@@ -3,9 +3,16 @@ Test Figure.solar.
 """
 import datetime
 
+import pandas as pd
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow.compute as pc
+except ImportError:
+    pc = None
 
 
 @pytest.mark.mpl_image_compare
@@ -42,17 +49,28 @@ def test_solar_terminators():
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_solar_set_terminator_datetime.png")
 @pytest.mark.parametrize(
-    "terminator_datetime",
+    "array_func",
     [
-        pytest.param("1990-02-17 04:25:00", id="terminator_datetime_string"),
-        datetime.datetime(year=1990, month=2, day=17, hour=4, minute=25, second=0),
+        str,
+        datetime.datetime.fromisoformat,
+        pd.Timestamp,
+        pytest.param(
+            getattr(pc, "strptime", None), marks=skip_if_no(package="pyarrow")
+        ),
     ],
 )
-def test_solar_set_terminator_datetime(terminator_datetime):
+def test_solar_set_terminator_datetime(array_func):
     """
     Test passing the solar argument with the day_night terminator and a
     datetime string.
     """
+    kwargs = (
+        {"format": "%Y-%m-%d %H:%M:%S", "unit": "s"}
+        if array_func.__name__ == "strptime"
+        else {}
+    )
+    terminator_datetime = array_func("1990-02-17 04:25:00", **kwargs)
+
     fig = Figure()
     fig.solar(
         region="d",

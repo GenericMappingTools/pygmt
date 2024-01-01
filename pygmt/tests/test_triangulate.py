@@ -10,6 +10,12 @@ import xarray as xr
 from pygmt import triangulate, which
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 
 @pytest.fixture(scope="module", name="dataframe")
@@ -59,11 +65,18 @@ def fixture_expected_grid():
     )
 
 
-@pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        np.array,
+        pytest.param(getattr(pa, "table", None), marks=skip_if_no(package="pyarrow")),
+        xr.Dataset,
+    ],
+)
 def test_delaunay_triples_input_table_matrix(array_func, dataframe, expected_dataframe):
     """
-    Run triangulate.delaunay_triples by passing in a numpy.array or
-    xarray.Dataset.
+    Run triangulate.delaunay_triples by passing in a numpy.array,
+    pyarrow.table, or xarray.Dataset.
     """
     table = array_func(dataframe)
     output = triangulate.delaunay_triples(data=table)
