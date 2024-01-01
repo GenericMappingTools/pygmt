@@ -18,7 +18,7 @@ def fixture_data():
     """
     Load the point data from the test file.
     """
-    return pd.read_table(POINTS_DATA, header=None, delim_whitespace=True)
+    return pd.read_table(POINTS_DATA, header=None, sep=r"\s+")
 
 
 @pytest.fixture(scope="module", name="region")
