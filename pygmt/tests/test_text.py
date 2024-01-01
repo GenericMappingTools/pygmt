@@ -46,6 +46,7 @@ def test_text_single_line_of_text(region, projection):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_text_multiple_lines_of_text(region, projection):
     """

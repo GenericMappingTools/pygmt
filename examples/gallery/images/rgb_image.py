@@ -1,5 +1,5 @@
 """
-RGB Image
+RGB image
 =========
 
 The :meth:`pygmt.Figure.grdimage` method can be used to plot Red, Green, Blue

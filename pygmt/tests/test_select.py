@@ -19,6 +19,7 @@ def fixture_dataframe():
     return load_sample_data(name="bathymetry")
 
 
+@pytest.mark.benchmark
 def test_select_input_dataframe(dataframe):
     """
     Run select by passing in a pandas.DataFrame as input.

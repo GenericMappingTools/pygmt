@@ -19,7 +19,7 @@ def fixture_dataframe():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
+        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )[:10]
 
 
@@ -71,6 +71,7 @@ def test_delaunay_triples_input_table_matrix(array_func, dataframe, expected_dat
     pd.testing.assert_frame_equal(left=output, right=expected_dataframe)
 
 
+@pytest.mark.benchmark
 def test_delaunay_triples_input_xyz(dataframe, expected_dataframe):
     """
     Run triangulate.delaunay_triples by passing in x, y, z numpy.ndarrays
@@ -132,6 +133,7 @@ def test_delaunay_triples_invalid_format(dataframe):
         triangulate.delaunay_triples(data=dataframe, output_type=1)
 
 
+@pytest.mark.benchmark
 def test_regular_grid_no_outgrid(dataframe, expected_grid):
     """
     Run triangulate.regular_grid with no set outgrid and see it load into an

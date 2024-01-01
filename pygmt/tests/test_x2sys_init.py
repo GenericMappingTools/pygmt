@@ -35,6 +35,7 @@ def test_x2sys_init_region_spacing():
             assert "-I5/5" in tail_line
 
 
+@pytest.mark.benchmark
 @pytest.mark.usefixtures("mock_x2sys_home")
 def test_x2sys_init_units_gap():
     """
