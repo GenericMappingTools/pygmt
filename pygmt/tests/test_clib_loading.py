@@ -215,7 +215,7 @@ class TestLibgmtCount:
     """
 
     loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
-    counter = 0  # Count how many times ctypes.CDLL is called
+    counter = 0  # Global counter for how many times ctypes.CDLL is called
 
     def _mock_ctypes_cdll_return(self, libname):  # noqa: ARG002
         """
@@ -226,15 +226,14 @@ class TestLibgmtCount:
         self.counter += 1  # Increase the counter
         return self.loaded_libgmt
 
-    @pytest.fixture()
-    def _mock_ctypes(self, monkeypatch):
-        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
-
-    @pytest.mark.usefixtures("_mock_ctypes")
-    def test_libgmt_load_counter(self):
+    def test_libgmt_load_counter(self, monkeypatch):
         """
         Make sure that the GMT library is not loaded in every session.
         """
+        # Monkeypatch the ctypes.CDLL function
+        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
+
+        # Create two sessions and check the global counter
         with Session() as lib:
             _ = lib
         with Session() as lib:

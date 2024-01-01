@@ -63,10 +63,9 @@ def test_gmt_compat_6_is_applied(capsys):
 
 def gmt_func(figname):
     """
-    Workaround to let PyGMT support multiprocessing.
+    Workaround for multiprocessing support in PyGMT.
 
-    See
-    https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875
+    https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
     """
     from importlib import reload
 
