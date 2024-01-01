@@ -2,6 +2,7 @@
 Test the session management modules.
 """
 import os
+import sys
 from pathlib import Path
 
 import pytest
@@ -77,9 +78,13 @@ def gmt_func(figname):
     fig.savefig(figname)
 
 
+@pytest.mark.xfail(
+    condition=sys.platform == "win32",
+    reason="The session path uses PID of parent process on Windows",
+)
 def test_session_multiprocessing():
     """
-    Make sure that the multiprocessing is supported if pygmt is re-imported.
+    Make sure that multiprocessing is supported if pygmt is re-imported.
     """
 
     import multiprocessing as mp
