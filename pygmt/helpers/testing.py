@@ -196,6 +196,8 @@ def download_test_data():
         # Earth WDMAM grids
         "@earth_wdmam_01d_g",
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
+        # Earth day/night grids
+        "@earth_day_01d_p",
         # Other cache files
         "@capitals.gmt",
         "@circuit.png",
