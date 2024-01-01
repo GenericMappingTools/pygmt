@@ -120,6 +120,7 @@ jobs:
             pytest-cov
             pytest-doctestplus
             pytest-mpl
+            pytest-randomly
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
