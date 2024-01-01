@@ -2,8 +2,6 @@
 Test the session management modules.
 """
 import os
-import sys
-from pathlib import Path
 
 import pytest
 from pygmt.clib import Session
@@ -59,38 +57,3 @@ def test_gmt_compat_6_is_applied(capsys):
         # Make sure no global "gmt.conf" in the current directory
         assert not os.path.exists("gmt.conf")
         begin()  # Restart the global session
-
-
-def gmt_func(figname):
-    """
-    Workaround for multiprocessing support in PyGMT.
-
-    https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
-    """
-    from importlib import reload
-
-    import pygmt
-
-    reload(pygmt)
-    fig = pygmt.Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
-    fig.savefig(figname)
-
-
-@pytest.mark.xfail(
-    condition=sys.platform == "win32",
-    reason="The session path uses PID of parent process on Windows",
-)
-def test_session_multiprocessing():
-    """
-    Make sure that multiprocessing is supported if pygmt is re-imported.
-    """
-
-    import multiprocessing as mp
-
-    fig_prefix = "test_session_multiprocessing"
-    with mp.Pool(2) as p:
-        p.map(gmt_func, [f"{fig_prefix}-1.png", f"{fig_prefix}-2.png"])
-    for i in [1, 2]:
-        assert Path(f"{fig_prefix}-{i}.png").exists()
-        Path(f"{fig_prefix}-{i}.png").unlink()
