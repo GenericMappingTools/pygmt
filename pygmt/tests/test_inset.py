@@ -21,8 +21,8 @@ def test_inset_aliases():
 @pytest.mark.mpl_image_compare
 def test_inset_context_manager():
     """
-    Test that the inset context manager works and, once closed, plotting
-    elements are added to the larger figure.
+    Test that the inset context manager works and, once closed, plotting elements are
+    added to the larger figure.
     """
     fig = Figure()
     fig.basemap(region=[-74, -69.5, 41, 43], projection="M9c", frame=True)

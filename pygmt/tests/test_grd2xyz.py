@@ -91,8 +91,7 @@ def test_grd2xyz_outfile_incorrect_output_type(grid):
 
 def test_grd2xyz_pandas_output_with_o(grid):
     """
-    Test that grd2xyz fails when outcols is set and output_type is set to
-    'pandas'.
+    Test that grd2xyz fails when outcols is set and output_type is set to 'pandas'.
     """
     with pytest.raises(GMTInvalidInput):
         grd2xyz(grid=grid, output_type="pandas", outcols="2")

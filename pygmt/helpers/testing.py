@@ -144,8 +144,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
+    Convenience function to download remote data files used in PyGMT tests and docs.
     """
     # List of datasets to download
     datasets = [
@@ -196,6 +195,8 @@ def download_test_data():
         # Earth WDMAM grids
         "@earth_wdmam_01d_g",
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
+        # Earth day/night grids
+        "@earth_day_01d_p",
         # Other cache files
         "@capitals.gmt",
         "@circuit.png",
@@ -239,8 +240,8 @@ def load_static_earth_relief():
 
 def skip_if_no(package):
     """
-    Generic function to help skip tests when required packages are not present
-    on the testing system.
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
 
     This function returns a pytest mark with a skip condition that will be
     evaluated during test collection. An attempt will be made to import the

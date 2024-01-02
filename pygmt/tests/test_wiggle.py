@@ -65,8 +65,8 @@ def test_wiggle_data_incols():
 
 def test_wiggle_fill_multiple():
     """
-    Check that wiggle fails when the parameters color and
-    fillpositive/fillnegative are used together.
+    Check that wiggle fails when the parameters color and fillpositive/fillnegative are
+    used together.
     """
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
@@ -93,8 +93,7 @@ def test_wiggle_fill_multiple():
 
 def test_wiggle_use_color():
     """
-    Check that wiggle raises a warning when the deprecated parameter color is
-    used.
+    Check that wiggle raises a warning when the deprecated parameter color is used.
     """
     x = np.arange(-2, 2, 0.02)
     y = np.zeros(x.size)
