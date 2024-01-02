@@ -17,10 +17,9 @@ from pygmt.helpers import (
 from pygmt.io import load_dataarray
 
 
-class triangulate:
+class triangulate:  # noqa: N801
     """
-    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
-    data.
+    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
     Triangulate reads in x,y[,z] data and performs Delaunay triangulation,
     i.e., it finds how the points should be connected to give the most
@@ -69,8 +68,7 @@ class triangulate:
         data=None, x=None, y=None, z=None, *, output_type, outfile=None, **kwargs
     ):
         """
-        Delaunay triangulation or Voronoi partitioning and gridding of
-        Cartesian data.
+        Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
         Must provide ``outfile`` or ``outgrid``.
 
@@ -89,13 +87,12 @@ class triangulate:
         {projection}
         {region}
         {spacing}
-        outgrid : bool or str
-            The name of the output netCDF file with extension .nc to store the
-            grid in. The interpolation is performed in the original
-            coordinates, so if your triangles are close to the poles you are
-            better off projecting all data to a local coordinate system before
-            using ``triangulate`` (this is true of all gridding routines) or
-            instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        {outgrid}
+            The interpolation is performed in the original coordinates, so if
+            your triangles are close to the poles you are better off projecting
+            all data to a local coordinate system before using ``triangulate``
+            (this is true of all gridding routines) or instead select
+            :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         outfile : str, bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -204,13 +201,12 @@ class triangulate:
         {projection}
         {region}
         {spacing}
-        outgrid : str or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in. The interpolation is performed in the original
-            coordinates, so if your triangles are close to the poles you are
-            better off projecting all data to a local coordinate system before
-            using ``triangulate`` (this is true of all gridding routines) or
-            instead select :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
+        {outgrid}
+            The interpolation is performed in the original coordinates, so if
+            your triangles are close to the poles you are better off projecting
+            all data to a local coordinate system before using ``triangulate``
+            (this is true of all gridding routines) or instead select
+            :gmt-docs:`sphtriangulate <sphtriangulate.html>`.
         {verbose}
         {binary}
         {nodata}

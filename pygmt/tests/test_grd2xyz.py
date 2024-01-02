@@ -20,6 +20,7 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 def test_grd2xyz(grid):
     """
     Make sure grd2xyz works as expected.
@@ -90,8 +91,7 @@ def test_grd2xyz_outfile_incorrect_output_type(grid):
 
 def test_grd2xyz_pandas_output_with_o(grid):
     """
-    Test that grd2xyz fails when outcols is set and output_type is set to
-    'pandas'.
+    Test that grd2xyz fails when outcols is set and output_type is set to 'pandas'.
     """
     with pytest.raises(GMTInvalidInput):
         grd2xyz(grid=grid, output_type="pandas", outcols="2")

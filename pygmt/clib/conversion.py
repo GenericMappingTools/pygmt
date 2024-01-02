@@ -126,8 +126,7 @@ def dataarray_to_matrix(grid):
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D
-    arrays.
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
@@ -162,11 +161,42 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
+
     >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
+
+    >>> import datetime
+    >>> import pytest
+    >>> pa = pytest.importorskip("pyarrow")
+    >>> vectors = [
+    ...     pd.Series(
+    ...         data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
+    ...         dtype="date32[day][pyarrow]",
+    ...     ),
+    ...     pd.Series(
+    ...         data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
+    ...         dtype="date64[ms][pyarrow]",
+    ...     ),
+    ... ]
+    >>> arrays = vectors_to_arrays(vectors)
+    >>> all(a.flags.c_contiguous for a in arrays)
+    True
+    >>> all(isinstance(a, np.ndarray) for a in arrays)
+    True
+    >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
+    True
     """
-    arrays = [as_c_contiguous(np.asarray(i)) for i in vectors]
+    dtypes = {
+        "date32[day][pyarrow]": np.datetime64,
+        "date64[ms][pyarrow]": np.datetime64,
+    }
+    arrays = []
+    for vector in vectors:
+        vec_dtype = str(getattr(vector, "dtype", ""))
+        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype, None))
+        arrays.append(as_c_contiguous(array))
+
     return arrays
 
 

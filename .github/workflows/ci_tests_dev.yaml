@@ -88,7 +88,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
@@ -120,7 +120,7 @@ jobs:
         run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
-          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os != 'Windows'
 
       - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
@@ -139,13 +139,15 @@ jobs:
             -DGMT_USE_THREADS=TRUE
           cmake --build .
           cmake --build . --target install
+          cd ..
+          rm -rf gmt/
         env:
           GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
-          GMT_INSTALL_DIR: ${{ github.workspace }}/gmt-install-dir
+          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os == 'Windows'
 
       - name: Add GMT's bin to PATH
-        run: echo '${{ github.workspace }}/gmt-install-dir/bin' >> $GITHUB_PATH
+        run: echo '${{ runner.temp }}/gmt-install-dir/bin' >> $GITHUB_PATH
 
       # Install dependencies from PyPI
       - name: Install dependencies
@@ -153,7 +155,7 @@ jobs:
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
-                        build contextily dvc geopandas ipython rioxarray \
+                        build contextily dvc geopandas ipython pyarrow rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
 
@@ -163,13 +165,11 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull
-          ls -lhR pygmt/tests/baseline/
+        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -193,11 +193,11 @@ jobs:
       - name: Test with pytest
         run: make test PYTEST_EXTRA="-r P"
         env:
-          GMT_LIBRARY_PATH: ${{ github.workspace }}/gmt-install-dir/lib
+          GMT_LIBRARY_PATH: ${{ runner.temp }}/gmt-install-dir/lib
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: artifact-GMT-${{ matrix.gmt_git_ref }}-${{ runner.os }}

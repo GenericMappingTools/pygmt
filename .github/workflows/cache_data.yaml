@@ -35,7 +35,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
@@ -65,7 +65,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gmt-cache
           path: |
