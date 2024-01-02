@@ -48,7 +48,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
     ...     )
     ...     return fig_ref, fig_test
-    ...
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
@@ -60,10 +59,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
     ...     return fig_ref, fig_test
-    ...
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
-    ...
     >>> for suffix in ["", "-expected", "-failed-diff"]:
     ...     assert os.path.exists(
     ...         os.path.join(
@@ -71,7 +68,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...             f"test_check_figures_unequal{suffix}.png",
     ...         )
     ...     )
-    ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
@@ -148,8 +144,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
 
 def download_test_data():
     """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
+    Convenience function to download remote data files used in PyGMT tests and docs.
     """
     # List of datasets to download
     datasets = [
@@ -200,8 +195,11 @@ def download_test_data():
         # Earth WDMAM grids
         "@earth_wdmam_01d_g",
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
+        # Earth day/night grids
+        "@earth_day_01d_p",
         # Other cache files
         "@capitals.gmt",
+        "@circuit.png",
         "@earth_relief_20m_holes.grd",
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
@@ -242,8 +240,8 @@ def load_static_earth_relief():
 
 def skip_if_no(package):
     """
-    Generic function to help skip tests when required packages are not present
-    on the testing system.
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
 
     This function returns a pytest mark with a skip condition that will be
     evaluated during test collection. An attempt will be made to import the

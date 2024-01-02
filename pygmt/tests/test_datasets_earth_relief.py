@@ -12,8 +12,7 @@ from pygmt.exceptions import GMTInvalidInput
 @pytest.mark.parametrize("data_source", ["igpp", "synbath"])
 def test_earth_relief_01d_igpp_synbath(data_source):
     """
-    Test some properties of the earth relief 01d data with IGPP and SYNBATH
-    data.
+    Test some properties of the earth relief 01d data with IGPP and SYNBATH data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "elevation"
@@ -32,8 +31,7 @@ def test_earth_relief_01d_igpp_synbath(data_source):
 @pytest.mark.parametrize("data_source", ["gebco", "gebcosi"])
 def test_earth_relief_01d_gebco(data_source):
     """
-    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI
-    data.
+    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.attrs["units"] == "meters"
@@ -159,8 +157,8 @@ def test_earth_relief_invalid_data_source():
 
 def test_earth_relief_invalid_data_source_with_use_srtm():
     """
-    Test loading earth relief with use_srtm=True and an incompatible
-    data_source argument.
+    Test loading earth relief with use_srtm=True and an incompatible data_source
+    argument.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(
@@ -174,8 +172,8 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
 
 def test_earth_relief_15s_default_registration():
     """
-    Test that the grid returned by default for the 15 arc-second resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 15 arc-second resolution has a
+    "pixel" registration.
     """
     data = load_earth_relief(resolution="15s", region=[-10, -9.5, 4, 5])
     assert data.shape == (240, 120)
@@ -190,8 +188,8 @@ def test_earth_relief_15s_default_registration():
 
 def test_earth_relief_03s_default_registration():
     """
-    Test that the grid returned by default for the 3 arc-second resolution has
-    a "gridline" registration.
+    Test that the grid returned by default for the 3 arc-second resolution has a
+    "gridline" registration.
     """
     data = load_earth_relief(resolution="03s", region=[-10, -9.8, 4.9, 5])
     assert data.shape == (121, 241)

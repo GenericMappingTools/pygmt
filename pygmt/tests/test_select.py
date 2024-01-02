@@ -19,6 +19,7 @@ def fixture_dataframe():
     return load_sample_data(name="bathymetry")
 
 
+@pytest.mark.benchmark
 def test_select_input_dataframe(dataframe):
     """
     Run select by passing in a pandas.DataFrame as input.
@@ -32,8 +33,7 @@ def test_select_input_dataframe(dataframe):
 
 def test_select_input_table_matrix(dataframe):
     """
-    Run select using table input that is not a pandas.DataFrame but still a
-    matrix.
+    Run select using table input that is not a pandas.DataFrame but still a matrix.
 
     Also testing the reverse (I) alias.
     """
