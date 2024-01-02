@@ -80,8 +80,8 @@ black = true
 recursive = true
 pre-summary-newline = true
 make-summary-multi-line = true
-wrap-summaries = 79
-wrap-descriptions = 79
+wrap-summaries = 88
+wrap-descriptions = 88
 
 [tool.mypy]
 exclude = ["pygmt/tests/"]

@@ -21,8 +21,7 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="grid_360")
 def fixture_grid_360(grid):
     """
-    Earth relief grid with longitude range from 0 to 360 (instead of -180 to
-    180).
+    Earth relief grid with longitude range from 0 to 360 (instead of -180 to 180).
     """
     _grid = grid.copy()  # get a copy of original earth_relief grid
     _grid.encoding.pop("source")  # unlink earth_relief netCDF source
@@ -135,8 +134,8 @@ def test_grdimage_shading_xarray(grid, shading):
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
-    Test that shading works well when xarray.DataArray is input to both the
-    ``grid`` and ``shading`` arguments.
+    Test that shading works well when xarray.DataArray is input to both the ``grid`` and
+    ``shading`` arguments.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
@@ -179,10 +178,10 @@ def test_grdimage_global_subset(grid_360):
     """
     Ensure subsets of grids are plotted correctly on a global map.
 
-    Specifically checking that xarray.DataArray grids can wrap around the left
-    and right sides on a Mollweide projection (W) plot correctly. Note that a
-    Cartesian grid is used here instead of a Geographic grid (i.e.
-    GMT_GRID_IS_CARTESIAN). This is a regression test for
+    Specifically checking that xarray.DataArray grids can wrap around the left and right
+    sides on a Mollweide projection (W) plot correctly. Note that a Cartesian grid is
+    used here instead of a Geographic grid (i.e. GMT_GRID_IS_CARTESIAN). This is a
+    regression test for
     https://github.com/GenericMappingTools/pygmt/issues/732.
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
@@ -202,8 +201,8 @@ def test_grdimage_global_subset(grid_360):
 @pytest.mark.parametrize("proj_type", ["H", "W"])
 def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
-    Test that plotting a grid with different central meridians (lon0) using
-    Hammer (H) and Mollweide (W) projection systems work.
+    Test that plotting a grid with different central meridians (lon0) using Hammer (H)
+    and Mollweide (W) projection systems work.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
