@@ -35,9 +35,8 @@ def solar(
     r"""
     Plot day-light terminators or twilights.
 
-    This function plots the day-night terminator. Alternatively, it can plot
-    the terminators for civil twilight, nautical twilight, or astronomical
-    twilight.
+    This function plots the day-night terminator. Alternatively, it can plot the
+    terminators for civil twilight, nautical twilight, or astronomical twilight.
 
     Full option list at :gmt-docs:`solar.html`
 
@@ -46,20 +45,19 @@ def solar(
     Parameters
     ----------
     terminator
-        Set the type of terminator displayed, which can be set with either the
-        full name or the first letter of the name. Available options are:
+        Set the type of terminator displayed, which can be set with either the full name
+        or the first letter of the name. Available options are:
 
         - ``"astronomical"``: Astronomical twilight
         - ``"civil"``: Civil twilight
         - ``"day_night"``: Day/night terminator
         - ``"nautical"``: Nautical twilight
 
-        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of
-        different types of twilight.
+        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different
+        types of twilight.
     terminator_datetime : str or datetime object
-        Set the UTC date and time of the displayed terminator
-        [Default is the current UTC date and time]. It can be
-        passed as a string or Python datetime object.
+        Set the UTC date and time of the displayed terminator [Default is the current
+        UTC date and time]. It can be passed as a string or Python datetime object.
     {region}
     {projection}
     {frame}
@@ -100,9 +98,9 @@ def solar(
     """
     kwargs = self._preprocess(**kwargs)
     if kwargs.get("T") is not None:
-        raise GMTInvalidInput(
-            "Use 'terminator' and 'terminator_datetime' instead of 'T'."
-        )
+        msg = "Use 'terminator' and 'terminator_datetime' instead of 'T'."
+        raise GMTInvalidInput(msg)
+
     valid_terminators = ["day_night", "civil", "nautical", "astronomical"]
     if terminator not in valid_terminators and terminator not in "dcna":
         raise GMTInvalidInput(
