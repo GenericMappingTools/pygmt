@@ -1,5 +1,5 @@
 """
-Choropleth Map
+Choropleth map
 ==============
 
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such

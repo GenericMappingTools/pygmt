@@ -19,8 +19,7 @@ from pygmt.io import load_dataarray
 
 class triangulate:  # noqa: N801
     """
-    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian
-    data.
+    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
     Triangulate reads in x,y[,z] data and performs Delaunay triangulation,
     i.e., it finds how the points should be connected to give the most
@@ -69,8 +68,7 @@ class triangulate:  # noqa: N801
         data=None, x=None, y=None, z=None, *, output_type, outfile=None, **kwargs
     ):
         """
-        Delaunay triangulation or Voronoi partitioning and gridding of
-        Cartesian data.
+        Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.
 
         Must provide ``outfile`` or ``outgrid``.
 

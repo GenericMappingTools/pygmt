@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 
 class Resolution(NamedTuple):
     """
-    The available grid registrations for a given resolution and whether it is a
-    tiled grid.
+    The available grid registrations for a given resolution and whether it is a tiled
+    grid.
 
     Attributes
     ----------
