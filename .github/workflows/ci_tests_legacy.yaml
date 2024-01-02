@@ -13,13 +13,9 @@ on:
   #   branches: [ main ]
   # pull_request:
     # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
+    # paths:
+    #  - 'pygmt/**/*.py'
+    #  - '.github/workflows/ci_tests_legacy.yaml'
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
