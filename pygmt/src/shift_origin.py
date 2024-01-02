@@ -12,26 +12,26 @@ def shift_origin(
     r"""
     Shift plot origin in x and/or y directions.
 
-    This method shifts the plot origin relative to the current origin by
-    *xshift* and *yshift* in x and y directions, respectively. Optionally,
-    append the length unit (**c** for centimeters, **i** for inches, or **p**
-    for points) to the shifts. Default unit if not explicitly given is **c**,
-    but can be changed to other units via :gmt-term:`PROJ_LENGTH_UNIT`.
+    This method shifts the plot origin relative to the current origin by *xshift* and
+    *yshift* in x and y directions, respectively. Optionally, append the length unit
+    (**c** for centimeters, **i** for inches, or **p** for points) to the shifts.
+    Default unit if not explicitly given is **c**, but can be changed to other units
+    via :gmt-term:`PROJ_LENGTH_UNIT`.
 
-    For *xshift*, a special character **w** can also be used, which represents
-    the bounding box **width** of the previous plot. The full syntax is
-    [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f*
-    and divisor *d* can be used to compute an offset that may be adjusted
-    further by ±\ *xoff*. For example, assuming that the previous plot has a
-    width of 10 centimeters, here are some example values for *xshift*:
+    For *xshift*, a special character **w** can also be used, which represents the
+    bounding box **width** of the previous plot. The full syntax is
+    [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f* and
+    divisor *d* can be used to compute an offset that may be adjusted further by
+    ±\ *xoff*. For example, assuming that the previous plot has a width of 10
+    centimeters, here are some example values for *xshift*:
 
     - ``w``: x-shift is 10 cm
     - ``w+2c``: x-shift is 10+2=12 cm
     - ``2w+3c``: x-shift is 2*10+3=23 cm
     - ``w/2-2c``: x-shift is 10/2-2=3 cm
 
-    Similarly, for *yshift*, a special character **h** can also be used, which
-    is the bounding box **height** of the previous plot.
+    Similarly, for *yshift*, a special character **h** can also be used, which is the
+    bounding box **height** of the previous plot.
 
     Parameters
     ----------
