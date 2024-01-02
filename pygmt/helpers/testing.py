@@ -157,8 +157,8 @@ def load_static_earth_relief():
 
 def skip_if_no(package):
     """
-    Generic function to help skip tests when required packages are not present
-    on the testing system.
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
 
     This function returns a pytest mark with a skip condition that will be
     evaluated during test collection. An attempt will be made to import the
