@@ -261,11 +261,10 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
         assert output == expected
 
 
-def test_virtualfile_from_vectors_transpose():
+def test_virtualfile_from_vectors_transpose(dtypes):
     """
     Test transforming matrix columns to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
