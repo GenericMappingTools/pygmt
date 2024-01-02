@@ -71,8 +71,7 @@ def test_load_libgmt():
 @pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
 def test_load_libgmt_fails(monkeypatch):
     """
-    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot
-    be found.
+    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setattr(
@@ -247,8 +246,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_empty(
     monkeypatch, gmt_lib_names
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is undefined and PATH is empty.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is undefined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
@@ -263,8 +262,8 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
     monkeypatch, gmt_lib_names, gmt_lib_realpath
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined and PATH is empty.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
@@ -279,8 +278,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is undefined and PATH includes GMT's bin path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is undefined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
@@ -296,8 +295,8 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
@@ -314,9 +313,8 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin
-    path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")

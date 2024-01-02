@@ -60,8 +60,7 @@ def test_grdlandmask_no_outgrid(expected_grid):
 
 def test_grdlandmask_fails():
     """
-    Check that grdlandmask fails correctly when region and spacing are not
-    given.
+    Check that grdlandmask fails correctly when region and spacing are not given.
     """
     with pytest.raises(GMTInvalidInput):
         grdlandmask()
