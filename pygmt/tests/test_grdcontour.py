@@ -37,8 +37,7 @@ def test_grdcontour(grid):
 @pytest.mark.mpl_image_compare
 def test_grdcontour_labels(grid):
     """
-    Plot a contour image using a xarray grid with contour labels and alternate
-    colors.
+    Plot a contour image using a xarray grid with contour labels and alternate colors.
     """
     fig = Figure()
     fig.grdcontour(

@@ -38,8 +38,8 @@ def test_earth_faa_01d_with_region():
 
 def test_earth_faa_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has a "pixel"
+    registration.
     """
     data = load_earth_free_air_anomaly(resolution="01m", region=[-10, -9, 3, 5])
     assert data.shape == (120, 60)
