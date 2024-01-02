@@ -59,6 +59,6 @@ with fig.subplot(
                 panel=True,
             )
 
-fig.colorbar(position="JBC+w10c/0.25c+h", frame="a2000f500+lElevation (m)")
+fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
 
 fig.show()
