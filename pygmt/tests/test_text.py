@@ -8,6 +8,12 @@ import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
+from pygmt.helpers.testing import skip_if_no
+
+try:
+    import pyarrow as pa
+except ImportError:
+    pa = None
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -47,8 +53,20 @@ def test_text_single_line_of_text(region, projection):
 
 
 @pytest.mark.benchmark
-@pytest.mark.mpl_image_compare
-def test_text_multiple_lines_of_text(region, projection):
+@pytest.mark.mpl_image_compare(filename="test_text_multiple_lines_of_text.png")
+@pytest.mark.parametrize(
+    "array_func",
+    [
+        list,
+        pytest.param(np.array, id="numpy"),
+        pytest.param(
+            getattr(pa, "array", None),
+            marks=skip_if_no(package="pyarrow"),
+            id="pyarrow",
+        ),
+    ],
+)
+def test_text_multiple_lines_of_text(region, projection, array_func):
     """
     Place multiple lines of text at their respective x, y locations.
     """
@@ -58,7 +76,7 @@ def test_text_multiple_lines_of_text(region, projection):
         projection=projection,
         x=[1.2, 1.6],
         y=[0.6, 0.3],
-        text=["This is a line of text", "This is another line of text"],
+        text=array_func(["This is a line of text", "This is another line of text"]),
     )
     return fig
 
