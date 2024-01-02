@@ -65,7 +65,6 @@ def convention_code(convention, component="full"):
 
     >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
     ...     assert convention_code(code) == code
-    ...
 
     >>> convention_code("invalid")
     Traceback (most recent call last):
@@ -169,7 +168,7 @@ def convention_params(convention):
         ],
         "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
         "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-        "pricipal_axis": [
+        "principal_axis": [
             "t_value",
             "t_azimuth",
             "t_plunge",
@@ -402,7 +401,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     # Convert spec to pandas.DataFrame unless it's a file
     if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
+        for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):
                 convention = conv
                 break

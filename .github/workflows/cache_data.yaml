@@ -65,7 +65,7 @@ jobs:
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gmt-cache
           path: |

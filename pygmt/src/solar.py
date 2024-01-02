@@ -84,9 +84,7 @@ def solar(
     >>> # create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
     >>> # create a map of the Earth with the coast method
-    >>> fig.coast(
-    ...     land="darkgreen", water="lightblue", projection="W10c", region="d"
-    ... )
+    >>> fig.coast(land="darkgreen", water="lightblue", projection="W10c", region="d")
     >>> fig.solar(
     ...     # set the terminator to "day_night"
     ...     terminator="day_night",
