@@ -150,8 +150,7 @@ class GMTDataArrayAccessor:
     @property
     def gtype(self):
         """
-        Coordinate system type of the grid, either 0 (Cartesian) or 1
-        (Geographic).
+        Coordinate system type of the grid, either 0 (Cartesian) or 1 (Geographic).
         """
         return self._gtype
 
