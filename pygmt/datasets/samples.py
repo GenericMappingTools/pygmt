@@ -41,8 +41,7 @@ def _load_japan_quakes():
 
 def _load_ocean_ridge_points():
     """
-    Load a table of ocean ridge points for the entire world as a
-    pandas.DataFrame.
+    Load a table of ocean ridge points for the entire world as a pandas.DataFrame.
 
     Returns
     -------
@@ -92,8 +91,8 @@ def _load_usgs_quakes():
 
 def _load_fractures_compilation():
     """
-    Load a table of fracture lengths and azimuths as hypothetically digitized
-    from geological maps as a pandas.DataFrame.
+    Load a table of fracture lengths and azimuths as hypothetically digitized from
+    geological maps as a pandas.DataFrame.
 
     Returns
     -------
@@ -108,8 +107,8 @@ def _load_fractures_compilation():
 
 def _load_hotspots():
     """
-    Load a table with the locations, names, and suggested symbol sizes of
-    hotspots as a pandas.DataFrame.
+    Load a table with the locations, names, and suggested symbol sizes of hotspots as a
+    pandas.DataFrame.
 
     The data are from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,
     pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]

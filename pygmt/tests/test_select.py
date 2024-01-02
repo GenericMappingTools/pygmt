@@ -33,8 +33,7 @@ def test_select_input_dataframe(dataframe):
 
 def test_select_input_table_matrix(dataframe):
     """
-    Run select using table input that is not a pandas.DataFrame but still a
-    matrix.
+    Run select using table input that is not a pandas.DataFrame but still a matrix.
 
     Also testing the reverse (I) alias.
     """
