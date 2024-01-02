@@ -32,7 +32,7 @@ def test_load_static_earth_relief():
 
 
 @pytest.mark.parametrize(
-    "data,x,y",
+    ("data", "x", "y"),
     [
         (None, None, None),
         ("data.txt", np.array([1, 2]), np.array([4, 5])),
@@ -151,8 +151,8 @@ def test_args_in_kwargs():
 
 def test_skip_if_no():
     """
-    Test that the skip_if_no helper testing function returns a
-    pytest.mask.skipif mark decorator.
+    Test that the skip_if_no helper testing function returns a pytest.mask.skipif mark
+    decorator.
     """
     # Check pytest.mark with a dependency that can be imported
     mark_decorator = skip_if_no(package="numpy")
