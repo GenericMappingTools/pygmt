@@ -34,6 +34,19 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.fixture(scope="module", name="dtypes_pandas")
+def fixture_dtypes_pandas(dtypes):
+    """
+    List of supported pandas dtypes.
+    """
+    dtypes_pandas = dtypes.copy()
+
+    if find_spec("pyarrow") is not None:
+        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
+
+    return tuple(dtypes_pandas)
+
+
 def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
@@ -315,16 +328,14 @@ def test_virtualfile_from_matrix_slice(dtypes):
             assert output == expected
 
 
-def test_virtualfile_from_vectors_pandas(dtypes):
+def test_virtualfile_from_vectors_pandas(dtypes_pandas):
     """
     Pass vectors to a dataset using pandas.Series, checking both numpy and pyarrow
     dtypes.
     """
     size = 13
-    if find_spec("pyarrow") is not None:
-        dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
 
-    for dtype in dtypes:
+    for dtype in dtypes_pandas:
         data = pd.DataFrame(
             data={
                 "x": np.arange(size),
