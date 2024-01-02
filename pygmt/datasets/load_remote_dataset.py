@@ -16,19 +16,17 @@ if TYPE_CHECKING:
 
 class Resolution(NamedTuple):
     """
-    The available grid registrations for a given resolution and whether it is a tiled
-    grid.
+    Resolution code, the available grid registrations and whether it is tiled.
 
     Attributes
     ----------
     code : str
         The resolution code.
     registrations : list
-        A list of the accepted registrations for a given resolution.
-        Can be either "pixel" or "gridline".
+        A list of the accepted registrations for a given resolution. Can be either
+        "pixel" or "gridline".
     tiled : bool
-        States if the given resolution is tiled, which requires an
-        argument for ``region``.
+        States if the grid is tiled, which requires an argument for ``region``.
     """
 
     code: str
@@ -249,8 +247,8 @@ def _load_remote_dataset(  # noqa: PLR0912
     dataset_prefix
         The prefix for the dataset that will be passed to the GMT C API.
     resolution
-        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degrees, arc-minutes, and arc-seconds, respectively.
+        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degrees,
+        arc-minutes, and arc-seconds, respectively.
     region
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
@@ -258,8 +256,8 @@ def _load_remote_dataset(  # noqa: PLR0912
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, where
-        a gridline-registered grid is returned unless only the
-        pixel-registered grid is available.
+        a gridline-registered grid is returned unless only the pixel-registered grid
+        is available.
 
     Returns
     -------
@@ -268,8 +266,8 @@ def _load_remote_dataset(  # noqa: PLR0912
 
     Note
     ----
-    The returned :class:`xarray.DataArray` doesn't support slice operation for
-    tiled grids.
+    The returned :class:`xarray.DataArray` doesn't support slice operation for tiled
+    grids.
     """
     dataset = datasets[dataset_name]
 
@@ -295,10 +293,9 @@ def _load_remote_dataset(  # noqa: PLR0912
             )
     else:
         raise GMTInvalidInput(
-            f"Invalid grid registration: '{registration}', should be either "
-            "'pixel', 'gridline' or None. Default is None, where a "
-            "gridline-registered grid is returned unless only the "
-            "pixel-registered grid is available."
+            f"Invalid grid registration: '{registration}', should be either 'pixel', "
+            "'gridline' or None. Default is None, where a gridline-registered grid is "
+            "returned unless only the pixel-registered grid is available."
         )
     reg = f"_{registration[0]}"
 
@@ -322,9 +319,8 @@ def _load_remote_dataset(  # noqa: PLR0912
         grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
         grid.attrs[key] = value
-    # Remove the actual range because it gets outdated when indexing the grid,
-    # which causes problems when exporting it to netCDF for usage on the
-    # command-line.
+    # Remove the actual range because it gets outdated when indexing the grid, which
+    # causes problems when exporting it to netCDF for usage on the command-line.
     grid.attrs.pop("actual_range", None)
     for coord in grid.coords:
         grid[coord].attrs.pop("actual_range", None)
