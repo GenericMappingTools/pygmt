@@ -119,6 +119,7 @@ def test_info_numpy_array_time_column():
     assert output == expected_output
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "dtype",
     [
@@ -144,6 +145,7 @@ def test_info_pandas_dataframe_date_column(dtype):
     assert output == expected_output
 
 
+@pytest.mark.benchmark
 def test_info_xarray_dataset_time_column():
     """
     Make sure info works on xarray.Dataset 1-D inputs with a time column.
