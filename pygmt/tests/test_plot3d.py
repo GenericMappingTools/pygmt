@@ -74,8 +74,8 @@ def test_plot3d_red_circles_zsize(data, region):
 
 def test_plot3d_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency
-    are used with matrix.
+    Should raise an exception if array fill, size, intensity and transparency are used
+    with matrix.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
@@ -378,6 +378,7 @@ def test_plot3d_from_file(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_plot3d_vectors():
     """
@@ -434,8 +435,8 @@ def test_plot3d_scalar_xyz():
 @pytest.mark.parametrize("func", [str, Path])
 def test_plot3d_ogrgmt_file_multipoint_default_style(func):
     """
-    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes
-    and not as line (default GMT style).
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as cubes and not
+    as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT

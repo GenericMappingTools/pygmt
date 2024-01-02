@@ -37,9 +37,7 @@ def grdinfo(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
+    {grid}
     {region}
     per_column : str or bool
         **n**\|\ **t**.

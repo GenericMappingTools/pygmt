@@ -48,12 +48,8 @@ def grdfilter(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a
-        :class:`xarray.DataArray`.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     filter : str
         **b**\|\ **c**\|\ **g**\|\ **o**\|\ **m**\|\ **p**\|\ **h**\ *width*\
         [/*width2*\][*modifiers*].
