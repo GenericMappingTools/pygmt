@@ -191,14 +191,15 @@ def test_geopandas_plot_int_dtypes(gdf_ridge, dtype):
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/2497
     """
+    gdf = gdf_ridge.copy()
     # Convert NPOINTS column to integer type
-    gdf_ridge["NPOINTS"] = gdf_ridge.NPOINTS.astype(dtype=dtype)
+    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype=dtype)
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
     makecpt(cmap="lisbon", series=[10, 60, 10], continuous=True)
     fig.plot(
-        data=gdf_ridge,
+        data=gdf,
         frame=True,
         pen="1p,black",
         fill="+z",
@@ -215,13 +216,14 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
     Check that big 64-bit integers are correctly mapped to float type in
     geopandas.GeoDataFrame object.
     """
+    gdf = gdf_ridge.copy()
     factor = 2**32
     # Convert NPOINTS column to int64 type and make big integers
-    gdf_ridge["NPOINTS"] = gdf_ridge.NPOINTS.astype(dtype="int64")
-    gdf_ridge["NPOINTS"] *= factor
+    gdf["NPOINTS"] = gdf.NPOINTS.astype(dtype="int64")
+    gdf["NPOINTS"] *= factor
 
     # Make sure the column is bigger than the largest 32-bit integer
-    assert gdf_ridge["NPOINTS"].abs().max() > 2**31 - 1
+    assert gdf["NPOINTS"].abs().max() > 2**31 - 1
 
     # Plot figure with three polygons colored based on NPOINTS value
     fig = Figure()
@@ -229,7 +231,7 @@ def test_geopandas_plot_int64_as_float(gdf_ridge):
         cmap="lisbon", series=[10 * factor, 60 * factor, 10 * factor], continuous=True
     )
     fig.plot(
-        data=gdf_ridge,
+        data=gdf,
         frame=True,
         pen="1p,black",
         fill="+z",
