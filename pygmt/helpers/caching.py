@@ -24,7 +24,7 @@ def cache_data():
         "@earth_relief_05m_g",
         "@earth_synbath_01d_g",
         # List of tiles of 03s srtm data.
-        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
+        # Names like @N35E135.earth_relief_03s_g.nc are for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
         "@N30W120.earth_relief_15s_p.nc",
         "@N35E135.earth_relief_03s_g.nc",
@@ -33,7 +33,7 @@ def cache_data():
         "@N00E135.earth_relief_30s_g.nc",
         "@N00W010.earth_relief_15s_p.nc",  # Specific grid for 15s test
         "@N04W010.earth_relief_03s_g.nc",  # Specific grid for 03s test
-        # Earth synbath relief grids
+        # Earth synbath relief grid
         "@S15W105.earth_synbath_30s_p.nc",
         # Earth seafloor age grids
         "@earth_age_01d_g",
