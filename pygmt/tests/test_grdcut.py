@@ -53,6 +53,7 @@ def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid, region):
     """
     Test grdcut on an input DataArray, and output as DataArray.

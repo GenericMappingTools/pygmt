@@ -1,10 +1,10 @@
 """
 PyGMT is a library for processing geospatial and geophysical data and making
-publication-quality maps and figures. It provides a Pythonic interface for the
-Generic Mapping Tools (GMT), a command-line program widely used across the
-Earth, Ocean, and Planetary sciences and beyond. Besides making GMT more
-accessible to new users, PyGMT aims to provide integration with the PyData
-ecosystem as well as support for rich display in Jupyter notebooks.
+publication-quality maps and figures. It provides a Pythonic interface for the Generic
+Mapping Tools (GMT), a command-line program widely used across the Earth, Ocean, and
+Planetary sciences and beyond. Besides making GMT more accessible to new users, PyGMT
+aims to provide integration with the PyData ecosystem as well as support for rich
+display in Jupyter notebooks.
 
 Main Features
 -------------
@@ -93,8 +93,7 @@ def print_clib_info(file=sys.stdout):
 
 def show_versions(file=sys.stdout):
     """
-    Print various dependency versions which are useful when submitting bug
-    reports.
+    Print various dependency versions which are useful when submitting bug reports.
 
     This includes information about:
 

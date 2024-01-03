@@ -46,6 +46,7 @@ def test_text_single_line_of_text(region, projection):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_text_multiple_lines_of_text(region, projection):
     """
@@ -113,8 +114,8 @@ def test_text_nonexistent_filename():
 @pytest.mark.mpl_image_compare
 def test_text_position(region):
     """
-    Print text at center middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right).
+    Print text at center middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right).
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -147,9 +148,9 @@ def test_text_invalid_inputs(region):
 @pytest.mark.mpl_image_compare
 def test_text_position_offset_with_line(region):
     """
-    Print text at centre middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
-    drawn from the original to the shifted point.
+    Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right), offset by 0.5 cm, with a line drawn from the original to the
+    shifted point.
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -272,8 +273,8 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
 @pytest.mark.mpl_image_compare
 def test_text_justify_parsed_from_textfile():
     """
-    Print text justified based on a column from textfile, using justify=True
-    boolean operation.
+    Print text justified based on a column from textfile, using justify=True boolean
+    operation.
 
     Loosely based on "All great-circle paths lead to Rome" gallery example at
     https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
@@ -292,8 +293,8 @@ def test_text_justify_parsed_from_textfile():
 @pytest.mark.mpl_image_compare
 def test_text_angle_font_justify_from_textfile():
     """
-    Print text with x, y, angle, font, justify, and text arguments parsed from
-    the textfile.
+    Print text with x, y, angle, font, justify, and text arguments parsed from the
+    textfile.
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
@@ -416,7 +417,7 @@ def test_text_nonascii():
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
-    fig.text(position="TL", text="position-text:°α")
-    fig.text(x=1, y=1, text="xytext:°α")
+    fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
+    fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
     return fig

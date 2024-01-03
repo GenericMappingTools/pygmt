@@ -6,8 +6,8 @@ import xarray as xr
 
 def load_dataarray(filename_or_obj, **kwargs):
     """
-    Open, load into memory, and close a DataArray from a file or file-like
-    object containing a single data variable.
+    Open, load into memory, and close a DataArray from a file or file-like object
+    containing a single data variable.
 
     This is a thin wrapper around :py:func:`xarray.open_dataarray`. It differs
     from :py:func:`xarray.open_dataarray` in that it loads the DataArray into

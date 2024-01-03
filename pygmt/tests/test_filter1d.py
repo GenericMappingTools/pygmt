@@ -58,8 +58,8 @@ def test_filter1d_no_filter(data):
 
 def test_filter1d_no_outfile_specified(data):
     """
-    Test that filter1d fails when outpput_type is set to 'file' but no output
-    file name is specified.
+    Test that filter1d fails when outpput_type is set to 'file' but no output file name
+    is specified.
     """
     with pytest.raises(GMTInvalidInput):
         filter1d(data=data, filter_type="g5", output_type="file")

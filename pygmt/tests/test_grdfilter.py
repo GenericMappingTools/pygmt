@@ -39,6 +39,7 @@ def fixture_expected_grid():
     )
 
 
+@pytest.mark.benchmark
 def test_grdfilter_dataarray_in_dataarray_out(grid, expected_grid):
     """
     Test grdfilter with an input DataArray, and output as DataArray.

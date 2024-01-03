@@ -18,7 +18,7 @@ def fixture_data():
     """
     fname = which("@Table_5_11_mean.xyz", download="c")
     return pd.read_csv(
-        fname, delim_whitespace=True, header=None, names=["x", "y", "z"], skiprows=1
+        fname, sep=r"\s+", header=None, names=["x", "y", "z"], skiprows=1
     )
 
 
@@ -103,6 +103,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     check_values(output, expected_grid)
 
 
+@pytest.mark.benchmark
 def test_surface_input_xyz(data, region, spacing, expected_grid):
     """
     Run surface by passing in x, y, z numpy.ndarrays individually.

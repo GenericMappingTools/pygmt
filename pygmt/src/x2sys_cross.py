@@ -23,9 +23,9 @@ from pygmt.helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text
-    file with a unique name (to prevent clashes when running x2sys_cross),
-    adding a suffix extension to the end.
+    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with
+    a unique name (to prevent clashes when running x2sys_cross), adding a suffix
+    extension to the end.
 
     Parameters
     ----------

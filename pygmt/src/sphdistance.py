@@ -32,8 +32,7 @@ __doctest_skip__ = ["sphdistance"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
-    Create Voronoi distance, node, or natural nearest-neighbor grid on a
-    sphere.
+    Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
 
     Reads a table containing *lon, lat* columns and performs
     the construction of Voronoi polygons. These polygons are

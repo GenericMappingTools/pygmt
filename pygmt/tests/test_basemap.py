@@ -5,6 +5,7 @@ import pytest
 from pygmt import Figure
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_basemap():
     """
@@ -75,8 +76,7 @@ def test_basemap_utm_projection(projection):
     """
     Create a Universal Transverse Mercator (Zone 23S) basemap plot.
 
-    Also check that providing the projection as an EPSG code or PROJ4 string
-    works.
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
     projection = projection.replace(
         "EPSG_",
@@ -132,8 +132,8 @@ def test_basemap_map_scale():
 @pytest.mark.mpl_image_compare
 def test_basemap_subplot():
     """
-    Test in subplot mode for the case that the frame parameter of basemap is
-    not specified.
+    Test in subplot mode for the case that the frame parameter of basemap is not
+    specified.
     """
     fig = Figure()
     with fig.subplot(nrows=1, ncols=2, figsize=("10c", "5c")):

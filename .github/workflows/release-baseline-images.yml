@@ -25,9 +25,7 @@ jobs:
       uses: iterative/setup-dvc@v1.1.2
 
     - name: Pull baseline image data from dvc remote
-      run: |
-        dvc pull
-        ls -lhR pygmt/tests/baseline/
+      run: dvc pull && ls -lhR pygmt/tests/baseline/
 
     - name: Create the baseline image asset in zip format
       run: |

@@ -1,5 +1,5 @@
 """
-Political Boundaries
+Political boundaries
 ====================
 
 The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of

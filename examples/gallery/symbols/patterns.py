@@ -1,5 +1,5 @@
 r"""
-Bit and Hachure Patterns
+Bit and hachure patterns
 ========================
 
 PyGMT allows using bit or hachure patterns via the ``fill`` parameter

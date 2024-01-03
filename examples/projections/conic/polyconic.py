@@ -4,7 +4,7 @@ Polyconic Projection
 
 The polyconic projection, in Europe usually referred to as the American
 polyconic projection, was introduced shortly before 1820 by the Swiss-American
-cartographer Ferdinand Rodulph Hassler (1770–1843). As head of the Survey of
+cartographer Ferdinand Rodulph Hassler (1770-1843). As head of the Survey of
 the Coast, he was looking for a projection that would give the least distortion
 for mapping the coast of the United States. The projection acquired its name
 from the construction of each parallel, which is achieved by projecting the

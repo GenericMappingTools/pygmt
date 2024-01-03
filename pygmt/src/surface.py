@@ -153,9 +153,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a sample table of topography
-    >>> topography = pygmt.datasets.load_sample_data(
-    ...     name="notre_dame_topography"
-    ... )
+    >>> topography = pygmt.datasets.load_sample_data(name="notre_dame_topography")
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """

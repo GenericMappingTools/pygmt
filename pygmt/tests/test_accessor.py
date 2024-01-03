@@ -16,8 +16,8 @@ from pygmt.exceptions import GMTInvalidInput
 
 def test_accessor_gridline_cartesian():
     """
-    Check that a grid returns a registration value of 0 when Gridline
-    registered, and a gtype value of 1 when using Geographic coordinates.
+    Check that a grid returns a registration value of 0 when Gridline registered, and a
+    gtype value of 1 when using Geographic coordinates.
     """
     fname = which(fname="@test.dat.nc", download="a")
     grid = xr.open_dataarray(fname)
@@ -27,8 +27,8 @@ def test_accessor_gridline_cartesian():
 
 def test_accessor_pixel_geographic():
     """
-    Check that a grid returns a registration value of 1 when Pixel registered,
-    and a gtype value of 0 when using Cartesian coordinates.
+    Check that a grid returns a registration value of 1 when Pixel registered, and a
+    gtype value of 0 when using Cartesian coordinates.
     """
     fname = which(fname="@earth_relief_01d_p", download="a")
     grid = xr.open_dataarray(fname, engine="netcdf4")
@@ -38,8 +38,7 @@ def test_accessor_pixel_geographic():
 
 def test_accessor_set_pixel_registration():
     """
-    Check that we can set a grid to be Pixel registered with a registration
-    value of 1.
+    Check that we can set a grid to be Pixel registered with a registration value of 1.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
     assert grid.gmt.registration == 0  # default to gridline registration
@@ -49,9 +48,8 @@ def test_accessor_set_pixel_registration():
 
 def test_accessor_set_geographic_cartesian_roundtrip():
     """
-    Check that we can set a grid to switch between the default Cartesian
-    coordinate type using a gtype of 1, set it to Geographic 0, and then back
-    to Cartesian again 1.
+    Check that we can set a grid to switch between the default Cartesian coordinate type
+    using a gtype of 1, set it to Geographic 0, and then back to Cartesian again 1.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
     assert grid.gmt.gtype == 0  # default to cartesian coordinate type
@@ -63,8 +61,7 @@ def test_accessor_set_geographic_cartesian_roundtrip():
 
 def test_accessor_set_non_boolean():
     """
-    Check that setting non boolean values on registration and gtype do not
-    work.
+    Check that setting non boolean values on registration and gtype do not work.
     """
     grid = xr.DataArray(data=[[0.1, 0.2], [0.3, 0.4]])
 
@@ -85,8 +82,8 @@ def test_accessor_set_non_boolean():
 )
 def test_accessor_sliced_datacube():
     """
-    Check that a 2-D grid which is sliced from an n-dimensional datacube works
-    with accessor methods.
+    Check that a 2-D grid which is sliced from an n-dimensional datacube works with
+    accessor methods.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1578.
@@ -107,8 +104,8 @@ def test_accessor_sliced_datacube():
 
 def test_accessor_grid_source_file_not_exist():
     """
-    Check that the accessor fallbacks to the default registration and gtype
-    when the grid source file (i.e., grid.encoding["source"]) doesn't exist.
+    Check that the accessor fallbacks to the default registration and gtype when the
+    grid source file (i.e., grid.encoding["source"]) doesn't exist.
     """
     # Load the 05m earth relief grid, which is stored as tiles
     grid = load_earth_relief(

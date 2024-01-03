@@ -69,9 +69,7 @@ def sph2grd(data, **kwargs):
     >>> import pygmt
     >>> # Create a new grid from the remote file "EGM96_to_36.txt",
     >>> # set the grid spacing to 1 arc-degree, and the region to global ("g")
-    >>> new_grid = pygmt.sph2grd(
-    ...     data="@EGM96_to_36.txt", spacing=1, region="g"
-    ... )
+    >>> new_grid = pygmt.sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:

@@ -22,6 +22,9 @@ PyGMT
 .. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
     :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
+.. image:: https://img.shields.io/endpoint?url=https://codspeed.io/badge.json
+    :alt: CodSpeed Performance Benchmarks
+    :target: https://codspeed.io/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
@@ -100,7 +103,7 @@ If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/ind
 
     conda install --channel conda-forge pygmt
 
-For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+For other ways to install ``pygmt``, see the `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
 
 Getting started
 +++++++++++++++

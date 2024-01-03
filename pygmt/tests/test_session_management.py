@@ -1,12 +1,17 @@
 """
 Test the session management modules.
 """
+import multiprocessing as mp
 import os
+from importlib import reload
+from pathlib import Path
 
+import pytest
 from pygmt.clib import Session
 from pygmt.session_management import begin, end
 
 
+@pytest.mark.benchmark
 def test_begin_end():
     """
     Run a command inside a begin-end modern mode block.
@@ -55,3 +60,29 @@ def test_gmt_compat_6_is_applied(capsys):
         # Make sure no global "gmt.conf" in the current directory
         assert not os.path.exists("gmt.conf")
         begin()  # Restart the global session
+
+
+def _gmt_func_wrapper(figname):
+    """
+    A wrapper for running PyGMT scripts with multiprocessing.
+
+    Currently, we have to import pygmt and reload it in each process. Workaround from
+    https://github.com/GenericMappingTools/pygmt/issues/217#issuecomment-754774875.
+    """
+    import pygmt
+
+    reload(pygmt)
+    fig = pygmt.Figure()
+    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c", frame="afg")
+    fig.savefig(figname)
+
+
+def test_session_multiprocessing():
+    """
+    Make sure that multiprocessing is supported if pygmt is re-imported.
+    """
+    prefix = "test_session_multiprocessing"
+    with mp.Pool(2) as p:
+        p.map(_gmt_func_wrapper, [f"{prefix}-1.png", f"{prefix}-2.png"])
+    Path(f"{prefix}-1.png").unlink()
+    Path(f"{prefix}-2.png").unlink()

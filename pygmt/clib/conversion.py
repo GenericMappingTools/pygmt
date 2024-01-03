@@ -126,8 +126,7 @@ def dataarray_to_matrix(grid):
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D
-    arrays.
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the

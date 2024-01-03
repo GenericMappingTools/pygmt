@@ -156,9 +156,7 @@ def blockmean(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mean values within 5 by 5 arc-minute bins
-    >>> data_bmean = pygmt.blockmean(
-    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )
+    >>> data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     return _blockm(
         block_method="blockmean", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs
@@ -330,9 +328,7 @@ def blockmode(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
     >>> # Load a table of ship observations of bathymetry off Baja California
     >>> data = pygmt.datasets.load_sample_data(name="bathymetry")
     >>> # Calculate block mode values within 5 by 5 arc-minute bins
-    >>> data_bmode = pygmt.blockmode(
-    ...     data=data, region=[245, 255, 20, 30], spacing="5m"
-    ... )
+    >>> data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing="5m")
     """
     return _blockm(
         block_method="blockmode", data=data, x=x, y=y, z=z, outfile=outfile, **kwargs

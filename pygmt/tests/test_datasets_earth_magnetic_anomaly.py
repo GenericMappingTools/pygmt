@@ -40,8 +40,8 @@ def test_earth_mag_01d_with_region():
 
 def test_earth_mag_02m_default_registration():
     """
-    Test that the grid returned by default for the 2 arc-minute resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 2 arc-minute resolution has a "pixel"
+    registration.
     """
     data = load_earth_magnetic_anomaly(resolution="02m", region=[-10, -9, 3, 5])
     assert data.shape == (60, 30)
@@ -90,8 +90,8 @@ def test_earth_mag4km_01d_with_region():
 
 def test_earth_mag4km_02m_default_registration():
     """
-    Test that the grid returned by default for the 2 arc-minute resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 2 arc-minute resolution has a "pixel"
+    registration.
     """
     data = load_earth_magnetic_anomaly(
         resolution="02m",
@@ -162,8 +162,7 @@ def test_earth_mag_03m_wdmam_with_region():
 
 def test_earth_mag_data_source_error():
     """
-    Test that an error is raised when an invalid argument is passed to
-    'data_source'.
+    Test that an error is raised when an invalid argument is passed to 'data_source'.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_magnetic_anomaly(resolution="01d", data_source="invalid")
