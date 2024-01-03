@@ -210,7 +210,7 @@ class config:  # noqa: N801
 
     def __exit__(self, exc_type, exc_value, traceback):
         """
-        Revert the configurations to initial values.
+        Revert GMT configurations to initial values.
         """
         arg_str = " ".join(
             [f'{key}="{value}"' for key, value in self.old_defaults.items()]
