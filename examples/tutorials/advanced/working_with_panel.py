@@ -73,9 +73,11 @@ slider_lon = pn.widgets.DiscreteSlider(
 )
 
 
-# Define a function for plotting the single slices
 @pn.depends(central_lon=slider_lon)
 def view(central_lon):
+    """
+    Define a function for plotting the single slices.
+    """
     # Create a new instance or object of the pygmt.Figure() class
     fig = pygmt.Figure()
     fig.coast(
@@ -112,9 +114,11 @@ slider_lon = pn.widgets.DiscreteSlider(
 )
 
 
-# Define a function for plotting the single slices
 @pn.depends(central_lon=slider_lon)
 def view(central_lon):
+    """
+    Define a function for plotting the single slices.
+    """
     # Create a new instance or object of the pygmt.Figure() class
     fig = pygmt.Figure()
     # Set up a colormap for the elevation in meters
