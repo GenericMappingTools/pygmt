@@ -72,7 +72,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=3.12
