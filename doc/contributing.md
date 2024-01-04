@@ -328,6 +328,7 @@ Below the import statements at the top of the file
 
 ```python
 __doctest_skip__ = ["function_name"]
+```
 
 At the end of the function's docstring:
 
