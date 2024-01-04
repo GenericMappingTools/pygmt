@@ -24,6 +24,9 @@ class FakedLibGMT:
         self._name = name
 
     def __str__(self):
+        """
+        String representation of the object.
+        """
         return self._name
 
 
