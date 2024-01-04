@@ -75,6 +75,7 @@ def test_grdvolume_no_outfile(grid):
         grdvolume(grid=grid, output_type="file")
 
 
+@pytest.mark.benchmark
 def test_grdvolume_no_outgrid(grid, data, region):
     """
     Test the expected output of grdvolume with no output file set.

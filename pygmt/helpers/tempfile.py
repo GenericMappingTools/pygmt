@@ -50,7 +50,6 @@ class GMTTempFile:
     ...     print(lines)
     ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=float)
     ...     print(nx, ny, nz)
-    ...
     0.0 1.0 2.0
     0.0 1.0 2.0
     0.0 1.0 2.0
@@ -63,9 +62,15 @@ class GMTTempFile:
             self.name = tmpfile.name
 
     def __enter__(self):
+        """
+        Do nothing but return the object.
+        """
         return self
 
     def __exit__(self, *args):
+        """
+        Remove the temporary file.
+        """
         if os.path.exists(self.name):
             os.remove(self.name)
 
@@ -109,9 +114,8 @@ class GMTTempFile:
 @contextmanager
 def tempfile_from_geojson(geojson):
     """
-    Saves any geo-like Python object which implements ``__geo_interface__``
-    (e.g. a geopandas.GeoDataFrame or shapely.geometry) to a temporary OGR_GMT
-    text file.
+    Saves any geo-like Python object which implements ``__geo_interface__`` (e.g. a
+    geopandas.GeoDataFrame or shapely.geometry) to a temporary OGR_GMT text file.
 
     Parameters
     ----------
@@ -166,8 +170,7 @@ def tempfile_from_geojson(geojson):
 @contextmanager
 def tempfile_from_image(image):
     """
-    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via
-    rioxarray.
+    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via rioxarray.
 
     Parameters
     ----------

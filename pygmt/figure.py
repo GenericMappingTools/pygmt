@@ -88,7 +88,9 @@ class Figure:
         self._activate_figure()
 
     def __del__(self):
-        # Clean up the temporary directory that stores the previews
+        """
+        Clean up the temporary directory that stores the previews.
+        """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
@@ -110,8 +112,8 @@ class Figure:
 
     def _preprocess(self, **kwargs):
         """
-        Call the ``figure`` module before each plotting command to ensure we're
-        plotting to this particular figure.
+        Call the ``figure`` module before each plotting command to ensure we're plotting
+        to this particular figure.
         """
         self._activate_figure()
         return kwargs

@@ -18,6 +18,7 @@ jobs:
   check_links:
     name: Check Links
     runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout the repository

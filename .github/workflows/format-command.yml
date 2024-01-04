@@ -32,7 +32,7 @@ jobs:
       # Install formatting tools
       - name: Install formatting tools
         run: |
-          python -m pip install blackdoc docformatter ruff
+          python -m pip install ruff
           python -m pip list
           sudo apt-get install dos2unix
 

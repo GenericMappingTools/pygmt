@@ -28,6 +28,7 @@ def test_sphinterpolate_outgrid(mars):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sphinterpolate_no_outgrid(mars):
     """
     Test sphinterpolate with no set outgrid.
