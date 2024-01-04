@@ -7,15 +7,14 @@ from importlib.metadata import metadata
 
 # ruff: isort: off
 from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
-import pygmt
+from pygmt.clib import required_gmt_version
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
 
 # ruff: isort: on
 
 requires_python = metadata("pygmt")["Requires-Python"]
-with pygmt.clib.Session() as lib:
-    requires_gmt = f">={lib.required_version}"
+requires_gmt = f">={required_gmt_version}"
 
 extensions = [
     "myst_parser",

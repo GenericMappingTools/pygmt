@@ -25,14 +25,9 @@ from pygmt.clib.conversion import (
     strings_to_ctypes_array,
     vectors_to_arrays,
 )
-from pygmt.clib.loading import load_libgmt
+from pygmt.clib.loading import get_gmt_version, load_libgmt
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
-from pygmt.exceptions import (
-    GMTCLibError,
-    GMTCLibNoSessionError,
-    GMTInvalidInput,
-    GMTVersionError,
-)
+from pygmt.exceptions import GMTCLibError, GMTCLibNoSessionError, GMTInvalidInput
 from pygmt.helpers import (
     _validate_data_input,
     data_kind,
@@ -98,6 +93,7 @@ GMT_CONSTANTS = {}
 
 # Load the GMT library outside the Session class to avoid repeated loading.
 _libgmt = load_libgmt()
+__gmt_version__ = get_gmt_version(_libgmt)
 
 
 class Session:
@@ -155,9 +151,6 @@ class Session:
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
-    # The minimum supported GMT version.
-    required_version = "6.3.0"
-
     @property
     def session_pointer(self):
         """
@@ -212,27 +205,11 @@ class Session:
 
     def __enter__(self):
         """
-        Create a GMT API session and check the libgmt version.
+        Create a GMT API session.
 
         Calls :meth:`pygmt.clib.Session.create`.
-
-        Raises
-        ------
-        GMTVersionError
-            If the version reported by libgmt is less than
-            ``Session.required_version``. Will destroy the session before
-            raising the exception.
         """
         self.create("pygmt-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self.destroy()
-            raise GMTVersionError(
-                f"Using an incompatible GMT version {version}. "
-                f"Must be equal or newer than {self.required_version}."
-            )
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
