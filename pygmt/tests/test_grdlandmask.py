@@ -49,7 +49,7 @@ def test_grdlandmask_no_outgrid(expected_grid):
     """
     Test grdlandmask with no set outgrid.
     """
-    result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=1, verbose="i")
+    result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid
