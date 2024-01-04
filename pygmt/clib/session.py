@@ -25,7 +25,6 @@ from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
     GMTInvalidInput,
-    GMTVersionError,
 )
 from pygmt.helpers import (
     data_kind,
@@ -215,15 +214,6 @@ class Session:
             raising the exception.
         """
         self.create("pygmt-session")
-        # Need to store the version info because 'get_default' won't work after
-        # the session is destroyed.
-        version = self.info["version"]
-        if Version(version) < Version(self.required_version):
-            self.destroy()
-            raise GMTVersionError(
-                f"Using an incompatible GMT version {version}. "
-                f"Must be equal or newer than {self.required_version}."
-            )
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
