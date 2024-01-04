@@ -2,6 +2,7 @@
 Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
+from packaging.version import Version
 
 try:
     import contextily
@@ -132,6 +133,13 @@ def load_tile_map(
             "`mamba install -c conda-forge contextily` "
             "to install the package."
         )
+    if zoom_adjust is not None:
+        contextily_kwargs = {"zoom_adjust": zoom_adjust}
+        if Version(contextily.__version__) < Version("1.5.0"):
+            raise TypeError(
+                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
+                "Please upgrade contextily, or manually set the `zoom` level instead."
+            )
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(
@@ -144,7 +152,7 @@ def load_tile_map(
         ll=lonlat,
         wait=wait,
         max_retries=max_retries,
-        zoom_adjust=zoom_adjust,
+        **contextily_kwargs,
     )
 
     # Turn RGBA img from channel-last to channel-first and get 3-band RGB only
