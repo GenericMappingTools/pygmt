@@ -59,8 +59,7 @@ def test_figure_region_country_codes():
 @pytest.mark.benchmark
 def test_figure_repr():
     """
-    Make sure that figure output's PNG and HTML printable representations look
-    ok.
+    Make sure that figure output's PNG and HTML printable representations look ok.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
@@ -92,8 +91,7 @@ def test_figure_savefig_exists():
 
 def test_figure_savefig_geotiff():
     """
-    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF
-    file.
+    Make sure .tif generates a normal TIFF file and .tiff generates a GeoTIFF file.
     """
     fig = Figure()
     fig.basemap(region=[0, 10, 0, 10], projection="M10c", frame=True)
@@ -157,8 +155,8 @@ def test_figure_savefig_geotiff():
 
 def test_figure_savefig_directory_nonexists():
     """
-    Make sure that Figure.savefig() raises a FileNotFoundError when the parent
-    directory doesn't exist.
+    Make sure that Figure.savefig() raises a FileNotFoundError when the parent directory
+    doesn't exist.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
@@ -291,8 +289,8 @@ def test_figure_savefig():
 
 def test_figure_savefig_worldfile():
     """
-    Check if a world file is created for supported formats and raise an error
-    for unsupported formats.
+    Check if a world file is created for supported formats and raise an error for
+    unsupported formats.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
@@ -342,8 +340,7 @@ def test_figure_shift_origin():
 
 def test_figure_show_invalid_method():
     """
-    Test to check if an error is raised when an invalid method is passed to
-    show.
+    Test to check if an error is raised when an invalid method is passed to show.
     """
     fig = Figure()
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
@@ -354,8 +351,8 @@ def test_figure_show_invalid_method():
 @pytest.mark.skipif(HAS_IPYTHON, reason="run without IPython installed")
 def test_figure_show_notebook_error_without_ipython():
     """
-    Test to check if an error is raised when display method is 'notebook', but
-    IPython is not installed.
+    Test to check if an error is raised when display method is 'notebook', but IPython
+    is not installed.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 2, 3], frame=True)
@@ -374,8 +371,7 @@ def test_figure_display_external():
 
 def test_figure_set_display_invalid():
     """
-    Test to check if an error is raised when an invalid method is passed to
-    set_display.
+    Test to check if an error is raised when an invalid method is passed to set_display.
     """
     with pytest.raises(GMTInvalidInput):
         set_display(method="invalid")
@@ -383,8 +379,7 @@ def test_figure_set_display_invalid():
 
 def test_figure_deprecated_xshift_yshift():
     """
-    Check if deprecation of parameters X/Y/xshift/yshift work correctly if
-    used.
+    Check if deprecation of parameters X/Y/xshift/yshift work correctly if used.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)

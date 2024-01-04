@@ -55,8 +55,8 @@ def test_load_remote_dataset_invalid_registration():
 
 def test_load_remote_dataset_tiled_grid_without_region():
     """
-    Make sure _load_remote_dataset fails when trying to load a tiled grid
-    without specifying a region.
+    Make sure _load_remote_dataset fails when trying to load a tiled grid without
+    specifying a region.
     """
     with pytest.raises(GMTInvalidInput):
         load_remote_dataset_wrapper(resolution="01m")
@@ -64,8 +64,8 @@ def test_load_remote_dataset_tiled_grid_without_region():
 
 def test_load_remote_dataset_incorrect_resolution_registration():
     """
-    Make sure _load_remote_dataset fails when trying to load a grid
-    registration with an unavailable resolution.
+    Make sure _load_remote_dataset fails when trying to load a grid registration with an
+    unavailable resolution.
     """
     with pytest.raises(GMTInvalidInput):
         load_remote_dataset_wrapper(

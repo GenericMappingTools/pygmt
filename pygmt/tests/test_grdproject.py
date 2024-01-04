@@ -67,8 +67,7 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
 
-    Also check that providing the projection as an EPSG code or PROJ4 string
-    works.
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
     assert grid.gmt.gtype == 1  # Geographic grid
     result = grdproject(

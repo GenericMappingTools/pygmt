@@ -61,7 +61,7 @@ jobs:
           echo $CONDA/bin >> $GITHUB_PATH
           conda install --solver=libmamba gmt=6.4.0 python=3.12 \
                         numpy pandas xarray netCDF4 packaging \
-                        geopandas pyarrow pytest pytest-benchmark pytest-mpl
+                        geopandas pyarrow pytest pytest-mpl
           python -m pip install -U pytest-codspeed setuptools
 
       # Download cached remote files (artifacts) from GitHub

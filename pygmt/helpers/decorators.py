@@ -445,7 +445,7 @@ def fmt_docstring(module_func):
     - J = projection
     - R = region
     <BLANKLINE>
-    """
+    """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
@@ -829,8 +829,8 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
 
     def deprecator(module_func):
         """
-        The decorator that creates the new function to work with both old and
-        new parameters.
+        The decorator that creates the new function to work with both old and new
+        parameters.
         """
 
         @functools.wraps(module_func)

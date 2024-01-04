@@ -75,8 +75,8 @@ def test_dimfilter_no_outgrid(grid, expected_grid):
 
 def test_dimfilter_fails(grid):
     """
-    Check that dimfilter fails correctly when not all of sectors, filters, and
-    distance are specified.
+    Check that dimfilter fails correctly when not all of sectors, filters, and distance
+    are specified.
     """
     with pytest.raises(GMTInvalidInput):
         dimfilter(grid=grid, sectors="l6", distance=4)

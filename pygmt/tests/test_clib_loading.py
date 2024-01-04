@@ -11,6 +11,7 @@ from pathlib import PurePath
 
 import pytest
 from pygmt.clib.loading import check_libgmt, clib_full_names, clib_names, load_libgmt
+from pygmt.clib.session import Session
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
@@ -23,6 +24,9 @@ class FakedLibGMT:
         self._name = name
 
     def __str__(self):
+        """
+        String representation of the object.
+        """
         return self._name
 
 
@@ -69,8 +73,7 @@ def test_load_libgmt():
 @pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
 def test_load_libgmt_fails(monkeypatch):
     """
-    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot
-    be found.
+    Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setattr(
@@ -209,6 +212,44 @@ class TestLibgmtBrokenLibs:
         assert check_libgmt(load_libgmt(lib_fullnames=lib_fullnames)) is None
 
 
+class TestLibgmtCount:
+    """
+    Test that the GMT library is not repeatedly loaded in every session.
+    """
+
+    loaded_libgmt = load_libgmt()  # Load the GMT library and reuse it when necessary
+    counter = 0  # Global counter for how many times ctypes.CDLL is called
+
+    def _mock_ctypes_cdll_return(self, libname):  # noqa: ARG002
+        """
+        Mock ctypes.CDLL to count how many times the function is called.
+
+        If ctypes.CDLL is called, the counter increases by one.
+        """
+        self.counter += 1  # Increase the counter
+        return self.loaded_libgmt
+
+    def test_libgmt_load_counter(self, monkeypatch):
+        """
+        Make sure that the GMT library is not loaded in every session.
+        """
+        # Monkeypatch the ctypes.CDLL function
+        monkeypatch.setattr(ctypes, "CDLL", self._mock_ctypes_cdll_return)
+
+        # Create two sessions and check the global counter
+        with Session() as lib:
+            _ = lib
+        with Session() as lib:
+            _ = lib
+        assert self.counter == 0  # ctypes.CDLL is not called after two sessions.
+
+        # Explicitly calling load_libgmt to make sure the mock function is correct
+        load_libgmt()
+        assert self.counter == 1
+        load_libgmt()
+        assert self.counter == 2
+
+
 ###############################################################################
 # Test clib_full_names
 @pytest.fixture(scope="module", name="gmt_lib_names")
@@ -245,8 +286,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_empty(
     monkeypatch, gmt_lib_names
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is undefined and PATH is empty.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is undefined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
@@ -261,8 +302,8 @@ def test_clib_full_names_gmt_library_path_defined_path_empty(
     monkeypatch, gmt_lib_names, gmt_lib_realpath
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined and PATH is empty.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined and PATH is empty.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
@@ -277,8 +318,8 @@ def test_clib_full_names_gmt_library_path_undefined_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is undefined and PATH includes GMT's bin path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is undefined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.delenv("GMT_LIBRARY_PATH", raising=False)
@@ -294,8 +335,8 @@ def test_clib_full_names_gmt_library_path_defined_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", str(PurePath(gmt_lib_realpath).parent))
@@ -312,9 +353,8 @@ def test_clib_full_names_gmt_library_path_incorrect_path_included(
     monkeypatch, gmt_lib_names, gmt_lib_realpath, gmt_bin_dir
 ):
     """
-    Make sure that clib_full_names() returns a generator with expected names
-    when GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin
-    path.
+    Make sure that clib_full_names() returns a generator with expected names when
+    GMT_LIBRARY_PATH is defined but incorrect and PATH includes GMT's bin path.
     """
     with monkeypatch.context() as mpatch:
         mpatch.setenv("GMT_LIBRARY_PATH", "/not/a/valid/library/path")
