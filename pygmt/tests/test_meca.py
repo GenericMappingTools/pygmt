@@ -314,8 +314,7 @@ def test_meca_spec_ndarray_no_convention():
 
 def test_meca_spec_ndarray_mismatched_columns():
     """
-    Raise an exception if the ndarray input doesn't have the expected number of
-    columns.
+    Raise an exception if the ndarray input doesn't have the expected number of columns.
     """
     fig = Figure()
     fig.basemap(region=[-125, -122, 47, 49], projection="M6c", frame=True)

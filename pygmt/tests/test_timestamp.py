@@ -8,8 +8,8 @@ from pygmt import Figure, config
 @pytest.fixture(scope="module", name="faketime")
 def fixture_faketime():
     """
-    Fake datetime that will be passed to the "timefmt" parameter, so that the
-    timestamp string always has a fixed value.
+    Fake datetime that will be passed to the "timefmt" parameter, so that the timestamp
+    string always has a fixed value.
     """
     return "9999-99-99T99:99:99"
 
@@ -39,8 +39,7 @@ def test_timestamp_justification():
     """
     Check if the "justification" parameter works.
 
-    Only a subset of justification codes are tested to avoid overlapping
-    timestamps.
+    Only a subset of justification codes are tested to avoid overlapping timestamps.
     """
     fig = Figure()
     fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame=0)
@@ -85,8 +84,8 @@ def test_timestamp_text(faketime):
 @pytest.mark.mpl_image_compare
 def test_timestamp_text_truncated():
     """
-    Passing a text string longer than 64 characters raises a warning and the
-    string will be truncated.
+    Passing a text string longer than 64 characters raises a warning and the string will
+    be truncated.
     """
     fig = Figure()
     with pytest.warns(expected_warning=RuntimeWarning) as record:

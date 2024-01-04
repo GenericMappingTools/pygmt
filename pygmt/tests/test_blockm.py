@@ -36,8 +36,7 @@ def test_blockmean_input_dataframe(dataframe):
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_blockmean_input_table_matrix(array_func, dataframe):
     """
-    Run blockmean using table input that is not a pandas.DataFrame but still a
-    matrix.
+    Run blockmean using table input that is not a pandas.DataFrame but still a matrix.
     """
     table = array_func(dataframe)
     output = blockmean(data=table, spacing="5m", region=[245, 255, 20, 30])
@@ -64,8 +63,7 @@ def test_blockmean_input_xyz(dataframe):
 
 def test_blockmean_wrong_kind_of_input_table_grid(dataframe):
     """
-    Run blockmean using table input that is not a pandas.DataFrame or file but
-    a grid.
+    Run blockmean using table input that is not a pandas.DataFrame or file but a grid.
     """
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"

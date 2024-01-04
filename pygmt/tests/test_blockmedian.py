@@ -33,8 +33,7 @@ def test_blockmedian_input_dataframe(dataframe):
 
 def test_blockmedian_input_table_matrix(dataframe):
     """
-    Run blockmedian using table input that is not a pandas.DataFrame but still
-    a matrix.
+    Run blockmedian using table input that is not a pandas.DataFrame but still a matrix.
     """
     table = dataframe.to_numpy()
     output = blockmedian(data=table, spacing="5m", region=[245, 255, 20, 30])
@@ -61,8 +60,7 @@ def test_blockmedian_input_xyz(dataframe):
 
 def test_blockmedian_wrong_kind_of_input_table_grid(dataframe):
     """
-    Run blockmedian using table input that is not a pandas.DataFrame or file
-    but a grid.
+    Run blockmedian using table input that is not a pandas.DataFrame or file but a grid.
     """
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"

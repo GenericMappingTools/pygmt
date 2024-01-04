@@ -1,6 +1,6 @@
 """
-Defines the Session class to create and destroy a GMT API session and provides
-access to the API functions.
+Defines the Session class to create and destroy a GMT API session and provides access to
+the API functions.
 
 Uses ctypes to wrap most of the core functions from the C API.
 """
@@ -86,6 +86,9 @@ DTYPES = {
     np.str_: "GMT_TEXT",
     np.datetime64: "GMT_DATETIME",
 }
+
+# Load the GMT library outside the Session class to avoid repeated loading.
+_libgmt = load_libgmt()
 
 
 class Session:
@@ -308,7 +311,7 @@ class Session:
         <class 'ctypes.CDLL.__init__.<locals>._FuncPtr'>
         """
         if not hasattr(self, "_libgmt"):
-            self._libgmt = load_libgmt()
+            self._libgmt = _libgmt
         function = getattr(self._libgmt, name)
         if argtypes is not None:
             function.argtypes = argtypes
@@ -369,11 +372,11 @@ class Session:
         @ctp.CFUNCTYPE(ctp.c_int, ctp.c_void_p, ctp.c_char_p)
         def print_func(file_pointer, message):  # noqa: ARG001
             """
-            Callback function that the GMT C API will use to print log and
-            error messages.
+            Callback function that the GMT C API will use to print log and error
+            messages.
 
-            We'll capture the messages and print them to stderr so that they
-            will show up on the Jupyter notebook.
+            We'll capture the messages and print them to stderr so that they will show
+            up on the Jupyter notebook.
             """
             message = message.decode().strip()
             self._error_log.append(message)
@@ -497,8 +500,8 @@ class Session:
 
     def get_common(self, option):
         """
-        Inquire if a GMT common option has been set and return its current
-        value if possible.
+        Inquire if a GMT common option has been set and return its current value if
+        possible.
 
         Parameters
         ----------
@@ -720,9 +723,9 @@ class Session:
         """
         Parse and return an appropriate value for pad if none is given.
 
-        Pad is a bit tricky because, for matrix types, pad control the matrix
-        ordering (row or column major). Using the default pad will set it to
-        column major and mess things up with the numpy arrays.
+        Pad is a bit tricky because, for matrix types, pad control the matrix ordering
+        (row or column major). Using the default pad will set it to column major and
+        mess things up with the numpy arrays.
         """
         pad = kwargs.get("pad", None)
         if pad is None:
@@ -783,8 +786,8 @@ class Session:
 
     def _check_dtype_and_dim(self, array, ndim):
         """
-        Check that a numpy array has the given number of dimensions and is a
-        valid data type.
+        Check that a numpy array has the given number of dimensions and is a valid data
+        type.
 
         Parameters
         ----------
