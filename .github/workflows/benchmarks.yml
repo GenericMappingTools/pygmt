@@ -30,6 +30,7 @@ concurrency:
 jobs:
   benchmarks:
     runs-on: ubuntu-22.04
+    if: github.repository == 'GenericMappingTools/pygmt'
     defaults:
       run:
         shell: bash -l {0}
