@@ -133,8 +133,10 @@ def load_tile_map(
             "`mamba install -c conda-forge contextily` "
             "to install the package."
         )
+
+    contextily_kwargs = {}
     if zoom_adjust is not None:
-        contextily_kwargs = {"zoom_adjust": zoom_adjust}
+        contextily_kwargs["zoom_adjust"] = zoom_adjust
         if Version(contextily.__version__) < Version("1.5.0"):
             raise TypeError(
                 "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
