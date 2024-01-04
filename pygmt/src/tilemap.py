@@ -116,6 +116,9 @@ def tilemap(
         automatically. Values outside of -1 to 1 are not recommended as they
         can lead to slow execution. [Default is ``None``].
 
+        .. versionadded:: 0.11.0
+           Requires ``contextily>=1.5.0``.
+
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
 
