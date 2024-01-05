@@ -19,7 +19,7 @@ build:
           git diff --quiet origin/main -- \
               doc/ \
               pygmt/**/*.py \
-              ':!pygmt/tests'
+              ':!pygmt/tests' \
               README.md \
               ci/requirements/docs.yml \
               .readthedocs.yaml;
