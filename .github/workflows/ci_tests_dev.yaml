@@ -18,7 +18,7 @@ on:
   pull_request:
     types: [ready_for_review]
     paths:
-      - 'pygmt/**/*.py'
+      - 'pygmt/**'
       - '.github/workflows/ci_tests_dev.yaml'
   repository_dispatch:
     types: [test-gmt-dev-command]

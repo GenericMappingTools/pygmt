@@ -14,7 +14,7 @@ on:
   # pull_request:
     # types: [ready_for_review]
     # paths:
-    #  - 'pygmt/**/*.py'
+    #  - 'pygmt/**'
     #  - '.github/workflows/ci_tests_legacy.yaml'
   # Schedule tests on Tuesday
   schedule:

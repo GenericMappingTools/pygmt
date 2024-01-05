@@ -26,12 +26,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'pygmt/**/*.py'
+      - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - 'pygmt/**/*.py'
+      - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
   release:
     types:
