@@ -39,6 +39,7 @@ def fixture_expected_grid():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """

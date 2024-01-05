@@ -26,6 +26,7 @@ __doctest_skip__ = ["grdlandmask"]
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
@@ -45,9 +46,7 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
@@ -84,6 +83,7 @@ def grdlandmask(**kwargs):
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------

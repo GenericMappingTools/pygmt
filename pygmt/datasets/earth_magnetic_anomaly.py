@@ -1,9 +1,11 @@
 """
-Function to download the Earth magnetic anomaly datasets from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the Earth magnetic anomaly datasets from the GMT data server, and
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -13,7 +15,10 @@ __doctest_skip__ = ["load_earth_magnetic_anomaly"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_magnetic_anomaly(
-    resolution="01d", region=None, registration=None, data_source="emag2"
+    resolution="01d",
+    region=None,
+    registration: Literal["gridline", "pixel", None] = None,
+    data_source: Literal["emag2", "emag2_4km", "wdmam"] = "emag2",
 ):
     r"""
     Load the Earth magnetic anomaly datasets in various resolutions.
@@ -71,23 +76,22 @@ def load_earth_magnetic_anomaly(
         Required for grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"02m"`` for ``data_source="emag2"`` or
-        ``data_source="emag2_4km"``, which are ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for all resolutions except ``"02m"`` for
+        ``data_source="emag2"`` or ``data_source="emag2_4km"``, which are
+        ``"pixel"`` only.
 
-    data_source : str
+    data_source
         Select the source of the magnetic anomaly data. Available options are:
 
-        - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model [Default
-          option]. It only includes data observed at sea level over
-          oceanic regions. See :gmt-datasets:`earth-mag.html`.
-
+        - ``"emag2"``: EMAG2 Earth Magnetic Anomaly Model. It only includes
+          data observed at sea level over oceanic regions.
+          See :gmt-datasets:`earth-mag.html`.
         - ``"emag2_4km"``: Use a version of EMAG2 where all observations
           are relative to an altitude of 4 km above the geoid and include
           data over land.
-
         - ``"wdmam"``: World Digital Magnetic Anomaly Map (WDMAM).
           See :gmt-datasets:`earth-wdmam.html`.
 
@@ -115,9 +119,7 @@ def load_earth_magnetic_anomaly(
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_magnetic_anomaly()
     >>> # load the 30 arc-minutes grid with "gridline" registration
-    >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="30m", registration="gridline"
-    ... )
+    >>> grid = load_earth_magnetic_anomaly(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="05m",

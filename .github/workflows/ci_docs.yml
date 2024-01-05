@@ -37,6 +37,7 @@ jobs:
   docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
@@ -65,14 +66,14 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.6.0
+        uses: mamba-org/setup-micromamba@v1.7.3
         with:
           environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=3.12
@@ -93,6 +94,7 @@ jobs:
             myst-parser
             panel
             sphinx
+            sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
@@ -100,7 +102,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

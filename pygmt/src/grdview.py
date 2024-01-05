@@ -47,9 +47,7 @@ def grdview(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input relief grid or the grid loaded as a
-        DataArray.
+    {grid}
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.

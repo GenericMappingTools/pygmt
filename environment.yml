@@ -23,10 +23,8 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - blackdoc
     - codespell
-    - docformatter>=1.7.2
-    - ruff
+    - ruff>=0.1.9
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov
@@ -37,6 +35,7 @@ dependencies:
     - myst-parser
     - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery

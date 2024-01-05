@@ -40,11 +40,8 @@ def grdfill(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     mode : str
         Specify the hole-filling algorithm to use.  Choose from **c** for
         constant fill and append the constant value, **n** for nearest
@@ -73,9 +70,7 @@ def grdfill(grid, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
-    >>> earth_relief_holes = pygmt.datasets.load_sample_data(
-    ...     name="earth_relief_holes"
-    ... )
+    >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
     >>> # Perform grid filling operations on the sample grid
     >>> # Set all empty values to "20"
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, mode="c20")

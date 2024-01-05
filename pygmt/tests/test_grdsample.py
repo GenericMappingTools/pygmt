@@ -69,11 +69,12 @@ def test_grdsample_file_out(grid, expected_grid, region, spacing):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with no outgrid set and the spacing is changed.
     """
-    result = grdsample(grid=grid, spacing=spacing, region=region)
+    result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid
