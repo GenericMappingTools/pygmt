@@ -324,10 +324,11 @@ begin with `>>>`.  To keep this example code from being run during testing, add 
 
 **Inline code example**
 
-Below the import statements at the top of the file
+Below the import statements at the top of the file:
 
 ```python
 __doctest_skip__ = ["function_name"]
+```
 
 At the end of the function's docstring:
 
