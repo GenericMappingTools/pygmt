@@ -32,6 +32,7 @@ jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
@@ -59,7 +60,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=3.9
