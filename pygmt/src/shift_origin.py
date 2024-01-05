@@ -22,13 +22,13 @@ def shift_origin(
     bounding box **width** of the previous plot. The full syntax is
     [[±][*f*]\ **w**\ [/\ *d*\ ]±]\ *xoff*, where optional signs, factor *f* and
     divisor *d* can be used to compute an offset that may be adjusted further by
-    ±\ *xoff*. For example, assuming that the previous plot has a width of 10
+    ±\ *xoff*. Assuming that the previous plot has a width of 10
     centimeters, here are some example values for *xshift*:
 
-    - ``w``: x-shift is 10 cm
-    - ``w+2c``: x-shift is 10+2=12 cm
-    - ``2w+3c``: x-shift is 2*10+3=23 cm
-    - ``w/2-2c``: x-shift is 10/2-2=3 cm
+    - ``"w"``: x-shift is 10 cm
+    - ``"w+2c"``: x-shift is 10+2=12 cm
+    - ``"2w+3c"``: x-shift is 2*10+3=23 cm
+    - ``"w/2-2c"``: x-shift is 10/2-2=3 cm
 
     Similarly, for *yshift*, a special character **h** can also be used, which is the
     bounding box **height** of the previous plot.
@@ -45,11 +45,11 @@ def shift_origin(
     >>> import pygmt
     >>> fig = pygmt.Figure()
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X10c/10c", frame=True)
-    >>> # shift the plot origin in x-direction by 12 cm
+    >>> # Shift the plot origin in x direction by 12 cm
     >>> fig.shift_origin(xshift=12)
     >>> fig.basemap(region=[0, 10, 0, 10], projection="X14c/10c", frame=True)
-    >>> # shift the plot origin in x-direction based on the previous plot width
-    >>> # here, the width is 14 cm, and the xshift is 16 cm
+    >>> # Shift the plot origin in x direction based on the previous plot width
+    >>> # Here, the width is 14 cm, and xshift is 16 cm
     >>> fig.shift_origin(xshift="w+2c")
     >>> fig.show()
     """
