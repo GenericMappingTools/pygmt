@@ -32,6 +32,7 @@ concurrency:
 jobs:
   benchmarks:
     runs-on: ubuntu-22.04
+    if: github.repository == 'GenericMappingTools/pygmt'
     defaults:
       run:
         shell: bash -l {0}
@@ -61,7 +62,7 @@ jobs:
           echo $CONDA/bin >> $GITHUB_PATH
           conda install --solver=libmamba gmt=6.4.0 python=3.12 \
                         numpy pandas xarray netCDF4 packaging \
-                        geopandas pytest pytest-benchmark pytest-mpl
+                        geopandas pytest pytest-mpl
           python -m pip install -U pytest-codspeed setuptools
 
       # Download cached remote files (artifacts) from GitHub

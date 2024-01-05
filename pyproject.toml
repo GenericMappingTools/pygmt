@@ -75,14 +75,6 @@ ignore-words-list = "astroid,oints,reenable,tripel,trough"
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
 
-[tool.docformatter]
-black = true
-recursive = true
-pre-summary-newline = true
-make-summary-multi-line = true
-wrap-summaries = 88
-wrap-descriptions = 88
-
 [tool.mypy]
 exclude = ["pygmt/tests/"]
 ignore_missing_imports = true
@@ -103,6 +95,7 @@ select = [
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
+    "D",    # pydocstyle
     "E",    # pycodestyle
     "EXE",  # flake8-executable
     "F",    # pyflakes
@@ -131,7 +124,17 @@ select = [
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
 ]
+extend-select = [
+    "D213",  # Summary lines should be positioned on the second physical line of the docstring.
+    "D410",  # A blank line after section headings.
+]
 ignore = [
+    "D200",     # One-line docstring should fit on one line
+    "D202",     # No blank lines allowed after function docstring
+    "D205",     # 1 blank line required between summary line and description
+    "D400",     # First line should end with a period
+    "D401",     # First line of docstring should be in imperative mood
+    "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
@@ -152,6 +155,11 @@ known-third-party = ["pygmt"]
 
 [tool.ruff.lint.pycodestyle]
 max-doc-length = 88
+
+[tool.ruff.lint.pydocstyle]
+# See https://docs.astral.sh/ruff/faq/#does-ruff-support-numpy-or-google-style-docstrings
+# for the enabled/disabled rules for the "numpy" convention.
+convention = "numpy"
 
 [tool.ruff.lint.pylint]
 max-args=10

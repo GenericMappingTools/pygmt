@@ -26,6 +26,7 @@ __doctest_skip__ = ["grdlandmask"]
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
@@ -82,6 +83,7 @@ def grdlandmask(**kwargs):
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------

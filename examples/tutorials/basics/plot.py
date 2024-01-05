@@ -90,7 +90,7 @@ fig.plot(
     style="cc",
     pen="black",
 )
-fig.colorbar(frame="af+lDepth (km)")
+fig.colorbar(frame="xaf+lDepth (km)")
 fig.show()
 
 # sphinx_gallery_thumbnail_number = 3
