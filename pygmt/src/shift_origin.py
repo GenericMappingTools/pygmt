@@ -33,6 +33,9 @@ def shift_origin(
     Similarly, for *yshift*, a special character **h** can also be used, which is the
     bounding box **height** of the previous plot.
 
+    **Note**: The previous plot bounding box refers to the last object plotted, which
+    may be a basemap, image, logo, legend, colorbar, etc.
+ 
     Parameters
     ----------
     xshift
