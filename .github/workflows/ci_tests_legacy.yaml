@@ -11,15 +11,12 @@ name: GMT Legacy Tests
 on:
   # push:
   #   branches: [ main ]
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
   # pull_request:
     # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
+    # paths:
+    #  - 'pygmt/**'
+    #  - '.github/workflows/ci_tests_legacy.yaml'
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'

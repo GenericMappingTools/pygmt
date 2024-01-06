@@ -11,13 +11,9 @@ on:
     branches: [ main ]
     paths:
       - 'pygmt/**/*.py'
-      - '!pygmt/tests/**'
       - '.github/workflows/benchmarks.yml'
-  pull_request:
-    paths:
-      - 'pygmt/**/*.py'
-      - '!pygmt/tests/**'
-      - '.github/workflows/benchmarks.yml'
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
+  # pull_request:
   # `workflow_dispatch` allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
   workflow_dispatch:
