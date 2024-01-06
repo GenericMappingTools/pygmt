@@ -1,10 +1,6 @@
 # Support slash commands in pull requests
 #
-# Supported slash commands:
-#
-# - `/benchmark`
-# - `/format`
-# - `/test-gmt-dev`
+# Currently, two slash commands `format` and `test-gmt-dev` are supported.
 #
 name: Slash Command Dispatch
 on:
@@ -22,7 +18,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commands: |
-            benchmark
             format
             test-gmt-dev
           issue-type: pull-request

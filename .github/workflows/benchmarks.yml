@@ -17,9 +17,6 @@ on:
   # `workflow_dispatch` allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
   workflow_dispatch:
-  # support slash command
-  repository_dispatch:
-    types: [benchmark-command]
   release:
     types:
       - published
@@ -40,19 +37,7 @@ jobs:
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v4.1.1
-        if: github.event_name != 'repository_dispatch'
         with:
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
-
-      # Checkout the pull request branch
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        if: github.event_name == 'repository_dispatch'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref }}
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
