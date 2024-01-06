@@ -35,7 +35,7 @@ def shift_origin(
 
     **Note**: The previous plot bounding box refers to the last object plotted, which
     may be a basemap, image, logo, legend, colorbar, etc.
- 
+
     Parameters
     ----------
     xshift
