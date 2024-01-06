@@ -168,7 +168,7 @@ def load_tile_map(
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": np.uint8([0, 1, 2]),  # Red, Green, Blue
+            "band": np.array(object=[0, 1, 2], dtype=np.uint8),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },
