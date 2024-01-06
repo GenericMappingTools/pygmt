@@ -13,7 +13,6 @@ on:
       - 'pygmt/**/*.py'
       - '.github/workflows/benchmarks.yml'
   pull_request:
-    types: [ labeled ]
   # `workflow_dispatch` allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
   workflow_dispatch:
@@ -28,7 +27,7 @@ concurrency:
 jobs:
   benchmarks:
     runs-on: ubuntu-22.04
-    if: github.repository == 'GenericMappingTools/pygmt' && github.event.label.name == 'run-benchmark'
+    if: github.repository == 'GenericMappingTools/pygmt' && contains(github.event.pull_request.labels.*.name, 'run-benchmark')
     defaults:
       run:
         shell: bash -l {0}
