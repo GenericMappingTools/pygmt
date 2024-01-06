@@ -20,6 +20,7 @@ on:
     branches: [ main ]
     paths:
       - 'pygmt/**'
+      - '!pygmt/tests/**'
       - 'Makefile'
       - 'MANIFEST.in'
       - 'pyproject.toml'
