@@ -1,14 +1,14 @@
 # Test PyGMT with GMT dev version on Linux/macOS/Windows
 #
-# This workflow runs regular PyGMT tests with the GMT dev version, and also
-# pre-release versions of several dependencies like NumPy, Pandas, Xarray, etc.
-# If any tests fail, it also uploads the diff images as workflow artifacts.
-# The GMT dev version is installed by fetching the latest source codes from
-# the GMT master branch and compiling.
+# This workflow runs regular PyGMT tests with the GMT dev version, and also pre-release
+# versions of several dependencies like NumPy, Pandas, Xarray, etc. If any tests fail,
+# it also uploads the diff images as workflow artifacts. The GMT dev version is
+# installed by fetching the latest source codes from the GMT master branch and
+# compiling.
 #
-# It is triggered when a pull request is marked as "ready as review", or using
-# the slash command `/test-gmt-dev`. It is also scheduled to run on Monday,
-# Wednesday, and Friday on the main branch.
+# It is triggered when a pull request is marked as "ready as review", or labeled with
+# 'run/test-gmt-dev'. It is also scheduled to run on Monday, Wednesday, and Friday on
+# the main branch.
 #
 name: GMT Dev Tests
 
@@ -20,8 +20,6 @@ on:
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests_dev.yaml'
-  repository_dispatch:
-    types: [test-gmt-dev-command]
   # Schedule tests on Monday/Wednesday/Friday
   schedule:
     - cron: '0 0 * * 1,3,5'
@@ -48,30 +46,9 @@ jobs:
       # Checkout current git repository
       - name: Checkout
         uses: actions/checkout@v4.1.1
-        if: github.event_name != 'repository_dispatch'
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
-
-      # Checkout the pull request branch
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        if: github.event_name == 'repository_dispatch'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.client_payload.pull_request.head.ref }}
-          # fetch all history so that setuptools-scm works
-          fetch-depth: 0
-
-      - name: Show job URL
-        uses: peter-evans/create-or-update-comment@v3.1.0
-        if: github.event_name == 'repository_dispatch' && runner.os == 'Linux'
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          body: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
