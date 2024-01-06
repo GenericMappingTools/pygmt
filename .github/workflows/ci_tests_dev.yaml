@@ -16,7 +16,6 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    types: [ready_for_review]
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests_dev.yaml'
@@ -32,6 +31,7 @@ jobs:
   test_gmt_dev:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_git_ref }}
     runs-on: ${{ matrix.os }}
+    if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/test-gmt-dev')
     strategy:
       fail-fast: false
       matrix:
