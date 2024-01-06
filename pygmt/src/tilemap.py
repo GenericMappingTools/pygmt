@@ -113,8 +113,8 @@ def tilemap(
 
     zoom_adjust : int or None
         Optional. The amount to adjust a chosen zoom level if it is chosen
-        automatically. Values outside of -1 to 1 are not recommended as they
-        can lead to slow execution. [Default is ``None``].
+        automatically. Values outside of -1 to 1 are not recommended as they can lead to
+        slow execution. [Default is ``None``].
 
         .. versionadded:: 0.11.0
            Requires ``contextily>=1.5.0``.
