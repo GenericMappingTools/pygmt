@@ -74,9 +74,9 @@ def tilemap(
         ``"auto"`` to automatically determine the zoom level based on the
         bounding box region extent].
 
-        **Note**: The maximum possible zoom level may be smaller than ``22``,
-        and depends on what is supported by the chosen web tile provider
-        source.
+        .. note::
+           The maximum possible zoom level may be smaller than ``22``, and depends on
+           what is supported by the chosen web tile provider source.
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
@@ -96,8 +96,8 @@ def tilemap(
           basemap. See
           :doc:`contextily:working_with_local_files`.
 
-        IMPORTANT: Tiles are assumed to be in the Spherical Mercator projection
-        (EPSG:3857).
+        .. important::
+           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).
 
     lonlat : bool
         Optional. If ``False``, coordinates in ``region`` are assumed to be
