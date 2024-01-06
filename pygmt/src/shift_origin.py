@@ -8,7 +8,7 @@ from pygmt.clib import Session
 
 def shift_origin(
     self, xshift: float | str | None = None, yshift: float | str | None = None
-) -> None:
+):
     r"""
     Shift plot origin in x and/or y directions.
 
