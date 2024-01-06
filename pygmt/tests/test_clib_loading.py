@@ -62,6 +62,7 @@ def test_clib_names():
 
 ###############################################################################
 # Test load_libgmt
+@pytest.mark.benchmark
 def test_load_libgmt():
     """
     Test that loading libgmt works and doesn't crash.

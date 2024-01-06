@@ -4,6 +4,7 @@ Test pygmt.binstats.
 from pathlib import Path
 
 import numpy.testing as npt
+import pytest
 from pygmt import binstats
 from pygmt.helpers import GMTTempFile
 
@@ -26,6 +27,7 @@ def test_binstats_outgrid():
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_binstats_no_outgrid():
     """
     Test binstats with no set outgrid.

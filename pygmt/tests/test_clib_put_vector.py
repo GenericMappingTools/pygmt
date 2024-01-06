@@ -20,6 +20,7 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.mark.benchmark
 def test_put_vector(dtypes):
     """
     Check that assigning a numpy array to a dataset works.
@@ -97,6 +98,7 @@ def test_put_vector_mixed_dtypes(dtypes):
                 npt.assert_allclose(newy, y)
 
 
+@pytest.mark.benchmark
 def test_put_vector_string_dtype():
     """
     Passing string type vectors to a dataset.
