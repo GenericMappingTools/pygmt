@@ -2,6 +2,8 @@
 Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
+from __future__ import annotations
+
 from packaging.version import Version
 
 try:
@@ -24,7 +26,7 @@ def load_tile_map(
     lonlat=True,
     wait=0,
     max_retries=2,
-    zoom_adjust=None,
+    zoom_adjust: int | None = None,
 ):
     """
     Load a georeferenced raster tile map from XYZ tile providers.

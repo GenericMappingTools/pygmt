@@ -1,6 +1,8 @@
 """
 tilemap - Plot XYZ tile maps.
 """
+from __future__ import annotations
+
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
@@ -37,7 +39,7 @@ def tilemap(
     lonlat=True,
     wait=0,
     max_retries=2,
-    zoom_adjust=None,
+    zoom_adjust: int | None = None,
     **kwargs,
 ):
     r"""
