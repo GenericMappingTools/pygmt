@@ -90,10 +90,10 @@ def load_tile_map(
         will stop trying to fetch more tiles from a rate-limited API [Default
         is ``2``].
 
-    zoom_adjust : int or None
+    zoom_adjust
         Optional. The amount to adjust a chosen zoom level if it is chosen
         automatically. Values outside of -1 to 1 are not recommended as they can lead to
-        slow execution. [Default is ``None``].
+        slow execution.
 
         .. note::
            The `zoom_adjust` parameter requires ``contextily>=1.5.0``.
