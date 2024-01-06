@@ -16,7 +16,7 @@ on:
   # push:
   #   branches: [ main ]
   pull_request:
-    types: [ labeled ]
+    types: [ labeled, synchronize ]
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests_dev.yaml'
