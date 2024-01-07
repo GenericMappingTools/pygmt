@@ -48,8 +48,8 @@ class GMTRemoteDataset(NamedTuple):
         The long name assigned as an attribute to the DataArray.
     units : str
         The units of the values in the DataArray.
-    resolutions : list
-        List of Resolution objects.
+    resolutions : dict
+        Dictionary of available resolution as keys and Resolution objects as values.
     extra_attributes : dict
         A dictionary of extra or unique attributes of the dataset.
     """
