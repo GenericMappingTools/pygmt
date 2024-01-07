@@ -19,7 +19,9 @@ def fixture_xr_image():
     """
     geotiff = which(fname="@earth_day_01d_p", download="c")
     with rioxarray.open_rasterio(filename=geotiff) as rda:
-        if len(rda.band) == 1:
+        if len(rda.band) == 3:  # GMT 6.5.0 or above
+            xr_image = rda.load()
+        elif len(rda.band) == 1:  # GMT 6.4.0 or below
             with rasterio.open(fp=geotiff) as src:
                 df_colormap = pd.DataFrame.from_dict(
                     data=src.colormap(1), orient="index"
