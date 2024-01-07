@@ -19,7 +19,7 @@ from pygmt.io import load_dataarray
 __doctest_skip__ = ["grdhisteq.*"]
 
 
-class grdhisteq:
+class grdhisteq:  # noqa: N801
     r"""
     Perform histogram equalization for a grid.
 
@@ -75,11 +75,8 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or bool or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
+        {grid}
+        {outgrid}
         outfile : str, bool, or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -105,7 +102,7 @@ class grdhisteq:
               ``outgrid`` or ``outfile``)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
         """
 
@@ -162,11 +159,8 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
+        {grid}
+        {outgrid}
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
@@ -200,7 +194,7 @@ class grdhisteq:
         >>> grid = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
@@ -262,8 +256,7 @@ class grdhisteq:
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -313,7 +306,7 @@ class grdhisteq:
         4       705.0  2275.5
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note

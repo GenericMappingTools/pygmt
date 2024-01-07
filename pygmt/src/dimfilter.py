@@ -53,11 +53,8 @@ def dimfilter(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 

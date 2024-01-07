@@ -10,7 +10,13 @@ name: Static Type Checks
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '.github/workflows/type_checks.yml'
   pull_request:
+    paths:
+      - 'pygmt/**/*.py'
+      - '.github/workflows/type_checks.yml'
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
@@ -31,7 +37,7 @@ jobs:
 
       # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v4.8.0
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: '3.12'
 

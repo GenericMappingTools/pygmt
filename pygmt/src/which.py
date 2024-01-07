@@ -6,13 +6,14 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     fmt_docstring,
-    is_nonstr_iter,
+    kwargs_to_strings,
     use_alias,
 )
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
+@kwargs_to_strings(fname="sequence_space")
 def which(fname, **kwargs):
     r"""
     Find the full path to specified files.
@@ -62,9 +63,6 @@ def which(fname, **kwargs):
     FileNotFoundError
         If the file is not found.
     """
-    if is_nonstr_iter(fname):  # Got a list of files
-        fname = " ".join(fname)
-
     with GMTTempFile() as tmpfile:
         with Session() as lib:
             lib.call_module(

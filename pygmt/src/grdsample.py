@@ -51,11 +51,8 @@ def grdsample(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     {spacing}
     {region}
     translate : bool
@@ -88,9 +85,7 @@ def grdsample(grid, **kwargs):
     ... )
     >>> # Create a new grid from an input grid, change the registration,
     >>> # and set both x- and y-spacing to 0.5 arc-degrees
-    >>> new_grid = pygmt.grdsample(
-    ...     grid=grid, translate=True, spacing=[0.5, 0.5]
-    ... )
+    >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:

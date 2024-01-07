@@ -10,6 +10,22 @@ build:
   tools:
     python: "mambaforge-4.10"
   jobs:
+    post_checkout:
+      # Cancel building pull requests when there aren't changes related to docs.
+      # If there are no changes (git diff exits with 0) we force the command to return with 183.
+      # This is a special exit code on Read the Docs that will cancel the build immediately.
+      - |
+        if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
+          git diff --quiet origin/main -- \
+              doc/ \
+              pygmt/**/*.py \
+              ':!pygmt/tests' \
+              README.md \
+              ci/requirements/docs.yml \
+              .readthedocs.yaml;
+        then
+          exit 183;
+        fi
     pre_build: # Generate api stub files before building
       - make -C doc api
 
@@ -18,8 +34,8 @@ sphinx:
    configuration: doc/conf.py
 
 # If using Sphinx, optionally build your docs in additional formats such as PDF
-# formats:
-#    - pdf
+formats:
+   - pdf
 
 # Optionally declare the Python requirements required to build your docs
 conda:

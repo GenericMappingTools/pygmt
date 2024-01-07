@@ -84,10 +84,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     {spacing}
 
     {region}
-
-    outgrid : str
-        Optional. The file name for the output netCDF file with extension .nc
-        to store the grid in.
+    {outgrid}
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
@@ -156,9 +153,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a sample table of topography
-    >>> topography = pygmt.datasets.load_sample_data(
-    ...     name="notre_dame_topography"
-    ... )
+    >>> topography = pygmt.datasets.load_sample_data(name="notre_dame_topography")
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
