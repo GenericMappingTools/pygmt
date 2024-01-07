@@ -118,7 +118,7 @@ def tilemap(
         outside of -1 to 1 are not recommended as they can lead to slow execution.
 
         .. note::
-           The `zoom_adjust` parameter requires ``contextily>=1.5.0``.
+           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
 
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
