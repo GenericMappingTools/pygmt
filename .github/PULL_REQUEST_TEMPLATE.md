@@ -21,7 +21,6 @@ Fixes #
 **Slash Commands**
 
 You can write slash commands (`/command`) in the first line of a comment to perform
-specific operations. Supported slash commands are:
+specific operations. Supported slash command is:
 
 - `/format`: automatically format and lint the code
-- `/test-gmt-dev`: run full tests on the latest GMT development version
