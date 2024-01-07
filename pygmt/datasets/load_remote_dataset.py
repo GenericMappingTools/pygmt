@@ -21,7 +21,7 @@ class Resolution(NamedTuple):
     Attributes
     ----------
     code : str
-        The resolution code.
+        The resolution code. E.g., "01d", "30m", "01s".
     registrations : list
         A list of the accepted registrations for a given resolution. Can be either
         "pixel" or "gridline".
