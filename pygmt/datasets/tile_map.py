@@ -95,7 +95,7 @@ def load_tile_map(
         outside of -1 to 1 are not recommended as they can lead to slow execution.
 
         .. note::
-           The `zoom_adjust` parameter requires ``contextily>=1.5.0``.
+           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
 
     Returns
     -------
