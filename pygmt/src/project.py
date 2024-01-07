@@ -240,11 +240,7 @@ def project(
                 module="project",
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
-
-        if kwargs.get("G") is not None:
-            column_names = list("rsp")
-        else:
-            column_names = None
+        column_names = list("rsp") if kwargs.get("G") is not None else None
 
         return return_table(
             session=lib,

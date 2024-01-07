@@ -2,6 +2,7 @@
 Wrappers for GMT data types.
 """
 import ctypes as ctp
+from typing import ClassVar
 
 import numpy as np
 import pandas as pd
@@ -11,11 +12,9 @@ class GMT_DATASET(ctp.Structure):
     """
     GMT dataset structure for holding multiple tables (files).
 
-    This class is only meant for internal use by PyGMT. It is not exposed to
-    users.
+    This class is only meant for internal use by PyGMT. It is not exposed to users.
 
-    See the GMT source code gmt_resources.h for the original C struct
-    definitions.
+    See the GMT source code gmt_resources.h for the original C struct definitions.
 
     Examples
     --------
@@ -65,17 +64,16 @@ class GMT_DATASET(ctp.Structure):
 
     class GMT_DATATABLE(ctp.Structure):
         """
-        GMT datatable structure for holding a single table with multiple
-        segments.
+        GMT datatable structure for holding a single table with multiple segments.
         """
 
         class GMT_DATASEGMENT(ctp.Structure):
             """
-            GMT datasegment structure for holding a single segment with
-            multiple columns.
+            GMT datasegment structure for holding a single segment with multiple
+            columns.
             """
 
-            _fields_ = [
+            _fields_ :ClassVar = [
                 # Number of rows/records in this segment
                 ("n_rows", ctp.c_uint64),
                 # Number of fields in each record
@@ -96,7 +94,7 @@ class GMT_DATASET(ctp.Structure):
                 ("hidden", ctp.c_void_p),
             ]
 
-        _fields_ = [
+        _fields_ :ClassVar = [
             # Number of file header records (0 if no header)
             ("n_headers", ctp.c_uint),
             # Number of columns (fields) in each record
@@ -117,7 +115,7 @@ class GMT_DATASET(ctp.Structure):
             ("hidden", ctp.c_void_p),
         ]
 
-    _fields_ = [
+    _fields_ : ClassVar = [
         # The total number of tables (files) contained
         ("n_tables", ctp.c_uint64),
         # The number of data columns
@@ -150,10 +148,9 @@ class GMT_DATASET(ctp.Structure):
         """
         Convert a GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
-        Currently, the number of columns in all segments of all tables are
-        assumed to be the same. The same column in all segments of all tables
-        are concatenated. The trailing text column is also concatenated as a
-        single string column.
+        Currently, the number of columns in all segments of all tables are assumed to be
+        the same. The same column in all segments of all tables are concatenated. The
+        trailing text column is also concatenated as a single string column.
 
         Returns
         -------
@@ -176,9 +173,7 @@ class GMT_DATASET(ctp.Structure):
         ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
         ...     with Session() as lib:
         ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
-        ...             lib.call_module(
-        ...                 "read", f"{tmpfile.name} {vouttbl} -Td"
-        ...             )
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             df = ds.contents.to_dataframe()
         ...

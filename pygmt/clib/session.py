@@ -4,11 +4,14 @@ the API functions.
 
 Uses ctypes to wrap most of the core functions from the C API.
 """
+from __future__ import annotations
+
 import contextlib
 import ctypes as ctp
 import pathlib
 import sys
 import warnings
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -1654,23 +1657,22 @@ class Session:
             raise GMTCLibError("Failed to extract region from current figure.")
         return wesn
 
-    def read_virtualfile(self, vfname, kind=None):
+    def read_virtualfile(self, vfname : str, kind : Literal["dataset", "grid", None] = None):
         """
-        Read data from a virtual file and cast it into a GMT data container if
-        requested.
+        Read data from a virtual file and cast into a GMT data container if requested.
 
         Parameters
         ----------
-        vfname : str
+        vfname
             Name of the virtual file to read.
-        kind : str
-            Cast the data into a GMT data container. Choose from "grid" or
-            "dataset". If None, will return a ctypes void pointer.
+        kind
+            Cast the data into a GMT data container. Valid values are ``"dataset"``,
+            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
 
         Returns
         -------
-        Pointer to the GMT data container. If ``kind`` is None, returns a
-        ctypes void pointer instead.
+        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
+        pointer instead.
         """
         c_read_virtualfile = self.get_libgmt_func(
             "GMT_Read_VirtualFile",
@@ -1684,9 +1686,9 @@ class Session:
         if kind is None:  # Return the ctypes void pointer
             return pointer
 
-        # The GMT C API function GMT_Read_VirtualFile returns a void pointer.
-        # It usually needs to be cast to a pointer to GMT data container (e.g.,
-        # GMT_GRID or GMT_DATASET).
+        # The GMT C API function GMT_Read_VirtualFile returns a void pointer. It usually
+        # needs to be cast to a pointer to GMT data container (e.g., GMT_GRID or
+        # GMT_DATASET).
         dtype = {
             # "grid": GMT_GRID,  # implemented in PR #2398
             "dataset": GMT_DATASET,
@@ -1694,17 +1696,16 @@ class Session:
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     @contextlib.contextmanager
-    def virtualfile_to_data(self, kind, fname=None):
+    def virtualfile_to_data(self, kind: Literal["dataset", "grid"], fname: str | None = None):
         """
-        Create a virtual file for writing a GMT data container or yield the
-        output file name.
+        Create a virtual file for writing a GMT data container or yield the file name.
 
         Parameters
         ----------
-        kind : str
-            The kind of data container to create. Choose from "grid" or
-            "dataset". It has no effect if ``fname`` is given.
-        fname : str or None
+        kind
+            The kind of data container to create. Valid values are ``"dataset"`` and
+            ``"grid"``. It's ignored if ``fname`` is given.
+        fname
             If given, yield the output file name instead of the virtual file.
 
         Yields
