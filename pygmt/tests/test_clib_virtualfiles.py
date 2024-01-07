@@ -47,6 +47,7 @@ def fixture_dtypes_pandas(dtypes):
     return tuple(dtypes_pandas)
 
 
+@pytest.mark.benchmark
 def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
@@ -122,6 +123,7 @@ def test_virtual_file_bad_direction():
                 pass
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
@@ -202,6 +204,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             )
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_vectors(dtypes):
     """
     Test the automation for transforming vectors to virtual file dataset.
@@ -221,6 +224,7 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
@@ -290,6 +294,7 @@ def test_virtualfile_from_vectors_diff_size():
                 pass
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_matrix(dtypes):
     """
     Test transforming a matrix to virtual file dataset.

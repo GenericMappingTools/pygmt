@@ -46,6 +46,7 @@ def test_contour_vec(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_contour_matrix.png")
 @pytest.mark.parametrize(
     "array_func",
