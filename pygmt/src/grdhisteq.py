@@ -102,7 +102,7 @@ class grdhisteq:  # noqa: N801
               ``outgrid`` or ``outfile``)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
         """
         if caller not in ["compute_bins", "equalize_grid"]:
@@ -196,7 +196,7 @@ class grdhisteq:  # noqa: N801
         >>> grid = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
@@ -309,7 +309,7 @@ class grdhisteq:  # noqa: N801
         4       705.0  2275.5
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note

@@ -529,7 +529,7 @@ def args_in_kwargs(args, kwargs):
         short-form aliases of the parameters.
 
     Returns
-    --------
+    -------
     bool
         If one of the required arguments is in ``kwargs``.
 

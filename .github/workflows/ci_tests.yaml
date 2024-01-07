@@ -25,15 +25,14 @@ name: Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   release:
     types:
       - published
@@ -101,7 +100,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}

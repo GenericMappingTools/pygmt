@@ -213,7 +213,7 @@ def grdtrack(
         - **+c**\ *fact* : Compute envelope on stacked profile as
           ±\ *fact* \*\ *deviation* [Default fact value is 2].
 
-        Notes:
+        Here are some notes:
 
         1. Deviations depend on *method* and are st.dev (**a**), L1 scale,
            i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and
