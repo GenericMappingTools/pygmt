@@ -14,8 +14,8 @@ rioxarray = pytest.importorskip("rioxarray")
 @pytest.fixture(scope="module", name="xr_image")
 def fixture_xr_image():
     """
-    Load the image data from Blue Marble as an xarray.DataArray with shape
-    {"band": 3, "y": 180, "x": 360}.
+    Load the image data from Blue Marble as an xarray.DataArray with shape {"band": 3,
+    "y": 180, "x": 360}.
     """
     geotiff = which(fname="@earth_day_01d_p", download="c")
     with rioxarray.open_rasterio(filename=geotiff) as rda:
@@ -53,6 +53,7 @@ def test_grdimage_image():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_grdimage_image.png")
 def test_grdimage_image_dataarray(xr_image):
     """
@@ -69,11 +70,10 @@ def test_grdimage_image_dataarray(xr_image):
 )
 def test_grdimage_image_dataarray_unsupported_dtype(dtype, xr_image):
     """
-    Plot a 3-band RGB image using xarray.DataArray input, with an unsupported
-    data type.
+    Plot a 3-band RGB image using xarray.DataArray input, with an unsupported data type.
     """
     fig = Figure()
-    image = xr_image.astype(dtype=dtype)
+    image = xr_image.copy().astype(dtype=dtype)
     with pytest.warns(expected_warning=RuntimeWarning) as record:
         fig.grdimage(grid=image)
         assert len(record) == 1

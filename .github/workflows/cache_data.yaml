@@ -1,18 +1,21 @@
-# Cache GMT remote data files and uploads as artifacts
+# Cache GMT remote data files and upload as artifacts
 #
 # This workflow downloads data files needed by PyGMT tests/documentation from
 # the GMT data server and uploads as workflow artifacts which can be accessed
 # by other GitHub Actions workflows.
 #
 # It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
-# needed urgently, maintainers can manually uncomment the 'pull_request:' line
-# below to refresh the cache.
+# needed urgently, maintainers can update the workflow file or the
+# 'pygmt/helpers/caching.py' file to refresh the cache.
 #
 name: Cache data
 
 on:
-  # Uncomment the 'pull_request' line below to manually re-cache data artifacts
-  # pull_request:
+  pull_request:
+    # Make any changes to the following files to refresh the cache in PRs
+    paths:
+      - 'pygmt/helpers/caching.py'
+      - '.github/workflows/cache_data.yaml'
   # Schedule runs on 12 noon every Sunday
   schedule:
     - cron: '0 12 * * 0'
@@ -44,7 +47,7 @@ jobs:
               - nodefaults
           create-args: >-
             python=3.12
-            gmt=6.4.0
+            gmt=6.5.0
             numpy
             pandas
             xarray
@@ -61,11 +64,11 @@ jobs:
       # Download remote files
       - name: Download remote data
         run: |
-          python -c "from pygmt.helpers.testing import download_test_data; download_test_data()"
+          python -c "from pygmt.helpers.caching import cache_data; cache_data()"
 
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gmt-cache
           path: |

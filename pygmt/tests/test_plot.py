@@ -94,8 +94,8 @@ def test_plot_fail_no_data(data, region):
 
 def test_plot_fail_1d_array_with_data(data, region):
     """
-    Should raise an exception if array fill, size, intensity and transparency
-    are used with matrix.
+    Should raise an exception if array fill, size, intensity and transparency are used
+    with matrix.
     """
     fig = Figure()
     kwargs = {"data": data, "region": region, "projection": "X10c", "frame": "afg"}
@@ -352,6 +352,7 @@ def test_plot_from_file(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_plot_vectors():
     """
@@ -380,8 +381,8 @@ def test_plot_lines_with_arrows():
     """
     Plot lines with arrows.
 
-    The test is slightly different from test_plot_vectors(). Here the vectors
-    are plotted as lines, with arrows at the end.
+    The test is slightly different from test_plot_vectors(). Here the vectors are
+    plotted as lines, with arrows at the end.
 
     The test also checks if the API crashes. See
     https://github.com/GenericMappingTools/pygmt/issues/406.
@@ -478,8 +479,8 @@ def test_plot_timedelta64():
 @pytest.mark.parametrize("func", [str, Path])
 def test_plot_ogrgmt_file_multipoint_default_style(func):
     """
-    Make sure that OGR/GMT files with MultiPoint geometry are plotted as
-    squares and not as line (default GMT style).
+    Make sure that OGR/GMT files with MultiPoint geometry are plotted as squares and not
+    as line (default GMT style).
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
         gmt_file = """# @VGMT1.0 @GMULTIPOINT

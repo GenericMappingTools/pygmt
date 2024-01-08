@@ -25,15 +25,14 @@ name: Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   release:
     types:
       - published
@@ -101,12 +100,12 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.4.0
-            ghostscript=9.54.0
+            gmt=6.5.0
+            ghostscript=10.02.1
             numpy=${{ matrix.numpy-version }}
             pandas
             xarray
@@ -141,9 +140,7 @@ jobs:
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull --verbose
-          ls -lhR pygmt/tests/baseline/
+        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
@@ -155,7 +152,7 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
