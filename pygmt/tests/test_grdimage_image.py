@@ -1,13 +1,9 @@
 """
 Test Figure.grdimage on 3-band RGB images.
 """
-import numpy as np
-import pandas as pd
 import pytest
-import xarray as xr
 from pygmt import Figure, which
 
-rasterio = pytest.importorskip("rasterio")
 rioxarray = pytest.importorskip("rioxarray")
 
 
@@ -19,28 +15,8 @@ def fixture_xr_image():
     """
     geotiff = which(fname="@earth_day_01d_p", download="c")
     with rioxarray.open_rasterio(filename=geotiff) as rda:
-        if len(rda.band) == 3:  # GMT 6.5.0 or above
+        if len(rda.band) == 3:
             xr_image = rda.load()
-        elif len(rda.band) == 1:  # GMT 6.4.0 or below
-            with rasterio.open(fp=geotiff) as src:
-                df_colormap = pd.DataFrame.from_dict(
-                    data=src.colormap(1), orient="index"
-                )
-                array = src.read()
-
-                red = np.vectorize(df_colormap[0].get)(array)
-                green = np.vectorize(df_colormap[1].get)(array)
-                blue = np.vectorize(df_colormap[2].get)(array)
-                # alpha = np.vectorize(df_colormap[3].get)(array)
-
-            rda.data = red
-            da_red = rda.astype(dtype=np.uint8).copy()
-            rda.data = green
-            da_green = rda.astype(dtype=np.uint8).copy()
-            rda.data = blue
-            da_blue = rda.astype(dtype=np.uint8).copy()
-
-            xr_image = xr.concat(objs=[da_red, da_green, da_blue], dim="band")
         assert xr_image.sizes == {"band": 3, "y": 180, "x": 360}
         return xr_image
 
