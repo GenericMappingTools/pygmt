@@ -503,7 +503,7 @@ def test_get_default():
     with clib.Session() as lib:
         assert lib.get_default("API_GRID_LAYOUT") in ["rows", "columns"]
         assert int(lib.get_default("API_CORES")) >= 1
-        assert Version(lib.get_default("API_VERSION")) >= Version("6.3.0")
+        assert Version(lib.get_default("API_VERSION")) >= Version("6.5.0")
 
 
 def test_get_default_fails():
