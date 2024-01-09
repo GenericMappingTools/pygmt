@@ -453,6 +453,26 @@ def test_plot_datetime():
     return fig
 
 
+@pytest.mark.mpl_image_compare
+def test_plot_timedelta64():
+    """
+    Test plotting numpy.timedelta64 input data.
+    """
+    fig = Figure()
+    fig.basemap(
+        projection="X8c/5c",
+        region=[0, 8, 0, 10],
+        frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
+    )
+    fig.plot(
+        x=np.arange(np.timedelta64(0, "D"), np.timedelta64(8, "D")),
+        y=np.geomspace(start=0.1, stop=9, num=8),
+        style="c0.2c",
+        pen="1p",
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare(
     filename="test_plot_ogrgmt_file_multipoint_default_style.png"
 )

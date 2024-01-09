@@ -1,4 +1,5 @@
 outs:
-- md5: 4837998790cefec43cd89cf93f2a5b74
-  size: 24319
+- md5: 28c9a67c9e52d17b82d6fb86f309049f
+  size: 24639
   path: test_plot_scalar_xy.png
+  hash: md5
