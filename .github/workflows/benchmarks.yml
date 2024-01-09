@@ -86,7 +86,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2.0.2
+        uses: CodSpeedHQ/action@v2.0.3
         with:
           run: |
             python -c "import pygmt; pygmt.show_versions()"
