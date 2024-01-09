@@ -61,8 +61,6 @@ jobs:
           "repository/**/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Get current date
       id: date
