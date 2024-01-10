@@ -1,4 +1,5 @@
 outs:
-- md5: 150c12b8d8959561bdf36d380dc23d10
-  size: 3747
+- md5: 7e7d5d650a45fe92e56d52415078ec6a
+  size: 3789
   path: test_makecpt_cyclic.png
+  hash: md5
