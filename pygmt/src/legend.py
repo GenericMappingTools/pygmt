@@ -15,11 +15,11 @@ from pygmt.helpers import (
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     C="clearance",
     D="position",
     F="box",
+    J="projection",
+    R="region",
     V="verbose",
     c="panel",
     p="perspective",
