@@ -67,7 +67,7 @@ def test_grdimage_slice(grid):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i")
+    fig.grdimage(grid_, cmap="earth", projection="M10c")
     return fig
 
 
@@ -98,7 +98,7 @@ def test_grdimage_default_no_shading(grid, shading):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
+    fig.grdimage(grid_, cmap="earth", projection="M10c", shading=shading)
     return fig
 
 
