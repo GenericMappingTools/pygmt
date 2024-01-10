@@ -56,7 +56,7 @@ def test_grdimage(grid):
     Plot an image using an xarray grid.
     """
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="W0/6i")
+    fig.grdimage(grid, cmap="earth", projection="W0/10c")
     return fig
 
 
