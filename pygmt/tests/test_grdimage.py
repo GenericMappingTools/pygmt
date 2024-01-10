@@ -81,7 +81,7 @@ def test_grdimage_file():
         "@earth_relief_01d_g",
         cmap="ocean",
         region=[-180, 180, -70, 70],
-        projection="W0/10i",
+        projection="W0/10c",
         shading=True,
     )
     return fig
