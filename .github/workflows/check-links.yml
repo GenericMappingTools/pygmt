@@ -34,7 +34,7 @@ jobs:
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.8.0
+      uses: lycheeverse/lychee-action@v1.9.0
       with:
         # 429: Too many requests
         args: >
@@ -61,8 +61,6 @@ jobs:
           "repository/**/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Get current date
       id: date

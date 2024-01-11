@@ -1,4 +1,5 @@
 outs:
-- md5: c2bfca8624e4bf966eeb57bbc4aa0726
-  size: 8843
+- md5: fcf1511052ece6b0e2ed97b6ae5af772
+  size: 8828
   path: test_timestamp_justification.png
+  hash: md5
