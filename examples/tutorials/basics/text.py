@@ -151,7 +151,7 @@ fig.show()
 #
 # For crafting more advanced styles, including using special symbols and
 # other character sets, be sure to check out the GMT documentation
-# at :gmt-docs:`text.html` and also the reference at
+# at :gmt-docs:`text.html` and also the GMT Technical Reference at
 # :gmt-docs:`reference/features.html#placement-of-text`. Good luck!
 
 # sphinx_gallery_thumbnail_number = 3

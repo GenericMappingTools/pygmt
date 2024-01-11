@@ -12,7 +12,7 @@ Giving ``"dotted"`` or ``"."`` yields a dotted line, whereas a dashed pen is
 requested with ``"dashed"`` or ``"-"``. Also combinations of dots and dashes,
 like ``".-"`` for a dot-dashed line, are allowed.
 
-For more advanced *pen* attributes, see the GMT reference
+For more advanced *pen* attributes, see the GMT Technical Reference
 :gmt-docs:`reference/features.html#wpen-attrib`.
 
 """
