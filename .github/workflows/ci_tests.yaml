@@ -148,7 +148,7 @@ jobs:
 
       # Run the regular tests
       - name: Run tests
-        run: make test PYTEST_EXTRA="-r P"
+        run: make fulltest PYTEST_EXTRA="-r P"
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
