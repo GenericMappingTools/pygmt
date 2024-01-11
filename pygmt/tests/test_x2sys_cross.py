@@ -1,6 +1,7 @@
 """
 Test pygmt.x2sys_cross.
 """
+import copy
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -142,8 +143,9 @@ def test_x2sys_cross_input_dataframe_with_nan(tracks):
             tag=tag, fmtfile="xyz", suffix="xyzt", units=["de", "se"], force=True
         )
 
-        tracks[0].loc[tracks[0]["z"] < -15, "z"] = np.nan  # set some values to NaN
-        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+        newtracks = copy.deepcopy(x=tracks)
+        newtracks[0].loc[newtracks[0]["z"] < -15, "z"] = np.nan  # set some NaN values
+        output = x2sys_cross(tracks=newtracks, tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (3, 12)
