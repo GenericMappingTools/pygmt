@@ -66,7 +66,7 @@ def test_x2sys_cross_input_file_output_dataframe():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14294, 12)
+        assert output.shape == (14338, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
@@ -214,10 +214,10 @@ def test_x2sys_cross_region_interpolation_numpoints():
         )
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (3867, 12)
+        assert output.shape == (3882, 12)
         # Check crossover errors (z_X) and mean value of observables (z_M)
-        npt.assert_allclose(output.z_X.mean(), -139.2, rtol=1e-4)
-        npt.assert_allclose(output.z_M.mean(), -2890.465813)
+        npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
+        npt.assert_allclose(output.z_M.mean(), -2896.875915)
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -231,7 +231,7 @@ def test_x2sys_cross_trackvalues():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14294, 12)
+        assert output.shape == (14338, 12)
         # Check mean of track 1 values (z_1) and track 2 values (z_2)
-        npt.assert_allclose(output.z_1.mean(), -2420.569767)
-        npt.assert_allclose(output.z_2.mean(), -2400.357549)
+        npt.assert_allclose(output.z_1.mean(), -2422.418556)
+        npt.assert_allclose(output.z_2.mean(), -2402.268364)
