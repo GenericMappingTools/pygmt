@@ -149,6 +149,11 @@ jobs:
       # Run the regular tests
       - name: Run tests
         run: make test PYTEST_EXTRA="-r P"
+        if: github.event_name == 'pull_request'
+
+      - name: Run full tests
+        run: make fulltest PYTEST_EXTRA="-r P"
+        if: github.event_name != 'pull_request'
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
