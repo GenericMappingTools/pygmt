@@ -184,7 +184,7 @@ conda install pygmt
 
 This upgrades the installed PyGMT version to be the latest stable release:
 
-::: {tab-set}
+:::: {tab-set}
 ::: {tab-item} mamba
 :sync: mamba
 ```
