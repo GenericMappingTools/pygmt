@@ -34,7 +34,7 @@ jobs:
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.8.0
+      uses: lycheeverse/lychee-action@v1.9.0
       with:
         # 429: Too many requests
         args: >
@@ -48,8 +48,8 @@ jobs:
           --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^git"
           --exclude "^file://"
-          --exclude "^https://docs.generic-mapping-tools.org/6.4/%s$"
-          --exclude "^https://docs.generic-mapping-tools.org/6.4/%3Cmodule-name%3E.html$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
@@ -61,8 +61,6 @@ jobs:
           "repository/**/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Get current date
       id: date

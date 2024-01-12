@@ -12,8 +12,9 @@ on:
     paths:
       - 'pygmt/**/*.py'
       - '.github/workflows/benchmarks.yml'
-  # Uncomment the 'pull_request' line below to trigger the workflow in PR
-  # pull_request:
+  # Run in PRs but only if the PR has the 'run/benchmark' label
+  pull_request:
+    types: [ opened, reopened, labeled, synchronize ]
   # `workflow_dispatch` allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
   workflow_dispatch:
@@ -28,7 +29,7 @@ concurrency:
 jobs:
   benchmarks:
     runs-on: ubuntu-22.04
-    if: github.repository == 'GenericMappingTools/pygmt'
+    if: github.repository == 'GenericMappingTools/pygmt' && (github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run/benchmark'))
     defaults:
       run:
         shell: bash -l {0}
@@ -56,7 +57,7 @@ jobs:
           # $CONDA is an environment variable pointing to the root of the miniconda directory
           # Preprend $CONDA/bin to $PATH so that conda's python is used over system python
           echo $CONDA/bin >> $GITHUB_PATH
-          conda install --solver=libmamba gmt=6.4.0 python=3.12 \
+          conda install --solver=libmamba gmt=6.5.0 python=3.12 \
                         numpy pandas xarray netCDF4 packaging \
                         geopandas pyarrow pytest pytest-mpl
           python -m pip install -U pytest-codspeed setuptools
@@ -85,7 +86,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2.0.2
+        uses: CodSpeedHQ/action@v2.0.3
         with:
           run: |
             python -c "import pygmt; pygmt.show_versions()"

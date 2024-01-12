@@ -104,8 +104,8 @@ jobs:
           cache-environment: true
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.4.0
-            ghostscript=9.54.0
+            gmt=6.5.0
+            ghostscript=10.02.1
             numpy=${{ matrix.numpy-version }}
             pandas
             xarray
