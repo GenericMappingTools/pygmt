@@ -15,9 +15,9 @@ different characters) and *string* can be a letter or a text string
 as **+j**\ *justify* to change the justification [Default is CM]. The fill
 color of the text symbols can be set with the ``fill`` parameter, and the
 outline width can be customized with the ``pen`` parameter.
-For all supported octal codes and fonts see the GMT cookbook
-:gmt-docs:`cookbook/octal-codes.html` and
-:gmt-docs:`cookbook/postscript-fonts.html`.
+For all supported octal codes and fonts see the GMT Technical Reference
+:gmt-docs:`reference/octal-codes.html` and
+:gmt-docs:`reference/postscript-fonts.html`.
 """
 
 # %%
