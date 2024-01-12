@@ -335,7 +335,7 @@ COMMON_DOCSTRINGS = {
               ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
-              <cookbook/file-formats.html#gmt-file-formats>` for details.
+              <reference/file-formats.html#gmt-file-formats>` for details.
 
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
