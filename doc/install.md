@@ -15,7 +15,7 @@ mamba create --name pygmt --channel conda-forge pygmt
 ```
 :::
 
-::: {tab-item } conda
+::: {tab-item} conda
 :sync: conda
 ```
 conda create --name pygmt --channel conda-forge pygmt
@@ -25,7 +25,7 @@ conda create --name pygmt --channel conda-forge pygmt
 
 To activate the virtual environment, you can do:
 
-:::: tab-set
+:::: {tab-set}
 ::: {tab-item} mamba
 :sync: mamba
 ```
