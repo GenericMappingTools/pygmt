@@ -181,13 +181,13 @@ def velo(self, data=None, **kwargs):
         will be transparent. **Note**: Using ``cmap`` and ``zvalue="+e"``
         will update the uncertainty fill color based on the selected measure
         in ``zvalue`` [Default is magnitude error]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     fill : str
         Set color or pattern for filling symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
         [Default is magnitude]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     scale : float or bool
         [*scale*].
         Scale symbol sizes and pen widths on a per-record basis using the

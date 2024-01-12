@@ -34,8 +34,10 @@ autosummary_generate = []
 
 # Auto-generate header anchors with MyST parser
 myst_heading_anchors = 4
-# Allow code fences using colons
-myst_enable_extensions = ["colon_fence"]
+myst_enable_extensions = [
+    "attrs_inline",  # Allow inline attributes after images
+    "colon_fence",  # Allow code fences using colons
+]
 
 # Make the list of returns arguments and attributes render the same as the
 # parameters list

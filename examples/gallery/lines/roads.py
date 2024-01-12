@@ -1,3 +1,4 @@
+# ruff: noqa: RUF003
 """
 Roads
 =====
@@ -9,7 +10,6 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 :class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
 :meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
 """
-# ruff: noqa: RUF003
 
 # %%
 import geopandas as gpd
