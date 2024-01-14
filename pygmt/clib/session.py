@@ -1085,7 +1085,7 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtual_file(self, family, geometry, direction, data):
+    def open_virtualfile(self, family, geometry, direction, data):
         """
         Open a GMT virtual file to pass data to and from a module.
 
@@ -1142,7 +1142,7 @@ class Session:
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
         ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-        ...     with lib.open_virtual_file(*vfargs) as vfile:
+        ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
         ...             args = f"{vfile} ->{ofile.name}"
@@ -1190,6 +1190,45 @@ class Session:
             if status != 0:
                 raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
 
+    def open_virtual_file(self, family, geometry, direction, data):
+        """
+        Open a GMT virtual file to pass data to and from a module.
+
+        The method has been renamed to ``open_virtualfile` since v0.11.0 and will be
+        fully removed in v0.15.0.
+
+        Examples
+        --------
+        >>> from pygmt.helpers import GMTTempFile
+        >>> import numpy as np
+        >>> x = np.array([0, 1, 2, 3, 4])
+        >>> y = np.array([5, 6, 7, 8, 9])
+        >>> with Session() as lib:
+        ...     family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
+        ...     geometry = "GMT_IS_POINT"
+        ...     dataset = lib.create_data(
+        ...         family=family,
+        ...         geometry=geometry,
+        ...         mode="GMT_CONTAINER_ONLY",
+        ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
+        ...     )
+        ...     lib.put_vector(dataset, column=0, vector=x)
+        ...     lib.put_vector(dataset, column=1, vector=y)
+        ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
+        ...     with lib.open_virtual_file(*vfargs) as vfile:
+        ...         with GMTTempFile() as ofile:
+        ...             args = f"{vfile} ->{ofile.name}"
+        ...             lib.call_module("info", args)
+        ...             print(ofile.read().strip())
+        <vector memory>: N = 5 <0/4> <5/9>
+        """
+        msg = (
+            "API function `Session.open_virtual_file' has been deprecated since v0.11.0"
+            " and will be removed in v0.15.0. Use `Session.open_virtualfile' instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        return self.open_virtualfile(family, geometry, direction, data)
+
     @contextlib.contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
@@ -1205,7 +1244,7 @@ class Session:
         Use this instead of creating the data container and virtual file by
         hand with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_vector`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`.
+        :meth:`pygmt.clib.Session.open_virtualfile`.
 
         If the arrays are C contiguous blocks of memory, they will be passed
         without copying to GMT. If they are not (e.g., they are columns of a
@@ -1286,7 +1325,7 @@ class Session:
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
 
-        with self.open_virtual_file(
+        with self.open_virtualfile(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
         ) as vfile:
             yield vfile
@@ -1313,7 +1352,7 @@ class Session:
         Use this instead of creating the data container and virtual file by
         hand with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`
+        :meth:`pygmt.clib.Session.open_virtualfile`
 
         The matrix must be C contiguous in memory. If it is not (e.g., it is a
         slice of a larger array), the array will be copied to make sure it is.
@@ -1366,7 +1405,7 @@ class Session:
 
         self.put_matrix(dataset, matrix)
 
-        with self.open_virtual_file(
+        with self.open_virtualfile(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
         ) as vfile:
             yield vfile
@@ -1389,7 +1428,7 @@ class Session:
         Use this instead of creating a data container and virtual file by hand
         with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`
+        :meth:`pygmt.clib.Session.open_virtualfile`.
 
         The grid data matrix must be C contiguous in memory. If it is not
         (e.g., it is a slice of a larger array), the array will be copied to
@@ -1453,7 +1492,7 @@ class Session:
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
-        with self.open_virtual_file(*args) as vfile:
+        with self.open_virtualfile(*args) as vfile:
             yield vfile
 
     @fmt_docstring
