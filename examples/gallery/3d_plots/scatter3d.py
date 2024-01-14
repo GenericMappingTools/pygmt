@@ -93,7 +93,7 @@ fig.plot3d(
 )
 
 # Shift plot origin in x direction
-fig.shift_origin(xshift=3.1)
+fig.shift_origin(xshift="3.1c")
 # Add colorbar legend
 fig.colorbar()
 

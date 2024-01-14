@@ -45,7 +45,7 @@ fig.show()
 # the ``font`` parameter.
 #
 # A list of all recognized fonts can be found at
-# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`,
 # including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
@@ -151,7 +151,7 @@ fig.show()
 #
 # For crafting more advanced styles, including using special symbols and
 # other character sets, be sure to check out the GMT documentation
-# at :gmt-docs:`text.html` and also the cookbook at
-# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+# at :gmt-docs:`text.html` and also the GMT Technical Reference at
+# :gmt-docs:`reference/features.html#placement-of-text`. Good luck!
 
 # sphinx_gallery_thumbnail_number = 3
