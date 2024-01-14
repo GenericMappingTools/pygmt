@@ -1,5 +1,5 @@
-Compatibility Table
--------------------
+Minimum Supported GMT/Python/NumP Versions
+------------------------------------------
 
 .. list-table::
     :widths: 25 30 15 20 15

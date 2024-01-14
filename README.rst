@@ -252,12 +252,8 @@ Other non-official Python wrappers for GMT (not maintained):
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
 
-Compatibility with GMT/Python/NumPy versions
---------------------------------------------
-
-For the supported GMT versions as well as the minimum required Python and NumPy
-versions please see the
-`Compatibility Table <https://www.pygmt.org/dev/compatibility.html>`__.
+Minimum Supported GMT/Python/NumP Versions
+------------------------------------------
 
 PyGMT has adopted `NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy>`__
 alongside the rest of the Scientific Python ecosystem, and therefore supports:
@@ -266,3 +262,7 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
   and at minimum the two latest minor versions.
 * All minor versions of NumPy released in the 24 months prior to the project,
   and at minimum the last three minor versions.
+
+For the supported GMT versions as well as the minimum required Python and NumPy
+versions please see the
+`Compatibility Table <https://www.pygmt.org/dev/compatibility.html>`__.
