@@ -122,8 +122,7 @@ def plot(  # noqa: PLR0912
         Draw error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        [**c**\|\ **n**\|\ **p**]\
-        [**a**\|\ **r**\|\ **s**\|\ **t**\|\ *refpoint*].
+        [**c**\|\ **n**\|\ **p**][**a**\|\ **r**\|\ **s**\|\ **t**\|\ *refpoint*].
         Alter the way points are connected (by specifying a *scheme*) and data are
         grouped (by specifying a *method*). Append one of three line connection schemes:
 
