@@ -20,7 +20,7 @@ def shift_origin(self, xshift=None, yshift=None):
     move the origin relative to its current location.
 
     Detailed usage at
-    :gmt-docs:`cookbook/options.html#plot-positioning-and-layout-the-x-y-options`
+    :gmt-docs:`reference/options.html#plot-positioning-and-layout-the-x-y-options`
 
     Parameters
     ----------
