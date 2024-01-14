@@ -19,6 +19,9 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 .. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
     :target: https://app.codecov.io/gh/GenericMappingTools/pygmt

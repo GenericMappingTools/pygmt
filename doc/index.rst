@@ -18,7 +18,7 @@
     :hidden:
     :caption: Getting Started
 
-    overview.rst
+    overview.md
     install.rst
     get_started/index.rst
 
