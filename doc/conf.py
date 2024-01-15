@@ -14,7 +14,7 @@ from pygmt.sphinx_gallery import PyGMTScraper
 
 requires_python = metadata("pygmt")["Requires-Python"]
 with pygmt.clib.Session() as lib:
-    requires_gmt = ">=" + lib.required_version
+    requires_gmt = f">={lib.required_version}"
 
 extensions = [
     "myst_parser",
@@ -44,6 +44,7 @@ myst_enable_extensions = [
     "colon_fence",  # Allow code fences using colons
     "substitution",  # Allow substituitions
 ]
+# These enable substitutions using {{ key }} in the Markdown files
 myst_substitutions = {
     "requires_python": requires_python,
     "requires_gmt": requires_gmt,
