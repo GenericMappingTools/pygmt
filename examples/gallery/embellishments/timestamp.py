@@ -29,7 +29,7 @@ fig = pygmt.Figure()
 fig.coast(region="d", projection="H10c", land="black", water="cornsilk", frame="afg")
 fig.timestamp(
     label="Powered by PyGMT",
-    jusitfy="TL",
+    justify="TL",
     font="Times-Bold",
     timefmt="%Y-%m-%dT%H:%M:%S%z",
 )
