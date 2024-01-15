@@ -1,14 +1,13 @@
 """
 xyz2grd - Convert data table to a grid.
 """
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
 )
 from pygmt.io import load_dataarray
 
@@ -16,25 +15,28 @@ __doctest_skip__ = ["xyz2grd"]
 
 
 @fmt_docstring
-@use_alias(
-    A="duplicate",
-    G="outgrid",
-    I="spacing",
-    J="projection",
-    R="region",
-    V="verbose",
-    Z="convention",
-    b="binary",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    h="header",
-    i="incols",
-    r="registration",
-    w="wrap",
-)
-@kwargs_to_strings(I="sequence", R="sequence")
-def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
+def xyz2grd(
+    data=None,
+    x=None,
+    y=None,
+    z=None,
+    outgrid=None,
+    spacing=None,
+    duplicate=None,
+    projection=None,
+    region=None,
+    verbose=None,
+    convention=None,
+    binary=None,
+    nodata=None,
+    find=None,
+    coltypes=None,
+    header=None,
+    incols=None,
+    registration=None,
+    wrap=None,
+    **kwargs,
+):
     r"""
     Create a grid file from table data.
 
@@ -45,8 +47,6 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     mean value.
 
     Full option list at :gmt-docs:`xyz2grd.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -146,7 +146,25 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]
     ... )
     """
-    if kwargs.get("I") is None or kwargs.get("R") is None:
+    _aliases = [
+        Alias("duplicate", "A", "", ""),
+        Alias("outgrid", "G", "", ""),
+        Alias("spacing", "I", "", "/"),
+        Alias("projection", "J", "", ""),
+        Alias("region", "R", "", "/"),
+        Alias("verbose", "V", "", ""),
+        Alias("convention", "Z", "", ""),
+        Alias("binary", "b", "", ""),
+        Alias("nodata", "d", "", ""),
+        Alias("find", "e", "", ""),
+        Alias("coltypes", "f", "", ""),
+        Alias("header", "h", "", ""),
+        Alias("incols", "i", "", ""),
+        Alias("registration", "r", "", ""),
+        Alias("wrap", "w", "", ""),
+    ]
+
+    if spacing is None or region is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
     with GMTTempFile(suffix=".nc") as tmpfile:
@@ -155,10 +173,12 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with file_context as infile:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                if outgrid is None:
+                    outgrid = tmpfile.name
+
+                options = convert_aliases()
                 lib.call_module(
-                    module="xyz2grd", args=build_arg_string(kwargs, infile=infile)
+                    module="xyz2grd", args=build_arg_string(options, infile=infile)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
