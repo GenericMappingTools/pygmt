@@ -2,6 +2,7 @@
 text - Plot text on a figure.
 """
 import numpy as np
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -11,38 +12,12 @@ from pygmt.helpers import (
     is_nonstr_iter,
     kwargs_to_strings,
     non_ascii_to_octal,
-    use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    B="frame",
-    C="clearance",
-    D="offset",
-    G="fill",
-    N="no_clip",
-    V="verbose",
-    W="pen",
-    a="aspatial",
-    c="panel",
-    e="find",
-    f="coltypes",
-    h="header",
-    it="use_word",
-    p="perspective",
-    t="transparency",
-    w="wrap",
-)
-@kwargs_to_strings(
-    R="sequence",
-    textfiles="sequence_space",
-    c="sequence_comma",
-    p="sequence",
-)
-def text_(  # noqa: PLR0912
+@kwargs_to_strings(textfiles="sequence_space")
+def text_(  # noqa: PLR0913
     self,
     textfiles=None,
     x=None,
@@ -52,6 +27,9 @@ def text_(  # noqa: PLR0912
     angle=None,
     font=None,
     justify=None,
+    projection=None,  # noqa: ARG001
+    region=None,  # noqa: ARG001
+    transparency=None,
     **kwargs,
 ):
     r"""
@@ -70,8 +48,6 @@ def text_(  # noqa: PLR0912
     non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -182,6 +158,31 @@ def text_(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
+    _aliases = [
+        Alias("position", "F", "+c", ""),
+        Alias("angle", "F", "+a", ""),
+        Alias("font", "F", "+f", ""),
+        Alias("justify", "F", "+j", ""),
+        Alias("region", "R", "", "/"),
+        Alias("projection", "J", "", ""),
+        Alias("transparency", "t", "", ""),
+        Alias("frame", "B", "", ""),
+        Alias("clearance", "C", "", ""),
+        Alias("offset", "D", "", ""),
+        Alias("fill", "G", "", ""),
+        Alias("no_clip", "N", "", ""),
+        Alias("verbose", "V", "", ""),
+        Alias("pen", "W", "", ""),
+        Alias("aspatial", "a", "", ""),
+        Alias("panel", "c", "", ","),
+        Alias("find", "e", "", ""),
+        Alias("coltypes", "f", "", ""),
+        Alias("header", "h", "", ""),
+        Alias("use_word", "it", "", ""),
+        Alias("perspective", "p", "", "/"),
+        Alias("wrap", "w", "", ""),
+    ]
+
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
         if (x is not None or y is not None) and textfiles is not None:
@@ -201,33 +202,22 @@ def text_(  # noqa: PLR0912
         kind = None
         textfiles = ""
 
-    # Build the -F option in gmt text.
-    if kwargs.get("F") is None and any(
-        v is not None for v in (position, angle, font, justify)
-    ):
-        kwargs.update({"F": ""})
+    # special handling with the position parameter
+    if position is not None:
+        position += f"+t{text}"
 
     extra_arrays = []
-    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
-        if arg is True:
-            kwargs["F"] += flag
-        elif is_nonstr_iter(arg):
-            kwargs["F"] += flag
-            if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))
-            else:  # font or justify is str type
-                extra_arrays.append(np.atleast_1d(arg).astype(str))
-        elif isinstance(arg, (int, float, str)):
-            kwargs["F"] += f"{flag}{arg}"
-
-    if isinstance(position, str):
-        kwargs["F"] += f"+c{position}+t{text}"
-
+    # angle is numeric type
+    if is_nonstr_iter(angle):
+        extra_arrays.append(np.atleast_1d(angle))
+    # font or justify is str type
+    for arg in (font, justify):
+        if is_nonstr_iter(arg):
+            extra_arrays.append(np.atleast_1d(arg).astype(str))  # noqa: PERF401
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if is_nonstr_iter(kwargs.get("t")):
-        extra_arrays.append(kwargs["t"])
-        kwargs["t"] = ""
+    if is_nonstr_iter(transparency):
+        extra_arrays.append(transparency)
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
@@ -239,5 +229,6 @@ def text_(  # noqa: PLR0912
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         )
+        options = convert_aliases()
         with file_context as fname:
-            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="text", args=build_arg_string(options, infile=fname))
