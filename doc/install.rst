@@ -102,7 +102,7 @@ PyGMT requires the following libraries to be installed:
 
 .. note::
 
-    For the minimum supported versions of the dependencies, please see {doc}`compatibility`.
+    For the minimum supported versions of the dependencies, please see {doc}`compatibility.rst`.
 
 The following are optional dependencies:
 
