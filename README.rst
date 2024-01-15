@@ -261,11 +261,10 @@ Minimum Supported GMT/Python/NumPy Versions
 PyGMT has adopted `NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy>`__
 alongside the rest of the Scientific Python ecosystem, and therefore supports:
 
-* All minor versions of Python released 42 months prior to the project,
-  and at minimum the two latest minor versions.
-* All minor versions of NumPy released in the 24 months prior to the project,
-  and at minimum the last three minor versions.
+* All minor versions of Python released 42 months prior to the project, and at minimum
+  the two latest minor versions.
+* All minor versions of NumPy released in the 24 months prior to the project, and at
+  minimum the last three minor versions.
 
-For the supported GMT versions as well as the minimum required Python and NumPy
-versions please see the
-`Compatibility Table <https://www.pygmt.org/dev/compatibility.html>`__.
+For the supported GMT versions as well as the minimum required Python and NumPy versions
+please see the `Compatibility Table <https://www.pygmt.org/dev/compatibility.html>`__.
