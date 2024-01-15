@@ -30,8 +30,8 @@ assignees: ''
     - [ ] Update DOI (and url for BibTeX)
     - [ ] Update version
     - [ ] Update date released
-  - [ ] Add the documentation link https://github.com/GenericMappingTools/pygmt#compatibility-with-gmtpythonnumpy-versions
-  - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-gmtpythonnumpy-versions
+  - [ ] Add the documentation link `doc/compatibility.rst`
+  - [ ] Add compatibility information `doc/compatibility.rst`
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
 
 **Release**:
