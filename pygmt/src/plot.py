@@ -1,6 +1,7 @@
 """
 plot - Plot in two dimensions.
 """
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -9,48 +10,24 @@ from pygmt.helpers import (
     deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
-    kwargs_to_strings,
-    use_alias,
 )
 from pygmt.src.which import which
 
 
 @fmt_docstring
 @deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
-@use_alias(
-    A="straight_line",
-    B="frame",
-    C="cmap",
-    D="offset",
-    E="error_bar",
-    F="connection",
-    G="fill",
-    I="intensity",
-    J="projection",
-    L="close",
-    N="no_clip",
-    R="region",
-    S="style",
-    V="verbose",
-    W="pen",
-    Z="zvalue",
-    a="aspatial",
-    b="binary",
-    c="panel",
-    d="nodata",
-    e="find",
-    f="coltypes",
-    g="gap",
-    h="header",
-    i="incols",
-    l="label",
-    p="perspective",
-    t="transparency",
-    w="wrap",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
 def plot(  # noqa: PLR0912
-    self, data=None, x=None, y=None, size=None, direction=None, **kwargs
+    self,
+    data=None,
+    x=None,
+    y=None,
+    size=None,
+    direction=None,
+    style=None,
+    fill=None,
+    transparency=None,
+    intensity=None,
+    **kwargs,
 ):
     r"""
     Plot lines, polygons, and symbols in 2-D.
@@ -74,8 +51,6 @@ def plot(  # noqa: PLR0912
     ``pen`` determine the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -207,54 +182,92 @@ def plot(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
+    _aliases = [
+        Alias("straight_line", "A", "", ""),
+        Alias("frame", "B", "", ""),
+        Alias("cmap", "C", "", ""),
+        Alias("offset", "D", "", ""),
+        Alias("error_bar", "E", "", ""),
+        Alias("connection", "F", "", ""),
+        Alias("fill", "G", "", ""),
+        Alias("intensity", "I", "", ""),
+        Alias("projection", "J", "", ""),
+        Alias("close", "L", "", ""),
+        Alias("no_clip", "N", "", ""),
+        Alias("region", "R", "", "/"),
+        Alias("style", "S", "", ""),
+        Alias("verbose", "V", "", ""),
+        Alias("pen", "W", "", ""),
+        Alias("zvalue", "Z", "", ""),
+        Alias("aspatial", "a", "", ""),
+        Alias("binary", "b", "", ""),
+        Alias("panel", "c", "", ","),
+        Alias("find", "e", "", ""),
+        Alias("coltypes", "f", "", ""),
+        Alias("gap", "g", "", ""),
+        Alias("header", "h", "", ""),
+        Alias("incols", "i", "", ","),
+        Alias("lable", "l", "", ""),
+        Alias("perspective", "p", "", "/"),
+        Alias("transparency", "t", "", ""),
+        Alias("wrap", "w", "", ""),
+    ]
+
     kind = data_kind(data, x, y)
 
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
+    if style is not None and style[0] in "vV" and direction is not None:
         extra_arrays.extend(direction)
     elif (
-        kwargs.get("S") is None
+        style is None
         and kind == "geojson"
         and data.geom_type.isin(["Point", "MultiPoint"]).all()
     ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "s0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
+        style = "s0.2c"
+    elif style is None and kind == "file" and str(data).endswith(".gmt"):
         # checking that the data is a file path to set default style
         try:
             with open(which(data), encoding="utf8") as file:
                 line = file.readline()
             if "@GMULTIPOINT" in line or "@GPOINT" in line:
                 # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "s0.2c"
+                style = "s0.2c"
         except FileNotFoundError:
             pass
-    if is_nonstr_iter(kwargs.get("G")):
+
+    if is_nonstr_iter(fill):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
             )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
+        extra_arrays.append(fill)
+        fill = None
     if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for 'size' if data is a matrix or file."
             )
         extra_arrays.append(size)
-
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    if is_nonstr_iter(intensity):
+        if kind != "vectors":
+            raise GMTInvalidInput(
+                "Can't use arrays for intensity if data is matrix or file."
+            )
+        extra_arrays.append(intensity)
+        intensity = True
+    if is_nonstr_iter(transparency):
+        if kind != "vectors":
+            raise GMTInvalidInput(
+                "Can't use arrays for transparency if data is matrix or file."
+            )
+        extra_arrays.append(transparency)
+        transparency = True
 
     with Session() as lib:
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
         )
 
+        options = convert_aliases()
         with file_context as fname:
-            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))
+            lib.call_module(module="plot", args=build_arg_string(options, infile=fname))
