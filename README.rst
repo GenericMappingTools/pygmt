@@ -50,7 +50,7 @@ PyGMT
     :alt: Twitter URL
     :target: https://twitter.com/gmt_dev
 
-.. placeholder-for-doc-index
+.. doc-index-start-after
 
 
 Why PyGMT?
@@ -254,6 +254,7 @@ Other non-official Python wrappers for GMT (not maintained):
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
+.. doc-index-end-before
 
 Minimum Supported GMT/Python/NumPy Versions
 -------------------------------------------

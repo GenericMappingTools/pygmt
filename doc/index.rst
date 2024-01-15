@@ -11,7 +11,8 @@
     </div>
 
 .. include:: ../README.rst
-    :start-after: placeholder-for-doc-index
+    :start-after: doc-index-start-after
+    :end-before: doc-index-end-before
 
 .. toctree::
     :maxdepth: 2
