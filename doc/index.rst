@@ -20,7 +20,7 @@
     :caption: Getting Started
 
     overview.md
-    install.rst
+    install.md
     get_started/index.rst
 
 .. toctree::
