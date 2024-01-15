@@ -40,7 +40,7 @@
 
     api/index.rst
     changes.md
-    compatibility.rst
+    Minimum Supported Versions <compatibility.rst>
 
 .. toctree::
     :maxdepth: 2
