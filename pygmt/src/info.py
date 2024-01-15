@@ -2,29 +2,28 @@
 info - Get information about data tables.
 """
 import numpy as np
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(
-    C="per_column",
-    I="spacing",
-    T="nearest_multiple",
-    V="verbose",
-    a="aspatial",
-    f="coltypes",
-    i="incols",
-    r="registration",
-)
-@kwargs_to_strings(I="sequence", i="sequence_comma")
-def info(data, **kwargs):
+def info(
+    data,
+    per_column=None,
+    spacing=None,
+    nearest_multiple=None,
+    verbose=None,
+    aspatial=None,
+    coltypes=None,
+    incols=None,
+    registration=None,
+    **kwargs,
+):
     r"""
     Get information about data tables.
 
@@ -42,8 +41,6 @@ def info(data, **kwargs):
     of [*zmin*, *zmax*, *dz*] for makecpt.
 
     Full option list at :gmt-docs:`gmtinfo.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -79,17 +76,30 @@ def info(data, **kwargs):
         - :class:`numpy.ndarray` if either of the above parameters are used.
         - str if none of the above parameters are used.
     """
+    _aliases = [
+        Alias("per_column", "C", "", ""),
+        Alias("spacing", "I", "", "/"),
+        Alias("nearest_multiple", "T", "", ""),
+        Alias("verbose", "V", "", ""),
+        Alias("aspatial", "a", "", ""),
+        Alias("coltypes", "f", "", ""),
+        Alias("incols", "i", "", ","),
+        Alias("registration", "r", "", ""),
+    ]
+
+    options = convert_aliases()
+
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 lib.call_module(
                     module="info",
-                    args=build_arg_string(kwargs, infile=fname, outfile=tmpfile.name),
+                    args=build_arg_string(options, infile=fname, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 
-        if any(kwargs.get(arg) is not None for arg in ["C", "I", "T"]):
+        if any(arg is not None for arg in (per_column, spacing, nearest_multiple)):
             # Converts certain output types into a numpy array
             # instead of a raw string that is less useful.
             if result.startswith(("-R", "-T")):  # e.g. -R0/1/2/3 or -T0/9/1
