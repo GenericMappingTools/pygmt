@@ -7,7 +7,7 @@ dependencies:
     - python=3.12
     - gmt=6.5.0
     - ghostscript=10.02.1
-    - numpy>=1.22
+    - numpy
     - pandas
     - xarray
     - netCDF4
