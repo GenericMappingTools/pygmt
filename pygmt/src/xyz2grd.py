@@ -176,9 +176,9 @@ def xyz2grd(
                 if outgrid is None:
                     outgrid = tmpfile.name
 
-                options = convert_aliases()
+                kwdict = convert_aliases()
                 lib.call_module(
-                    module="xyz2grd", args=build_arg_string(options, infile=infile)
+                    module="xyz2grd", args=build_arg_string(kwdict, infile=infile)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
