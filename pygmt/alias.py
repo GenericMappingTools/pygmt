@@ -2,6 +2,7 @@
 Alias system to convert PyGMT parameters to GMT options.
 """
 import inspect
+import warnings
 from collections import defaultdict
 from typing import NamedTuple
 
@@ -64,7 +65,8 @@ def convert_aliases():
     """
     # Get the local namespace of the caller function
     p_locals = inspect.currentframe().f_back.f_locals
-    params = p_locals.pop("kwargs", {}) | p_locals
+    p_kwargs = p_locals.get("kwargs", {})
+    params = p_locals | p_kwargs
 
     # Define a dict to store GMT option flags and arguments
     kwdict = defaultdict(str)  # default value is an empty string
@@ -80,4 +82,15 @@ def convert_aliases():
         elif value is True:  # Convert True to an empty string
             value = ""
         kwdict[alias.flag] += f"{alias.modifier}{value}"
+
+    # Handling of deprecated common options.
+    # timestamp (U) is deprecated since v0.9.0.
+    if "U" in p_kwargs or "timestamp" in p_kwargs:
+        msg = (
+            "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 and will be "
+            "removed in v0.12.0. Use Figure.timestamp() instead."
+        )
+        warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+        kwdict["U"] = p_kwargs["U"] if "U" in p_kwargs else p_kwargs["timestamp"]
+
     return dict(kwdict)
