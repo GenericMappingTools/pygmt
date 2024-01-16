@@ -1,4 +1,5 @@
 outs:
-- md5: 1b4ae53658eec125ebf8ab4eac78d729
-  size: 8733
+- md5: d7049472c881d3a567e8e583b6ff54e1
+  size: 8752
   path: test_basemap_subplot.png
+  hash: md5

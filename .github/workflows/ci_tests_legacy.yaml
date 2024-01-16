@@ -11,15 +11,12 @@ name: GMT Legacy Tests
 on:
   # push:
   #   branches: [ main ]
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
   # pull_request:
     # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
+    # paths:
+    #  - 'pygmt/**'
+    #  - '.github/workflows/ci_tests_legacy.yaml'
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
@@ -32,11 +29,12 @@ jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-20.04, macos-11, windows-2019]
-        gmt_version: ['6.3']
+        gmt_version: ['6.3', '6.4']
     timeout-minutes: 30
     defaults:
       run:
@@ -59,7 +57,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
             python=3.9
@@ -76,7 +74,6 @@ jobs:
             rioxarray
             sphinx-gallery
             build
-            dvc
             make
             pip
             pytest
@@ -100,10 +97,6 @@ jobs:
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        run: dvc pull pygmt/tests/baseline/test_logo.png && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package

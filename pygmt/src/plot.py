@@ -122,37 +122,30 @@ def plot(  # noqa: PLR0912
         Draw error bars. Full documentation is at
         :gmt-docs:`plot.html#e`.
     connection : str
-        [**c**\|\ **n**\|\ **r**]\
-        [**a**\|\ **f**\|\ **s**\|\ **r**\|\ *refpoint*].
-        Alter the way points are connected (by specifying a *scheme*) and
-        data are grouped (by specifying a *method*). Append one of three
-        line connection schemes:
+        [**c**\|\ **n**\|\ **p**][**a**\|\ **r**\|\ **s**\|\ **t**\|\ *refpoint*].
+        Alter the way points are connected (by specifying a *scheme*) and data are
+        grouped (by specifying a *method*). Append one of three line connection schemes:
 
-        - **c** : Draw continuous line segments for each group [Default].
-        - **r** : Draw line segments from a reference point reset for each
-          group.
-        - **n** : Draw networks of line segments between all points in
-          each group.
+        - **c**: Draw continuous line segments for each group [Default].
+        - **n**: Draw networks of line segments between all points in each group.
+        - **p**: Draw line segments from a reference point reset for each group.
 
-        Optionally, append the one of four segmentation methods to define
-        the group:
+        Optionally, append the one of four segmentation methods to define the group:
 
-        - **a** : Ignore all segment headers, i.e., let all points belong
-          to a single group, and set group reference point to the very
-          first point of the first file.
-        - **f** : Consider all data in each file to be a single separate
-          group and reset the group reference point to the first point of
-          each group.
-        - **s** : Segment headers are honored so each segment is a group;
-          the group reference point is reset to the first point of each
-          incoming segment [Default].
-        - **r** : Same as **s**, but the group reference point is reset
-          after each record to the previous point (this method is only
-          available with the ``connection="r"`` scheme).
+        - **a**: Ignore all segment headers, i.e., let all points belong to a single
+          group, and set group the reference point to the very first point of the first
+          file.
+        - **r**: Segment headers are honored so each segment is a group; the group
+          reference point is reset after each record to the previous point (this method
+          is only available with the ``connection="p"`` scheme).
+        - **s**: Same as **r**, but the group reference point is reset to the first
+          point of each incoming segment [Default].
+        - **t**: Consider all data in each file to be a single separate group and reset
+          the group reference point to the first point of each group.
 
-        Instead of the codes **a**\|\ **f**\|\ **s**\|\ **r** you may append
-        the coordinates of a *refpoint* which will serve as a fixed external
-        reference point for all groups.
+        Instead of the codes **a**\|\ **r**\|\ **s**\|\ **t** you may append the
+        coordinates of a *refpoint* which will serve as a fixed external reference point
+        for all groups.
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.

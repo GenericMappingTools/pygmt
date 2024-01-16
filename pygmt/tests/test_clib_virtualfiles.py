@@ -34,6 +34,20 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.fixture(scope="module", name="dtypes_pandas")
+def fixture_dtypes_pandas(dtypes):
+    """
+    List of supported pandas dtypes.
+    """
+    dtypes_pandas = dtypes.copy()
+
+    if find_spec("pyarrow") is not None:
+        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
+
+    return tuple(dtypes_pandas)
+
+
+@pytest.mark.benchmark
 def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
@@ -64,8 +78,8 @@ def test_virtual_file(dtypes):
 
 def test_virtual_file_fails():
     """
-    Check that opening and closing virtual files raises an exception for non-
-    zero return codes.
+    Check that opening and closing virtual files raises an exception for non- zero
+    return codes.
     """
     vfargs = (
         "GMT_IS_DATASET|GMT_VIA_MATRIX",
@@ -109,14 +123,14 @@ def test_virtual_file_bad_direction():
                 pass
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
 def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     """
-    Test that function works when third z column in a matrix is needed and
-    provided.
+    Test that function works when third z column in a matrix is needed and provided.
     """
     shape = (5, 3)
     dataframe = pd.DataFrame(
@@ -142,8 +156,7 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
 
 def test_virtualfile_from_data_required_z_matrix_missing():
     """
-    Test that function fails when third z column in a matrix is needed but not
-    provided.
+    Test that function fails when third z column in a matrix is needed but not provided.
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
@@ -182,6 +195,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             lib.virtualfile_from_data(vectors=data[:, :3], data=data, names="xyz")
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_vectors(dtypes):
     """
     Test the automation for transforming vectors to virtual file dataset.
@@ -201,11 +215,11 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
-    Test passing in one column with string or object dtype into virtual file
-    dataset.
+    Test passing in one column with string or object dtype into virtual file dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -223,8 +237,7 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     """
-    Test passing in two columns of string or object dtype into virtual file
-    dataset.
+    Test passing in two columns of string or object dtype into virtual file dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -243,11 +256,10 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
         assert output == expected
 
 
-def test_virtualfile_from_vectors_transpose():
+def test_virtualfile_from_vectors_transpose(dtypes):
     """
     Test transforming matrix columns to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
@@ -273,6 +285,7 @@ def test_virtualfile_from_vectors_diff_size():
                 pass
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_matrix(dtypes):
     """
     Test transforming a matrix to virtual file dataset.
@@ -310,16 +323,14 @@ def test_virtualfile_from_matrix_slice(dtypes):
             assert output == expected
 
 
-def test_virtualfile_from_vectors_pandas(dtypes):
+def test_virtualfile_from_vectors_pandas(dtypes_pandas):
     """
-    Pass vectors to a dataset using pandas.Series, checking both numpy and
-    pyarrow dtypes.
+    Pass vectors to a dataset using pandas.Series, checking both numpy and pyarrow
+    dtypes.
     """
     size = 13
-    if find_spec("pyarrow") is not None:
-        dtypes.extend([f"{dtype}[pyarrow]" for dtype in dtypes])
 
-    for dtype in dtypes:
+    for dtype in dtypes_pandas:
         data = pd.DataFrame(
             data={
                 "x": np.arange(size),

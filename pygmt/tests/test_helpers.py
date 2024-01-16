@@ -130,8 +130,8 @@ def test_args_in_kwargs():
 
 def test_skip_if_no():
     """
-    Test that the skip_if_no helper testing function returns a
-    pytest.mask.skipif mark decorator.
+    Test that the skip_if_no helper testing function returns a pytest.mask.skipif mark
+    decorator.
     """
     # Check pytest.mark with a dependency that can be imported
     mark_decorator = skip_if_no(package="numpy")

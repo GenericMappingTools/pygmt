@@ -66,7 +66,7 @@ def text_(  # noqa: PLR0912
     The text strings passed via the ``text`` parameter can contain ASCII
     characters and non-ASCII characters defined in the ISOLatin1+ encoding
     (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
+    See :gmt-docs:`reference/octal-codes.html` for the full list of supported
     non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
