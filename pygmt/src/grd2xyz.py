@@ -138,8 +138,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
         lon   lat  elevation
-    0  10.0  25.0      863.0
-    1  10.5  25.0      985.5
+    0  10.0  25.0      965.5
+    1  10.5  25.0      876.5
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 

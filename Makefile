@@ -60,7 +60,7 @@ test_no_images: PYTEST_ARGS=-o addopts="--verbose --durations=0 --durations-min=
 test_no_images: _runtest
 
 format:
-	ruff check --fix $(FORMAT_FILES)
+	ruff check --fix --exit-zero $(FORMAT_FILES)
 	ruff format $(FORMAT_FILES)
 
 check:

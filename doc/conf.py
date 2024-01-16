@@ -12,6 +12,10 @@ from pygmt.sphinx_gallery import PyGMTScraper
 
 # ruff: isort: on
 
+requires_python = metadata("pygmt")["Requires-Python"]
+with pygmt.clib.Session() as lib:
+    requires_gmt = f">={lib.required_version}"
+
 extensions = [
     "myst_parser",
     "sphinx.ext.autodoc",
@@ -34,8 +38,18 @@ autosummary_generate = []
 
 # Auto-generate header anchors with MyST parser
 myst_heading_anchors = 4
-# Allow code fences using colons
-myst_enable_extensions = ["colon_fence"]
+# reference: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+myst_enable_extensions = [
+    "attrs_inline",  # Allow inline attributes after images
+    "colon_fence",  # Allow code fences using colons
+    "substitution",  # Allow substituitions
+]
+# These enable substitutions using {{ key }} in the Markdown files
+myst_substitutions = {
+    "requires_python": requires_python,
+    "requires_gmt": requires_gmt,
+}
+
 
 # Make the list of returns arguments and attributes render the same as the
 # parameters list
@@ -148,17 +162,6 @@ else:
     # Set base_url for dev version
     html_baseurl = "https://pygmt.org/latest/"
 release = __version__
-
-requires_python = metadata("pygmt")["Requires-Python"]
-with pygmt.clib.Session() as lib:
-    requires_gmt = ">=" + lib.required_version
-
-# These enable substitutions using |variable| in the rst files
-rst_epilog = f"""
-.. |year| replace:: {year}
-.. |requires_python| replace:: {requires_python}
-.. |requires_gmt| replace:: {requires_gmt}
-"""
 
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"
