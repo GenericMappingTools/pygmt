@@ -19,7 +19,7 @@ def test_venus_relief_01d():
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -2069.0, atol=0.5)
-    npt.assert_allclose(data.max(), 9656., atol=0.5)
+    npt.assert_allclose(data.max(), 9656.0, atol=0.5)
 
 
 def test_venus_relief_01d_with_region():
