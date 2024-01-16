@@ -58,8 +58,8 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
         0.2 cm offset.
     clearance : float or str
         *clearances*.
-        Set the clearance between the legend frame and the internal items.
-        *clearances* is either *gap* or *xgap*/*ygap* [Default is ``"4p/4p"``].
+        Set the clearance between the legend frame and the internal items. *clearances*
+        is either *gap* or *xgap*/*ygap* [Default is ``"4p/4p"``].
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
