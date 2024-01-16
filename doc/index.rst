@@ -18,8 +18,8 @@
     :hidden:
     :caption: Getting Started
 
-    overview.rst
-    install.rst
+    overview.md
+    install.md
     get_started/index.rst
 
 .. toctree::

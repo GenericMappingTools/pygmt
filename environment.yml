@@ -5,8 +5,8 @@ channels:
 dependencies:
     - python=3.12
     # Required dependencies
-    - gmt=6.4.0
-    - numpy>=1.22
+    - gmt=6.5.0
+    - numpy>=1.23
     - pandas
     - xarray
     - netCDF4
@@ -23,10 +23,8 @@ dependencies:
     - make
     - pip
     # Dev dependencies (style checks)
-    - blackdoc
     - codespell
-    - docformatter>=1.7.2
-    - ruff
+    - ruff>=0.1.9
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov

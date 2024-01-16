@@ -1,6 +1,6 @@
 """
-Function to download the Earth magnetic anomaly datasets from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the Earth magnetic anomaly datasets from the GMT data server, and
+load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -119,9 +119,7 @@ def load_earth_magnetic_anomaly(
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_earth_magnetic_anomaly()
     >>> # load the 30 arc-minutes grid with "gridline" registration
-    >>> grid = load_earth_magnetic_anomaly(
-    ...     resolution="30m", registration="gridline"
-    ... )
+    >>> grid = load_earth_magnetic_anomaly(resolution="30m", registration="gridline")
     >>> # load high-resolution (5 arc-minutes) grid for a specific region
     >>> grid = load_earth_magnetic_anomaly(
     ...     resolution="05m",

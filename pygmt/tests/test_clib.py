@@ -29,12 +29,12 @@ def mock(session, func, returns=None, mock_func=None):
     """
     Mock a GMT C API function to make it always return a given value.
 
-    Used to test that exceptions are raised when API functions fail by
-    producing a NULL pointer as output or non-zero status codes.
+    Used to test that exceptions are raised when API functions fail by producing a NULL
+    pointer as output or non-zero status codes.
 
-    Needed because it's not easy to get some API functions to fail without
-    inducing a Segmentation Fault (which is a good thing because libgmt usually
-    only fails with errors).
+    Needed because it's not easy to get some API functions to fail without inducing a
+    Segmentation Fault (which is a good thing because libgmt usually only fails with
+    errors).
     """
     if mock_func is None:
 
@@ -130,6 +130,7 @@ def test_destroy_session_fails():
     ses.destroy()
 
 
+@pytest.mark.benchmark
 def test_call_module():
     """
     Run a command to see if call_module works.
@@ -388,6 +389,7 @@ def test_write_data_fails():
                 )
 
 
+@pytest.mark.benchmark
 def test_dataarray_to_matrix_works():
     """
     Check that dataarray_to_matrix returns correct output.

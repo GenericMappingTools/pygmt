@@ -102,7 +102,7 @@ class grdhisteq:  # noqa: N801
               ``outgrid`` or ``outfile``)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
         """
 
@@ -194,7 +194,7 @@ class grdhisteq:  # noqa: N801
         >>> grid = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
@@ -299,14 +299,14 @@ class grdhisteq:  # noqa: N801
         >>> print(bins)
                 start    stop
         bin_id
-        0       170.0   389.0
-        1       389.0   470.5
-        2       470.5   571.0
-        3       571.0   705.0
-        4       705.0  2275.5
+        0       183.5   395.0
+        1       395.0   472.0
+        2       472.0   575.0
+        3       575.0   709.5
+        4       709.5  1807.0
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
