@@ -90,13 +90,11 @@ def timestamp(
         Alias("text", "U", "+t", ""),
     ]
 
+    gmt_older_than_640 = Version(__gmt_version__) <= Version("6.4.0")
+
     # Giving a single offset doesn't work in GMT <= 6.4.0.
     # See https://github.com/GenericMappingTools/gmt/issues/7107.
-    if (
-        Version(__gmt_version__) <= Version("6.4.0")
-        and not is_nonstr_iter(offset)
-        and "/" not in str(offset)
-    ):
+    if gmt_older_than_640 and not is_nonstr_iter(offset) and "/" not in str(offset):
         offset = (offset, offset)
 
     # The +t modifier was added in GMT 6.5.0.
@@ -108,19 +106,19 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) <= Version("6.4.0"):
+        if gmt_older_than_640:
             # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]
             text = None  # reset 'text' to None
 
     # Build the options passed to the "plot" module
-    options = convert_aliases()
-    options["T"] = True
+    kwdict = convert_aliases()
+    kwdict["T"] = True
 
     with Session() as lib:
         lib.call_module(
             module="plot",
             args=build_arg_string(
-                options, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
+                kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )
