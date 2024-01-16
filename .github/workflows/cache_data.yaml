@@ -5,14 +5,14 @@
 # by other GitHub Actions workflows.
 #
 # It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are
-# needed urgently, maintainers can update the workflow file or
+# needed urgently, maintainers can update the workflow file or the
 # 'pygmt/helpers/caching.py' file to refresh the cache.
 #
 name: Cache data
 
 on:
   pull_request:
-    # Make any changes to the following files to refresh the cache
+    # Make any changes to the following files to refresh the cache in PRs
     paths:
       - 'pygmt/helpers/caching.py'
       - '.github/workflows/cache_data.yaml'
@@ -47,7 +47,7 @@ jobs:
               - nodefaults
           create-args: >-
             python=3.12
-            gmt=6.4.0
+            gmt=6.5.0
             numpy
             pandas
             xarray

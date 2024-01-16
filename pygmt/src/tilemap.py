@@ -1,6 +1,8 @@
 """
 tilemap - Plot XYZ tile maps.
 """
+from __future__ import annotations
+
 from pygmt.clib import Session
 from pygmt.datasets.tile_map import load_tile_map
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
@@ -30,7 +32,15 @@ except ImportError:
 )
 @kwargs_to_strings(c="sequence_comma", p="sequence")  # R="sequence",
 def tilemap(
-    self, region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2, **kwargs
+    self,
+    region,
+    zoom="auto",
+    source=None,
+    lonlat=True,
+    wait=0,
+    max_retries=2,
+    zoom_adjust: int | None = None,
+    **kwargs,
 ):
     r"""
     Plots an XYZ tile map.
@@ -64,9 +74,9 @@ def tilemap(
         ``"auto"`` to automatically determine the zoom level based on the
         bounding box region extent].
 
-        **Note**: The maximum possible zoom level may be smaller than ``22``,
-        and depends on what is supported by the chosen web tile provider
-        source.
+        .. note::
+           The maximum possible zoom level may be smaller than ``22``, and depends on
+           what is supported by the chosen web tile provider source.
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
@@ -86,8 +96,8 @@ def tilemap(
           basemap. See
           :doc:`contextily:working_with_local_files`.
 
-        IMPORTANT: Tiles are assumed to be in the Spherical Mercator projection
-        (EPSG:3857).
+        .. important::
+           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).
 
     lonlat : bool
         Optional. If ``False``, coordinates in ``region`` are assumed to be
@@ -102,6 +112,13 @@ def tilemap(
         Optional. Total number of rejected requests allowed before contextily
         will stop trying to fetch more tiles from a rate-limited API [Default
         is ``2``].
+
+    zoom_adjust
+        The amount to adjust a chosen zoom level if it is chosen automatically. Values
+        outside of -1 to 1 are not recommended as they can lead to slow execution.
+
+        .. note::
+           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
 
     kwargs : dict
         Extra keyword arguments to pass to :meth:`pygmt.Figure.grdimage`.
@@ -131,6 +148,7 @@ def tilemap(
         lonlat=lonlat,
         wait=wait,
         max_retries=max_retries,
+        zoom_adjust=zoom_adjust,
     )
 
     # Reproject raster from Spherical Mercator (EPSG:3857) to

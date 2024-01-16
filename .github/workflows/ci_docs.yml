@@ -18,13 +18,22 @@ name: Docs
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.rst'
+      - '.github/workflows/ci_docs.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'pygmt/tests/**'
-      - '*.md'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.rst'
+      - '.github/workflows/ci_docs.yml'
   release:
     types:
       - published
@@ -37,6 +46,7 @@ jobs:
   docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
@@ -76,8 +86,8 @@ jobs:
           cache-environment: true
           create-args: >-
             python=3.12
-            gmt=6.4.0
-            ghostscript=9.54.0
+            gmt=6.5.0
+            ghostscript=10.02.1
             numpy
             pandas
             xarray

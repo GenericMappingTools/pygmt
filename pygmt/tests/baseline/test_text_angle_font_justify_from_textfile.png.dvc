@@ -1,4 +1,5 @@
 outs:
-- md5: c812717ca530830ca390584d4fe365eb
-  size: 9353
+- md5: ad3a6c9390031ee2a8481c28802c372f
+  size: 9433
   path: test_text_angle_font_justify_from_textfile.png
+  hash: md5

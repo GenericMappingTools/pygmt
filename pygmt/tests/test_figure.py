@@ -56,6 +56,7 @@ def test_figure_region_country_codes():
     npt.assert_allclose(fig.region, np.array([0.0, 360.0, -90.0, 90.0]))
 
 
+@pytest.mark.benchmark
 def test_figure_repr():
     """
     Make sure that figure output's PNG and HTML printable representations look ok.
