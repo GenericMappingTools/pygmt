@@ -120,8 +120,8 @@ def makecpt(**kwargs):
         level :func:`pygmt.makecpt` is called.
     reverse : str
         Set this to ``True`` or **c** [Default] to reverse the sense of color
-        progression in the master CPT. Also exchanges the foreground and background
-        colors, including those specified by :gmt-term:`COLOR_BACKGROUND` and
+        progression in the master CPT. Also the foreground and background colors
+        are exchanged, including those specified by :gmt-term:`COLOR_BACKGROUND` and
         :gmt-term:`COLOR_FOREGROUND`. Set this to **z** to reverse the sign of z-values
         in the color table. Note that this change of z-direction happens before
         ``truncate`` and ``series`` values are used so the latter must be compatible
