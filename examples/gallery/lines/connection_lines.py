@@ -2,11 +2,11 @@
 Connection lines
 ================
 
-The ``connection`` parameter of the :meth:`pygmt.Figure.plot` method allows to
-plot connection lines between a set of data points. Width, color, and style of
-the lines can be adjusted via the ``pen`` parameter. The data points must be
-plotted separately using the ``style`` parameter, with adjustments for the
-symbol fill and outline via the ``fill`` and ``pen`` parameters, respectively.
+The ``connection`` parameter of the :meth:`pygmt.Figure.plot` method allows to plot
+connection lines between a set of data points. Width, color, and style of the lines
+can be adjusted via the ``pen`` parameter. The data points must be plotted separately
+using the ``style`` parameter, with adjustments for the symbol fill and outline via
+the ``fill`` and ``pen`` parameters, respectively.
 """
 
 # %%
