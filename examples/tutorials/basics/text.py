@@ -2,8 +2,8 @@
 Plotting text
 =============
 
-It is often useful to add text annotations to a plot or map. This is handled
-by the :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
+It is often useful to add text annotations to a plot or map. This is handled by the
+:meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 """
 
 import os
@@ -14,8 +14,8 @@ import pygmt
 # Adding a single text label
 # --------------------------
 #
-# To add a single text label to a plot the ``text`` and ``x`` and ``y``
-# parameters to specify the text and position.
+# To add a single text label to a plot the ``text`` and ``x`` and ``y`` parameters to
+# specify the text and position.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -34,13 +34,13 @@ fig.show()
 # * ``font``: Sets the size, family/weight, and color of the font for the text.
 #   :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
 #   including details of how to use non-default fonts.
-# * ``angle``: Specifies the rotation of the text. It is measured
-#   counter-clockwise from the horizontal in degrees.
-# * ``justify``: Defines the anchor point of the bounding box for the text.
-#   It is specified by a two-letter (order independent) code, chosen from:
+# * ``angle``: Specifies the rotation of the text. It is measured counter-clockwise
+#   from the horizontal in degrees.
+# * ``justify``: Defines the anchor point of the bounding box for the text. It is
+#   specified by a two-letter (order independent) code, chosen from:
 #
-#   * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
-#   * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
+#   * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
+#   * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
 #
 # * ``offset``: Shifts the text relatively to the reference point.
 
@@ -59,9 +59,9 @@ fig.text(x=0, y=0, text="my text", angle=30)
 # Plot marker and text label for reference
 fig.plot(x=0, y=-3, style="s0.2c", fill="darkorange", pen="0.7p,darkgray")
 fig.text(x=0, y=-3, text="my text")
-# Shift the text label relatively to the position given via the x and y
-# parameters by 1 centimeter to the right (positive x direction) and 0.5
-# centimeters down (negative y direction)
+# Shift the text label relatively to the position given via the x and y parameters
+# by 1 centimeter to the right (positive x direction) and 0.5 centimeters down
+# (negative y direction)
 fig.text(x=0, y=-3, text="my text", offset="1c/-0.5c")
 
 fig.shift_origin(xshift="w+0.5c")
@@ -79,8 +79,8 @@ fig.plot(
     pen="0.7p,darkgray",
 )
 
-# Plot text labels at the x and y positions of the markers while varying the
-# anchor point via the justify parameter
+# Plot text labels at the x and y positions of the markers while varying the anchor
+# point via the justify parameter
 fig.text(x=-0.5, y=0.5, text="TL", justify="TL")  # TopLeft
 fig.text(x=0, y=0.5, text="TM", justify="TC")  # TopCenter
 fig.text(x=0.5, y=0.5, text="TR", justify="TR")  # TopRight
@@ -102,8 +102,8 @@ fig.show()
 #
 # * ``fill``: Fills the text box with a color.
 # * ``pen``: Outlines the text box.
-# * ``clearance``: Adds margins in x and y directions between the text and the
-#   outline of the text box. Can be used to get a text box with rounded edges.
+# * ``clearance``: Adds margins in x and y directions between the text and the outline
+#   of the text box. Can be used to get a text box with rounded edges.
 
 fig = pygmt.Figure()
 
@@ -129,8 +129,8 @@ fig.show()
 # Adding multiple text labels with individual configurations
 # ----------------------------------------------------------
 #
-# To add multiple text labels with individual ``font``, ``angle``, and
-# ``justify`` one can provide lists with the corresponding arguments.
+# To add multiple text labels with individual ``font``, ``angle``, and ``justify``,
+# one can provide lists with the corresponding arguments.
 
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
@@ -155,10 +155,9 @@ fig.show()
 # Using an external input file
 # ----------------------------
 #
-# It is also possible to add text labels via an external input file containing
-# ``x``, ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``,
-# ``front``, and ``justify`` parameters can be provided. Here, we give a
-# complete example.
+# It is also possible to add text labels via an external input file containing ``x``,
+# ``y``, and ``text`` columns. Addionaly, columns to set the ``angle``, ``front``,
+# and ``justify`` parameters can be provided. Here, we give a complete example.
 
 fig = pygmt.Figure()
 fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
@@ -173,11 +172,10 @@ with open("examples.txt", "w") as f:
     f.write("119.12  7.25 -40  8p,Helvetica-Bold,black CM SULU SEA\n")
     f.write("118.40 -1.00  65  8p,Helvetica-Bold,black CM MAKASSAR STRAIT\n")
 
-# Plot region names / sea names from a text file, where
-# the longitude (x) and latitude (y) coordinates are in the first two columns.
-# Setting angle/font/justify to True will indicate that those columns are
-# present in the text file too (Please note: must be in that order).
-# Finally, the text to be printed will be in the last column
+# Plot region names / sea names from a text file, where the longitude (x) and latitude
+# (y) coordinates are in the first two columns. Setting angle/font/justify to True
+# will indicate that those columns are present in the text file too (Please note: must
+# be in that order). Finally, the text to be printed will be in the last column
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
@@ -190,16 +188,16 @@ fig.show()
 # Using the position parameter
 # ----------------------------
 #
-# Instead of using ``x`` and ``y``, the ``position`` parameter can be
-# specified to set the reference point for the text on the plot.
-# As for the ``justify`` parameter, the ``position`` parameter is specified
-# by a two-letter (order independent) code, chosen from:
+# Instead of using ``x`` and ``y``, the ``position`` parameter can be specified to set
+# the reference point for the text on the plot. As for the ``justify`` parameter, the
+# ``position`` parameter is specified by a two-letter (order independent) code, chosen
+# from:
 #
-# * Vertical anchor: **T**\(op), **M**\(iddle), **B**\(ottom)
-# * Horizontal anchor: **L**\(eft), **C**\(entre), **R**\(ight)
+# * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
+# * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
 #
-# This can be helpful to add a tag to a subplot or text labels out of
-# the plot or map frame, e.g., for depth slices.
+# This can be helpful to add a tag to a subplot or text labels out of the plot or map
+# frame, e.g., for depth slices.
 
 fig = pygmt.Figure()
 
@@ -235,9 +233,9 @@ fig.show()
 # Advanced configuration
 # ----------------------
 #
-# For crafting more advanced styles, including using special symbols and
-# other character sets, be sure to check out the GMT documentation
-# at :gmt-docs:`text.html` and also the cookbook at
-# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+# For crafting more advanced styles, including using special symbols and other character
+# sets, be sure to check out the GMT documentation at :gmt-docs:`text.html` and also the
+# Technical References at :gmt-docs:`reference/features.html#placement-of-text`. Good
+# luck!
 
 # sphinx_gallery_thumbnail_number = 4
