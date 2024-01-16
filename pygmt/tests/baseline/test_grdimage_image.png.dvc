@@ -1,4 +1,5 @@
 outs:
-- md5: 2e919645d5af956ec4f8aa054a86a70a
-  size: 110214
+- md5: c54ef487ed5bb07aec5d8bba29469410
+  size: 101095
   path: test_grdimage_image.png
+  hash: md5
