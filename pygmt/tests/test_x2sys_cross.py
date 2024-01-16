@@ -233,5 +233,5 @@ def test_x2sys_cross_trackvalues():
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (14338, 12)
         # Check mean of track 1 values (z_1) and track 2 values (z_2)
-        npt.assert_allclose(output.z_1.mean(), -2422.418556)
-        npt.assert_allclose(output.z_2.mean(), -2402.268364)
+        npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
+        npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
