@@ -21,6 +21,7 @@ assignees: ''
 - [ ] Check to ensure that:
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
+  - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
