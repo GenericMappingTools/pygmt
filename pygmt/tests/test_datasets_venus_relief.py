@@ -18,8 +18,8 @@ def test_venus_relief_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -7421.0, atol=0.5)
-    npt.assert_allclose(data.max(), 19587.5, atol=0.5)
+    npt.assert_allclose(data.min(), -2069.0, atol=0.5)
+    npt.assert_allclose(data.max(), 9656., atol=0.5)
 
 
 def test_venus_relief_01d_with_region():
@@ -31,8 +31,8 @@ def test_venus_relief_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -2502.0, atol=0.5)
-    npt.assert_allclose(data.max(), -135.5, atol=0.5)
+    npt.assert_allclose(data.min(), -1244.0, atol=0.5)
+    npt.assert_allclose(data.max(), -74.0, atol=0.5)
 
 
 def test_venus_relief_01m_default_registration():
@@ -47,5 +47,5 @@ def test_venus_relief_01m_default_registration():
     assert data.coords["lat"].data.max() == 5.0
     assert data.coords["lon"].data.min() == -10.0
     assert data.coords["lon"].data.max() == -9.0
-    npt.assert_allclose(data.min(), -3374.0, atol=0.5)
-    npt.assert_allclose(data.max(), -1181.0, atol=0.5)
+    npt.assert_allclose(data.min(), -943.0, atol=0.5)
+    npt.assert_allclose(data.max(), -192.5, atol=0.5)
