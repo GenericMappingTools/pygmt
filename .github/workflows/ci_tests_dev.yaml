@@ -83,7 +83,7 @@ jobs:
       - name: Checkout the GMT source codes
         uses: actions/checkout@v4.1.1
         with:
-          repository: 'https://github.com/GenericMappingTools/gmt'
+          repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
