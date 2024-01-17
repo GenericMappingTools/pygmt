@@ -76,6 +76,7 @@ jobs:
             libgdal
             liblapack
             libnetcdf
+            llvm-openmp
             pcre
             zlib
 
