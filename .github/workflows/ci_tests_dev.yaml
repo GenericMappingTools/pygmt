@@ -100,7 +100,7 @@ jobs:
           cmake -G Ninja .. \
             -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/Library \
+            -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/lib \
             -DGMT_ENABLE_OPENMP=TRUE \
             -DGMT_USE_THREADS=TRUE
           cmake --build .
