@@ -313,8 +313,7 @@ def non_ascii_to_octal(argstr):
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
-    Convert keyword dictionaries and input/output files into a GMT argument
-    string.
+    Convert keyword dictionaries and input/output files into a GMT argument string.
 
     Make sure all values in ``kwdict`` have been previously converted to a
     string representation using the ``kwargs_to_strings`` decorator. The only
@@ -513,8 +512,8 @@ def launch_external_viewer(fname, waiting=0):
 
 def args_in_kwargs(args, kwargs):
     """
-    Take a list and a dictionary, and determine if any entries in the list are
-    keys in the dictionary.
+    Take a list and a dictionary, and determine if any entries in the list are keys in
+    the dictionary.
 
     This function is used to determine if at least one of the required
     arguments is passed to raise a GMTInvalidInput Error.
@@ -530,7 +529,7 @@ def args_in_kwargs(args, kwargs):
         short-form aliases of the parameters.
 
     Returns
-    --------
+    -------
     bool
         If one of the required arguments is in ``kwargs``.
 

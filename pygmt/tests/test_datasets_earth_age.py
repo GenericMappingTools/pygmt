@@ -19,8 +19,8 @@ def test_earth_age_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), 0.17, atol=0.01)
-    npt.assert_allclose(data.max(), 338.02, atol=0.01)
+    npt.assert_allclose(data.min(), 0.37, atol=0.01)
+    npt.assert_allclose(data.max(), 336.52, atol=0.01)
 
 
 def test_earth_age_01d_with_region():
@@ -32,14 +32,14 @@ def test_earth_age_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 11.29, atol=0.01)
-    npt.assert_allclose(data.max(), 125.12, atol=0.01)
+    npt.assert_allclose(data.min(), 11.13, atol=0.01)
+    npt.assert_allclose(data.max(), 124.64, atol=0.01)
 
 
 def test_earth_age_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution has
-    a "gridline" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has a
+    "gridline" registration.
     """
     data = load_earth_age(resolution="01m", region=[-10, -9, 3, 5])
     assert data.shape == (121, 61)

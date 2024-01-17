@@ -7,7 +7,6 @@ name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
 readme = "README.rst"
 requires-python = ">=3.9"
-license = {text = "BSD License"}
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
     "cartography",
@@ -32,7 +31,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.22",
+    "numpy>=1.23",
     "pandas",
     "xarray",
     "netCDF4",
@@ -56,35 +55,21 @@ changelog = "https://www.pygmt.org/latest/changes.html"
 
 [tool.setuptools]
 platforms = ["Any"]
-include-package-data = true
+license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
 
-[tool.setuptools.package-data]
-tests = ["data/*", "baseline/*"]
-
 [tool.setuptools_scm]
 local_scheme = "node-and-date"
 fallback_version = "999.999.999+unknown"
-
-[tool.blackdoc]
-line-length = 79
 
 [tool.codespell]
 ignore-words-list = "astroid,oints,reenable,tripel,trough"
 
 [tool.coverage.run]
 omit = ["*/tests/*", "*pygmt/__init__.py"]
-
-[tool.docformatter]
-black = true
-recursive = true
-pre-summary-newline = true
-make-summary-multi-line = true
-wrap-summaries = 79
-wrap-descriptions = 79
 
 [tool.mypy]
 exclude = ["pygmt/tests/"]
@@ -96,6 +81,8 @@ show-source = true
 
 [tool.ruff.format]
 line-ending = "lf"  # Use UNIX `\n` line endings for all files
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
 
 [tool.ruff.lint]
 select = [
@@ -104,6 +91,7 @@ select = [
     "B",    # flake8-bugbear
     "BLE",  # flake8-blind-except
     "C4",   # flake8-comprehensions
+    "D",    # pydocstyle
     "E",    # pycodestyle
     "EXE",  # flake8-executable
     "F",    # pyflakes
@@ -132,7 +120,17 @@ select = [
     "W",    # pycodestyle warnings
     "YTT",  # flake8-2020
 ]
+extend-select = [
+    "D213",  # Summary lines should be positioned on the second physical line of the docstring.
+    "D410",  # A blank line after section headings.
+]
 ignore = [
+    "D200",     # One-line docstring should fit on one line
+    "D202",     # No blank lines allowed after function docstring
+    "D205",     # 1 blank line required between summary line and description
+    "D400",     # First line should end with a period
+    "D401",     # First line of docstring should be in imperative mood
+    "D412",     # No blank lines allowed between a section header and its content
     "E501",     # Avoid enforcing line-length violations
     "ISC001",   # Single-line-implicit-string-concatenation, conflict with formatter
     "PD901",    # Allow using the generic variable name `df` for DataFrames
@@ -152,7 +150,12 @@ known-third-party = ["pygmt"]
 "examples/**/*.py" = ["T201"]  # Allow `print` in examples
 
 [tool.ruff.lint.pycodestyle]
-max-doc-length = 79
+max-doc-length = 88
+
+[tool.ruff.lint.pydocstyle]
+# See https://docs.astral.sh/ruff/faq/#does-ruff-support-numpy-or-google-style-docstrings
+# for the enabled/disabled rules for the "numpy" convention.
+convention = "numpy"
 
 [tool.ruff.lint.pylint]
 max-args=10
