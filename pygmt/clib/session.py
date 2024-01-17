@@ -1196,12 +1196,13 @@ class Session:
 
         .. deprecated: 0.11.0
 
-           Will be removed in v0.15.0. Use ``Session.open_virtualfile`` instead.
+           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
+           instead.
         """
         msg = (
-            "API function `Session.open_virtual_file' has been deprecated "
+            "API function `Session.open_virtual_file()' has been deprecated "
             "since v0.11.0 and will be removed in v0.15.0. "
-            "Use `Session.open_virtualfile' instead."
+            "Use `Session.open_virtualfile()' instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
         return self.open_virtualfile(family, geometry, direction, data)
