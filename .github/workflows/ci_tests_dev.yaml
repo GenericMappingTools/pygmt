@@ -82,7 +82,8 @@ jobs:
 
       - name: Setup OpenMP on macOS
         run: |
-          brew install llvm
+          brew install libomp
+          brew link --force libomp
         if: runner.os == 'macOS'
 
       # Checkout current the GMT source codes
@@ -101,7 +102,7 @@ jobs:
           cmake -G Ninja .. \
             -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH=${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/lib \
+            -DCMAKE_PREFIX_PATH=/usr/local/opt/libomp/ \
             -DGMT_ENABLE_OPENMP=TRUE \
             -DGMT_USE_THREADS=TRUE
           cmake --build .
