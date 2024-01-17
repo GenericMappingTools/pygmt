@@ -43,7 +43,7 @@ def tilemap(
     **kwargs,
 ):
     r"""
-    Plots an XYZ tile map.
+    Plot an XYZ tile map.
 
     This method loads XYZ tile maps from a tile server or local file using
     :func:`pygmt.datasets.load_tile_map` into a georeferenced form, and plots
