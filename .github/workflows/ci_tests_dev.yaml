@@ -85,6 +85,7 @@ jobs:
         with:
           repository: 'GenericMappingTools/gmt'
           ref: ${{ matrix.gmt_git_ref }}
+          path: 'gmt'
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: |
