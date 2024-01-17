@@ -95,6 +95,8 @@ jobs:
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: |
+          export LDFLAGS="-L/usr/local/opt/libomp/lib"
+          export CPPFLAGS="-I/usr/local/opt/libomp/include"
           cd gmt/
           mkdir build
           cd build
