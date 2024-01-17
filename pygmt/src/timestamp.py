@@ -47,7 +47,7 @@ def timestamp(
         The text string shown after the GMT timestamp logo.
     justify
         Justification of the timestamp box relative to the plot's bottom-left corner
-        (i.e., the plot origin). The *justify* is a two-character code that is a
+        (i.e., the plot origin). Give a two-character code that is a
         combination of a horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and
         a vertical (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
         ``justify="TL"`` means choosing the **T**\ op **L**\ eft point of the
