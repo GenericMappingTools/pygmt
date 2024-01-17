@@ -82,8 +82,7 @@ jobs:
 
       - name: Setup OpenMP on macOS
         run: |
-          brew install libomp
-          brew link --force libomp
+          brew install llvm
         if: runner.os == 'macOS'
 
       # Checkout current the GMT source codes
