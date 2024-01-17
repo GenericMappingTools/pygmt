@@ -124,7 +124,7 @@ def makecpt(**kwargs):
         are exchanged, including those specified by :gmt-term:`COLOR_BACKGROUND` and
         :gmt-term:`COLOR_FOREGROUND`. Set this to **z** to reverse the sign of z-values
         in the color table. Note that this change of z-direction happens before
-        ``truncate`` and ``series`` values are used so the latter must be compatible
+        ``truncate`` and ``series`` values are used, so the latter must be compatible
         with the changed z-range. See also
         :gmt-docs:`reference/features.html#manipulating-cpts`.
     overrule_bg : str
