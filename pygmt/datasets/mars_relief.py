@@ -1,6 +1,6 @@
 """
-Function to download the Mars relief dataset from the GMT data server, and load
-as :class:`xarray.DataArray`.
+Function to download the Mars relief dataset from the GMT data server, and load as
+:class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
@@ -27,67 +27,61 @@ def load_mars_relief(
 
        Mars relief dataset.
 
-    The grids are downloaded to a user data directory
-    (usually ``~/.gmt/server/mars/mars_relief/``) the first time you invoke
-    this function. Afterwards, it will load the grid from the data directory.
-    So you'll need an internet connection the first time around.
+    The grids are downloaded to a user data directory (usually
+    ``~/.gmt/server/mars/mars_relief/``) the first time you invoke this function.
+    Afterwards, it will load the grid from the data directory. So you'll need an
+    internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@mars_relief**\_\ *res*\[_\ *reg*] to any grid processing function or
-    plotting method. *res* is the grid resolution (see below), and *reg* is the
-    grid registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@mars_relief**\_\ *res*\[_\ *reg*] to any grid processing function or plotting
+    method. *res* is the grid resolution (see below), and *reg* is the grid registration
+    type (**p** for pixel registration or **g** for gridline registration).
 
-    The default color palette table (CPT) for this dataset is
-    *@mars_relief.cpt*. It's implicitly used when passing in the file name of
-    the dataset to any grid plotting method if no CPT is explicitly specified.
-    When the dataset is loaded and plotted as an :class:`xarray.DataArray`
-    object, the default CPT is ignored, and GMT's default CPT (*turbo*) is
-    used. To use the dataset-specific CPT, you need to explicitly set
+    The default color palette table (CPT) for this dataset is *@mars_relief.cpt*. It's
+    implicitly used when passing in the file name of the dataset to any grid plotting
+    method if no CPT is explicitly specified. When the dataset is loaded and plotted as
+    an :class:`xarray.DataArray` object, the default CPT is ignored, and GMT's default
+    CPT (*turbo*) is used. To use the dataset-specific CPT, you need to explicitly set
     ``cmap="@mars_relief.cpt"``.
 
-    Refer to :gmt-datasets:`mars-relief.html` for more details about available
-    datasets, including version information and references.
+    Refer to :gmt-datasets:`mars-relief.html` for more details about available datasets,
+    including version information and references.
 
     Parameters
     ----------
     resolution : str
-        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for
-        arc-degrees, arc-minutes and arc-seconds. It can be ``"01d"``,
-        ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``,
-        ``"04m"``, ``"03m"``, ``"02m"``, ``"01m"``, ``"30s"``, ``"15s"``, and
-        ``"12s"``.
+        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
+        arc-minutes and arc-seconds. It can be ``"01d"``, ``"30m"``, ``"20m"``,
+        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``,
+        ``"01m"``, ``"30s"``, ``"15s"``, and ``"12s"``.
     region : str or list
         The subregion of the grid to load, in the form of a list
-        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
-        Required for grids with resolutions higher than 5 arc-minutes
-        (i.e., ``"05m"``).
+        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*. Required for
+        grids with resolutions higher than 5 arc-minutes (i.e., ``"05m"``).
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
-        ``"gridline"`` for all resolutions except for ``"12s"`` which is
-        ``"pixel"`` only.
+        ``"gridline"`` for all resolutions except for ``"12s"`` which is ``"pixel"``
+        only.
 
     Returns
     -------
     grid : :class:`xarray.DataArray`
-        The Mars relief grid. Coordinates are latitude and longitude in
-        degrees. Relief is in meters.
+        The Mars relief grid. Coordinates are latitude and longitude in degrees. Relief
+        is in meters.
 
     Note
     ----
     The registration and coordinate system type of the returned
-    :class:`xarray.DataArray` grid can be accessed via the GMT accessors
-    (i.e., ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively).
-    However, these properties may be lost after specific grid operations (such
-    as slicing) and will need to be manually set before passing the grid to any
-    PyGMT data processing or plotting functions. Refer to
-    :class:`pygmt.GMTDataArrayAccessor` for detailed explanations and
-    workarounds.
+    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,
+    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these
+    properties may be lost after specific grid operations (such as slicing) and will
+    need to be manually set before passing the grid to any PyGMT data processing or
+    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
+    explanations and workarounds.
 
     Examples
     --------
-
     >>> from pygmt.datasets import load_mars_relief
     >>> # load the default grid (gridline-registered 1 arc-degree grid)
     >>> grid = load_mars_relief()

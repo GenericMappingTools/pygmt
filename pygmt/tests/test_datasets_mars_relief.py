@@ -3,13 +3,7 @@ Test basic functionality for loading Mars relief datasets.
 """
 import numpy as np
 import numpy.testing as npt
-import pytest
 from pygmt.datasets import load_mars_relief
-
-
-@pytest.fixture(autouse=True)
-def _use_candidate_server(monkeypatch):
-    monkeypatch.setenv("GMT_DATA_SERVER", "candidate")
 
 
 def test_mars_relief_01d():
