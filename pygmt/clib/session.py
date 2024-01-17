@@ -1194,37 +1194,14 @@ class Session:
         """
         Open a GMT virtual file to pass data to and from a module.
 
-        The method has been renamed to ``open_virtualfile` since v0.11.0 and will be
-        fully removed in v0.15.0.
+        .. deprecated: 0.11.0
 
-        Examples
-        --------
-        >>> from pygmt.helpers import GMTTempFile
-        >>> import numpy as np
-        >>> x = np.array([0, 1, 2, 3, 4])
-        >>> y = np.array([5, 6, 7, 8, 9])
-        >>> with Session() as lib:
-        ...     family = "GMT_IS_DATASET|GMT_VIA_VECTOR"
-        ...     geometry = "GMT_IS_POINT"
-        ...     dataset = lib.create_data(
-        ...         family=family,
-        ...         geometry=geometry,
-        ...         mode="GMT_CONTAINER_ONLY",
-        ...         dim=[2, 5, 1, 0],  # columns, lines, segments, type
-        ...     )
-        ...     lib.put_vector(dataset, column=0, vector=x)
-        ...     lib.put_vector(dataset, column=1, vector=y)
-        ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-        ...     with lib.open_virtual_file(*vfargs) as vfile:
-        ...         with GMTTempFile() as ofile:
-        ...             args = f"{vfile} ->{ofile.name}"
-        ...             lib.call_module("info", args)
-        ...             print(ofile.read().strip())
-        <vector memory>: N = 5 <0/4> <5/9>
+           Will be removed in v0.15.0. Use ``Session.open_virtualfile`` instead.
         """
         msg = (
-            "API function `Session.open_virtual_file' has been deprecated since v0.11.0"
-            " and will be removed in v0.15.0. Use `Session.open_virtualfile' instead."
+            "API function `Session.open_virtual_file' has been deprecated "
+            "since v0.11.0 and will be removed in v0.15.0. "
+            "Use `Session.open_virtualfile' instead."
         )
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
         return self.open_virtualfile(family, geometry, direction, data)
