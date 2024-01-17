@@ -79,6 +79,10 @@ jobs:
             pcre
             zlib
 
+      - name: Setup OpenMP on macOS
+        run: brew install libomp
+        if: runner.os == 'macOS'
+
       # Checkout current the GMT source codes
       - name: Checkout the GMT source codes
         uses: actions/checkout@v4.1.1
