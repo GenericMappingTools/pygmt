@@ -47,7 +47,7 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["wSne", "af"])
 
 # Connect data points with the reference point (0,0)
 fig.plot(x=x, y=y, pen="1.5p,dodgerblue", connection="p0/0")
-# Plot the data points
+# Plot data points
 fig.plot(x=x, y=y, style="c0.2c", fill="green3", pen="1.5p")
 # Plot reference point
 fig.plot(x=0, y=0, style="s0.3c", fill="gold", pen="1.5p")
