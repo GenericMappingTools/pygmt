@@ -21,34 +21,34 @@ fig = pygmt.Figure()
 
 # -----------------------------------------------------------------------------
 # Left: record order
-fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["WSne", "a1"])
+fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["WSne", "af"])
 
 # Connect data points based on the record order [Default connection=None]
 fig.plot(x=x, y=y, pen="1.5p,dodgerblue")
 # Plot data points
-fig.plot(x=x, y=y, style="c0.25c", fill="green3", pen="1.5p")
+fig.plot(x=x, y=y, style="c0.2c", fill="green3", pen="1.5p")
 
 fig.shift_origin(xshift="w+0.5c")
 
 # -----------------------------------------------------------------------------
 # Middle: network
-fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["wSne", "a1"])
+fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["wSne", "af"])
 
 # Connect data points as network
 fig.plot(x=x, y=y, pen="1.5p,dodgerblue", connection="n")
 # Plot data points
-fig.plot(x=x, y=y, style="c0.25c", fill="green3", pen="1.5p")
+fig.plot(x=x, y=y, style="c0.2c", fill="green3", pen="1.5p")
 
 fig.shift_origin(xshift="w+0.5c")
 
 # -----------------------------------------------------------------------------
 # Right: reference point
-fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["wSne", "a1"])
+fig.basemap(region=[-5, 5, -5, 5], projection="X6c", frame=["wSne", "af"])
 
 # Connect data points with the reference point (0,0)
 fig.plot(x=x, y=y, pen="1.5p,dodgerblue", connection="p0/0")
 # Plot the data points
-fig.plot(x=x, y=y, style="c0.25c", fill="green3", pen="1.5p")
+fig.plot(x=x, y=y, style="c0.2c", fill="green3", pen="1.5p")
 # Plot reference point
 fig.plot(x=0, y=0, style="s0.3c", fill="gold", pen="1.5p")
 
