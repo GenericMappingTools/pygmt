@@ -67,7 +67,7 @@ def test_virtual_file(dtypes):
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
             vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-            with lib.open_virtual_file(*vfargs) as vfile:
+            with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
@@ -93,7 +93,7 @@ def test_virtual_file_fails():
     # virtual file.
     with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
     # Test the status check when closing the virtual file
@@ -103,7 +103,7 @@ def test_virtual_file_fails():
         lib, "GMT_Close_VirtualFile", returns=1
     ):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
 
@@ -119,7 +119,7 @@ def test_virtual_file_bad_direction():
             0,
         )
         with pytest.raises(GMTInvalidInput):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
 
