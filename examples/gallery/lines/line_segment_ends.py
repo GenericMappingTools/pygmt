@@ -4,7 +4,7 @@ Line segment caps and joints
 PyGMT offers different appearance of line segment caps and joints. The desired
 appearance can be set via the GMT default parameters :gmt-term:`PS_LINE_CAP`
 (``"butt"``, ``"round"``, or ``"square"`` [Default]) as well as :gmt-term:`PS_LINE_JOIN`
-(``"bevel"``, `"round"``, and ``"miter"`` [Default]) and :gmt-term:`PS_MITER_LIMIT`
+(``"bevel"``, ``"round"``, and ``"miter"`` [Default]) and :gmt-term:`PS_MITER_LIMIT`
 (limit on the angle at the mitered joint below which a bevel is applied).
 """
 
