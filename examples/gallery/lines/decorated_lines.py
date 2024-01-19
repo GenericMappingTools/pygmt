@@ -44,6 +44,8 @@ for decoline in [
     "~d1c:+sc0.5c+gp8+p1p,blue",
     # Line with triangles ("t")
     "~d1c:+st0.5c+gtan+p1p,black",
+    # Rotate counter-clockwise from line-parallel ("+ap") by 30 degrees
+    "~d1c:+st0.5c+gtan+p1p,black+ap30",
     # Line with inverse triangles with a size of 0.3 centimeters in a
     # distance of 0.4 centimeters
     "~d0.4c:+si0.3c+gtan+p1p,black",
