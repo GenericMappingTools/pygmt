@@ -37,7 +37,7 @@ using the following command:
 - [ ] Bump the minimum required GMT version (1 PR)
   - [ ] Update `required_version` in `pygmt/clib/session.py`
   - [ ] Update `test_get_default` in `pygmt/tests/test_clib.py`
-  - [ ] Update compatibility table in `doc/compatibility.rst`
+  - [ ] Update minimum required versions in `doc/minversions.rst`
   - [ ] Remove unsupported GMT version from `.github/workflows/ci_tests_legacy.yaml`
 - [ ] Remove [xfail](https://docs.pytest.org/en/stable/skipping.html#xfail-mark-test-functions-as-expected-to-fail) pytest markers on tests that are now xpass
 - [ ] Update deprecated syntax in source code and examples based on the [GMT Changelog](https://docs.generic-mapping-tools.org/latest/changes.html)

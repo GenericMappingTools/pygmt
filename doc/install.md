@@ -90,7 +90,7 @@ PyGMT requires the following libraries to be installed:
 - [packaging](https://packaging.pypa.io)
 
 :::{note}
-For the minimum supported versions of the dependencies, please see {doc}`compatibility`.
+For the minimum supported versions of the dependencies, please see {doc}`minversions`.
 :::
 
 The following are optional dependencies:

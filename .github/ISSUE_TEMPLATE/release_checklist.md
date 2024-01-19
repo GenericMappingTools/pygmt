@@ -31,8 +31,8 @@ assignees: ''
     - [ ] Update DOI (and url for BibTeX)
     - [ ] Update version
     - [ ] Update date released
-  - [ ] Add the documentation link `doc/compatibility.rst`
-  - [ ] Add compatibility information `doc/compatibility.rst`
+  - [ ] Add the documentation link `doc/minversions.rst`
+  - [ ] Add minimum required vesion information `doc/minversions.rst`
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
 
 **Release**:
