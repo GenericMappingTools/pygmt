@@ -50,10 +50,9 @@ def load_venus_relief(
     Parameters
     ----------
     resolution : str
-        The grid resolution. The suffix ``d``, ``m`` and ``s`` stand for arc-degrees,
-        arc-minutes and arc-seconds. It can be ``"01d"``, ``"30m"``, ``"20m"``,
-        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``, and
-        ``"01m"``.
+        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and
+        arc-minutes. It can be ``"01d"``, ``"30m"``, ``"20m"``, ``"15m"``, ``"10m"``,
+        ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``, and ``"01m"``.
     region : str or list
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
