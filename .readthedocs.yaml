@@ -18,19 +18,16 @@ build:
         if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
           git diff --quiet origin/main -- \
               doc/ \
+              examples \
               pygmt/**/*.py \
               ':!pygmt/tests' \
-              README.md \
+              README.rst \
               ci/requirements/docs.yml \
               .readthedocs.yaml;
         then
           exit 183;
         fi
-    pre_build:
-      # ReadTheDocs fails to download external resources.
-      # Temporarily delete the two files to make ReadTheDocs building work again.
-      - rm examples/gallery/lines/roads.py examples/gallery/maps/choropleth_map.py
-      # Generate api stub files before building
+    pre_build: # Generate api stub files before building
       - make -C doc api
 
 # Build documentation in the doc/ directory with Sphinx
