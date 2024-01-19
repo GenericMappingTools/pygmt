@@ -38,7 +38,8 @@ for line_cap in ["butt", "round", "square"]:
     # The change applies only to the code under the with statement
     with pygmt.config(PS_LINE_CAP=line_cap):
         # Plot a dashed line
-        fig.plot(x=x, y=y, pen="10p," + dict_col[line_cap] + ",20_20:0")
+        color = dict_col[line_cap]
+        fig.plot(x=x, y=y, pen=f"10p,{color},20_20:0")
 
     fig.plot(x=x, y=y, pen="1p")
     fig.plot(x=x, y=y, style="c0.1c", fill="white", pen="0.5p")
