@@ -37,7 +37,7 @@ for line_cap in ["butt", "round", "square"]:
     # Change GMT default locally using a context manager
     # The change applies only to the code under the with statement
     with pygmt.config(PS_LINE_CAP=line_cap):
-        # Plot a dashed line
+        # Plot dashed line
         color = dict_col[line_cap]
         fig.plot(x=x, y=y, pen=f"10p,{color},20_20:0")
 
@@ -64,7 +64,9 @@ for i_line, line_join in enumerate(["bevel", "round", "miter"]):
     # Change GMT default locally using a context manager
     # The change applies only to the code under the with statement
     with pygmt.config(PS_LINE_JOIN=line_join, PS_MITER_LIMIT=1):
-        fig.plot(x=x_temp, y=y_temp, pen="7p," + dict_col[line_join])
+        # Plot solid line
+        color = dict_col[line_cap]
+        fig.plot(x=x_temp, y=y_temp, pen=f"7p,{color},solid")
 
     fig.plot(x=x_temp, y=y_temp, pen="1p")
     fig.plot(x=x_temp, y=y_temp, style="c0.1c", fill="white", pen="0.5p")
