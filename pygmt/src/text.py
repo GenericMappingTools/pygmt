@@ -111,8 +111,8 @@ def text_(  # noqa: PLR0913
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (*c* for centimeters,
-        *i* for inches, or *p* for points; if not given we consult
+        are specified. Append the unit you want (**c** for centimeters,
+        **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
         box when using ``fill`` and/or ``pen``. Append lower case **o**
