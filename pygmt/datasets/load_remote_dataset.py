@@ -229,7 +229,7 @@ datasets = {
     "venus_relief": GMTRemoteDataset(
         title="Venus relief",
         name="venus relief",
-        long_name="Venus relief",
+        long_name="NASA Magellan Venus relief",
         units="meters",
         extra_attributes={},
         resolutions={
