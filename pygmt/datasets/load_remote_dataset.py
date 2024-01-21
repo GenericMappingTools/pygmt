@@ -228,7 +228,7 @@ datasets = {
     ),
     "moon_relief": GMTRemoteDataset(
         title="Moon relief",
-        name="moon relief",
+        name="moon_relief",
         long_name="Moon relief",
         units="meters",
         extra_attributes={},
