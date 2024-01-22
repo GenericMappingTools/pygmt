@@ -69,7 +69,7 @@ for line_join in ["bevel", "round", "miter"]:
     fig.plot(x=x, y=y, pen="1p")
     fig.plot(x=x, y=y, style="c0.1c", fill="white", pen="0.5p")
     fig.text(text=line_join, x=x[1] - 10, y=y[1], justify="RB")
-    
+
     x = x + 75
 
 fig.show()
