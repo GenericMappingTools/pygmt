@@ -35,16 +35,16 @@ def test_timestamp_label(faketime):
 
 
 @pytest.mark.mpl_image_compare
-def test_timestamp_justification():
+def test_timestamp_justify():
     """
-    Check if the "justification" parameter works.
+    Check if the "justify" parameter works.
 
     Only a subset of justification codes are tested to avoid overlapping timestamps.
     """
     fig = Figure()
     fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame=0)
     for just in ["BL", "BR", "TL", "TR"]:
-        fig.timestamp(justification=just, timefmt=just)
+        fig.timestamp(justify=just, timefmt=just)
     return fig
 
 
@@ -55,7 +55,7 @@ def test_timestamp_offset():
     """
     fig = Figure()
     fig.basemap(projection="X10c/5c", region=[0, 10, 0, 5], frame="g1")
-    for offset in ["1c", "1c/2c", ("1c", "3c")]:
+    for offset in ["1c", "1c/2c", ("1c", "3c"), 4, (4, 1)]:
         fig.timestamp(offset=offset, timefmt=f"offset={offset}")
     return fig
 

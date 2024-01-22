@@ -19,6 +19,9 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 .. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
     :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
@@ -268,7 +271,7 @@ Compatibility with GMT/Python/NumPy versions
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
       - >=3.9
-      - >=1.22
+      - >=1.23
     * - `v0.10.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0>`_ (latest release)
       - `v0.10.0 Documentation <https://www.pygmt.org/v0.10.0>`_
       - >=6.3.0

@@ -1,4 +1,5 @@
 outs:
-- md5: 989d9bf57f716f4721f14992bf39a359
-  size: 2529
+- md5: c690fe78fafb2f3184e59a9fdf71b0eb
+  size: 2490
   path: test_makecpt_plot_colorbar.png
+  hash: md5

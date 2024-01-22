@@ -66,7 +66,7 @@ def text_(  # noqa: PLR0912
     The text strings passed via the ``text`` parameter can contain ASCII
     characters and non-ASCII characters defined in the ISOLatin1+ encoding
     (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
+    See :gmt-docs:`reference/octal-codes.html` for the full list of supported
     non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
@@ -135,8 +135,8 @@ def text_(  # noqa: PLR0912
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (*c* for centimeters,
-        *i* for inches, or *p* for points; if not given we consult
+        are specified. Append the unit you want (**c** for centimeters,
+        **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
         box when using ``fill`` and/or ``pen``. Append lower case **o**

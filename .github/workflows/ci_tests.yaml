@@ -25,15 +25,14 @@ name: Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   release:
     types:
       - published
@@ -63,11 +62,11 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.22 and Python 3.12 with NumPy 1.26
+        # Pair Python 3.9 with NumPy 1.23 and Python 3.12 with NumPy 1.26
         # Only install optional packages on Python 3.12/NumPy 1.26
         include:
           - python-version: '3.9'
-            numpy-version: '1.22'
+            numpy-version: '1.23'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
@@ -105,8 +104,8 @@ jobs:
           cache-environment: true
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
-            gmt=6.4.0
-            ghostscript=9.54.0
+            gmt=6.5.0
+            ghostscript=10.02.1
             numpy=${{ matrix.numpy-version }}
             pandas
             xarray
