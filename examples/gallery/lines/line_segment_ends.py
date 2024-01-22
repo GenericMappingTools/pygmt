@@ -31,7 +31,7 @@ fig = pygmt.Figure()
 x = np.array([30, 170])
 y = np.array([70, 70])
 
-fig.basemap(region=[0, 250, 0, 100], projection="x1p", frame="rltb")
+fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame="rltb")
 
 for line_cap in ["butt", "round", "square"]:
     # Change GMT default locally using a context manager
@@ -53,23 +53,23 @@ fig.shift_origin(yshift="-h")
 # Bottom: PS_LINE_JOIN and PS_MITER_LIMIT
 
 # Create sample data
-x = np.array([[5, 95, 65], [80, 170, 140], [155, 235, 205]])
-y = np.array([[10, 70, 10], [10, 70, 10], [10, 70, 10]])
+x = np.array([5, 95, 65])
+y = np.array([10, 70, 10])
 
-fig.basemap(region=[0, 250, 0, 100], projection="x1p", frame="rltb")
+fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame="rltb")
 
-for i_line, line_join in enumerate(["bevel", "round", "miter"]):
-    x_temp = x[i_line, :]
-    y_temp = y[i_line, :]
+for line_join in ["bevel", "round", "miter"]:
     # Change GMT default locally using a context manager
     # The change applies only to the code under the with statement
     with pygmt.config(PS_LINE_JOIN=line_join, PS_MITER_LIMIT=1):
         # Plot solid line
-        color = dict_col[line_cap]
-        fig.plot(x=x_temp, y=y_temp, pen=f"7p,{color},solid")
+        color = dict_col[line_join]
+        fig.plot(x=x, y=y, pen=f"7p,{color},solid")
 
-    fig.plot(x=x_temp, y=y_temp, pen="1p")
-    fig.plot(x=x_temp, y=y_temp, style="c0.1c", fill="white", pen="0.5p")
-    fig.text(text=line_join, x=x_temp[1] - 10, y=y_temp[1], justify="RB")
+    fig.plot(x=x, y=y, pen="1p")
+    fig.plot(x=x, y=y, style="c0.1c", fill="white", pen="0.5p")
+    fig.text(text=line_join, x=x[1] - 10, y=y[1], justify="RB")
+    
+    x = x + 75
 
 fig.show()
