@@ -11,9 +11,9 @@ def test_venus_relief_01d():
     Test some properties of the Venus relief 01d data.
     """
     data = load_venus_relief(resolution="01d")
-    assert data.name == "venus relief"
+    assert data.name == "venus_relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "Venus relief"
+    assert data.attrs["long_name"] == "NASA Magellan Venus relief"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
