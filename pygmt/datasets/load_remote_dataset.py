@@ -229,7 +229,7 @@ datasets = {
     "mars_relief": GMTRemoteDataset(
         title="Mars relief",
         name="mars_relief",
-        long_name="Mars relief",
+        long_name="NASA Mars (MOLA) relief",
         units="meters",
         extra_attributes={},
         resolutions={
