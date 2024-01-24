@@ -46,9 +46,6 @@ PyGMT
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
-.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
-    :alt: Twitter URL
-    :target: https://twitter.com/gmt_dev
 
 .. doc-index-start-after
 
