@@ -48,7 +48,6 @@ assignees: ''
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
   - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement, add new version as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
-  - [ ] [Twitter](https://twitter.com/gmt_dev) (after forum announcement)
 ---
 
 - [ ] Party :tada: (don't tick before all other checkboxes are ticked!)
