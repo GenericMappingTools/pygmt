@@ -35,7 +35,6 @@ fig.basemap(region=[0, 260, 0, 100], projection="x1p", frame="rltb")
 
 for line_cap in ["butt", "round", "square"]:
     # Change GMT default locally using a context manager
-    # The change applies only to the code under the with statement
     with pygmt.config(PS_LINE_CAP=line_cap):
         # Plot dashed line
         color = dict_col[line_cap]
