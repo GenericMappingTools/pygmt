@@ -38,6 +38,7 @@ for line_cap in ["butt", "round", "square"]:
     with pygmt.config(PS_LINE_CAP=line_cap):
         color = dict_col[line_cap]
         # Draw a 10-point thick line with 20-point long segments and gaps
+        # Use the local PS_LINE_CAP setting
         fig.plot(x=x, y=y, pen=f"10p,{color},20_20")
 
     # Draw a 1-point thick black solid line to highlight segment cap appearance
@@ -54,7 +55,6 @@ fig.shift_origin(yshift="-h")
 # -----------------------------------------------------------------------------
 # Bottom: PS_LINE_JOIN and PS_MITER_LIMIT
 
-# Create sample data
 x = np.array([5, 95, 65])
 y = np.array([10, 70, 10])
 
@@ -64,6 +64,7 @@ for line_join in ["bevel", "round", "miter"]:
     with pygmt.config(PS_LINE_JOIN=line_join, PS_MITER_LIMIT=1):
         color = dict_col[line_join]
         # Draw a 7-point thick solid line
+        # Use the local PS_LINE_JOIN and PS_MITER_LIMIT settings
         fig.plot(x=x, y=y, pen=f"7p,{color},solid")
 
     fig.plot(x=x, y=y, pen="1p,black,solid")
