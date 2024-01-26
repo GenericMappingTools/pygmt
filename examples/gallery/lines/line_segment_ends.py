@@ -40,7 +40,7 @@ for line_cap in ["butt", "round", "square"]:
         # Draw a 10-point thick line with 20-point long segments and gaps
         fig.plot(x=x, y=y, pen=f"10p,{color},20_20")
 
-    # Draw a 1-point thick solid black line to highlight PS_LINE setting appearances
+    # Draw a 1-point thick black solid line to highlight segment cap appearance
     fig.plot(x=x, y=y, pen="1p,black,solid")
     # Plot data points as circles
     fig.plot(x=x, y=y, style="c0.1c", fill="white", pen="0.5p,")
