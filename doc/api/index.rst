@@ -226,6 +226,8 @@ and store them in GMT's user data directory.
     datasets.load_earth_mask
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
+    datasets.load_mars_relief
+    datasets.load_moon_relief
     datasets.load_venus_relief
     datasets.load_sample_data
 
