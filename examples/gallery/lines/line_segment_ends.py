@@ -44,7 +44,7 @@ for line_cap in ["butt", "round", "square"]:
     fig.plot(x=x, y=y, pen="1p,black,solid")
     # Plot data points as circles
     fig.plot(x=x, y=y, style="c0.1c", fill="white", pen="0.5p,")
-    # Add label for PS_LINE setting
+    # Add label for PS_LINE_CAP setting
     fig.text(text=line_cap, x=x[-1] + 20, y=y[-1], justify="LM")
 
     y = y - 20
