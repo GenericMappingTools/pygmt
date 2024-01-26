@@ -272,6 +272,26 @@ datasets = {
             "14s": Resolution("14s", registrations=["pixel"], tiled=True),
         },
     ),
+    "venus_relief": GMTRemoteDataset(
+        title="Venus relief",
+        name="venus_relief",
+        long_name="NASA Magellan Venus relief",
+        units="meters",
+        extra_attributes={},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["gridline"], tiled=True),
+        },
+    ),
 }
 
 
