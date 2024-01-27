@@ -221,14 +221,11 @@ def test_x2sys_cross_region_interpolation_numpoints():
         assert isinstance(output, pd.DataFrame)
         if Version(__gmt_version__) >= Version("6.5.0"):
             assert output.shape == (3882, 12)
-            # Check crossover errors (z_X) and mean value of observables (z_M)
-            npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
-            npt.assert_allclose(output.z_M.mean(), -2896.875915)
         else:
             assert output.shape == (3867, 12)
-            # Check crossover errors (z_X) and mean value of observables (z_M)
-            npt.assert_allclose(output.z_X.mean(), -139.196212, rtol=1e-4)
-            npt.assert_allclose(output.z_M.mean(), -2890.465813)
+        # Check crossover errors (z_X) and mean value of observables (z_M)
+        npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
+        npt.assert_allclose(output.z_M.mean(), -2896.875915)
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -244,11 +241,8 @@ def test_x2sys_cross_trackvalues():
         assert isinstance(output, pd.DataFrame)
         if Version(__gmt_version__) >= Version("6.5.0"):
             assert output.shape == (14338, 12)
-            # Check mean of track 1 values (z_1) and track 2 values (z_2)
-            npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
-            npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
         else:
             assert output.shape == (14294, 12)
-            # Check mean of track 1 values (z_1) and track 2 values (z_2)
-            npt.assert_allclose(output.z_1.mean(), -2420.569767, rtol=1e-4)
-            npt.assert_allclose(output.z_2.mean(), -2400.357549, rtol=1e-4)
+        # Check mean of track 1 values (z_1) and track 2 values (z_2)
+        npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
+        npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)
