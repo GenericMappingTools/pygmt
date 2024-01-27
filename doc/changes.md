@@ -143,8 +143,13 @@
 
 ### Contributors
 
-[Max Jones](https://github.com/maxrjones), [Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Wei Ji Leong](https://github.com/weiji14)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Max Jones](https://github.com/maxrjones)
 
+---
 
 ## Release v0.10.0 (2023/09/02)
 
