@@ -55,7 +55,6 @@ jobs:
           --exclude "^https://doi.org"
           --exclude "^https://www.researchgate.net/project/"
           --exclude "^https://test.pypi.org/simple/"
-          --exclude "^https://twitter.com/"
           --verbose
           "repository/**/*.rst"
           "repository/**/*.md"
