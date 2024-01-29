@@ -2,7 +2,7 @@
 
 ## Release v0.11.0 (20YY/MM/DD)
 
-[![Digital Object Identifier for PyGMT v0.11.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+[![Digital Object Identifier for PyGMT v0.11.0](https://zenodo.org/badge/DOI/10.5281/zenodo.10578540.svg)](https://doi.org/10.5281/zenodo.10578540)
 
 ### Highlights
 
@@ -29,7 +29,7 @@
 * Figure.savefig: Support uppercase file extensions (e.g., PNG, PDF) ([#2697](https://github.com/GenericMappingTools/pygmt/pull/2697))
 * Figure.savefig: Support .jpeg as JPEG image extension ([#2691](https://github.com/GenericMappingTools/pygmt/pull/2691))
 * Figure.coast: Add alias "box" for "-F" ([#2823](https://github.com/GenericMappingTools/pygmt/pull/2823))
-* Add zoom_adjust param to pygmt.datasets.load_tile_map and Figure.tilemap ([#2934](https://github.com/GenericMappingTools/pygmt/pull/2934))
+* Add zoom_adjust parameter to pygmt.datasets.load_tile_map and Figure.tilemap ([#2934](https://github.com/GenericMappingTools/pygmt/pull/2934))
 * Add common alias cores (x) for grdlandmask ([#2944](https://github.com/GenericMappingTools/pygmt/pull/2944))
 
 ### Deprecations
@@ -44,7 +44,7 @@
 * pygmt.which: Fix the bug when passing multiple files ([#2726](https://github.com/GenericMappingTools/pygmt/pull/2726))
 * pygmt.filter1d: Fix the bug that the first line is read as headers ([#2780](https://github.com/GenericMappingTools/pygmt/pull/2780))
 * clib: Fix the bug when passing multiple columns of strings with variable lengths to the GMT C API ([#2719](https://github.com/GenericMappingTools/pygmt/pull/2719))
-* Let kwargs_to_strings work with default values and postional arguments ([#2826](https://github.com/GenericMappingTools/pygmt/pull/2826))
+* Let kwargs_to_strings work with default values and positional arguments ([#2826](https://github.com/GenericMappingTools/pygmt/pull/2826))
 * Figure.meca: Fix typo pricipal_axis -> principal_axis ([#2940](https://github.com/GenericMappingTools/pygmt/pull/2940))
 
 ### Documentation
@@ -86,7 +86,7 @@
 * RUF010: Avoid calling str() within an f-string ([#2871](https://github.com/GenericMappingTools/pygmt/pull/2871))
 * RUF005: Use the unpacking operator to concatenate collections ([#2869](https://github.com/GenericMappingTools/pygmt/pull/2869))
 * NEP29: Test PyGMT on NumPy 1.26 ([#2692](https://github.com/GenericMappingTools/pygmt/pull/2692))
-* Move variable __gmt_version__ to pygmt.clib to avoid cyclic-import errors ([#2713](https://github.com/GenericMappingTools/pygmt/pull/2713))
+* Move variable `__gmt_version__` to pygmt.clib to avoid cyclic-import errors ([#2713](https://github.com/GenericMappingTools/pygmt/pull/2713))
 * Improve the way to import optional modules ([#2809](https://github.com/GenericMappingTools/pygmt/pull/2809))
 * Fix fixture_xr_image to open earth_day_01d_p directly with rioxarray ([#2963](https://github.com/GenericMappingTools/pygmt/pull/2963))
 * Figure.timestamp: Add type hints to parameters ([#2890](https://github.com/GenericMappingTools/pygmt/pull/2890))
