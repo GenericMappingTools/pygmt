@@ -23,6 +23,11 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
       - >=6.3.0
       - >=3.9
       - >=1.23
+    * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ (latest release)
+      - `v0.11.0 Documentation <https://www.pygmt.org/v0.11.0>`_
+      - >=6.3.0
+      - >=3.9
+      - >=1.23
     * - `v0.10.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0>`_ (latest release)
       - `v0.10.0 Documentation <https://www.pygmt.org/v0.10.0>`_
       - >=6.3.0
