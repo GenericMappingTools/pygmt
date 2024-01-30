@@ -15,7 +15,7 @@
 * Figure.savefig: Support saving figures in PPM (.ppm) format ([#2771](https://github.com/GenericMappingTools/pygmt/pull/2771))
 * Figure.savefig: Support generating GeoTIFF file (with extension '.tiff') ([#2698](https://github.com/GenericMappingTools/pygmt/pull/2698))
 * Figure.savefig: Add the 'worldfile' parameter to write a companion world file for raster images ([#2766](https://github.com/GenericMappingTools/pygmt/pull/2766))
-* Add load_venus_relief to load Venus relief dataset in various resolutions ([#2906](https://github.com/GenericMappingTools/pygmt/pull/2906))
+* Add load_venus_relief to load Venus relief dataset in various resolutions and registrations ([#2906](https://github.com/GenericMappingTools/pygmt/pull/2906))
 * Add load_moon_relief to load Moon relief dataset in various resolutions and registrations ([#2674](https://github.com/GenericMappingTools/pygmt/pull/2674))
 * Add load_mars_relief to load Mars relief dataset in various resolutions and registrations ([#2847](https://github.com/GenericMappingTools/pygmt/pull/2847))
 
@@ -49,22 +49,19 @@
 
 ### Documentation
 
-* docs: Use consistent description for the 'outgrid' parameter ([#2874](https://github.com/GenericMappingTools/pygmt/pull/2874))
-* doc: Link to GMT 6.4 documentation instead of the latest one ([#2681](https://github.com/GenericMappingTools/pygmt/pull/2681))
+* Use consistent description for the 'outgrid' parameter ([#2874](https://github.com/GenericMappingTools/pygmt/pull/2874))
 * Switch away from Stamen basemaps ([#2717](https://github.com/GenericMappingTools/pygmt/pull/2717))
 * Recommend Miniforge instead of Mambaforge ([#2833](https://github.com/GenericMappingTools/pygmt/pull/2833))
 * Improve the onboarding access checklist for contributors, maintainers and administrators ([#2656](https://github.com/GenericMappingTools/pygmt/pull/2656))
 * Gallery example "Legend": Update regarding input data and multi-column legends ([#2762](https://github.com/GenericMappingTools/pygmt/pull/2762))
 * Figure.shift_origin: Improve docstrings, add inline examples and add type hints ([#2879](https://github.com/GenericMappingTools/pygmt/pull/2879))
 * Figure.plot: Update docstring for "connection" parameter to GMT 6.5 ([#2994](https://github.com/GenericMappingTools/pygmt/pull/2994))
-* Examples: Replace deprecated "np.random.seed()" with "np.random.Generator()" (NPY002 warning by ruff) ([#2781](https://github.com/GenericMappingTools/pygmt/pull/2781))
 * Add the Japanese "PyGMT-HOWTO" tutorial to "External Resources" ([#2743](https://github.com/GenericMappingTools/pygmt/pull/2743))
 * Add gallery example showing usage of polygon objects from a geopandas.GeoDataFrame (choropleth map) ([#2796](https://github.com/GenericMappingTools/pygmt/pull/2796))
 * Add gallery example showing how to adjust line segment ends (caps and joints) ([#3015](https://github.com/GenericMappingTools/pygmt/pull/3015))
 * Add gallery example for plotting connection lines ("connection" parameter of Figure.plot) ([#2999](https://github.com/GenericMappingTools/pygmt/pull/2999))
 * Add gallery example "Scale bar" ([#2822](https://github.com/GenericMappingTools/pygmt/pull/2822))
 * Add a tutorial for working with table inputs in PyGMT ([#2722](https://github.com/GenericMappingTools/pygmt/pull/2722))
-* Add a 'Common installation issues' section to the install guides ([#2868](https://github.com/GenericMappingTools/pygmt/pull/2868))
 
 ### Maintenance
 
@@ -73,7 +70,6 @@
 * doc: Convert overview source code from ReST to Markdown ([#2953](https://github.com/GenericMappingTools/pygmt/pull/2953))
 * Use ruff to lint and format codes, and remove flakeheaven/isort/black/blackdoc ([#2741](https://github.com/GenericMappingTools/pygmt/issues/2741))
 * Use codespell to check common misspellings ([#2673](https://github.com/GenericMappingTools/pygmt/pull/2673))
-* Use GITHUB_TOKEN instead of PAT in "Slash Command Dispatch" and "GMT Dev Tests" workflows ([#2950](https://github.com/GenericMappingTools/pygmt/pull/2950))
 * Use "# %%" as code block separators in examples ([#2662](https://github.com/GenericMappingTools/pygmt/pull/2662))
 * Update output shape and mean values from some x2sys_cross tests ([#2986](https://github.com/GenericMappingTools/pygmt/pull/2986))
 * TYP: Improve the doc style for type hints ([#2813](https://github.com/GenericMappingTools/pygmt/pull/2813))
@@ -83,8 +79,6 @@
 * Setup Continuous Benchmarking workflow with pytest-codspeed ([#2908](https://github.com/GenericMappingTools/pygmt/pull/2908))
 * Release Drafter: Automatically replace GitHub handles with names and links ([#2777](https://github.com/GenericMappingTools/pygmt/pull/2777))
 * Refactor the internal _load_remote_dataset function to simplify datasets' definitions ([#2917](https://github.com/GenericMappingTools/pygmt/pull/2917))
-* RUF010: Avoid calling str() within an f-string ([#2871](https://github.com/GenericMappingTools/pygmt/pull/2871))
-* RUF005: Use the unpacking operator to concatenate collections ([#2869](https://github.com/GenericMappingTools/pygmt/pull/2869))
 * NEP29: Test PyGMT on NumPy 1.26 ([#2692](https://github.com/GenericMappingTools/pygmt/pull/2692))
 * Move variable `__gmt_version__` to pygmt.clib to avoid cyclic-import errors ([#2713](https://github.com/GenericMappingTools/pygmt/pull/2713))
 * Improve the way to import optional modules ([#2809](https://github.com/GenericMappingTools/pygmt/pull/2809))
@@ -101,7 +95,6 @@
 * CI: Run benchmarks if PR is labeled with "run/benchmark" ([#2958](https://github.com/GenericMappingTools/pygmt/pull/2958))
 * CI: Run "GMT Dev Tests" if PR is labeled with 'run/test-gmt-dev' ([#2960](https://github.com/GenericMappingTools/pygmt/pull/2960))
 * CI: Require at least one code block separator for example files in the Style Checks workflow ([#2810](https://github.com/GenericMappingTools/pygmt/pull/2810))
-* CI: Cache the earth_day_01d_p grid ([#2937](https://github.com/GenericMappingTools/pygmt/pull/2937))
 * Bump the GMT version in CI to 6.5.0 ([#2962](https://github.com/GenericMappingTools/pygmt/pull/2962))
 * Bump ghostscript to 10.02.1 ([#2694](https://github.com/GenericMappingTools/pygmt/pull/2694))
 * Benchmark grdsample, grdfilter and sph2grd with fixed cores ([#2945](https://github.com/GenericMappingTools/pygmt/pull/2945))
