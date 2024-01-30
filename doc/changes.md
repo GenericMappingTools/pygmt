@@ -111,7 +111,7 @@
 * Add Zenodo's GMT community to the maintainer's onboarding list ([#2761](https://github.com/GenericMappingTools/pygmt/pull/2761))
 * Add Mypy for static type checking ([#2808](https://github.com/GenericMappingTools/pygmt/pull/2808))
 
-**Full Changelog**: https://github.com/GenericMappingTools/pygmt/compare/v0.10.0...v0.11.0
+**Full Changelog**: [https://github.com/GenericMappingTools/pygmt/compare/v0.10.0...v0.11.0]()
 
 ### Contributors
 
