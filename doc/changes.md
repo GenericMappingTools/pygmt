@@ -71,6 +71,7 @@
 * pyarrow: Check compatibility of pyarrow-backed pandas objects with numeric dtypes ([#2774](https://github.com/GenericMappingTools/pygmt/pull/2774))
 * doc: Convert the installation guides source code from ReST to Markdown ([#2992](https://github.com/GenericMappingTools/pygmt/pull/2992))
 * doc: Convert overview source code from ReST to Markdown ([#2953](https://github.com/GenericMappingTools/pygmt/pull/2953))
+* doc: Move compatibility table from README to separate file ([#2862](https://github.com/GenericMappingTools/pygmt/pull/2862))
 * Use ruff to lint and format codes, and remove flakeheaven/isort/black/blackdoc ([#2741](https://github.com/GenericMappingTools/pygmt/issues/2741))
 * Use codespell to check common misspellings ([#2673](https://github.com/GenericMappingTools/pygmt/pull/2673))
 * Use "# %%" as code block separators in examples ([#2662](https://github.com/GenericMappingTools/pygmt/pull/2662))
