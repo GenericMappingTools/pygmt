@@ -61,7 +61,7 @@ def load_mercury_relief(
     registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
         ``"gridline"`` for gridline registration. Default is ``None``, means
-        ``"gridline"`` for all resolutions except for ``"52s"`` which is ``"pixel"``
+        ``"gridline"`` for all resolutions except for ``"56s"`` which is ``"pixel"``
         only.
 
     Returns
