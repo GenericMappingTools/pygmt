@@ -229,6 +229,7 @@ and store them in GMT's user data directory.
     datasets.load_mars_relief
     datasets.load_mercury_relief
     datasets.load_moon_relief
+    datasets.load_pluto_relief
     datasets.load_venus_relief
     datasets.load_sample_data
 
