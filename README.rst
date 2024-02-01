@@ -265,4 +265,4 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
   minimum the last three minor versions.
 
 For the supported GMT versions as well as the minimum required Python and NumPy versions
-please see `Minimum Required Versions <https://www.pygmt.org/dev/minvesrions.html>`__.
+please see `Minimum Required Versions <https://www.pygmt.org/dev/minversions.html>`__.
