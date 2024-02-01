@@ -21,15 +21,15 @@
 
 ### Enhancements
 
-* pyarrow: Support date32[day] and date64[ms] dtypes in pandas objects ([#2845](https://github.com/GenericMappingTools/pygmt/pull/2845))
 * geopandas: Correctly handle columns with integer values bigger than the largest 32-bit integer ([#2841](https://github.com/GenericMappingTools/pygmt/pull/2841))
-* Set GMT_SESSION_NAME to a unique name on Windows for multiprocessing support ([#2938](https://github.com/GenericMappingTools/pygmt/pull/2938))
-* Improve the error messages for unsupported numpy dtypes ([#2856](https://github.com/GenericMappingTools/pygmt/pull/2856))
-* Figure.savefig: Support uppercase file extensions (e.g., PNG, PDF) ([#2697](https://github.com/GenericMappingTools/pygmt/pull/2697))
-* Figure.savefig: Support .jpeg as JPEG image extension ([#2691](https://github.com/GenericMappingTools/pygmt/pull/2691))
+* pyarrow: Support date32[day] and date64[ms] dtypes in pandas objects ([#2845](https://github.com/GenericMappingTools/pygmt/pull/2845))
+* datasets.load_tile_map and Figure.tilemap: Add "zoom_adjust" parameter ([#2934](https://github.com/GenericMappingTools/pygmt/pull/2934))
+* grdlandmask: Add common alias "cores" for "x" ([#2944](https://github.com/GenericMappingTools/pygmt/pull/2944))
 * Figure.coast: Add alias "box" for "-F" ([#2823](https://github.com/GenericMappingTools/pygmt/pull/2823))
-* Add zoom_adjust parameter to pygmt.datasets.load_tile_map and Figure.tilemap ([#2934](https://github.com/GenericMappingTools/pygmt/pull/2934))
-* Add common alias cores (x) for grdlandmask ([#2944](https://github.com/GenericMappingTools/pygmt/pull/2944))
+* Improve the error messages for unsupported numpy dtypes ([#2856](https://github.com/GenericMappingTools/pygmt/pull/2856))
+* Set GMT_SESSION_NAME to a unique name on Windows for multiprocessing support ([#2938](https://github.com/GenericMappingTools/pygmt/pull/2938))
+* Figure.savefig: Support .jpeg as JPEG image extension ([#2691](https://github.com/GenericMappingTools/pygmt/pull/2691))
+* Figure.savefig: Support uppercase file extensions (e.g., PNG, PDF) ([#2697](https://github.com/GenericMappingTools/pygmt/pull/2697))
 
 ### Deprecations
 
