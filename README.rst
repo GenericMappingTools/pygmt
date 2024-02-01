@@ -183,7 +183,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2023_8303186,
+    @software{pygmt_2024_10578540,
       author       = {Tian, Dongdong and
                       Uieda, Leonardo and
                       Leong, Wei Ji and
