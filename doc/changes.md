@@ -6,10 +6,9 @@
 
 ### Highlights
 
-* Intro for table inputs in PyGMT
-* Gallery example for Choropleth map
+* Intro for table inputs in PyGMT and gallery example for choropleth map
 * Easy access to remote datasets of planetary reliefs (Moon, Venus, Mars, Mercury, Pluto)
-* `Figure.text`: Allow lists as input type for the `angle`, `font`, and `justify` parameters
+* Faster PyGMT by ~0.1 seconds for each module call
 
 ### New Features
 
