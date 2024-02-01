@@ -6,8 +6,9 @@
 
 ### Highlights
 
+* 🎉 **Eleventh minor release of PyGMT** 🎉
 * Tutorial for table inputs ([#2722](https://github.com/GenericMappingTools/pygmt/pull/2722)) and gallery example for choropleth map ([#2796](https://github.com/GenericMappingTools/pygmt/pull/2796))
-* Easy access to planetary relief datasets (Moon, Venus, Mars, Mercury, Pluto) ([#2674](https://github.com/GenericMappingTools/pygmt/pull/2674), [#2906](https://github.com/GenericMappingTools/pygmt/pull/2906), [#2847](https://github.com/GenericMappingTools/pygmt/pull/2847), [#3027](https://github.com/GenericMappingTools/pygmt/pull/3027), [#3028](https://github.com/GenericMappingTools/pygmt/pull/3028))
+* Easy access to planetary relief datasets (Mercury, Venus, Moon, Mars, Pluto) ([#3028](https://github.com/GenericMappingTools/pygmt/pull/3028),  [#2906](https://github.com/GenericMappingTools/pygmt/pull/2906), [#2674](https://github.com/GenericMappingTools/pygmt/pull/2674), [#2847](https://github.com/GenericMappingTools/pygmt/pull/2847), [#3027](https://github.com/GenericMappingTools/pygmt/pull/3027))
 * Faster PyGMT by ~0.1 seconds for each module call ([#2930](https://github.com/GenericMappingTools/pygmt/pull/2930))
 
 ### New Features
