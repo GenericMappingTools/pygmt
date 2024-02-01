@@ -1,0 +1,13 @@
+pygmt.grdhisteq.equalize\_grid
+==============================
+
+.. currentmodule:: pygmt
+
+.. automethod:: grdhisteq.equalize_grid
+
+.. minigallery:: pygmt.grdhisteq.equalize_grid
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

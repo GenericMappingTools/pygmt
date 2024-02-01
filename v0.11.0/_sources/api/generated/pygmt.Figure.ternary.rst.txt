@@ -1,0 +1,13 @@
+pygmt.Figure.ternary
+====================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.ternary
+
+.. minigallery:: pygmt.Figure.ternary
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

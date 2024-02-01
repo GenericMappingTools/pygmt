@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.datasets.samples &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/datasets/samples.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5899e6ac"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.11.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.datasets.samples</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.datasets.samples</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions to load sample data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NamedTuple</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
+<span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="n">which</span>
+
+
+<span class="k">def</span> <span class="nf">_load_japan_quakes</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of earthquakes around Japan as a pandas.DataFrame.</span>
+
+<span class="sd">    The data are from the NOAA NGDC database.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. The column names are &quot;year&quot;, &quot;month&quot;, &quot;day&quot;,</span>
+<span class="sd">        &quot;latitude&quot;, &quot;longitude&quot;, &quot;depth_km&quot;, and &quot;magnitude&quot; of the</span>
+<span class="sd">        earthquakes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_quakes.ngdc&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;year&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;month&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;day&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;latitude&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;longitude&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;depth_km&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;magnitude&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_ocean_ridge_points</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of ocean ridge points for the entire world as a pandas.DataFrame.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. The column names are &quot;longitude&quot; and &quot;latitude&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ridge.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">],</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_baja_california_bathymetry</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of ship observations of bathymetry off Baja California as a</span>
+<span class="sd">    pandas.DataFrame.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;,</span>
+<span class="sd">        and &quot;bathymetry&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_ship.xyz&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;bathymetry&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_usgs_quakes</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of global earthquakes from the USGS as a pandas.DataFrame.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. Use ``print(data.describe())`` to see the available</span>
+<span class="sd">        columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@usgs_quakes_22.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_fractures_compilation</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of fracture lengths and azimuths as hypothetically digitized from</span>
+<span class="sd">    geological maps as a pandas.DataFrame.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. The column names are &quot;length&quot; and &quot;azimuth&quot; of</span>
+<span class="sd">        the fractures.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@fractures_06.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;azimuth&quot;</span><span class="p">]]</span>
+
+
+<span class="k">def</span> <span class="nf">_load_hotspots</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table with the locations, names, and suggested symbol sizes of hotspots as a</span>
+<span class="sd">    pandas.DataFrame.</span>
+
+<span class="sd">    The data are from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,</span>
+<span class="sd">    pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]</span>
+<span class="sd">    have symbol sizes twice the size of all other hotspots.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;,</span>
+<span class="sd">        &quot;symbol_size&quot;, and &quot;place_name&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@hotspots.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;symbol_size&quot;</span><span class="p">,</span> <span class="s2">&quot;place_name&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_mars_shape</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of data for the shape of Mars as a pandas.DataFrame.</span>
+
+<span class="sd">    Data and information are from Smith, D. E., and M. T. Zuber (1996),</span>
+<span class="sd">    The shape of Mars and the topographic signature of the hemispheric</span>
+<span class="sd">    dichotomy.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with column names &quot;longitude&quot;, &quot;latitude&quot;, and</span>
+<span class="sd">        &quot;radius_m&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@mars370d.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;radius_m&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<span class="k">def</span> <span class="nf">_load_rock_sample_compositions</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads a table of rock sample compositions.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with columns &quot;limestone&quot;, &quot;water&quot;, &quot;air&quot;,</span>
+<span class="sd">        and &quot;permittivity&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ternary.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;limestone&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;air&quot;</span><span class="p">,</span> <span class="s2">&quot;permittivity&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_notre_dame_topography</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load Table 5.11 in Davis: Statistics and Data Analysis in Geology.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with columns &quot;x&quot;, &quot;y&quot;, and &quot;z&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@Table_5_11.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">_load_maunaloa_co2</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a table of CO2 values from Mauna Loa.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pandas.DataFrame</span>
+<span class="sd">        The data table with columns &quot;date&quot; and &quot;co2_ppm&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@MaunaLoa_CO2.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;co2_ppm&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_load_earth_relief_holes</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads the remote file @earth_relief_20m_holes.grd.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    grid : :class:`xarray.DataArray`</span>
+<span class="sd">        The Earth relief grid. Coordinates are latitude and longitude in</span>
+<span class="sd">        degrees. Relief is in meters.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@earth_relief_20m_holes.grd&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;netcdf4&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">GMTSampleData</span><span class="p">(</span><span class="n">NamedTuple</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Information of a sample dataset.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        The function that loads the sample dataset.</span>
+<span class="sd">    description : str</span>
+<span class="sd">        The description of the sample dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;bathymetry&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_baja_california_bathymetry</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of ship bathymetric observations off Baja California&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_earth_relief_holes</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Regional 20 arc-minutes Earth relief grid with holes&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;fractures&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_fractures_compilation</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of hypothetical fracture lengths and azimuths&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;hotspots&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_hotspots</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of locations, names, and symbol sizes of hotpots from &quot;</span>
+        <span class="s2">&quot;Müller et al. (1993)&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;japan_quakes&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_japan_quakes</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of earthquakes around Japan from the NOAA NGDC database&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;mars_shape&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_mars_shape</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of topographic signature of the hemispheric dichotomy of &quot;</span>
+        <span class="s2">&quot;Mars from Smith and Zuber (1996)&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;maunaloa_co2&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_maunaloa_co2</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of CO2 readings from Mauna Loa&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;notre_dame_topography&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_notre_dame_topography</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table 5.11 in Davis: Statistics and Data Analysis in Geology&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;ocean_ridge_points&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_ocean_ridge_points</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of ocean ridge points for the entire world&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;rock_compositions&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_rock_sample_compositions</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of rock sample compositions&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;usgs_quakes&quot;</span><span class="p">:</span> <span class="n">GMTSampleData</span><span class="p">(</span>
+        <span class="n">func</span><span class="o">=</span><span class="n">_load_usgs_quakes</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Table of earthquakes from the USGS&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="list_sample_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.list_sample_data.html#pygmt.datasets.list_sample_data">[docs]</a>
+<span class="k">def</span> <span class="nf">list_sample_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Report datasets available for tests and documentation examples.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Names and short descriptions of available sample datasets.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    load_sample_data : Load an example dataset from the GMT server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">description</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
+
+
+
+<div class="viewcode-block" id="load_sample_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_sample_data</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">&quot;bathymetry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fractures&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hotspots&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;japan_quakes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mars_shape&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maunaloa_co2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notre_dame_topography&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ocean_ridge_points&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rock_compositions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;usgs_quakes&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load an example dataset from the GMT server.</span>
+
+<span class="sd">    The data are downloaded to a cache directory (usually ``~/.gmt/cache``) the</span>
+<span class="sd">    first time you invoke this function. Afterwards, it will load the data from</span>
+<span class="sd">    the cache. So you&#39;ll need an internet connection the first time around.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the dataset to load.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`pandas.DataFrame` or :class:`xarray.DataArray`</span>
+<span class="sd">        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data</span>
+<span class="sd">        or :class:`xarray.DataArray` for raster data.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    list_sample_data : Report datasets available for tests and documentation</span>
+<span class="sd">        examples.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from pprint import pprint</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import list_sample_data, load_sample_data</span>
+<span class="sd">    &gt;&gt;&gt; # use list_sample_data to see the available datasets</span>
+<span class="sd">    &gt;&gt;&gt; pprint(list_sample_data(), width=120)</span>
+<span class="sd">    {&#39;bathymetry&#39;: &#39;Table of ship bathymetric observations off Baja California&#39;,</span>
+<span class="sd">     &#39;earth_relief_holes&#39;: &#39;Regional 20 arc-minutes Earth relief grid with holes&#39;,</span>
+<span class="sd">     &#39;fractures&#39;: &#39;Table of hypothetical fracture lengths and azimuths&#39;,</span>
+<span class="sd">     &#39;hotspots&#39;: &#39;Table of locations, names, and symbol sizes of hotpots from Müller et al. (1993)&#39;,</span>
+<span class="sd">     &#39;japan_quakes&#39;: &#39;Table of earthquakes around Japan from the NOAA NGDC database&#39;,</span>
+<span class="sd">     &#39;mars_shape&#39;: &#39;Table of topographic signature of the hemispheric dichotomy of Mars from Smith and Zuber (1996)&#39;,</span>
+<span class="sd">     &#39;maunaloa_co2&#39;: &#39;Table of CO2 readings from Mauna Loa&#39;,</span>
+<span class="sd">     &#39;notre_dame_topography&#39;: &#39;Table 5.11 in Davis: Statistics and Data Analysis in Geology&#39;,</span>
+<span class="sd">     &#39;ocean_ridge_points&#39;: &#39;Table of ocean ridge points for the entire world&#39;,</span>
+<span class="sd">     &#39;rock_compositions&#39;: &#39;Table of rock sample compositions&#39;,</span>
+<span class="sd">     &#39;usgs_quakes&#39;: &#39;Table of earthquakes from the USGS&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; # load the sample bathymetry dataset</span>
+<span class="sd">    &gt;&gt;&gt; data = load_sample_data(&quot;bathymetry&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: W505</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid dataset name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">func</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0">v0.11.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Feb 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+pygmt.load\_dataarray
+=====================
+
+.. currentmodule:: pygmt
+
+.. autofunction:: load_dataarray
+
+.. minigallery:: pygmt.load_dataarray
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
