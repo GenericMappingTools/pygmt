@@ -6,9 +6,9 @@
 
 ### Highlights
 
-* Intro for table inputs in PyGMT and gallery example for choropleth map
-* Easy access to remote datasets of planetary reliefs (Moon, Venus, Mars, Mercury, Pluto)
-* Faster PyGMT by ~0.1 seconds for each module call
+* Tutorial for table inputs ([#2722](https://github.com/GenericMappingTools/pygmt/pull/2722)) and gallery example for choropleth map ([#2796](https://github.com/GenericMappingTools/pygmt/pull/2796))
+* Easy access to remote datasets of planetary reliefs (Moon, Venus, Mars, Mercury, Pluto) ([#2674](https://github.com/GenericMappingTools/pygmt/pull/2674), [#2906](https://github.com/GenericMappingTools/pygmt/pull/2906), [#2847](https://github.com/GenericMappingTools/pygmt/pull/2847))
+* Faster PyGMT by ~0.1 seconds for each module call ([#2930](https://github.com/GenericMappingTools/pygmt/pull/2930))
 
 ### New Features
 
@@ -17,9 +17,6 @@
 * Figure.savefig: Support saving figures in PPM (.ppm) format ([#2771](https://github.com/GenericMappingTools/pygmt/pull/2771))
 * Figure.savefig: Support generating GeoTIFF file (with extension '.tiff') ([#2698](https://github.com/GenericMappingTools/pygmt/pull/2698))
 * Figure.savefig: Add the 'worldfile' parameter to write a companion world file for raster images ([#2766](https://github.com/GenericMappingTools/pygmt/pull/2766))
-* Add load_venus_relief to load Venus relief dataset in various resolutions and registrations ([#2906](https://github.com/GenericMappingTools/pygmt/pull/2906))
-* Add load_moon_relief to load Moon relief dataset in various resolutions and registrations ([#2674](https://github.com/GenericMappingTools/pygmt/pull/2674))
-* Add load_mars_relief to load Mars relief dataset in various resolutions and registrations ([#2847](https://github.com/GenericMappingTools/pygmt/pull/2847))
 
 ### Enhancements
 
@@ -27,7 +24,6 @@
 * geopandas: Correctly handle columns with integer values bigger than the largest 32-bit integer ([#2841](https://github.com/GenericMappingTools/pygmt/pull/2841))
 * Set GMT_SESSION_NAME to a unique name on Windows for multiprocessing support ([#2938](https://github.com/GenericMappingTools/pygmt/pull/2938))
 * Improve the error messages for unsupported numpy dtypes ([#2856](https://github.com/GenericMappingTools/pygmt/pull/2856))
-* Improve performance by avoiding loading the GMT library repeatedly ([#2930](https://github.com/GenericMappingTools/pygmt/pull/2930))
 * Figure.savefig: Support uppercase file extensions (e.g., PNG, PDF) ([#2697](https://github.com/GenericMappingTools/pygmt/pull/2697))
 * Figure.savefig: Support .jpeg as JPEG image extension ([#2691](https://github.com/GenericMappingTools/pygmt/pull/2691))
 * Figure.coast: Add alias "box" for "-F" ([#2823](https://github.com/GenericMappingTools/pygmt/pull/2823))
@@ -59,11 +55,9 @@
 * Figure.shift_origin: Improve docstrings, add inline examples and add type hints ([#2879](https://github.com/GenericMappingTools/pygmt/pull/2879))
 * Figure.plot: Update docstring for "connection" parameter to GMT 6.5 ([#2994](https://github.com/GenericMappingTools/pygmt/pull/2994))
 * Add the Japanese "PyGMT-HOWTO" tutorial to "External Resources" ([#2743](https://github.com/GenericMappingTools/pygmt/pull/2743))
-* Add gallery example showing usage of polygon objects from a geopandas.GeoDataFrame (choropleth map) ([#2796](https://github.com/GenericMappingTools/pygmt/pull/2796))
 * Add gallery example showing how to adjust line segment ends (caps and joints) ([#3015](https://github.com/GenericMappingTools/pygmt/pull/3015))
 * Add gallery example for plotting connection lines ("connection" parameter of Figure.plot) ([#2999](https://github.com/GenericMappingTools/pygmt/pull/2999))
 * Add gallery example "Scale bar" ([#2822](https://github.com/GenericMappingTools/pygmt/pull/2822))
-* Add a tutorial for working with table inputs in PyGMT ([#2722](https://github.com/GenericMappingTools/pygmt/pull/2722))
 
 ### Maintenance
 
