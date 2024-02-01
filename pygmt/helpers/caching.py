@@ -65,6 +65,9 @@ def cache_data():
         # Moon relief grids
         "@moon_relief_01d_g",
         "@N00W030.moon_relief_01m_p.nc",  # Specific grid for 01m test
+        # Pluto relief grids
+        "@pluto_relief_01d_g",
+        "@N00W030.pluto_relief_01m_p.nc",  # Specific grid for 01m test
         # Venus relief grids
         "@venus_relief_01d_g",
         "@N00W030.venus_relief_01m_g.nc",  # Specific grid for 01m test
