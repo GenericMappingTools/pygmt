@@ -31,6 +31,23 @@ Maps and map elements
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as polygons which are sto...">
+
+.. only:: html
+
+  .. image:: /gallery/maps/images/thumb/sphx_glr_choropleth_map_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_maps_choropleth_map.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Choropleth map</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The land and water parameters of pygmt.Figure.coast specify a color to fill in the land and wat...">
 
 .. only:: html
@@ -48,7 +65,7 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Highlight country, continent and state polygons">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.coast method can highlight country polygons via the dcw parameter. It accepts ...">
 
 .. only:: html
 
@@ -76,7 +93,7 @@ Maps and map elements
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Political Boundaries</div>
+      <div class="sphx-glr-thumbnail-title">Political boundaries</div>
     </div>
 
 
@@ -99,7 +116,7 @@ Maps and map elements
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Tile maps">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.tilemap method allows to plot tiles from a tile server or local file as a base...">
 
 .. only:: html
 
@@ -122,6 +139,7 @@ Maps and map elements
 .. toctree::
    :hidden:
 
+   /gallery/maps/choropleth_map
    /gallery/maps/land_and_water
    /gallery/maps/country_polygons
    /gallery/maps/borders
@@ -157,7 +175,24 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Decorated lines">
+    <div class="sphx-glr-thumbcontainer" tooltip="The connection parameter of the pygmt.Figure.plot method allows to plot connection lines betwee...">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_connection_lines_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_connection_lines.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Connection lines</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="To draw a so-called decorated line, i.e., symbols along a line or curve, use the style paramete...">
 
 .. only:: html
 
@@ -174,7 +209,7 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Envelope">
+    <div class="sphx-glr-thumbcontainer" tooltip="The close parameter of the pygmt.Figure.plot method can be used to build a symmetrical or an as...">
 
 .. only:: html
 
@@ -242,6 +277,23 @@ Lines and vectors
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Line segment caps and joints">
+
+.. only:: html
+
+  .. image:: /gallery/lines/images/thumb/sphx_glr_line_segment_ends_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_lines_line_segment_ends.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Line segment caps and joints</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot lines in different styles. The default line style is a 0....">
 
 .. only:: html
@@ -259,7 +311,7 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Quoted lines">
+    <div class="sphx-glr-thumbcontainer" tooltip="To plot a so-called quoted line, i.e., labels along a line or curve, use the style parameter of...">
 
 .. only:: html
 
@@ -276,7 +328,7 @@ Lines and vectors
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Roads">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows us to plot geographical data such as lines which are stored...">
 
 .. only:: html
 
@@ -334,11 +386,13 @@ Lines and vectors
    :hidden:
 
    /gallery/lines/vector_styles
+   /gallery/lines/connection_lines
    /gallery/lines/decorated_lines
    /gallery/lines/envelope
    /gallery/lines/great_circles
    /gallery/lines/line_custom_cpt
    /gallery/lines/linefronts
+   /gallery/lines/line_segment_ends
    /gallery/lines/linestyles
    /gallery/lines/quoted_lines
    /gallery/lines/roads
@@ -385,13 +439,13 @@ Symbols and markers
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Bit and Hachure Patterns</div>
+      <div class="sphx-glr-thumbnail-title">Bit and hachure patterns</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Color points by categories">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can be used to plot symbols which are color-coded by categories. I...">
 
 .. only:: html
 
@@ -510,7 +564,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Text symbols">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method allows to plot text symbols. Text is normally placed with the pygm...">
 
 .. only:: html
 
@@ -527,7 +581,7 @@ Symbols and markers
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Vertical or horizontal bars">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corres...">
 
 .. only:: html
 
@@ -574,7 +628,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown bel...">
 
 .. only:: html
 
@@ -591,7 +645,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="- azimuth: to set the illumination light source direction (0° is North,   90° is East, 180° is ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradi...">
 
 .. only:: html
 
@@ -608,7 +662,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown b...">
 
 .. only:: html
 
@@ -625,7 +679,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="#. x, y, z 1-D numpy.ndarray data columns. #. data 2-D numpy.ndarray data matrix with 3 columns...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.contour method can plot contour lines from a table of points by direct triangu...">
 
 .. only:: html
 
@@ -642,7 +696,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Create &#x27;wet-dry&#x27; mask grid">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdlandmask function allows setting all nodes on land or water to a specified value u...">
 
 .. only:: html
 
@@ -659,7 +713,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china...">
+    <div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a d...">
 
 .. only:: html
 
@@ -676,7 +730,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Images on figures">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.image method can be used to read and place an image file in many formats (e.g....">
 
 .. only:: html
 
@@ -693,7 +747,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The example below shows a Worldview 2 satellite image over Lāhainā, Hawaiʻi during the August 2...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.grdimage method can be used to plot Red, Green, Blue (RGB) images, or any 3-ba...">
 
 .. only:: html
 
@@ -704,7 +758,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">RGB Image</div>
+      <div class="sphx-glr-thumbnail-title">RGB image</div>
     </div>
 
 
@@ -766,7 +820,7 @@ Images, contours, and fields
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
+      <div class="sphx-glr-thumbnail-title">3-D scatter plots</div>
     </div>
 
 
@@ -882,7 +936,7 @@ Base maps
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.ternary method can draw ternary diagrams. The example shows how to plot circle...">
 
 .. only:: html
 
@@ -920,7 +974,7 @@ Histograms
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Blockmean">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimension...">
 
 .. only:: html
 
@@ -937,7 +991,7 @@ Histograms
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Histogram">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.histogram method can plot regular histograms. Using the series parameter allow...">
 
 .. only:: html
 
@@ -971,7 +1025,7 @@ Histograms
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Scatter plot with histograms">
+    <div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot...">
 
 .. only:: html
 
@@ -1011,7 +1065,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. We must specify the colormap via the...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.colorbar method creates a color scalebar. The colormap is set via the cmap par...">
 
 .. only:: html
 
@@ -1113,7 +1167,7 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Multiple colormaps">
+    <div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better u...">
 
 .. only:: html
 
@@ -1130,7 +1184,24 @@ Plot embellishments
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Timestamp">
+    <div class="sphx-glr-thumbcontainer" tooltip="The map_scale parameter of the pygmt.Figure.basemap and pygmt.Figure.coast methods is used to a...">
+
+.. only:: html
+
+  .. image:: /gallery/embellishments/images/thumb/sphx_glr_scalebar_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_gallery_embellishments_scalebar.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Scale bar</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp wi...">
 
 .. only:: html
 
@@ -1160,6 +1231,7 @@ Plot embellishments
    /gallery/embellishments/legend
    /gallery/embellishments/logo
    /gallery/embellishments/colorbars_multiple
+   /gallery/embellishments/scalebar
    /gallery/embellishments/timestamp
 
 

@@ -19,7 +19,8 @@
 
 
 Color points by categories
----------------------------
+==========================
+
 The :meth:`pygmt.Figure.plot` method can be used to plot symbols which are
 color-coded by categories. In the example below, we show how the
 `Palmer Penguins dataset <https://github.com/allisonhorst/palmerpenguins>`__
@@ -29,7 +30,7 @@ the "species" column directly to the ``color`` parameter via
 ``cmap=True``. A desired colormap can be selected via the :func:`pygmt.makecpt`
 function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-96
+.. GENERATED FROM PYTHON SOURCE LINES 16-98
 
 
 
@@ -42,8 +43,7 @@ function.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pandas as pd
     import pygmt
@@ -131,7 +131,7 @@ function.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.968 seconds)
+   **Total running time of the script:** (0 minutes 0.304 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_categorical.py:
@@ -140,16 +140,13 @@ function.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: points_categorical.ipynb <points_categorical.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: points_categorical.py <points_categorical.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: points_categorical.ipynb <points_categorical.ipynb>`
 
 
 .. only:: html

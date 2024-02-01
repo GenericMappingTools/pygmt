@@ -19,12 +19,13 @@
 
 
 Create 'wet-dry' mask grid
---------------------------
+==========================
+
 The :func:`pygmt.grdlandmask` function allows setting
 all nodes on land or water to a specified value using
 the ``maskvalues`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-36
+.. GENERATED FROM PYTHON SOURCE LINES 11-38
 
 
 
@@ -47,8 +48,7 @@ the ``maskvalues`` parameter.
 
 |
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -81,7 +81,7 @@ the ``maskvalues`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.794 seconds)
+   **Total running time of the script:** (0 minutes 0.191 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdlandmask.py:
@@ -90,16 +90,13 @@ the ``maskvalues`` parameter.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: grdlandmask.ipynb <grdlandmask.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdlandmask.py <grdlandmask.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: grdlandmask.ipynb <grdlandmask.ipynb>`
 
 
 .. only:: html

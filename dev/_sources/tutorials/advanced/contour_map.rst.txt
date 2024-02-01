@@ -23,10 +23,9 @@ Creating a map with contour lines
 
 Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-13
+.. GENERATED FROM PYTHON SOURCE LINES 9-15
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -40,7 +39,8 @@ Plotting a contour map is handled by :meth:`pygmt.Figure.grdcontour`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-25
+
+.. GENERATED FROM PYTHON SOURCE LINES 16-26
 
 Create contour plot
 -------------------
@@ -53,14 +53,15 @@ with an annotated contour line every 1,000 meters.
 By default, it plots the map with the
 equidistant cylindrical projection and with no frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-30
+.. GENERATED FROM PYTHON SOURCE LINES 26-32
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.grdcontour(grid=grid)
     fig.show()
+
 
 
 
@@ -74,7 +75,7 @@ equidistant cylindrical projection and with no frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-37
+.. GENERATED FROM PYTHON SOURCE LINES 33-39
 
 Contour line settings
 ---------------------
@@ -83,9 +84,9 @@ Use the ``annotation`` and ``interval`` parameters to adjust contour line
 intervals. In the example below, there are contour intervals every 250 meters
 and annotated contour lines every 1,000 meters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-46
+.. GENERATED FROM PYTHON SOURCE LINES 39-49
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -99,6 +100,7 @@ and annotated contour lines every 1,000 meters.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_contour_map_002.png
    :alt: contour map
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_002.png
@@ -108,7 +110,7 @@ and annotated contour lines every 1,000 meters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-53
+.. GENERATED FROM PYTHON SOURCE LINES 50-56
 
 Contour limits
 --------------
@@ -117,9 +119,9 @@ The ``limit`` parameter sets the minimum and maximum values for the contour
 lines. The parameter takes the low and high values, and is either a list (as
 below) or a string ``limit="-4000/-2000"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-63
+.. GENERATED FROM PYTHON SOURCE LINES 56-67
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -134,6 +136,7 @@ below) or a string ``limit="-4000/-2000"``.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_contour_map_003.png
    :alt: contour map
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_003.png
@@ -143,7 +146,7 @@ below) or a string ``limit="-4000/-2000"``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-69
+.. GENERATED FROM PYTHON SOURCE LINES 68-73
 
 Map settings
 ------------
@@ -151,9 +154,9 @@ Map settings
 The :meth:`pygmt.Figure.grdcontour` method accepts additional parameters,
 including setting the projection and frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-81
+.. GENERATED FROM PYTHON SOURCE LINES 73-86
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -170,6 +173,7 @@ including setting the projection and frame.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_contour_map_004.png
    :alt: contour map
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_004.png
@@ -179,7 +183,7 @@ including setting the projection and frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-92
+.. GENERATED FROM PYTHON SOURCE LINES 87-97
 
 Adding a colormap
 -----------------
@@ -192,9 +196,9 @@ final map. If the ``projection`` parameter is specified in the
 :meth:`pygmt.Figure.grdcontour` method. Finally, a colorbar is added using
 the :meth:`pygmt.Figure.colorbar` method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-108
+.. GENERATED FROM PYTHON SOURCE LINES 97-114
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -215,6 +219,7 @@ the :meth:`pygmt.Figure.colorbar` method.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_contour_map_005.png
    :alt: contour map
    :srcset: /tutorials/advanced/images/sphx_glr_contour_map_005.png
@@ -227,7 +232,7 @@ the :meth:`pygmt.Figure.colorbar` method.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.632 seconds)
+   **Total running time of the script:** (0 minutes 1.485 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_contour_map.py:
@@ -236,16 +241,13 @@ the :meth:`pygmt.Figure.colorbar` method.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: contour_map.ipynb <contour_map.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: contour_map.py <contour_map.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: contour_map.ipynb <contour_map.ipynb>`
 
 
 .. only:: html

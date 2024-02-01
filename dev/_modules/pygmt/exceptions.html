@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.exceptions &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/exceptions.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -162,49 +164,70 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="GMTError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTError.html#pygmt.exceptions.GMTError">[docs]</a><span class="k">class</span> <span class="nc">GMTError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="GMTError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTError.html#pygmt.exceptions.GMTError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for all GMT related errors.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTOSError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTOSError.html#pygmt.exceptions.GMTOSError">[docs]</a><span class="k">class</span> <span class="nc">GMTOSError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTOSError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTOSError.html#pygmt.exceptions.GMTOSError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTOSError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Unsupported operating system.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTCLibError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError">[docs]</a><span class="k">class</span> <span class="nc">GMTCLibError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTCLibError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibError.html#pygmt.exceptions.GMTCLibError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTCLibError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Error encountered when running a function from the GMT shared library.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTCLibNotFoundError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">GMTCLibNotFoundError</span><span class="p">(</span><span class="n">GMTCLibError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTCLibNotFoundError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTCLibNotFoundError</span><span class="p">(</span><span class="n">GMTCLibError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Could not find the GMT shared library.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTCLibNoSessionError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError">[docs]</a><span class="k">class</span> <span class="nc">GMTCLibNoSessionError</span><span class="p">(</span><span class="n">GMTCLibError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTCLibNoSessionError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTCLibNoSessionError</span><span class="p">(</span><span class="n">GMTCLibError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tried to access GMT API without a currently open GMT session.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTInvalidInput"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTInvalidInput.html#pygmt.exceptions.GMTInvalidInput">[docs]</a><span class="k">class</span> <span class="nc">GMTInvalidInput</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTInvalidInput">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTInvalidInput.html#pygmt.exceptions.GMTInvalidInput">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTInvalidInput</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>  <span class="c1"># noqa: N818</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Raised when the input of a function/method is invalid.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="GMTVersionError"><a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTVersionError.html#pygmt.exceptions.GMTVersionError">[docs]</a><span class="k">class</span> <span class="nc">GMTVersionError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GMTVersionError">
+<a class="viewcode-back" href="../../api/generated/pygmt.exceptions.GMTVersionError.html#pygmt.exceptions.GMTVersionError">[docs]</a>
+<span class="k">class</span> <span class="nc">GMTVersionError</span><span class="p">(</span><span class="n">GMTError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Raised when an incompatible version of GMT is being used.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<span class="k">class</span> <span class="nc">GMTImageComparisonFailure</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">):</span>
+
+<span class="k">class</span> <span class="nc">GMTImageComparisonFailure</span><span class="p">(</span><span class="ne">AssertionError</span><span class="p">):</span>  <span class="c1"># noqa: N818</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Raised when a comparison between two images fails.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -218,10 +241,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

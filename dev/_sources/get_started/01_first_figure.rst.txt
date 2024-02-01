@@ -21,21 +21,12 @@
 1. Making your first figure
 ===========================
 
-This tutorial page covers the basics of creating a figure using PyGMT - a
+This tutorial covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the :meth:`pygmt.Figure.coast` method for plotting. Later examples will
+the :meth:`pygmt.Figure.coast` method for plotting. Later tutorials will
 address other PyGMT methods.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-18
-
-Setting up the development environment
---------------------------------------
-
-PyGMT can be used in both a Python script and a notebook environment, such
-as Jupyter. The tutorial's recommended method is to use a notebook, and the
-code will be for a notebook environment.
-
-.. GENERATED FROM PYTHON SOURCE LINES 21-26
+.. GENERATED FROM PYTHON SOURCE LINES 12-17
 
 Loading the library
 -------------------
@@ -43,9 +34,9 @@ Loading the library
 The first step is to import :mod:`pygmt`. All methods and figure generation
 are accessible from the :mod:`pygmt` top level package.
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-29
+.. GENERATED FROM PYTHON SOURCE LINES 17-20
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import pygmt
@@ -57,7 +48,7 @@ are accessible from the :mod:`pygmt` top level package.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-36
+.. GENERATED FROM PYTHON SOURCE LINES 21-26
 
 Creating a figure
 -----------------
@@ -65,9 +56,9 @@ Creating a figure
 All figure generation in PyGMT is handled by the :class:`pygmt.Figure` class.
 Start a new figure by creating an instance of this class:
 
-.. GENERATED FROM PYTHON SOURCE LINES 36-39
+.. GENERATED FROM PYTHON SOURCE LINES 26-29
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -79,7 +70,7 @@ Start a new figure by creating an instance of this class:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-61
+.. GENERATED FROM PYTHON SOURCE LINES 30-51
 
 To add elements to the figure instance or object (``fig`` in this example)
 different methods can be called on it. This example will use the
@@ -103,9 +94,9 @@ Boolean value ``True`` to the ``shorelines`` parameter. The ``shorelines``
 parameter has other options for finer control, but setting it to ``True``
 uses the default values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-64
+.. GENERATED FROM PYTHON SOURCE LINES 51-54
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
@@ -117,16 +108,17 @@ uses the default values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-66
+.. GENERATED FROM PYTHON SOURCE LINES 55-56
 
 To see the figure, call :meth:`pygmt.Figure.show`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-69
+.. GENERATED FROM PYTHON SOURCE LINES 56-60
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig.show()
+
 
 
 
@@ -140,7 +132,7 @@ To see the figure, call :meth:`pygmt.Figure.show`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-82
+.. GENERATED FROM PYTHON SOURCE LINES 61-73
 
 Color the land and water
 ------------------------
@@ -155,9 +147,9 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
 ``"0/0/255"``), a hex value (like ``"#333333"``), or a gray level (like
 ``"gray50"``). For this example, GMT color names are used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-92
+.. GENERATED FROM PYTHON SOURCE LINES 73-84
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -172,6 +164,7 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
 
 
 
+
 .. image-sg:: /get_started/images/sphx_glr_01_first_figure_002.png
    :alt: 01 first figure
    :srcset: /get_started/images/sphx_glr_01_first_figure_002.png
@@ -181,7 +174,7 @@ standard GMT color names (like ``"skyblue"``), R/G/B levels (like
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-109
+.. GENERATED FROM PYTHON SOURCE LINES 85-101
 
 Set the projection
 ------------------
@@ -200,9 +193,9 @@ The width of the figure will be 10 centimeters, as set by ``"10c"``.
 The map size can also be set in inches using "i" (e.g. a 5-inch wide
 Mercator projection would use ``"M5i"``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-120
+.. GENERATED FROM PYTHON SOURCE LINES 101-113
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -218,6 +211,7 @@ Mercator projection would use ``"M5i"``).
 
 
 
+
 .. image-sg:: /get_started/images/sphx_glr_01_first_figure_003.png
    :alt: 01 first figure
    :srcset: /get_started/images/sphx_glr_01_first_figure_003.png
@@ -227,7 +221,7 @@ Mercator projection would use ``"M5i"``).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-130
+.. GENERATED FROM PYTHON SOURCE LINES 114-123
 
 Add a frame
 -----------
@@ -239,9 +233,9 @@ annotate the latitude and longitude of the region.
 The ``frame`` parameter is used to add a frame to the figure. For now, it
 will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
-.. GENERATED FROM PYTHON SOURCE LINES 130-142
+.. GENERATED FROM PYTHON SOURCE LINES 123-136
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -258,6 +252,7 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
 
 
+
 .. image-sg:: /get_started/images/sphx_glr_01_first_figure_004.png
    :alt: 01 first figure
    :srcset: /get_started/images/sphx_glr_01_first_figure_004.png
@@ -267,7 +262,7 @@ will be set to ``"a"`` to **a**\ nnotate the axes automatically.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-153
+.. GENERATED FROM PYTHON SOURCE LINES 137-147
 
 Add a title
 -----------
@@ -280,9 +275,9 @@ To pass multiple arguments to ``frame``, a list can be used, as shown in the
 example below. This format uses ``frame`` to set both the axes annotations
 and the figure title.
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-165
+.. GENERATED FROM PYTHON SOURCE LINES 147-160
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -299,6 +294,7 @@ and the figure title.
 
 
 
+
 .. image-sg:: /get_started/images/sphx_glr_01_first_figure_005.png
    :alt: 01 first figure
    :srcset: /get_started/images/sphx_glr_01_first_figure_005.png
@@ -308,7 +304,7 @@ and the figure title.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-184
+.. GENERATED FROM PYTHON SOURCE LINES 161-179
 
 Additional exercises
 --------------------
@@ -332,7 +328,7 @@ for the concepts that were discussed:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.493 seconds)
+   **Total running time of the script:** (0 minutes 1.036 seconds)
 
 
 .. _sphx_glr_download_get_started_01_first_figure.py:
@@ -341,16 +337,13 @@ for the concepts that were discussed:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 01_first_figure.ipynb <01_first_figure.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 01_first_figure.py <01_first_figure.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 01_first_figure.ipynb <01_first_figure.ipynb>`
 
 
 .. only:: html

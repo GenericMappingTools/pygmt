@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.coast &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/coast.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -174,20 +176,21 @@
 
 <span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
-    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
-    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;area_thresh&quot;</span><span class="p">,</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;lakes&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;lakes&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span>
     <span class="n">E</span><span class="o">=</span><span class="s2">&quot;dcw&quot;</span><span class="p">,</span>
+    <span class="n">F</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
+    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;land&quot;</span><span class="p">,</span>
     <span class="n">I</span><span class="o">=</span><span class="s2">&quot;rivers&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;map_scale&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;borders&quot;</span><span class="p">,</span>
-    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;shorelines&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;land&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
     <span class="n">S</span><span class="o">=</span><span class="s2">&quot;water&quot;</span><span class="p">,</span>
     <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">W</span><span class="o">=</span><span class="s2">&quot;shorelines&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;panel&quot;</span><span class="p">,</span>
     <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
@@ -238,7 +241,7 @@
 <span class="sd">        and (**c**\ )rude.</span>
 <span class="sd">    land : str</span>
 <span class="sd">        Select filling or clipping of &quot;dry&quot; areas.</span>
-<span class="sd">    rivers : int or str or list</span>
+<span class="sd">    rivers : int, str, or list</span>
 <span class="sd">        *river*\ [/*pen*].</span>
 <span class="sd">        Draw rivers. Specify the type of rivers and [optionally] append</span>
 <span class="sd">        pen attributes [Default is ``&quot;0.25p,black,solid&quot;``].</span>
@@ -285,7 +288,25 @@
 <span class="sd">        [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\</span>
 <span class="sd">        **+w**\ *length*.</span>
 <span class="sd">        Draw a simple map scale centered on the reference point specified.</span>
-<span class="sd">    borders : int or str or list</span>
+<span class="sd">    box : bool or str</span>
+<span class="sd">        [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\</span>
+<span class="sd">        [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].</span>
+<span class="sd">        If set to ``True``, draw a rectangular border around the</span>
+<span class="sd">        map scale or rose. Alternatively, specify a different pen with</span>
+<span class="sd">        **+p**\ *pen*. Add **+g**\ *fill* to fill the scale panel [Default is</span>
+<span class="sd">        no fill]. Append **+c**\ *clearance* where *clearance* is either gap,</span>
+<span class="sd">        xgap/ygap, or lgap/rgap/bgap/tgap where these items are uniform,</span>
+<span class="sd">        separate in x- and y-direction, or individual side spacings between</span>
+<span class="sd">        scale and border. Append **+i** to draw a secondary, inner border as</span>
+<span class="sd">        well. We use a uniform gap between borders of 2p and the</span>
+<span class="sd">        :gmt-term:`MAP_DEFAULTS_PEN` unless other values are specified. Append</span>
+<span class="sd">        **+r** to draw rounded rectangular borders instead, with a 6p corner</span>
+<span class="sd">        radius. You can override this radius by appending another value.</span>
+<span class="sd">        Finally, append **+s** to draw an offset background shaded region.</span>
+<span class="sd">        Here, *dx/dy* indicates the shift relative to the foreground frame</span>
+<span class="sd">        [Default is ``&quot;4p/-4p&quot;``] and shade sets the fill style to use for</span>
+<span class="sd">        shading [Default is ``&quot;gray50&quot;``].</span>
+<span class="sd">    borders : int, str, or list</span>
 <span class="sd">        *border*\ [/*pen*].</span>
 <span class="sd">        Draw political boundaries. Specify the type of boundary and</span>
 <span class="sd">        [optionally] append pen attributes</span>
@@ -303,7 +324,7 @@
 <span class="sd">        a = All boundaries (1-3)</span>
 <span class="sd">    water : str</span>
 <span class="sd">        Select filling or clipping of &quot;wet&quot; areas.</span>
-<span class="sd">    shorelines : int or str or list</span>
+<span class="sd">    shorelines : int, str, or list</span>
 <span class="sd">        [*level*\ /]\ *pen*.</span>
 <span class="sd">        Draw shorelines [Default is no shorelines]. Append pen attributes</span>
 <span class="sd">        [Default is ``&quot;0.25p,black,solid&quot;``] which</span>
@@ -358,7 +379,7 @@
 <span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;At least one of the following parameters must be specified:</span>
@@ -376,10 +397,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

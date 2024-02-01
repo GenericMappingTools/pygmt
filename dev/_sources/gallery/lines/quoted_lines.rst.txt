@@ -19,7 +19,8 @@
 
 
 Quoted lines
-------------
+============
+
 To plot a so-called *quoted line*, i.e., labels along a line
 or curve, use the ``style`` parameter of the
 :meth:`pygmt.Figure.plot` method with the argument ``"q"`` and the
@@ -29,12 +30,11 @@ This example shows how to adjust the labels.
 For modifying the main quoted line via the ``pen`` parameter,
 see the :doc:`Line styles example </gallery/lines/linestyles>`.
 For details on the input data see the upstream GMT documentation
-at https://docs.generic-mapping-tools.org/latest/plot.html#s.
+at :gmt-docs:`plot.html#s`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-74
+.. GENERATED FROM PYTHON SOURCE LINES 18-75
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -96,7 +96,6 @@ at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 
 
 
-
 .. image-sg:: /gallery/lines/images/sphx_glr_quoted_lines_001.png
    :alt: quoted lines
    :srcset: /gallery/lines/images/sphx_glr_quoted_lines_001.png
@@ -106,14 +105,14 @@ at https://docs.generic-mapping-tools.org/latest/plot.html#s.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-77
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 For curved labels following the line, append ``"+v"`` to the argument passed
 to the ``style`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-97
+.. GENERATED FROM PYTHON SOURCE LINES 78-98
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Generate sinus curve
@@ -150,7 +149,7 @@ to the ``style`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.578 seconds)
+   **Total running time of the script:** (0 minutes 1.189 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_quoted_lines.py:
@@ -159,16 +158,13 @@ to the ``style`` parameter.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: quoted_lines.ipynb <quoted_lines.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: quoted_lines.py <quoted_lines.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: quoted_lines.ipynb <quoted_lines.ipynb>`
 
 
 .. only:: html

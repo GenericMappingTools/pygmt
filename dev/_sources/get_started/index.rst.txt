@@ -3,20 +3,18 @@
 Intro to PyGMT
 ==============
 
-Welcome to PyGMT! This tutorial is designed to teach the basic concepts to
-make a map in PyGMT.
+Welcome to PyGMT! The tutorials in this intro are designed to teach basic
+concepts to create maps in PyGMT.
 
-**About this tutorial**
+**About this intro**
 
-This tutorial assumes that PyGMT has been successfully
-:doc:`installed </install>`. A quick way to test this is to  type
-``import pygmt`` in a Python IDE or
-`Jupyter <https://jupyter.org>`__ Notebook.
+It is assumed that PyGMT has been successfully :doc:`installed </install>`
+on your system. To test this, run ``import pygmt`` in a Python IDE or
+`Jupyter <https://jupyter.org>`__ notebook.
 
-This tutorial will progressively cover PyGMT plotting concepts, and later
-examples will use concepts explained in previous examples. It will not
-cover all PyGMT methods.
-
+This intro will progressively cover PyGMT data manipulation and plotting
+concepts, and later tutorials will use concepts explained in previous ones.
+It will not cover all PyGMT functions and methods.
 
 
 
@@ -27,7 +25,7 @@ cover all PyGMT methods.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure using PyGMT - a Python wrapper for th...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial covers the basics of creating a figure using PyGMT - a Python wrapper for the Gen...">
 
 .. only:: html
 
@@ -44,7 +42,7 @@ cover all PyGMT methods.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of Earth relief, using a remote datas...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial page covers the basics of creating a figure of the Earth relief, using a remote d...">
 
 .. only:: html
 
@@ -61,7 +59,7 @@ cover all PyGMT methods.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="- pygmt.Figure(): having a number of plotting methods. Every new   figure must start with the c...">
+    <div class="sphx-glr-thumbcontainer" tooltip="The figure below shows the naming of figure elements in PyGMT.">
 
 .. only:: html
 
@@ -78,6 +76,23 @@ cover all PyGMT methods.
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Generally, PyGMT accepts two different types of data inputs: tables and grids.">
+
+.. only:: html
+
+  .. image:: /get_started/images/thumb/sphx_glr_04_table_inputs_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_get_started_04_table_inputs.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">4. PyGMT I/O: Table inputs</div>
+    </div>
+
+
+.. raw:: html
+
     </div>
 
 
@@ -87,6 +102,7 @@ cover all PyGMT methods.
    /get_started/01_first_figure
    /get_started/02_contour_map
    /get_started/03_figure_element
+   /get_started/04_table_inputs
 
 
 

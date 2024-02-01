@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.datasets.samples &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/samples.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -158,7 +160,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Functions to load sample data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">NamedTuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NamedTuple</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
@@ -183,7 +185,7 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
         <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
         <span class="n">names</span><span class="o">=</span><span class="p">[</span>
             <span class="s2">&quot;year&quot;</span><span class="p">,</span>
             <span class="s2">&quot;month&quot;</span><span class="p">,</span>
@@ -198,8 +200,7 @@
 
 <span class="k">def</span> <span class="nf">_load_ocean_ridge_points</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load a table of ocean ridge points for the entire world as a</span>
-<span class="sd">    pandas.DataFrame.</span>
+<span class="sd">    Load a table of ocean ridge points for the entire world as a pandas.DataFrame.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -209,7 +210,7 @@
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ridge.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
-        <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
         <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">],</span>
         <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
@@ -227,7 +228,6 @@
 <span class="sd">        The data table. The column names are &quot;longitude&quot;, &quot;latitude&quot;,</span>
 <span class="sd">        and &quot;bathymetry&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@tut_ship.xyz&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">,</span> <span class="s2">&quot;latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;bathymetry&quot;</span><span class="p">]</span>
@@ -250,27 +250,24 @@
 
 <span class="k">def</span> <span class="nf">_load_fractures_compilation</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load a table of fracture lengths and azimuths as hypothetically digitized</span>
-<span class="sd">    from geological maps as a pandas.DataFrame.</span>
+<span class="sd">    Load a table of fracture lengths and azimuths as hypothetically digitized from</span>
+<span class="sd">    geological maps as a pandas.DataFrame.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    data : pandas.DataFrame</span>
-<span class="sd">        The data table. The column names are &quot;length&quot; and</span>
-<span class="sd">        &quot;azimuth&quot; of the fractures.</span>
+<span class="sd">        The data table. The column names are &quot;length&quot; and &quot;azimuth&quot; of</span>
+<span class="sd">        the fractures.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@fractures_06.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-        <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">]</span>
-    <span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;length&quot;</span><span class="p">,</span> <span class="s2">&quot;azimuth&quot;</span><span class="p">]]</span>
 
 
 <span class="k">def</span> <span class="nf">_load_hotspots</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load a table with the locations, names, and suggested symbol sizes of</span>
-<span class="sd">    hotspots as a pandas.DataFrame.</span>
+<span class="sd">    Load a table with the locations, names, and suggested symbol sizes of hotspots as a</span>
+<span class="sd">    pandas.DataFrame.</span>
 
 <span class="sd">    The data are from Mueller, Royer, and Lawver, 1993, Geology, vol. 21,</span>
 <span class="sd">    pp. 275-278. The main 5 hotspots used by Doubrovine et al. [2012]</span>
@@ -323,11 +320,10 @@
 <span class="sd">        The data table with columns &quot;limestone&quot;, &quot;water&quot;, &quot;air&quot;,</span>
 <span class="sd">        and &quot;permittivity&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@ternary.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="n">fname</span><span class="p">,</span>
-        <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span>
         <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;limestone&quot;</span><span class="p">,</span> <span class="s2">&quot;water&quot;</span><span class="p">,</span> <span class="s2">&quot;air&quot;</span><span class="p">,</span> <span class="s2">&quot;permittivity&quot;</span><span class="p">],</span>
     <span class="p">)</span>
@@ -343,7 +339,7 @@
 <span class="sd">        The data table with columns &quot;x&quot;, &quot;y&quot;, and &quot;z&quot;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@Table_5_11.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">_load_maunaloa_co2</span><span class="p">():</span>
@@ -357,7 +353,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fname</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="s2">&quot;@MaunaLoa_CO2.txt&quot;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-        <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;co2_ppm&quot;</span><span class="p">]</span>
+        <span class="n">fname</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;\s+&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="s2">&quot;co2_ppm&quot;</span><span class="p">]</span>
     <span class="p">)</span>
 
 
@@ -441,7 +437,9 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="list_sample_data"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.list_sample_data.html#pygmt.datasets.list_sample_data">[docs]</a><span class="k">def</span> <span class="nf">list_sample_data</span><span class="p">():</span>
+<div class="viewcode-block" id="list_sample_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.list_sample_data.html#pygmt.datasets.list_sample_data">[docs]</a>
+<span class="k">def</span> <span class="nf">list_sample_data</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Report datasets available for tests and documentation examples.</span>
 
@@ -457,8 +455,24 @@
     <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">description</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
-<div class="viewcode-block" id="load_sample_data"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data">[docs]</a><span class="k">def</span> <span class="nf">load_sample_data</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="c1"># pylint: disable=line-too-long</span>
+
+<div class="viewcode-block" id="load_sample_data">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_sample_data.html#pygmt.datasets.load_sample_data">[docs]</a>
+<span class="k">def</span> <span class="nf">load_sample_data</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span>
+        <span class="s2">&quot;bathymetry&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;earth_relief_holes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fractures&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hotspots&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;japan_quakes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mars_shape&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maunaloa_co2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;notre_dame_topography&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ocean_ridge_points&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rock_compositions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;usgs_quakes&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load an example dataset from the GMT server.</span>
 
@@ -468,14 +482,14 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    name : str</span>
+<span class="sd">    name</span>
 <span class="sd">        Name of the dataset to load.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    :class:`pandas.DataFrame` or :class:`xarray.DataArray`</span>
-<span class="sd">        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data or</span>
-<span class="sd">        :class:`xarray.DataArray` for raster data.</span>
+<span class="sd">        Sample dataset loaded as a :class:`pandas.DataFrame` for tabular data</span>
+<span class="sd">        or :class:`xarray.DataArray` for raster data.</span>
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
@@ -488,7 +502,7 @@
 <span class="sd">    &gt;&gt;&gt; from pprint import pprint</span>
 <span class="sd">    &gt;&gt;&gt; from pygmt.datasets import list_sample_data, load_sample_data</span>
 <span class="sd">    &gt;&gt;&gt; # use list_sample_data to see the available datasets</span>
-<span class="sd">    &gt;&gt;&gt; pprint(list_sample_data(), width=120)  # noqa: W505</span>
+<span class="sd">    &gt;&gt;&gt; pprint(list_sample_data(), width=120)</span>
 <span class="sd">    {&#39;bathymetry&#39;: &#39;Table of ship bathymetric observations off Baja California&#39;,</span>
 <span class="sd">     &#39;earth_relief_holes&#39;: &#39;Regional 20 arc-minutes Earth relief grid with holes&#39;,</span>
 <span class="sd">     &#39;fractures&#39;: &#39;Table of hypothetical fracture lengths and azimuths&#39;,</span>
@@ -502,10 +516,11 @@
 <span class="sd">     &#39;usgs_quakes&#39;: &#39;Table of earthquakes from the USGS&#39;}</span>
 <span class="sd">    &gt;&gt;&gt; # load the sample bathymetry dataset</span>
 <span class="sd">    &gt;&gt;&gt; data = load_sample_data(&quot;bathymetry&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: W505</span>
     <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid dataset name &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">datasets</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">func</span><span class="p">()</span></div>
+
 </pre></div>
 
            </div>
@@ -516,10 +531,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

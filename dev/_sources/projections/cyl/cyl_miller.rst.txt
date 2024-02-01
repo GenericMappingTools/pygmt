@@ -25,7 +25,7 @@ This cylindrical projection, presented by Osborn Maitland Miller of the
 American Geographic Society in 1942, is neither equal nor conformal. All
 meridians and parallels are straight lines. The projection was designed to be a
 compromise between Mercator and other cylindrical projections. Specifically,
-Miller spaced the parallels by using Mercator’s formula with 0.8 times the
+Miller spaced the parallels by using Mercator's formula with 0.8 times the
 actual latitude, thus avoiding the singular poles; the result was then divided
 by 0.8.
 
@@ -34,7 +34,7 @@ by 0.8.
 The projection is set with **j** or **J**. The central meridian is set by the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+.. GENERATED FROM PYTHON SOURCE LINES 20-32
 
 
 
@@ -47,7 +47,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -65,7 +65,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.523 seconds)
+   **Total running time of the script:** (0 minutes 0.232 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_miller.py:
@@ -74,16 +74,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_miller.ipynb <cyl_miller.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_miller.py <cyl_miller.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_miller.ipynb <cyl_miller.ipynb>`
 
 
 .. only:: html

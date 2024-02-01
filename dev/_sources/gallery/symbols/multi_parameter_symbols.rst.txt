@@ -19,7 +19,7 @@
 
 
 Multi-parameter symbols
--------------------------
+=======================
 
 The :meth:`pygmt.Figure.plot` method can plot individual multi-parameter
 symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
@@ -31,11 +31,9 @@ symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
 - **R**: rounded rectangle
 - **w**: pie wedge
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-20
+.. GENERATED FROM PYTHON SOURCE LINES 18-20
 
-.. code-block:: default
-
-
+.. code-block:: Python
 
     import pygmt
 
@@ -46,7 +44,7 @@ symbols by passing the corresponding shortcuts (**e**, **j**, **r**, **R**,
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-38
+.. GENERATED FROM PYTHON SOURCE LINES 21-37
 
 We can plot multi-parameter symbols using the same symbol style. We need to
 define locations (lon, lat) via the ``x`` and ``y`` parameters (scalar for
@@ -65,9 +63,9 @@ The multi-parameter symbols in the ``style`` parameter are defined as:
 Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and
 **w** but expect geographic azimuths and distances.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-55
+.. GENERATED FROM PYTHON SOURCE LINES 37-54
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -98,7 +96,7 @@ Upper-case versions **E**, **J**, and **W** are similar to **e**, **j**, and
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-70
+.. GENERATED FROM PYTHON SOURCE LINES 55-69
 
 We can also plot symbols with varying parameters via defining those values in
 a 2-D list or numpy array (``[[parameters]]`` for a single symbol or
@@ -115,9 +113,9 @@ The symbol parameters in the 2-D list or numpy array are defined as:
   two arguments are directions given in degrees counter-clockwise from
   horizontal
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-91
+.. GENERATED FROM PYTHON SOURCE LINES 69-91
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -143,6 +141,7 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
 
 
+
 .. image-sg:: /gallery/symbols/images/sphx_glr_multi_parameter_symbols_002.png
    :alt: multi parameter symbols
    :srcset: /gallery/symbols/images/sphx_glr_multi_parameter_symbols_002.png
@@ -155,7 +154,7 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.845 seconds)
+   **Total running time of the script:** (0 minutes 0.416 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_multi_parameter_symbols.py:
@@ -164,16 +163,13 @@ The symbol parameters in the 2-D list or numpy array are defined as:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: multi_parameter_symbols.ipynb <multi_parameter_symbols.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: multi_parameter_symbols.py <multi_parameter_symbols.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: multi_parameter_symbols.ipynb <multi_parameter_symbols.ipynb>`
 
 
 .. only:: html

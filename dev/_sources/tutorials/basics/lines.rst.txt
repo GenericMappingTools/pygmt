@@ -23,10 +23,9 @@ Plotting lines
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-10
+.. GENERATED FROM PYTHON SOURCE LINES 9-11
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -48,7 +47,7 @@ scales using ``region`` (in this case, each axis is 0-10). Pass a list of
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-30
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -81,7 +80,7 @@ Additional line segments can be added by including additional values for
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-45
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -113,9 +112,9 @@ To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
 additional line. Parameters such as ``region``, ``projection``, and ``frame``
 do not need to be repeated in subsequent uses.
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-62
+.. GENERATED FROM PYTHON SOURCE LINES 49-63
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -133,6 +132,7 @@ do not need to be repeated in subsequent uses.
 
 
 
+
 .. image-sg:: /tutorials/basics/images/sphx_glr_lines_003.png
    :alt: lines
    :srcset: /tutorials/basics/images/sphx_glr_lines_003.png
@@ -142,7 +142,7 @@ do not need to be repeated in subsequent uses.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-71
+.. GENERATED FROM PYTHON SOURCE LINES 64-72
 
 Change line attributes
 ----------------------
@@ -153,9 +153,9 @@ string argument with the optional values *width*,\ *color*,\ *style*.
 In the example below, the pen width is set to ``5p``, and with ``black`` as
 the default color and ``solid`` as the default style.
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-83
+.. GENERATED FROM PYTHON SOURCE LINES 72-84
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -181,14 +181,14 @@ the default color and ``solid`` as the default style.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 84-86
+.. GENERATED FROM PYTHON SOURCE LINES 85-87
 
 The line color can be set and is added after the line width to the ``pen``
 parameter. In the example below, the line color is set to ``red``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-98
+.. GENERATED FROM PYTHON SOURCE LINES 87-99
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -214,15 +214,15 @@ parameter. In the example below, the line color is set to ``red``.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-102
+.. GENERATED FROM PYTHON SOURCE LINES 100-103
 
 The line style can be set and is added after the line width or color to the
 ``pen`` parameter.  In the example below, the line style is set to
 ``..-`` (*dot dot dash*), and the default color ``black`` is used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-114
+.. GENERATED FROM PYTHON SOURCE LINES 103-115
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -248,7 +248,7 @@ The line style can be set and is added after the line width or color to the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 115-121
+.. GENERATED FROM PYTHON SOURCE LINES 116-122
 
 The line width, color, and style can all be set in the same ``pen``
 parameter. In the example below, the line width is set to ``7p``, the color
@@ -257,9 +257,9 @@ is set to ``green``, and the line style is ``-.-`` (*dash dot dash*).
 For a gallery showing other ``pen`` settings, see
 :doc:`/gallery/lines/linestyles`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-132
+.. GENERATED FROM PYTHON SOURCE LINES 122-134
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -275,6 +275,7 @@ For a gallery showing other ``pen`` settings, see
 
 
 
+
 .. image-sg:: /tutorials/basics/images/sphx_glr_lines_007.png
    :alt: lines
    :srcset: /tutorials/basics/images/sphx_glr_lines_007.png
@@ -287,7 +288,7 @@ For a gallery showing other ``pen`` settings, see
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.909 seconds)
+   **Total running time of the script:** (0 minutes 0.970 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_lines.py:
@@ -296,16 +297,13 @@ For a gallery showing other ``pen`` settings, see
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: lines.ipynb <lines.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: lines.py <lines.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: lines.ipynb <lines.ipynb>`
 
 
 .. only:: html

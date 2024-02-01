@@ -33,7 +33,7 @@ meridian).
 The projection is set with **i** or **I**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-23
+.. GENERATED FROM PYTHON SOURCE LINES 19-25
 
 
 
@@ -46,7 +46,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -58,7 +58,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.484 seconds)
+   **Total running time of the script:** (0 minutes 0.214 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_sinusoidal.py:
@@ -67,16 +67,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: misc_sinusoidal.ipynb <misc_sinusoidal.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_sinusoidal.py <misc_sinusoidal.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: misc_sinusoidal.ipynb <misc_sinusoidal.ipynb>`
 
 
 .. only:: html

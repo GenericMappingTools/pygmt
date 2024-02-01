@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Colorbar &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/embellishments/colorbar.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -112,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="legend.html">Legend</a></li>
 <li class="toctree-l3"><a class="reference internal" href="logo.html">Logo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="colorbars_multiple.html">Multiple colormaps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scalebar.html">Scale bar</a></li>
 <li class="toctree-l3"><a class="reference internal" href="timestamp.html">Timestamp</a></li>
 </ul>
 </li>
@@ -124,6 +126,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -195,12 +198,15 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="colorbar">
-<span id="sphx-glr-gallery-embellishments-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Permalink to this heading"></a></h1>
-<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar. We must
-specify the colormap via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter, and optionally set the
-placement via the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter. The full list of color palette tables
-can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html</a>. You can set the <code class="docutils literal notranslate"><span class="pre">position</span></code> of
-the colorbar using the following options:</p>
+<span id="sphx-glr-gallery-embellishments-colorbar-py"></span><h1>Colorbar<a class="headerlink" href="#colorbar" title="Link to this heading"></a></h1>
+<p>The <a class="reference internal" href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.colorbar</span></code></a> method creates a color scalebar.
+The colormap is set via the <code class="docutils literal notranslate"><span class="pre">cmap</span></code> parameter. A full list of available
+color palette tables can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/cpts.html">https://docs.generic-mapping-tools.org/6.5/reference/cpts.html</a>.
+Use the <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter to add labels to the <strong>x</strong> and <strong>y</strong> axes
+of the colorbar by appending <strong>+l</strong> followed by the desired text. To Add
+and adjust the annotations (<strong>a</strong>) and ticks (<strong>f</strong>) append the letter
+followed by the desired interval. The placement of the colorbar is set
+via the <code class="docutils literal notranslate"><span class="pre">position</span></code> parameter. There are the following options:</p>
 <ul class="simple">
 <li><p><strong>j/J</strong>: placed inside/outside the plot bounding box using any 2-character
 combination of vertical (<strong>T</strong>op, <strong>M</strong>iddle, <strong>B</strong>ottom) and
@@ -213,8 +219,9 @@ from anchor point.</p></li>
 <li><p><strong>n</strong>: using normalized (0-1) coordinates, e.g. <code class="docutils literal notranslate"><span class="pre">position=&quot;n0.4/0.8&quot;</span></code>.</p></li>
 </ul>
 <p>Note that the anchor point defaults to the bottom left (<strong>BL</strong>). Append <code class="docutils literal notranslate"><span class="pre">+h</span></code>
-to <code class="docutils literal notranslate"><span class="pre">position</span></code> to get a horizontal colorbar instead of a vertical one.</p>
-<img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+to <code class="docutils literal notranslate"><span class="pre">position</span></code> to get a horizontal colorbar instead of a vertical one
+(<code class="docutils literal notranslate"><span class="pre">+v</span></code>).</p>
+<img src="../../_images/sphx_glr_colorbar_001.png" srcset="../../_images/sphx_glr_colorbar_001.png" alt="colorbar" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;x3c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;af&quot;</span><span class="p">,</span> <span class="s2">&quot;WSne+tColorbars&quot;</span><span class="p">])</span>
@@ -222,7 +229,9 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
 <span class="c1"># ============</span>
 <span class="c1"># Create a colorbar designed for seismic tomography - roma</span>
 <span class="c1"># Colorbar is placed at bottom center (BC) by default if no position is given</span>
-<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;x+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
+<span class="c1"># Add quantity and unit as labels (&quot;+l&quot;) to the x and y axes</span>
+<span class="c1"># Add annotations (&quot;+a&quot;) in steps of 0.5 and ticks (&quot;+f&quot;) in steps of 0.1</span>
+<a href="../../api/generated/pygmt.Figure.colorbar.html#pygmt.Figure.colorbar" title="pygmt.Figure.colorbar" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span></a><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;roma&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;xa0.5f0.1+lVelocity&quot;</span><span class="p">,</span> <span class="s2">&quot;y+lm/s&quot;</span><span class="p">])</span>
 
 <span class="c1"># ============</span>
 <span class="c1"># Create a colorbar showing the scientific rainbow - batlow</span>
@@ -275,13 +284,13 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.836 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.168 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-embellishments-colorbar-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/edef33eec4c45691a58d918ed356bec2/colorbar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbar.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/ef6bc1f26c32366408d403de81db1e34/colorbar.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">colorbar.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/edef33eec4c45691a58d918ed356bec2/colorbar.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">colorbar.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -299,10 +308,10 @@ to <code class="docutils literal notranslate"><span class="pre">position</span><
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

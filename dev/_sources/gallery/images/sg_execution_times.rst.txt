@@ -6,24 +6,56 @@
 
 Computation times
 =================
-**00:21.734** total execution time for **gallery_images** files:
+**00:09.688** total execution time for 9 files **from gallery/images**:
 
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdgradient_shading.py` (``grdgradient_shading.py``) | 00:08.376 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)                         | 00:05.179 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_rgb_image.py` (``rgb_image.py``)                     | 00:01.914 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_cross_section.py` (``cross_section.py``)             | 00:01.598 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdgradient.py` (``grdgradient.py``)                 | 00:01.432 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``)           | 00:01.148 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_grdlandmask.py` (``grdlandmask.py``)                 | 00:00.794 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_image.py` (``image.py``)                             | 00:00.769 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)                       | 00:00.525 | 0.0 MB |
-+------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_images_grdgradient_shading.py` (``grdgradient_shading.py``)
+     - 00:04.032
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdclip.py` (``grdclip.py``)
+     - 00:02.565
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_rgb_image.py` (``rgb_image.py``)
+     - 00:01.155
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdgradient.py` (``grdgradient.py``)
+     - 00:00.456
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_image.py` (``image.py``)
+     - 00:00.377
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_track_sampling.py` (``track_sampling.py``)
+     - 00:00.377
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_cross_section.py` (``cross_section.py``)
+     - 00:00.310
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_contours.py` (``contours.py``)
+     - 00:00.225
+     - 0.0
+   * - :ref:`sphx_glr_gallery_images_grdlandmask.py` (``grdlandmask.py``)
+     - 00:00.191
+     - 0.0

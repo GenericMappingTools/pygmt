@@ -19,7 +19,7 @@
 
 
 Color land and water
---------------------
+====================
 
 The ``land`` and ``water`` parameters of :meth:`pygmt.Figure.coast` specify
 a color to fill in the land and water masses, respectively. There are many
@@ -27,7 +27,7 @@ a color to fill in the land and water masses, respectively. There are many
 names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
 (like ``"#333333"``), and a gray level (like ``"gray50"``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-19
+.. GENERATED FROM PYTHON SOURCE LINES 13-21
 
 
 
@@ -40,7 +40,7 @@ names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -54,7 +54,7 @@ names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.610 seconds)
+   **Total running time of the script:** (0 minutes 0.233 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_land_and_water.py:
@@ -63,16 +63,13 @@ names (like ``"skyblue"``), R/G/B levels (like ``"0/0/255"``), a hex value
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: land_and_water.ipynb <land_and_water.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: land_and_water.py <land_and_water.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: land_and_water.ipynb <land_and_water.ipynb>`
 
 
 .. only:: html

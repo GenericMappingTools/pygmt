@@ -4,16 +4,16 @@ Plotting vectors
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 """
-# sphinx_gallery_thumbnail_number = 6
 
+# %%
 import numpy as np
 import pygmt
 
-###############################################################################
+# %%
 # Plot Cartesian Vectors
 # ----------------------
 #
-# Create a simple Cartesian vector using a starting point through
+# Create a simple Cartesian vector using a start point through
 # ``x``, ``y``, and ``direction`` parameters.
 # On the shown figure, the plot is projected on a 10cm X 10cm region,
 # which is specified by the ``projection`` parameter.
@@ -43,7 +43,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In this example, we apply the same concept shown previously to plot multiple
 # vectors. Notice that instead of passing int/float to ``x`` and ``y``, a list
 # of all x and y coordinates will be passed. Similarly, the length of direction
@@ -69,7 +69,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The default unit of vector length is centimeters,
 # however, this can be changed to inches or points. Note that, in PyGMT,
 # one point is defined as 1/72 inch.
@@ -104,7 +104,7 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
     )
 fig.show()
 
-###############################################################################
+# %%
 # Vectors can also be plotted by including all the information
 # about a vector in a single list. However, this requires creating
 # a 2-D list or numpy array containing all vectors.
@@ -112,7 +112,7 @@ fig.show()
 # ``[x_start, y_start, direction_degrees, length]``.
 #
 # If this approach is chosen, the ``data`` parameter must be
-# used instead of ``x``, ``y`` and  ``direction``.
+# used instead of ``x``, ``y``, and ``direction``.
 
 # Create a list of lists that include each vector information
 vectors = [[2, 3, 45, 4]]
@@ -129,7 +129,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Using the functionality mentioned in the previous example,
 # multiple vectors can be plotted at the same time. Another
 # vector could be simply added to the 2-D list or numpy
@@ -155,7 +155,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # In this example, Cartesian vectors are plotted over a Mercator
 # projection of the continental US. The x values represent the
 # longitude and y values represent the latitude where the vector starts.
@@ -208,7 +208,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Another example of plotting Cartesian vectors over a coast plot. This time a
 # Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 # is used to create 5 vectors with equal stops.
@@ -243,7 +243,8 @@ fig.plot(
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Plot Circular Vectors
 # ---------------------
 #
@@ -285,7 +286,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # When plotting multiple circular vectors, a two dimensional array or numpy
 # array object should be passed as the ``data`` parameter. In this example,
 # :func:`numpy.column_stack` is used to generate this two dimensional array.
@@ -314,7 +315,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Much like when plotting Cartesian vectors, the default unit used is
 # centimeters. When this is changed to inches, the size of the plot appears
 # larger when the projection units do not change. Below is an example of two
@@ -344,9 +345,11 @@ with pygmt.config(PROJ_LENGTH_UNIT="i"):
     )
 fig.show()
 
-###############################################################################
+
+# %%
 # Plot Geographic Vectors
 # -----------------------
+#
 # On this map,
 # ``point_1`` and ``point_2`` are coordinate pairs used to set the
 # start and end points of the geographic vector.
@@ -356,7 +359,7 @@ fig.show()
 # Other styling features such as vector stem thickness and head color
 # can be passed into the ``pen`` and ``fill`` parameters.
 #
-# Note that the **+s** is added to use a startpoint and an endpoint
+# Note that the **+s** is added to use a start point and an end point
 # to represent the vector instead of input angle and length.
 
 point_1 = [-114.7420, 44.0682]
@@ -380,10 +383,10 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Using the same technique shown in the previous example,
-# multiple vectors can be plotted in a chain where the endpoint
-# of one is the starting point of another. This can be done
+# multiple vectors can be plotted in a chain where the end point
+# of one is the start point of another. This can be done
 # by adding the coordinate lists together to create this structure:
 # ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
 # Each list within the 2-D list contains the start and end information
@@ -417,8 +420,8 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
-# This example plots vectors over a Mercator projection. The starting points
+# %%
+# This example plots vectors over a Mercator projection. The start points
 # are located at SA which is South Africa and going to four different
 # locations.
 
@@ -444,3 +447,5 @@ fig.plot(
     fill="red3",
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 6

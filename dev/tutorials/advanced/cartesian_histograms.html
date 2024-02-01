@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Cartesian histograms &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/cartesian_histograms.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -129,6 +130,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -200,7 +202,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="cartesian-histograms">
-<span id="sphx-glr-tutorials-advanced-cartesian-histograms-py"></span><h1>Cartesian histograms<a class="headerlink" href="#cartesian-histograms" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-tutorials-advanced-cartesian-histograms-py"></span><h1>Cartesian histograms<a class="headerlink" href="#cartesian-histograms" title="Link to this heading"></a></h1>
 <p>Cartesian histograms can be generated using the <a class="reference internal" href="../../api/generated/pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.histogram</span></code></a>
 method. In this tutorial, different histogram related aspects are addressed:</p>
 <ul class="simple">
@@ -212,13 +214,13 @@ method. In this tutorial, different histogram related aspects are addressed:</p>
 <li><p>Using color and pattern as fill for the bars</p></li>
 <li><p>Using overlaid, stacked, and grouped bars</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the required packages</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<p>Import the required packages</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
 <p>Generate random data from a normal distribution:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.seed.html#numpy.random.seed" title="numpy.random.seed" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span></a><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="numpy.random.Generator" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rng</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.default_rng" title="numpy.random.default_rng" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span></a><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="c1"># Mean of distribution</span>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mean</span></a> <span class="o">=</span> <span class="mi">100</span>
@@ -226,19 +228,19 @@ method. In this tutorial, different histogram related aspects are addressed:</p>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">stddev</span></a> <span class="o">=</span> <span class="mi">20</span>
 
 <span class="c1"># Create two data sets</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data01</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html#numpy.random.normal" title="numpy.random.normal" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mean</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">stddev</span></a><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
-<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data02</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html#numpy.random.normal" title="numpy.random.normal" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mean</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">stddev</span></a> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data01</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="numpy.random.Generator" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rng</span></a><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mean</span></a><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">stddev</span></a><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data02</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generator.html#numpy.random.Generator" title="numpy.random.Generator" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">rng</span></a><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mean</span></a><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">stddev</span></a> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="vertical-and-horizontal-bars">
-<h2>Vertical and horizontal bars<a class="headerlink" href="#vertical-and-horizontal-bars" title="Permalink to this heading"></a></h2>
+<h2>Vertical and horizontal bars<a class="headerlink" href="#vertical-and-horizontal-bars" title="Link to this heading"></a></h2>
 <p>To define the width of the bins, the <code class="docutils literal notranslate"><span class="pre">series</span></code> parameter has to be
 specified. The bars can be filled via the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter with either a
 color or a pattern (see later in this tutorial). Use the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter
 to adjust width, color, and style of the outlines. By default, a histogram
 with vertical bars is created. Horizontal bars can be achieved via
 <code class="docutils literal notranslate"><span class="pre">horizontal=True</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Create histogram for data01 with vertical bars</span>
@@ -286,10 +288,10 @@ with vertical bars is created. Horizontal bars can be achieved via
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_001.png" srcset="../../_images/sphx_glr_cartesian_histograms_001.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="stair-steps">
-<h2>Stair-steps<a class="headerlink" href="#stair-steps" title="Permalink to this heading"></a></h2>
+<h2>Stair-steps<a class="headerlink" href="#stair-steps" title="Link to this heading"></a></h2>
 <p>A stair-step diagram can be created by setting <code class="docutils literal notranslate"><span class="pre">stairs=True</span></code>. Then only
 the outer outlines of the bars are drawn, and no internal bars are visible.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Create histogram for data01</span>
@@ -327,12 +329,12 @@ the outer outlines of the bars are drawn, and no internal bars are visible.</p>
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_002.png" srcset="../../_images/sphx_glr_cartesian_histograms_002.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="counts-and-frequency-percent">
-<h2>Counts and frequency percent<a class="headerlink" href="#counts-and-frequency-percent" title="Permalink to this heading"></a></h2>
+<h2>Counts and frequency percent<a class="headerlink" href="#counts-and-frequency-percent" title="Link to this heading"></a></h2>
 <p>By default, a histogram showing the counts in each bin is created
 (<code class="docutils literal notranslate"><span class="pre">histtype=0</span></code>). To show the frequency percent set the <code class="docutils literal notranslate"><span class="pre">histtpye</span></code>
 parameter to <code class="docutils literal notranslate"><span class="pre">1</span></code>. For further options please have a look at the
 documentation of <a class="reference internal" href="../../api/generated/pygmt.Figure.histogram.html#pygmt.Figure.histogram" title="pygmt.Figure.histogram"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.histogram</span></code></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Create histogram for data02 showing counts</span>
@@ -370,12 +372,12 @@ documentation of <a class="reference internal" href="../../api/generated/pygmt.F
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_003.png" srcset="../../_images/sphx_glr_cartesian_histograms_003.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="cumulative-values">
-<h2>Cumulative values<a class="headerlink" href="#cumulative-values" title="Permalink to this heading"></a></h2>
+<h2>Cumulative values<a class="headerlink" href="#cumulative-values" title="Link to this heading"></a></h2>
 <p>To create a histogram showing the cumulative values set <code class="docutils literal notranslate"><span class="pre">cumulative=True</span></code>.
 Here, the bars of the cumulative histogram are filled with a pattern via
 the <code class="docutils literal notranslate"><span class="pre">fill</span></code> parameter. Annotate each bar with the counts it represents
 using the <code class="docutils literal notranslate"><span class="pre">annotate</span></code> parameter.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Create histogram for data01 showing the counts per bin</span>
@@ -419,8 +421,8 @@ using the <code class="docutils literal notranslate"><span class="pre">annotate<
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_004.png" srcset="../../_images/sphx_glr_cartesian_histograms_004.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="overlaid-bars">
-<h2>Overlaid bars<a class="headerlink" href="#overlaid-bars" title="Permalink to this heading"></a></h2>
-<p>Overlaid or overlapping bars can be achieved by plotting two or serveral
+<h2>Overlaid bars<a class="headerlink" href="#overlaid-bars" title="Link to this heading"></a></h2>
+<p>Overlaid or overlapping bars can be achieved by plotting two or several
 histograms, each for one data set, on top of each other. The legend entry
 can be specified via the <code class="docutils literal notranslate"><span class="pre">label</span></code> parameter.</p>
 <p>Limitations of histograms with overlaid bars are:</p>
@@ -429,7 +431,7 @@ can be specified via the <code class="docutils literal notranslate"><span class=
 <li><p>Visually more colors or/and patterns than data sets</p></li>
 <li><p>Visually a “third histogram” (or more in case of more than two data sets)</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create new figure instance</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Create histogram for data01</span>
@@ -466,7 +468,7 @@ can be specified via the <code class="docutils literal notranslate"><span class=
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_005.png" srcset="../../_images/sphx_glr_cartesian_histograms_005.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="stacked-bars">
-<h2>Stacked bars<a class="headerlink" href="#stacked-bars" title="Permalink to this heading"></a></h2>
+<h2>Stacked bars<a class="headerlink" href="#stacked-bars" title="Link to this heading"></a></h2>
 <p>Histograms with stacked bars are not directly supported by PyGMT. Thus,
 before plotting, combined data sets have to be created from the single data
 sets. Then, stacked bars can be achieved similar to overlaid bars via
@@ -476,7 +478,7 @@ plotting two or several histograms on top of each other.</p>
 <li><p>No common baseline</p></li>
 <li><p>Partly not directly clear whether overlaid or stacked bars</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Combine the two data sets to one data set</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Combine the two data sets to one data set</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data_merge</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html#numpy.concatenate" title="numpy.concatenate" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span></a><span class="p">((</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data01</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data02</span></a><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 <span class="c1"># Create new figure instance</span>
@@ -516,7 +518,7 @@ plotting two or several histograms on top of each other.</p>
 </div>
 <img src="../../_images/sphx_glr_cartesian_histograms_006.png" srcset="../../_images/sphx_glr_cartesian_histograms_006.png" alt="cartesian histograms" class = "sphx-glr-single-img"/></section>
 <section id="grouped-bars">
-<h2>Grouped bars<a class="headerlink" href="#grouped-bars" title="Permalink to this heading"></a></h2>
+<h2>Grouped bars<a class="headerlink" href="#grouped-bars" title="Link to this heading"></a></h2>
 <p>By setting the <code class="docutils literal notranslate"><span class="pre">barwidth</span></code> parameter in respect to the values passed to the
 <code class="docutils literal notranslate"><span class="pre">series</span></code> parameter histograms with grouped bars can be created.</p>
 <p>Limitations of histograms with grouped bars are:</p>
@@ -524,7 +526,7 @@ plotting two or several histograms on top of each other.</p>
 <li><p>Careful setting width and position of the bars in respect to the bin width</p></li>
 <li><p>Difficult to see the variations of the single data sets</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Width used for binning the data</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Width used for binning the data</span>
 <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">binwidth</span></a> <span class="o">=</span> <span class="mi">10</span>
 
 <span class="c1"># Create new figure instance</span>
@@ -565,13 +567,13 @@ plotting two or several histograms on top of each other.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_cartesian_histograms_007.png" srcset="../../_images/sphx_glr_cartesian_histograms_007.png" alt="cartesian histograms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.460 seconds)</p>
+<img src="../../_images/sphx_glr_cartesian_histograms_007.png" srcset="../../_images/sphx_glr_cartesian_histograms_007.png" alt="cartesian histograms" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.293 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-cartesian-histograms-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/67a4a8ba9595e93d017e899727e1038f/cartesian_histograms.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cartesian_histograms.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/04ea079531b896097081b26e6faf512b/cartesian_histograms.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cartesian_histograms.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/67a4a8ba9595e93d017e899727e1038f/cartesian_histograms.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cartesian_histograms.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -590,10 +592,10 @@ plotting two or several histograms on top of each other.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

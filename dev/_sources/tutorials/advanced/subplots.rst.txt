@@ -36,10 +36,9 @@ couple of subplots. For more advanced subplot layouts, however, we recommend
 the use of :meth:`pygmt.Figure.subplot` which offers finer grained control, and
 this is what the tutorial below will cover.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-23
+.. GENERATED FROM PYTHON SOURCE LINES 22-24
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -54,12 +53,13 @@ this is what the tutorial below will cover.
 
 Let's start by initializing a :class:`pygmt.Figure` instance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-30
+.. GENERATED FROM PYTHON SOURCE LINES 26-30
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
+
 
 
 
@@ -95,7 +95,7 @@ layout will look like the following:
 
 .. GENERATED FROM PYTHON SOURCE LINES 51-64
 
-.. code-block:: default
+.. code-block:: Python
 
 
     with fig.subplot(nrows=2, ncols=3, figsize=("15c", "6c"), frame="lrtb"):
@@ -152,16 +152,17 @@ there, you can use the following command:
     with fig.set_panel(panel=[0, 2]):
         ...
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-95
+.. GENERATED FROM PYTHON SOURCE LINES 92-97
 
 Making your first subplot
 -------------------------
+
 Next, let's use what we learned above to make a 2 row by 2 column subplot
 figure. We'll also pick up on some new parameters to configure our subplot.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-112
+.. GENERATED FROM PYTHON SOURCE LINES 97-114
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -192,7 +193,7 @@ figure. We'll also pick up on some new parameters to configure our subplot.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-129
+.. GENERATED FROM PYTHON SOURCE LINES 115-130
 
 In this example, we define a 2-row, 2-column (2x2) subplot layout using
 :meth:`pygmt.Figure.subplot`. The overall figure dimensions is set to be
@@ -208,10 +209,9 @@ some optional parameters to fine-tune some details of the figure creation:
 Notice that each subplot was set to use a linear projection ``"X?"``.
 Usually, we need to specify the width and height of the map frame, but it is
 also possible to use a question mark ``"?"`` to let GMT decide automatically
-on what is the most appropriate width/height for the each subplot's map
-frame.
+on what is the most appropriate width/height for each subplot's map frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-144
+.. GENERATED FROM PYTHON SOURCE LINES 132-145
 
 .. tip::
 
@@ -227,7 +227,7 @@ frame.
     specifying any subplot index number, and GMT will automatically activate
     the next subplot panel.
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-154
+.. GENERATED FROM PYTHON SOURCE LINES 147-155
 
 .. note::
 
@@ -238,18 +238,19 @@ frame.
     set a ``panel`` will have their elements added to the same panel as
     before.
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-162
+.. GENERATED FROM PYTHON SOURCE LINES 158-165
 
 Shared x- and y-axes
 --------------------
+
 In the example above with the four subplots, the two subplots for each row
 have the same y-axis range, and the two subplots for each column have the
 same x-axis range. You can use the ``sharex``/``sharey`` parameters to set a
 common x- and/or y-axis between subplots.
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-181
+.. GENERATED FROM PYTHON SOURCE LINES 165-184
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -282,7 +283,7 @@ common x- and/or y-axis between subplots.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-190
+.. GENERATED FROM PYTHON SOURCE LINES 185-193
 
 ``sharex="b"`` indicates that subplots in a column will share the x-axis, and
 only the **b**\ ottom axis is displayed. ``sharey="l"`` indicates that
@@ -293,20 +294,20 @@ Of course, instead of using the ``sharex``/``sharey`` parameters, you can
 also set a different ``frame`` for each subplot to control the axis
 properties individually for each subplot.
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-200
+.. GENERATED FROM PYTHON SOURCE LINES 196-204
 
 Advanced subplot layouts
 ------------------------
 
-Nested subplot are currently not supported. If you want to create more
+Nested subplots are currently not supported. If you want to create more
 complex subplot layouts, some manual adjustments are needed.
 
 The following example draws three subplots in a 2-row, 2-column layout, with
 the first subplot occupying the first row.
 
-.. GENERATED FROM PYTHON SOURCE LINES 200-221
+.. GENERATED FROM PYTHON SOURCE LINES 204-225
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -341,7 +342,7 @@ the first subplot occupying the first row.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-231
+.. GENERATED FROM PYTHON SOURCE LINES 226-235
 
 We start by drawing the bottom two subplots, setting ``autolabel="b)"`` so
 that the subplots are labelled 'b)' and 'c)'. Next, we use
@@ -353,7 +354,7 @@ uses ``autolabel="a)"``, and we also plotted some text inside. Note that
 ``projection="X?"`` was used to let GMT automatically determine the size of
 the subplot according to the size of the subplot area.
 
-.. GENERATED FROM PYTHON SOURCE LINES 234-238
+.. GENERATED FROM PYTHON SOURCE LINES 237-241
 
 You can also manually override the ``autolabel`` for each subplot using for
 example, ``fig.set_panel(..., fixedlabel="b) Panel 2")`` which would allow
@@ -363,7 +364,7 @@ adding a more descriptive subtitle to individual subplots.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.199 seconds)
+   **Total running time of the script:** (0 minutes 0.628 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_subplots.py:
@@ -372,16 +373,13 @@ adding a more descriptive subtitle to individual subplots.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: subplots.ipynb <subplots.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: subplots.py <subplots.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: subplots.ipynb <subplots.ipynb>`
 
 
 .. only:: html

@@ -6,18 +6,47 @@
 
 Computation times
 =================
-**00:26.374** total execution time for **tutorials_basics** files:
+**00:09.641** total execution time for 6 files **from tutorials/basics**:
 
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)       | 00:06.900 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)             | 00:06.136 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)         | 00:04.366 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``) | 00:03.707 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)           | 00:02.909 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)             | 00:02.357 | 0.0 MB |
-+--------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_tutorials_basics_regions.py` (``regions.py``)
+     - 00:03.465
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_frames.py` (``frames.py``)
+     - 00:01.853
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_text.py` (``text.py``)
+     - 00:01.459
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_coastlines.py` (``coastlines.py``)
+     - 00:01.121
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_lines.py` (``lines.py``)
+     - 00:00.970
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_basics_plot.py` (``plot.py``)
+     - 00:00.771
+     - 0.0

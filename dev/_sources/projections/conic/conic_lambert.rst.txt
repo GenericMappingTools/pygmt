@@ -24,7 +24,7 @@ Lambert Conic Conformal Projection
 This conic projection was designed by the Alsatian mathematician Johann
 Heinrich Lambert (1772) and has been used extensively for mapping of regions
 with predominantly east-west orientation, just like the Albers projection.
-Unlike the Albers projection, Lambert’s conformal projection is not equal-area.
+Unlike the Albers projection, Lambert's conformal projection is not equal-area.
 The parallels are arcs of circles with a common origin, and meridians are the
 equally spaced radii of these circles. As with Albers projection, it is only
 the two standard parallels that are distortion-free.
@@ -36,7 +36,7 @@ The projection is set with **l** or **L**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-33
+.. GENERATED FROM PYTHON SOURCE LINES 22-35
 
 
 
@@ -49,7 +49,7 @@ The figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -68,7 +68,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.511 seconds)
+   **Total running time of the script:** (0 minutes 0.220 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_lambert.py:
@@ -77,16 +77,13 @@ The figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: conic_lambert.ipynb <conic_lambert.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: conic_lambert.py <conic_lambert.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: conic_lambert.ipynb <conic_lambert.ipynb>`
 
 
 .. only:: html

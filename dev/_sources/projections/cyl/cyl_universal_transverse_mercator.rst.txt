@@ -33,7 +33,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png # noqa: W505
+.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -54,7 +54,7 @@ conformal latitude in the general spherical formulae instead.
 The projection is set with **u** or **U**. *zone* sets the zone for the figure,
 and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-51
+.. GENERATED FROM PYTHON SOURCE LINES 40-53
 
 
 
@@ -67,7 +67,7 @@ and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -86,7 +86,7 @@ and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.507 seconds)
+   **Total running time of the script:** (0 minutes 0.214 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_universal_transverse_mercator.py:
@@ -95,16 +95,13 @@ and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_universal_transverse_mercator.ipynb <cyl_universal_transverse_mercator.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_universal_transverse_mercator.py <cyl_universal_transverse_mercator.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_universal_transverse_mercator.ipynb <cyl_universal_transverse_mercator.ipynb>`
 
 
 .. only:: html

@@ -6,22 +6,56 @@
 
 Computation times
 =================
-**00:07.858** total execution time for **gallery_embellishments** files:
+**00:02.804** total execution time for 9 files **from gallery/embellishments**:
 
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)         | 00:01.489 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)                                   | 00:01.065 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)                           | 00:01.054 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)                                   | 00:01.026 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``) | 00:01.018 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)                             | 00:00.836 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)                                 | 00:00.777 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)                                     | 00:00.593 | 0.0 MB |
-+--------------------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_embellishments_inset.py` (``inset.py``)
+     - 00:00.500
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_timestamp.py` (``timestamp.py``)
+     - 00:00.386
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_solar.py` (``solar.py``)
+     - 00:00.366
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_inset_rectangle_region.py` (``inset_rectangle_region.py``)
+     - 00:00.349
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_scalebar.py` (``scalebar.py``)
+     - 00:00.345
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_colorbars_multiple.py` (``colorbars_multiple.py``)
+     - 00:00.323
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_logo.py` (``logo.py``)
+     - 00:00.216
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_colorbar.py` (``colorbar.py``)
+     - 00:00.168
+     - 0.0
+   * - :ref:`sphx_glr_gallery_embellishments_legend.py` (``legend.py``)
+     - 00:00.150
+     - 0.0

@@ -26,10 +26,9 @@ To plot an inset figure inside another larger figure, we can use the
 call ``inset`` using a ``with`` statement, and new plot elements will be
 added to the inset figure instead of the larger figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-13
+.. GENERATED FROM PYTHON SOURCE LINES 12-14
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -46,9 +45,9 @@ Prior to creating an inset figure, a larger figure must first be plotted. In
 the example below, :meth:`pygmt.Figure.coast` is used to create a map of the
 US state of Massachusetts.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-32
+.. GENERATED FROM PYTHON SOURCE LINES 18-31
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -75,7 +74,7 @@ US state of Massachusetts.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-41
+.. GENERATED FROM PYTHON SOURCE LINES 32-40
 
 The :meth:`pygmt.Figure.inset` method uses a context manager, and is called
 using a ``with`` statement. The ``position`` parameter, including the inset
@@ -86,9 +85,9 @@ left. The ``box`` parameter can set the fill and border of the inset. In the
 example below, ``+pblack`` sets the border color to black and ``+glightred``
 sets the fill to light red.
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-59
+.. GENERATED FROM PYTHON SOURCE LINES 40-57
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -119,7 +118,7 @@ sets the fill to light red.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-66
+.. GENERATED FROM PYTHON SOURCE LINES 58-64
 
 When using **j** to set the anchor of the inset, the default location is in
 contact with the nearby axis or axes. The offset of the inset can be set with
@@ -128,9 +127,9 @@ is passed, it is applied to both axes. Each offset can have its own unit. In
 the example below, the inset is shifted 0.5 centimeters on the x-axis and
 0.2 centimeters on the y-axis.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-82
+.. GENERATED FROM PYTHON SOURCE LINES 64-79
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -159,16 +158,16 @@ the example below, the inset is shifted 0.5 centimeters on the x-axis and
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-87
+.. GENERATED FROM PYTHON SOURCE LINES 80-84
 
 Standard plotting methods can be called from within the ``inset`` context
 manager. The example below uses :meth:`pygmt.Figure.coast` to plot a zoomed
 out map that selectively paints the state of Massachusetts to show its
 location relative to other states.
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-118
+.. GENERATED FROM PYTHON SOURCE LINES 84-115
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -203,6 +202,7 @@ location relative to other states.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_insets_004.png
    :alt: insets
    :srcset: /tutorials/advanced/images/sphx_glr_insets_004.png
@@ -215,7 +215,7 @@ location relative to other states.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.580 seconds)
+   **Total running time of the script:** (0 minutes 1.022 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_insets.py:
@@ -224,16 +224,13 @@ location relative to other states.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: insets.ipynb <insets.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: insets.py <insets.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: insets.ipynb <insets.ipynb>`
 
 
 .. only:: html

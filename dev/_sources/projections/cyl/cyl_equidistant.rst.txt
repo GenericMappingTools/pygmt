@@ -34,7 +34,7 @@ The projection is set with **q** or **Q**, and the figure size is set with
 be set with *lat0* [Default is the equator]. When supplied, the central
 meridian must be supplied as well.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+.. GENERATED FROM PYTHON SOURCE LINES 20-32
 
 
 
@@ -47,7 +47,7 @@ meridian must be supplied as well.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -65,7 +65,7 @@ meridian must be supplied as well.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.479 seconds)
+   **Total running time of the script:** (0 minutes 0.200 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_equidistant.py:
@@ -74,16 +74,13 @@ meridian must be supplied as well.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_equidistant.ipynb <cyl_equidistant.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_equidistant.py <cyl_equidistant.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_equidistant.ipynb <cyl_equidistant.ipynb>`
 
 
 .. only:: html

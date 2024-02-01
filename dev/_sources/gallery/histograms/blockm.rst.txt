@@ -19,13 +19,14 @@
 
 
 Blockmean
----------
+=========
+
 The :func:`pygmt.blockmean` function calculates different quantities
 inside blocks/bins whose dimensions are defined via the ``spacing`` parameter.
 The following examples show how to calculate the averages of the given values
 inside each bin and how to report the number of points inside each bin.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-60
+.. GENERATED FROM PYTHON SOURCE LINES 12-62
 
 
 
@@ -38,8 +39,7 @@ inside each bin and how to report the number of points inside each bin.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -71,7 +71,7 @@ inside each bin and how to report the number of points inside each bin.
     fig.coast(land="darkgray", transparency=40)
     # Plot original data points
     fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
-    fig.colorbar(frame=["x+lkm"])
+    fig.colorbar(frame="x+lkm")
 
     fig.shift_origin(xshift="w+5c")
 
@@ -88,14 +88,14 @@ inside each bin and how to report the number of points inside each bin.
     )
     fig.coast(land="darkgray", transparency=40)
     fig.plot(x=data.longitude, y=data.latitude, style="c0.3c", fill="white", pen="1p,black")
-    fig.colorbar(frame=["x+lcount"])
+    fig.colorbar(frame="x+lcount")
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.964 seconds)
+   **Total running time of the script:** (0 minutes 0.560 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_blockm.py:
@@ -104,16 +104,13 @@ inside each bin and how to report the number of points inside each bin.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: blockm.ipynb <blockm.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: blockm.py <blockm.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: blockm.ipynb <blockm.ipynb>`
 
 
 .. only:: html

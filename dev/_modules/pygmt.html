@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -156,11 +158,11 @@
   <h1>Source code for pygmt</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">PyGMT is a library for processing geospatial and geophysical data and making</span>
-<span class="sd">publication-quality maps and figures. It provides a Pythonic interface for the</span>
-<span class="sd">Generic Mapping Tools (GMT), a command-line program widely used across the</span>
-<span class="sd">Earth, Ocean, and Planetary sciences and beyond. Besides making GMT more</span>
-<span class="sd">accessible to new users, PyGMT aims to provide integration with the PyData</span>
-<span class="sd">ecosystem as well as support for rich display in Jupyter notebooks.</span>
+<span class="sd">publication-quality maps and figures. It provides a Pythonic interface for the Generic</span>
+<span class="sd">Mapping Tools (GMT), a command-line program widely used across the Earth, Ocean, and</span>
+<span class="sd">Planetary sciences and beyond. Besides making GMT more accessible to new users, PyGMT</span>
+<span class="sd">aims to provide integration with the PyData ecosystem as well as support for rich</span>
+<span class="sd">display in Jupyter notebooks.</span>
 
 <span class="sd">Main Features</span>
 <span class="sd">-------------</span>
@@ -177,13 +179,9 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">importlib.metadata</span> <span class="kn">import</span> <span class="n">version</span>
 
-<span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">clib</span>
-
 <span class="c1"># Get semantic version through setuptools-scm</span>
 <span class="n">__version__</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;v</span><span class="si">{</span><span class="n">version</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span>  <span class="c1"># e.g. v0.1.2.dev3+g0ab3cd78</span>
 <span class="n">__commit__</span> <span class="o">=</span> <span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;+g&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;+g&quot;</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># 0ab3cd78</span>
-<span class="k">with</span> <span class="n">clib</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-    <span class="n">__gmt_version__</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
 
 <span class="c1"># Import modules to make the high-level GMT Python API</span>
 <span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">datasets</span>
@@ -236,26 +234,29 @@
 <span class="n">_atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">_end</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="print_clib_info"><a class="viewcode-back" href="../api/generated/pygmt.print_clib_info.html#pygmt.print_clib_info">[docs]</a><span class="k">def</span> <span class="nf">print_clib_info</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+<div class="viewcode-block" id="print_clib_info">
+<a class="viewcode-back" href="../api/generated/pygmt.print_clib_info.html#pygmt.print_clib_info">[docs]</a>
+<span class="k">def</span> <span class="nf">print_clib_info</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print information about the GMT shared library that we can find.</span>
 
 <span class="sd">    Includes the GMT version, default values for parameters, the path to the</span>
 <span class="sd">    ``libgmt`` shared library, and GMT directories.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>  <span class="c1"># pylint: disable=import-outside-toplevel</span>
+    <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 
-    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GMT library information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">ses</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">):</span>
-            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ses</span><span class="o">.</span><span class="n">info</span><span class="p">)]</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="show_versions"><a class="viewcode-back" href="../api/generated/pygmt.show_versions.html#pygmt.show_versions">[docs]</a><span class="k">def</span> <span class="nf">show_versions</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
+
+<div class="viewcode-block" id="show_versions">
+<a class="viewcode-back" href="../api/generated/pygmt.show_versions.html#pygmt.show_versions">[docs]</a>
+<span class="k">def</span> <span class="nf">show_versions</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Print various dependency versions which are useful when submitting bug</span>
-<span class="sd">    reports.</span>
+<span class="sd">    Print various dependency versions which are useful when submitting bug reports.</span>
 
 <span class="sd">    This includes information about:</span>
 
@@ -264,10 +265,13 @@
 <span class="sd">    - Core dependency versions (NumPy, Pandas, Xarray, etc)</span>
 <span class="sd">    - GMT library information</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># pylint: disable=import-outside-toplevel</span>
+
     <span class="kn">import</span> <span class="nn">importlib</span>
     <span class="kn">import</span> <span class="nn">platform</span>
+    <span class="kn">import</span> <span class="nn">shutil</span>
     <span class="kn">import</span> <span class="nn">subprocess</span>
+
+    <span class="kn">from</span> <span class="nn">packaging.requirements</span> <span class="kn">import</span> <span class="n">Requirement</span>
 
     <span class="k">def</span> <span class="nf">_get_module_version</span><span class="p">(</span><span class="n">modname</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -299,12 +303,10 @@
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="k">for</span> <span class="n">gs_cmd</span> <span class="ow">in</span> <span class="n">cmds</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">gsfullpath</span> <span class="o">:=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">gs_cmd</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span>
-                    <span class="p">[</span><span class="n">gs_cmd</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">[</span><span class="n">gsfullpath</span><span class="p">,</span> <span class="s2">&quot;--version&quot;</span><span class="p">],</span> <span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span>
                 <span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-                <span class="k">continue</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">sys_info</span> <span class="o">=</span> <span class="p">{</span>
@@ -313,17 +315,7 @@
         <span class="s2">&quot;machine&quot;</span><span class="p">:</span> <span class="n">platform</span><span class="o">.</span><span class="n">platform</span><span class="p">(),</span>
     <span class="p">}</span>
 
-    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;numpy&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;xarray&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;netCDF4&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;packaging&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;contextily&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;geopandas&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;IPython&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;rioxarray&quot;</span><span class="p">,</span>
-    <span class="p">]</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span><span class="n">Requirement</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">importlib</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;pygmt&quot;</span><span class="p">)]</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PyGMT information:&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  version: </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
@@ -338,6 +330,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  ghostscript: </span><span class="si">{</span><span class="n">_get_ghostscript_version</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
 
     <span class="n">print_clib_info</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>
@@ -348,10 +341,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.triangulate &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/triangulate.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -159,7 +161,6 @@
 <span class="sd">triangulate - Delaunay triangulation or Voronoi partitioning and gridding of</span>
 <span class="sd">Cartesian data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
@@ -170,14 +171,16 @@
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
+    <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 
 
-<div class="viewcode-block" id="triangulate"><a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.html#pygmt.triangulate">[docs]</a><span class="k">class</span> <span class="nc">triangulate</span><span class="p">:</span>  <span class="c1"># pylint: disable=invalid-name</span>
+<div class="viewcode-block" id="triangulate">
+<a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.html#pygmt.triangulate">[docs]</a>
+<span class="k">class</span> <span class="nc">triangulate</span><span class="p">:</span>  <span class="c1"># noqa: N801</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian</span>
-<span class="sd">    data.</span>
+<span class="sd">    Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.</span>
 
 <span class="sd">    Triangulate reads in x,y[,z] data and performs Delaunay triangulation,</span>
 <span class="sd">    i.e., it finds how the points should be connected to give the most</span>
@@ -226,8 +229,7 @@
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delaunay triangulation or Voronoi partitioning and gridding of</span>
-<span class="sd">        Cartesian data.</span>
+<span class="sd">        Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.</span>
 
 <span class="sd">        Must provide ``outfile`` or ``outgrid``.</span>
 
@@ -239,21 +241,20 @@
 <span class="sd">        ----------</span>
 <span class="sd">        x/y/z : np.ndarray</span>
 <span class="sd">            Arrays of x and y coordinates and values z of the data points.</span>
-<span class="sd">        data : str or {table-like}</span>
+<span class="sd">        data : str, {table-like}</span>
 <span class="sd">            Pass in (x, y, z) or (longitude, latitude, elevation) values by</span>
 <span class="sd">            providing a file name to an ASCII data table, a 2-D</span>
 <span class="sd">            {table-classes}.</span>
 <span class="sd">        {projection}</span>
 <span class="sd">        {region}</span>
 <span class="sd">        {spacing}</span>
-<span class="sd">        outgrid : bool or str</span>
-<span class="sd">            The name of the output netCDF file with extension .nc to store the</span>
-<span class="sd">            grid in. The interpolation is performed in the original</span>
-<span class="sd">            coordinates, so if your triangles are close to the poles you are</span>
-<span class="sd">            better off projecting all data to a local coordinate system before</span>
-<span class="sd">            using ``triangulate`` (this is true of all gridding routines) or</span>
-<span class="sd">            instead select :gmt-docs:`sphtriangulate &lt;sphtriangulate.html&gt;`.</span>
-<span class="sd">        outfile : str or bool or None</span>
+<span class="sd">        {outgrid}</span>
+<span class="sd">            The interpolation is performed in the original coordinates, so if</span>
+<span class="sd">            your triangles are close to the poles you are better off projecting</span>
+<span class="sd">            all data to a local coordinate system before using ``triangulate``</span>
+<span class="sd">            (this is true of all gridding routines) or instead select</span>
+<span class="sd">            :gmt-docs:`sphtriangulate &lt;sphtriangulate.html&gt;`.</span>
+<span class="sd">        outfile : str, bool or None</span>
 <span class="sd">            The name of the output ASCII file to store the results of the</span>
 <span class="sd">            histogram equalization in.</span>
 <span class="sd">        output_type: str</span>
@@ -283,7 +284,6 @@
 <span class="sd">              ``outgrid`` or ``outfile``)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="c1"># Choose how data will be passed into the module</span>
             <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
                 <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span>
@@ -305,9 +305,11 @@
             <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="triangulate.regular_grid"><a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.regular_grid.html#pygmt.triangulate.regular_grid">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="triangulate.regular_grid">
+<a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.regular_grid.html#pygmt.triangulate.regular_grid">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
-    <span class="k">def</span> <span class="nf">regular_grid</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-arguments,too-many-locals</span>
+    <span class="k">def</span> <span class="nf">regular_grid</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -355,20 +357,19 @@
 <span class="sd">        ----------</span>
 <span class="sd">        x/y/z : np.ndarray</span>
 <span class="sd">            Arrays of x and y coordinates and values z of the data points.</span>
-<span class="sd">        data : str or {table-like}</span>
+<span class="sd">        data : str, {table-like}</span>
 <span class="sd">            Pass in (x, y[, z]) or (longitude, latitude[, elevation]) values by</span>
 <span class="sd">            providing a file name to an ASCII data table, a 2-D</span>
 <span class="sd">            {table-classes}.</span>
 <span class="sd">        {projection}</span>
 <span class="sd">        {region}</span>
 <span class="sd">        {spacing}</span>
-<span class="sd">        outgrid : str or None</span>
-<span class="sd">            The name of the output netCDF file with extension .nc to store the</span>
-<span class="sd">            grid in. The interpolation is performed in the original</span>
-<span class="sd">            coordinates, so if your triangles are close to the poles you are</span>
-<span class="sd">            better off projecting all data to a local coordinate system before</span>
-<span class="sd">            using ``triangulate`` (this is true of all gridding routines) or</span>
-<span class="sd">            instead select :gmt-docs:`sphtriangulate &lt;sphtriangulate.html&gt;`.</span>
+<span class="sd">        {outgrid}</span>
+<span class="sd">            The interpolation is performed in the original coordinates, so if</span>
+<span class="sd">            your triangles are close to the poles you are better off projecting</span>
+<span class="sd">            all data to a local coordinate system before using ``triangulate``</span>
+<span class="sd">            (this is true of all gridding routines) or instead select</span>
+<span class="sd">            :gmt-docs:`sphtriangulate &lt;sphtriangulate.html&gt;`.</span>
 <span class="sd">        {verbose}</span>
 <span class="sd">        {binary}</span>
 <span class="sd">        {nodata}</span>
@@ -431,9 +432,12 @@
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="triangulate.delaunay_triples"><a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.delaunay_triples.html#pygmt.triangulate.delaunay_triples">[docs]</a>    <span class="nd">@staticmethod</span>
+
+<div class="viewcode-block" id="triangulate.delaunay_triples">
+<a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.delaunay_triples.html#pygmt.triangulate.delaunay_triples">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
-    <span class="k">def</span> <span class="nf">delaunay_triples</span><span class="p">(</span>  <span class="c1"># pylint: disable=too-many-arguments,too-many-locals</span>
+    <span class="k">def</span> <span class="nf">delaunay_triples</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -472,7 +476,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        x/y/z : np.ndarray</span>
 <span class="sd">            Arrays of x and y coordinates and values z of the data points.</span>
-<span class="sd">        data : str or {table-like}</span>
+<span class="sd">        data : str, {table-like}</span>
 <span class="sd">            Pass in (x, y, z) or (longitude, latitude, elevation) values by</span>
 <span class="sd">            providing a file name to an ASCII data table, a 2-D</span>
 <span class="sd">            {table-classes}.</span>
@@ -515,20 +519,7 @@
 <span class="sd">        ``triangulate`` is a Cartesian or small-geographic area operator and is</span>
 <span class="sd">        unaware of periodic or polar boundary conditions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Return a pandas.DataFrame if ``outfile`` is not set</span>
-        <span class="k">if</span> <span class="n">output_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Must specify &#39;output_type&#39; either as &#39;numpy&#39;, &#39;pandas&#39; or &#39;file&#39;.&quot;</span>
-            <span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Changing &#39;output_type&#39; from &#39;</span><span class="si">{</span><span class="n">output_type</span><span class="si">}</span><span class="s2">&#39; to &#39;file&#39; &quot;</span>
-                <span class="s2">&quot;since &#39;outfile&#39; parameter is set. Please use output_type=&#39;file&#39; &quot;</span>
-                <span class="s2">&quot;to silence this warning.&quot;</span>
-            <span class="p">)</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-            <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span>
+        <span class="n">output_type</span> <span class="o">=</span> <span class="n">validate_output_table_type</span><span class="p">(</span><span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
 
         <span class="c1"># Return a pandas.DataFrame if ``outfile`` is not set</span>
         <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
@@ -552,7 +543,9 @@
                 <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
                 <span class="n">wrap</span><span class="o">=</span><span class="n">wrap</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-            <span class="p">)</span></div></div>
+            <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>
@@ -563,10 +556,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

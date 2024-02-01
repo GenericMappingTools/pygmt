@@ -25,10 +25,9 @@ Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
 parameter that most plotting methods of the :class:`pygmt.Figure` class
 contain.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-12
+.. GENERATED FROM PYTHON SOURCE LINES 11-13
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -49,7 +48,7 @@ the coastlines of the world with a Mercator projection:
 
 .. GENERATED FROM PYTHON SOURCE LINES 19-24
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -72,17 +71,18 @@ the coastlines of the world with a Mercator projection:
 
 To add the default GMT frame style to the plot, use ``frame="f"`` in
 :meth:`pygmt.Figure.basemap` or another plotting method (which has the
-``frame`` parameter, with exception of :meth:`pygmt.Figure.colorbar`):
+``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-34
+.. GENERATED FROM PYTHON SOURCE LINES 28-35
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
     fig.basemap(frame="f")
     fig.show()
+
 
 
 
@@ -96,7 +96,7 @@ To add the default GMT frame style to the plot, use ``frame="f"`` in
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-41
+.. GENERATED FROM PYTHON SOURCE LINES 36-42
 
 Ticks and grid lines
 --------------------
@@ -105,9 +105,9 @@ The automatic frame (``frame=True`` or ``frame="af"``) adds the default GMT
 frame style and automatically determines tick labels from the plot region.
 In GMT the tick labels are called **a**\ nnotations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-47
+.. GENERATED FROM PYTHON SOURCE LINES 42-48
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -127,14 +127,14 @@ In GMT the tick labels are called **a**\ nnotations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-50
+.. GENERATED FROM PYTHON SOURCE LINES 49-51
 
 Add automatic grid lines to the plot by passing ``g`` through the ``frame``
 parameter:
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-56
+.. GENERATED FROM PYTHON SOURCE LINES 51-57
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -154,21 +154,22 @@ parameter:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-60
+.. GENERATED FROM PYTHON SOURCE LINES 58-61
 
 To adjust the step widths of annotations, frame, and grid lines we can
 add the desired step widths after ``a``, ``f``, or ``g``. In the example
 below, the step widths are set to 30°, 7.5°, and 15°, respectively.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-66
+.. GENERATED FROM PYTHON SOURCE LINES 61-68
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
     fig.basemap(frame="a30f7.5g15")
     fig.show()
+
 
 
 
@@ -182,18 +183,18 @@ below, the step widths are set to 30°, 7.5°, and 15°, respectively.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-73
+.. GENERATED FROM PYTHON SOURCE LINES 69-75
 
 Title
 -----
 
 The figure title can be set by passing **+t**\ *title* to the ``frame``
 parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-``frame`` can be done by using a list, as show in the example below.
+``frame`` can be done by using a list, as shown in the example below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-80
+.. GENERATED FROM PYTHON SOURCE LINES 75-83
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -201,6 +202,7 @@ parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
     fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
     fig.basemap(frame=["a", "+tTrinidad and Tobago"])
     fig.show()
+
 
 
 
@@ -214,7 +216,7 @@ parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-100
+.. GENERATED FROM PYTHON SOURCE LINES 84-103
 
 Axis labels
 -----------
@@ -236,9 +238,9 @@ plotted with both tick marks and annotations.
 The example below uses a Cartesian projection, as GMT does not allow
 labels to be set for geographic maps.
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-111
+.. GENERATED FROM PYTHON SOURCE LINES 103-115
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -254,6 +256,7 @@ labels to be set for geographic maps.
 
 
 
+
 .. image-sg:: /tutorials/basics/images/sphx_glr_frames_007.png
    :alt: frames
    :srcset: /tutorials/basics/images/sphx_glr_frames_007.png
@@ -266,7 +269,7 @@ labels to be set for geographic maps.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.366 seconds)
+   **Total running time of the script:** (0 minutes 1.853 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_frames.py:
@@ -275,16 +278,13 @@ labels to be set for geographic maps.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: frames.ipynb <frames.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: frames.py <frames.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: frames.ipynb <frames.ipynb>`
 
 
 .. only:: html

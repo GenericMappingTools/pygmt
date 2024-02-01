@@ -19,19 +19,17 @@
 
 
 Highlight country, continent and state polygons
------------------------------------------------
+===============================================
+
 The :meth:`pygmt.Figure.coast` method can highlight country polygons
 via the ``dcw`` parameter. It accepts the country code or full
 country name and can draw its borders and add a color to its landmass.
 It's also possible to define multiple countries at once by separating
-the indiviudal names with commas.
+the individual names with commas.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-45
+.. GENERATED FROM PYTHON SOURCE LINES 13-45
 
-.. code-block:: default
-
-
-
+.. code-block:: Python
 
     import pygmt
 
@@ -77,14 +75,14 @@ the indiviudal names with commas.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-49
+.. GENERATED FROM PYTHON SOURCE LINES 46-48
 
 Entire continents can also be highlighted by adding ``"="`` in
 front of the continent code to differentiate it from a country code.
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-78
+.. GENERATED FROM PYTHON SOURCE LINES 48-77
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -127,13 +125,13 @@ front of the continent code to differentiate it from a country code.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-80
+.. GENERATED FROM PYTHON SOURCE LINES 78-79
 
 If available, states/territories of a country can be highlighted, too.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-99
+.. GENERATED FROM PYTHON SOURCE LINES 79-99
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -157,6 +155,7 @@ If available, states/territories of a country can be highlighted, too.
 
 
 
+
 .. image-sg:: /gallery/maps/images/sphx_glr_country_polygons_003.png
    :alt: country polygons
    :srcset: /gallery/maps/images/sphx_glr_country_polygons_003.png
@@ -169,7 +168,7 @@ If available, states/territories of a country can be highlighted, too.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  9.668 seconds)
+   **Total running time of the script:** (0 minutes 7.236 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_country_polygons.py:
@@ -178,16 +177,13 @@ If available, states/territories of a country can be highlighted, too.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: country_polygons.ipynb <country_polygons.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: country_polygons.py <country_polygons.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: country_polygons.ipynb <country_polygons.ipynb>`
 
 
 .. only:: html

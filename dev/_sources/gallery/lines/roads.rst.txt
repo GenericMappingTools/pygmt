@@ -19,15 +19,16 @@
 
 
 Roads
------
+=====
+
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as
 a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
-:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter in
+:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
 :meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-44
+.. GENERATED FROM PYTHON SOURCE LINES 15-47
 
 
 
@@ -40,8 +41,7 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import geopandas as gpd
     import pygmt
@@ -79,7 +79,7 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.683 seconds)
+   **Total running time of the script:** (0 minutes 1.578 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_roads.py:
@@ -88,16 +88,13 @@ a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: roads.ipynb <roads.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: roads.py <roads.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: roads.ipynb <roads.ipynb>`
 
 
 .. only:: html

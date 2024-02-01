@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Universal Transverse Mercator &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/projections/cyl/cyl_universal_transverse_mercator.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -124,6 +125,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -195,7 +197,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="universal-transverse-mercator">
-<span id="sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"></span><h1>Universal Transverse Mercator<a class="headerlink" href="#universal-transverse-mercator" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-projections-cyl-cyl-universal-transverse-mercator-py"></span><h1>Universal Transverse Mercator<a class="headerlink" href="#universal-transverse-mercator" title="Link to this heading"></a></h1>
 <p>A particular subset of the
 <a class="reference internal" href="cyl_transverse_mercator.html"><span class="doc">transverse Merctor</span></a>
 is the Universal Transverse Mercator (UTM) which was adopted by the US Army
@@ -206,14 +208,14 @@ Furthermore, each zone is divided into latitude bands but these are
 not needed to specify the projection for most cases. See Figure
 <a class="reference internal" href="#gmt-utm-zones"><span class="std std-ref">Universal Transverse Mercator</span></a> for all zone designations.</p>
 <figure class="align-center" id="id1">
-<span id="gmt-utm-zones"></span><a class="reference internal image-reference" href="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png#noqa:W505"><img alt="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png#noqa:W505" src="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png#noqa:W505" style="width: 700px;" /></a>
+<span id="gmt-utm-zones"></span><a class="reference internal image-reference" href="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png"><img alt="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png" src="https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png" style="width: 700px;" /></a>
 <figcaption>
-<p><span class="caption-text">Universal Transverse Mercator zone layout.</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Universal Transverse Mercator zone layout.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>In order to minimize the distortion in any given zone, a scale factor of 0.9996
 has been factored into the formulae (although a standard, you can change this
-with <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-PROJ_SCALE_FACTOR">PROJ_SCALE_FACTOR</a>). This makes the UTM projection a <em>secant</em>
+with <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_SCALE_FACTOR">PROJ_SCALE_FACTOR</a>). This makes the UTM projection a <em>secant</em>
 projection and not a <em>tangent</em> projection like the
 <a class="reference internal" href="cyl_transverse_mercator.html"><span class="doc">transverse Merctor</span></a>.
 The scale only varies by 1 part in 1,000 from true scale at equator. The
@@ -223,7 +225,7 @@ conformal latitude in the general spherical formulae instead.</p>
 <p><strong>u</strong><em>zone/scale</em> or <strong>U</strong><em>zone/width</em></p>
 <p>The projection is set with <strong>u</strong> or <strong>U</strong>. <em>zone</em> sets the zone for the figure,
 and the figure size is set with <em>scale</em> or <em>width</em>.</p>
-<img src="../../_images/sphx_glr_cyl_universal_transverse_mercator_001.png" srcset="../../_images/sphx_glr_cyl_universal_transverse_mercator_001.png" alt="cyl universal transverse mercator" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<img src="../../_images/sphx_glr_cyl_universal_transverse_mercator_001.png" srcset="../../_images/sphx_glr_cyl_universal_transverse_mercator_001.png" alt="cyl universal transverse mercator" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># UTM Zone is set to 52R</span>
@@ -238,13 +240,13 @@ and the figure size is set with <em>scale</em> or <em>width</em>.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.507 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.214 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-projections-cyl-cyl-universal-transverse-mercator-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/ad50949d28d517a0a868d00de37fb8da/cyl_universal_transverse_mercator.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cyl_universal_transverse_mercator.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a00df384c13852bb0f7768ea5ca00308/cyl_universal_transverse_mercator.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cyl_universal_transverse_mercator.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/ad50949d28d517a0a868d00de37fb8da/cyl_universal_transverse_mercator.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cyl_universal_transverse_mercator.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -262,10 +264,10 @@ and the figure size is set with <em>scale</em> or <em>width</em>.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

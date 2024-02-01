@@ -30,7 +30,7 @@ an *x-scale* and an optional *y-scale*.
 Each axis with a logarithmic transformation requires **l** after
 its size argument.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-45
+.. GENERATED FROM PYTHON SOURCE LINES 16-47
 
 
 
@@ -43,7 +43,7 @@ its size argument.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -80,7 +80,7 @@ its size argument.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.518 seconds)
+   **Total running time of the script:** (0 minutes 0.158 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_logarithmic.py:
@@ -89,16 +89,13 @@ its size argument.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cartesian_logarithmic.ipynb <cartesian_logarithmic.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cartesian_logarithmic.py <cartesian_logarithmic.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cartesian_logarithmic.ipynb <cartesian_logarithmic.ipynb>`
 
 
 .. only:: html

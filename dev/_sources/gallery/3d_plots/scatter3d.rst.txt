@@ -18,8 +18,8 @@
 .. _sphx_glr_gallery_3d_plots_scatter3d.py:
 
 
-3-D Scatter plots
------------------
+3-D scatter plots
+=================
 
 The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3-D.
 In the example below, we show how the
@@ -32,7 +32,7 @@ minimum to something like ``frame=["WsNeZ", "zaf"]``. Use ``perspective`` to
 control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-100
+.. GENERATED FROM PYTHON SOURCE LINES 18-101
 
 
 
@@ -45,8 +45,7 @@ the vertical exaggeration factor.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pandas as pd
     import pygmt
@@ -126,7 +125,7 @@ the vertical exaggeration factor.
     )
 
     # Shift plot origin in x direction
-    fig.shift_origin(xshift=3.1)
+    fig.shift_origin(xshift="3.1c")
     # Add colorbar legend
     fig.colorbar()
 
@@ -135,7 +134,7 @@ the vertical exaggeration factor.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.963 seconds)
+   **Total running time of the script:** (0 minutes 0.461 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_scatter3d.py:
@@ -144,16 +143,13 @@ the vertical exaggeration factor.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: scatter3d.ipynb <scatter3d.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: scatter3d.py <scatter3d.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: scatter3d.ipynb <scatter3d.ipynb>`
 
 
 .. only:: html

@@ -38,7 +38,7 @@ The projection is set with **b** or **B**. The projection center is set by
 *lon0/lat0* and two standard parallels for the map are set with *lat1/lat2*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-30
+.. GENERATED FROM PYTHON SOURCE LINES 24-32
 
 
 
@@ -51,7 +51,7 @@ The figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -65,7 +65,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.610 seconds)
+   **Total running time of the script:** (0 minutes 0.303 seconds)
 
 
 .. _sphx_glr_download_projections_conic_conic_albers.py:
@@ -74,16 +74,13 @@ The figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: conic_albers.ipynb <conic_albers.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: conic_albers.py <conic_albers.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: conic_albers.ipynb <conic_albers.ipynb>`
 
 
 .. only:: html

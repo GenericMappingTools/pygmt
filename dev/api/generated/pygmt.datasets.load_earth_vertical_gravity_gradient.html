@@ -1,42 +1,43 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.datasets.load_earth_vertical_gravity_gradient &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_earth_vertical_gravity_gradient.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.datasets.load_sample_data" href="pygmt.datasets.load_sample_data.html" />
+    <link rel="next" title="pygmt.datasets.load_mars_relief" href="pygmt.datasets.load_mars_relief.html" />
     <link rel="prev" title="pygmt.datasets.load_earth_relief" href="pygmt.datasets.load_earth_relief.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
@@ -121,6 +122,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.datasets.load_earth_vertical_gravity_gradient"><code class="docutils literal notranslate"><span class="pre">load_earth_vertical_gravity_gradient</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_relief.html">pygmt.datasets.load_mars_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mercury_relief.html">pygmt.datasets.load_mercury_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_moon_relief.html">pygmt.datasets.load_moon_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_pluto_relief.html">pygmt.datasets.load_pluto_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_venus_relief.html">pygmt.datasets.load_venus_relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_sample_data.html">pygmt.datasets.load_sample_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_tile_map.html">pygmt.datasets.load_tile_map</a></li>
 </ul>
@@ -130,6 +136,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -191,53 +198,60 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-datasets-load-earth-vertical-gravity-gradient">
-<h1>pygmt.datasets.load_earth_vertical_gravity_gradient<a class="headerlink" href="#pygmt-datasets-load-earth-vertical-gravity-gradient" title="Permalink to this heading"></a></h1>
+<h1>pygmt.datasets.load_earth_vertical_gravity_gradient<a class="headerlink" href="#pygmt-datasets-load-earth-vertical-gravity-gradient" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.datasets.load_earth_vertical_gravity_gradient">
-<span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_earth_vertical_gravity_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'01d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_vertical_gravity_gradient.html#load_earth_vertical_gravity_gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_earth_vertical_gravity_gradient" title="Permalink to this definition"></a></dt>
-<dd><p>Load the IGPP Global Earth Vertical Gravity Gradient in various
-resolutions.</p>
+<span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_earth_vertical_gravity_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'01d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_vertical_gravity_gradient.html#load_earth_vertical_gravity_gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_earth_vertical_gravity_gradient" title="Link to this definition"></a></dt>
+<dd><p>Load the IGPP Earth Vertical Gravity Gradient dataset in various resolutions.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg"><img alt="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg" src="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg" style="width: 80%;" /></a>
+<figcaption>
+<p><span class="caption-text">IGPP Earth Vertical Gravity Gradient dataset.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <p>The grids are downloaded to a user data directory
 (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/server/earth/earth_vgg/</span></code>) the first time you invoke
 this function. Afterwards, it will load the grid from the data directory.
 So you’ll need an internet connection the first time around.</p>
 <p>These grids can also be accessed by passing in the file name
-<strong>&#64;earth_vgg</strong>_<em>res</em>[_<em>reg</em>] to any grid plotting/processing
-function. <em>res</em> is the grid resolution (see below), and <em>reg</em> is grid
-registration type (<strong>p</strong> for pixel registration or <strong>g</strong> for gridline
-registration).</p>
+<strong>&#64;earth_vgg</strong>_<em>res</em>[_<em>reg</em>] to any grid processing function or
+plotting method. <em>res</em> is the grid resolution (see below), and <em>reg</em> is
+the grid registration type (<strong>p</strong> for pixel registration or <strong>g</strong> for
+gridline registration).</p>
 <p>The default color palette table (CPT) for this dataset is <em>&#64;earth_vgg.cpt</em>.
 It’s implicitly used when passing in the file name of the dataset to any
 grid plotting method if no CPT is explicitly specified. When the dataset
-is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
-CPT is ignored and GMT’s default CPT (<em>turbo</em>) is used. To use the
+is loaded and plotted as an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default
+CPT is ignored, and GMT’s default CPT (<em>turbo</em>) is used. To use the
 dataset-specific CPT, you need to explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;&#64;earth_vgg.cpt&quot;</span></code>.</p>
-<p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-vgg.html">https://www.generic-mapping-tools.org/remote-datasets/earth-vgg.html</a> for more details.</p>
+<p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-vgg.html">https://www.generic-mapping-tools.org/remote-datasets/earth-vgg.html</a> for more details about available
+datasets, including version information and references.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> stand for
+<li><p><strong>resolution</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – The grid resolution. The suffix <code class="docutils literal notranslate"><span class="pre">d</span></code> and <code class="docutils literal notranslate"><span class="pre">m</span></code> stand for
 arc-degrees and arc-minutes. It can be <code class="docutils literal notranslate"><span class="pre">&quot;01d&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;30m&quot;</span></code>,
 <code class="docutils literal notranslate"><span class="pre">&quot;20m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;15m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;10m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;06m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;04m&quot;</span></code>,
 <code class="docutils literal notranslate"><span class="pre">&quot;03m&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;02m&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;01m&quot;</span></code>.</p></li>
-<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>) – The subregion of the grid to load, in the form of a list
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – The subregion of the grid to load, in the form of a list
 [<em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>] or a string <em>xmin/xmax/ymin/ymax</em>.
 Required for grids with resolutions higher than 5
 arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">&quot;05m&quot;</span></code>).</p></li>
-<li><p><strong>registration</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> for pixel registration or
-<code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code>
-for all resolutions except <code class="docutils literal notranslate"><span class="pre">&quot;01m&quot;</span></code> which is <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> only.</p></li>
+<li><p><strong>registration</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'gridline'</span></code>, <code class="docutils literal notranslate"><span class="pre">'pixel'</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Grid registration type. Either <code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> for pixel registration or
+<code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for gridline registration. Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, means
+<code class="docutils literal notranslate"><span class="pre">&quot;gridline&quot;</span></code> for all resolutions except <code class="docutils literal notranslate"><span class="pre">&quot;01m&quot;</span></code> which is
+<code class="docutils literal notranslate"><span class="pre">&quot;pixel&quot;</span></code> only.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth vertical gravity gradient grid. Coordinates are latitude and
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth vertical gravity gradient grid. Coordinates are latitude and
 longitude in degrees. Units are in Eotvos.</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -271,16 +285,16 @@ workarounds.</p>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pygmt.datasets.load_earth_relief.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_relief" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.datasets.load_sample_data.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_sample_data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.datasets.load_mars_relief.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_mars_relief" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

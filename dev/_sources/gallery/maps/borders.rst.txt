@@ -18,8 +18,8 @@
 .. _sphx_glr_gallery_maps_borders.py:
 
 
-Political Boundaries
---------------------
+Political boundaries
+====================
 
 The ``borders`` parameter of :meth:`pygmt.Figure.coast` specifies levels of
 political boundaries to plot and the pen used to draw them. Choose from the
@@ -34,7 +34,7 @@ For example, to draw national boundaries with a line thickness of 1p and black
 line color use ``borders="1/1p,black"``. You can draw multiple boundaries by
 passing in a list to ``borders``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-27
+.. GENERATED FROM PYTHON SOURCE LINES 20-29
 
 
 
@@ -47,7 +47,7 @@ passing in a list to ``borders``.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -62,7 +62,7 @@ passing in a list to ``borders``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.780 seconds)
+   **Total running time of the script:** (0 minutes 0.361 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_borders.py:
@@ -71,16 +71,13 @@ passing in a list to ``borders``.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: borders.ipynb <borders.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: borders.py <borders.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: borders.ipynb <borders.ipynb>`
 
 
 .. only:: html

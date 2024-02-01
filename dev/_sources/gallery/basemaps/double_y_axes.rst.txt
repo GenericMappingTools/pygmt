@@ -19,7 +19,7 @@
 
 
 Double Y axes graph
--------------------
+===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,
@@ -35,7 +35,7 @@ To plot a double Y-axes graph using PyGMT, we need to plot at least two base
 maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-69
+.. GENERATED FROM PYTHON SOURCE LINES 21-70
 
 
 
@@ -48,8 +48,7 @@ x-axis limits, but different y-axis limits.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -104,7 +103,7 @@ x-axis limits, but different y-axis limits.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.356 seconds)
+   **Total running time of the script:** (0 minutes 0.208 seconds)
 
 
 .. _sphx_glr_download_gallery_basemaps_double_y_axes.py:
@@ -113,16 +112,13 @@ x-axis limits, but different y-axis limits.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: double_y_axes.ipynb <double_y_axes.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: double_y_axes.py <double_y_axes.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: double_y_axes.ipynb <double_y_axes.ipynb>`
 
 
 .. only:: html

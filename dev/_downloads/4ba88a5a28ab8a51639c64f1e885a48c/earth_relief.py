@@ -6,17 +6,18 @@ Plotting a map of Earth relief can use the data accessed by the
 :func:`pygmt.datasets.load_earth_relief` function. The data can then be
 plotted using the :meth:`pygmt.Figure.grdimage` method.
 """
-# sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Load sample Earth relief data for the entire globe at a resolution of
-# 1 arc-degree. The other available resolutions are show
-# at :gmt-datasets:`earth-relief.html`.
+# 1 arc-degree. The other available resolutions are shown at
+# :gmt-datasets:`earth-relief.html`.
 grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
-###############################################################################
+
+# %%
 # Create a plot
 # -------------
 #
@@ -29,42 +30,41 @@ fig = pygmt.Figure()
 fig.grdimage(grid=grid)
 fig.show()
 
-###############################################################################
-#
+# %%
 # :meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection``
-# for the map. In the example below, the ``projection`` is set as ``R12c`` for
-# 12 centimeter figure with a Winkel Tripel projection. For a list of available
-# projections, see :gmt-docs:`cookbook/map-projections.html`.
+# for the map. In the example below, ``projection`` is set to ``"R12c"`` for
+# a 12-centimeters-wide figure with a Winkel Tripel projection. For a list
+# of available projections, see :gmt-docs:`reference/map-projections.html`.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c")
 fig.show()
 
-###############################################################################
+
+# %%
 # Set a color map
 # ---------------
 #
 # :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of
 # the figure. Examples of common CPTs for Earth relief are shown below.
-# A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
+# A full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
-###############################################################################
-#
+# %%
 # Using the *geo* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.show()
 
-###############################################################################
-#
+# %%
 # Using the *relief* CPT:
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="relief")
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a color bar
 # ---------------
 #
@@ -73,15 +73,17 @@ fig.show()
 # parameter for :meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
 # :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and
 # labels. A list is used to pass multiple arguments to ``frame``. In the
-# example below, ``a2500`` sets the axis interval to 2,500, ``x+lElevation``
-# sets the x-axis label, and ``y+lm`` sets the y-axis label.
+# example below, ``"a2500"`` sets the axis interval to 2,500,
+# ``"x+lElevation"`` sets the x-axis label, and ``"y+lm"`` sets the y-axis
+# label.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c", cmap="geo")
 fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
 fig.show()
 
-###############################################################################
+
+# %%
 # Create a region map
 # -------------------
 #
@@ -89,14 +91,17 @@ fig.show()
 # :func:`pygmt.datasets.load_earth_relief` can be used to provide data for a
 # specific area. The ``region`` parameter is required for resolutions at
 # 5 arc-minutes or higher, and accepts a list (as in the example below) or a
-# string. The geographic ranges are passed as *xmin*/*xmax*/*ymin*/*ymax*.
+# string. For the later, the geographic range is passed as
+# "*xmin*/*xmax*/*ymin*/*ymax*".
 #
 # The example below uses data with a 10 arc-minutes resolution, and plots it on
-# a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
-# ``frame="a"`` is used to add a frame to the figure.
+# a 15-centimeters-wide figure with a Mercator projection and a CPT set to
+# *geo*. ``frame="a"`` is used to add a frame with annotations to the figure.
 
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

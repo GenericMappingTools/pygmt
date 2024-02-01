@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Overview &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/overview.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/design-tabs.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=ccdb6887"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -107,6 +108,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -152,7 +154,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/overview.rst"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/overview.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -165,99 +167,79 @@
            <div itemprop="articleBody">
              
   <section id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h1>
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
 <section id="about">
-<h2>About<a class="headerlink" href="#about" title="Permalink to this heading"></a></h2>
+<h2>About<a class="headerlink" href="#about" title="Link to this heading"></a></h2>
 <p>PyGMT is a Python wrapper for the
-<a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>, a
-command-line program widely used across the Earth, Ocean, and Planetary sciences
-and beyond. It provides capabilities for processing spatial data (gridding,
-filtering, masking, FFTs, etc) and making high quality plots and maps.</p>
-<p>PyGMT is different from Python libraries like
-<a class="reference external" href="https://bokeh.pydata.org/en/latest/">Bokeh</a>
+<a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>,
+a command-line program widely used across the Earth, Ocean, and Planetary sciences and
+beyond. It provides capabilities for processing spatial data (gridding, filtering,
+masking, FFTs, etc) and making high quality plots and maps.</p>
+<p>PyGMT is different from Python libraries like <a class="reference external" href="https://bokeh.pydata.org/en/latest/">Bokeh</a>
 and <a class="reference external" href="https://matplotlib.org/">Matplotlib</a>, which have a larger focus on interactivity
-and allowing different backends.
-GMT uses the <a class="reference external" href="https://en.wikipedia.org/wiki/PostScript">PostScript</a> format to
-generate high quality (static) vector graphics for publications, posters, talks, etc.
-It is memory efficient and very fast.
-The PostScript figures can be converted to other formats like PDF, PNG, and JPG for use
-on the web and elsewhere.
-In fact, PyGMT users will usually not have any contact with the original PostScript
-files and get only the more convenient formats like PDF and PNG.</p>
-<p>The project was started in 2017 by <a class="reference external" href="http://www.leouieda.com">Leonardo Uieda</a>
-and <a class="reference external" href="http://www.soest.hawaii.edu/wessel">Paul Wessel</a> (the co-creator and main
-developer of GMT) at the University of Hawaiʻi at Mānoa.
-The development of PyGMT has been supported by NSF grants
-<a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403">OCE-1558403</a> and
-<a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602">EAR-1948603</a>.</p>
+and allowing different backends. GMT uses the
+<a class="reference external" href="https://en.wikipedia.org/wiki/PostScript">PostScript</a> format to generate high quality
+(static) vector graphics for publications, posters, talks, etc. It is memory efficient
+and very fast. The PostScript figures can be converted to other formats like PDF, PNG,
+and JPG for use on the web and elsewhere. In fact, PyGMT users will usually not have any
+contact with the original PostScript files and get only the more convenient formats like
+PDF and PNG.</p>
+<p>The project was started in 2017 by <a class="reference external" href="http://www.leouieda.com">Leonardo Uieda</a> and
+<a class="reference external" href="http://www.soest.hawaii.edu/wessel">Paul Wessel</a> (the co-creator and main developer of
+GMT) at the University of Hawaiʻi at Mānoa. The development of PyGMT has been supported
+by NSF grants <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1558403">OCE-1558403</a>
+and <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1948602">EAR-1948603</a>.</p>
 <p>We welcome any feedback and ideas! Let us know by submitting
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on GitHub</a>
-or by posting on our <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a>.</p>
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issues on GitHub</a> or by posting on
+our <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a>.</p>
 </section>
 <section id="presentations">
-<h2>Presentations<a class="headerlink" href="#presentations" title="Permalink to this heading"></a></h2>
-<p>These are conference presentations about the development of PyGMT (previously
-“GMT/Python”):</p>
-<ul class="simple">
+<h2>Presentations<a class="headerlink" href="#presentations" title="Link to this heading"></a></h2>
+<p>These are conference presentations about the development of PyGMT (previously “GMT/Python”):</p>
+<ul>
 <li><p>“Geospatial Analysis &amp; Visualization with PyGMT”.
 2022.
 Max Jones, Wei Ji Leong, and Leonardo Uieda.
 Presented at <em>SciPy 2022</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.20483793">10.6084/m9.figshare.20483793</a></p></li>
-</ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://youtu.be/nCktihu9bWg"><img alt="SciPy 2022 YouTube video" src="_images/scipy2022-youtube-thumbnail.jpg" style="width: 80%;" /></a>
-</figure>
-<ul class="simple">
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.20483793">10.6084/m9.figshare.20483793</a></p>
+<p><a class="align-center reference internal" href="_images/scipy2022-youtube-thumbnail.jpg"><img alt="" class="align-center" src="_images/scipy2022-youtube-thumbnail.jpg" style="width: 80%;" /></a></p>
+</li>
 <li><p>“PyGMT: Accessing the Generic Mapping Tools from Python”.
 2019.
 Leonardo Uieda and Paul Wessel.
 Presented at <em>AGU 2019</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.11320280">10.6084/m9.figshare.11320280</a></p></li>
-</ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://doi.org/10.6084/m9.figshare.11320280"><img alt="AGU 2019 poster on figshare" src="_images/agu2019-poster.jpg" style="width: 80%;" /></a>
-</figure>
-<ul class="simple">
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.11320280">10.6084/m9.figshare.11320280</a></p>
+<p><a class="align-center reference internal" href="_images/agu2019-poster.jpg"><img alt="" class="align-center" src="_images/agu2019-poster.jpg" style="width: 80%;" /></a></p>
+</li>
 <li><p>“Building an object-oriented Python interface for the Generic Mapping Tools”.
 2018.
 Leonardo Uieda and Paul Wessel.
 Presented at <em>SciPy 2018</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6814052">10.6084/m9.figshare.6814052</a></p></li>
-</ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://www.youtube.com/watch?v=6wMtfZXfTRM"><img alt="SciPy 2018 YouTube video" src="_images/scipy2018-youtube-thumbnail.png" style="width: 80%;" /></a>
-</figure>
-<ul class="simple">
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6814052">10.6084/m9.figshare.6814052</a></p>
+<p><a class="align-center reference internal" href="_images/scipy2018-youtube-thumbnail.png"><img alt="" class="align-center" src="_images/scipy2018-youtube-thumbnail.png" style="width: 80%;" /></a></p>
+</li>
 <li><p>“Integrating the Generic Mapping Tools with the Scientific Python Ecosystem”.
 2018.
 Leonardo Uieda and Paul Wessel.
 Presented at <em>AOGS Annual Meeting 2018</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6399944">10.6084/m9.figshare.6399944</a></p></li>
-</ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://doi.org/10.6084/m9.figshare.6399944"><img alt="AOGS poster on figshare" src="_images/aogs2018-poster.jpg" style="width: 80%;" /></a>
-</figure>
-<ul class="simple">
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.6399944">10.6084/m9.figshare.6399944</a></p>
+<p><a class="align-center reference internal" href="_images/aogs2018-poster.jpg"><img alt="" class="align-center" src="_images/aogs2018-poster.jpg" style="width: 80%;" /></a></p>
+</li>
 <li><p>“Bringing the Generic Mapping Tools to Python”.
 2017.
 Leonardo Uieda and Paul Wessel.
 Presented at <em>SciPy 2017</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.7635833">10.6084/m9.figshare.7635833</a></p></li>
-</ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://www.youtube.com/watch?v=93M4How7R24"><img alt="SciPy 2017 YouTube video" src="_images/scipy2017-youtube-thumbnail.png" style="width: 80%;" /></a>
-</figure>
-<ul class="simple">
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.7635833">10.6084/m9.figshare.7635833</a></p>
+<p><a class="align-center reference internal" href="_images/scipy2017-youtube-thumbnail.png"><img alt="" class="align-center" src="_images/scipy2017-youtube-thumbnail.png" style="width: 80%;" /></a></p>
+</li>
 <li><p>“A modern Python interface for the Generic Mapping Tools”.
 2017.
 Leonardo Uieda and Paul Wessel.
 Presented at <em>AGU 2017</em>.
-doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.5662411">10.6084/m9.figshare.5662411</a></p></li>
+doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.5662411">10.6084/m9.figshare.5662411</a></p>
+<p><a class="align-center reference internal" href="_images/agu2017-poster.jpg"><img alt="" class="align-center" src="_images/agu2017-poster.jpg" style="width: 80%;" /></a></p>
+</li>
 </ul>
-<figure class="align-center">
-<a class="reference external image-reference" href="https://doi.org/10.6084/m9.figshare.5662411"><img alt="AGU 2017 poster on figshare" src="_images/agu2017-poster.jpg" style="width: 80%;" /></a>
-</figure>
 </section>
 </section>
 
@@ -273,10 +255,10 @@ doi:<a class="reference external" href="https://doi.org/10.6084/m9.figshare.5662
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

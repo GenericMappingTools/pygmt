@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>1. Making your first figure &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/get_started/01_first_figure.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -92,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Intro to PyGMT</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. Making your first figure</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-development-environment">Setting up the development environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#loading-the-library">Loading the library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#creating-a-figure">Creating a figure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#color-the-land-and-water">Color the land and water</a></li>
@@ -104,6 +104,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="02_contour_map.html">2. Create a contour map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="03_figure_element.html">3. Figure elements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04_table_inputs.html">4. PyGMT I/O: Table inputs</a></li>
 </ul>
 </li>
 </ul>
@@ -118,6 +119,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -189,30 +191,24 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="making-your-first-figure">
-<span id="sphx-glr-get-started-01-first-figure-py"></span><h1>1. Making your first figure<a class="headerlink" href="#making-your-first-figure" title="Permalink to this heading"></a></h1>
-<p>This tutorial page covers the basics of creating a figure using PyGMT - a
+<span id="sphx-glr-get-started-01-first-figure-py"></span><h1>1. Making your first figure<a class="headerlink" href="#making-your-first-figure" title="Link to this heading"></a></h1>
+<p>This tutorial covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the <a class="reference internal" href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> method for plotting. Later examples will
+the <a class="reference internal" href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a> method for plotting. Later tutorials will
 address other PyGMT methods.</p>
-<section id="setting-up-the-development-environment">
-<h2>Setting up the development environment<a class="headerlink" href="#setting-up-the-development-environment" title="Permalink to this heading"></a></h2>
-<p>PyGMT can be used in both a Python script and a notebook environment, such
-as Jupyter. The tutorial’s recommended method is to use a notebook, and the
-code will be for a notebook environment.</p>
-</section>
 <section id="loading-the-library">
-<h2>Loading the library<a class="headerlink" href="#loading-the-library" title="Permalink to this heading"></a></h2>
+<h2>Loading the library<a class="headerlink" href="#loading-the-library" title="Link to this heading"></a></h2>
 <p>The first step is to import <a class="reference internal" href="../api/index.html#module-pygmt" title="pygmt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt</span></code></a>. All methods and figure generation
 are accessible from the <a class="reference internal" href="../api/index.html#module-pygmt" title="pygmt"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygmt</span></code></a> top level package.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
 </section>
 <section id="creating-a-figure">
-<h2>Creating a figure<a class="headerlink" href="#creating-a-figure" title="Permalink to this heading"></a></h2>
+<h2>Creating a figure<a class="headerlink" href="#creating-a-figure" title="Link to this heading"></a></h2>
 <p>All figure generation in PyGMT is handled by the <a class="reference internal" href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.Figure</span></code></a> class.
 Start a new figure by creating an instance of this class:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p>To add elements to the figure instance or object (<code class="docutils literal notranslate"><span class="pre">fig</span></code> in this example)
@@ -234,25 +230,25 @@ latitudes in the southern hemisphere or longitudes in the western hemisphere.</p
 Boolean value <code class="docutils literal notranslate"><span class="pre">True</span></code> to the <code class="docutils literal notranslate"><span class="pre">shorelines</span></code> parameter. The <code class="docutils literal notranslate"><span class="pre">shorelines</span></code>
 parameter has other options for finer control, but setting it to <code class="docutils literal notranslate"><span class="pre">True</span></code>
 uses the default values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span> <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span> <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To see the figure, call <a class="reference internal" href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.show</span></code></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_01_first_figure_001.png" srcset="../_images/sphx_glr_01_first_figure_001.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="color-the-land-and-water">
-<h2>Color the land and water<a class="headerlink" href="#color-the-land-and-water" title="Permalink to this heading"></a></h2>
+<h2>Color the land and water<a class="headerlink" href="#color-the-land-and-water" title="Link to this heading"></a></h2>
 <p>This figure plots all of the coastlines in the given region, but it does not
 indicate where the land and water are. Color values can be passed to <code class="docutils literal notranslate"><span class="pre">land</span></code>
 and <code class="docutils literal notranslate"><span class="pre">water</span></code> to set the colors on the figure.</p>
 <p>When plotting colors in PyGMT, there are multiple
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmtcolors.html">color codes</a>, that can be used. This includes
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmtcolors.html">color codes</a>, that can be used. This includes
 standard GMT color names (like <code class="docutils literal notranslate"><span class="pre">&quot;skyblue&quot;</span></code>), R/G/B levels (like
 <code class="docutils literal notranslate"><span class="pre">&quot;0/0/255&quot;</span></code>), a hex value (like <code class="docutils literal notranslate"><span class="pre">&quot;#333333&quot;</span></code>), or a gray level (like
 <code class="docutils literal notranslate"><span class="pre">&quot;gray50&quot;</span></code>). For this example, GMT color names are used.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span>
     <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -264,7 +260,7 @@ standard GMT color names (like <code class="docutils literal notranslate"><span 
 </div>
 <img src="../_images/sphx_glr_01_first_figure_002.png" srcset="../_images/sphx_glr_01_first_figure_002.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="set-the-projection">
-<h2>Set the projection<a class="headerlink" href="#set-the-projection" title="Permalink to this heading"></a></h2>
+<h2>Set the projection<a class="headerlink" href="#set-the-projection" title="Link to this heading"></a></h2>
 <p>This figure now has its colors set. By default the projection and size
 of the map is set to <code class="docutils literal notranslate"><span class="pre">&quot;Q15c+du&quot;</span></code>. Here, <code class="docutils literal notranslate"><span class="pre">&quot;Q&quot;</span></code> defines a
 cylindrical equidistant map projection, <code class="docutils literal notranslate"><span class="pre">&quot;15c+du&quot;</span></code> means setting
@@ -277,7 +273,7 @@ gallery. For this example, the Mercator projection is set using <code class="doc
 The width of the figure will be 10 centimeters, as set by <code class="docutils literal notranslate"><span class="pre">&quot;10c&quot;</span></code>.
 The map size can also be set in inches using “i” (e.g. a 5-inch wide
 Mercator projection would use <code class="docutils literal notranslate"><span class="pre">&quot;M5i&quot;</span></code>).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span>
     <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -290,13 +286,13 @@ Mercator projection would use <code class="docutils literal notranslate"><span c
 </div>
 <img src="../_images/sphx_glr_01_first_figure_003.png" srcset="../_images/sphx_glr_01_first_figure_003.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="add-a-frame">
-<h2>Add a frame<a class="headerlink" href="#add-a-frame" title="Permalink to this heading"></a></h2>
+<h2>Add a frame<a class="headerlink" href="#add-a-frame" title="Link to this heading"></a></h2>
 <p>While the map’s colors, projection, and size have been set, the region
 that is being displayed is not apparent. A frame can be added to
 annotate the latitude and longitude of the region.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter is used to add a frame to the figure. For now, it
 will be set to <code class="docutils literal notranslate"><span class="pre">&quot;a&quot;</span></code> to <strong>a</strong>nnotate the axes automatically.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span>
     <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -310,14 +306,14 @@ will be set to <code class="docutils literal notranslate"><span class="pre">&quo
 </div>
 <img src="../_images/sphx_glr_01_first_figure_004.png" srcset="../_images/sphx_glr_01_first_figure_004.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="add-a-title">
-<h2>Add a title<a class="headerlink" href="#add-a-title" title="Permalink to this heading"></a></h2>
+<h2>Add a title<a class="headerlink" href="#add-a-title" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">frame</span></code> parameter can be used to add a title to the figure. The title
 is set by passing <code class="docutils literal notranslate"><span class="pre">&quot;+t&quot;</span></code> followed by the title (e.g. setting the map
 title to “Title” would be <code class="docutils literal notranslate"><span class="pre">&quot;+tTitle&quot;</span></code>).</p>
 <p>To pass multiple arguments to <code class="docutils literal notranslate"><span class="pre">frame</span></code>, a list can be used, as shown in the
 example below. This format uses <code class="docutils literal notranslate"><span class="pre">frame</span></code> to set both the axes annotations
 and the figure title.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">69</span><span class="p">,</span> <span class="o">-</span><span class="mi">68</span><span class="p">,</span> <span class="mf">43.75</span><span class="p">,</span> <span class="mf">44.75</span><span class="p">],</span>
     <span class="n">shorelines</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -331,7 +327,7 @@ and the figure title.</p>
 </div>
 <img src="../_images/sphx_glr_01_first_figure_005.png" srcset="../_images/sphx_glr_01_first_figure_005.png" alt="01 first figure" class = "sphx-glr-single-img"/></section>
 <section id="additional-exercises">
-<h2>Additional exercises<a class="headerlink" href="#additional-exercises" title="Permalink to this heading"></a></h2>
+<h2>Additional exercises<a class="headerlink" href="#additional-exercises" title="Link to this heading"></a></h2>
 <p>This is the end of the first tutorial. Here are some additional exercises
 for the concepts that were discussed:</p>
 <ol class="arabic simple">
@@ -345,13 +341,13 @@ region is set without using a list full of integers or floating numbers,
 the argument needs to be passed as a Python string. Create a map with a
 width of 15 centimeters using the Mollweide (“W”) projection.</p></li>
 </ol>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.493 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.036 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-get-started-01-first-figure-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/e7196a0cb51ccdae1ba86802ada224ec/01_first_figure.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_first_figure.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/49e07ab86b6c31eef6ff1d30a3606268/01_first_figure.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01_first_figure.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/e7196a0cb51ccdae1ba86802ada224ec/01_first_figure.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01_first_figure.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -370,10 +366,10 @@ width of 15 centimeters using the Mollweide (“W”) projection.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

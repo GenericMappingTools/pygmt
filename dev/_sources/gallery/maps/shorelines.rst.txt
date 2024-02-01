@@ -19,11 +19,11 @@
 
 
 Shorelines
-----------
+==========
 
 Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-15
+.. GENERATED FROM PYTHON SOURCE LINES 9-17
 
 
 
@@ -36,7 +36,7 @@ Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -50,7 +50,7 @@ Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.616 seconds)
+   **Total running time of the script:** (0 minutes 0.290 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_shorelines.py:
@@ -59,16 +59,13 @@ Use :meth:`pygmt.Figure.coast` to display shorelines as black lines.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: shorelines.ipynb <shorelines.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: shorelines.py <shorelines.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: shorelines.ipynb <shorelines.ipynb>`
 
 
 .. only:: html

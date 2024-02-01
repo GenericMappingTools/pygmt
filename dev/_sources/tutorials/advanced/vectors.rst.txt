@@ -23,10 +23,9 @@ Plotting vectors
 
 Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-11
+.. GENERATED FROM PYTHON SOURCE LINES 9-12
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -43,7 +42,7 @@ Plotting vectors is handled by :meth:`pygmt.Figure.plot`.
 Plot Cartesian Vectors
 ----------------------
 
-Create a simple Cartesian vector using a starting point through
+Create a simple Cartesian vector using a start point through
 ``x``, ``y``, and ``direction`` parameters.
 On the shown figure, the plot is projected on a 10cm X 10cm region,
 which is specified by the ``projection`` parameter.
@@ -63,7 +62,7 @@ side of the vector.
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-46
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -105,7 +104,7 @@ styling attributes can be found in
 
 .. GENERATED FROM PYTHON SOURCE LINES 57-72
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -147,7 +146,7 @@ can be changed to inches in the second plotted vector.
 
 .. GENERATED FROM PYTHON SOURCE LINES 81-107
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -196,11 +195,11 @@ Each vector list contains the information structured as:
 ``[x_start, y_start, direction_degrees, length]``.
 
 If this approach is chosen, the ``data`` parameter must be
-used instead of ``x``, ``y`` and  ``direction``.
+used instead of ``x``, ``y``, and ``direction``.
 
 .. GENERATED FROM PYTHON SOURCE LINES 116-132
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create a list of lists that include each vector information
@@ -239,7 +238,7 @@ array object and passed using ``data`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 137-158
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Vector specifications structured as:
@@ -290,7 +289,7 @@ this example).
 
 .. GENERATED FROM PYTHON SOURCE LINES 170-211
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create a plot with coast, Mercator projection (M) over the continental US
@@ -351,9 +350,9 @@ Another example of plotting Cartesian vectors over a coast plot. This time a
 Transverse Mercator projection is used. Additionally, :func:`numpy.linspace`
 is used to create 5 vectors with equal stops.
 
-.. GENERATED FROM PYTHON SOURCE LINES 215-246
+.. GENERATED FROM PYTHON SOURCE LINES 215-247
 
-.. code-block:: default
+.. code-block:: Python
 
 
     x = np.linspace(36, 42, 5)  # x values = [36.  37.5 39.  40.5 42. ]
@@ -389,6 +388,7 @@ is used to create 5 vectors with equal stops.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_vectors_007.png
    :alt: vectors
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_007.png
@@ -398,7 +398,7 @@ is used to create 5 vectors with equal stops.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 247-261
+.. GENERATED FROM PYTHON SOURCE LINES 248-262
 
 Plot Circular Vectors
 ---------------------
@@ -415,9 +415,9 @@ horizontal axis. In this example, the result shown is the left half of a
 circle as the plot starts at 90 degrees and goes until 270. Notice that the
 ``m`` in the ``style`` parameter stands for circular vectors.
 
-.. GENERATED FROM PYTHON SOURCE LINES 261-288
+.. GENERATED FROM PYTHON SOURCE LINES 262-289
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -458,7 +458,7 @@ circle as the plot starts at 90 degrees and goes until 270. Notice that the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 289-296
+.. GENERATED FROM PYTHON SOURCE LINES 290-297
 
 When plotting multiple circular vectors, a two dimensional array or numpy
 array object should be passed as the ``data`` parameter. In this example,
@@ -468,9 +468,9 @@ parameter and random values for the ``degree_stop`` parameter discussed in
 the previous example. This is the reason in which each vector has a different
 appearance on the projection.
 
-.. GENERATED FROM PYTHON SOURCE LINES 296-317
+.. GENERATED FROM PYTHON SOURCE LINES 297-318
 
-.. code-block:: default
+.. code-block:: Python
 
 
     vector_num = 5
@@ -505,7 +505,7 @@ appearance on the projection.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 318-324
+.. GENERATED FROM PYTHON SOURCE LINES 319-325
 
 Much like when plotting Cartesian vectors, the default unit used is
 centimeters. When this is changed to inches, the size of the plot appears
@@ -514,9 +514,9 @@ circular vectors. One is plotted using the default unit, and the second is
 plotted using inches. Despite using the same list to plot the vectors, a
 different measurement unit causes one to be larger than the other.
 
-.. GENERATED FROM PYTHON SOURCE LINES 324-347
+.. GENERATED FROM PYTHON SOURCE LINES 325-349
 
-.. code-block:: default
+.. code-block:: Python
 
 
     circular_vector = [6, 5, 1, 90, 270]
@@ -544,6 +544,7 @@ different measurement unit causes one to be larger than the other.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_vectors_010.png
    :alt: vectors
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_010.png
@@ -553,10 +554,11 @@ different measurement unit causes one to be larger than the other.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 348-361
+.. GENERATED FROM PYTHON SOURCE LINES 350-364
 
 Plot Geographic Vectors
 -----------------------
+
 On this map,
 ``point_1`` and ``point_2`` are coordinate pairs used to set the
 start and end points of the geographic vector.
@@ -566,12 +568,12 @@ vectors, use ``=`` at the beginning of the ``style`` parameter.
 Other styling features such as vector stem thickness and head color
 can be passed into the ``pen`` and ``fill`` parameters.
 
-Note that the **+s** is added to use a startpoint and an endpoint
+Note that the **+s** is added to use a start point and an end point
 to represent the vector instead of input angle and length.
 
-.. GENERATED FROM PYTHON SOURCE LINES 361-383
+.. GENERATED FROM PYTHON SOURCE LINES 364-386
 
-.. code-block:: default
+.. code-block:: Python
 
 
     point_1 = [-114.7420, 44.0682]
@@ -607,19 +609,19 @@ to represent the vector instead of input angle and length.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 384-391
+.. GENERATED FROM PYTHON SOURCE LINES 387-394
 
 Using the same technique shown in the previous example,
-multiple vectors can be plotted in a chain where the endpoint
-of one is the starting point of another. This can be done
+multiple vectors can be plotted in a chain where the end point
+of one is the start point of another. This can be done
 by adding the coordinate lists together to create this structure:
 ``[[start_latitude, start_longitude, end_latitude, end_longitude]]``.
 Each list within the 2-D list contains the start and end information
 for each vector.
 
-.. GENERATED FROM PYTHON SOURCE LINES 391-420
+.. GENERATED FROM PYTHON SOURCE LINES 394-423
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Coordinate pairs for all the locations used
@@ -662,15 +664,15 @@ for each vector.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 421-424
+.. GENERATED FROM PYTHON SOURCE LINES 424-427
 
-This example plots vectors over a Mercator projection. The starting points
+This example plots vectors over a Mercator projection. The start points
 are located at SA which is South Africa and going to four different
 locations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 424-447
+.. GENERATED FROM PYTHON SOURCE LINES 427-451
 
-.. code-block:: default
+.. code-block:: Python
 
 
     SA = [22.9375, -30.5595]
@@ -698,6 +700,7 @@ locations.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_vectors_013.png
    :alt: vectors
    :srcset: /tutorials/advanced/images/sphx_glr_vectors_013.png
@@ -710,7 +713,7 @@ locations.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.300 seconds)
+   **Total running time of the script:** (0 minutes 2.525 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_vectors.py:
@@ -719,16 +722,13 @@ locations.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: vectors.ipynb <vectors.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: vectors.py <vectors.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: vectors.ipynb <vectors.ipynb>`
 
 
 .. only:: html

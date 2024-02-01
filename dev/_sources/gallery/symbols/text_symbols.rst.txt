@@ -19,7 +19,8 @@
 
 
 Text symbols
-------------
+============
+
 The :meth:`pygmt.Figure.plot` method allows to plot text symbols. Text is
 normally placed with the :meth:`pygmt.Figure.text` method but there are times
 we wish to treat a character or even a string as a plottable symbol.
@@ -33,11 +34,11 @@ different characters) and *string* can be a letter or a text string
 as **+j**\ *justify* to change the justification [Default is CM]. The fill
 color of the text symbols can be set with the ``fill`` parameter, and the
 outline width can be customized with the ``pen`` parameter.
-For all supported octal codes and fonts see the GMT cookbook
-:gmt-docs:`cookbook/octal-codes.html` and
-:gmt-docs:`cookbook/postscript-fonts.html`.
+For all supported octal codes and fonts see the GMT Technical Reference
+:gmt-docs:`reference/octal-codes.html` and
+:gmt-docs:`reference/postscript-fonts.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-44
+.. GENERATED FROM PYTHON SOURCE LINES 24-46
 
 
 
@@ -50,8 +51,7 @@ For all supported octal codes and fonts see the GMT cookbook
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -79,7 +79,7 @@ For all supported octal codes and fonts see the GMT cookbook
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.838 seconds)
+   **Total running time of the script:** (0 minutes 0.138 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_text_symbols.py:
@@ -88,16 +88,13 @@ For all supported octal codes and fonts see the GMT cookbook
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: text_symbols.ipynb <text_symbols.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: text_symbols.py <text_symbols.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: text_symbols.ipynb <text_symbols.ipynb>`
 
 
 .. only:: html

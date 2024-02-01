@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Contributors Guide &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/contributing.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/design-tabs.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=ccdb6887"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -103,6 +104,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -153,7 +155,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#testing-plots">Testing Plots</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#using-mpl-image-compare">Using mpl_image_compare</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#using-data-version-control-dvc-to-manage-test-images">Using Data Version Control (dvc) to Manage Test Images</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-check-figures-equal">Using check_figures_equal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-check-figures-equal">Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -213,7 +215,7 @@
            <div itemprop="articleBody">
              
   <section id="contributors-guide">
-<h1>Contributors Guide<a class="headerlink" href="#contributors-guide" title="Permalink to this heading"></a></h1>
+<h1>Contributors Guide<a class="headerlink" href="#contributors-guide" title="Link to this heading"></a></h1>
 <p>This is a community driven project and everyone is welcome to contribute.</p>
 <p>The project is hosted at the
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">PyGMT GitHub repository</a>.</p>
@@ -222,9 +224,9 @@
 <a class="reference external" href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a>
 and we encourage all to read it carefully.</p>
 <section id="ways-to-contribute">
-<h2>Ways to Contribute<a class="headerlink" href="#ways-to-contribute" title="Permalink to this heading"></a></h2>
+<h2>Ways to Contribute<a class="headerlink" href="#ways-to-contribute" title="Link to this heading"></a></h2>
 <section id="ways-to-contribute-documentation-and-or-code">
-<h3>Ways to Contribute Documentation and/or Code<a class="headerlink" href="#ways-to-contribute-documentation-and-or-code" title="Permalink to this heading"></a></h3>
+<h3>Ways to Contribute Documentation and/or Code<a class="headerlink" href="#ways-to-contribute-documentation-and-or-code" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Tackle any issue that you wish! Some issues are labeled as <strong>“good first issue”</strong> to
 indicate that they are beginner friendly, meaning that they don’t require extensive
@@ -236,7 +238,7 @@ perfect! We will help you clean things up, test it, etc.</p></li>
 </ul>
 </section>
 <section id="ways-to-contribute-feedback">
-<h3>Ways to Contribute Feedback<a class="headerlink" href="#ways-to-contribute-feedback" title="Permalink to this heading"></a></h3>
+<h3>Ways to Contribute Feedback<a class="headerlink" href="#ways-to-contribute-feedback" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Provide feedback about how we can improve the project or about your particular use
 case. Open an <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues">issue</a> with
@@ -247,7 +249,7 @@ relevant to you.</p></li>
 </ul>
 </section>
 <section id="ways-to-contribute-to-community-building">
-<h3>Ways to Contribute to Community Building<a class="headerlink" href="#ways-to-contribute-to-community-building" title="Permalink to this heading"></a></h3>
+<h3>Ways to Contribute to Community Building<a class="headerlink" href="#ways-to-contribute-to-community-building" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Participate and answer questions on the <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a/11">PyGMT forum Q&amp;A</a>.</p></li>
 <li><p>Participate in discussions at the quarterly PyGMT Community Meetings, which are
@@ -258,9 +260,9 @@ announced on the <a class="reference external" href="https://forum.generic-mappi
 </section>
 </section>
 <section id="providing-feedback">
-<h2>Providing Feedback<a class="headerlink" href="#providing-feedback" title="Permalink to this heading"></a></h2>
+<h2>Providing Feedback<a class="headerlink" href="#providing-feedback" title="Link to this heading"></a></h2>
 <section id="reporting-a-bug">
-<h3>Reporting a Bug<a class="headerlink" href="#reporting-a-bug" title="Permalink to this heading"></a></h3>
+<h3>Reporting a Bug<a class="headerlink" href="#reporting-a-bug" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Find the <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues"><em>Issues</em></a> tab on the
 top of the GitHub repository and click <em>New issue</em>.</p></li>
@@ -270,7 +272,7 @@ top of the GitHub repository and click <em>New issue</em>.</p></li>
 as best as you can.</p></li>
 </ul>
 <section id="reporting-upstream-bugs">
-<h4>Reporting Upstream Bugs<a class="headerlink" href="#reporting-upstream-bugs" title="Permalink to this heading"></a></h4>
+<h4>Reporting Upstream Bugs<a class="headerlink" href="#reporting-upstream-bugs" title="Link to this heading"></a></h4>
 <p>If you are aware that a bug is caused by an upstream GMT issue rather than a
 PyGMT-specific issue, you can optionally take the following steps to help resolve
 the problem:</p>
@@ -294,7 +296,7 @@ for both cases along with your code.</p></li>
 </section>
 </section>
 <section id="submitting-a-feature-request">
-<h3>Submitting a Feature Request<a class="headerlink" href="#submitting-a-feature-request" title="Permalink to this heading"></a></h3>
+<h3>Submitting a Feature Request<a class="headerlink" href="#submitting-a-feature-request" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Find the <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues"><em>Issues</em></a> tab on the
 top of the GitHub repository and click <em>New issue</em>.</p></li>
@@ -305,7 +307,7 @@ as you can.</p></li>
 </ul>
 </section>
 <section id="submitting-general-comments-questions">
-<h3>Submitting General Comments/Questions<a class="headerlink" href="#submitting-general-comments-questions" title="Permalink to this heading"></a></h3>
+<h3>Submitting General Comments/Questions<a class="headerlink" href="#submitting-general-comments-questions" title="Link to this heading"></a></h3>
 <p>There are several pages on the <a class="reference external" href="https://forum.generic-mapping-tools.org/">Community Forum</a>
 where you can submit general comments and/or questions:</p>
 <ul class="simple">
@@ -319,9 +321,9 @@ where you can submit general comments and/or questions:</p>
 </section>
 </section>
 <section id="general-guidelines">
-<h2>General Guidelines<a class="headerlink" href="#general-guidelines" title="Permalink to this heading"></a></h2>
+<h2>General Guidelines<a class="headerlink" href="#general-guidelines" title="Link to this heading"></a></h2>
 <section id="resources-for-new-contributors">
-<h3>Resources for New Contributors<a class="headerlink" href="#resources-for-new-contributors" title="Permalink to this heading"></a></h3>
+<h3>Resources for New Contributors<a class="headerlink" href="#resources-for-new-contributors" title="Link to this heading"></a></h3>
 <p>Please take a look at these resources to learn about Git and pull requests (don’t
 hesitate to <a class="reference internal" href="#getting-help"><span class="std std-ref">ask questions</span></a>):</p>
 <ul class="simple">
@@ -331,13 +333,13 @@ hesitate to <a class="reference internal" href="#getting-help"><span class="std 
 </ul>
 </section>
 <section id="getting-help">
-<h3>Getting Help<a class="headerlink" href="#getting-help" title="Permalink to this heading"></a></h3>
+<h3>Getting Help<a class="headerlink" href="#getting-help" title="Link to this heading"></a></h3>
 <p>Discussion often happens on GitHub issues and pull requests. In addition, there is a
 <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a> for
 the project where you can ask questions.</p>
 </section>
 <section id="pull-request-workflow">
-<h3>Pull Request Workflow<a class="headerlink" href="#pull-request-workflow" title="Permalink to this heading"></a></h3>
+<h3>Pull Request Workflow<a class="headerlink" href="#pull-request-workflow" title="Link to this heading"></a></h3>
 <p>We follow the <a class="reference external" href="http://www.asmeurer.com/git-workflow">git pull request workflow</a>
 to make changes to our codebase. Every change made goes through a pull request, even
 our own, so that our
@@ -345,7 +347,7 @@ our own, so that our
 services have a chance to check that the code is up to standards and passes all
 our tests. This way, the <em>main</em> branch is always stable.</p>
 <section id="general-guidelines-for-making-a-pull-request-pr">
-<h4>General Guidelines for Making a Pull Request (PR):<a class="headerlink" href="#general-guidelines-for-making-a-pull-request-pr" title="Permalink to this heading"></a></h4>
+<h4>General Guidelines for Making a Pull Request (PR):<a class="headerlink" href="#general-guidelines-for-making-a-pull-request-pr" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>What should be included in a PR</p>
 <ul>
@@ -386,7 +388,7 @@ generally proportional to the size of the pull request.</p></li>
 </ul>
 </section>
 <section id="general-process-for-pull-request-review">
-<h4>General Process for Pull Request Review:<a class="headerlink" href="#general-process-for-pull-request-review" title="Permalink to this heading"></a></h4>
+<h4>General Process for Pull Request Review:<a class="headerlink" href="#general-process-for-pull-request-review" title="Link to this heading"></a></h4>
 <p>After you’ve submitted a pull request, you should expect to hear at least a
 comment within a couple of days. We may suggest some changes, improvements or
 alternative implementation details.</p>
@@ -424,12 +426,12 @@ If you have any trouble, leave a comment in the PR or
 </section>
 </section>
 <section id="setting-up-your-environment">
-<h2>Setting up your Environment<a class="headerlink" href="#setting-up-your-environment" title="Permalink to this heading"></a></h2>
+<h2>Setting up your Environment<a class="headerlink" href="#setting-up-your-environment" title="Link to this heading"></a></h2>
 <p>These steps for setting up your environment are necessary for
 <a class="reference internal" href="#editing-the-documentation-locally"><span class="std std-ref">editing the documentation locally</span></a> and
 <a class="reference internal" href="#contributing-code"><span class="std std-ref">contributing code</span></a>. A local PyGMT development environment
 is not needed for <a class="reference internal" href="#editing-the-documentation-on-github"><span class="std std-ref">editing the documentation on GitHub</span></a>.</p>
-<p>We highly recommend using <a class="reference external" href="https://github.com/conda-forge/miniforge#mambaforge/">Mambaforge</a>
+<p>We highly recommend using <a class="reference external" href="https://github.com/conda-forge/miniforge#miniforge3">Miniforge</a>
 and the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> package manager to install and manage your Python packages.
 It will make your life a lot easier!</p>
 <p>The repository includes a virtual environment file <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> with the
@@ -470,9 +472,9 @@ code will be available when you import the package (even if you’re on a differ
 directory).</p>
 </section>
 <section id="contributing-documentation">
-<h2>Contributing Documentation<a class="headerlink" href="#contributing-documentation" title="Permalink to this heading"></a></h2>
+<h2>Contributing Documentation<a class="headerlink" href="#contributing-documentation" title="Link to this heading"></a></h2>
 <section id="pygmt-documentation-overview">
-<h3>PyGMT Documentation Overview<a class="headerlink" href="#pygmt-documentation-overview" title="Permalink to this heading"></a></h3>
+<h3>PyGMT Documentation Overview<a class="headerlink" href="#pygmt-documentation-overview" title="Link to this heading"></a></h3>
 <p>There are four main components to PyGMT’s documentation:</p>
 <ul class="simple">
 <li><p>Gallery examples, with source code in Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code> files under the
@@ -487,7 +489,7 @@ and markdown <code class="docutils literal notranslate"><span class="pre">*.md</
 <p>The documentation is written primarily in
 <a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> and built by
 <a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a>. Please refer to
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/devdocs/rst-cheatsheet.html">reStructuredText Cheatsheet</a>
 if you are new to reStructuredText. When contributing documentation, be sure to
 follow the general guidelines in the <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a>
 section.</p>
@@ -503,7 +505,7 @@ In order to build the documentation locally, you first need to
 </ul>
 </section>
 <section id="editing-the-documentation-on-github">
-<h3>Editing the Documentation on GitHub<a class="headerlink" href="#editing-the-documentation-on-github" title="Permalink to this heading"></a></h3>
+<h3>Editing the Documentation on GitHub<a class="headerlink" href="#editing-the-documentation-on-github" title="Link to this heading"></a></h3>
 <p>If you’re browsing the documentation and notice a typo or something that could be
 improved, please consider letting us know by <a class="reference internal" href="#reporting-a-bug"><span class="std std-ref">creating an issue</span></a> or
 (even better) submitting a fix.</p>
@@ -535,7 +537,7 @@ example scripts. See <a class="reference internal" href="#editing-the-documentat
 for instructions.</p>
 </section>
 <section id="editing-the-documentation-locally">
-<h3>Editing the Documentation Locally<a class="headerlink" href="#editing-the-documentation-locally" title="Permalink to this heading"></a></h3>
+<h3>Editing the Documentation Locally<a class="headerlink" href="#editing-the-documentation-locally" title="Link to this heading"></a></h3>
 <p>For more extensive changes, you can edit the documentation in your cloned repository
 and build the documentation to preview changes before submitting a pull request. First,
 follow the <a class="reference internal" href="#setting-up-your-environment"><span class="std std-ref">setting up your environment</span></a> instructions.
@@ -549,25 +551,27 @@ Open <code class="docutils literal notranslate"><span class="pre">doc/_build/htm
 <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a> to submit your changes for review.</p>
 </section>
 <section id="adding-example-code">
-<h3>Adding example code<a class="headerlink" href="#adding-example-code" title="Permalink to this heading"></a></h3>
+<h3>Adding example code<a class="headerlink" href="#adding-example-code" title="Link to this heading"></a></h3>
 <p>Many of the PyGMT functions have example code in their documentation. To contribute an
 example, add an “Example” header and put the example code below it. Have all lines
 begin with <code class="docutils literal notranslate"><span class="pre">&gt;&gt;&gt;</span></code>.  To keep this example code from being run during testing, add the code
-<code class="docutils literal notranslate"><span class="pre">__doctest_skip__</span> <span class="pre">=</span> <span class="pre">[function</span> <span class="pre">name]</span></code> to the top of the module.</p>
+<code class="docutils literal notranslate"><span class="pre">__doctest_skip__</span> <span class="pre">=</span> <span class="pre">[&quot;function_name&quot;]</span></code> to the top of the module.</p>
 <p><strong>Inline code example</strong></p>
-<p>Below the import statements at the top of the file</p>
-<p><code class="docutils literal notranslate"><span class="pre">__doctest_skip__</span> <span class="pre">=</span> <span class="pre">[&quot;module_name&quot;]</span></code></p>
-<p>At the end of the function’s docstring</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Example
--------
-&gt;&gt;&gt; import pygmt
-&gt;&gt;&gt; # Comment describing what is happening
-&gt;&gt;&gt; Code example
+<p>Below the import statements at the top of the file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;function_name&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>At the end of the function’s docstring:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Example</span>
+<span class="o">-------</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c1"># Comment describing what is happening</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Code</span> <span class="n">example</span>
 </pre></div>
 </div>
 </section>
 <section id="contributing-gallery-plots">
-<h3>Contributing Gallery Plots<a class="headerlink" href="#contributing-gallery-plots" title="Permalink to this heading"></a></h3>
+<h3>Contributing Gallery Plots<a class="headerlink" href="#contributing-gallery-plots" title="Link to this heading"></a></h3>
 <p>The gallery and tutorials are managed by
 <a class="reference external" href="https://sphinx-gallery.readthedocs.io/">sphinx-gallery</a>.
 The source files for the example gallery are <code class="docutils literal notranslate"><span class="pre">.py</span></code> scripts in <code class="docutils literal notranslate"><span class="pre">examples/gallery/</span></code> that
@@ -597,16 +601,16 @@ documentation.</p></li>
 </ul>
 </section>
 <section id="contributing-tutorials">
-<h3>Contributing Tutorials<a class="headerlink" href="#contributing-tutorials" title="Permalink to this heading"></a></h3>
+<h3>Contributing Tutorials<a class="headerlink" href="#contributing-tutorials" title="Link to this heading"></a></h3>
 <p>The tutorials (the User Guide in the docs) are also built by sphinx-gallery from the
 <code class="docutils literal notranslate"><span class="pre">.py</span></code> files in the <code class="docutils literal notranslate"><span class="pre">examples/tutorials</span></code> folder of the repository. To add a new tutorial:</p>
 <ul class="simple">
 <li><p>Create a <code class="docutils literal notranslate"><span class="pre">.py</span></code> file in the <code class="docutils literal notranslate"><span class="pre">examples/tutorials/advanced</span></code> folder.</p></li>
 <li><p>Write the tutorial in “notebook” style with code mixed with paragraphs explaining what
 is being done. See the other tutorials for the format.</p></li>
-<li><p>Choose the most representative figure as the thumbnail figure by adding a comment line
-<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">sphinx_gallery_thumbnail_number</span> <span class="pre">=</span> <span class="pre">&lt;fig_number&gt;</span></code> to any place (usually at the top)
-in the tutorial. The <em>fig_number</em> starts from 1.</p></li>
+<li><p>Choose the most representative figure as the thumbnail figure by adding the comment
+line <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">sphinx_gallery_thumbnail_number</span> <span class="pre">=</span> <span class="pre">&lt;fig_number&gt;</span></code> at the end of the tutorial.
+The <em>fig_number</em> starts from 1.</p></li>
 </ul>
 <p>Guidelines for a good tutorial:</p>
 <ul class="simple">
@@ -622,18 +626,18 @@ concise examples while the tutorials are detailed and full of text.</p></li>
 to be inserted into the documentation.</p>
 </section>
 <section id="editing-the-api-documentation">
-<h3>Editing the API Documentation<a class="headerlink" href="#editing-the-api-documentation" title="Permalink to this heading"></a></h3>
+<h3>Editing the API Documentation<a class="headerlink" href="#editing-the-api-documentation" title="Link to this heading"></a></h3>
 <p>The API documentation is built from the docstrings in the Python <code class="docutils literal notranslate"><span class="pre">*.py</span></code> files under
 the <code class="docutils literal notranslate"><span class="pre">pygmt/src/</span></code> and <code class="docutils literal notranslate"><span class="pre">pygmt/datasets/</span></code> folders. <strong>All docstrings</strong> should follow the
 <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard">NumPy style guide</a>.
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.</p>
-<p>While the maximum line length for code is automatically set by Black, docstrings
+<p>While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, <strong>keep docstrings
-limited to 79 characters</strong> per line.</p>
+limited to 88 characters</strong> per line.</p>
 </section>
 <section id="standards-for-example-code">
-<h3>Standards for Example Code<a class="headerlink" href="#standards-for-example-code" title="Permalink to this heading"></a></h3>
+<h3>Standards for Example Code<a class="headerlink" href="#standards-for-example-code" title="Link to this heading"></a></h3>
 <p>When editing documentation, use the following standards to demonstrate the example code:</p>
 <ol class="arabic simple">
 <li><p>Python arguments, such as import statements, Boolean expressions, and function
@@ -652,7 +656,7 @@ with [ ] (square brackets) with the prefix “Default is”. Example: [Default i
 </ol>
 </section>
 <section id="cross-referencing-with-sphinx">
-<h3>Cross-referencing with Sphinx<a class="headerlink" href="#cross-referencing-with-sphinx" title="Permalink to this heading"></a></h3>
+<h3>Cross-referencing with Sphinx<a class="headerlink" href="#cross-referencing-with-sphinx" title="Link to this heading"></a></h3>
 <p>The API reference is manually assembled in <code class="docutils literal notranslate"><span class="pre">doc/api/index.rst</span></code>.
 The <em>autodoc</em> sphinx extension will automatically create pages for each
 function/class/module/method listed there.</p>
@@ -677,34 +681,27 @@ to <a class="reference external" href="https://www.pygmt.org/latest/install.html
 <li><p><code>:gmt-term:`GMT_PARAMETER`</code></p></li>
 </ul>
 <p>An example would be using
-<code>:gmt-docs:`makecpt.html`</code> to link to <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html">https://docs.generic-mapping-tools.org/latest/makecpt.html</a>.
+<code>:gmt-docs:`makecpt.html`</code> to link to <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/makecpt.html">https://docs.generic-mapping-tools.org/6.5/makecpt.html</a>.
 For GMT configuration parameters, an example is
-<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND</a>.</p>
+<code>:gmt-term:`COLOR_FOREGROUND`</code> to link to <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>.</p>
 <p>Sphinx will create a link to the automatically generated page for that
 function/class/module/method.</p>
 </section>
 </section>
 <section id="contributing-code">
-<h2>Contributing Code<a class="headerlink" href="#contributing-code" title="Permalink to this heading"></a></h2>
+<h2>Contributing Code<a class="headerlink" href="#contributing-code" title="Link to this heading"></a></h2>
 <section id="pygmt-code-overview">
-<h3>PyGMT Code Overview<a class="headerlink" href="#pygmt-code-overview" title="Permalink to this heading"></a></h3>
+<h3>PyGMT Code Overview<a class="headerlink" href="#pygmt-code-overview" title="Link to this heading"></a></h3>
 <p>The source code for PyGMT is located in the <code class="docutils literal notranslate"><span class="pre">pygmt/</span></code> directory. When contributing
 code, be sure to follow the general guidelines in the
 <a class="reference internal" href="#pull-request-workflow"><span class="std std-ref">pull request workflow</span></a> section.</p>
 </section>
 <section id="code-style">
-<h3>Code Style<a class="headerlink" href="#code-style" title="Permalink to this heading"></a></h3>
-<p>We use some tools to format the code so we don’t have to think about it:</p>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/psf/black">Black</a></p></li>
-<li><p><a class="reference external" href="https://github.com/keewis/blackdoc">blackdoc</a></p></li>
-<li><p><a class="reference external" href="https://github.com/myint/docformatter">docformatter</a></p></li>
-<li><p><a class="reference external" href="https://pycqa.github.io/isort/">isort</a></p></li>
-</ul>
-<p>Black and blackdoc loosely follows the <a class="reference external" href="http://pep8.org">PEP8</a> guide but with a few
-differences. Regardless, you won’t have to worry about formatting the code yourself.
-Before committing, run it to automatically format your code:</p>
+<h3>Code Style<a class="headerlink" href="#code-style" title="Link to this heading"></a></h3>
+<p>We use the <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> tool to format the code, so we
+don’t have to think about it. It loosely follow the <a class="reference external" href="http://pep8.org">PEP8</a> guide
+but with a few differences. Regardless, you won’t have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>format
 </pre></div>
 </div>
@@ -719,18 +716,22 @@ pull request to lint the code automatically.</p>
 words bridged only by consonants, such as <code class="docutils literal notranslate"><span class="pre">distcalc</span></code>, and <code class="docutils literal notranslate"><span class="pre">crossprofile</span></code>. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.</p>
-<p>We also use <a class="reference external" href="https://flakeheaven.readthedocs.io">flakeheaven</a> and
-<a class="reference external" href="https://pylint.pycqa.org/">pylint</a> to check the quality of the code and quickly catch
-common errors.
-The <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/Makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>
-contains rules for running both checks:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check<span class="w">   </span><span class="c1"># Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)</span>
-make<span class="w"> </span>lint<span class="w">    </span><span class="c1"># Runs pylint, which is a bit slower</span>
+<p>When working on a tutorial or a gallery plot, it is good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">%%</span></code> as code block separators (please
+refer to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/2660">issue #2660</a>
+for the discussions) and require at least one separator in all example files.</p>
+<p>We also use <a class="reference external" href="https://docs.astral.sh/ruff">ruff</a> to check the quality of the code
+and quickly catch common errors.</p>
+<p>The <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/Makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></a>
+contains rules for running the linter checks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check<span class="w">   </span><span class="c1"># Runs ruff in check mode</span>
 </pre></div>
 </div>
 </section>
 <section id="testing-your-code">
-<h3>Testing your Code<a class="headerlink" href="#testing-your-code" title="Permalink to this heading"></a></h3>
+<h3>Testing your Code<a class="headerlink" href="#testing-your-code" title="Link to this heading"></a></h3>
 <p>Automated testing helps ensure that our code is as free of bugs as it can be.
 It also lets us know immediately if a change we make breaks any other part of the code.</p>
 <p>All of our test code and data are stored in the <code class="docutils literal notranslate"><span class="pre">tests</span></code> subpackage.
@@ -769,14 +770,14 @@ Leave a comment in the PR and we’ll help you out.</p>
 </div>
 </section>
 <section id="testing-plots">
-<h3>Testing Plots<a class="headerlink" href="#testing-plots" title="Permalink to this heading"></a></h3>
+<h3>Testing Plots<a class="headerlink" href="#testing-plots" title="Link to this heading"></a></h3>
 <p>Writing an image-based test is only slightly more difficult than a simple test.
 The main consideration is that you must specify the “baseline” or reference
 image, and compare it with a “generated” or test image. This is handled using
 the <em>decorator</em> functions <code class="docutils literal notranslate"><span class="pre">&#64;pytest.mark.mpl_image_compare</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;check_figures_equal</span></code>
 whose usage are further described below.</p>
 <section id="using-mpl-image-compare">
-<h4>Using mpl_image_compare<a class="headerlink" href="#using-mpl-image-compare" title="Permalink to this heading"></a></h4>
+<h4>Using mpl_image_compare<a class="headerlink" href="#using-mpl-image-compare" title="Link to this heading"></a></h4>
 <blockquote>
 <div><p><strong>This is the preferred way to test plots whenever possible.</strong></p>
 </div></blockquote>
@@ -788,7 +789,9 @@ If your test created a <code class="docutils literal notranslate"><span class="p
 returning the <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> object:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">mpl_image_compare</span>
 <span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
-    <span class="s2">&quot;Test that my plotting method works&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test that my plotting method works.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">()</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W15c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
@@ -813,7 +816,7 @@ The images should be pushed up into a remote repository using <code class="docut
 <code class="docutils literal notranslate"><span class="pre">git</span></code>) as will be explained in the next section.</p>
 </section>
 <section id="using-data-version-control-dvc-to-manage-test-images">
-<h4>Using Data Version Control (<a class="reference external" href="https://dvc.org">dvc</a>) to Manage Test Images<a class="headerlink" href="#using-data-version-control-dvc-to-manage-test-images" title="Permalink to this heading"></a></h4>
+<h4>Using Data Version Control (<a class="reference external" href="https://dvc.org">dvc</a>) to Manage Test Images<a class="headerlink" href="#using-data-version-control-dvc-to-manage-test-images" title="Link to this heading"></a></h4>
 <p>As the baseline images are quite large blob files that can change often (e.g.
 with new GMT versions), it is not ideal to store them in <code class="docutils literal notranslate"><span class="pre">git</span></code> (which is meant
 for tracking plain text files). Instead, we will use <a class="reference external" href="https://dvc.org"><code class="docutils literal notranslate"><span class="pre">dvc</span></code></a>
@@ -879,19 +882,21 @@ git push
 </div>
 </section>
 <section id="using-check-figures-equal">
-<h4>Using check_figures_equal<a class="headerlink" href="#using-check-figures-equal" title="Permalink to this heading"></a></h4>
+<h4>Using <code class="docutils literal notranslate"><span class="pre">check_figures_equal</span></code><a class="headerlink" href="#using-check-figures-equal" title="Link to this heading"></a></h4>
 <p>This approach draws the same figure using two different methods (the reference
 method and the tested method), and checks that both of them are the same.
-It takes two <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> objects (‘fig_ref’ and ‘fig_test’), generates a png
+It takes two <code class="docutils literal notranslate"><span class="pre">pygmt.Figure</span></code> objects (<code class="docutils literal notranslate"><span class="pre">fig_ref</span></code> and <code class="docutils literal notranslate"><span class="pre">fig_test</span></code>), generates a png
 image, and checks for the Root Mean Square (RMS) error between the two.
 Here’s an example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@check_figures_equal</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">test_my_plotting_case</span><span class="p">():</span>
-  <span class="s2">&quot;Test that my plotting method works&quot;</span>
-  <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">Figure</span><span class="p">()</span>
-  <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
-  <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
-  <span class="k">return</span> <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test that my plotting method works.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(),</span> <span class="n">Figure</span><span class="p">()</span>
+    <span class="n">fig_ref</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="s2">&quot;@earth_relief_01d_g&quot;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+    <span class="n">fig_test</span><span class="o">.</span><span class="n">grdimage</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;W120/15c&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;geo&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fig_ref</span><span class="p">,</span> <span class="n">fig_test</span>
 </pre></div>
 </div>
 </section>
@@ -911,10 +916,10 @@ Here’s an example:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

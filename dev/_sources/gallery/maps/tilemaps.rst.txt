@@ -19,13 +19,14 @@
 
 
 Tile maps
----------
+=========
+
 The :meth:`pygmt.Figure.tilemap` method allows to plot
 tiles from a tile server or local file as a basemap or overlay.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-27
+.. GENERATED FROM PYTHON SOURCE LINES 10-30
 
-.. code-block:: default
+.. code-block:: Python
 
     import contextily
     import pygmt
@@ -72,24 +73,24 @@ tiles from a tile server or local file as a basemap or overlay.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-32
+.. GENERATED FROM PYTHON SOURCE LINES 31-35
 
 It's also possible to use tiles provided via the
 `contextily <https://github.com/geopandas/contextily>`__
 library. See :doc:`Contextily providers <contextily:providers_deepdive>`
 for a list of possible tilemap options.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-43
+.. GENERATED FROM PYTHON SOURCE LINES 35-46
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.tilemap(
         region=[-157.84, -157.8, 21.255, 21.285],
         projection="M12c",
-        # Use the Stamen.Watercolor option from contextily
-        source=contextily.providers.Stamen.Watercolor,
+        # Use the CartoDB Positron option from contextily
+        source=contextily.providers.CartoDB.Positron,
         frame="afg",
     )
 
@@ -122,7 +123,7 @@ for a list of possible tilemap options.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.147 seconds)
+   **Total running time of the script:** (0 minutes 1.555 seconds)
 
 
 .. _sphx_glr_download_gallery_maps_tilemaps.py:
@@ -131,16 +132,13 @@ for a list of possible tilemap options.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: tilemaps.ipynb <tilemaps.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: tilemaps.py <tilemaps.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: tilemaps.ipynb <tilemaps.ipynb>`
 
 
 .. only:: html

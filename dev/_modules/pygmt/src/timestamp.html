@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.timestamp &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/timestamp.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -158,96 +160,99 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">timestamp - Plot the GMT timestamp logo.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
-<span class="kn">from</span> <span class="nn">pygmt</span> <span class="kn">import</span> <span class="n">__gmt_version__</span>
-<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">is_nonstr_iter</span>
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span><span class="p">,</span> <span class="n">__gmt_version__</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">deprecate_parameter</span><span class="p">,</span> <span class="n">kwargs_to_strings</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
+
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span>
 
 
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;justification&quot;</span><span class="p">,</span> <span class="s2">&quot;justify&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.11.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.13.0&quot;</span><span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">offset</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">timestamp</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">justification</span><span class="o">=</span><span class="s2">&quot;BL&quot;</span><span class="p">,</span>
-    <span class="n">offset</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;-54p&quot;</span><span class="p">,</span> <span class="s2">&quot;-54p&quot;</span><span class="p">),</span>
-    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;Helvetica,black&quot;</span><span class="p">,</span>
-    <span class="n">timefmt</span><span class="o">=</span><span class="s2">&quot;%Y %b </span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">justify</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;BL&quot;</span><span class="p">,</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;-54p&quot;</span><span class="p">,</span> <span class="s2">&quot;-54p&quot;</span><span class="p">),</span>
+    <span class="n">font</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Helvetica,black&quot;</span><span class="p">,</span>
+    <span class="n">timefmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;%Y %b </span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the GMT timestamp logo.</span>
 
-<span class="sd">    Add the GMT timestamp logo with an optional label at the bottom-left corner</span>
-<span class="sd">    of a plot with an offset of ``(&quot;-54p&quot;, &quot;-54p&quot;)``. The timestamp will be</span>
-<span class="sd">    in the locale set by the environment variable **TZ** (generally local time</span>
-<span class="sd">    but can be changed via ``os.environ[&quot;TZ&quot;]``) and its format is controlled</span>
-<span class="sd">    by the ``timefmt`` parameter. It can also be replaced with any custom</span>
-<span class="sd">    text string using the ``text`` parameter.</span>
+<span class="sd">    Add the GMT timestamp logo with an optional label at the bottom-left corner of a</span>
+<span class="sd">    plot with an offset of ``(&quot;-54p&quot;, &quot;-54p&quot;)``. The timestamp will be in the locale set</span>
+<span class="sd">    by the environment variable **TZ** (generally local time but can be changed via</span>
+<span class="sd">    ``os.environ[&quot;TZ&quot;]``) and its format is controlled by the ``timefmt`` parameter. It</span>
+<span class="sd">    can also be replaced with any custom text string using the ``text`` parameter.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    text : None or str</span>
-<span class="sd">        If ``None``, the current UNIX timestamp is shown in the GMT timestamp</span>
-<span class="sd">        logo. Set this parameter to replace the UNIX timestamp with a custom</span>
-<span class="sd">        text string instead. The text must be no longer than 64 characters.</span>
-<span class="sd">    label : None or str</span>
+<span class="sd">    text</span>
+<span class="sd">        If ``None``, the current UNIX timestamp is shown in the GMT timestamp logo. Set</span>
+<span class="sd">        this parameter to replace the UNIX timestamp with a custom text string instead.</span>
+<span class="sd">        The text must be no longer than 64 characters.</span>
+<span class="sd">    label</span>
 <span class="sd">        The text string shown after the GMT timestamp logo.</span>
-<span class="sd">    justification : str</span>
-<span class="sd">        Justification of the timestamp box relative to the plot&#39;s bottom-left</span>
-<span class="sd">        corner (i.e., the plot origin). The *justification* is a two-character</span>
-<span class="sd">        code that is a combination of a horizontal (**L**\ (eft),</span>
-<span class="sd">        **C**\ (enter), or **R**\ (ight)) and a vertical (**T**\ (op),</span>
-<span class="sd">        **M**\ (iddle), or **B**\ (ottom)) code. For example,</span>
-<span class="sd">        ``justification=&quot;TL&quot;`` means choosing the **T**\ op **L**\ eft point of</span>
-<span class="sd">        the timestamp as the anchor point.</span>
-<span class="sd">    offset : str or tuple</span>
+<span class="sd">    justify</span>
+<span class="sd">        Justification of the timestamp box relative to the plot&#39;s bottom-left corner</span>
+<span class="sd">        (i.e., the plot origin). Give a two-character code that is a combination of a</span>
+<span class="sd">        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical</span>
+<span class="sd">        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,</span>
+<span class="sd">        ``justify=&quot;TL&quot;`` means choosing the **T**\ op **L**\ eft point of the timestamp</span>
+<span class="sd">        as the anchor point.</span>
+<span class="sd">    offset</span>
 <span class="sd">        *offset* or (*offset_x*, *offset_y*).</span>
-<span class="sd">        Offset the anchor point of the timestamp box by *offset_x* and</span>
-<span class="sd">        *offset_y*. If a single value *offset* is given, *offset_y* =</span>
-<span class="sd">        *offset_x* = *offset*.</span>
-<span class="sd">    font : str</span>
-<span class="sd">        Font of the timestamp and the optional label. Since the GMT logo has a</span>
-<span class="sd">        fixed height, the font sizes are fixed to be 8-point for the timestamp</span>
-<span class="sd">        and 7-point for the label. The parameter can&#39;t change the font color</span>
-<span class="sd">        for GMT&lt;=6.4.0, only the font style.</span>
-<span class="sd">    timefmt : str</span>
-<span class="sd">        Format string for the UNIX timestamp. The format string is parsed by</span>
-<span class="sd">        the C function ``strftime``, so that virtually any text can be used</span>
-<span class="sd">        (even not containing any time information).</span>
+<span class="sd">        Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a</span>
+<span class="sd">        single value *offset* is given, *offset_y* = *offset_x* = *offset*.</span>
+<span class="sd">    font</span>
+<span class="sd">        Font of the timestamp and the optional label. Since the GMT logo has a fixed</span>
+<span class="sd">        height, the font sizes are fixed to be 8-point for the timestamp and 7-point for</span>
+<span class="sd">        the label. The parameter can&#39;t change the font color for GMT&lt;=6.4.0, only the</span>
+<span class="sd">        font style.</span>
+<span class="sd">    timefmt</span>
+<span class="sd">        Format string for the UNIX timestamp. The format string is parsed by the C</span>
+<span class="sd">        function ``strftime``, so that virtually any text can be used (even not</span>
+<span class="sd">        containing any time information).</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; # Plot the GMT timestamp logo.</span>
+<span class="sd">    Plot the GMT timestamp logo.</span>
+
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig.timestamp()</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 
-<span class="sd">    &gt;&gt;&gt; # Plot the GMT timestamp logo with a custom label.</span>
+<span class="sd">    Plot the GMT timestamp logo with a custom label.</span>
+
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig.timestamp(label=&quot;Powered by PyGMT&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>  <span class="c1"># pylint: disable=protected-access</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">()</span>
 
     <span class="c1"># Build the options passed to the &quot;plot&quot; module</span>
-    <span class="n">kwdict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+    <span class="n">kwdict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+j</span><span class="si">{</span><span class="n">justification</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+j</span><span class="si">{</span><span class="n">justify</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>  <span class="c1"># given a tuple</span>
-        <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;+o&quot;</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">offset</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>  <span class="c1"># given a single value</span>
-        <span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">offset</span> <span class="ow">and</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.4.0&quot;</span><span class="p">):</span>
-            <span class="c1"># Giving a single offset doesn&#39;t work in GMT &lt;= 6.4.0.</span>
-            <span class="c1"># See https://github.com/GenericMappingTools/gmt/issues/7107.</span>
-            <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+o</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+o</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">__gmt_version__</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;6.4.0&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;/&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
+        <span class="c1"># Giving a single offset doesn&#39;t work in GMT &lt;= 6.4.0.</span>
+        <span class="c1"># See https://github.com/GenericMappingTools/gmt/issues/7107.</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">kwdict</span><span class="p">[</span><span class="s2">&quot;U&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+o</span><span class="si">{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="c1"># The +t modifier was added in GMT 6.5.0.</span>
     <span class="c1"># See https://github.com/GenericMappingTools/gmt/pull/7127.</span>
@@ -281,10 +286,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

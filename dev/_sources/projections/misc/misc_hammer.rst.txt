@@ -32,7 +32,7 @@ complex curves.
 The projection is set with **h** or **H**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-22
+.. GENERATED FROM PYTHON SOURCE LINES 18-24
 
 
 
@@ -45,7 +45,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -57,7 +57,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.488 seconds)
+   **Total running time of the script:** (0 minutes 0.207 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_hammer.py:
@@ -66,16 +66,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: misc_hammer.ipynb <misc_hammer.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_hammer.py <misc_hammer.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: misc_hammer.ipynb <misc_hammer.ipynb>`
 
 
 .. only:: html

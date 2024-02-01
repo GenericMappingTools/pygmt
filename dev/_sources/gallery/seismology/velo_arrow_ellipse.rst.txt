@@ -19,7 +19,7 @@
 
 
 Velocity arrows and confidence ellipses
----------------------------------------
+=======================================
 
 The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrows
 and confidence ellipses. The example below plots red velocity arrows with
@@ -28,7 +28,7 @@ north_velocity used for the station names. Note that the velocity arrows are
 scaled by 0.2 and the 39% confidence limit will give an ellipse which fits
 inside a rectangle of dimension east_sigma by north_sigma.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-42
+.. GENERATED FROM PYTHON SOURCE LINES 14-43
 
 
 
@@ -41,8 +41,7 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pandas as pd
     import pygmt
@@ -77,7 +76,7 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.502 seconds)
+   **Total running time of the script:** (0 minutes 0.212 seconds)
 
 
 .. _sphx_glr_download_gallery_seismology_velo_arrow_ellipse.py:
@@ -86,16 +85,13 @@ inside a rectangle of dimension east_sigma by north_sigma.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: velo_arrow_ellipse.ipynb <velo_arrow_ellipse.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: velo_arrow_ellipse.py <velo_arrow_ellipse.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: velo_arrow_ellipse.ipynb <velo_arrow_ellipse.ipynb>`
 
 
 .. only:: html

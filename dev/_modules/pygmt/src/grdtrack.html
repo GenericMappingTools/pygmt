@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.grdtrack &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/grdtrack.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -172,7 +174,9 @@
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdtrack&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="grdtrack"><a class="viewcode-back" href="../../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack">[docs]</a><span class="nd">@fmt_docstring</span>
+<div class="viewcode-block" id="grdtrack">
+<a class="viewcode-back" href="../../../api/generated/pygmt.grdtrack.html#pygmt.grdtrack">[docs]</a>
+<span class="nd">@fmt_docstring</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;resample&quot;</span><span class="p">,</span>
     <span class="n">C</span><span class="o">=</span><span class="s2">&quot;crossprofile&quot;</span><span class="p">,</span>
@@ -224,11 +228,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    grid : xarray.DataArray or str</span>
-<span class="sd">        Gridded array from which to sample values from, or a file name (netCDF</span>
-<span class="sd">        format).</span>
+<span class="sd">    {grid}</span>
 
-<span class="sd">    points : str or {table-like}</span>
+<span class="sd">    points : str, {table-like}</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
 <span class="sd">        {table-classes}.</span>
 
@@ -368,7 +370,7 @@
 <span class="sd">        - **+c**\ *fact* : Compute envelope on stacked profile as</span>
 <span class="sd">          ±\ *fact* \*\ *deviation* [Default fact value is 2].</span>
 
-<span class="sd">        Notes:</span>
+<span class="sd">        Here are some notes:</span>
 
 <span class="sd">        1. Deviations depend on *method* and are st.dev (**a**), L1 scale,</span>
 <span class="sd">           i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and</span>
@@ -385,7 +387,7 @@
 <span class="sd">           by deviations (**+d**) and finally residuals (**+r**). When more</span>
 <span class="sd">           than one grid is sampled this sequence of 1-3 columns is repeated</span>
 <span class="sd">           for each grid.</span>
-<span class="sd">    radius : bool or int or float or str</span>
+<span class="sd">    radius : bool, float, or str</span>
 <span class="sd">        [*radius*][**+e**\|\ **p**].</span>
 <span class="sd">        To be used with normal grid sampling, and limited to a single, non-IMG</span>
 <span class="sd">        grid. If the nearest node to the input point is NaN, search outwards</span>
@@ -427,8 +429,8 @@
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with an x-range of -118 to</span>
-<span class="sd">    &gt;&gt;&gt; # -107, and a y-range of -49 to -42</span>
+<span class="sd">    &gt;&gt;&gt; # Load a grid of @earth_relief_30m data, with a longitude range of</span>
+<span class="sd">    &gt;&gt;&gt; # -118° E to -107° E, and a latitude range of -49° N to -42° N</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
 <span class="sd">    ...     resolution=&quot;30m&quot;, region=[-118, -107, -49, -42]</span>
 <span class="sd">    ... )</span>
@@ -440,7 +442,6 @@
 <span class="sd">    ...     points=points, grid=grid, newcolname=&quot;bathymetry&quot;</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># pylint: disable=too-many-branches</span>
     <span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;E&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Can&#39;t set both &#39;points&#39; and &#39;profile&#39;.&quot;</span><span class="p">)</span>
 
@@ -452,36 +453,23 @@
 
     <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="c1"># Store the xarray.DataArray grid in virtualfile</span>
-            <span class="n">grid_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-
-            <span class="k">with</span> <span class="n">grid_context</span> <span class="k">as</span> <span class="n">grdfile</span><span class="p">:</span>
-                <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="n">grdfile</span><span class="p">})</span>
+            <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">grdfile</span><span class="p">,</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">required_data</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">grdfile</span>
                 <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Output to tmpfile if outfile is not set</span>
                     <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-
-                <span class="k">if</span> <span class="n">points</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="c1"># Choose how data will be passed into the module</span>
-                    <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
-                        <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">points</span>
-                    <span class="p">)</span>
-                    <span class="k">with</span> <span class="n">table_context</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
-                        <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                            <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdtrack&quot;</span><span class="p">,</span>
-                            <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span>
-                                <span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span>
-                            <span class="p">),</span>
-                        <span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                        <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdtrack&quot;</span><span class="p">,</span>
-                        <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">),</span>
-                    <span class="p">)</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdtrack&quot;</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">),</span>
+                <span class="p">)</span>
 
         <span class="c1"># Read temporary csv output to a pandas table</span>
         <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outfile, return pd.DataFrame</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">column_names</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span><span class="n">newcolname</span><span class="p">]</span>
+                <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="n">points</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">(),</span> <span class="n">newcolname</span><span class="p">]</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># &#39;str&#39; object has no attribute &#39;columns&#39;</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">)</span>
@@ -489,6 +477,7 @@
             <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">return</span> <span class="n">result</span></div>
+
 </pre></div>
 
            </div>
@@ -499,10 +488,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

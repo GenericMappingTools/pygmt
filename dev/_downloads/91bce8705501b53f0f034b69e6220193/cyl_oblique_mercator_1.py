@@ -16,6 +16,8 @@ with **A**. The central meridian is set by *lon0/lat0*. The oblique equator
 is set by *azimuth*. Align the y-axis
 with the optional **+v**. The figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

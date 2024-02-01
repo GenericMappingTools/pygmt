@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.figure &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/figure.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -165,8 +167,10 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">IPython</span>
+
+    <span class="n">_HAS_IPYTHON</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">IPython</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># pylint: disable=invalid-name</span>
+    <span class="n">_HAS_IPYTHON</span> <span class="o">=</span> <span class="kc">False</span>
 
 
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
@@ -190,8 +194,8 @@
 <span class="p">}</span>
 
 <span class="c1"># Show figures in Jupyter notebooks if available</span>
-<span class="k">if</span> <span class="n">IPython</span><span class="p">:</span>
-    <span class="n">get_ipython</span> <span class="o">=</span> <span class="n">IPython</span><span class="o">.</span><span class="n">get_ipython</span><span class="p">()</span>  <span class="c1"># pylint: disable=invalid-name</span>
+<span class="k">if</span> <span class="n">_HAS_IPYTHON</span><span class="p">:</span>
+    <span class="n">get_ipython</span> <span class="o">=</span> <span class="n">IPython</span><span class="o">.</span><span class="n">get_ipython</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">get_ipython</span> <span class="ow">and</span> <span class="s2">&quot;IPKernelApp&quot;</span> <span class="ow">in</span> <span class="n">get_ipython</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>  <span class="c1"># Jupyter Notebook enabled</span>
         <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;notebook&quot;</span>
 
@@ -202,7 +206,9 @@
     <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
 
 
-<div class="viewcode-block" id="Figure"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.html#pygmt.Figure">[docs]</a><span class="k">class</span> <span class="nc">Figure</span><span class="p">:</span>
+<div class="viewcode-block" id="Figure">
+<a class="viewcode-back" href="../../api/generated/pygmt.Figure.html#pygmt.Figure">[docs]</a>
+<span class="k">class</span> <span class="nc">Figure</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A GMT figure to handle all plotting.</span>
 
@@ -239,13 +245,13 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">unique_name</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span>  <span class="c1"># pylint: disable=consider-using-with</span>
-            <span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">-preview-&quot;</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">-preview-&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Clean up the temporary directory that stores the previews</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clean up the temporary directory that stores the previews.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_preview_dir&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
@@ -267,8 +273,8 @@
 
     <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Call the ``figure`` module before each plotting command to ensure we&#39;re</span>
-<span class="sd">        plotting to this particular figure.</span>
+<span class="sd">        Call the ``figure`` module before each plotting command to ensure we&#39;re plotting</span>
+<span class="sd">        to this particular figure.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_activate_figure</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">kwargs</span>
@@ -283,7 +289,9 @@
             <span class="n">wesn</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">extract_region</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">wesn</span>
 
-<div class="viewcode-block" id="Figure.psconvert"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.psconvert.html#pygmt.Figure.psconvert">[docs]</a>    <span class="nd">@fmt_docstring</span>
+<div class="viewcode-block" id="Figure.psconvert">
+<a class="viewcode-back" href="../../api/generated/pygmt.Figure.psconvert.html#pygmt.Figure.psconvert">[docs]</a>
+    <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
         <span class="n">A</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;gs_option&quot;</span><span class="p">,</span>
@@ -408,18 +416,41 @@
                 <span class="n">module</span><span class="o">=</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix_arg</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Figure.savefig"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig">[docs]</a>    <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<div class="viewcode-block" id="Figure.savefig">
+<a class="viewcode-back" href="../../api/generated/pygmt.Figure.savefig.html#pygmt.Figure.savefig">[docs]</a>
+    <span class="k">def</span> <span class="nf">savefig</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">transparent</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">crop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">worldfile</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Save the figure to a file.</span>
+<span class="sd">        Save the figure to an image file.</span>
 
-<span class="sd">        This method implements a matplotlib-like interface for</span>
-<span class="sd">        :meth:`pygmt.Figure.psconvert`.</span>
+<span class="sd">        Supported image formats and their extensions:</span>
 
-<span class="sd">        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),</span>
-<span class="sd">        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).</span>
-<span class="sd">        The KML output generates a companion PNG file.</span>
+<span class="sd">        **Raster image formats**</span>
+
+<span class="sd">        - BMP (``.bmp``)</span>
+<span class="sd">        - JPEG (``.jpg`` or ``.jpeg``)</span>
+<span class="sd">        - GeoTIFF (``.tiff``)</span>
+<span class="sd">        - PNG (``.png``)</span>
+<span class="sd">        - PPM (``.ppm``)</span>
+<span class="sd">        - TIFF (``.tif``)</span>
+
+<span class="sd">        **Vector image formats**</span>
+
+<span class="sd">        - EPS (``.eps``)</span>
+<span class="sd">        - PDF (``.pdf``)</span>
+
+<span class="sd">        Beside the above formats, you can also save the figure to a KML file</span>
+<span class="sd">        (``.kml``), with a companion PNG file generated automatically. The KML</span>
+<span class="sd">        file can be viewed in Google Earth.</span>
 
 <span class="sd">        You can pass in any keyword arguments that</span>
 <span class="sd">        :meth:`pygmt.Figure.psconvert` accepts.</span>
@@ -435,13 +466,20 @@
 <span class="sd">        crop : bool</span>
 <span class="sd">            If ``True``, will crop the figure canvas (page) to the plot area.</span>
 <span class="sd">        anti_alias: bool</span>
-<span class="sd">            If ``True``, will use anti-aliasing when creating raster images</span>
-<span class="sd">            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``</span>
-<span class="sd">            and ``g2`` to the ``anti_aliasing`` parameter of</span>
-<span class="sd">            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector</span>
-<span class="sd">            graphics.</span>
+<span class="sd">            If ``True``, will use anti-aliasing when creating raster images.</span>
+<span class="sd">            More specifically, it passes the arguments ``&quot;t2&quot;`` and ``&quot;g2&quot;``</span>
+<span class="sd">            to the ``anti_aliasing`` parameter of</span>
+<span class="sd">            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.</span>
 <span class="sd">        show: bool</span>
 <span class="sd">            If ``True``, will open the figure in an external viewer.</span>
+<span class="sd">        worldfile : bool</span>
+<span class="sd">            If ``True``, will create a companion</span>
+<span class="sd">            `world file &lt;https://en.wikipedia.org/wiki/World_file&gt;`__ for the</span>
+<span class="sd">            figure. The world file will have the same name as the figure file</span>
+<span class="sd">            but with different extension (e.g. tfw for tif). See</span>
+<span class="sd">            https://en.wikipedia.org/wiki/World_file#Filename_extension</span>
+<span class="sd">            for the convention of world file extensions. This parameter only</span>
+<span class="sd">            works for raster image formats (except GeoTIFF).</span>
 <span class="sd">        dpi : int</span>
 <span class="sd">            Set raster resolution in dpi [Default is ``720`` for PDF, ``300``</span>
 <span class="sd">            for others].</span>
@@ -452,17 +490,28 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># All supported formats</span>
         <span class="n">fmts</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;png&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;jpg&quot;</span><span class="p">:</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span>
             <span class="s2">&quot;bmp&quot;</span><span class="p">:</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span>
             <span class="s2">&quot;eps&quot;</span><span class="p">:</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;tif&quot;</span><span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;jpg&quot;</span><span class="p">:</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span>
             <span class="s2">&quot;kml&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;png&quot;</span><span class="p">:</span> <span class="s2">&quot;g&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ppm&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tif&quot;</span><span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tiff&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># GeoTIFF doesn&#39;t need the -T option</span>
         <span class="p">}</span>
 
-        <span class="n">prefix</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
-        <span class="n">ext</span> <span class="o">=</span> <span class="n">ext</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Remove the .</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">as_posix</span><span class="p">(),</span> <span class="n">fname</span><span class="o">.</span><span class="n">suffix</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>  <span class="c1"># Remove the . and normalize to lowercase</span>
+
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">:</span>  <span class="c1"># Alias jpeg to jpg</span>
+            <span class="n">ext</span> <span class="o">=</span> <span class="s2">&quot;jpg&quot;</span>
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;tiff&quot;</span><span class="p">:</span>  <span class="c1"># GeoTIFF</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+g&quot;</span>
+        <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;kml&quot;</span><span class="p">:</span>  <span class="c1"># KML</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+k&quot;</span>
+
         <span class="k">if</span> <span class="n">ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fmts</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;ps&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
@@ -480,14 +529,33 @@
         <span class="k">if</span> <span class="n">anti_alias</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Qg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;kml&quot;</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+k&quot;</span>
+
+        <span class="k">if</span> <span class="n">worldfile</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;eps&quot;</span><span class="p">,</span> <span class="s2">&quot;kml&quot;</span><span class="p">,</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="s2">&quot;tiff&quot;</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Saving a world file is not supported for &#39;</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&#39; format.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">psconvert</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="n">crop</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Remove the .pgw world file if exists</span>
+        <span class="c1"># Not necessary after GMT 6.5.0.</span>
+        <span class="c1"># See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;tiff&quot;</span> <span class="ow">and</span> <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+        <span class="c1"># Rename if file extension doesn&#39;t match the input file suffix</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">!=</span> <span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ext</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
             <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Figure.show"><a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Figure.show">
+<a class="viewcode-back" href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Display a preview of the figure.</span>
 
@@ -549,20 +617,16 @@
 
         <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">,</span> <span class="s2">&quot;notebook&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                    <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, or &#39;none&#39;.&quot;</span>
-                <span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid display method &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, or &#39;none&#39;.&quot;</span>
             <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;notebook&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">IPython</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_IPYTHON</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">GMTError</span><span class="p">(</span>
-                    <span class="p">(</span>
-                        <span class="s2">&quot;Notebook display is selected, but IPython is not available. &quot;</span>
-                        <span class="s2">&quot;Make sure you have IPython installed, &quot;</span>
-                        <span class="s2">&quot;or run the script in a Jupyter notebook.&quot;</span>
-                    <span class="p">)</span>
+                    <span class="s2">&quot;Notebook display is selected, but IPython is not available. &quot;</span>
+                    <span class="s2">&quot;Make sure you have IPython installed, &quot;</span>
+                    <span class="s2">&quot;or run the script in a Jupyter notebook.&quot;</span>
                 <span class="p">)</span>
             <span class="n">png</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preview</span><span class="p">(</span>
                 <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
@@ -574,6 +638,7 @@
                 <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">anti_alias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span>
             <span class="n">launch_external_viewer</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">waiting</span><span class="o">=</span><span class="n">waiting</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="nf">_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">dpi</span><span class="p">,</span> <span class="n">as_bytes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -624,7 +689,7 @@
         <span class="n">html</span> <span class="o">=</span> <span class="s1">&#39;&lt;img src=&quot;data:image/png;base64,</span><span class="si">{image}</span><span class="s1">&quot; width=&quot;</span><span class="si">{width}</span><span class="s1">px&quot;&gt;&#39;</span>
         <span class="k">return</span> <span class="n">html</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">base64_png</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
-    <span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># pylint: disable=import-outside-toplevel</span>
+    <span class="kn">from</span> <span class="nn">pygmt.src</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># type: ignore [misc]</span>
         <span class="n">basemap</span><span class="p">,</span>
         <span class="n">coast</span><span class="p">,</span>
         <span class="n">colorbar</span><span class="p">,</span>
@@ -654,7 +719,10 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="set_display"><a class="viewcode-back" href="../../api/generated/pygmt.set_display.html#pygmt.set_display">[docs]</a><span class="k">def</span> <span class="nf">set_display</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="set_display">
+<a class="viewcode-back" href="../../api/generated/pygmt.set_display.html#pygmt.set_display">[docs]</a>
+<span class="k">def</span> <span class="nf">set_display</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the display method when calling :meth:`pygmt.Figure.show`.</span>
 
@@ -696,11 +764,10 @@
         <span class="n">SHOW_CONFIG</span><span class="p">[</span><span class="s2">&quot;method&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span>
     <span class="k">elif</span> <span class="n">method</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Invalid display mode &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
-                <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, &#39;none&#39; or None.&quot;</span>
-            <span class="p">)</span>
+            <span class="sa">f</span><span class="s2">&quot;Invalid display mode &#39;</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+            <span class="s2">&quot;should be either &#39;notebook&#39;, &#39;external&#39;, &#39;none&#39; or None.&quot;</span>
         <span class="p">)</span></div>
+
 </pre></div>
 
            </div>
@@ -711,10 +778,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

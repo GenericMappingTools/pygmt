@@ -19,7 +19,8 @@
 
 
 Contours
---------
+========
+
 The :meth:`pygmt.Figure.contour` method can plot contour lines from a table of
 points by direct triangulation. The data for the triangulation can be provided
 using one of three methods:
@@ -33,11 +34,11 @@ using one of three methods:
 The parameters ``levels`` and ``annotation`` set the intervals of the contours
 and the annotation on the contours respectively.
 
-In this example we supply the data as  1-D :class:`numpy.ndarray` with the
+In this example we supply the data as 1-D :class:`numpy.ndarray` with the
 ``x``, ``y``, and ``z`` parameters and draw the contours using a 0.5p pen with
 contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-48
+.. GENERATED FROM PYTHON SOURCE LINES 24-49
 
 
 
@@ -50,9 +51,7 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
 
 
-.. code-block:: default
-
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -83,7 +82,7 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.525 seconds)
+   **Total running time of the script:** (0 minutes 0.225 seconds)
 
 
 .. _sphx_glr_download_gallery_images_contours.py:
@@ -92,16 +91,13 @@ contours every 10 ``z`` values and annotations every 20 ``z`` values.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: contours.ipynb <contours.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: contours.py <contours.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: contours.ipynb <contours.ipynb>`
 
 
 .. only:: html

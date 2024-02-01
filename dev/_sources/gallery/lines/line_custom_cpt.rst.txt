@@ -19,7 +19,7 @@
 
 
 Line colors with a custom CPT
------------------------------
+=============================
 
 The color of the lines made by :meth:`pygmt.Figure.plot` can be set according
 to a custom CPT and assigned with the ``pen`` parameter.
@@ -29,7 +29,7 @@ The custom CPT can be used by setting the plot command's ``cmap`` parameter to
 custom CPT, and the line color is set as the z-value by using **+z** when
 setting the ``pen`` color.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-37
+.. GENERATED FROM PYTHON SOURCE LINES 16-38
 
 
 
@@ -42,8 +42,7 @@ setting the ``pen`` color.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -60,7 +59,7 @@ setting the ``pen`` color.
     pygmt.makecpt(cmap="batlow", series=[0, 9, 1], color_model="+c0-9")
 
     # Plot 10 lines and set a different z-value for each line
-    for zvalue in range(0, 10):
+    for zvalue in range(10):
         y = zvalue * np.sin(x)
         fig.plot(x=x, y=y, cmap=True, zvalue=zvalue, pen="thick,+z,-")
 
@@ -71,7 +70,7 @@ setting the ``pen`` color.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.526 seconds)
+   **Total running time of the script:** (0 minutes 0.230 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_line_custom_cpt.py:
@@ -80,16 +79,13 @@ setting the ``pen`` color.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: line_custom_cpt.ipynb <line_custom_cpt.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: line_custom_cpt.py <line_custom_cpt.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: line_custom_cpt.ipynb <line_custom_cpt.ipynb>`
 
 
 .. only:: html

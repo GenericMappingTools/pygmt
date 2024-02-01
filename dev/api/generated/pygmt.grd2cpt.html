@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.grd2cpt &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.grd2cpt.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -129,6 +130,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -190,17 +192,17 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-grd2cpt">
-<h1>pygmt.grd2cpt<a class="headerlink" href="#pygmt-grd2cpt" title="Permalink to this heading"></a></h1>
+<h1>pygmt.grd2cpt<a class="headerlink" href="#pygmt-grd2cpt" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.grd2cpt">
-<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grd2cpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlevels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrule_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuous</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grd2cpt.html#grd2cpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grd2cpt" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.</span></span><span class="sig-name descname"><span class="pre">grd2cpt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transparency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nlevels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overrule_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_bg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">categorical</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cyclic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">continuous</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/src/grd2cpt.html#grd2cpt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.grd2cpt" title="Link to this definition"></a></dt>
 <dd><p>Make GMT color palette tables from a grid file.</p>
 <p>This function will help you to make static color palette tables (CPTs).
 By default, the CPT will be saved as the current CPT of the session,
 figure, subplot, panel, or inset depending on which level
 <a class="reference internal" href="#pygmt.grd2cpt" title="pygmt.grd2cpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2cpt</span></code></a> is called (for details on how GMT modern mode
 maintains different levels of colormaps please see
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#gmt-modern-mode-hierarchical-levels</a>).
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#gmt-modern-mode-hierarchical-levels">https://docs.generic-mapping-tools.org/6.5/reference/features.html#gmt-modern-mode-hierarchical-levels</a>).
 You can use <code class="docutils literal notranslate"><span class="pre">output</span></code> to save the CPT to a file. The CPT is based on an
 existing dynamic master CPT of your choice, and the mapping from data value
 to colors is through the data’s cumulative distribution function (CDF), so
@@ -218,18 +220,18 @@ undefined. For color tables beyond the standard GMT offerings, visit
 <a class="reference external" href="http://soliton.vm.bytemark.co.uk/pub/cpt-city/">cpt-city</a> and
 <a class="reference external" href="http://www.fabiocrameri.ch/colourmaps.php">Scientific Colour-Maps</a>.</p>
 <p>If the master CPT includes B, F, and N entries, these will be copied into
-the new master file. If not, the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> from the
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file will be used. This default behavior
+the new master file. If not, the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> from the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf">gmt.conf</a> file will be used. This default behavior
 can be overruled using the parameters <code class="docutils literal notranslate"><span class="pre">background</span></code>, <code class="docutils literal notranslate"><span class="pre">overrule_bg</span></code>
 or <code class="docutils literal notranslate"><span class="pre">no_bg</span></code>.</p>
 <p>The color model (RGB, HSV or CMYK) of the palette created by
 <a class="reference internal" href="#pygmt.grd2cpt" title="pygmt.grd2cpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2cpt</span></code></a> will be the same as specified in the header of the
-master CPT. When there is no <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> entry in the master
-CPT, the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> specified in the
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file or the <code class="docutils literal notranslate"><span class="pre">color_model</span></code> parameter
+master CPT. When there is no <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> entry in the master
+CPT, the <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_MODEL">COLOR_MODEL</a> specified in the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf">gmt.conf</a> file or the <code class="docutils literal notranslate"><span class="pre">color_model</span></code> parameter
 will be used.</p>
-<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/grd2cpt.html">https://docs.generic-mapping-tools.org/latest/grd2cpt.html</a></p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/grd2cpt.html">https://docs.generic-mapping-tools.org/6.5/grd2cpt.html</a></p>
 <p><strong>Aliases:</strong></p>
 <ul class="simple">
 <li><p>A = transparency</p></li>
@@ -252,23 +254,27 @@ will be used.</p>
 <li><p>Z = continuous</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><em>xarray.DataArray</em></a>) – The file name of the input grid or the grid loaded as a DataArray.</p></li>
-<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set a constant level of transparency (0-100) for all color slices.
+<li><p><strong>grid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><em>xarray.DataArray</em></a>) – <p>Name of the input grid file or the grid loaded as a
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p>
+<p>For reading a specific grid file format or applying basic data operations,
+see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full">https://docs.generic-mapping-tools.org/6.5/gmt.html#grd-inout-full</a> for the available modifiers.</p>
+</p></li>
+<li><p><strong>transparency</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set a constant level of transparency (0-100) for all color slices.
 Append <strong>+a</strong> to also affect the foreground, background, and NaN
 colors [Default is no transparency, i.e., <code class="docutils literal notranslate"><span class="pre">0</span></code> (opaque)].</p></li>
-<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Select the master color palette table (CPT) to use in the
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Select the master color palette table (CPT) to use in the
 interpolation. Full list of built-in color palette tables can be found
-at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/latest/cookbook/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
-<li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
+at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/cpts.html#built-in-color-palette-tables-cpt">https://docs.generic-mapping-tools.org/6.5/reference/cpts.html#built-in-color-palette-tables-cpt</a>.</p></li>
+<li><p><strong>background</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Select the back- and foreground colors to match the colors for lowest
 and highest <em>z</em>-values in the output CPT [Default (<code class="docutils literal notranslate"><span class="pre">background=True</span></code>
 or <code class="docutils literal notranslate"><span class="pre">background=&quot;o&quot;</span></code>) uses the colors specified in the master file, or
-those defined by the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a>]. Use
+those defined by the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_NAN">COLOR_NAN</a>]. Use
 <code class="docutils literal notranslate"><span class="pre">background=&quot;i&quot;</span></code> to match the colors for the lowest and highest
 values in the input (instead of the output) CPT.</p></li>
-<li><p><strong>color_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<strong>R</strong>|<strong>r</strong>|<strong>h</strong>|<strong>c</strong>][<strong>+c</strong>[<em>label</em>|<em>start</em>[<strong>-</strong>]]].
+<li><p><strong>color_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>R</strong>|<strong>r</strong>|<strong>h</strong>|<strong>c</strong>][<strong>+c</strong>[<em>label</em>|<em>start</em>[<strong>-</strong>]]].
 Force output CPT to be written with r/g/b codes, gray-scale values or
 color name (<strong>R</strong>, default) or r/g/b codes only (<strong>r</strong>), or h-s-v codes
 (<strong>h</strong>), or c/m/y/k codes (<strong>c</strong>).  Optionally or alternatively, append
@@ -279,52 +285,52 @@ names (you can skip a category by not giving a name), or give
 <em>start</em>, where we automatically build monotonically increasing
 labels from <em>start</em> (a single letter or an integer). Additionally
 append <strong>-</strong> to build ranges <em>start</em>-<em>start+1</em> as labels instead.</p></li>
-<li><p><strong>nlevels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to create a linear color table by using the grid
+<li><p><strong>nlevels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set to <code class="docutils literal notranslate"><span class="pre">True</span></code> to create a linear color table by using the grid
 z-range as the new limits in the CPT. Alternatively, set <em>nlevels</em>
 to resample the color table into <em>nlevels</em> equidistant slices.</p></li>
-<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
+<li><p><strong>series</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<em>min/max/inc</em>[<strong>+b</strong>|<strong>l</strong>|<strong>n</strong>]|<em>file</em>|<em>list</em>].
 Define the range of the new CPT by giving the lowest and highest
 z-value (and optionally an interval). If this is not given, the
 existing range in the master CPT will be used intact. The values
 produced defines the color slice boundaries. If <strong>+n</strong> is used it
 refers to the number of such boundaries and not the number of slices.
 For details on array creation, see
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/latest/makecpt.html#generate-1d-array</a>.</p></li>
-<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <em>zlow/zhigh</em>.
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/makecpt.html#generate-1d-array">https://docs.generic-mapping-tools.org/6.5/makecpt.html#generate-1d-array</a>.</p></li>
+<li><p><strong>truncate</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>zlow/zhigh</em>.
 Truncate the incoming CPT so that the lowest and highest z-levels are
 to <em>zlow</em> and <em>zhigh</em>. If one of these equal NaN then we leave that
 end of the CPT alone. The truncation takes place before any resampling.
-See also <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
+See also <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/6.5/reference/features.html#manipulating-cpts</a>.</p></li>
+<li><p><strong>output</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Optional. The file name with extension .cpt to store the generated CPT
 file. If not given or <code class="docutils literal notranslate"><span class="pre">False</span></code> [Default], saves the CPT as the current
 CPT of the session, figure, subplot, panel, or inset depending on which
 level <a class="reference internal" href="#pygmt.grd2cpt" title="pygmt.grd2cpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2cpt</span></code></a> is called.</p></li>
-<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Set this to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <strong>c</strong> [Default] to reverse the sense of color
+<li><p><strong>reverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set this to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <strong>c</strong> [Default] to reverse the sense of color
 progression in the master CPT. Set this to <strong>z</strong> to reverse the sign
 of z-values in the color table. Note that this change of z-direction
 happens before <code class="docutils literal notranslate"><span class="pre">truncate</span></code> and <code class="docutils literal notranslate"><span class="pre">series</span></code> values are used so the
 latter must be compatible with the changed z-range. See also
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/latest/cookbook/features.html#manipulating-cpts</a>.</p></li>
-<li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
-CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> specified in
-the <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf">gmt.conf</a> file. When combined with
-<code class="docutils literal notranslate"><span class="pre">background</span></code>, only <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> is considered.</p></li>
-<li><p><strong>no_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do not write out the background, foreground, and NaN-color fields
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#manipulating-cpts">https://docs.generic-mapping-tools.org/6.5/reference/features.html#manipulating-cpts</a>.</p></li>
+<li><p><strong>overrule_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Overrule background, foreground, and NaN colors specified in the master
+CPT with the values of the parameters <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_BACKGROUND">COLOR_BACKGROUND</a>,
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_FOREGROUND">COLOR_FOREGROUND</a>, and <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> specified in
+the <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf">gmt.conf</a> file. When combined with
+<code class="docutils literal notranslate"><span class="pre">background</span></code>, only <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-COLOR_NAN">COLOR_NAN</a> is considered.</p></li>
+<li><p><strong>no_bg</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Do not write out the background, foreground, and NaN-color fields
 [Default will write them, i.e. <code class="docutils literal notranslate"><span class="pre">no_bg=False</span></code>].</p></li>
-<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – For logarithmic interpolation scheme with input given as logarithms.
+<li><p><strong>log</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – For logarithmic interpolation scheme with input given as logarithms.
 Expects input z-values provided via <code class="docutils literal notranslate"><span class="pre">series</span></code> to be log10(<em>z</em>),
 assigns colors, and writes out <em>z</em>.</p></li>
-<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
+<li><p><strong>continuous</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Force a continuous CPT when building from a list of colors and a list
 of z-values [Default is None, i.e. discrete values].</p></li>
-<li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
+<li><p><strong>categorical</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Do not interpolate the input color table but pick the output colors
 starting at the beginning of the color table, until colors for all
 intervals are assigned. This is particularly useful in combination with
 a categorical color table, like <code class="docutils literal notranslate"><span class="pre">cmap=&quot;categorical&quot;</span></code>.</p></li>
-<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Produce a wrapped (cyclic) color table that endlessly repeats its
+<li><p><strong>cyclic</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – Produce a wrapped (cyclic) color table that endlessly repeats its
 range. Note that <code class="docutils literal notranslate"><span class="pre">cyclic=True</span></code> cannot be set together with
 <code class="docutils literal notranslate"><span class="pre">categorical=True</span></code>.</p></li>
-<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
 written to stderr. Choose among 7 levels of verbosity:</p>
 <ul>
 <li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
@@ -369,10 +375,10 @@ written to stderr. Choose among 7 levels of verbosity:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

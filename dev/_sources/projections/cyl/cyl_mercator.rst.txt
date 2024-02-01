@@ -38,7 +38,7 @@ The projection is set with **m** or **M**. The central meridian is set with the
 optional *lon0* and the standard parallel is set with the optional *lat0*.
 The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-27
+.. GENERATED FROM PYTHON SOURCE LINES 24-29
 
 
 
@@ -51,7 +51,7 @@ The figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -62,7 +62,7 @@ The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.492 seconds)
+   **Total running time of the script:** (0 minutes 0.209 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_mercator.py:
@@ -71,16 +71,13 @@ The figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_mercator.ipynb <cyl_mercator.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_mercator.py <cyl_mercator.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_mercator.ipynb <cyl_mercator.ipynb>`
 
 
 .. only:: html

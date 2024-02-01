@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Projections &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/projections/index.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
-        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../_static/design-tabs.js?v=36754332"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -155,6 +156,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -220,7 +222,7 @@
            <div itemprop="articleBody">
              
   <section id="projections">
-<h1>Projections<a class="headerlink" href="#projections" title="Permalink to this heading"></a></h1>
+<h1>Projections<a class="headerlink" href="#projections" title="Link to this heading"></a></h1>
 <p>PyGMT supports many map projections. Use the <code class="docutils literal notranslate"><span class="pre">projection</span></code> parameter to specify which
 one you want to use in all plotting methods. The projection is specified by a one-letter
 code along with (sometimes optional) reference longitude and latitude and the
@@ -228,7 +230,7 @@ width of the map (for example, <strong>A</strong><em>lon0/lat0</em>[<em>/horizon
 height is determined based on the region and projection.</p>
 <p>These are all the available projections:</p>
 <div class="sphx-glr-thumbnails"></div><section id="azimuthal-projections">
-<h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Permalink to this heading"></a></h2>
+<h2>Azimuthal Projections<a class="headerlink" href="#azimuthal-projections" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The main advantage of this projection is that distances from the projection center are displaye..."><img alt="" src="../_images/sphx_glr_azim_equidistant_thumb.png" />
 <p><a class="reference internal" href="azim/azim_equidistant.html#sphx-glr-projections-azim-azim-equidistant-py"><span class="std std-ref">Azimuthal Equidistant</span></a></p>
   <div class="sphx-glr-thumbnail-title">Azimuthal Equidistant</div>
@@ -251,7 +253,7 @@ height is determined based on the region and projection.</p>
 </div>
 </section>
 <section id="conic-projections">
-<h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Permalink to this heading"></a></h2>
+<h2>Conic Projections<a class="headerlink" href="#conic-projections" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This projection, developed by Heinrich C. Albers in 1805, is predominantly used to map regions ..."><img alt="" src="../_images/sphx_glr_conic_albers_thumb.png" />
 <p><a class="reference internal" href="conic/conic_albers.html#sphx-glr-projections-conic-conic-albers-py"><span class="std std-ref">Albers Conic Equal Area</span></a></p>
   <div class="sphx-glr-thumbnail-title">Albers Conic Equal Area</div>
@@ -268,7 +270,7 @@ height is determined based on the region and projection.</p>
 </div>
 </section>
 <section id="cylindric-projections">
-<h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Permalink to this heading"></a></h2>
+<h2>Cylindric Projections<a class="headerlink" href="#cylindric-projections" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This cylindrical projection was developed in 1745 by César-François Cassini de Thury for the su..."><img alt="" src="../_images/sphx_glr_cyl_cassini_thumb.png" />
 <p><a class="reference internal" href="cyl/cyl_cassini.html#sphx-glr-projections-cyl-cyl-cassini-py"><span class="std std-ref">Cassini Cylindrical</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cassini Cylindrical</div>
@@ -306,7 +308,7 @@ height is determined based on the region and projection.</p>
 </div>
 </section>
 <section id="miscellaneous-projections">
-<h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Permalink to this heading"></a></h2>
+<h2>Miscellaneous Projections<a class="headerlink" href="#miscellaneous-projections" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The Eckert IV projection, presented by the German cartographer Max Eckert-Greiffendorff in 1906..."><img alt="" src="../_images/sphx_glr_misc_eckertIV_thumb.png" />
 <p><a class="reference internal" href="misc/misc_eckertIV.html#sphx-glr-projections-misc-misc-eckertiv-py"><span class="std std-ref">Eckert IV</span></a></p>
   <div class="sphx-glr-thumbnail-title">Eckert IV</div>
@@ -335,7 +337,7 @@ height is determined based on the region and projection.</p>
 </div>
 </section>
 <section id="non-geographic-projections">
-<h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Permalink to this heading"></a></h2>
+<h2>Non-geographic Projections<a class="headerlink" href="#non-geographic-projections" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="X\ width\ [/height] or x\ x-scale\ [/y-scale]"><img alt="" src="../_images/sphx_glr_cartesian_linear_thumb.png" />
 <p><a class="reference internal" href="nongeo/cartesian_linear.html#sphx-glr-projections-nongeo-cartesian-linear-py"><span class="std std-ref">Cartesian linear</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cartesian linear</div>
@@ -352,12 +354,12 @@ height is determined based on the region and projection.</p>
 </div>
 </section>
 <section id="projection-table">
-<h2>Projection Table<a class="headerlink" href="#projection-table" title="Permalink to this heading"></a></h2>
-<p>The below table shows the projection codes for the 31 GMT projections.</p>
-<table class="colwidths-given docutils align-default">
+<h2>Projection Table<a class="headerlink" href="#projection-table" title="Link to this heading"></a></h2>
+<p>The table below shows the projection codes for the 31 GMT projections:</p>
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 42%" />
-<col style="width: 58%" />
+<col style="width: 41.7%" />
+<col style="width: 58.3%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>PyGMT Projection Argument</p></th>
@@ -479,10 +481,10 @@ height is determined based on the region and projection.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

@@ -19,7 +19,8 @@
 
 
 Vertical or horizontal bars
----------------------------
+===========================
+
 The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. By default, *base* = 0 meaning that the
@@ -36,7 +37,7 @@ single bar. Use **+s** to instead split the bar into *ny* or *nx*
 side-by-side, individual and thinner bars. Multi-band bars require
 ``cmap=True`` with one color per band.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-71
+.. GENERATED FROM PYTHON SOURCE LINES 23-73
 
 
 
@@ -49,8 +50,7 @@ side-by-side, individual and thinner bars. Multi-band bars require
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -106,7 +106,7 @@ side-by-side, individual and thinner bars. Multi-band bars require
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.983 seconds)
+   **Total running time of the script:** (0 minutes 0.231 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_bars.py:
@@ -115,16 +115,13 @@ side-by-side, individual and thinner bars. Multi-band bars require
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: bars.ipynb <bars.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: bars.py <bars.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: bars.ipynb <bars.ipynb>`
 
 
 .. only:: html

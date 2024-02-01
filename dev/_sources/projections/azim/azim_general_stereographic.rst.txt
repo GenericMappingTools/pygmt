@@ -36,7 +36,7 @@ projection center, the optional *horizon* parameter specifies the maximum
 distance from projection center (in degrees, < 180, default 90), and the
 *scale* or *width* sets the size of the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-25
+.. GENERATED FROM PYTHON SOURCE LINES 22-27
 
 
 
@@ -49,7 +49,7 @@ distance from projection center (in degrees, < 180, default 90), and the
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -60,7 +60,7 @@ distance from projection center (in degrees, < 180, default 90), and the
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.475 seconds)
+   **Total running time of the script:** (0 minutes 0.192 seconds)
 
 
 .. _sphx_glr_download_projections_azim_azim_general_stereographic.py:
@@ -69,16 +69,13 @@ distance from projection center (in degrees, < 180, default 90), and the
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: azim_general_stereographic.ipynb <azim_general_stereographic.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: azim_general_stereographic.py <azim_general_stereographic.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: azim_general_stereographic.ipynb <azim_general_stereographic.ipynb>`
 
 
 .. only:: html

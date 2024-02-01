@@ -1,43 +1,44 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.datasets.load_sample_data &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.datasets.load_sample_data.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="pygmt.datasets.load_tile_map" href="pygmt.datasets.load_tile_map.html" />
-    <link rel="prev" title="pygmt.datasets.load_earth_vertical_gravity_gradient" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" />
+    <link rel="prev" title="pygmt.datasets.load_venus_relief" href="pygmt.datasets.load_venus_relief.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -118,6 +119,11 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_mask.html">pygmt.datasets.load_earth_mask</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_relief.html">pygmt.datasets.load_earth_relief</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_earth_vertical_gravity_gradient.html">pygmt.datasets.load_earth_vertical_gravity_gradient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mars_relief.html">pygmt.datasets.load_mars_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_mercury_relief.html">pygmt.datasets.load_mercury_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_moon_relief.html">pygmt.datasets.load_moon_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_pluto_relief.html">pygmt.datasets.load_pluto_relief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.datasets.load_venus_relief.html">pygmt.datasets.load_venus_relief</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.datasets.load_sample_data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pygmt.datasets.load_sample_data"><code class="docutils literal notranslate"><span class="pre">load_sample_data</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#examples-using-pygmt-datasets-load-sample-data">Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code></a></li>
@@ -131,6 +137,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -192,21 +199,21 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-datasets-load-sample-data">
-<h1>pygmt.datasets.load_sample_data<a class="headerlink" href="#pygmt-datasets-load-sample-data" title="Permalink to this heading"></a></h1>
+<h1>pygmt.datasets.load_sample_data<a class="headerlink" href="#pygmt-datasets-load-sample-data" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.datasets.load_sample_data">
-<span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/samples.html#load_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_sample_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/samples.html#load_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_sample_data" title="Link to this definition"></a></dt>
 <dd><p>Load an example dataset from the GMT server.</p>
 <p>The data are downloaded to a cache directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>) the
 first time you invoke this function. Afterwards, it will load the data from
 the cache. So you’ll need an internet connection the first time around.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the dataset to load.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'bathymetry'</span></code>, <code class="docutils literal notranslate"><span class="pre">'earth_relief_holes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'fractures'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hotspots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'japan_quakes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mars_shape'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maunaloa_co2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notre_dame_topography'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ocean_ridge_points'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rock_compositions'</span></code>, <code class="docutils literal notranslate"><span class="pre">'usgs_quakes'</span></code>]</span>) – Name of the dataset to load.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data or
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2023.8.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data
+or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -220,7 +227,7 @@ the cache. So you’ll need an internet connection the first time around.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygmt.datasets</span> <span class="kn">import</span> <span class="n">list_sample_data</span><span class="p">,</span> <span class="n">load_sample_data</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># use list_sample_data to see the available datasets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">list_sample_data</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>  <span class="c1"># noqa: W505</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">list_sample_data</span><span class="p">(),</span> <span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
 <span class="go">{&#39;bathymetry&#39;: &#39;Table of ship bathymetric observations off Baja California&#39;,</span>
 <span class="go"> &#39;earth_relief_holes&#39;: &#39;Regional 20 arc-minutes Earth relief grid with holes&#39;,</span>
 <span class="go"> &#39;fractures&#39;: &#39;Table of hypothetical fracture lengths and azimuths&#39;,</span>
@@ -239,14 +246,14 @@ the cache. So you’ll need an internet connection the first time around.</p>
 </dd></dl>
 
 <section id="examples-using-pygmt-datasets-load-sample-data">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-sample-data" title="Permalink to this heading"></a></h2>
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.datasets.load_sample_data</span></code><a class="headerlink" href="#examples-using-pygmt-datasets-load-sample-data" title="Link to this heading"></a></h2>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdtrack function samples a raster grid&#x27;s value along specified points. We will need ..."><img alt="" src="../../_images/sphx_glr_track_sampling_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/track_sampling.html#sphx-glr-gallery-images-track-sampling-py"><span class="std std-ref">Sampling along tracks</span></a></p>
   <div class="sphx-glr-thumbnail-title">Sampling along tracks</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Ternary diagram"><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.ternary method can draw ternary diagrams. The example shows how to plot circle..."><img alt="" src="../../_images/sphx_glr_ternary_thumb.png" />
 <p><a class="reference internal" href="../../gallery/basemaps/ternary.html#sphx-glr-gallery-basemaps-ternary-py"><span class="std std-ref">Ternary diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Ternary diagram</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimension..."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
   <div class="sphx-glr-thumbnail-title">Blockmean</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.rose method can plot windrose diagrams or polar histograms."><img alt="" src="../../_images/sphx_glr_rose_thumb.png" />
@@ -263,17 +270,17 @@ the cache. So you’ll need an internet connection the first time around.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.datasets.load_earth_vertical_gravity_gradient.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_earth_vertical_gravity_gradient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.datasets.load_venus_relief.html" class="btn btn-neutral float-left" title="pygmt.datasets.load_venus_relief" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="pygmt.datasets.load_tile_map.html" class="btn btn-neutral float-right" title="pygmt.datasets.load_tile_map" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

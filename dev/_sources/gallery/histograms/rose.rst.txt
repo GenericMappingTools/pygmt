@@ -19,12 +19,12 @@
 
 
 Rose diagram
-------------
+============
 
 The :meth:`pygmt.Figure.rose` method can plot windrose diagrams or polar
 histograms.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-46
+.. GENERATED FROM PYTHON SOURCE LINES 10-47
 
 
 
@@ -37,8 +37,7 @@ histograms.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -81,7 +80,7 @@ histograms.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.439 seconds)
+   **Total running time of the script:** (0 minutes 0.133 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_rose.py:
@@ -90,16 +89,13 @@ histograms.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: rose.ipynb <rose.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: rose.py <rose.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: rose.ipynb <rose.ipynb>`
 
 
 .. only:: html

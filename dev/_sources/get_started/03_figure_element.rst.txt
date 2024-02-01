@@ -20,6 +20,7 @@
 
 3. Figure elements
 ==================
+
 The figure below shows the naming of figure elements in PyGMT.
 
 - :meth:`pygmt.Figure()`: having a number of plotting methods. Every new
@@ -38,7 +39,7 @@ The figure below shows the naming of figure elements in PyGMT.
 - :meth:`pygmt.Figure.show`: previewing the content added to the current
   figure instance
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-84
+.. GENERATED FROM PYTHON SOURCE LINES 25-87
 
 
 
@@ -51,7 +52,7 @@ The figure below shows the naming of figure elements in PyGMT.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -119,7 +120,7 @@ The figure below shows the naming of figure elements in PyGMT.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.333 seconds)
+   **Total running time of the script:** (0 minutes 0.309 seconds)
 
 
 .. _sphx_glr_download_get_started_03_figure_element.py:
@@ -128,16 +129,13 @@ The figure below shows the naming of figure elements in PyGMT.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 03_figure_element.ipynb <03_figure_element.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 03_figure_element.py <03_figure_element.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 03_figure_element.ipynb <03_figure_element.ipynb>`
 
 
 .. only:: html

@@ -34,7 +34,7 @@ by *lon0/lat0*. The projection pole is set by *lonp/latp* in option three.
 Align the y-axis with the optional **+v**. The figure size is set
 with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-32
+.. GENERATED FROM PYTHON SOURCE LINES 20-34
 
 
 
@@ -47,7 +47,7 @@ with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -67,7 +67,7 @@ with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.550 seconds)
+   **Total running time of the script:** (0 minutes 0.252 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_oblique_mercator_3.py:
@@ -76,16 +76,13 @@ with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_oblique_mercator_3.ipynb <cyl_oblique_mercator_3.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_oblique_mercator_3.py <cyl_oblique_mercator_3.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_oblique_mercator_3.ipynb <cyl_oblique_mercator_3.ipynb>`
 
 
 .. only:: html

@@ -6,28 +6,62 @@
 
 Computation times
 =================
-**00:05.555** total execution time for **projections_cyl** files:
+**00:02.387** total execution time for 11 files **from projections/cyl**:
 
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)                                             | 00:00.602 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py` (``cyl_oblique_mercator_3.py``)                       | 00:00.550 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``cyl_miller.py``)                                               | 00:00.523 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``cyl_universal_transverse_mercator.py``) | 00:00.507 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``cyl_equal_area.py``)                                       | 00:00.506 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)                                           | 00:00.492 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``cyl_transverse_mercator.py``)                     | 00:00.490 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``)                                 | 00:00.483 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``cyl_equidistant.py``)                                     | 00:00.479 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py` (``cyl_oblique_mercator_1.py``)                       | 00:00.465 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py` (``cyl_oblique_mercator_2.py``)                       | 00:00.458 | 0.0 MB |
-+-----------------------------------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_projections_cyl_cyl_cassini.py` (``cyl_cassini.py``)
+     - 00:00.293
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_3.py` (``cyl_oblique_mercator_3.py``)
+     - 00:00.252
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_miller.py` (``cyl_miller.py``)
+     - 00:00.232
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_equal_area.py` (``cyl_equal_area.py``)
+     - 00:00.221
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_universal_transverse_mercator.py` (``cyl_universal_transverse_mercator.py``)
+     - 00:00.214
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_mercator.py` (``cyl_mercator.py``)
+     - 00:00.209
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_stereographic.py` (``cyl_stereographic.py``)
+     - 00:00.204
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_equidistant.py` (``cyl_equidistant.py``)
+     - 00:00.200
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_transverse_mercator.py` (``cyl_transverse_mercator.py``)
+     - 00:00.199
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_1.py` (``cyl_oblique_mercator_1.py``)
+     - 00:00.183
+     - 0.0
+   * - :ref:`sphx_glr_projections_cyl_cyl_oblique_mercator_2.py` (``cyl_oblique_mercator_2.py``)
+     - 00:00.179
+     - 0.0

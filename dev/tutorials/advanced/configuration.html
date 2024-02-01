@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Configuring PyGMT defaults &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/configuration.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -125,6 +126,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -196,19 +198,19 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="configuring-pygmt-defaults">
-<span id="sphx-glr-tutorials-advanced-configuration-py"></span><h1>Configuring PyGMT defaults<a class="headerlink" href="#configuring-pygmt-defaults" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-tutorials-advanced-configuration-py"></span><h1>Configuring PyGMT defaults<a class="headerlink" href="#configuring-pygmt-defaults" title="Link to this heading"></a></h1>
 <p>Default GMT parameters can be set globally or locally using
 <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
 <section id="configuring-default-gmt-parameters">
-<h2>Configuring default GMT parameters<a class="headerlink" href="#configuring-default-gmt-parameters" title="Permalink to this heading"></a></h2>
+<h2>Configuring default GMT parameters<a class="headerlink" href="#configuring-default-gmt-parameters" title="Link to this heading"></a></h2>
 <p>Users can override default parameters either temporarily (locally) or
 permanently (globally) using <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>. The full list of default
-parameters that can be changed can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/gmt.conf.html">https://docs.generic-mapping-tools.org/latest/gmt.conf.html</a>.</p>
+parameters that can be changed can be found at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf.html">https://docs.generic-mapping-tools.org/6.5/gmt.conf.html</a>.</p>
 <p>We demonstrate the usage of <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.config</span></code></a> by configuring a map plot.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start with a basic figure with the default style</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start with a basic figure with the default style</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">115</span><span class="p">,</span> <span class="mf">119.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;M10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">)</span>
@@ -218,7 +220,7 @@ parameters that can be changed can be found at <a class="reference external" hre
 </div>
 <img src="../../_images/sphx_glr_configuration_001.png" srcset="../../_images/sphx_glr_configuration_001.png" alt="configuration" class = "sphx-glr-single-img"/></section>
 <section id="globally-overriding-defaults">
-<h2>Globally overriding defaults<a class="headerlink" href="#globally-overriding-defaults" title="Permalink to this heading"></a></h2>
+<h2>Globally overriding defaults<a class="headerlink" href="#globally-overriding-defaults" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">MAP_FRAME_TYPE</span></code> parameter specifies the style of map frame to use, of
 which there are 5 options: <code class="docutils literal notranslate"><span class="pre">fancy</span></code> (default, see above), <code class="docutils literal notranslate"><span class="pre">fancy+</span></code>,
 <code class="docutils literal notranslate"><span class="pre">plain</span></code>, <code class="docutils literal notranslate"><span class="pre">graph</span></code> (which does not apply to geographical maps) and
@@ -226,7 +228,7 @@ which there are 5 options: <code class="docutils literal notranslate"><span clas
 <p>The <code class="docutils literal notranslate"><span class="pre">FORMAT_GEO_MAP</span></code> parameter controls the format of geographical tick
 annotations. The default uses degrees and minutes. Here we specify the ticks
 to be a decimal number of degrees.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># Configuration for the &#39;current figure&#39;.</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -240,7 +242,7 @@ to be a decimal number of degrees.</p>
 </div>
 <img src="../../_images/sphx_glr_configuration_002.png" srcset="../../_images/sphx_glr_configuration_002.png" alt="configuration" class = "sphx-glr-single-img"/></section>
 <section id="locally-overriding-defaults">
-<h2>Locally overriding defaults<a class="headerlink" href="#locally-overriding-defaults" title="Permalink to this heading"></a></h2>
+<h2>Locally overriding defaults<a class="headerlink" href="#locally-overriding-defaults" title="Link to this heading"></a></h2>
 <p>It is also possible to temporarily override the default parameters, which is
 very useful for limiting the scope of changes to a particular plot.
 <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.config</span></code></a> is implemented as a context manager, which handles the
@@ -249,7 +251,7 @@ the <code class="docutils literal notranslate"><span class="pre">with</span> <sp
 manager. In this way, it can be used to override a parameter for a single
 command, or a sequence of commands. An application of <a class="reference internal" href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config"><code class="xref py py-class docutils literal notranslate"><span class="pre">pygmt.config</span></code></a>
 as a context manager is shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 
 <span class="c1"># This will have a fancy+ frame</span>
 <span class="k">with</span> <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;fancy+&quot;</span><span class="p">):</span>
@@ -266,13 +268,13 @@ as a context manager is shown below:</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_configuration_003.png" srcset="../../_images/sphx_glr_configuration_003.png" alt="configuration" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.234 seconds)</p>
+<img src="../../_images/sphx_glr_configuration_003.png" srcset="../../_images/sphx_glr_configuration_003.png" alt="configuration" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.569 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-configuration-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/099123cf2369bc56b70d474b4f25331c/configuration.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">configuration.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/332901e705d8531feab99f7f72779ab9/configuration.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">configuration.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/099123cf2369bc56b70d474b4f25331c/configuration.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">configuration.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -291,10 +293,10 @@ as a context manager is shown below:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

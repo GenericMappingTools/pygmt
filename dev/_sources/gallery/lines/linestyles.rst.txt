@@ -19,7 +19,7 @@
 
 
 Line styles
------------
+===========
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
@@ -31,10 +31,10 @@ Giving ``"dotted"`` or ``"."`` yields a dotted line, whereas a dashed pen is
 requested with ``"dashed"`` or ``"-"``. Also combinations of dots and dashes,
 like ``".-"`` for a dot-dashed line, are allowed.
 
-For more advanced *pen* attributes, see the GMT cookbook
-:gmt-docs:`cookbook/features.html#wpen-attrib`.
+For more advanced *pen* attributes, see the GMT Technical Reference
+:gmt-docs:`reference/features.html#wpen-attrib`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-58
+.. GENERATED FROM PYTHON SOURCE LINES 21-59
 
 
 
@@ -47,8 +47,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -92,7 +91,7 @@ For more advanced *pen* attributes, see the GMT cookbook
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.029 seconds)
+   **Total running time of the script:** (0 minutes 0.192 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_linestyles.py:
@@ -101,16 +100,13 @@ For more advanced *pen* attributes, see the GMT cookbook
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: linestyles.ipynb <linestyles.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: linestyles.py <linestyles.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: linestyles.ipynb <linestyles.ipynb>`
 
 
 .. only:: html

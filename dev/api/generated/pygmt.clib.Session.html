@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.clib.Session &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.clib.Session.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -133,7 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_strings.html">pygmt.clib.Session.put_strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtual_file.html">pygmt.clib.Session.open_virtual_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.extract_region.html">pygmt.clib.Session.extract_region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
 </ul>
@@ -141,6 +142,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -202,10 +204,10 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-clib-session">
-<h1>pygmt.clib.Session<a class="headerlink" href="#pygmt-clib-session" title="Permalink to this heading"></a></h1>
+<h1>pygmt.clib.Session<a class="headerlink" href="#pygmt-clib-session" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="pygmt.clib.Session">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.clib.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygmt.clib.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session" title="Link to this definition"></a></dt>
 <dd><p>A GMT API session where most operations involving the C API happen.</p>
 <p>Works as a context manager (for use in a <code class="docutils literal notranslate"><span class="pre">with</span></code> block) to create a GMT C
 API session and destroy it in the end to clean up memory.</p>
@@ -213,7 +215,7 @@ API session and destroy it in the end to clean up memory.</p>
 methods MUST be used with an open session (inside a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). If
 creating GMT data structures to communicate data, put that code inside the
 same <code class="docutils literal notranslate"><span class="pre">with</span></code> block as the API calls that will use the data.</p>
-<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.11)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
+<p>By default, will let <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#module-ctypes" title="(in Python v3.12)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ctypes</span></code></a> try to find the GMT shared library
 (<code class="docutils literal notranslate"><span class="pre">libgmt</span></code>). If the environment variable <code class="docutils literal notranslate"><span class="pre">GMT_LIBRARY_PATH</span></code> is set, will
 look for the shared library in the directory specified by it.</p>
 <p>A <code class="docutils literal notranslate"><span class="pre">GMTVersionError</span></code> exception will be raised if the GMT shared library
@@ -221,7 +223,7 @@ reports a version older than the required minimum GMT version.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">session_pointer</span></code> attribute holds a ctypes pointer to the currently
 open session.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="pygmt.exceptions.GMTCLibNotFoundError.html#pygmt.exceptions.GMTCLibNotFoundError" title="pygmt.exceptions.GMTCLibNotFoundError"><strong>GMTCLibNotFoundError</strong></a> – If there was any problem loading the library (couldn’t find it or
     couldn’t access the functions).</p></li>
@@ -248,7 +250,6 @@ open session.</p>
 <span class="gp">... </span>            <span class="n">ses</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="s2">&quot;grdinfo&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fin</span><span class="si">}</span><span class="s2"> -C -&gt;</span><span class="si">{</span><span class="n">fout</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="gp">... </span>            <span class="c1"># Read the contents of the temp file before it&#39;s deleted.</span>
 <span class="gp">... </span>            <span class="nb">print</span><span class="p">(</span><span class="n">fout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-<span class="gp">...</span>
 <span class="go">-55 -47 -24 -10 190 981 1 1 8 14 1 1</span>
 </pre></div>
 </div>
@@ -257,16 +258,16 @@ open session.</p>
 <p class="rubric">Attributes</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="pygmt.clib.Session.info">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pygmt.clib.Session.info" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pygmt.clib.Session.info" title="Link to this definition"></a></dt>
 <dd><p>Dictionary with the GMT version and default paths and parameters.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pygmt.clib.Session.session_pointer">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">session_pointer</span></span><a class="headerlink" href="#pygmt.clib.Session.session_pointer" title="Permalink to this definition"></a></dt>
-<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer to the current open GMT session.</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">session_pointer</span></span><a class="headerlink" href="#pygmt.clib.Session.session_pointer" title="Link to this definition"></a></dt>
+<dd><p>The <a class="reference external" href="https://docs.python.org/3/library/ctypes.html#ctypes.c_void_p" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ctypes.c_void_p</span></code></a> pointer to the current open GMT session.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="pygmt.exceptions.GMTCLibNoSessionError.html#pygmt.exceptions.GMTCLibNoSessionError" title="pygmt.exceptions.GMTCLibNoSessionError"><strong>GMTCLibNoSessionError</strong></a> – If trying to access without a currently open GMT session (i.e.,
     outside of the context manager).</p>
 </dd>
@@ -275,10 +276,6 @@ open session.</p>
 
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.call_module.html#pygmt.clib.Session.call_module" title="pygmt.clib.Session.call_module"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.call_module</span></code></a>(module, args)</p></td>
 <td><p>Call a GMT module with the given arguments.</p></td>
@@ -304,31 +301,34 @@ open session.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func" title="pygmt.clib.Session.get_libgmt_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.get_libgmt_func</span></code></a>(name[, argtypes, ...])</p></td>
 <td><p>Get a ctypes function from the libgmt shared library.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.open_virtual_file.html#pygmt.clib.Session.open_virtual_file" title="pygmt.clib.Session.open_virtual_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtual_file</span></code></a>(family, geometry, ...)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtual_file</span></code>(family, geometry, ...)</p></td>
 <td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html#pygmt.clib.Session.open_virtualfile" title="pygmt.clib.Session.open_virtualfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtualfile</span></code></a>(family, geometry, ...)</p></td>
+<td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
 <td><p>Attach a numpy 2-D array to a GMT dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_strings</span></code></a>(dataset, family, strings)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_strings</span></code></a>(dataset, family, strings)</p></td>
 <td><p>Attach a numpy 1-D array of dtype str as a column on a GMT dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
 <td><p>Attach a numpy 1-D array as a column on a GMT dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data" title="pygmt.clib.Session.virtualfile_from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_data</span></code></a>([check_kind, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data" title="pygmt.clib.Session.virtualfile_from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_data</span></code></a>([check_kind, ...])</p></td>
 <td><p>Store any data inside a virtual file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html#pygmt.clib.Session.virtualfile_from_grid" title="pygmt.clib.Session.virtualfile_from_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_grid</span></code></a>(grid)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html#pygmt.clib.Session.virtualfile_from_grid" title="pygmt.clib.Session.virtualfile_from_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_grid</span></code></a>(grid)</p></td>
 <td><p>Store a grid in a virtual file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix" title="pygmt.clib.Session.virtualfile_from_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_matrix</span></code></a>(matrix)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html#pygmt.clib.Session.virtualfile_from_matrix" title="pygmt.clib.Session.virtualfile_from_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_matrix</span></code></a>(matrix)</p></td>
 <td><p>Store a 2-D array as a table inside a virtual file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors" title="pygmt.clib.Session.virtualfile_from_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_vectors</span></code></a>(*vectors)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors" title="pygmt.clib.Session.virtualfile_from_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_vectors</span></code></a>(*vectors)</p></td>
 <td><p>Store 1-D arrays as columns of a table inside a virtual file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.write_data</span></code></a>(family, geometry, mode, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.write_data</span></code></a>(family, geometry, mode, ...)</p></td>
 <td><p>Write a GMT data container to a file.</p></td>
 </tr>
 </tbody>
@@ -347,10 +347,10 @@ open session.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

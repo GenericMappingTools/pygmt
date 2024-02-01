@@ -6,22 +6,53 @@
 
 Computation times
 =================
-**00:04.034** total execution time for **projections_misc** files:
+**00:01.759** total execution time for 8 files **from projections/misc**:
 
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)     | 00:00.539 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``) | 00:00.533 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)               | 00:00.504 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)             | 00:00.502 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)               | 00:00.497 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)                   | 00:00.488 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)               | 00:00.486 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)           | 00:00.484 | 0.0 MB |
-+----------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_projections_misc_misc_winkel_tripel.py` (``misc_winkel_tripel.py``)
+     - 00:00.247
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_van_der_grinten.py` (``misc_van_der_grinten.py``)
+     - 00:00.242
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_eckertIV.py` (``misc_eckertIV.py``)
+     - 00:00.217
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_mollweide.py` (``misc_mollweide.py``)
+     - 00:00.215
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_sinusoidal.py` (``misc_sinusoidal.py``)
+     - 00:00.214
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_eckertVI.py` (``misc_eckertVI.py``)
+     - 00:00.212
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_hammer.py` (``misc_hammer.py``)
+     - 00:00.207
+     - 0.0
+   * - :ref:`sphx_glr_projections_misc_misc_robinson.py` (``misc_robinson.py``)
+     - 00:00.205
+     - 0.0

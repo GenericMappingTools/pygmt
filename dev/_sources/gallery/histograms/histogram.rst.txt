@@ -19,13 +19,14 @@
 
 
 Histogram
----------
+=========
+
 The :meth:`pygmt.Figure.histogram` method can plot regular histograms.
 Using the ``series`` parameter allows to set the interval for the width of
 each bar. The type of the histogram (frequency count or percentage) can be
 selected via the ``histtype`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-38
+.. GENERATED FROM PYTHON SOURCE LINES 12-40
 
 
 
@@ -38,18 +39,17 @@ selected via the ``histtype`` parameter.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
 
-    np.random.seed(100)
-
     # Generate random elevation data from a normal distribution
+    rng = np.random.default_rng(seed=100)
     mean = 100  # mean of distribution
     stddev = 25  # standard deviation of distribution
-    data = mean + stddev * np.random.randn(521)
+    data = rng.normal(loc=mean, scale=stddev, size=521)
+
 
     fig = pygmt.Figure()
 
@@ -73,7 +73,7 @@ selected via the ``histtype`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.501 seconds)
+   **Total running time of the script:** (0 minutes 0.219 seconds)
 
 
 .. _sphx_glr_download_gallery_histograms_histogram.py:
@@ -82,16 +82,13 @@ selected via the ``histtype`` parameter.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: histogram.ipynb <histogram.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: histogram.py <histogram.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: histogram.ipynb <histogram.ipynb>`
 
 
 .. only:: html

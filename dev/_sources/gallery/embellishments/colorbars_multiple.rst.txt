@@ -19,14 +19,15 @@
 
 
 Multiple colormaps
-------------------
+==================
+
 This gallery example shows how to create multiple colormaps for different
 subplots. To better understand how GMT modern mode maintains several levels of
 colormaps, please refer to
-:gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels` for
+:gmt-docs:`reference/features.html#gmt-modern-mode-hierarchical-levels` for
 details.
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-43
+.. GENERATED FROM PYTHON SOURCE LINES 13-46
 
 
 
@@ -39,7 +40,7 @@ details.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -50,8 +51,8 @@ details.
     subset_region = [-14, 30, 35, 60]
     grid_subset = pygmt.datasets.load_earth_relief(resolution="10m", region=subset_region)
 
-    # Define a 1-row, 2-column subplot layout. The overall figure dimensions is set
-    # to be 15 cm wide and 8 cm high. Each subplot is automatically labelled.
+    # Define a 1-row, 2-column subplot layout. The overall figure dimensions are
+    # set to be 15 cm wide and 8 cm high. Each subplot is automatically labelled.
     # The space between the subplots is set to be 0.5 cm.
     with fig.subplot(
         nrows=1, ncols=2, figsize=("15c", "8c"), autolabel=True, margins="0.5c"
@@ -78,7 +79,7 @@ details.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.489 seconds)
+   **Total running time of the script:** (0 minutes 0.323 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbars_multiple.py:
@@ -87,16 +88,13 @@ details.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: colorbars_multiple.ipynb <colorbars_multiple.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: colorbars_multiple.py <colorbars_multiple.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: colorbars_multiple.ipynb <colorbars_multiple.ipynb>`
 
 
 .. only:: html

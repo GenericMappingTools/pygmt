@@ -23,10 +23,9 @@ Coastlines and borders
 
 Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-10
+.. GENERATED FROM PYTHON SOURCE LINES 9-11
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -46,7 +45,7 @@ Use the ``shorelines`` parameter to plot only the shorelines:
 
 .. GENERATED FROM PYTHON SOURCE LINES 16-22
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -81,7 +80,7 @@ thickness and black lines:
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-39
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -106,15 +105,16 @@ thickness and black lines:
 You can specify multiple levels (with their own pens) by passing a list to
 ``shorelines``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-48
+.. GENERATED FROM PYTHON SOURCE LINES 42-49
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.basemap(region="g", projection="W15c", frame=True)
     fig.coast(shorelines=["1/1p,black", "2/0.5p,red"])
     fig.show()
+
 
 
 
@@ -128,7 +128,7 @@ You can specify multiple levels (with their own pens) by passing a list to
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-60
+.. GENERATED FROM PYTHON SOURCE LINES 50-61
 
 Resolutions
 -----------
@@ -142,9 +142,9 @@ between levels:
 4. ``"h"``: high
 5. ``"f"``: full
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-68
+.. GENERATED FROM PYTHON SOURCE LINES 61-70
 
-.. code-block:: default
+.. code-block:: Python
 
 
     oahu = [-158.3, -157.6, 21.2, 21.8]
@@ -153,6 +153,7 @@ between levels:
         fig.coast(resolution=res, shorelines="1p", region=oahu, projection="M5c")
         fig.shift_origin(xshift="5c")
     fig.show()
+
 
 
 
@@ -166,7 +167,7 @@ between levels:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-75
+.. GENERATED FROM PYTHON SOURCE LINES 71-77
 
 Land and water
 --------------
@@ -175,15 +176,16 @@ Use the ``land`` and ``water`` parameters to specify a fill color for land
 and water bodies. The colors can be given by name or hex codes (like the ones
 used in HTML and CSS):
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-80
+.. GENERATED FROM PYTHON SOURCE LINES 77-83
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.basemap(region="g", projection="W15c", frame=True)
     fig.coast(land="#666666", water="skyblue")
     fig.show()
+
 
 
 
@@ -199,7 +201,7 @@ used in HTML and CSS):
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.707 seconds)
+   **Total running time of the script:** (0 minutes 1.121 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_coastlines.py:
@@ -208,16 +210,13 @@ used in HTML and CSS):
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: coastlines.ipynb <coastlines.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: coastlines.py <coastlines.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: coastlines.ipynb <coastlines.ipynb>`
 
 
 .. only:: html

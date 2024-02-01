@@ -19,7 +19,7 @@
 
 
 Day-night terminator line and twilights
----------------------------------------
+=======================================
 
 Use :meth:`pygmt.Figure.solar` to show the different transition stages between
 daytime and nighttime. The parameter ``terminator`` is used to set the twilight
@@ -27,7 +27,7 @@ stage, and can be either ``"day_night"`` (brightest), ``"civil"``,
 ``"nautical"``, or ``"astronomical"`` (darkest).
 Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-52
+.. GENERATED FROM PYTHON SOURCE LINES 13-54
 
 
 
@@ -40,7 +40,7 @@ Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import datetime
 
@@ -87,7 +87,7 @@ Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.065 seconds)
+   **Total running time of the script:** (0 minutes 0.366 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_solar.py:
@@ -96,16 +96,13 @@ Refer to https://en.wikipedia.org/wiki/Twilight for more information.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: solar.ipynb <solar.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: solar.py <solar.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: solar.ipynb <solar.ipynb>`
 
 
 .. only:: html

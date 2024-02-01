@@ -43,7 +43,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
          maps. GMT uses the interpolant selected by the parameter
          :gmt-term:`GMT_INTERPOLANT` in the gmt.conf file.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-33
+.. GENERATED FROM PYTHON SOURCE LINES 29-35
 
 
 
@@ -56,7 +56,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -68,7 +68,7 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.486 seconds)
+   **Total running time of the script:** (0 minutes 0.205 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_robinson.py:
@@ -77,16 +77,13 @@ optional *lon0*, and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: misc_robinson.ipynb <misc_robinson.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_robinson.py <misc_robinson.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: misc_robinson.ipynb <misc_robinson.ipynb>`
 
 
 .. only:: html

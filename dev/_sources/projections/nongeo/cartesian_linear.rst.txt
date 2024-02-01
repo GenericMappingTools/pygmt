@@ -31,13 +31,13 @@ The Cartesian linear projection is primarily designed for regular
 floating point data. To plot geographical data in a linear
 projection, see the upstream GMT documentation
 :gmt-docs:`Geographic coordinates
-<cookbook/coordinate-transformations.html#geographic-coordinates>`.
+<reference/coordinate-transformations.html#geographic-coordinates>`.
 To make the linear plot using calendar date/time as input
 coordinates, see the GMT documentation
 :gmt-docs:`Calendar time coordinates
-<cookbook/coordinate-transformations.html#calendar-time-coordinates>`.
+<reference/coordinate-transformations.html#calendar-time-coordinates>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-38
+.. GENERATED FROM PYTHON SOURCE LINES 23-40
 
 
 
@@ -50,7 +50,7 @@ coordinates, see the GMT documentation
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -73,7 +73,7 @@ coordinates, see the GMT documentation
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.405 seconds)
+   **Total running time of the script:** (0 minutes 0.139 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_cartesian_linear.py:
@@ -82,16 +82,13 @@ coordinates, see the GMT documentation
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cartesian_linear.ipynb <cartesian_linear.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cartesian_linear.py <cartesian_linear.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cartesian_linear.ipynb <cartesian_linear.ipynb>`
 
 
 .. only:: html

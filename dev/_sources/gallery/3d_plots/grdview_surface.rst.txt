@@ -19,7 +19,7 @@
 
 
 Plotting a surface
-------------------
+==================
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with
 ``surftype="s"``. Here, we supply the data as an :class:`xarray.DataArray` with
@@ -32,7 +32,7 @@ Specifying the same scale for the ``projection`` and ``zscale`` parameters
 ensures equal axis scaling. The ``shading`` parameter specifies illumination;
 here we choose an azimuth of 45° with ``shading="+a45"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-63
+.. GENERATED FROM PYTHON SOURCE LINES 18-67
 
 
 
@@ -45,8 +45,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -56,6 +55,9 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
     # Define an interesting function of two variables, see:
     # https://en.wikipedia.org/wiki/Ackley_function
     def ackley(x, y):
+        """
+        Ackley function.
+        """
         return (
             -20 * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2)))
             - np.exp(0.5 * (np.cos(2 * np.pi * x) + np.cos(2 * np.pi * y)))
@@ -98,7 +100,7 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.288 seconds)
+   **Total running time of the script:** (0 minutes 2.376 seconds)
 
 
 .. _sphx_glr_download_gallery_3d_plots_grdview_surface.py:
@@ -107,16 +109,13 @@ here we choose an azimuth of 45° with ``shading="+a45"``.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: grdview_surface.ipynb <grdview_surface.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdview_surface.py <grdview_surface.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: grdview_surface.ipynb <grdview_surface.ipynb>`
 
 
 .. only:: html

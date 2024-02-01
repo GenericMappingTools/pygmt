@@ -19,13 +19,16 @@
 
 
 Colorbar
---------
+========
 
-The :meth:`pygmt.Figure.colorbar` method creates a color scalebar. We must
-specify the colormap via the ``cmap`` parameter, and optionally set the
-placement via the ``position`` parameter. The full list of color palette tables
-can be found at :gmt-docs:`cookbook/cpts.html`. You can set the ``position`` of
-the colorbar using the following options:
+The :meth:`pygmt.Figure.colorbar` method creates a color scalebar.
+The colormap is set via the ``cmap`` parameter. A full list of available
+color palette tables can be found at :gmt-docs:`reference/cpts.html`.
+Use the ``frame`` parameter to add labels to the **x** and **y** axes
+of the colorbar by appending **+l** followed by the desired text. To Add
+and adjust the annotations (**a**) and ticks (**f**) append the letter
+followed by the desired interval. The placement of the colorbar is set
+via the ``position`` parameter. There are the following options:
 
 - **j/J**: placed inside/outside the plot bounding box using any 2-character
   combination of vertical (**T**\ op, **M**\ iddle, **B**\ ottom) and
@@ -38,9 +41,10 @@ the colorbar using the following options:
 - **n**: using normalized (0-1) coordinates, e.g. ``position="n0.4/0.8"``.
 
 Note that the anchor point defaults to the bottom left (**BL**). Append ``+h``
-to ``position`` to get a horizontal colorbar instead of a vertical one.
+to ``position`` to get a horizontal colorbar instead of a vertical one
+(``+v``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-84
+.. GENERATED FROM PYTHON SOURCE LINES 30-91
 
 
 
@@ -53,8 +57,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -64,7 +67,9 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
     # ============
     # Create a colorbar designed for seismic tomography - roma
     # Colorbar is placed at bottom center (BC) by default if no position is given
-    fig.colorbar(cmap="roma", frame=["x+lVelocity", "y+lm/s"])
+    # Add quantity and unit as labels ("+l") to the x and y axes
+    # Add annotations ("+a") in steps of 0.5 and ticks ("+f") in steps of 0.1
+    fig.colorbar(cmap="roma", frame=["xa0.5f0.1+lVelocity", "y+lm/s"])
 
     # ============
     # Create a colorbar showing the scientific rainbow - batlow
@@ -119,7 +124,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.836 seconds)
+   **Total running time of the script:** (0 minutes 0.168 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbar.py:
@@ -128,16 +133,13 @@ to ``position`` to get a horizontal colorbar instead of a vertical one.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: colorbar.ipynb <colorbar.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: colorbar.py <colorbar.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: colorbar.ipynb <colorbar.ipynb>`
 
 
 .. only:: html

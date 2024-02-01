@@ -19,13 +19,14 @@
 
 
 Clipping grid values
---------------------
+====================
+
 The :func:`pygmt.grdclip` function allows to clip defined ranges of grid
 values. In the example shown below we set all elevation values (grid points)
 smaller than 0 m (in general the bathymetric part of the grid) to a common
 value of -2000 m via the ``below`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-37
+.. GENERATED FROM PYTHON SOURCE LINES 12-47
 
 
 
@@ -40,7 +41,7 @@ value of -2000 m via the ``below`` parameter.
  .. code-block:: none
 
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
+    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (15.7 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 90x90 degree grid tile (earth_relief_03m_g): N00W090
 
 
@@ -50,8 +51,7 @@ value of -2000 m via the ``below`` parameter.
 
 |
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -64,7 +64,11 @@ value of -2000 m via the ``below`` parameter.
     grid = pygmt.datasets.load_earth_relief(resolution="03m", region=region)
 
     # Plot original grid
-    fig.basemap(region=region, projection="M12c", frame=["f", "+toriginal grid"])
+    fig.basemap(
+        region=region,
+        projection="M12c",
+        frame=["WSne+toriginal grid", "xa5f1", "ya2f1"],
+    )
     fig.grdimage(grid=grid, cmap="oleron")
 
     # Shift plot origin of the second map by "width of the first map + 0.5 cm"
@@ -75,7 +79,11 @@ value of -2000 m via the ``below`` parameter.
     grid = pygmt.grdclip(grid, below=[0, -2000])
 
     # Plot clipped grid
-    fig.basemap(region=region, projection="M12c", frame=["f", "+tclipped grid"])
+    fig.basemap(
+        region=region,
+        projection="M12c",
+        frame=["wSne+tclipped grid", "xa5f1", "ya2f1"],
+    )
     fig.grdimage(grid=grid)
     fig.colorbar(frame=["x+lElevation", "y+lm"], position="JMR+o0.5c/0c+w8c")
 
@@ -84,7 +92,7 @@ value of -2000 m via the ``below`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.179 seconds)
+   **Total running time of the script:** (0 minutes 2.565 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdclip.py:
@@ -93,16 +101,13 @@ value of -2000 m via the ``below`` parameter.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: grdclip.ipynb <grdclip.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdclip.py <grdclip.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: grdclip.ipynb <grdclip.ipynb>`
 
 
 .. only:: html

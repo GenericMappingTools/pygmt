@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.text &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/text.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -196,13 +198,10 @@
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>
     <span class="n">textfiles</span><span class="o">=</span><span class="s2">&quot;sequence_space&quot;</span><span class="p">,</span>
-    <span class="n">angle</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
-    <span class="n">font</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
-    <span class="n">justify</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
     <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
     <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">def</span> <span class="nf">text_</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">text_</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">textfiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -226,7 +225,7 @@
 <span class="sd">    The text strings passed via the ``text`` parameter can contain ASCII</span>
 <span class="sd">    characters and non-ASCII characters defined in the ISOLatin1+ encoding</span>
 <span class="sd">    (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.</span>
-<span class="sd">    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported</span>
+<span class="sd">    See :gmt-docs:`reference/octal-codes.html` for the full list of supported</span>
 <span class="sd">    non-ASCII characters.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`text.html`</span>
@@ -236,8 +235,21 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    textfiles : str or list</span>
-<span class="sd">        A text data file name, or a list of file names containing 1 or more</span>
-<span class="sd">        records with (x, y[, angle, font, justify], text).</span>
+<span class="sd">        A file name or a list of file names containing one or more records.</span>
+<span class="sd">        Each record has the following columns:</span>
+
+<span class="sd">        * *x*: X coordinate or longitude</span>
+<span class="sd">        * *y*: Y coordinate or latitude</span>
+<span class="sd">        * *angle*: Angle in degrees counter-clockwise from horizontal</span>
+<span class="sd">        * *font*: Text size, font, and color</span>
+<span class="sd">        * *justify*: Two-character justification code</span>
+<span class="sd">        * *text*: The text string to typeset</span>
+
+<span class="sd">        The *angle*, *font*, and *justify* columns are optional and can be set</span>
+<span class="sd">        by using the ``angle``, ``font``, and ``justify`` parameters,</span>
+<span class="sd">        respectively. If these parameters are set to ``True``, then the</span>
+<span class="sd">        corresponding columns must be present in the input file(s) and the</span>
+<span class="sd">        columns must be in the order mentioned above.</span>
 <span class="sd">    x/y : float or 1-D arrays</span>
 <span class="sd">        The x and y coordinates, or an array of x and y coordinates to plot</span>
 <span class="sd">        the text.</span>
@@ -254,12 +266,12 @@
 <span class="sd">        of the map.</span>
 <span class="sd">    text : str or 1-D array</span>
 <span class="sd">        The text string, or an array of strings to plot on the figure.</span>
-<span class="sd">    angle: int, float, str or bool</span>
+<span class="sd">    angle: float, str, bool or list</span>
 <span class="sd">        Set the angle measured in degrees counter-clockwise from</span>
 <span class="sd">        horizontal (e.g. 30 sets the text at 30 degrees). If no angle is</span>
 <span class="sd">        explicitly given (i.e. ``angle=True``) then the input to ``textfiles``</span>
 <span class="sd">        must have this as a column.</span>
-<span class="sd">    font : str or bool</span>
+<span class="sd">    font : str, bool or list of str</span>
 <span class="sd">        Set the font specification with format *size*\ ,\ *font*\ ,\ *color*</span>
 <span class="sd">        where *size* is text size in points, *font* is the font to use, and</span>
 <span class="sd">        *color* sets the font color. For example,</span>
@@ -267,7 +279,7 @@
 <span class="sd">        font. If no font info is explicitly given (i.e. ``font=True``), then</span>
 <span class="sd">        the input to ``textfiles`` must have this information in one of its</span>
 <span class="sd">        columns.</span>
-<span class="sd">    justify : str or bool</span>
+<span class="sd">    justify : str, bool or list of str</span>
 <span class="sd">        Set the alignment which refers to the part of the text string that</span>
 <span class="sd">        will be mapped onto the (x, y) point. Choose a two-letter</span>
 <span class="sd">        combination of **L**, **C**, **R** (for left, center, or right) and</span>
@@ -282,8 +294,8 @@
 <span class="sd">        [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].</span>
 <span class="sd">        Adjust the clearance between the text and the surrounding box</span>
 <span class="sd">        [Default is 15% of the font size]. Only used if ``pen`` or ``fill``</span>
-<span class="sd">        are specified. Append the unit you want (*c* for centimeters,</span>
-<span class="sd">        *i* for inches, or *p* for points; if not given we consult</span>
+<span class="sd">        are specified. Append the unit you want (**c** for centimeters,</span>
+<span class="sd">        **i** for inches, or **p** for points; if not given we consult</span>
 <span class="sd">        :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font</span>
 <span class="sd">        size. Optionally, use modifier **+t** to set the shape of the text</span>
 <span class="sd">        box when using ``fill`` and/or ``pen``. Append lower case **o**</span>
@@ -327,8 +339,7 @@
 <span class="sd">        ``x``/``y`` and ``text``.</span>
 <span class="sd">    {wrap}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># pylint: disable=too-many-branches</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="c1"># Ensure inputs are either textfiles, x/y/text, or position/text</span>
     <span class="k">if</span> <span class="n">position</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -340,7 +351,7 @@
         <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span> <span class="ow">and</span> <span class="n">text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Must provide text with x/y pairs&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">textfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">textfiles</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="s2">&quot;Provide either position only, or x/y pairs, or textfiles.&quot;</span>
             <span class="p">)</span>
@@ -350,38 +361,30 @@
         <span class="n">textfiles</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="c1"># Build the -F option in gmt text.</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span>
-        <span class="p">(</span>
-            <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">or</span> <span class="n">angle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">or</span> <span class="n">font</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">or</span> <span class="n">justify</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">justify</span><span class="p">)</span>
     <span class="p">):</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;F&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">})</span>
 
-    <span class="k">if</span> <span class="n">angle</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;+a&quot;</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+a</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="k">if</span> <span class="n">font</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;+f&quot;</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+f</span><span class="si">{</span><span class="n">font</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="k">if</span> <span class="n">justify</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;+j&quot;</span>
-    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+j</span><span class="si">{</span><span class="n">justify</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">extra_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">angle</span><span class="p">,</span> <span class="s2">&quot;+a&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="s2">&quot;+f&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">justify</span><span class="p">,</span> <span class="s2">&quot;+j&quot;</span><span class="p">)]:</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">flag</span>
+        <span class="k">elif</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">flag</span>
+            <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="s2">&quot;+a&quot;</span><span class="p">:</span>  <span class="c1"># angle is numeric type</span>
+                <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># font or justify is str type</span>
+                <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">flag</span><span class="si">}{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;+c</span><span class="si">{</span><span class="n">position</span><span class="si">}</span><span class="s2">+t</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="n">extra_arrays</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="c1"># If an array of transparency is given, GMT will read it from</span>
     <span class="c1"># the last numerical column per data record.</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)):</span>
         <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">])</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
@@ -407,10 +410,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

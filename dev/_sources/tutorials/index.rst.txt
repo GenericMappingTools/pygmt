@@ -276,7 +276,7 @@ Advanced
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Performing grid histogram equalization">
+    <div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative ...">
 
 .. only:: html
 

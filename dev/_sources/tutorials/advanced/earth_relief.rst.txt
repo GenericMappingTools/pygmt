@@ -25,10 +25,9 @@ Plotting a map of Earth relief can use the data accessed by the
 :func:`pygmt.datasets.load_earth_relief` function. The data can then be
 plotted using the :meth:`pygmt.Figure.grdimage` method.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-12
+.. GENERATED FROM PYTHON SOURCE LINES 11-13
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -42,12 +41,12 @@ plotted using the :meth:`pygmt.Figure.grdimage` method.
 .. GENERATED FROM PYTHON SOURCE LINES 14-17
 
 Load sample Earth relief data for the entire globe at a resolution of
-1 arc-degree. The other available resolutions are show
-at :gmt-datasets:`earth-relief.html`.
+1 arc-degree. The other available resolutions are shown at
+:gmt-datasets:`earth-relief.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-19
+.. GENERATED FROM PYTHON SOURCE LINES 17-20
 
-.. code-block:: default
+.. code-block:: Python
 
     grid = pygmt.datasets.load_earth_relief(resolution="01d")
 
@@ -58,7 +57,8 @@ at :gmt-datasets:`earth-relief.html`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-27
+
+.. GENERATED FROM PYTHON SOURCE LINES 21-28
 
 Create a plot
 -------------
@@ -68,9 +68,9 @@ figure. It creates and applies a color palette to the figure based upon the
 z-values of the data. By default, it plots the map with the *turbo* CPT, an
 equidistant cylindrical projection, and with no frame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-32
+.. GENERATED FROM PYTHON SOURCE LINES 28-33
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -89,21 +89,22 @@ equidistant cylindrical projection, and with no frame.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-37
+.. GENERATED FROM PYTHON SOURCE LINES 34-38
 
 :meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection``
-for the map. In the example below, the ``projection`` is set as ``R12c`` for
-12 centimeter figure with a Winkel Tripel projection. For a list of available
-projections, see :gmt-docs:`cookbook/map-projections.html`.
+for the map. In the example below, ``projection`` is set to ``"R12c"`` for
+a 12-centimeters-wide figure with a Winkel Tripel projection. For a list
+of available projections, see :gmt-docs:`reference/map-projections.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-43
+.. GENERATED FROM PYTHON SOURCE LINES 38-44
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.grdimage(grid=grid, projection="R12c")
     fig.show()
+
 
 
 
@@ -117,22 +118,22 @@ projections, see :gmt-docs:`cookbook/map-projections.html`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-50
+.. GENERATED FROM PYTHON SOURCE LINES 45-51
 
 Set a color map
 ---------------
 
 :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of
 the figure. Examples of common CPTs for Earth relief are shown below.
-A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
+A full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-53
+.. GENERATED FROM PYTHON SOURCE LINES 53-54
 
 Using the *geo* CPT:
 
 .. GENERATED FROM PYTHON SOURCE LINES 54-59
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -155,14 +156,15 @@ Using the *geo* CPT:
 
 Using the *relief* CPT:
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-67
+.. GENERATED FROM PYTHON SOURCE LINES 61-67
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.grdimage(grid=grid, projection="R12c", cmap="relief")
     fig.show()
+
 
 
 
@@ -176,7 +178,7 @@ Using the *relief* CPT:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-78
+.. GENERATED FROM PYTHON SOURCE LINES 68-79
 
 Add a color bar
 ---------------
@@ -186,18 +188,20 @@ Z-values of the figure, and by default uses the same CPT set by the ``cmap``
 parameter for :meth:`pygmt.Figure.grdimage`. The ``frame`` parameter for
 :meth:`pygmt.Figure.colorbar` can be used to set the axis intervals and
 labels. A list is used to pass multiple arguments to ``frame``. In the
-example below, ``a2500`` sets the axis interval to 2,500, ``x+lElevation``
-sets the x-axis label, and ``y+lm`` sets the y-axis label.
+example below, ``"a2500"`` sets the axis interval to 2,500,
+``"x+lElevation"`` sets the x-axis label, and ``"y+lm"`` sets the y-axis
+label.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-84
+.. GENERATED FROM PYTHON SOURCE LINES 79-86
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
     fig.grdimage(grid=grid, projection="R12c", cmap="geo")
     fig.colorbar(frame=["a2500", "x+lElevation", "y+lm"])
     fig.show()
+
 
 
 
@@ -211,7 +215,7 @@ sets the x-axis label, and ``y+lm`` sets the y-axis label.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-97
+.. GENERATED FROM PYTHON SOURCE LINES 87-100
 
 Create a region map
 -------------------
@@ -220,15 +224,16 @@ In addition to providing global data, the ``region`` parameter for
 :func:`pygmt.datasets.load_earth_relief` can be used to provide data for a
 specific area. The ``region`` parameter is required for resolutions at
 5 arc-minutes or higher, and accepts a list (as in the example below) or a
-string. The geographic ranges are passed as *xmin*/*xmax*/*ymin*/*ymax*.
+string. For the later, the geographic range is passed as
+"*xmin*/*xmax*/*ymin*/*ymax*".
 
 The example below uses data with a 10 arc-minutes resolution, and plots it on
-a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
-``frame="a"`` is used to add a frame to the figure.
+a 15-centimeters-wide figure with a Mercator projection and a CPT set to
+*geo*. ``frame="a"`` is used to add a frame with annotations to the figure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-103
+.. GENERATED FROM PYTHON SOURCE LINES 100-107
 
-.. code-block:: default
+.. code-block:: Python
 
 
     grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-14, 30, 35, 60])
@@ -236,6 +241,7 @@ a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
     fig.grdimage(grid=grid, projection="M15c", frame="a", cmap="geo")
     fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
     fig.show()
+
 
 
 
@@ -251,7 +257,7 @@ a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.372 seconds)
+   **Total running time of the script:** (0 minutes 1.232 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_earth_relief.py:
@@ -260,16 +266,13 @@ a 15 centimeters figure with a Mercator projection and a CPT set to *geo*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: earth_relief.ipynb <earth_relief.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: earth_relief.py <earth_relief.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: earth_relief.ipynb <earth_relief.ipynb>`
 
 
 .. only:: html

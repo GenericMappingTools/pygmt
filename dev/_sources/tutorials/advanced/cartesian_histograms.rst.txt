@@ -32,14 +32,14 @@ method. In this tutorial, different histogram related aspects are addressed:
 - Using color and pattern as fill for the bars
 - Using overlaid, stacked, and grouped bars
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-23
+.. GENERATED FROM PYTHON SOURCE LINES 18-19
 
-.. code-block:: default
+Import the required packages
 
+.. GENERATED FROM PYTHON SOURCE LINES 19-22
 
+.. code-block:: Python
 
-
-    # Import the required packages
     import numpy as np
     import pygmt
 
@@ -50,16 +50,16 @@ method. In this tutorial, different histogram related aspects are addressed:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 25-26
+.. GENERATED FROM PYTHON SOURCE LINES 23-24
 
 Generate random data from a normal distribution:
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-39
+.. GENERATED FROM PYTHON SOURCE LINES 24-37
 
-.. code-block:: default
+.. code-block:: Python
 
 
-    np.random.seed(100)
+    rng = np.random.default_rng(seed=100)
 
     # Mean of distribution
     mean = 100
@@ -67,8 +67,8 @@ Generate random data from a normal distribution:
     stddev = 20
 
     # Create two data sets
-    data01 = np.random.normal(mean, stddev, 42)
-    data02 = np.random.normal(mean, stddev * 2, 42)
+    data01 = rng.normal(loc=mean, scale=stddev, size=42)
+    data02 = rng.normal(loc=mean, scale=stddev * 2, size=42)
 
 
 
@@ -78,10 +78,11 @@ Generate random data from a normal distribution:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-48
+.. GENERATED FROM PYTHON SOURCE LINES 38-47
 
 Vertical and horizontal bars
 ----------------------------
+
 To define the width of the bins, the ``series`` parameter has to be
 specified. The bars can be filled via the ``fill`` parameter with either a
 color or a pattern (see later in this tutorial). Use the ``pen`` parameter
@@ -89,9 +90,9 @@ to adjust width, color, and style of the outlines. By default, a histogram
 with vertical bars is created. Horizontal bars can be achieved via
 ``horizontal=True``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-95
+.. GENERATED FROM PYTHON SOURCE LINES 47-94
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create new figure instance
@@ -152,16 +153,17 @@ with vertical bars is created. Horizontal bars can be achieved via
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-100
+.. GENERATED FROM PYTHON SOURCE LINES 95-100
 
 Stair-steps
 -----------
+
 A stair-step diagram can be created by setting ``stairs=True``. Then only
 the outer outlines of the bars are drawn, and no internal bars are visible.
 
 .. GENERATED FROM PYTHON SOURCE LINES 100-137
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create new figure instance
@@ -212,18 +214,19 @@ the outer outlines of the bars are drawn, and no internal bars are visible.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-144
+.. GENERATED FROM PYTHON SOURCE LINES 138-145
 
 Counts and frequency percent
 ----------------------------
+
 By default, a histogram showing the counts in each bin is created
 (``histtype=0``). To show the frequency percent set the ``histtpye``
 parameter to ``1``. For further options please have a look at the
 documentation of :meth:`pygmt.Figure.histogram`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-181
+.. GENERATED FROM PYTHON SOURCE LINES 145-182
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create new figure instance
@@ -274,18 +277,19 @@ documentation of :meth:`pygmt.Figure.histogram`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 182-188
+.. GENERATED FROM PYTHON SOURCE LINES 183-190
 
 Cumulative values
 -----------------
+
 To create a histogram showing the cumulative values set ``cumulative=True``.
 Here, the bars of the cumulative histogram are filled with a pattern via
 the ``fill`` parameter. Annotate each bar with the counts it represents
 using the ``annotate`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-231
+.. GENERATED FROM PYTHON SOURCE LINES 190-233
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create new figure instance
@@ -342,11 +346,12 @@ using the ``annotate`` parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 232-243
+.. GENERATED FROM PYTHON SOURCE LINES 234-246
 
 Overlaid bars
 -------------
-Overlaid or overlapping bars can be achieved by plotting two or serveral
+
+Overlaid or overlapping bars can be achieved by plotting two or several
 histograms, each for one data set, on top of each other. The legend entry
 can be specified via the ``label`` parameter.
 
@@ -356,9 +361,9 @@ Limitations of histograms with overlaid bars are:
 - Visually more colors or/and patterns than data sets
 - Visually a "third histogram" (or more in case of more than two data sets)
 
-.. GENERATED FROM PYTHON SOURCE LINES 243-279
+.. GENERATED FROM PYTHON SOURCE LINES 246-282
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create new figure instance
@@ -408,10 +413,11 @@ Limitations of histograms with overlaid bars are:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 280-291
+.. GENERATED FROM PYTHON SOURCE LINES 283-295
 
 Stacked bars
 ------------
+
 Histograms with stacked bars are not directly supported by PyGMT. Thus,
 before plotting, combined data sets have to be created from the single data
 sets. Then, stacked bars can be achieved similar to overlaid bars via
@@ -422,9 +428,9 @@ Limitations of histograms with stacked bars are:
 - No common baseline
 - Partly not directly clear whether overlaid or stacked bars
 
-.. GENERATED FROM PYTHON SOURCE LINES 291-330
+.. GENERATED FROM PYTHON SOURCE LINES 295-334
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Combine the two data sets to one data set
@@ -477,10 +483,11 @@ Limitations of histograms with stacked bars are:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 331-340
+.. GENERATED FROM PYTHON SOURCE LINES 335-345
 
 Grouped bars
 ------------
+
 By setting the ``barwidth`` parameter in respect to the values passed to the
 ``series`` parameter histograms with grouped bars can be created.
 
@@ -489,9 +496,9 @@ Limitations of histograms with grouped bars are:
 - Careful setting width and position of the bars in respect to the bin width
 - Difficult to see the variations of the single data sets
 
-.. GENERATED FROM PYTHON SOURCE LINES 340-380
+.. GENERATED FROM PYTHON SOURCE LINES 345-386
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Width used for binning the data
@@ -536,6 +543,7 @@ Limitations of histograms with grouped bars are:
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_cartesian_histograms_007.png
    :alt: cartesian histograms
    :srcset: /tutorials/advanced/images/sphx_glr_cartesian_histograms_007.png
@@ -548,7 +556,7 @@ Limitations of histograms with grouped bars are:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.460 seconds)
+   **Total running time of the script:** (0 minutes 1.293 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_cartesian_histograms.py:
@@ -557,16 +565,13 @@ Limitations of histograms with grouped bars are:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cartesian_histograms.ipynb <cartesian_histograms.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cartesian_histograms.py <cartesian_histograms.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cartesian_histograms.ipynb <cartesian_histograms.ipynb>`
 
 
 .. only:: html

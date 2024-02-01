@@ -64,6 +64,10 @@ pygmt.clib.Session
     
     
     
+    Session.open_virtualfile
+    
+    
+    
     Session.put_matrix
     
     

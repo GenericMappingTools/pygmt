@@ -20,6 +20,7 @@
 
 Cross-section along a transect
 ==============================
+
 :func:`pygmt.project` and :func:`pygmt.grdtrack` can be used to focus on
 a quantity and its variation along a desired survey line.
 In this example, the elevation is extracted from a grid provided via
@@ -31,7 +32,7 @@ along the survey line.
 *This example is orientated on an example in the GMT/China documentation*:
 https://docs.gmt-china.org/latest/examples/ex026/
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-139
+.. GENERATED FROM PYTHON SOURCE LINES 18-141
 
 
 
@@ -44,8 +45,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -174,7 +174,7 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.598 seconds)
+   **Total running time of the script:** (0 minutes 0.310 seconds)
 
 
 .. _sphx_glr_download_gallery_images_cross_section.py:
@@ -183,16 +183,13 @@ https://docs.gmt-china.org/latest/examples/ex026/
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cross_section.ipynb <cross_section.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cross_section.py <cross_section.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cross_section.ipynb <cross_section.ipynb>`
 
 
 .. only:: html

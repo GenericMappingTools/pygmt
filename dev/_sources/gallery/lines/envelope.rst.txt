@@ -19,13 +19,14 @@
 
 
 Envelope
---------
+========
+
 The ``close`` parameter of the :meth:`pygmt.Figure.plot` method can be
 used to build a symmetrical or an asymmetrical envelope. The user can
 give either the deviations or the bounds in y-direction. For the first
 case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-108
+.. GENERATED FROM PYTHON SOURCE LINES 12-109
 
 
 
@@ -38,9 +39,7 @@ case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 
 
 
-.. code-block:: default
-
-
+.. code-block:: Python
 
     import pandas as pd
     import pygmt
@@ -143,7 +142,7 @@ case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.509 seconds)
+   **Total running time of the script:** (0 minutes 0.320 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_envelope.py:
@@ -152,16 +151,13 @@ case append ``"+d"`` or ``"+D"`` and for the latter case ``"+b"``.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: envelope.ipynb <envelope.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: envelope.py <envelope.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: envelope.ipynb <envelope.ipynb>`
 
 
 .. only:: html

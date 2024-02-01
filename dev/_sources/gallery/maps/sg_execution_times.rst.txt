@@ -6,16 +6,47 @@
 
 Computation times
 =================
-**00:15.821** total execution time for **gallery_maps** files:
+**00:10.498** total execution time for 6 files **from gallery/maps**:
 
-+----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_country_polygons.py` (``country_polygons.py``) | 00:09.668 | 0.0 MB |
-+----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_tilemaps.py` (``tilemaps.py``)                 | 00:04.147 | 0.0 MB |
-+----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_borders.py` (``borders.py``)                   | 00:00.780 | 0.0 MB |
-+----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_shorelines.py` (``shorelines.py``)             | 00:00.616 | 0.0 MB |
-+----------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_maps_land_and_water.py` (``land_and_water.py``)     | 00:00.610 | 0.0 MB |
-+----------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_maps_country_polygons.py` (``country_polygons.py``)
+     - 00:07.236
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_tilemaps.py` (``tilemaps.py``)
+     - 00:01.555
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_choropleth_map.py` (``choropleth_map.py``)
+     - 00:00.823
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_borders.py` (``borders.py``)
+     - 00:00.361
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_shorelines.py` (``shorelines.py``)
+     - 00:00.290
+     - 0.0
+   * - :ref:`sphx_glr_gallery_maps_land_and_water.py` (``land_and_water.py``)
+     - 00:00.233
+     - 0.0

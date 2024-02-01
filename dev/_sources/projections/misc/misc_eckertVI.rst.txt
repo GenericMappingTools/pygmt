@@ -24,7 +24,7 @@ Eckert VI
 The Eckert VI projections, presented by the German cartographer Max
 Eckert-Greiffendorff in 1906, is a pseudo-cylindrical equal-area projection.
 Central meridian and all parallels are straight lines; other meridians are
-equally spaced sinusoids. The scale is true along latitude 49°16’.
+equally spaced sinusoids. The scale is true along latitude 49°16'.
 
 
 **ks**\ [*lon0/*]\ *scale* or **Ks**\ [*lon0/*]\ *width*
@@ -32,7 +32,7 @@ equally spaced sinusoids. The scale is true along latitude 49°16’.
 The projection is set with **ks** or **Ks**. The central meridian is set with
 the optional *lon0*, and the figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-22
+.. GENERATED FROM PYTHON SOURCE LINES 18-24
 
 
 
@@ -45,7 +45,7 @@ the optional *lon0*, and the figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -57,7 +57,7 @@ the optional *lon0*, and the figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.497 seconds)
+   **Total running time of the script:** (0 minutes 0.212 seconds)
 
 
 .. _sphx_glr_download_projections_misc_misc_eckertVI.py:
@@ -66,16 +66,13 @@ the optional *lon0*, and the figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: misc_eckertVI.ipynb <misc_eckertVI.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: misc_eckertVI.py <misc_eckertVI.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: misc_eckertVI.ipynb <misc_eckertVI.ipynb>`
 
 
 .. only:: html

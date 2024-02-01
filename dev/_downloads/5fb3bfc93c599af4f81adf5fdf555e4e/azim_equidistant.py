@@ -17,6 +17,8 @@ distance to the projection center (i.e. the visible portion of the rest of the
 world map) in degrees <= 180° (default 180°). The size of the figure is set by
 *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

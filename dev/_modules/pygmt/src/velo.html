@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.velo &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/velo.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -221,7 +223,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    data : str or {table-like}</span>
+<span class="sd">    data : str, {table-like}</span>
 <span class="sd">        Pass in either a file name to an ASCII data table, a 2-D</span>
 <span class="sd">        {table-classes}.</span>
 <span class="sd">        Note that text columns are only supported with file or</span>
@@ -244,7 +246,7 @@
 <span class="sd">          [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate</span>
 <span class="sd">          labeling. The arrow will be drawn with the pen attributes specified</span>
 <span class="sd">          by the ``pen`` parameter and the arrow-head can be colored via</span>
-<span class="sd">          ``fill``. The ellipse will be filled with the color or shade</span>
+<span class="sd">          ``fill``. The ellipse will be filled with the color or pattern</span>
 <span class="sd">          specified by the ``uncertaintyfill`` parameter [Default is</span>
 <span class="sd">          transparent], and its outline will be drawn if ``line`` is selected</span>
 <span class="sd">          using the pen selected (by ``pen`` if not given by ``line``).</span>
@@ -277,7 +279,7 @@
 <span class="sd">          [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate</span>
 <span class="sd">          labeling. The arrow will be drawn with the pen attributes specified</span>
 <span class="sd">          by the ``pen`` parameter and the arrow-head can be colored via</span>
-<span class="sd">          ``fill``. The ellipse will be filled with the color or shade</span>
+<span class="sd">          ``fill``. The ellipse will be filled with the color or pattern</span>
 <span class="sd">          specified by the ``uncertaintyfill`` parameter [Default is</span>
 <span class="sd">          transparent], and its outline will be drawn if ``line`` is selected</span>
 <span class="sd">          using the pen selected (by ``pen`` if not given by ``line``).</span>
@@ -297,9 +299,9 @@
 <span class="sd">          extra column. Rotation values are multiplied by *wedgemag* before</span>
 <span class="sd">          plotting. For example, setting *wedgemag* to 1.e7 works well for</span>
 <span class="sd">          rotations of the order of 100 nanoradians/yr. Use ``fill`` to set</span>
-<span class="sd">          the fill color or shade for the wedge, and ``uncertaintyfill`` to</span>
-<span class="sd">          set the color or shade for the uncertainty. Parameters are expected</span>
-<span class="sd">          to be in the following columns:</span>
+<span class="sd">          the fill color or pattern for the wedge, and ``uncertaintyfill`` to</span>
+<span class="sd">          set the color or pattern for the uncertainty. Parameters are</span>
+<span class="sd">          expected to be in the following columns:</span>
 
 <span class="sd">            - **1**,\ **2**: longitude, latitude of station</span>
 <span class="sd">            - **3**: rotation in radians</span>
@@ -338,13 +340,13 @@
 <span class="sd">        will be transparent. **Note**: Using ``cmap`` and ``zvalue=&quot;+e&quot;``</span>
 <span class="sd">        will update the uncertainty fill color based on the selected measure</span>
 <span class="sd">        in ``zvalue`` [Default is magnitude error]. More details at</span>
-<span class="sd">        :gmt-docs:`cookbook/features.html#gfill-attrib`.</span>
+<span class="sd">        :gmt-docs:`reference/features.html#gfill-attrib`.</span>
 <span class="sd">    fill : str</span>
 <span class="sd">        Set color or pattern for filling symbols [Default is no fill].</span>
 <span class="sd">        **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the</span>
 <span class="sd">        symbol fill color based on the selected measure in ``zvalue``</span>
 <span class="sd">        [Default is magnitude]. More details at</span>
-<span class="sd">        :gmt-docs:`cookbook/features.html#gfill-attrib`.</span>
+<span class="sd">        :gmt-docs:`reference/features.html#gfill-attrib`.</span>
 <span class="sd">    scale : float or bool</span>
 <span class="sd">        [*scale*].</span>
 <span class="sd">        Scale symbol sizes and pen widths on a per-record basis using the</span>
@@ -399,7 +401,7 @@
 <span class="sd">    {perspective}</span>
 <span class="sd">    {transparency}</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="p">(</span>
         <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span>
@@ -415,7 +417,6 @@
         <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="c1"># Choose how data will be passed in to the module</span>
         <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
@@ -430,10 +431,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

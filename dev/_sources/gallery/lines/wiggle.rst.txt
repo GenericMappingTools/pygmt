@@ -19,7 +19,7 @@
 
 
 Wiggle along tracks
--------------------
+===================
 
 The :meth:`pygmt.Figure.wiggle` method can plot z = f(x,y) anomalies along
 tracks. ``x``, ``y``, ``z`` can be specified as 1-D arrays or within a
@@ -28,7 +28,7 @@ anomaly in data/distance units. The positive and/or negative areas can be
 filled with color by setting the ``fillpositive`` and/or ``fillnegative``
 parameters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-42
+.. GENERATED FROM PYTHON SOURCE LINES 14-43
 
 
 
@@ -41,8 +41,7 @@ parameters.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -77,7 +76,7 @@ parameters.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.478 seconds)
+   **Total running time of the script:** (0 minutes 0.127 seconds)
 
 
 .. _sphx_glr_download_gallery_lines_wiggle.py:
@@ -86,16 +85,13 @@ parameters.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: wiggle.ipynb <wiggle.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: wiggle.py <wiggle.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: wiggle.ipynb <wiggle.ipynb>`
 
 
 .. only:: html

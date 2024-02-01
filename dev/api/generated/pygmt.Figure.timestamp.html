@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.Figure.timestamp &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.timestamp.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -136,6 +137,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -197,55 +199,52 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-figure-timestamp">
-<h1>pygmt.Figure.timestamp<a class="headerlink" href="#pygmt-figure-timestamp" title="Permalink to this heading"></a></h1>
+<h1>pygmt.Figure.timestamp<a class="headerlink" href="#pygmt-figure-timestamp" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.timestamp">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('-54p',</span> <span class="pre">'-54p')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Helvetica,black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y</span> <span class="pre">%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.timestamp" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">justify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'BL'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('-54p',</span> <span class="pre">'-54p')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Helvetica,black'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timefmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'%Y</span> <span class="pre">%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.timestamp" title="Link to this definition"></a></dt>
 <dd><p>Plot the GMT timestamp logo.</p>
-<p>Add the GMT timestamp logo with an optional label at the bottom-left corner
-of a plot with an offset of <code class="docutils literal notranslate"><span class="pre">(&quot;-54p&quot;,</span> <span class="pre">&quot;-54p&quot;)</span></code>. The timestamp will be
-in the locale set by the environment variable <strong>TZ</strong> (generally local time
-but can be changed via <code class="docutils literal notranslate"><span class="pre">os.environ[&quot;TZ&quot;]</span></code>) and its format is controlled
-by the <code class="docutils literal notranslate"><span class="pre">timefmt</span></code> parameter. It can also be replaced with any custom
-text string using the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter.</p>
+<p>Add the GMT timestamp logo with an optional label at the bottom-left corner of a
+plot with an offset of <code class="docutils literal notranslate"><span class="pre">(&quot;-54p&quot;,</span> <span class="pre">&quot;-54p&quot;)</span></code>. The timestamp will be in the locale set
+by the environment variable <strong>TZ</strong> (generally local time but can be changed via
+<code class="docutils literal notranslate"><span class="pre">os.environ[&quot;TZ&quot;]</span></code>) and its format is controlled by the <code class="docutils literal notranslate"><span class="pre">timefmt</span></code> parameter. It
+can also be replaced with any custom text string using the <code class="docutils literal notranslate"><span class="pre">text</span></code> parameter.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>text</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the current UNIX timestamp is shown in the GMT timestamp
-logo. Set this parameter to replace the UNIX timestamp with a custom
-text string instead. The text must be no longer than 64 characters.</p></li>
-<li><p><strong>label</strong> (<em>None</em><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The text string shown after the GMT timestamp logo.</p></li>
-<li><p><strong>justification</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Justification of the timestamp box relative to the plot’s bottom-left
-corner (i.e., the plot origin). The <em>justification</em> is a two-character
-code that is a combination of a horizontal (<strong>L</strong>(eft),
-<strong>C</strong>(enter), or <strong>R</strong>(ight)) and a vertical (<strong>T</strong>(op),
-<strong>M</strong>(iddle), or <strong>B</strong>(ottom)) code. For example,
-<code class="docutils literal notranslate"><span class="pre">justification=&quot;TL&quot;</span></code> means choosing the <strong>T</strong>op <strong>L</strong>eft point of
-the timestamp as the anchor point.</p></li>
-<li><p><strong>offset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a>) – <em>offset</em> or (<em>offset_x</em>, <em>offset_y</em>).
-Offset the anchor point of the timestamp box by <em>offset_x</em> and
-<em>offset_y</em>. If a single value <em>offset</em> is given, <em>offset_y</em> =
-<em>offset_x</em> = <em>offset</em>.</p></li>
-<li><p><strong>font</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Font of the timestamp and the optional label. Since the GMT logo has a
-fixed height, the font sizes are fixed to be 8-point for the timestamp
-and 7-point for the label. The parameter can’t change the font color
-for GMT&lt;=6.4.0, only the font style.</p></li>
-<li><p><strong>timefmt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Format string for the UNIX timestamp. The format string is parsed by
-the C function <code class="docutils literal notranslate"><span class="pre">strftime</span></code>, so that virtually any text can be used
-(even not containing any time information).</p></li>
+<li><p><strong>text</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If <code class="docutils literal notranslate"><span class="pre">None</span></code>, the current UNIX timestamp is shown in the GMT timestamp logo. Set
+this parameter to replace the UNIX timestamp with a custom text string instead.
+The text must be no longer than 64 characters.</p></li>
+<li><p><strong>label</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – The text string shown after the GMT timestamp logo.</p></li>
+<li><p><strong>justify</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'BL'</span></code>) – Justification of the timestamp box relative to the plot’s bottom-left corner
+(i.e., the plot origin). Give a two-character code that is a combination of a
+horizontal (<strong>L</strong>(eft), <strong>C</strong>(enter), or <strong>R</strong>(ight)) and a vertical
+(<strong>T</strong>(op), <strong>M</strong>(iddle), or <strong>B</strong>(ottom)) code. For example,
+<code class="docutils literal notranslate"><span class="pre">justify=&quot;TL&quot;</span></code> means choosing the <strong>T</strong>op <strong>L</strong>eft point of the timestamp
+as the anchor point.</p></li>
+<li><p><strong>offset</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> | <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">('-54p',</span> <span class="pre">'-54p')</span></code>) – <em>offset</em> or (<em>offset_x</em>, <em>offset_y</em>).
+Offset the anchor point of the timestamp box by <em>offset_x</em> and <em>offset_y</em>. If a
+single value <em>offset</em> is given, <em>offset_y</em> = <em>offset_x</em> = <em>offset</em>.</p></li>
+<li><p><strong>font</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'Helvetica,black'</span></code>) – Font of the timestamp and the optional label. Since the GMT logo has a fixed
+height, the font sizes are fixed to be 8-point for the timestamp and 7-point for
+the label. The parameter can’t change the font color for GMT&lt;=6.4.0, only the
+font style.</p></li>
+<li><p><strong>timefmt</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></span>, default: <code class="docutils literal notranslate"><span class="pre">'%Y</span> <span class="pre">%b</span> <span class="pre">%d</span> <span class="pre">%H:%M:%S'</span></code>) – Format string for the UNIX timestamp. The format string is parsed by the C
+function <code class="docutils literal notranslate"><span class="pre">strftime</span></code>, so that virtually any text can be used (even not
+containing any time information).</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the GMT timestamp logo.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<p>Plot the GMT timestamp logo.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot the GMT timestamp logo with a custom label.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<p>Plot the GMT timestamp logo with a custom label.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Powered by PyGMT&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -253,8 +252,8 @@ the C function <code class="docutils literal notranslate"><span class="pre">strf
 </dd></dl>
 
 <section id="examples-using-pygmt-figure-timestamp">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.timestamp</span></code><a class="headerlink" href="#examples-using-pygmt-figure-timestamp" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Timestamp"><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.timestamp</span></code><a class="headerlink" href="#examples-using-pygmt-figure-timestamp" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.timestamp method can draw the GMT timestamp logo on the plot. The timestamp wi..."><img alt="" src="../../_images/sphx_glr_timestamp_thumb.png" />
 <p><a class="reference internal" href="../../gallery/embellishments/timestamp.html#sphx-glr-gallery-embellishments-timestamp-py"><span class="std std-ref">Timestamp</span></a></p>
   <div class="sphx-glr-thumbnail-title">Timestamp</div>
 </div></div><div style='clear:both'></div></section>
@@ -272,10 +271,10 @@ the C function <code class="docutils literal notranslate"><span class="pre">strf
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

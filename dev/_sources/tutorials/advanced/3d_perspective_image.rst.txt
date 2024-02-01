@@ -24,10 +24,9 @@ Creating a 3-D perspective image
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-14
+.. GENERATED FROM PYTHON SOURCE LINES 10-15
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -53,7 +52,7 @@ The default grid surface type is *mesh plot*.
 
 .. GENERATED FROM PYTHON SOURCE LINES 23-40
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -91,7 +90,7 @@ The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 43-58
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -127,7 +126,7 @@ a fill below the surface relief.
 
 .. GENERATED FROM PYTHON SOURCE LINES 61-76
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -163,11 +162,11 @@ in the figure. The ``contourpen`` parameter sets the pen used to draw contour
 lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
 color bar to the figure. The ``cmap`` parameter does not need to be passed
 again. To keep the color bar's alignment similar to the figure, use ``True``
-as the ``perspective`` parameter.
+as argument for the ``perspective`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-100
+.. GENERATED FROM PYTHON SOURCE LINES 83-101
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -189,6 +188,7 @@ as the ``perspective`` parameter.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_3d_perspective_image_004.png
    :alt: 3d perspective image
    :srcset: /tutorials/advanced/images/sphx_glr_3d_perspective_image_004.png
@@ -201,7 +201,7 @@ as the ``perspective`` parameter.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.356 seconds)
+   **Total running time of the script:** (0 minutes 0.973 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_3d_perspective_image.py:
@@ -210,16 +210,13 @@ as the ``perspective`` parameter.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: 3d_perspective_image.ipynb <3d_perspective_image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: 3d_perspective_image.py <3d_perspective_image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: 3d_perspective_image.ipynb <3d_perspective_image.ipynb>`
 
 
 .. only:: html

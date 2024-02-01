@@ -1,6 +1,6 @@
 """
 Sampling along tracks
----------------------
+=====================
 
 The :func:`pygmt.grdtrack` function samples a raster grid's value along
 specified points. We will need to input a 2-D raster to ``grid`` which can be
@@ -15,6 +15,7 @@ can also be accepted for ``points``. To save an output ASCII file, a file name
 argument needs to be passed to the ``outfile`` parameter.
 """
 
+# %%
 import pygmt
 
 # Load sample grid and point datasets

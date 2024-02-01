@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>pygmt.Figure.shift_origin &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/api/generated/pygmt.Figure.shift_origin.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -130,6 +131,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -191,52 +193,82 @@
            <div itemprop="articleBody">
              
   <section id="pygmt-figure-shift-origin">
-<h1>pygmt.Figure.shift_origin<a class="headerlink" href="#pygmt-figure-shift-origin" title="Permalink to this heading"></a></h1>
+<h1>pygmt.Figure.shift_origin<a class="headerlink" href="#pygmt-figure-shift-origin" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.Figure.shift_origin">
-<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">shift_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">shift_origin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yshift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.shift_origin" title="Link to this definition"></a></dt>
 <dd><p>Shift plot origin in x and/or y directions.</p>
-<p>This method shifts the plot origin relative to the current origin
-by (<em>xshift</em>, <em>yshift</em>). Optionally, append the length unit (<strong>c</strong>,
-<strong>i</strong>, or <strong>p</strong>). Default unit if not given is <strong>c</strong> for centimeters.</p>
-<p>Prepend <strong>a</strong> to shift the origin back to the original position after
-plotting, prepend <strong>c</strong> to center the plot on the center of the paper
-(optionally add shift), prepend <strong>f</strong> to shift the origin relative to
-the fixed lower left corner of the page, or prepend <strong>r</strong> [Default] to
-move the origin relative to its current location.</p>
-<p>Detailed usage at
-<a class="reference external" href="https://docs.generic-mapping-tools.org/latest/cookbook/options.html#plot-positioning-and-layout-the-x-y-options">https://docs.generic-mapping-tools.org/latest/cookbook/options.html#plot-positioning-and-layout-the-x-y-options</a></p>
+<p>This method shifts the plot origin relative to the current origin by <em>xshift</em> and
+<em>yshift</em> in x and y directions, respectively. Optionally, append the length unit
+(<strong>c</strong> for centimeters, <strong>i</strong> for inches, or <strong>p</strong> for points) to the shifts.
+Default unit if not explicitly given is <strong>c</strong>, but can be changed to other units via
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-PROJ_LENGTH_UNIT">PROJ_LENGTH_UNIT</a>.</p>
+<p>For <em>xshift</em>, a special character <strong>w</strong> can also be used, which represents the
+bounding box <strong>width</strong> of the previous plot. The full syntax is
+[[±][<em>f</em>]<strong>w</strong>[/<em>d</em>]±]<em>xoff</em>, where optional signs, factor <em>f</em> and divisor
+<em>d</em> can be used to compute an offset that may be adjusted further by ±<em>xoff</em>.
+Assuming that the previous plot has a width of 10 centimeters, here are some example
+values for <em>xshift</em>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;w&quot;</span></code>: x-shift is 10 cm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;w+2c&quot;</span></code>: x-shift is 10+2=12 cm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;2w+3c&quot;</span></code>: x-shift is 2*10+3=23 cm</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;w/2-2c&quot;</span></code>: x-shift is 10/2-2=3 cm</p></li>
+</ul>
+<p>Similarly, for <em>yshift</em>, a special character <strong>h</strong> can also be used, which is the
+bounding box <strong>height</strong> of the previous plot.</p>
+<p><strong>Note</strong>: The previous plot bounding box refers to the last object plotted, which
+may be a basemap, image, logo, legend, colorbar, etc.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>xshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Shift plot origin in x direction.</p></li>
-<li><p><strong>yshift</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Shift plot origin in y direction.</p></li>
+<li><p><strong>xshift</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/types.html#types.UnionType" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionType</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Shift plot origin in x direction.</p></li>
+<li><p><strong>yshift</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/types.html#types.UnionType" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnionType</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Shift plot origin in y direction.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygmt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction by 12 cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X14c/10c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift the plot origin in x direction based on the previous plot width</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Here, the width is 14 cm, and xshift is 16 cm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">shift_origin</span><span class="p">(</span><span class="n">xshift</span><span class="o">=</span><span class="s2">&quot;w+2c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <section id="examples-using-pygmt-figure-shift-origin">
-<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code><a class="headerlink" href="#examples-using-pygmt-figure-shift-origin" title="Permalink to this heading"></a></h2>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Envelope"><img alt="" src="../../_images/sphx_glr_envelope_thumb.png" />
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.shift_origin</span></code><a class="headerlink" href="#examples-using-pygmt-figure-shift-origin" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The connection parameter of the pygmt.Figure.plot method allows to plot connection lines betwee..."><img alt="" src="../../_images/sphx_glr_connection_lines_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/connection_lines.html#sphx-glr-gallery-lines-connection-lines-py"><span class="std std-ref">Connection lines</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Connection lines</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The close parameter of the pygmt.Figure.plot method can be used to build a symmetrical or an as..."><img alt="" src="../../_images/sphx_glr_envelope_thumb.png" />
 <p><a class="reference internal" href="../../gallery/lines/envelope.html#sphx-glr-gallery-lines-envelope-py"><span class="std std-ref">Envelope</span></a></p>
   <div class="sphx-glr-thumbnail-title">Envelope</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Calculating grid gradient and radiance"><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="Line segment caps and joints"><img alt="" src="../../_images/sphx_glr_line_segment_ends_thumb.png" />
+<p><a class="reference internal" href="../../gallery/lines/line_segment_ends.html#sphx-glr-gallery-lines-line-segment-ends-py"><span class="std std-ref">Line segment caps and joints</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Line segment caps and joints</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. In the example shown bel..."><img alt="" src="../../_images/sphx_glr_grdgradient_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdgradient.html#sphx-glr-gallery-images-grdgradient-py"><span class="std std-ref">Calculating grid gradient and radiance</span></a></p>
   <div class="sphx-glr-thumbnail-title">Calculating grid gradient and radiance</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Clipping grid values"><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdclip function allows to clip defined ranges of grid values. In the example shown b..."><img alt="" src="../../_images/sphx_glr_grdclip_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/grdclip.html#sphx-glr-gallery-images-grdclip-py"><span class="std std-ref">Clipping grid values</span></a></p>
   <div class="sphx-glr-thumbnail-title">Clipping grid values</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example is orientated on an example in the GMT/China documentation: https://docs.gmt-china..."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="pygmt.project and pygmt.grdtrack can be used to focus on a quantity and its variation along a d..."><img alt="" src="../../_images/sphx_glr_cross_section_thumb.png" />
 <p><a class="reference internal" href="../../gallery/images/cross_section.html#sphx-glr-gallery-images-cross-section-py"><span class="std std-ref">Cross-section along a transect</span></a></p>
   <div class="sphx-glr-thumbnail-title">Cross-section along a transect</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot3d method can be used to plot symbols in 3-D. In the example below, we sho..."><img alt="" src="../../_images/sphx_glr_scatter3d_thumb.png" />
-<p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D Scatter plots</span></a></p>
-  <div class="sphx-glr-thumbnail-title">3-D Scatter plots</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Blockmean"><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
+<p><a class="reference internal" href="../../gallery/3d_plots/scatter3d.html#sphx-glr-gallery-3d-plots-scatter3d-py"><span class="std std-ref">3-D scatter plots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">3-D scatter plots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.blockmean function calculates different quantities inside blocks/bins whose dimension..."><img alt="" src="../../_images/sphx_glr_blockm_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/blockm.html#sphx-glr-gallery-histograms-blockm-py"><span class="std std-ref">Blockmean</span></a></p>
   <div class="sphx-glr-thumbnail-title">Blockmean</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Scatter plot with histograms"><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="To create a scatter plot with histograms at the sides of the plot one can use pygmt.Figure.plot..."><img alt="" src="../../_images/sphx_glr_scatter_and_histograms_thumb.png" />
 <p><a class="reference internal" href="../../gallery/histograms/scatter_and_histograms.html#sphx-glr-gallery-histograms-scatter-and-histograms-py"><span class="std std-ref">Scatter plot with histograms</span></a></p>
   <div class="sphx-glr-thumbnail-title">Scatter plot with histograms</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Plotting coastlines and borders is handled by pygmt.Figure.coast."><img alt="" src="../../_images/sphx_glr_coastlines_thumb.png" />
@@ -269,10 +301,10 @@ move the origin relative to its current location.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

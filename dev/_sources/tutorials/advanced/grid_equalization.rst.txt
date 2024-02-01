@@ -20,13 +20,13 @@
 
 Performing grid histogram equalization
 ======================================
+
 The :meth:`pygmt.grdhisteq.equalize_grid` method creates a grid using
 statistics based on a cumulative distribution function.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-10
+.. GENERATED FROM PYTHON SOURCE LINES 10-12
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -37,17 +37,18 @@ statistics based on a cumulative distribution function.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-17
+.. GENERATED FROM PYTHON SOURCE LINES 13-19
 
 Load sample data
 ----------------
-Load the sample Earth relief data for a region around Yosemite valley
+
+Load the sample Earth relief data for a region around Yosemite Valley
 and use :func:`pygmt.grd2xyz` to create a :class:`pandas.Series` with the
 z-values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-23
+.. GENERATED FROM PYTHON SOURCE LINES 19-26
 
-.. code-block:: default
+.. code-block:: Python
 
 
     grid = pygmt.datasets.load_earth_relief(
@@ -62,16 +63,18 @@ z-values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-28
+
+.. GENERATED FROM PYTHON SOURCE LINES 27-32
 
 Plot the original digital elevation model and data distribution
 ---------------------------------------------------------------
+
 For comparison, we will create a map of the original digital elevation
 model and a histogram showing the distribution of elevation data values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-58
+.. GENERATED FROM PYTHON SOURCE LINES 32-63
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create an instance of the Figure class
@@ -106,6 +109,7 @@ model and a histogram showing the distribution of elevation data values.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_grid_equalization_001.png
    :alt: grid equalization
    :srcset: /tutorials/advanced/images/sphx_glr_grid_equalization_001.png
@@ -115,10 +119,11 @@ model and a histogram showing the distribution of elevation data values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-67
+.. GENERATED FROM PYTHON SOURCE LINES 64-73
 
 Equalize grid based on a linear distribution
 --------------------------------------------
+
 The :meth:`pygmt.grdhisteq.equalize_grid` method creates a new grid with the
 z-values representing the position of the original z-values in a given
 cumulative distribution. By default, it computes the position in a linear
@@ -126,9 +131,9 @@ distribution. Here, we equalize the grid into nine divisions based on a
 linear distribution and produce a :class:`pandas.Series` with the z-values
 for the new grid.
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-72
+.. GENERATED FROM PYTHON SOURCE LINES 73-79
 
-.. code-block:: default
+.. code-block:: Python
 
 
     divisions = 9
@@ -142,10 +147,12 @@ for the new grid.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-82
+
+.. GENERATED FROM PYTHON SOURCE LINES 80-90
 
 Calculate the bins used for data transformation
 -----------------------------------------------
+
 The :meth:`pygmt.grdhisteq.compute_bins` method reports statistics about the
 grid equalization. Here, we report the bins that would linearly divide the
 original data into 9 divisions with equal area. In our new grid produced by
@@ -154,12 +161,13 @@ original data into 9 divisions with equal area. In our new grid produced by
 cells with values between ``start`` and ``stop`` of ``bin_id=1`` are assigned
 the value 1, and so on.
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-85
+.. GENERATED FROM PYTHON SOURCE LINES 90-94
 
-.. code-block:: default
+.. code-block:: Python
 
 
     pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions)
+
 
 
 
@@ -249,17 +257,18 @@ the value 1, and so on.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-91
+.. GENERATED FROM PYTHON SOURCE LINES 95-101
 
 Plot the equally distributed data
----------------------------------------------------------------
+---------------------------------
+
 Here we create a map showing the grid that has been transformed to
 have a linear distribution with nine divisions and a histogram of the data
 values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-121
+.. GENERATED FROM PYTHON SOURCE LINES 101-132
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create an instance of the Figure class
@@ -294,6 +303,7 @@ values.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_grid_equalization_002.png
    :alt: grid equalization
    :srcset: /tutorials/advanced/images/sphx_glr_grid_equalization_002.png
@@ -303,18 +313,19 @@ values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-128
+.. GENERATED FROM PYTHON SOURCE LINES 133-140
 
 Transform grid based on a normal distribution
 ---------------------------------------------
+
 The ``gaussian`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
 used to transform the z-values relative to their position in a normal
 distribution rather than a linear distribution. In this case, the output
 data are continuous rather than discrete.
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-132
+.. GENERATED FROM PYTHON SOURCE LINES 140-145
 
-.. code-block:: default
+.. code-block:: Python
 
 
     normal = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
@@ -327,16 +338,18 @@ data are continuous rather than discrete.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-137
+
+.. GENERATED FROM PYTHON SOURCE LINES 146-151
 
 Plot the normally distributed data
 ----------------------------------
+
 Here we create a map showing the grid that has been transformed to have
 a normal distribution and a histogram of the data values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-166
+.. GENERATED FROM PYTHON SOURCE LINES 151-181
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create an instance of the Figure class
@@ -370,6 +383,7 @@ a normal distribution and a histogram of the data values.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_grid_equalization_003.png
    :alt: grid equalization
    :srcset: /tutorials/advanced/images/sphx_glr_grid_equalization_003.png
@@ -379,19 +393,20 @@ a normal distribution and a histogram of the data values.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-174
+.. GENERATED FROM PYTHON SOURCE LINES 182-190
 
 Equalize grid based on a quadratic distribution
 -----------------------------------------------
+
 The ``quadratic`` parameter of :meth:`pygmt.grdhisteq.equalize_grid` can be
 used to transform the z-values relative to their position in a quadratic
 distribution rather than a linear distribution. Here, we equalize the grid
 into nine divisions based on a quadratic distribution and produce a
 :class:`pandas.Series` with the z-values for the new grid.
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-180
+.. GENERATED FROM PYTHON SOURCE LINES 190-197
 
-.. code-block:: default
+.. code-block:: Python
 
 
     quadratic = pygmt.grdhisteq.equalize_grid(
@@ -406,21 +421,24 @@ into nine divisions based on a quadratic distribution and produce a
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 181-187
+
+.. GENERATED FROM PYTHON SOURCE LINES 198-205
 
 Calculate the bins used for data transformation
 -----------------------------------------------
+
 We can also use the ``quadratic`` parameter of
 :meth:`pygmt.grdhisteq.compute_bins` to report the bins used for dividing
 the grid into 9 divisions based on their position in a quadratic
 distribution.
 
-.. GENERATED FROM PYTHON SOURCE LINES 187-190
+.. GENERATED FROM PYTHON SOURCE LINES 205-209
 
-.. code-block:: default
+.. code-block:: Python
 
 
     pygmt.grdhisteq.compute_bins(grid=grid, divisions=divisions, quadratic=True)
+
 
 
 
@@ -510,16 +528,17 @@ distribution.
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 191-195
+.. GENERATED FROM PYTHON SOURCE LINES 210-215
 
 Plot the quadratic distribution of data
 ---------------------------------------
+
 Here we create a map showing the grid that has been transformed to have
 a quadratic distribution and a histogram of the data values.
 
-.. GENERATED FROM PYTHON SOURCE LINES 195-224
+.. GENERATED FROM PYTHON SOURCE LINES 215-245
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create an instance of the Figure class
@@ -553,6 +572,7 @@ a quadratic distribution and a histogram of the data values.
 
 
 
+
 .. image-sg:: /tutorials/advanced/images/sphx_glr_grid_equalization_004.png
    :alt: grid equalization
    :srcset: /tutorials/advanced/images/sphx_glr_grid_equalization_004.png
@@ -565,7 +585,7 @@ a quadratic distribution and a histogram of the data values.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.753 seconds)
+   **Total running time of the script:** (0 minutes 2.120 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_grid_equalization.py:
@@ -574,16 +594,13 @@ a quadratic distribution and a histogram of the data values.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: grid_equalization.ipynb <grid_equalization.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grid_equalization.py <grid_equalization.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: grid_equalization.ipynb <grid_equalization.ipynb>`
 
 
 .. only:: html

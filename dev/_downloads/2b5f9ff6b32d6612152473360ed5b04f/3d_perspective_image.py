@@ -5,14 +5,14 @@ Creating a 3-D perspective image
 Create 3-D perspective image or surface mesh from a grid
 using :meth:`pygmt.Figure.grdview`.
 """
-# sphinx_gallery_thumbnail_number = 4
 
+# %%
 import pygmt
 
 # Load sample earth relief data
 grid = pygmt.datasets.load_earth_relief(resolution="10m", region=[-108, -103, 35, 40])
 
-###############################################################################
+# %%
 # The :meth:`pygmt.Figure.grdview` method takes the ``grid`` input.
 # The ``perspective`` parameter changes the azimuth and elevation of the
 # viewpoint; the default is [180, 90], which is looking directly down on the
@@ -37,7 +37,7 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The grid surface type can be set with the ``surftype`` parameter.
 # The default CPT is *turbo* and can be customized with the ``cmap`` parameter.
 
@@ -55,7 +55,7 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The ``plane`` parameter sets the elevation and color of a plane that provides
 # a fill below the surface relief.
 
@@ -73,13 +73,13 @@ fig.grdview(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The ``perspective`` azimuth can be changed to set the direction that is "up"
 # in the figure. The ``contourpen`` parameter sets the pen used to draw contour
 # lines on the surface. :meth:`pygmt.Figure.colorbar` can be used to add a
 # color bar to the figure. The ``cmap`` parameter does not need to be passed
 # again. To keep the color bar's alignment similar to the figure, use ``True``
-# as the ``perspective`` parameter.
+# as argument for the ``perspective`` parameter.
 
 fig = pygmt.Figure()
 fig.grdview(
@@ -97,3 +97,5 @@ fig.grdview(
 )
 fig.colorbar(perspective=True, frame=["a500", "x+lElevation", "y+lm"])
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 4

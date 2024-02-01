@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Maintainers Guide &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/maintenance.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/clipboard.min.js"></script>
-        <script src="_static/copybutton.js"></script>
-        <script src="_static/design-tabs.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=ccdb6887"></script>
+        <script src="_static/design-tabs.js?v=36754332"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,13 +103,19 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="team.html">Team Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributors Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Maintainers Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#onboarding-access-checklist">Onboarding Access Checklist</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#as-a-contributor">As a Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#as-a-maintainer">As a Maintainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#as-an-administrator">As an Administrator</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#branches">Branches</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#managing-github-issues">Managing GitHub Issues</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reviewing-and-merging-pull-requests">Reviewing and Merging Pull Requests</a></li>
@@ -178,25 +185,50 @@
            <div itemprop="articleBody">
              
   <section id="maintainers-guide">
-<h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Permalink to this heading"></a></h1>
+<h1>Maintainers Guide<a class="headerlink" href="#maintainers-guide" title="Link to this heading"></a></h1>
 <p>This page contains instructions for project maintainers about how our setup works,
 making releases, creating packages, etc.</p>
 <p>If you want to make a contribution to the project, see the
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
 instead.</p>
 <section id="onboarding-access-checklist">
-<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Permalink to this heading"></a></h2>
+<h2>Onboarding Access Checklist<a class="headerlink" href="#onboarding-access-checklist" title="Link to this heading"></a></h2>
+<p>Note that anyone can contribute to PyGMT, even without being added to the
+<a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams">GenericMappingTools team</a>.
+The onboarding items below are for people who would like to make regular
+contributions, and could benefit from extra permissions to the developer and
+communication tools we use.</p>
+<section id="as-a-contributor">
+<h3>As a Contributor<a class="headerlink" href="#as-a-contributor" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Added to <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/python-maintainers">python-maintainers</a> team in the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/">GenericMappingTools</a> organization on GitHub (gives ‘maintain’ permissions)</p></li>
-<li><p>Added as collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
-<li><p>Added as moderator on <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions)</p></li>
-<li><p>Added as member on the <a class="reference external" href="https://pygmtdevs.slack.com">PyGMT devs Slack channel</a> (for casual conversations)</p></li>
-<li><p>Added as maintainer on <a class="reference external" href="https://pypi.org/project/pygmt/">PyPI</a> and <a class="reference external" href="https://test.pypi.org/project/pygmt">Test PyPI</a> [optional]</p></li>
-<li><p>Added as member on <a class="reference external" href="https://hackmd.io/&#64;pygmt">HackMD</a> [optional]</p></li>
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-contributors">pygmt-contributors team</a> (gives ‘write’ permission to the repository)</p></li>
+<li><p>Added as a collaborator on <a class="reference external" href="https://dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a> (gives ‘write’ permission to dvc remote storage)</p></li>
+<li><p>Added to the <a class="reference external" href="https://pygmtdevs.slack.com">PyGMT devs Slack channel</a> (for casual conversations)</p></li>
+<li><p>Added to the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Added as a member on <a class="reference external" href="https://hackmd.io/&#64;pygmt">HackMD</a> (for draft announcements) [optional]</p></li>
 </ul>
 </section>
+<section id="as-a-maintainer">
+<h3>As a Maintainer<a class="headerlink" href="#as-a-maintainer" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-maintainers">pygmt-maintainers team</a> (gives ‘maintain’ permission to the repository)</p></li>
+<li><p>Update the role on the <a class="reference internal" href="team.html"><span class="doc">Team Gallery page</span></a></p></li>
+<li><p>Added as a moderator on the <a class="reference external" href="https://forum.generic-mapping-tools.org">GMT forum</a> (to see mod-only discussions) [optional]</p></li>
+<li><p>Added as a maintainer on <a class="reference external" href="https://readthedocs.org/projects/pygmt-dev">ReadtheDocs</a> [optional]</p></li>
+<li><p>Added as a curator to the <a class="reference external" href="https://zenodo.org/communities/generic-mapping-tools/">GMT community</a> on Zenodo (for making releases) [optional]</p></li>
+</ul>
+</section>
+<section id="as-an-administrator">
+<h3>As an Administrator<a class="headerlink" href="#as-an-administrator" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Added to the <a class="reference external" href="https://github.com/orgs/GenericMappingTools/teams/pygmt-admin">pygmt-admin team</a> (gives ‘admin’ permission to the repository)</p></li>
+<li><p>Added as an admin on <a class="reference external" href="https://www.dagshub.com/GenericMappingTools/pygmt/settings/collaboration">DAGsHub</a></p></li>
+<li><p>Added as a maintainer on <a class="reference external" href="https://pypi.org/project/pygmt/">PyPI</a> and <a class="reference external" href="https://test.pypi.org/project/pygmt">Test PyPI</a> [optional]</p></li>
+</ul>
+</section>
+</section>
 <section id="branches">
-<h2>Branches<a class="headerlink" href="#branches" title="Permalink to this heading"></a></h2>
+<h2>Branches<a class="headerlink" href="#branches" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><em>main</em>: Always tested and ready to become a new version. Don’t push directly to this
 branch. Make a new branch and submit a pull request instead.</p></li>
@@ -206,7 +238,7 @@ branch are in the <code class="docutils literal notranslate"><span class="pre">d
 </ul>
 </section>
 <section id="managing-github-issues">
-<h2>Managing GitHub Issues<a class="headerlink" href="#managing-github-issues" title="Permalink to this heading"></a></h2>
+<h2>Managing GitHub Issues<a class="headerlink" href="#managing-github-issues" title="Link to this heading"></a></h2>
 <p>A few guidelines for managing GitHub issues:</p>
 <ul class="simple">
 <li><p>Assign <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/labels">labels</a> and the expected
@@ -223,7 +255,7 @@ consider adding a regression test for serious bugs.</p></li>
 </ul>
 </section>
 <section id="reviewing-and-merging-pull-requests">
-<h2>Reviewing and Merging Pull Requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Permalink to this heading"></a></h2>
+<h2>Reviewing and Merging Pull Requests<a class="headerlink" href="#reviewing-and-merging-pull-requests" title="Link to this heading"></a></h2>
 <p>A few guidelines for reviewing:</p>
 <ul class="simple">
 <li><p>Always <strong>be polite</strong> and give constructive feedback.</p></li>
@@ -245,38 +277,40 @@ descriptive.</p></li>
 </ul>
 </section>
 <section id="continuous-integration">
-<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this heading"></a></h2>
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
 <p>We use GitHub Actions continuous integration (CI) services to build, test and
 manage the project on Linux, macOS and Windows. The GitHub Actions CI are
-controlled by 14 workflow files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>. Here we briefly
+controlled by workflow files located in <code class="docutils literal notranslate"><span class="pre">.github/workflows</span></code>. Here we briefly
 summarize the functions of the workflows. Please refer to the comments in the
 workflow files for more details.</p>
-<ol class="arabic simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code>: Code lint and style checks</p></li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">benchmarks.yml</span></code>: Benchmarks the execution speed of tests to track performance of PyGMT functions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code>: Cache GMT remote data files and uplodas as artifacts</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">check-links.yml</span></code>: Check links in the repository and documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code>: Build documentation on Linux/macOS/Windows and deploy to GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ci_doctest.yaml</span></code>: Run all doctests on Linux/macOS/Windows</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests.yaml</span></code>: Run regular PyGMT tests on Linux/macOS/Windows</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_dev.yaml</span></code>: Run regular PyGMT tests with GMT dev version on Linux/macOS/Windows</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ci_tests_legacy.yaml</span></code>: Run regular PyGMT tests with GMT legacy versions on Linux/macOS/Windows</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_docs.yml</span></code>: Build documentation on Linux/macOS/Windows and deploy to GitHub</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ci_doctest.yaml</span></code>: Run all doctests on Linux/macOS/Windows</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cache_data.yaml</span></code>: Cache GMT remote data files and uplodas as artifacts</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code>: Publish archives to PyPI and TestPyPI</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code>: Draft the next release notes</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">release-baseline-images.yml</span></code>: Upload the ZIP archive of baseline images as a release asset</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">format-command.yml</span></code>: Format the codes using slash command</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dvc-diff.yml</span></code>: Report changes in test images</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">format-command.yml</span></code>: Format the codes using slash command</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">publish-to-pypi.yml</span></code>: Publish archives to PyPI and TestPyPI</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-baseline-images.yml</span></code>: Upload the ZIP archive of baseline images as a release asset</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">release-drafter.yml</span></code>: Draft the next release notes</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">slash-command-dispatch.yml</span></code>: Support slash commands in pull requests</p></li>
-</ol>
+<li><p><code class="docutils literal notranslate"><span class="pre">style_checks.yaml</span></code>: Code lint and style checks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type_checks.yml</span></code>: Static type checks</p></li>
+</ul>
 </section>
 <section id="continuous-documentation">
-<h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Permalink to this heading"></a></h2>
+<h2>Continuous Documentation<a class="headerlink" href="#continuous-documentation" title="Link to this heading"></a></h2>
 <p>We use the <a class="reference external" href="https://readthedocs.org/">ReadtheDocs</a> service to preview changes
 made to our documentation website every time we make a commit in a pull request.
 The service has a configuration file <code class="docutils literal notranslate"><span class="pre">.readthedocs.yaml</span></code>, with a list of options
-to change the default behaviour at https://docs.readthedocs.io/en/stable/config-file/index.html.</p>
+to change the default behaviour at <a class="reference external" href="https://docs.readthedocs.io/en/stable/config-file/index.html">https://docs.readthedocs.io/en/stable/config-file/index.html</a>.</p>
 </section>
 <section id="dependencies-policy">
-<h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Permalink to this heading"></a></h2>
+<h2>Dependencies Policy<a class="headerlink" href="#dependencies-policy" title="Link to this heading"></a></h2>
 <p>PyGMT has adopted <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy">NEP29</a>
 alongside the rest of the Scientific Python ecosystem, and therefore supports:</p>
 <ul class="simple">
@@ -290,10 +324,11 @@ supported version of Python. Minimum Python and NumPy version support should be
 adjusted upward on every major and minor release, but never on a patch release.</p>
 </section>
 <section id="backwards-compatibility-and-deprecation-policy">
-<h2>Backwards Compatibility and Deprecation Policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Permalink to this heading"></a></h2>
+<h2>Backwards Compatibility and Deprecation Policy<a class="headerlink" href="#backwards-compatibility-and-deprecation-policy" title="Link to this heading"></a></h2>
 <p>PyGMT is still undergoing rapid development. All of the API is subject to change
 until the v1.0.0 release. Versioning in PyGMT is based on the
-<a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a> (e.g. vMAJOR.MINOR.PATCH).
+<a class="reference external" href="https://semver.org/spec/v2.0.0.html">semantic versioning specification</a>
+(i.e., v<em>MAJOR</em>.<em>MINOR</em>.<em>PATCH</em>).
 Basic policy for backwards compatibility:</p>
 <ul class="simple">
 <li><p>Any incompatible changes should go through the deprecation process below.</p></li>
@@ -328,25 +363,26 @@ decorator (if those two exist). Here is an example:</p>
 will be fully removed in v0.6.0. The new parameter name is <code class="docutils literal notranslate"><span class="pre">incols</span></code>.</p>
 </section>
 <section id="making-a-release">
-<h2>Making a Release<a class="headerlink" href="#making-a-release" title="Permalink to this heading"></a></h2>
+<h2>Making a Release<a class="headerlink" href="#making-a-release" title="Link to this heading"></a></h2>
 <p>We try to automate the release process as much as possible.
 GitHub Actions workflow handles publishing new releases to PyPI and updating the documentation.
-The version number is set automatically using setuptools_scm based information
-obtained from git.
+The version number is set automatically using <a class="reference external" href="https://pypi.org/project/setuptools-scm/">setuptools_scm</a>
+based information obtained from git.
 There are a few steps that still must be done manually, though.</p>
 <section id="updating-the-changelog">
-<h3>Updating the Changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this heading"></a></h3>
-<p>The Release Drafter GitHub Action will automatically keep a draft changelog at
-https://github.com/GenericMappingTools/pygmt/releases, adding a new entry
+<h3>Updating the Changelog<a class="headerlink" href="#updating-the-changelog" title="Link to this heading"></a></h3>
+<p>The <a class="reference external" href="https://github.com/release-drafter/release-drafter">Release Drafter</a> GitHub Action
+will automatically keep a draft changelog at
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a>, adding a new entry
 every time a pull request (with a proper label) is merged into the main branch.
 This release drafter tool has two configuration files, one for the GitHub Action
-at .github/workflows/release-drafter.yml, and one for the changelog template
-at .github/release-drafter.yml. Configuration settings can be found at
-https://github.com/release-drafter/release-drafter.</p>
+at <code class="docutils literal notranslate"><span class="pre">.github/workflows/release-drafter.yml</span></code>, and one for the changelog template
+at <code class="docutils literal notranslate"><span class="pre">.github/release-drafter.yml</span></code>. Configuration settings can be found at
+<a class="reference external" href="https://github.com/release-drafter/release-drafter">https://github.com/release-drafter/release-drafter</a>.</p>
 <p>The drafted release notes are not perfect, so we will need to tidy it prior to
-publishing the actual release notes at https://www.pygmt.org/latest/changes.html.</p>
+publishing the actual release notes at <a class="reference internal" href="changes.html"><span class="doc">Changelog</span></a>.</p>
 <ol class="arabic">
-<li><p>Go to https://github.com/GenericMappingTools/pygmt/releases and click on the
+<li><p>Go to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a> and click on the
 ‘Edit’ button next to the current draft release note. Copy the text of the
 automatically drafted release notes under the ‘Write’ tab to
 <code class="docutils literal notranslate"><span class="pre">doc/changes.md</span></code>. Add a section separator <code class="docutils literal notranslate"><span class="pre">---</span></code> between the new and old
@@ -366,49 +402,49 @@ typo fixes, CI configuration, test updates due to GMT releases, etc).</p></li>
 such that similar items are located near each other (e.g., new wrapped
 modules and methods, gallery examples, API docs changes) and entries within each group
 are alphabetical.</p></li>
-<li><p>Move a few important items from the main sections to the highlights section.</p></li>
+<li><p>Move a few important items from the main sections to the Highlights section.</p></li>
 <li><p>Edit the list of people who contributed to the release, linking to their
 GitHub accounts. Sort their names by the number of commits made since the
 last release (e.g., use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">shortlog</span> <span class="pre">HEAD...v0.4.0</span> <span class="pre">-sne</span></code>).</p></li>
-<li><p>Update <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> with new information on the new release version,
-including a vX.Y.Z documentation link, and compatibility with
-GMT/Python/NumPy versions. Follow
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">doc/minversions.rst</span></code> with new information on the new release version,
+including a vX.Y.Z documentation link, and minimum required GMT/Python/NumPy
+versions. Follow
 <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description">NEP 29</a>
-for compatibility updates.</p></li>
+for updates.</p></li>
 <li><p>Refresh citation information. Specifically, the BibTeX in <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> and
 <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> needs to be updated with any metadata changes, including the
 DOI, release date, and version information. Please also follow
 guidelines in <code class="docutils literal notranslate"><span class="pre">AUTHORSHIP.md</span></code> for updating the author list in the BibTeX.
 More information about the <code class="docutils literal notranslate"><span class="pre">CITATION.cff</span></code> specification can be found at
-https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md</p></li>
+<a class="reference external" href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md">https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md</a>.</p></li>
 </ol>
 </section>
 <section id="check-the-readme-syntax">
-<h3>Check the README Syntax<a class="headerlink" href="#check-the-readme-syntax" title="Permalink to this heading"></a></h3>
+<h3>Check the README Syntax<a class="headerlink" href="#check-the-readme-syntax" title="Link to this heading"></a></h3>
 <p>GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
 To check the README syntax, visit the
 <a class="reference external" href="https://test.pypi.org/project/pygmt/#history">PyGMT TestPyPI release history</a>, select
 the latest commit, and review the left sidebar and project description for any errors.</p>
 </section>
 <section id="pushing-to-pypi-and-updating-the-documentation">
-<h3>Pushing to PyPI and Updating the Documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Permalink to this heading"></a></h3>
+<h3>Pushing to PyPI and Updating the Documentation<a class="headerlink" href="#pushing-to-pypi-and-updating-the-documentation" title="Link to this heading"></a></h3>
 <p>After the changelog is updated, making a release can be done by going to
-https://github.com/GenericMappingTools/pygmt/releases, editing the draft release,
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases">https://github.com/GenericMappingTools/pygmt/releases</a>, editing the draft release,
 and clicking on publish. A git tag will also be created, make sure that this
 tag is a proper version number (following <a class="reference external" href="https://semver.org/">Semantic Versioning</a>)
-with a leading <code class="docutils literal notranslate"><span class="pre">v</span></code>. E.g. <code class="docutils literal notranslate"><span class="pre">v0.2.1</span></code>.</p>
+with a leading <code class="docutils literal notranslate"><span class="pre">v</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">v0.2.1</span></code>).</p>
 <p>Once the release/tag is created, this should trigger GitHub Actions to do all the work for us.
 A new source distribution will be uploaded to PyPI, a new folder with the documentation
 HTML will be pushed to <em>gh-pages</em>, and the <code class="docutils literal notranslate"><span class="pre">latest</span></code> link will be updated to point to
 this new folder.</p>
 </section>
 <section id="archiving-on-zenodo">
-<h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Permalink to this heading"></a></h3>
+<h3>Archiving on Zenodo<a class="headerlink" href="#archiving-on-zenodo" title="Link to this heading"></a></h3>
 <p>Grab both the source code and baseline images ZIP files from the GitHub release page
 and upload them to Zenodo using the previously reserved DOI.</p>
 </section>
 <section id="updating-the-conda-package">
-<h3>Updating the Conda Package<a class="headerlink" href="#updating-the-conda-package" title="Permalink to this heading"></a></h3>
+<h3>Updating the Conda Package<a class="headerlink" href="#updating-the-conda-package" title="Link to this heading"></a></h3>
 <p>When a new version is released on PyPI, conda-forge’s bot automatically creates version
 updates for the feedstock. In most cases, the maintainers can simply merge that PR.</p>
 <p>If changes need to be done manually, you can:</p>
@@ -416,8 +452,9 @@ updates for the feedstock. In most cases, the maintainers can simply merge that 
 <li><p>Fork the <a class="reference external" href="https://github.com/conda-forge/pygmt-feedstock">pygmt feedstock repository</a> if
 you haven’t already. If you have a fork, update it.</p></li>
 <li><p>Update the version number and sha256 hash on <code class="docutils literal notranslate"><span class="pre">recipe/meta.yaml</span></code>. You can get the hash
-from the PyPI “Download files” section.</p></li>
+from the <a class="reference external" href="https://pypi.org/project/pygmt/#files">PyPI “Download files” section</a>.</p></li>
 <li><p>Add or remove any new dependencies (most are probably only <code class="docutils literal notranslate"><span class="pre">run</span></code> dependencies).</p></li>
+<li><p>Make sure the minimum support versions of all dependencies are correctly pinned.</p></li>
 <li><p>Make a new branch, commit, and push the changes <strong>to your personal fork</strong>.</p></li>
 <li><p>Create a PR against the original feedstock main.</p></li>
 <li><p>Once the CI tests pass, merge the PR or ask a maintainer to do so.</p></li>
@@ -437,10 +474,10 @@ from the PyPI “Download files” section.</p></li>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

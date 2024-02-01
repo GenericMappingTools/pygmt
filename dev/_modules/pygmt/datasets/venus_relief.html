@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.datasets.venus_relief &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/venus_relief.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                dev
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.datasets.venus_relief</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.datasets.venus_relief</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Function to download the Venus relief dataset from the GMT data server, and load as</span>
+<span class="sd">:class:`xarray.DataArray`.</span>
+
+<span class="sd">The grids are available in various resolutions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">kwargs_to_strings</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_venus_relief&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="load_venus_relief">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_venus_relief.html#pygmt.datasets.load_venus_relief">[docs]</a>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">load_venus_relief</span><span class="p">(</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gridline&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the Venus relief dataset in various resolutions.</span>
+
+<span class="sd">    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_venus_relief.jpg</span>
+<span class="sd">       :width: 80%</span>
+<span class="sd">       :align: center</span>
+
+<span class="sd">       Venus relief dataset.</span>
+
+<span class="sd">    The grids are downloaded to a user data directory (usually</span>
+<span class="sd">    ``~/.gmt/server/venus/venus_relief/``) the first time you invoke this function.</span>
+<span class="sd">    Afterwards, it will load the grid from the data directory. So you&#39;ll need an</span>
+<span class="sd">    internet connection the first time around.</span>
+
+<span class="sd">    These grids can also be accessed by passing in the file name</span>
+<span class="sd">    **@venus_relief**\_\ *res*\[_\ *reg*] to any grid processing function or plotting</span>
+<span class="sd">    method. *res* is the grid resolution (see below), and *reg* is the grid registration</span>
+<span class="sd">    type (**p** for pixel registration or **g** for gridline registration).</span>
+
+<span class="sd">    The default color palette table (CPT) for this dataset is *@venus_relief.cpt*. It&#39;s</span>
+<span class="sd">    implicitly used when passing in the file name of the dataset to any grid plotting</span>
+<span class="sd">    method if no CPT is explicitly specified. When the dataset is loaded and plotted as</span>
+<span class="sd">    an :class:`xarray.DataArray` object, the default CPT is ignored, and GMT&#39;s default</span>
+<span class="sd">    CPT (*turbo*) is used. To use the dataset-specific CPT, you need to explicitly set</span>
+<span class="sd">    ``cmap=&quot;@venus_relief.cpt&quot;``.</span>
+
+<span class="sd">    Refer to :gmt-datasets:`venus-relief.html` for more details about available</span>
+<span class="sd">    datasets, including version information and references.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    resolution : str</span>
+<span class="sd">        The grid resolution. The suffix ``d`` and ``m`` stand for arc-degrees and</span>
+<span class="sd">        arc-minutes. It can be ``&quot;01d&quot;``, ``&quot;30m&quot;``, ``&quot;20m&quot;``, ``&quot;15m&quot;``, ``&quot;10m&quot;``,</span>
+<span class="sd">        ``&quot;06m&quot;``, ``&quot;05m&quot;``, ``&quot;04m&quot;``, ``&quot;03m&quot;``, ``&quot;02m&quot;``, and ``&quot;01m&quot;``.</span>
+<span class="sd">    region : str or list</span>
+<span class="sd">        The subregion of the grid to load, in the form of a list</span>
+<span class="sd">        [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.</span>
+<span class="sd">        Required for grids with resolutions higher than 5 arc-minutes (i.e., ``&quot;05m&quot;``).</span>
+<span class="sd">    registration</span>
+<span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
+<span class="sd">        ``&quot;gridline&quot;`` for gridline registration.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    grid : :class:`xarray.DataArray`</span>
+<span class="sd">        The Venus relief grid. Coordinates are latitude and longitude in degrees. Relief</span>
+<span class="sd">        is in meters.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    The registration and coordinate system type of the returned</span>
+<span class="sd">    :class:`xarray.DataArray` grid can be accessed via the GMT accessors (i.e.,</span>
+<span class="sd">    ``grid.gmt.registration`` and ``grid.gmt.gtype`` respectively). However, these</span>
+<span class="sd">    properties may be lost after specific grid operations (such as slicing) and will</span>
+<span class="sd">    need to be manually set before passing the grid to any PyGMT data processing or</span>
+<span class="sd">    plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed</span>
+<span class="sd">    explanations and workarounds.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pygmt.datasets import load_venus_relief</span>
+<span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_venus_relief()</span>
+<span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_venus_relief(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_venus_relief(</span>
+<span class="sd">    ...     resolution=&quot;05m&quot;,</span>
+<span class="sd">    ...     region=[120, 160, 30, 60],</span>
+<span class="sd">    ...     registration=&quot;gridline&quot;,</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
+        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;venus_relief&quot;</span><span class="p">,</span>
+        <span class="n">dataset_prefix</span><span class="o">=</span><span class="s2">&quot;venus_relief_&quot;</span><span class="p">,</span>
+        <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
+        <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
+        <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on Feb 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

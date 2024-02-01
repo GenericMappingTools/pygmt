@@ -19,7 +19,7 @@
 
 
 Plotting data points
---------------------
+====================
 
 GMT shines when it comes to plotting data on a map. We can use some sample data
 that is packaged with GMT to try this out. PyGMT provides access to these
@@ -27,10 +27,9 @@ datasets through the :mod:`pygmt.datasets` package. If you don't have the data
 files already, they are automatically downloaded and saved to a cache directory
 the first time you use them (usually ``~/.gmt/cache``).
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-14
+.. GENERATED FROM PYTHON SOURCE LINES 13-15
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -47,9 +46,9 @@ For example, let's load the sample dataset of tsunami generating earthquakes
 around Japan using :func:`pygmt.datasets.load_sample_data`.
 The data are loaded as a :class:`pandas.DataFrame`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-34
+.. GENERATED FROM PYTHON SOURCE LINES 19-33
 
-.. code-block:: default
+.. code-block:: Python
 
 
     data = pygmt.datasets.load_sample_data(name="japan_quakes")
@@ -64,7 +63,6 @@ The data are loaded as a :class:`pandas.DataFrame`.
 
     print(region)
     print(data.head())
-
 
 
 
@@ -85,14 +83,14 @@ The data are loaded as a :class:`pandas.DataFrame`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-37
+.. GENERATED FROM PYTHON SOURCE LINES 34-36
 
 We'll use the :meth:`pygmt.Figure.plot` method to plot circles on the
 earthquake epicenters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-44
+.. GENERATED FROM PYTHON SOURCE LINES 36-43
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -113,20 +111,20 @@ earthquake epicenters.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-53
+.. GENERATED FROM PYTHON SOURCE LINES 44-52
 
-We used the style ``c0.3c`` which means "circles of 0.3 centimeters size".
-The ``pen`` parameter controls the outline of the symbols and the ``fill``
-parameter controls the fill.
+We used the style ``c0.3c`` which means "circles with a diameter of 0.3
+centimeters". The ``pen`` parameter controls the outline of the symbols and
+the ``fill`` parameter controls the fill.
 
 We can map the size of the circles to the earthquake magnitude by passing an
 array to the ``size`` parameter. Because the magnitude is on a logarithmic
 scale, it helps to show the differences by scaling the values using a power
 law.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-67
+.. GENERATED FROM PYTHON SOURCE LINES 52-66
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -154,7 +152,7 @@ law.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-80
+.. GENERATED FROM PYTHON SOURCE LINES 67-79
 
 Notice that we didn't include the size in the ``style`` parameter this time,
 just the symbol ``c`` (circles) and the unit ``c`` (centimeters). So in
@@ -169,9 +167,9 @@ the earthquakes using :func:`pygmt.makecpt`, then set ``cmap=True`` in
 also plot a colorbar showing the colormap used in the plot.
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-96
+.. GENERATED FROM PYTHON SOURCE LINES 79-96
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -187,8 +185,9 @@ also plot a colorbar showing the colormap used in the plot.
         style="cc",
         pen="black",
     )
-    fig.colorbar(frame="af+lDepth (km)")
+    fig.colorbar(frame="xaf+lDepth (km)")
     fig.show()
+
 
 
 
@@ -204,7 +203,7 @@ also plot a colorbar showing the colormap used in the plot.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.357 seconds)
+   **Total running time of the script:** (0 minutes 0.771 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_plot.py:
@@ -213,16 +212,13 @@ also plot a colorbar showing the colormap used in the plot.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: plot.ipynb <plot.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: plot.py <plot.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: plot.ipynb <plot.ipynb>`
 
 
 .. only:: html

@@ -25,10 +25,9 @@ Many of the plotting methods take the ``region`` parameter, which sets the
 area that will be shown in the figure. This tutorial covers the different types
 of inputs that it can accept.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-12
+.. GENERATED FROM PYTHON SOURCE LINES 11-13
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -39,7 +38,7 @@ of inputs that it can accept.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 13-18
+.. GENERATED FROM PYTHON SOURCE LINES 14-19
 
 Coordinates
 -----------
@@ -47,9 +46,9 @@ Coordinates
 A string of coordinates can be passed to ``region``, in the form of
 *xmin*/*xmax*/*ymin*/*ymax*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-38
+.. GENERATED FROM PYTHON SOURCE LINES 19-39
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -83,14 +82,14 @@ A string of coordinates can be passed to ``region``, in the form of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-41
+.. GENERATED FROM PYTHON SOURCE LINES 40-42
 
 The coordinates can be passed to ``region`` as a list, in the form of
 [*xmin*, *xmax*, *ymin*, *ymax*].
 
 .. GENERATED FROM PYTHON SOURCE LINES 42-56
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -125,9 +124,9 @@ the bottom-left and top-right corners. The string format takes the
 coordinates for the bottom-left and top-right coordinates. To specify corner
 coordinates, append **+r** at the end of the ``region`` string.
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-77
+.. GENERATED FROM PYTHON SOURCE LINES 61-77
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -143,6 +142,7 @@ coordinates, append **+r** at the end of the ``region`` string.
         frame="ag",
     )
     fig.show()
+
 
 
 
@@ -170,7 +170,7 @@ and prime meridian.
 
 .. GENERATED FROM PYTHON SOURCE LINES 87-100
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -204,9 +204,9 @@ range is 0E to 360E (0, 360) and 90S to 90N (-90 to 90). With no parameters
 set for the projection, the figure is centered at (180, 0), or the
 intersection of the equator and International Date Line.
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-119
+.. GENERATED FROM PYTHON SOURCE LINES 105-119
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -220,6 +220,7 @@ intersection of the equator and International Date Line.
         frame="ag",
     )
     fig.show()
+
 
 
 
@@ -244,7 +245,7 @@ two-character ISO 3166-1 alpha-2 convention
 
 .. GENERATED FROM PYTHON SOURCE LINES 126-140
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -280,9 +281,9 @@ if only one value is added it expands the range of the region in all
 directions. Using **+r** expands the final region boundaries to be multiples
 of *increment* .
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-162
+.. GENERATED FROM PYTHON SOURCE LINES 146-161
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -311,15 +312,15 @@ of *increment* .
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-166
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 Instead of expanding the range of the plot uniformly in all directions, two
 values can be passed to expand differently on each axis. The format is
 *xinc*/*yinc*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 167-182
+.. GENERATED FROM PYTHON SOURCE LINES 165-180
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -348,16 +349,16 @@ values can be passed to expand differently on each axis. The format is
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 183-187
+.. GENERATED FROM PYTHON SOURCE LINES 181-185
 
 Instead of expanding the range of the plot uniformly in all directions, four
 values can be passed to expand differently in each direction.
 The format is *winc*/*einc*/*sinc*/*ninc*, which expands on the west,
 east, south, and north axes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 188-203
+.. GENERATED FROM PYTHON SOURCE LINES 185-200
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -386,14 +387,14 @@ east, south, and north axes.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 204-206
+.. GENERATED FROM PYTHON SOURCE LINES 201-203
 
 The ``region`` increment can be appended with **+R**, which adds the
 increment without rounding.
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-222
+.. GENERATED FROM PYTHON SOURCE LINES 203-218
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -422,16 +423,16 @@ increment without rounding.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 223-227
+.. GENERATED FROM PYTHON SOURCE LINES 219-223
 
 The ``region`` increment can be appended with **+e**, which is like **+r**
 and expands the final region boundaries to be multiples of *increment*.
 However, it ensures that the bounding box extends by at least 0.25 times the
 increment.
 
-.. GENERATED FROM PYTHON SOURCE LINES 228-242
+.. GENERATED FROM PYTHON SOURCE LINES 223-237
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig = pygmt.Figure()
@@ -462,7 +463,7 @@ increment.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.900 seconds)
+   **Total running time of the script:** (0 minutes 3.465 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_regions.py:
@@ -471,16 +472,13 @@ increment.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: regions.ipynb <regions.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: regions.py <regions.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: regions.ipynb <regions.ipynb>`
 
 
 .. only:: html

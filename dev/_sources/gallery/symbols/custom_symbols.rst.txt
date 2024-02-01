@@ -19,16 +19,16 @@
 
 
 Custom symbols
---------------
+==============
 
 The :meth:`pygmt.Figure.plot` method can plot individual custom symbols
 by passing the corresponding symbol name together with the **k** shortcut to
 the ``style`` parameter. In total 41 custom symbols are already included of
 which the following plot shows five exemplary ones. The symbols are shown
 underneath their corresponding names. For the remaining symbols see the GMT
-cookbook :gmt-docs:`cookbook/custom-symbols.html`.
+Technical Reference :gmt-docs:`reference/custom-symbols.html`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-48
+.. GENERATED FROM PYTHON SOURCE LINES 14-49
 
 
 
@@ -41,8 +41,7 @@ cookbook :gmt-docs:`cookbook/custom-symbols.html`.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -83,7 +82,7 @@ cookbook :gmt-docs:`cookbook/custom-symbols.html`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.295 seconds)
+   **Total running time of the script:** (0 minutes 0.152 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_custom_symbols.py:
@@ -92,16 +91,13 @@ cookbook :gmt-docs:`cookbook/custom-symbols.html`.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: custom_symbols.ipynb <custom_symbols.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: custom_symbols.py <custom_symbols.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: custom_symbols.ipynb <custom_symbols.ipynb>`
 
 
 .. only:: html

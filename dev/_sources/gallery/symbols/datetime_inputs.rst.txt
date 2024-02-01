@@ -19,13 +19,13 @@
 
 
 Datetime inputs
----------------
+===============
 
 Datetime inputs of the following types are supported in PyGMT:
 
 - :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
-- :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
+- :class:`xarray.DataArray`: datetimes included in an *xarray.DataArray*
 - raw datetime strings in
   `ISO 8601 format <https://en.wikipedia.org/wiki/ISO_8601>`__ (e.g.
   ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``)
@@ -38,7 +38,7 @@ The ``region`` parameter has to include the :math:`x` and :math:`y` axis limits
 in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 *date_max* can be directly defined as datetime input.
 
-.. GENERATED FROM PYTHON SOURCE LINES 23-67
+.. GENERATED FROM PYTHON SOURCE LINES 25-68
 
 
 
@@ -51,8 +51,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import datetime
 
@@ -101,7 +100,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.823 seconds)
+   **Total running time of the script:** (0 minutes 0.132 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_datetime_inputs.py:
@@ -110,16 +109,13 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: datetime_inputs.ipynb <datetime_inputs.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: datetime_inputs.py <datetime_inputs.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: datetime_inputs.ipynb <datetime_inputs.ipynb>`
 
 
 .. only:: html

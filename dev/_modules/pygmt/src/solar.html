@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.src.solar &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/src/solar.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -158,6 +160,10 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">solar - Plot day-night terminators and twilight.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
@@ -179,13 +185,17 @@
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">solar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">terminator</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">terminator_datetime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">solar</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">terminator</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;astronomical&quot;</span><span class="p">,</span> <span class="s2">&quot;civil&quot;</span><span class="p">,</span> <span class="s2">&quot;day_night&quot;</span><span class="p">,</span> <span class="s2">&quot;nautical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;day_night&quot;</span><span class="p">,</span>
+    <span class="n">terminator_datetime</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot day-light terminators or twilights.</span>
 
-<span class="sd">    This function plots the day-night terminator. Alternatively, it can plot</span>
-<span class="sd">    the terminators for civil twilight, nautical twilight, or astronomical</span>
-<span class="sd">    twilight.</span>
+<span class="sd">    This function plots the day-night terminator. Alternatively, it can plot the</span>
+<span class="sd">    terminators for civil twilight, nautical twilight, or astronomical twilight.</span>
 
 <span class="sd">    Full option list at :gmt-docs:`solar.html`</span>
 
@@ -193,18 +203,20 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    terminator : str</span>
-<span class="sd">        Set the type of terminator displayed. Valid arguments are</span>
-<span class="sd">        ``&quot;day_night&quot;``, ``&quot;civil&quot;``, ``&quot;nautical&quot;``, and ``&quot;astronomical&quot;``,</span>
-<span class="sd">        which can be set with either the full name or the first letter of the</span>
-<span class="sd">        name [Default is ``&quot;day_night&quot;``].</span>
+<span class="sd">    terminator</span>
+<span class="sd">        Set the type of terminator displayed, which can be set with either the full name</span>
+<span class="sd">        or the first letter of the name. Available options are:</span>
 
-<span class="sd">        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of</span>
-<span class="sd">        different types of twilight.</span>
+<span class="sd">        - ``&quot;astronomical&quot;``: Astronomical twilight</span>
+<span class="sd">        - ``&quot;civil&quot;``: Civil twilight</span>
+<span class="sd">        - ``&quot;day_night&quot;``: Day/night terminator</span>
+<span class="sd">        - ``&quot;nautical&quot;``: Nautical twilight</span>
+
+<span class="sd">        Refer to https://en.wikipedia.org/wiki/Twilight for the definitions of different</span>
+<span class="sd">        types of twilight.</span>
 <span class="sd">    terminator_datetime : str or datetime object</span>
-<span class="sd">        Set the UTC date and time of the displayed terminator</span>
-<span class="sd">        [Default is the current UTC date and time]. It can be</span>
-<span class="sd">        passed as a string or Python datetime object.</span>
+<span class="sd">        Set the UTC date and time of the displayed terminator [Default is the current</span>
+<span class="sd">        UTC date and time]. It can be passed as a string or Python datetime object.</span>
 <span class="sd">    {region}</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {frame}</span>
@@ -229,9 +241,7 @@
 <span class="sd">    &gt;&gt;&gt; # create a new plot with pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; # create a map of the Earth with the coast method</span>
-<span class="sd">    &gt;&gt;&gt; fig.coast(</span>
-<span class="sd">    ...     land=&quot;darkgreen&quot;, water=&quot;lightblue&quot;, projection=&quot;W10c&quot;, region=&quot;d&quot;</span>
-<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; fig.coast(land=&quot;darkgreen&quot;, water=&quot;lightblue&quot;, projection=&quot;W10c&quot;, region=&quot;d&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; fig.solar(</span>
 <span class="sd">    ...     # set the terminator to &quot;day_night&quot;</span>
 <span class="sd">    ...     terminator=&quot;day_night&quot;,</span>
@@ -245,25 +255,16 @@
 <span class="sd">    &gt;&gt;&gt; # show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># pylint: disable=protected-access</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Use &#39;terminator&#39; and &#39;terminator_datetime&#39; instead of &#39;T&#39;.&quot;</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+    <span class="n">valid_terminators</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;day_night&quot;</span><span class="p">,</span> <span class="s2">&quot;civil&quot;</span><span class="p">,</span> <span class="s2">&quot;nautical&quot;</span><span class="p">,</span> <span class="s2">&quot;astronomical&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">terminator</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_terminators</span> <span class="ow">and</span> <span class="n">terminator</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;dcna&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="s2">&quot;Use &#39;terminator&#39; and &#39;terminator_datetime&#39; instead of &#39;T&#39;.&quot;</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="n">terminator</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="s2">&quot;day_night&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;civil&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;nautical&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;astronomical&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;d&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;c&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;n&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;a&quot;</span><span class="p">,</span>
-    <span class="p">]:</span>
-        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Unrecognized solar terminator type &#39;</span><span class="si">{</span><span class="n">terminator</span><span class="si">}</span><span class="s2">&#39;. Valid values &quot;</span>
-            <span class="s2">&quot;are &#39;day_night&#39;, &#39;civil&#39;, &#39;nautical&#39;, and &#39;astronomical&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Unrecognized solar terminator type &#39;</span><span class="si">{</span><span class="n">terminator</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Valid values are </span><span class="si">{</span><span class="n">valid_terminators</span><span class="si">}</span><span class="s2">.&quot;</span>
         <span class="p">)</span>
     <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">terminator</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">terminator_datetime</span><span class="p">:</span>
@@ -286,10 +287,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

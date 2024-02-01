@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Interactive data visualization using Panel &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/working_with_panel.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -125,6 +126,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -196,7 +198,7 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="interactive-data-visualization-using-panel">
-<span id="sphx-glr-tutorials-advanced-working-with-panel-py"></span><h1>Interactive data visualization using <code class="docutils literal notranslate"><span class="pre">Panel</span></code><a class="headerlink" href="#interactive-data-visualization-using-panel" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-tutorials-advanced-working-with-panel-py"></span><h1>Interactive data visualization using <code class="docutils literal notranslate"><span class="pre">Panel</span></code><a class="headerlink" href="#interactive-data-visualization-using-panel" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Please run the following code examples in a notebook environment
@@ -213,8 +215,8 @@ create interactive dashboards by connecting user-defined widgets to plots.
 <li><p>Make an interactive map</p></li>
 <li><p>Add a grid for Earth relief</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the required packages</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<p>Import the required packages</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
@@ -222,13 +224,13 @@ create interactive dashboards by connecting user-defined widgets to plots.
 </pre></div>
 </div>
 <section id="make-a-static-map">
-<h2>Make a static map<a class="headerlink" href="#make-a-static-map" title="Permalink to this heading"></a></h2>
+<h2>Make a static map<a class="headerlink" href="#make-a-static-map" title="Link to this heading"></a></h2>
 <p>The <a class="reference external" href="https://www.pygmt.org/dev/projections/azim/azim_orthographic.html">Orthographic projection</a>
 can be used to show the Earth as a globe. Land and water masses are
 filled with colors via the <code class="docutils literal notranslate"><span class="pre">land</span></code> and  <code class="docutils literal notranslate"><span class="pre">water</span></code> parameters of
 <a class="reference internal" href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.coast</span></code></a>, respectively. Coastlines are added using the
 <code class="docutils literal notranslate"><span class="pre">shorelines</span></code> parameter.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new instance or object of the pygmt.Figure() class</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new instance or object of the pygmt.Figure() class</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
     <span class="c1"># Orthographic projection (G) with projection center at 0° East and</span>
@@ -246,12 +248,12 @@ filled with colors via the <code class="docutils literal notranslate"><span clas
 </div>
 <img src="../../_images/sphx_glr_working_with_panel_001.png" srcset="../../_images/sphx_glr_working_with_panel_001.png" alt="working with panel" class = "sphx-glr-single-img"/></section>
 <section id="make-an-interactive-map">
-<h2>Make an interactive map<a class="headerlink" href="#make-an-interactive-map" title="Permalink to this heading"></a></h2>
+<h2>Make an interactive map<a class="headerlink" href="#make-an-interactive-map" title="Link to this heading"></a></h2>
 <p>To generate a rotation of the Earth around the vertical axis, the central
 longitude of the Orthographic projection is varied iteratively in steps of
 10 degrees. The library <code class="docutils literal notranslate"><span class="pre">Panel</span></code> is used to create an interactive dashboard
-with a slider (works only in a notebook environment, e.g. Jupyter notebook).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a slider</span>
+with a slider (works only in a notebook environment, e.g., Jupyter notebook).</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a slider</span>
 <span class="n">slider_lon</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">DiscreteSlider</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Central longitude&quot;</span><span class="p">,</span>  <span class="c1"># Give name for quantity shown at the slider</span>
     <span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">361</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>  <span class="c1"># Range corresponding to longitude</span>
@@ -259,9 +261,11 @@ with a slider (works only in a notebook environment, e.g. Jupyter notebook).</p>
 <span class="p">)</span>
 
 
-<span class="c1"># Define a function for plotting the single slices</span>
 <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">central_lon</span><span class="o">=</span><span class="n">slider_lon</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a function for plotting the single slices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a new instance or object of the pygmt.Figure() class</span>
     <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
     <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span>
@@ -282,15 +286,15 @@ with a slider (works only in a notebook environment, e.g. Jupyter notebook).</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Column
     [0] DiscreteSlider(formatter=&#39;%d&#39;, name=&#39;Central longitude&#39;, options=[0, 10, 20, 30, ...], value=0)
-    [1] ParamFunction(function, _pane=PNG)
+    [1] ParamFunction(function, _pane=PNG, defer_load=False)
 </pre></div>
 </div>
 </section>
 <section id="add-a-grid-for-earth-relief">
-<h2>Add a grid for Earth relief<a class="headerlink" href="#add-a-grid-for-earth-relief" title="Permalink to this heading"></a></h2>
+<h2>Add a grid for Earth relief<a class="headerlink" href="#add-a-grid-for-earth-relief" title="Link to this heading"></a></h2>
 <p>Instead of using colors as fill for the land and water masses a grid can be
 displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a grid for Earth relief with a resolution of 10 arc-minutes</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download a grid for Earth relief with a resolution of 10 arc-minutes</span>
 <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grd_relief</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;10m&quot;</span><span class="p">)</span>
 
 <span class="c1"># Create a slider</span>
@@ -301,9 +305,11 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 <span class="p">)</span>
 
 
-<span class="c1"># Define a function for plotting the single slices</span>
 <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">central_lon</span><span class="o">=</span><span class="n">slider_lon</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">central_lon</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Define a function for plotting the single slices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Create a new instance or object of the pygmt.Figure() class</span>
     <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
     <span class="c1"># Set up a colormap for the elevation in meters</span>
@@ -333,16 +339,16 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Column
     [0] DiscreteSlider(formatter=&#39;%d&#39;, name=&#39;Central longitude&#39;, options=[0, 10, 20, 30, ...], value=0)
-    [1] ParamFunction(function, _pane=PNG)
+    [1] ParamFunction(function, _pane=PNG, defer_load=False)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.898 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.933 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-working-with-panel-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/3232ffd3655da7b0dc117781326c5db2/working_with_panel.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">working_with_panel.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/9607cce8c2a328be63cfb98745cd1baf/working_with_panel.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">working_with_panel.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3232ffd3655da7b0dc117781326c5db2/working_with_panel.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">working_with_panel.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -361,10 +367,10 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

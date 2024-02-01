@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.datasets.tile_map &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/tile_map.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -159,11 +161,16 @@
 <span class="sd">Function to load raster tile maps from XYZ tile providers, and load as</span>
 <span class="sd">:class:`xarray.DataArray`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">contextily</span>
+
+    <span class="n">_HAS_CONTEXTILY</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="n">contextily</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_HAS_CONTEXTILY</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
@@ -171,7 +178,17 @@
 <span class="n">__doctest_requires__</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">&quot;load_tile_map&quot;</span><span class="p">):</span> <span class="p">[</span><span class="s2">&quot;contextily&quot;</span><span class="p">]}</span>
 
 
-<div class="viewcode-block" id="load_tile_map"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_tile_map.html#pygmt.datasets.load_tile_map">[docs]</a><span class="k">def</span> <span class="nf">load_tile_map</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lonlat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<div class="viewcode-block" id="load_tile_map">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_tile_map.html#pygmt.datasets.load_tile_map">[docs]</a>
+<span class="k">def</span> <span class="nf">load_tile_map</span><span class="p">(</span>
+    <span class="n">region</span><span class="p">,</span>
+    <span class="n">zoom</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">lonlat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">zoom_adjust</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a georeferenced raster tile map from XYZ tile providers.</span>
 
@@ -195,9 +212,9 @@
 <span class="sd">        ``&quot;auto&quot;`` to automatically determine the zoom level based on the</span>
 <span class="sd">        bounding box region extent].</span>
 
-<span class="sd">        **Note**: The maximum possible zoom level may be smaller than ``22``,</span>
-<span class="sd">        and depends on what is supported by the chosen web tile provider</span>
-<span class="sd">        source.</span>
+<span class="sd">        .. note::</span>
+<span class="sd">           The maximum possible zoom level may be smaller than ``22``, and depends on</span>
+<span class="sd">           what is supported by the chosen web tile provider source.</span>
 
 <span class="sd">    source : xyzservices.TileProvider or str</span>
 <span class="sd">        Optional. The tile source: web tile provider or path to a local file.</span>
@@ -207,8 +224,8 @@
 <span class="sd">          :class:`xyzservices.TileProvider` object. See</span>
 <span class="sd">          :doc:`Contextily providers &lt;contextily:providers_deepdive&gt;` for a</span>
 <span class="sd">          list of tile providers [Default is</span>
-<span class="sd">          ``xyzservices.providers.Stamen.Terrain``, i.e. Stamen Terrain web</span>
-<span class="sd">          tiles].</span>
+<span class="sd">          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap</span>
+<span class="sd">          Humanitarian web tiles].</span>
 <span class="sd">        - A web tile provider in the form of a URL. The placeholders for the</span>
 <span class="sd">          XYZ in the URL need to be {x}, {y}, {z}, respectively. E.g.</span>
 <span class="sd">          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.</span>
@@ -217,8 +234,8 @@
 <span class="sd">          basemap. See</span>
 <span class="sd">          :doc:`contextily:working_with_local_files`.</span>
 
-<span class="sd">        IMPORTANT: Tiles are assumed to be in the Spherical Mercator projection</span>
-<span class="sd">        (EPSG:3857).</span>
+<span class="sd">        .. important::</span>
+<span class="sd">           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).</span>
 
 <span class="sd">    lonlat : bool</span>
 <span class="sd">        Optional. If ``False``, coordinates in ``region`` are assumed to be</span>
@@ -233,6 +250,13 @@
 <span class="sd">        Optional. Total number of rejected requests allowed before contextily</span>
 <span class="sd">        will stop trying to fetch more tiles from a rate-limited API [Default</span>
 <span class="sd">        is ``2``].</span>
+
+<span class="sd">    zoom_adjust</span>
+<span class="sd">        The amount to adjust a chosen zoom level if it is chosen automatically. Values</span>
+<span class="sd">        outside of -1 to 1 are not recommended as they can lead to slow execution.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">           The ``zoom_adjust`` parameter requires ``contextily&gt;=1.5.0``.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -253,7 +277,7 @@
 <span class="sd">    &gt;&gt;&gt; raster = load_tile_map(</span>
 <span class="sd">    ...     region=[-180.0, 180.0, -90.0, 0.0],  # West, East, South, North</span>
 <span class="sd">    ...     zoom=1,  # less detailed zoom level</span>
-<span class="sd">    ...     source=contextily.providers.Stamen.TerrainBackground,</span>
+<span class="sd">    ...     source=contextily.providers.OpenTopoMap,</span>
 <span class="sd">    ...     lonlat=True,  # bounding box coordinates are longitude/latitude</span>
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; raster.sizes</span>
@@ -264,14 +288,22 @@
 <span class="sd">      * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...</span>
 <span class="sd">      * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># pylint: disable=too-many-locals</span>
-    <span class="k">if</span> <span class="n">contextily</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_CONTEXTILY</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
             <span class="s2">&quot;Package `contextily` is required to be installed to use this function. &quot;</span>
             <span class="s2">&quot;Please use `python -m pip install contextily` or &quot;</span>
             <span class="s2">&quot;`mamba install -c conda-forge contextily` &quot;</span>
             <span class="s2">&quot;to install the package.&quot;</span>
         <span class="p">)</span>
+
+    <span class="n">contextily_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">zoom_adjust</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">contextily_kwargs</span><span class="p">[</span><span class="s2">&quot;zoom_adjust&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zoom_adjust</span>
+        <span class="k">if</span> <span class="n">Version</span><span class="p">(</span><span class="n">contextily</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Version</span><span class="p">(</span><span class="s2">&quot;1.5.0&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s2">&quot;The `zoom_adjust` parameter requires `contextily&gt;=1.5.0` to work. &quot;</span>
+                <span class="s2">&quot;Please upgrade contextily, or manually set the `zoom` level instead.&quot;</span>
+            <span class="p">)</span>
 
     <span class="n">west</span><span class="p">,</span> <span class="n">east</span><span class="p">,</span> <span class="n">south</span><span class="p">,</span> <span class="n">north</span> <span class="o">=</span> <span class="n">region</span>
     <span class="n">image</span><span class="p">,</span> <span class="n">extent</span> <span class="o">=</span> <span class="n">contextily</span><span class="o">.</span><span class="n">bounds2img</span><span class="p">(</span>
@@ -284,6 +316,7 @@
         <span class="n">ll</span><span class="o">=</span><span class="n">lonlat</span><span class="p">,</span>
         <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">,</span>
         <span class="n">max_retries</span><span class="o">=</span><span class="n">max_retries</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">contextily_kwargs</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># Turn RGBA img from channel-last to channel-first and get 3-band RGB only</span>
@@ -295,7 +328,7 @@
     <span class="n">dataarray</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">rgb_image</span><span class="p">,</span>
         <span class="n">coords</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;band&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>  <span class="c1"># Red, Green, Blue</span>
+            <span class="s2">&quot;band&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span>  <span class="c1"># Red, Green, Blue</span>
             <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">top</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">bottom</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">rgb_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
             <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">left</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="n">right</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">rgb_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
         <span class="p">},</span>
@@ -307,6 +340,7 @@
         <span class="n">dataarray</span> <span class="o">=</span> <span class="n">dataarray</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">set_crs</span><span class="p">(</span><span class="n">input_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:3857&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">dataarray</span></div>
+
 </pre></div>
 
            </div>
@@ -317,10 +351,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

@@ -1,6 +1,6 @@
 """
 Double Y axes graph
--------------------
+===================
 
 The ``frame`` parameter of the plotting methods of the :class:`pygmt.Figure`
 class can control which axes should be plotted and optionally show annotations,
@@ -17,6 +17,7 @@ maps separately. The base maps should share the same projection parameter and
 x-axis limits, but different y-axis limits.
 """
 
+# %%
 import numpy as np
 import pygmt
 

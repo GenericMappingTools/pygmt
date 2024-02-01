@@ -1,38 +1,39 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Performing grid histogram equalization &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/tutorials/advanced/grid_equalization.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -132,6 +133,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -203,18 +205,18 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="performing-grid-histogram-equalization">
-<span id="sphx-glr-tutorials-advanced-grid-equalization-py"></span><h1>Performing grid histogram equalization<a class="headerlink" href="#performing-grid-histogram-equalization" title="Permalink to this heading"></a></h1>
+<span id="sphx-glr-tutorials-advanced-grid-equalization-py"></span><h1>Performing grid histogram equalization<a class="headerlink" href="#performing-grid-histogram-equalization" title="Link to this heading"></a></h1>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> method creates a grid using
 statistics based on a cumulative distribution function.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
 </div>
 <section id="load-sample-data">
-<h2>Load sample data<a class="headerlink" href="#load-sample-data" title="Permalink to this heading"></a></h2>
-<p>Load the sample Earth relief data for a region around Yosemite valley
-and use <a class="reference internal" href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2xyz</span></code></a> to create a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the
+<h2>Load sample data<a class="headerlink" href="#load-sample-data" title="Link to this heading"></a></h2>
+<p>Load the sample Earth relief data for a region around Yosemite Valley
+and use <a class="reference internal" href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.grd2xyz</span></code></a> to create a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the
 z-values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.datasets.load_earth_relief.html#pygmt.datasets.load_earth_relief" title="pygmt.datasets.load_earth_relief" class="sphx-glr-backref-module-pygmt-datasets sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">load_earth_relief</span></a><span class="p">(</span>
     <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">119.825</span><span class="p">,</span> <span class="o">-</span><span class="mf">119.4</span><span class="p">,</span> <span class="mf">37.6</span><span class="p">,</span> <span class="mf">37.825</span><span class="p">]</span>
 <span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid_dist</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grd2xyz</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)[</span><span class="s2">&quot;elevation&quot;</span><span class="p">]</span>
@@ -222,10 +224,10 @@ z-values.</p>
 </div>
 </section>
 <section id="plot-the-original-digital-elevation-model-and-data-distribution">
-<h2>Plot the original digital elevation model and data distribution<a class="headerlink" href="#plot-the-original-digital-elevation-model-and-data-distribution" title="Permalink to this heading"></a></h2>
+<h2>Plot the original digital elevation model and data distribution<a class="headerlink" href="#plot-the-original-digital-elevation-model-and-data-distribution" title="Link to this heading"></a></h2>
 <p>For comparison, we will create a map of the original digital elevation
 model and a histogram showing the distribution of elevation data values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Define figure configuration</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FORMAT_GEO_MAP</span><span class="o">=</span><span class="s2">&quot;ddd.x&quot;</span><span class="p">,</span> <span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -257,21 +259,21 @@ model and a histogram showing the distribution of elevation data values.</p>
 </div>
 <img src="../../_images/sphx_glr_grid_equalization_001.png" srcset="../../_images/sphx_glr_grid_equalization_001.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="equalize-grid-based-on-a-linear-distribution">
-<h2>Equalize grid based on a linear distribution<a class="headerlink" href="#equalize-grid-based-on-a-linear-distribution" title="Permalink to this heading"></a></h2>
+<h2>Equalize grid based on a linear distribution<a class="headerlink" href="#equalize-grid-based-on-a-linear-distribution" title="Link to this heading"></a></h2>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> method creates a new grid with the
 z-values representing the position of the original z-values in a given
 cumulative distribution. By default, it computes the position in a linear
 distribution. Here, we equalize the grid into nine divisions based on a
-linear distribution and produce a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values
+linear distribution and produce a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values
 for the new grid.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a> <span class="o">=</span> <span class="mi">9</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a> <span class="o">=</span> <span class="mi">9</span>
 <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">linear</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">linear_dist</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grd2xyz</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">linear</span></a><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="calculate-the-bins-used-for-data-transformation">
-<h2>Calculate the bins used for data transformation<a class="headerlink" href="#calculate-the-bins-used-for-data-transformation" title="Permalink to this heading"></a></h2>
+<h2>Calculate the bins used for data transformation<a class="headerlink" href="#calculate-the-bins-used-for-data-transformation" title="Link to this heading"></a></h2>
 <p>The <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code></a> method reports statistics about the
 grid equalization. Here, we report the bins that would linearly divide the
 original data into 9 divisions with equal area. In our new grid produced by
@@ -279,7 +281,7 @@ original data into 9 divisions with equal area. In our new grid produced by
 <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> of <code class="docutils literal notranslate"><span class="pre">bin_id=0</span></code> are assigned the value 0, all grid
 cells with values between <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">stop</span></code> of <code class="docutils literal notranslate"><span class="pre">bin_id=1</span></code> are assigned
 the value 1, and so on.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">compute_bins</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">compute_bins</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -363,11 +365,11 @@ the value 1, and so on.</p>
 <br />
 <br /></section>
 <section id="plot-the-equally-distributed-data">
-<h2>Plot the equally distributed data<a class="headerlink" href="#plot-the-equally-distributed-data" title="Permalink to this heading"></a></h2>
+<h2>Plot the equally distributed data<a class="headerlink" href="#plot-the-equally-distributed-data" title="Link to this heading"></a></h2>
 <p>Here we create a map showing the grid that has been transformed to
 have a linear distribution with nine divisions and a histogram of the data
 values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Define figure configuration</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FORMAT_GEO_MAP</span><span class="o">=</span><span class="s2">&quot;ddd.x&quot;</span><span class="p">,</span> <span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -399,21 +401,21 @@ values.</p>
 </div>
 <img src="../../_images/sphx_glr_grid_equalization_002.png" srcset="../../_images/sphx_glr_grid_equalization_002.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="transform-grid-based-on-a-normal-distribution">
-<h2>Transform grid based on a normal distribution<a class="headerlink" href="#transform-grid-based-on-a-normal-distribution" title="Permalink to this heading"></a></h2>
+<h2>Transform grid based on a normal distribution<a class="headerlink" href="#transform-grid-based-on-a-normal-distribution" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">gaussian</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> can be
 used to transform the z-values relative to their position in a normal
 distribution rather than a linear distribution. In this case, the output
 data are continuous rather than discrete.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normal</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">gaussian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normal</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <span class="n">gaussian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normal_dist</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grd2xyz</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">normal</span></a><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
 <section id="plot-the-normally-distributed-data">
-<h2>Plot the normally distributed data<a class="headerlink" href="#plot-the-normally-distributed-data" title="Permalink to this heading"></a></h2>
+<h2>Plot the normally distributed data<a class="headerlink" href="#plot-the-normally-distributed-data" title="Link to this heading"></a></h2>
 <p>Here we create a map showing the grid that has been transformed to have
 a normal distribution and a histogram of the data values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Define figure configuration</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FORMAT_GEO_MAP</span><span class="o">=</span><span class="s2">&quot;ddd.x&quot;</span><span class="p">,</span> <span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -444,13 +446,13 @@ a normal distribution and a histogram of the data values.</p>
 </div>
 <img src="../../_images/sphx_glr_grid_equalization_003.png" srcset="../../_images/sphx_glr_grid_equalization_003.png" alt="grid equalization" class = "sphx-glr-single-img"/></section>
 <section id="equalize-grid-based-on-a-quadratic-distribution">
-<h2>Equalize grid based on a quadratic distribution<a class="headerlink" href="#equalize-grid-based-on-a-quadratic-distribution" title="Permalink to this heading"></a></h2>
+<h2>Equalize grid based on a quadratic distribution<a class="headerlink" href="#equalize-grid-based-on-a-quadratic-distribution" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">quadratic</span></code> parameter of <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.equalize_grid</span></code></a> can be
 used to transform the z-values relative to their position in a quadratic
 distribution rather than a linear distribution. Here, we equalize the grid
 into nine divisions based on a quadratic distribution and produce a
-<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values for the new grid.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span>
+<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.Series</span></code></a> with the z-values for the new grid.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">equalize_grid</span></a><span class="p">(</span>
     <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a>
 <span class="p">)</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series" title="pandas.core.series.Series" class="sphx-glr-backref-module-pandas-core-series sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic_dist</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.grd2xyz.html#pygmt.grd2xyz" title="pygmt.grd2xyz" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-function"><span class="n">pygmt</span><span class="o">.</span><span class="n">grd2xyz</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">)[</span><span class="s2">&quot;z&quot;</span><span class="p">]</span>
@@ -458,12 +460,12 @@ into nine divisions based on a quadratic distribution and produce a
 </div>
 </section>
 <section id="id1">
-<h2>Calculate the bins used for data transformation<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>Calculate the bins used for data transformation<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <p>We can also use the <code class="docutils literal notranslate"><span class="pre">quadratic</span></code> parameter of
 <a class="reference internal" href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code></a> to report the bins used for dividing
 the grid into 9 divisions based on their position in a quadratic
 distribution.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">compute_bins</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">,</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins" class="sphx-glr-backref-module-pygmt-grdhisteq sphx-glr-backref-type-py-method"><span class="n">pygmt</span><span class="o">.</span><span class="n">grdhisteq</span><span class="o">.</span><span class="n">compute_bins</span></a><span class="p">(</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="o">=</span><a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">grid</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">divisions</span></a><span class="p">,</span> <a href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="xarray.core.dataarray.DataArray" class="sphx-glr-backref-module-xarray-core-dataarray sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">quadratic</span></a><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="output_subarea output_html rendered_html output_result">
@@ -547,10 +549,10 @@ distribution.</p>
 <br />
 <br /></section>
 <section id="plot-the-quadratic-distribution-of-data">
-<h2>Plot the quadratic distribution of data<a class="headerlink" href="#plot-the-quadratic-distribution-of-data" title="Permalink to this heading"></a></h2>
+<h2>Plot the quadratic distribution of data<a class="headerlink" href="#plot-the-quadratic-distribution-of-data" title="Link to this heading"></a></h2>
 <p>Here we create a map showing the grid that has been transformed to have
 a quadratic distribution and a histogram of the data values.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an instance of the Figure class</span>
 <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <span class="c1"># Define figure configuration</span>
 <a href="../../api/generated/pygmt.config.html#pygmt.config" title="pygmt.config" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">config</span></a><span class="p">(</span><span class="n">FORMAT_GEO_MAP</span><span class="o">=</span><span class="s2">&quot;ddd.x&quot;</span><span class="p">,</span> <span class="n">MAP_FRAME_TYPE</span><span class="o">=</span><span class="s2">&quot;plain&quot;</span><span class="p">)</span>
@@ -580,13 +582,13 @@ a quadratic distribution and a histogram of the data values.</p>
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_grid_equalization_004.png" srcset="../../_images/sphx_glr_grid_equalization_004.png" alt="grid equalization" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.753 seconds)</p>
+<img src="../../_images/sphx_glr_grid_equalization_004.png" srcset="../../_images/sphx_glr_grid_equalization_004.png" alt="grid equalization" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.120 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-advanced-grid-equalization-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/bedffbc3da9c4faaf43127f3e1456200/grid_equalization.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grid_equalization.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/08008eba784e3ce1d85b5189ba754e6e/grid_equalization.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">grid_equalization.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/bedffbc3da9c4faaf43127f3e1456200/grid_equalization.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">grid_equalization.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -605,10 +607,10 @@ a quadratic distribution and a histogram of the data values.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

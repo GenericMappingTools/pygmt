@@ -65,7 +65,7 @@ The following customizing modifiers are available:
   - Append **p** to set radius to the current Earth radius.
   - Append *radius* to set the value of the radius.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-166
+.. GENERATED FROM PYTHON SOURCE LINES 52-167
 
 
 
@@ -78,8 +78,7 @@ The following customizing modifiers are available:
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -200,7 +199,7 @@ The following customizing modifiers are available:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  1.532 seconds)
+   **Total running time of the script:** (0 minutes 0.273 seconds)
 
 
 .. _sphx_glr_download_projections_nongeo_polar.py:
@@ -209,16 +208,13 @@ The following customizing modifiers are available:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: polar.ipynb <polar.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: polar.py <polar.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: polar.ipynb <polar.ipynb>`
 
 
 .. only:: html

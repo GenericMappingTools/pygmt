@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,30 +8,31 @@
         <title>pygmt.datasets.earth_magnetic_anomaly &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/_modules/pygmt/datasets/earth_magnetic_anomaly.html" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-        <script src="../../../_static/clipboard.min.js"></script>
-        <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -100,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -156,11 +158,13 @@
              
   <h1>Source code for pygmt.datasets.earth_magnetic_anomaly</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Function to download the Earth magnetic anomaly datasets from the GMT data</span>
-<span class="sd">server, and load as :class:`xarray.DataArray`.</span>
+<span class="sd">Function to download the Earth magnetic anomaly datasets from the GMT data server, and</span>
+<span class="sd">load as :class:`xarray.DataArray`.</span>
 
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
 <span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">kwargs_to_strings</span>
@@ -168,12 +172,26 @@
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;load_earth_magnetic_anomaly&quot;</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="load_earth_magnetic_anomaly"><a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_magnetic_anomaly.html#pygmt.datasets.load_earth_magnetic_anomaly">[docs]</a><span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="load_earth_magnetic_anomaly">
+<a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_earth_magnetic_anomaly.html#pygmt.datasets.load_earth_magnetic_anomaly">[docs]</a>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">load_earth_magnetic_anomaly</span><span class="p">(</span>
-    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_source</span><span class="o">=</span><span class="s2">&quot;emag2&quot;</span>
+    <span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;01d&quot;</span><span class="p">,</span>
+    <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">data_source</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;emag2&quot;</span><span class="p">,</span> <span class="s2">&quot;emag2_4km&quot;</span><span class="p">,</span> <span class="s2">&quot;wdmam&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;emag2&quot;</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load an Earth magnetic anomaly grid in various resolutions.</span>
+<span class="sd">    Load the Earth magnetic anomaly datasets in various resolutions.</span>
+
+<span class="sd">    .. list-table::</span>
+<span class="sd">       :widths: 50 50</span>
+<span class="sd">       :header-rows: 1</span>
+
+<span class="sd">       * - Earth Magnetic Anomaly Model (EMAG2)</span>
+<span class="sd">         - World Digital Magnetic Anomaly Map (WDMAM)</span>
+<span class="sd">       * - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mag.jpg</span>
+<span class="sd">         - .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_wdmam.jpg</span>
 
 <span class="sd">    The grids are downloaded to a user data directory</span>
 <span class="sd">    (usually ``~/.gmt/server/earth/earth_mag/``,</span>
@@ -183,11 +201,11 @@
 <span class="sd">    So you&#39;ll need an internet connection the first time around.</span>
 
 <span class="sd">    These grids can also be accessed by passing in the file name</span>
-<span class="sd">    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid plotting/processing</span>
-<span class="sd">    function. *earth_mag_type* is the GMT name</span>
+<span class="sd">    **@**\ *earth_mag_type*\_\ *res*\[_\ *reg*] to any grid processing</span>
+<span class="sd">    function or plotting method. *earth_mag_type* is the GMT name</span>
 <span class="sd">    for the dataset. The available options are **earth_mag**,</span>
 <span class="sd">    **earth_mag4km**, and **earth_wdmam**. *res* is the grid resolution</span>
-<span class="sd">    (see below), and *reg* is grid registration type (**p** for pixel</span>
+<span class="sd">    (see below), and *reg* is the grid registration type (**p** for pixel</span>
 <span class="sd">    registration or **g** for gridline registration).</span>
 
 <span class="sd">    The default color palette tables (CPTs) for this dataset are</span>
@@ -196,12 +214,13 @@
 <span class="sd">    ``data_source=&quot;wdmam&quot;``. The dataset-specific CPT is implicitly used when</span>
 <span class="sd">    passing in the file name of the dataset to any grid plotting method if no</span>
 <span class="sd">    CPT is explicitly specified. When the dataset is loaded and plotted as an</span>
-<span class="sd">    :class:`xarray.DataArray` object, the default CPT is ignored and GMT&#39;s</span>
+<span class="sd">    :class:`xarray.DataArray` object, the default CPT is ignored, and GMT&#39;s</span>
 <span class="sd">    default CPT (*turbo*) is used. To use the dataset-specific CPT, you need to</span>
 <span class="sd">    explicitly set ``cmap=&quot;@earth_mag.cpt&quot;`` or ``cmap=&quot;@earth_wdmam.cpt&quot;``.</span>
 
 <span class="sd">    Refer to :gmt-datasets:`earth-mag.html`</span>
-<span class="sd">    and :gmt-datasets:`earth-wdmam.html` for more details.</span>
+<span class="sd">    and :gmt-datasets:`earth-wdmam.html` for more details about available</span>
+<span class="sd">    datasets, including version information and references.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -218,23 +237,22 @@
 <span class="sd">        Required for grids with resolutions higher than 5</span>
 <span class="sd">        arc-minutes (i.e., ``&quot;05m&quot;``).</span>
 
-<span class="sd">    registration : str</span>
+<span class="sd">    registration</span>
 <span class="sd">        Grid registration type. Either ``&quot;pixel&quot;`` for pixel registration or</span>
-<span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``&quot;gridline&quot;``</span>
-<span class="sd">        for all resolutions except ``&quot;02m&quot;`` for ``data_source=&quot;emag2&quot;`` or</span>
-<span class="sd">        ``data_source=&quot;emag2_4km&quot;``, which are ``&quot;pixel&quot;`` only.</span>
+<span class="sd">        ``&quot;gridline&quot;`` for gridline registration. Default is ``None``, means</span>
+<span class="sd">        ``&quot;gridline&quot;`` for all resolutions except ``&quot;02m&quot;`` for</span>
+<span class="sd">        ``data_source=&quot;emag2&quot;`` or ``data_source=&quot;emag2_4km&quot;``, which are</span>
+<span class="sd">        ``&quot;pixel&quot;`` only.</span>
 
-<span class="sd">    data_source : str</span>
+<span class="sd">    data_source</span>
 <span class="sd">        Select the source of the magnetic anomaly data. Available options are:</span>
 
-<span class="sd">        - ``&quot;emag2&quot;``: EMAG2 Global Earth Magnetic Anomaly Model [Default</span>
-<span class="sd">          option]. It only includes data observed at sea level over</span>
-<span class="sd">          oceanic regions. See :gmt-datasets:`earth-mag.html`.</span>
-
+<span class="sd">        - ``&quot;emag2&quot;``: EMAG2 Earth Magnetic Anomaly Model. It only includes</span>
+<span class="sd">          data observed at sea level over oceanic regions.</span>
+<span class="sd">          See :gmt-datasets:`earth-mag.html`.</span>
 <span class="sd">        - ``&quot;emag2_4km&quot;``: Use a version of EMAG2 where all observations</span>
 <span class="sd">          are relative to an altitude of 4 km above the geoid and include</span>
 <span class="sd">          data over land.</span>
-
 <span class="sd">        - ``&quot;wdmam&quot;``: World Digital Magnetic Anomaly Map (WDMAM).</span>
 <span class="sd">          See :gmt-datasets:`earth-wdmam.html`.</span>
 
@@ -262,9 +280,7 @@
 <span class="sd">    &gt;&gt;&gt; # load the default grid (gridline-registered 1 arc-degree grid)</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_magnetic_anomaly()</span>
 <span class="sd">    &gt;&gt;&gt; # load the 30 arc-minutes grid with &quot;gridline&quot; registration</span>
-<span class="sd">    &gt;&gt;&gt; grid = load_earth_magnetic_anomaly(</span>
-<span class="sd">    ...     resolution=&quot;30m&quot;, registration=&quot;gridline&quot;</span>
-<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; grid = load_earth_magnetic_anomaly(resolution=&quot;30m&quot;, registration=&quot;gridline&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; # load high-resolution (5 arc-minutes) grid for a specific region</span>
 <span class="sd">    &gt;&gt;&gt; grid = load_earth_magnetic_anomaly(</span>
 <span class="sd">    ...     resolution=&quot;05m&quot;,</span>
@@ -291,10 +307,7 @@
             <span class="s2">&quot;Valid values are &#39;emag2&#39;, &#39;emag2_4km&#39;, and &#39;wdmam&#39;.&quot;</span>
         <span class="p">)</span>
     <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="n">magnetic_anomaly_sources</span><span class="p">[</span><span class="n">data_source</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;wdmam&quot;</span><span class="p">:</span>
-        <span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;earth_wdmam&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;earth_magnetic_anomaly&quot;</span>
+    <span class="n">dataset_name</span> <span class="o">=</span> <span class="s2">&quot;earth_wdmam&quot;</span> <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;wdmam&quot;</span> <span class="k">else</span> <span class="s2">&quot;earth_magnetic_anomaly&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
         <span class="n">dataset_name</span><span class="o">=</span><span class="n">dataset_name</span><span class="p">,</span>
         <span class="n">dataset_prefix</span><span class="o">=</span><span class="n">dataset_prefix</span><span class="p">,</span>
@@ -303,6 +316,7 @@
         <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">grid</span></div>
+
 </pre></div>
 
            </div>
@@ -313,10 +327,10 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

@@ -6,14 +6,41 @@
 
 Computation times
 =================
-**00:03.929** total execution time for **gallery_histograms** files:
+**00:01.187** total execution time for 4 files **from gallery/histograms**:
 
-+----------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_blockm.py` (``blockm.py``)                                 | 00:01.964 | 0.0 MB |
-+----------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_scatter_and_histograms.py` (``scatter_and_histograms.py``) | 00:01.026 | 0.0 MB |
-+----------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``)                           | 00:00.501 | 0.0 MB |
-+----------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)                                     | 00:00.439 | 0.0 MB |
-+----------------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_histograms_blockm.py` (``blockm.py``)
+     - 00:00.560
+     - 0.0
+   * - :ref:`sphx_glr_gallery_histograms_scatter_and_histograms.py` (``scatter_and_histograms.py``)
+     - 00:00.275
+     - 0.0
+   * - :ref:`sphx_glr_gallery_histograms_histogram.py` (``histogram.py``)
+     - 00:00.219
+     - 0.0
+   * - :ref:`sphx_glr_gallery_histograms_rose.py` (``rose.py``)
+     - 00:00.133
+     - 0.0

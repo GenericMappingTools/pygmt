@@ -1,43 +1,44 @@
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
         <title>Decorated lines &mdash; PyGMT</title>
     
 
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-binder.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-dataframe.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/style.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
     <link rel="canonical" href="https://pygmt.org/dev/gallery/lines/decorated_lines.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
-        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Envelope" href="envelope.html" />
-    <link rel="prev" title="Cartesian, circular, and geographic vectors" href="vector_styles.html" />
+    <link rel="prev" title="Connection lines" href="connection_lines.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -99,11 +100,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../index.html#maps-and-map-elements">Maps and map elements</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#lines-and-vectors">Lines and vectors</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="vector_styles.html">Cartesian, circular, and geographic vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="connection_lines.html">Connection lines</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Decorated lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="envelope.html">Envelope</a></li>
 <li class="toctree-l3"><a class="reference internal" href="great_circles.html">Generate points along great circles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="line_custom_cpt.html">Line colors with a custom CPT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linefronts.html">Line fronts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="line_segment_ends.html">Line segment caps and joints</a></li>
 <li class="toctree-l3"><a class="reference internal" href="linestyles.html">Line styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quoted_lines.html">Quoted lines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="roads.html">Roads</a></li>
@@ -127,6 +130,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
@@ -198,23 +202,19 @@
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="decorated-lines">
-<span id="sphx-glr-gallery-lines-decorated-lines-py"></span><h1>Decorated lines<a class="headerlink" href="#decorated-lines" title="Permalink to this heading"></a></h1>
-<p>To draw a so-called <em>decorated line</em>, i.e., symbols along a line
-or curve, use the <code class="docutils literal notranslate"><span class="pre">style</span></code> parameter of the
-<a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method with the argument <code class="docutils literal notranslate"><span class="pre">&quot;~&quot;</span></code> and the
-desired modifiers. A colon (<code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>) is used to separate the
-algorithm settings from the symbol information.
-This example shows how to adjust the symbols.
-Beside the built-in symbols also custom symbols can be used.
-For modifying the main decorated line via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter,
-see the <a class="reference internal" href="linestyles.html"><span class="doc">Line styles example</span></a>.
-For details on the input data see the upstream GMT documentation
-at <a class="reference external" href="https://docs.generic-mapping-tools.org/latest/plot.html#s">https://docs.generic-mapping-tools.org/latest/plot.html#s</a>.
-Furthermore, there are so-called <em>line fronts</em>, which are often
-used to plot fault lines, subduction zones, or weather fronts;
-for details see the
+<span id="sphx-glr-gallery-lines-decorated-lines-py"></span><h1>Decorated lines<a class="headerlink" href="#decorated-lines" title="Link to this heading"></a></h1>
+<p>To draw a so-called <em>decorated line</em>, i.e., symbols along a line or curve, use the
+<code class="docutils literal notranslate"><span class="pre">style</span></code> parameter of the <a class="reference internal" href="../../api/generated/pygmt.Figure.plot.html#pygmt.Figure.plot" title="pygmt.Figure.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.plot</span></code></a> method with the argument <code class="docutils literal notranslate"><span class="pre">&quot;~&quot;</span></code>
+and the desired modifiers. A colon (<code class="docutils literal notranslate"><span class="pre">&quot;:&quot;</span></code>) is used to separate the algorithm
+settings from the symbol information. This example shows how to adjust the symbols.
+Beside the built-in symbols also custom symbols can be used. For modifying the main
+decorated line via the <code class="docutils literal notranslate"><span class="pre">pen</span></code> parameter, see the
+<a class="reference internal" href="linestyles.html"><span class="doc">Line styles example</span></a>. For details on the input data
+see the upstream GMT documentation at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/plot.html#s">https://docs.generic-mapping-tools.org/6.5/plot.html#s</a>. Furthermore, there are
+so-called <em>line fronts</em>, which are often used to plot fault lines, subduction zones,
+or weather fronts; for details see the
 <a class="reference internal" href="linefronts.html"><span class="doc">Line fronts example</span></a>.</p>
-<img src="../../_images/sphx_glr_decorated_lines_001.png" srcset="../../_images/sphx_glr_decorated_lines_001.png" alt="decorated lines" class = "sphx-glr-single-img"/><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<img src="../../_images/sphx_glr_decorated_lines_001.png" srcset="../../_images/sphx_glr_decorated_lines_001.png" alt="decorated lines" class = "sphx-glr-single-img"/><div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pygmt</span>
 
 <span class="c1"># Generate a two-point line for plotting</span>
@@ -226,8 +226,7 @@ for details see the
 
 <span class="c1"># Plot different decorated lines</span>
 <span class="k">for</span> <a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">decoline</span></a> <span class="ow">in</span> <span class="p">[</span>
-    <span class="c1"># Line with circles (&quot;c&quot;) of 0.5 centimeters radius in distance of</span>
-    <span class="c1"># 1 centimeter</span>
+    <span class="c1"># Line with circles (&quot;c&quot;) of 0.5 centimeters radius in distance of 1 centimeter</span>
     <span class="s2">&quot;~d1c:+sc0.5c&quot;</span><span class="p">,</span>
     <span class="c1"># Adjust thickness, color, and style of the outline via &quot;+p&quot;</span>
     <span class="c1"># Here, we plot a 1-point thick, blue, dashed outline</span>
@@ -238,14 +237,15 @@ for details see the
     <span class="s2">&quot;~d1c:+sc0.5c+gp8+p1p,blue&quot;</span><span class="p">,</span>
     <span class="c1"># Line with triangles (&quot;t&quot;)</span>
     <span class="s2">&quot;~d1c:+st0.5c+gtan+p1p,black&quot;</span><span class="p">,</span>
+    <span class="c1"># Rotate counter-clockwise from line-parallel (&quot;+ap&quot;) by 30 degrees</span>
+    <span class="s2">&quot;~d1c:+st0.5c+gtan+p1p,black+ap30&quot;</span><span class="p">,</span>
     <span class="c1"># Line with inverse triangles with a size of 0.3 centimeters in a</span>
     <span class="c1"># distance of 0.4 centimeters</span>
     <span class="s2">&quot;~d0.4c:+si0.3c+gtan+p1p,black&quot;</span><span class="p">,</span>
     <span class="c1"># Line with squares (&quot;s&quot;) with a size of 0.7 centimeters in a distance of</span>
     <span class="c1"># 1 centimeter</span>
     <span class="s2">&quot;~d1c:+ss0.7c+gtan+p1p,black&quot;</span><span class="p">,</span>
-    <span class="c1"># Shift symbols using &quot;+n&quot; in x and y directions relative to the main</span>
-    <span class="c1"># decorated line</span>
+    <span class="c1"># Shift symbols using &quot;+n&quot; in x and y directions relative to the main decorated line</span>
     <span class="s2">&quot;~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c&quot;</span><span class="p">,</span>
     <span class="c1"># Give the number of equally spaced symbols by using &quot;n&quot; instead of &quot;d&quot;</span>
     <span class="s2">&quot;~n6:+sn0.5c+gtan+p1p,black&quot;</span><span class="p">,</span>
@@ -280,13 +280,13 @@ for details see the
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  3.607 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.328 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-lines-decorated-lines-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../../_downloads/63316010f4652c6a5b9ad8ea0992adc6/decorated_lines.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">decorated_lines.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/b43833f86c2f912c249b38caeda4c1e6/decorated_lines.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">decorated_lines.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/63316010f4652c6a5b9ad8ea0992adc6/decorated_lines.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">decorated_lines.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -297,17 +297,17 @@ for details see the
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="vector_styles.html" class="btn btn-neutral float-left" title="Cartesian, circular, and geographic vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="connection_lines.html" class="btn btn-neutral float-left" title="Connection lines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="envelope.html" class="btn btn-neutral float-right" title="Envelope" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2017-2023, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/e59b954d">e59b954d</a></code>.
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Sep 01, 2023.
+      <span class="lastupdated">Last updated on Feb 01, 2024.
       </span></p>
   </div>
 

@@ -6,28 +6,62 @@
 
 Computation times
 =================
-**00:14.149** total execution time for **gallery_symbols** files:
+**00:02.395** total execution time for 11 files **from gallery/symbols**:
 
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_basic_symbols.py` (``basic_symbols.py``)                     | 00:02.925 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_bars.py` (``bars.py``)                                       | 00:01.983 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``multi_parameter_symbols.py``) | 00:01.845 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_patterns.py` (``patterns.py``)                               | 00:01.510 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``custom_symbols.py``)                   | 00:01.295 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_points_categorical.py` (``points_categorical.py``)           | 00:00.968 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_scatter.py` (``scatter.py``)                                 | 00:00.894 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_text_symbols.py` (``text_symbols.py``)                       | 00:00.838 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``datetime_inputs.py``)                 | 00:00.823 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``points_transparency.py``)         | 00:00.547 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_gallery_symbols_points.py` (``points.py``)                                   | 00:00.522 | 0.0 MB |
-+---------------------------------------------------------------------------------------------+-----------+--------+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_gallery_symbols_multi_parameter_symbols.py` (``multi_parameter_symbols.py``)
+     - 00:00.416
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points_categorical.py` (``points_categorical.py``)
+     - 00:00.304
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_scatter.py` (``scatter.py``)
+     - 00:00.248
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_bars.py` (``bars.py``)
+     - 00:00.231
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points_transparency.py` (``points_transparency.py``)
+     - 00:00.206
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_basic_symbols.py` (``basic_symbols.py``)
+     - 00:00.206
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_patterns.py` (``patterns.py``)
+     - 00:00.194
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_points.py` (``points.py``)
+     - 00:00.168
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_custom_symbols.py` (``custom_symbols.py``)
+     - 00:00.152
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_text_symbols.py` (``text_symbols.py``)
+     - 00:00.138
+     - 0.0
+   * - :ref:`sphx_glr_gallery_symbols_datetime_inputs.py` (``datetime_inputs.py``)
+     - 00:00.132
+     - 0.0

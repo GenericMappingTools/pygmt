@@ -38,14 +38,14 @@ This tutorial is split into three parts:
 - Make an interactive map
 - Add a grid for Earth relief
 
-.. GENERATED FROM PYTHON SOURCE LINES 22-33
+.. GENERATED FROM PYTHON SOURCE LINES 24-25
 
-.. code-block:: default
+Import the required packages
 
+.. GENERATED FROM PYTHON SOURCE LINES 25-32
 
+.. code-block:: Python
 
-
-    # Import the required packages
     import numpy as np
     import panel as pn
     import pygmt
@@ -60,10 +60,11 @@ This tutorial is split into three parts:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-43
+.. GENERATED FROM PYTHON SOURCE LINES 33-42
 
 Make a static map
 -----------------
+
 The `Orthographic projection
 <https://www.pygmt.org/dev/projections/azim/azim_orthographic.html>`__
 can be used to show the Earth as a globe. Land and water masses are
@@ -71,9 +72,9 @@ filled with colors via the ``land`` and  ``water`` parameters of
 :meth:`pygmt.Figure.coast`, respectively. Coastlines are added using the
 ``shorelines`` parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-60
+.. GENERATED FROM PYTHON SOURCE LINES 42-59
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create a new instance or object of the pygmt.Figure() class
@@ -104,18 +105,19 @@ filled with colors via the ``land`` and  ``water`` parameters of
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-67
+.. GENERATED FROM PYTHON SOURCE LINES 60-67
 
 Make an interactive map
 -----------------------
+
 To generate a rotation of the Earth around the vertical axis, the central
 longitude of the Orthographic projection is varied iteratively in steps of
 10 degrees. The library ``Panel`` is used to create an interactive dashboard
-with a slider (works only in a notebook environment, e.g. Jupyter notebook).
+with a slider (works only in a notebook environment, e.g., Jupyter notebook).
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-97
+.. GENERATED FROM PYTHON SOURCE LINES 67-99
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Create a slider
@@ -126,9 +128,11 @@ with a slider (works only in a notebook environment, e.g. Jupyter notebook).
     )
 
 
-    # Define a function for plotting the single slices
     @pn.depends(central_lon=slider_lon)
     def view(central_lon):
+        """
+        Define a function for plotting the single slices.
+        """
         # Create a new instance or object of the pygmt.Figure() class
         fig = pygmt.Figure()
         fig.coast(
@@ -158,20 +162,21 @@ with a slider (works only in a notebook environment, e.g. Jupyter notebook).
 
     Column
         [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[0, 10, 20, 30, ...], value=0)
-        [1] ParamFunction(function, _pane=PNG)
+        [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-102
+.. GENERATED FROM PYTHON SOURCE LINES 100-105
 
 Add a grid for Earth relief
 ---------------------------
+
 Instead of using colors as fill for the land and water masses a grid can be
 displayed. Here, the Earth relief is shown by color-coding the elevation.
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-142
+.. GENERATED FROM PYTHON SOURCE LINES 105-148
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Download a grid for Earth relief with a resolution of 10 arc-minutes
@@ -185,9 +190,11 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
     )
 
 
-    # Define a function for plotting the single slices
     @pn.depends(central_lon=slider_lon)
     def view(central_lon):
+        """
+        Define a function for plotting the single slices.
+        """
         # Create a new instance or object of the pygmt.Figure() class
         fig = pygmt.Figure()
         # Set up a colormap for the elevation in meters
@@ -217,6 +224,7 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
 
 
+
 .. rst-class:: sphx-glr-script-out
 
  .. code-block:: none
@@ -224,14 +232,14 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
     Column
         [0] DiscreteSlider(formatter='%d', name='Central longitude', options=[0, 10, 20, 30, ...], value=0)
-        [1] ParamFunction(function, _pane=PNG)
+        [1] ParamFunction(function, _pane=PNG, defer_load=False)
 
 
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  2.898 seconds)
+   **Total running time of the script:** (0 minutes 1.933 seconds)
 
 
 .. _sphx_glr_download_tutorials_advanced_working_with_panel.py:
@@ -240,16 +248,13 @@ displayed. Here, the Earth relief is shown by color-coding the elevation.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: working_with_panel.ipynb <working_with_panel.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: working_with_panel.py <working_with_panel.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: working_with_panel.ipynb <working_with_panel.ipynb>`
 
 
 .. only:: html

@@ -11,6 +11,8 @@ an *x-scale* and an optional *y-scale*.
 Each axis with a logarithmic transformation requires **l** after
 its size argument.
 """
+
+# %%
 import numpy as np
 import pygmt
 

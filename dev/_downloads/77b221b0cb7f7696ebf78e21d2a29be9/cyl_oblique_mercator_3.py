@@ -15,6 +15,8 @@ by *lon0/lat0*. The projection pole is set by *lonp/latp* in option three.
 Align the y-axis with the optional **+v**. The figure size is set
 with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

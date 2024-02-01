@@ -19,12 +19,12 @@
 
 
 Points with varying transparency
---------------------------------
+================================
 
 Points can be plotted with different transparency levels by passing in an array
 argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 8-26
+.. GENERATED FROM PYTHON SOURCE LINES 10-27
 
 
 
@@ -37,8 +37,7 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import numpy as np
     import pygmt
@@ -61,7 +60,7 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.547 seconds)
+   **Total running time of the script:** (0 minutes 0.206 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_points_transparency.py:
@@ -70,16 +69,13 @@ argument to the ``transparency`` parameter of :meth:`pygmt.Figure.plot`.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: points_transparency.ipynb <points_transparency.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: points_transparency.py <points_transparency.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: points_transparency.ipynb <points_transparency.ipynb>`
 
 
 .. only:: html

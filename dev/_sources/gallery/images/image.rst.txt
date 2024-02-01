@@ -19,7 +19,8 @@
 
 
 Images on figures
------------------
+=================
+
 The :meth:`pygmt.Figure.image` method can be used to read and place an image
 file in many formats (e.g., png, jpg, eps, pdf) on a figure. We must specify
 the filename via the ``imagefile`` parameter or simply use the filename as
@@ -27,7 +28,7 @@ the first argument. You can also use a full URL pointing to your desired image.
 The ``position`` parameter allows us to set a reference point on the map for
 the image.
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-31
+.. GENERATED FROM PYTHON SOURCE LINES 14-34
 
 
 
@@ -40,7 +41,7 @@ the image.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import os
 
@@ -66,7 +67,7 @@ the image.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.769 seconds)
+   **Total running time of the script:** (0 minutes 0.377 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:
@@ -75,16 +76,13 @@ the image.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: image.ipynb <image.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: image.py <image.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: image.ipynb <image.ipynb>`
 
 
 .. only:: html

@@ -19,14 +19,15 @@
 
 
 Calculating grid gradient with custom ``azimuth`` and ``normalize`` parameters
-------------------------------------------------------------------------------
-The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
-As input, :func:`pygmt.grdgradient` gets a :class:`xarray.DataArray` object or
-a path string to a grid file. It then calculates the respective gradient and
-returns an :class:`xarray.DataArray` object. The example below sets two main
-parameters:
+==============================================================================
 
-- ``azimuth``: to set the illumination light source direction (0° is North,
+The :func:`pygmt.grdgradient` function calculates the gradient of a grid file.
+As input, :func:`pygmt.grdgradient` gets an :class:`xarray.DataArray` object
+or a path string to a grid file. It then calculates the respective gradient
+and returns an :class:`xarray.DataArray` object. The example below sets two
+main parameters:
+
+- ``azimuth`` to set the illumination light source direction (0° is North,
   90° is East, 180° is South, 270° is West).
 - ``normalize`` to enhance the three-dimensional sense of the topography.
 
@@ -35,7 +36,7 @@ along a certain azimuth angle, then adjusts the brightness value of the color
 according to the positive/negative of the azimuthal gradient and the amplitude
 of each point.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-63
+.. GENERATED FROM PYTHON SOURCE LINES 22-65
 
 
 
@@ -50,7 +51,7 @@ of each point.
  .. code-block:: none
 
     grdblend [NOTICE]: Remote data courtesy of GMT data server oceania [http://oceania.generic-mapping-tools.org]
-    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (5.6 km fullwidth) [Tozer et al., 2019].
+    grdblend [NOTICE]: SRTM15 Earth Relief v2.5.5 at 03x03 arc minutes reduced by Gaussian Cartesian filtering (15.7 km fullwidth) [Tozer et al., 2019].
     grdblend [NOTICE]:   -> Download 90x90 degree grid tile (earth_relief_03m_g): N00E000
 
 
@@ -60,8 +61,7 @@ of each point.
 
 |
 
-.. code-block:: default
-
+.. code-block:: Python
 
     import pygmt
 
@@ -103,14 +103,14 @@ of each point.
                     panel=True,
                 )
 
-    fig.colorbar(position="JBC+w10c/0.25c+h", frame="a2000f500+lElevation (m)")
+    fig.colorbar(position="JBC+w10c/0.25c+h", frame="xa2000f500+lElevation (m)")
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.376 seconds)
+   **Total running time of the script:** (0 minutes 4.032 seconds)
 
 
 .. _sphx_glr_download_gallery_images_grdgradient_shading.py:
@@ -119,16 +119,13 @@ of each point.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: grdgradient_shading.ipynb <grdgradient_shading.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: grdgradient_shading.py <grdgradient_shading.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: grdgradient_shading.ipynb <grdgradient_shading.ipynb>`
 
 
 .. only:: html

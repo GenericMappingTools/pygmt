@@ -35,7 +35,7 @@ with **A**. The central meridian is set by *lon0/lat0*. The oblique equator
 is set by *azimuth*. Align the y-axis
 with the optional **+v**. The figure size is set with *scale* or *width*.
 
-.. GENERATED FROM PYTHON SOURCE LINES 19-33
+.. GENERATED FROM PYTHON SOURCE LINES 21-35
 
 
 
@@ -48,7 +48,7 @@ with the optional **+v**. The figure size is set with *scale* or *width*.
 
 
 
-.. code-block:: default
+.. code-block:: Python
 
     import pygmt
 
@@ -68,7 +68,7 @@ with the optional **+v**. The figure size is set with *scale* or *width*.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  0.465 seconds)
+   **Total running time of the script:** (0 minutes 0.183 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_oblique_mercator_1.py:
@@ -77,16 +77,13 @@ with the optional **+v**. The figure size is set with *scale* or *width*.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: cyl_oblique_mercator_1.ipynb <cyl_oblique_mercator_1.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: cyl_oblique_mercator_1.py <cyl_oblique_mercator_1.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: cyl_oblique_mercator_1.ipynb <cyl_oblique_mercator_1.ipynb>`
 
 
 .. only:: html

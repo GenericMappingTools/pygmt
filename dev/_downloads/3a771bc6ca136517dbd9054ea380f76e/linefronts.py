@@ -1,6 +1,6 @@
 r"""
 Line fronts
------------
+===========
 
 Using the :meth:`pygmt.Figure.plot` method you can draw a so-called
 *front* which allows to plot specific symbols distributed along a line
@@ -32,6 +32,7 @@ For modifying the main front line via the ``pen`` parameter, see the
 :doc:`Line styles example </gallery/lines/linestyles>`.
 """
 
+# %%
 import numpy as np
 import pygmt
 
