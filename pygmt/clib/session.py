@@ -1627,10 +1627,10 @@ class Session:
         >>> from pygmt.clib import Session
         >>>
         >>> # Read dataset from a virtual file
-        >>> with GMTTempFile(suffix=".txt") as tmpfile:
-        ...     with open(tmpfile.name, mode="w") as fp:
-        ...         print("1.0 2.0 3.0 TEXT", file=fp)
-        ...     with Session() as lib:
+        >>> with Session() as lib:
+        ...     with GMTTempFile(suffix=".txt") as tmpfile:
+        ...         with open(tmpfile.name, mode="w") as fp:
+        ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.open_virtualfile(
         ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
         ...         ) as vfile:
