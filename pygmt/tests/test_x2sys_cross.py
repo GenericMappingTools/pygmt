@@ -10,7 +10,9 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
+from packaging.version import Version
 from pygmt import x2sys_cross, x2sys_init
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
@@ -55,6 +57,10 @@ def test_x2sys_cross_input_file_output_file():
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_input_file_output_dataframe():
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to a
@@ -196,6 +202,10 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_region_interpolation_numpoints():
     """
     Test that x2sys_cross's region (R), interpolation (l) and numpoints (W) arguments
@@ -221,6 +231,10 @@ def test_x2sys_cross_region_interpolation_numpoints():
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_trackvalues():
     """
     Test that x2sys_cross's trackvalues (Z) argument work.

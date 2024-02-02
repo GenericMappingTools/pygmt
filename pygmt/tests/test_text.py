@@ -316,8 +316,6 @@ def test_text_angle_font_justify_from_textfile():
 def test_text_justify_array(region):
     """
     Test passing an array of justify codes.
-
-    Re-use the baseline image from test_text_position().
     """
     fig = Figure()
     fig.basemap(region=region, projection="x1c", frame="a")

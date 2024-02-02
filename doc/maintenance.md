@@ -220,11 +220,11 @@ publishing the actual release notes at {doc}`changes`.
 7. Edit the list of people who contributed to the release, linking to their
    GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `README.rst` with new information on the new release version,
-   including a vX.Y.Z documentation link, and compatibility with
-   GMT/Python/NumPy versions. Follow
+8. Update `doc/minversions.rst` with new information on the new release version,
+   including a vX.Y.Z documentation link, and minimum required GMT/Python/NumPy
+   versions. Follow
    [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for compatibility updates.
+   for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow

@@ -38,7 +38,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
           environment-name: pygmt
           condarc: |
@@ -66,6 +66,9 @@ jobs:
         run: |
           python -c "from pygmt.helpers.caching import cache_data; cache_data()"
 
+      - name: List downloaded remote files
+        run: ls -lhR ~/.gmt
+
       # Upload the downloaded files as artifacts to GitHub
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4
@@ -74,3 +77,5 @@ jobs:
           path: |
               ~/.gmt/cache
               ~/.gmt/server
+              ~/.gmt/gmt_data_server.txt
+              ~/.gmt/gmt_hash_server.txt

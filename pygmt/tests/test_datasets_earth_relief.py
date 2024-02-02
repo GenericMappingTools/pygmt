@@ -4,6 +4,8 @@ Test basic functionality for loading Earth relief datasets.
 import numpy as np
 import numpy.testing as npt
 import pytest
+from packaging.version import Version
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
@@ -186,6 +188,10 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.max(), -71, atol=0.5)
 
 
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) >= Version("6.5.0"),
+    reason="Upstream bug tracked in https://github.com/GenericMappingTools/pygmt/issues/2511",
+)
 def test_earth_relief_03s_default_registration():
     """
     Test that the grid returned by default for the 3 arc-second resolution has a
@@ -198,5 +204,5 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 5)
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
-    npt.assert_allclose(data.min(), -2131.9, atol=0.5)
+    npt.assert_allclose(data.min(), -2069.85, atol=0.5)
     npt.assert_allclose(data.max(), -924.5, atol=0.5)

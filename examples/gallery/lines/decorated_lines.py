@@ -2,20 +2,16 @@
 Decorated lines
 ===============
 
-To draw a so-called *decorated line*, i.e., symbols along a line
-or curve, use the ``style`` parameter of the
-:meth:`pygmt.Figure.plot` method with the argument ``"~"`` and the
-desired modifiers. A colon (``":"``) is used to separate the
-algorithm settings from the symbol information.
-This example shows how to adjust the symbols.
-Beside the built-in symbols also custom symbols can be used.
-For modifying the main decorated line via the ``pen`` parameter,
-see the :doc:`Line styles example </gallery/lines/linestyles>`.
-For details on the input data see the upstream GMT documentation
-at :gmt-docs:`plot.html#s`.
-Furthermore, there are so-called *line fronts*, which are often
-used to plot fault lines, subduction zones, or weather fronts;
-for details see the
+To draw a so-called *decorated line*, i.e., symbols along a line or curve, use the
+``style`` parameter of the :meth:`pygmt.Figure.plot` method with the argument ``"~"``
+and the desired modifiers. A colon (``":"``) is used to separate the algorithm
+settings from the symbol information. This example shows how to adjust the symbols.
+Beside the built-in symbols also custom symbols can be used. For modifying the main
+decorated line via the ``pen`` parameter, see the
+:doc:`Line styles example </gallery/lines/linestyles>`. For details on the input data
+see the upstream GMT documentation at :gmt-docs:`plot.html#s`. Furthermore, there are
+so-called *line fronts*, which are often used to plot fault lines, subduction zones,
+or weather fronts; for details see the
 :doc:`Line fronts example </gallery/lines/linefronts>`.
 """
 
@@ -32,8 +28,7 @@ fig.basemap(region=[0, 10, 0, 24], projection="X15c", frame="+tDecorated Lines")
 
 # Plot different decorated lines
 for decoline in [
-    # Line with circles ("c") of 0.5 centimeters radius in distance of
-    # 1 centimeter
+    # Line with circles ("c") of 0.5 centimeters radius in distance of 1 centimeter
     "~d1c:+sc0.5c",
     # Adjust thickness, color, and style of the outline via "+p"
     # Here, we plot a 1-point thick, blue, dashed outline
@@ -44,14 +39,15 @@ for decoline in [
     "~d1c:+sc0.5c+gp8+p1p,blue",
     # Line with triangles ("t")
     "~d1c:+st0.5c+gtan+p1p,black",
+    # Rotate counter-clockwise from line-parallel ("+ap") by 30 degrees
+    "~d1c:+st0.5c+gtan+p1p,black+ap30",
     # Line with inverse triangles with a size of 0.3 centimeters in a
     # distance of 0.4 centimeters
     "~d0.4c:+si0.3c+gtan+p1p,black",
     # Line with squares ("s") with a size of 0.7 centimeters in a distance of
     # 1 centimeter
     "~d1c:+ss0.7c+gtan+p1p,black",
-    # Shift symbols using "+n" in x and y directions relative to the main
-    # decorated line
+    # Shift symbols using "+n" in x and y directions relative to the main decorated line
     "~d1c:+sd0.5c+gtan+p1p,black+n-0.2c/0.1c",
     # Give the number of equally spaced symbols by using "n" instead of "d"
     "~n6:+sn0.5c+gtan+p1p,black",
