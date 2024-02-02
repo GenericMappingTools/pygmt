@@ -1,10 +1,8 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
-import warnings
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -101,17 +99,6 @@ def wiggle(
     {wrap}
     """
     kwargs = self._preprocess(**kwargs)
-
-    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
-        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
-
-    if kwargs.get("G") is not None:
-        msg = (
-            "The 'color' parameter has been deprecated since v0.8.0"
-            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
-            " instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
     if fillpositive or fillnegative:
         kwargs["G"] = []
