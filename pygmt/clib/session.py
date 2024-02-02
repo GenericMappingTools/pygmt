@@ -1614,7 +1614,7 @@ class Session:
         ...     with open(tmpfile.name, mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...     with Session() as lib:
-        ...         with lib.open_virtual_file(
+        ...         with lib.open_virtualfile(
         ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
         ...         ) as vfile:
         ...             lib.call_module("read", f"{tmpfile.name} {vfile} -Td")
@@ -1627,7 +1627,7 @@ class Session:
         >>>
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
-        ...     with lib.open_virtual_file(
+        ...     with lib.open_virtualfile(
         ...         "GMT_IS_GRID", "GMT_IS_SURFACE", "GMT_OUT", None
         ...     ) as vfile:
         ...         lib.call_module("read", f"@earth_relief_01d_g {vfile} -Tg")
