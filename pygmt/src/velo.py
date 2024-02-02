@@ -14,7 +14,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="vector",
     B="frame",
