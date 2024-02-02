@@ -62,11 +62,11 @@ jobs:
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.22 and Python 3.12 with NumPy 1.26
+        # Pair Python 3.9 with NumPy 1.23 and Python 3.12 with NumPy 1.26
         # Only install optional packages on Python 3.12/NumPy 1.26
         include:
           - python-version: '3.9'
-            numpy-version: '1.22'
+            numpy-version: '1.23'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
@@ -93,7 +93,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
           environment-name: pygmt
           condarc: |
@@ -135,7 +135,7 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
       # Pull baseline image data from dvc remote (DAGsHub)

@@ -226,6 +226,11 @@ and store them in GMT's user data directory.
     datasets.load_earth_mask
     datasets.load_earth_relief
     datasets.load_earth_vertical_gravity_gradient
+    datasets.load_mars_relief
+    datasets.load_mercury_relief
+    datasets.load_moon_relief
+    datasets.load_pluto_relief
+    datasets.load_venus_relief
     datasets.load_sample_data
 
 In addition, there is also a special function to load XYZ tile maps via
@@ -307,7 +312,7 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_strings
     clib.Session.put_vector
     clib.Session.write_data
-    clib.Session.open_virtual_file
+    clib.Session.open_virtualfile
     clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
