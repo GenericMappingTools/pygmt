@@ -24,6 +24,9 @@ class FakedLibGMT:
         self._name = name
 
     def __str__(self):
+        """
+        String representation of the object.
+        """
         return self._name
 
 
@@ -59,6 +62,7 @@ def test_clib_names():
 
 ###############################################################################
 # Test load_libgmt
+@pytest.mark.benchmark
 def test_load_libgmt():
     """
     Test that loading libgmt works and doesn't crash.

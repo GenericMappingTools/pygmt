@@ -1,4 +1,5 @@
 outs:
-- md5: b20b1fd9f9e585abb5da08f3201e69ce
-  size: 12965
+- md5: 81637ceb091700c6d1ad4390b931c354
+  size: 12678
   path: test_config_map_tick_length.png
+  hash: md5

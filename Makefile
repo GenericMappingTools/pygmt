@@ -15,8 +15,8 @@ help:
 	@echo "  fulltest       run the test suite (including all doctests)"
 	@echo "  doctest        run the doctests only"
 	@echo "  test_no_images run the test suite (including all doctests) but skip image comparisons"
-	@echo "  format         run docformatter and ruff to automatically format the code"
-	@echo "  check          run code style and quality checks (docformatter and ruff)"
+	@echo "  format         run ruff to automatically format the code"
+	@echo "  check          run ruff to check code style and quality"
 	@echo "  codespell      run codespell to check common misspellings"
 	@echo "  typecheck      run mypy for static type check"
 	@echo "  clean          clean up build and generated files"
@@ -60,12 +60,10 @@ test_no_images: PYTEST_ARGS=-o addopts="--verbose --durations=0 --durations-min=
 test_no_images: _runtest
 
 format:
-	docformatter --in-place $(FORMAT_FILES)
-	ruff check --fix $(FORMAT_FILES)
+	ruff check --fix --exit-zero $(FORMAT_FILES)
 	ruff format $(FORMAT_FILES)
 
 check:
-	docformatter --check $(FORMAT_FILES)
 	ruff check $(FORMAT_FILES)
 	ruff format --check $(FORMAT_FILES)
 
