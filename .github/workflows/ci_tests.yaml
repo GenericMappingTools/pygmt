@@ -155,7 +155,7 @@ jobs:
 
       # Run Selected tests
       - name: Run selected tests
-        run: make test PYTEST_EXTRA="-r P ${{ env.CODECOV_ATS_TESTS}}"
+        run: cat codecov_ats/tests_to_run.txt | xargs pytest --cov pygmt
         if: github.event_name == 'pull_request'
 
       # Run the regular tests
