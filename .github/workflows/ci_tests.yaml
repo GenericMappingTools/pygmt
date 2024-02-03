@@ -17,7 +17,7 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy) Python/NumPy versions
+# - Minimum supported Python/NumPy versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
 # - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests
