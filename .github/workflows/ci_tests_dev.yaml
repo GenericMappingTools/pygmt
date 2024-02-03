@@ -80,11 +80,11 @@ jobs:
             pcre
             zlib
 
-      - name: Setup OpenMP on macOS
-        run: |
-          brew install libomp
-          brew link --force libomp
-        if: runner.os == 'macOS'
+      #- name: Setup OpenMP on macOS
+      #  run: |
+      #    brew install libomp
+      #    brew link --force libomp
+      #  if: runner.os == 'macOS'
 
       # Checkout current the GMT source codes
       - name: Checkout the GMT source codes
