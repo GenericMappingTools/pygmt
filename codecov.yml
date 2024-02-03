@@ -33,7 +33,7 @@ cli:
       report_type: "json"
   runners:
     pytest:
-      pytest_command: ["/home/runner/micromamba/envs/pygmt/bin/python", "-m", "pytest"]
+      python_path: "/home/runner/micromamba/envs/pygmt/bin/python"
       collect_tests_options:
         - "--ignore=doc/conf.py"
         - "--ignore-glob=examples/**/*.py"
