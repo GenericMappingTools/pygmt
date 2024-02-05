@@ -89,6 +89,7 @@ jobs:
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: |
+          export LDFLAGS=${{ env.MAMBA_ROOT_PREFIX }}/envs/pygmt/lib/
           cd gmt/
           mkdir build
           cd build
