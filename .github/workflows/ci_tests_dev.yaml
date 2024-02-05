@@ -76,15 +76,8 @@ jobs:
             libgdal
             liblapack
             libnetcdf
-            llvm-openmp
             pcre
             zlib
-
-      #- name: Setup OpenMP on macOS
-      #  run: |
-      #    brew install libomp
-      #    brew link --force libomp
-      #  if: runner.os == 'macOS'
 
       # Checkout current the GMT source codes
       - name: Checkout the GMT source codes
@@ -96,15 +89,12 @@ jobs:
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
         run: |
-          export LDFLAGS="-L/usr/local/opt/libomp/lib"
-          export CFLAGS="-I/usr/local/opt/libomp/include"
           cd gmt/
           mkdir build
           cd build
           cmake -G Ninja .. \
             -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_PREFIX_PATH=/usr/local/opt/libomp/ \
             -DGMT_ENABLE_OPENMP=TRUE \
             -DGMT_USE_THREADS=TRUE
           cmake --build .
