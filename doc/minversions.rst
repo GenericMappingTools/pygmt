@@ -19,7 +19,7 @@ the rest of the Scientific Python ecosystem, and therefore:
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
-      - >=3.9
+      - >=3.10
       - >=1.23
     * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ (latest release)
       - `v0.11.0 Documentation <https://www.pygmt.org/v0.11.0>`_
