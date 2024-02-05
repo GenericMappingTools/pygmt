@@ -257,6 +257,7 @@ def non_ascii_to_octal(argstr):
                 "◊〈®©™∑"  # \34x-35x
                 "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
                 [*range(32, 127), *range(160, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -282,6 +283,7 @@ def non_ascii_to_octal(argstr):
                 "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
                 "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
                 [*range(32, 127), *range(161, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -300,6 +302,7 @@ def non_ascii_to_octal(argstr):
                 "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
                 "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
                 [*range(25, 32), *range(127, 160)],
+                strict=True,
             )
         }
     )
