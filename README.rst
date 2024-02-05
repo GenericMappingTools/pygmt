@@ -260,7 +260,7 @@ PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ al
 the rest of the Scientific Python ecosystem, and therefore:
 
 * Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies be dropped 2 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
 
 For the supported GMT versions as well as the minimum required versions of Python and
 core package dependencies, please see

@@ -17,7 +17,7 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum supported Python/NumPy versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
+# - Minimum supported Python/NumPy/Pandas/Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
 # - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests

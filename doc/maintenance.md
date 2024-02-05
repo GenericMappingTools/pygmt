@@ -123,7 +123,7 @@ PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) along
 the rest of the Scientific Python ecosystem, and therefore:
 
 * Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies be dropped 2 years after their initial release.
+* Support for core package (NumPy/Pandas/Xarray) dependencies be dropped 2 years after their initial release.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
 version of Python. Minimum supported versions of Python and core package dependencies
@@ -220,7 +220,8 @@ publishing the actual release notes at {doc}`changes`.
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `doc/minversions.rst` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
-   and core packages. Follow [SPEC 0](https://scientific-python.org/specs/spec-0000/)
+   and core packages (NumPy/Pandas/Xarray). Follow
+   [SPEC 0](https://scientific-python.org/specs/spec-0000/)
    for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
