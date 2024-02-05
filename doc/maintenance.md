@@ -221,8 +221,7 @@ publishing the actual release notes at {doc}`changes`.
 8. Update `doc/minversions.rst` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy/Pandas/Xarray). Follow
-   [SPEC 0](https://scientific-python.org/specs/spec-0000/)
-   for updates.
+   [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow

@@ -253,8 +253,8 @@ Other non-official Python wrappers for GMT (not maintained):
 
 .. doc-index-end-before
 
-Minimum Supported Versions of GMT/Python/Core package dependencies
-------------------------------------------------------------------
+Minimum Supported Versions
+--------------------------
 
 PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
 the rest of the Scientific Python ecosystem, and therefore:
@@ -264,4 +264,4 @@ the rest of the Scientific Python ecosystem, and therefore:
 
 For the supported GMT versions as well as the minimum required versions of Python and
 core package dependencies, please see
-`Minimum Required Versions <https://www.pygmt.org/dev/minversions.html>`__.
+`Minimum Supported Versions <https://www.pygmt.org/dev/minversions.html>`__.
