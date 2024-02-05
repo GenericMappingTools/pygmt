@@ -10,7 +10,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @use_alias(
     B="frame",
     D="position",
-    G="color",
     J="projection",
     R="region",
     T="track",
