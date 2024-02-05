@@ -1,5 +1,5 @@
-Minimum Supported GMT/Python/NumPy Versions
--------------------------------------------
+Minimum Supported Versions
+--------------------------
 
 PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
 the rest of the Scientific Python ecosystem, and therefore:
