@@ -47,7 +47,7 @@ fig.plot(
     frame=["WSen", "afg"],
     x=x,
     y=y,
-    style="x0.3c",
+    style="c0.3c",
     pen="1p",
 )
 fig.show()
