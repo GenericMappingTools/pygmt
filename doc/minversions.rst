@@ -15,62 +15,64 @@ the rest of the Scientific Python ecosystem, and therefore:
       - Documentation
       - GMT
       - Python
-      - NumPy
+      - Core package dependencies
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
       - >=3.10
-      - >=1.23
+      - - numpy>=1.23
+        - pandas>=1.5
+        - xarray>=2022.03
     * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ (latest release)
       - `v0.11.0 Documentation <https://www.pygmt.org/v0.11.0>`_
       - >=6.3.0
       - >=3.9
-      - >=1.23
+      - numpy>=1.23
     * - `v0.10.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0>`_
       - `v0.10.0 Documentation <https://www.pygmt.org/v0.10.0>`_
       - >=6.3.0
       - >=3.9
-      - >=1.22
+      - numpy>=1.22
     * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_
       - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
       - >=6.3.0
       - >=3.8
-      - >=1.21
+      - numpy>=1.21
     * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_
       - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
       - >=6.3.0
       - >=3.8
-      - >=1.20
+      - numpy>=1.20
     * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_
       - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
       - >=6.3.0
       - >=3.8
-      - >=1.20
+      - numpy>=1.20
     * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_
       - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
       - >=6.3.0
       - >=3.8
-      - >=1.19
+      - numpy>=1.19
     * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
       - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
       - >=6.3.0
       - >=3.8
-      - >=1.19
+      - numpy>=1.19
     * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
       - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
       - >=6.2.0
       - >=3.7
-      - >=1.18
+      - numpy>=1.18
     * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
       - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
       - >=6.2.0
       - >=3.7
-      - >=1.17
+      - numpy>=1.17
     * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
       - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
       - >=6.2.0
       - >=3.7
-      - >=1.17
+      - numpy>=1.17
     * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
       - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
       - >=6.1.1
