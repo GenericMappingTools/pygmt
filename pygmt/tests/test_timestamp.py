@@ -2,7 +2,7 @@
 Test Figure.timestamp.
 """
 import pytest
-from pygmt import Figure, config
+from pygmt import Figure
 
 
 @pytest.fixture(scope="module", name="faketime")
