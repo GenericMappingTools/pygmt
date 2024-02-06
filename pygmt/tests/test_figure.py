@@ -375,23 +375,3 @@ def test_figure_set_display_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         set_display(method="invalid")
-
-
-def test_figure_deprecated_xshift_yshift():
-    """
-    Check if deprecation of parameters X/Y/xshift/yshift work correctly if used.
-    """
-    fig = Figure()
-    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        fig.plot(x=1, y=1, style="c3c", xshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        fig.plot(x=1, y=1, style="c3c", X="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        fig.plot(x=1, y=1, style="c3c", yshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
-        fig.plot(x=1, y=1, style="c3c", Y="3c")
-        assert len(record) == 1  # check that only one warning was raised
