@@ -16,7 +16,7 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
-- [ ] Check [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy.html) to see if we need to bump the minimum Python and NumPy versions
+- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of Python and core package dependencies (NumPy/Pandas/Xarray)
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
 - [ ] Check to ensure that:
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
