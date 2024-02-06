@@ -1,13 +1,11 @@
-Minimum Supported GMT/Python/NumPy Versions
--------------------------------------------
+Minimum Supported Versions
+--------------------------
 
-PyGMT has adopted `NEP29 <https://numpy.org/neps/nep-0029-deprecation_policy>`__
-alongside the rest of the Scientific Python ecosystem, and therefore supports:
+PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
+the rest of the Scientific Python ecosystem, and therefore:
 
-* All minor versions of Python released 42 months prior to the project, and at minimum
-  the two latest minor versions.
-* All minor versions of NumPy released in the 24 months prior to the project, and at
-  minimum the last three minor versions.
+* Support for Python versions be dropped 3 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
 
 .. list-table::
     :widths: 25 30 15 20 15
@@ -21,7 +19,7 @@ alongside the rest of the Scientific Python ecosystem, and therefore supports:
     * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
       - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
       - >=6.3.0
-      - >=3.9
+      - >=3.10
       - >=1.23
     * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ (latest release)
       - `v0.11.0 Documentation <https://www.pygmt.org/v0.11.0>`_
