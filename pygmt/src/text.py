@@ -217,7 +217,7 @@ def text_(  # noqa: PLR0912
                 extra_arrays.append(np.atleast_1d(arg))
             else:  # font or justify is str type
                 extra_arrays.append(np.atleast_1d(arg).astype(str))
-        elif isinstance(arg, (int, float, str)):
+        elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
