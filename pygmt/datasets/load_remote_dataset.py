@@ -368,7 +368,7 @@ def _load_remote_dataset(
 
     if resolution not in dataset.resolutions:
         raise GMTInvalidInput(
-            f"Invalid resolution '{resolution}' for {dataset.title} dataset. "
+            f"Invalid resolution '{resolution}' for {dataset.name} dataset. "
             f"Available resolutions are: {', '.join(dataset.resolutions)}."
         )
 
@@ -381,7 +381,7 @@ def _load_remote_dataset(
         if registration not in valid_registrations:
             raise GMTInvalidInput(
                 f"{registration} registration is not available for the "
-                f"{resolution} {dataset.title} dataset. Only "
+                f"{resolution} {dataset.name} dataset. Only "
                 f"{valid_registrations[0]} registration is available."
             )
     else:
@@ -398,7 +398,7 @@ def _load_remote_dataset(
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.title} resolution '{resolution}'."
+                f"'region' is required for {dataset.name} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")
