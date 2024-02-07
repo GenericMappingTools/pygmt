@@ -146,7 +146,7 @@ def load_earth_magnetic_anomaly(
             "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
     dataset_prefix = magnetic_anomaly_sources[data_source]
-    dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_magnetic_anomaly"
+    dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_emag"
     grid = _load_remote_dataset(
         dataset_name=dataset_name,
         dataset_prefix=dataset_prefix,
