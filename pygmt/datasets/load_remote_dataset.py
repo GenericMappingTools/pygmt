@@ -64,8 +64,7 @@ class GMTRemoteDataset(NamedTuple):
 
 datasets = {
     "earth_age": GMTRemoteDataset(
-        title="seafloor age",
-        name="seafloor_age",
+        name="earth_age",
         long_name="age of seafloor crust",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -83,9 +82,8 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
-    "earth_free_air_anomaly": GMTRemoteDataset(
-        title="free air anomaly",
-        name="free_air_anomaly",
+    "earth_faa": GMTRemoteDataset(
+        name="earth_faa",
         long_name="IGPP Earth Free-Air Anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -104,7 +102,6 @@ datasets = {
         },
     ),
     "earth_geoid": GMTRemoteDataset(
-        title="Earth geoid",
         name="earth_geoid",
         long_name="EGM2008 Earth Geoid",
         units="m",
@@ -123,9 +120,8 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
-    "earth_magnetic_anomaly": GMTRemoteDataset(
-        title="Earth magnetic anomaly",
-        name="magnetic_anomaly",
+    "earth_emag": GMTRemoteDataset(
+        name="earth_emag",
         long_name="Earth magnetic anomaly",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -143,7 +139,6 @@ datasets = {
         },
     ),
     "earth_mask": GMTRemoteDataset(
-        title="Earth mask",
         name="earth_mask",
         long_name="Mask of land and water features",
         units=None,
@@ -165,8 +160,7 @@ datasets = {
         },
     ),
     "earth_relief": GMTRemoteDataset(
-        title="Earth relief",
-        name="elevation",
+        name="earth_relief",
         long_name="Earth elevation relative to the geoid",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
@@ -189,7 +183,6 @@ datasets = {
         },
     ),
     "earth_vgg": GMTRemoteDataset(
-        title="Earth vertical gravity gradient",
         name="earth_vgg",
         long_name="IGPP Earth Vertical Gravity Gradient",
         units="Eotvos",
@@ -209,8 +202,7 @@ datasets = {
         },
     ),
     "earth_wdmam": GMTRemoteDataset(
-        title="WDMAM magnetic anomaly",
-        name="wdmam",
+        name="earth_wdmam",
         long_name="World Digital Magnetic Anomaly Map",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -227,7 +219,6 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
-        title="Mars relief",
         name="mars_relief",
         long_name="NASA Mars (MOLA) relief",
         units="meters",
@@ -250,7 +241,6 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
-        title="Moon relief",
         name="moon_relief",
         long_name="USGS Moon (LOLA) relief",
         units="meters",
@@ -273,7 +263,6 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
-        title="Mercury relief",
         name="mercury_relief",
         long_name="USGS Mercury relief",
         units="meters",
@@ -294,7 +283,6 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
-        title="Pluto relief",
         name="pluto_relief",
         long_name="USGS Pluto relief",
         units="meters",
@@ -315,7 +303,6 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
-        title="Venus relief",
         name="venus_relief",
         long_name="NASA Magellan Venus relief",
         units="meters",
