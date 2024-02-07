@@ -62,7 +62,7 @@ class GMTRemoteDataset(NamedTuple):
 datasets = {
     "earth_age": GMTRemoteDataset(
         name="earth_age",
-        long_name="age of seafloor crust",
+        long_name="EarthByte Earth seafloor crustal age",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -81,7 +81,7 @@ datasets = {
     ),
     "earth_faa": GMTRemoteDataset(
         name="earth_faa",
-        long_name="IGPP Earth Free-Air Anomaly",
+        long_name="IGPP Earth free-fir anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -100,7 +100,7 @@ datasets = {
     ),
     "earth_geoid": GMTRemoteDataset(
         name="earth_geoid",
-        long_name="EGM2008 Earth Geoid",
+        long_name="EGM2008 Earth geoid",
         units="m",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -119,7 +119,7 @@ datasets = {
     ),
     "earth_emag": GMTRemoteDataset(
         name="earth_emag",
-        long_name="Earth magnetic anomaly",
+        long_name="Earth Magnetic Anomaly Model (EMAG2)",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -137,7 +137,7 @@ datasets = {
     ),
     "earth_mask": GMTRemoteDataset(
         name="earth_mask",
-        long_name="Mask of land and water features",
+        long_name="GSHHG Earth mask",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -158,7 +158,7 @@ datasets = {
     ),
     "earth_relief": GMTRemoteDataset(
         name="earth_relief",
-        long_name="Earth elevation relative to the geoid",
+        long_name="IGPP and GEBCO Earth reliefs",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -181,7 +181,7 @@ datasets = {
     ),
     "earth_vgg": GMTRemoteDataset(
         name="earth_vgg",
-        long_name="IGPP Earth Vertical Gravity Gradient",
+        long_name="IGPP Earth vertical gravity gradient",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -200,7 +200,7 @@ datasets = {
     ),
     "earth_wdmam": GMTRemoteDataset(
         name="earth_wdmam",
-        long_name="World Digital Magnetic Anomaly Map",
+        long_name="World Digital Magnetic Anomaly Map (WDMAM)",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
