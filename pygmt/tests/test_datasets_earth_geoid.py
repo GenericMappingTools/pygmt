@@ -13,7 +13,7 @@ def test_earth_geoid_01d():
     data = load_earth_geoid(resolution="01d")
     assert data.name == "earth_geoid"
     assert data.attrs["units"] == "m"
-    assert data.attrs["long_name"] == "EGM2008 Earth Geoid"
+    assert data.attrs["long_name"] == "EGM2008 Earth geoid"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0

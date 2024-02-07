@@ -17,13 +17,13 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     Test some properties of the earth relief 01d data with IGPP and SYNBATH data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
-    assert data.name == "elevation"
+    assert data.name == "earth_relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
+    assert data.attrs["long_name"] == "IGPP and GEBCO Earth reliefs"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
-    assert data.gmt.registration == 0
     assert data.shape == (181, 361)
+    assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
     npt.assert_allclose(data.min(), -7174.0, atol=0.5)
@@ -36,8 +36,9 @@ def test_earth_relief_01d_gebco(data_source):
     Test some properties of the earth relief 01d data with GEBCO and GEBOCSI data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
+    assert data.name == "earth_relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "Earth elevation relative to the geoid"
+    assert data.attrs["long_name"] == "IGPP and GEBCO Earth reliefs"
     assert data.attrs["vertical_datum"] == "EGM96"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)

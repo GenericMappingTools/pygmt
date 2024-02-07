@@ -11,8 +11,8 @@ def test_earth_faa_01d():
     Test some properties of the free air anomaly 01d data.
     """
     data = load_earth_free_air_anomaly(resolution="01d")
-    assert data.name == "free_air_anomaly"
-    assert data.attrs["long_name"] == "IGPP Earth Free-Air Anomaly"
+    assert data.name == "earth_faa"
+    assert data.attrs["long_name"] == "IGPP Earth free-air anomaly"
     assert data.attrs["units"] == "mGal"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)

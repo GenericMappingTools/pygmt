@@ -12,7 +12,7 @@ def test_earth_mask_01d():
     """
     data = load_earth_mask(resolution="01d")
     assert data.name == "earth_mask"
-    assert data.attrs["long_name"] == "Mask of land and water features"
+    assert data.attrs["long_name"] == "GSHHG Earth mask"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
