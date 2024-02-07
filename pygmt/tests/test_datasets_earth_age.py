@@ -11,9 +11,9 @@ def test_earth_age_01d():
     Test some properties of the earth age 01d data.
     """
     data = load_earth_age(resolution="01d")
-    assert data.name == "seafloor_age"
+    assert data.name == "earth_age"
     assert data.attrs["units"] == "Myr"
-    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.attrs["long_name"] == "EarthByte Earth seafloor crustal age"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
