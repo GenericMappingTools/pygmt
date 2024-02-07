@@ -81,7 +81,7 @@ datasets = {
     ),
     "earth_faa": GMTRemoteDataset(
         name="earth_faa",
-        long_name="IGPP Earth free-fir anomaly",
+        long_name="IGPP Earth free-air anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
