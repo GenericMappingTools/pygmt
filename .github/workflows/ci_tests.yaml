@@ -68,13 +68,13 @@ jobs:
         include:
           - python-version: '3.10'
             numpy-version: '1.23'
-            pandas-version: '1.5'
-            xarray-version: '2022.03'
+            pandas-version: '=1.5'
+            xarray-version: '=2022.03'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
-            pandas-version: '2.2'
-            xarray-version: '2024.01'
+            pandas-version: ''
+            xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
 
     timeout-minutes: 30
@@ -112,8 +112,8 @@ jobs:
             gmt=6.5.0
             ghostscript=10.02.1
             numpy=${{ matrix.numpy-version }}
-            pandas=${{ matrix.pandas-version }}
-            xarray=${{ matrix.xarray-version }}
+            pandas${{ matrix.pandas-version }}
+            xarray${{ matrix.xarray-version }}
             netCDF4
             packaging
             build
