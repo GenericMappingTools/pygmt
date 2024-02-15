@@ -8,7 +8,7 @@ the rest of the Scientific Python ecosystem, and therefore:
 * Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
 
 .. list-table::
-    :widths: 25 30 15 20 15
+    :widths: 35 15 20 45
     :header-rows: 1
 
     * - PyGMT Version
