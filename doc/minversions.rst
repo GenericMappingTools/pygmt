@@ -15,13 +15,13 @@ the rest of the Scientific Python ecosystem, and therefore:
       - GMT
       - Python
       - Core package dependencies
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ [`Documentation <https://www.pygmt.org/dev>`__]
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_* [`Documentation <https://www.pygmt.org/dev>`__]
       - >=6.3.0
       - >=3.10
       - - numpy>=1.23
         - pandas>=1.5
         - xarray>=2022.03
-    * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ (latest release) [`Documentation <https://www.pygmt.org/v0.11.0>`__]
+    * - `v0.11.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0>`_ [`Documentation <https://www.pygmt.org/v0.11.0>`__]
       - >=6.3.0
       - >=3.9
       - numpy>=1.23
@@ -89,3 +89,5 @@ the rest of the Scientific Python ecosystem, and therefore:
       - >=6.0.0
       - 3.6 - 3.8
       -
+
+* Dev reflects the main branch and is for the upcoming release.
