@@ -1,4 +1,4 @@
-09Minimum Supported Versions
+Minimum Supported Versions
 --------------------------
 
 PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
