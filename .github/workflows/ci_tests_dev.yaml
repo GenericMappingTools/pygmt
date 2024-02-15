@@ -36,7 +36,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, macos-13, windows-2022]
+        os: [ubuntu-22.04, macos-14, windows-2022]
         gmt_git_ref: [master]
     timeout-minutes: 30
     defaults:

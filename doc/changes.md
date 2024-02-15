@@ -139,7 +139,7 @@
 ### Deprecations
 
 * Remove the unused pygmt.test() function ([#2652](https://github.com/GenericMappingTools/pygmt/pull/2652))
-* Figure.image: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
+* Figure.grdimage: Deprecate parameter "bit_color" to "bitcolor" (remove in v0.12.0) ([#2635](https://github.com/GenericMappingTools/pygmt/pull/2635))
 * Figure.text: Remove the deprecated "incols" parameter (deprecated since v0.8.0) ([#2473](https://github.com/GenericMappingTools/pygmt/pull/2473))
 * NEP29: Set minimum required version to Python 3.9+ ([#2487](https://github.com/GenericMappingTools/pygmt/pull/2487))
 * NEP29: Set minimum required version to NumPy 1.22+ ([#2586](https://github.com/GenericMappingTools/pygmt/pull/2586))
