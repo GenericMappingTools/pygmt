@@ -127,4 +127,4 @@ the rest of the Scientific Python ecosystem, and therefore:
       -
       -
 
-* Dev reflects the main branch and is for the upcoming release.
+*Dev reflects the main branch and is for the upcoming release.
