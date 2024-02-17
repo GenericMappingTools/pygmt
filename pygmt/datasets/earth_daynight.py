@@ -5,12 +5,13 @@ server, and load as :class:`xarray.DataArray`.
 The grids are available in various resolutions.
 """
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
-from pygmt.helpers import kwargs_to_strings
+
+# from pygmt.helpers import kwargs_to_strings
 
 __doctest_skip__ = ["load_blue_marble"]
 
 
-@kwargs_to_strings(region="sequence")
+# @kwargs_to_strings(region="sequence")
 def load_blue_marble(resolution="01d"):
     r"""
     Load NASA Blue Marble images in various resolutions.
@@ -43,11 +44,18 @@ def load_blue_marble(resolution="01d"):
 
     Returns
     -------
-    grid : :class:`xarray.DataArray`
-        The NASA Blue Marble grid. Coordinates are latitude and longitude in degrees.
+    image : :class:`xarray.DataArray`
+        The NASA Blue Marble image. Coordinates are latitude and longitude in degrees.
+
+    Examples
+    --------
+
+    >>> from pygmt.datasets import load_blue_marble
+    >>> # load the default image (pixel-registered 1 arc-degree image)
+    >>> image = load_blue_marble()
     """
     grid = _load_remote_dataset(
-        dataset_name="blue_marble",
+        dataset_name="earth_day",
         dataset_prefix="earth_day_",
         resolution=resolution,
         region=None,
