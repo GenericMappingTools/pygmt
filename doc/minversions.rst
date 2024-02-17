@@ -15,7 +15,7 @@ the rest of the Scientific Python ecosystem, and therefore:
       - GMT
       - Python
       - Core package dependencies
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_* [`Docs <https://www.pygmt.org/dev>`__]
+    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ * [`Docs <https://www.pygmt.org/dev>`__]
       - >=6.3.0
       - >=3.10
       - - numpy>=1.23
