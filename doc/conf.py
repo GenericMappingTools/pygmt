@@ -1,20 +1,20 @@
-# -*- coding: utf-8 -*-
 """
 Sphinx documentation configuration file.
 """
-# pylint: disable=invalid-name
-
 import datetime
+from importlib.metadata import metadata
 
-# isort: off
-from sphinx_gallery.sorting import (  # pylint: disable=no-name-in-module
-    ExplicitOrder,
-    ExampleTitleSortKey,
-)
+# ruff: isort: off
+from sphinx_gallery.sorting import ExplicitOrder, ExampleTitleSortKey
+import pygmt
 from pygmt import __commit__, __version__
 from pygmt.sphinx_gallery import PyGMTScraper
 
-# isort: on
+# ruff: isort: on
+
+requires_python = metadata("pygmt")["Requires-Python"]
+with pygmt.clib.Session() as lib:
+    requires_gmt = f">={lib.required_version}"
 
 extensions = [
     "myst_parser",
@@ -27,6 +27,7 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    "sphinx_autodoc_typehints",
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_gallery.gen_gallery",
@@ -37,28 +38,45 @@ autosummary_generate = []
 
 # Auto-generate header anchors with MyST parser
 myst_heading_anchors = 4
-# Allow code fences using colons
-myst_enable_extensions = ["colon_fence"]
+# reference: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+myst_enable_extensions = [
+    "attrs_inline",  # Allow inline attributes after images
+    "colon_fence",  # Allow code fences using colons
+    "substitution",  # Allow substituitions
+]
+# These enable substitutions using {{ key }} in the Markdown files
+myst_substitutions = {
+    "requires_python": requires_python,
+    "requires_gmt": requires_gmt,
+}
+
 
 # Make the list of returns arguments and attributes render the same as the
 # parameters list
 napoleon_use_rtype = False
 napoleon_use_ivar = True
 
+# sphinx_auto_typehints
+typehints_defaults = "comma"
+
 # configure links to GMT docs
 extlinks = {
-    "gmt-docs": ("https://docs.generic-mapping-tools.org/latest/%s", None),
-    "gmt-term": ("https://docs.generic-mapping-tools.org/latest/gmt.conf#term-%s", ""),
+    "gmt-docs": ("https://docs.generic-mapping-tools.org/6.5/%s", None),
+    "gmt-term": ("https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-%s", "%s"),
     "gmt-datasets": ("https://www.generic-mapping-tools.org/remote-datasets/%s", None),
 }
 
 # intersphinx configuration
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3/", None),
+    "contextily": ("https://contextily.readthedocs.io/en/stable/", None),
     "geopandas": ("https://geopandas.org/en/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "python": ("https://docs.python.org/3/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "xarray": ("https://xarray.pydata.org/en/stable/", None),
+    "rasterio": ("https://rasterio.readthedocs.io/en/stable/", None),
+    "rioxarray": ("https://corteva.github.io/rioxarray/stable/", None),
+    "xarray": ("https://docs.xarray.dev/en/stable/", None),
+    "xyzservices": ("https://xyzservices.readthedocs.io/en/stable", None),
 }
 
 # options for sphinx-copybutton
@@ -73,11 +91,11 @@ sphinx_gallery_conf = {
     "examples_dirs": [
         "../examples/gallery",
         "../examples/tutorials",
-        "../examples/get-started",
+        "../examples/get_started",
         "../examples/projections",
     ],
     # path where to save gallery generated examples
-    "gallery_dirs": ["gallery", "tutorials", "get-started", "projections"],
+    "gallery_dirs": ["gallery", "tutorials", "get_started", "projections"],
     "subsection_order": ExplicitOrder(
         [
             "../examples/gallery/maps",
@@ -97,10 +115,10 @@ sphinx_gallery_conf = {
             "../examples/projections/table",
             "../examples/tutorials/basics",
             "../examples/tutorials/advanced",
-            "../examples/get-started",
+            "../examples/get_started",
         ]
     ),
-    # Patter to search for example files
+    # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
@@ -134,7 +152,7 @@ root_doc = "index"
 # General information about the project
 year = datetime.date.today().year
 project = "PyGMT"
-copyright = f"2017-{year}, The PyGMT Developers"  # pylint: disable=redefined-builtin
+copyright = f"2017-{year}, The PyGMT Developers"  # noqa: A001
 if len(__version__.split("+")) > 1 or __version__ == "unknown":
     version = "dev"
     # Set base_url for stable version
@@ -144,11 +162,6 @@ else:
     # Set base_url for dev version
     html_baseurl = "https://pygmt.org/latest/"
 release = __version__
-
-# These enable substitutions using |variable| in the rst files
-rst_epilog = f"""
-.. |year| replace:: {year}
-"""
 
 html_last_updated_fmt = "%b %d, %Y"
 html_title = "PyGMT"
@@ -201,7 +214,11 @@ html_context = {
     "doc_path": "doc",
     "galleries": sphinx_gallery_conf["gallery_dirs"],
     "gallery_dir": dict(
-        zip(sphinx_gallery_conf["gallery_dirs"], sphinx_gallery_conf["examples_dirs"])
+        zip(
+            sphinx_gallery_conf["gallery_dirs"],
+            sphinx_gallery_conf["examples_dirs"],
+            strict=True,
+        )
     ),
     "github_repo": repository,
     "github_version": "main",

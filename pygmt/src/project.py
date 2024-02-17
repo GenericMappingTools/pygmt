@@ -100,9 +100,9 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
 
     center : str or list
@@ -189,7 +189,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
         a specific number of unique equidistant data via ``generate``. For
         degenerate ellipses you can just supply a single *diameter* instead.  A
         geographic diameter may be specified in any desired unit other than km
-        by appending the unit (e.g., 3d for degrees) [Default is km];
+        by appending the unit (e.g., 3-D for degrees) [Default is km];
         the increment is assumed to be in the same unit.  **Note**:
         For the Cartesian ellipse (which requires ``flat_earth``), the
         *direction* is counter-clockwise from the horizontal instead of an
@@ -227,7 +227,6 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
-                # Choose how data will be passed into the module
                 table_context = lib.virtualfile_from_data(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
                 )

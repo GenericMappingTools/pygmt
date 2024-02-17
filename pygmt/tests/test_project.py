@@ -1,7 +1,7 @@
 """
-Tests for project.
+Test pygmt.project.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -34,6 +34,7 @@ def test_project_generate():
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, pd.DataFrame, xr.Dataset])
 def test_project_input_matrix(array_func, dataframe):
     """
@@ -52,8 +53,7 @@ def test_project_input_matrix(array_func, dataframe):
 
 def test_project_output_filename(dataframe):
     """
-    Run project by passing in a pandas.DataFrame, and output to an ASCII txt
-    file.
+    Run project by passing in a pandas.DataFrame, and output to an ASCII txt file.
     """
     with GMTTempFile() as tmpfile:
         output = project(
@@ -64,7 +64,7 @@ def test_project_output_filename(dataframe):
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (1, 6)
         npt.assert_allclose(
@@ -76,8 +76,8 @@ def test_project_output_filename(dataframe):
 
 def test_project_incorrect_parameters():
     """
-    Run project by providing incorrect parameters such as 1) no `center`; 2) no
-    `data` or `generate`; and 3) `generate` with `convention`.
+    Run project by providing incorrect parameters such as 1) no `center`; 2) no `data`
+    or `generate`; and 3) `generate` with `convention`.
     """
     with pytest.raises(GMTInvalidInput):
         # No `center`

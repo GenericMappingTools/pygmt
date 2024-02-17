@@ -1,7 +1,7 @@
 """
-Tests for grdvolume.
+Test pygmt.grdvolume.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -75,6 +75,7 @@ def test_grdvolume_no_outfile(grid):
         grdvolume(grid=grid, output_type="file")
 
 
+@pytest.mark.benchmark
 def test_grdvolume_no_outgrid(grid, data, region):
     """
     Test the expected output of grdvolume with no output file set.
@@ -98,4 +99,4 @@ def test_grdvolume_outgrid(grid, region):
             region=region,
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists

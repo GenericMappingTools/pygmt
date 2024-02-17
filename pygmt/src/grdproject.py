@@ -56,11 +56,8 @@ def grdproject(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     inverse : bool
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
@@ -79,13 +76,15 @@ def grdproject(grid, **kwargs):
     scaling : str
         [**c**\|\ **i**\|\ **p**\|\ **e**\|\ **f**\|\
         **k**\|\ **M**\|\ **n**\|\ **u**].
-        Force 1:1 scaling, i.e., output or output data are in actual projected
-        meters [**e**]. To specify other units, append **f** (foot),
-        **k** (km), **M** (statute mile), **n** (nautical mile), **u**
-        (US survey foot), **i** (inch), **c** (cm), or **p** (point).
+        Force 1:1 scaling, i.e., output or input data are in actual projected
+        meters [**e**]. To specify other units, append **f** (feet),
+        **k** (kilometers), **M** (statute miles), **n** (nautical miles),
+        **u** (US survey feet), **i** (inches), **c** (centimeters), or
+        **p** (points).
     unit : str
-        Append **c**, **i**, or **p** to indicate that cm, inch, or point
-        should be the projected measure unit. Cannot be used with ``scaling``.
+        Append **c**, **i**, or **p** to indicate that centimeters, inches, or
+        points should be the projected measure unit. Cannot be used with
+        ``scaling``.
     {verbose}
     {interpolation}
     {registration}
@@ -102,15 +101,12 @@ def grdproject(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
-    >>> # Create a new grid from the input grid, set the projection to
-    >>> # Mercator, and set inverse to "True" to change from "geographic"
-    >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")

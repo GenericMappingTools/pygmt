@@ -6,13 +6,13 @@ import os
 from pathlib import Path
 
 import pandas as pd
+from packaging.version import Version
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
     data_kind,
-    dummy_context,
     fmt_docstring,
     kwargs_to_strings,
     unique_name,
@@ -23,9 +23,9 @@ from pygmt.helpers import (
 @contextlib.contextmanager
 def tempfile_from_dftrack(track, suffix):
     """
-    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text
-    file with a unique name (to prevent clashes when running x2sys_cross),
-    adding a suffix extension to the end.
+    Saves pandas.DataFrame track table to a temporary tab-separated ASCII text file with
+    a unique name (to prevent clashes when running x2sys_cross), adding a suffix
+    extension to the end.
 
     Parameters
     ----------
@@ -48,7 +48,7 @@ def tempfile_from_dftrack(track, suffix):
             sep="\t",
             index=False,
             na_rep="NaN",  # write a NaN value explicitly instead of a blank string
-            date_format="%Y-%m-%dT%H:%M:%S.%fZ",
+            date_format="%Y-%m-%dT%H:%M:%S.%fZ",  # ISO8601 format
         )
         yield tmpfilename
     finally:
@@ -196,7 +196,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         for track in tracks:
             kind = data_kind(track)
             if kind == "file":
-                file_contexts.append(dummy_context(track))
+                file_contexts.append(contextlib.nullcontext(track))
             elif kind == "matrix":
                 # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
                 # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
@@ -230,12 +230,18 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             # Read temporary csv output to a pandas table
             if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
                 # Read the tab-separated ASCII table
+                date_format_kwarg = (
+                    {"date_format": "ISO8601"}
+                    if Version(pd.__version__) >= Version("2.0.0")
+                    else {}
+                )
                 table = pd.read_csv(
                     tmpfile.name,
                     sep="\t",
                     header=2,  # Column names are on 2nd row
                     comment=">",  # Skip the 3rd row with a ">"
                     parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
+                    **date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
                 )
                 # Remove the "# " from "# x" in the first column
                 table = table.rename(columns={table.columns[0]: table.columns[0][2:]})

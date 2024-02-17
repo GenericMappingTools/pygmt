@@ -23,11 +23,12 @@ def which(fname, **kwargs):
     defined), (3) in $GMT_DATADIR (if defined), or (4) in $GMT_CACHEDIR
     (if defined).
 
-    ``fname`` can also be a downloadable file (either a full URL, a
-    `@file` special file for downloading from the GMT Site Cache, or
-    `@earth_relief_*` topography grids). In these cases, use parameter
-    ``download`` to set the desired behavior. If ``download`` is not used
-    (or False), the file will not be found.
+    ``fname`` can also be a downloadable file (either a complete URL, an
+    @file for downloading from the GMT data server, or any of the remote
+    datasets at https://www.pygmt.org/latest/api/index.html#datasets).
+    In these cases, use the ``download`` parameter to set the desired
+    behavior. If ``download`` is not used (or ``False``), the file will
+    not be found.
 
     Full option list at :gmt-docs:`gmtwhich.html`
 
@@ -39,15 +40,17 @@ def which(fname, **kwargs):
         One or more file names of any data type (grids, tables, etc.).
     download : bool or str
         [**a**\|\ **c**\|\ **l**\|\ **u**].
-        If the fname argument is a downloadable file (either a complete URL, an
-        @file for downloading from the GMT data server, or @earth_relief_xxy)
-        we will try to download the file if it is not found in your local data
-        or cache dirs. By default [``download=True`` or ``download="l"``] we
-        download to the current directory. Use **a** to place files in the
-        appropriate folder under the user directory (this is where GMT normally
-        places downloaded files), **c** to place it in the user cache
-        directory, or **u** for the user data directory instead (i.e., ignoring
-        any subdirectory structure).
+        If the ``fname`` argument is a downloadable file (either a complete
+        URL, an @file for downloading from the GMT data server, or any of
+        the remote datasets at
+        https://www.pygmt.org/latest/api/index.html#datasets)
+        we will try to download the file if it is not found in your local
+        data or cache directories. If set to ``True`` or **l** is passed
+        the file is downloaded to the current directory. Use **a** to place
+        files in the appropriate folder under the user directory (this is
+        where GMT normally places downloaded files), **c** to place it in
+        the user cache directory, or **u** for the user data directory
+        instead (i.e., ignoring any subdirectory structure).
     {verbose}
 
     Returns

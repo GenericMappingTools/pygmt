@@ -1,14 +1,17 @@
+# ruff: noqa: RUF003
 """
 Roads
------
+=====
+
 The :meth:`pygmt.Figure.plot` method allows us to plot geographical data such
 as lines which are stored in a :class:`geopandas.GeoDataFrame` object. Use
 :func:`geopandas.read_file` to load data from any supported OGR format such as
 a shapefile (.shp), GeoJSON (.geojson), geopackage (.gpkg), etc. Then, pass the
-:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter in
+:class:`geopandas.GeoDataFrame` as an argument to the ``data`` parameter of
 :meth:`pygmt.Figure.plot`, and style the geometry using the ``pen`` parameter.
 """
 
+# %%
 import geopandas as gpd
 import pygmt
 
@@ -24,10 +27,10 @@ roads_interstate = gdf[gdf.RTTYP == "I"]  # Interstate roads
 
 fig = pygmt.Figure()
 
-# Define target region around O'ahu (Hawai'i)
+# Define target region around Oʻahu (Hawaiʻi)
 region = [-158.3, -157.6, 21.2, 21.75]  # xmin, xmax, ymin, ymax
 
-title = r"Main roads of O\047ahu (Hawai\047i)"  # \047 is octal code for '
+title = "Main roads of O`ahu (Hawai`i)"  # Approximating the Okina letter ʻ with `
 fig.basemap(region=region, projection="M12c", frame=["af", f"WSne+t{title}"])
 fig.coast(land="gray", water="dodgerblue4", shorelines="1p,black")
 

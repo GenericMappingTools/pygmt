@@ -1,17 +1,10 @@
 """
 grdview - Create a three-dimensional plot from a grid.
 """
-import contextlib
-
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    build_arg_string,
-    data_kind,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+
+__doctest_skip__ = ["grdview"]
 
 
 @fmt_docstring
@@ -54,9 +47,7 @@ def grdview(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input relief grid or the grid loaded as a
-        DataArray.
+    {grid}
     region : str or list
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
@@ -77,11 +68,11 @@ def grdview(self, grid, **kwargs):
         (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
         *level*\ [**+g**\ *fill*].
-        Draws a plane at this z-level. If the optional color is provided
+        Draw a plane at this z-level. If the optional color is provided
         via the **+g** modifier, and the projection is not oblique, the frontal
         facade between the plane and the data perimeter is colored.
     surftype : str
-        Specifies cover type of the grid.
+        Specify cover type of the grid.
         Select one of following settings:
 
         - **m** - mesh plot [Default].
@@ -97,10 +88,10 @@ def grdview(self, grid, **kwargs):
         Draw contour lines on top of surface or mesh (not image). Append
         pen attributes used for the contours.
     meshpen : str
-        Sets the pen attributes used for the mesh. You must also select
+        Set the pen attributes used for the mesh. You must also select
         ``surftype`` of **m** or **sm** for meshlines to be drawn.
     facadepen :str
-        Sets the pen attributes used for the facade. You must also select
+        Set the pen attributes used for the facade. You must also select
         ``plane`` for the facade outline to be drawn.
     shading : str
         Provide the name of a grid file with intensities in the (-1,+1)
@@ -117,26 +108,48 @@ def grdview(self, grid, **kwargs):
     {interpolation}
     {perspective}
     {transparency}
-    """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
 
-        with contextlib.ExitStack() as stack:
-            if kwargs.get("G") is not None:
-                # deal with kwargs["G"] if drapegrid is xr.DataArray
-                drapegrid = kwargs["G"]
-                if data_kind(drapegrid) in ("file", "grid"):
-                    if data_kind(drapegrid) == "grid":
-                        drape_context = lib.virtualfile_from_data(
-                            check_kind="raster", data=drapegrid
-                        )
-                        kwargs["G"] = stack.enter_context(drape_context)
-                else:
-                    raise GMTInvalidInput(
-                        f"Unrecognized data type for drapegrid: {type(drapegrid)}"
-                    )
-            fname = stack.enter_context(file_context)
+    Example
+    -------
+    >>> import pygmt
+    >>> # load the 30 arc-minutes grid with "gridline" registration
+    >>> # in a specified region
+    >>> grid = pygmt.datasets.load_earth_relief(
+    ...     resolution="30m",
+    ...     region=[-92.5, -82.5, -3, 7],
+    ...     registration="gridline",
+    ... )
+    >>> # create a new figure instance with pygmt.Figure()
+    >>> fig = pygmt.Figure()
+    >>> # create the contour plot
+    >>> fig.grdview(
+    ...     # pass in the grid downloaded above
+    ...     grid=grid,
+    ...     # set the perspective to an azimuth of 130° and an elevation of 30°
+    ...     perspective=[130, 30],
+    ...     # add a frame to the x- and y-axes
+    ...     # specify annotations on the south and east borders of the plot
+    ...     frame=["xa", "ya", "wSnE"],
+    ...     # set the projection of the 2-D map to Mercator with a 10 cm width
+    ...     projection="M10c",
+    ...     # set the vertical scale (z-axis) to 2 cm
+    ...     zsize="2c",
+    ...     # set "surface plot" to color the surface via a CPT
+    ...     surftype="s",
+    ...     # specify CPT to "geo"
+    ...     cmap="geo",
+    ... )
+    >>> # show the plot
+    >>> fig.show()
+    """
+    kwargs = self._preprocess(**kwargs)
+    with Session() as lib:
+        with lib.virtualfile_from_data(
+            check_kind="raster", data=grid
+        ) as fname, lib.virtualfile_from_data(
+            check_kind="raster", data=kwargs.get("G"), required_data=False
+        ) as drapegrid:
+            kwargs["G"] = drapegrid
             lib.call_module(
                 module="grdview", args=build_arg_string(kwargs, infile=fname)
             )

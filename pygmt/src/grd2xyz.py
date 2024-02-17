@@ -1,7 +1,6 @@
 """
 grd2xyz - Convert grid to data table
 """
-import warnings
 
 import pandas as pd
 import xarray as xr
@@ -13,6 +12,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grd2xyz"]
@@ -46,9 +46,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a
-        :class:`xarray.DataArray`. This is the only required parameter.
+    {grid}
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
@@ -131,33 +129,19 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )
     >>> # Create a pandas DataFrame with the xyz data from an input grid
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
-         lon    lat  elevation
-    0  10.25  24.75      903.5
-    1  10.75  24.75      820.0
+        lon   lat  elevation
+    0  10.0  25.0      965.5
+    1  10.5  25.0      876.5
     """
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput(
-            "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-        )
-
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing 'output_type' of grd2xyz from '{output_type}' to 'file' "
-            "since 'outfile' parameter is set. Please use output_type='file' "
-            "to silence this warning."
-        )
-        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif outfile is None and output_type == "file":
-        raise GMTInvalidInput("Must specify 'outfile' for ASCII output.")
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     if kwargs.get("o") is not None and output_type == "pandas":
         raise GMTInvalidInput(

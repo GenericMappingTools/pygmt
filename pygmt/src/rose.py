@@ -5,7 +5,6 @@ rose - Plot windrose diagrams or polar histograms.
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -13,7 +12,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="sector",
     B="frame",
@@ -30,7 +28,6 @@ from pygmt.helpers import (
     R="region",
     S="norm",
     T="orientation",
-    U="timestamp",
     V="verbose",
     W="pen",
     Z="scale",
@@ -65,8 +62,8 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
-        Pass in either a file name to an ASCII data table, a 2D
+    data : str, {table-like}
+        Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Use parameter ``incols`` to choose which columns are length and
         azimuth, respectively. If a file with only azimuths is given, use
@@ -74,12 +71,12 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         lengths are set to unity (see ``scale="u"`` to set actual
         lengths to unity as well).
 
-    length/azimuth : float or 1d arrays
+    length/azimuth : float or 1-D arrays
         Length and azimuth values, or arrays of length and azimuth
-        values
+        values.
 
     orientation : bool
-        Specifies that the input data are orientation data (i.e., have a
+        Specify that the input data are orientation data (i.e., have a
         180 degree ambiguity) instead of true 0-360 degree directions
         [Default is 0-360 degrees]. We compensate by counting each record
         twice: First as azimuth and second as azimuth +180. Ignored if
@@ -88,17 +85,17 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     region : str or list
         *r0/r1/az0/az1* or [*r0*, *r1*, *az0*, *az1*].
         *Required if this is the first plot command*.
-        Specifies the ``region`` of interest in (*r*, *azimuth*) space.
+        Specify the ``region`` of interest in (*r*, *azimuth*) space.
         Here, *r0* is 0 and *r1* is the maximal length in units.
         For *az0* and *az1*, specify either (-90, 90) or (0, 180) for
         half circle plot or (0, 360) for full circle.
 
     diameter : str
-         Sets the diameter of the rose diagram. If not given,
+         Set the diameter of the rose diagram. If not given,
          then we default to a diameter of 7.5 cm.
 
     sector : float or str
-         Gives the sector width in degrees for sector and rose diagram.
+         Give the sector width in degrees for sector and rose diagram.
          Default ``0`` means windrose diagram. Append **+r** to draw rose
          diagram instead of sector diagram (e.g. ``"10+r"``).
 
@@ -109,7 +106,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
 
     frame : str
          Set map boundary frame and axes attributes. Remember that *x*
-         here is radial distance and *y* is azimuth. The ylabel may be
+         here is radial distance and *y* is azimuth. The y label may be
          used to plot a figure caption. The scale bar length is determined
          by the radial gridline spacing.
 
@@ -120,8 +117,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
          [Default is no scaling].
 
     fill : str
-         Selects shade, color or pattern for filling the sectors [Default
-         is no fill].
+         Set color or pattern for filling sectors [Default is no fill].
 
     cmap : str
         Give a CPT. The *r*-value for each sector is used to look-up the
@@ -177,7 +173,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         individual directions using the supplied attributes.
 
     alpha : float or str
-        Sets the confidence level used to determine if the mean
+        Set the confidence level used to determine if the mean
         resultant is significant (i.e., Lord Rayleigh test for
         uniformity) [Default is ``alpha=0.05``]. **Note**: The
         critical values are approximated [Berens, 2009] and requires
@@ -189,7 +185,6 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
         Statistics, *J. Stat. Software*, 31(10), 1-21,
         https://doi.org/10.18637/jss.v031.i10.
 
-    {timestamp}
     {verbose}
     {binary}
     {panel}
@@ -202,10 +197,9 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {wrap}
     """
 
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=data, x=length, y=azimuth
         )

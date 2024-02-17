@@ -1,12 +1,12 @@
 """
 Datetime inputs
----------------
+===============
 
 Datetime inputs of the following types are supported in PyGMT:
 
 - :class:`numpy.datetime64`
 - :class:`pandas.DatetimeIndex`
-- :class:`xarray.DataArray`: datetimes included in a *xarray.DataArray*
+- :class:`xarray.DataArray`: datetimes included in an *xarray.DataArray*
 - raw datetime strings in
   `ISO 8601 format <https://en.wikipedia.org/wiki/ISO_8601>`__ (e.g.
   ``"YYYY-MM-DD"``, ``"YYYY-MM-DDTHH"``, and ``"YYYY-MM-DDTHH:MM:SS"``)
@@ -21,6 +21,7 @@ in the form [*date_min*, *date_max*, *ymin*, *ymax*]. Here *date_min* and
 
 """
 
+# %%
 import datetime
 
 import numpy as np

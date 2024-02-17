@@ -1,4 +1,10 @@
-# This workflow checks the links in plaintext and HTML files
+# Check links in the repository and documentation
+#
+# This workflow runs the lychee tool to check all external links in plaintext
+# and HTML files. It will create an issue if broken links are found.
+#
+# It is scheduled to run weekly at 12 noon every Sunday.
+#
 name: Check Links
 
 on:
@@ -12,21 +18,23 @@ jobs:
   check_links:
     name: Check Links
     runs-on: ubuntu-latest
+    if: github.repository == 'GenericMappingTools/pygmt'
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
-      uses: lycheeverse/lychee-action@v1.5.4
+      id: lychee
+      uses: lycheeverse/lychee-action@v1.9.3
       with:
         # 429: Too many requests
         args: >
@@ -37,10 +45,11 @@ jobs:
           --exclude "^https://zenodo.org/badge/DOI/10.5281/zenodo$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/pull/[0-9]*$"
           --exclude "^https://github.com/GenericMappingTools/pygmt/issues/[0-9]*$"
+          --exclude "^https://github.com/GenericMappingTools/gmt/releases/tag/X.Y.Z$"
           --exclude "^git"
           --exclude "^file://"
-          --exclude "^https://docs.generic-mapping-tools.org/latest/%s$"
-          --exclude "^https://docs.generic-mapping-tools.org/latest/%3Cmodule-name%3E.html$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.5/%s$"
+          --exclude "^https://docs.generic-mapping-tools.org/6.5/%3Cmodule-name%3E.html$"
           --exclude "^https://www.generic-mapping-tools.org/remote-datasets/%s$"
           --exclude "^https://hackmd.io/@pygmt"
           --exclude "^https://doi.org"
@@ -51,15 +60,14 @@ jobs:
           "repository/**/*.md"
           "repository/**/*.py"
           "documentation/dev/**/*.html"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Get current date
       id: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Create Issue From File
-      uses: peter-evans/create-issue-from-file@v4
+      if: env.lychee_exit_code != 0
+      uses: peter-evans/create-issue-from-file@v5
       with:
         title: Link Checker Report on ${{ steps.date.outputs.date }}
         content-filepath: ./lychee/out.md

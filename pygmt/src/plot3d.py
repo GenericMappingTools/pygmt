@@ -6,7 +6,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -16,7 +15,6 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -50,7 +48,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
+def plot3d(  # noqa: PLR0912
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -62,7 +60,7 @@ def plot3d(
     Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
     If providing data through ``x``, ``y``, and ``z``, ``fill`` can be a
-    1d array that will be mapped to a colormap.
+    1-D array that will be mapped to a colormap.
 
     If a symbol is selected and no symbol size given, then plot3d will
     interpret the fourth column of the input data as symbol size. Symbols
@@ -72,7 +70,7 @@ def plot3d(
     be drawn instead. To explicitly close polygons, use ``close``. Select a
     fill with ``fill``. If ``fill`` is set, ``pen`` will control whether the
     polygon outline is drawn or not. If a symbol is selected, ``fill`` and
-    ``pen`` determines the fill and outline/no outline, respectively.
+    ``pen`` determine the fill and outline/no outline, respectively.
 
     Full option list at :gmt-docs:`plot3d.html`
 
@@ -80,19 +78,19 @@ def plot3d(
 
     Parameters
     ----------
-    data : str or {table-like}
-        Either a data file name, a 2d {table-classes}.
+    data : str, {table-like}
+        Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
-    x/y/z : float or 1d arrays
+    x/y/z : float or 1-D arrays
         The x, y, and z coordinates, or arrays of x, y and z coordinates of
-        the data points
-    size : 1d array
+        the data points.
+    size : 1-D array
         The size of the data points in units specified in ``style``.
         Only valid if using ``x``/``y``/``z``.
-    direction : list of two 1d arrays
+    direction : list of two 1-D arrays
         If plotting vectors (using ``style="V"`` or ``style="v"``), then
-        should be a list of two 1d arrays with the vector directions. These
+        should be a list of two 1-D arrays with the vector directions. These
         can be angle and length, azimuth and length, or x and y components,
         depending on the style options chosen.
     {projection}
@@ -118,15 +116,15 @@ def plot3d(
         Offset the plot symbol or line locations by the given amounts
         *dx*/*dy*\ [/*dz*] [Default is no offset].
     {fill}
-        *fill* can be a 1d array, but it is only valid if using ``x``/``y``
+        *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1d array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
         data column after the symbol parameters (if given). *intensity* can
-        also be a 1d array to set varying intensity for symbols, but it is only
-        valid for ``x``/``y``/``z``.
+        also be a 1-D array to set varying intensity for symbols, but it is
+        only valid for ``x``/``y``/``z``.
 
     close : str
         [**+b**\|\ **d**\|\ **D**][**+xl**\|\ **r**\|\ *x0*]\
@@ -135,10 +133,11 @@ def plot3d(
         :gmt-docs:`plot3d.html#l`.
     no_clip : bool or str
         [**c**\|\ **r**].
-        Do NOT clip symbols that fall outside map border [Default plots
-        points whose coordinates are strictly inside the map border only].
+        Do **not** clip symbols that fall outside the frame boundaries
+        [Default plots points whose coordinates are strictly inside the
+        frame boundaries only].
         This parameter does not apply to lines and polygons which are always
-        clipped to the map region. For periodic (360-longitude) maps we
+        clipped to the map region. For periodic (360° longitude) maps we
         must plot all symbols twice in case they are clipped by the
         repeating boundary. ``no_clip=True`` will turn off clipping and not
         plot repeating symbols. Use ``no_clip="r"`` to turn off clipping
@@ -151,7 +150,6 @@ def plot3d(
         the foreground are plotted after items in the background.
     style : str
         Plot symbols. Full documentation is at :gmt-docs:`plot3d.html#s`.
-    {timestamp}
     {verbose}
     {pen}
     zvalue : str
@@ -175,13 +173,12 @@ def plot3d(
     {label}
     {perspective}
     {transparency}
-        ``transparency`` can also be a 1d array to set varying
+        ``transparency`` can also be a 1-D array to set varying
         transparency for symbols, but this option is only valid if using
         ``x``/``y``/``z``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data, x, y, z)
 
@@ -197,14 +194,14 @@ def plot3d(
     elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
         # checking that the data is a file path to set default style
         try:
-            with open(which(data), mode="r", encoding="utf8") as file:
+            with open(which(data), encoding="utf8") as file:
                 line = file.readline()
             if "@GMULTIPOINT" in line or "@GPOINT" in line:
                 # if the file is gmt style and geometry is set to Point
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
+    if is_nonstr_iter(kwargs.get("G")):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
@@ -219,7 +216,7 @@ def plot3d(
         extra_arrays.append(size)
 
     for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
+        if is_nonstr_iter(kwargs.get(flag)):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
@@ -228,7 +225,6 @@ def plot3d(
             kwargs[flag] = ""
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
         file_context = lib.virtualfile_from_data(
             check_kind="vector",
             data=data,

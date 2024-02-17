@@ -1,20 +1,11 @@
 """
-Tests Figure.basemap.
+Test Figure.basemap.
 """
 import pytest
 from pygmt import Figure
 
 
-@pytest.mark.mpl_image_compare
-def test_basemap_required_args():
-    """
-    Automatically set `frame=True` when required arguments are not given.
-    """
-    fig = Figure()
-    fig.basemap(region=[10, 70, -3, 8], projection="X8c/6c")
-    return fig
-
-
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_basemap():
     """
@@ -85,11 +76,11 @@ def test_basemap_utm_projection(projection):
     """
     Create a Universal Transverse Mercator (Zone 23S) basemap plot.
 
-    Also check that providing the projection as an EPSG code or PROJ4 string
-    works.
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
     projection = projection.replace(
-        "EPSG_", "EPSG:"  # workaround Windows not allowing colons in filenames
+        "EPSG_",
+        "EPSG:",  # workaround Windows not allowing colons in filenames
     )
     fig = Figure()
     fig.basemap(region=[-52, -50, -12, -11], projection=projection, frame="afg")
@@ -135,4 +126,19 @@ def test_basemap_map_scale():
         frame=True,
         map_scale="jMC+c26.5+w10k+f+l",
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_basemap_subplot():
+    """
+    Test in subplot mode for the case that the frame parameter of basemap is not
+    specified.
+    """
+    fig = Figure()
+    with fig.subplot(nrows=1, ncols=2, figsize=("10c", "5c")):
+        with fig.set_panel(panel=0):
+            fig.basemap(region=[0, 10, 0, 10], projection="X?")
+        with fig.set_panel(panel=1):
+            fig.basemap(region=[0, 10, 0, 10], projection="X?")
     return fig

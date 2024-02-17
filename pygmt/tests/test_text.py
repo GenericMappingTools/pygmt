@@ -1,5 +1,5 @@
 """
-Tests text.
+Test Figure.text.
 """
 import os
 
@@ -46,6 +46,7 @@ def test_text_single_line_of_text(region, projection):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_text_multiple_lines_of_text(region, projection):
     """
@@ -113,8 +114,8 @@ def test_text_nonexistent_filename():
 @pytest.mark.mpl_image_compare
 def test_text_position(region):
     """
-    Print text at center middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right).
+    Print text at center middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right).
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -147,9 +148,9 @@ def test_text_invalid_inputs(region):
 @pytest.mark.mpl_image_compare
 def test_text_position_offset_with_line(region):
     """
-    Print text at centre middle (CM) and eight other positions
-    (Top/Middle/Bottom x Left/Centre/Right), offset by 0.5 cm, with a line
-    drawn from the original to the shifted point.
+    Print text at centre middle (CM) and eight other positions (Top/Middle/Bottom x
+    Left/Centre/Right), offset by 0.5 cm, with a line drawn from the original to the
+    shifted point.
     """
     fig = Figure()
     fig.text(region=region, projection="x1c", frame="a", position="CM", text="C M")
@@ -272,12 +273,11 @@ def test_text_justify_bottom_right_and_top_left(region, projection):
 @pytest.mark.mpl_image_compare
 def test_text_justify_parsed_from_textfile():
     """
-    Print text justified based on a column from textfile, using justify=True
-    boolean operation.
+    Print text justified based on a column from textfile, using justify=True boolean
+    operation.
 
-    Loosely based on "All great-circle paths lead to Rome"
-    gallery example at
-    https://gmt.soest.hawaii.edu/doc/latest/gallery/ex23.html
+    Loosely based on "All great-circle paths lead to Rome" gallery example at
+    https://docs.generic-mapping-tools.org/latest/gallery/ex23.html
     """
     fig = Figure()
     fig.text(
@@ -293,8 +293,8 @@ def test_text_justify_parsed_from_textfile():
 @pytest.mark.mpl_image_compare
 def test_text_angle_font_justify_from_textfile():
     """
-    Print text with x, y, angle, font, justify, and text arguments parsed from
-    the textfile.
+    Print text with x, y, angle, font, justify, and text arguments parsed from the
+    textfile.
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
@@ -312,6 +312,40 @@ def test_text_angle_font_justify_from_textfile():
     return fig
 
 
+@pytest.mark.mpl_image_compare(filename="test_text_position.png")
+def test_text_justify_array(region):
+    """
+    Test passing an array of justify codes.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="x1c", frame="a")
+    fig.text(
+        x=[0, 2.5, 5.0, 0, 2.5, 5.0, 0, 2.5, 5.0],
+        y=[0, 0, 0, 1.25, 1.25, 1.25, 2.5, 2.5, 2.5],
+        justify=["BL", "BC", "BR", "ML", "MC", "MR", "TL", "TC", "TR"],
+        text=["BL", "BC", "BR", "ML", "C M", "MR", "TL", "TC", "TR"],
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_angle_justify_font_arrays(region):
+    """
+    Test passing arrays of angle, justify and font.
+    """
+    fig = Figure()
+    fig.basemap(region=region, projection="X5c/2.5c", frame=True)
+    fig.text(
+        x=[2.5, 2.5],
+        y=[1.0, 2.0],
+        angle=[30, 50],
+        justify=["TL", "BR"],
+        font=["15p,Helvetica-Bold,red", "5p,Times-Italic,blue"],
+        text=["TEXT1", "TEXT2 with spaces"],
+    )
+    return fig
+
+
 @pytest.mark.mpl_image_compare
 def test_text_transparency():
     """
@@ -319,7 +353,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -334,7 +368,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()
@@ -371,4 +405,17 @@ def test_text_nonstr_text():
         y=[1, 2, 3, 4],
         text=[1, 2, 3.0, 4.0],
     )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_nonascii():
+    """
+    Test passing text strings with non-ascii characters.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 10, 0, 10], projection="X10c", frame=True)
+    fig.text(position="TL", text="position-text:°α")  # noqa: RUF001
+    fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
+    fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
     return fig

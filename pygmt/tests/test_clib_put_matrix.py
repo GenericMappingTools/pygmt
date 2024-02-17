@@ -19,9 +19,10 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.mark.benchmark
 def test_put_matrix(dtypes):
     """
-    Check that assigning a numpy 2d array to a dataset works.
+    Check that assigning a numpy 2-D array to a dataset works.
     """
     shape = (3, 4)
     for dtype in dtypes:
@@ -64,9 +65,10 @@ def test_put_matrix_fails():
                 lib.put_matrix(dataset=None, matrix=np.empty((10, 2)), pad=0)
 
 
+@pytest.mark.benchmark
 def test_put_matrix_grid(dtypes):
     """
-    Check that assigning a numpy 2d array to an ASCII and NetCDF grid works.
+    Check that assigning a numpy 2-D array to an ASCII and netCDF grid works.
     """
     wesn = [10, 15, 30, 40, 0, 0]
     inc = [1, 1]

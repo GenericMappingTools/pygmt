@@ -1,7 +1,7 @@
 """
-Tests for sphinterpolate.
+Test pygmt.sphinterpolate.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
 import pytest
@@ -25,9 +25,10 @@ def test_sphinterpolate_outgrid(mars):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = sphinterpolate(data=mars, outgrid=tmpfile.name, spacing=1, region="g")
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sphinterpolate_no_outgrid(mars):
     """
     Test sphinterpolate with no set outgrid.

@@ -60,15 +60,15 @@ def x2sys_init(tag, **kwargs):
         - **geoz** (same, with one z-column).
 
     suffix : str
-        Specifies the file extension (suffix) for these data files. If not
+        Specify the file extension (suffix) for these data files. If not
         given we use the format definition file prefix as the suffix (see
         ``fmtfile``).
 
     discontinuity : str
         **d**\|\ **g**.
-        Selects geographical coordinates. Append **d** for discontinuity at the
-        Dateline (makes longitude go from -180 to +180) or **g** for
-        discontinuity at Greenwich (makes longitude go from 0 to 360
+        Select geographical coordinates. Append **d** for discontinuity at the
+        Dateline (makes longitude go from -180° E to +180° E) or **g** for
+        discontinuity at Greenwich (makes longitude go from 0° E to 360° E
         [Default]). If not given we assume the data are Cartesian.
 
     spacing : str or list
@@ -80,17 +80,17 @@ def x2sys_init(tag, **kwargs):
 
     units : str or list
         **d**\|\ **s**\ *unit*.
-        Sets the units used for distance and speed when requested by other
+        Set the units used for distance and speed when requested by other
         programs. Append **d** for distance or **s** for speed, then give the
         desired *unit* as:
 
         - **c** - Cartesian userdist or userdist/usertime
         - **e** - meters or m/s
-        - **f** - feet or feet/s
-        - **k** - km or km/hr
-        - **m** - miles or miles/hr
+        - **f** - feet or ft/s
+        - **k** - kilometers or km/hr
+        - **m** - miles or mi/hr
         - **n** - nautical miles or knots
-        - **u** - survey feet or survey feet/s
+        - **u** - survey feet or sft/s
 
         [Default is ``units=["dk", "se"]`` (km and m/s) if ``discontinuity`` is
         set, and ``units=["dc", "sc"]`` otherwise (e.g., for Cartesian units)].

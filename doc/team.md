@@ -66,8 +66,6 @@ the PyGMT project and have responsibilities detailed in the
 :img-top: https://avatars.githubusercontent.com/u/14077947?v=4
 
 [@maxrjones](https://github.com/maxrjones)
-+++
-{bdg-primary}`Maintainer`
 ::::
 
 ::::{grid-item-card} Michael Grund
@@ -106,6 +104,16 @@ the PyGMT project and have responsibilities detailed in the
 :img-top: https://avatars.githubusercontent.com/u/29518865?v=4
 
 [@willschlitzer](https://github.com/willschlitzer)
++++
+{bdg-primary}`Maintainer`
+::::
+
+::::{grid-item-card} Yvonne Fröhlich
+:margin: 0 3 0 0
+:text-align: center
+:img-top: https://avatars.githubusercontent.com/u/94163266?v=4
+
+[@yvonnefroehlich](https://github.com/yvonnefroehlich)
 +++
 {bdg-primary}`Maintainer`
 ::::

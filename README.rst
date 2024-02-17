@@ -19,9 +19,15 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 .. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
     :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
+.. image:: https://img.shields.io/endpoint?url=https://codspeed.io/badge.json
+    :alt: CodSpeed Performance Benchmarks
+    :target: https://codspeed.io/GenericMappingTools/pygmt
 .. image:: https://img.shields.io/pypi/pyversions/pygmt.svg?style=flat-square
     :alt: Compatible Python versions.
     :target: https://pypi.python.org/pypi/pygmt
@@ -40,11 +46,8 @@ PyGMT
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
-.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
-    :alt: Twitter URL
-    :target: https://twitter.com/gmt_dev
 
-.. placeholder-for-doc-index
+.. doc-index-start-after
 
 
 Why PyGMT?
@@ -55,7 +58,7 @@ To truly understand how powerful PyGMT is, play with it online on `Binder <https
 For a quicker introduction, check out our `3 minute overview <https://youtu.be/4iPnITXrxVU>`__!
 
 Afterwards, feel free to look at our `Tutorials <https://www.pygmt.org/latest/tutorials>`__,
-visit the `PyGMT Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
+visit the `Gallery <https://www.pygmt.org/latest/gallery>`__, and check out
 some `external PyGMT examples <https://www.pygmt.org/latest/external_resources.html>`__!
 
 .. image:: https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png
@@ -68,9 +71,10 @@ About
 -----
 
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
+publication-quality maps and figures. It provides a Pythonic interface for the
 `Generic Mapping Tools (GMT) <https://github.com/GenericMappingTools/gmt>`__, a
-command-line program widely used in the Earth Sciences.
+command-line program widely used across the Earth, Ocean, and Planetary sciences
+and beyond.
 
 Project goals
 -------------
@@ -91,15 +95,29 @@ Quickstart
 Installation
 ++++++++++++
 
-Simple installation using `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
-
-    conda install --channel conda-forge pygmt
-
-If you use `mamba <https://mamba.readthedocs.org/>`__::
+Simple installation using `mamba <https://mamba.readthedocs.org/>`__::
 
     mamba install --channel conda-forge pygmt
 
-For other ways to install ``pygmt``, see `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+If you use `conda <https://docs.conda.io/projects/conda/en/latest/user-guide/index.html>`__::
+
+    conda install --channel conda-forge pygmt
+
+For other ways to install ``pygmt``, see the `full installation instructions <https://www.pygmt.org/latest/install.html>`__.
+
+Getting started
++++++++++++++++
+
+As a starting point, you can open a `Python interpreter <https://docs.python.org/3/tutorial/interpreter.html>`__
+or a `Jupyter notebook <https://docs.jupyter.org/en/latest/running.html>`__, and try the following example::
+
+    import pygmt
+    fig = pygmt.Figure()
+    fig.coast(projection="H10c", region="g", frame=True, land="gray")
+    fig.show()
+
+For more examples, please have a look at the `Gallery <https://www.pygmt.org/latest/gallery/index.html>`__
+and `Tutorials <https://www.pygmt.org/latest/tutorials/index.html>`__.
 
 
 Contacting Us
@@ -165,18 +183,19 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2022_6702566,
-      author       = {Uieda, Leonardo and
-                      Tian, Dongdong and
+    @software{pygmt_2024_10578540,
+      author       = {Tian, Dongdong and
+                      Uieda, Leonardo and
                       Leong, Wei Ji and
-                      Jones, Max and
                       Schlitzer, William and
+                      Fröhlich, Yvonne and
                       Grund, Michael and
+                      Jones, Max and
                       Toney, Liam and
                       Yao, Jiayuan and
                       Magen, Yohai and
+                      Tong, Jing-Hui and
                       Materna, Kathryn and
-                      Fröhlich, Yvonne and
                       Belem, Andre and
                       Newton, Tyler and
                       Anant, Abhishek and
@@ -184,20 +203,21 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = jul,
-      year         = 2022,
+      month        = feb,
+      year         = 2024,
       publisher    = {Zenodo},
-      version      = {v0.7.0},
-      doi          = {10.5281/zenodo.6702566},
-      url          = {https://doi.org/10.5281/zenodo.6702566}
+      version      = {0.11.0},
+      doi          = {10.5281/zenodo.10578540},
+      url          = {https://doi.org/10.5281/zenodo.10578540}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
 https://doi.org/10.5281/zenodo.3781524 and use the "Export to BibTeX" function there.
 It is also strongly recommended to cite the
-`GMT6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
-Note that some modules like ``surface`` and ``x2sys`` also have their dedicated citation.
-Further information for all these can be found at https://www.generic-mapping-tools.org/cite.
+`GMT 6 paper <https://doi.org/10.1029/2019GC008515>`__ (which PyGMT wraps around).
+Note that some modules like ``dimfilter``, ``surface``, and ``x2sys`` also have their
+dedicated citations. Further information for all these can be found at
+https://www.generic-mapping-tools.org/cite.
 
 
 License
@@ -219,96 +239,29 @@ The development of PyGMT has been supported by NSF grants
 Related projects
 ----------------
 
+Other official wrappers for GMT:
+
 * `GMT.jl <https://github.com/GenericMappingTools/GMT.jl>`__: A Julia wrapper for GMT.
 * `gmtmex <https://github.com/GenericMappingTools/gmtmex>`__: A Matlab/Octave wrapper
   for GMT.
 
-Other Python wrappers for GMT (not maintained):
+Other non-official Python wrappers for GMT (not maintained):
 
 * `gmtpy <https://github.com/emolch/gmtpy>`__ by `Sebastian Heimann <https://github.com/emolch>`__
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
+.. doc-index-end-before
 
-Compatibility with GMT/Python/NumPy versions
---------------------------------------------
+Minimum Supported Versions
+--------------------------
 
-.. list-table::
-    :widths: 25 30 15 20 15
-    :header-rows: 1
+PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
+the rest of the Scientific Python ecosystem, and therefore:
 
-    * - PyGMT Version
-      - Documentation
-      - GMT
-      - Python
-      - NumPy
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
-      - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
-      - >=6.3.0
-      - >=3.8
-      - >=1.20
-    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_ (latest release)
-      - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.20
-    * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_
-      - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.19
-    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
-      - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.19
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
-      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
-      - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.17
-    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
-      - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.17
-    * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
-      - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
-      - >=6.1.1
-      - >=3.7
-      -
-    * - `v0.3.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0>`_
-      - `v0.3.0 Documentation <https://www.pygmt.org/v0.3.0>`_
-      - >=6.1.1
-      - >=3.7
-      -
-    * - `v0.2.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1>`_
-      - `v0.2.1 Documentation <https://www.pygmt.org/v0.2.1>`_
-      - >=6.1.1
-      - >=3.6
-      -
-    * - `v0.2.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0>`_
-      - `v0.2.0 Documentation <https://www.pygmt.org/v0.2.0>`_
-      - >=6.1.1
-      - 3.6 - 3.8
-      -
-    * - `v0.1.2 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2>`_
-      - `v0.1.2 Documentation <https://www.pygmt.org/v0.1.2>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
-    * - `v0.1.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1>`_
-      - `v0.1.1 Documentation <https://www.pygmt.org/v0.1.1>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
-    * - `v0.1.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0>`_
-      - `v0.1.0 Documentation <https://www.pygmt.org/v0.1.0>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
+* Support for Python versions be dropped 3 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
+
+For the supported GMT versions as well as the minimum required versions of Python and
+core package dependencies, please see
+`Minimum Supported Versions <https://www.pygmt.org/dev/minversions.html>`__.

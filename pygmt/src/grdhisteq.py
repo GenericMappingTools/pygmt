@@ -1,7 +1,6 @@
 """
 grdhisteq - Perform histogram equalization for a grid.
 """
-import warnings
 
 import numpy as np
 import pandas as pd
@@ -13,13 +12,14 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdhisteq.*"]
 
 
-class grdhisteq:  # pylint: disable=invalid-name
+class grdhisteq:  # noqa: N801
     r"""
     Perform histogram equalization for a grid.
 
@@ -75,19 +75,16 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or bool or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
-        outfile : str or bool or None
+        {grid}
+        {outgrid}
+        outfile : str, bool, or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
         output_type: str
-            Determines the output type. Use "file", "xarray", "pandas", or
+            Determine the output type. Use "file", "xarray", "pandas", or
             "numpy".
         divisions : int
-            Set the number of divisions of the data range [Default is 16].
+            Set the number of divisions of the data range [Default is ``16``].
 
         {region}
         {verbose}
@@ -105,7 +102,7 @@ class grdhisteq:  # pylint: disable=invalid-name
               ``outgrid`` or ``outfile``)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
         """
 
@@ -162,11 +159,8 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
-        outgrid : str or None
-            The name of the output netCDF file with extension .nc to store the
-            grid in.
+        {grid}
+        {outgrid}
         divisions : int
             Set the number of divisions of the data range.
         gaussian : bool or int or float
@@ -191,8 +185,8 @@ class grdhisteq:  # pylint: disable=invalid-name
         Example
         -------
         >>> import pygmt
-        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
-        >>> # 30, and a y-range of 15 to 25
+        >>> # Load a grid of @earth_relief_30m data, with a longitude range
+        >>> # of 10°E to 30°E, and a latitude range of 15°N to 25°N
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )
@@ -200,7 +194,7 @@ class grdhisteq:  # pylint: disable=invalid-name
         >>> grid = pygmt.grdhisteq.equalize_grid(grid=grid, gaussian=True)
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
@@ -262,8 +256,7 @@ class grdhisteq:  # pylint: disable=invalid-name
 
         Parameters
         ----------
-        grid : str or xarray.DataArray
-            The file name of the input grid or the grid loaded as a DataArray.
+        {grid}
         outfile : str or bool or None
             The name of the output ASCII file to store the results of the
             histogram equalization in.
@@ -295,25 +288,25 @@ class grdhisteq:  # pylint: disable=invalid-name
         Example
         -------
         >>> import pygmt
-        >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to
-        >>> # 30, and a y-range of 15 to 25
+        >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+        >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
         >>> grid = pygmt.datasets.load_earth_relief(
         ...     resolution="30m", region=[10, 30, 15, 25]
         ... )
-        >>> # Find elevation intervals that splits the data range into 5
+        >>> # Find elevation intervals that split the data range into 5
         >>> # divisions, each of which have an equal area in the original grid.
         >>> bins = pygmt.grdhisteq.compute_bins(grid=grid, divisions=5)
         >>> print(bins)
                 start    stop
         bin_id
-        0       179.0   397.5
-        1       397.5   475.5
-        2       475.5   573.5
-        3       573.5   710.5
-        4       710.5  2103.0
+        0       183.5   395.0
+        1       395.0   472.0
+        2       472.0   575.0
+        3       575.0   709.5
+        4       709.5  1807.0
 
         See Also
-        -------
+        --------
         :func:`pygmt.grd2cpt`
 
         Note
@@ -321,23 +314,11 @@ class grdhisteq:  # pylint: disable=invalid-name
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        # Return a pandas.DataFrame if ``outfile`` is not set
-        if output_type not in ["numpy", "pandas", "file"]:
-            raise GMTInvalidInput(
-                "Must specify 'output_type' either as 'numpy', 'pandas' or 'file'."
-            )
+        output_type = validate_output_table_type(output_type, outfile=outfile)
 
         if header is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
-        if isinstance(outfile, str) and output_type != "file":
-            msg = (
-                f"Changing 'output_type' from '{output_type}' to 'file' "
-                "since 'outfile' parameter is set. Please use output_type='file' "
-                "to silence this warning."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-            output_type = "file"
         with GMTTempFile(suffix=".txt") as tmpfile:
             if output_type != "file":
                 outfile = tmpfile.name

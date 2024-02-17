@@ -1,9 +1,9 @@
 """
 PyGMT is a library for processing geospatial and geophysical data and making
-publication quality maps and figures. It provides a Pythonic interface for the
-Generic Mapping Tools (GMT), a command-line program widely used in the Earth
-Sciences. Besides making GMT more accessible to new users, PyGMT aims to
-provide integration with the PyData ecosystem as well as support for rich
+publication-quality maps and figures. It provides a Pythonic interface for the Generic
+Mapping Tools (GMT), a command-line program widely used across the Earth, Ocean, and
+Planetary sciences and beyond. Besides making GMT more accessible to new users, PyGMT
+aims to provide integration with the PyData ecosystem as well as support for rich
 display in Jupyter notebooks.
 
 Main Features
@@ -13,13 +13,17 @@ Here are just a few of the things that PyGMT does well:
   - Easy handling of individual types of data like Cartesian, geographic, or
     time-series data.
   - Processing of (geo)spatial data including gridding, filtering, and masking.
-  - Allows plotting of a large spectrum of objects on figures including
+  - Plotting of a large spectrum of objects on figures including
     lines, vectors, polygons, and symbols (pre-defined and customized).
-  - Generate publication-quality illustrations and make animations.
+  - Generating publication-quality illustrations and making animations.
 """
-
 import atexit as _atexit
+import sys
 from importlib.metadata import version
+
+# Get semantic version through setuptools-scm
+__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
+__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Import modules to make the high-level GMT Python API
 from pygmt import datasets
@@ -66,47 +70,45 @@ from pygmt.src import (
     xyz2grd,
 )
 
-# Get semantic version through setuptools-scm
-__version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
-__commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
-
 # Start our global modern mode session
 _begin()
 # Tell Python to run _end when shutting down
 _atexit.register(_end)
 
 
-def print_clib_info():
+def print_clib_info(file=sys.stdout):
     """
     Print information about the GMT shared library that we can find.
 
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
+    from pygmt.clib import Session
 
-    lines = ["GMT library information:"]
+    print("GMT library information:", file=file)
     with Session() as ses:
-        for key in sorted(ses.info):
-            lines.append(f"  {key}: {ses.info[key]}")
-    print("\n".join(lines))
+        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
+    print("\n".join(lines), file=file)
 
 
-def show_versions():
+def show_versions(file=sys.stdout):
     """
-    Prints various dependency versions useful when submitting bug reports. This
-    includes information about:
+    Print various dependency versions which are useful when submitting bug reports.
+
+    This includes information about:
 
     - PyGMT itself
     - System information (Python version, Operating System)
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-    # pylint: disable=import-outside-toplevel
+
     import importlib
     import platform
+    import shutil
     import subprocess
-    import sys
+
+    from packaging.requirements import Requirement
 
     def _get_module_version(modname):
         """
@@ -138,12 +140,10 @@ def show_versions():
             return None
 
         for gs_cmd in cmds:
-            try:
+            if (gsfullpath := shutil.which(gs_cmd)) is not None:
                 return subprocess.check_output(
-                    [gs_cmd, "--version"], universal_newlines=True
+                    [gsfullpath, "--version"], universal_newlines=True
                 ).strip()
-            except FileNotFoundError:
-                continue
         return None
 
     sys_info = {
@@ -152,70 +152,18 @@ def show_versions():
         "machine": platform.platform(),
     }
 
-    deps = ["numpy", "pandas", "xarray", "netCDF4", "packaging", "geopandas"]
+    deps = [Requirement(v).name for v in importlib.metadata.requires("pygmt")]
 
-    print("PyGMT information:")
-    print(f"  version: {__version__}")
+    print("PyGMT information:", file=file)
+    print(f"  version: {__version__}", file=file)
 
-    print("System information:")
+    print("System information:", file=file)
     for key, val in sys_info.items():
-        print(f"  {key}: {val}")
+        print(f"  {key}: {val}", file=file)
 
-    print("Dependency information:")
+    print("Dependency information:", file=file)
     for modname in deps:
-        print(f"  {modname}: {_get_module_version(modname)}")
-    print(f"  ghostscript: {_get_ghostscript_version()}")
+        print(f"  {modname}: {_get_module_version(modname)}", file=file)
+    print(f"  ghostscript: {_get_ghostscript_version()}", file=file)
 
-    print_clib_info()
-
-
-def test(doctest=True, verbose=True, coverage=False, figures=True):
-    """
-    Run the test suite.
-
-    Uses `pytest <http://pytest.org/>`__ to discover and run the tests. If you
-    haven't already, you can install it with `conda
-    <http://conda.pydata.org/>`__ or `pip <https://pip.pypa.io/en/stable/>`__.
-
-    Parameters
-    ----------
-
-    doctest : bool
-        If ``True``, will run the doctests as well (code examples that start
-        with a ``>>>`` in the docs).
-    verbose : bool
-        If ``True``, will print extra information during the test run.
-    coverage : bool
-        If ``True``, will run test coverage analysis on the code as well.
-        Requires ``pytest-cov``.
-    figures : bool
-        If ``True``, will test generated figures against saved baseline
-        figures.  Requires ``pytest-mpl`` and ``matplotlib``.
-
-    Raises
-    ------
-
-    AssertionError
-        If pytest returns a non-zero error code indicating that some tests have
-        failed.
-    """
-    import pytest  # pylint: disable=import-outside-toplevel
-
-    show_versions()
-
-    package = __name__
-
-    args = []
-    if verbose:
-        args.append("-vv")
-    if coverage:
-        args.append(f"--cov={package}")
-        args.append("--cov-report=term-missing")
-    if doctest:
-        args.append("--doctest-modules")
-    if figures:
-        args.append("--mpl")
-    args.append("--pyargs")
-    args.append(package)
-    status = pytest.main(args)
-    assert status == 0, "Some tests have failed."
+    print_clib_info(file=file)

@@ -1,11 +1,12 @@
 """
 Utility functions to load libgmt as ctypes.CDLL.
 
-The path to the shared library can be found automatically by ctypes or set
-through the GMT_LIBRARY_PATH environment variable.
+The path to the shared library can be found automatically by ctypes or set through the
+GMT_LIBRARY_PATH environment variable.
 """
 import ctypes
 import os
+import shutil
 import subprocess as sp
 import sys
 from ctypes.util import find_library
@@ -117,17 +118,17 @@ def clib_full_names(env=None):
 
     # 2. Search for the library returned by command "gmt --show-library"
     #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
-    try:
-        libfullpath = Path(
-            sp.check_output(["gmt", "--show-library"], encoding="utf-8").rstrip("\n")
-        )
-        assert libfullpath.exists()
-        yield str(libfullpath)
-    except (FileNotFoundError, AssertionError, sp.CalledProcessError):
-        # the 'gmt' executable  is not found
-        # the gmt library is not found
-        # the 'gmt' executable is broken
-        pass
+    if (gmtbin := shutil.which("gmt")) is not None:
+        try:
+            libfullpath = Path(
+                sp.check_output([gmtbin, "--show-library"], encoding="utf-8").rstrip(
+                    "\n"
+                )
+            )
+            if libfullpath.exists():
+                yield str(libfullpath)
+        except sp.CalledProcessError:  # the 'gmt' executable is broken
+            pass
 
     # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":
@@ -163,7 +164,6 @@ def check_libgmt(libgmt):
     functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
     for func in functions:
         if not hasattr(libgmt, "GMT_" + func):
-            # pylint: disable=protected-access
             msg = (
                 f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
                 "Ensure that you have installed an up-to-date GMT version 6 library. "

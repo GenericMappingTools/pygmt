@@ -1,7 +1,7 @@
 """
-Tests for xyz2grd.
+Test pygmt.xyz2grd.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -31,14 +31,15 @@ def fixture_expected_grid():
             [-2546.2512, -1977.8754, -963.23303],
             [-352.3795, -1025.4508, np.nan],
         ],
-        coords=dict(
-            x=[245.0, 250.0, 255.0],
-            y=[20.0, 25.0, 30.0],
-        ),
+        coords={
+            "x": [245.0, 250.0, 255.0],
+            "y": [20.0, 25.0, 30.0],
+        },
         dims=["y", "x"],
     )
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_xyz2grd_input_array(array_func, ship_data, expected_grid):
     """
@@ -63,7 +64,7 @@ def test_xyz2grd_input_array_file_out(ship_data, expected_grid):
             outgrid=tmpfile.name,
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

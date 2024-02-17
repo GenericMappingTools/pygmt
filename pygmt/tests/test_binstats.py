@@ -1,9 +1,10 @@
 """
-Tests for binstats.
+Test pygmt.binstats.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
+import pytest
 from pygmt import binstats
 from pygmt.helpers import GMTTempFile
 
@@ -23,9 +24,10 @@ def test_binstats_outgrid():
             region="g",
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_binstats_no_outgrid():
     """
     Test binstats with no set outgrid.

@@ -1,7 +1,7 @@
 """
-Tests for grdsample.
+Test pygmt.grdsample.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -47,10 +47,10 @@ def fixture_expected_grid():
             [551.75, 666.6875, 958.21875],
             [411.3125, 518.4375, 931.28125],
         ],
-        coords=dict(
-            lon=[-52, -50, -48],
-            lat=[-19.5, -18.5, -17.5, -16.5, -15.5],
-        ),
+        coords={
+            "lon": [-52, -50, -48],
+            "lat": [-19.5, -18.5, -17.5, -16.5, -15.5],
+        },
         dims=["lat", "lon"],
     )
 
@@ -64,16 +64,17 @@ def test_grdsample_file_out(grid, expected_grid, region, spacing):
             grid=grid, outgrid=tmpfile.name, spacing=spacing, region=region
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdsample_dataarray_out(grid, expected_grid, region, spacing):
     """
     Test grdsample with no outgrid set and the spacing is changed.
     """
-    result = grdsample(grid=grid, spacing=spacing, region=region)
+    result = grdsample(grid=grid, spacing=spacing, region=region, cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid

@@ -1,11 +1,12 @@
 """
-Tests the helper functions/classes/etc used in wrapping GMT.
+Test the helper functions/classes/etc used in wrapping GMT.
 """
 import os
 
 import numpy as np
 import pytest
 import xarray as xr
+from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
@@ -14,7 +15,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     unique_name,
 )
-from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
 
 
 def test_load_static_earth_relief():
@@ -31,7 +32,7 @@ def test_load_static_earth_relief():
 
 
 @pytest.mark.parametrize(
-    "data,x,y",
+    ("data", "x", "y"),
     [
         (None, None, None),
         ("data.txt", np.array([1, 2]), np.array([4, 5])),
@@ -55,6 +56,24 @@ def test_unique_name():
     """
     names = [unique_name() for i in range(100)]
     assert len(names) == len(set(names))
+
+
+@pytest.mark.mpl_image_compare
+def test_non_ascii_to_octal():
+    """
+    Test support of non-ASCII characters.
+    """
+    fig = Figure()
+    fig.basemap(
+        region=[0, 10, 0, 5],
+        projection="X10c/5c",
+        frame=[
+            "xaf+lISOLatin1: ﬁ‰“”¥",
+            "yaf+lSymbol: αβ∇∋∈",
+            "WSen+tZapfDingbats: ①❷➂➍✦❝❞",
+        ],
+    )
+    return fig
 
 
 def test_kwargs_to_strings_fails():
@@ -128,3 +147,19 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
+
+
+def test_skip_if_no():
+    """
+    Test that the skip_if_no helper testing function returns a pytest.mask.skipif mark
+    decorator.
+    """
+    # Check pytest.mark with a dependency that can be imported
+    mark_decorator = skip_if_no(package="numpy")
+    assert mark_decorator.args[0] is False
+
+    # Check pytest.mark with a dependency that cannot be imported
+    mark_decorator = skip_if_no(package="nullpackage")
+    assert mark_decorator.args[0] is True
+    assert mark_decorator.kwargs["reason"] == "Could not import 'nullpackage'"
+    assert mark_decorator.markname == "skipif"

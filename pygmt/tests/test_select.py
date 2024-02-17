@@ -1,7 +1,7 @@
 """
-Tests for select.
+Test pygmt.select.
 """
-import os
+from pathlib import Path
 
 import numpy.testing as npt
 import pandas as pd
@@ -19,6 +19,7 @@ def fixture_dataframe():
     return load_sample_data(name="bathymetry")
 
 
+@pytest.mark.benchmark
 def test_select_input_dataframe(dataframe):
     """
     Run select by passing in a pandas.DataFrame as input.
@@ -32,12 +33,11 @@ def test_select_input_dataframe(dataframe):
 
 def test_select_input_table_matrix(dataframe):
     """
-    Run select using table input that is not a pandas.DataFrame but still a
-    matrix.
+    Run select using table input that is not a pandas.DataFrame but still a matrix.
 
     Also testing the reverse (I) alias.
     """
-    data = dataframe.values
+    data = dataframe.to_numpy()
     output = select(data=data, region=[245.5, 254.5, 20.5, 29.5], reverse="r")
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (9177, 3)
@@ -58,7 +58,7 @@ def test_select_input_filename():
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)
+        assert Path(tmpfile.name).stat().st_size > 0
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (5, 3)
         npt.assert_allclose(output.median(), [250.12149, 26.04296, -674.0])

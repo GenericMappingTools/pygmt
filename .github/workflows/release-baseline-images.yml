@@ -1,5 +1,8 @@
 # Upload the ZIP archive of baseline images as a release asset
-
+#
+# This workflow is run to upload the ZIP archive of baseline images as a
+# release asset when a release is published.
+#
 name: Upload baseline images
 
 # Only run for releases
@@ -16,15 +19,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.1.1
+      uses: iterative/setup-dvc@v1.1.2
 
     - name: Pull baseline image data from dvc remote
-      run: |
-        dvc pull
-        ls -lhR pygmt/tests/baseline/
+      run: dvc pull && ls -lhR pygmt/tests/baseline/
 
     - name: Create the baseline image asset in zip format
       run: |
@@ -34,7 +35,7 @@ jobs:
         shasum -a 256 baseline-images.zip
 
     - name: Upload baseline image as a release asset
-      uses: shogo82148/actions-upload-release-asset@v1.6.3
+      uses: shogo82148/actions-upload-release-asset@v1.7.2
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: baseline-images.zip

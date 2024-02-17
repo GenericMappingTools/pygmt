@@ -1,5 +1,5 @@
 """
-Tests psconvert.
+Test Figure.psconvert.
 """
 import os
 
@@ -8,9 +8,10 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.benchmark
 def test_psconvert():
     """
-    psconvert creates a figure in the current directory.
+    Check that psconvert creates a figure in the current directory.
     """
     fig = Figure()
     fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")

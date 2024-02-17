@@ -9,6 +9,7 @@ from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
 
 
+@pytest.mark.benchmark
 def test_put_strings():
     """
     Check that assigning a numpy array of dtype str to a dataset works.

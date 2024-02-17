@@ -17,7 +17,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
     N="no_clip",
     R="region",
     S="skip",
-    U="timestamp",
     V="verbose",
     W="pen",
     b="binary",
@@ -47,11 +46,11 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y/z : 1d arrays
+    x/y/z : 1-D arrays
         Arrays of x and y coordinates and values z of the data points.
     {projection}
     {region}
@@ -84,13 +83,13 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     I : bool
         Color the triangles using CPT.
     triangular_mesh_pen : str
-        Pen to draw the underlying triangulation [Default is None].
+        Pen to draw the underlying triangulation [Default is ``None``].
     no_clip : bool
-        Do NOT clip contours or image at the boundaries [Default will clip
-        to fit inside region].
+        Do **not** clip contours or image at the frame boundaries
+        [Default is ``False`` to fit inside ``region``].
     Q : float or str
         [*cut*][**+z**].
-        Do not draw contours with less than cut number of points.
+        Do not draw contours with less than *cut* number of points.
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
@@ -102,7 +101,6 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         to be of the format [*annotcontlabel*][/*contlabel*]. If either
         label contains a slash (/) character then use ``|`` as the
         separator for the two labels instead.
-    {timestamp}
     {verbose}
     {binary}
     {panel}
@@ -114,10 +112,9 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        # Choose how data will be passed into the module
         file_context = lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )

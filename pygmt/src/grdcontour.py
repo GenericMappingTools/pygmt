@@ -18,7 +18,6 @@ __doctest_skip__ = ["grdcontour"]
     Q="cut",
     R="region",
     S="resample",
-    U="timestamp",
     V="verbose",
     W="pen",
     l="label",
@@ -42,8 +41,7 @@ def grdcontour(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     interval : str or int
         Specify the contour lines to generate.
 
@@ -54,7 +52,7 @@ def grdcontour(self, grid, **kwargs):
           angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
           +\ *cont_int*.
-    annotation : str,  int, or list
+    annotation : str, int, or list
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
@@ -80,7 +78,6 @@ def grdcontour(self, grid, **kwargs):
         Control the placement of labels along the quoted lines. It supports
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
-    {timestamp}
     {verbose}
     {pen}
     {panel}
@@ -98,7 +95,7 @@ def grdcontour(self, grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 15 arc minute grid with "gridline" registration
+    >>> # load the 15 arc-minutes grid with "gridline" registration
     >>> # in a specified region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="15m",
@@ -123,7 +120,7 @@ def grdcontour(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:

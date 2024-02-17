@@ -1,7 +1,7 @@
 """
-Tests for blockmean and blockmode.
+Test pygmt.blockmean and pygmt.blockmode.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import numpy.testing as npt
@@ -36,8 +36,7 @@ def test_blockmean_input_dataframe(dataframe):
 @pytest.mark.parametrize("array_func", [np.array, xr.Dataset])
 def test_blockmean_input_table_matrix(array_func, dataframe):
     """
-    Run blockmean using table input that is not a pandas.DataFrame but still a
-    matrix.
+    Run blockmean using table input that is not a pandas.DataFrame but still a matrix.
     """
     table = array_func(dataframe)
     output = blockmean(data=table, spacing="5m", region=[245, 255, 20, 30])
@@ -46,6 +45,7 @@ def test_blockmean_input_table_matrix(array_func, dataframe):
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
+@pytest.mark.benchmark
 def test_blockmean_input_xyz(dataframe):
     """
     Run blockmean by passing in x/y/z as input.
@@ -64,8 +64,7 @@ def test_blockmean_input_xyz(dataframe):
 
 def test_blockmean_wrong_kind_of_input_table_grid(dataframe):
     """
-    Run blockmean using table input that is not a pandas.DataFrame or file but
-    a grid.
+    Run blockmean using table input that is not a pandas.DataFrame or file but a grid.
     """
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"
@@ -85,7 +84,7 @@ def test_blockmean_input_filename():
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set
-        assert os.path.exists(path=tmpfile.name)  # check that outfile exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = pd.read_csv(tmpfile.name, sep="\t", header=None)
         assert output.shape == (5849, 3)
         npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
@@ -101,6 +100,7 @@ def test_blockmean_without_outfile_setting():
     npt.assert_allclose(output.iloc[0], [245.888877, 29.978707, -384.0])
 
 
+@pytest.mark.benchmark
 def test_blockmode_input_dataframe(dataframe):
     """
     Run blockmode by passing in a pandas.DataFrame as input.

@@ -1,26 +1,24 @@
 """
-Tests for grdfill.
+Test pygmt.grdfill.
 """
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import clib, grdfill, load_dataarray
+from pygmt import grdfill, load_dataarray
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
-
-with clib.Session() as _lib:
-    gmt_version = Version(_lib.info["version"])
 
 
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the static_earth_relief file and set value(s) to
-    NaN and inf.
+    Load the grid data from the static_earth_relief file and set value(s) to NaN and
+    inf.
     """
     grid = load_static_earth_relief()
     grid[3:6, 3:5] = np.nan
@@ -50,9 +48,9 @@ def fixture_expected_grid():
             [349.0, 313.0, 325.5, 247.0, 191.0, 225.0, 260.0, 452.5],
             [347.5, 331.5, 309.0, 282.0, 190.0, 208.0, 299.5, 348.0],
         ],
-        coords=dict(
-            lon=[-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
-            lat=[
+        coords={
+            "lon": [-54.5, -53.5, -52.5, -51.5, -50.5, -49.5, -48.5, -47.5],
+            "lat": [
                 -23.5,
                 -22.5,
                 -21.5,
@@ -68,11 +66,12 @@ def fixture_expected_grid():
                 -11.5,
                 -10.5,
             ],
-        ),
+        },
         dims=["lat", "lon"],
     )
 
 
+@pytest.mark.benchmark
 def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.
@@ -87,7 +86,7 @@ def test_grdfill_dataarray_out(grid, expected_grid):
 
 
 @pytest.mark.skipif(
-    gmt_version < Version("6.4.0"),
+    Version(__gmt_version__) < Version("6.4.0"),
     reason="Upstream bug/crash fixed in https://github.com/GenericMappingTools/gmt/pull/6418.",
 )
 def test_grdfill_asymmetric_pad(grid, expected_grid):
@@ -115,7 +114,7 @@ def test_grdfill_file_out(grid, expected_grid):
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdfill(grid=grid, mode="c20", outgrid=tmpfile.name)
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         temp_grid = load_dataarray(tmpfile.name)
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 

@@ -32,8 +32,7 @@ __doctest_skip__ = ["sphdistance"]
 @kwargs_to_strings(I="sequence", R="sequence")
 def sphdistance(data=None, x=None, y=None, **kwargs):
     r"""
-    Create Voronoi distance, node, or natural nearest-neighbor grid on a
-    sphere.
+    Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
 
     Reads a table containing *lon, lat* columns and performs
     the construction of Voronoi polygons. These polygons are
@@ -46,15 +45,13 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y) or (longitude, latitude) values by
-        providing a file name to an ASCII data table, a 2D
+        providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    x/y : 1d arrays
+    x/y : 1-D arrays
         Arrays of x and y coordinates.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}
@@ -82,8 +79,8 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         spherical degrees.
     unit : str
         Specify the unit used for distance calculations. Choose among **d**
-        (spherical degree), **e** (m), **f** (feet), **k** (km), **M**
-        (mile), **n** (nautical mile) or **u** survey foot.
+        (spherical degrees), **e** (meters), **f** (feet), **k** (kilometers),
+        **M** (miles), **n** (nautical miles), or **u** (survey feet).
     node_table : str
         Read the information pertaining to each Voronoi
         polygon (the unique node lon, lat and polygon area) from a separate
@@ -93,6 +90,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     voronoi : str
         Append the name of a file with pre-calculated Voronoi polygons
         [Default performs the Voronoi construction on input data].
+
     Returns
     -------
     ret: xarray.DataArray or None

@@ -11,16 +11,17 @@
     </div>
 
 .. include:: ../README.rst
-    :start-after: placeholder-for-doc-index
+    :start-after: doc-index-start-after
+    :end-before: doc-index-end-before
 
 .. toctree::
     :maxdepth: 2
     :hidden:
     :caption: Getting Started
 
-    overview.rst
-    install.rst
-    get-started/index.rst
+    overview.md
+    install.md
+    get_started/index.rst
 
 .. toctree::
     :maxdepth: 2
@@ -39,6 +40,7 @@
 
     api/index.rst
     changes.md
+    minversions.rst
 
 .. toctree::
     :maxdepth: 2

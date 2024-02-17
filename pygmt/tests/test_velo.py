@@ -1,5 +1,5 @@
 """
-Tests velo.
+Test Figure.velo.
 """
 import pandas as pd
 import pytest
@@ -63,6 +63,7 @@ def test_velo_without_spec(dataframe):
         fig.velo(data=dataframe)
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_velo_pandas_dataframe(dataframe):
     """

@@ -26,6 +26,7 @@ __doctest_skip__ = ["grdlandmask"]
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
@@ -45,14 +46,12 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
     resolution : str
-        *res*\[\ **+f**\]. Selects the resolution of the data set to use
+        *res*\[\ **+f**\]. Select the resolution of the data set to use
         ((**f**)ull, (**h**)igh, (**i**)ntermediate, (**l**)ow, or
         (**c**)rude). The resolution drops off by ~80% between data sets.
         [Default is **l**]. Append **+f** to automatically select a lower
@@ -62,7 +61,7 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : bool or str or float or list
+    bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
         inside]. Alternatively, append either a list of four values
@@ -77,13 +76,14 @@ def grdlandmask(**kwargs):
         ponds-in-islands-in-lakes outlines [Default is no line tracing].
     maskvalues : str or list
         [*wet*, *dry*] or [*ocean*, *land*, *lake*, *island*, *pond*].
-        Sets the values that will be assigned to nodes. Values can
+        Set the values that will be assigned to nodes. Values can
         be any number, including the textstring NaN
         [Default is [0, 1, 0, 1, 0] (i.e., [0, 1])]. Also select
         ``bordervalues`` to let nodes exactly on feature boundaries be
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------
@@ -97,8 +97,8 @@ def grdlandmask(**kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Create a landmask grid with an x-range of 125 to 130,
-    >>> # and a y-range of 30 to 35
+    >>> # Create a landmask grid with a longitude range of 125° E to 130° E, a
+    >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:

@@ -1,5 +1,5 @@
 """
-Tests for grdinfo.
+Test pygmt.grdinfo.
 """
 import numpy as np
 import pytest
@@ -16,6 +16,7 @@ def fixture_grid():
     return load_static_earth_relief()
 
 
+@pytest.mark.benchmark
 def test_grdinfo(grid):
     """
     Make sure grdinfo works as expected.

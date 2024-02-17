@@ -1,7 +1,7 @@
 """
-Tests for surface.
+Test pygmt.surface.
 """
-import os
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -55,10 +55,10 @@ def fixture_expected_grid():
             [897.4532, 822.9642, 756.4472, 687.594, 626.2299],
             [910.2932, 823.3307, 737.9952, 651.4994, 565.9981],
         ],
-        coords=dict(
-            y=[0, 1, 2, 3, 4, 5, 6, 7, 8],
-            x=[0, 1, 2, 3, 4],
-        ),
+        coords={
+            "y": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+            "x": [0, 1, 2, 3, 4],
+        },
         dims=[
             "y",
             "x",
@@ -93,7 +93,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     """
     Run surface by passing in a numpy array into data.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     output = surface(
         data=data,
         spacing=spacing,
@@ -103,6 +103,7 @@ def test_surface_input_data_array(data, region, spacing, expected_grid):
     check_values(output, expected_grid)
 
 
+@pytest.mark.benchmark
 def test_surface_input_xyz(data, region, spacing, expected_grid):
     """
     Run surface by passing in x, y, z numpy.ndarrays individually.
@@ -132,7 +133,7 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
     """
     Run surface with the -Goutputfile.nc parameter.
     """
-    data = data.values  # convert pandas.DataFrame to numpy.ndarray
+    data = data.to_numpy()  # convert pandas.DataFrame to numpy.ndarray
     with GMTTempFile(suffix=".nc") as tmpfile:
         output = surface(
             data=data,
@@ -142,6 +143,6 @@ def test_surface_with_outgrid_param(data, region, spacing, expected_grid):
             verbose="e",  # Suppress warnings for IEEE 754 rounding
         )
         assert output is None  # check that output is None since outgrid is set
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists at path
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
             check_values(grid, expected_grid)

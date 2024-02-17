@@ -20,7 +20,7 @@ The following customizing modifiers are available:
 
 - **+a**: by default, :math:`\theta` refers to the angle that is equivalent to
   a counterclockwise rotation with respect to the east direction (standard
-  definition); **+a** indicates that the input data is rotated clockwise
+  definition); **+a** indicates that the input data are rotated clockwise
   relative to the north direction (geographical azimuth angle).
 
 - **+r**\ *offset*: represents the offset of the r-axis. This modifier allows
@@ -48,6 +48,7 @@ The following customizing modifiers are available:
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

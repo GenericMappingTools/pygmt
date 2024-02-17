@@ -1,81 +1,88 @@
-# This workflow installs PyGMT and runs tests with old GMT versions
-
+# Test PyGMT with GMT legacy versions on Linux/macOS/Windows
+#
+# This workflow runs regular PyGMT tests with GMT legacy versions. Due to the
+# minor baseline image changes between GMT versions, the workflow only runs
+# the tests but doesn't do image comparisons.
+#
+# It is scheduled to run every Tuesday on the main branch.
+#
 name: GMT Legacy Tests
 
 on:
   # push:
   #   branches: [ main ]
+  # Uncomment the 'pull_request' line below to trigger the workflow in PR
   # pull_request:
     # types: [ready_for_review]
-    # paths-ignore:
-    #  - 'doc/**'
-    #  - 'examples/**'
-    #  - '*.md'
-    #  - 'README.rst'
-    #  - 'LICENSE.txt'
-    #  - '.gitignore'
+    # paths:
+    #  - 'pygmt/**'
+    #  - '.github/workflows/ci_tests_legacy.yaml'
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   test:
     name: ${{ matrix.os }} - GMT ${{ matrix.gmt_version }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8']
-        os: [ubuntu-20.04, macOS-11, windows-2019]
-        gmt_version: ['6.3']
+        os: [ubuntu-20.04, macos-11, windows-2019]
+        gmt_version: ['6.3', '6.4']
     timeout-minutes: 30
     defaults:
       run:
         shell: bash -l {0}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.1.0
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
-          activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=${{ matrix.gmt_version }} numpy \
-                        pandas xarray netCDF4 packaging geopandas \
-                        build dvc make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: mamba list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: false
+          cache-environment: true
+          create-args: >-
+            python=3.10
+            gmt=${{ matrix.gmt_version }}
+            numpy
+            pandas<2
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            pyarrow
+            rioxarray
+            sphinx-gallery
+            build
+            make
+            pip
+            pytest
+            pytest-doctestplus
+            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.24.2
+        uses: dawidd6/action-download-artifact@v3.0.0
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -88,14 +95,11 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
+          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
+          # in the `~/.gmt` directory for GMT>=6.5.
+          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
-
-      # Pull baseline image data from dvc remote (DAGsHub)
-      - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull pygmt/tests/baseline/test_logo.png --verbose
-          ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package

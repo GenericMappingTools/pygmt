@@ -37,7 +37,7 @@ def binstats(data, **kwargs):
     Reads arbitrarily located (x,y[,z][,w]) points
     (2-4 columns) from ``data`` and for each
     node in the specified grid layout determines which points are
-    within the given radius.  These point are then used in the
+    within the given radius. These points are then used in the
     calculation of the specified statistic. The results may be
     presented as is or may be normalized by the circle area to
     perhaps give density estimates.
@@ -48,12 +48,10 @@ def binstats(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
-        A file name of an ASCII data table or a 2D
+    data : str, {table-like}
+        A file name of an ASCII data table or a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
@@ -78,13 +76,13 @@ def binstats(data, **kwargs):
         - **u** for maximum (upper)
         - **U** for maximum of negative values only
         - **z** for the sum
-    empty : float or int
+    empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the
         search *radius* [no normalization].
     search_radius : float or str
-        Sets the *search_radius* that determines which data points are
+        Set the *search_radius* that determines which data points are
         considered close to a node. Append the distance unit.
         Not compatible with ``tiling``.
     weight : str

@@ -1,7 +1,7 @@
 """
-Tests for grdclip.
+Test pygmt.grdclip.
 """
-import os
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -29,7 +29,7 @@ def fixture_expected_grid():
             [1000.0, 1000.0, 571.5, 638.5],
             [555.5, 556.0, 580.0, 1000.0],
         ],
-        coords=dict(lon=[-52.5, -51.5, -50.5, -49.5], lat=[-18.5, -17.5, -16.5]),
+        coords={"lon": [-52.5, -51.5, -50.5, -49.5], "lat": [-18.5, -17.5, -16.5]},
         dims=["lat", "lon"],
     )
 
@@ -47,7 +47,7 @@ def test_grdclip_outgrid(grid, expected_grid):
             region=[-53, -49, -19, -16],
         )
         assert result is None  # return value is None
-        assert os.path.exists(path=tmpfile.name)  # check that outgrid exists
+        assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         temp_grid = load_dataarray(tmpfile.name)
         assert temp_grid.dims == ("lat", "lon")
         assert temp_grid.gmt.gtype == 1  # Geographic grid
@@ -55,6 +55,7 @@ def test_grdclip_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdclip_no_outgrid(grid, expected_grid):
     """
     Test the below and above parameters for grdclip with no set outgrid.

@@ -1,5 +1,5 @@
 """
-Tests ternary.
+Test Figure.ternary.
 """
 import numpy as np
 import pytest
@@ -64,6 +64,7 @@ def test_ternary(array):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_ternary_3_labels(array):
     """

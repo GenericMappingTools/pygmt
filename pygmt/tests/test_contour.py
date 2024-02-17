@@ -1,6 +1,5 @@
-# pylint: disable=redefined-outer-name
 """
-Tests contour.
+Test Figure.contour.
 """
 import os
 
@@ -47,6 +46,7 @@ def test_contour_vec(region):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_contour_matrix.png")
 @pytest.mark.parametrize(
     "array_func",
@@ -78,8 +78,8 @@ def test_contour_from_file(region):
 @pytest.mark.mpl_image_compare(filename="test_contour_vec.png")
 def test_contour_incols_transposed_data(region):
     """
-    Make sure that transposing the data matrix still produces a correct result
-    with incols reordering the columns.
+    Make sure that transposing the data matrix still produces a correct result with
+    incols reordering the columns.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1313

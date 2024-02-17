@@ -21,11 +21,10 @@ def fixture_grid():
 @pytest.fixture(scope="module", name="grid_360")
 def fixture_grid_360(grid):
     """
-    Earth relief grid with longitude range from 0 to 360 (instead of -180 to
-    180).
+    Earth relief grid with longitude range from 0 to 360 (instead of -180 to 180).
     """
     _grid = grid.copy()  # get a copy of original earth_relief grid
-    _grid.encoding.pop("source")  # unlink earth_relief NetCDF source
+    _grid.encoding.pop("source")  # unlink earth_relief netCDF source
     _grid["lon"] = np.arange(0, 361, 1)  # convert longitude from -180:180 to 0:360
     return _grid
 
@@ -57,7 +56,7 @@ def test_grdimage(grid):
     Plot an image using an xarray grid.
     """
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="W0/6i")
+    fig.grdimage(grid, cmap="earth", projection="W0/10c")
     return fig
 
 
@@ -68,7 +67,7 @@ def test_grdimage_slice(grid):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i")
+    fig.grdimage(grid_, cmap="earth", projection="M10c")
     return fig
 
 
@@ -82,7 +81,7 @@ def test_grdimage_file():
         "@earth_relief_01d_g",
         cmap="ocean",
         region=[-180, 180, -70, 70],
-        projection="W0/10i",
+        projection="W0/10c",
         shading=True,
     )
     return fig
@@ -99,7 +98,7 @@ def test_grdimage_default_no_shading(grid, shading):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
+    fig.grdimage(grid_, cmap="earth", projection="M10c", shading=shading)
     return fig
 
 
@@ -119,24 +118,24 @@ def test_grdimage_shading_xarray(grid, shading):
     https://github.com/GenericMappingTools/pygmt/issues/618.
     """
     fig_ref, fig_test = Figure(), Figure()
-    kwargs = dict(
-        region=[-180, 180, -90, 90],
-        frame=True,
-        projection="Cyl_stere/6i",
-        cmap="geo",
-        shading=shading,
-    )
-
+    kwargs = {
+        "region": [-180, 180, -90, 90],
+        "frame": True,
+        "projection": "Cyl_stere/6i",
+        "cmap": "geo",
+        "shading": shading,
+    }
     fig_ref.grdimage("@earth_relief_01d_g", **kwargs)
     fig_test.grdimage(grid, **kwargs)
     return fig_ref, fig_test
 
 
+@pytest.mark.benchmark
 @check_figures_equal()
 def test_grdimage_grid_and_shading_with_xarray(grid, xrgrid):
     """
-    Test that shading works well when xarray.DataArray is input to both the
-    ``grid`` and ``shading`` arguments.
+    Test that shading works well when xarray.DataArray is input to both the ``grid`` and
+    ``shading`` arguments.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
@@ -174,16 +173,15 @@ def test_grdimage_over_dateline(xrgrid):
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(tolerance=3.6)
 def test_grdimage_global_subset(grid_360):
     """
     Ensure subsets of grids are plotted correctly on a global map.
 
-    Specifically checking that xarray.DataArray grids can wrap around the left
-    and right sides on a Mollweide projection (W) plot correctly. Note that a
-    Cartesian grid is used here instead of a Geographic grid (i.e.
-    GMT_GRID_IS_CARTESIAN). This is a regression test for
-    https://github.com/GenericMappingTools/pygmt/issues/732.
+    Specifically checking that xarray.DataArray grids can wrap around the left and right
+    sides on a Mollweide projection (W) plot correctly. Note that a Cartesian grid is
+    used here instead of a Geographic grid (i.e. GMT_GRID_IS_CARTESIAN). This is a
+    regression test for https://github.com/GenericMappingTools/pygmt/issues/732.
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
@@ -192,7 +190,7 @@ def test_grdimage_global_subset(grid_360):
 
     fig = Figure()
     fig.grdimage(
-        grid=sliced_grid, cmap="vik", region="g", projection="W0/3.5c", frame=True
+        grid=sliced_grid, cmap="vik", region="g", projection="W0/10c", frame=True
     )
     return fig
 
@@ -202,8 +200,8 @@ def test_grdimage_global_subset(grid_360):
 @pytest.mark.parametrize("proj_type", ["H", "W"])
 def test_grdimage_central_meridians(grid, proj_type, lon0):
     """
-    Test that plotting a grid with different central meridians (lon0) using
-    Hammer (H) and Mollweide (W) projection systems work.
+    Test that plotting a grid with different central meridians (lon0) using Hammer (H)
+    and Mollweide (W) projection systems work.
     """
     fig_ref, fig_test = Figure(), Figure()
     fig_ref.grdimage(
@@ -213,7 +211,7 @@ def test_grdimage_central_meridians(grid, proj_type, lon0):
     return fig_ref, fig_test
 
 
-# Cylindrical Equidistant (Q) projections plotted with xarray and NetCDF grids
+# Cylindrical Equidistant (Q) projections plotted with xarray and netCDF grids
 # are still slightly different with an RMS error of 25, see issue at
 # https://github.com/GenericMappingTools/pygmt/issues/390
 # TO-DO remove tol=1.5 and pytest.mark.xfail once bug is solved in upstream GMT
@@ -242,3 +240,14 @@ def test_grdimage_central_meridians_and_standard_parallels(grid, proj_type, lon0
     )
     fig_test.grdimage(grid, projection=f"{proj_type}{lon0}/{lat0}/15c", cmap="geo")
     return fig_ref, fig_test
+
+
+def test_grdimage_imgout_fails(grid):
+    """
+    Test that an exception is raised if img_out/A is given.
+    """
+    fig = Figure()
+    with pytest.raises(GMTInvalidInput):
+        fig.grdimage(grid, img_out="out.png")
+    with pytest.raises(GMTInvalidInput):
+        fig.grdimage(grid, A="out.png")

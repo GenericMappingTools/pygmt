@@ -1,4 +1,12 @@
-# Checks for image diffs in a Pull Request and adds a GitHub comment showing the diff
+# Report changes in test images
+#
+# This workflow checks for image diffs in a pull request and adds a GitHub
+# comment showing the diff.
+#
+# It is triggered in a PR when any *.png.dvc files have been added, modified,
+# or deleted. A GitHub comment will be published that contains a summary table
+# of the images that have changed along with a visual report.
+#
 name: DVC image diff
 
 on:
@@ -13,19 +21,16 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.1.0
+      uses: actions/checkout@v4.1.1
       with:
         # fetch all history so that dvc diff works
         fetch-depth: 0
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.1.1
+      uses: iterative/setup-dvc@v1.1.2
 
     - name: Setup continuous machine learning (CML)
-      uses: iterative/setup-cml@v1.2.1
-
-    - name: Pull image data from cloud storage
-      run: dvc pull --remote upstream
+      uses: iterative/setup-cml@v2.0.0
 
     # Produce the markdown diff report, which should look like:
     # ## Summary of changed images
@@ -37,18 +42,35 @@ jobs:
     # | added    | pygmt/tests/baseline/test_image.png |
     # | deleted  | pygmt/tests/baseline/test_image2.png |
     # | modified | pygmt/tests/baseline/test_image3.png |
+    #
+    # ## Image diff(s)
+    #
+    # <details>
+    # ...
+    # </details>
+    #
+    # Report last updated at commit abcdef
     - name: Generate the image diff report
       env:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-      id: image-diff
       run: |
         echo -e "## Summary of changed images\n" > report.md
         echo -e "This is an auto-generated report of images that have changed on the DVC remote\n" >> report.md
-        dvc diff --show-md main HEAD >> report.md
+
+        # Pull image data from cloud storage
+        dvc pull --remote upstream
+        dvc diff --md main HEAD >> report.md
 
         # Get just the filename of the added and modified image from the report
         awk 'NF==5 && NR>=7 && $2=="added" {print $4}' report.md > added_files.txt
         awk 'NF==5 && NR>=7 && $2=="modified" {print $4}' report.md > modified_files.txt
+
+        # Backup new images in the baseline-new directory
+        mkdir pygmt/tests/baseline-new
+        cp pygmt/tests/baseline/*.png pygmt/tests/baseline-new/
+        # Pull images in the main branch from cloud storage
+        git checkout main
+        dvc pull --remote upstream --force
 
         # Append each image to the markdown report
         echo -e "## Image diff(s)\n" >> report.md
@@ -57,62 +79,22 @@ jobs:
         # Added images
         echo -e "### Added images\n" >> report.md
         while IFS= read -r line; do
-          echo -e "- $line \n" >> report.md
-          cml-publish --title $line --md "$line" >> report.md < /dev/null
+          echo -e "- $(basename $line) \n" >> report.md
+          echo -e "![](${line/baseline/baseline-new})" >> report.md
         done < added_files.txt
 
         # Modified images
         echo -e "### Modified images\n" >> report.md
-        # Upload new images
-        while IFS= read -r line; do
-          cml-publish --title $line --md "$line" >> modified_images_new.md < /dev/null
-        done < modified_files.txt
-
-        # Pull images in the main branch from cloud storage
-        git checkout main
-        dvc pull --remote upstream
-        # Upload old images
-        while IFS= read -r line; do
-          cml-publish --title $line --md "$line" >> modified_images_old.md < /dev/null
-        done < modified_files.txt
-
-        # Append image report for modified images
         echo -e "| Path | Old | New |" >> report.md
         echo -e "|---|---|---|" >> report.md
-        paste modified_files.txt modified_images_old.md modified_images_new.md -d"|" |
-          awk -F"|" 'function basename(file) {sub(".*/", "", file); return file} {printf("| %s | %s | %s |\n",  basename($1), $2, $3)}' >> report.md
+        while IFS= read -r line; do
+          echo -e "| $(basename $line) | ![]($line) | ![](${line/baseline/baseline-new}) |" >> report.md
+        done < modified_files.txt
 
         echo -e "</details>\n" >> report.md
 
         # Mention git commit SHA in the report
         echo -e "Report last updated at commit ${{ github.event.pull_request.head.sha }}" >> report.md
 
-        # Format report to escape newlines before publishing as GitHub comment
-        report=$(cat report.md)
-        report="${report//'%'/'%25'}"
-        report="${report//$'\n'/'%0A'}"
-        report="${report//$'\r'/'%0D'}"
-        echo ::set-output name=report::$report
-
-    - name: Find comment with image diff report
-      uses: peter-evans/find-comment@v2.1.0
-      id: fc
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: 'github-actions[bot]'
-        body-includes: 'This is an auto-generated report of images that have changed on the DVC remote'
-
-    - name: Create comment with image diff report
-      if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ steps.image-diff.outputs.report }}
-
-    - name: Update comment with new image diff report
-      if: steps.fc.outputs.comment-id != ''
-      uses: peter-evans/create-or-update-comment@v2.1.0
-      with:
-        comment-id: ${{ steps.fc.outputs.comment-id }}
-        body: ${{ steps.image-diff.outputs.report }}
-        edit-mode: replace
+        # create/update PR comment
+        cml comment update report.md
