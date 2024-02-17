@@ -10,6 +10,7 @@ the rest of the Scientific Python ecosystem, and therefore:
 .. list-table::
     :widths: 25 15 15 15 15 15
     :header-rows: 1
+    :align: center
 
     * - PyGMT Version
       - GMT
