@@ -435,7 +435,8 @@ def _load_remote_dataset(
                 f"'region' is required for {dataset.title} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
+        engine = "rasterio" if dataset_prefix == "earth_day_" else "netcdf4"
+        grid = load_dataarray(fname, engine=engine)
     else:
         grid = grdcut(f"@{dataset_prefix}{resolution}{reg}", region=region)
 
