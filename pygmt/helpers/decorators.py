@@ -569,8 +569,6 @@ def use_alias(**aliases):
 
             # timestamp (U) is deprecated since v0.9.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                if "timestamp" in kwargs:
-                    kwargs["U"] = kwargs.pop("timestamp")
                 msg = (
                     "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
                     "Use Figure.timestamp() instead."
