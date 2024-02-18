@@ -22,14 +22,14 @@ def load_blue_marble(resolution="01d"):
 
        Earth day/night dataset.
 
-    The grids are downloaded to a user data directory (usually
+    The images are downloaded to a user data directory (usually
     ``~/.gmt/server/earth/earth_day/``) the first time you invoke this function.
-    Afterwards, it will load the grid from the data directory. So you'll need an
+    Afterwards, it will load the image from the data directory. So you'll need an
     internet connection the first time around.
 
-    These grids can also be accessed by passing in the file name
-    **@earth_day**\_\ *res* to any grid processing function or plotting method. *res*
-    is the grid resolution (see below).
+    These images can also be accessed by passing in the file name
+    **@earth_day**\_\ *res* to any image processing function or plotting method. *res*
+    is the image resolution (see below).
 
     Refer to :gmt-datasets:`earth-daynight.html` for more details about available
     datasets, including version information and references.
@@ -37,10 +37,10 @@ def load_blue_marble(resolution="01d"):
     Parameters
     ----------
     resolution : str
-        The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for
-        arc-degree, arc-minute, and arc-second. It can be ``"01d"``, ``"30m"``,
-        ``"20m"``, ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``,
-        ``"03m"``, ``"02m"``, ``"01m"``, or ``"30s"``..
+        The image resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degree,
+        arc-minute, and arc-second. It can be ``"01d"``, ``"30m"``, ``"20m"``,
+        ``"15m"``, ``"10m"``, ``"06m"``, ``"05m"``, ``"04m"``, ``"03m"``, ``"02m"``,
+        ``"01m"``, or ``"30s"``.
 
     Returns
     -------
@@ -54,11 +54,11 @@ def load_blue_marble(resolution="01d"):
     >>> # load the default image (pixel-registered 1 arc-degree image)
     >>> image = load_blue_marble()
     """
-    grid = _load_remote_dataset(
+    image = _load_remote_dataset(
         dataset_name="earth_day",
         dataset_prefix="earth_day_",
         resolution=resolution,
         region=None,
-        registration=None,
+        registration="pixel",
     )
-    return grid
+    return image
