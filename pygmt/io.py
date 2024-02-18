@@ -42,13 +42,12 @@ def load_dataarray(filename_or_obj, **kwargs):
     if kwargs.get("engine") == "rasterio":
         import rioxarray
 
-        open_dataarray_func = rioxarray.open_rasterio
         kwargs.pop("engine")
+        with rioxarray.open_rasterio(filename_or_obj, **kwargs) as dataarray:
+            result = dataarray.load()
     else:
-        open_dataarray_func = xr.open_dataarray
-
-    with open_dataarray_func(filename_or_obj, **kwargs) as dataarray:
-        result = dataarray.load()
-        _ = result.gmt  # load GMTDataArray accessor information
+        with xr.open_dataarray(filename_or_obj, **kwargs) as dataarray:
+            result = dataarray.load()
+            _ = result.gmt  # load GMTDataArray accessor information
 
     return result
