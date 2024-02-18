@@ -567,6 +567,17 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
+            # timestamp (U) is deprecated since v0.9.0.
+            if "U" in kwargs or "timestamp" in kwargs:
+                if "timestamp" in kwargs:
+                    kwargs["U"] = kwargs.pop("timestamp")
+                msg = (
+                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
+                    "and will be removed in v0.12.0. "
+                    "Use Figure.timestamp() instead."
+                )
+                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+
             # xshift (X) is deprecated since v0.8.0.
             if "X" in kwargs or "xshift" in kwargs:
                 msg = (
@@ -582,17 +593,6 @@ def use_alias(**aliases):
                     "Use Figure.shift_origin(yshift=...) instead."
                 )
                 raise GMTInvalidInput(msg)
-
-            # timestamp (U) is deprecated since v0.9.0.
-            if "U" in kwargs or "timestamp" in kwargs:
-                if "timestamp" in kwargs:
-                    kwargs["U"] = kwargs.pop("timestamp")
-                msg = (
-                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
-                    "and will be removed in v0.12.0. "
-                    "Use Figure.timestamp() instead."
-                )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
             return module_func(*args, **kwargs)
 
