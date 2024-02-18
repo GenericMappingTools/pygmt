@@ -399,7 +399,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
         for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):

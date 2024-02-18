@@ -119,17 +119,15 @@ to change the default behaviour at <https://docs.readthedocs.io/en/stable/config
 
 ## Dependencies Policy
 
-PyGMT has adopted [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy)
-alongside the rest of the Scientific Python ecosystem, and therefore supports:
+PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside
+the rest of the Scientific Python ecosystem, and therefore:
 
-* All minor versions of Python released 42 months prior to the project,
-  and at minimum the two latest minor versions.
-* All minor versions of NumPy released in the 24 months prior to the project,
-  and at minimum the last three minor versions.
+* Support for Python versions be dropped 3 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
 
-In `pyproject.toml`, the `requires-python` key should be set to the minimum
-supported version of Python. Minimum Python and NumPy version support should be
-adjusted upward on every major and minor release, but never on a patch release.
+In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
+version of Python. Minimum supported versions of Python and core package dependencies
+should be adjusted upward on every major and minor release, but never on a patch release.
 
 
 ## Backwards Compatibility and Deprecation Policy
@@ -221,10 +219,9 @@ publishing the actual release notes at {doc}`changes`.
    GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
 8. Update `doc/minversions.rst` with new information on the new release version,
-   including a vX.Y.Z documentation link, and minimum required GMT/Python/NumPy
-   versions. Follow
-   [NEP 29](https://numpy.org/neps/nep-0029-deprecation_policy.html#detailed-description)
-   for updates.
+   including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
+   and core package dependencies (NumPy/Pandas/Xarray). Follow
+   [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
 9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow
