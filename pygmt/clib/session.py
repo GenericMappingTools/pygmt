@@ -1625,8 +1625,8 @@ class Session:
 
         Examples
         --------
-        >>> from pygmt.helpers import GMTTempFile
         >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Read dataset from a virtual file
         >>> with Session() as lib:
