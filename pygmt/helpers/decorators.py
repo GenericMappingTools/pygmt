@@ -567,6 +567,22 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
+            # xshift (X) is deprecated since v0.8.0.
+            if "X" in kwargs or "xshift" in kwargs:
+                msg = (
+                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
+                    "Use Figure.shift_origin(xshift=...) instead."
+                )
+                raise GMTInvalidInput(msg)
+
+            # yshift (Y) is deprecated since v0.8.0.
+            if "Y" in kwargs or "yshift" in kwargs:
+                msg = (
+                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
+                    "Use Figure.shift_origin(yshift=...) instead."
+                )
+                raise GMTInvalidInput(msg)
+
             # timestamp (U) is deprecated since v0.9.0.
             if "U" in kwargs or "timestamp" in kwargs:
                 if "timestamp" in kwargs:
