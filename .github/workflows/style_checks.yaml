@@ -43,8 +43,8 @@ jobs:
 
       - name: Ensure files use UNIX line breaks and have 644 permission
         run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
+          git ls-files -z | xargs -0 dos2unix --quiet
+          git ls-files -z | xargs -0 chmod 644
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
 
       - name: Ensure example scripts have at least one code block separator
