@@ -48,7 +48,7 @@ def histogram(self, data, **kwargs):
 
     Parameters
     ----------
-    data : str or list or {table-like}
+    data : str, list, {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     {projection}
@@ -67,7 +67,7 @@ def histogram(self, data, **kwargs):
         annotation font; use **+o** to change the offset between bar and
         label [Default is ``"6p"``]; use **+r** to rotate the labels from
         horizontal to vertical.
-    barwidth : int or float or str
+    barwidth : float or str
         *width*\ [**+o**\ *offset*].
         Use an alternative histogram bar width than the default set via
         ``series``, and optionally shift all bars by an *offset*. Here
@@ -78,7 +78,7 @@ def histogram(self, data, **kwargs):
         plot dimension units by appending the relevant unit.
     center : bool
         Center bin on each value. [Default is left edge].
-    distribution : bool or int or float or str
+    distribution : bool, float, or str
         [*mode*][**+p**\ *pen*].
         Draw the equivalent normal distribution; append desired
         *pen* [Default is ``"0.25p,black,solid"``].
@@ -105,7 +105,7 @@ def histogram(self, data, **kwargs):
     horizontal : bool
         Plot the histogram using horizontal bars instead of the
         default vertical bars.
-    series : int or str or list
+    series : int, str, or list
         [*min*\ /*max*\ /]\ *inc*\ [**+n**\ ].
         Set the interval for the width of each bar in the histogram.
     histtype : int or str
@@ -132,7 +132,7 @@ def histogram(self, data, **kwargs):
     {transparency}
     {wrap}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
         with file_context as infile:

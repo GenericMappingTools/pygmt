@@ -16,7 +16,7 @@ from pygmt.helpers.utils import is_nonstr_iter
 
 COMMON_DOCSTRINGS = {
     "area_thresh": r"""
-        area_thresh : int or float or str
+        area_thresh : float or str
             *min_area*\ [/*min_level*/*max_level*][**+a**\[**g**\|\ **i**]\
             [**s**\|\ **S**]][**+l**\|\ **r**][**+p**\ *percent*].
             Features with an area smaller than *min_area* in km\ :sup:`2` or of
@@ -105,7 +105,7 @@ COMMON_DOCSTRINGS = {
             that do not match the pattern. Append **i** for case insensitive
             matching. This does not apply to headers or segment headers.""",
     "frame": r"""
-        frame : bool or str or list
+        frame : bool, str, or list
             Set map boundary
             :doc:`frame and axes attributes </tutorials/basics/frames>`. """,
     "gap": r"""
@@ -149,6 +149,13 @@ COMMON_DOCSTRINGS = {
                   column value must exceed *gap* for a break to be imposed.
                 - **+p** - specify that the current value minus the previous
                   value must exceed *gap* for a break to be imposed.""",
+    "grid": r"""
+        grid : str or xarray.DataArray
+            Name of the input grid file or the grid loaded as a
+            :class:`xarray.DataArray` object.
+
+            For reading a specific grid file format or applying basic data operations,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "header": r"""
         header : str
             [**i**\|\ **o**][*n*][**+c**][**+d**][**+m**\ *segheader*][**+r**\
@@ -246,8 +253,13 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outgrid": """
+        outgrid : str or None
+            Name of the output netCDF grid file. For writing a specific grid
+            file format or applying basic data operations to the output grid,
+            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
     "panel": r"""
-        panel : bool or int or list
+        panel : bool, int, or list
             [*row,col*\|\ *index*].
             Select a specific subplot panel. Only allowed when in subplot
             mode. Use ``panel=True`` to advance to the next panel in the
@@ -269,7 +281,7 @@ COMMON_DOCSTRINGS = {
         """,
     "projection": r"""
         projection : str
-            *projcode*\[*projparams*/]\ *width*.
+            *projcode*\[*projparams*/]\ *width*\|\ *scale*.
             Select map :doc:`projection </projections/index>`.""",
     "region": r"""
         region : str or list
@@ -298,7 +310,7 @@ COMMON_DOCSTRINGS = {
                   more of the columns equal NaN [Default skips record only
                   if values in all specified *cols* equal NaN].""",
     "spacing": r"""
-        spacing : int or float or str or list or tuple
+        spacing : float, str, or list
             *x_inc*\ [**+e**\|\ **n**][/\ *y_inc*\ [**+e**\|\ **n**]].
             *x_inc* [and optionally *y_inc*] is the grid spacing.
 
@@ -323,13 +335,13 @@ COMMON_DOCSTRINGS = {
               ``registration``, and the domain. The resulting increment value
               depends on whether you have selected a gridline-registered or
               pixel-registered grid; see :gmt-docs:`GMT File Formats
-              <cookbook/file-formats.html#gmt-file-formats>` for details.
+              <reference/file-formats.html#gmt-file-formats>` for details.
 
             **Note**: If ``region=grdfile`` is used then the grid spacing and
             the registration have already been initialized; use ``spacing`` and
             ``registration`` to override these values.""",
     "transparency": r"""
-        transparency : int or float
+        transparency : float
             Set transparency level, in [0-100] percent range
             [Default is ``0``, i.e., opaque].
             Only visible when PDF or raster format output is selected.
@@ -400,7 +412,7 @@ def fmt_docstring(module_func):
     ...
     ...     Parameters
     ...     ----------
-    ...     data : str or {table-like}
+    ...     data : str, {table-like}
     ...         Pass in either a file name to an ASCII data table, a 2-D
     ...         {table-classes}.
     ...     {region}
@@ -409,14 +421,13 @@ def fmt_docstring(module_func):
     ...     {aliases}
     ...     '''
     ...     pass
-    ...
     >>> print(gmtinfo.__doc__)
     <BLANKLINE>
     My nice module.
     <BLANKLINE>
     Parameters
     ----------
-    data : str or numpy.ndarray or pandas.DataFrame or xarray.Dataset or geo...
+    data : str, numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geo...
         Pass in either a file name to an ASCII data table, a 2-D
         :class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an
         :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`
@@ -426,7 +437,7 @@ def fmt_docstring(module_func):
         *xmin/xmax/ymin/ymax*\ [**+r**][**+u**\ *unit*].
         Specify the :doc:`region </tutorials/basics/regions>` of interest.
     projection : str
-        *projcode*\[*projparams*/]\ *width*.
+        *projcode*\[*projparams*/]\ *width*\|\ *scale*.
         Select map :doc:`projection </projections/index>`.
     <BLANKLINE>
     **Aliases:**
@@ -434,7 +445,7 @@ def fmt_docstring(module_func):
     - J = projection
     - R = region
     <BLANKLINE>
-    """
+    """  # noqa: D410,D411
     filler_text = {}
 
     if hasattr(module_func, "aliases"):
@@ -444,14 +455,9 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text["table-like"] = " or ".join(
-        [
-            "numpy.ndarray",
-            "pandas.DataFrame",
-            "xarray.Dataset",
-            "geopandas.GeoDataFrame",
-        ]
-    )
+    filler_text[
+        "table-like"
+    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -487,8 +493,8 @@ def _insert_alias(module_func, default_value=None):
             new_param = Parameter(
                 alias, kind=Parameter.KEYWORD_ONLY, default=default_value
             )
-            wrapped_params = wrapped_params + [new_param]
-    all_params = wrapped_params + [kwargs_param]
+            wrapped_params = [*wrapped_params, new_param]
+    all_params = [*wrapped_params, kwargs_param]
     # Update method signature
     sig_new = sig.replace(parameters=all_params)
     module_func.__signature__ = sig_new
@@ -519,7 +525,6 @@ def use_alias(**aliases):
     >>> @use_alias(R="region", J="projection")
     ... def my_module(**kwargs):
     ...     print("R =", kwargs["R"], "J =", kwargs["J"])
-    ...
     >>> my_module(R="bla", J="meh")
     R = bla J = meh
     >>> my_module(region="bla", J="meh")
@@ -634,10 +639,7 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-
-    >>> @kwargs_to_strings(
-    ...     R="sequence", i="sequence_comma", files="sequence_space"
-    ... )
+    >>> @kwargs_to_strings(R="sequence", i="sequence_comma", files="sequence_space")
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
@@ -684,20 +686,35 @@ def kwargs_to_strings(**conversions):
     ...     ]
     ... )
     {'R': '2005-01-01T08:00:00.000000000/2015-01-01T12:00:00.123456'}
+    >>> # Here is a more realistic example
+    >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
+    >>> @kwargs_to_strings(
+    ...     files="sequence_space",
+    ...     offset="sequence",
+    ...     R="sequence",
+    ...     i="sequence_comma",
+    ... )
+    ... def module(files, offset=("-54p", "-54p"), **kwargs):
+    ...     "A module that prints the arguments it received"
+    ...     print(files, end=" ")
+    ...     print(offset, end=" ")
+    ...     print("{", end="")
+    ...     print(
+    ...         ", ".join(f"'{k}': {repr(kwargs[k])}" for k in sorted(kwargs)),
+    ...         end="",
+    ...     )
+    ...     print("}")
+    >>> module(files=["data1.txt", "data2.txt"])
+    data1.txt data2.txt -54p/-54p {}
+    >>> module(["data1.txt", "data2.txt"])
+    data1.txt data2.txt -54p/-54p {}
+    >>> module(files=["data1.txt", "data2.txt"], offset=("20p", "20p"))
+    data1.txt data2.txt 20p/20p {}
+    >>> module(["data1.txt", "data2.txt"], ("20p", "20p"))
+    data1.txt data2.txt 20p/20p {}
+    >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
+    data1.txt data2.txt 20p/20p {'R': '1/2/3/4'}
     """
-    valid_conversions = [
-        "sequence",
-        "sequence_comma",
-        "sequence_plus",
-        "sequence_space",
-    ]
-
-    for arg, fmt in conversions.items():
-        if fmt not in valid_conversions:
-            raise GMTInvalidInput(
-                f"Invalid conversion type '{fmt}' for argument '{arg}'."
-            )
-
     separators = {
         "sequence": "/",
         "sequence_comma": ",",
@@ -705,37 +722,58 @@ def kwargs_to_strings(**conversions):
         "sequence_space": " ",
     }
 
+    for arg, fmt in conversions.items():
+        if fmt not in separators:
+            raise GMTInvalidInput(
+                f"Invalid conversion type '{fmt}' for argument '{arg}'."
+            )
+
     # Make the actual decorator function
     def converter(module_func):
         """
         The decorator that creates our new function with the conversions.
         """
+        sig = signature(module_func)
 
         @functools.wraps(module_func)
         def new_module(*args, **kwargs):
             """
             New module instance that converts the arguments first.
             """
+            # Inspired by https://stackoverflow.com/a/69170441
+            bound = sig.bind(*args, **kwargs)
+            bound.apply_defaults()
+
             for arg, fmt in conversions.items():
-                if arg in kwargs:
-                    value = kwargs[arg]
-                    issequence = fmt in separators
-                    if issequence and is_nonstr_iter(value):
-                        for index, item in enumerate(value):
-                            try:
-                                # check if there is a space " " when converting
-                                # a pandas.Timestamp/xr.DataArray to a string.
-                                # If so, use np.datetime_as_string instead.
-                                assert " " not in str(item)
-                            except AssertionError:
-                                # convert datetime-like item to ISO 8601
-                                # string format like YYYY-MM-DDThh:mm:ss.ffffff
-                                value[index] = np.datetime_as_string(
-                                    np.asarray(item, dtype=np.datetime64)
-                                )
-                        kwargs[arg] = separators[fmt].join(f"{item}" for item in value)
+                # The arg may be in args or kwargs
+                if arg in bound.arguments:
+                    value = bound.arguments[arg]
+                elif arg in bound.arguments.get("kwargs"):
+                    value = bound.arguments["kwargs"][arg]
+                else:
+                    continue
+
+                if fmt in separators and is_nonstr_iter(value):
+                    for index, item in enumerate(value):
+                        if " " in str(item):
+                            # Check if there is a space " " when converting
+                            # a pandas.Timestamp/xr.DataArray to a string.
+                            # If so, use np.datetime_as_string instead.
+                            # Convert datetime-like item to ISO 8601
+                            # string format like YYYY-MM-DDThh:mm:ss.ffffff.
+                            value[index] = np.datetime_as_string(
+                                np.asarray(item, dtype=np.datetime64)
+                            )
+                    newvalue = separators[fmt].join(f"{item}" for item in value)
+                    # Changes in bound.arguments will reflect in bound.args
+                    # and bound.kwargs.
+                    if arg in bound.arguments:
+                        bound.arguments[arg] = newvalue
+                    elif arg in bound.arguments.get("kwargs"):
+                        bound.arguments["kwargs"][arg] = newvalue
+
             # Execute the original function and return its output
-            return module_func(*args, **kwargs)
+            return module_func(*bound.args, **bound.kwargs)
 
         return new_module
 
@@ -771,7 +809,6 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ... def module(data, size=0, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print(f"data={data}, size={size}, color={kwargs['color']}")
-    ...
     >>> # new names are supported
     >>> module(data="table.txt", size=5.0, color="red")
     data=table.txt, size=5.0, color=red
@@ -783,19 +820,17 @@ def deprecate_parameter(oldname, newname, deprecate_version, remove_version):
     ...     for i in range(len(w)):
     ...         assert issubclass(w[i].category, FutureWarning)
     ...         assert "deprecated" in str(w[i].message)
-    ...
     data=table.txt, size=5.0, color=red
     >>> # using both old and new names will raise an GMTInvalidInput exception
     >>> import pytest
     >>> with pytest.raises(GMTInvalidInput):
     ...     module(data="table.txt", size=5.0, sizes=4.0)
-    ...
     """
 
     def deprecator(module_func):
         """
-        The decorator that creates the new function to work with both old and
-        new parameters.
+        The decorator that creates the new function to work with both old and new
+        parameters.
         """
 
         @functools.wraps(module_func)

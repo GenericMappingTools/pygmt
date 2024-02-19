@@ -9,7 +9,7 @@ except ImportError:
 from pygmt.figure import SHOWED_FIGURES
 
 
-class PyGMTScraper:  # pylint: disable=too-few-public-methods
+class PyGMTScraper:
     """
     Save ``pygmt.Figure`` objects that had their ``show`` method called.
 
@@ -19,10 +19,9 @@ class PyGMTScraper:  # pylint: disable=too-few-public-methods
     ``conf.py`` as the ``"image_scrapers"`` argument.
     """
 
-    def __call__(self, block, block_vars, gallery_conf):
+    def __call__(self, block, block_vars, gallery_conf):  # noqa: ARG002
         """
-        Called by sphinx-gallery to save the figures generated after running
-        code.
+        Called by sphinx-gallery to save the figures generated after running code.
         """
         image_names = []
         image_path_iterator = block_vars["image_path_iterator"]

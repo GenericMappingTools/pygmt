@@ -26,6 +26,7 @@ __doctest_skip__ = ["grdlandmask"]
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
@@ -45,9 +46,7 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
@@ -62,7 +61,7 @@ def grdlandmask(**kwargs):
         the coastlines differ in details a node in a mask file using one
         resolution is not guaranteed to remain inside [or outside] when a
         different resolution is selected.
-    bordervalues : bool or str or float or list
+    bordervalues : bool, str, float, or list
         Nodes that fall exactly on a polygon boundary should be
         considered to be outside the polygon [Default considers them to be
         inside]. Alternatively, append either a list of four values
@@ -84,6 +83,7 @@ def grdlandmask(**kwargs):
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------
@@ -97,8 +97,8 @@ def grdlandmask(**kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Create a landmask grid with an x-range of 125 to 130,
-    >>> # and a y-range of 30 to 35
+    >>> # Create a landmask grid with a longitude range of 125° E to 130° E, a
+    >>> # latitude range of 30° N to 35° N, and a grid spacing of 1 arc-degree
     >>> landmask = pygmt.grdlandmask(spacing=1, region=[125, 130, 30, 35])
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:

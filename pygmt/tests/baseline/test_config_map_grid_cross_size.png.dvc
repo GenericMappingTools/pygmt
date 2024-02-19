@@ -1,4 +1,5 @@
 outs:
-- md5: c154f4630cd8ec5ceaf5329fdcc6aa5c
-  size: 13550
+- md5: e1e7252855ceef3258475040a0ccf000
+  size: 13229
   path: test_config_map_grid_cross_size.png
+  hash: md5

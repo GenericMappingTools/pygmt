@@ -1,4 +1,3 @@
-# pylint: disable=redefined-outer-name
 """
 Test Figure.histogram.
 """
@@ -16,6 +15,7 @@ def fixture_data(request):
     return request.param(data)
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare(filename="test_histogram.png")
 def test_histogram(data):
     """

@@ -78,22 +78,22 @@ def inset(self, **kwargs):
         [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draw a rectangular box around the map
         inset using the default pen; specify a different pen
-        with **+p**\ *pen*. Add **+g**\ *fill* to fill the logo box
+        with **+p**\ *pen*. Add **+g**\ *fill* to fill the inset box
         [Default is no fill].
-        Append **+c**\ *clearance*  where *clearance* is either
+        Append **+c**\ *clearance* where *clearance* is either
         *gap*, *xgap*\ /\ *ygap*, or *lgap*\ /\ *rgap*\ /\ *bgap*\ /\
         *tgap* where these items are uniform, separate in x- and
-        y-direction, or individual side spacings between logo and border.
-        Append **+i** to draw a secondary, inner border as well. We use a
-        uniform *gap* between borders of 2\ **p** and the default pen
+        y-directions, or individual side spacings between map embellishment
+        and border. Append **+i** to draw a secondary, inner border as well.
+        We use a uniform *gap* between borders of 2p and the default pen
         unless other values are specified. Append **+r** to draw rounded
         rectangular borders instead, with a 6p corner radius. You
         can override this radius by appending another value. Append
         **+s** to draw an offset background shaded region. Here, *dx*/*dy*
         indicates the shift relative to the foreground frame [Default is
-        ``"4p/-4p"``] and ``shade`` sets the fill style to use for
+        ``"4p/-4p"``] and *shade* sets the fill style to use for
         shading [Default is ``"gray50"``].
-    margin : int or str or list
+    margin : float, str, or list
         This is clearance that is added around the inside of the inset.
         Plotting will take place within the inner region only. The margins
         can be a single value, a pair of values separated (for setting
@@ -128,11 +128,12 @@ def inset(self, **kwargs):
     ...         dcw="MG+gred",
     ...     )
     ...
-    >>> # Map elements outside the "with" block are plotted in the main figure
+    >>> # Map elements outside the "with" statement are plotted in the main
+    >>> # figure
     >>> fig.logo(position="jBR+o0.2c+w3c")
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         try:
             lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")

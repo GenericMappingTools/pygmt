@@ -59,6 +59,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_dimfilter_no_outgrid(grid, expected_grid):
     """
     Test the required parameters for dimfilter with no set outgrid.
@@ -74,8 +75,8 @@ def test_dimfilter_no_outgrid(grid, expected_grid):
 
 def test_dimfilter_fails(grid):
     """
-    Check that dimfilter fails correctly when not all of sectors, filters, and
-    distance are specified.
+    Check that dimfilter fails correctly when not all of sectors, filters, and distance
+    are specified.
     """
     with pytest.raises(GMTInvalidInput):
         dimfilter(grid=grid, sectors="l6", distance=4)

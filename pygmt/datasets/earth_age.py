@@ -1,9 +1,11 @@
 """
-Function to download the Earth seafloor crustal age dataset from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the Earth seafloor crustal age dataset from the GMT data server,
+and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
@@ -11,9 +13,19 @@ __doctest_skip__ = ["load_earth_age"]
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_age(resolution="01d", region=None, registration=None):
+def load_earth_age(
+    resolution="01d",
+    region=None,
+    registration: Literal["gridline", "pixel"] = "gridline",
+):
     r"""
     Load the Earth seafloor crustal age dataset in various resolutions.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_age.jpg
+       :width: 80 %
+       :align: center
+
+       Earth seafloor crustal age dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_age/``) the first time you invoke
@@ -50,9 +62,9 @@ def load_earth_age(resolution="01d", region=None, registration=None):
         Required for grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``.
+        ``"gridline"`` for gridline registration.
 
     Returns
     -------

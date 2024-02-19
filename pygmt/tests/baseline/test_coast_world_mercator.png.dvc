@@ -1,4 +1,5 @@
 outs:
-- md5: 2b78b937f6d799908bd9425b332d2244
-  size: 114193
+- md5: 9d4b8ad917870dacd0cbbb06da6cc765
+  size: 115070
   path: test_coast_world_mercator.png
+  hash: md5

@@ -1,6 +1,7 @@
 """
 Helper functions for testing.
 """
+import importlib
 import inspect
 import os
 import string
@@ -47,7 +48,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...         projection="X5c", region=[0, 5, 0, 5], frame=["WrStZ", "af"]
     ...     )
     ...     return fig_ref, fig_test
-    ...
     >>> test_check_figures_equal()
     >>> assert len(os.listdir("tmp_result_images")) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
@@ -59,10 +59,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     fig_test = Figure()
     ...     fig_test.basemap(projection="X5c", region=[0, 3, 0, 3], frame=True)
     ...     return fig_ref, fig_test
-    ...
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
-    ...
     >>> for suffix in ["", "-expected", "-failed-diff"]:
     ...     assert os.path.exists(
     ...         os.path.join(
@@ -70,15 +68,12 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...             f"test_check_figures_unequal{suffix}.png",
     ...         )
     ...     )
-    ...
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
-    # pylint: disable=invalid-name
-    ALLOWED_CHARS = set(string.digits + string.ascii_letters + "_-[]()")
-    KEYWORD_ONLY = inspect.Parameter.KEYWORD_ONLY
+    allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
+    keyword_only = inspect.Parameter.KEYWORD_ONLY
 
     def decorator(func):
-        # pylint: disable=import-outside-toplevel
         import pytest
         from matplotlib.testing.compare import compare_images
 
@@ -92,7 +87,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if "request" in old_sig.parameters:
                 kwargs["request"] = request
             try:
-                file_name = "".join(c for c in request.node.name if c in ALLOWED_CHARS)
+                file_name = "".join(c for c in request.node.name if c in allowed_chars)
             except AttributeError:  # 'NoneType' object has no attribute 'node'
                 file_name = func.__name__
             try:
@@ -131,9 +126,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
             if param.name not in {"fig_test", "fig_ref"}
         ]
         if "ext" not in old_sig.parameters:
-            parameters += [inspect.Parameter("ext", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("ext", keyword_only)]
         if "request" not in old_sig.parameters:
-            parameters += [inspect.Parameter("request", KEYWORD_ONLY)]
+            parameters += [inspect.Parameter("request", keyword_only)]
         new_sig = old_sig.replace(parameters=parameters)
         wrapper.__signature__ = new_sig
 
@@ -147,87 +142,6 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     return decorator
 
 
-def download_test_data():
-    """
-    Convenience function to download remote data files used in PyGMT tests and
-    docs.
-    """
-    # List of datasets to download
-    datasets = [
-        # Earth relief grids
-        "@earth_gebco_01d_g",
-        "@earth_gebcosi_01d_g",
-        "@earth_gebcosi_15m_p",
-        "@earth_relief_01d_p",
-        "@earth_relief_01d_g",
-        "@earth_relief_30m_p",
-        "@earth_relief_30m_g",
-        "@earth_relief_10m_p",
-        "@earth_relief_10m_g",
-        "@earth_relief_05m_p",
-        "@earth_relief_05m_g",
-        "@earth_synbath_01d_g",
-        # List of tiles of 03s srtm data.
-        # Names like @N35E135.earth_relief_03s_g.nc is for internal use only.
-        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
-        "@N30W120.earth_relief_15s_p.nc",
-        "@N35E135.earth_relief_03s_g.nc",
-        "@N37W120.earth_relief_03s_g.nc",
-        "@N00W090.earth_relief_03m_p.nc",
-        "@N00E135.earth_relief_30s_g.nc",
-        "@N00W010.earth_relief_15s_p.nc",  # Specific grid for 15s test
-        "@N04W010.earth_relief_03s_g.nc",  # Specific grid for 03s test
-        # Earth synbath relief grids
-        "@S15W105.earth_synbath_30s_p.nc",
-        # Earth seafloor age grids
-        "@earth_age_01d_g",
-        "@N00W030.earth_age_01m_g.nc",  # Specific grid for 01m test
-        # Earth geoid grids
-        "@earth_geoid_01d_g",
-        "@N00W030.earth_geoid_01m_g.nc",  # Specific grid for 01m test
-        # Earth magnetic anomaly grids
-        "@earth_mag_01d_g",
-        "@S30W060.earth_mag_02m_p.nc",  # Specific grid for 02m test
-        "@earth_mag4km_01d_g",
-        "@S30W120.earth_mag4km_02m_p.nc",  # Specific grid for 02m test
-        # Earth mask grid
-        "@earth_mask_01d_g",
-        # Earth free-air anomaly grids
-        "@earth_faa_01d_g",
-        "@N00W030.earth_faa_01m_p.nc",  # Specific grid for 01m test
-        # Earth vertical gravity gradient grids
-        "@earth_vgg_01d_g",
-        "@N00W030.earth_vgg_01m_p.nc",  # Specific grid for 01m test
-        # Earth WDMAM grids
-        "@earth_wdmam_01d_g",
-        "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
-        # Other cache files
-        "@capitals.gmt",
-        "@earth_relief_20m_holes.grd",
-        "@EGM96_to_36.txt",
-        "@MaunaLoa_CO2.txt",
-        "@RidgeTest.shp",
-        "@RidgeTest.shx",
-        "@RidgeTest.dbf",
-        "@RidgeTest.prj",
-        "@Table_5_11.txt",
-        "@Table_5_11_mean.xyz",
-        "@fractures_06.txt",
-        "@hotspots.txt",
-        "@ridge.txt",
-        "@mars370d.txt",
-        "@srtm_tiles.nc",  # needed for 03s and 01s relief data
-        "@static_earth_relief.nc",
-        "@ternary.txt",
-        "@test.dat.nc",
-        "@tut_bathy.nc",
-        "@tut_quakes.ngdc",
-        "@tut_ship.xyz",
-        "@usgs_quakes_22.txt",
-    ]
-    which(fname=datasets, download="a")
-
-
 def load_static_earth_relief():
     """
     Load the static_earth_relief file for internal testing.
@@ -239,3 +153,44 @@ def load_static_earth_relief():
     """
     fname = which("@static_earth_relief.nc", download="c")
     return load_dataarray(fname)
+
+
+def skip_if_no(package):
+    """
+    Generic function to help skip tests when required packages are not present on the
+    testing system.
+
+    This function returns a pytest mark with a skip condition that will be
+    evaluated during test collection. An attempt will be made to import the
+    specified ``package``.
+
+    The mark can be used as either a decorator for a test class or to be
+    applied to parameters in pytest.mark.parametrize calls or parametrized
+    fixtures. Use pytest.importorskip if an imported moduled is later needed
+    or for test functions.
+
+    If the import is unsuccessful, then the test function (or test case when
+    used in conjunction with parametrization) will be skipped.
+
+    Adapted from
+    https://github.com/pandas-dev/pandas/blob/v2.1.4/pandas/util/_test_decorators.py#L121
+
+    Parameters
+    ----------
+    package : str
+        The name of the required package.
+
+    Returns
+    -------
+    pytest.MarkDecorator
+        A pytest.mark.skipif to use as either a test decorator or a
+        parametrization mark.
+    """
+    import pytest
+
+    try:
+        _ = importlib.import_module(name=package)
+        has_package = True
+    except ImportError:
+        has_package = False
+    return pytest.mark.skipif(not has_package, reason=f"Could not import '{package}'")

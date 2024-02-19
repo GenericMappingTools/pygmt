@@ -1,4 +1,4 @@
-Copyright (c) 2017-2023 The PyGMT Developers
+Copyright (c) 2017-2024 The PyGMT Developers
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

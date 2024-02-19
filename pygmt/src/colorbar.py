@@ -96,13 +96,13 @@ def colorbar(self, **kwargs):
     scale : float
         Multiply all z-values in the CPT by the provided scale. By default,
         the CPT is used as is.
-    shading : str or list or bool
+    shading : str, list, or bool
         Add illumination effects. Passing a single numerical value sets the
         range of intensities from -value to +value. If not specified, 1 is
         used. Alternatively, set ``shading=[low, high]`` to specify an
         asymmetric intensity range from *low* to *high*. [Default is no
         illumination].
-    equalsize : int or float or str
+    equalsize : float or str
         [**i**]\ [*gap*].
         Equal-sized color rectangles. By default, the rectangles are scaled
         according to the z-range in the CPT (see also ``zfile``). If *gap* is
@@ -144,6 +144,6 @@ def colorbar(self, **kwargs):
     >>> # Show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module(module="colorbar", args=build_arg_string(kwargs))

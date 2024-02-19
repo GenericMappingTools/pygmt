@@ -1,4 +1,5 @@
 outs:
-- md5: 67decf4bcb2cf5cd15152e937c709858
-  size: 11364
+- md5: 3ec9fb5ea39e00552b26116d0275ed66
+  size: 11328
   path: test_meca_dict_offset_eventname.png
+  hash: md5

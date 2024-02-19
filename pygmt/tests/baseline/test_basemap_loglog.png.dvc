@@ -1,4 +1,5 @@
 outs:
-- md5: 37c36d4fa4524260ea43c6757a3140a1
-  size: 24475
+- md5: 01ea1c00700565057596c12d18c7146d
+  size: 24551
   path: test_basemap_loglog.png
+  hash: md5

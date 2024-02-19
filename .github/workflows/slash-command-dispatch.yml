@@ -1,6 +1,6 @@
 # Support slash commands in pull requests
 #
-# Currently, two slash commands `format` and `test-gmt-dev` are supported.
+# Currently, only one slash command `format` is supported.
 #
 name: Slash Command Dispatch
 on:
@@ -13,19 +13,11 @@ jobs:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
-      # Generate token from GenericMappingTools bot
-      - uses: tibdex/github-app-token@v2
-        id: generate-token
-        with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Slash Command Dispatch
         uses: peter-evans/slash-command-dispatch@v3
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commands: |
             format
-            test-gmt-dev
           issue-type: pull-request
           permission: none

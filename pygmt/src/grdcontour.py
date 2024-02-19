@@ -41,8 +41,7 @@ def grdcontour(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     interval : str or int
         Specify the contour lines to generate.
 
@@ -53,7 +52,7 @@ def grdcontour(self, grid, **kwargs):
           angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
           +\ *cont_int*.
-    annotation : str,  int, or list
+    annotation : str, int, or list
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
@@ -121,7 +120,7 @@ def grdcontour(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
         with file_context as fname:

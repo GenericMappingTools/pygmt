@@ -45,12 +45,9 @@ def grdgradient(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
-    azimuth : int or float or str or list
+    {grid}
+    {outgrid}
+    azimuth : float, str, or list
         *azim*\ [/*azim2*].
         Azimuthal direction for a directional derivative; *azim* is the
         angle in the x,y plane measured in degrees positive clockwise from
@@ -155,8 +152,8 @@ def grdgradient(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[10, 30, 15, 25]
     ... )

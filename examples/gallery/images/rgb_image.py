@@ -1,5 +1,5 @@
 """
-RGB Image
+RGB image
 =========
 
 The :meth:`pygmt.Figure.grdimage` method can be used to plot Red, Green, Blue
@@ -13,7 +13,7 @@ The example below shows a Worldview 2 satellite image over
 Data is sourced from a Cloud-Optimized GeoTIFF (COG) file hosted on
 `OpenAerialMap <https://map.openaerialmap.org>`_ under a
 `CC BY-NC 4.0 <https://creativecommons.org/licenses/by-nc/4.0/>`_ license.
-"""
+"""  # noqa: RUF002
 
 # %%
 import pygmt
@@ -28,7 +28,7 @@ with rioxarray.open_rasterio(
     # Subset to area of Lāhainā in EPSG:32604 coordinates
     image = img.rio.clip_box(minx=738000, maxx=755000, miny=2300000, maxy=2318000)
     image = image.load()  # Force loading the DataArray into memory
-image
+image  # noqa: B018
 
 # %%
 # Plot the RGB imagery:

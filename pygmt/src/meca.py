@@ -65,7 +65,6 @@ def convention_code(convention, component="full"):
 
     >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
     ...     assert convention_code(code) == code
-    ...
 
     >>> convention_code("invalid")
     Traceback (most recent call last):
@@ -169,7 +168,7 @@ def convention_params(convention):
         ],
         "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
         "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-        "pricipal_axis": [
+        "principal_axis": [
             "t_value",
             "t_azimuth",
             "t_plunge",
@@ -204,7 +203,7 @@ def convention_params(convention):
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(
+def meca(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     spec,
     scale,
@@ -273,7 +272,7 @@ def meca(
         ``convention`` parameter is required so we know how to interpret the
         columns. If ``spec`` is a dictionary or a pd.DataFrame,
         ``convention`` is not needed and is ignored if specified.
-    scale : int, float, or str
+    scale : float or str
         *scale*\ [**+a**\ *angle*][**+f**\ *font*][**+j**\ *justify*]\
         [**+l**][**+m**][**+o**\ *dx*\ [/\ *dy*]][**+s**\ *reference*].
         Adjust scaling of the radius of the beachball, which is
@@ -307,27 +306,27 @@ def meca(
         - ``"dc"``: the closest double couple defined from the moment tensor
           (zero trace and zero determinant)
         - ``"deviatoric"``: deviatoric part of the moment tensor (zero trace)
-    longitude : int, float, list, or 1-D numpy array
+    longitude : float, list, or 1-D numpy array
         Longitude(s) of event location(s). Must be the same length as the
         number of events. Will override the ``longitude`` values
         in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    latitude : int, float, list, or 1-D numpy array
+    latitude : float, list, or 1-D numpy array
         Latitude(s) of event location(s). Must be the same length as the
         number of events. Will override the ``latitude`` values
         in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    depth : int, float, list, or 1-D numpy array
+    depth : float, list, or 1-D numpy array
         Depth(s) of event location(s) in kilometers. Must be the same length
         as the number of events. Will override the ``depth`` values in ``spec``
         if ``spec`` is a dictionary or pd.DataFrame.
-    plot_longitude : int, float, str, list, or 1-D numpy array
+    plot_longitude : float, str, list, or 1-D numpy array
         Longitude(s) at which to place beachball(s). Must be the same length
         as the number of events. Will override the ``plot_longitude`` values
         in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    plot_latitude : int, float, str, list, or 1-D numpy array
+    plot_latitude : float, str, list, or 1-D numpy array
         Latitude(s) at which to place beachball(s). List must be the same
         length as the number of events. Will override the ``plot_latitude``
         values in ``spec`` if ``spec`` is a dictionary or pd.DataFrame.
-    event_name : str or list of str, or 1-D numpy array
+    event_name : str, list of str, or 1-D numpy array
         Text string(s), e.g., event name(s) to appear near the beachball(s).
         List must be the same length as the number of events. Will override
         the ``event_name`` labels in ``spec`` if ``spec`` is a dictionary
@@ -397,14 +396,12 @@ def meca(
     {perspective}
     {transparency}
     """
-    # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
-    # pylint: disable=too-many-statements
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
+        for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):
                 convention = conv
                 break
@@ -431,7 +428,7 @@ def meca(
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth"] + convention_params(convention)
+        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -451,18 +448,16 @@ def meca(
     # Now spec is a pd.DataFrame or a file
     if isinstance(spec, pd.DataFrame):
         # override the values in pd.DataFrame if parameters are given
-        if longitude is not None:
-            spec["longitude"] = np.atleast_1d(longitude)
-        if latitude is not None:
-            spec["latitude"] = np.atleast_1d(latitude)
-        if depth is not None:
-            spec["depth"] = np.atleast_1d(depth)
-        if plot_longitude is not None:
-            spec["plot_longitude"] = np.atleast_1d(plot_longitude)
-        if plot_latitude is not None:
-            spec["plot_latitude"] = np.atleast_1d(plot_latitude)
-        if event_name is not None:
-            spec["event_name"] = np.atleast_1d(event_name)
+        for arg, name in [
+            (longitude, "longitude"),
+            (latitude, "latitude"),
+            (depth, "depth"),
+            (plot_longitude, "plot_longitude"),
+            (plot_latitude, "plot_latitude"),
+            (event_name, "event_name"),
+        ]:
+            if arg is not None:
+                spec[name] = np.atleast_1d(arg)
 
         # Due to the internal implementation of the meca module, we need to
         # convert the following columns to strings if they exist
@@ -476,7 +471,7 @@ def meca(
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
+        newcols = ["longitude", "latitude", "depth", *convention_params(convention)]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             if kwargs.get("A") is None:

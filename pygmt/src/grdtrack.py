@@ -67,11 +67,9 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : xarray.DataArray or str
-        Gridded array from which to sample values from, or a file name (netCDF
-        format).
+    {grid}
 
-    points : str or {table-like}
+    points : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
 
@@ -211,7 +209,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         - **+c**\ *fact* : Compute envelope on stacked profile as
           ±\ *fact* \*\ *deviation* [Default fact value is 2].
 
-        Notes:
+        Here are some notes:
 
         1. Deviations depend on *method* and are st.dev (**a**), L1 scale,
            i.e., 1.4826 \* median absolute deviation (MAD) (for **m** and
@@ -228,7 +226,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
            by deviations (**+d**) and finally residuals (**+r**). When more
            than one grid is sampled this sequence of 1-3 columns is repeated
            for each grid.
-    radius : bool or int or float or str
+    radius : bool, float, or str
         [*radius*][**+e**\|\ **p**].
         To be used with normal grid sampling, and limited to a single, non-IMG
         grid. If the nearest node to the input point is NaN, search outwards
@@ -270,8 +268,8 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of -118 to
-    >>> # -107, and a y-range of -49 to -42
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # -118° E to -107° E, and a latitude range of -49° N to -42° N
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="30m", region=[-118, -107, -49, -42]
     ... )
@@ -310,7 +308,7 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
             try:
-                column_names = points.columns.to_list() + [newcolname]
+                column_names = [*points.columns.to_list(), newcolname]
                 result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
             except AttributeError:  # 'str' object has no attribute 'columns'
                 result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")

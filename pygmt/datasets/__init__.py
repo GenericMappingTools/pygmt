@@ -13,5 +13,10 @@ from pygmt.datasets.earth_relief import load_earth_relief
 from pygmt.datasets.earth_vertical_gravity_gradient import (
     load_earth_vertical_gravity_gradient,
 )
+from pygmt.datasets.mars_relief import load_mars_relief
+from pygmt.datasets.mercury_relief import load_mercury_relief
+from pygmt.datasets.moon_relief import load_moon_relief
+from pygmt.datasets.pluto_relief import load_pluto_relief
 from pygmt.datasets.samples import list_sample_data, load_sample_data
 from pygmt.datasets.tile_map import load_tile_map
+from pygmt.datasets.venus_relief import load_venus_relief

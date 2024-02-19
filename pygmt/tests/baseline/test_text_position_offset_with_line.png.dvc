@@ -1,4 +1,5 @@
 outs:
-- md5: e1cd6b2b971d8f1dd0fd452a9136c54e
-  size: 7229
+- md5: ccd10643c7e6072e5a356442a71957ca
+  size: 7220
   path: test_text_position_offset_with_line.png
+  hash: md5

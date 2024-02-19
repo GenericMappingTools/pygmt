@@ -1,9 +1,8 @@
 """
-GMT standard data types.
-
-These data types are defined in the GMT source code "src/gmt_resources.h".
+Wrapper for the GMT_GRID data type.
 """
 import ctypes as ctp
+from typing import ClassVar
 
 import numpy as np
 import xarray as xr
@@ -29,7 +28,7 @@ GMT_GRID_REMARK_LEN160 = 160
 gmt_grdfloat = ctp.c_float
 
 
-class GMT_GRID_HEADER(ctp.Structure):
+class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     """
     Structure for GMT grid header.
 
@@ -38,7 +37,7 @@ class GMT_GRID_HEADER(ctp.Structure):
     for definition.
     """
 
-    _fields_ = [
+    _fields_: ClassVar = [
         # items stored in grids
         ("n_columns", ctp.c_uint32),  # number of columns
         ("n_rows", ctp.c_uint32),  # number of rows
@@ -83,7 +82,7 @@ class GMT_GRID_HEADER(ctp.Structure):
     ]
 
 
-class GMT_GRID(ctp.Structure):
+class _GMT_GRID(ctp.Structure):  # noqa: N801
     """
     Structure for GMT grid.
 
@@ -100,7 +99,8 @@ class GMT_GRID(ctp.Structure):
     ...     with lib.virtualfile_to_data(kind="grid") as vfile:
     ...         # read in a grid file and output to the virtual file
     ...         lib.call_module("read", f"@static_earth_relief.nc {vfile} -Tg")
-    ...         # read the data in the virtual file and cast the data into a pointer to GMT_GRID
+    ...         # read the data in the virtual file
+    ...         # and cast the data into a pointer to _GMT_GRID
     ...         grid_pointer = ctp.cast(
     ...             lib.read_virtualfile(vfile), ctp.POINTER(GMT_GRID)
     ...         )
@@ -109,9 +109,7 @@ class GMT_GRID(ctp.Structure):
     ...         header = grid.header.contents  # a GMT_GRID_HEADER object
     ...         # access the header properties
     ...         print(header.n_rows, header.n_columns, header.registration)
-    ...         print(
-    ...             header.wesn[:], header.z_min, header.z_max, header.inc[:]
-    ...         )
+    ...         print(header.wesn[:], header.z_min, header.z_max, header.inc[:])
     ...         print(header.z_scale_factor, header.z_add_offset)
     ...         print(header.x_units, header.y_units, header.z_units)
     ...         print(header.title)
@@ -130,7 +128,6 @@ class GMT_GRID(ctp.Structure):
     ...             grid.data[: header.mx * header.my], (header.my, header.mx)
     ...         )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]]
     ...         print(data)
-    ...
     14 8 1
     [-55.0, -47.0, -24.0, -10.0] 190.0 981.0 [1.0, 1.0]
     1.0 0.0
@@ -160,8 +157,8 @@ class GMT_GRID(ctp.Structure):
     [347.5 344.5 386.  640.5 617.  579.  646.5 671. ]]
     """
 
-    _fields_ = [
-        ("header", ctp.POINTER(GMT_GRID_HEADER)),  # pointer to grid header
+    _fields_: ClassVar = [
+        ("header", ctp.POINTER(_GMT_GRID_HEADER)),  # pointer to grid header
         ("data", ctp.POINTER(gmt_grdfloat)),  # pointer to grid data
         ("x", ctp.POINTER(ctp.c_double)),  # pointer to x coordinate vector
         ("y", ctp.POINTER(ctp.c_double)),  # pointer to y coordinate vector

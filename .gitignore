@@ -17,8 +17,9 @@ MANIFEST
 .coverage
 coverage.xml
 htmlcov/
-.flakeheaven_cache/
+.mypy_cache/
 .pytest_cache/
+.ruff_cache/
 results/
 result_images/
 tmp-test-dir-with-unique-name/

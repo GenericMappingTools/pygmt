@@ -40,7 +40,7 @@ def grd2cpt(grid, **kwargs):
     figure, subplot, panel, or inset depending on which level
     :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
     maintains different levels of colormaps please see
-    :gmt-docs:`cookbook/features.html#gmt-modern-mode-hierarchical-levels`).
+    :gmt-docs:`reference/features.html#gmt-modern-mode-hierarchical-levels`).
     You can use ``output`` to save the CPT to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
     to colors is through the data's cumulative distribution function (CDF), so
@@ -79,8 +79,7 @@ def grd2cpt(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     transparency : int or float or str
         Set a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the foreground, background, and NaN
@@ -88,7 +87,7 @@ def grd2cpt(grid, **kwargs):
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
-        at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
+        at :gmt-docs:`reference/cpts.html#built-in-color-palette-tables-cpt`.
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
@@ -110,7 +109,7 @@ def grd2cpt(grid, **kwargs):
         *start*, where we automatically build monotonically increasing
         labels from *start* (a single letter or an integer). Additionally
         append **-** to build ranges *start*-*start+1* as labels instead.
-    nlevels : bool or int or str
+    nlevels : bool, int, or str
         Set to ``True`` to create a linear color table by using the grid
         z-range as the new limits in the CPT. Alternatively, set *nlevels*
         to resample the color table into *nlevels* equidistant slices.
@@ -128,7 +127,7 @@ def grd2cpt(grid, **kwargs):
         Truncate the incoming CPT so that the lowest and highest z-levels are
         to *zlow* and *zhigh*. If one of these equal NaN then we leave that
         end of the CPT alone. The truncation takes place before any resampling.
-        See also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        See also :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
         Optional. The file name with extension .cpt to store the generated CPT
         file. If not given or ``False`` [Default], saves the CPT as the current
@@ -140,7 +139,7 @@ def grd2cpt(grid, **kwargs):
         of z-values in the color table. Note that this change of z-direction
         happens before ``truncate`` and ``series`` values are used so the
         latter must be compatible with the changed z-range. See also
-        :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        :gmt-docs:`reference/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,

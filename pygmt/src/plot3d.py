@@ -6,7 +6,6 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -16,7 +15,6 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -50,7 +48,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
+def plot3d(  # noqa: PLR0912
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -80,7 +78,7 @@ def plot3d(
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
@@ -120,7 +118,7 @@ def plot3d(
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1-D array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
@@ -180,8 +178,7 @@ def plot3d(
         ``x``/``y``/``z``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data, x, y, z)
 
@@ -197,14 +194,14 @@ def plot3d(
     elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
         # checking that the data is a file path to set default style
         try:
-            with open(which(data), mode="r", encoding="utf8") as file:
+            with open(which(data), encoding="utf8") as file:
                 line = file.readline()
             if "@GMULTIPOINT" in line or "@GPOINT" in line:
                 # if the file is gmt style and geometry is set to Point
                 kwargs["S"] = "u0.2c"
         except FileNotFoundError:
             pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
+    if is_nonstr_iter(kwargs.get("G")):
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
@@ -219,7 +216,7 @@ def plot3d(
         extra_arrays.append(size)
 
     for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
+        if is_nonstr_iter(kwargs.get(flag)):
             if kind != "vectors":
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."

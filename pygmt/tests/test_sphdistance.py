@@ -48,6 +48,7 @@ def test_sphdistance_outgrid(array):
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
 
 
+@pytest.mark.benchmark
 def test_sphdistance_no_outgrid(array):
     """
     Test sphdistance with no set outgrid.
@@ -64,8 +65,7 @@ def test_sphdistance_no_outgrid(array):
 
 def test_sphdistance_fails(array):
     """
-    Check that sphdistance fails correctly when neither increment nor region is
-    given.
+    Check that sphdistance fails correctly when neither increment nor region is given.
     """
     with pytest.raises(GMTInvalidInput):
         sphdistance(data=array)

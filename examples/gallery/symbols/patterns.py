@@ -1,5 +1,5 @@
 r"""
-Bit and Hachure Patterns
+Bit and hachure patterns
 ========================
 
 PyGMT allows using bit or hachure patterns via the ``fill`` parameter
@@ -26,7 +26,7 @@ The required argument has the following form:
 *pattern* can either be a number in the range 1-90 or the name of a
 1-, 8-, or 24-bit image raster file. The former will result in one of the 90
 predefined 64 x 64 bit-patterns provided by GMT; an overview can by found at
-:gmt-docs:`cookbook/predefined-patterns.html`.
+:gmt-docs:`reference/predefined-patterns.html`.
 The latter allows the user to create customized, repeating images using image
 raster files.
 By specifying upper case **P** instead of **p** the image will be

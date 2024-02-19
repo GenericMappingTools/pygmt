@@ -15,7 +15,7 @@ from pygmt.helpers import (
     kwargs_to_strings,
     unique_name,
 )
-from pygmt.helpers.testing import load_static_earth_relief
+from pygmt.helpers.testing import load_static_earth_relief, skip_if_no
 
 
 def test_load_static_earth_relief():
@@ -32,7 +32,7 @@ def test_load_static_earth_relief():
 
 
 @pytest.mark.parametrize(
-    "data,x,y",
+    ("data", "x", "y"),
     [
         (None, None, None),
         ("data.txt", np.array([1, 2]), np.array([4, 5])),
@@ -147,3 +147,19 @@ def test_args_in_kwargs():
     # Failing list of arguments
     failing_args = ["D", "E", "F"]
     assert not args_in_kwargs(args=failing_args, kwargs=kwargs)
+
+
+def test_skip_if_no():
+    """
+    Test that the skip_if_no helper testing function returns a pytest.mask.skipif mark
+    decorator.
+    """
+    # Check pytest.mark with a dependency that can be imported
+    mark_decorator = skip_if_no(package="numpy")
+    assert mark_decorator.args[0] is False
+
+    # Check pytest.mark with a dependency that cannot be imported
+    mark_decorator = skip_if_no(package="nullpackage")
+    assert mark_decorator.args[0] is True
+    assert mark_decorator.kwargs["reason"] == "Could not import 'nullpackage'"
+    assert mark_decorator.markname == "skipif"

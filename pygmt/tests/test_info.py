@@ -12,6 +12,7 @@ import pytest
 import xarray as xr
 from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
+from pygmt.helpers.testing import skip_if_no
 
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
@@ -74,20 +75,31 @@ def test_info_2d_list():
     assert output == expected_output
 
 
-def test_info_series():
+@pytest.mark.parametrize(
+    "dtype",
+    ["int64", pytest.param("int64[pyarrow]", marks=skip_if_no(package="pyarrow"))],
+)
+def test_info_series(dtype):
     """
     Make sure info works on a pandas.Series input.
     """
-    output = info(pd.Series(data=[0, 4, 2, 8, 6]))
+    output = info(pd.Series(data=[0, 4, 2, 8, 6], dtype=dtype))
     expected_output = "<vector memory>: N = 5 <0/8>\n"
     assert output == expected_output
 
 
-def test_info_dataframe():
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "float64",
+        pytest.param("float64[pyarrow]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_dataframe(dtype):
     """
     Make sure info works on pandas.DataFrame inputs.
     """
-    table = pd.read_csv(POINTS_DATA, sep=" ", header=None)
+    table = pd.read_csv(POINTS_DATA, sep=" ", header=None, dtype=dtype)
     output = info(data=table)
     expected_output = (
         "<vector memory>: N = 20 <11.5309/61.7074> <-2.9289/7.8648> <0.1412/0.9338>\n"
@@ -107,14 +119,23 @@ def test_info_numpy_array_time_column():
     assert output == expected_output
 
 
-def test_info_pandas_dataframe_time_column():
+@pytest.mark.benchmark
+@pytest.mark.parametrize(
+    "dtype",
+    [
+        "datetime64[ns]",
+        pytest.param("date32[day][pyarrow]", marks=skip_if_no(package="pyarrow")),
+        pytest.param("date64[ms][pyarrow]", marks=skip_if_no(package="pyarrow")),
+    ],
+)
+def test_info_pandas_dataframe_date_column(dtype):
     """
-    Make sure info works on pandas.DataFrame inputs with a time column.
+    Make sure info works on pandas.DataFrame inputs with a date column.
     """
     table = pd.DataFrame(
         data={
             "z": [10, 13, 12, 15, 14],
-            "time": pd.date_range(start="2020-01-01", periods=5),
+            "date": pd.date_range(start="2020-01-01", periods=5).astype(dtype=dtype),
         }
     )
     output = info(data=table)
@@ -124,6 +145,7 @@ def test_info_pandas_dataframe_time_column():
     assert output == expected_output
 
 
+@pytest.mark.benchmark
 def test_info_xarray_dataset_time_column():
     """
     Make sure info works on xarray.Dataset 1-D inputs with a time column.

@@ -67,9 +67,8 @@ def test_grdview_wrong_kind_of_grid(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective(gridfile):
     """
-    Run grdview by passing in a grid and setting a perspective viewpoint with
-    an azimuth from the SouthEast and an elevation angle 15 degrees from the
-    z-plane.
+    Run grdview by passing in a grid and setting a perspective viewpoint with an azimuth
+    from the SouthEast and an elevation angle 15 degrees from the z-plane.
     """
     fig = Figure()
     fig.grdview(grid=gridfile, projection="Q15c+", perspective=[135, 15], frame=True)
@@ -79,9 +78,9 @@ def test_grdview_with_perspective(gridfile):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zscale(xrgrid):
     """
-    Run grdview by passing in a grid and setting a perspective viewpoint with
-    an azimuth from the SouthWest and an elevation angle 30 degrees from the
-    z-plane, plus a z-axis scaling factor of 0.005.
+    Run grdview by passing in a grid and setting a perspective viewpoint with an azimuth
+    from the SouthWest and an elevation angle 30 degrees from the z-plane, plus a z-axis
+    scaling factor of 0.005.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, perspective=[225, 30], zscale=0.005)
@@ -91,9 +90,9 @@ def test_grdview_with_perspective_and_zscale(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zsize(xrgrid):
     """
-    Run grdview by passing in a grid and setting a perspective viewpoint with
-    an azimuth from the SouthWest and an elevation angle 30 degrees from the
-    z-plane, plus a z-axis size of 10cm.
+    Run grdview by passing in a grid and setting a perspective viewpoint with an azimuth
+    from the SouthWest and an elevation angle 30 degrees from the z-plane, plus a z-axis
+    size of 10cm.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, perspective=[225, 30], zsize="10c")
@@ -103,8 +102,7 @@ def test_grdview_with_perspective_and_zsize(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_image_plot(xrgrid):
     """
-    Run grdview by passing in a grid and setting a colormap for producing an
-    image plot.
+    Run grdview by passing in a grid and setting a colormap for producing an image plot.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, cmap="oleron", surftype="i")
@@ -114,8 +112,8 @@ def test_grdview_with_cmap_for_image_plot(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
     """
-    Run grdview by passing in a grid and setting a colormap for producing a
-    surface monochrome plot.
+    Run grdview by passing in a grid and setting a colormap for producing a surface
+    monochrome plot.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, cmap="oleron", surftype="s+m")
@@ -125,8 +123,8 @@ def test_grdview_with_cmap_for_surface_monochrome_plot(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
     """
-    Run grdview by passing in a grid and setting a colormap for producing a
-    surface plot with a 3-D perspective viewpoint.
+    Run grdview by passing in a grid and setting a colormap for producing a surface plot
+    with a 3-D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(
@@ -138,8 +136,8 @@ def test_grdview_with_cmap_for_perspective_surface_plot(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane(xrgrid):
     """
-    Run grdview by passing in a grid and plotting it on a z-plane, while
-    setting a 3-D perspective viewpoint.
+    Run grdview by passing in a grid and plotting it on a z-plane, while setting a 3-D
+    perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, plane=100, perspective=[225, 30], zscale=0.005)
@@ -149,8 +147,8 @@ def test_grdview_on_a_plane(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
     """
-    Run grdview by passing in a grid and plotting it on a z-plane whose frontal
-    facade is colored gray, while setting a 3-D perspective viewpoint.
+    Run grdview by passing in a grid and plotting it on a z-plane whose frontal facade
+    is colored gray, while setting a 3-D perspective viewpoint.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, plane="100+ggray", perspective=[225, 30], zscale=0.005)
@@ -160,8 +158,8 @@ def test_grdview_on_a_plane_with_colored_frontal_facade(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
     """
-    Run grdview by passing in a grid and plotting an annotated vertical z-axis
-    frame on a Transverse Mercator (T) projection.
+    Run grdview by passing in a grid and plotting an annotated vertical z-axis frame on
+    a Transverse Mercator (T) projection.
     """
     fig = Figure()
     projection = f"T{(region[0]+region[1])/2}/{abs((region[2]+region[3])/2)}"
@@ -178,8 +176,8 @@ def test_grdview_with_perspective_and_zaxis_frame(xrgrid, region):
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
     """
-    Run grdview by passing in a grid with styled contour lines plotted on top
-    of a surface plot.
+    Run grdview by passing in a grid with styled contour lines plotted on top of a
+    surface plot.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, cmap="relief", surftype="s", contourpen="0.5p,black,dash")
@@ -189,8 +187,8 @@ def test_grdview_surface_plot_styled_with_contourpen(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
     """
-    Run grdview by passing in a grid with styled mesh lines plotted on top of a
-    surface mesh plot.
+    Run grdview by passing in a grid with styled mesh lines plotted on top of a surface
+    mesh plot.
     """
     fig = Figure()
     fig.grdview(grid=xrgrid, cmap="relief", surftype="sm", meshpen="0.5p,black,dash")
@@ -200,8 +198,8 @@ def test_grdview_surface_mesh_plot_styled_with_meshpen(xrgrid):
 @pytest.mark.mpl_image_compare
 def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     """
-    Run grdview by passing in a grid and plotting it on a z-plane with styled
-    lines for the frontal facade.
+    Run grdview by passing in a grid and plotting it on a z-plane with styled lines for
+    the frontal facade.
     """
     fig = Figure()
     fig.grdview(
@@ -214,11 +212,12 @@ def test_grdview_on_a_plane_styled_with_facadepen(xrgrid):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdview_drapegrid_dataarray(xrgrid):
     """
-    Run grdview by passing in both a grid and drapegrid as an xarray.DataArray,
-    setting a colormap for producing an image plot.
+    Run grdview by passing in both a grid and drapegrid as an xarray.DataArray, setting
+    a colormap for producing an image plot.
     """
     drapegrid = 1.1 * xrgrid
 

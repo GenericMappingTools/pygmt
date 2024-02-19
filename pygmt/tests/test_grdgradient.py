@@ -40,8 +40,7 @@ def fixture_expected_grid():
 
 def test_grdgradient_outgrid(grid, expected_grid):
     """
-    Test the azimuth and direction parameters for grdgradient with a set
-    outgrid.
+    Test the azimuth and direction parameters for grdgradient with a set outgrid.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdgradient(
@@ -53,10 +52,10 @@ def test_grdgradient_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdgradient_no_outgrid(grid, expected_grid):
     """
-    Test the azimuth and direction parameters for grdgradient with no set
-    outgrid.
+    Test the azimuth and direction parameters for grdgradient with no set outgrid.
 
     This is a regression test for
     https://github.com/GenericMappingTools/pygmt/issues/1807.

@@ -186,7 +186,7 @@ These steps for setting up your environment are necessary for
 [contributing code](contributing.md#contributing-code). A local PyGMT development environment
 is not needed for [editing the documentation on GitHub](contributing.md#editing-the-documentation-on-github).
 
-We highly recommend using [Mambaforge](https://github.com/conda-forge/miniforge#mambaforge/)
+We highly recommend using [Miniforge](https://github.com/conda-forge/miniforge#miniforge3)
 and the `mamba` package manager to install and manage your Python packages.
 It will make your life a lot easier!
 
@@ -320,24 +320,25 @@ Open `doc/_build/html/index.html` in your browser to view the pages. Follow the
 Many of the PyGMT functions have example code in their documentation. To contribute an
 example, add an "Example" header and put the example code below it. Have all lines
 begin with `>>>`.  To keep this example code from being run during testing, add the code
-`__doctest_skip__ = [function name]` to the top of the module.
+`__doctest_skip__ = ["function_name"]` to the top of the module.
 
 **Inline code example**
 
-Below the import statements at the top of the file
+Below the import statements at the top of the file:
 
-``
-__doctest_skip__ = ["module_name"]
-``
+```python
+__doctest_skip__ = ["function_name"]
+```
 
-At the end of the function's docstring
+At the end of the function's docstring:
 
-    Example
-    -------
-    >>> import pygmt
-    >>> # Comment describing what is happening
-    >>> Code example
-
+```python
+Example
+-------
+>>> import pygmt
+>>> # Comment describing what is happening
+>>> Code example
+```
 
 ### Contributing Gallery Plots
 
@@ -404,9 +405,9 @@ the `pygmt/src/` and `pygmt/datasets/` folders. **All docstrings** should follow
 All functions/classes/methods should have docstrings with a full description of all
 arguments and return values.
 
-While the maximum line length for code is automatically set by Black, docstrings
+While the maximum line length for code is automatically set by ruff, docstrings
 must be formatted manually. To play nicely with Jupyter and IPython, **keep docstrings
-limited to 79 characters** per line.
+limited to 88 characters** per line.
 
 ### Standards for Example Code
 
@@ -471,16 +472,10 @@ code, be sure to follow the general guidelines in the
 
 ### Code Style
 
-We use some tools to format the code so we don't have to think about it:
-
-- [Black](https://github.com/psf/black)
-- [blackdoc](https://github.com/keewis/blackdoc)
-- [docformatter](https://github.com/myint/docformatter)
-- [isort](https://pycqa.github.io/isort/)
-
-Black and blackdoc loosely follows the [PEP8](http://pep8.org) guide but with a few
-differences. Regardless, you won't have to worry about formatting the code yourself.
-Before committing, run it to automatically format your code:
+We use the [ruff](https://docs.astral.sh/ruff) tool to format the code, so we
+don't have to think about it. It loosely follow the [PEP8](http://pep8.org) guide
+but with a few differences. Regardless, you won't have to worry about formatting
+the code yourself. Before committing, run it to automatically format your code:
 
 ```bash
 make format
@@ -499,15 +494,21 @@ words bridged only by consonants, such as `distcalc`, and `crossprofile`. This
 convention is not applied by the code checking tools, but the PyGMT maintainers
 will comment on any pull requests as needed.
 
-We also use [flakeheaven](https://flakeheaven.readthedocs.io) and
-[pylint](https://pylint.pycqa.org/) to check the quality of the code and quickly catch
-common errors.
+When working on a tutorial or a gallery plot, it is good practice to use code
+block separators to split a long script into multiple blocks. The separators also
+make it possible to run the script like a Jupyter notebook in some modern text
+editors or IDEs. We consistently use `# %%` as code block separators (please
+refer to [issue #2660](https://github.com/GenericMappingTools/pygmt/issues/2660)
+for the discussions) and require at least one separator in all example files.
+
+We also use [ruff](https://docs.astral.sh/ruff) to check the quality of the code
+and quickly catch common errors.
+
 The [`Makefile`](https://github.com/GenericMappingTools/pygmt/blob/main/Makefile)
-contains rules for running both checks:
+contains rules for running the linter checks:
 
 ```bash
-make check   # Runs black, blackdoc, docformatter, flakeheaven and isort (in check mode)
-make lint    # Runs pylint, which is a bit slower
+make check   # Runs ruff in check mode
 ```
 
 ### Testing your Code
@@ -576,7 +577,9 @@ returning the `pygmt.Figure` object:
 ```python
 @pytest.mark.mpl_image_compare
 def test_my_plotting_case():
-    "Test that my plotting method works"
+    """
+    Test that my plotting method works.
+    """
     fig = Figure()
     fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     return fig
@@ -671,20 +674,22 @@ summarized as follows:
     dvc push  # Run before git push to enable automated testing with the new images
     git push
 
-#### Using check_figures_equal
+#### Using `check_figures_equal`
 
 This approach draws the same figure using two different methods (the reference
 method and the tested method), and checks that both of them are the same.
-It takes two `pygmt.Figure` objects ('fig_ref' and 'fig_test'), generates a png
+It takes two `pygmt.Figure` objects (`fig_ref` and `fig_test`), generates a png
 image, and checks for the Root Mean Square (RMS) error between the two.
 Here's an example:
 
 ```python
 @check_figures_equal()
 def test_my_plotting_case():
-  "Test that my plotting method works"
-  fig_ref, fig_test = Figure(), Figure()
-  fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
-  fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
-  return fig_ref, fig_test
+    """
+    Test that my plotting method works.
+    """
+    fig_ref, fig_test = Figure(), Figure()
+    fig_ref.grdimage("@earth_relief_01d_g", projection="W120/15c", cmap="geo")
+    fig_test.grdimage(grid, projection="W120/15c", cmap="geo")
+    return fig_ref, fig_test
 ```

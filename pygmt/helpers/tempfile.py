@@ -50,7 +50,6 @@ class GMTTempFile:
     ...     print(lines)
     ...     nx, ny, nz = tmpfile.loadtxt(unpack=True, dtype=float)
     ...     print(nx, ny, nz)
-    ...
     0.0 1.0 2.0
     0.0 1.0 2.0
     0.0 1.0 2.0
@@ -63,9 +62,15 @@ class GMTTempFile:
             self.name = tmpfile.name
 
     def __enter__(self):
+        """
+        Do nothing but return the object.
+        """
         return self
 
     def __exit__(self, *args):
+        """
+        Remove the temporary file.
+        """
         if os.path.exists(self.name):
             os.remove(self.name)
 
@@ -83,7 +88,7 @@ class GMTTempFile:
         content : str
             Content of the temporary file as a Unicode string.
         """
-        with open(self.name, mode="r", encoding="utf8") as tmpfile:
+        with open(self.name, encoding="utf8") as tmpfile:
             content = tmpfile.read()
             if not keep_tabs:
                 content = content.replace("\t", " ")
@@ -109,9 +114,8 @@ class GMTTempFile:
 @contextmanager
 def tempfile_from_geojson(geojson):
     """
-    Saves any geo-like Python object which implements ``__geo_interface__``
-    (e.g. a geopandas.GeoDataFrame or shapely.geometry) to a temporary OGR_GMT
-    text file.
+    Saves any geo-like Python object which implements ``__geo_interface__`` (e.g. a
+    geopandas.GeoDataFrame or shapely.geometry) to a temporary OGR_GMT text file.
 
     Parameters
     ----------
@@ -126,13 +130,14 @@ def tempfile_from_geojson(geojson):
         E.g. '1a2b3c4d5e6.gmt'.
     """
     with GMTTempFile(suffix=".gmt") as tmpfile:
-        # pylint: disable=import-outside-toplevel
         import geopandas as gpd
 
         os.remove(tmpfile.name)  # ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
-            # Map int/int64 to int32 since OGR_GMT only supports 32-bit integer
+            # OGR_GMT only supports 32-bit integers. We need to map int/int64
+            # types to int32/float types depending on if the column has an
+            # 32-bit integer overflow issue. Related issues:
             # https://github.com/geopandas/geopandas/issues/967#issuecomment-842877704
             # https://github.com/GenericMappingTools/pygmt/issues/2497
             if geojson.index.name is None:
@@ -141,7 +146,8 @@ def tempfile_from_geojson(geojson):
             schema = gpd.io.file.infer_schema(geojson)
             for col, dtype in schema["properties"].items():
                 if dtype in ("int", "int64"):
-                    schema["properties"][col] = "int32"
+                    overflow = geojson[col].abs().max() > 2**31 - 1
+                    schema["properties"][col] = "float" if overflow else "int32"
             ogrgmt_kwargs["schema"] = schema
             # Using geopandas.to_file to directly export to OGR_GMT format
             geojson.to_file(**ogrgmt_kwargs)
@@ -164,8 +170,7 @@ def tempfile_from_geojson(geojson):
 @contextmanager
 def tempfile_from_image(image):
     """
-    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via
-    rioxarray.
+    Saves a 3-band :class:`xarray.DataArray` to a temporary GeoTIFF file via rioxarray.
 
     Parameters
     ----------

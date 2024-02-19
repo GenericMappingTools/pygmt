@@ -1,4 +1,5 @@
 outs:
-- md5: 1469301865b97d4a95bdc26a89ae7df5
-  size: 13936
+- md5: 3ce57fca619482344cd1f4c55c4004d3
+  size: 13904
   path: test_meca_spec_multiple_focalmecha.png
+  hash: md5

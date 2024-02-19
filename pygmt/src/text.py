@@ -39,13 +39,10 @@ from pygmt.helpers import (
 @kwargs_to_strings(
     R="sequence",
     textfiles="sequence_space",
-    angle="sequence_comma",
-    font="sequence_comma",
-    justify="sequence_comma",
     c="sequence_comma",
     p="sequence",
 )
-def text_(
+def text_(  # noqa: PLR0912
     self,
     textfiles=None,
     x=None,
@@ -69,7 +66,7 @@ def text_(
     The text strings passed via the ``text`` parameter can contain ASCII
     characters and non-ASCII characters defined in the ISOLatin1+ encoding
     (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
+    See :gmt-docs:`reference/octal-codes.html` for the full list of supported
     non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
@@ -79,8 +76,21 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of file names containing 1 or more
-        records with (x, y[, angle, font, justify], text).
+        A file name or a list of file names containing one or more records.
+        Each record has the following columns:
+
+        * *x*: X coordinate or longitude
+        * *y*: Y coordinate or latitude
+        * *angle*: Angle in degrees counter-clockwise from horizontal
+        * *font*: Text size, font, and color
+        * *justify*: Two-character justification code
+        * *text*: The text string to typeset
+
+        The *angle*, *font*, and *justify* columns are optional and can be set
+        by using the ``angle``, ``font``, and ``justify`` parameters,
+        respectively. If these parameters are set to ``True``, then the
+        corresponding columns must be present in the input file(s) and the
+        columns must be in the order mentioned above.
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
@@ -97,12 +107,12 @@ def text_(
         of the map.
     text : str or 1-D array
         The text string, or an array of strings to plot on the figure.
-    angle: int, float, str or bool
+    angle: float, str, bool or list
         Set the angle measured in degrees counter-clockwise from
         horizontal (e.g. 30 sets the text at 30 degrees). If no angle is
         explicitly given (i.e. ``angle=True``) then the input to ``textfiles``
         must have this as a column.
-    font : str or bool
+    font : str, bool or list of str
         Set the font specification with format *size*\ ,\ *font*\ ,\ *color*
         where *size* is text size in points, *font* is the font to use, and
         *color* sets the font color. For example,
@@ -110,7 +120,7 @@ def text_(
         font. If no font info is explicitly given (i.e. ``font=True``), then
         the input to ``textfiles`` must have this information in one of its
         columns.
-    justify : str or bool
+    justify : str, bool or list of str
         Set the alignment which refers to the part of the text string that
         will be mapped onto the (x, y) point. Choose a two-letter
         combination of **L**, **C**, **R** (for left, center, or right) and
@@ -125,8 +135,8 @@ def text_(
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (*c* for centimeters,
-        *i* for inches, or *p* for points; if not given we consult
+        are specified. Append the unit you want (**c** for centimeters,
+        **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
         box when using ``fill`` and/or ``pen``. Append lower case **o**
@@ -170,8 +180,7 @@ def text_(
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    # pylint: disable=too-many-branches
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
@@ -183,7 +192,7 @@ def text_(
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
-        if x is not None or y is not None or textfiles is not None:
+        if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
@@ -193,38 +202,30 @@ def text_(
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if kwargs.get("F") is None and (
-        (
-            position is not None
-            or angle is not None
-            or font is not None
-            or justify is not None
-        )
+    if kwargs.get("F") is None and any(
+        v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
-    if angle is True:
-        kwargs["F"] += "+a"
-    elif isinstance(angle, (int, float, str)):
-        kwargs["F"] += f"+a{str(angle)}"
-
-    if font is True:
-        kwargs["F"] += "+f"
-    elif isinstance(font, str):
-        kwargs["F"] += f"+f{font}"
-
-    if justify is True:
-        kwargs["F"] += "+j"
-    elif isinstance(justify, str):
-        kwargs["F"] += f"+j{justify}"
+    extra_arrays = []
+    for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
+        if arg is True:
+            kwargs["F"] += flag
+        elif is_nonstr_iter(arg):
+            kwargs["F"] += flag
+            if flag == "+a":  # angle is numeric type
+                extra_arrays.append(np.atleast_1d(arg))
+            else:  # font or justify is str type
+                extra_arrays.append(np.atleast_1d(arg).astype(str))
+        elif isinstance(arg, int | float | str):
+            kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
         kwargs["F"] += f"+c{position}+t{text}"
 
-    extra_arrays = []
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
-    if kwargs.get("t") is not None and is_nonstr_iter(kwargs["t"]):
+    if is_nonstr_iter(kwargs.get("t")):
         extra_arrays.append(kwargs["t"])
         kwargs["t"] = ""
 

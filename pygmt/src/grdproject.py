@@ -56,11 +56,8 @@ def grdproject(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     inverse : bool
         When set to ``True`` transforms grid from rectangular to
         geographical [Default is False].
@@ -104,15 +101,12 @@ def grdproject(grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # Load a grid of @earth_relief_30m data, with an x-range of 10 to 30,
-    >>> # and a y-range of 15 to 25
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
-    >>> # Create a new grid from the input grid, set the projection to
-    >>> # Mercator, and set inverse to "True" to change from "geographic"
-    >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
+    >>> # Load a grid of @earth_relief_30m data, with a longitude range of
+    >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")

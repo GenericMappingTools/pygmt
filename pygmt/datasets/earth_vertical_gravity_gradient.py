@@ -1,9 +1,11 @@
 """
-Function to download the IGPP Global Earth Vertical Gravity Gradient dataset
-from the GMT data server, and load as :class:`xarray.DataArray`.
+Function to download the IGPP Earth Vertical Gravity Gradient dataset from the GMT data
+server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
@@ -12,11 +14,18 @@ __doctest_skip__ = ["load_earth_vertical_gravity_gradient"]
 
 @kwargs_to_strings(region="sequence")
 def load_earth_vertical_gravity_gradient(
-    resolution="01d", region=None, registration=None
+    resolution="01d",
+    region=None,
+    registration: Literal["gridline", "pixel", None] = None,
 ):
     r"""
-    Load the IGPP Global Earth Vertical Gravity Gradient dataset in various
-    resolutions.
+    Load the IGPP Earth Vertical Gravity Gradient dataset in various resolutions.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_vgg.jpg
+       :width: 80 %
+       :align: center
+
+       IGPP Earth Vertical Gravity Gradient dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_vgg/``) the first time you invoke
@@ -53,10 +62,11 @@ def load_earth_vertical_gravity_gradient(
         Required for grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"01m"`` which is ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for all resolutions except ``"01m"`` which is
+        ``"pixel"`` only.
 
     Returns
     -------

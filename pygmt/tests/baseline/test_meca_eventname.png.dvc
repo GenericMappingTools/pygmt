@@ -1,4 +1,5 @@
 outs:
-- md5: 81203f9e3a43ec235cf4b5068f928b56
-  size: 10689
+- md5: 6d8b48d9c7ddc07923f6c04e7aeed6e2
+  size: 10600
   path: test_meca_eventname.png
+  hash: md5

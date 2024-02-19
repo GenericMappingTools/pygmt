@@ -1,4 +1,5 @@
 outs:
-- md5: ebc85cc6c78a30b1d55972a725b01005
-  size: 13502
+- md5: 2388937fb5953f6aaecaee826dd043c1
+  size: 13083
   path: test_config_map_tick_pen.png
+  hash: md5

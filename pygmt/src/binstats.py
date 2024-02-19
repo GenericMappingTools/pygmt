@@ -48,12 +48,10 @@ def binstats(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         A file name of an ASCII data table or a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
@@ -78,7 +76,7 @@ def binstats(data, **kwargs):
         - **u** for maximum (upper)
         - **U** for maximum of negative values only
         - **z** for the sum
-    empty : float or int
+    empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
         Normalize the resulting grid values by the area represented by the

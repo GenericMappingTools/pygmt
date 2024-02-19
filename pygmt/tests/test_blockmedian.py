@@ -31,12 +31,12 @@ def test_blockmedian_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 
+@pytest.mark.benchmark
 def test_blockmedian_input_table_matrix(dataframe):
     """
-    Run blockmedian using table input that is not a pandas.DataFrame but still
-    a matrix.
+    Run blockmedian using table input that is not a pandas.DataFrame but still a matrix.
     """
-    table = dataframe.values
+    table = dataframe.to_numpy()
     output = blockmedian(data=table, spacing="5m", region=[245, 255, 20, 30])
     assert isinstance(output, pd.DataFrame)
     assert output.shape == (5849, 3)
@@ -61,8 +61,7 @@ def test_blockmedian_input_xyz(dataframe):
 
 def test_blockmedian_wrong_kind_of_input_table_grid(dataframe):
     """
-    Run blockmedian using table input that is not a pandas.DataFrame or file
-    but a grid.
+    Run blockmedian using table input that is not a pandas.DataFrame or file but a grid.
     """
     invalid_table = dataframe.bathymetry.to_xarray()
     assert data_kind(invalid_table) == "grid"

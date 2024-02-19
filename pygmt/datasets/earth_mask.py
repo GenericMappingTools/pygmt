@@ -1,9 +1,11 @@
 """
-Function to download the GSHHG Global Earth Mask dataset from the GMT data
-server, and load as :class:`xarray.DataArray`.
+Function to download the GSHHG Earth Mask dataset from the GMT data server, and load as
+:class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
@@ -11,9 +13,19 @@ __doctest_skip__ = ["load_earth_mask"]
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_mask(resolution="01d", region=None, registration=None):
+def load_earth_mask(
+    resolution="01d",
+    region=None,
+    registration: Literal["gridline", "pixel"] = "gridline",
+):
     r"""
-    Load the GSHHG Global Earth Mask dataset in various resolutions.
+    Load the GSHHG Earth Mask dataset in various resolutions.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.jpg
+       :width: 80 %
+       :align: center
+
+       GSHHG Earth Mask dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke
@@ -41,9 +53,9 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``.
+        ``"gridline"`` for gridline registration.
 
     Returns
     -------
