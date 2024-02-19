@@ -7,8 +7,8 @@ dependencies:
     # Required dependencies
     - gmt=6.5.0
     - numpy>=1.23
-    - pandas
-    - xarray
+    - pandas>=1.5
+    - xarray>=2022.03
     - netCDF4
     - packaging
     # Optional dependencies
@@ -24,7 +24,7 @@ dependencies:
     - pip
     # Dev dependencies (style checks)
     - codespell
-    - ruff>=0.1.9
+    - ruff>=0.2.0
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov

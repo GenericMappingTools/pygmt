@@ -7,7 +7,6 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -15,10 +14,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
-@deprecate_parameter(
-    "uncertaintycolor", "uncertaintyfill", "v0.8.0", remove_version="v0.12.0"
-)
 @use_alias(
     A="vector",
     B="frame",

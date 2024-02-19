@@ -18,9 +18,10 @@ build:
         if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
           git diff --quiet origin/main -- \
               doc/ \
+              examples \
               pygmt/**/*.py \
               ':!pygmt/tests' \
-              README.md \
+              README.rst \
               ci/requirements/docs.yml \
               .readthedocs.yaml;
         then
