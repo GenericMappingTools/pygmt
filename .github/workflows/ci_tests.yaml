@@ -160,7 +160,10 @@ jobs:
 
       # Run Selected tests
       - name: Run selected tests
-        run: cat codecov_ats/tests_to_run.txt | xargs pytest --cov pygmt
+        run: |
+          cat codecov_ats/tests_to_run.txt
+          cat codecov_ats/tests_to_skip.txt
+          cat codecov_ats/tests_to_run.txt | xargs pytest --cov pygmt
         if: github.event_name == 'pull_request'
 
       # Run the regular tests
