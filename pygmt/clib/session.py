@@ -12,7 +12,6 @@ import pathlib
 import sys
 import warnings
 from typing import Literal
-from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -1745,7 +1744,9 @@ class Session:
         return wesn
 
     @contextlib.contextmanager
-    def virtualfile_to_data(self, kind: Literal["dataset", "grid"], fname: str | None = None):
+    def virtualfile_to_data(
+        self, kind: Literal["dataset", "grid"], fname: str | None = None
+    ):
         """
         Create a virtual file for writing a GMT data container or yield the file name.
 
