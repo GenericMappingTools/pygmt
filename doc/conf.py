@@ -214,7 +214,11 @@ html_context = {
     "doc_path": "doc",
     "galleries": sphinx_gallery_conf["gallery_dirs"],
     "gallery_dir": dict(
-        zip(sphinx_gallery_conf["gallery_dirs"], sphinx_gallery_conf["examples_dirs"])
+        zip(
+            sphinx_gallery_conf["gallery_dirs"],
+            sphinx_gallery_conf["examples_dirs"],
+            strict=True,
+        )
     ),
     "github_repo": repository,
     "github_version": "main",

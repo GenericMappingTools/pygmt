@@ -1,7 +1,8 @@
 """
 Functions to load sample data.
 """
-from typing import Callable, Literal, NamedTuple
+from collections.abc import Callable
+from typing import Literal, NamedTuple
 
 import pandas as pd
 from pygmt.exceptions import GMTInvalidInput
