@@ -49,7 +49,7 @@ jobs:
 
       - name: Ensure example scripts have at least one code block separator
         run: |
-          grep --files-without-match '# %%' $(find 'examples' -name '*.py') > output.txt
+          git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Code block separator '# %%' is required in following example files:"
