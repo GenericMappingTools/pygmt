@@ -12,6 +12,7 @@ import pathlib
 import sys
 import warnings
 from typing import Literal
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -24,7 +25,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import GMT_DATASET
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -89,6 +90,7 @@ DTYPES = {
     np.float64: "GMT_DOUBLE",
     np.str_: "GMT_TEXT",
     np.datetime64: "GMT_DATETIME",
+    np.timedelta64: "GMT_LONG",
 }
 
 # Load the GMT library outside the Session class to avoid repeated loading.
@@ -1088,7 +1090,7 @@ class Session:
             raise GMTCLibError(f"Failed to write dataset to '{output}'")
 
     @contextlib.contextmanager
-    def open_virtual_file(self, family, geometry, direction, data):
+    def open_virtualfile(self, family, geometry, direction, data):
         """
         Open a GMT virtual file to pass data to and from a module.
 
@@ -1145,7 +1147,7 @@ class Session:
         ...     lib.put_vector(dataset, column=1, vector=y)
         ...     # Add the dataset to a virtual file
         ...     vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-        ...     with lib.open_virtual_file(*vfargs) as vfile:
+        ...     with lib.open_virtualfile(*vfargs) as vfile:
         ...         # Send the output to a temp file so that we can read it
         ...         with GMTTempFile() as ofile:
         ...             args = f"{vfile} ->{ofile.name}"
@@ -1193,6 +1195,23 @@ class Session:
             if status != 0:
                 raise GMTCLibError(f"Failed to close virtual file '{vfname}'.")
 
+    def open_virtual_file(self, family, geometry, direction, data):
+        """
+        Open a GMT virtual file to pass data to and from a module.
+
+        .. deprecated: 0.11.0
+
+           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.open_virtualfile`
+           instead.
+        """
+        msg = (
+            "API function `Session.open_virtual_file()' has been deprecated "
+            "since v0.11.0 and will be removed in v0.15.0. "
+            "Use `Session.open_virtualfile()' instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        return self.open_virtualfile(family, geometry, direction, data)
+
     @contextlib.contextmanager
     def virtualfile_from_vectors(self, *vectors):
         """
@@ -1208,7 +1227,7 @@ class Session:
         Use this instead of creating the data container and virtual file by
         hand with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_vector`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`.
+        :meth:`pygmt.clib.Session.open_virtualfile`.
 
         If the arrays are C contiguous blocks of memory, they will be passed
         without copying to GMT. If they are not (e.g., they are columns of a
@@ -1283,13 +1302,15 @@ class Session:
             if len(string_arrays) == 1:
                 strings = string_arrays[0]
             elif len(string_arrays) > 1:
-                strings = np.array([" ".join(vals) for vals in zip(*string_arrays)])
+                strings = np.array(
+                    [" ".join(vals) for vals in zip(*string_arrays, strict=True)]
+                )
             strings = np.asanyarray(a=strings, dtype=str)
             self.put_strings(
                 dataset, family="GMT_IS_VECTOR|GMT_IS_DUPLICATE", strings=strings
             )
 
-        with self.open_virtual_file(
+        with self.open_virtualfile(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
         ) as vfile:
             yield vfile
@@ -1316,7 +1337,7 @@ class Session:
         Use this instead of creating the data container and virtual file by
         hand with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`
+        :meth:`pygmt.clib.Session.open_virtualfile`
 
         The matrix must be C contiguous in memory. If it is not (e.g., it is a
         slice of a larger array), the array will be copied to make sure it is.
@@ -1369,7 +1390,7 @@ class Session:
 
         self.put_matrix(dataset, matrix)
 
-        with self.open_virtual_file(
+        with self.open_virtualfile(
             family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset
         ) as vfile:
             yield vfile
@@ -1392,7 +1413,7 @@ class Session:
         Use this instead of creating a data container and virtual file by hand
         with :meth:`pygmt.clib.Session.create_data`,
         :meth:`pygmt.clib.Session.put_matrix`, and
-        :meth:`pygmt.clib.Session.open_virtual_file`
+        :meth:`pygmt.clib.Session.open_virtualfile`.
 
         The grid data matrix must be C contiguous in memory. If it is not
         (e.g., it is a slice of a larger array), the array will be copied to
@@ -1456,7 +1477,7 @@ class Session:
         )
         self.put_matrix(gmt_grid, matrix)
         args = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", gmt_grid)
-        with self.open_virtual_file(*args) as vfile:
+        with self.open_virtualfile(*args) as vfile:
             yield vfile
 
     @fmt_docstring
@@ -1591,6 +1612,72 @@ class Session:
 
         return file_context
 
+    def read_virtualfile(
+        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+    ):
+        """
+        Read data from a virtual file and optionally cast into a GMT data container.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to read.
+        kind
+            Cast the data into a GMT data container. Valid values are ``"dataset"``,
+            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>>
+        >>> # Read dataset from a virtual file
+        >>> with Session() as lib:
+        ...     with GMTTempFile(suffix=".txt") as tmpfile:
+        ...         with open(tmpfile.name, mode="w") as fp:
+        ...             print("1.0 2.0 3.0 TEXT", file=fp)
+        ...         with lib.open_virtualfile(
+        ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
+        ...         ) as vfile:
+        ...             lib.call_module("read", f"{tmpfile.name} {vfile} -Td")
+        ...             # Read the virtual file as a void pointer
+        ...             void_pointer = lib.read_virtualfile(vfile)
+        ...             assert isinstance(void_pointer, int)  # void pointer is an int
+        ...             # Read the virtual file as a dataset
+        ...             data_pointer = lib.read_virtualfile(vfile, kind="dataset")
+        ...             assert isinstance(data_pointer, ctp.POINTER(_GMT_DATASET))
+        >>>
+        >>> # Read grid from a virtual file
+        >>> with Session() as lib:
+        ...     with lib.open_virtualfile(
+        ...         "GMT_IS_GRID", "GMT_IS_SURFACE", "GMT_OUT", None
+        ...     ) as vfile:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {vfile} -Tg")
+        ...         # Read the virtual file as a void pointer
+        ...         void_pointer = lib.read_virtualfile(vfile)
+        ...         assert isinstance(void_pointer, int)  # void pointer is an int
+        ...         data_pointer = lib.read_virtualfile(vfile, kind="grid")
+        ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
+
+        Returns
+        -------
+        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
+        pointer instead.
+        """
+        c_read_virtualfile = self.get_libgmt_func(
+            "GMT_Read_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_void_p,
+        )
+        pointer = c_read_virtualfile(self.session_pointer, vfname.encode())
+        # The GMT C API function GMT_Read_VirtualFile returns a void pointer. It usually
+        # needs to be cast into a pointer to a GMT data container (e.g., _GMT_GRID or
+        # _GMT_DATASET).
+        if kind is None:  # Return the ctypes void pointer
+            return pointer
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        return ctp.cast(pointer, ctp.POINTER(dtype))
+
     def extract_region(self):
         """
         Extract the WESN bounding box of the currently active figure.
@@ -1656,44 +1743,6 @@ class Session:
         if status != 0:
             raise GMTCLibError("Failed to extract region from current figure.")
         return wesn
-
-    def read_virtualfile(self, vfname : str, kind : Literal["dataset", "grid", None] = None):
-        """
-        Read data from a virtual file and cast into a GMT data container if requested.
-
-        Parameters
-        ----------
-        vfname
-            Name of the virtual file to read.
-        kind
-            Cast the data into a GMT data container. Valid values are ``"dataset"``,
-            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
-
-        Returns
-        -------
-        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
-        pointer instead.
-        """
-        c_read_virtualfile = self.get_libgmt_func(
-            "GMT_Read_VirtualFile",
-            argtypes=[
-                ctp.c_void_p,
-                ctp.c_char_p,
-            ],
-            restype=ctp.c_void_p,
-        )
-        pointer = c_read_virtualfile(self.session_pointer, vfname.encode())
-        if kind is None:  # Return the ctypes void pointer
-            return pointer
-
-        # The GMT C API function GMT_Read_VirtualFile returns a void pointer. It usually
-        # needs to be cast to a pointer to GMT data container (e.g., GMT_GRID or
-        # GMT_DATASET).
-        dtype = {
-            # "grid": GMT_GRID,  # implemented in PR #2398
-            "dataset": GMT_DATASET,
-        }[kind]
-        return ctp.cast(pointer, ctp.POINTER(dtype))
 
     @contextlib.contextmanager
     def virtualfile_to_data(self, kind: Literal["dataset", "grid"], fname: str | None = None):

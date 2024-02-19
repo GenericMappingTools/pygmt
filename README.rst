@@ -19,6 +19,9 @@ PyGMT
 .. image:: https://github.com/GenericMappingTools/pygmt/workflows/GMT%20Dev%20Tests/badge.svg
     :alt: GitHub Actions GMT Dev Tests status
     :target: https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+    :target: https://github.com/astral-sh/ruff
+    :alt: Ruff
 .. image:: https://codecov.io/gh/GenericMappingTools/pygmt/branch/main/graph/badge.svg?token=78Fu4EWstx
     :alt: Test coverage status
     :target: https://app.codecov.io/gh/GenericMappingTools/pygmt
@@ -43,11 +46,8 @@ PyGMT
 .. image:: https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg
     :alt: Contributor Code of Conduct
     :target: CODE_OF_CONDUCT.md
-.. image:: https://img.shields.io/twitter/follow/gmt_dev?style=social
-    :alt: Twitter URL
-    :target: https://twitter.com/gmt_dev
 
-.. placeholder-for-doc-index
+.. doc-index-start-after
 
 
 Why PyGMT?
@@ -183,7 +183,7 @@ Developers". Feel free to cite our work in your research using the following Bib
 
 .. code-block::
 
-    @software{pygmt_2023_8303186,
+    @software{pygmt_2024_10578540,
       author       = {Tian, Dongdong and
                       Uieda, Leonardo and
                       Leong, Wei Ji and
@@ -203,12 +203,12 @@ Developers". Feel free to cite our work in your research using the following Bib
                       Quinn, Jamie and
                       Wessel, Paul},
       title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-      month        = sep,
-      year         = 2023,
+      month        = feb,
+      year         = 2024,
       publisher    = {Zenodo},
-      version      = {0.10.0},
-      doi          = {10.5281/zenodo.8303186},
-      url          = {https://doi.org/10.5281/zenodo.8303186}
+      version      = {0.11.0},
+      doi          = {10.5281/zenodo.10578540},
+      url          = {https://doi.org/10.5281/zenodo.10578540}
     }
 
 To cite a specific version of PyGMT, go to our Zenodo page at
@@ -251,101 +251,17 @@ Other non-official Python wrappers for GMT (not maintained):
 * `pygmt <https://github.com/ian-r-rose/pygmt>`__ by `Ian Rose <https://github.com/ian-r-rose>`__
 * `PyGMT <https://github.com/glimmer-cism/PyGMT>`__  by `Magnus Hagdorn <https://github.com/mhagdorn>`__
 
+.. doc-index-end-before
 
-Compatibility with GMT/Python/NumPy versions
---------------------------------------------
+Minimum Supported Versions
+--------------------------
 
-.. list-table::
-    :widths: 25 30 15 20 15
-    :header-rows: 1
+PyGMT has adopted `SPEC 0 <https://scientific-python.org/specs/spec-0000/>`__ alongside
+the rest of the Scientific Python ecosystem, and therefore:
 
-    * - PyGMT Version
-      - Documentation
-      - GMT
-      - Python
-      - NumPy
-    * - `Dev <https://github.com/GenericMappingTools/pygmt/milestones>`_ (upcoming release)
-      - `Dev Documentation <https://www.pygmt.org/dev>`_ (reflects `main branch <https://github.com/GenericMappingTools/pygmt>`_)
-      - >=6.3.0
-      - >=3.9
-      - >=1.22
-    * - `v0.10.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0>`_ (latest release)
-      - `v0.10.0 Documentation <https://www.pygmt.org/v0.10.0>`_
-      - >=6.3.0
-      - >=3.9
-      - >=1.22
-    * - `v0.9.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0>`_
-      - `v0.9.0 Documentation <https://www.pygmt.org/v0.9.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.21
-    * - `v0.8.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0>`_
-      - `v0.8.0 Documentation <https://www.pygmt.org/v0.8.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.20
-    * - `v0.7.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0>`_
-      - `v0.7.0 Documentation <https://www.pygmt.org/v0.7.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.20
-    * - `v0.6.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1>`_
-      - `v0.6.1 Documentation <https://www.pygmt.org/v0.6.1>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.19
-    * - `v0.6.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0>`_
-      - `v0.6.0 Documentation <https://www.pygmt.org/v0.6.0>`_
-      - >=6.3.0
-      - >=3.8
-      - >=1.19
-    * - `v0.5.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0>`_
-      - `v0.5.0 Documentation <https://www.pygmt.org/v0.5.0>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.18
-    * - `v0.4.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1>`_
-      - `v0.4.1 Documentation <https://www.pygmt.org/v0.4.1>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.17
-    * - `v0.4.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0>`_
-      - `v0.4.0 Documentation <https://www.pygmt.org/v0.4.0>`_
-      - >=6.2.0
-      - >=3.7
-      - >=1.17
-    * - `v0.3.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1>`_
-      - `v0.3.1 Documentation <https://www.pygmt.org/v0.3.1>`_
-      - >=6.1.1
-      - >=3.7
-      -
-    * - `v0.3.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0>`_
-      - `v0.3.0 Documentation <https://www.pygmt.org/v0.3.0>`_
-      - >=6.1.1
-      - >=3.7
-      -
-    * - `v0.2.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1>`_
-      - `v0.2.1 Documentation <https://www.pygmt.org/v0.2.1>`_
-      - >=6.1.1
-      - >=3.6
-      -
-    * - `v0.2.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0>`_
-      - `v0.2.0 Documentation <https://www.pygmt.org/v0.2.0>`_
-      - >=6.1.1
-      - 3.6 - 3.8
-      -
-    * - `v0.1.2 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2>`_
-      - `v0.1.2 Documentation <https://www.pygmt.org/v0.1.2>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
-    * - `v0.1.1 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1>`_
-      - `v0.1.1 Documentation <https://www.pygmt.org/v0.1.1>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
-    * - `v0.1.0 <https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0>`_
-      - `v0.1.0 Documentation <https://www.pygmt.org/v0.1.0>`_
-      - >=6.0.0
-      - 3.6 - 3.8
-      -
+* Support for Python versions be dropped 3 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
+
+For the supported GMT versions as well as the minimum required versions of Python and
+core package dependencies, please see
+`Minimum Supported Versions <https://www.pygmt.org/dev/minversions.html>`__.

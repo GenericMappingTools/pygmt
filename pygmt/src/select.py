@@ -90,7 +90,7 @@ def select(data=None, output_type="pandas", outfile=None, **kwargs):
         *linefile*\ **+d**\ *dist*\ [**+p**].
         Pass all records whose locations are within *dist* of any of the line
         segments in the ASCII :gmt-docs:`multiple-segment file
-        <cookbook/file-formats.html#optional-segment-header-records>`
+        <reference/file-formats.html#optional-segment-header-records>`
         *linefile*. If *dist* is zero, we will scan each sub-header in
         *linefile* for an embedded **-D**\ *dist* setting that sets each
         line's individual distance value. Distances are Cartesian and in
@@ -106,7 +106,7 @@ def select(data=None, output_type="pandas", outfile=None, **kwargs):
         *polygonfile*.
         Pass all records whose locations are within one of the closed
         polygons in the ASCII :gmt-docs:`multiple-segment file
-        <cookbook/file-formats.html#optional-segment-header-records>`
+        <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
     resolution : str
