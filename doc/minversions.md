@@ -7,8 +7,8 @@ rest of the Scientific Python ecosystem, and therefore:
 - Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
   their initial release.
 
-|  PyGMT Version | GMT     | Python | NumPy | Pandas | Xarray |
-|---------------|---------|--------|-------|--------|--------|
+| PyGMT Version | GMT | Python | NumPy | Pandas | Xarray |
+|---|---|---|---|---|---|
 | [Dev][]* [[Docs][Docs Dev]] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.03 |
 | [v0.11.0][] [[Docs][Docs v0.11.0]] | >=6.3.0 | >=3.9 | >=1.23 |  |  |
 | [v0.10.0][] [[Docs][Docs v0.10.0]] | >=6.3.0 | >=3.9 | >=1.22 |  |  |
