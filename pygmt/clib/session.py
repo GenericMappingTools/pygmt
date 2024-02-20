@@ -1771,5 +1771,5 @@ class Session:
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
             }[kind]
-            with self.open_virtual_file(family, geometry, "GMT_OUT", None) as vfile:
+            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
