@@ -28,7 +28,7 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 [Gallery](https://www.pygmt.org/latest/gallery), and check out some
 [external PyGMT examples](https://www.pygmt.org/latest/external_resources.html)!
 
-![Quick Introduction to PyGMT YouTube Video](_static/scipy2022-youtube-thumbnail.jpg){.align-center width="80%"}
+![Quick Introduction to PyGMT YouTube Video](doc/_static/scipy2022-youtube-thumbnail.jpg)
 
 
 ## About
