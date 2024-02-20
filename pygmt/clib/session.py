@@ -9,6 +9,7 @@ import ctypes as ctp
 import pathlib
 import sys
 import warnings
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -21,6 +22,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -1606,6 +1608,72 @@ class Session:
         file_context = _virtualfile_from(*_data)
 
         return file_context
+
+    def read_virtualfile(
+        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+    ):
+        """
+        Read data from a virtual file and optionally cast into a GMT data container.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to read.
+        kind
+            Cast the data into a GMT data container. Valid values are ``"dataset"``,
+            ``"grid"`` and ``None``. If ``None``, will return a ctypes void pointer.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>>
+        >>> # Read dataset from a virtual file
+        >>> with Session() as lib:
+        ...     with GMTTempFile(suffix=".txt") as tmpfile:
+        ...         with open(tmpfile.name, mode="w") as fp:
+        ...             print("1.0 2.0 3.0 TEXT", file=fp)
+        ...         with lib.open_virtualfile(
+        ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
+        ...         ) as vfile:
+        ...             lib.call_module("read", f"{tmpfile.name} {vfile} -Td")
+        ...             # Read the virtual file as a void pointer
+        ...             void_pointer = lib.read_virtualfile(vfile)
+        ...             assert isinstance(void_pointer, int)  # void pointer is an int
+        ...             # Read the virtual file as a dataset
+        ...             data_pointer = lib.read_virtualfile(vfile, kind="dataset")
+        ...             assert isinstance(data_pointer, ctp.POINTER(_GMT_DATASET))
+        >>>
+        >>> # Read grid from a virtual file
+        >>> with Session() as lib:
+        ...     with lib.open_virtualfile(
+        ...         "GMT_IS_GRID", "GMT_IS_SURFACE", "GMT_OUT", None
+        ...     ) as vfile:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {vfile} -Tg")
+        ...         # Read the virtual file as a void pointer
+        ...         void_pointer = lib.read_virtualfile(vfile)
+        ...         assert isinstance(void_pointer, int)  # void pointer is an int
+        ...         data_pointer = lib.read_virtualfile(vfile, kind="grid")
+        ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
+
+        Returns
+        -------
+        Pointer to the GMT data container. If ``kind`` is None, returns a ctypes void
+        pointer instead.
+        """
+        c_read_virtualfile = self.get_libgmt_func(
+            "GMT_Read_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_void_p,
+        )
+        pointer = c_read_virtualfile(self.session_pointer, vfname.encode())
+        # The GMT C API function GMT_Read_VirtualFile returns a void pointer. It usually
+        # needs to be cast into a pointer to a GMT data container (e.g., _GMT_GRID or
+        # _GMT_DATASET).
+        if kind is None:  # Return the ctypes void pointer
+            return pointer
+        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def extract_region(self):
         """
