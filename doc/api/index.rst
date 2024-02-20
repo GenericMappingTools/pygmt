@@ -313,5 +313,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.open_virtualfile
+    clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func
