@@ -63,13 +63,12 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
     class _GMT_DATATABLE(ctp.Structure):  # noqa: N801
         """
-        GMT datatable structure for holding a single table with multiple segments.
+        GMT datatable structure for holding a table with multiple segments.
         """
 
         class _GMT_DATASEGMENT(ctp.Structure):  # noqa: N801
             """
-            GMT datasegment structure for holding a single segment with multiple
-            columns.
+            GMT datasegment structure for holding a segment with multiple columns.
             """
 
             _fields_: ClassVar = [
@@ -145,7 +144,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
     def to_dataframe(self):
         """
-        Convert a GMT_DATASET object to a :class:`pandas.DataFrame` object.
+        Convert a _GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
         Currently, the number of columns in all segments of all tables are assumed to be
         the same. The same column in all segments of all tables are concatenated. The
