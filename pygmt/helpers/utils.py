@@ -11,6 +11,7 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable
+from typing import Literal
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -557,7 +558,12 @@ def args_in_kwargs(args, kwargs):
     )
 
 
-def return_table(session, output_type, vfile, column_names):
+def return_table(
+    session,
+    output_type: Literal["pandas", "numpy", "file"],
+    vfile: str,
+    column_names: list[str],
+):
     """
     Return an output table from a virtual file based on the output type.
 
@@ -565,11 +571,11 @@ def return_table(session, output_type, vfile, column_names):
     ----------
     session : :class:`pygmt.clib.Session`
         The current session.
-    output_type : str
-        The output type. Can be ``"pandas"``, ``"numpy"``, or ``"file"``.
-    vfile : str
+    output_type
+        The output type. Valid values are ``"pandas"``, ``"numpy"``, or ``"file"``.
+    vfile
         The virtual file name.
-    column_names : list of str
+    column_names
         The column names for the :class:`pandas.DataFrame` output.
 
     Returns
@@ -588,7 +594,7 @@ def return_table(session, output_type, vfile, column_names):
     result = result.convert_dtypes(
         convert_string=True,
         convert_integer=False,
-        convert_floating=False,  # requires pandas>=1.2.0
+        convert_floating=False,
         convert_boolean=False,
     )
     if output_type == "pandas":
