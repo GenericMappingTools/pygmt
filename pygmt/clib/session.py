@@ -1743,7 +1743,7 @@ class Session:
 
     @contextlib.contextmanager
     def virtualfile_to_data(
-        self, kind: Literal["dataset", "grid"], fname: str | None = None
+        self, kind: Literal["dataset", "grid", None] = None, fname: str | None = None
     ):
         """
         Create a virtual file for storing output data in a data container or yield the
@@ -1753,7 +1753,7 @@ class Session:
         ----------
         kind
             The kind of data container to create. Valid values are ``"dataset"`` and
-            ``"grid"``. Ignored if ``fname`` is given.
+            ``"grid"`` or ``None``. Ignored if ``fname`` is specified.
         fname
             If given, yield the actual file name instead of the virtual file name.
 
@@ -1761,6 +1761,40 @@ class Session:
         ------
         vfile : str
             Name of the virtual file or the output file name.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> from pygmt.helpers import GMTTempFile
+        >>> from pygmt.clib import Session
+        >>> from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+        >>>
+        >>> # Create a virtual file for storing the output table.
+        >>> with GMTTempFile(suffix=".txt") as tmpfile:
+        ...     with open(tmpfile.name, mode="w") as fp:
+        ...         print("1.0 2.0 3.0 TEXT", file=fp)
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
+        >>> isinstance(ds.contents, _GMT_DATASET)
+        True
+        >>>
+        >>> # Create a virtual file for storing the output grid.
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_to_data(kind="grid") as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         outgrd = lib.read_virtualfile(voutgrd, kind="grid")
+        >>> isinstance(outgrd.contents, _GMT_GRID)
+        True
+        >>>
+        >>> # Write data to file without creating a virtual file
+        >>> with GMTTempFile(suffix=".nc") as tmpfile:
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_to_data(fname=tmpfile.name) as voutgrd:
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             assert voutgrd == tmpfile.name
+        ...             assert Path(voutgrd).stat().st_size > 0
         """
         # If fname is given, yield the output file name.
         if fname is not None:
