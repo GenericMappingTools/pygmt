@@ -1765,9 +1765,9 @@ class Session:
         Examples
         --------
         >>> from pathlib import Path
-        >>> from pygmt.helpers import GMTTempFile
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+        >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Create a virtual file for storing the output table.
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
