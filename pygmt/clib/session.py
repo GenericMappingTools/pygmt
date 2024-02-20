@@ -1746,15 +1746,16 @@ class Session:
         self, kind: Literal["dataset", "grid"], fname: str | None = None
     ):
         """
-        Create a virtual file for writing a GMT data container or yield the file name.
+        Create a virtual file for storing output data in a data container or yield the
+        actual file name.
 
         Parameters
         ----------
         kind
             The kind of data container to create. Valid values are ``"dataset"`` and
-            ``"grid"``. It's ignored if ``fname`` is given.
+            ``"grid"``. Ignored if ``fname`` is given.
         fname
-            If given, yield the output file name instead of the virtual file.
+            If given, yield the actual file name instead of the virtual file name.
 
         Yields
         ------
@@ -1764,9 +1765,9 @@ class Session:
         # If fname is given, yield the output file name.
         if fname is not None:
             yield fname
-        # Otherwise, create a virtual file for writing a GMT data container.
+        # Otherwise, create a virtual file for storing the output data.
         else:
-            # Determine the family and geometry of the data container from kind
+            # Determine the family and geometry from kind
             family, geometry = {
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
