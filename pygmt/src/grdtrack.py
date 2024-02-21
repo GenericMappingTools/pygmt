@@ -1,7 +1,6 @@
 """
 grdtrack - Sample grids at specified (x,y) locations.
 """
-
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -296,10 +295,9 @@ def grdtrack(
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
+    column_names = None
     if isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
-    else:
-        column_names = None
 
     with Session() as lib:
         with lib.virtualfile_from_data(
