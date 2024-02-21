@@ -123,9 +123,9 @@ def load_tile_map(
     Frozen({'band': 3, 'y': 256, 'x': 512})
     >>> raster.coords
     Coordinates:
-      * band         (band) uint8 0 1 2
-      * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...
-      * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
+      * band     (band) uint8 3B 0 1 2
+      * y        (y) float64 2kB -7.081e-10 -7.858e+04 ... -1.996e+07 -2.004e+07
+      * x        (x) float64 4kB -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
     """
     if not _HAS_CONTEXTILY:
         raise ImportError(
