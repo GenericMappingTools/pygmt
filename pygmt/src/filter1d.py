@@ -125,9 +125,4 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
 
-        return return_table(
-            session=lib,
-            output_type=output_type,
-            vfile=vouttbl,
-            column_names=None,
-        )
+        return return_table(session=lib, output_type=output_type, vfile=vouttbl)

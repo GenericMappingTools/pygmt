@@ -562,7 +562,7 @@ def return_table(
     session,
     output_type: Literal["pandas", "numpy", "file"],
     vfile: str,
-    column_names: list[str],
+    column_names: list[str] | None = None,
 ):
     """
     Return an output table from a virtual file based on the output type.

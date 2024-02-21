@@ -138,12 +138,7 @@ class triangulate:  # noqa: N801
             if output_type == "xarray":
                 return load_dataarray(outgrid)
 
-            return return_table(
-                session=lib,
-                output_type=output_type,
-                vfile=vouttbl,
-                column_names=None,
-            )
+            return return_table(session=lib, output_type=output_type, vfile=vouttbl)
 
     @staticmethod
     @fmt_docstring
