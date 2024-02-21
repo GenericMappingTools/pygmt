@@ -87,7 +87,7 @@ jobs:
           ref: ${{ matrix.gmt_git_ref }}
           path: 'gmt'
 
-      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
+      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux)
         run: |
           cd gmt/
           mkdir build
@@ -103,7 +103,25 @@ jobs:
           rm -rf gmt/
         env:
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
-        if: runner.os != 'Windows'
+        if: runner.os == 'Linux'
+
+      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (macOS)
+        run: |
+          cd gmt/
+          mkdir build
+          cd build
+          cmake -G Ninja .. \
+            -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGMT_ENABLE_OPENMP=FALSE \
+            -DGMT_USE_THREADS=FALSE
+          cmake --build .
+          cmake --build . --target install
+          cd ..
+          rm -rf gmt/
+        env:
+          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
+        if: runner.os == 'macOS'
 
       - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
         shell: cmd
