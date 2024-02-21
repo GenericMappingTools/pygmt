@@ -109,7 +109,7 @@ contributor; that your skills aren't nearly good enough to contribute. What coul
 
 We assure you that the little voice in your head is wrong.
 
-**Being a contributor doesn't just mean writing code**. Equally important contributions include: writing or
+**Being a contributor doesn't just mean writing code.** Equally important contributions include: writing or
 proof-reading documentation, suggesting or implementing tests, or even giving feedback about the project
 (including giving feedback about the contribution process). If you're coming to the project with fresh eyes,
 you might see the errors and assumptions that seasoned contributors have glossed over. If you can write any
