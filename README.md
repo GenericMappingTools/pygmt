@@ -40,12 +40,12 @@ widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ## Project goals
 
--   Make GMT more accessible to new users.
--   Build a Pythonic API for GMT.
--   Interface with the GMT C API directly using ctypes (no system calls).
--   Support for rich display in the Jupyter notebook.
--   Integration with the [PyData](https://pydata.org/) ecosystem: `numpy.ndarray` or `pandas.DataFrame` for
-    data tables, `xarray.DataArray` for grids and `geopandas.GeoDataFrame` for geographical data.
+- Make GMT more accessible to new users.
+- Build a Pythonic API for GMT.
+- Interface with the GMT C API directly using ctypes (no system calls).
+- Support for rich display in the Jupyter notebook.
+- Integration with the [PyData](https://pydata.org/) ecosystem: `numpy.ndarray` or `pandas.DataFrame` for
+  data tables, `xarray.DataArray` for grids and `geopandas.GeoDataFrame` for geographical data.
 
 ## Quickstart
 
@@ -54,13 +54,13 @@ widely used across the Earth, Ocean, and Planetary sciences and beyond.
 Simple installation using [mamba](https://mamba.readthedocs.org/):
 
 ```bash
-    mamba install --channel conda-forge pygmt
+mamba install --channel conda-forge pygmt
 ```
 
 If you use [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html):
 
 ```bash
-    conda install --channel conda-forge pygmt
+conda install --channel conda-forge pygmt
 ```
 
 For other ways to install `pygmt`, see the [full installation instructions](https://www.pygmt.org/latest/install.html).
@@ -71,10 +71,10 @@ As a starting point, you can open a [Python interpreter](https://docs.python.org
 or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and try the following example:
 
 ``` python
-    import pygmt
-    fig = pygmt.Figure()
-    fig.coast(projection="H10c", region="g", frame=True, land="gray")
-    fig.show()
+import pygmt
+fig = pygmt.Figure()
+fig.coast(projection="H10c", region="g", frame=True, land="gray")
+fig.show()
 ``` 
 
 For more examples, please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
@@ -82,11 +82,11 @@ For more examples, please have a look at the [Gallery](https://www.pygmt.org/lat
 
 ## Contacting Us
 
--   Most discussion happens [on GitHub](https://github.com/GenericMappingTools/pygmt).
-    Feel free to [open an issue](https://github.com/GenericMappingTools/pygmt/issues/new) or
-    comment on any open issue or pull request.
--   We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a)
-    where you can ask questions and leave comments.
+- Most discussion happens [on GitHub](https://github.com/GenericMappingTools/pygmt).
+  Feel free to [open an issue](https://github.com/GenericMappingTools/pygmt/issues/new) or comment on any open
+  issue or pull request.
+- We have a [Discourse forum](https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a) where you can ask
+  questions and leave comments.
 
 ## Contributing
 
@@ -110,26 +110,25 @@ contributor; that your skills aren't nearly good enough to contribute. What coul
 
 We assure you that the little voice in your head is wrong.
 
-**Being a contributor doesn't just mean writing code**. Equally important contributions
-include: writing or proof-reading documentation, suggesting or implementing tests, or
-even giving feedback about the project (including giving feedback about the contribution
-process). If you're coming to the project with fresh eyes, you might see the errors and
-assumptions that seasoned contributors have glossed over. If you can write any code
-at all, you can contribute code to open source. We are constantly trying out new skills,
-making mistakes, and learning from those mistakes. That's how we all improve and we are
-happy to help others learn.
+**Being a contributor doesn't just mean writing code**. Equally important contributions include: writing or
+proof-reading documentation, suggesting or implementing tests, or even giving feedback about the project
+(including giving feedback about the contribution process). If you're coming to the project with fresh eyes,
+you might see the errors and assumptions that seasoned contributors have glossed over. If you can write any
+code at all, you can contribute code to open source. We are constantly trying out new skills, making mistakes,
+and learning from those mistakes. That's how we all improve and we are happy to help others learn.
 
 *This disclaimer was adapted from the* [MetPy project](https://github.com/Unidata/MetPy).
 
 ## Citing PyGMT
 
 PyGMT is a community developed project. See the
-[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md)
-file on GitHub for a list of the people involved and a definition of the term
-"PyGMT Developers". Feel free to cite our work in your research using the following BibTeX:
+[AUTHORS.md](https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md) file on GitHub for a list of
+the people involved and a definition of the term "PyGMT Developers". Feel free to cite our work in your
+research using the following BibTeX:
 
 ``` 
-@software{pygmt_2024_10578540,
+@software{
+  pygmt_2024_10578540,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
@@ -158,17 +157,16 @@ file on GitHub for a list of the people involved and a definition of the term
 }
 ```
 
-To cite a specific version of PyGMT, go to our Zenodo page at
-<https://doi.org/10.5281/zenodo.3781524> and use the "Export to BibTeX" function there.
-It is also strongly recommended to cite the
-[GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note that
-some modules like `dimfilter`, `surface`, and `x2sys` also have their dedicated citations.
-Further information for all these can be found at <https://www.generic-mapping-tools.org/cite>.
+To cite a specific version of PyGMT, go to our Zenodo page at <https://doi.org/10.5281/zenodo.3781524>
+and use the "Export to BibTeX" function there. It is also strongly recommended to cite the
+[GMT 6 paper](https://doi.org/10.1029/2019GC008515) (which PyGMT wraps around). Note that some modules
+like `dimfilter`, `surface`, and `x2sys` also have their dedicated citations. Further information for
+all these can be found at <https://www.generic-mapping-tools.org/cite>.
 
 ## License
 
-PyGMT is free software: you can redistribute it and/or modify it under the terms
-of the **BSD 3-clause License**. A copy of this license is provided in
+PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+**BSD 3-clause License**. A copy of this license is provided in
 [LICENSE.txt](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt).
 
 ## Support
@@ -181,22 +179,22 @@ The development of PyGMT has been supported by NSF grants
 
 Other official wrappers for GMT:
 
--   [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
--   [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
+- [GMT.jl](https://github.com/GenericMappingTools/GMT.jl): A Julia wrapper for GMT.
+- [gmtmex](https://github.com/GenericMappingTools/gmtmex): A Matlab/Octave wrapper for GMT.
 
 Other non-official Python wrappers for GMT (not maintained):
 
--   [gmtpy](https://github.com/emolch/gmtpy) by [Sebastian Heimann](https://github.com/emolch)
--   [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
--   [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
+- [gmtpy](https://github.com/emolch/gmtpy) by [Sebastian Heimann](https://github.com/emolch)
+- [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
+- [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
 
 ## Minimum Supported Versions
 
-PyGMT has adopted [SPEC0](https://scientific-python.org/specs/spec-0000/) alongside the rest of
-the Scientific Python ecosystem, and therefore:
+PyGMT has adopted [SPEC0](https://scientific-python.org/specs/spec-0000/) alongside the rest of the
+Scientific Python ecosystem, and therefore:
 
--   Support for Python versions be dropped 3 years after their initial release.
--   Support for core package dependencies (NumPy/Pandas/Xarray) be opped 2 years after their initial release.
+- Support for Python versions be dropped 3 years after their initial release.
+- Support for core package dependencies (NumPy/Pandas/Xarray) be opped 2 years after their initial release.
 
 For the supported GMT versions as well as the minimum required versions of Python and core package
 dependencies, please see [Minimum Supported Versions](https://www.pygmt.org/dev/minversions.html).
