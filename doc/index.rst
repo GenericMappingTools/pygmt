@@ -10,7 +10,7 @@
         </h2>
     </div>
 
-.. include:: ../README.rst
+.. include:: ../README.md
     :start-after: doc-index-start-after
     :end-before: doc-index-end-before
 
