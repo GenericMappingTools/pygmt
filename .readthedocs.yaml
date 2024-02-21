@@ -21,7 +21,7 @@ build:
               examples \
               pygmt/**/*.py \
               ':!pygmt/tests' \
-              README.rst \
+              README.md \
               ci/requirements/docs.yml \
               .readthedocs.yaml;
         then
