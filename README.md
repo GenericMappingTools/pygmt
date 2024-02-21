@@ -30,7 +30,6 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 
 ![Quick Introduction to PyGMT YouTube Video](doc/_static/scipy2022-youtube-thumbnail.jpg)
 
-
 ## About
 
 PyGMT is a library for processing geospatial and geophysical data and making publication-quality
