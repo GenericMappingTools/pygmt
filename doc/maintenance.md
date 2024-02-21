@@ -222,7 +222,7 @@ publishing the actual release notes at {doc}`changes`.
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy/Pandas/Xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
-9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
@@ -231,7 +231,7 @@ publishing the actual release notes at {doc}`changes`.
 
 ### Check the README Syntax
 
-GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
+GitHub is a bit forgiving when it comes to the syntax in the README but PyPI is not.
 To check the README syntax, visit the
 [PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
 the latest commit, and review the left sidebar and project description for any errors.
