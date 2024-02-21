@@ -79,7 +79,7 @@ fig.show()
 For more examples, please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
 
-## Contacting Us
+## Contacting us
 
 - Most discussion happens [on GitHub](https://github.com/GenericMappingTools/pygmt).
   Feel free to [open an issue](https://github.com/GenericMappingTools/pygmt/issues/new) or comment on any open
@@ -95,7 +95,7 @@ Please note that this project is released with a
 [Contributor Code of Conduct](https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md).
 By participating in this project you agree to abide by its terms.
 
-### Contributing Guidelines
+### Contributing guidelines
 
 Please read our [Contributing Guide](https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md)
 to see how you can help and give feedback.
@@ -187,7 +187,7 @@ Other non-official Python wrappers for GMT (not maintained):
 - [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
 - [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
 
-## Minimum Supported Versions
+## Minimum supported versions
 
 PyGMT has adopted [SPEC0](https://scientific-python.org/specs/spec-0000/) alongside the rest of the
 Scientific Python ecosystem, and therefore:
