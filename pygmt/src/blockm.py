@@ -52,10 +52,9 @@ def _blockm(block_method, data, x, y, z, output_type, outfile, **kwargs):
                 module=block_method,
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
-
-        column_names = (
-            data.columns.to_list() if isinstance(data, pd.DataFrame) else None
-        )
+        column_names = None
+        if isinstance(data, pd.DataFrame):
+            column_names = data.columns.to_list()
 
         return return_table(
             session=lib,
