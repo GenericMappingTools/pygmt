@@ -18,8 +18,6 @@
 [![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 [![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-.. doc-index-start-after
-
 ## Why PyGMT?
 
 A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is, play with it online on
@@ -188,8 +186,6 @@ Other non-official Python wrappers for GMT (not maintained):
 - [gmtpy](https://github.com/emolch/gmtpy) by [Sebastian Heimann](https://github.com/emolch)
 - [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
 - [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
-
-.. doc-index-end-before
 
 ## Minimum supported versions
 
