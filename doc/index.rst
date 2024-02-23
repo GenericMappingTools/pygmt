@@ -40,7 +40,7 @@
 
     api/index.rst
     changes.md
-    minversions.rst
+    minversions.md
 
 .. toctree::
     :maxdepth: 2

@@ -218,7 +218,7 @@ publishing the actual release notes at {doc}`changes`.
 7. Edit the list of people who contributed to the release, linking to their
    GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `doc/minversions.rst` with new information on the new release version,
+8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy/Pandas/Xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
