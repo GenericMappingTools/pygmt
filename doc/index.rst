@@ -10,9 +10,10 @@
         </h2>
     </div>
 
-.. include:: ../README.md
-    :start-after: doc-index-start-after
-    :end-before: doc-index-end-before
+```{include} ../README.md
+:start-after: doc-index-start-after
+:end-before: doc-index-end-before
+```
 
 .. toctree::
     :maxdepth: 2
