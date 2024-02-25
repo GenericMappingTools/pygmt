@@ -28,9 +28,6 @@ build:
           exit 183;
         fi
     pre_build:
-      # ReadTheDocs fails to download external resources.
-      # Temporarily delete the two files to make ReadTheDocs building work again.
-      - rm examples/gallery/lines/roads.py examples/gallery/maps/choropleth_map.py
       # Generate api stub files before building
       - make -C doc api
 
