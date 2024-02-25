@@ -27,7 +27,8 @@ build:
         then
           exit 183;
         fi
-    pre_build: # Generate api stub files before building
+    pre_build:
+      # Generate api stub files before building
       - make -C doc api
 
 # Build documentation in the doc/ directory with Sphinx
