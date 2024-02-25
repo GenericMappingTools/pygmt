@@ -40,8 +40,8 @@ jobs:
       - name: Commit to the PR branch if any changes
         run: |
           make format
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
+          git ls-files -z | xargs -0 dos2unix --quiet
+          git ls-files -z | xargs -0 chmod 644
           if [[ $(git ls-files -m) ]]; then
             git config --global user.name 'actions-bot'
             git config --global user.email '58130806+actions-bot@users.noreply.github.com'
@@ -50,7 +50,7 @@ jobs:
           fi
 
       - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v3.1.0
+        uses: peter-evans/create-or-update-comment@v4.0.0
         with:
           token: ${{ steps.generate-token.outputs.token }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}

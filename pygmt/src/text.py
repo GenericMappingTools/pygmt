@@ -214,6 +214,7 @@ def text_(  # noqa: PLR0913
     for arg in (font, justify):
         if is_nonstr_iter(arg):
             extra_arrays.append(np.atleast_1d(arg).astype(str))  # noqa: PERF401
+
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if is_nonstr_iter(transparency):

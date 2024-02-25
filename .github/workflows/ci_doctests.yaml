@@ -41,7 +41,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
           environment-name: pygmt
           condarc: |
@@ -70,7 +70,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
+        uses: dawidd6/action-download-artifact@v3.1.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -83,7 +83,7 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
       # Install the package that we want to test
