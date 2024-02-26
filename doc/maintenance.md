@@ -229,13 +229,6 @@ publishing the actual release notes at {doc}`changes`.
    More information about the `CITATION.cff` specification can be found at
    <https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md>.
 
-### Check the README Syntax
-
-GitHub is a bit forgiving when it comes to the syntax in the README but PyPI is not.
-To check the README syntax, visit the
-[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
-the latest commit, and review the left sidebar and project description for any errors.
-
 ### Pushing to PyPI and Updating the Documentation
 
 After the changelog is updated, making a release can be done by going to
