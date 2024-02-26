@@ -169,7 +169,7 @@ def grdgradient(grid, **kwargs):
                 azimuth, direction, or radiance"""
             )
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile

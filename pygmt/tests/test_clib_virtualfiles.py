@@ -128,7 +128,7 @@ def test_virtual_file_bad_direction():
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
-def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+def test_virtualfile_in_required_z_matrix(array_func, kind):
     """
     Test that function works when third z column in a matrix is needed and provided.
     """
@@ -138,7 +138,7 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             data=data, required_z=True, check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
@@ -154,20 +154,18 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
         assert output == expected
 
 
-def test_virtualfile_from_data_required_z_matrix_missing():
+def test_virtualfile_in_required_z_matrix_missing():
     """
     Test that function fails when third z column in a matrix is needed but not provided.
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(
-                data=data, required_z=True, check_kind="vector"
-            ):
+            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
                 pass
 
 
-def test_virtualfile_from_data_fail_non_valid_data(data):
+def test_virtualfile_in_fail_non_valid_data(data):
     """
     Should raise an exception if too few or too much data is given.
     """
@@ -179,7 +177,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(x=variable[0], y=variable[1])
+                lib.virtualfile_in(x=variable[0], y=variable[1])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
@@ -189,14 +187,14 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(
+                lib.virtualfile_in(
                     x=variable[0], y=variable[1], z=variable[2], required_z=True
                 )
 
     # Should also fail if given too much data
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_from_data(
+            lib.virtualfile_in(
                 x=data[:, 0],
                 y=data[:, 1],
                 z=data[:, 2],

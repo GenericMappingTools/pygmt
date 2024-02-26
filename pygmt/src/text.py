@@ -236,7 +236,7 @@ def text_(  # noqa: PLR0912
         )
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        file_context = lib.virtualfile_in(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
         )
         with file_context as fname:

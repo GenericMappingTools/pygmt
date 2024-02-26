@@ -123,7 +123,7 @@ class triangulate:  # noqa: N801
               ``outgrid`` or ``outfile``)
         """
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(
+            table_context = lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
             )
             with table_context as infile:

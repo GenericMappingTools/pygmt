@@ -151,7 +151,7 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(
+            file_context = lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             with file_context as infile:

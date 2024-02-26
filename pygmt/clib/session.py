@@ -1478,7 +1478,7 @@ class Session:
             yield vfile
 
     @fmt_docstring
-    def virtualfile_from_data(  # noqa: PLR0912
+    def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
         data=None,
@@ -1535,7 +1535,7 @@ class Session:
         ...     ),
         ... )
         >>> with Session() as ses:
-        ...     with ses.virtualfile_from_data(check_kind="vector", data=data) as fin:
+        ...     with ses.virtualfile_in(check_kind="vector", data=data) as fin:
         ...         # Send the output to a file so that we can read it
         ...         with GMTTempFile() as fout:
         ...             ses.call_module("info", fin + " ->" + fout.name)
@@ -1608,6 +1608,9 @@ class Session:
         file_context = _virtualfile_from(*_data)
 
         return file_context
+
+    # virtualfile_from_data was renamed to virtualfile_in since v0.12.0.
+    virtualfile_from_data = virtualfile_in
 
     def read_virtualfile(
         self, vfname: str, kind: Literal["dataset", "grid", None] = None
