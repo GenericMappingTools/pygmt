@@ -1,6 +1,8 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+from typing import Literal
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -9,6 +11,7 @@ from pygmt.helpers import (
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["select"]
@@ -40,7 +43,12 @@ __doctest_skip__ = ["select"]
     w="wrap",
 )
 @kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
-def select(data=None, outfile=None, **kwargs):
+def select(
+    data=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+):
     r"""
     Select data table subsets based on multiple spatial criteria.
 
@@ -69,7 +77,13 @@ def select(data=None, outfile=None, **kwargs):
     data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outfile : str
+    output_type
+        Desired output type of the results:
+
+        - ``pandas`` will return a :class:`pandas.DataFrame` object
+        - ``numpy`` will return a :class:`numpy.ndarray` object
+        - ``file`` will save the results in an ASCII file (requires ``outfile``)
+    outfile
         The file name for the output ASCII file.
     {area_thresh}
     dist2pt : str
@@ -179,12 +193,12 @@ def select(data=None, outfile=None, **kwargs):
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret : pandas.DataFrame or numpy.ndarray or None
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table if ``outfile`` is not set.
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``).
+        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -195,6 +209,7 @@ def select(data=None, outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
@@ -206,15 +221,18 @@ def select(data=None, outfile=None, **kwargs):
                     module="select",
                     args=build_arg_string(kwargs, infile=infile, outfile=outfile),
                 )
+        column_names = None
+        if isinstance(data, pd.DataFrame):
+            column_names = data.columns.to_list()
 
         # Read temporary csv output to a pandas table
         if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = data.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+            result = pd.read_csv(
+                tmpfile.name, sep="\t", names=column_names, header=None, comment=">"
+            )
         elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
             result = None
 
+        if output_type == "numpy":
+            result = result.to_numpy()
     return result
