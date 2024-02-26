@@ -18,7 +18,7 @@
 [![GitHub license](https://img.shields.io/github/license/GenericMappingTools/pygmt?style=flat-square)](https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt)
 [![Contributor Code of Conduct](https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-.. doc-index-start-after
+% doc-index-start-after
 
 ## Why PyGMT?
 
@@ -36,7 +36,7 @@ Afterwards, feel free to look at our [Tutorials](https://www.pygmt.org/latest/tu
 
 PyGMT is a library for processing geospatial and geophysical data and making publication-quality
 maps and figures. It provides a Pythonic interface for the
-[Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line program 
+[Generic Mapping Tools (GMT)](https://github.com/GenericMappingTools/gmt), a command-line program
 widely used across the Earth, Ocean, and Planetary sciences and beyond.
 
 ## Project goals
@@ -76,7 +76,7 @@ import pygmt
 fig = pygmt.Figure()
 fig.coast(projection="H10c", region="g", frame=True, land="gray")
 fig.show()
-``` 
+```
 
 For more examples, please have a look at the [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
@@ -127,7 +127,7 @@ PyGMT is a community developed project. See the
 the people involved and a definition of the term "PyGMT Developers". Feel free to cite our work in your
 research using the following BibTeX:
 
-``` 
+```
 @software{
   pygmt_2024_10578540,
   author       = {Tian, Dongdong and
@@ -189,7 +189,7 @@ Other non-official Python wrappers for GMT (not maintained):
 - [pygmt](https://github.com/ian-r-rose/pygmt) by [Ian Rose](https://github.com/ian-r-rose)
 - [PyGMT](https://github.com/glimmer-cism/PyGMT) by [Magnus Hagdorn](https://github.com/mhagdorn)
 
-.. doc-index-end-before
+% doc-index-end-before
 
 ## Minimum supported versions
 
