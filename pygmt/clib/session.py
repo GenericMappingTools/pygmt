@@ -1610,7 +1610,7 @@ class Session:
         return file_context
 
     @contextlib.contextmanager
-    def virtualfile_to_data(
+    def virtualfile_out(
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
     ):
         """
@@ -1642,7 +1642,7 @@ class Session:
         ...     with open(tmpfile.name, mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...     with Session() as lib:
-        ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         >>> isinstance(ds.contents, _GMT_DATASET)
@@ -1650,7 +1650,7 @@ class Session:
         >>>
         >>> # Create a virtual file for storing the output grid.
         >>> with Session() as lib:
-        ...     with lib.virtualfile_to_data(kind="grid") as voutgrd:
+        ...     with lib.virtualfile_out(kind="grid") as voutgrd:
         ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
         ...         outgrd = lib.read_virtualfile(voutgrd, kind="grid")
         >>> isinstance(outgrd.contents, _GMT_GRID)
@@ -1659,7 +1659,7 @@ class Session:
         >>> # Write data to file without creating a virtual file
         >>> with GMTTempFile(suffix=".nc") as tmpfile:
         ...     with Session() as lib:
-        ...         with lib.virtualfile_to_data(
+        ...         with lib.virtualfile_out(
         ...             kind="grid", fname=tmpfile.name
         ...         ) as voutgrd:
         ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
