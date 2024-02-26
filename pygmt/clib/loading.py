@@ -62,18 +62,18 @@ def load_libgmt(lib_fullnames=None):
     return libgmt
 
 
-def clib_names(os_name):
+def clib_names(os_name: str) -> list[str]:
     """
-    Return the name of GMT's shared library for the current OS.
+    Return the name(s) of GMT's shared library for the current operating system.
 
     Parameters
     ----------
-    os_name : str
+    os_name
         The operating system name as given by ``sys.platform``.
 
     Returns
     -------
-    libnames : list of str
+    libnames
         List of possible names of GMT's shared library.
     """
     match os_name:
