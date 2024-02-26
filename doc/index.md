@@ -13,7 +13,6 @@
 :start-after: doc-index-start-after
 :end-before: doc-index-end-before
 :relative-images:
-:heading-offset: -1
 ```
 
 ```{toctree}
