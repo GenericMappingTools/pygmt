@@ -75,6 +75,11 @@ def clib_names(os_name: str) -> list[str]:
     -------
     libnames
         List of possible names of GMT's shared library.
+
+    Raises
+    ------
+    GMTOSError
+        If the operating system is not supported yet.
     """
     match os_name:
         case "linux":  # Linux
