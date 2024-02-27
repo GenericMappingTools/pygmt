@@ -126,7 +126,7 @@ jobs:
 
       # Show installed pkg information for postmortem diagnostic
       - name: List installed packages
-        run: micromamba list
+        run: python -m pip list
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
