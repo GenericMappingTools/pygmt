@@ -126,7 +126,7 @@ rest of the Scientific Python ecosystem, and therefore:
 * Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
   their initial release.
 
-Similarly, the PyGMT team has decided to support for GMT versions be dropped 3 years
+Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
 after their initial release.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
