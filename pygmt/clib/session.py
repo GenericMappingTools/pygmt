@@ -1614,21 +1614,26 @@ class Session:
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
     ):
         """
-        Create a virtual file for storing output data in a data container or yield the
-        actual file name.
+        Create a virtual file or an actual file for storing output data.
+
+        If ``fname`` is not given, a virtual file will be created to store the output
+        data into a GMT data container and the function yields the name of the virutal
+        file. Otherwise, the output data will be written into the specified file and the
+        function simply yields the actual file name.
 
         Parameters
         ----------
         kind
-            The kind of data container to create. Valid values are ``"dataset"`` and
-            ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``
+            and ``"grid"``. Ignored if ``fname`` is specified.
         fname
-            If given, yield the actual file name instead of the virtual file name.
+            The name of the actual file to write the output data. No virtual file will
+            be created.
 
         Yields
         ------
         vfile : str
-            Name of the virtual file or the output file name.
+            Name of the virtual file or the actual file.
 
         Examples
         --------
@@ -1666,11 +1671,9 @@ class Session:
         ...             assert voutgrd == tmpfile.name
         ...             assert Path(voutgrd).stat().st_size > 0
         """
-        # If fname is given, yield the output file name.
-        if fname is not None:
+        if fname is not None:  # Yield the actual file name.
             yield fname
-        # Otherwise, create a virtual file for storing the output data.
-        else:
+        else:  # Create a virtual file for storing the output data.
             # Determine the family and geometry from kind
             family, geometry = {
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
