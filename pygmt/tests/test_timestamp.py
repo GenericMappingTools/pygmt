@@ -3,6 +3,7 @@ Test Figure.timestamp.
 """
 import pytest
 from pygmt import Figure
+from pygmt.exceptions import GMTInvalidInput
 
 
 @pytest.fixture(scope="module", name="faketime")
@@ -101,9 +102,9 @@ def test_timestamp_unsupported_u_timestamp():
 
     Parameters U and timestamp are no longer supported since v0.12.0.
     """
+    fig = Figure()
     with pytest.raises(GMTInvalidInput):
         fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
-
     with pytest.raises(GMTInvalidInput):
         fig.plot(
             x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], timestamp=True
