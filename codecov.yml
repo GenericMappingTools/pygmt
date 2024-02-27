@@ -17,3 +17,23 @@ coverage:
         if_ci_failed: failure
 
 comment: off
+
+flag_management:
+  individual_flags:
+    - name: smart-tests
+      carryforward: true
+      carryforward_mode: "labels"
+      statuses:
+        - type: "project"
+        - type: "patch"
+
+cli:
+  plugins:
+    pycoverage:
+      report_type: "json"
+  runners:
+    pytest:
+      python_path: "/home/runner/micromamba/envs/pygmt/bin/python"
+      collect_tests_options:
+        - "--ignore=doc/conf.py"
+        - "--ignore-glob=examples/**/*.py"
