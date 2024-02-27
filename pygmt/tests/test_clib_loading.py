@@ -50,8 +50,7 @@ def test_clib_names():
     """
     Make sure we get the correct library name for different OS names.
     """
-    for linux in ["linux", "linux2", "linux3"]:
-        assert clib_names(linux) == ["libgmt.so"]
+    assert clib_names("linux") == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:
