@@ -206,6 +206,15 @@ Miscellaneous
     print_clib_info
     show_versions
 
+Common Parameters
+-----------------
+
+.. autosummary::
+    :toctree: generated
+
+    params.Box
+
+
 .. currentmodule:: pygmt
 
 Datasets
