@@ -2,30 +2,18 @@
 legend - Plot a legend.
 """
 
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
     fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
 )
 
 
 @fmt_docstring
-@use_alias(
-    R="region",
-    J="projection",
-    D="position",
-    F="box",
-    V="verbose",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):
+def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwargs):  # noqa: ARG001
     r"""
     Plot legends on maps.
 
@@ -36,8 +24,6 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
     Full option list at :gmt-docs:`legend.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -67,12 +53,19 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)
+    _aliases = [
+        Alias("region", "R", "", "/"),
+        Alias("projection", "J", "", ""),
+        Alias("position", "D", "", ""),
+        Alias("box", "F", "", ""),
+        Alias("verbose", "v", "", ""),
+        Alias("panel", "c", "", ","),
+        Alias("perspective", "p", "", "/"),
+        Alias("transparency", "t", "", ""),
+    ]
 
-    if kwargs.get("D") is None:
-        kwargs["D"] = position
-        if kwargs.get("F") is None:
-            kwargs["F"] = box
+    kwargs = self._preprocess(**kwargs)
+    options = convert_aliases()
 
     with Session() as lib:
         if spec is None:
@@ -81,4 +74,6 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
             specfile = spec
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))
+        lib.call_module(
+            module="legend", args=build_arg_string(options, infile=specfile)
+        )

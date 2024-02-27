@@ -7,8 +7,10 @@ import warnings
 from typing import TYPE_CHECKING
 
 from packaging.version import Version
+from pygmt.alias import Alias, convert_aliases
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, deprecate_parameter, kwargs_to_strings
+from pygmt.helpers import build_arg_string, is_nonstr_iter
+from pygmt.helpers import build_arg_string, deprecate_parameter, is_nonstr_iter
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -18,7 +20,6 @@ __doctest_skip__ = ["timestamp"]
 
 
 @deprecate_parameter("justification", "justify", "v0.11.0", remove_version="v0.13.0")
-@kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
     text: str | None = None,
@@ -83,17 +84,19 @@ def timestamp(
     """
     self._preprocess()
 
-    # Build the options passed to the "plot" module
-    kwdict: dict = {"T": True, "U": ""}
-    if label is not None:
-        kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justify}"
+    # Aliases from PyGMT parameters to GMT options
+    _aliases = [
+        Alias("label", "U", "", ""),
+        Alias("justification", "U", "+j", ""),
+        Alias("offset", "U", "+o", "/"),
+        Alias("text", "U", "+t", ""),
+    ]
+    gmt_older_than_640 = Version(__gmt_version__) <= Version("6.4.0")
 
-    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT <= 6.4.0.
-        # See https://github.com/GenericMappingTools/gmt/issues/7107.
-        offset = f"{offset}/{offset}"
-    kwdict["U"] += f"+o{offset}"
+    # Giving a single offset doesn't work in GMT <= 6.4.0.
+    # See https://github.com/GenericMappingTools/gmt/issues/7107.
+    if gmt_older_than_640 and not is_nonstr_iter(offset) and "/" not in str(offset):
+        offset = (offset, offset)
 
     # The +t modifier was added in GMT 6.5.0.
     # See https://github.com/GenericMappingTools/gmt/pull/7127.
@@ -104,11 +107,14 @@ def timestamp(
                 "The given text string will be truncated to 64 characters."
             )
             warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) <= Version("6.4.0"):
+        if gmt_older_than_640:
             # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
             timefmt = text[:64]
-        else:
-            kwdict["U"] += f"+t{text}"
+            text = None  # reset 'text' to None
+
+    # Build the options passed to the "plot" module
+    kwdict = convert_aliases()
+    kwdict["T"] = True
 
     with Session() as lib:
         lib.call_module(
