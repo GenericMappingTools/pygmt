@@ -91,7 +91,7 @@ def clib_names(os_name: str) -> list[str]:
         case name if name.startswith("freebsd"):  # FreeBSD
             libnames = ["libgmt.so"]
         case _:
-            raise GMTOSError(f"Operating system '{os_name}' not supported.")
+            raise GMTOSError(f"Operating system '{os_name}' is not supported.")
     return libnames
 
 
