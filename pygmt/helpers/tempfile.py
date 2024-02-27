@@ -62,9 +62,15 @@ class GMTTempFile:
             self.name = tmpfile.name
 
     def __enter__(self):
+        """
+        Do nothing but return the object.
+        """
         return self
 
     def __exit__(self, *args):
+        """
+        Remove the temporary file.
+        """
         if os.path.exists(self.name):
             os.remove(self.name)
 

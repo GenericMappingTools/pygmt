@@ -1,4 +1,5 @@
 outs:
-- md5: 25473909b2d8d9c86cd19b1682fea87e
-  size: 42700
+- md5: b547ef1c85c89fbed994eaf0785c87d1
+  size: 42703
   path: test_text_input_remote_filename.png
+  hash: md5

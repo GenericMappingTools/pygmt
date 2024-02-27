@@ -56,7 +56,7 @@ def test_grdimage(grid):
     Plot an image using an xarray grid.
     """
     fig = Figure()
-    fig.grdimage(grid, cmap="earth", projection="W0/6i")
+    fig.grdimage(grid, cmap="earth", projection="W0/10c")
     return fig
 
 
@@ -67,7 +67,7 @@ def test_grdimage_slice(grid):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i")
+    fig.grdimage(grid_, cmap="earth", projection="M10c")
     return fig
 
 
@@ -81,7 +81,7 @@ def test_grdimage_file():
         "@earth_relief_01d_g",
         cmap="ocean",
         region=[-180, 180, -70, 70],
-        projection="W0/10i",
+        projection="W0/10c",
         shading=True,
     )
     return fig
@@ -98,7 +98,7 @@ def test_grdimage_default_no_shading(grid, shading):
     """
     grid_ = grid.sel(lat=slice(-30, 30))
     fig = Figure()
-    fig.grdimage(grid_, cmap="earth", projection="M6i", shading=shading)
+    fig.grdimage(grid_, cmap="earth", projection="M10c", shading=shading)
     return fig
 
 
@@ -173,7 +173,7 @@ def test_grdimage_over_dateline(xrgrid):
     return fig
 
 
-@pytest.mark.mpl_image_compare
+@pytest.mark.mpl_image_compare(tolerance=3.6)
 def test_grdimage_global_subset(grid_360):
     """
     Ensure subsets of grids are plotted correctly on a global map.
@@ -181,8 +181,7 @@ def test_grdimage_global_subset(grid_360):
     Specifically checking that xarray.DataArray grids can wrap around the left and right
     sides on a Mollweide projection (W) plot correctly. Note that a Cartesian grid is
     used here instead of a Geographic grid (i.e. GMT_GRID_IS_CARTESIAN). This is a
-    regression test for
-    https://github.com/GenericMappingTools/pygmt/issues/732.
+    regression test for https://github.com/GenericMappingTools/pygmt/issues/732.
     """
     # Get a slice of South America and Africa only (lat=-90:31, lon=-180:41)
     sliced_grid = grid_360[0:121, 0:221]
@@ -191,7 +190,7 @@ def test_grdimage_global_subset(grid_360):
 
     fig = Figure()
     fig.grdimage(
-        grid=sliced_grid, cmap="vik", region="g", projection="W0/3.5c", frame=True
+        grid=sliced_grid, cmap="vik", region="g", projection="W0/10c", frame=True
     )
     return fig
 

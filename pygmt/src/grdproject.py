@@ -103,13 +103,10 @@ def grdproject(grid, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
-    >>> # Create a new grid from the input grid, set the projection to
-    >>> # Mercator, and set inverse to "True" to change from "geographic"
-    >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")

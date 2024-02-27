@@ -34,7 +34,7 @@ fig.show()
 # :meth:`pygmt.Figure.grdimage` can take the optional parameter ``projection``
 # for the map. In the example below, ``projection`` is set to ``"R12c"`` for
 # a 12-centimeters-wide figure with a Winkel Tripel projection. For a list
-# of available projections, see :gmt-docs:`cookbook/map-projections.html`.
+# of available projections, see :gmt-docs:`reference/map-projections.html`.
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, projection="R12c")
@@ -47,7 +47,7 @@ fig.show()
 #
 # :meth:`pygmt.Figure.grdimage` takes the ``cmap`` parameter to set the CPT of
 # the figure. Examples of common CPTs for Earth relief are shown below.
-# A full list of CPTs can be found at :gmt-docs:`cookbook/cpts.html`.
+# A full list of CPTs can be found at :gmt-docs:`reference/cpts.html`.
 
 # %%
 # Using the *geo* CPT:

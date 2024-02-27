@@ -47,6 +47,7 @@ def fixture_dtypes_pandas(dtypes):
     return tuple(dtypes_pandas)
 
 
+@pytest.mark.benchmark
 def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
@@ -66,7 +67,7 @@ def test_virtual_file(dtypes):
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
             vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-            with lib.open_virtual_file(*vfargs) as vfile:
+            with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
@@ -92,7 +93,7 @@ def test_virtual_file_fails():
     # virtual file.
     with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
     # Test the status check when closing the virtual file
@@ -102,7 +103,7 @@ def test_virtual_file_fails():
         lib, "GMT_Close_VirtualFile", returns=1
     ):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
 
@@ -118,10 +119,11 @@ def test_virtual_file_bad_direction():
             0,
         )
         with pytest.raises(GMTInvalidInput):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
@@ -202,6 +204,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             )
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_vectors(dtypes):
     """
     Test the automation for transforming vectors to virtual file dataset.
@@ -221,6 +224,7 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
@@ -235,7 +239,9 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
             with GMTTempFile() as outfile:
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        expected = "".join(
+            f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
+        )
         assert output == expected
 
 
@@ -256,7 +262,8 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{h}\t{i}\t{j} {k}\n"
+            for h, i, j, k in zip(x, y, strings1, strings2, strict=True)
         )
         assert output == expected
 
@@ -290,6 +297,7 @@ def test_virtualfile_from_vectors_diff_size():
                 pass
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_matrix(dtypes):
     """
     Test transforming a matrix to virtual file dataset.

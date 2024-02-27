@@ -1,4 +1,5 @@
 outs:
-- md5: de3c170235f5ae05d92047922e0a2ae1
-  size: 6267
+- md5: 7e2e4bbb6db83478d8b5069955e9e60c
+  size: 6247
   path: test_text_position.png
+  hash: md5

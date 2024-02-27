@@ -31,6 +31,7 @@ def test_blockmedian_input_dataframe(dataframe):
     npt.assert_allclose(output.iloc[0], [245.88819, 29.97895, -385.0])
 
 
+@pytest.mark.benchmark
 def test_blockmedian_input_table_matrix(dataframe):
     """
     Run blockmedian using table input that is not a pandas.DataFrame but still a matrix.

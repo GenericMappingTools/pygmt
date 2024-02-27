@@ -2,6 +2,8 @@
 Test the _load_remote_dataset function.
 """
 import pytest
+from packaging.version import Version
+from pygmt.clib import __gmt_version__
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 
@@ -17,6 +19,23 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
         region=region,
         registration=registration,
     )
+
+
+@pytest.mark.benchmark
+def test_load_remote_dataset_benchmark_with_region():
+    """
+    Benchmark loading a remote dataset with 'region'.
+    """
+    data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
+    assert data.name == "seafloor_age"
+    assert data.attrs["long_name"] == "age of seafloor crust"
+    assert data.attrs["units"] == "Myr"
+    assert data.attrs["horizontal_datum"] == "WGS84"
+    assert data.gmt.registration == 0
+    assert data.shape == (11, 21)
+    # The cpt attribute was added since GMT 6.4.0
+    if Version(__gmt_version__) >= Version("6.4.0"):
+        assert data.attrs["cpt"] == "@earth_age.cpt"
 
 
 def test_load_remote_dataset_invalid_resolutions():

@@ -20,6 +20,7 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.mark.benchmark
 def test_put_vector(dtypes):
     """
     Check that assigning a numpy array to a dataset works.
@@ -97,6 +98,7 @@ def test_put_vector_mixed_dtypes(dtypes):
                 npt.assert_allclose(newy, y)
 
 
+@pytest.mark.benchmark
 def test_put_vector_string_dtype():
     """
     Passing string type vectors to a dataset.
@@ -166,6 +168,37 @@ def test_put_vector_string_dtype():
                     npt.assert_array_equal(output["y"], expected_vectors[j])
 
 
+def test_put_vector_timedelta64_dtype():
+    """
+    Passing timedelta64 type vectors with various time units (year, month,
+    week, day, hour, minute, second, millisecond, microsecond) to a dataset.
+    """
+    for unit in ["Y", "M", "W", "D", "h", "m", "s", "ms", "μs"]:
+        with clib.Session() as lib, GMTTempFile() as tmp_file:
+            dataset = lib.create_data(
+                family="GMT_IS_DATASET|GMT_VIA_VECTOR",
+                geometry="GMT_IS_POINT",
+                mode="GMT_CONTAINER_ONLY",
+                dim=[1, 5, 1, 0],  # columns, rows, layers, dtype
+            )
+            timedata = np.arange(np.timedelta64(0, unit), np.timedelta64(5, unit))
+            lib.put_vector(dataset, column=0, vector=timedata)
+            # Turns out wesn doesn't matter for Datasets
+            wesn = [0] * 6
+            # Save the data to a file to see if it's being accessed correctly
+            lib.write_data(
+                family="GMT_IS_VECTOR",
+                geometry="GMT_IS_POINT",
+                mode="GMT_WRITE_SET",
+                wesn=wesn,
+                output=tmp_file.name,
+                data=dataset,
+            )
+            # Load the data and check that it's correct
+            newtimedata = tmp_file.loadtxt(unpack=True, dtype=f"timedelta64[{unit}]")
+            npt.assert_equal(actual=newtimedata, desired=timedata)
+
+
 def test_put_vector_invalid_dtype():
     """
     Check that it fails with an exception for invalid data types.
@@ -175,7 +208,7 @@ def test_put_vector_invalid_dtype():
         np.bytes_,
         np.csingle,
         np.cdouble,
-        np.clongfloat,
+        np.clongdouble,
         np.half,
         np.longdouble,
         np.object_,

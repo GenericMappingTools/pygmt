@@ -87,7 +87,7 @@ def grdclip(grid, **kwargs):
     ... )
     >>> # Report the minimum and maximum data values
     >>> [grid.data.min(), grid.data.max()]
-    [170.0, 2275.5]
+    [183.5, 1807.0]
     >>> # Create a new grid from an input grid. Set all values below 1,000 to
     >>> # 0 and all values above 1,500 to 10,000
     >>> new_grid = pygmt.grdclip(grid=grid, below=[1000, 0], above=[1500, 10000])

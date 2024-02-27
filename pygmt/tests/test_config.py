@@ -64,6 +64,7 @@ def test_config_font_annot():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_config_format_date_map():
     """

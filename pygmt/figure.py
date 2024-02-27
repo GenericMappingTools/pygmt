@@ -88,7 +88,9 @@ class Figure:
         self._activate_figure()
 
     def __del__(self):
-        # Clean up the temporary directory that stores the previews
+        """
+        Clean up the temporary directory that stores the previews.
+        """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
@@ -226,6 +228,9 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
+        # is not recognized. So remove it before calling `Figure.psconvert`.
+        kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""

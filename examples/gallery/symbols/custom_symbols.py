@@ -7,7 +7,7 @@ by passing the corresponding symbol name together with the **k** shortcut to
 the ``style`` parameter. In total 41 custom symbols are already included of
 which the following plot shows five exemplary ones. The symbols are shown
 underneath their corresponding names. For the remaining symbols see the GMT
-cookbook :gmt-docs:`cookbook/custom-symbols.html`.
+Technical Reference :gmt-docs:`reference/custom-symbols.html`.
 """
 
 # %%

@@ -1,4 +1,5 @@
 outs:
-- md5: dc3f82e1b5889c1c7ecf7ae03d333ab3
-  size: 3643
+- md5: d6aeb66b3a02147c7049175574b52c58
+  size: 3631
   path: test_text_round_clearance.png
+  hash: md5

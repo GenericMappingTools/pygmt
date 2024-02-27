@@ -59,6 +59,7 @@ def test_dimfilter_outgrid(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_dimfilter_no_outgrid(grid, expected_grid):
     """
     Test the required parameters for dimfilter with no set outgrid.

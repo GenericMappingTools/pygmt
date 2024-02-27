@@ -1,4 +1,5 @@
 outs:
-- md5: 10aca164308b4653643ac4511f8d9e02
-  size: 26937
+- md5: 4cecb7910012e951b957b82215a6db1b
+  size: 27249
   path: test_text_input_single_filename.png
+  hash: md5

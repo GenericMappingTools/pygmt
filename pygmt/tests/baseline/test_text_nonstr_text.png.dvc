@@ -1,4 +1,5 @@
 outs:
-- md5: 182422ec2319098a82daa29d6d8009e0
-  size: 12659
+- md5: 7c07b7792d61e8094468eab34e8bba50
+  size: 12757
   path: test_text_nonstr_text.png
+  hash: md5

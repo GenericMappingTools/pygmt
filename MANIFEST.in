@@ -3,12 +3,13 @@ prune .github*
 prune ci
 prune doc*
 prune examples*
+prune pygmt/tests*
 exclude .dvcignore
 exclude .gitignore
 exclude .readthedocs.yaml
 exclude AUTHORSHIP.md
+exclude CODE_OF_CONDUCT.md
 exclude CONTRIBUTING.md
 exclude Makefile
 exclude environment.yml
 exclude requirements.txt
-exclude pygmt/tests/baseline/*.dvc

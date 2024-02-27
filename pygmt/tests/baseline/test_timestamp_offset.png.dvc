@@ -1,4 +1,5 @@
 outs:
-- md5: be0021731b881e32e3d8a46d6fa8abc3
-  size: 9450
+- md5: c9274f7984b0c3f7228dd758d45d93b6
+  size: 12286
   path: test_timestamp_offset.png
+  hash: md5

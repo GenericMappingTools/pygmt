@@ -1,4 +1,5 @@
 outs:
-- md5: 3a3423437fcc7039db04e4c1bbb779e7
-  size: 13562
+- md5: 700c84364738976df5320c06770d68b3
+  size: 13472
   path: test_config_map_grid_pen.png
+  hash: md5

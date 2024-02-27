@@ -1,4 +1,5 @@
 outs:
-- md5: 4a946506f8a48be04792fdabffc6fa07
-  size: 4451
+- md5: 31d0dcb4bc3c97fc2e8a6d451009f204
+  size: 4620
   path: test_geopandas_plot_non_default_circle.png
+  hash: md5

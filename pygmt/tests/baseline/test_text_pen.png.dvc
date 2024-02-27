@@ -1,4 +1,5 @@
 outs:
-- md5: 3badbac89878d8144e449bfa2846b76b
-  size: 2594
+- md5: 9216363f7a5604cddfb4db910638b8aa
+  size: 2618
   path: test_text_pen.png
+  hash: md5
