@@ -93,3 +93,16 @@ def test_timestamp_text_truncated():
         fig.timestamp(text="0123456789" * 7)
         assert len(record) == 1  # check that only one warning was raised
     return fig
+    
+
+def test_timestamp_unsupported_u_timestamp():
+    """
+    Raise an exception when either U or timestamp is used.
+
+    Parameters U and timestamp are no longer supported since v0.12.0.
+    """
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], U=True)
+
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=0, y=0, style="p", projection="X1c", region=[1, 2, 1, 2], timestamp=True)
