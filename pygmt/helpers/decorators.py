@@ -578,7 +578,7 @@ def use_alias(**aliases):
                 )
                 warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # xshift (X) is deprecated since v0.8.0.
+            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
                 msg = (
                     "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
@@ -586,7 +586,7 @@ def use_alias(**aliases):
                 )
                 raise GMTInvalidInput(msg)
 
-            # yshift (Y) is deprecated since v0.8.0.
+            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
                 msg = (
                     "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
