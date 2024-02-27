@@ -375,3 +375,19 @@ def test_figure_set_display_invalid():
     """
     with pytest.raises(GMTInvalidInput):
         set_display(method="invalid")
+
+
+def test_figure_unsupported_xshift_yshift():
+    """
+    Raise an exception if X/Y/xshift/yshift is used.
+    """
+    fig = Figure()
+    fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=1, y=1, style="c3c", xshift="3c")
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=1, y=1, style="c3c", X="3c")
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=1, y=1, style="c3c", yshift="3c")
+    with pytest.raises(GMTInvalidInput):
+        fig.plot(x=1, y=1, style="c3c", Y="3c")
