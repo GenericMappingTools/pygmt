@@ -352,7 +352,7 @@
 * Add instructions to install pygmt kernel for Jupyter users ([#2153](https://github.com/GenericMappingTools/pygmt/pull/2153))
 * Improve instructions about setting GMT_LIBRARY_PATH env variable ([#2136](https://github.com/GenericMappingTools/pygmt/pull/2136))
 * Add badges for conda package version, license, and twitter ([#2081](https://github.com/GenericMappingTools/pygmt/pull/2081))
-* Add PyOpenSci peer reviewed badge to main README.rst ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
+* Add PyOpenSci peer reviewed badge to main README ([#2112](https://github.com/GenericMappingTools/pygmt/pull/2112))
 
 ### Maintenance
 
@@ -732,7 +732,7 @@
 
 ### Documentation
 
-* Combine documentation and compatibility sections in README.rst ([#1415](https://github.com/GenericMappingTools/pygmt/pull/1415))
+* Combine documentation and compatibility sections in README ([#1415](https://github.com/GenericMappingTools/pygmt/pull/1415))
 * Add a gallery example for grdclip ([#1396](https://github.com/GenericMappingTools/pygmt/pull/1396))
 * Add a gallery example for different colormaps in subplots ([#1394](https://github.com/GenericMappingTools/pygmt/pull/1394))
 * Add a gallery example for the contour method ([#1387](https://github.com/GenericMappingTools/pygmt/pull/1387))
@@ -1095,7 +1095,7 @@
 
 * doc: Fix the description of grdcontour -G option ([#681](https://github.com/GenericMappingTools/pygmt/pull/681))
 * Refresh Code of Conduct from v1.4 to v2.0 ([#673](https://github.com/GenericMappingTools/pygmt/pull/673))
-* Add PyGMT Zenodo BibTeX entry to main README.md ([#678](https://github.com/GenericMappingTools/pygmt/pull/678))
+* Add PyGMT Zenodo BibTeX entry to main README ([#678](https://github.com/GenericMappingTools/pygmt/pull/678))
 * Complete most of documentation for makecpt ([#676](https://github.com/GenericMappingTools/pygmt/pull/676))
 * Complete documentation for plot ([#666](https://github.com/GenericMappingTools/pygmt/pull/666))
 * Add "no_clip" to plot, text, contour and meca ([#661](https://github.com/GenericMappingTools/pygmt/pull/661))

@@ -24,7 +24,7 @@ on:
       - 'Makefile'
       - 'MANIFEST.in'
       - 'pyproject.toml'
-      - 'README.rst'
+      - 'README.md'
       - '.github/workflows/publish-to-pypi.yml'
   release:
     types:
