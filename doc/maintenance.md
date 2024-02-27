@@ -119,15 +119,20 @@ to change the default behaviour at <https://docs.readthedocs.io/en/stable/config
 
 ## Dependencies Policy
 
-PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside
-the rest of the Scientific Python ecosystem, and therefore:
+PyGMT has adopted [SPEC 0](https://scientific-python.org/specs/spec-0000/) alongside the
+rest of the Scientific Python ecosystem, and therefore:
 
 * Support for Python versions be dropped 3 years after their initial release.
-* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after their initial release.
+* Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+  their initial release.
+
+Similarly, the PyGMT team has decided to support for GMT versions be dropped 3 years
+after their initial release.
 
 In `pyproject.toml`, the `requires-python` key should be set to the minimum supported
-version of Python. Minimum supported versions of Python and core package dependencies
-should be adjusted upward on every major and minor release, but never on a patch release.
+version of Python. Minimum supported versions of GMT, Python and core package
+dependencies should be adjusted upward on every major and minor release, but never on a
+patch release.
 
 
 ## Backwards Compatibility and Deprecation Policy
