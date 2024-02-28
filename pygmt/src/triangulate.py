@@ -87,6 +87,8 @@ class triangulate:  # noqa: N801
 
         Full option list at :gmt-docs:`triangulate.html`
 
+        {aliases}
+
         Parameters
         ----------
         x/y/z : np.ndarray
@@ -189,6 +191,8 @@ class triangulate:  # noqa: N801
         Must provide either ``data`` or ``x``, ``y``, and ``z``.
 
         Full option list at :gmt-docs:`triangulate.html`
+
+        {aliases}
 
         Parameters
         ----------
