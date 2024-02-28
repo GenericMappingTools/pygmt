@@ -25,6 +25,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
+from pygmt.clib.version import get_gmt_version
 from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
 from pygmt.exceptions import (
     GMTCLibError,
@@ -93,8 +94,9 @@ DTYPES = {
     np.timedelta64: "GMT_LONG",
 }
 
-# Load the GMT library outside the Session class to avoid repeated loading.
+
 _libgmt = load_libgmt()
+__gmt_version__ = get_gmt_version(_libgmt)
 
 
 class Session:
