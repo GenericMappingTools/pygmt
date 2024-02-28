@@ -1613,7 +1613,7 @@ class Session:
     def virtualfile_out(
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
     ):
-        """
+        r"""
         Create a virtual file or an actual file for storing output data.
 
         If ``fname`` is not given, a virtual file will be created to store the output
@@ -1642,23 +1642,25 @@ class Session:
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
-        >>> # Create a virtual file for storing the output table.
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     with open(tmpfile.name, mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
+        ...
+        ...     # Create a virtual file for storing the output table.
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
-        >>> isinstance(ds.contents, _GMT_DATASET)
-        True
-        >>> # Write data to an actual file without creating a virtual file.
-        >>> with GMTTempFile(suffix=".nc") as tmpfile:
+        ...             assert isinstance(ds.contents, _GMT_DATASET)
+        ...
+        ...     # Write data to an actual file without creating a virtual file.
         ...     with Session() as lib:
-        ...         with lib.virtualfile_out(fname=tmpfile.name) as voutgrd:
-        ...             assert voutgrd == tmpfile.name
-        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...     assert Path(voutgrd).stat().st_size > 0
+        ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
+        ...             assert vouttbl == tmpfile.name
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...         with open(vouttbl, mode="r") as fp:
+        ...             line = fp.readline()
+        ...         assert line == "1\t2\t3\tTEXT\n"
         """
         if fname is not None:  # Yield the actual file name.
             yield fname
