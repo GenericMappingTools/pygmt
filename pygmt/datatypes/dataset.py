@@ -12,8 +12,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     """
     GMT dataset structure for holding multiple tables (files).
 
-    This class is only meant for internal use by PyGMT. It is not exposed to users.
-
+    This class is only meant for internal use by PyGMT and is not exposed to users.
     See the GMT source code gmt_resources.h for the original C struct definitions.
 
     Examples
@@ -22,7 +21,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     >>> from pygmt.clib import Session
     >>>
     >>> with GMTTempFile(suffix=".txt") as tmpfile:
-    ...     # prepare the sample data file
+    ...     # Prepare the sample data file
     ...     with open(tmpfile.name, mode="w") as fp:
     ...         print(">", file=fp)
     ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
@@ -30,15 +29,15 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     ...         print(">", file=fp)
     ...         print("7.0 8.0 9.0 TEXT8 TEXT90", file=fp)
     ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
-    ...     # read the data file
+    ...     # Read the data file
     ...     with Session() as lib:
-    ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+    ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
     ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-    ...             # the dataset
+    ...             # The dataset
     ...             ds = lib.read_virtualfile(vouttbl, kind="dataset").contents
     ...             print(ds.n_tables, ds.n_columns, ds.n_segments)
     ...             print(ds.min[: ds.n_columns], ds.max[: ds.n_columns])
-    ...             # the table
+    ...             # The table
     ...             tbl = ds.table[0].contents
     ...             print(tbl.n_columns, tbl.n_segments, tbl.n_records)
     ...             print(tbl.min[: tbl.n_columns], ds.max[: tbl.n_columns])
@@ -142,7 +141,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataframe(self):
+    def to_dataframe(self) -> pd.DataFrame:
         """
         Convert a _GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
@@ -152,7 +151,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
         Returns
         -------
-        :class:`pandas.DataFrame`
+        df
             A :class:`pandas.DataFrame` object.
 
         Examples
@@ -170,7 +169,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...         print("7.0 8.0 9.0 TEXT8 TEXT90", file=fp)
         ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
         ...     with Session() as lib:
-        ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             df = ds.contents.to_dataframe()
@@ -181,6 +180,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         2   7.0   8.0   9.0        TEXT8 TEXT90
         3  10.0  11.0  12.0  TEXT123 TEXT456789
         """
+        # Deal with numeric columns
         vectors = []
         for icol in range(self.n_columns):
             colvector = []
@@ -193,7 +193,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                     )
             vectors.append(np.concatenate(colvector))
 
-        # deal with trailing text column
+        # Deal with trailing text column
         textvector = []
         for itbl in range(self.n_tables):
             dtbl = self.table[itbl].contents
