@@ -1610,71 +1610,64 @@ class Session:
         return file_context
 
     @contextlib.contextmanager
-    def virtualfile_to_data(
+    def virtualfile_out(
         self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
     ):
-        """
-        Create a virtual file for storing output data in a data container or yield the
-        actual file name.
+        r"""
+        Create a virtual file or an actual file for storing output data.
+
+        If ``fname`` is not given, a virtual file will be created to store the output
+        data into a GMT data container and the function yields the name of the virutal
+        file. Otherwise, the output data will be written into the specified file and the
+        function simply yields the actual file name.
 
         Parameters
         ----------
         kind
-            The kind of data container to create. Valid values are ``"dataset"`` and
-            ``"grid"``. Ignored if ``fname`` is specified.
+            The data kind of the virtual file to create. Valid values are ``"dataset"``
+            and ``"grid"``. Ignored if ``fname`` is specified.
         fname
-            If given, yield the actual file name instead of the virtual file name.
+            The name of the actual file to write the output data. No virtual file will
+            be created.
 
         Yields
         ------
         vfile : str
-            Name of the virtual file or the output file name.
+            Name of the virtual file or the actual file.
 
         Examples
         --------
-        >>> from pathlib import Path
         >>> from pygmt.clib import Session
-        >>> from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+        >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
-        >>> # Create a virtual file for storing the output table.
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     with open(tmpfile.name, mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
+        ...
+        ...     # Create a virtual file for storing the output table.
         ...     with Session() as lib:
-        ...         with lib.virtualfile_to_data(kind="dataset") as vouttbl:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
-        >>> isinstance(ds.contents, _GMT_DATASET)
-        True
-        >>>
-        >>> # Create a virtual file for storing the output grid.
-        >>> with Session() as lib:
-        ...     with lib.virtualfile_to_data(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...         outgrd = lib.read_virtualfile(voutgrd, kind="grid")
-        >>> isinstance(outgrd.contents, _GMT_GRID)
-        True
-        >>>
-        >>> # Write data to file without creating a virtual file
-        >>> with GMTTempFile(suffix=".nc") as tmpfile:
+        ...             assert isinstance(ds.contents, _GMT_DATASET)
+        ...
+        ...     # Write data to an actual file without creating a virtual file.
         ...     with Session() as lib:
-        ...         with lib.virtualfile_to_data(
-        ...             kind="grid", fname=tmpfile.name
-        ...         ) as voutgrd:
-        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...             assert voutgrd == tmpfile.name
-        ...             assert Path(voutgrd).stat().st_size > 0
+        ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
+        ...             assert vouttbl == tmpfile.name
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...         with open(vouttbl, mode="r") as fp:
+        ...             line = fp.readline()
+        ...         assert line == "1\t2\t3\tTEXT\n"
         """
-        # If fname is given, yield the output file name.
-        if fname is not None:
+        if fname is not None:  # Yield the actual file name.
             yield fname
-        # Otherwise, create a virtual file for storing the output data.
-        else:
+        else:  # Create a virtual file for storing the output data.
             # Determine the family and geometry from kind
             family, geometry = {
-                "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
+                "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
             }[kind]
             with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
@@ -1703,27 +1696,23 @@ class Session:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
         ...         with open(tmpfile.name, mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
-        ...         with lib.open_virtualfile(
-        ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
-        ...         ) as vfile:
-        ...             lib.call_module("read", f"{tmpfile.name} {vfile} -Td")
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             # Read the virtual file as a void pointer
-        ...             void_pointer = lib.read_virtualfile(vfile)
+        ...             void_pointer = lib.read_virtualfile(vouttbl)
         ...             assert isinstance(void_pointer, int)  # void pointer is an int
         ...             # Read the virtual file as a dataset
-        ...             data_pointer = lib.read_virtualfile(vfile, kind="dataset")
+        ...             data_pointer = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             assert isinstance(data_pointer, ctp.POINTER(_GMT_DATASET))
         >>>
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
-        ...     with lib.open_virtualfile(
-        ...         "GMT_IS_GRID", "GMT_IS_SURFACE", "GMT_OUT", None
-        ...     ) as vfile:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {vfile} -Tg")
+        ...     with lib.virtualfile_out(kind="grid") as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
         ...         # Read the virtual file as a void pointer
-        ...         void_pointer = lib.read_virtualfile(vfile)
+        ...         void_pointer = lib.read_virtualfile(voutgrd)
         ...         assert isinstance(void_pointer, int)  # void pointer is an int
-        ...         data_pointer = lib.read_virtualfile(vfile, kind="grid")
+        ...         data_pointer = lib.read_virtualfile(voutgrd, kind="grid")
         ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
 
         Returns
