@@ -95,14 +95,14 @@ def grdcut(grid, outgrid=None, **kwargs):
     with Session() as lib:
         with lib.virtualfile_from_data(
             check_kind="raster", data=grid
-        ) as invfile, lib.virtualfile_out(kind="grid", fname=outgrid) as outvfile:
-            kwargs["G"] = f"{outvfile}"
+        ) as vingrd, lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+            kwargs["G"] = voutgrd
             lib.call_module(
-                module="grdcut", args=build_arg_string(kwargs, infile=invfile)
+                module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
             )
 
             # Output to a file or return an xarray.DataArray object
             if outgrid is not None:
                 return None
-            gmtgrid = lib.read_virtualfile(outvfile, kind="grid")
+            gmtgrid = lib.read_virtualfile(voutgrd, kind="grid")
             return gmtgrid.contents.to_dataarray()
