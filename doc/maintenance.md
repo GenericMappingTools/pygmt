@@ -218,23 +218,16 @@ publishing the actual release notes at {doc}`changes`.
 7. Edit the list of people who contributed to the release, linking to their
    GitHub accounts. Sort their names by the number of commits made since the
    last release (e.g., use `git shortlog HEAD...v0.4.0 -sne`).
-8. Update `doc/minversions.rst` with new information on the new release version,
+8. Update `doc/minversions.md` with new information on the new release version,
    including a vX.Y.Z documentation link, and minimum required versions of GMT, Python
    and core package dependencies (NumPy/Pandas/Xarray). Follow
    [SPEC 0](https://scientific-python.org/specs/spec-0000/) for updates.
-9. Refresh citation information. Specifically, the BibTeX in `README.rst` and
+9. Refresh citation information. Specifically, the BibTeX in `README.md` and
    `CITATION.cff` needs to be updated with any metadata changes, including the
    DOI, release date, and version information. Please also follow
    guidelines in `AUTHORSHIP.md` for updating the author list in the BibTeX.
    More information about the `CITATION.cff` specification can be found at
    <https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md>.
-
-### Check the README Syntax
-
-GitHub is a bit forgiving when it comes to the RST syntax in the README but PyPI is not.
-To check the README syntax, visit the
-[PyGMT TestPyPI release history](https://test.pypi.org/project/pygmt/#history), select
-the latest commit, and review the left sidebar and project description for any errors.
 
 ### Pushing to PyPI and Updating the Documentation
 

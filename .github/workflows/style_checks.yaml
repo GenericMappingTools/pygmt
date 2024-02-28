@@ -43,13 +43,13 @@ jobs:
 
       - name: Ensure files use UNIX line breaks and have 644 permission
         run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
+          git ls-files -z | xargs -0 dos2unix --quiet
+          git ls-files -z | xargs -0 chmod 644
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
 
       - name: Ensure example scripts have at least one code block separator
         run: |
-          grep --files-without-match '# %%' $(find 'examples' -name '*.py') > output.txt
+          git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
           nfiles=$(wc --lines output.txt | awk '{print $1}')
           if [[ $nfiles > 0 ]]; then
             echo "Code block separator '# %%' is required in following example files:"
