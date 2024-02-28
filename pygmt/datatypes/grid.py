@@ -96,7 +96,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
 
     >>> with Session() as lib:
     ...     # create a virtual file for output
-    ...     with lib.virtualfile_to_data(kind="grid") as vfile:
+    ...     with lib.virtualfile_out(kind="grid") as vfile:
     ...         # read in a grid file and output to the virtual file
     ...         lib.call_module("read", f"@static_earth_relief.nc {vfile} -Tg")
     ...         # read the data in the virtual file
