@@ -1665,8 +1665,8 @@ class Session:
         else:  # Create a virtual file for storing the output data.
             # Determine the family and geometry from kind
             family, geometry = {
-                "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
+                "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
             }[kind]
             with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
