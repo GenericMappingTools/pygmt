@@ -1637,7 +1637,6 @@ class Session:
 
         Examples
         --------
-        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
