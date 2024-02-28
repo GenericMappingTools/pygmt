@@ -11,7 +11,6 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable
-from typing import Literal
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -556,48 +555,3 @@ def args_in_kwargs(args, kwargs):
     return any(
         kwargs.get(arg) is not None and kwargs.get(arg) is not False for arg in args
     )
-
-
-def return_table(
-    session,
-    output_type: Literal["pandas", "numpy", "file"],
-    vfile: str,
-    column_names: list[str] | None = None,
-):
-    """
-    Return an output table from a virtual file based on the output type.
-
-    Parameters
-    ----------
-    session : :class:`pygmt.clib.Session`
-        The current session.
-    output_type
-        The output type. Valid values are ``"pandas"``, ``"numpy"``, or ``"file"``.
-    vfile
-        The virtual file name.
-    column_names
-        The column names for the :class:`pandas.DataFrame` output.
-
-    Returns
-    -------
-    :class:`pandas.DataFrame` or :class:`numpy.ndarray` or None
-        The output table. If ``output_type`` is ``"file"``, returns ``None``.
-    """
-    if output_type == "file":  # Already written to file, so return None
-        return None
-    # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-    result = session.read_virtualfile(vfile, kind="dataset").contents.to_dataframe()
-    # assign column names
-    if column_names is not None:
-        result.columns = column_names
-    # convert text data from object dtype to string dtype
-    result = result.convert_dtypes(
-        convert_string=True,
-        convert_integer=False,
-        convert_floating=False,
-        convert_boolean=False,
-    )
-    if output_type == "pandas":
-        return result
-    # NumPy.ndarray output
-    return result.to_numpy()

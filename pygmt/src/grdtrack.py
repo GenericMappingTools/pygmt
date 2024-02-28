@@ -5,12 +5,11 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
+    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
-    return_table,
     use_alias,
-    validate_output_table_type,
 )
 
 __doctest_skip__ = ["grdtrack"]
@@ -44,9 +43,7 @@ __doctest_skip__ = ["grdtrack"]
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", S="sequence", i="sequence_comma", o="sequence_comma")
-def grdtrack(
-    grid, points=None, output_type="pandas", outfile=None, newcolname=None, **kwargs
-):
+def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
     r"""
     Sample grids at specified (x,y) locations.
 
@@ -293,26 +290,29 @@ def grdtrack(
     if hasattr(points, "columns") and newcolname is None:
         raise GMTInvalidInput("Please pass in a str to 'newcolname'")
 
-    output_type = validate_output_table_type(output_type, outfile=outfile)
+    with GMTTempFile(suffix=".csv") as tmpfile:
+        with Session() as lib:
+            with lib.virtualfile_from_data(
+                check_kind="raster", data=grid
+            ) as grdfile, lib.virtualfile_from_data(
+                check_kind="vector", data=points, required_data=False
+            ) as csvfile:
+                kwargs["G"] = grdfile
+                if outfile is None:  # Output to tmpfile if outfile is not set
+                    outfile = tmpfile.name
+                lib.call_module(
+                    module="grdtrack",
+                    args=build_arg_string(kwargs, infile=csvfile, outfile=outfile),
+                )
 
-    column_names = None
-    if isinstance(points, pd.DataFrame):
-        column_names = [*points.columns.to_list(), newcolname]
+        # Read temporary csv output to a pandas table
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            try:
+                column_names = [*points.columns.to_list(), newcolname]
+                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
+            except AttributeError:  # 'str' object has no attribute 'columns'
+                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
 
-    with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as vingrd, lib.virtualfile_from_data(
-            check_kind="vector", data=points, required_data=False
-        ) as vintbl, lib.virtualfile_to_data(kind="dataset", fname=outfile) as vouttbl:
-            kwargs["G"] = vingrd
-            lib.call_module(
-                module="grdtrack",
-                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
-            )
-        return return_table(
-            session=lib,
-            output_type=output_type,
-            vfile=vouttbl,
-            column_names=column_names,
-        )
+    return result

@@ -1,12 +1,13 @@
 """
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
+import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
+    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
-    return_table,
     use_alias,
     validate_output_table_type,
 )
@@ -101,12 +102,23 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as vingrid, lib.virtualfile_to_data(kind="dataset", fname=outfile) as vouttbl:
-            lib.call_module(
-                module="grdvolume",
-                args=build_arg_string(kwargs, infile=vingrid, outfile=vouttbl),
-            )
-        return return_table(session=lib, output_type=output_type, vfile=vouttbl)
+    with GMTTempFile() as tmpfile:
+        with Session() as lib:
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            with file_context as infile:
+                if outfile is None:
+                    outfile = tmpfile.name
+                lib.call_module(
+                    module="grdvolume",
+                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                )
+
+        # Read temporary csv output to a pandas table
+        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
+            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
+        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
+            result = None
+
+        if output_type == "numpy":
+            result = result.to_numpy()
+    return result

@@ -20,6 +20,5 @@ from pygmt.helpers.utils import (
     is_nonstr_iter,
     launch_external_viewer,
     non_ascii_to_octal,
-    return_table,
 )
 from pygmt.helpers.validators import validate_output_table_type

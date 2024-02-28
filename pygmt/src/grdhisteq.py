@@ -3,6 +3,7 @@ grdhisteq - Perform histogram equalization for a grid.
 """
 
 import numpy as np
+import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -10,7 +11,6 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
-    return_table,
     use_alias,
     validate_output_table_type,
 )
@@ -63,7 +63,7 @@ class grdhisteq:  # noqa: N801
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def _grdhisteq(caller, grid, output_type, **kwargs):
+    def _grdhisteq(grid, output_type, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -105,36 +105,34 @@ class grdhisteq:  # noqa: N801
         --------
         :func:`pygmt.grd2cpt`
         """
-        if caller not in ["compute_bins", "equalize_grid"]:
-            raise GMTInvalidInput(f"Unrecognized caller: {caller}.")
 
         with Session() as lib:
-            with lib.virtualfile_from_data(
-                check_kind="raster", data=grid
-            ) as vingrid, lib.virtualfile_to_data(
-                kind="dataset", fname=kwargs.get("D")
-            ) as vouttbl:
-                if caller == "compute_bins":
-                    kwargs["D"] = vouttbl
+            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            with file_context as infile:
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_string(kwargs, infile=vingrid)
+                    module="grdhisteq", args=build_arg_string(kwargs, infile=infile)
                 )
 
-            if output_type == "xarray":
-                return load_dataarray(kwargs["G"])
+        if output_type == "file":
+            return None
+        if output_type == "xarray":
+            return load_dataarray(kwargs["G"])
 
-            result = return_table(
-                session=lib,
-                output_type=output_type,
-                vfile=vouttbl,
-                column_names=["start", "stop", "bin_id"],
-            )
-            if output_type == "pandas":
-                result = result.astype(
-                    {"start": np.float32, "stop": np.float32, "bin_id": np.uint32}
-                )
-                return result.set_index("bin_id")
-            return result
+        result = pd.read_csv(
+            filepath_or_buffer=kwargs["D"],
+            sep="\t",
+            header=None,
+            names=["start", "stop", "bin_id"],
+            dtype={
+                "start": np.float32,
+                "stop": np.float32,
+                "bin_id": np.uint32,
+            },
+        )
+        if output_type == "numpy":
+            return result.to_numpy()
+
+        return result.set_index("bin_id")
 
     @staticmethod
     @fmt_docstring
@@ -214,7 +212,6 @@ class grdhisteq:  # noqa: N801
             else:
                 raise GMTInvalidInput("Must specify 'outgrid' as a string or None.")
             return grdhisteq._grdhisteq(
-                caller="equalize_grid",
                 grid=grid,
                 output_type=output_type,
                 outgrid=outgrid,
@@ -322,14 +319,16 @@ class grdhisteq:  # noqa: N801
         if header is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
-        return grdhisteq._grdhisteq(
-            caller="compute_bins",
-            grid=grid,
-            output_type=output_type,
-            outfile=outfile,
-            divisions=divisions,
-            quadratic=quadratic,
-            verbose=verbose,
-            region=region,
-            header=header,
-        )
+        with GMTTempFile(suffix=".txt") as tmpfile:
+            if output_type != "file":
+                outfile = tmpfile.name
+            return grdhisteq._grdhisteq(
+                grid,
+                output_type=output_type,
+                outfile=outfile,
+                divisions=divisions,
+                quadratic=quadratic,
+                verbose=verbose,
+                region=region,
+                header=header,
+            )
