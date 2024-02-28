@@ -1639,7 +1639,7 @@ class Session:
         --------
         >>> from pathlib import Path
         >>> from pygmt.clib import Session
-        >>> from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+        >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Create a virtual file for storing the output table.
@@ -1652,24 +1652,13 @@ class Session:
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
         >>> isinstance(ds.contents, _GMT_DATASET)
         True
-        >>>
-        >>> # Create a virtual file for storing the output grid.
-        >>> with Session() as lib:
-        ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...         outgrd = lib.read_virtualfile(voutgrd, kind="grid")
-        >>> isinstance(outgrd.contents, _GMT_GRID)
-        True
-        >>>
-        >>> # Write data to file without creating a virtual file
+        >>> # Write data to an actual file without creating a virtual file.
         >>> with GMTTempFile(suffix=".nc") as tmpfile:
         ...     with Session() as lib:
-        ...         with lib.virtualfile_out(
-        ...             kind="grid", fname=tmpfile.name
-        ...         ) as voutgrd:
-        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         with lib.virtualfile_out(fname=tmpfile.name) as voutgrd:
         ...             assert voutgrd == tmpfile.name
-        ...             assert Path(voutgrd).stat().st_size > 0
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...     assert Path(voutgrd).stat().st_size > 0
         """
         if fname is not None:  # Yield the actual file name.
             yield fname
@@ -1706,27 +1695,23 @@ class Session:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
         ...         with open(tmpfile.name, mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
-        ...         with lib.open_virtualfile(
-        ...             "GMT_IS_DATASET", "GMT_IS_PLP", "GMT_OUT", None
-        ...         ) as vfile:
-        ...             lib.call_module("read", f"{tmpfile.name} {vfile} -Td")
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             # Read the virtual file as a void pointer
-        ...             void_pointer = lib.read_virtualfile(vfile)
+        ...             void_pointer = lib.read_virtualfile(vouttbl)
         ...             assert isinstance(void_pointer, int)  # void pointer is an int
         ...             # Read the virtual file as a dataset
-        ...             data_pointer = lib.read_virtualfile(vfile, kind="dataset")
+        ...             data_pointer = lib.read_virtualfile(vouttbl, kind="dataset")
         ...             assert isinstance(data_pointer, ctp.POINTER(_GMT_DATASET))
         >>>
         >>> # Read grid from a virtual file
         >>> with Session() as lib:
-        ...     with lib.open_virtualfile(
-        ...         "GMT_IS_GRID", "GMT_IS_SURFACE", "GMT_OUT", None
-        ...     ) as vfile:
-        ...         lib.call_module("read", f"@earth_relief_01d_g {vfile} -Tg")
+        ...     with lib.virtualfile_out(kind="grid") as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
         ...         # Read the virtual file as a void pointer
-        ...         void_pointer = lib.read_virtualfile(vfile)
+        ...         void_pointer = lib.read_virtualfile(voutgrd)
         ...         assert isinstance(void_pointer, int)  # void pointer is an int
-        ...         data_pointer = lib.read_virtualfile(vfile, kind="grid")
+        ...         data_pointer = lib.read_virtualfile(voutgrd, kind="grid")
         ...         assert isinstance(data_pointer, ctp.POINTER(_GMT_GRID))
 
         Returns
