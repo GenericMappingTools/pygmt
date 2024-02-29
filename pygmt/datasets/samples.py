@@ -150,7 +150,8 @@ def _load_rock_sample_compositions() -> pd.DataFrame:
     Returns
     -------
     data
-        The data table. The column names are "limestone", "water", "air", and "permittivity".
+        The data table. The column names are "limestone", "water", "air", and
+        "permittivity".
     """
     fname = which("@ternary.txt", download="c")
     return pd.read_csv(
