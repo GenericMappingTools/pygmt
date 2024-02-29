@@ -150,32 +150,29 @@ def clib_full_names(env=None):
         yield libname
 
 
-def check_libgmt(libgmt):
+def check_libgmt(libgmt: ctypes.CDLL):
     """
-    Make sure that libgmt was loaded correctly.
+    Make sure the GMT shared library was loaded correctly.
 
-    Checks if it defines some common required functions.
-
-    Does nothing if everything is fine. Raises an exception if any of the
-    functions are missing.
+    Checks if the GMT shared library defines a few of the required functions. Does
+    nothing if everything is fine. Raises an exception if any of the functions are
+    missing.
 
     Parameters
     ----------
-    libgmt : :py:class:`ctypes.CDLL`
+    libgmt
         A shared library loaded using ctypes.
 
     Raises
     ------
     GMTCLibError
     """
-    # Check if a few of the functions we need are in the library
-    functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
-    for func in functions:
+    for func in ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]:
         if not hasattr(libgmt, "GMT_" + func):
             msg = (
                 f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
-                "Ensure that you have installed an up-to-date GMT version 6 library. "
-                "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
-                "directory of the GMT 6 library."
+                "Ensure that you have installed an up-to-date GMT version 6 library and "
+                "set the environment variable 'GMT_LIBRARY_PATH' to the directory of "
+                "the GMT 6 library."
             )
             raise GMTCLibError(msg)
