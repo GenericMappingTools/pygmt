@@ -149,7 +149,7 @@ class Session:
     -55 -47 -24 -10 190 981 1 1 8 14 1 1
     """
 
-    # The minimum version of GMT required
+    # The minimum supported GMT version.
     required_version = "6.3.0"
 
     @property
