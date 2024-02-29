@@ -2,15 +2,13 @@
 Functions to load sample data.
 """
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Literal, NamedTuple
+from typing import Literal, NamedTuple
 
 import pandas as pd
+import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.io import load_dataarray
 from pygmt.src import which
-
-if TYPE_CHECKING:
-    import xarray as xr  # noqa: TCH004
 
 
 def _load_japan_quakes() -> pd.DataFrame:
