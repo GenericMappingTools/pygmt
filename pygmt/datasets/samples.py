@@ -135,7 +135,7 @@ def _load_mars_shape() -> pd.DataFrame:
     Returns
     -------
     data
-        The data table with column names "longitude", "latitude", and "radius_m".
+        The data table. The column names are "longitude", "latitude", and "radius_m".
     """
     fname = which("@mars370d.txt", download="c")
     return pd.read_csv(
@@ -150,7 +150,7 @@ def _load_rock_sample_compositions() -> pd.DataFrame:
     Returns
     -------
     data
-        The data table with columns "limestone", "water", "air", and "permittivity".
+        The data table. The column names are "limestone", "water", "air", and "permittivity".
     """
     fname = which("@ternary.txt", download="c")
     return pd.read_csv(
@@ -170,7 +170,7 @@ def _load_notre_dame_topography() -> pd.DataFrame:
     Returns
     -------
     data
-        The data table with columns "x", "y", and "z".
+        The data table. The column names are "x", "y", and "z".
     """
     fname = which("@Table_5_11.txt", download="c")
     return pd.read_csv(fname, sep=r"\s+", header=None, names=["x", "y", "z"])
@@ -183,7 +183,7 @@ def _load_maunaloa_co2() -> pd.DataFrame:
     Returns
     -------
     data
-        The data table with columns "date" and "co2_ppm".
+        The data table. The column names are "date" and "co2_ppm".
     """
     fname = which("@MaunaLoa_CO2.txt", download="c")
     return pd.read_csv(
