@@ -3,6 +3,7 @@ Test the behavior of the Figure class.
 
 Doesn't include the plotting commands which have their own test files.
 """
+
 import importlib
 import os
 from pathlib import Path

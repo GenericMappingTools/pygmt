@@ -1,6 +1,7 @@
 """
 config - set GMT defaults globally or locally.
 """
+
 from inspect import Parameter, Signature
 from typing import ClassVar
 

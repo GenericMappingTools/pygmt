@@ -107,7 +107,7 @@ def wiggle(
             kwargs["G"].append(fillnegative + "+n")
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        file_context = lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         )
 

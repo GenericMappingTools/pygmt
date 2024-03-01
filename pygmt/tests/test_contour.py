@@ -1,6 +1,7 @@
 """
 Test Figure.contour.
 """
+
 import os
 
 import numpy as np

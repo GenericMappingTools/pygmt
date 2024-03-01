@@ -2,6 +2,7 @@
 blockm - Block average (x, y, z) data tables by mean, median, or mode
 estimation.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -43,7 +44,7 @@ def _blockm(block_method, data, x, y, z, outfile, **kwargs):
     """
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(
+            table_context = lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
             )
             # Run blockm* on data table

@@ -4,6 +4,7 @@ Utility functions to load libgmt as ctypes.CDLL.
 The path to the shared library can be found automatically by ctypes or set through the
 GMT_LIBRARY_PATH environment variable.
 """
+
 import ctypes
 import os
 import shutil

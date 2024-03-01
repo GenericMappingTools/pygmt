@@ -1,6 +1,7 @@
 """
 plot3d - Plot in three dimensions.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -225,7 +226,7 @@ def plot3d(  # noqa: PLR0912
             kwargs[flag] = ""
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        file_context = lib.virtualfile_in(
             check_kind="vector",
             data=data,
             x=x,
