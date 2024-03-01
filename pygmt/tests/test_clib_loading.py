@@ -1,6 +1,7 @@
 """
 Test the functions that load libgmt.
 """
+
 import ctypes
 import os
 import shutil

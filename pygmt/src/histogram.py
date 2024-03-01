@@ -1,6 +1,7 @@
 """
 Histogram - Create a histogram
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -134,7 +135,7 @@ def histogram(self, data, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
+        file_context = lib.virtualfile_in(check_kind="vector", data=data)
         with file_context as infile:
             lib.call_module(
                 module="histogram", args=build_arg_string(kwargs, infile=infile)

@@ -79,7 +79,7 @@ def grdfill(grid, **kwargs):
         raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile

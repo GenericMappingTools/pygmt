@@ -1,6 +1,7 @@
 """
 Wrapper for the GMT_GRID data type.
 """
+
 import ctypes as ctp
 
 

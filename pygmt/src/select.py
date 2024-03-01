@@ -1,6 +1,7 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -198,7 +199,7 @@ def select(data=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
+            table_context = lib.virtualfile_in(check_kind="vector", data=data)
             with table_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name

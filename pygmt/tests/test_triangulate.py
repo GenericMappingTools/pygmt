@@ -1,6 +1,7 @@
 """
 Test pygmt.triangulate.
 """
+
 from pathlib import Path
 
 import numpy as np
