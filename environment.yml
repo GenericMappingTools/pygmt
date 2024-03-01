@@ -24,7 +24,7 @@ dependencies:
     - pip
     # Dev dependencies (style checks)
     - codespell
-    - ruff>=0.2.0
+    - ruff>=0.3.0
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov

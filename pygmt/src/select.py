@@ -1,6 +1,7 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (

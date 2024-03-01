@@ -2,6 +2,7 @@
 blockm - Block average (x, y, z) data tables by mean, median, or mode
 estimation.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (

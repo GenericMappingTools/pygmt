@@ -2,6 +2,7 @@
 surface - Grid table data using adjustable tension continuous curvature
 splines.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,

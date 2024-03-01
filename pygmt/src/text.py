@@ -1,6 +1,7 @@
 """
 text - Plot text on a figure.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput

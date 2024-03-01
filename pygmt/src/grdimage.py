@@ -1,6 +1,7 @@
 """
 grdimage - Plot grids or images.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -163,11 +164,12 @@ def grdimage(self, grid, **kwargs):
         )
 
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="raster", data=grid
-        ) as fname, lib.virtualfile_in(
-            check_kind="raster", data=kwargs.get("I"), required_data=False
-        ) as shadegrid:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as fname,
+            lib.virtualfile_in(
+                check_kind="raster", data=kwargs.get("I"), required_data=False
+            ) as shadegrid,
+        ):
             kwargs["I"] = shadegrid
             lib.call_module(
                 module="grdimage", args=build_arg_string(kwargs, infile=fname)

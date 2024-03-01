@@ -1,6 +1,7 @@
 """
 Functions to load sample data.
 """
+
 from collections.abc import Callable
 from typing import Literal, NamedTuple
 

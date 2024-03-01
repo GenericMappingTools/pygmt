@@ -1,6 +1,7 @@
 """
 meca - Plot focal mechanisms.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session

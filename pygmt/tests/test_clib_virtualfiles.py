@@ -1,6 +1,7 @@
 """
 Test the C API functions related to virtual files.
 """
+
 import os
 from importlib.util import find_spec
 from itertools import product
@@ -99,8 +100,10 @@ def test_virtual_file_fails():
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
-        lib, "GMT_Close_VirtualFile", returns=1
+    with (
+        clib.Session() as lib,
+        mock(lib, "GMT_Open_VirtualFile", returns=0),
+        mock(lib, "GMT_Close_VirtualFile", returns=1),
     ):
         with pytest.raises(GMTCLibError):
             with lib.open_virtualfile(*vfargs):

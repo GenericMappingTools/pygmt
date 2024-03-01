@@ -4,6 +4,7 @@ Function to download the Earth relief datasets from the GMT data server, and loa
 
 The grids are available in various resolutions.
 """
+
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset

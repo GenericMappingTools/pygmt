@@ -1,6 +1,7 @@
 """
 sph2grd - Compute grid from spherical harmonic coefficients
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,

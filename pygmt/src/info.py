@@ -1,6 +1,7 @@
 """
 info - Get information about data tables.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.helpers import (
