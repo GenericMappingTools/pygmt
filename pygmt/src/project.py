@@ -1,6 +1,7 @@
 """
 project - Project data onto lines or great circles, or generate tracks.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput

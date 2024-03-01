@@ -4,6 +4,7 @@ server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset

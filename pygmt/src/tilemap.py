@@ -1,6 +1,7 @@
 """
 tilemap - Plot XYZ tile maps.
 """
+
 from __future__ import annotations
 
 from pygmt.clib import Session

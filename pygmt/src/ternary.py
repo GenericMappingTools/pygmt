@@ -1,6 +1,7 @@
 """
 ternary - Plot data on ternary diagrams.
 """
+
 import pandas as pd
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__

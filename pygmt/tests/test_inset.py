@@ -1,6 +1,7 @@
 """
 Test Figure.inset.
 """
+
 import pytest
 from pygmt import Figure
 

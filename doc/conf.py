@@ -1,6 +1,7 @@
 """
 Sphinx documentation configuration file.
 """
+
 import datetime
 from importlib.metadata import metadata
 

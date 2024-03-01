@@ -1,6 +1,7 @@
 """
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session

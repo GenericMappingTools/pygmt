@@ -17,6 +17,7 @@ Here are just a few of the things that PyGMT does well:
     lines, vectors, polygons, and symbols (pre-defined and customized).
   - Generating publication-quality illustrations and making animations.
 """
+
 import atexit as _atexit
 import sys
 from importlib.metadata import version

@@ -1,6 +1,7 @@
 """
 binstats - Bin spatial data and determine statistics per bin
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,

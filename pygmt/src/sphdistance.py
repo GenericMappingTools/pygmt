@@ -2,6 +2,7 @@
 sphdistance - Create Voronoi distance, node,
 or natural nearest-neighbor grid on a sphere
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (

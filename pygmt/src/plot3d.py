@@ -1,6 +1,7 @@
 """
 plot3d - Plot in three dimensions.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
