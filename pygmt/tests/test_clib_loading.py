@@ -69,7 +69,7 @@ def test_load_libgmt_fails(monkeypatch):
     """
     with monkeypatch.context() as mpatch:
         if sys.platform == "win32":
-            mpatch.setattr(ctypes.util, "find_library", lambda name: None)  # noqa: ARG005
+            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
         mpatch.setattr(
             sys,
             "platform",
