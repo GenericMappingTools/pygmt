@@ -2,6 +2,7 @@
 sphdistance - Create Voronoi distance, node,
 or natural nearest-neighbor grid on a sphere
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -117,9 +118,7 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y
-            )
+            file_context = lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y)
             with file_context as infile:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile

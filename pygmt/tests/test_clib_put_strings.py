@@ -1,6 +1,7 @@
 """
 Test the functions that put string data into GMT.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest

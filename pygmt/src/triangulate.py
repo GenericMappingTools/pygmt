@@ -136,7 +136,7 @@ class triangulate:  # noqa: N801
         # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
             with Session() as lib:
-                with lib.virtualfile_from_data(
+                with lib.virtualfile_in(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
                 ) as vintbl:
                     if (outgrid := kwargs.get("G")) is None:
@@ -245,7 +245,7 @@ class triangulate:  # noqa: N801
 
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
-                with lib.virtualfile_from_data(
+                with lib.virtualfile_in(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
                 ) as vintbl:
                     if outfile is None:

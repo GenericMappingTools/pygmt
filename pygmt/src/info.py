@@ -1,6 +1,7 @@
 """
 info - Get information about data tables.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -80,7 +81,7 @@ def info(data, **kwargs):
         - str if none of the above parameters are used.
     """
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
+        file_context = lib.virtualfile_in(check_kind="vector", data=data)
         with GMTTempFile() as tmpfile:
             with file_context as fname:
                 lib.call_module(

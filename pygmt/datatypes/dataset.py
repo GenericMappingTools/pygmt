@@ -1,6 +1,7 @@
 """
 Wrapper for the GMT_DATASET data type.
 """
+
 import ctypes as ctp
 from typing import ClassVar
 

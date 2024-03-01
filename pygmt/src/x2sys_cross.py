@@ -1,6 +1,7 @@
 """
 x2sys_cross - Calculate crossovers between track data files.
 """
+
 import contextlib
 import os
 from pathlib import Path
