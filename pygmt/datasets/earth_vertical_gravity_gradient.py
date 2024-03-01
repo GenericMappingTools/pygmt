@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth gertical gravity gradient dataset from the GMT data
+Function to download the IGPP Earth vertical gravity gradient dataset from the GMT data
 server, and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
