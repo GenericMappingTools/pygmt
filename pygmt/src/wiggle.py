@@ -108,7 +108,7 @@ def wiggle(
 
     with Session() as lib:
         file_context = lib.virtualfile_in(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
+            check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
         )
 
         with file_context as fname:

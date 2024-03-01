@@ -133,11 +133,15 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
+        vectors, names = [x, y], "xy"
+        if z is not None:
+            vectors.append(z)
+
         # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
             with Session() as lib:
                 with lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, vectors=vectors, names=names
                 ) as vintbl:
                     if (outgrid := kwargs.get("G")) is None:
                         kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
@@ -243,10 +247,15 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile)
 
+        vectors, names = [x, y], "xy"
+        if z is not None:
+            vectors.append(z)
+
+
         with GMTTempFile(suffix=".txt") as tmpfile:
             with Session() as lib:
                 with lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, vectors=vectors, names=names
                 ) as vintbl:
                     if outfile is None:
                         outfile = tmpfile.name

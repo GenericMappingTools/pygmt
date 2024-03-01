@@ -181,11 +181,13 @@ def plot3d(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    kind = data_kind(data, x, y, z)
+    kind = data_kind(data)
+    vectors = [x, y, z]
+    names = ["x", "y", "z"]
 
-    extra_arrays = []
     if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
+        vectors.extend(direction)
+        names.extend(["x2", "y2"])
     elif (
         kwargs.get("S") is None
         and kind == "geojson"
@@ -207,14 +209,16 @@ def plot3d(  # noqa: PLR0912
             raise GMTInvalidInput(
                 "Can't use arrays for fill if data is matrix or file."
             )
-        extra_arrays.append(kwargs["G"])
+        vectors.append(kwargs["G"])
+        names.append("fill")
         del kwargs["G"]
     if size is not None:
         if kind != "vectors":
             raise GMTInvalidInput(
                 "Can't use arrays for 'size' if data is a matrix or a file."
             )
-        extra_arrays.append(size)
+        vectors.append(size)
+        names.append("size")
 
     for flag in ["I", "t"]:
         if is_nonstr_iter(kwargs.get(flag)):
@@ -222,18 +226,13 @@ def plot3d(  # noqa: PLR0912
                 raise GMTInvalidInput(
                     f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
                 )
-            extra_arrays.append(kwargs[flag])
+            vectors.append(kwargs[flag])
+            names.append(plot3d.aliases[flag])
             kwargs[flag] = ""
 
     with Session() as lib:
         file_context = lib.virtualfile_in(
-            check_kind="vector",
-            data=data,
-            x=x,
-            y=y,
-            z=z,
-            extra_arrays=extra_arrays,
-            required_z=True,
+            check_kind="vector", data=data, vectors=vectors, names=names
         )
 
         with file_context as fname:

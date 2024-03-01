@@ -223,13 +223,18 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             "The `convention` parameter is not allowed with `generate`."
         )
 
+    # z is optional
+    vectors, names = [x, y], "xy"
+    if z is not None:
+        vectors.append(z)
+
     with GMTTempFile(suffix=".csv") as tmpfile:
         if outfile is None:  # Output to tmpfile if outfile is not set
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
                 table_context = lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
+                    check_kind="vector", data=data, vectors=vectors, names=names
                 )
 
                 # Run project on the temporary (csv) data table

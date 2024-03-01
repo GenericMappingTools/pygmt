@@ -142,7 +142,7 @@ def test_virtualfile_in_required_z_matrix(array_func, kind):
     data = array_func(dataframe)
     with clib.Session() as lib:
         with lib.virtualfile_in(
-            data=data, required_z=True, check_kind="vector"
+            data=data, names="xyz", check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
                 lib.call_module("info", f"{vfile} ->{outfile.name}")
@@ -164,7 +164,7 @@ def test_virtualfile_in_required_z_matrix_missing():
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
+            with lib.virtualfile_in(data=data, names="xyz", check_kind="vector"):
                 pass
 
 
@@ -180,7 +180,7 @@ def test_virtualfile_in_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_in(x=variable[0], y=variable[1])
+                lib.virtualfile_in(vectors=variable[:2])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
@@ -190,19 +190,12 @@ def test_virtualfile_in_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_in(
-                    x=variable[0], y=variable[1], z=variable[2], required_z=True
-                )
+                lib.virtualfile_in(vectors=variable[:3], names="xyz")
 
     # Should also fail if given too much data
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_in(
-                x=data[:, 0],
-                y=data[:, 1],
-                z=data[:, 2],
-                data=data,
-            )
+            lib.virtualfile_in(vectors=data[:, :3], data=data, names="xyz")
 
 
 @pytest.mark.benchmark
