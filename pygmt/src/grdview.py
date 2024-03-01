@@ -144,9 +144,9 @@ def grdview(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        with lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="raster", data=grid
-        ) as fname, lib.virtualfile_from_data(
+        ) as fname, lib.virtualfile_in(
             check_kind="raster", data=kwargs.get("G"), required_data=False
         ) as drapegrid:
             kwargs["G"] = drapegrid
