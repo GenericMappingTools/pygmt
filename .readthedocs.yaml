@@ -18,6 +18,7 @@ build:
         if [ "$READTHEDOCS_VERSION_TYPE" = "external" ] && \
           git diff --quiet origin/main -- \
               doc/ \
+              examples \
               pygmt/**/*.py \
               ':!pygmt/tests' \
               README.md \
@@ -26,7 +27,8 @@ build:
         then
           exit 183;
         fi
-    pre_build: # Generate api stub files before building
+    pre_build:
+      # Generate api stub files before building
       - make -C doc api
 
 # Build documentation in the doc/ directory with Sphinx

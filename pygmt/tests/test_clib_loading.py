@@ -35,13 +35,7 @@ def test_check_libgmt():
     Make sure check_libgmt fails when given a bogus library.
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
-    msg = (
-        f"Error loading '{libgmt._name}'. "
-        "Couldn't access function GMT_Create_Session. "
-        "Ensure that you have installed an up-to-date GMT version 6 library. "
-        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
-        "directory of the GMT 6 library."
-    )
+    msg = f"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
 
@@ -50,8 +44,7 @@ def test_clib_names():
     """
     Make sure we get the correct library name for different OS names.
     """
-    for linux in ["linux", "linux2", "linux3"]:
-        assert clib_names(linux) == ["libgmt.so"]
+    assert clib_names("linux") == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:

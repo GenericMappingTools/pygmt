@@ -115,7 +115,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        file_context = lib.virtualfile_in(
             check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
         )
         with file_context as fname:

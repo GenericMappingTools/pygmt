@@ -232,7 +232,7 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
-                table_context = lib.virtualfile_from_data(
+                table_context = lib.virtualfile_in(
                     check_kind="vector", data=data, vectors=vectors, names=names
                 )
 

@@ -104,7 +104,7 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
+            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
             with file_context as infile:
                 if outfile is None:
                     outfile = tmpfile.name

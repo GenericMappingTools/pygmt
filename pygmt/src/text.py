@@ -226,7 +226,7 @@ def text_(  # noqa: PLR0912
             else:  # font or justify is str type
                 vectors.append(np.atleast_1d(arg).astype(str))
                 names.append(name)
-        elif isinstance(arg, (int, float, str)):
+        elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
@@ -247,7 +247,7 @@ def text_(  # noqa: PLR0912
         names.append("text")
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        file_context = lib.virtualfile_in(
             check_kind="vector", data=textfiles, vectors=vectors, names=names
         )
         with file_context as fname:

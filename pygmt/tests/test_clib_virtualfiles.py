@@ -128,7 +128,7 @@ def test_virtual_file_bad_direction():
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
-def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+def test_virtualfile_in_required_z_matrix(array_func, kind):
     """
     Test that function works when third z column in a matrix is needed and provided.
     """
@@ -138,7 +138,7 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             data=data, names="xyz", check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
@@ -154,18 +154,18 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
         assert output == expected
 
 
-def test_virtualfile_from_data_required_z_matrix_missing():
+def test_virtualfile_in_required_z_matrix_missing():
     """
     Test that function fails when third z column in a matrix is needed but not provided.
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(data=data, names="xyz", check_kind="vector"):
+            with lib.virtualfile_in(data=data, names="xyz", check_kind="vector"):
                 pass
 
 
-def test_virtualfile_from_data_fail_non_valid_data(data):
+def test_virtualfile_in_fail_non_valid_data(data):
     """
     Should raise an exception if too few or too much data is given.
     """
@@ -177,7 +177,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(vectors=variable[:2])
+                lib.virtualfile_in(vectors=variable[:2])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
@@ -187,12 +187,12 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(vectors=variable[:3], names="xyz")
+                lib.virtualfile_in(vectors=variable[:3], names="xyz")
 
     # Should also fail if given too much data
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_from_data(vectors=data[:, :3], data=data, names="xyz")
+            lib.virtualfile_in(vectors=data[:, :3], data=data, names="xyz")
 
 
 @pytest.mark.benchmark
@@ -230,7 +230,9 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
             with GMTTempFile() as outfile:
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        expected = "".join(
+            f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
+        )
         assert output == expected
 
 
@@ -251,7 +253,8 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{h}\t{i}\t{j} {k}\n"
+            for h, i, j, k in zip(x, y, strings1, strings2, strict=True)
         )
         assert output == expected
 

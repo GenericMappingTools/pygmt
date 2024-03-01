@@ -399,7 +399,7 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
         for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):
@@ -488,6 +488,6 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
+        file_context = lib.virtualfile_in(check_kind="vector", data=spec)
         with file_context as fname:
             lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))

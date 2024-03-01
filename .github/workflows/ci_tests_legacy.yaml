@@ -50,7 +50,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.7.3
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
           environment-name: pygmt
           condarc: |
@@ -60,7 +60,7 @@ jobs:
           cache-downloads: false
           cache-environment: true
           create-args: >-
-            python=3.9
+            python=3.10
             gmt=${{ matrix.gmt_version }}
             numpy
             pandas<2
@@ -82,7 +82,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
+        uses: dawidd6/action-download-artifact@v3.1.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -95,6 +95,9 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
+          # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
+          # in the `~/.gmt` directory for GMT>=6.5.
+          mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
 

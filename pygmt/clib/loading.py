@@ -62,28 +62,36 @@ def load_libgmt(lib_fullnames=None):
     return libgmt
 
 
-def clib_names(os_name):
+def clib_names(os_name: str) -> list[str]:
     """
-    Return the name of GMT's shared library for the current OS.
+    Return the name(s) of GMT's shared library for the current operating system.
 
     Parameters
     ----------
-    os_name : str
+    os_name
         The operating system name as given by ``sys.platform``.
 
     Returns
     -------
-    libnames : list of str
+    libnames
         List of possible names of GMT's shared library.
+
+    Raises
+    ------
+    GMTOSError
+        If the operating system is not supported yet.
     """
-    if os_name.startswith(("linux", "freebsd")):
-        libnames = ["libgmt.so"]
-    elif os_name == "darwin":  # Darwin is macOS
-        libnames = ["libgmt.dylib"]
-    elif os_name == "win32":
-        libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
-    else:
-        raise GMTOSError(f"Operating system '{os_name}' not supported.")
+    match os_name:
+        case "linux":  # Linux
+            libnames = ["libgmt.so"]
+        case "darwin":  # macOS
+            libnames = ["libgmt.dylib"]
+        case "win32":  # Windows
+            libnames = ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
+        case name if name.startswith("freebsd"):  # FreeBSD
+            libnames = ["libgmt.so"]
+        case _:
+            raise GMTOSError(f"Operating system '{os_name}' is not supported.")
     return libnames
 
 
@@ -142,32 +150,29 @@ def clib_full_names(env=None):
         yield libname
 
 
-def check_libgmt(libgmt):
+def check_libgmt(libgmt: ctypes.CDLL):
     """
-    Make sure that libgmt was loaded correctly.
+    Make sure the GMT shared library was loaded correctly.
 
-    Checks if it defines some common required functions.
-
-    Does nothing if everything is fine. Raises an exception if any of the
-    functions are missing.
+    Checks if the GMT shared library defines a few of the required functions. Does
+    nothing if everything is fine. Raises an exception if any of the functions are
+    missing.
 
     Parameters
     ----------
-    libgmt : :py:class:`ctypes.CDLL`
+    libgmt
         A shared library loaded using ctypes.
 
     Raises
     ------
     GMTCLibError
     """
-    # Check if a few of the functions we need are in the library
-    functions = ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]
-    for func in functions:
+    for func in ["Create_Session", "Get_Enum", "Call_Module", "Destroy_Session"]:
         if not hasattr(libgmt, "GMT_" + func):
             msg = (
                 f"Error loading '{libgmt._name}'. Couldn't access function GMT_{func}. "
-                "Ensure that you have installed an up-to-date GMT version 6 library. "
-                "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
-                "directory of the GMT 6 library."
+                "Ensure that you have installed an up-to-date GMT version 6 library and "
+                "set the environment variable 'GMT_LIBRARY_PATH' to the directory of "
+                "the GMT 6 library."
             )
             raise GMTCLibError(msg)

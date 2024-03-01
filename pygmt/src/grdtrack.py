@@ -292,9 +292,9 @@ def grdtrack(grid, points=None, newcolname=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            with lib.virtualfile_from_data(
+            with lib.virtualfile_in(
                 check_kind="raster", data=grid
-            ) as grdfile, lib.virtualfile_from_data(
+            ) as grdfile, lib.virtualfile_in(
                 check_kind="vector", data=points, required_data=False
             ) as csvfile:
                 kwargs["G"] = grdfile

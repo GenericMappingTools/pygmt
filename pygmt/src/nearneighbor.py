@@ -145,7 +145,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(
+            table_context = lib.virtualfile_in(
                 check_kind="vector", data=data, vectors=[x, y, z], names="xyz"
             )
             with table_context as infile:
