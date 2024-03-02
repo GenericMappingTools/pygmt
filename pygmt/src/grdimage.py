@@ -165,12 +165,12 @@ def grdimage(self, grid, **kwargs):
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as fname,
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_in(
                 check_kind="raster", data=kwargs.get("I"), required_data=False
-            ) as shadegrid,
+            ) as vshadegrid,
         ):
-            kwargs["I"] = shadegrid
+            kwargs["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+                module="grdimage", args=build_arg_string(kwargs, infile=vingrd)
             )
