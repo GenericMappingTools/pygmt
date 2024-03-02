@@ -237,8 +237,7 @@ def text_(  # noqa: PLR0912
         )
 
     with Session() as lib:
-        file_context = lib.virtualfile_in(
+        with lib.virtualfile_in(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
-        )
-        with file_context as fname:
-            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="text", args=build_arg_string(kwargs, infile=vintbl))

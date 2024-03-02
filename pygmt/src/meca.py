@@ -489,6 +489,5 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
-        file_context = lib.virtualfile_in(check_kind="vector", data=spec)
-        with file_context as fname:
-            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=vintbl))

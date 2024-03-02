@@ -105,13 +105,12 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
                     module="grdvolume",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

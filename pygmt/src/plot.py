@@ -251,9 +251,7 @@ def plot(  # noqa: PLR0912
             kwargs[flag] = ""
 
     with Session() as lib:
-        file_context = lib.virtualfile_in(
+        with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
-        )
-
-        with file_context as fname:
-            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=vintbl))
