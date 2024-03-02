@@ -205,4 +205,14 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         if textvector:
             vectors.append(np.char.decode(textvector))
 
-        return pd.concat([pd.Series(v) for v in vectors], axis=1)
+        df = pd.concat([pd.Series(v) for v in vectors], axis=1)
+
+        # convert text data from object dtype to string dtype
+        if textvector:
+            df = df.convert_dtypes(
+                convert_string=True,
+                convert_integer=False,
+                convert_floating=False,
+                convert_boolean=False,
+            )
+        return df
