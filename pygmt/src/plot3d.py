@@ -226,7 +226,7 @@ def plot3d(  # noqa: PLR0912
             kwargs[flag] = ""
 
     with Session() as lib:
-        file_context = lib.virtualfile_in(
+        with lib.virtualfile_in(
             check_kind="vector",
             data=data,
             x=x,
@@ -234,9 +234,7 @@ def plot3d(  # noqa: PLR0912
             z=z,
             extra_arrays=extra_arrays,
             required_z=True,
-        )
-
-        with file_context as fname:
+        ) as vintbl:
             lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+                module="plot3d", args=build_arg_string(kwargs, infile=vintbl)
             )

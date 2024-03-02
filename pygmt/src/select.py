@@ -199,13 +199,12 @@ def select(data=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_in(check_kind="vector", data=data)
-            with table_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
                     module="select",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

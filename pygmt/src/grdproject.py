@@ -113,12 +113,11 @@ def grdproject(grid, **kwargs):
         raise GMTInvalidInput("The projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_in(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdproject", args=build_arg_string(kwargs, infile=infile)
+                    module="grdproject", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
