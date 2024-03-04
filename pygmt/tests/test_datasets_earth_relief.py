@@ -1,9 +1,12 @@
 """
 Test basic functionality for loading Earth relief datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
+from packaging.version import Version
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_earth_relief
 from pygmt.exceptions import GMTInvalidInput
 
@@ -12,8 +15,7 @@ from pygmt.exceptions import GMTInvalidInput
 @pytest.mark.parametrize("data_source", ["igpp", "synbath"])
 def test_earth_relief_01d_igpp_synbath(data_source):
     """
-    Test some properties of the earth relief 01d data with IGPP and SYNBATH
-    data.
+    Test some properties of the earth relief 01d data with IGPP and SYNBATH data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.name == "elevation"
@@ -25,15 +27,14 @@ def test_earth_relief_01d_igpp_synbath(data_source):
     assert data.shape == (181, 361)
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -8600.5, atol=0.5)
-    npt.assert_allclose(data.max(), 5559.0, atol=0.5)
+    npt.assert_allclose(data.min(), -7174.0, atol=0.5)
+    npt.assert_allclose(data.max(), 5350.0, atol=0.5)
 
 
 @pytest.mark.parametrize("data_source", ["gebco", "gebcosi"])
 def test_earth_relief_01d_gebco(data_source):
     """
-    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI
-    data.
+    Test some properties of the earth relief 01d data with GEBCO and GEBOCSI data.
     """
     data = load_earth_relief(resolution="01d", data_source=data_source)
     assert data.attrs["units"] == "meters"
@@ -44,8 +45,8 @@ def test_earth_relief_01d_gebco(data_source):
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -8597.0, atol=1.0)
-    npt.assert_allclose(data.max(), 5559.0, atol=1.0)
+    npt.assert_allclose(data.min(), -7169.0, atol=1.0)
+    npt.assert_allclose(data.max(), 5350.0, atol=1.0)
 
 
 def test_earth_relief_01d_with_region_srtm():
@@ -61,8 +62,8 @@ def test_earth_relief_01d_with_region_srtm():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5151, atol=0.5)
-    npt.assert_allclose(data.max(), 805.5, atol=0.5)
+    npt.assert_allclose(data.min(), -5136.0, atol=0.5)
+    npt.assert_allclose(data.max(), 680.5, atol=0.5)
 
 
 def test_earth_relief_01d_with_region_gebco():
@@ -78,8 +79,8 @@ def test_earth_relief_01d_with_region_gebco():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -5151.0, atol=1.0)
-    npt.assert_allclose(data.max(), 806.0, atol=1.0)
+    npt.assert_allclose(data.min(), -5136.0, atol=1.0)
+    npt.assert_allclose(data.max(), 681.0, atol=1.0)
 
 
 def test_earth_relief_30m():
@@ -91,8 +92,8 @@ def test_earth_relief_30m():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 90.5, 0.5))
     npt.assert_allclose(data.lon, np.arange(-180, 180.5, 0.5))
-    npt.assert_allclose(data.min(), -9454.5, atol=0.5)
-    npt.assert_allclose(data.max(), 5887.5, atol=0.5)
+    npt.assert_allclose(data.min(), -8279.5, atol=0.5)
+    npt.assert_allclose(data.max(), 5544.0, atol=0.5)
 
 
 def test_earth_gebcosi_15m_with_region():
@@ -109,8 +110,8 @@ def test_earth_gebcosi_15m_with_region():
     assert data.gmt.registration == 1
     npt.assert_allclose(data.lat, np.arange(-87.875, -84, 0.25))
     npt.assert_allclose(data.lon, np.arange(85.125, 87, 0.25))
-    npt.assert_allclose(data.min(), -531, atol=1.0)
-    npt.assert_allclose(data.max(), 474, atol=1.0)
+    npt.assert_allclose(data.min(), -492, atol=1.0)
+    npt.assert_allclose(data.max(), 435, atol=1.0)
 
 
 def test_earth_relief_30s_synbath():
@@ -124,8 +125,8 @@ def test_earth_relief_30s_synbath():
         data_source="synbath",
     )
     assert data.shape == (60, 120)
-    npt.assert_allclose(data.min(), -3552.5, atol=0.5)
-    npt.assert_allclose(data.max(), -2257.5, atol=0.5)
+    npt.assert_allclose(data.min(), -3546.5, atol=0.5)
+    npt.assert_allclose(data.max(), -2282.0, atol=0.5)
 
 
 def test_earth_relief_03s_landonly_srtm():
@@ -159,8 +160,8 @@ def test_earth_relief_invalid_data_source():
 
 def test_earth_relief_invalid_data_source_with_use_srtm():
     """
-    Test loading earth relief with use_srtm=True and an incompatible
-    data_source argument.
+    Test loading earth relief with use_srtm=True and an incompatible data_source
+    argument.
     """
     with pytest.raises(GMTInvalidInput):
         load_earth_relief(
@@ -174,8 +175,8 @@ def test_earth_relief_invalid_data_source_with_use_srtm():
 
 def test_earth_relief_15s_default_registration():
     """
-    Test that the grid returned by default for the 15 arc-second resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 15 arc-second resolution has a
+    "pixel" registration.
     """
     data = load_earth_relief(resolution="15s", region=[-10, -9.5, 4, 5])
     assert data.shape == (240, 120)
@@ -188,10 +189,14 @@ def test_earth_relief_15s_default_registration():
     npt.assert_allclose(data.max(), -71, atol=0.5)
 
 
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) >= Version("6.5.0"),
+    reason="Upstream bug tracked in https://github.com/GenericMappingTools/pygmt/issues/2511",
+)
 def test_earth_relief_03s_default_registration():
     """
-    Test that the grid returned by default for the 3 arc-second resolution has
-    a "gridline" registration.
+    Test that the grid returned by default for the 3 arc-second resolution has a
+    "gridline" registration.
     """
     data = load_earth_relief(resolution="03s", region=[-10, -9.8, 4.9, 5])
     assert data.shape == (121, 241)
@@ -200,5 +205,5 @@ def test_earth_relief_03s_default_registration():
     npt.assert_allclose(data.coords["lat"].data.max(), 5)
     npt.assert_allclose(data.coords["lon"].data.min(), -10)
     npt.assert_allclose(data.coords["lon"].data.max(), -9.8)
-    npt.assert_allclose(data.min(), -2070.0, atol=0.5)
+    npt.assert_allclose(data.min(), -2069.85, atol=0.5)
     npt.assert_allclose(data.max(), -924.5, atol=0.5)

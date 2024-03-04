@@ -1,7 +1,9 @@
 """
 Test the C API functions related to virtual files.
 """
+
 import os
+from importlib.util import find_spec
 from itertools import product
 
 import numpy as np
@@ -33,6 +35,20 @@ def fixture_dtypes():
     return "int8 int16 int32 int64 uint8 uint16 uint32 uint64 float32 float64".split()
 
 
+@pytest.fixture(scope="module", name="dtypes_pandas")
+def fixture_dtypes_pandas(dtypes):
+    """
+    List of supported pandas dtypes.
+    """
+    dtypes_pandas = dtypes.copy()
+
+    if find_spec("pyarrow") is not None:
+        dtypes_pandas.extend([f"{dtype}[pyarrow]" for dtype in dtypes_pandas])
+
+    return tuple(dtypes_pandas)
+
+
+@pytest.mark.benchmark
 def test_virtual_file(dtypes):
     """
     Test passing in data via a virtual file with a Dataset.
@@ -52,7 +68,7 @@ def test_virtual_file(dtypes):
             lib.put_matrix(dataset, matrix=data)
             # Add the dataset to a virtual file and pass it along to gmt info
             vfargs = (family, geometry, "GMT_IN|GMT_IS_REFERENCE", dataset)
-            with lib.open_virtual_file(*vfargs) as vfile:
+            with lib.open_virtualfile(*vfargs) as vfile:
                 with GMTTempFile() as outfile:
                     lib.call_module("info", f"{vfile} ->{outfile.name}")
                     output = outfile.read(keep_tabs=True)
@@ -63,8 +79,8 @@ def test_virtual_file(dtypes):
 
 def test_virtual_file_fails():
     """
-    Check that opening and closing virtual files raises an exception for non-
-    zero return codes.
+    Check that opening and closing virtual files raises an exception for non- zero
+    return codes.
     """
     vfargs = (
         "GMT_IS_DATASET|GMT_VIA_MATRIX",
@@ -78,19 +94,20 @@ def test_virtual_file_fails():
     # virtual file.
     with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=1):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
-                print("Should not get to this code")
+            with lib.open_virtualfile(*vfargs):
+                pass
 
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
-        lib, "GMT_Close_VirtualFile", returns=1
+    with (
+        clib.Session() as lib,
+        mock(lib, "GMT_Open_VirtualFile", returns=0),
+        mock(lib, "GMT_Close_VirtualFile", returns=1),
     ):
         with pytest.raises(GMTCLibError):
-            with lib.open_virtual_file(*vfargs):
+            with lib.open_virtualfile(*vfargs):
                 pass
-            print("Shouldn't get to this code either")
 
 
 def test_virtual_file_bad_direction():
@@ -105,18 +122,18 @@ def test_virtual_file_bad_direction():
             0,
         )
         with pytest.raises(GMTInvalidInput):
-            with lib.open_virtual_file(*vfargs):
-                print("This should have failed")
+            with lib.open_virtualfile(*vfargs):
+                pass
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
-    "array_func,kind",
+    ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
-def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+def test_virtualfile_in_required_z_matrix(array_func, kind):
     """
-    Test that function works when third z column in a matrix is needed and
-    provided.
+    Test that function works when third z column in a matrix is needed and provided.
     """
     shape = (5, 3)
     dataframe = pd.DataFrame(
@@ -124,7 +141,7 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             data=data, required_z=True, check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
@@ -140,21 +157,18 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
         assert output == expected
 
 
-def test_virtualfile_from_data_required_z_matrix_missing():
+def test_virtualfile_in_required_z_matrix_missing():
     """
-    Test that function fails when third z column in a matrix is needed but not
-    provided.
+    Test that function fails when third z column in a matrix is needed but not provided.
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(
-                data=data, required_z=True, check_kind="vector"
-            ):
+            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
                 pass
 
 
-def test_virtualfile_from_data_fail_non_valid_data(data):
+def test_virtualfile_in_fail_non_valid_data(data):
     """
     Should raise an exception if too few or too much data is given.
     """
@@ -166,7 +180,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(x=variable[0], y=variable[1])
+                lib.virtualfile_in(x=variable[0], y=variable[1])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
@@ -176,14 +190,14 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(
+                lib.virtualfile_in(
                     x=variable[0], y=variable[1], z=variable[2], required_z=True
                 )
 
     # Should also fail if given too much data
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_from_data(
+            lib.virtualfile_in(
                 x=data[:, 0],
                 y=data[:, 1],
                 z=data[:, 2],
@@ -191,6 +205,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             )
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_vectors(dtypes):
     """
     Test the automation for transforming vectors to virtual file dataset.
@@ -210,11 +225,11 @@ def test_virtualfile_from_vectors(dtypes):
             assert output == expected
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
     """
-    Test passing in one column with string or object dtype into virtual file
-    dataset.
+    Test passing in one column with string or object dtype into virtual file dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -225,15 +240,16 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
             with GMTTempFile() as outfile:
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        expected = "".join(
+            f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
+        )
         assert output == expected
 
 
 @pytest.mark.parametrize("dtype", [str, object])
 def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
     """
-    Test passing in two columns of string or object dtype into virtual file
-    dataset.
+    Test passing in two columns of string or object dtype into virtual file dataset.
     """
     size = 5
     x = np.arange(size, dtype=np.int32)
@@ -247,16 +263,16 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{h}\t{i}\t{j} {k}\n"
+            for h, i, j, k in zip(x, y, strings1, strings2, strict=True)
         )
         assert output == expected
 
 
-def test_virtualfile_from_vectors_transpose():
+def test_virtualfile_from_vectors_transpose(dtypes):
     """
     Test transforming matrix columns to virtual file dataset.
     """
-    dtypes = "float32 float64 int32 int64 uint32 uint64".split()
     shape = (7, 5)
     for dtype in dtypes:
         data = np.arange(shape[0] * shape[1], dtype=dtype).reshape(shape)
@@ -279,9 +295,10 @@ def test_virtualfile_from_vectors_diff_size():
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
             with lib.virtualfile_from_vectors(x, y):
-                print("This should have failed")
+                pass
 
 
+@pytest.mark.benchmark
 def test_virtualfile_from_matrix(dtypes):
     """
     Test transforming a matrix to virtual file dataset.
@@ -319,18 +336,21 @@ def test_virtualfile_from_matrix_slice(dtypes):
             assert output == expected
 
 
-def test_virtualfile_from_vectors_pandas(dtypes):
+def test_virtualfile_from_vectors_pandas(dtypes_pandas):
     """
-    Pass vectors to a dataset using pandas Series.
+    Pass vectors to a dataset using pandas.Series, checking both numpy and pyarrow
+    dtypes.
     """
     size = 13
-    for dtype in dtypes:
+
+    for dtype in dtypes_pandas:
         data = pd.DataFrame(
             data={
-                "x": np.arange(size, dtype=dtype),
-                "y": np.arange(size, size * 2, 1, dtype=dtype),
-                "z": np.arange(size * 2, size * 3, 1, dtype=dtype),
-            }
+                "x": np.arange(size),
+                "y": np.arange(size, size * 2, 1),
+                "z": np.arange(size * 2, size * 3, 1),
+            },
+            dtype=dtype,
         )
         with clib.Session() as lib:
             with lib.virtualfile_from_vectors(data.x, data.y, data.z) as vfile:

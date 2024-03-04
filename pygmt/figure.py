@@ -1,6 +1,7 @@
 """
 Define the Figure class that handles all plotting.
 """
+
 import base64
 import os
 from pathlib import Path
@@ -8,8 +9,10 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
+
+    _HAS_IPYTHON = True
 except ImportError:
-    IPython = None  # pylint: disable=invalid-name
+    _HAS_IPYTHON = False
 
 
 from pygmt.clib import Session
@@ -33,8 +36,8 @@ SHOW_CONFIG = {
 }
 
 # Show figures in Jupyter notebooks if available
-if IPython:
-    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
+if _HAS_IPYTHON:
+    get_ipython = IPython.get_ipython()
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["method"] = "notebook"
 
@@ -82,13 +85,13 @@ class Figure:
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
-            prefix=f"{self._name}-preview-"
-        )
+        self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
     def __del__(self):
-        # Clean up the temporary directory that stores the previews
+        """
+        Clean up the temporary directory that stores the previews.
+        """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
@@ -110,8 +113,8 @@ class Figure:
 
     def _preprocess(self, **kwargs):
         """
-        Call the ``figure`` module before each plotting command to ensure we're
-        plotting to this particular figure.
+        Call the ``figure`` module before each plotting command to ensure we're plotting
+        to this particular figure.
         """
         self._activate_figure()
         return kwargs
@@ -226,6 +229,9 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
+        # is not recognized. So remove it before calling `Figure.psconvert`.
+        kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
@@ -251,7 +257,7 @@ class Figure:
                 module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
             )
 
-    def savefig(
+    def savefig(  # noqa: PLR0912
         self,
         fname,
         transparent=False,
@@ -320,7 +326,6 @@ class Figure:
             :meth:`pygmt.Figure.psconvert`. Valid parameters are ``gs_path``,
             ``gs_option``, ``resize``, ``bb_style``, and ``verbose``.
         """
-        # pylint: disable=too-many-branches
         # All supported formats
         fmts = {
             "bmp": "b",
@@ -452,7 +457,7 @@ class Figure:
             )
 
         if method == "notebook":
-            if IPython is None:
+            if not _HAS_IPYTHON:
                 raise GMTError(
                     "Notebook display is selected, but IPython is not available. "
                     "Make sure you have IPython installed, "
@@ -518,7 +523,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+    from pygmt.src import (  # type: ignore [misc]
         basemap,
         coast,
         colorbar,

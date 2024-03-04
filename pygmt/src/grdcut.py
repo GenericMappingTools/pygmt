@@ -46,11 +46,8 @@ def grdcut(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     {projection}
     {region}
     extend : bool or float
@@ -104,12 +101,11 @@ def grdcut(grid, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdcut", args=build_arg_string(kwargs, infile=infile)
+                    module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

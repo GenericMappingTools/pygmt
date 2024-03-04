@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading Earth vertical gravity gradient datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 from pygmt.datasets import load_earth_vertical_gravity_gradient
@@ -19,9 +20,9 @@ def test_earth_vertical_gravity_gradient_01d():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
     npt.assert_allclose(data.lon, np.arange(-180, 181, 1))
-    npt.assert_allclose(data.min(), -137.125, atol=1 / 32)
-    npt.assert_allclose(data.max(), 104.59375, atol=1 / 32)
-    assert data[1, 1].isnull()
+    npt.assert_allclose(data.min(), -40.1875, atol=1 / 32)
+    npt.assert_allclose(data.max(), 45.96875, atol=1 / 32)
+    assert data[1, 1].isnull()  # noqa: PD003  # ruff's bug
 
 
 def test_earth_vertical_gravity_gradient_01d_with_region():
@@ -35,14 +36,14 @@ def test_earth_vertical_gravity_gradient_01d_with_region():
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
     npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), -15.6875, atol=1 / 32)
-    npt.assert_allclose(data.max(), 19.875, atol=1 / 32)
+    npt.assert_allclose(data.min(), -5.34375, atol=1 / 32)
+    npt.assert_allclose(data.max(), 5.59375, atol=1 / 32)
 
 
 def test_earth_vertical_gravity_gradient_01m_default_registration():
     """
-    Test that the grid returned by default for the 1 arc-minute resolution has
-    a "pixel" registration.
+    Test that the grid returned by default for the 1 arc-minute resolution has a "pixel"
+    registration.
     """
     data = load_earth_vertical_gravity_gradient(
         resolution="01m", region=[-10, -9, 3, 5]

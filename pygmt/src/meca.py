@@ -1,6 +1,7 @@
 """
 meca - Plot focal mechanisms.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
@@ -65,7 +66,6 @@ def convention_code(convention, component="full"):
 
     >>> for code in ["a", "c", "m", "d", "z", "p", "x", "y", "t"]:
     ...     assert convention_code(code) == code
-    ...
 
     >>> convention_code("invalid")
     Traceback (most recent call last):
@@ -169,7 +169,7 @@ def convention_params(convention):
         ],
         "mt": ["mrr", "mtt", "mff", "mrt", "mrf", "mtf", "exponent"],
         "partial": ["strike1", "dip1", "strike2", "fault_type", "magnitude"],
-        "pricipal_axis": [
+        "principal_axis": [
             "t_value",
             "t_azimuth",
             "t_plunge",
@@ -204,7 +204,7 @@ def convention_params(convention):
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def meca(
+def meca(  # noqa: PLR0912, PLR0913, PLR0915
     self,
     spec,
     scale,
@@ -397,14 +397,12 @@ def meca(
     {perspective}
     {transparency}
     """
-    # pylint: disable=too-many-arguments,too-many-locals,too-many-branches
-    # pylint: disable=too-many-statements
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Convert spec to pandas.DataFrame unless it's a file
-    if isinstance(spec, (dict, pd.DataFrame)):  # spec is a dict or pd.DataFrame
+    if isinstance(spec, dict | pd.DataFrame):  # spec is a dict or pd.DataFrame
         # determine convention from dict keys or pd.DataFrame column names
-        for conv in ["aki", "gcmt", "mt", "partial", "pricipal_axis"]:
+        for conv in ["aki", "gcmt", "mt", "partial", "principal_axis"]:
             if set(convention_params(conv)).issubset(set(spec.keys())):
                 convention = conv
                 break
@@ -431,7 +429,7 @@ def meca(
 
         # Convert array to pd.DataFrame and assign column names
         spec = pd.DataFrame(np.atleast_2d(spec))
-        colnames = ["longitude", "latitude", "depth"] + convention_params(convention)
+        colnames = ["longitude", "latitude", "depth", *convention_params(convention)]
         # check if spec has the expected number of columns
         ncolsdiff = len(spec.columns) - len(colnames)
         if ncolsdiff == 0:
@@ -474,7 +472,7 @@ def meca(
         # expected columns are:
         # longitude, latitude, depth, focal_parameters,
         #   [plot_longitude, plot_latitude] [event_name]
-        newcols = ["longitude", "latitude", "depth"] + convention_params(convention)
+        newcols = ["longitude", "latitude", "depth", *convention_params(convention)]
         if "plot_longitude" in spec.columns and "plot_latitude" in spec.columns:
             newcols += ["plot_longitude", "plot_latitude"]
             if kwargs.get("A") is None:
@@ -491,6 +489,5 @@ def meca(
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
-        with file_context as fname:
-            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=vintbl))

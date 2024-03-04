@@ -1,10 +1,12 @@
 """
 Test Figure.logo.
 """
+
 import pytest
 from pygmt import Figure
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_logo():
     """

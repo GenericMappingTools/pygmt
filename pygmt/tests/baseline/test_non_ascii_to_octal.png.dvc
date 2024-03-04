@@ -1,4 +1,5 @@
 outs:
-- md5: d93bed7495d77cd2ef7cc1b64edb9b3a
-  size: 19563
+- md5: 1eff4f2997c10e3eaca95e8e92e20332
+  size: 19326
   path: test_non_ascii_to_octal.png
+  hash: md5

@@ -46,9 +46,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a
-        :class:`xarray.DataArray`. This is the only required parameter.
+    {grid}
     output_type : str
         Determine the format the xyz data will be returned in [Default is
         ``pandas``]:
@@ -140,8 +138,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     >>> xyz_dataframe = pygmt.grd2xyz(grid=grid, output_type="pandas")
     >>> xyz_dataframe.head(n=2)
         lon   lat  elevation
-    0  10.0  25.0      863.0
-    1  10.5  25.0      985.5
+    0  10.0  25.0      965.5
+    1  10.5  25.0      876.5
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -160,13 +158,12 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
                     module="grd2xyz",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

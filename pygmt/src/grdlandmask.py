@@ -1,6 +1,7 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -26,6 +27,7 @@ __doctest_skip__ = ["grdlandmask"]
     R="region",
     V="verbose",
     r="registration",
+    x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence", N="sequence", E="sequence")
 def grdlandmask(**kwargs):
@@ -45,9 +47,7 @@ def grdlandmask(**kwargs):
 
     Parameters
     ----------
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {area_thresh}
@@ -84,6 +84,7 @@ def grdlandmask(**kwargs):
         considered outside [Default is inside].
     {verbose}
     {registration}
+    {cores}
 
     Returns
     -------

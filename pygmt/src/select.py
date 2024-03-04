@@ -1,6 +1,7 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -88,7 +89,7 @@ def select(data=None, outfile=None, **kwargs):
         *linefile*\ **+d**\ *dist*\ [**+p**].
         Pass all records whose locations are within *dist* of any of the line
         segments in the ASCII :gmt-docs:`multiple-segment file
-        <cookbook/file-formats.html#optional-segment-header-records>`
+        <reference/file-formats.html#optional-segment-header-records>`
         *linefile*. If *dist* is zero, we will scan each sub-header in
         *linefile* for an embedded **-D**\ *dist* setting that sets each
         line's individual distance value. Distances are Cartesian and in
@@ -104,7 +105,7 @@ def select(data=None, outfile=None, **kwargs):
         *polygonfile*.
         Pass all records whose locations are within one of the closed
         polygons in the ASCII :gmt-docs:`multiple-segment file
-        <cookbook/file-formats.html#optional-segment-header-records>`
+        <reference/file-formats.html#optional-segment-header-records>`
         *polygonfile*. For spherical polygons (lon, lat), make sure no
         consecutive points are separated by 180 degrees or more in longitude.
     resolution : str
@@ -198,13 +199,12 @@ def select(data=None, outfile=None, **kwargs):
 
     with GMTTempFile(suffix=".csv") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with table_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
                     module="select",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

@@ -3,10 +3,16 @@ Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
+from __future__ import annotations
+
+from packaging.version import Version
+
 try:
     import contextily
+
+    _HAS_CONTEXTILY = True
 except ImportError:
-    contextily = None
+    _HAS_CONTEXTILY = False
 
 import numpy as np
 import xarray as xr
@@ -14,7 +20,15 @@ import xarray as xr
 __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
-def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_retries=2):
+def load_tile_map(
+    region,
+    zoom="auto",
+    source=None,
+    lonlat=True,
+    wait=0,
+    max_retries=2,
+    zoom_adjust: int | None = None,
+):
     """
     Load a georeferenced raster tile map from XYZ tile providers.
 
@@ -38,9 +52,9 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         ``"auto"`` to automatically determine the zoom level based on the
         bounding box region extent].
 
-        **Note**: The maximum possible zoom level may be smaller than ``22``,
-        and depends on what is supported by the chosen web tile provider
-        source.
+        .. note::
+           The maximum possible zoom level may be smaller than ``22``, and depends on
+           what is supported by the chosen web tile provider source.
 
     source : xyzservices.TileProvider or str
         Optional. The tile source: web tile provider or path to a local file.
@@ -60,8 +74,8 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
           basemap. See
           :doc:`contextily:working_with_local_files`.
 
-        IMPORTANT: Tiles are assumed to be in the Spherical Mercator projection
-        (EPSG:3857).
+        .. important::
+           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).
 
     lonlat : bool
         Optional. If ``False``, coordinates in ``region`` are assumed to be
@@ -76,6 +90,13 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         Optional. Total number of rejected requests allowed before contextily
         will stop trying to fetch more tiles from a rate-limited API [Default
         is ``2``].
+
+    zoom_adjust
+        The amount to adjust a chosen zoom level if it is chosen automatically. Values
+        outside of -1 to 1 are not recommended as they can lead to slow execution.
+
+        .. note::
+           The ``zoom_adjust`` parameter requires ``contextily>=1.5.0``.
 
     Returns
     -------
@@ -107,14 +128,22 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
       * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...
       * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07
     """
-    # pylint: disable=too-many-locals
-    if contextily is None:
+    if not _HAS_CONTEXTILY:
         raise ImportError(
             "Package `contextily` is required to be installed to use this function. "
             "Please use `python -m pip install contextily` or "
             "`mamba install -c conda-forge contextily` "
             "to install the package."
         )
+
+    contextily_kwargs = {}
+    if zoom_adjust is not None:
+        contextily_kwargs["zoom_adjust"] = zoom_adjust
+        if Version(contextily.__version__) < Version("1.5.0"):
+            raise TypeError(
+                "The `zoom_adjust` parameter requires `contextily>=1.5.0` to work. "
+                "Please upgrade contextily, or manually set the `zoom` level instead."
+            )
 
     west, east, south, north = region
     image, extent = contextily.bounds2img(
@@ -127,6 +156,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
         ll=lonlat,
         wait=wait,
         max_retries=max_retries,
+        **contextily_kwargs,
     )
 
     # Turn RGBA img from channel-last to channel-first and get 3-band RGB only
@@ -138,7 +168,7 @@ def load_tile_map(region, zoom="auto", source=None, lonlat=True, wait=0, max_ret
     dataarray = xr.DataArray(
         data=rgb_image,
         coords={
-            "band": np.uint8([0, 1, 2]),  # Red, Green, Blue
+            "band": np.array(object=[0, 1, 2], dtype=np.uint8),  # Red, Green, Blue
             "y": np.linspace(start=top, stop=bottom, num=rgb_image.shape[1]),
             "x": np.linspace(start=left, stop=right, num=rgb_image.shape[2]),
         },

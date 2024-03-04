@@ -1,6 +1,7 @@
 """
 text - Plot text on a figure.
 """
+
 import numpy as np
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -42,7 +43,7 @@ from pygmt.helpers import (
     c="sequence_comma",
     p="sequence",
 )
-def text_(
+def text_(  # noqa: PLR0912
     self,
     textfiles=None,
     x=None,
@@ -66,7 +67,7 @@ def text_(
     The text strings passed via the ``text`` parameter can contain ASCII
     characters and non-ASCII characters defined in the ISOLatin1+ encoding
     (i.e., IEC_8859-1), and the Symbol and ZapfDingbats character sets.
-    See :gmt-docs:`cookbook/octal-codes.html` for the full list of supported
+    See :gmt-docs:`reference/octal-codes.html` for the full list of supported
     non-ASCII characters.
 
     Full option list at :gmt-docs:`text.html`
@@ -76,8 +77,21 @@ def text_(
     Parameters
     ----------
     textfiles : str or list
-        A text data file name, or a list of file names containing 1 or more
-        records with (x, y[, angle, font, justify], text).
+        A file name or a list of file names containing one or more records.
+        Each record has the following columns:
+
+        * *x*: X coordinate or longitude
+        * *y*: Y coordinate or latitude
+        * *angle*: Angle in degrees counter-clockwise from horizontal
+        * *font*: Text size, font, and color
+        * *justify*: Two-character justification code
+        * *text*: The text string to typeset
+
+        The *angle*, *font*, and *justify* columns are optional and can be set
+        by using the ``angle``, ``font``, and ``justify`` parameters,
+        respectively. If these parameters are set to ``True``, then the
+        corresponding columns must be present in the input file(s) and the
+        columns must be in the order mentioned above.
     x/y : float or 1-D arrays
         The x and y coordinates, or an array of x and y coordinates to plot
         the text.
@@ -122,8 +136,8 @@ def text_(
         [*dx/dy*][**+to**\|\ **O**\|\ **c**\|\ **C**].
         Adjust the clearance between the text and the surrounding box
         [Default is 15% of the font size]. Only used if ``pen`` or ``fill``
-        are specified. Append the unit you want (*c* for centimeters,
-        *i* for inches, or *p* for points; if not given we consult
+        are specified. Append the unit you want (**c** for centimeters,
+        **i** for inches, or **p** for points; if not given we consult
         :gmt-term:`PROJ_LENGTH_UNIT`) or *%* for a percentage of the font
         size. Optionally, use modifier **+t** to set the shape of the text
         box when using ``fill`` and/or ``pen``. Append lower case **o**
@@ -167,8 +181,7 @@ def text_(
         ``x``/``y`` and ``text``.
     {wrap}
     """
-    # pylint: disable=too-many-branches,too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     # Ensure inputs are either textfiles, x/y/text, or position/text
     if position is None:
@@ -180,7 +193,7 @@ def text_(
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
-        if x is not None or y is not None or textfiles is not None:
+        if any(v is not None for v in (x, y, textfiles)):
             raise GMTInvalidInput(
                 "Provide either position only, or x/y pairs, or textfiles."
             )
@@ -190,11 +203,8 @@ def text_(
         textfiles = ""
 
     # Build the -F option in gmt text.
-    if kwargs.get("F") is None and (
-        position is not None
-        or angle is not None
-        or font is not None
-        or justify is not None
+    if kwargs.get("F") is None and any(
+        v is not None for v in (position, angle, font, justify)
     ):
         kwargs.update({"F": ""})
 
@@ -208,7 +218,7 @@ def text_(
                 extra_arrays.append(np.atleast_1d(arg))
             else:  # font or justify is str type
                 extra_arrays.append(np.atleast_1d(arg).astype(str))
-        elif isinstance(arg, (int, float, str)):
+        elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
     if isinstance(position, str):
@@ -227,8 +237,7 @@ def text_(
         )
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
-        )
-        with file_context as fname:
-            lib.call_module(module="text", args=build_arg_string(kwargs, infile=fname))
+        ) as vintbl:
+            lib.call_module(module="text", args=build_arg_string(kwargs, infile=vintbl))

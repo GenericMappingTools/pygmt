@@ -1,6 +1,7 @@
 """
 binstats - Bin spatial data and determine statistics per bin
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -51,9 +52,7 @@ def binstats(data, **kwargs):
     data : str, {table-like}
         A file name of an ASCII data table or a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     statistic : str
         **a**\|\ **d**\|\ **g**\|\ **i**\|\ **l**\|\ **L**\|\ **m**\|\ **n**\
         \|\ **o**\|\ **p**\|\ **q**\ [*quant*]\|\ **r**\|\ **s**\|\ **u**\
@@ -113,12 +112,11 @@ def binstats(data, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="binstats", args=build_arg_string(kwargs, infile=infile)
+                    module="binstats", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

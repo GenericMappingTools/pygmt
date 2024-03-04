@@ -1,6 +1,7 @@
 """
 grdcontour - Plot a contour figure.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -41,8 +42,7 @@ def grdcontour(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     interval : str or int
         Specify the contour lines to generate.
 
@@ -121,10 +121,9 @@ def grdcontour(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with file_context as fname:
+        with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
-                module="grdcontour", args=build_arg_string(kwargs, infile=fname)
+                module="grdcontour", args=build_arg_string(kwargs, infile=vingrd)
             )

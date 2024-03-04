@@ -1,6 +1,8 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+
+# ruff: noqa: RUF001
 import os
 import pathlib
 import shutil
@@ -171,9 +173,9 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'image'
     """
     # determine the data kind
-    if isinstance(data, (str, pathlib.PurePath)):
+    if isinstance(data, str | pathlib.PurePath):
         kind = "file"
-    elif isinstance(data, (bool, int, float)) or (data is None and not required_data):
+    elif isinstance(data, bool | int | float) or (data is None and not required_data):
         kind = "arg"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
@@ -224,7 +226,7 @@ def non_ascii_to_octal(argstr):
     '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
-    """
+    """  # noqa: RUF002
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
@@ -244,18 +246,19 @@ def non_ascii_to_octal(argstr):
             c: "@~\\" + format(i, "o") + "@~"
             for c, i in zip(
                 " !∀#∃%&∋()∗+,−./"  # \04x-05x
-                + "0123456789:;<=>?"  # \06x-07x
-                + "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
-                + "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
-                + "αβχδεφγηιϕκλμνο"  # \14x-15x
-                + "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
-                + "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
-                + "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
-                + "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
-                + "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
-                + "◊〈®©™∑"  # \34x-35x
-                + "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
+                "0123456789:;<=>?"  # \06x-07x
+                "≅ΑΒΧΔΕΦΓΗΙϑΚΛΜΝΟ"  # \10x-11x
+                "ΠΘΡΣΤΥςΩΞΨΖ[∴]⊥_"  # \12x-13x
+                "αβχδεφγηιϕκλμνο"  # \14x-15x
+                "πθρστυϖωξψζ{|}∼"  # \16x-17x. \177 is undefined
+                "€ϒ′≤⁄∞ƒ♣♦♥♠↔←↑→↓"  # \24x-\25x
+                "°±″≥×∝∂•÷≠≡≈…↵"  # \26x-27x
+                "ℵℑℜ℘⊗⊕∅∩∪⊃⊇⊄⊂⊆∈∉"  # \30x-31x
+                "∠∇®©™∏√⋅¬∧∨⇔⇐⇑⇒⇓"  # \32x-33x
+                "◊〈®©™∑"  # \34x-35x
+                "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
                 [*range(32, 127), *range(160, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -269,18 +272,19 @@ def non_ascii_to_octal(argstr):
             c: "@%34%\\" + format(i, "o") + "@%%"
             for c, i in zip(
                 " ✁✂✃✄☎✆✇✈✉☛☞✌✍✎✏"  # \04x-\05x
-                + "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
-                + "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
-                + "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
-                + "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
-                + "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
-                + "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
-                + "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
-                + "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
-                + "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
-                + "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
-                + "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
+                "✐✑✒✓✔✕✖✗✘✙✚✛✜✝✞✟"  # \06x-\07x
+                "✠✡✢✣✤✥✦✧★✩✪✫✬✭✮✯"  # \10x-\11x
+                "✰✱✲✳✴✵✶✷✸✹✺✻✼✽✾✿"  # \12x-\13x
+                "❀❁❂❃❄❅❆❇❈❉❊❋●❍■❏"  # \14x-\15x
+                "❐❑❒▲▼◆❖◗❘❙❚❛❜❝❞"  # \16x-\17x. \177 is undefined
+                "❡❢❣❤❥❦❧♣♦♥♠①②③④"  # \24x-\25x. \240 is undefined
+                "⑤⑥⑦⑧⑨⑩❶❷❸❹❺❻❼❽❾❿"  # \26x-\27x
+                "➀➁➂➃➄➅➆➇➈➉➊➋➌➍➎➏"  # \30x-\31x
+                "➐➑➒➓➔→↔↕➘➙➚➛➜➝➞➟"  # \32x-\33x
+                "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
+                "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
                 [*range(32, 127), *range(161, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -295,10 +299,11 @@ def non_ascii_to_octal(argstr):
             c: "\\" + format(i, "o")
             for c, i in zip(
                 "•…™—–ﬁž"  # \03x. \030 is undefined
-                + "š"  # \177
-                + "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
-                + "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
+                "š"  # \177
+                "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
+                "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
                 [*range(25, 32), *range(127, 160)],
+                strict=True,
             )
         }
     )
@@ -312,8 +317,7 @@ def non_ascii_to_octal(argstr):
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
-    Convert keyword dictionaries and input/output files into a GMT argument
-    string.
+    Convert keyword dictionaries and input/output files into a GMT argument string.
 
     Make sure all values in ``kwdict`` have been previously converted to a
     string representation using the ``kwargs_to_strings`` decorator. The only
@@ -429,7 +433,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
         gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
 
     if infile:
-        gmt_args = [str(infile)] + gmt_args
+        gmt_args = [str(infile), *gmt_args]
     if outfile:
         gmt_args.append("->" + str(outfile))
     return non_ascii_to_octal(" ".join(gmt_args))
@@ -494,12 +498,14 @@ def launch_external_viewer(fname, waiting=0):
     # Open the file with the default viewer.
     # Fall back to the browser if can't recognize the operating system.
     os_name = sys.platform
-    if os_name.startswith(("linux", "freebsd")) and shutil.which("xdg-open"):
-        subprocess.run(["xdg-open", fname], check=False, **run_args)
+    if os_name.startswith(("linux", "freebsd")) and (
+        xdgopen := shutil.which("xdg-open")
+    ):
+        subprocess.run([xdgopen, fname], check=False, **run_args)
     elif os_name == "darwin":  # Darwin is macOS
-        subprocess.run(["open", fname], check=False, **run_args)
+        subprocess.run([shutil.which("open"), fname], check=False, **run_args)
     elif os_name == "win32":
-        os.startfile(fname)  # pylint: disable=no-member
+        os.startfile(fname)  # noqa: S606
     else:
         webbrowser.open_new_tab(f"file://{fname}")
     if waiting > 0:
@@ -510,8 +516,8 @@ def launch_external_viewer(fname, waiting=0):
 
 def args_in_kwargs(args, kwargs):
     """
-    Take a list and a dictionary, and determine if any entries in the list are
-    keys in the dictionary.
+    Take a list and a dictionary, and determine if any entries in the list are keys in
+    the dictionary.
 
     This function is used to determine if at least one of the required
     arguments is passed to raise a GMTInvalidInput Error.
@@ -527,7 +533,7 @@ def args_in_kwargs(args, kwargs):
         short-form aliases of the parameters.
 
     Returns
-    --------
+    -------
     bool
         If one of the required arguments is in ``kwargs``.
 

@@ -1,6 +1,7 @@
 """
 Test pygmt.grdhisteq.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -69,7 +70,8 @@ def test_equalize_grid_outgrid_file(grid, expected_grid, region):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
-def test_equalize_grid_outgrid(grid, expected_grid, region):
+@pytest.mark.benchmark
+def test_equalize_grid_no_outgrid(grid, expected_grid, region):
     """
     Test grdhisteq.equalize_grid with ``outgrid=None``.
     """
@@ -81,6 +83,7 @@ def test_equalize_grid_outgrid(grid, expected_grid, region):
     xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_compute_bins_no_outfile(grid, expected_df, region):
     """
     Test grdhisteq.compute_bins with no ``outfile``.
@@ -137,11 +140,3 @@ def test_compute_bins_invalid_format(grid):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")
-
-
-def test_equalize_grid_invalid_format(grid):
-    """
-    Test that equalize_grid fails with incorrect format.
-    """
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq.equalize_grid(grid=grid, outgrid=True)

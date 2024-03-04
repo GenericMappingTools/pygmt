@@ -1,10 +1,10 @@
 """
 PyGMT is a library for processing geospatial and geophysical data and making
-publication-quality maps and figures. It provides a Pythonic interface for the
-Generic Mapping Tools (GMT), a command-line program widely used across the
-Earth, Ocean, and Planetary sciences and beyond. Besides making GMT more
-accessible to new users, PyGMT aims to provide integration with the PyData
-ecosystem as well as support for rich display in Jupyter notebooks.
+publication-quality maps and figures. It provides a Pythonic interface for the Generic
+Mapping Tools (GMT), a command-line program widely used across the Earth, Ocean, and
+Planetary sciences and beyond. Besides making GMT more accessible to new users, PyGMT
+aims to provide integration with the PyData ecosystem as well as support for rich
+display in Jupyter notebooks.
 
 Main Features
 -------------
@@ -17,6 +17,7 @@ Here are just a few of the things that PyGMT does well:
     lines, vectors, polygons, and symbols (pre-defined and customized).
   - Generating publication-quality illustrations and making animations.
 """
+
 import atexit as _atexit
 import sys
 from importlib.metadata import version
@@ -83,19 +84,17 @@ def print_clib_info(file=sys.stdout):
     Includes the GMT version, default values for parameters, the path to the
     ``libgmt`` shared library, and GMT directories.
     """
-    from pygmt.clib import Session  # pylint: disable=import-outside-toplevel
+    from pygmt.clib import Session
 
-    lines = ["GMT library information:"]
+    print("GMT library information:", file=file)
     with Session() as ses:
-        for key in sorted(ses.info):
-            lines.append(f"  {key}: {ses.info[key]}")
+        lines = [f"  {key}: {ses.info[key]}" for key in sorted(ses.info)]
     print("\n".join(lines), file=file)
 
 
 def show_versions(file=sys.stdout):
     """
-    Print various dependency versions which are useful when submitting bug
-    reports.
+    Print various dependency versions which are useful when submitting bug reports.
 
     This includes information about:
 
@@ -104,9 +103,10 @@ def show_versions(file=sys.stdout):
     - Core dependency versions (NumPy, Pandas, Xarray, etc)
     - GMT library information
     """
-    # pylint: disable=import-outside-toplevel
+
     import importlib
     import platform
+    import shutil
     import subprocess
 
     from packaging.requirements import Requirement
@@ -141,12 +141,10 @@ def show_versions(file=sys.stdout):
             return None
 
         for gs_cmd in cmds:
-            try:
+            if (gsfullpath := shutil.which(gs_cmd)) is not None:
                 return subprocess.check_output(
-                    [gs_cmd, "--version"], universal_newlines=True
+                    [gsfullpath, "--version"], universal_newlines=True
                 ).strip()
-            except FileNotFoundError:
-                continue
         return None
 
     sys_info = {

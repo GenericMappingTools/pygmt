@@ -53,11 +53,8 @@ def dimfilter(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     distance : int or str
         Distance flag tells how grid (x,y) relates to filter width, as follows:
 
@@ -154,12 +151,11 @@ def dimfilter(grid, **kwargs):
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="dimfilter", args=build_arg_string(kwargs, infile=infile)
+                    module="dimfilter", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

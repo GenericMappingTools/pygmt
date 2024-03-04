@@ -1,7 +1,7 @@
-# pylint: disable=protected-access
 """
 Test the wrappers for the C API.
 """
+
 import os
 from contextlib import contextmanager
 from pathlib import Path
@@ -30,16 +30,16 @@ def mock(session, func, returns=None, mock_func=None):
     """
     Mock a GMT C API function to make it always return a given value.
 
-    Used to test that exceptions are raised when API functions fail by
-    producing a NULL pointer as output or non-zero status codes.
+    Used to test that exceptions are raised when API functions fail by producing a NULL
+    pointer as output or non-zero status codes.
 
-    Needed because it's not easy to get some API functions to fail without
-    inducing a Segmentation Fault (which is a good thing because libgmt usually
-    only fails with errors).
+    Needed because it's not easy to get some API functions to fail without inducing a
+    Segmentation Fault (which is a good thing because libgmt usually only fails with
+    errors).
     """
     if mock_func is None:
 
-        def mock_api_function(*args):  # pylint: disable=unused-argument
+        def mock_api_function(*args):  # noqa: ARG001
             """
             A mock GMT API function that always returns a given value.
             """
@@ -57,11 +57,11 @@ def mock(session, func, returns=None, mock_func=None):
             return mock_func
         return get_libgmt_func(name, argtypes, restype)
 
-    setattr(session, "get_libgmt_func", mock_get_libgmt_func)
+    session.get_libgmt_func = mock_get_libgmt_func
 
     yield
 
-    setattr(session, "get_libgmt_func", get_libgmt_func)
+    session.get_libgmt_func = get_libgmt_func
 
 
 def test_getitem():
@@ -74,7 +74,7 @@ def test_getitem():
     assert ses["GMT_PAD_DEFAULT"] != -99999
     assert ses["GMT_DOUBLE"] != -99999
     with pytest.raises(GMTCLibError):
-        ses["A_WHOLE_LOT_OF_JUNK"]  # pylint: disable=pointless-statement
+        ses["A_WHOLE_LOT_OF_JUNK"]
 
 
 def test_create_destroy_session():
@@ -95,12 +95,12 @@ def test_create_destroy_session():
     ses = clib.Session()
     for __ in range(2):
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
         ses.create("session1")
         assert ses.session_pointer is not None
         ses.destroy()
         with pytest.raises(GMTCLibNoSessionError):
-            ses.session_pointer  # pylint: disable=pointless-statement
+            _ = ses.session_pointer
 
 
 def test_create_session_fails():
@@ -131,6 +131,7 @@ def test_destroy_session_fails():
     ses.destroy()
 
 
+@pytest.mark.benchmark
 def test_call_module():
     """
     Run a command to see if call_module works.
@@ -168,11 +169,12 @@ def test_call_module_error_message():
     Check is the GMT error message was captured.
     """
     with clib.Session() as lib:
-        try:
+        with pytest.raises(GMTCLibError) as exc_info:
             lib.call_module("info", "bogus-data.bla")
-        except GMTCLibError as error:
-            assert "Module 'info' failed with status code" in str(error)
-            assert "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in str(error)
+        assert "Module 'info' failed with status code" in exc_info.value.args[0]
+        assert (
+            "gmtinfo [ERROR]: Cannot find file bogus-data.bla" in exc_info.value.args[0]
+        )
 
 
 def test_method_no_session():
@@ -184,7 +186,7 @@ def test_method_no_session():
     with pytest.raises(GMTCLibNoSessionError):
         lib.call_module("gmtdefaults", "")
     with pytest.raises(GMTCLibNoSessionError):
-        lib.session_pointer  # pylint: disable=pointless-statement
+        _ = lib.session_pointer
 
 
 def test_parse_constant_single():
@@ -204,7 +206,7 @@ def test_parse_constant_composite():
     lib = clib.Session()
     test_cases = ((family, via) for family in FAMILIES for via in VIAS)
     for family, via in test_cases:
-        composite = "|".join([family, via])
+        composite = f"{family}|{via}"
         expected = lib[family] + lib[via]
         parsed = lib._parse_constant(composite, valid=FAMILIES, valid_modifiers=VIAS)
         assert parsed == expected
@@ -317,9 +319,9 @@ def test_create_data_fails():
             )
 
     # If the data pointer returned is None (NULL pointer)
-    with pytest.raises(GMTCLibError):
-        with clib.Session() as lib:
-            with mock(lib, "GMT_Create_Data", returns=None):
+    with clib.Session() as lib:
+        with mock(lib, "GMT_Create_Data", returns=None):
+            with pytest.raises(GMTCLibError):
                 lib.create_data(
                     family="GMT_IS_DATASET",
                     geometry="GMT_IS_SURFACE",
@@ -388,6 +390,7 @@ def test_write_data_fails():
                 )
 
 
+@pytest.mark.benchmark
 def test_dataarray_to_matrix_works():
     """
     Check that dataarray_to_matrix returns correct output.
@@ -523,7 +526,7 @@ def test_info_dict():
         assert lib.info
 
     # Mock GMT_Get_Default to return always the same string
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Put 'bla' in the value buffer.
         """
@@ -552,7 +555,7 @@ def test_fails_for_wrong_version():
     """
 
     # Mock GMT_Get_Default to return an old version
-    def mock_defaults(api, name, value):  # pylint: disable=unused-argument
+    def mock_defaults(api, name, value):  # noqa: ARG001
         """
         Return an old version.
         """

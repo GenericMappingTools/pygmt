@@ -1,6 +1,7 @@
 """
 Test pygmt.which.
 """
+
 from pathlib import Path
 
 import pytest
@@ -18,6 +19,7 @@ def test_which():
         assert Path(cached_file).name == fname
 
 
+@pytest.mark.benchmark
 def test_which_multiple():
     """
     Make sure `which` returns file paths for multiple @files correctly.

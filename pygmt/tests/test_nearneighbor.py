@@ -1,6 +1,7 @@
 """
 Test pygmt.nearneighbor.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -37,6 +38,7 @@ def test_nearneighbor_input_data(array_func, ship_data):
     npt.assert_allclose(output.mean(), -2378.2385)
 
 
+@pytest.mark.benchmark
 def test_nearneighbor_input_xyz(ship_data):
     """
     Run nearneighbor by passing in x, y, z numpy.ndarrays individually.

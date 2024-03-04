@@ -4,9 +4,10 @@ channels:
     - nodefaults
 dependencies:
     # Required dependencies
-    - gmt=6.4.0
-    - ghostscript=9.54.0
-    - numpy>=1.22
+    - python=3.12
+    - gmt=6.5.0
+    - ghostscript=10.02.1
+    - numpy
     - pandas
     - xarray
     - netCDF4
@@ -24,6 +25,7 @@ dependencies:
     - myst-parser
     - panel
     - sphinx
+    - sphinx-autodoc-typehints
     - sphinx-copybutton
     - sphinx-design
     - sphinx-gallery

@@ -18,13 +18,22 @@ name: Docs
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'pygmt/tests/**'
-      - '*.md'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**/*.py'
+      - '!pygmt/tests/**'
+      - 'doc/**'
+      - 'examples/**'
+      - 'README.md'
+      - '.github/workflows/ci_docs.yml'
   release:
     types:
       - published
@@ -37,6 +46,7 @@ jobs:
   docs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
@@ -44,7 +54,7 @@ jobs:
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run one job (Ubuntu + Python 3.11) for draft PRs
+        # Only run one job (Ubuntu + Python 3.12) for draft PRs
         exclude:
           - os: macos-latest
             isDraft: true
@@ -65,19 +75,19 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.5.0
+        uses: mamba-org/setup-micromamba@v1.8.0
         with:
           environment-name: pygmt
           condarc: |
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: true
+          cache-downloads: false
           cache-environment: true
           create-args: >-
-            python=3.11
-            gmt=6.4.0
-            ghostscript=9.54.0
+            python=3.12
+            gmt=6.5.0
+            ghostscript=10.02.1
             numpy
             pandas
             xarray
@@ -93,6 +103,7 @@ jobs:
             myst-parser
             panel
             sphinx
+            sphinx-autodoc-typehints
             sphinx-copybutton
             sphinx-design
             sphinx-gallery
@@ -100,7 +111,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.28.0
+        uses: dawidd6/action-download-artifact@v3.1.1
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -113,7 +124,7 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
       # Install the package that we want to test

@@ -1,6 +1,7 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+
 import warnings
 
 import numpy as np
@@ -92,7 +93,7 @@ def dataarray_to_matrix(grid):
     # grids, this would be North-South, East-West. GMT's region and inc are
     # East-West, North-South.
     for dim in grid.dims[::-1]:
-        coord = grid.coords[dim].values
+        coord = grid.coords[dim].to_numpy()
         coord_incs = coord[1:] - coord[0:-1]
         coord_inc = coord_incs[0]
         if not np.allclose(coord_incs, coord_inc):
@@ -103,7 +104,7 @@ def dataarray_to_matrix(grid):
                 "but GMT only supports regular spacing. Calculated regular spacing "
                 f"{coord_inc} is assumed in the '{dim}' dimension."
             )
-            warnings.warn(msg, category=RuntimeWarning)
+            warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
         if coord_inc == 0:
             raise GMTInvalidInput(
                 f"Grid has a zero increment in the '{dim}' dimension."
@@ -120,14 +121,13 @@ def dataarray_to_matrix(grid):
         inc = [abs(i) for i in inc]
         grid = grid.sortby(variables=list(grid.dims), ascending=True)
 
-    matrix = as_c_contiguous(grid[::-1].values)
+    matrix = as_c_contiguous(grid[::-1].to_numpy())
     return matrix, region, inc
 
 
 def vectors_to_arrays(vectors):
     """
-    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D
-    arrays.
+    Convert 1-D vectors (lists, arrays, or pandas.Series) to C contiguous 1-D arrays.
 
     Arrays must be in C contiguous order for us to pass their memory pointers
     to GMT. If any are not, convert them to C order (which requires copying the
@@ -162,11 +162,42 @@ def vectors_to_arrays(vectors):
     True
     >>> all(isinstance(i, np.ndarray) for i in arrays)
     True
+
     >>> data = [[1, 2], (3, 4), range(5, 7)]
     >>> all(isinstance(i, np.ndarray) for i in vectors_to_arrays(data))
     True
+
+    >>> import datetime
+    >>> import pytest
+    >>> pa = pytest.importorskip("pyarrow")
+    >>> vectors = [
+    ...     pd.Series(
+    ...         data=[datetime.date(2020, 1, 1), datetime.date(2021, 12, 31)],
+    ...         dtype="date32[day][pyarrow]",
+    ...     ),
+    ...     pd.Series(
+    ...         data=[datetime.date(2022, 1, 1), datetime.date(2023, 12, 31)],
+    ...         dtype="date64[ms][pyarrow]",
+    ...     ),
+    ... ]
+    >>> arrays = vectors_to_arrays(vectors)
+    >>> all(a.flags.c_contiguous for a in arrays)
+    True
+    >>> all(isinstance(a, np.ndarray) for a in arrays)
+    True
+    >>> all(isinstance(a.dtype, np.dtypes.DateTime64DType) for a in arrays)
+    True
     """
-    arrays = [as_c_contiguous(np.asarray(i)) for i in vectors]
+    dtypes = {
+        "date32[day][pyarrow]": np.datetime64,
+        "date64[ms][pyarrow]": np.datetime64,
+    }
+    arrays = []
+    for vector in vectors:
+        vec_dtype = str(getattr(vector, "dtype", ""))
+        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
+        arrays.append(as_c_contiguous(array))
+
     return arrays
 
 

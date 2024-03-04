@@ -1,6 +1,7 @@
 """
 Test Figure.psconvert.
 """
+
 import os
 
 import pytest
@@ -8,6 +9,7 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 
 
+@pytest.mark.benchmark
 def test_psconvert():
     """
     Check that psconvert creates a figure in the current directory.
