@@ -17,29 +17,29 @@ from pathlib import Path
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-def load_libgmt(lib_fullnames=None):
+def load_libgmt(lib_fullnames: Iterator[str] | None = None) -> ctypes.CDLL:
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
     Will look for the GMT shared library in the directories determined by
-    clib_full_names().
+    ``clib_full_names()``.
 
     Parameters
     ----------
-    lib_fullnames : list of str or None
-        List of possible full names of GMT's shared library. If ``None``, will
-        default to ``clib_full_names()``.
+    lib_fullnames
+        List of possible full names of GMT's shared library. If ``None``, will default
+        to ``clib_full_names()``.
 
     Returns
     -------
-    :py:class:`ctypes.CDLL` object
+    libgmt
         The loaded shared library.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     """
     if lib_fullnames is None:
         lib_fullnames = clib_full_names()
