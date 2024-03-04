@@ -163,7 +163,7 @@ def load_earth_relief(
     # Choose earth relief dataset
     if data_source in ["igpp", "synbath"]:
         dataset_name = "earth_igpp"
-    else if data_sourcce in ["gebco", "gebcosi"]:
+    elif data_sourcce in ["gebco", "gebcosi"]:
         dataset_name = "earth_gebco"
     grid = _load_remote_dataset(
         dataset_name=dataset_name,
