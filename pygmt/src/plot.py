@@ -208,17 +208,35 @@ def plot(  # noqa: PLR0912
 
     kind = data_kind(data, x, y)
     extra_arrays = []
-
-    # Some parameters can't be 1-D arrays if the data kind is not vectors
-    if kind != "vectors":
-        for arg, name in [
-            (direction, "direction"),
-            (kwargs.get("G"), "fill"),
-            (size, "size"),
-            (kwargs.get("I"), "intensity"),
-            (kwargs.get("t"), "transparency"),
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
         ]:
-            if is_nonstr_iter(arg):
+            if is_nonstr_iter(value):
                 raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
 
     # Set the default style if data has a geometry of Point or MultiPoint
@@ -233,23 +251,6 @@ def plot(  # noqa: PLR0912
                     kwargs["S"] = "s0.2c"
             except FileNotFoundError:
                 pass
-
-    # prepare 1-D arrays for input
-    if (
-        kwargs.get("S") is not None
-        and kwargs["S"][0] in "vV"
-        and is_nonstr_iter(direction)
-    ):
-        extra_arrays.extend(direction)
-    if is_nonstr_iter(kwargs.get("G")):
-        extra_arrays.append(kwargs.get("G"))
-        del kwargs["G"]
-    if is_nonstr_iter(size):
-        extra_arrays.append(size)
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            extra_arrays.append(kwargs.get(flag))
-            kwargs[flag] = ""
 
     with Session() as lib:
         with lib.virtualfile_in(
