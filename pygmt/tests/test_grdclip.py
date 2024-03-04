@@ -1,6 +1,7 @@
 """
 Test pygmt.grdclip.
 """
+
 from pathlib import Path
 
 import pytest

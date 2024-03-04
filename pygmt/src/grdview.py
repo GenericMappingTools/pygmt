@@ -1,6 +1,7 @@
 """
 grdview - Create a three-dimensional plot from a grid.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -144,12 +145,13 @@ def grdview(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as fname, lib.virtualfile_from_data(
-            check_kind="raster", data=kwargs.get("G"), required_data=False
-        ) as drapegrid:
-            kwargs["G"] = drapegrid
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="raster", data=kwargs.get("G"), required_data=False
+            ) as vdrapegrid,
+        ):
+            kwargs["G"] = vdrapegrid
             lib.call_module(
-                module="grdview", args=build_arg_string(kwargs, infile=fname)
+                module="grdview", args=build_arg_string(kwargs, infile=vingrd)
             )

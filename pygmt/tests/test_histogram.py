@@ -1,6 +1,7 @@
 """
 Test Figure.histogram.
 """
+
 import pandas as pd
 import pytest
 from pygmt import Figure

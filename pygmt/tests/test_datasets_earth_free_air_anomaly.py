@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading Earth free air anomaly datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 from pygmt.datasets import load_earth_free_air_anomaly

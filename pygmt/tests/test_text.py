@@ -1,6 +1,7 @@
 """
 Test Figure.text.
 """
+
 import os
 
 import numpy as np

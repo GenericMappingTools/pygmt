@@ -1,6 +1,7 @@
 """
 Test Figure.timestamp.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput

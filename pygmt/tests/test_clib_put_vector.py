@@ -1,6 +1,7 @@
 """
 Test the functions that put vector data into GMT.
 """
+
 import datetime
 import itertools
 

@@ -1,6 +1,7 @@
 """
 Internal function to load GMT remote datasets.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, ClassVar, NamedTuple

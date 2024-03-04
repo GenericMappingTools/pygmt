@@ -1,6 +1,7 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+
 import warnings
 
 import numpy as np

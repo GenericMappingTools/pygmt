@@ -1,6 +1,7 @@
 """
 grdlandmask - Create a "wet-dry" mask grid from shoreline data base
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (

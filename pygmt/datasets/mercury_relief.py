@@ -4,6 +4,7 @@ Function to download the Mercury relief dataset from the GMT data server, and lo
 
 The grids are available in various resolutions.
 """
+
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset

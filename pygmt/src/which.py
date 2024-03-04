@@ -1,6 +1,7 @@
 """
 which - Find the full path to specified files.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,

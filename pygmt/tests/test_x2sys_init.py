@@ -1,6 +1,7 @@
 """
 Test pygmt.x2sys_init.
 """
+
 import os
 from tempfile import TemporaryDirectory
 

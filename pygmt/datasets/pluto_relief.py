@@ -4,6 +4,7 @@ Function to download the Pluto relief dataset from the GMT data server, and load
 
 The grids are available in various resolutions.
 """
+
 from typing import Literal
 
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset

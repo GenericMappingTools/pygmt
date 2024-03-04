@@ -1,6 +1,7 @@
 """
 x2sys_init - Initialize a new x2sys track database.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 

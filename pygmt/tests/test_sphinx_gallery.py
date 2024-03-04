@@ -1,6 +1,7 @@
 """
 Test the sphinx-gallery scraper and code required to make it work.
 """
+
 import os
 from tempfile import TemporaryDirectory
 

@@ -1,6 +1,7 @@
 """
 Test pygmt.grdlandmask.
 """
+
 from pathlib import Path
 
 import pytest

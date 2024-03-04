@@ -1,6 +1,7 @@
 """
 Modern mode session management modules.
 """
+
 import os
 import sys
 

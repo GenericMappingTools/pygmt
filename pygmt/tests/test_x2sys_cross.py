@@ -1,6 +1,7 @@
 """
 Test pygmt.x2sys_cross.
 """
+
 import copy
 import os
 from pathlib import Path

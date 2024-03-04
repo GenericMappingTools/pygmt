@@ -1,6 +1,7 @@
 """
 Test pygmt.blockmedian.
 """
+
 from pathlib import Path
 
 import numpy.testing as npt

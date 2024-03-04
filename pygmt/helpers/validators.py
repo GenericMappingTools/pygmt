@@ -1,6 +1,7 @@
 """
 Functions to check if given arguments are valid.
 """
+
 import warnings
 
 from pygmt.exceptions import GMTInvalidInput

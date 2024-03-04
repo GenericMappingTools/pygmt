@@ -1,6 +1,7 @@
 """
 Test pygmt.sph2grd.
 """
+
 from pathlib import Path
 
 import numpy.testing as npt

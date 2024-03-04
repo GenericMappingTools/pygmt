@@ -1,6 +1,7 @@
 """
 Test Figure.velo.
 """
+
 import pandas as pd
 import pytest
 from pygmt import Figure

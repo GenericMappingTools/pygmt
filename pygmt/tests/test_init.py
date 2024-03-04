@@ -1,6 +1,7 @@
 """
 Test functions in __init__.
 """
+
 import io
 
 import pygmt

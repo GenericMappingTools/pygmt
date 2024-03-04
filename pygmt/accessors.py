@@ -1,6 +1,7 @@
 """
 GMT accessor for :class:`xarray.DataArray`.
 """
+
 from pathlib import Path
 
 import xarray as xr

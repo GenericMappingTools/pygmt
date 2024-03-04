@@ -1,6 +1,7 @@
 """
 grdinfo - Retrieve info about grid file.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -111,11 +112,10 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile.name),
+                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile.name),
                 )
         result = outfile.read()
     return result

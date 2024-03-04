@@ -1,6 +1,7 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
+
 from __future__ import annotations
 
 import warnings

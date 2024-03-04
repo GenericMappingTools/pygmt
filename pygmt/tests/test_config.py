@@ -1,6 +1,7 @@
 """
 Test pygmt.config.
 """
+
 import pytest
 from pygmt import Figure, config
 

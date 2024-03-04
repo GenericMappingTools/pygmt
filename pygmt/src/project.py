@@ -1,6 +1,7 @@
 """
 project - Project data onto lines or great circles, or generate tracks.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -227,13 +228,11 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             outfile = tmpfile.name
         with Session() as lib:
             if kwargs.get("G") is None:
-                table_context = lib.virtualfile_from_data(
+                with lib.virtualfile_in(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                )
-
-                # Run project on the temporary (csv) data table
-                with table_context as infile:
-                    arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
+                ) as vintbl:
+                    # Run project on the temporary (csv) data table
+                    arg_str = build_arg_string(kwargs, infile=vintbl, outfile=outfile)
             else:
                 arg_str = build_arg_string(kwargs, outfile=outfile)
             lib.call_module(module="project", args=arg_str)

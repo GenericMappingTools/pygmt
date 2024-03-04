@@ -1,6 +1,7 @@
 """
 Test pygmt.surface.
 """
+
 from pathlib import Path
 
 import pandas as pd

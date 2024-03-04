@@ -1,6 +1,7 @@
 """
 sph2grd - Compute grid from spherical harmonic coefficients
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -73,12 +74,11 @@ def sph2grd(data, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="sph2grd", args=build_arg_string(kwargs, infile=infile)
+                    module="sph2grd", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

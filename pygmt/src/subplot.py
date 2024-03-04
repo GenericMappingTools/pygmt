@@ -1,6 +1,7 @@
 """
 subplot - Manage modern mode figure subplot configuration and selection.
 """
+
 import contextlib
 
 from pygmt.clib import Session

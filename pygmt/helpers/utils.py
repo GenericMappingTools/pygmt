@@ -1,6 +1,7 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+
 # ruff: noqa: RUF001
 import os
 import pathlib

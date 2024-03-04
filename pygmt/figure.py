@@ -1,6 +1,7 @@
 """
 Define the Figure class that handles all plotting.
 """
+
 import base64
 import os
 from pathlib import Path

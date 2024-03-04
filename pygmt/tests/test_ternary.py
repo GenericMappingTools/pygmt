@@ -1,6 +1,7 @@
 """
 Test Figure.ternary.
 """
+
 import numpy as np
 import pytest
 from pygmt import Figure
