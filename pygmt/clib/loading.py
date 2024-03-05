@@ -10,7 +10,7 @@ import os
 import shutil
 import subprocess as sp
 import sys
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping
 from ctypes.util import find_library
 from pathlib import Path
 
@@ -97,7 +97,7 @@ def clib_names(os_name: str) -> list[str]:
     return libnames
 
 
-def clib_full_names(env: os._Environ | dict | None = None) -> Iterator[str]:
+def clib_full_names(env: Mapping | dict | None = None) -> Iterator[str]:
     """
     Return full path(s) of GMT shared library for the current operating system.
 
