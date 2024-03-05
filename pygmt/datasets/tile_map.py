@@ -9,7 +9,7 @@ from packaging.version import Version
 
 try:
     import contextily
-    import xyzservices
+    from xyzservices import TileProvider
 
     _HAS_CONTEXTILY = True
 except ImportError:
@@ -24,7 +24,7 @@ __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 def load_tile_map(
     region: list,
     zoom: int | Literal["auto"] = "auto",
-    source: xyzservices.TileProvider | str | None = None,
+    source: TileProvider | str | None = None,
     lonlat: bool = True,
     wait: int = 0,
     max_retries: int = 2,
