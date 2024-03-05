@@ -97,7 +97,7 @@ def clib_names(os_name: str) -> list[str]:
     return libnames
 
 
-def clib_full_names(env: Mapping | dict | None = None) -> Iterator[str]:
+def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
     """
     Return full path(s) of GMT shared library for the current operating system.
 
