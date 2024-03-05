@@ -53,7 +53,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.0
+        uses: mamba-org/setup-micromamba@v1.8.1
         with:
           environment-name: pygmt
           condarc: |
