@@ -3,12 +3,13 @@ Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
 
-from __future__ import annotations
+from typing import Literal
 
 from packaging.version import Version
 
 try:
     import contextily
+    import xyzservices
 
     _HAS_CONTEXTILY = True
 except ImportError:
@@ -21,76 +22,63 @@ __doctest_requires__ = {("load_tile_map"): ["contextily"]}
 
 
 def load_tile_map(
-    region,
-    zoom="auto",
-    source=None,
-    lonlat=True,
-    wait=0,
-    max_retries=2,
+    region: list,
+    zoom: int | Literal["auto"] = "auto",
+    source: xyzservices.TileProvider | str | None = None,
+    lonlat: bool = True,
+    wait: int = 0,
+    max_retries: int = 2,
     zoom_adjust: int | None = None,
-):
+) -> xr.DataArray:
     """
     Load a georeferenced raster tile map from XYZ tile providers.
 
     The tiles that compose the map are merged and georeferenced into an
-    :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned
-    image is in a Spherical Mercator (EPSG:3857) coordinate reference system.
+    :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned image is
+    in a Spherical Mercator (EPSG:3857) coordinate reference system.
 
     Parameters
     ----------
-    region : list
-        The bounding box of the map in the form of a list [*xmin*, *xmax*,
-        *ymin*, *ymax*]. These coordinates should be in longitude/latitude if
-        ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.
-
-    zoom : int or str
-        Optional. Level of detail. Higher levels (e.g. ``22``) mean a zoom
-        level closer to the Earth's surface, with more tiles covering a smaller
-        geographical area and thus more detail. Lower levels (e.g. ``0``) mean
-        a zoom level further from the Earth's surface, with less tiles covering
-        a larger geographical area and thus less detail [Default is
-        ``"auto"`` to automatically determine the zoom level based on the
-        bounding box region extent].
+    region
+        The bounding box of the map in the form of a list [*xmin*, *xmax*, *ymin*,
+        *ymax*]. These coordinates should be in longitude/latitude if ``lonlat=True`` or
+        Spherical Mercator (EPSG:3857) if ``lonlat=False``.
+    zoom
+        Level of detail. Higher levels (e.g. ``22``) mean a zoom level closer to the
+        Earth's surface, with more tiles covering a smaller geographical area and thus
+        more detail. Lower levels (e.g. ``0``) mean a zoom level further from the
+        Earth's surface, with less tiles covering a larger geographical area and thus
+        less detail. Default is ``"auto"`` to automatically determine the zoom level
+        based on the bounding box region extent.
 
         .. note::
            The maximum possible zoom level may be smaller than ``22``, and depends on
            what is supported by the chosen web tile provider source.
+    source
+        The tile source: web tile provider or path to a local file. Provide either:
 
-    source : xyzservices.TileProvider or str
-        Optional. The tile source: web tile provider or path to a local file.
-        Provide either:
-
-        - A web tile provider in the form of a
-          :class:`xyzservices.TileProvider` object. See
-          :doc:`Contextily providers <contextily:providers_deepdive>` for a
-          list of tile providers [Default is
-          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap
-          Humanitarian web tiles].
-        - A web tile provider in the form of a URL. The placeholders for the
-          XYZ in the URL need to be {x}, {y}, {z}, respectively. E.g.
+        - A web tile provider in the form of a :class:`xyzservices.TileProvider` object.
+          See :doc:`Contextily providers <contextily:providers_deepdive>` for a list of
+          tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.
+          OpenStreetMap Humanitarian web tiles.
+        - A web tile provider in the form of a URL. The placeholders for the XYZ in the
+          URL need to be {x}, {y}, {z}, respectively. E.g.
           ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
-        - A local file path. The file is read with
-          :doc:`rasterio <rasterio:index>` and all bands are loaded into the
-          basemap. See
+        - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
+          all bands are loaded into the basemap. See
           :doc:`contextily:working_with_local_files`.
 
         .. important::
            Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).
-
-    lonlat : bool
-        Optional. If ``False``, coordinates in ``region`` are assumed to be
-        Spherical Mercator as opposed to longitude/latitude [Default is
-        ``True``].
-
-    wait : int
-        Optional. If the tile API is rate-limited, the number of seconds to
-        wait between a failed request and the next try [Default is ``0``].
-
-    max_retries : int
-        Optional. Total number of rejected requests allowed before contextily
-        will stop trying to fetch more tiles from a rate-limited API [Default
-        is ``2``].
-
+    lonlat
+        If ``False``, coordinates in ``region`` are assumed to be Spherical Mercator as
+        opposed to longitude/latitude.
+    wait
+        If the tile API is rate-limited, the number of seconds to wait between a failed
+        request and the next try.
+    max_retries
+        Total number of rejected requests allowed before contextily will stop trying to
+        fetch more tiles from a rate-limited API.
     zoom_adjust
         The amount to adjust a chosen zoom level if it is chosen automatically. Values
         outside of -1 to 1 are not recommended as they can lead to slow execution.
@@ -100,15 +88,15 @@ def load_tile_map(
 
     Returns
     -------
-    raster : xarray.DataArray
+    raster
         Georeferenced 3-D data array of RGB values.
 
     Raises
     ------
     ImportError
         If ``contextily`` is not installed or can't be imported. Follow
-        :doc:`install instructions for contextily <contextily:index>`, (e.g.
-        via ``python -m pip install contextily``) before using this function.
+        :doc:`install instructions for contextily <contextily:index>`, (e.g. via
+        ``python -m pip install contextily``) before using this function.
 
     Examples
     --------
