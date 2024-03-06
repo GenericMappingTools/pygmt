@@ -13,6 +13,7 @@ try:
 
     _HAS_CONTEXTILY = True
 except ImportError:
+    TileProvider = None
     _HAS_CONTEXTILY = False
 
 import numpy as np
