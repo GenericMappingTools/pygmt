@@ -192,7 +192,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                     colvector.append(
                         np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
                     )
-            vectors.append(np.concatenate(colvector))
+            vectors.append(pd.Series(data=np.concatenate(colvector)))
 
         # Deal with trailing text column
         textvector = []
@@ -203,16 +203,10 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                 if dseg.text:
                     textvector.extend(dseg.text[: dseg.n_rows])
         if textvector:
-            vectors.append(np.char.decode(textvector))
-
-        df = pd.concat([pd.Series(v) for v in vectors], axis=1)
-
-        # convert text data from object dtype to string dtype
-        if textvector:
-            df = df.convert_dtypes(
-                convert_string=True,
-                convert_integer=False,
-                convert_floating=False,
-                convert_boolean=False,
+            vectors.append(
+                pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
             )
+
+        df = pd.concat(objs=vectors, axis=1)
+
         return df
