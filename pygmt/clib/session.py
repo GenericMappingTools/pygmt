@@ -1741,7 +1741,7 @@ class Session:
     def return_table(
         self,
         output_type: Literal["pandas", "numpy", "file"],
-        vfile: str,
+        vfile: str | None = None,
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -1750,16 +1750,21 @@ class Session:
         Parameters
         ----------
         output_type
-            The output type. Valid values are ``"pandas"``, ``"numpy"``, or ``"file"``.
+            Desired output type of the result data.
+
+            - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
+            - ``"numpy"`` will return a :class:`numpy.ndarray` object.
+            - ``"file"`` means the result was saved to a file and will return ``None``.
         vfile
-            The virtual file name.
+            The virtual file name that stores the result data. Required for ``"pandas"``
+            and ``"numpy"`` output type.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
 
         Returns
         -------
-        :class:`pandas.DataFrame` or :class:`numpy.ndarray` or None
-            The output table. If ``output_type`` is ``"file"``, returns ``None``.
+        table
+            The output table. If ``output_type="file"`` returns ``None``.
 
         Examples
         --------
@@ -1835,16 +1840,16 @@ class Session:
         """
         if output_type == "file":  # Already written to file, so return None
             return None
+
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
         result = self.read_virtualfile(vfile, kind="dataset").contents.to_dataframe()
+        if output_type == "numpy":  # numpy.ndarray output
+            return result.to_numpy()
+
         # Assign column names
         if column_names is not None:
             result.columns = column_names
-        # Pandas.DataFrame output
-        if output_type == "pandas":
-            return result
-        # NumPy.ndarray output
-        return result.to_numpy()
+        return result  # pandas.DataFrame output
 
     def extract_region(self):
         """
