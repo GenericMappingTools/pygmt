@@ -1738,14 +1738,16 @@ class Session:
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
-    def return_table(
+    def return_dataset(
         self,
         output_type: Literal["pandas", "numpy", "file"],
         vfile: str,
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
-        Return an output table from a virtual file based on the output type.
+        Output a dataset stored in a virtual file in different formats.
+
+        The format of the dataset is determined by the ``output_type`` parameter.
 
         Parameters
         ----------
@@ -1763,8 +1765,8 @@ class Session:
 
         Returns
         -------
-        table
-            The output table. If ``output_type="file"`` returns ``None``.
+        result
+            The result dataset. If ``output_type="file"`` returns ``None``.
 
         Examples
         --------
@@ -1792,7 +1794,9 @@ class Session:
         ...                 kind="dataset", fname=outtmp.name
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...                 result = lib.return_table(output_type="file", vfile=vouttbl)
+        ...                 result = lib.return_dataset(
+        ...                     output_type="file", vfile=vouttbl
+        ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
@@ -1800,21 +1804,21 @@ class Session:
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outnp = lib.return_table(output_type="numpy", vfile=vouttbl)
+        ...             outnp = lib.return_dataset(output_type="numpy", vfile=vouttbl)
         ...     assert isinstance(outnp, np.ndarray)
         ...
         ...     # pandas output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outpd = lib.return_table(output_type="pandas", vfile=vouttbl)
+        ...             outpd = lib.return_dataset(output_type="pandas", vfile=vouttbl)
         ...     assert isinstance(outpd, pd.DataFrame)
         ...
         ...     # pandas output with specified column names
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outpd2 = lib.return_table(
+        ...             outpd2 = lib.return_dataset(
         ...                 output_type="pandas",
         ...                 vfile=vouttbl,
         ...                 column_names=["col1", "col2", "col3", "coltext"],
