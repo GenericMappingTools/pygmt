@@ -1621,7 +1621,7 @@ class Session:
         Create a virtual file or an actual file for storing output data.
 
         If ``fname`` is not given, a virtual file will be created to store the output
-        data into a GMT data container and the function yields the name of the virutal
+        data into a GMT data container and the function yields the name of the virtual
         file. Otherwise, the output data will be written into the specified file and the
         function simply yields the actual file name.
 
