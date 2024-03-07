@@ -2,10 +2,8 @@
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
 
-import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -103,22 +101,13 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grdvolume",
-                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrid,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="grdvolume",
+                args=build_arg_string(kwargs, infile=vingrid, outfile=vouttbl),
+            )
+        return lib.return_table(output_type=output_type, vfile=vouttbl)

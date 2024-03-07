@@ -5,11 +5,11 @@ select - Select data table subsets based on multiple spatial criteria.
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["select"]
@@ -41,7 +41,7 @@ __doctest_skip__ = ["select"]
     w="wrap",
 )
 @kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
-def select(data=None, outfile=None, **kwargs):
+def select(data=None, output_type="pandas", outfile=None, **kwargs):
     r"""
     Select data table subsets based on multiple spatial criteria.
 
@@ -196,25 +196,23 @@ def select(data=None, outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="select",
-                    args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
-                )
+    column_names = None
+    if isinstance(data, pd.DataFrame) and output_type == "pandas":
+        column_names = data.columns.to_list()
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = data.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="select",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.return_table(
+            output_type=output_type,
+            vfile=vouttbl,
+            column_names=column_names,
+        )

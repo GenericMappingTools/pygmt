@@ -2,15 +2,14 @@
 project - Project data onto lines or great circles, or generate tracks.
 """
 
-import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 
@@ -32,7 +31,9 @@ from pygmt.helpers import (
     f="coltypes",
 )
 @kwargs_to_strings(E="sequence", L="sequence", T="sequence", W="sequence", C="sequence")
-def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
+def project(
+    data=None, x=None, y=None, z=None, output_type="pandas", outfile=None, **kwargs
+):
     r"""
     Project data onto lines or great circles, or generate tracks.
 
@@ -223,29 +224,31 @@ def project(data=None, x=None, y=None, z=None, outfile=None, **kwargs):
             "The `convention` parameter is not allowed with `generate`."
         )
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        if outfile is None:  # Output to tmpfile if outfile is not set
-            outfile = tmpfile.name
-        with Session() as lib:
-            if kwargs.get("G") is None:
-                with lib.virtualfile_in(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                ) as vintbl:
-                    # Run project on the temporary (csv) data table
-                    arg_str = build_arg_string(kwargs, infile=vintbl, outfile=outfile)
-            else:
-                arg_str = build_arg_string(kwargs, outfile=outfile)
-            lib.call_module(module="project", args=arg_str)
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        # if user did not set outfile, return pd.DataFrame
-        if outfile == tmpfile.name:
-            if kwargs.get("G") is not None:
-                column_names = list("rsp")
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            else:
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        # return None if outfile set, output in outfile
-        elif outfile != tmpfile.name:
-            result = None
+    column_names = None
+    if kwargs.get("G") is not None and output_type == "pandas":
+        column_names = list("rsp")
 
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
+                check_kind="vector",
+                data=data,
+                x=x,
+                y=y,
+                z=z,
+                required_z=False,
+                required_data=False,
+            ) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="project",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.return_table(
+            output_type=output_type,
+            vfile=vouttbl,
+            column_names=column_names,
+        )

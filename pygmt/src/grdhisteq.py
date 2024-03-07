@@ -3,7 +3,6 @@ grdhisteq - Perform histogram equalization for a grid.
 """
 
 import numpy as np
-import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -231,33 +230,28 @@ class grdhisteq:  # noqa: N801
         if kwargs.get("h") is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            with Session() as lib:
-                with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                    if outfile is None:
-                        kwargs["D"] = outfile = tmpfile.name  # output to tmpfile
-                    lib.call_module(
-                        module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
-                    )
+        with Session() as lib:
+            with (
+                lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+                lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+            ):
+                kwargs["D"] = vouttbl  # -D for output file name
+                lib.call_module(
+                    module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                )
 
-            if outfile == tmpfile.name:
-                # if user did not set outfile, return pd.DataFrame
-                result = pd.read_csv(
-                    filepath_or_buffer=outfile,
-                    sep="\t",
-                    header=None,
-                    names=["start", "stop", "bin_id"],
-                    dtype={
+            result = lib.return_table(
+                output_type=output_type,
+                vfile=vouttbl,
+                column_names=["start", "stop", "bin_id"],
+            )
+            if output_type == "pandas":
+                result = result.astype(
+                    {
                         "start": np.float32,
                         "stop": np.float32,
                         "bin_id": np.uint32,
-                    },
+                    }
                 )
-            elif outfile != tmpfile.name:
-                # return None if outfile set, output in outfile
-                return None
-
-            if output_type == "numpy":
-                return result.to_numpy()
-
-            return result.set_index("bin_id")
+                return result.set_index("bin_id")
+            return result

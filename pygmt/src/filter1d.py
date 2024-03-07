@@ -2,11 +2,9 @@
 filter1d - Time domain filtering of 1-D data tables
 """
 
-import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     use_alias,
@@ -117,22 +115,13 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="filter1d",
-                    args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="filter1d",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.return_table(output_type=output_type, vfile=vouttbl)

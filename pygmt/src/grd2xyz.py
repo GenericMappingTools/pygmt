@@ -2,12 +2,10 @@
 grd2xyz - Convert grid to data table
 """
 
-import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
@@ -150,30 +148,23 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
         )
 
     # Set the default column names for the pandas dataframe header
-    dataframe_header = ["x", "y", "z"]
+    column_names = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if isinstance(grid, xr.DataArray) and output_type == "pandas":
         # Reverse the dims because it is rows, columns ordered.
-        dataframe_header = [grid.dims[1], grid.dims[0], grid.name]
+        column_names = [grid.dims[1], grid.dims[0], grid.name]
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grd2xyz",
-                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(
-                tmpfile.name, sep="\t", names=dataframe_header, comment=">"
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="grd2xyz",
+                args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+        return lib.return_table(
+            output_type=output_type,
+            vfile=vouttbl,
+            column_names=column_names,
+        )
