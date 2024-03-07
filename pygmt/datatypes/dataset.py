@@ -210,5 +210,4 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             )
 
         df = pd.concat(objs=vectors, axis=1)
-
         return df
