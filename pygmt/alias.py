@@ -5,8 +5,9 @@ Alias system that converts PyGMT long-form parameters to GMT short-form options.
 import dataclasses
 import inspect
 from collections import defaultdict
-from collections.abc import Iterable
 from typing import Any
+
+from pygmt.helpers.utils import is_nonstr_iter
 
 
 def value_to_string(value, prefix="", separator=""):
@@ -27,14 +28,21 @@ def value_to_string(value, prefix="", separator=""):
     ''
     >>> value_to_string(False)
     >>> value_to_string(None)
+    >>> value_to_string(["xaf", "yaf", "WSen"])
+    ['xaf', 'yaf', 'WSen']
     """
     # None or False means the parameter is not specified, so return None
     if value in (None, False):
         return None
 
     # Convert any other value type to string
-    if isinstance(value, Iterable) and not isinstance(value, str):
-        value = separator.join(str(item) for item in value)
+    if is_nonstr_iter(value):
+        # Backward compatibility taking a list as repeated option.
+        value = [str(item) for item in value]
+        if separator:
+            value = separator.join(value)
+        else:
+            return value
     elif value is True:
         value = ""
     return f"{prefix}{value}"
