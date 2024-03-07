@@ -227,7 +227,7 @@ def project(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
-    if kwargs.get("G") is not None and output_type == "pandas":
+    if output_type == "pandas" and kwargs.get("G") is not None:
         column_names = list("rsp")
 
     with Session() as lib:

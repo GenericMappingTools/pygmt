@@ -150,7 +150,7 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     # Set the default column names for the pandas dataframe header
     column_names = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
-    if isinstance(grid, xr.DataArray) and output_type == "pandas":
+    if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
         column_names = [grid.dims[1], grid.dims[0], grid.name]
 

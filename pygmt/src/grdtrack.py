@@ -296,7 +296,7 @@ def grdtrack(
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
-    if isinstance(points, pd.DataFrame) and output_type == "pandas":
+    if output_type == "pandas" and isinstance(points, pd.DataFrame):
         column_names = [*points.columns.to_list(), newcolname]
 
     with Session() as lib:

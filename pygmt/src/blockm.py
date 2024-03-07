@@ -45,7 +45,7 @@ def _blockm(block_method, data, x, y, z, output_type, outfile, **kwargs):
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     column_names = None
-    if isinstance(data, pd.DataFrame) and output_type == "pandas":
+    if output_type == "pandas" and isinstance(data, pd.DataFrame):
         column_names = data.columns.to_list()
 
     with Session() as lib:
