@@ -95,7 +95,7 @@ def load_tile_map(
     Raises
     ------
     ImportError
-        If ``contextily`` is not installed or can't be imported. Follow
+        If ``contextily`` is not installed or can't be imported. Follow the
         :doc:`install instructions for contextily <contextily:index>`, (e.g. via
         ``python -m pip install contextily``) before using this function.
 
