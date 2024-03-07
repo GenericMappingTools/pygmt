@@ -1738,6 +1738,42 @@ class Session:
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
+    def return_table(
+        self,
+        output_type: Literal["pandas", "numpy", "file"],
+        vfile: str,
+        column_names: list[str] | None = None,
+    ) -> pd.DataFrame | np.ndarray | None:
+        """
+        Return an output table from a virtual file based on the output type.
+
+        Parameters
+        ----------
+        output_type
+            The output type. Valid values are ``"pandas"``, ``"numpy"``, or ``"file"``.
+        vfile
+            The virtual file name.
+        column_names
+            The column names for the :class:`pandas.DataFrame` output.
+
+        Returns
+        -------
+        :class:`pandas.DataFrame` or :class:`numpy.ndarray` or None
+            The output table. If ``output_type`` is ``"file"``, returns ``None``.
+        """
+        if output_type == "file":  # Already written to file, so return None
+            return None
+        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
+        result = self.read_virtualfile(vfile, kind="dataset").contents.to_dataframe()
+        # Assign column names
+        if column_names is not None:
+            result.columns = column_names
+        # Pandas.DataFrame output
+        if output_type == "pandas":
+            return result
+        # NumPy.ndarray output
+        return result.to_numpy()
+
     def extract_region(self):
         """
         Extract the WESN bounding box of the currently active figure.
