@@ -1741,7 +1741,7 @@ class Session:
     def return_table(
         self,
         output_type: Literal["pandas", "numpy", "file"],
-        vfile: str | None = None,
+        vfile: str,
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
