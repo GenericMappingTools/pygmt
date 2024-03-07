@@ -294,6 +294,7 @@ conversion of Python variables to GMT virtual files:
     clib.Session.virtualfile_from_grid
     clib.Session.virtualfile_in
     clib.Session.virtualfile_out
+    clib.Session.return_table
 
 Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 
