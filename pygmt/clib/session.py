@@ -1760,6 +1760,78 @@ class Session:
         -------
         :class:`pandas.DataFrame` or :class:`numpy.ndarray` or None
             The output table. If ``output_type`` is ``"file"``, returns ``None``.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> import numpy as np
+        >>> import pandas as pd
+        >>>
+        >>> from pygmt.helpers import GMTTempFile
+        >>> from pygmt.clib import Session
+        >>>
+        >>> with GMTTempFile(suffix=".txt") as tmpfile:
+        ...     # prepare the sample data file
+        ...     with open(tmpfile.name, mode="w") as fp:
+        ...         print(">", file=fp)
+        ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
+        ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
+        ...         print(">", file=fp)
+        ...         print("7.0 8.0 9.0 TEXT8 TEXT90", file=fp)
+        ...         print("10.0 11.0 12.0 TEXT123 TEXT456789", file=fp)
+        ...
+        ...     # file output
+        ...     with Session() as lib:
+        ...         with GMTTempFile(suffix=".txt") as outtmp:
+        ...             with lib.virtualfile_out(
+        ...                 kind="dataset", fname=outtmp.name
+        ...             ) as vouttbl:
+        ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...                 result = lib.return_table(output_type="file", vfile=vouttbl)
+        ...                 assert result is None
+        ...                 assert Path(outtmp.name).stat().st_size > 0
+        ...
+        ...     # numpy output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outnp = lib.return_table(output_type="numpy", vfile=vouttbl)
+        ...     assert isinstance(outnp, np.ndarray)
+        ...
+        ...     # pandas output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outpd = lib.return_table(output_type="pandas", vfile=vouttbl)
+        ...     assert isinstance(outpd, pd.DataFrame)
+        ...
+        ...     # pandas output with specified column names
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outpd2 = lib.return_table(
+        ...                 output_type="pandas",
+        ...                 vfile=vouttbl,
+        ...                 column_names=["col1", "col2", "col3", "coltext"],
+        ...             )
+        ...     assert isinstance(outpd2, pd.DataFrame)
+        >>> outnp
+        array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
+               [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
+               [7.0, 8.0, 9.0, 'TEXT8 TEXT90'],
+               [10.0, 11.0, 12.0, 'TEXT123 TEXT456789']], dtype=object)
+        >>> outpd
+              0     1     2                   3
+        0   1.0   2.0   3.0        TEXT1 TEXT23
+        1   4.0   5.0   6.0       TEXT4 TEXT567
+        2   7.0   8.0   9.0        TEXT8 TEXT90
+        3  10.0  11.0  12.0  TEXT123 TEXT456789
+        >>> outpd2
+           col1  col2  col3             coltext
+        0   1.0   2.0   3.0        TEXT1 TEXT23
+        1   4.0   5.0   6.0       TEXT4 TEXT567
+        2   7.0   8.0   9.0        TEXT8 TEXT90
+        3  10.0  11.0  12.0  TEXT123 TEXT456789
         """
         if output_type == "file":  # Already written to file, so return None
             return None
