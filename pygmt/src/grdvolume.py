@@ -110,4 +110,4 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
                 module="grdvolume",
                 args=build_arg_string(kwargs, infile=vingrid, outfile=vouttbl),
             )
-        return lib.return_table(output_type=output_type, vfile=vouttbl)
+        return lib.return_dataset(output_type=output_type, vfile=vouttbl)
