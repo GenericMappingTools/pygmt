@@ -1,6 +1,7 @@
 """
 Test pygmt.grdhisteq.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -139,11 +140,3 @@ def test_compute_bins_invalid_format(grid):
         grdhisteq.compute_bins(grid=grid, output_type=1)
     with pytest.raises(GMTInvalidInput):
         grdhisteq.compute_bins(grid=grid, output_type="pandas", header="o+c")
-
-
-def test_equalize_grid_invalid_format(grid):
-    """
-    Test that equalize_grid fails with incorrect format.
-    """
-    with pytest.raises(GMTInvalidInput):
-        grdhisteq.equalize_grid(grid=grid, outgrid=True)

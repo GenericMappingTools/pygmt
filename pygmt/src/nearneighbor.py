@@ -145,14 +145,13 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            table_context = lib.virtualfile_from_data(
+            with lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            )
-            with table_context as infile:
+            ) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="nearneighbor", args=build_arg_string(kwargs, infile=infile)
+                    module="nearneighbor", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

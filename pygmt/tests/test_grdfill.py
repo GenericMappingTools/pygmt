@@ -1,6 +1,7 @@
 """
 Test pygmt.grdfill.
 """
+
 from pathlib import Path
 
 import numpy as np

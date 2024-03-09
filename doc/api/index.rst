@@ -289,11 +289,11 @@ conversion of Python variables to GMT virtual files:
 .. autosummary::
     :toctree: generated
 
-    clib.Session.virtualfile_from_data
     clib.Session.virtualfile_from_matrix
     clib.Session.virtualfile_from_vectors
     clib.Session.virtualfile_from_grid
-
+    clib.Session.virtualfile_in
+    clib.Session.virtualfile_out
 
 Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 
@@ -313,5 +313,6 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.put_vector
     clib.Session.write_data
     clib.Session.open_virtualfile
+    clib.Session.read_virtualfile
     clib.Session.extract_region
     clib.Session.get_libgmt_func

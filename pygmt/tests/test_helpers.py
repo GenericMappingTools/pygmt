@@ -1,6 +1,7 @@
 """
 Test the helper functions/classes/etc used in wrapping GMT.
 """
+
 import os
 
 import numpy as np

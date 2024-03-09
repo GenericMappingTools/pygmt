@@ -1,6 +1,7 @@
 """
 Test the C API functions related to virtual files.
 """
+
 import os
 from importlib.util import find_spec
 from itertools import product
@@ -99,8 +100,10 @@ def test_virtual_file_fails():
     # Test the status check when closing the virtual file
     # Mock the opening to return 0 (success) so that we don't open a file that
     # we won't close later.
-    with clib.Session() as lib, mock(lib, "GMT_Open_VirtualFile", returns=0), mock(
-        lib, "GMT_Close_VirtualFile", returns=1
+    with (
+        clib.Session() as lib,
+        mock(lib, "GMT_Open_VirtualFile", returns=0),
+        mock(lib, "GMT_Close_VirtualFile", returns=1),
     ):
         with pytest.raises(GMTCLibError):
             with lib.open_virtualfile(*vfargs):
@@ -128,7 +131,7 @@ def test_virtual_file_bad_direction():
     ("array_func", "kind"),
     [(np.array, "matrix"), (pd.DataFrame, "vector"), (xr.Dataset, "vector")],
 )
-def test_virtualfile_from_data_required_z_matrix(array_func, kind):
+def test_virtualfile_in_required_z_matrix(array_func, kind):
     """
     Test that function works when third z column in a matrix is needed and provided.
     """
@@ -138,7 +141,7 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
     )
     data = array_func(dataframe)
     with clib.Session() as lib:
-        with lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             data=data, required_z=True, check_kind="vector"
         ) as vfile:
             with GMTTempFile() as outfile:
@@ -154,20 +157,18 @@ def test_virtualfile_from_data_required_z_matrix(array_func, kind):
         assert output == expected
 
 
-def test_virtualfile_from_data_required_z_matrix_missing():
+def test_virtualfile_in_required_z_matrix_missing():
     """
     Test that function fails when third z column in a matrix is needed but not provided.
     """
     data = np.ones((5, 2))
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            with lib.virtualfile_from_data(
-                data=data, required_z=True, check_kind="vector"
-            ):
+            with lib.virtualfile_in(data=data, required_z=True, check_kind="vector"):
                 pass
 
 
-def test_virtualfile_from_data_fail_non_valid_data(data):
+def test_virtualfile_in_fail_non_valid_data(data):
     """
     Should raise an exception if too few or too much data is given.
     """
@@ -179,7 +180,7 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(x=variable[0], y=variable[1])
+                lib.virtualfile_in(x=variable[0], y=variable[1])
 
     # Test all combinations where at least one data variable
     # is not given in the x, y, z case:
@@ -189,14 +190,14 @@ def test_virtualfile_from_data_fail_non_valid_data(data):
             continue
         with clib.Session() as lib:
             with pytest.raises(GMTInvalidInput):
-                lib.virtualfile_from_data(
+                lib.virtualfile_in(
                     x=variable[0], y=variable[1], z=variable[2], required_z=True
                 )
 
     # Should also fail if given too much data
     with clib.Session() as lib:
         with pytest.raises(GMTInvalidInput):
-            lib.virtualfile_from_data(
+            lib.virtualfile_in(
                 x=data[:, 0],
                 y=data[:, 1],
                 z=data[:, 2],
@@ -239,7 +240,9 @@ def test_virtualfile_from_vectors_one_string_or_object_column(dtype):
             with GMTTempFile() as outfile:
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
-        expected = "".join(f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings))
+        expected = "".join(
+            f"{i}\t{j}\t{k}\n" for i, j, k in zip(x, y, strings, strict=True)
+        )
         assert output == expected
 
 
@@ -260,7 +263,8 @@ def test_virtualfile_from_vectors_two_string_or_object_columns(dtype):
                 lib.call_module("convert", f"{vfile} ->{outfile.name}")
                 output = outfile.read(keep_tabs=True)
         expected = "".join(
-            f"{h}\t{i}\t{j} {k}\n" for h, i, j, k in zip(x, y, strings1, strings2)
+            f"{h}\t{i}\t{j} {k}\n"
+            for h, i, j, k in zip(x, y, strings1, strings2, strict=True)
         )
         assert output == expected
 

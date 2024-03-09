@@ -1,6 +1,7 @@
 """
 Test the functions that put vector data into GMT.
 """
+
 import datetime
 import itertools
 
@@ -208,7 +209,7 @@ def test_put_vector_invalid_dtype():
         np.bytes_,
         np.csingle,
         np.cdouble,
-        np.clongfloat,
+        np.clongdouble,
         np.half,
         np.longdouble,
         np.object_,

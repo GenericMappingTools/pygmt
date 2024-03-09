@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading Mercury relief datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 from pygmt.datasets import load_mercury_relief
