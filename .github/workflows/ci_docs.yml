@@ -23,7 +23,7 @@ on:
       - '!pygmt/tests/**'
       - 'doc/**'
       - 'examples/**'
-      - 'README.rst'
+      - 'README.md'
       - '.github/workflows/ci_docs.yml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
@@ -32,7 +32,7 @@ on:
       - '!pygmt/tests/**'
       - 'doc/**'
       - 'examples/**'
-      - 'README.rst'
+      - 'README.md'
       - '.github/workflows/ci_docs.yml'
   release:
     types:
@@ -75,7 +75,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.0
+        uses: mamba-org/setup-micromamba@v1.8.1
         with:
           environment-name: pygmt
           condarc: |
@@ -111,7 +111,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
+        uses: dawidd6/action-download-artifact@v3.1.2
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

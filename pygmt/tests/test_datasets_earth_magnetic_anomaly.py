@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading Earth magnetic anomaly datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest

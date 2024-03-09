@@ -1,6 +1,7 @@
 """
 Define the Figure class that handles all plotting.
 """
+
 import base64
 import os
 from pathlib import Path
@@ -228,6 +229,9 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
+        # is not recognized. So remove it before calling `Figure.psconvert`.
+        kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""

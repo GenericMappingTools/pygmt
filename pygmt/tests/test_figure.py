@@ -3,6 +3,7 @@ Test the behavior of the Figure class.
 
 Doesn't include the plotting commands which have their own test files.
 """
+
 import importlib
 import os
 from pathlib import Path
@@ -377,21 +378,17 @@ def test_figure_set_display_invalid():
         set_display(method="invalid")
 
 
-def test_figure_deprecated_xshift_yshift():
+def test_figure_unsupported_xshift_yshift():
     """
-    Check if deprecation of parameters X/Y/xshift/yshift work correctly if used.
+    Raise an exception if X/Y/xshift/yshift is used.
     """
     fig = Figure()
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", xshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", X="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", yshift="3c")
-        assert len(record) == 1  # check that only one warning was raised
-    with pytest.warns(expected_warning=SyntaxWarning) as record:
+    with pytest.raises(GMTInvalidInput):
         fig.plot(x=1, y=1, style="c3c", Y="3c")
-        assert len(record) == 1  # check that only one warning was raised
