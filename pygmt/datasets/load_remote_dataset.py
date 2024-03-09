@@ -79,8 +79,8 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
-    "earth_emag": GMTRemoteDataset(
-        name="earth_emag",
+    "earth_mag": GMTRemoteDataset(
+        name="earth_mag",
         long_name="Earth Magnetic Anomaly Model (EMAG2)",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
