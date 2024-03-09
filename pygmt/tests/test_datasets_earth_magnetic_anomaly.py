@@ -13,7 +13,7 @@ def test_earth_mag_01d():
     Test some properties of the magnetic anomaly 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d")
-    assert data.name == "earth_emag"
+    assert data.name == "earth_mag"
     assert data.attrs["long_name"] == "Earth Magnetic Anomaly Model (EMAG2)"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
@@ -59,7 +59,7 @@ def test_earth_mag4km_01d():
     Test some properties of the magnetic anomaly 4km 01d data.
     """
     data = load_earth_magnetic_anomaly(resolution="01d", data_source="emag2_4km")
-    assert data.name == "earth_emag"
+    assert data.name == "earth_mag"
     assert data.attrs["long_name"] == "Earth Magnetic Anomaly Model (EMAG2)"
     assert data.attrs["units"] == "nT"
     assert data.attrs["horizontal_datum"] == "WGS84"
