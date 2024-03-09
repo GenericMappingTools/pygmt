@@ -64,7 +64,7 @@ def grdview(self, grid, **kwargs):
     drapegrid : str or xarray.DataArray
         The file name or a DataArray of the image grid to be draped on top
         of the relief provided by grid. [Default determines colors from
-        grid]. Note that ``zscale`` and ``plane`` always refers to the grid.
+        grid]. Note that ``zscale`` and ``plane`` always refer to the grid.
         The drapegrid only provides the information pertaining to colors, which
         (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
