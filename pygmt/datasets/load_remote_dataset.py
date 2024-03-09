@@ -41,7 +41,7 @@ class GMTRemoteDataset(NamedTuple):
     Attributes
     ----------
     name : str
-        The name assigned as an attribute to the DataArray and used in error messages.
+        The name assigned as an attribute to the DataArray.
     long_name : str
         The long name assigned as an attribute to the DataArray.
     units : str
