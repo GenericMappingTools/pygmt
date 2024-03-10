@@ -1745,7 +1745,7 @@ class Session:
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
-        Output a dataset stored in a virtual file in different formats.
+        Output a tabular dataset stored in a virtual file to a different format.
 
         The format of the dataset is determined by the ``output_type`` parameter.
 
