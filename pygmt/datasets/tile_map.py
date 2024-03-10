@@ -2,6 +2,7 @@
 Function to load raster tile maps from XYZ tile providers, and load as
 :class:`xarray.DataArray`.
 """
+
 from __future__ import annotations
 
 from packaging.version import Version

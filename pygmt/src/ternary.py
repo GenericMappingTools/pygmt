@@ -1,6 +1,7 @@
 """
 ternary - Plot data on ternary diagrams.
 """
+
 import pandas as pd
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
@@ -86,9 +87,8 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         data = data.to_numpy()
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
                 module="ternary",
-                args=build_arg_string(kwargs, infile=infile),
+                args=build_arg_string(kwargs, infile=vintbl),
             )

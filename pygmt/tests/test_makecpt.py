@@ -1,6 +1,7 @@
 """
 Test pygmt.makecpt.
 """
+
 import os
 from pathlib import Path
 

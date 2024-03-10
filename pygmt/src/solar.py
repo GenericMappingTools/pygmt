@@ -1,6 +1,7 @@
 """
 solar - Plot day-night terminators and twilight.
 """
+
 from __future__ import annotations
 
 from typing import Literal
