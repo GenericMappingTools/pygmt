@@ -85,7 +85,7 @@ def tilemap(
           tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.
           OpenStreetMap Humanitarian web tiles.
         - A web tile provider in the form of a URL. The placeholders for the XYZ in the
-          URL need to be {x}, {y}, {z}, respectively. E.g.
+          URL need to be ``{x}``, ``{y}``, ``{z}``, respectively. E.g.
           ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.
         - A local file path. The file is read with :doc:`rasterio <rasterio:index>` and
           all bands are loaded into the basemap. See
