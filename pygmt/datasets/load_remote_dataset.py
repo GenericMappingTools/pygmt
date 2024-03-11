@@ -82,7 +82,7 @@ datasets = {
     ),
     "earth_mag": GMTRemoteDataset(
         name="earth_mag",
-        long_name="Earth Magnetic Anomaly Model (EMAG2)",
+        long_name="EMAG2 Earth magnetic anomaly model",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
