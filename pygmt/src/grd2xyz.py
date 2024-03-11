@@ -55,12 +55,13 @@ def grd2xyz(
     {grid}
     output_type
         Desired output type of the result data.
+
         - ``pandas`` will return a :class:`pandas.DataFrame` object.
         - ``numpy`` will return a :class:`numpy.ndarray` object.
         - ``file`` will save the result to the file given by the ``outfile`` parameter.
     outfile
-        The file name for saving the result. If specified, ``output_type`` will be
-        forced to be ``"file"``.
+        File name for saving the result data. Required if ``output_type`` is ``"file"``.
+        If specified, ``output_type`` will be forced to be ``"file"``.
     cstyle : str
         [**f**\|\ **i**].
         Replace the x- and y-coordinates on output with the corresponding
@@ -125,6 +126,7 @@ def grd2xyz(
     -------
     ret
         Return type depends on ``outfile`` and ``output_type``:
+
         - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
         - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
           (depends on ``output_type``)
