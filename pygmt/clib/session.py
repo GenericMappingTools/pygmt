@@ -1741,7 +1741,7 @@ class Session:
     def virtualfile_to_dataset(
         self,
         output_type: Literal["pandas", "numpy", "file"],
-        vfile: str,
+        vfname: str,
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -1757,7 +1757,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
-        vfile
+        vfname
             The virtual file name that stores the result data. Required for ``"pandas"``
             and ``"numpy"`` output type.
         column_names
@@ -1795,7 +1795,7 @@ class Session:
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...                 result = lib.virtualfile_to_dataset(
-        ...                     output_type="file", vfile=vouttbl
+        ...                     output_type="file", vfname=vouttbl
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
@@ -1805,7 +1805,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outnp = lib.virtualfile_to_dataset(
-        ...                 output_type="numpy", vfile=vouttbl
+        ...                 output_type="numpy", vfname=vouttbl
         ...             )
         ...     assert isinstance(outnp, np.ndarray)
         ...
@@ -1814,7 +1814,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd = lib.virtualfile_to_dataset(
-        ...                 output_type="pandas", vfile=vouttbl
+        ...                 output_type="pandas", vfname=vouttbl
         ...             )
         ...     assert isinstance(outpd, pd.DataFrame)
         ...
@@ -1824,7 +1824,7 @@ class Session:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 output_type="pandas",
-        ...                 vfile=vouttbl,
+        ...                 vfname=vouttbl,
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
@@ -1850,7 +1850,7 @@ class Session:
             return None
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfile, kind="dataset").contents.to_dataframe()
+        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
 
