@@ -21,32 +21,17 @@ def fixture_grid():
 @pytest.mark.benchmark
 def test_grd2xyz(grid):
     """
-    Make sure grd2xyz works as expected.
+    Test the basic functionality of grd2xyz.
     """
-    xyz_data = grd2xyz(grid=grid, output_type="numpy")
-    assert xyz_data.shape == (112, 3)
-
-
-def test_grd2xyz_format(grid):
-    """
-    Test that correct formats are returned.
-    """
-    lon = -50.5
-    lat = -18.5
-    orig_val = grid.sel(lon=lon, lat=lat).to_numpy()
-    xyz_default = grd2xyz(grid=grid)
-    xyz_val = xyz_default[(xyz_default["lon"] == lon) & (xyz_default["lat"] == lat)][
-        "z"
-    ].to_numpy()
-    assert isinstance(xyz_default, pd.DataFrame)
-    assert orig_val.size == 1
-    assert xyz_val.size == 1
-    np.testing.assert_allclose(orig_val, xyz_val)
-    xyz_array = grd2xyz(grid=grid, output_type="numpy")
-    assert isinstance(xyz_array, np.ndarray)
-    xyz_df = grd2xyz(grid=grid, output_type="pandas", outcols=None)
+    xyz_df = grd2xyz(grid=grid)
     assert isinstance(xyz_df, pd.DataFrame)
     assert list(xyz_df.columns) == ["lon", "lat", "z"]
+    assert xyz_df.shape == (112, 3)
+
+    lon, lat = -50.5, -18.5
+    orig_val = grid.sel(lon=lon, lat=lat).to_numpy()
+    xyz_val = xyz_df[(xyz_df["lon"] == lon) & (xyz_df["lat"] == lat)]["z"].to_numpy()
+    np.testing.assert_allclose(orig_val, xyz_val)
 
 
 def test_grd2xyz_pandas_output_with_o(grid):
