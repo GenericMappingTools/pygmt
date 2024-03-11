@@ -224,7 +224,7 @@ datasets = {
     ),
     "earth_wdmam": GMTRemoteDataset(
         name="earth_wdmam",
-        long_name="World Digital Magnetic Anomaly Map (WDMAM)",
+        long_name="WDMAM world digital magnetic anomaly map",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
