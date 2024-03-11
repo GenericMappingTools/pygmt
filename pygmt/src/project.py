@@ -247,7 +247,7 @@ def project(
                 module="project",
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
-        return lib.return_dataset(
+        return lib.virtualfile_to_dataset(
             output_type=output_type,
             vfile=vouttbl,
             column_names=column_names,

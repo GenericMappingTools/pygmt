@@ -240,7 +240,7 @@ class grdhisteq:  # noqa: N801
                     module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
-            result = lib.return_dataset(
+            result = lib.virtualfile_to_dataset(
                 output_type=output_type,
                 vfile=vouttbl,
                 column_names=["start", "stop", "bin_id"],
