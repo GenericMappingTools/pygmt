@@ -1738,7 +1738,7 @@ class Session:
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
-    def return_dataset(
+    def virtualfile_to_dataset(
         self,
         output_type: Literal["pandas", "numpy", "file"],
         vfile: str,
@@ -1794,7 +1794,7 @@ class Session:
         ...                 kind="dataset", fname=outtmp.name
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...                 result = lib.return_dataset(
+        ...                 result = lib.virtualfile_to_dataset(
         ...                     output_type="file", vfile=vouttbl
         ...                 )
         ...                 assert result is None
@@ -1804,21 +1804,25 @@ class Session:
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outnp = lib.return_dataset(output_type="numpy", vfile=vouttbl)
+        ...             outnp = lib.virtualfile_to_dataset(
+        ...                 output_type="numpy", vfile=vouttbl
+        ...             )
         ...     assert isinstance(outnp, np.ndarray)
         ...
         ...     # pandas output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outpd = lib.return_dataset(output_type="pandas", vfile=vouttbl)
+        ...             outpd = lib.virtualfile_to_dataset(
+        ...                 output_type="pandas", vfile=vouttbl
+        ...             )
         ...     assert isinstance(outpd, pd.DataFrame)
         ...
         ...     # pandas output with specified column names
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...             outpd2 = lib.return_dataset(
+        ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 output_type="pandas",
         ...                 vfile=vouttbl,
         ...                 column_names=["col1", "col2", "col3", "coltext"],
