@@ -284,7 +284,7 @@ the :meth:`~pygmt.clib.Session.call_module` method:
 Passing memory blocks between Python data objects (e.g. :class:`numpy.ndarray`,
 :class:`pandas.Series`, :class:`xarray.DataArray`, etc) and GMT happens through
 *virtual files*. These methods are context managers that automate the conversion of
-Python variables to and from GMT virtual files:
+Python objects to and from GMT virtual files:
 
 .. autosummary::
     :toctree: generated
