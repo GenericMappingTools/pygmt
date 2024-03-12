@@ -2,7 +2,7 @@
 grd2xyz - Convert grid to data table
 """
 
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 import pandas as pd
 import xarray as xr
@@ -15,6 +15,9 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Hashable
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -154,13 +157,12 @@ def grd2xyz(
             "or 'file'."
         )
 
+    # Set the default column names for the pandas dataframe header.
+    column_names: list[Hashable] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
         column_names = [grid.dims[1], grid.dims[0], grid.name]
-    else:
-        # Set the default column names for the pandas dataframe header.
-        column_names = ["x", "y", "z"]
 
     with Session() as lib:
         with (
