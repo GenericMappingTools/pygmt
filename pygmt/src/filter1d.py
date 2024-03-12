@@ -45,6 +45,7 @@ def filter1d(
     ----------
     output_type
         Desired output type of the result data.
+
         - ``pandas`` will return a :class:`pandas.DataFrame` object.
         - ``numpy`` will return a :class:`numpy.ndarray` object.
         - ``file`` will save the result to the file given by the ``outfile`` parameter.
