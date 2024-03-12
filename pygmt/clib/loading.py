@@ -10,35 +10,36 @@ import os
 import shutil
 import subprocess as sp
 import sys
+from collections.abc import Iterator, Mapping
 from ctypes.util import find_library
 from pathlib import Path
 
 from pygmt.exceptions import GMTCLibError, GMTCLibNotFoundError, GMTOSError
 
 
-def load_libgmt(lib_fullnames=None):
+def load_libgmt(lib_fullnames: Iterator[str] | None = None) -> ctypes.CDLL:
     """
     Find and load ``libgmt`` as a :py:class:`ctypes.CDLL`.
 
     Will look for the GMT shared library in the directories determined by
-    clib_full_names().
+    ``clib_full_names()``.
 
     Parameters
     ----------
-    lib_fullnames : list of str or None
-        List of possible full names of GMT's shared library. If ``None``, will
-        default to ``clib_full_names()``.
+    lib_fullnames
+        List of possible full names of GMT's shared library. If ``None``, will default
+        to ``clib_full_names()``.
 
     Returns
     -------
-    :py:class:`ctypes.CDLL` object
+    libgmt
         The loaded shared library.
 
     Raises
     ------
     GMTCLibNotFoundError
-        If there was any problem loading the library (couldn't find it or
-        couldn't access the functions).
+        If there was any problem loading the library (couldn't find it or couldn't
+        access the functions).
     """
     if lib_fullnames is None:
         lib_fullnames = clib_full_names()
@@ -96,20 +97,27 @@ def clib_names(os_name: str) -> list[str]:
     return libnames
 
 
-def clib_full_names(env=None):
+def clib_full_names(env: Mapping | None = None) -> Iterator[str]:
     """
-    Return the full path of GMT's shared library for the current OS.
+    Return full path(s) of GMT shared library for the current operating system.
+
+    The GMT shared library is searched for in following ways, sorted by priority:
+
+    1. Path defined by environmental variable GMT_LIBRARY_PATH
+    2. Path returned by command "gmt --show-library"
+    3. Path defined by environmental variable PATH (Windows only)
+    4. System default search path
 
     Parameters
     ----------
-    env : dict or None
-        A dictionary containing the environment variables. If ``None``, will
-        default to ``os.environ``.
+    env
+        A dictionary containing the environment variables. If ``None``, will default to
+        ``os.environ``.
 
     Yields
     ------
-    lib_fullnames: list of str
-        List of possible full names of GMT's shared library.
+    lib_fullnames
+        List of possible full names of GMT shared library.
     """
     if env is None:
         env = os.environ
@@ -118,21 +126,18 @@ def clib_full_names(env=None):
 
     # Search for the library in different ways, sorted by priority.
     # 1. Search for the library in GMT_LIBRARY_PATH if defined.
-    libpath = env.get("GMT_LIBRARY_PATH", "")  # e.g. $HOME/miniconda/envs/pygmt/lib
-    if libpath:
+    if libpath := env.get("GMT_LIBRARY_PATH"):  # e.g. $HOME/miniconda/envs/pygmt/lib
         for libname in libnames:
             libfullpath = Path(libpath) / libname
             if libfullpath.exists():
                 yield str(libfullpath)
 
-    # 2. Search for the library returned by command "gmt --show-library"
-    #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/"
-    if (gmtbin := shutil.which("gmt")) is not None:
+    # 2. Search for the library returned by command "gmt --show-library".
+    #    Use `str(Path(realpath))` to avoid mixture of separators "\\" and "/".
+    if gmtbin := shutil.which("gmt"):
         try:
             libfullpath = Path(
-                sp.check_output([gmtbin, "--show-library"], encoding="utf-8").rstrip(
-                    "\n"
-                )
+                sp.check_output([gmtbin, "--show-library"], encoding="utf-8").rstrip()
             )
             if libfullpath.exists():
                 yield str(libfullpath)
@@ -142,8 +147,7 @@ def clib_full_names(env=None):
     # 3. Search for DLLs in PATH by calling find_library() (Windows only)
     if sys.platform == "win32":
         for libname in libnames:
-            libfullpath = find_library(libname)
-            if libfullpath:
+            if libfullpath := find_library(libname):
                 yield libfullpath
 
     # 4. Search for library names in the system default path

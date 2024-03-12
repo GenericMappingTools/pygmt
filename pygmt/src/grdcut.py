@@ -2,7 +2,6 @@
 grdcut - Extract subregion from a grid.
 """
 
-
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
@@ -93,13 +92,14 @@ def grdcut(grid, outgrid=None, **kwargs):
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     with Session() as lib:
-        with lib.virtualfile_in(
-            check_kind="raster", data=grid
-        ) as vingrd, lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
             kwargs["G"] = voutgrd
             lib.call_module(
                 module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
-            )      
+            )
 
             # Output to a file or return an xarray.DataArray object
             if outgrid is not None:
