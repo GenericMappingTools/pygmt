@@ -1,6 +1,7 @@
 """
 Test pygmt.grd2cpt.
 """
+
 import os
 
 import pytest

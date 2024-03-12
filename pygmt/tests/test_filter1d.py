@@ -1,6 +1,7 @@
 """
 Test pygmt.filter1d.
 """
+
 from pathlib import Path
 
 import numpy as np

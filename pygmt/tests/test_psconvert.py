@@ -1,6 +1,7 @@
 """
 Test Figure.psconvert.
 """
+
 import os
 
 import pytest

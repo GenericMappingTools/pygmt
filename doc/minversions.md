@@ -7,6 +7,9 @@ rest of the Scientific Python ecosystem, and therefore:
 - Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
   their initial release.
 
+Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
+after their initial release.
+
 | PyGMT Version | GMT | Python | NumPy | Pandas | Xarray |
 |---|---|---|---|---|---|
 | [Dev][]* [[Docs][Docs Dev]] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.03 |
