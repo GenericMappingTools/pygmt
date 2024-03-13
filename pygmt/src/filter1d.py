@@ -43,15 +43,8 @@ def filter1d(
 
     Parameters
     ----------
-    output_type
-        Desired output type of the result data.
-
-        - ``pandas`` will return a :class:`pandas.DataFrame` object.
-        - ``numpy`` will return a :class:`numpy.ndarray` object.
-        - ``file`` will save the result to the file given by the ``outfile`` parameter.
-    outfile
-        File name for saving the result data. Required if ``output_type`` is ``"file"``.
-        If specified, ``output_type`` will be forced to be ``"file"``.
+    {output_type}
+    {outfile}
     filter_type : str
         **type**\ *width*\ [**+h**].
         Set the filter **type**. Choose among convolution and non-convolution
