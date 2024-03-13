@@ -435,15 +435,17 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
                 _value = str(kwdict[key]).replace(" ", "")
             gmt_args.append(rf"-{key}{_value}")
     gmt_args = sorted(gmt_args)
+    argstr = non_ascii_to_octal(" ".join(gmt_args))
 
     if confdict:
-        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
+        confstr = " ".join(f'--{key}="{value}"' for key, value in confdict.items())
+        argstr += f" {confstr}"
 
     if infile:
-        gmt_args = [str(infile), *gmt_args]
+        argstr = f"{infile} {argstr}"
     if outfile:
-        gmt_args.append("->" + str(outfile))
-    return non_ascii_to_octal(" ".join(gmt_args))
+        argstr += f" ->{outfile}"
+    return argstr
 
 
 def is_nonstr_iter(value):
