@@ -226,6 +226,8 @@ def non_ascii_to_octal(argstr):
     '@%34%\\41@%%@%34%\\176@%%@%34%\\241@%%@%34%\\376@%%'
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
+    >>> non_ascii_to_octal("'‘’\"“”")
+    '\\234\\140\\47\\042\\216\\217'
     """  # noqa: RUF002
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
@@ -299,10 +301,11 @@ def non_ascii_to_octal(argstr):
             c: "\\" + format(i, "o")
             for c, i in zip(
                 "•…™—–ﬁž"  # \03x. \030 is undefined
+                "’‘"  # \047 and \140
                 "š"  # \177
                 "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
                 "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
-                [*range(25, 32), *range(127, 160)],
+                [*range(25, 32), 39, 96, *range(127, 160)],
                 strict=True,
             )
         }
@@ -310,8 +313,12 @@ def non_ascii_to_octal(argstr):
     # \240-\377
     mapping.update({chr(i): "\\" + format(i, "o") for i in range(160, 256)})
 
-    # Remove any printable characters
+    # Remove any printable characters.
     mapping = {k: v for k, v in mapping.items() if k not in string.printable}
+    # Mapping single quote ' and double quote " to octal codes because they often cause
+    # troubles.
+    mapping['"'] = "\\042"
+    mapping["'"] = "\\234"  # Not \047
     return argstr.translate(str.maketrans(mapping))
 
 
