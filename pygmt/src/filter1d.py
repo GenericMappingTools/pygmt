@@ -4,8 +4,8 @@ filter1d - Time domain filtering of 1-D data tables
 
 from typing import Literal
 
+import numpy as np
 import pandas as pd
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -27,7 +27,7 @@ def filter1d(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
     **kwargs,
-) -> pd.DataFrame | xr.DataArray | None:
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Time domain filtering of 1-D data tables.
 
