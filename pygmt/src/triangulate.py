@@ -3,6 +3,9 @@ triangulate - Delaunay triangulation or Voronoi partitioning and gridding of
 Cartesian data.
 """
 
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -172,10 +175,10 @@ class triangulate:  # noqa: N801
         y=None,
         z=None,
         *,
-        output_type="pandas",
-        outfile=None,
+        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        outfile: str | None = None,
         **kwargs,
-    ):
+    ) -> pd.DataFrame | np.ndarray | None:
         """
         Delaunay triangle based gridding of Cartesian data.
 
@@ -204,16 +207,8 @@ class triangulate:  # noqa: N801
             {table-classes}.
         {projection}
         {region}
-        outfile : str or None
-            The name of the output ASCII file to store the results of the
-            histogram equalization in.
-        output_type : str
-            Determine the format the xyz data will be returned in [Default is
-            ``pandas``]:
-
-                - ``numpy`` - :class:`numpy.ndarray`
-                - ``pandas``- :class:`pandas.DataFrame`
-                - ``file`` - ASCII file (requires ``outfile``)
+        {output_type}
+        {outfile}
         {verbose}
         {binary}
         {nodata}
@@ -226,13 +221,13 @@ class triangulate:  # noqa: N801
 
         Returns
         -------
-        ret : pandas.DataFrame or numpy.ndarray or None
+        ret
             Return type depends on ``outfile`` and ``output_type``:
 
             - None if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
-            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if
-              ``outfile`` is not set (depends on ``output_type``)
+            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not
+              set (depends on ``output_type``)
 
         Note
         ----
@@ -243,25 +238,15 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile)
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
-            with Session() as lib:
-                with lib.virtualfile_in(
+        with Session() as lib:
+            with (
+                lib.virtualfile_in(
                     check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                ) as vintbl:
-                    if outfile is None:
-                        outfile = tmpfile.name
-                    lib.call_module(
-                        module="triangulate",
-                        args=build_arg_string(kwargs, infile=vintbl, outfile=outfile),
-                    )
-
-            if outfile == tmpfile.name:
-                # if user did not set outfile, return pd.DataFrame
-                result = pd.read_csv(outfile, sep="\t", header=None)
-            elif outfile != tmpfile.name:
-                # return None if outfile set, output in outfile
-                result = None
-
-            if output_type == "numpy":
-                result = result.to_numpy()
-        return result
+                ) as vintbl,
+                lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+            ):
+                lib.call_module(
+                    module="triangulate",
+                    args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+                )
+            return lib.virtualfile_to_dataset(output_type=output_type, vfname=vouttbl)

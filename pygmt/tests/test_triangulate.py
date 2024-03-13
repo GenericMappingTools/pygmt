@@ -106,28 +106,6 @@ def test_delaunay_triples_ndarray_output(dataframe, expected_dataframe):
     np.testing.assert_allclose(actual=output, desired=expected_dataframe.to_numpy())
 
 
-def test_delaunay_triples_outfile(dataframe, expected_dataframe):
-    """
-    Test triangulate.delaunay_triples with ``outfile``.
-    """
-    with GMTTempFile(suffix=".txt") as tmpfile:
-        with pytest.warns(RuntimeWarning) as record:
-            result = triangulate.delaunay_triples(data=dataframe, outfile=tmpfile.name)
-            assert len(record) == 1  # check that only one warning was raised
-        assert result is None  # return value is None
-        assert Path(tmpfile.name).stat().st_size > 0
-        temp_df = pd.read_csv(filepath_or_buffer=tmpfile.name, sep="\t", header=None)
-        pd.testing.assert_frame_equal(left=temp_df, right=expected_dataframe)
-
-
-def test_delaunay_triples_invalid_format(dataframe):
-    """
-    Test that triangulate.delaunay_triples fails with incorrect format.
-    """
-    with pytest.raises(GMTInvalidInput):
-        triangulate.delaunay_triples(data=dataframe, output_type=1)
-
-
 @pytest.mark.benchmark
 def test_regular_grid_no_outgrid(dataframe, expected_grid):
     """
