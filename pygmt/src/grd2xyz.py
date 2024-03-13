@@ -2,6 +2,10 @@
 grd2xyz - Convert grid to data table
 """
 
+from typing import TYPE_CHECKING, Literal
+
+import numpy as np
+import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -12,6 +16,9 @@ from pygmt.helpers import (
     use_alias,
     validate_output_table_type,
 )
+
+if TYPE_CHECKING:
+    from collections.abc import Hashable
 
 __doctest_skip__ = ["grd2xyz"]
 
@@ -31,7 +38,12 @@ __doctest_skip__ = ["grd2xyz"]
     s="skiprows",
 )
 @kwargs_to_strings(R="sequence", o="sequence_comma")
-def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
+def grd2xyz(
+    grid,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Convert grid to data table.
 
@@ -45,15 +57,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
     Parameters
     ----------
     {grid}
-    output_type : str
-        Determine the format the xyz data will be returned in [Default is
-        ``pandas``]:
-
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``- :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
+    {output_type}
+    {outfile}
     cstyle : str
         [**f**\|\ **i**].
         Replace the x- and y-coordinates on output with the corresponding
@@ -116,13 +121,12 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
 
     Returns
     -------
-    ret : pandas.DataFrame or numpy.ndarray or None
+    ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by
-          ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type``)
+        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -147,8 +151,8 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
             "or 'file'."
         )
 
-    # Set the default column names for the pandas dataframe header
-    column_names = ["x", "y", "z"]
+    # Set the default column names for the pandas dataframe header.
+    column_names: list[Hashable] = ["x", "y", "z"]
     # Let output pandas column names match input DataArray dimension names
     if output_type == "pandas" and isinstance(grid, xr.DataArray):
         # Reverse the dims because it is rows, columns ordered.
@@ -163,8 +167,6 @@ def grd2xyz(grid, output_type="pandas", outfile=None, **kwargs):
                 module="grd2xyz",
                 args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
-        return lib.virtualfile_to_dataset(
-            output_type=output_type,
-            vfile=vouttbl,
-            column_names=column_names,
-        )
+            return lib.virtualfile_to_dataset(
+                output_type=output_type, vfname=vouttbl, column_names=column_names
+            )
