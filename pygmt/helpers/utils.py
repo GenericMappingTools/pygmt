@@ -402,7 +402,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ...         ),
     ...     )
     ... )
-    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
+    -BWSne+tBlank\040Space -Baf -F+t\042Empty\040\040Spaces\042 -l\234Void\040Space\234
     >>> print(
     ...     build_arg_string(
     ...         dict(A="0", B=True, C="rainbow"),
