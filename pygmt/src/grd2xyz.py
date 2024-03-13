@@ -4,6 +4,7 @@ grd2xyz - Convert grid to data table
 
 from typing import TYPE_CHECKING, Literal
 
+import numpy as np
 import pandas as pd
 import xarray as xr
 from pygmt.clib import Session
@@ -42,7 +43,7 @@ def grd2xyz(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
     **kwargs,
-) -> pd.DataFrame | xr.DataArray | None:
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Convert grid to data table.
 
