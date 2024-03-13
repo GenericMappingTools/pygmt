@@ -4,8 +4,8 @@ grdvolume - Calculate grid volume and area constrained by a contour.
 
 from typing import Literal
 
+import numpy as np
 import pandas as pd
-import xarray as xr
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_string,
@@ -31,7 +31,7 @@ def grdvolume(
     output_type: Literal["pandas", "numpy", "file"] = "pandas",
     outfile: str | None = None,
     **kwargs,
-) -> pd.DataFrame | xr.DataArray | None:
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Determine the volume between the surface of a grid and a plane.
 
