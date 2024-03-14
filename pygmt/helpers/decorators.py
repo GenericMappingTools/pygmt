@@ -254,6 +254,18 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outfile": """
+        outfile
+            File name for saving the result data. Required if ``output_type="file"``.
+            If specified, ``output_type`` will be forced to be ``"file"``.""",
+    "output_type": """
+        output_type
+            Desired output type of the result data.
+
+            - ``pandas`` will return a :class:`pandas.DataFrame` object.
+            - ``numpy`` will return a :class:`numpy.ndarray` object.
+            - ``file`` will save the result to the file specified by the ``outfile``
+              parameter.""",
     "outgrid": """
         outgrid : str or None
             Name of the output netCDF grid file. For writing a specific grid
