@@ -1,12 +1,13 @@
 """
-Functions for download remote data files as cache.
+Functions for downloading remote data files to cache.
 """
+
 from pygmt.src import which
 
 
 def cache_data():
     """
-    Download GMT remote data files used in PyGMT tests and docs as cache files.
+    Download GMT remote data files used in PyGMT tests and docs to cache folder.
     """
     # List of datasets to download
     datasets = [
@@ -57,8 +58,23 @@ def cache_data():
         # Earth WDMAM grids
         "@earth_wdmam_01d_g",
         "@S90E000.earth_wdmam_03m_g.nc",  # Specific grid for 03m test
-        # Earth day/night grids
+        # Earth day/night images
         "@earth_day_01d_p",
+        # Mars relief grids
+        "@mars_relief_01d_g",
+        "@N00W030.mars_relief_01m_g.nc",  # Specific grid for 01m tes
+        # Mercury relief grids
+        "@mercury_relief_01d_g",
+        "@N00W030.mercury_relief_01m_p.nc",  # Specific grid for 01m test
+        # Moon relief grids
+        "@moon_relief_01d_g",
+        "@N00W030.moon_relief_01m_p.nc",  # Specific grid for 01m test
+        # Pluto relief grids
+        "@pluto_relief_01d_g",
+        "@N00W030.pluto_relief_01m_p.nc",  # Specific grid for 01m test
+        # Venus relief grids
+        "@venus_relief_01d_g",
+        "@N00W030.venus_relief_01m_g.nc",  # Specific grid for 01m test
         # Other cache files
         "@capitals.gmt",
         "@circuit.png",

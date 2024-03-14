@@ -1,6 +1,7 @@
 """
 xyz2grd - Convert data table to a grid.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -151,14 +152,13 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
 
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(
+            with lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            )
-            with file_context as infile:
+            ) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="xyz2grd", args=build_arg_string(kwargs, infile=infile)
+                    module="xyz2grd", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

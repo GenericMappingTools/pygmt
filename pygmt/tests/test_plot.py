@@ -1,6 +1,7 @@
 """
 Test Figure.plot.
 """
+
 import datetime
 import os
 from pathlib import Path
@@ -450,6 +451,26 @@ def test_plot_datetime():
     x = [datetime.date(2018, 1, 1), datetime.datetime(2019, 1, 1)]
     y = [8.5, 9.5]
     fig.plot(x=x, y=y, style="i0.2c", pen="1p")
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_plot_timedelta64():
+    """
+    Test plotting numpy.timedelta64 input data.
+    """
+    fig = Figure()
+    fig.basemap(
+        projection="X8c/5c",
+        region=[0, 8, 0, 10],
+        frame=["WSne", "xaf+lForecast Days", "yaf+lRMSE"],
+    )
+    fig.plot(
+        x=np.arange(np.timedelta64(0, "D"), np.timedelta64(8, "D")),
+        y=np.geomspace(start=0.1, stop=9, num=8),
+        style="c0.2c",
+        pen="1p",
+    )
     return fig
 
 

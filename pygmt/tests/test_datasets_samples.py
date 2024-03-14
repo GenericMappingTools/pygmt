@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading sample datasets.
 """
+
 import numpy.testing as npt
 import pandas as pd
 import pytest
@@ -180,6 +181,7 @@ def test_load_notre_dame_topography():
     assert data["z"].max() == 960
 
 
+@pytest.mark.benchmark
 def test_earth_relief_holes():
     """
     Check that the @earth_relief_20m_holes.grd dataset loads without errors.

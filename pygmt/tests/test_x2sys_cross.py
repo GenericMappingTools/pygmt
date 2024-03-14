@@ -1,6 +1,8 @@
 """
 Test pygmt.x2sys_cross.
 """
+
+import copy
 import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -9,7 +11,9 @@ import numpy as np
 import numpy.testing as npt
 import pandas as pd
 import pytest
+from packaging.version import Version
 from pygmt import x2sys_cross, x2sys_init
+from pygmt.clib import __gmt_version__
 from pygmt.datasets import load_sample_data
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import data_kind
@@ -54,6 +58,10 @@ def test_x2sys_cross_input_file_output_file():
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_input_file_output_dataframe():
     """
     Run x2sys_cross by passing in a filename, and output internal crossovers to a
@@ -65,7 +73,7 @@ def test_x2sys_cross_input_file_output_dataframe():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14294, 12)
+        assert output.shape == (14338, 12)
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
@@ -142,8 +150,9 @@ def test_x2sys_cross_input_dataframe_with_nan(tracks):
             tag=tag, fmtfile="xyz", suffix="xyzt", units=["de", "se"], force=True
         )
 
-        tracks[0].loc[tracks[0]["z"] < -15, "z"] = np.nan  # set some values to NaN
-        output = x2sys_cross(tracks=tracks, tag=tag, coe="i")
+        newtracks = copy.deepcopy(x=tracks)
+        newtracks[0].loc[newtracks[0]["z"] < -15, "z"] = np.nan  # set some NaN values
+        output = x2sys_cross(tracks=newtracks, tag=tag, coe="i")
 
         assert isinstance(output, pd.DataFrame)
         assert output.shape == (3, 12)
@@ -194,6 +203,10 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_region_interpolation_numpoints():
     """
     Test that x2sys_cross's region (R), interpolation (l) and numpoints (W) arguments
@@ -212,13 +225,17 @@ def test_x2sys_cross_region_interpolation_numpoints():
         )
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (3867, 12)
+        assert output.shape == (3882, 12)
         # Check crossover errors (z_X) and mean value of observables (z_M)
-        npt.assert_allclose(output.z_X.mean(), -139.2, rtol=1e-4)
-        npt.assert_allclose(output.z_M.mean(), -2890.465813)
+        npt.assert_allclose(output.z_X.mean(), -138.66, rtol=1e-4)
+        npt.assert_allclose(output.z_M.mean(), -2896.875915)
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
+@pytest.mark.xfail(
+    condition=Version(__gmt_version__) < Version("6.5.0"),
+    reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
+)
 def test_x2sys_cross_trackvalues():
     """
     Test that x2sys_cross's trackvalues (Z) argument work.
@@ -229,7 +246,7 @@ def test_x2sys_cross_trackvalues():
         output = x2sys_cross(tracks=["@tut_ship.xyz"], tag=tag, trackvalues=True)
 
         assert isinstance(output, pd.DataFrame)
-        assert output.shape == (14294, 12)
+        assert output.shape == (14338, 12)
         # Check mean of track 1 values (z_1) and track 2 values (z_2)
-        npt.assert_allclose(output.z_1.mean(), -2420.569767)
-        npt.assert_allclose(output.z_2.mean(), -2400.357549)
+        npt.assert_allclose(output.z_1.mean(), -2422.418556, rtol=1e-4)
+        npt.assert_allclose(output.z_2.mean(), -2402.268364, rtol=1e-4)

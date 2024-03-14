@@ -54,7 +54,6 @@ class grdhisteq:  # noqa: N801
     @fmt_docstring
     @use_alias(
         C="divisions",
-        D="outfile",
         G="outgrid",
         R="region",
         N="gaussian",
@@ -63,89 +62,7 @@ class grdhisteq:  # noqa: N801
         h="header",
     )
     @kwargs_to_strings(R="sequence")
-    def _grdhisteq(grid, output_type, **kwargs):
-        r"""
-        Perform histogram equalization for a grid.
-
-        Must provide ``outfile`` or ``outgrid``.
-
-        Full option list at :gmt-docs:`grdhisteq.html`
-
-        {aliases}
-
-        Parameters
-        ----------
-        {grid}
-        {outgrid}
-        outfile : str, bool, or None
-            The name of the output ASCII file to store the results of the
-            histogram equalization in.
-        output_type: str
-            Determine the output type. Use "file", "xarray", "pandas", or
-            "numpy".
-        divisions : int
-            Set the number of divisions of the data range [Default is ``16``].
-
-        {region}
-        {verbose}
-        {header}
-
-        Returns
-        -------
-        ret: pandas.DataFrame or xarray.DataArray or None
-            Return type depends on whether the ``outgrid`` parameter is set:
-
-            - xarray.DataArray if ``output_type`` is "xarray""
-            - numpy.ndarray if ``output_type`` is "numpy"
-            - pandas.DataFrame if ``output_type`` is "pandas"
-            - None if ``output_type`` is "file" (output is stored in
-              ``outgrid`` or ``outfile``)
-
-        See Also
-        --------
-        :func:`pygmt.grd2cpt`
-        """
-
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                lib.call_module(
-                    module="grdhisteq", args=build_arg_string(kwargs, infile=infile)
-                )
-
-        if output_type == "file":
-            return None
-        if output_type == "xarray":
-            return load_dataarray(kwargs["G"])
-
-        result = pd.read_csv(
-            filepath_or_buffer=kwargs["D"],
-            sep="\t",
-            header=None,
-            names=["start", "stop", "bin_id"],
-            dtype={
-                "start": np.float32,
-                "stop": np.float32,
-                "bin_id": np.uint32,
-            },
-        )
-        if output_type == "numpy":
-            return result.to_numpy()
-
-        return result.set_index("bin_id")
-
-    @staticmethod
-    @fmt_docstring
-    def equalize_grid(
-        grid,
-        *,
-        outgrid=None,
-        divisions=None,
-        region=None,
-        gaussian=None,
-        quadratic=None,
-        verbose=None,
-    ):
+    def equalize_grid(grid, **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -156,6 +73,8 @@ class grdhisteq:  # noqa: N801
         cumulative distribution.
 
         Full option list at :gmt-docs:`grdhisteq.html`
+
+        {aliases}
 
         Parameters
         ----------
@@ -202,39 +121,29 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
-        # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
-            if isinstance(outgrid, str):
-                output_type = "file"
-            elif outgrid is None:
-                output_type = "xarray"
-                outgrid = tmpfile.name
-            else:
-                raise GMTInvalidInput("Must specify 'outgrid' as a string or None.")
-            return grdhisteq._grdhisteq(
-                grid=grid,
-                output_type=output_type,
-                outgrid=outgrid,
-                divisions=divisions,
-                region=region,
-                gaussian=gaussian,
-                quadratic=quadratic,
-                verbose=verbose,
-            )
+            with Session() as lib:
+                with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+                    if (outgrid := kwargs.get("G")) is None:
+                        kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
+                    lib.call_module(
+                        module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                    )
+            return load_dataarray(outgrid) if outgrid == tmpfile.name else None
 
     @staticmethod
     @fmt_docstring
-    def compute_bins(
-        grid,
-        *,
-        output_type="pandas",
-        outfile=None,
-        divisions=None,
-        quadratic=None,
-        verbose=None,
-        region=None,
-        header=None,
-    ):
+    @use_alias(
+        C="divisions",
+        D="outfile",
+        R="region",
+        N="gaussian",
+        Q="quadratic",
+        V="verbose",
+        h="header",
+    )
+    @kwargs_to_strings(R="sequence")
+    def compute_bins(grid, output_type="pandas", **kwargs):
         r"""
         Perform histogram equalization for a grid.
 
@@ -253,6 +162,8 @@ class grdhisteq:  # noqa: N801
         occurring equally.
 
         Full option list at :gmt-docs:`grdhisteq.html`
+
+        {aliases}
 
         Parameters
         ----------
@@ -299,11 +210,11 @@ class grdhisteq:  # noqa: N801
         >>> print(bins)
                 start    stop
         bin_id
-        0       170.0   389.0
-        1       389.0   470.5
-        2       470.5   571.0
-        3       571.0   705.0
-        4       705.0  2275.5
+        0       183.5   395.0
+        1       395.0   472.0
+        2       472.0   575.0
+        3       575.0   709.5
+        4       709.5  1807.0
 
         See Also
         --------
@@ -314,21 +225,39 @@ class grdhisteq:  # noqa: N801
         This method does a weighted histogram equalization for geographic
         grids to account for node area varying with latitude.
         """
+        outfile = kwargs.get("D")
         output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        if header is not None and output_type != "file":
+        if kwargs.get("h") is not None and output_type != "file":
             raise GMTInvalidInput("'header' is only allowed with output_type='file'.")
 
         with GMTTempFile(suffix=".txt") as tmpfile:
-            if output_type != "file":
-                outfile = tmpfile.name
-            return grdhisteq._grdhisteq(
-                grid,
-                output_type=output_type,
-                outfile=outfile,
-                divisions=divisions,
-                quadratic=quadratic,
-                verbose=verbose,
-                region=region,
-                header=header,
-            )
+            with Session() as lib:
+                with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+                    if outfile is None:
+                        kwargs["D"] = outfile = tmpfile.name  # output to tmpfile
+                    lib.call_module(
+                        module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                    )
+
+            if outfile == tmpfile.name:
+                # if user did not set outfile, return pd.DataFrame
+                result = pd.read_csv(
+                    filepath_or_buffer=outfile,
+                    sep="\t",
+                    header=None,
+                    names=["start", "stop", "bin_id"],
+                    dtype={
+                        "start": np.float32,
+                        "stop": np.float32,
+                        "bin_id": np.uint32,
+                    },
+                )
+            elif outfile != tmpfile.name:
+                # return None if outfile set, output in outfile
+                return None
+
+            if output_type == "numpy":
+                return result.to_numpy()
+
+            return result.set_index("bin_id")

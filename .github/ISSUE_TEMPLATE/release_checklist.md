@@ -16,11 +16,12 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
-- [ ] Check [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy.html) to see if we need to bump the minimum Python and NumPy versions
+- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy/Pandas/Xarray)
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
 - [ ] Check to ensure that:
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
   - [ ] All tests pass in the ["GMT Dev Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_dev.yaml)
+  - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
@@ -30,8 +31,8 @@ assignees: ''
     - [ ] Update DOI (and url for BibTeX)
     - [ ] Update version
     - [ ] Update date released
-  - [ ] Add the documentation link https://github.com/GenericMappingTools/pygmt#compatibility-with-gmtpythonnumpy-versions
-  - [ ] Add compatibility information https://github.com/GenericMappingTools/pygmt#compatibility-with-gmtpythonnumpy-versions
+  - [ ] Add the documentation link `doc/minversions.md`
+  - [ ] Add minimum required version information `doc/minversions.md`
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
 
 **Release**:
@@ -47,7 +48,6 @@ assignees: ''
 - [ ] Announce the release on:
   - [ ] GMT [forum](https://forum.generic-mapping-tools.org/c/news/) (do this announcement first! draft on https://hackmd.io/@pygmt. requires moderator status)
   - [ ] [ResearchGate](https://www.researchgate.net) (after forum announcement, add new version as research item via the **code** category, be sure to include the corresponding new Zenodo DOI)
-  - [ ] [Twitter](https://twitter.com/gmt_dev) (after forum announcement)
 ---
 
 - [ ] Party :tada: (don't tick before all other checkboxes are ticked!)

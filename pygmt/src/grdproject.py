@@ -1,6 +1,7 @@
 """
 grdproject - Forward and inverse map transformation of grids.
 """
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -103,24 +104,20 @@ def grdproject(grid, **kwargs):
     >>> import pygmt
     >>> # Load a grid of @earth_relief_30m data, with a longitude range of
     >>> # 10° E to 30° E, and a latitude range of 15° N to 25° N
-    >>> grid = pygmt.datasets.load_earth_relief(
-    ...     resolution="30m", region=[10, 30, 15, 25]
-    ... )
-    >>> # Create a new grid from the input grid, set the projection to
-    >>> # Mercator, and set inverse to "True" to change from "geographic"
-    >>> # to "rectangular"
-    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", inverse=True)
+    >>> region = [10, 30, 15, 25]
+    >>> grid = pygmt.datasets.load_earth_relief(resolution="30m", region=region)
+    >>> # Project the geographic gridded data onto a rectangular grid
+    >>> new_grid = pygmt.grdproject(grid=grid, projection="M10c", region=region)
     """
     if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdproject", args=build_arg_string(kwargs, infile=infile)
+                    module="grdproject", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

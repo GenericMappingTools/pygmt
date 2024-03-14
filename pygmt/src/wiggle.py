@@ -1,10 +1,8 @@
 """
 wiggle - Plot z=f(x,y) anomalies along tracks.
 """
-import warnings
 
 from pygmt.clib import Session
-from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -12,7 +10,6 @@ from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, us
 @use_alias(
     B="frame",
     D="position",
-    G="color",
     J="projection",
     R="region",
     T="track",
@@ -102,17 +99,6 @@ def wiggle(
     """
     kwargs = self._preprocess(**kwargs)
 
-    if (fillpositive or fillnegative) and kwargs.get("G") is not None:
-        raise GMTInvalidInput("Use either fillpositive/fillnegative or color.")
-
-    if kwargs.get("G") is not None:
-        msg = (
-            "The 'color' parameter has been deprecated since v0.8.0"
-            " and will be removed in v0.12.0. Use fillpositive/fillnegative"
-            " instead."
-        )
-        warnings.warn(msg, category=FutureWarning, stacklevel=2)
-
     if fillpositive or fillnegative:
         kwargs["G"] = []
         if fillpositive:
@@ -121,11 +107,9 @@ def wiggle(
             kwargs["G"].append(fillnegative + "+n")
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-        )
-
-        with file_context as fname:
+        ) as vintbl:
             lib.call_module(
-                module="wiggle", args=build_arg_string(kwargs, infile=fname)
+                module="wiggle", args=build_arg_string(kwargs, infile=vintbl)
             )

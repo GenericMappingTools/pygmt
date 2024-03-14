@@ -1,4 +1,5 @@
 outs:
-- md5: bad6889287951b3c888032af6b1fa945
-  size: 7674
+- md5: 783930f2c828f9630206b3389bf6feed
+  size: 7684
   path: test_plot_dataframe_incols.png
+  hash: md5

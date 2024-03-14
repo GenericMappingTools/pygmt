@@ -1,6 +1,7 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+
 # ruff: noqa: RUF001
 import os
 import pathlib
@@ -172,9 +173,9 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'image'
     """
     # determine the data kind
-    if isinstance(data, (str, pathlib.PurePath)):
+    if isinstance(data, str | pathlib.PurePath):
         kind = "file"
-    elif isinstance(data, (bool, int, float)) or (data is None and not required_data):
+    elif isinstance(data, bool | int | float) or (data is None and not required_data):
         kind = "arg"
     elif isinstance(data, xr.DataArray):
         kind = "image" if len(data.dims) == 3 else "grid"
@@ -257,6 +258,7 @@ def non_ascii_to_octal(argstr):
                 "◊〈®©™∑"  # \34x-35x
                 "〉∫⌠⌡",  # \36x-37x. \360 and \377 are undefined
                 [*range(32, 127), *range(160, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -282,6 +284,7 @@ def non_ascii_to_octal(argstr):
                 "➠➡➢➣➤➥➦➧➨➩➪➫➬➭➮➯"  # \34x-\35x
                 "➱➲➳➴➵➶➷➸➹➺➻➼➽➾",  # \36x-\37x. \360 and \377 are undefined
                 [*range(32, 127), *range(161, 240), *range(241, 255)],
+                strict=True,
             )
         }
     )
@@ -300,6 +303,7 @@ def non_ascii_to_octal(argstr):
                 "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
                 "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
                 [*range(25, 32), *range(127, 160)],
+                strict=True,
             )
         }
     )
