@@ -1,6 +1,7 @@
 """
 Functions to convert data types into ctypes friendly formats.
 """
+
 import warnings
 
 import numpy as np
@@ -194,7 +195,7 @@ def vectors_to_arrays(vectors):
     arrays = []
     for vector in vectors:
         vec_dtype = str(getattr(vector, "dtype", ""))
-        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype, None))
+        array = np.asarray(a=vector, dtype=dtypes.get(vec_dtype))
         arrays.append(as_c_contiguous(array))
 
     return arrays

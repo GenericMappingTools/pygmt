@@ -1,6 +1,7 @@
 """
 Test Figure.text.
 """
+
 import os
 
 import numpy as np
@@ -316,8 +317,6 @@ def test_text_angle_font_justify_from_textfile():
 def test_text_justify_array(region):
     """
     Test passing an array of justify codes.
-
-    Re-use the baseline image from test_text_position().
     """
     fig = Figure()
     fig.basemap(region=region, projection="x1c", frame="a")
@@ -355,7 +354,7 @@ def test_text_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
 
     fig = Figure()
     fig.basemap(region=[0, 10, 10, 20], projection="X10c", frame=True)
@@ -370,7 +369,7 @@ def test_text_varying_transparency():
     """
     x = np.arange(1, 10)
     y = np.arange(11, 20)
-    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y)]
+    text = [f"TEXT-{i}-{j}" for i, j in zip(x, y, strict=True)]
     transparency = np.arange(10, 100, 10)
 
     fig = Figure()

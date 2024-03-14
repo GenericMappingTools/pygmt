@@ -1,4 +1,5 @@
 outs:
-- md5: b80a0ec0f5de45bdc196c19adfb5a471
-  size: 24883
+- md5: c0e2d094a25066a6a3cf473579ab97b8
+  size: 25243
   path: test_legend_position.png
+  hash: md5

@@ -1,6 +1,7 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
+
 from __future__ import annotations
 
 import warnings
@@ -8,7 +9,7 @@ from typing import TYPE_CHECKING
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, kwargs_to_strings
+from pygmt.helpers import build_arg_string, deprecate_parameter, kwargs_to_strings
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -17,16 +18,17 @@ if TYPE_CHECKING:
 __doctest_skip__ = ["timestamp"]
 
 
+@deprecate_parameter("justification", "justify", "v0.11.0", remove_version="v0.13.0")
 @kwargs_to_strings(offset="sequence")
 def timestamp(
     self,
     text: str | None = None,
     label: str | None = None,
-    justification: str = "BL",
+    justify: str = "BL",
     offset: float | str | Sequence[float | str] = ("-54p", "-54p"),
     font: str = "Helvetica,black",
     timefmt: str = "%Y %b %d %H:%M:%S",
-) -> None:
+):
     r"""
     Plot the GMT timestamp logo.
 
@@ -44,13 +46,13 @@ def timestamp(
         The text must be no longer than 64 characters.
     label
         The text string shown after the GMT timestamp logo.
-    justification
+    justify
         Justification of the timestamp box relative to the plot's bottom-left corner
-        (i.e., the plot origin). The *justification* is a two-character code that is a
-        combination of a horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and
-        a vertical (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
-        ``justification="TL"`` means choosing the **T**\ op **L**\ eft point of the
-        timestamp as the anchor point.
+        (i.e., the plot origin). Give a two-character code that is a combination of a
+        horizontal (**L**\ (eft), **C**\ (enter), or **R**\ (ight)) and a vertical
+        (**T**\ (op), **M**\ (iddle), or **B**\ (ottom)) code. For example,
+        ``justify="TL"`` means choosing the **T**\ op **L**\ eft point of the timestamp
+        as the anchor point.
     offset
         *offset* or (*offset_x*, *offset_y*).
         Offset the anchor point of the timestamp box by *offset_x* and *offset_y*. If a
@@ -86,7 +88,7 @@ def timestamp(
     kwdict: dict = {"T": True, "U": ""}
     if label is not None:
         kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justification}"
+    kwdict["U"] += f"+j{justify}"
 
     if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
         # Giving a single offset doesn't work in GMT <= 6.4.0.

@@ -1,6 +1,7 @@
 """
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
+
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
@@ -94,23 +95,22 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     ... )
     >>> print(output_dataframe)
         0             1             2           3
-    0  200  2.318187e+12  8.533727e+14  368.120722
-    1  250  2.272471e+12  7.383936e+14  324.929840
-    2  300  2.162074e+12  6.273066e+14  290.141086
-    3  350  2.018302e+12  5.222640e+14  258.764032
-    4  400  1.857370e+12  4.252699e+14  228.963499
+    0  200  2.323600e+12  8.523815e+14  366.836554
+    1  250  2.275864e+12  7.371655e+14  323.905736
+    2  300  2.166707e+12  6.258570e+14  288.851699
+    3  350  2.019284e+12  5.207732e+14  257.899955
+    4  400  1.870441e+12  4.236191e+14  226.480847
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
     with GMTTempFile() as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if outfile is None:
                     outfile = tmpfile.name
                 lib.call_module(
                     module="grdvolume",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
+                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile),
                 )
 
         # Read temporary csv output to a pandas table

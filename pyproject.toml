@@ -5,9 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pygmt"
 description = "A Python interface for the Generic Mapping Tools"
-readme = "README.rst"
-requires-python = ">=3.9"
-license = {text = "BSD License"}
+readme = "README.md"
+requires-python = ">=3.10"
 authors = [{name = "The PyGMT Developers", email = "pygmt.team@gmail.com"}]
 keywords = [
     "cartography",
@@ -25,16 +24,15 @@ classifiers = [
     "Intended Audience :: Education",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
-    "numpy>=1.22",
-    "pandas",
-    "xarray",
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "xarray>=2022.03",
     "netCDF4",
     "packaging",
 ]
@@ -56,14 +54,11 @@ changelog = "https://www.pygmt.org/latest/changes.html"
 
 [tool.setuptools]
 platforms = ["Any"]
-include-package-data = true
+license-files = ["LICENSE.txt"]
 
 [tool.setuptools.packages.find]
 include = ["pygmt*"]
 exclude = ["doc"]
-
-[tool.setuptools.package-data]
-tests = ["data/*", "baseline/*"]
 
 [tool.setuptools_scm]
 local_scheme = "node-and-date"
@@ -81,7 +76,7 @@ ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 88  # E501 (line-too-long)
-show-source = true
+output-format = "full"
 
 [tool.ruff.format]
 line-ending = "lf"  # Use UNIX `\n` line endings for all files

@@ -5,10 +5,10 @@ channels:
 dependencies:
     - python=3.12
     # Required dependencies
-    - gmt=6.4.0
-    - numpy>=1.22
-    - pandas
-    - xarray
+    - gmt=6.5.0
+    - numpy>=1.23
+    - pandas>=1.5
+    - xarray>=2022.03
     - netCDF4
     - packaging
     # Optional dependencies
@@ -24,7 +24,7 @@ dependencies:
     - pip
     # Dev dependencies (style checks)
     - codespell
-    - ruff>=0.1.9
+    - ruff>=0.3.0
     # Dev dependencies (unit testing)
     - matplotlib
     - pytest-cov

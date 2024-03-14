@@ -1,6 +1,7 @@
 """
 Test the functions that load libgmt.
 """
+
 import ctypes
 import os
 import shutil
@@ -35,13 +36,7 @@ def test_check_libgmt():
     Make sure check_libgmt fails when given a bogus library.
     """
     libgmt = FakedLibGMT("/path/to/libgmt.so")
-    msg = (
-        f"Error loading '{libgmt._name}'. "
-        "Couldn't access function GMT_Create_Session. "
-        "Ensure that you have installed an up-to-date GMT version 6 library. "
-        "Please set the environment variable 'GMT_LIBRARY_PATH' to the "
-        "directory of the GMT 6 library."
-    )
+    msg = f"Error loading '{libgmt}'. Couldn't access function GMT_Create_Session."
     with pytest.raises(GMTCLibError, match=msg):
         check_libgmt(libgmt)
 
@@ -50,8 +45,7 @@ def test_clib_names():
     """
     Make sure we get the correct library name for different OS names.
     """
-    for linux in ["linux", "linux2", "linux3"]:
-        assert clib_names(linux) == ["libgmt.so"]
+    assert clib_names("linux") == ["libgmt.so"]
     assert clib_names("darwin") == ["libgmt.dylib"]
     assert clib_names("win32") == ["gmt.dll", "gmt_w64.dll", "gmt_w32.dll"]
     for freebsd in ["freebsd10", "freebsd11", "freebsd12"]:
@@ -62,6 +56,7 @@ def test_clib_names():
 
 ###############################################################################
 # Test load_libgmt
+@pytest.mark.benchmark
 def test_load_libgmt():
     """
     Test that loading libgmt works and doesn't crash.
@@ -69,12 +64,13 @@ def test_load_libgmt():
     check_libgmt(load_libgmt())
 
 
-@pytest.mark.skipif(sys.platform == "win32", reason="run on UNIX platforms only")
 def test_load_libgmt_fails(monkeypatch):
     """
     Test that GMTCLibNotFoundError is raised when GMT's shared library cannot be found.
     """
     with monkeypatch.context() as mpatch:
+        if sys.platform == "win32":
+            mpatch.setattr(ctypes.util, "find_library", lambda name: "fakegmt.dll")  # noqa: ARG005
         mpatch.setattr(
             sys,
             "platform",
