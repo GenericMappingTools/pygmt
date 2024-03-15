@@ -189,7 +189,7 @@ class grdhisteq:  # noqa: N801
         ret
             Return type depends on ``outfile`` and ``output_type``:
 
-            - None if ``outfile`` is set (output will be stored in file set by
+            - ``None`` if ``outfile`` is set (output will be stored in file set by
               ``outfile``)
             - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not
               set (depends on ``output_type``)
