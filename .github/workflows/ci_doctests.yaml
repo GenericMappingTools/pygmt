@@ -8,7 +8,7 @@ name: Doctests
 on:
   # push:
   #   branches: [ main ]
-  pull_request:
+  # pull_request:
   # Schedule weekly tests on Sunday
   schedule:
     - cron: '0 0 * * 0'
