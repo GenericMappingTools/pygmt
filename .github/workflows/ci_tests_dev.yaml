@@ -69,7 +69,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript=10.02.1
+            ghostscript=10.03.0
             glib
             hdf5
             libblas
