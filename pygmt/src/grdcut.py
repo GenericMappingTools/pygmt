@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, engine: str = None, **kwargs):
+def grdcut(grid, engine: str | None = None, **kwargs):
     r"""
     Extract subregion from a grid.
 

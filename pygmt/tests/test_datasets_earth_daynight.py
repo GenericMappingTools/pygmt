@@ -1,6 +1,7 @@
 """
 Test basic functionality for loading Blue and Black Marble datasets.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
