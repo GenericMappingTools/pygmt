@@ -1,6 +1,7 @@
 """
 Test Figure.grdcontour.
 """
+
 import os
 
 import numpy as np

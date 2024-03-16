@@ -1,6 +1,7 @@
 """
 inset - Create inset figures.
 """
+
 import contextlib
 
 from pygmt.clib import Session

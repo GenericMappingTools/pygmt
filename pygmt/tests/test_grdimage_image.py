@@ -1,6 +1,7 @@
 """
 Test Figure.grdimage on 3-band RGB images.
 """
+
 import pytest
 from pygmt import Figure
 from pygmt.datasets import load_blue_marble

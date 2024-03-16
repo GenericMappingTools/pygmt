@@ -5,6 +5,7 @@ Apply them to functions wrapping GMT modules to automate: alias generation for
 arguments, insert common text into docstrings, transform arguments to strings,
 etc.
 """
+
 import functools
 import textwrap
 import warnings
@@ -253,6 +254,18 @@ COMMON_DOCSTRINGS = {
               input and skip trailing text. **Note**: If ``incols`` is also
               used then the columns given to ``outcols`` correspond to the
               order after the ``incols`` selection has taken place.""",
+    "outfile": """
+        outfile
+            File name for saving the result data. Required if ``output_type="file"``.
+            If specified, ``output_type`` will be forced to be ``"file"``.""",
+    "output_type": """
+        output_type
+            Desired output type of the result data.
+
+            - ``pandas`` will return a :class:`pandas.DataFrame` object.
+            - ``numpy`` will return a :class:`numpy.ndarray` object.
+            - ``file`` will save the result to the file specified by the ``outfile``
+              parameter.""",
     "outgrid": """
         outgrid : str or None
             Name of the output netCDF grid file. For writing a specific grid
@@ -455,9 +468,9 @@ def fmt_docstring(module_func):
             aliases.append(f"- {arg} = {alias}")
         filler_text["aliases"] = "\n".join(aliases)
 
-    filler_text[
-        "table-like"
-    ] = "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
+    filler_text["table-like"] = (
+        "numpy.ndarray, pandas.DataFrame, xarray.Dataset, or geopandas.GeoDataFrame"
+    )
     filler_text["table-classes"] = (
         ":class:`numpy.ndarray`, a :class:`pandas.DataFrame`, an\n"
         "    :class:`xarray.Dataset` made up of 1-D :class:`xarray.DataArray`\n"
@@ -567,38 +580,29 @@ def use_alias(**aliases):
                     )
                     warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
 
-            # timestamp (U) is deprecated since v0.9.0.
+            # timestamp (U) is deprecated since v0.9.0 and removed in v0.12.0.
             if "U" in kwargs or "timestamp" in kwargs:
-                if "timestamp" in kwargs:
-                    kwargs["U"] = kwargs.pop("timestamp")
                 msg = (
-                    "Parameters 'U' and 'timestamp' are deprecated since v0.9.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'U' and 'timestamp' are no longer supported since v0.12.0. "
                     "Use Figure.timestamp() instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # xshift (X) is deprecated since v0.8.0.
+            # xshift (X) is deprecated since v0.8.0 and removed in v0.12.0.
             if "X" in kwargs or "xshift" in kwargs:
-                if "xshift" in kwargs:
-                    kwargs["X"] = kwargs.pop("xshift")
                 msg = (
-                    "Parameters 'X' and 'xshift' are deprecated since v0.8.0 "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'X' and 'xshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(xshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
-            # yshift (Y) is deprecated since v0.8.0.
+            # yshift (Y) is deprecated since v0.8.0 and removed in v0.12.0.
             if "Y" in kwargs or "yshift" in kwargs:
-                if "yshift" in kwargs:
-                    kwargs["Y"] = kwargs.pop("yshift")
                 msg = (
-                    "Parameters 'Y' and 'yshift' are deprecated since v0.8.0. "
-                    "and will be removed in v0.12.0. "
+                    "Parameters 'Y' and 'yshift' are no longer supported since v0.12.0. "
                     "Use Figure.shift_origin(yshift=...) instead."
                 )
-                warnings.warn(msg, category=SyntaxWarning, stacklevel=2)
+                raise GMTInvalidInput(msg)
 
             return module_func(*args, **kwargs)
 

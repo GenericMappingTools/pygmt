@@ -1,6 +1,7 @@
 """
 Test the behaviour of the GMTDataArrayAccessor class.
 """
+
 import os
 import sys
 from pathlib import Path

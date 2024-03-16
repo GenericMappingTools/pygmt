@@ -1,6 +1,7 @@
 """
 Test pygmt.blockmean and pygmt.blockmode.
 """
+
 from pathlib import Path
 
 import numpy as np

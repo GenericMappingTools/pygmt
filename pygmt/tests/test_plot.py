@@ -1,6 +1,7 @@
 """
 Test Figure.plot.
 """
+
 import datetime
 import os
 from pathlib import Path
