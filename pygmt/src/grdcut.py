@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, engine: str = None, **kwargs):
     r"""
     Extract subregion from a grid.
 
@@ -74,6 +74,10 @@ def grdcut(grid, **kwargs):
         NaNs, append **+N** to strip off such columns before (optionally)
         considering the range of the core subset for further reduction of the
         area.
+    engine : str
+        Optional. Installed backend or subclass of xarray.backends.BackendEntrypoint.
+        Engine to use when reading files. If not provided, the default engine is chosen
+        based on available dependencies, with a preference for "netcdf4".
 
     {verbose}
     {coltypes}
@@ -99,7 +103,8 @@ def grdcut(grid, **kwargs):
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
+    suffix = ".tif" if engine == "rasterio" else ".nc"
+    with GMTTempFile(suffix=suffix) as tmpfile:
         with Session() as lib:
             with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
@@ -108,4 +113,6 @@ def grdcut(grid, **kwargs):
                     module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+        return (
+            load_dataarray(outgrid, engine=engine) if outgrid == tmpfile.name else None
+        )

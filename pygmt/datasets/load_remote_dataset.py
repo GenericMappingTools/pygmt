@@ -430,16 +430,22 @@ def _load_remote_dataset(
     # different ways to load tiled and non-tiled grids.
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
+    engine = "rasterio" if dataset_prefix == "earth_day_" else "netcdf4"
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
                 f"'region' is required for {dataset.title} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
-        engine = "rasterio" if dataset_prefix == "earth_day_" else "netcdf4"
         grid = load_dataarray(fname, engine=engine)
     else:
-        grid = grdcut(f"@{dataset_prefix}{resolution}{reg}", region=region)
+        grid = grdcut(
+            f"@{dataset_prefix}{resolution}{reg}", region=region, engine=engine
+        )
+
+    if registration == "pixel":
+        grid.gmt.registration = 1
+    grid.gmt.gtype = 1  # GMT remote datasets are always geographic?
 
     # Add some metadata to the grid
     grid.name = dataset.name

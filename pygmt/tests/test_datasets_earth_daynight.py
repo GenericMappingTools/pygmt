@@ -18,6 +18,7 @@ def test_blue_marble_01d():
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.attrs["long_name"] == "NASA Day Images"
     assert data.shape == (3, 180, 360)
+    assert data.dtype == "uint8"
     assert data.gmt.registration == 1
     assert data.gmt.gtype == 1
     npt.assert_allclose(data.y, np.arange(89.5, -90.5, -1))
@@ -31,13 +32,14 @@ def test_blue_marble_01d_with_region():
     Test loading low-resolution Blue Marble with 'region'.
     """
     data = load_blue_marble(resolution="01d", region=[-10, 10, -5, 5])
-    assert data.shape == (3, 20, 10)
+    assert data.shape == (3, 10, 20)
+    assert data.dtype == "uint8"
     assert data.gmt.registration == 1
     assert data.gmt.gtype == 1
-    npt.assert_allclose(data.lat, np.arange(-5, 6, 1))
-    npt.assert_allclose(data.lon, np.arange(-10, 11, 1))
-    npt.assert_allclose(data.min(), 0, atol=1)
-    npt.assert_allclose(data.max(), 255, atol=1)
+    npt.assert_allclose(data.y, np.arange(4.5, -5.5, -1))
+    npt.assert_allclose(data.x, np.arange(-9.5, 10.5, 1))
+    npt.assert_allclose(data.min(), 10, atol=1)
+    npt.assert_allclose(data.max(), 77, atol=1)
 
 
 def test_blue_marble_01m_default_registration():
@@ -46,12 +48,13 @@ def test_blue_marble_01m_default_registration():
     a "pixel" registration.
     """
     data = load_blue_marble(resolution="01m", region=[-10, -9, 3, 5])
-    assert data.shape == (3, 12, 3)
+    assert data.shape == (3, 120, 60)
+    assert data.dtype == "uint8"
     assert data.gmt.registration == 1
     assert data.gmt.gtype == 1
-    assert data.coords["lat"].data.min() == 3.0
-    assert data.coords["lat"].data.max() == 5.0
-    assert data.coords["lon"].data.min() == -10.0
-    assert data.coords["lon"].data.max() == -9.0
-    npt.assert_allclose(data.min(), 0, atol=1)
-    npt.assert_allclose(data.max(), 255, atol=1)
+    assert data.coords["y"].data.min() == 3.008333333333333
+    assert data.coords["y"].data.max() == 4.991666666666666
+    assert data.coords["x"].data.min() == -9.991666666666667
+    assert data.coords["x"].data.max() == -9.008333333333335
+    npt.assert_allclose(data.min(), 10, atol=1)
+    npt.assert_allclose(data.max(), 79, atol=1)
