@@ -3,21 +3,13 @@ grdcut - Extract subregion from a grid.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdcut"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     R="region",
     J="projection",
     N="extend",
@@ -27,7 +19,7 @@ __doctest_skip__ = ["grdcut"]
     f="coltypes",
 )
 @kwargs_to_strings(R="sequence")
-def grdcut(grid, **kwargs):
+def grdcut(grid, outgrid: str | None = None, **kwargs):
     r"""
     Extract subregion from a grid.
 
@@ -99,13 +91,13 @@ def grdcut(grid, **kwargs):
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_grid(outgrid=outgrid, vfname=voutgrd)
