@@ -73,7 +73,7 @@ jobs:
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
-            pandas-version: ''
+            pandas-version: '=2.1.4'
             xarray-version: ''
             optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
 
