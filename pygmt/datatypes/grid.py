@@ -335,9 +335,12 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
 
         # Create the xarray.DataArray object
         grid = xr.DataArray(data, coords=coords, dims=dims, name=name, attrs=attrs["z"])
-        # Flip the coordinates and data if necessary
-        if grid.x[0] < grid.x[1] or grid.y[0] < grid.y[1]:
-            grid = grid.sortby(list(grid.dims))
+        # Flip the coordinates and data if necessary so that coordinates are ascending.
+        # `grid.sortby(list(grid.dims))` sometimes causes crashes.
+        # The solution comes from https://github.com/pydata/xarray/discussions/6695.
+        for dim in dims:
+            if grid[dim][0] > grid[dim][1]:
+                grid = grid.isel({dim: slice(None, None, -1)})
 
         # Assign coordinate attributes
         for dim in dims:
