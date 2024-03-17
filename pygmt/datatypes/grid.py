@@ -30,7 +30,6 @@ def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
     In GMT grid header, the x_units/y_units/z_units are strings in the form of
     ``long_name [units]``, in which both ``long_name`` and ``units`` and standard
     netCDF attributes defined by CF conventions. The ``[units]`` part is optional.
-    See function ``gmtnc_get_units`` in ``gmt_nc.c`` for details.
 
     This function parses the x_units/y_units/z_units string and get the ``long_name``
     and ``units`` attributes.
@@ -88,8 +87,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     ...         print(header.title)
     ...         print(header.command)
     ...         print(header.remark)
-    ...         # header.bits should be 32, but the output gives 0.
-    ...         print(header.nm, header.size, header.bits, header.complex_mode)
+    ...         print(header.nm, header.size, header.complex_mode)
     ...         print(header.type, header.n_bands, header.mx, header.my)
     ...         print(header.pad[:])
     ...         print(header.mem_layout, header.nan_value, header.xy_off)
@@ -111,7 +109,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     b'Produced by grdcut'
     b'grdcut @earth_relief_01d_p -R-55/-47/-24/-10 -Gstatic_earth_relief.nc'
     b'Reduced by Gaussian Cartesian filtering (111.2 km fullwidth) from ...'
-    112 216 0 0
+    112 216 0
     18 1 12 18
     [2, 2, 2, 2]
     b'' nan 0.5
@@ -135,7 +133,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
 
     class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         """
-        GMT grid_header structure for holding a grid header.
+        GMT grid header structure for holding a grid header.
         """
 
         _fields_: ClassVar = [
