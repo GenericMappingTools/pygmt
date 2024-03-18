@@ -81,12 +81,9 @@ def test_figure_savefig_exists():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
     for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
-        fname = f"{prefix}.{fmt}"
+        fname = Path(f"{prefix}.{fmt}")
         fig.savefig(fname)
-
-        fname = Path(fname)
-        assert fname.exists()
-        fname.unlink()
+        fname.unlink(missing_ok=False)
 
 
 def test_figure_savefig_geotiff():
@@ -200,10 +197,9 @@ def test_figure_savefig_transparent():
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
     # png should not raise an error
-    fname = f"{prefix}.png"
+    fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
-    assert Path(fname).exists()
-    Path(fname).unlink()
+    fname.unlink(missing_ok=False)
 
 
 def test_figure_savefig_filename_with_spaces():

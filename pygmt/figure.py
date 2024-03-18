@@ -67,10 +67,7 @@ class Figure:
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
-    >>> from pathlib import Path
-    >>> Path("my-figure.png").exists()
-    True
-    >>> Path("my-figure.png").unlink()
+    >>> Path("my-figure.png").unlink(missing_ok=False)
 
     The plot region can be specified through ISO country codes (for example,
     ``"JP"`` for Japan):
@@ -380,8 +377,8 @@ class Figure:
         # Remove the .pgw world file if exists
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff" and fname.with_suffix(".pgw").exists():
-            fname.with_suffix(".pgw").unlink()
+        if ext == "tiff":
+            fname.with_suffix(".pgw").unlink(missing_ok=True)
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:
