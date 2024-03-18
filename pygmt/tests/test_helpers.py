@@ -2,7 +2,6 @@
 Test the helper functions/classes/etc used in wrapping GMT.
 """
 
-import os
 from pathlib import Path
 
 import numpy as np
@@ -111,17 +110,21 @@ def test_gmttempfile_prefix_suffix():
     Make sure the prefix and suffix of temporary files are user specifiable.
     """
     with GMTTempFile() as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("pygmt-")
-        assert os.path.basename(tmpfile.name).endswith(".txt")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("pygmt-")
+        assert tmpname.endswith(".txt")
     with GMTTempFile(prefix="user-prefix-") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("user-prefix-")
-        assert os.path.basename(tmpfile.name).endswith(".txt")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("user-prefix-")
+        assert tmpname.endswith(".txt")
     with GMTTempFile(suffix=".log") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("pygmt-")
-        assert os.path.basename(tmpfile.name).endswith(".log")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("pygmt-")
+        assert tmpname.endswith(".log")
     with GMTTempFile(prefix="user-prefix-", suffix=".log") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("user-prefix-")
-        assert os.path.basename(tmpfile.name).endswith(".log")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("user-prefix-")
+        assert tmpname.endswith(".log")
 
 
 def test_gmttempfile_read():

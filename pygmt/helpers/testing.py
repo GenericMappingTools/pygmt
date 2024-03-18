@@ -4,7 +4,6 @@ Helper functions for testing.
 
 import importlib
 import inspect
-import os
 import string
 from pathlib import Path
 
@@ -77,7 +76,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
         import pytest
         from matplotlib.testing.compare import compare_images
 
-        os.makedirs(result_dir, exist_ok=True)
+        Path(result_dir).mkdir(parents=True, exist_ok=True)
         old_sig = inspect.signature(func)
 
         @pytest.mark.parametrize("ext", extensions)
@@ -110,7 +109,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     test_image_path.unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
-                        err[key] = os.path.relpath(err[key])
+                        err[key] = Path(err[key]).relative_to(".")
                     raise GMTImageComparisonFailure(
                         f"images not close (RMS {err['rms']:.3f}):\n"
                         f"\t{err['actual']}\n"

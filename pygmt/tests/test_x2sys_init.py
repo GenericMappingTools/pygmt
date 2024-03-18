@@ -2,7 +2,6 @@
 Test pygmt.x2sys_init.
 """
 
-import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -26,12 +25,13 @@ def test_x2sys_init_region_spacing():
     properly.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
-        tag = os.path.basename(tmpdir)
+        tmpdir_p = Path(tmpdir)
+        tag = tmpdir_p.name
         x2sys_init(
             tag=tag, fmtfile="xyz", force=True, region=[0, 10, 20, 30], spacing=[5, 5]
         )
 
-        with open(os.path.join(tmpdir, f"{tag}.tag"), encoding="utf8") as tagpath:
+        with open(tmpdir_p / f"{tag}.tag", encoding="utf8") as tagpath:
             tail_line = tagpath.readlines()[-1]
             assert "-R0/10/20/30" in tail_line
             assert "-I5/5" in tail_line
@@ -44,7 +44,8 @@ def test_x2sys_init_units_gap():
     Test that x2sys_init's units (N) and gap (W) arguments accept a list properly.
     """
     with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
-        tag = os.path.basename(tmpdir)
+        tmpdir_p = Path(tmpdir)
+        tag = tmpdir_p.name
         x2sys_init(
             tag=tag,
             fmtfile="xyz",
@@ -53,7 +54,7 @@ def test_x2sys_init_units_gap():
             gap=["tseconds", "de"],
         )
 
-        with open(os.path.join(tmpdir, f"{tag}.tag"), encoding="utf8") as tagpath:
+        with open(tmpdir_p / f"{tag}.tag", encoding="utf8") as tagpath:
             tail_line = tagpath.readlines()[-1]
             assert "-Nse -Nde" in tail_line
             assert "-Wtseconds -Wde" in tail_line
