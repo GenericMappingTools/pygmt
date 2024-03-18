@@ -25,6 +25,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     >>> with GMTTempFile(suffix=".txt") as tmpfile:
     ...     # Prepare the sample data file
     ...     with Path(tmpfile.name).open(mode="w") as fp:
+    ...         print("# x y z name", file=fp)
     ...         print(">", file=fp)
     ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
     ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -41,7 +42,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     ...             print(ds.min[: ds.n_columns], ds.max[: ds.n_columns])
     ...             # The table
     ...             tbl = ds.table[0].contents
-    ...             print(tbl.n_columns, tbl.n_segments, tbl.n_records)
+    ...             print(tbl.n_columns, tbl.n_segments, tbl.n_records, tbl.n_headers)
+    ...             print(tbl.header[: tbl.n_headers])
     ...             print(tbl.min[: tbl.n_columns], ds.max[: tbl.n_columns])
     ...             for i in range(tbl.n_segments):
     ...                 seg = tbl.segment[i].contents
@@ -50,7 +52,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     ...                 print(seg.text[: seg.n_rows])
     1 3 2
     [1.0, 2.0, 3.0] [10.0, 11.0, 12.0]
-    3 2 4
+    3 2 4 1
+    [b'x y z name']
     [1.0, 2.0, 3.0] [10.0, 11.0, 12.0]
     [1.0, 4.0]
     [2.0, 5.0]
@@ -143,9 +146,10 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataframe(
+    def to_dataframe(  # noqa: PLR0912
         self,
         column_names: list[str] | None = None,
+        header: int | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
     ) -> pd.DataFrame:
@@ -160,6 +164,9 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ----------
         column_names
             A list of column names.
+        header
+            Row number containing column names. ``header=None`` means not to parse the
+            column names from data header.
         dtype
             Data type. Can be a single type for all columns or a dictionary mapping
             column names to types.
@@ -180,6 +187,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
         ...     with Path(tmpfile.name).open(mode="w") as fp:
+        ...         print("# col1 col2 col3 colstr", file=fp)
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -190,9 +198,9 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
-        ...             df = ds.contents.to_dataframe()
+        ...             df = ds.contents.to_dataframe(header=0)
         >>> df
-              0     1     2                   3
+           col1  col2  col3              colstr
         0   1.0   2.0   3.0        TEXT1 TEXT23
         1   4.0   5.0   6.0       TEXT4 TEXT567
         2   7.0   8.0   9.0        TEXT8 TEXT90
@@ -227,6 +235,16 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             )
 
         df = pd.concat(objs=vectors, axis="columns")
+
+        # Parse the column names from header.
+        if header is not None:
+            tbl = self.table[0].contents  # Use the first table!
+            if header < tbl.n_headers:
+                names = tbl.header[header].decode().split()
+                if len(names) == df.shape[1]:
+                    # Length of names should match the number of columns.
+                    column_names = names
+
         if column_names is not None:  # Assign column names
             df.columns = column_names
         if dtype is not None:
