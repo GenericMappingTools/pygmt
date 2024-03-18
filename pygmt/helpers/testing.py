@@ -6,6 +6,7 @@ import importlib
 import inspect
 import os
 import string
+from pathlib import Path
 
 from pygmt.exceptions import GMTImageComparisonFailure
 from pygmt.io import load_dataarray
@@ -39,6 +40,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> import pytest
     >>> import shutil
     >>> from pygmt import Figure
+    >>> from pathlib import Path
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
     ... def test_check_figures_equal():
@@ -63,12 +65,9 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     >>> with pytest.raises(GMTImageComparisonFailure):
     ...     test_check_figures_unequal()
     >>> for suffix in ["", "-expected", "-failed-diff"]:
-    ...     assert os.path.exists(
-    ...         os.path.join(
-    ...             "tmp_result_images",
-    ...             f"test_check_figures_unequal{suffix}.png",
-    ...         )
-    ...     )
+    ...     assert Path(
+    ...         f"tmp_result_image/test_check_figures_unequal{suffix}.png"
+    ...     ).exists()
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
     """
     allowed_chars = set(string.digits + string.ascii_letters + "_-[]()")
@@ -107,8 +106,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     in_decorator=True,
                 )
                 if err is None:  # Images are the same
-                    os.remove(ref_image_path)
-                    os.remove(test_image_path)
+                    Path(ref_image_path).unlink()
+                    Path(test_image_path).unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
                         err[key] = os.path.relpath(err[key])

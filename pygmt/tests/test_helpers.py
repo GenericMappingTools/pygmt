@@ -3,6 +3,7 @@ Test the helper functions/classes/etc used in wrapping GMT.
 """
 
 import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -90,9 +91,9 @@ def test_gmttempfile():
     Check that file is really created and deleted.
     """
     with GMTTempFile() as tmpfile:
-        assert os.path.exists(tmpfile.name)
+        assert Path(tmpfile.name).exists()
     # File should be deleted when leaving the with block
-    assert not os.path.exists(tmpfile.name)
+    assert not Path(tmpfile.name).exists()
 
 
 def test_gmttempfile_unique():

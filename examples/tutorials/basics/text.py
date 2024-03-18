@@ -7,7 +7,7 @@ It is often useful to add annotations to a plot. This is handled by
 """
 
 # %%
-import os
+from pathlib import Path
 
 import pygmt
 
@@ -88,7 +88,7 @@ with open("examples.txt", "w") as f:
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
-os.remove("examples.txt")
+Path("examples.txt").unlink()
 
 fig.show()
 

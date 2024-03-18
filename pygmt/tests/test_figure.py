@@ -203,8 +203,8 @@ def test_figure_savefig_transparent():
     # png should not raise an error
     fname = f"{prefix}.png"
     fig.savefig(fname, transparent=True)
-    assert os.path.exists(fname)
-    os.remove(fname)
+    assert Path(fname).exists()
+    Path(fname).unlink()
 
 
 def test_figure_savefig_filename_with_spaces():

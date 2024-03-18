@@ -188,7 +188,7 @@ def test_x2sys_cross_input_two_filenames():
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        _ = [os.remove(f"track_{i}.xyz") for i in range(2)]  # cleanup track files
+        _ = [Path(f"track_{i}.xyz").unlink() for i in range(2)]  # cleanup track files
 
 
 def test_x2sys_cross_invalid_tracks_input_type(tracks):
