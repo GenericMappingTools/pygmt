@@ -52,8 +52,8 @@ fig.show()
 
 # %%
 # In addition to specifying the date, ``datetime`` supports the time at which the data
-# points were recorded. Using :meth:`datetime.datetime` the ``region`` parameter as
-# well as data points can be created with both date and time information.
+# points were recorded. Using :meth:`datetime.datetime` the ``region`` parameter as well
+# as data points can be created with both date and time information.
 #
 # Some notable differences to the previous example include:
 #
@@ -291,12 +291,12 @@ fig.show()
 # :doc:`Frames, ticks, titles, and labels tutorial </tutorials/basics/frames>`.
 #
 # Another important item in the list passed to ``frame`` is ``"sxa1Of1D"``. This string
-# modifies the secondary annotation (**s**) of the x-axis (**x**). Specifically, it
-# sets the main annotation and major tick spacing interval to one month (**a1O**)
-# (capital letter O, not zero). Additionally, it sets the minor tick spacing interval
-# to 1 day (**f1D**). To use the month's name instead of its number set
-# :gmt-term:`FORMAT_DATE_MAP` to **o**. More information on configuring date formats
-# can be found at :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
+# modifies the secondary annotation (**s**) of the x-axis (**x**). Specifically, it sets
+# the main annotation and major tick spacing interval to one month (**a1O**) (capital
+# letter O, not zero). Additionally, it sets the minor tick spacing interval to 1 day
+# (**f1D**). To use the month name instead of its number set :gmt-term:`FORMAT_DATE_MAP`
+# to **o**. More information on configuring date formats can be found at
+# :gmt-term:`FORMAT_DATE_MAP`, :gmt-term:`FORMAT_DATE_IN`, and
 # :gmt-term:`FORMAT_DATE_OUT`.
 
 x = pd.date_range("2013-05-02", periods=10, freq="2D")
@@ -317,17 +317,17 @@ with pygmt.config(FORMAT_DATE_MAP="o"):
 fig.show()
 
 # %%
-# The same concept shown above can be applied to smaller as well as larger intervals.
-# In this example, data are plotted for different times throughout two days. The
-# primary x-axis annotations are modified to repeat every 6 hours, and the secondary
-# x-axis annotations repeat every day and show the day of the week.
+# The same concept shown above can be applied to smaller as well as larger intervals. In
+# this example, data are plotted for different times throughout two days. The primary
+# x-axis annotations are modified to repeat every 6 hours, and the secondary x-axis
+# annotations repeat every day and show the day of the week.
 #
 # Another notable mention in this example is setting :gmt-term:`FORMAT_CLOCK_MAP` to
-# **-hhAM** which specifies the format used for time. In this case, leading zeros
-# are removed using (**-**), and only hours are displayed. Additionally, an AM/PM
-# system is used instead of a 24-hour system. More information on configuring time
-# formats can be found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`,
-# and :gmt-term:`FORMAT_CLOCK_OUT`.
+# **-hhAM** which specifies the format used for time. In this case, leading zeros are
+# removed using (**-**), and only hours are displayed. Additionally, an AM/PM system is
+# used instead of a 24-hour system. More information on configuring time formats can be
+# found at :gmt-term:`FORMAT_CLOCK_MAP`, :gmt-term:`FORMAT_CLOCK_IN`, and
+# :gmt-term:`FORMAT_CLOCK_OUT`.
 
 x = pd.date_range("2021-04-15", periods=8, freq="6H")
 y = [2, 5, 3, 1, 5, 7, 9, 6]
