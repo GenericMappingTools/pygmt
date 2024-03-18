@@ -495,7 +495,7 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
+        fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
             with open(fname, "rb") as image:

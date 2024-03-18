@@ -92,8 +92,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                 file_name = func.__name__
             try:
                 fig_ref, fig_test = func(*args, **kwargs)
-                ref_image_path = os.path.join(result_dir, f"{file_name}-expected.{ext}")
-                test_image_path = os.path.join(result_dir, f"{file_name}.{ext}")
+                ref_image_path = Path(result_dir) / f"{file_name}-expected.{ext}"
+                test_image_path = Path(result_dir) / f"{file_name}.{ext}"
                 fig_ref.savefig(ref_image_path)
                 fig_test.savefig(test_image_path)
 
@@ -106,8 +106,8 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
                     in_decorator=True,
                 )
                 if err is None:  # Images are the same
-                    Path(ref_image_path).unlink()
-                    Path(test_image_path).unlink()
+                    ref_image_path.unlink()
+                    test_image_path.unlink()
                 else:  # Images are not the same
                     for key in ["actual", "expected", "diff"]:
                         err[key] = os.path.relpath(err[key])

@@ -2,7 +2,6 @@
 Test the sphinx-gallery scraper and code required to make it work.
 """
 
-import os
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -30,11 +29,11 @@ def test_pygmtscraper():
         scraper = PyGMTScraper()
         with TemporaryDirectory(dir=Path.cwd()) as tmpdir:
             conf = {"src_dir": "meh"}
-            fname = os.path.join(tmpdir, "meh.png")
+            fname = Path(tmpdir) / "meh.png"
             block_vars = {"image_path_iterator": (i for i in [fname])}
-            assert not Path(fname).exists()
+            assert not fname.exists()
             scraper(None, block_vars, conf)
-            assert Path(fname).exists()
+            assert fname.exists()
             assert not SHOWED_FIGURES
     finally:
         SHOWED_FIGURES.extend(showed)

@@ -2,7 +2,7 @@
 Test Figure.text.
 """
 
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -10,9 +10,9 @@ from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
