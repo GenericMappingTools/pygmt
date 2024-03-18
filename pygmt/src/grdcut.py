@@ -100,8 +100,14 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
     """
     inkind = data_kind(grid)
     outkind = "grid"
-    if inkind == "file" and which(str(grid)).endswith(".tif") or inkind == "image":
+    if inkind == "image":
         outkind = "image"
+    if inkind == "file":
+        realpath = which(str(grid))
+        if isinstance(realpath, list):
+            realpath = realpath[0]
+        if realpath.endswith(".tif"):
+            outkind = "image"
 
     with Session() as lib:
         with (
