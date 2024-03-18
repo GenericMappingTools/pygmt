@@ -3,6 +3,7 @@ Test pygmt.x2sys_init.
 """
 
 import os
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import pytest
@@ -15,7 +16,7 @@ def _fixture_mock_x2sys_home(monkeypatch):
     Set the X2SYS_HOME environment variable to the current working directory for the
     test session.
     """
-    monkeypatch.setenv("X2SYS_HOME", os.getcwd())
+    monkeypatch.setenv("X2SYS_HOME", Path.cwd())
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -24,7 +25,7 @@ def test_x2sys_init_region_spacing():
     Test that x2sys_init's region (R) and spacing (I) sequence arguments accept a list
     properly.
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(
             tag=tag, fmtfile="xyz", force=True, region=[0, 10, 20, 30], spacing=[5, 5]
@@ -42,7 +43,7 @@ def test_x2sys_init_units_gap():
     """
     Test that x2sys_init's units (N) and gap (W) arguments accept a list properly.
     """
-    with TemporaryDirectory(prefix="X2SYS", dir=os.getcwd()) as tmpdir:
+    with TemporaryDirectory(prefix="X2SYS", dir=Path.cwd()) as tmpdir:
         tag = os.path.basename(tmpdir)
         x2sys_init(
             tag=tag,

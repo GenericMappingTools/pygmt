@@ -28,7 +28,7 @@ def test_pygmtscraper():
         assert len(SHOWED_FIGURES) == 1
         assert SHOWED_FIGURES[0] is fig
         scraper = PyGMTScraper()
-        with TemporaryDirectory(dir=os.getcwd()) as tmpdir:
+        with TemporaryDirectory(dir=Path.cwd()) as tmpdir:
             conf = {"src_dir": "meh"}
             fname = os.path.join(tmpdir, "meh.png")
             block_vars = {"image_path_iterator": (i for i in [fname])}
