@@ -52,7 +52,7 @@ def check_figures_equal(*, extensions=("png",), tol=0.0, result_dir="result_imag
     ...     )
     ...     return fig_ref, fig_test
     >>> test_check_figures_equal()
-    >>> assert len(os.listdir("tmp_result_images")) == 0
+    >>> assert len(list(Path("tmp_result_images").iterdir())) == 0
     >>> shutil.rmtree(path="tmp_result_images")  # cleanup folder if tests pass
 
     >>> @check_figures_equal(result_dir="tmp_result_images")
