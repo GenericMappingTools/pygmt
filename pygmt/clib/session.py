@@ -1746,6 +1746,7 @@ class Session:
         self,
         vfname: str,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        header: int | None = None,
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
@@ -1766,6 +1767,10 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+        header
+            Row number containing column names for the :class:`pandas.DataFrame` output.
+            ``header=None`` means not to parse the column names from table header.
+            Ignored if the row number is larger than the number of headers in the table.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1862,6 +1867,7 @@ class Session:
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
         result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
+            header=header,
             column_names=column_names,
             dtype=dtype,
             index_col=index_col,
