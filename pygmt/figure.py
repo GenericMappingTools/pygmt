@@ -67,6 +67,7 @@ class Figure:
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
+    >>> from pathlib import Path
     >>> Path("my-figure.png").unlink(missing_ok=False)
 
     The plot region can be specified through ISO country codes (for example,
