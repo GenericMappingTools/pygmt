@@ -150,4 +150,4 @@ def dimfilter(grid, outgrid: str | None = None, **kwargs):
             lib.call_module(
                 module="dimfilter", args=build_arg_string(kwargs, infile=vingrd)
             )
-            return lib.virtualfile_to_grid(outgrid=outgrid, vfname=voutgrd)
+            return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)

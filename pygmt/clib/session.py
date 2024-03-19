@@ -1861,18 +1861,18 @@ class Session:
         return result  # pandas.DataFrame output
 
     def virtualfile_to_grid(
-        self, outgrid: str | None, vfname: str
+        self, vfname: str, outgrid: str | None
     ) -> xr.DataArray | None:
         """
         Output a grid stored in a virtual file to an :class:`xarray.DataArray` object.
 
         Parameters
         ----------
+        vfname
+            The virtual file name that stores the result grid.
         outgrid
             Name of the output grid. If specified, it means the grid was already saved
             into an actual file and will return None.
-        vfname
-            The virtual file name that stores the result grid.
 
         Returns
         -------
@@ -1891,7 +1891,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
         ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
         ...             result = lib.virtualfile_to_grid(
-        ...                 outgrid=outgrid, vfname=voutgrd
+        ...                 vfname=voutgrd, outgrid=outgrid
         ...             )
         ...             assert result == None
         ...             assert Path(tmpfile.name).stat().st_size > 0
@@ -1900,7 +1900,7 @@ class Session:
         ...     outgrid = None
         ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
         ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...         result = lib.virtualfile_to_grid(outgrid=outgrid, vfname=voutgrd)
+        ...         result = lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """
         if outgrid is not None:
