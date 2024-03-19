@@ -24,7 +24,7 @@ def test_begin_end():
         lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
     end()
     begin()  # Restart the global session
-    Path("pygmt-session.pdf").unlink(missing_ok=False)
+    Path("pygmt-session.pdf").unlink()
 
 
 def test_gmt_compat_6_is_applied(capsys):
@@ -52,8 +52,8 @@ def test_gmt_compat_6_is_applied(capsys):
     finally:
         end()
         # Clean up the global "gmt.conf" in the current directory
-        Path("gmt.conf").unlink(missing_ok=False)
-        Path("pygmt-session.pdf").unlink(missing_ok=False)
+        Path("gmt.conf").unlink()
+        Path("pygmt-session.pdf").unlink()
         # Make sure no global "gmt.conf" in the current directory
         assert not Path("gmt.conf").exists()
         begin()  # Restart the global session

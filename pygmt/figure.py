@@ -68,7 +68,7 @@ class Figure:
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
     >>> from pathlib import Path
-    >>> Path("my-figure.png").unlink(missing_ok=False)
+    >>> Path("my-figure.png").unlink()
 
     The plot region can be specified through ISO country codes (for example,
     ``"JP"`` for Japan):
