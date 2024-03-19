@@ -256,7 +256,7 @@ def project(
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
-            output_type=output_type,
             vfname=vouttbl,
+            output_type=output_type,
             column_names=column_names,
         )
