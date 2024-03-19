@@ -28,7 +28,7 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(
-    R="sequence", L="sequence", A="sequence_plus", c="sequence_comma", p="sequence"
+    R="sequence", L="sequence", c="sequence_comma", p="sequence"
 )
 def grdcontour(self, grid, **kwargs):
     r"""
@@ -53,16 +53,17 @@ def grdcontour(self, grid, **kwargs):
           angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
           +\ *cont_int*.
-    annotation : str, int, or list
+    annotation : int or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level **+**\ *annot_int*.
         - Disable all annotation with  **-**.
-        - Optional label modifiers can be specified as a single string
-          ``"annot_int+e+f10p+gred"`` or with a list of arguments
-          ``[annot_int, "e", "f10p", "gred"]``.
+        - The appearence can be adjusted by appending different modifiers, e.g.,
+          ``"annot_int+f10p+gred"`` gives annotations with a font size of 10
+          points and a red filled box. For all available modifiers see
+          :gmt-docs:`grdcontour.html#a`.
     limit : str or list of 2 ints
         *low*/*high*.
         Do no draw contours below `low` or above `high`, specify as string
