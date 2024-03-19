@@ -51,7 +51,7 @@ def grdcontour(self, grid, **kwargs):
           angle (col 3).
         - A fixed contour interval *cont_int* or a single contour with
           +\ *cont_int*.
-    annotation : int or str
+    annotation : float or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
