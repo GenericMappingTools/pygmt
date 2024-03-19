@@ -57,7 +57,7 @@ def grdcontour(self, grid, **kwargs):
 
         - Specify a fixed annotation interval *annot_int* or a
           single annotation level **+**\ *annot_int*.
-        - Disable all annotation with  **-**.
+        - Disable all annotations by appending **n**.
         - The appearence can be adjusted by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10
           points and a red filled box. For all available modifiers see
