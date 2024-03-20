@@ -111,4 +111,4 @@ def grdvolume(
                 module="grdvolume",
                 args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
-            return lib.virtualfile_to_dataset(output_type=output_type, vfname=vouttbl)
+            return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

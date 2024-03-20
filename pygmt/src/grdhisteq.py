@@ -239,8 +239,8 @@ class grdhisteq:  # noqa: N801
                 )
 
             result = lib.virtualfile_to_dataset(
-                output_type=output_type,
                 vfname=vouttbl,
+                output_type=output_type,
                 column_names=["start", "stop", "bin_id"],
             )
             if output_type == "pandas":
