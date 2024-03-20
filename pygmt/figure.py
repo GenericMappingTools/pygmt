@@ -69,7 +69,6 @@ class Figure:
     >>> # Make sure the figure file is generated and clean it up
     >>> from pathlib import Path
     >>> assert Path("my-figure.png").exists()
-    True
     >>> Path("my-figure.png").unlink()
 
     The plot region can be specified through ISO country codes (for example,
