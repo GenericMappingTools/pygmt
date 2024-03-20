@@ -5,6 +5,8 @@ Wrapper for the GMT_IMAGE data type.
 import ctypes as ctp
 from typing import ClassVar
 
+import numpy as np
+import xarray as xr
 from pygmt.datatypes.grid import _GMT_GRID_HEADER
 
 
@@ -34,12 +36,14 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
     ...         data = data[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
     ...         x = ds.x[: header.n_columns]
     ...         y = ds.y[: header.n_rows]
-    >>> data = xr.DataArray(
-    ...     data, dims=["y", "x", "band"], coords={"y": y, "x": x, "band": [1, 2, 3]}
+    >>> da = xr.DataArray(
+    ...     data=data,
+    ...     dims=["y", "x", "band"],
+    ...     coords={"y": y, "x": x, "band": [1, 2, 3]},
     ... )
-    >>> data = data.transpose("band", "y", "x")
-    >>> data = data.sortby(list(data.dims))
-    >>> data.plot.imshow()
+    >>> da = da.transpose("band", "y", "x")
+    >>> da = da.sortby(list(data.dims))
+    >>> da.plot.imshow()
     """
 
     _fields_: ClassVar = [
@@ -64,3 +68,35 @@ class _GMT_IMAGE(ctp.Structure):  # noqa: N801
         # Book-keeping variables "hidden" from the API
         ("hidden", ctp.c_void_p),
     ]
+
+    def to_dataarray(self):
+        """
+        Convert a _GMT_GRID object to an :class:`xarray.DataArray` object.
+
+        Returns
+        -------
+        dataarray
+            A :class:`xarray.DataArray` object.
+        """
+
+        # Get grid header
+        header: _GMT_GRID_HEADER = self.header.contents
+
+        # Get DataArray without padding
+        pad = header.pad[:]
+        data: np.ndarray = np.reshape(
+            a=self.data[: header.n_bands * header.mx * header.my],
+            newshape=(header.my, header.mx, header.n_bands),
+        )[pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1], :]
+
+        # Get x and y coordinates
+        coords: dict[str, list] = {
+            "x": self.x[: header.n_columns],
+            "y": self.y[: header.n_rows],
+            "band": np.arange(stop=3, dtype=np.uint8),
+        }
+
+        # Create the xarray.DataArray object
+        image = xr.DataArray(data=data, coords=coords, dims=("y", "x", "band"))
+
+        return image
