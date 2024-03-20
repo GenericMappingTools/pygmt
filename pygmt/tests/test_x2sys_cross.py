@@ -24,7 +24,7 @@ def _fixture_mock_x2sys_home(monkeypatch):
     Set the X2SYS_HOME environment variable to the current working directory for the
     test session.
     """
-    monkeypatch.setenv("X2SYS_HOME", Path.cwd())
+    monkeypatch.setenv("X2SYS_HOME", str(Path.cwd()))
 
 
 @pytest.fixture(scope="module", name="tracks")
@@ -115,7 +115,7 @@ def test_x2sys_cross_input_two_dataframes():
         )
 
         # Add a time row to the x2sys fmtfile
-        with open(tmpdir_p / "xyz.fmt", mode="a", encoding="utf8") as fmtfile:
+        with (tmpdir_p / "xyz.fmt").open(mode="a", encoding="utf8") as fmtfile:
             fmtfile.write("time\ta\tN\t0\t1\t0\t%g\n")
 
         # Create pandas.DataFrame track tables
@@ -175,10 +175,7 @@ def test_x2sys_cross_input_two_filenames():
         # Create temporary xyz files
         for i in range(2):
             rng = np.random.default_rng(seed=i)
-            with open(
-                Path.cwd() / f"track_{i}.xyz", mode="w", encoding="utf8"
-            ) as fname:
-                np.savetxt(fname=fname, X=rng.random((10, 3)))
+            np.savetxt(fname=Path.cwd() / f"track_{i}.xyz", X=rng.random((10, 3)))
 
         output = x2sys_cross(tracks=["track_0.xyz", "track_1.xyz"], tag=tag, coe="e")
 
