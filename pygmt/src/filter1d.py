@@ -123,7 +123,4 @@ def filter1d(
                 module="filter1d",
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
-        return lib.virtualfile_to_dataset(
-            vfname=vouttbl,
-            output_type=output_type,
-        )
+        return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

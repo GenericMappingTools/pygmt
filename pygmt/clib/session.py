@@ -1795,8 +1795,7 @@ class Session:
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...                 result = lib.virtualfile_to_dataset(
-        ...                     vfname=vouttbl,
-        ...                     output_type="file",
+        ...                     vfname=vouttbl, output_type="file"
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
@@ -1806,8 +1805,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outnp = lib.virtualfile_to_dataset(
-        ...                 vfname=vouttbl,
-        ...                 output_type="numpy",
+        ...                 vfname=vouttbl, output_type="numpy"
         ...             )
         ...     assert isinstance(outnp, np.ndarray)
         ...
