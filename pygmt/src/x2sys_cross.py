@@ -53,7 +53,7 @@ def tempfile_from_dftrack(track, suffix):
         )
         yield tmpfilename
     finally:
-        os.remove(tmpfilename)
+        Path(tmpfilename).unlink()
 
 
 @fmt_docstring

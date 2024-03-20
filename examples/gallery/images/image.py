@@ -11,7 +11,7 @@ the image.
 """
 
 # %%
-import os
+from pathlib import Path
 
 import pygmt
 
@@ -28,6 +28,6 @@ fig.image(
 )
 
 # clean up the downloaded image in the current directory
-os.remove("gmt-logo.png")
+Path("gmt-logo.png").unlink()
 
 fig.show()

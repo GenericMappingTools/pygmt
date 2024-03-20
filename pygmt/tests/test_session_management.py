@@ -3,7 +3,6 @@ Test the session management modules.
 """
 
 import multiprocessing as mp
-import os
 from importlib import reload
 from pathlib import Path
 
@@ -25,8 +24,8 @@ def test_begin_end():
         lib.call_module("basemap", "-R10/70/-3/8 -JX4i/3i -Ba")
     end()
     begin()  # Restart the global session
-    assert os.path.exists("pygmt-session.pdf")
-    os.remove("pygmt-session.pdf")
+    assert Path("pygmt-session.pdf").exists()
+    Path("pygmt-session.pdf").unlink()
 
 
 def test_gmt_compat_6_is_applied(capsys):
@@ -54,12 +53,12 @@ def test_gmt_compat_6_is_applied(capsys):
     finally:
         end()
         # Clean up the global "gmt.conf" in the current directory
-        assert os.path.exists("gmt.conf")
-        os.remove("gmt.conf")
-        assert os.path.exists("pygmt-session.pdf")
-        os.remove("pygmt-session.pdf")
+        assert Path("gmt.conf").exists()
+        Path("gmt.conf").unlink()
+        assert Path("pygmt-session.pdf").exists()
+        Path("pygmt-session.pdf").unlink()
         # Make sure no global "gmt.conf" in the current directory
-        assert not os.path.exists("gmt.conf")
+        assert not Path("gmt.conf").exists()
         begin()  # Restart the global session
 
 
