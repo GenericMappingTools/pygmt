@@ -1872,7 +1872,7 @@ class Session:
             The virtual file name that stores the result grid.
         outgrid
             Name of the output grid. If specified, it means the grid was already saved
-            into an actual file and will return None.
+            into an actual file and will return ``None``.
 
         Returns
         -------
@@ -1894,7 +1894,7 @@ class Session:
         ...                 vfname=voutgrd, outgrid=outgrid
         ...             )
         ...             assert result == None
-        ...             assert Path(tmpfile.name).stat().st_size > 0
+        ...             assert Path(outgrid).stat().st_size > 0
         ...
         ...     # xarray.DataArray output
         ...     outgrid = None
