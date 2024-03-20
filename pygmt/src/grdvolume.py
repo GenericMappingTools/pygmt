@@ -93,12 +93,12 @@ def grdvolume(
     ...     grid=grid, contour=[200, 400, 50], output_type="pandas"
     ... )
     >>> print(output_dataframe)
-        0             1             2           3
-    0  200  2.323600e+12  8.523815e+14  366.836554
-    1  250  2.275864e+12  7.371655e+14  323.905736
-    2  300  2.166707e+12  6.258570e+14  288.851699
-    3  350  2.019284e+12  5.207732e+14  257.899955
-    4  400  1.870441e+12  4.236191e+14  226.480847
+           0             1             2           3
+    0  200.0  2.323600e+12  8.523815e+14  366.836554
+    1  250.0  2.275864e+12  7.371655e+14  323.905736
+    2  300.0  2.166707e+12  6.258570e+14  288.851699
+    3  350.0  2.019284e+12  5.207732e+14  257.899955
+    4  400.0  1.870441e+12  4.236191e+14  226.480847
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
@@ -111,4 +111,4 @@ def grdvolume(
                 module="grdvolume",
                 args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
-            return lib.virtualfile_to_dataset(output_type=output_type, vfname=vouttbl)
+            return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

@@ -1,5 +1,5 @@
 """
-Wrapper for the GMT_GRID data type.
+Wrapper for the GMT_GRID data type and the GMT_GRID_HEADER data structure.
 """
 
 import ctypes as ctp
@@ -64,7 +64,10 @@ def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
 
 class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     """
-    GMT grid header structure for holding a grid header.
+    GMT grid header structure for metadata about the grid.
+
+    The class is used in the `GMT_GRID`/`GMT_IMAGE`/`GMT_CUBE` data structure. See the
+    GMT source code gmt_resources.h for the original C structure definitions.
     """
 
     _fields_: ClassVar = [
@@ -82,9 +85,9 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("z_max", ctp.c_double),
         # x and y increments
         ("inc", ctp.c_double * 2),
-        # Grid values must be multiplied by this
+        # Grid values must be multiplied by this factor
         ("z_scale_factor", ctp.c_double),
-        # After scaling, add this
+        # After scaling, add this offset
         ("z_add_offset", ctp.c_double),
         # Units in x-directions, in the form "long_name [units]"
         ("x_units", ctp.c_char * GMT_GRID_UNIT_LEN80),
@@ -98,7 +101,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("command", ctp.c_char * GMT_GRID_COMMAND_LEN320),
         # Comments for this data set
         ("remark", ctp.c_char * GMT_GRID_REMARK_LEN160),
-        # Below are itmes used internally by GMT
+        # Below are items used internally by GMT
         # Number of data points (n_columns * n_rows) [paddings are excluded]
         ("nm", ctp.c_size_t),
         # Actual number of items (not bytes) required to hold this grid (mx * my),
