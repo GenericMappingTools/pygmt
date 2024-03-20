@@ -83,6 +83,7 @@ def test_figure_savefig_exists():
     for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
         fname = Path(f"{prefix}.{fmt}")
         fig.savefig(fname)
+        assert fname.exists()
         fname.unlink()
 
 
@@ -199,6 +200,7 @@ def test_figure_savefig_transparent():
     # png should not raise an error
     fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
+    assert fname.exists()
     fname.unlink()
 
 

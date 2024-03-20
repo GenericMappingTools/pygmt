@@ -18,7 +18,9 @@ def test_psconvert():
     fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
     prefix = "test_psconvert"
     fig.psconvert(prefix=prefix, fmt="f", crop=True)
-    Path(prefix + ".pdf").unlink()
+    fname = Path(prefix + ".pdf")
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_psconvert_twice():
@@ -30,10 +32,14 @@ def test_psconvert_twice():
     prefix = "test_psconvert_twice"
     # Make a PDF
     fig.psconvert(prefix=prefix, fmt="f")
-    Path(prefix + ".pdf").unlink()
+    fname = Path(prefix + ".pdf")
+    assert fname.exists()
+    fname.unlink()
     # Make a PNG
     fig.psconvert(prefix=prefix, fmt="g")
-    Path(prefix + ".png").unlink()
+    fname = Path(prefix + ".png")
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_psconvert_without_prefix():
