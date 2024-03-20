@@ -2,7 +2,6 @@
 Test pygmt.grdtrack.
 """
 
-import os
 from pathlib import Path
 
 import numpy as np
@@ -14,8 +13,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "track.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "track.txt"
 
 
 @pytest.fixture(scope="module", name="dataarray")

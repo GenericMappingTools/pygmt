@@ -2,7 +2,7 @@
 Test the helper functions/classes/etc used in wrapping GMT.
 """
 
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -90,9 +90,9 @@ def test_gmttempfile():
     Check that file is really created and deleted.
     """
     with GMTTempFile() as tmpfile:
-        assert os.path.exists(tmpfile.name)
+        assert Path(tmpfile.name).exists()
     # File should be deleted when leaving the with block
-    assert not os.path.exists(tmpfile.name)
+    assert not Path(tmpfile.name).exists()
 
 
 def test_gmttempfile_unique():
@@ -110,17 +110,21 @@ def test_gmttempfile_prefix_suffix():
     Make sure the prefix and suffix of temporary files are user specifiable.
     """
     with GMTTempFile() as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("pygmt-")
-        assert os.path.basename(tmpfile.name).endswith(".txt")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("pygmt-")
+        assert tmpname.endswith(".txt")
     with GMTTempFile(prefix="user-prefix-") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("user-prefix-")
-        assert os.path.basename(tmpfile.name).endswith(".txt")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("user-prefix-")
+        assert tmpname.endswith(".txt")
     with GMTTempFile(suffix=".log") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("pygmt-")
-        assert os.path.basename(tmpfile.name).endswith(".log")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("pygmt-")
+        assert tmpname.endswith(".log")
     with GMTTempFile(prefix="user-prefix-", suffix=".log") as tmpfile:
-        assert os.path.basename(tmpfile.name).startswith("user-prefix-")
-        assert os.path.basename(tmpfile.name).endswith(".log")
+        tmpname = Path(tmpfile.name).name
+        assert tmpname.startswith("user-prefix-")
+        assert tmpname.endswith(".log")
 
 
 def test_gmttempfile_read():

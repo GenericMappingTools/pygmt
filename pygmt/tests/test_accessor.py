@@ -2,7 +2,6 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 
-import os
 import sys
 from pathlib import Path
 
@@ -101,7 +100,7 @@ def test_accessor_sliced_datacube():
         assert grid.gmt.registration == 0  # gridline registration
         assert grid.gmt.gtype == 1  # geographic coordinate type
     finally:
-        os.remove(fname)
+        Path(fname).unlink()
 
 
 def test_accessor_grid_source_file_not_exist():
