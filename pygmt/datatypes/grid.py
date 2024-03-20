@@ -1,5 +1,5 @@
 """
-Wrapper for the GMT_GRID data type.
+Wrapper for the GMT_GRID data type and the GMT_GRID_HEADER data structure.
 """
 
 import ctypes as ctp
@@ -23,6 +23,9 @@ gmt_grdfloat = ctp.c_float
 class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     """
     GMT grid header structure for metadata about the grid.
+
+    The class is used in the `GMT_GRID`/`GMT_IMAGE`/`GMT_CUBE` data structure. See the
+    GMT source code gmt_resources.h for the original C structure definitions.
     """
 
     _fields_: ClassVar = [
@@ -42,7 +45,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("inc", ctp.c_double * 2),
         # Grid values must be multiplied by this factor
         ("z_scale_factor", ctp.c_double),
-        # After scaling, add this
+        # After scaling, add this offset
         ("z_add_offset", ctp.c_double),
         # Units in x-directions, in the form "long_name [units]"
         ("x_units", ctp.c_char * GMT_GRID_UNIT_LEN80),
