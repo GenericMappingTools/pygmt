@@ -497,9 +497,7 @@ class Figure:
         fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
-            with open(fname, "rb") as image:
-                preview = image.read()
-            return preview
+            return fname.read_bytes()
         return fname
 
     def _repr_png_(self):
