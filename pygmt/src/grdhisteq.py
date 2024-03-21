@@ -10,7 +10,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -129,7 +129,7 @@ class grdhisteq:  # noqa: N801
                     if (outgrid := kwargs.get("G")) is None:
                         kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                     lib.call_module(
-                        module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                        module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
                     )
             return load_dataarray(outgrid) if outgrid == tmpfile.name else None
 
@@ -235,7 +235,7 @@ class grdhisteq:  # noqa: N801
             ):
                 kwargs["D"] = vouttbl  # -D for output file name
                 lib.call_module(
-                    module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
+                    module="grdhisteq", args=build_arg_list(kwargs, infile=vingrd)
                 )
 
             return lib.virtualfile_to_dataset(

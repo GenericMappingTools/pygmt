@@ -5,7 +5,7 @@ nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -151,7 +151,7 @@ def nearneighbor(data=None, x=None, y=None, z=None, **kwargs):
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="nearneighbor", args=build_arg_string(kwargs, infile=vintbl)
+                    module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

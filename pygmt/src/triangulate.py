@@ -10,7 +10,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -146,7 +146,7 @@ class triangulate:  # noqa: N801
                         kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                     lib.call_module(
                         module="triangulate",
-                        args=build_arg_string(kwargs, infile=vintbl),
+                        args=build_arg_list(kwargs, infile=vintbl),
                     )
 
             return load_dataarray(outgrid) if outgrid == tmpfile.name else None
@@ -247,6 +247,6 @@ class triangulate:  # noqa: N801
             ):
                 lib.call_module(
                     module="triangulate",
-                    args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+                    args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
                 )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

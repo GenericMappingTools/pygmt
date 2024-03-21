@@ -5,7 +5,7 @@ sphinterpolate - Spherical gridding in tension of data on a sphere
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -73,7 +73,7 @@ def sphinterpolate(data, **kwargs):
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
                     module="sphinterpolate",
-                    args=build_arg_string(kwargs, infile=vintbl),
+                    args=build_arg_list(kwargs, infile=vintbl),
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

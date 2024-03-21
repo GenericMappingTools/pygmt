@@ -6,7 +6,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -109,6 +109,6 @@ def grdlandmask(**kwargs):
         with Session() as lib:
             if (outgrid := kwargs.get("G")) is None:
                 kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-            lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
+            lib.call_module(module="grdlandmask", args=build_arg_list(kwargs))
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None
