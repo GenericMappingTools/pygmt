@@ -325,12 +325,7 @@ def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
 
     Any lists or tuples left will be interpreted as multiple entries for the
     same command line option. For example, the kwargs entry ``'B': ['xa',
-    'yaf']`` will be converted to ``-Bxa -Byaf`` in the argument string.
-
-    Note that spaces `` `` in arguments are converted to the equivalent octal
-    code ``\040``, except in the case of -J (projection) arguments where PROJ4
-    strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
-    See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
+    'yaf']`` will be converted to ``["-Bxa", "-Byaf"]``.
 
     Parameters
     ----------
@@ -370,7 +365,7 @@ def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
     ...         )
     ...     )
     ... )
-    -A -E200 -J+proj=longlat+datum=WGS84 -P -R1/2/3/4 -Z0
+    ['-A', '-E200', '-J+proj=longlat +datum=WGS84', '-P', '-R1/2/3/4', '-Z0']
     >>> print(
     ...     build_arg_list(
     ...         dict(
@@ -381,7 +376,7 @@ def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
     ...         )
     ...     )
     ... )
-    -BWSen -Bxaf -Byaf -I1/1p,blue -I2/0.25p,blue -JX4i -R1/2/3/4
+    ['-BWSen', '-Bxaf', '-Byaf', '-I1/1p,blue', '-I2/0.25p,blue', '-JX4i', '-R1/2/3/4']
     >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
     Traceback (most recent call last):
       ...
@@ -395,7 +390,7 @@ def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
     ...         ),
     ...     )
     ... )
-    -BWSne+tBlank\040Space -Baf -F+t"Empty\040\040Spaces" -l'Void\040Space'
+    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
     >>> print(
     ...     build_arg_list(
     ...         dict(A="0", B=True, C="rainbow"),
@@ -404,39 +399,34 @@ def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
     ...         outfile="output.txt",
     ...     )
     ... )
-    input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
+    ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
     """
     gmt_args = []
 
-    for key in kwdict:
-        if len(key) > 2:  # raise an exception for unrecognized options
+    for key, value in kwdict.items():
+        if len(key) > 2:  # Raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
-        if kwdict[key] is None or kwdict[key] is False:
-            pass  # Exclude arguments that are None and False
-        elif is_nonstr_iter(kwdict[key]):
-            for value in kwdict[key]:
-                _value = str(value).replace(" ", r"\040")
-                gmt_args.append(rf"-{key}{_value}")
-        elif kwdict[key] is True:
+        if value is None or value is False:  # Exclude arguments that are None and False
+            pass
+        elif value is True:
             gmt_args.append(f"-{key}")
+        elif is_nonstr_iter(value):
+            gmt_args.extend(non_ascii_to_octal(f"-{key}{_value}") for _value in value)
         else:
-            if key != "J":  # non-projection parameters
-                _value = str(kwdict[key]).replace(" ", r"\040")
-            else:
-                # special handling if key == "J" (projection)
-                # remove any spaces in PROJ4 string
-                _value = str(kwdict[key]).replace(" ", "")
-            gmt_args.append(rf"-{key}{_value}")
+            gmt_args.append(non_ascii_to_octal(f"-{key}{value}"))
     gmt_args = sorted(gmt_args)
 
     if confdict:
-        gmt_args.extend(f'--{key}="{value}"' for key, value in confdict.items())
+        gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
 
-    if infile:
-        gmt_args = [str(infile), *gmt_args]
+    if infile:  # infile can be a single file or a list of files
+        if is_nonstr_iter(infile):
+            gmt_args = [str(_file) for _file in infile] + gmt_args
+        else:
+            gmt_args = [str(infile), *gmt_args]
     if outfile:
         gmt_args.append("->" + str(outfile))
-    return non_ascii_to_octal(" ".join(gmt_args))
+    return gmt_args
 
 
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
