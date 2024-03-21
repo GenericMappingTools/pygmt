@@ -223,9 +223,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     outfile = tmpfile.name
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(
-                        kwargs, infile=" ".join(fnames), outfile=outfile
-                    ),
+                    args=build_arg_list(kwargs, infile=fnames, outfile=outfile),
                 )
 
             # Read temporary csv output to a pandas table

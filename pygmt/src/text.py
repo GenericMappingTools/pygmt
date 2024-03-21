@@ -37,12 +37,7 @@ from pygmt.helpers import (
     t="transparency",
     w="wrap",
 )
-@kwargs_to_strings(
-    R="sequence",
-    textfiles="sequence_space",
-    c="sequence_comma",
-    p="sequence",
-)
+@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def text_(  # noqa: PLR0912
     self,
     textfiles=None,

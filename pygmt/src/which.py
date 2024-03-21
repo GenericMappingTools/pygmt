@@ -7,14 +7,13 @@ from pygmt.helpers import (
     GMTTempFile,
     build_arg_list,
     fmt_docstring,
-    kwargs_to_strings,
+    is_nonstr_iter,
     use_alias,
 )
 
 
 @fmt_docstring
 @use_alias(G="download", V="verbose")
-@kwargs_to_strings(fname="sequence_space")
 def which(fname, **kwargs):
     r"""
     Find the full path to specified files.
@@ -72,6 +71,6 @@ def which(fname, **kwargs):
             )
         path = tmpfile.read().strip()
     if not path:
-        _fname = fname.replace(" ", "', '")
+        _fname = fname if not is_nonstr_iter(fname) else "', '".join(fname)
         raise FileNotFoundError(f"File(s) '{_fname}' not found.")
     return path.split("\n") if "\n" in path else path
