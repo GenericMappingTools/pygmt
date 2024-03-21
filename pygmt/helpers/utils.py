@@ -315,6 +315,108 @@ def non_ascii_to_octal(argstr):
     return argstr.translate(str.maketrans(mapping))
 
 
+def build_arg_list(
+    kwdict: dict,
+    confdict: dict | None = None,
+    infile: str | pathlib.PurePath | list[str | pathlib.PurePath] | None = None,
+    outfile: str | pathlib.PurePath | None = None,
+) -> list[str]:
+    r"""
+    Convert keyword dictionaries and input/output files into a list of GMT arguments.
+
+    Make sure all values in ``kwdict`` have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator. The only exceptions are
+    ``True``, ``False`` and ``None``.
+
+    Any lists or tuples left will be interpreted as multiple entries for the same
+    command line option. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    converted to ``["-Bxa", "-Byaf"]``.
+
+    Parameters
+    ----------
+    kwdict
+        A dictionary containing parsed keyword arguments.
+    confdict
+        A dictionary containing configurable GMT parameters.
+    infile
+        The input file or a list of input files.
+    outfile
+        The output file.
+
+    Returns
+    -------
+    args
+        The list of command line arguments that will be passed to GMT modules. The
+        keyword arguments are sorted alphabetically, followed by GMT configuration
+        key-value pairs, with optional input file(s) at the beginning and optional
+        output file at the end.
+
+    Examples
+    --------
+    >>> build_arg_list(dict(A=True, B=False, C=None, D=0, E=200, F="", G="1/2/3/4"))
+    ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
+    >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
+    ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty Spaces"',
+    ...             l="'Void Space'",
+    ...         )
+    ...     )
+    ... )
+    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
+    ...     )
+    ... )
+    ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile=["f1.txt", "f2.txt"],
+    ...         outfile="out.txt",
+    ...     )
+    ... )
+    ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    """
+    gmt_args = []
+    for key, value in kwdict.items():
+        if len(key) > 2:  # Raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if value is None or value is False:  # Exclude arguments that are None and False
+            pass
+        elif value is True:
+            gmt_args.append(f"-{key}")
+        elif is_nonstr_iter(value):
+            gmt_args.extend(non_ascii_to_octal(f"-{key}{_value}") for _value in value)
+        else:
+            gmt_args.append(non_ascii_to_octal(f"-{key}{value}"))
+    gmt_args = sorted(gmt_args)
+
+    if confdict:
+        gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
+
+    if infile:  # infile can be a single file or a list of files
+        if isinstance(infile, str | pathlib.PurePath):
+            gmt_args = [str(infile), *gmt_args]
+        else:
+            gmt_args = [str(_file) for _file in infile] + gmt_args
+    if outfile:
+        gmt_args.append("->" + str(outfile))
+    return gmt_args
+
+
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
     Convert keyword dictionaries and input/output files into a GMT argument string.
