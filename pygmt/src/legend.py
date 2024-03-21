@@ -5,7 +5,7 @@ legend - Plot a legend.
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
@@ -81,4 +81,4 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
             specfile = spec
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))
+        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=specfile))

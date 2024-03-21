@@ -9,7 +9,7 @@ from typing import Literal
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["solar"]
 
@@ -118,4 +118,4 @@ def solar(
             raise GMTInvalidInput("Unrecognized datetime format.") from verr
         kwargs["T"] += f"+d{datetime_string}"
     with Session() as lib:
-        lib.call_module(module="solar", args=build_arg_string(kwargs))
+        lib.call_module(module="solar", args=build_arg_list(kwargs))

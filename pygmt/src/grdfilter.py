@@ -5,7 +5,7 @@ grdfilter - Filter a grid in the space (or time) domain.
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -138,7 +138,7 @@ def grdfilter(grid, **kwargs):
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdfilter", args=build_arg_string(kwargs, infile=vingrd)
+                    module="grdfilter", args=build_arg_list(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

@@ -5,7 +5,7 @@ grdimage - Plot grids or images.
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -172,5 +172,5 @@ def grdimage(self, grid, **kwargs):
         ):
             kwargs["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=vingrd)
+                module="grdimage", args=build_arg_list(kwargs, infile=vingrd)
             )

@@ -3,7 +3,7 @@ grdcontour - Plot a contour figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdcontour"]
 
@@ -125,5 +125,5 @@ def grdcontour(self, grid, **kwargs):
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
-                module="grdcontour", args=build_arg_string(kwargs, infile=vingrd)
+                module="grdcontour", args=build_arg_list(kwargs, infile=vingrd)
             )

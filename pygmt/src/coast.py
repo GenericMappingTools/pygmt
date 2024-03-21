@@ -6,7 +6,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     args_in_kwargs,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -227,4 +227,4 @@ def coast(self, **kwargs):
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
     with Session() as lib:
-        lib.call_module(module="coast", args=build_arg_string(kwargs))
+        lib.call_module(module="coast", args=build_arg_list(kwargs))
