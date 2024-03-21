@@ -12,18 +12,18 @@ from pygmt.helpers import GMTTempFile
 
 def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=None):
     """
-    Read a tabular data as pandas.DataFrame object using pandas.read_csv().
+    Read tabular data as pandas.DataFrame object using pandas.read_csv().
 
     The parameters have the same meaning as in ``pandas.read_csv()``.
     """
     try:
         df = pd.read_csv(filepath_or_buffer, sep=sep, comment=comment, header=header)
     except pd.errors.EmptyDataError:
-        # Return an empty DataFrame if the file has no data
+        # Return an empty DataFrame if the file contains no data
         return pd.DataFrame()
 
     # By default, pandas reads text strings with whitespaces as multiple columns, but
-    # GMT contacatenates all trailing text as a single string column. Neet do find all
+    # GMT concatenates all trailing text as a single string column. Need do find all
     # string columns (with dtype="object") and combine them into a single string column.
     string_columns = df.select_dtypes(include=["object"]).columns
     if len(string_columns) > 1:
@@ -41,7 +41,7 @@ def dataframe_from_pandas(filepath_or_buffer, sep=r"\s+", comment="#", header=No
 
 def dataframe_from_gmt(fname):
     """
-    Read a tabular data as pandas.DataFrame using GMT virtual file.
+    Read tabular data as pandas.DataFrame using GMT virtual file.
     """
     with Session() as lib:
         with lib.virtualfile_out(kind="dataset") as vouttbl:
@@ -71,7 +71,7 @@ def test_dataset():
 
 def test_dataset_empty():
     """
-    Make sure that an empty DataFrame is returned if a file has no data.
+    Make sure that an empty DataFrame is returned if a file contains no data.
     """
     with GMTTempFile(suffix=".txt") as tmpfile:
         with Path(tmpfile.name).open(mode="w") as fp:
