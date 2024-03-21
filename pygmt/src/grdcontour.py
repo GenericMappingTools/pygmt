@@ -28,7 +28,7 @@ __doctest_skip__ = ["grdcontour"]
     t="transparency",
 )
 @kwargs_to_strings(
-    R="sequence", L="sequence", A="squence", c="sequence_comma", p="sequence"
+    R="sequence", L="sequence", A="sequence", c="sequence_comma", p="sequence"
 )
 def grdcontour(self, grid, **kwargs):
     r"""
