@@ -27,7 +27,7 @@ __doctest_skip__ = ["grdcontour"]
     p="perspective",
     t="transparency",
 )
-@kwargs_to_strings(R="sequence", L="sequence", c="sequence_comma", p="sequence")
+@kwargs_to_strings(R="sequence", L="sequence", A="squence", c="sequence_comma", p="sequence")
 def grdcontour(self, grid, **kwargs):
     r"""
     Convert grids or images to contours and plot them on maps.
