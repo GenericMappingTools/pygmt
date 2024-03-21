@@ -55,12 +55,14 @@ def grdcontour(self, grid, **kwargs):
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
-        - Specify a fixed annotation interval *annot_int* or a
-          single annotation level **+**\ *annot_int*.
+        - Specify a fixed annotation interval by ``*annot_int*`` or ``"annot_int"``.
+        - Specify a single annotation level by ``[*annot_int*]`` or
+          ``"*annot_int*\ **,**"``.
+        - Specify specific annotation levels by a list or a comma separated string
         - Disable all annotations by appending **n**.
         - The appearance can be adjusted by appending different modifiers, e.g.,
-          ``"annot_int+f10p+gred"`` gives annotations with a font size of 10
-          points and a red filled box. For all available modifiers see
+          ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points
+          and a red filled box. For all available modifiers see
           :gmt-docs:`grdcontour.html#a`.
     limit : str or list of 2 ints
         *low*/*high*.
