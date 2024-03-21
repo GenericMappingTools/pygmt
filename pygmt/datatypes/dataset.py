@@ -18,12 +18,13 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
     Examples
     --------
+    >>> from pathlib import Path
     >>> from pygmt.helpers import GMTTempFile
     >>> from pygmt.clib import Session
     >>>
     >>> with GMTTempFile(suffix=".txt") as tmpfile:
     ...     # Prepare the sample data file
-    ...     with open(tmpfile.name, mode="w") as fp:
+    ...     with Path(tmpfile.name).open(mode="w") as fp:
     ...         print(">", file=fp)
     ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
     ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -157,12 +158,13 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.helpers import GMTTempFile
         >>> from pygmt.clib import Session
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)

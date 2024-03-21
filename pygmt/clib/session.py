@@ -1641,12 +1641,13 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...
         ...     # Create a virtual file for storing the output table.
@@ -1661,8 +1662,7 @@ class Session:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...         with open(vouttbl, mode="r") as fp:
-        ...             line = fp.readline()
+        ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
         if fname is not None:  # Yield the actual file name.
@@ -1692,13 +1692,14 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Read dataset from a virtual file
         >>> with Session() as lib:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
-        ...         with open(tmpfile.name, mode="w") as fp:
+        ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
@@ -1779,7 +1780,7 @@ class Session:
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)

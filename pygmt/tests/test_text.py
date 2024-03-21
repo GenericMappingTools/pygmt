@@ -2,7 +2,7 @@
 Test Figure.text.
 """
 
-import os
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -10,9 +10,9 @@ from pygmt import Figure
 from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
-CITIES_DATA = os.path.join(TEST_DATA_DIR, "cities.txt")
+TEST_DATA_DIR = Path(__file__).parent / "data"
+POINTS_DATA = TEST_DATA_DIR / "points.txt"
+CITIES_DATA = TEST_DATA_DIR / "cities.txt"
 
 
 @pytest.fixture(scope="module", name="projection")
@@ -299,8 +299,7 @@ def test_text_angle_font_justify_from_textfile():
     """
     fig = Figure()
     with GMTTempFile(suffix=".txt") as tempfile:
-        with open(tempfile.name, "w", encoding="utf8") as tmpfile:
-            tmpfile.write("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
+        Path(tempfile.name).write_text("114 0.5 30 22p,Helvetica-Bold,black LM BORNEO")
         fig.text(
             region=[113, 117.5, -0.5, 3],
             projection="M5c",

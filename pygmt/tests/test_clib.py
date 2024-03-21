@@ -2,7 +2,6 @@
 Test the wrappers for the C API.
 """
 
-import os
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -22,7 +21,7 @@ from pygmt.exceptions import (
 )
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @contextmanager
@@ -136,11 +135,10 @@ def test_call_module():
     """
     Run a command to see if call_module works.
     """
-    data_fname = os.path.join(TEST_DATA_DIR, "points.txt")
     out_fname = "test_call_module.txt"
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
-            lib.call_module("info", f"{data_fname} -C ->{out_fname.name}")
+            lib.call_module("info", f"{POINTS_DATA} -C ->{out_fname.name}")
             assert Path(out_fname.name).stat().st_size > 0
             output = out_fname.read().strip()
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
