@@ -145,11 +145,12 @@ def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
 
 def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
     """
-    Get dimension names, attributes and grid type from the grid header.
+    Get dimension names, attributes, grid registration and type from the grid header.
 
-    For a 2D grid, the dimension names are set to "x", "y", and "z" by default.
-    The attributes for each dimension are parsed from the grid header following
-    GMT conventions.
+    For a 2-D grid, the dimension names are set to "x", "y", and "z" by default. The
+    attributes for each dimension are parsed from the grid header following GMT source
+    codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
+    "gmtnc_grd_info" for reference.
 
     The last dimension is special and is the data variable name, and the attributes
     for this dimension are global attributes for the grid.
@@ -174,15 +175,15 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
     gtype : int
         The grid type. 0 for Cartesian grid and 1 for geographic grid.
     """
-    # Default dimension names. The last dimension is for the data.
+    # Default dimension names. The last dimension is for the data variable.
     dims = ("x", "y", "z")
     nameunits = (header.x_units, header.y_units, header.z_units)
 
     # Dictionary for dimension attributes with the dimension name as the key.
-    attrs: dict = {dim: {} for dim in dims}
+    attrs = {dim: {} for dim in dims}
     # Dictionary for mapping the default dimension names to the actual names.
     newdims = {dim: dim for dim in dims}
-    # Loop over dimensions and get the dimension name and attribute from header
+    # Loop over dimensions and get the dimension name and attributes from header
     for dim, nameunit in zip(dims, nameunits, strict=False):
         # The long_name and units attributes.
         long_name, units = _parse_nameunits(nameunit.decode())
@@ -200,7 +201,7 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
             attrs[dim]["standard_name"] = "latitude"
             newdims[dim] = "lat"
 
-        # Axis attribute are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
+        # Axis attributes are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
         # The codes here may not work for 3-D grids.
         if dim == dims[-1]:  # The last dimension is the data.
             attrs[dim]["actual_range"] = np.array([header.z_min, header.z_max])
