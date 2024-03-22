@@ -143,6 +143,89 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     ]
 
 
+def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
+    """
+    Get dimension names, attributes and grid type from the grid header.
+
+    For a 2D grid, the dimension names are set to "x", "y", and "z" by default.
+    The attributes for each dimension are parsed from the grid header following
+    GMT conventions.
+
+    The last dimension is special and is the data variable name, and the attributes
+    for this dimension are global attributes for the grid.
+
+    The grid is assumed to be Cartesian by default. If the x and y units are
+    "degrees_east" and "degrees_north", respectively, then the grid is assumed to be
+    geographic.
+
+    Parameters
+    ----------
+    header
+        The grid header structure.
+
+    Returns
+    -------
+    dims : tuple
+        The dimension names with the last dimension for the data variable.
+    attrs : dict
+        The attributes for each dimension.
+    registration : int
+        The grid registration. 0 for gridline and 1 for pixel.
+    gtype : int
+        The grid type. 0 for Cartesian grid and 1 for geographic grid.
+    """
+    # Default dimension names. The last dimension is for the data.
+    dims = ("x", "y", "z")
+    nameunits = (header.x_units, header.y_units, header.z_units)
+
+    # Dictionary for dimension attributes with the dimension name as the key.
+    attrs: dict = {dim: {} for dim in dims}
+    # Dictionary for mapping the default dimension names to the actual names.
+    newdims = {dim: dim for dim in dims}
+    # Loop over dimensions and get the dimension name and attribute from header
+    for dim, nameunit in zip(dims, nameunits, strict=False):
+        # The long_name and units attributes.
+        long_name, units = _parse_nameunits(nameunit.decode())
+        if long_name:
+            attrs[dim]["long_name"] = long_name
+        if units:
+            attrs[dim]["units"] = units
+
+        # "degrees_east"/"degrees_north" are the units for geographic coordinates
+        # following CF-conventions
+        if units == "degrees_east":
+            attrs[dim]["standard_name"] = "longitude"
+            newdims[dim] = "lon"
+        elif units == "degrees_north":
+            attrs[dim]["standard_name"] = "latitude"
+            newdims[dim] = "lat"
+
+        # Axis attribute are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
+        # The codes here may not work for 3-D grids.
+        if dim == dims[-1]:  # The last dimension is the data.
+            attrs[dim]["actual_range"] = np.array([header.z_min, header.z_max])
+        else:
+            attrs[dim]["axis"] = dim.upper()
+            idx = dims.index(dim) * 2
+            attrs[dim]["actual_range"] = np.array(header.wesn[idx : idx + 2])
+
+    # Cartesian or Geographic grid
+    gtype = 0
+    if (
+        attrs[dims[0]].get("standard_name") == "longitude"
+        and attrs[dims[1]].get("standard_name") == "latitude"
+    ):
+        gtype = 1
+    # Registration
+    registration = header.registration
+
+    # Update the attributes dictionary with new dimension names as keys
+    attrs = {newdims[dim]: attrs[dim] for dim in dims}
+    # Update the dimension names
+    dims = tuple(newdims[dim] for dim in dims)
+    return dims, attrs, registration, gtype
+
+
 class _GMT_GRID(ctp.Structure):  # noqa: N801
     """
     GMT grid structure for holding a grid and its header.
@@ -295,73 +378,35 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         # The grid header
         header = self.header.contents
 
+        # The dimension names, attributes and grid registration and type
+        dims, attrs, registration, gtype = _parse_header(header)
+
+        # The x and y coordinates
+        coords = {dims[0]: self.x[: header.n_columns], dims[1]: self.y[: header.n_rows]}
+
         # The data array without paddings
         pad = header.pad[:]
         data = np.reshape(self.data[: header.mx * header.my], (header.my, header.mx))[
             pad[2] : header.my - pad[3], pad[0] : header.mx - pad[1]
         ]
 
-        # Default dimension names and grid name
-        dims, name = ("y", "x"), "z"
-
-        # The x and y coordinates
-        coords = {
-            "x": self.x[: header.n_columns],
-            "y": self.y[: header.n_rows],
-        }
-
-        # Attributes for the coordinates and the data (i.e., global attributes).
-        # Refer to the 'gmtnc_put_units' and 'gmtnc_get_units' functions in 'gmt_nc.c'.
-        attrs: dict = {"x": {}, "y": {}, "z": {}}
-        newdims = {"x": "x", "y": "y"}  # Map default dims to new dims
-        for dim, nameunits in (
-            ("x", header.x_units),
-            ("y", header.y_units),
-            ("z", header.z_units),
-        ):
-            long_name, units = _parse_nameunits(nameunits.decode())
-            if long_name:
-                attrs[dim]["long_name"] = long_name
-            if units:
-                attrs[dim]["units"] = units
-                if units == "degrees_east":
-                    attrs[dim]["standard_name"] = "longitude"
-                    newdims[dim] = "lon"
-                elif units == "degrees_north":
-                    attrs[dim]["standard_name"] = "latitude"
-                    newdims[dim] = "lat"
-            if dim == "z":
-                attrs[dim]["actual_range"] = np.array([header.z_min, header.z_max])
-            else:
-                attrs[dim]["axis"] = dim.upper()
-                idx = 0 if dim == "x" else 2
-                attrs[dim]["actual_range"] = np.array(header.wesn[idx : idx + 2])
-
         # Create the xarray.DataArray object
-        grid = xr.DataArray(data, coords=coords, dims=dims, name=name, attrs=attrs["z"])
+        grid = xr.DataArray(
+            data, coords=coords, dims=dims[1::-1], name=dims[-1], attrs=attrs[dims[-1]]
+        )
+        # Assign coordinate attributes
+        for dim in grid.dims:
+            grid[dim].attrs.update(attrs[dim])
+
         # Flip the coordinates and data if necessary so that coordinates are ascending.
         # `grid.sortby(list(grid.dims))` sometimes causes crashes.
         # The solution comes from https://github.com/pydata/xarray/discussions/6695.
-        for dim in dims:
+        for dim in grid.dims:
             if grid[dim][0] > grid[dim][1]:
                 grid = grid.isel({dim: slice(None, None, -1)})
 
-        # Assign coordinate attributes
-        for dim in dims:
-            grid[dim].attrs.update(attrs[dim])
-
-        # Cartesian or Geographic grid?
-        gtype = 0  # Cartesian by default
-        if (
-            attrs["x"].get("standard_name") == "longitude"
-            and attrs["y"].get("standard_name") == "latitude"
-        ):
-            gtype = 1
-        # Update the dimension names
-        grid = grid.rename(newdims)
-
         # Set the gmt accesssor.
         # Must put at the end. The information get lost after specific grid operation.
-        grid.gmt.registration = header.registration
+        grid.gmt.registration = registration
         grid.gmt.gtype = gtype
         return grid
