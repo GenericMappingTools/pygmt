@@ -1,11 +1,11 @@
 # Cache GMT remote data files and upload as artifacts
 #
 # This workflow downloads data files needed by PyGMT tests/documentation from the GMT
-# data server and uploads as workflow artifacts which can be accessed by other GitHub
-# Actions workflows.
+# data server and uploads them as workflow artifacts, which can then be accessed by other
+# GitHub Actions workflows.
 #
 # It is scheduled to run every Sunday at 12:00 (UTC). If new remote files are needed
-# urgently, maintainers can refresh the cache by either ways:
+# urgently, maintainers can refresh the cache by one of the following methods:
 #
 # 1. Update this workflow file
 # 2. Update the `pygmt/helpers/caching.py` file
