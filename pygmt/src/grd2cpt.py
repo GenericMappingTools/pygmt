@@ -184,7 +184,7 @@ def grd2cpt(grid, **kwargs):
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
     with Session() as lib:
-        with lib.virtualfile_from_data(check_kind="raster", data=grid) as vingrd:
+        with lib.virtualfile_in(kind="raster", data=grid) as vingrd:
             if kwargs.get("H") is None:  # if no output is set
                 arg_str = build_arg_string(kwargs, infile=vingrd)
             else:  # if output is set
