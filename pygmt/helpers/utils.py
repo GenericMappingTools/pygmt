@@ -199,6 +199,52 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
+def _file_or_arg(data, required):
+    """
+    Determine if data is file-like or arg-like.
+    """
+    kind = None
+    if isinstance(data, str | pathlib.PurePath):
+        kind = "file"
+    elif isinstance(data, bool | int | float) or (data is None and not required):
+        kind = "arg"
+    return kind
+
+
+def raster_kind(data, required):
+    """
+    Determine the kind of a raster data.
+    """
+    if kind := _file_or_arg(data, required):
+        return kind
+    if isinstance(data, xr.DataArray):
+        return "image" if len(data.dims) == 3 else "grid"
+    raise GMTInvalidInput(f"Unrecognized raster data type {type(data)}")
+
+
+def table_kind(data, required):
+    """
+    Determine the kind of a tablubar data.
+    """
+    if kind := _file_or_arg(data, required):
+        return kind
+    if hasattr(data, "__geo_interface__"):
+        # geo-like Python object that implements ``__geo_interface__``
+        # (geopandas.GeoDataFrame or shapely.geometry)
+        return "geojson"
+    if data is not None:
+        return "matrix"
+    return "vectors"
+
+
+def get_data_kind(data, required=True, check_kind="table"):
+    """
+    Table or raster kind.
+    """
+    kind_func = table_kind if check_kind == "table" else raster_kind
+    return kind_func(data, required)
+
+
 def non_ascii_to_octal(argstr):
     r"""
     Translate non-ASCII characters to their corresponding octal codes.
