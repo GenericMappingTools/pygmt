@@ -310,7 +310,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             "y": self.y[: header.n_rows],
         }
 
-        # Attributes for the coordinates and the data (i.e., gloabal attributes).
+        # Attributes for the coordinates and the data (i.e., global attributes).
         # Refer to the 'gmtnc_put_units' and 'gmtnc_get_units' functions in 'gmt_nc.c'.
         attrs: dict = {"x": {}, "y": {}, "z": {}}
         newdims = {"x": "x", "y": "y"}  # Map default dims to new dims
