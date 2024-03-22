@@ -33,6 +33,7 @@ on:
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
+  workflow_dispatch:
   release:
     types:
       - published
