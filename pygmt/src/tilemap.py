@@ -150,7 +150,7 @@ def tilemap(
         kwargs["R"] = "/".join(str(coordinate) for coordinate in region)
 
     with Session() as lib:
-        with lib.virtualfile_from_data(check_kind="raster", data=raster) as vingrd:
+        with lib.virtualfile_in(kind="raster", data=raster) as vingrd:
             lib.call_module(
                 module="grdimage", args=build_arg_string(kwargs, infile=vingrd)
             )
