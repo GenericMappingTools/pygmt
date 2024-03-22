@@ -24,7 +24,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, refactor/virtualfile_in ]
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
