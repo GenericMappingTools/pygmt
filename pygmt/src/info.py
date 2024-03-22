@@ -82,7 +82,7 @@ def info(data, **kwargs):
     """
     with Session() as lib:
         with GMTTempFile() as tmpfile:
-            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            with lib.virtualfile_from_data(check_kind="vector", data=data) as vintbl:
                 lib.call_module(
                     module="info",
                     args=build_arg_string(kwargs, infile=vintbl, outfile=tmpfile.name),

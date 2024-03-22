@@ -123,7 +123,7 @@ def grdcontour(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+        with lib.virtualfile_from_data(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
                 module="grdcontour", args=build_arg_string(kwargs, infile=vingrd)
             )

@@ -255,7 +255,7 @@ def plot(  # noqa: PLR0912
                 pass
 
     with Session() as lib:
-        with lib.virtualfile_in(
+        with lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
         ) as vintbl:
             lib.call_module(module="plot", args=build_arg_string(kwargs, infile=vintbl))

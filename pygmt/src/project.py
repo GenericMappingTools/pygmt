@@ -240,7 +240,7 @@ def project(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(
+            lib.virtualfile_from_data(
                 check_kind="vector",
                 data=data,
                 x=x,

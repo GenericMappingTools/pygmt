@@ -231,7 +231,7 @@ def plot3d(  # noqa: PLR0912
                 pass
 
     with Session() as lib:
-        with lib.virtualfile_in(
+        with lib.virtualfile_from_data(
             check_kind="vector",
             data=data,
             x=x,

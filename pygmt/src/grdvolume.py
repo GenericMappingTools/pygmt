@@ -104,7 +104,7 @@ def grdvolume(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_from_data(check_kind="raster", data=grid) as vingrd,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
             lib.call_module(
