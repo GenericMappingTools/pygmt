@@ -101,5 +101,44 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     ]
 
 
+def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
+    """
+    Get long_name and units attributes from x_units/y_units/z_units in grid header.
+
+    In GMT grid header, the x_units/y_units/z_units are strings in the form of
+    ``long_name [units]``, in which both ``long_name`` and ``units`` and standard
+    netCDF attributes defined by CF conventions. The ``[units]`` part is optional.
+
+    This function parses the x_units/y_units/z_units string and get the ``long_name``
+    and ``units`` attributes.
+
+    Parameters
+    ----------
+    nameunits
+        The x_units/y_units/z_units string in grid header.
+
+    Returns
+    -------
+    (long_name, units)
+        Tuple of netCDF attributes 'long_name' and 'units'. 'units' may be None.
+
+    Examples
+    --------
+    >>> _parse_nameunits("longitude [degrees_east]")
+    ('longitude', 'degrees_east')
+    >>> _parse_nameunits("latitude [degrees_north]")
+    ('latitude', 'degrees_north')
+    >>> _parse_nameunits("x")
+    ('x', None)
+    >>> _parse_nameunits("y")
+    ('y', None)
+    >>>
+    """
+    parts = nameunits.split("[")
+    long_name = parts[0].strip()
+    units = parts[1].strip("]").strip() if len(parts) > 1 else None
+    return long_name, units
+
+
 class _GMT_GRID(ctp.Structure):  # noqa: N801
     pass
