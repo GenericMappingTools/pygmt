@@ -10,6 +10,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    table_kind,
     use_alias,
 )
 from pygmt.io import load_dataarray
@@ -116,11 +117,11 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
+
+    kind, data = table_kind(data, vectors=[x, y])
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            with lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y
-            ) as vintbl:
+            with lib.virtualfile_in(kind=kind, data=data) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
