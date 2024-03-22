@@ -254,5 +254,5 @@ def velo(self, data=None, **kwargs):
         )
 
     with Session() as lib:
-        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+        with lib.virtualfile_from_data(check_kind="vector", data=data) as vintbl:
             lib.call_module(module="velo", args=build_arg_string(kwargs, infile=vintbl))

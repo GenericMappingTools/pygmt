@@ -200,7 +200,7 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        with lib.virtualfile_in(
+        with lib.virtualfile_from_data(
             check_kind="vector", data=data, x=length, y=azimuth
         ) as vintbl:
             lib.call_module(module="rose", args=build_arg_string(kwargs, infile=vintbl))

@@ -115,7 +115,7 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        with lib.virtualfile_in(
+        with lib.virtualfile_from_data(
             check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
         ) as vintbl:
             lib.call_module(

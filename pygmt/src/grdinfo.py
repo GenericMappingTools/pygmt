@@ -112,7 +112,7 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
+            with lib.virtualfile_from_data(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
                     args=build_arg_string(kwargs, infile=vingrd, outfile=outfile.name),
