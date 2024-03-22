@@ -176,11 +176,11 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
         The grid type. 0 for Cartesian grid and 1 for geographic grid.
     """
     # Default dimension names. The last dimension is for the data variable.
-    dims = ("x", "y", "z")
+    dims: tuple = ("x", "y", "z")
     nameunits = (header.x_units, header.y_units, header.z_units)
 
     # Dictionary for dimension attributes with the dimension name as the key.
-    attrs = {dim: {} for dim in dims}
+    attrs: dict = {dim: {} for dim in dims}
     # Dictionary for mapping the default dimension names to the actual names.
     newdims = {dim: dim for dim in dims}
     # Loop over dimensions and get the dimension name and attributes from header
