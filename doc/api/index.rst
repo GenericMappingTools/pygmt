@@ -289,6 +289,7 @@ Python objects to and from GMT virtual files:
 .. autosummary::
     :toctree: generated
 
+    clib.Session.virtualfile_in
     clib.Session.virtualfile_out
     clib.Session.virtualfile_to_dataset
 

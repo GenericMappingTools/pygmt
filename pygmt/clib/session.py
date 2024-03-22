@@ -34,6 +34,7 @@ from pygmt.exceptions import (
 from pygmt.helpers import (
     data_kind,
     fmt_docstring,
+    get_data_kind,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1641,6 +1642,110 @@ class Session:
         # Finally create the virtualfile from the data, to be passed into GMT
         file_context = _virtualfile_from(*_data)
 
+        return file_context
+
+    def virtualfile_in(
+        self,
+        kind: Literal[
+            "arg",
+            "file",
+            "geojson",
+            "grid",
+            "image",
+            "matrix",
+            "vectors",
+            "table",
+            "raster",
+        ],
+        data,
+        required: bool = True,
+    ) -> contextlib._GeneratorContextManager:
+        """
+        Create a virtual file for storing any input data.
+
+        This convenience function produces a virtual file that stores the input data
+        and can be passed into GMT C API. The type of the virtual file is controlled by
+        ``kind`` parameter. For some specific kinds, a null context manager instead of
+        a virtual file is returned.
+
+        Parameters
+        ----------
+        kind
+            The type of data that is passed in. It's usually determined by the
+            ``data_kind()`` function. Two special kinds are supported: ``"table"`` and
+            ``"raster"``, which are general data kinds and means that the function will
+            call ``data_kind()`` to decide the actual data kind.
+        data
+            The input data.
+        required
+            ``True`` if the data must be passed in. ``False`` if the data can be
+            omitted.
+
+        Returns
+        -------
+        file_context
+            The virtual file stored inside a context manager. Access the file name of
+            this virtual file using ``with file_context as fname: ...``.
+        """
+        if kind in ["table", "raster"]:
+            kind = get_data_kind(data=data, required=required, check_kind=kind)
+
+        if kind == "arg" and required:
+            raise GMTInvalidInput("data is required and can't be of 'arg' kind.")
+
+        if kind not in ["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
+            raise GMTInvalidInput(f"Unrecognized data type 'kind' for {type(data)}")
+
+        # Decide which virtualfile_from_ function to use
+        _virtualfile_from = {
+            "arg": contextlib.nullcontext,
+            "file": contextlib.nullcontext,
+            "geojson": tempfile_from_geojson,
+            "grid": self.virtualfile_from_grid,
+            "image": tempfile_from_image,
+            # Note: virtualfile_from_matrix is not used because a matrix can be
+            # converted to vectors instead, and using vectors allows for better
+            # handling of string type inputs (e.g. for datetime data types)
+            "matrix": self.virtualfile_from_vectors,
+            "vectors": self.virtualfile_from_vectors,
+        }[kind]
+
+        # Ensure the data is an iterable (Python list or tuple) and can be unpacked
+        match kind:
+            case "arg" | "file" | "geojson" | "grid" | "image":
+                if kind == "image" and data.dtype != "uint8":
+                    msg = (
+                        f"Input image has dtype: {data.dtype} which is unsupported, "
+                        "and may result in an incorrect output. Please recast image "
+                        "to a uint8 dtype and/or scale to 0-255 range, e.g. "
+                        "using a histogram equalization function like "
+                        "skimage.exposure.equalize_hist."
+                    )
+                    warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+                _data = (data,)
+            case "vectors":
+                _data = data
+            case "matrix":  # Turn 2-D arrays into list of vectors
+                if hasattr(data, "items") and not hasattr(data, "to_frame"):
+                    # pandas.DataFrame or xarray.Dataset types.
+                    # pandas.Series will be handled below like a 1-D numpy.ndarray.
+                    _data = [array for _, array in data.items()]
+                elif (
+                    hasattr(data, "ndim")
+                    and data.ndim == 2
+                    and data.dtype.kind in "iuf"
+                ):
+                    # Just use virtualfile_from_matrix for 2-D numpy.ndarray
+                    # which are signed integer (i), unsigned integer (u) or
+                    # floating point (f) types
+                    _virtualfile_from = self.virtualfile_from_matrix
+                    _data = (data,)
+                else:
+                    # Python list, tuple, numpy.ndarray, and pandas.Series types
+                    _data = np.atleast_2d(np.asanyarray(data).T)
+
+        # Finally create the virtualfile from the data, to be passed into GMT
+        file_context = _virtualfile_from(*_data)
         return file_context
 
     @contextlib.contextmanager
