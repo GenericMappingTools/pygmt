@@ -13,6 +13,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    table_kind,
     use_alias,
     validate_output_table_type,
 )
@@ -136,12 +137,11 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
+        kind, data = table_kind(data, vectors=[x, y, z], ncols=2)
         # Return an xarray.DataArray if ``outgrid`` is not set
         with GMTTempFile(suffix=".nc") as tmpfile:
             with Session() as lib:
-                with lib.virtualfile_from_data(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                ) as vintbl:
+                with lib.virtualfile_in(kind=kind, data=data) as vintbl:
                     if (outgrid := kwargs.get("G")) is None:
                         kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                     lib.call_module(
@@ -238,11 +238,11 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile)
 
+        kind, data = table_kind(data, vectors=[x, y, z], ncols=2)
+
         with Session() as lib:
             with (
-                lib.virtualfile_from_data(
-                    check_kind="vector", data=data, x=x, y=y, z=z, required_z=False
-                ) as vintbl,
+                lib.virtualfile_in(kind=kind, data=data) as vintbl,
                 lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
             ):
                 lib.call_module(

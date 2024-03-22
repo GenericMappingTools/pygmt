@@ -211,7 +211,7 @@ def _file_or_arg(data, required):
     return kind
 
 
-def raster_kind(data, required):
+def raster_kind(data, required=True):
     """
     Determine the kind of a raster data.
     """
@@ -222,19 +222,30 @@ def raster_kind(data, required):
     raise GMTInvalidInput(f"Unrecognized raster data type {type(data)}")
 
 
-def table_kind(data, required):
+def table_kind(data, required=True, vectors=None, ncols=3):
     """
     Determine the kind of a tablubar data.
     """
     if kind := _file_or_arg(data, required):
-        return kind
-    if hasattr(data, "__geo_interface__"):
+        pass
+    elif hasattr(data, "__geo_interface__"):
         # geo-like Python object that implements ``__geo_interface__``
         # (geopandas.GeoDataFrame or shapely.geometry)
-        return "geojson"
-    if data is not None:
-        return "matrix"
-    return "vectors"
+        kind = "geojson"
+    elif data is not None:
+        kind = "matrix"
+    else:
+        kind = "vectors"
+        data = vectors
+
+    if vectors is not None and len(vectors) < ncols:
+        raise GMTInvalidInput(
+            f"Requires {ncols} column but only {len(vectors)} columns are given."
+        )
+
+    if vectors is not None:  # vectors is specified.
+        return kind, data
+    return kind
 
 
 def get_data_kind(data, required=True, check_kind="table"):

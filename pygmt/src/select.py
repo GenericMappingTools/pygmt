@@ -213,7 +213,7 @@ def select(
 
     with Session() as lib:
         with (
-            lib.virtualfile_from_data(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_in(kind="table", data=data) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
             lib.call_module(

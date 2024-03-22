@@ -3,7 +3,13 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    kwargs_to_strings,
+    table_kind,
+    use_alias,
+)
 
 
 @fmt_docstring
@@ -113,11 +119,10 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)
+    kind, data = table_kind(data, vectors=[x, y, z], ncols=3)
 
     with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-        ) as vintbl:
+        with lib.virtualfile_in(kind=kind, data=data) as vintbl:
             lib.call_module(
                 module="contour", args=build_arg_string(kwargs, infile=vintbl)
             )

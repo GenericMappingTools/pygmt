@@ -135,7 +135,7 @@ def histogram(self, data, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        with lib.virtualfile_from_data(check_kind="vector", data=data) as vintbl:
+        with lib.virtualfile_in(kind="table", data=data) as vintbl:
             lib.call_module(
                 module="histogram", args=build_arg_string(kwargs, infile=vintbl)
             )

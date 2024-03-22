@@ -7,6 +7,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    table_kind,
     use_alias,
 )
 
@@ -196,11 +197,9 @@ def rose(self, data=None, length=None, azimuth=None, **kwargs):
     {transparency}
     {wrap}
     """
-
     kwargs = self._preprocess(**kwargs)
+    kind, data = table_kind(data, vectors=[length, azimuth], ncols=2)
 
     with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="vector", data=data, x=length, y=azimuth
-        ) as vintbl:
+        with lib.virtualfile_in(kind=kind, data=data) as vintbl:
             lib.call_module(module="rose", args=build_arg_string(kwargs, infile=vintbl))

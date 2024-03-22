@@ -11,6 +11,7 @@ from pygmt.helpers import (
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
+    table_kind,
     use_alias,
     validate_output_table_type,
 )
@@ -47,6 +48,7 @@ def _blockm(
           (depends on ``output_type``)
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
+    kind, data = table_kind(data, vectors=[x, y, z], ncols=3)
 
     column_names = None
     if output_type == "pandas" and isinstance(data, pd.DataFrame):
@@ -54,9 +56,7 @@ def _blockm(
 
     with Session() as lib:
         with (
-            lib.virtualfile_from_data(
-                check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            ) as vintbl,
+            lib.virtualfile_in(kind=kind, data=data) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
             lib.call_module(
