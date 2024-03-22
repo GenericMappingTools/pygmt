@@ -1641,12 +1641,13 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...
         ...     # Create a virtual file for storing the output table.
@@ -1661,8 +1662,7 @@ class Session:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...         with open(vouttbl, mode="r") as fp:
-        ...             line = fp.readline()
+        ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
         if fname is not None:  # Yield the actual file name.
@@ -1692,13 +1692,14 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Read dataset from a virtual file
         >>> with Session() as lib:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
-        ...         with open(tmpfile.name, mode="w") as fp:
+        ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
@@ -1740,8 +1741,8 @@ class Session:
 
     def virtualfile_to_dataset(
         self,
-        output_type: Literal["pandas", "numpy", "file"],
         vfname: str,
+        output_type: Literal["pandas", "numpy", "file"] = "pandas",
         column_names: list[str] | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
@@ -1751,15 +1752,15 @@ class Session:
 
         Parameters
         ----------
+        vfname
+            The virtual file name that stores the result data. Required for ``"pandas"``
+            and ``"numpy"`` output type.
         output_type
             Desired output type of the result data.
 
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
-        vfname
-            The virtual file name that stores the result data. Required for ``"pandas"``
-            and ``"numpy"`` output type.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
 
@@ -1779,7 +1780,7 @@ class Session:
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -1795,7 +1796,7 @@ class Session:
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...                 result = lib.virtualfile_to_dataset(
-        ...                     output_type="file", vfname=vouttbl
+        ...                     vfname=vouttbl, output_type="file"
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
@@ -1805,7 +1806,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outnp = lib.virtualfile_to_dataset(
-        ...                 output_type="numpy", vfname=vouttbl
+        ...                 vfname=vouttbl, output_type="numpy"
         ...             )
         ...     assert isinstance(outnp, np.ndarray)
         ...
@@ -1814,7 +1815,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd = lib.virtualfile_to_dataset(
-        ...                 output_type="pandas", vfname=vouttbl
+        ...                 vfname=vouttbl, output_type="pandas"
         ...             )
         ...     assert isinstance(outpd, pd.DataFrame)
         ...
@@ -1823,8 +1824,8 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd2 = lib.virtualfile_to_dataset(
-        ...                 output_type="pandas",
         ...                 vfname=vouttbl,
+        ...                 output_type="pandas",
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)

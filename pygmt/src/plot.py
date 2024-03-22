@@ -2,6 +2,8 @@
 plot - Plot in two dimensions.
 """
 
+from pathlib import Path
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -245,7 +247,7 @@ def plot(  # noqa: PLR0912
             kwargs["S"] = "s0.2c"
         elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
             try:
-                with open(which(data), encoding="utf8") as file:
+                with Path(which(data)).open() as file:
                     line = file.readline()
                 if "@GMULTIPOINT" in line or "@GPOINT" in line:
                     kwargs["S"] = "s0.2c"

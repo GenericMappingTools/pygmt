@@ -7,7 +7,7 @@ It is often useful to add annotations to a plot. This is handled by
 """
 
 # %%
-import os
+from pathlib import Path
 
 import pygmt
 
@@ -72,7 +72,7 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
 fig.coast(land="black", water="skyblue")
 
 # Create space-delimited file
-with open("examples.txt", "w") as f:
+with Path("examples.txt").open(mode="w") as f:
     f.write("114 0.5 0 22p,Helvetica-Bold,white CM BORNEO\n")
     f.write("119 3.25 0 12p,Helvetica-Bold,black CM CELEBES SEA\n")
     f.write("112 -4.6 0 12p,Helvetica-Bold,black CM JAVA SEA\n")
@@ -88,7 +88,7 @@ with open("examples.txt", "w") as f:
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
-os.remove("examples.txt")
+Path("examples.txt").unlink()
 
 fig.show()
 

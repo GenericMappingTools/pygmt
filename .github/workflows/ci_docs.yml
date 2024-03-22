@@ -87,7 +87,7 @@ jobs:
           create-args: >-
             python=3.12
             gmt=6.5.0
-            ghostscript=10.02.1
+            ghostscript=10.03.0
             numpy
             pandas
             xarray
@@ -111,7 +111,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.2
+        uses: dawidd6/action-download-artifact@v3.1.4
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
