@@ -17,6 +17,7 @@ on:
     # paths:
     #  - 'pygmt/**'
     #  - '.github/workflows/ci_tests_legacy.yaml'
+  workflow_dispatch:
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'

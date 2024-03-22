@@ -15,7 +15,7 @@ def _fixture_mock_x2sys_home(monkeypatch):
     Set the X2SYS_HOME environment variable to the current working directory for the
     test session.
     """
-    monkeypatch.setenv("X2SYS_HOME", Path.cwd())
+    monkeypatch.setenv("X2SYS_HOME", str(Path.cwd()))
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -30,11 +30,9 @@ def test_x2sys_init_region_spacing():
         x2sys_init(
             tag=tag, fmtfile="xyz", force=True, region=[0, 10, 20, 30], spacing=[5, 5]
         )
-
-        with open(tmpdir_p / f"{tag}.tag", encoding="utf8") as tagpath:
-            tail_line = tagpath.readlines()[-1]
-            assert "-R0/10/20/30" in tail_line
-            assert "-I5/5" in tail_line
+        tail_line = (tmpdir_p / f"{tag}.tag").read_text().splitlines()[-1]
+        assert "-R0/10/20/30" in tail_line
+        assert "-I5/5" in tail_line
 
 
 @pytest.mark.benchmark
@@ -54,7 +52,6 @@ def test_x2sys_init_units_gap():
             gap=["tseconds", "de"],
         )
 
-        with open(tmpdir_p / f"{tag}.tag", encoding="utf8") as tagpath:
-            tail_line = tagpath.readlines()[-1]
-            assert "-Nse -Nde" in tail_line
-            assert "-Wtseconds -Wde" in tail_line
+        tail_line = (tmpdir_p / f"{tag}.tag").read_text().splitlines()[-1]
+        assert "-Nse -Nde" in tail_line
+        assert "-Wtseconds -Wde" in tail_line
