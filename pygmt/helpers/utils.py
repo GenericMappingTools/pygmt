@@ -319,41 +319,45 @@ def non_ascii_to_octal(argstr):
     return argstr.translate(str.maketrans(mapping))
 
 
-def build_arg_list(kwdict, confdict=None, infile=None, outfile=None):
+def build_arg_list(
+    kwdict: dict,
+    confdict: dict | None = None,
+    infile: str | pathlib.PurePath | list | None = None,
+    outfile: str | pathlib.PurePath | None = None,
+) -> list[str]:
     r"""
-    Convert keyword dictionaries and input/output files into a GMT argument string.
+    Convert keyword dictionaries and input/output files into a list of GMT arguments.
 
-    Make sure all values in ``kwdict`` have been previously converted to a
-    string representation using the ``kwargs_to_strings`` decorator. The only
-    exceptions are True, False and None.
+    Make sure all values in ``kwdict`` have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator. The only exceptions are
+    ``True``, ``False`` and ``None``.
 
-    Any lists or tuples left will be interpreted as multiple entries for the
-    same command line option. For example, the kwargs entry ``'B': ['xa',
-    'yaf']`` will be converted to ``["-Bxa", "-Byaf"]``.
+    Any lists or tuples left will be interpreted as multiple entries for the same
+    command line option. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    converted to ``["-Bxa", "-Byaf"]``.
 
     Parameters
     ----------
-    kwdict : dict
+    kwdict
         A dictionary containing parsed keyword arguments.
-    confdict : dict
+    confdict
         A dictionary containing configurable GMT parameters.
-    infile : str or pathlib.Path
-        The input file.
-    outfile : str or pathlib.Path
+    infile
+        The input file or list of ifiles.
+    outfile
         The output file.
 
     Returns
     -------
-    args : str
-        The space-delimited argument string with '-' inserted before each
-        keyword, or '--' inserted before GMT configuration key-value pairs.
-        The keyword arguments are sorted alphabetically, followed by GMT
-        configuration key-value pairs, with optional input file at the
-        beginning and optional output file at the end.
+    args
+        The list of command line arguments that will be passed to GMT modules. A ``-``
+        is inserted before each keyword and ``--`` is inserted before GMT configuration
+        key-value pairs. The keyword arguments are sorted alphabetically, followed by
+        GMT configuration key-value pairs, with optional input file(s) at the beginning
+        and optional output file at the end.
 
     Examples
     --------
-
     >>> print(
     ...     build_arg_list(
     ...         dict(
