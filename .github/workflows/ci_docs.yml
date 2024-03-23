@@ -34,6 +34,7 @@ on:
       - 'examples/**'
       - 'README.md'
       - '.github/workflows/ci_docs.yml'
+  workflow_dispatch:
   release:
     types:
       - published
