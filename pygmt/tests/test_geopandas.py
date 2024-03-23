@@ -49,7 +49,7 @@ def fixture_gdf_ridge():
     """
     # Read shapefile into a geopandas.GeoDataFrame
     shapefile = which(
-        fname="@RidgeTest.shp @RidgeTest.shx @RidgeTest.dbf @RidgeTest.prj",
+        fname=["@RidgeTest.shp", "@RidgeTest.shx", "@RidgeTest.dbf", "@RidgeTest.prj"],
         download="c",
     )
     gdf = gpd.read_file(shapefile[0])
