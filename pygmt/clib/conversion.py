@@ -2,7 +2,9 @@
 Functions to convert data types into ctypes friendly formats.
 """
 
+import ctypes as ctp
 import warnings
+from collections.abc import Sequence
 
 import numpy as np
 from pygmt.exceptions import GMTInvalidInput
@@ -278,6 +280,32 @@ def kwargs_to_ctypes_array(argument, kwargs, dtype):
     if argument in kwargs:
         return dtype(*kwargs[argument])
     return None
+
+
+def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+    """
+    Convert a sequence (e.g., a list) of strings into a ctypes array.
+
+    Parameters
+    ----------
+    strings
+        A sequence of strings.
+
+    Returns
+    -------
+    ctypes_array
+        A ctypes array of strings.
+
+    Examples
+    --------
+    >>> strings = ["first", "second", "third"]
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
+    """
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
 
 
 def array_to_datetime(array):

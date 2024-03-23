@@ -20,6 +20,7 @@ from pygmt.clib.conversion import (
     as_c_contiguous,
     dataarray_to_matrix,
     kwargs_to_ctypes_array,
+    strings_to_ctypes_array,
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
@@ -890,13 +891,9 @@ class Session:
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
-            vector_pointer = (ctp.c_char_p * len(vector))()
             if gmt_type == self["GMT_DATETIME"]:
-                vector_pointer[:] = np.char.encode(
-                    np.datetime_as_string(array_to_datetime(vector))
-                )
-            else:
-                vector_pointer[:] = np.char.encode(vector)
+                vector = np.datetime_as_string(array_to_datetime(vector))
+            vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
@@ -953,12 +950,11 @@ class Session:
             restype=ctp.c_int,
         )
 
-        strings_pointer = (ctp.c_char_p * len(strings))()
-        strings_pointer[:] = np.char.encode(strings)
-
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
+
+        strings_pointer = strings_to_ctypes_array(strings)
 
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
