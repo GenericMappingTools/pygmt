@@ -70,7 +70,9 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
     """
     with GMTTempFile() as tmpfile:
-        output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
+        output = grdtrack(
+            points=POINTS_DATA, grid=dataarray, output_type="file", outfile=tmpfile.name
+        )
         assert output is None  # check that output is None since outfile is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = np.loadtxt(tmpfile.name)
