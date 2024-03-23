@@ -247,9 +247,11 @@ def as_c_contiguous(array):
 
 def sequence_to_ctypes_array(sequence: Sequence, ctype, size: int) -> ctp.Array | None:
     """
-    Convert a sequence into a ctypes array variable.
+    Convert a sequence of numbers into a ctypes array variable.
 
     If the sequence is ``None``, returns ``None``. Otherwise, returns a ctypes array.
+    The function only works for sequences of numbers. For converting a sequence of
+    strings, use ``strings_to_ctypes_array`` instead.
 
     Parameters
     ----------
