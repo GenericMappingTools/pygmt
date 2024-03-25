@@ -256,8 +256,8 @@ def sequence_to_ctypes_array(sequence: Sequence, ctype, size: int) -> ctp.Array 
     Parameters
     ----------
     sequence
-        The sequence to convert. If ``None``, returns ``None``. Otherwise, it must be a sequence
-        (e.g., list, tuple, numpy array).
+        The sequence to convert. If ``None``, returns ``None``. Otherwise, it must be a
+        sequence (e.g., list, tuple, numpy array).
     ctype
         The ctypes type of the array (e.g., ``ctypes.c_int``).
     size
