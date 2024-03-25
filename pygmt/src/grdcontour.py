@@ -3,7 +3,13 @@ grdcontour - Plot a contour figure.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 __doctest_skip__ = ["grdcontour"]
 
@@ -43,24 +49,23 @@ def grdcontour(self, grid, **kwargs):
     Parameters
     ----------
     {grid}
-    interval : str or int
+    interval : float, list, or str
         Specify the contour lines to generate.
 
-        - The file name of a CPT file where the color boundaries will
-          be used as contour levels.
-        - The file name of a 2 (or 3) column file containing the contour
-          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3).
-        - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*.
-    annotation : float or str or list
+        - The file name of a CPT file where the color boundaries will be used as
+          contour levels
+        - The file name of a 2 (or 3) column file containing the contour levels (col 0),
+          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2)
+        - A fixed contour interval
+        - A list of contour levels
+    annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
         - Specify a fixed annotation interval
         - Specify a list of annotation levels
         - Disable all annotations by setting ``annotation="n"``.
-        - The appearance can be adjusted by appending different modifiers, e.g.,
+        - Adjust the appearance by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points
           and a red filled box. For all available modifiers see
           :gmt-docs:`grdcontour.html#a`.
@@ -97,32 +102,45 @@ def grdcontour(self, grid, **kwargs):
     Example
     -------
     >>> import pygmt
-    >>> # load the 15 arc-minutes grid with "gridline" registration
-    >>> # in a specified region
+    >>> # Load the 15 arc-minutes grid with "gridline" registration in the
+    >>> # specified region
     >>> grid = pygmt.datasets.load_earth_relief(
     ...     resolution="15m",
     ...     region=[-92.5, -82.5, -3, 7],
     ...     registration="gridline",
     ... )
-    >>> # create a new plot with pygmt.Figure()
+    >>> # Create a new plot with pygmt.Figure()
     >>> fig = pygmt.Figure()
-    >>> # create the contour plot
+    >>> # Create the contour plot
     >>> fig.grdcontour(
-    ...     # pass in the grid downloaded above
+    ...     # Pass in the grid downloaded above
     ...     grid=grid,
-    ...     # set the interval for contour lines at 250 meters
+    ...     # Set the interval for contour lines at 250 meters
     ...     interval=250,
-    ...     # set the interval for annotated contour lines at 1,000 meters
+    ...     # Set the interval for annotated contour lines at 1,000 meters
     ...     annotation=1000,
-    ...     # add a frame for the plot
+    ...     # Add a frame for the plot
     ...     frame="a",
-    ...     # set the projection to Mercator for the 10 cm figure
+    ...     # Set the projection to Mercator for the 10 cm figure
     ...     projection="M10c",
     ... )
-    >>> # show the plot
+    >>> # Show the plot
     >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)
+
+    if is_nonstr_iter(kwargs.get("A")):
+        if len(kwargs["A"]) == 1:
+            kwargs["A"] = str(kwargs["A"]) + ","
+        else:
+            kwargs["A"] = ",".join(f"{item}" for item in kwargs["A"])
+
+    if is_nonstr_iter(kwargs.get("C")):
+        if len(kwargs["C"]) == 1:
+            kwargs["C"] = str(kwargs["C"]) + ","
+        else:
+            kwargs["C"] = ",".join(f"{item}" for item in kwargs["C"])
+
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             lib.call_module(
