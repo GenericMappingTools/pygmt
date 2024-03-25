@@ -24,7 +24,7 @@ from pygmt.clib.conversion import (
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
-from pygmt.datatypes import _GMT_DATASET, _GMT_GRID
+from pygmt.datatypes import _GMT_DATASET, _GMT_GRID, _GMT_IMAGE
 from pygmt.exceptions import (
     GMTCLibError,
     GMTCLibNoSessionError,
@@ -32,6 +32,7 @@ from pygmt.exceptions import (
     GMTVersionError,
 )
 from pygmt.helpers import (
+    GMTTempFile,
     data_kind,
     fmt_docstring,
     tempfile_from_geojson,
@@ -1616,7 +1617,9 @@ class Session:
 
     @contextlib.contextmanager
     def virtualfile_out(
-        self, kind: Literal["dataset", "grid"] = "dataset", fname: str | None = None
+        self,
+        kind: Literal["dataset", "grid", "image"] = "dataset",
+        fname: str | None = None,
     ):
         r"""
         Create a virtual file or an actual file for storing output data.
@@ -1673,8 +1676,11 @@ class Session:
             family, geometry = {
                 "dataset": ("GMT_IS_DATASET", "GMT_IS_PLP"),
                 "grid": ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+                "image": ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
             }[kind]
-            with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+            with self.open_virtualfile(
+                family, geometry, "GMT_OUT|GMT_IS_REFERENCE", None
+            ) as vfile:
                 yield vfile
 
     def read_virtualfile(
@@ -1737,7 +1743,11 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
-        dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
+        dtype = {
+            "dataset": _GMT_DATASET,
+            "grid": _GMT_GRID,
+            "image": _GMT_IMAGE,
+        }[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
@@ -1906,6 +1916,10 @@ class Session:
         """
         if outgrid is not None:
             return None
+        if vfname.split("-")[3] == "I":
+            with GMTTempFile(suffix=".tif") as tmpfile:
+                self.call_module("write", f"{vfname} {tmpfile.name} -Ti")
+                return xr.load_dataarray(tmpfile.name)
         return self.read_virtualfile(vfname, kind="grid").contents.to_dataarray()
 
     def extract_region(self):

@@ -3,7 +3,14 @@ grdcut - Extract subregion from a grid.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    data_kind,
+    fmt_docstring,
+    kwargs_to_strings,
+    use_alias,
+)
+from pygmt.src.which import which
 
 __doctest_skip__ = ["grdcut"]
 
@@ -91,10 +98,19 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
     >>> # 12° E to 15° E and a latitude range of 21° N to 24° N
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
+    inkind = data_kind(grid)
+    outkind = "image" if inkind == "image" else "grid"
+    if inkind == "file":
+        realpath = which(str(grid))
+        if isinstance(realpath, list):
+            realpath = realpath[0]
+        if realpath.endswith(".tif"):
+            outkind = "image"
+
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
-            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+            lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
