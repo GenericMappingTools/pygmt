@@ -165,6 +165,15 @@ def test_call_module_empty_argument():
         lib.call_module("defaults", [])
 
 
+def test_call_module_invalid_argument_type():
+    """
+    call_module only accepts a string or a list of strings as module arguments.
+    """
+    with clib.Session() as lib:
+        with pytest.raises(GMTInvalidInput):
+            lib.call_module("get", ("FONT_TITLE", "FONT_TAG"))
+
+
 def test_call_module_invalid_arguments():
     """
     call_module should fail for invalid module arguments.

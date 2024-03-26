@@ -620,6 +620,8 @@ class Session:
 
         Raises
         ------
+        GMTInvalidInput
+            If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
