@@ -635,7 +635,7 @@ class Session:
         argv: bytes | ctp.Array[ctp.c_char_p] | None
         if isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
-            # In this way, we need to correctly handle option arguments that contains
+            # In this way, we need to correctly handle option arguments that contain
             # whitepsaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
             # longer recommended.
             mode = self["GMT_MODULE_CMD"]
@@ -643,14 +643,14 @@ class Session:
         elif isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
-            # quotation marks. This is the preferred way to pass arguments to GMT API
+            # quotation marks. This is the preferred way to pass arguments to the GMT API
             # and is used for PyGMT >= v0.12.0.
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
         else:
             raise GMTInvalidInput(
-                "`args' must be either a string or a list of strings."
+                "'args' must be either a string or a list of strings."
             )
 
         status = c_call_module(self.session_pointer, module.encode(), mode, argv)

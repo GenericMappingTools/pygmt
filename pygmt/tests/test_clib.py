@@ -194,7 +194,7 @@ def test_call_module_invalid_name():
 
 def test_call_module_error_message():
     """
-    Check is the GMT error message was captured when calling a module.
+    Check if the GMT error message was captured when calling a module.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError) as exc_info:
