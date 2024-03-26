@@ -19,8 +19,8 @@ from pygmt.clib.conversion import (
     array_to_datetime,
     as_c_contiguous,
     dataarray_to_matrix,
-    strings_to_ctypes_array,
     sequence_to_ctypes_array,
+    strings_to_ctypes_array,
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
