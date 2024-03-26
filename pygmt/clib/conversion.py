@@ -296,6 +296,32 @@ def sequence_to_ctypes_array(sequence: Sequence, ctype, size: int) -> ctp.Array 
     return (ctype * size)(*sequence)
 
 
+def strings_to_ctypes_array(strings: Sequence[str]) -> ctp.Array:
+    """
+    Convert a sequence (e.g., a list) of strings into a ctypes array.
+
+    Parameters
+    ----------
+    strings
+        A sequence of strings.
+
+    Returns
+    -------
+    ctypes_array
+        A ctypes array of strings.
+
+    Examples
+    --------
+    >>> strings = ["first", "second", "third"]
+    >>> ctypes_array = strings_to_ctypes_array(strings)
+    >>> type(ctypes_array)
+    <class 'pygmt.clib.conversion.c_char_p_Array_3'>
+    >>> [s.decode() for s in ctypes_array]
+    ['first', 'second', 'third']
+    """
+    return (ctp.c_char_p * len(strings))(*[s.encode() for s in strings])
+
+
 def array_to_datetime(array):
     """
     Convert a 1-D datetime array from various types into numpy.datetime64.
