@@ -168,5 +168,5 @@ def grd2xyz(
                 args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(
-                vfname=vouttbl, output_type=output_type, column_names=column_names
+                vfname=vouttbl, output_type=output_type, names=column_names
             )

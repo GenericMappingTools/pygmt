@@ -1746,7 +1746,7 @@ class Session:
         self,
         vfname: str,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
-        column_names: list[str] | None = None,
+        names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
@@ -1766,7 +1766,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
-        column_names
+        names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
             Data type for the columns of the :class:`pandas.DataFrame` output. Can be a
@@ -1836,7 +1836,7 @@ class Session:
         ...             outpd2 = lib.virtualfile_to_dataset(
         ...                 vfname=vouttbl,
         ...                 output_type="pandas",
-        ...                 column_names=["col1", "col2", "col3", "coltext"],
+        ...                 names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
         >>> outnp
@@ -1862,7 +1862,7 @@ class Session:
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
         result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            names=column_names,
+            names=names,
             dtype=dtype,
             index_col=index_col,
         )
