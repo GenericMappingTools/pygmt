@@ -133,9 +133,20 @@ def test_destroy_session_fails():
 @pytest.mark.benchmark
 def test_call_module():
     """
-    Run a command to see if call_module works.
+    Call a GMT module by passing a list of arguments.
     """
-    out_fname = "test_call_module.txt"
+    with clib.Session() as lib:
+        with GMTTempFile() as out_fname:
+            lib.call_module("info", [str(POINTS_DATA), "-C", f"->{out_fname.name}"])
+            assert Path(out_fname.name).stat().st_size > 0
+            output = out_fname.read().strip()
+            assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
+
+
+def test_call_module_argument_string():
+    """
+    Call a GMT module by passing a single argument string.
+    """
     with clib.Session() as lib:
         with GMTTempFile() as out_fname:
             lib.call_module("info", f"{POINTS_DATA} -C ->{out_fname.name}")
@@ -144,9 +155,19 @@ def test_call_module():
             assert output == "11.5309 61.7074 -2.9289 7.8648 0.1412 0.9338"
 
 
+def test_call_module_empty_argument():
+    """
+    call_module should work if an empty string or an empty list is passed as argument.
+    """
+    with clib.Session() as lib:
+        lib.call_module("defaults", "")
+    with clib.Session() as lib:
+        lib.call_module("defaults", [])
+
+
 def test_call_module_invalid_arguments():
     """
-    Fails for invalid module arguments.
+    call_module should fail for invalid module arguments.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
@@ -155,7 +176,7 @@ def test_call_module_invalid_arguments():
 
 def test_call_module_invalid_name():
     """
-    Fails when given bad input.
+    call_module should fail when given an invalid module name.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
@@ -164,7 +185,7 @@ def test_call_module_invalid_name():
 
 def test_call_module_error_message():
     """
-    Check is the GMT error message was captured.
+    Check is the GMT error message was captured when calling a module.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError) as exc_info:
