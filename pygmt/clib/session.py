@@ -630,6 +630,7 @@ class Session:
         )
 
         # 'args' can be (1) a single string or (2) a list of strings.
+        argv: bytes | ctp.Array[ctp.c_char_p] | None
         if isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
             # In this way, we need to correctly handle option arguments that contains
