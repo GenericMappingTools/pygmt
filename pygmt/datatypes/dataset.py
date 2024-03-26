@@ -143,7 +143,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataframe(self) -> pd.DataFrame:
+    def to_dataframe(self, names: list[str] | None = None) -> pd.DataFrame:
         """
         Convert a _GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
@@ -211,5 +211,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                 pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
             )
 
-        df = pd.concat(objs=vectors, axis=1)
+        df = pd.concat(objs=vectors, axis="columns")
+        if names is not None:  # Assigne column names
+            df.columns = names
         return df

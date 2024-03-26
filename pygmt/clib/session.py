@@ -1854,13 +1854,11 @@ class Session:
             return None
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
+        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
+            names=column_names
+        )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
-
-        # Assign column names
-        if column_names is not None:
-            result.columns = column_names
         return result  # pandas.DataFrame output
 
     def extract_region(self):
