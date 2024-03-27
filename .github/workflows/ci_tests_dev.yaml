@@ -6,9 +6,8 @@
 # installed by fetching the latest source codes from the GMT master branch and
 # compiling.
 #
-# It is triggered when a pull request is marked as "ready as review", or labeled with
-# 'run/test-gmt-dev'. It is also scheduled to run on Monday, Wednesday, and Friday on
-# the main branch.
+# It is triggered in a pull request if labeled with 'run/test-gmt-dev'.
+# It is also scheduled to run on Monday, Wednesday, and Friday on the main branch.
 #
 name: GMT Dev Tests
 
@@ -81,18 +80,53 @@ jobs:
             pcre
             zlib
 
-      # Build and install latest GMT from GitHub
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Linux/macOS)
-        run: curl https://raw.githubusercontent.com/GenericMappingTools/gmt/master/ci/build-gmt.sh | bash
-        env:
-          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
-          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
-        if: runner.os != 'Windows'
+      # Checkout current the GMT source codes
+      - name: Checkout the GMT source codes
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: 'GenericMappingTools/gmt'
+          ref: ${{ matrix.gmt_git_ref }}
+          path: 'gmt'
 
-      - name: Install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
+      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Linux)
+        run: |
+          cd gmt/
+          mkdir build
+          cd build
+          cmake -G Ninja .. \
+            -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGMT_ENABLE_OPENMP=TRUE \
+            -DGMT_USE_THREADS=TRUE
+          cmake --build .
+          cmake --build . --target install
+          cd ..
+          rm -rf gmt/
+        env:
+          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
+        if: runner.os == 'Linux'
+
+      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (macOS)
+        run: |
+          cd gmt/
+          mkdir build
+          cd build
+          cmake -G Ninja .. \
+            -DCMAKE_INSTALL_PREFIX=${{ env.GMT_INSTALL_DIR }} \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGMT_ENABLE_OPENMP=FALSE \
+            -DGMT_USE_THREADS=FALSE
+          cmake --build .
+          cmake --build . --target install
+          cd ..
+          rm -rf gmt/
+        env:
+          GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
+        if: runner.os == 'macOS'
+
+      - name: Compile and install GMT ${{ matrix.gmt_git_ref }} branch (Windows)
         shell: cmd
         run: |
-          git clone --depth=1 --single-branch --branch ${{ env.GMT_GIT_REF }} https://github.com/GenericMappingTools/gmt
           cd gmt/
           mkdir build
           cd build
@@ -108,7 +142,6 @@ jobs:
           cd ..
           rm -rf gmt/
         env:
-          GMT_GIT_REF: ${{ matrix.gmt_git_ref }}
           GMT_INSTALL_DIR: ${{ runner.temp }}/gmt-install-dir
         if: runner.os == 'Windows'
 
@@ -122,7 +155,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        pytest pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
