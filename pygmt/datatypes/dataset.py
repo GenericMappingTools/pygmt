@@ -234,10 +234,10 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
         # Create a DataFrame object by concatenating multiple columns
         df = pd.concat(objs=vectors, axis="columns")
-        if column_names is not None:
+        if column_names is not None:  # Assign column names
             df.columns = column_names
-        if dtype is not None:
+        if dtype is not None:  # Set dtype for the whole dataset or individual columns
             df = df.astype(dtype)
-        if index_col is not None:
+        if index_col is not None:  # Use a specific column as index
             df = df.set_index(index_col)
         return df
