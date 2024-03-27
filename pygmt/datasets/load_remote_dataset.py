@@ -84,6 +84,27 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
+    "earth_day": GMTRemoteDataset(
+        title="NASA Day Images",
+        name="blue_marble",
+        long_name="NASA Day Images",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d", registrations=["pixel"]),
+            "30m": Resolution("30m", registrations=["pixel"]),
+            "20m": Resolution("20m", registrations=["pixel"]),
+            "15m": Resolution("15m", registrations=["pixel"]),
+            "10m": Resolution("10m", registrations=["pixel"]),
+            "06m": Resolution("06m", registrations=["pixel"]),
+            "05m": Resolution("05m", registrations=["pixel"], tiled=True),
+            "04m": Resolution("04m", registrations=["pixel"], tiled=True),
+            "03m": Resolution("03m", registrations=["pixel"], tiled=True),
+            "02m": Resolution("02m", registrations=["pixel"], tiled=True),
+            "01m": Resolution("01m", registrations=["pixel"], tiled=True),
+            "30s": Resolution("30s", registrations=["pixel"], tiled=True),
+        },
+    ),
     "earth_free_air_anomaly": GMTRemoteDataset(
         title="free air anomaly",
         name="free_air_anomaly",
@@ -409,15 +430,22 @@ def _load_remote_dataset(
     # different ways to load tiled and non-tiled grids.
     # Known issue: tiled grids don't support slice operation
     # See https://github.com/GenericMappingTools/pygmt/issues/524
+    engine = "rasterio" if dataset_prefix == "earth_day_" else "netcdf4"
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
                 f"'region' is required for {dataset.title} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
+        grid = load_dataarray(fname, engine=engine)
     else:
-        grid = grdcut(f"@{dataset_prefix}{resolution}{reg}", region=region)
+        grid = grdcut(
+            f"@{dataset_prefix}{resolution}{reg}", region=region, engine=engine
+        )
+
+    if registration == "pixel":
+        grid.gmt.registration = 1
+    grid.gmt.gtype = 1  # GMT remote datasets are always geographic?
 
     # Add some metadata to the grid
     grid.name = dataset.name
