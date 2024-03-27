@@ -43,7 +43,7 @@ def grdcontour(self, grid, **kwargs):
     Parameters
     ----------
     {grid}
-    interval : str or int
+    interval : bool, str, or float
         Specify the contour lines to generate.
 
         - The file name of a CPT file where the color boundaries will
