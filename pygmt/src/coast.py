@@ -1,6 +1,7 @@
 """
 coast - Plot land and water.
 """
+from typing import Literal
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
@@ -37,7 +38,13 @@ __doctest_skip__ = ["coast"]
     t="transparency",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
-def coast(self, **kwargs):
+def coast(
+    self,
+    resolution: Literal[
+        "auto", "full", "high", "intermediate", "low", "crude"
+    ] = "auto",
+    **kwargs,
+):
     r"""
     Plot continents, shorelines, rivers, and borders on maps.
 
@@ -75,11 +82,19 @@ def coast(self, **kwargs):
         parameter. Optionally, specify separate fills by appending
         **+l** for lakes or **+r** for river-lakes, and passing multiple
         strings in a list.
-    resolution : str
-        **f**\|\ **h**\|\ **i**\|\ **l**\|\ **c**.
-        Select the resolution of the data set to: (**f**\ )ull,
-        (**h**\ )igh, (**i**\ )ntermediate, (**l**\ )ow,
-        and (**c**\ )rude.
+    resolution
+        Select the resolution of the GSHHG coastline data set to use. The available
+        resolutions from highest to lowest are:
+
+        - ``"full"`` - Full resolution (may be very slow for large regions).
+        - ``"high"`` - High resolution (may be slow for large regions).
+        - ``"intermediate"`` - Intermediate resolution.
+        - ``"low"`` - Low resolution.
+        - ``"crude"`` - Crude resolution, for tasks that need crude continent outlines
+          only.
+
+        The default is ``"auto"`` to automatically select the best resolution given the
+        chosen map scale.
     land : str
         Select filling or clipping of "dry" areas.
     rivers : int, str, or list
@@ -226,5 +241,7 @@ def coast(self, **kwargs):
             """At least one of the following parameters must be specified:
             lakes, land, water, rivers, borders, dcw, Q, or shorelines"""
         )
+    if kwargs.get("D") is not None:
+        kwargs["D"] = kwargs["D"][0]
     with Session() as lib:
         lib.call_module(module="coast", args=build_arg_string(kwargs))
