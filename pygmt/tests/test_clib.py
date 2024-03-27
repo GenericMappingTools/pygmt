@@ -185,7 +185,7 @@ def test_call_module_invalid_arguments():
 
 def test_call_module_invalid_name():
     """
-    call_module should fail when given an invalid module name.
+    call_module should fail when an invalid module name is given.
     """
     with clib.Session() as lib:
         with pytest.raises(GMTCLibError):
