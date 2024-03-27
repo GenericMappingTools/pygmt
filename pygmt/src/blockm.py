@@ -64,7 +64,7 @@ def _blockm(
                 args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(
-                vfname=vouttbl, output_type=output_type, names=column_names
+                vfname=vouttbl, output_type=output_type, column_names=column_names
             )
 
 

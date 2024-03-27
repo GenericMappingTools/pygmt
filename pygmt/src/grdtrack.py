@@ -320,5 +320,5 @@ def grdtrack(
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,
             output_type=output_type,
-            names=column_names,
+            column_names=column_names,
         )

@@ -241,7 +241,7 @@ class grdhisteq:  # noqa: N801
             return lib.virtualfile_to_dataset(
                 vfname=vouttbl,
                 output_type=output_type,
-                names=["start", "stop", "bin_id"],
+                column_names=["start", "stop", "bin_id"],
                 dtype={
                     "start": np.float32,
                     "stop": np.float32,
