@@ -643,8 +643,8 @@ class Session:
         elif isinstance(args, list):
             # 'args' is a list of strings and each string contains a module argument.
             # In this way, GMT can correctly handle option arguments with whitespaces or
-            # quotation marks. This is the preferred way to pass arguments to the GMT API
-            # and is used for PyGMT >= v0.12.0.
+            # quotation marks. This is the preferred way to pass arguments to the GMT
+            # API and is used for PyGMT >= v0.12.0.
             mode = len(args)  # 'mode' is the number of arguments.
             # Pass a null pointer if no arguments are specified.
             argv = strings_to_ctypes_array(args) if mode != 0 else None
