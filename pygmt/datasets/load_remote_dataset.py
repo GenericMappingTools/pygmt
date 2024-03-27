@@ -6,10 +6,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, ClassVar, NamedTuple
 
+from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
-from pygmt.io import load_dataarray
-from pygmt.src import grdcut, which
 
 if TYPE_CHECKING:
     import xarray as xr
@@ -406,18 +405,19 @@ def _load_remote_dataset(
         )
     reg = f"_{registration[0]}"
 
-    # different ways to load tiled and non-tiled grids.
-    # Known issue: tiled grids don't support slice operation
-    # See https://github.com/GenericMappingTools/pygmt/issues/524
-    if region is None:
-        if dataset.resolutions[resolution].tiled:
-            raise GMTInvalidInput(
-                f"'region' is required for {dataset.title} resolution '{resolution}'."
+    if region is None and dataset.resolutions[resolution].tiled:
+        raise GMTInvalidInput(
+            f"'region' is required for {dataset.title} resolution '{resolution}'."
+        )
+
+    rflag = "" if region is None else f"-R{region}"
+    with Session() as lib:
+        with lib.virtualfile_out(kind="grid") as voutgrd:
+            lib.call_module(
+                module="read",
+                argstr=f"@{dataset_prefix}{resolution}{reg} {voutgrd} {rflag} -Tg",
             )
-        fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
-        grid = load_dataarray(fname, engine="netcdf4")
-    else:
-        grid = grdcut(f"@{dataset_prefix}{resolution}{reg}", region=region)
+            grid = lib.virtualfile_to_grid(outgrid=None, vfname=voutgrd)
 
     # Add some metadata to the grid
     grid.name = dataset.name
