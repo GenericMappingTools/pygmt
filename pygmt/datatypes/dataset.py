@@ -145,7 +145,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
     def to_dataframe(
         self,
-        names: list[str] | None = None,
+        column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
     ) -> pd.DataFrame:
@@ -158,7 +158,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
         Parameters
         ----------
-        names
+        column_names
             A list of column names.
         dtype
             Data type. Can be a single type for all columns or a dictionary mapping
@@ -227,8 +227,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             )
 
         df = pd.concat(objs=vectors, axis="columns")
-        if names is not None:  # Assign column names
-            df.columns = names
+        if column_names is not None:  # Assign column names
+            df.columns = column_names
         if dtype is not None:
             df = df.astype(dtype)
         if index_col is not None:

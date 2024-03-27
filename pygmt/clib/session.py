@@ -1862,7 +1862,7 @@ class Session:
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
         result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            names=column_names,
+            column_names=column_names,
             dtype=dtype,
             index_col=index_col,
         )
