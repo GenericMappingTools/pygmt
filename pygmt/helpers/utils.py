@@ -343,59 +343,31 @@ def build_arg_list(
     confdict
         A dictionary containing configurable GMT parameters.
     infile
-        The input file or list of ifiles.
+        The input file or a list of input files.
     outfile
         The output file.
 
     Returns
     -------
     args
-        The list of command line arguments that will be passed to GMT modules. A ``-``
-        is inserted before each keyword and ``--`` is inserted before GMT configuration
-        key-value pairs. The keyword arguments are sorted alphabetically, followed by
-        GMT configuration key-value pairs, with optional input file(s) at the beginning
-        and optional output file at the end.
+        The list of command line arguments that will be passed to GMT modules. The
+        keyword arguments are sorted alphabetically, followed by GMT configuration
+        key-value pairs, with optional input file(s) at the beginning and optional
+        output file at the end.
 
     Examples
     --------
-    >>> print(
-    ...     build_arg_list(
-    ...         dict(
-    ...             A=True,
-    ...             B=False,
-    ...             E=200,
-    ...             J="+proj=longlat +datum=WGS84",
-    ...             P="",
-    ...             R="1/2/3/4",
-    ...             X=None,
-    ...             Y=None,
-    ...             Z=0,
-    ...         )
-    ...     )
-    ... )
-    ['-A', '-E200', '-J+proj=longlat +datum=WGS84', '-P', '-R1/2/3/4', '-Z0']
-    >>> print(
-    ...     build_arg_list(
-    ...         dict(
-    ...             R="1/2/3/4",
-    ...             J="X4i",
-    ...             B=["xaf", "yaf", "WSen"],
-    ...             I=("1/1p,blue", "2/0.25p,blue"),
-    ...         )
-    ...     )
-    ... )
-    ['-BWSen', '-Bxaf', '-Byaf', '-I1/1p,blue', '-I2/0.25p,blue', '-JX4i', '-R1/2/3/4']
-    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
-    Traceback (most recent call last):
-      ...
-    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    >>> build_arg_list(dict(A=True, B=False, C=None, D=0, E=200, F="", G="1/2/3/4"))
+    ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
+    >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
+    ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
     >>> print(
     ...     build_arg_list(
     ...         dict(
     ...             B=["af", "WSne+tBlank Space"],
-    ...             F='+t"Empty  Spaces"',
+    ...             F='+t"Empty Spaces"',
     ...             l="'Void Space'",
-    ...         ),
+    ...         )
     ...     )
     ... )
     ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
@@ -408,9 +380,21 @@ def build_arg_list(
     ...     )
     ... )
     ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile=["f1.txt", "f2.txt"],
+    ...         outfile="out.txt",
+    ...     )
+    ... )
+    ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
     """
     gmt_args = []
-
     for key, value in kwdict.items():
         if len(key) > 2:  # Raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
