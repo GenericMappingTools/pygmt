@@ -51,6 +51,7 @@ from pygmt.src import (
     grdhisteq,
     grdinfo,
     grdlandmask,
+    grdmix,
     grdproject,
     grdsample,
     grdtrack,
