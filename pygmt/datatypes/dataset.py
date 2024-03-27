@@ -143,13 +143,28 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def to_dataframe(self) -> pd.DataFrame:
+    def to_dataframe(
+        self,
+        column_names: list[str] | None = None,
+        dtype: type | dict[str, type] | None = None,
+        index_col: str | int | None = None,
+    ) -> pd.DataFrame:
         """
         Convert a _GMT_DATASET object to a :class:`pandas.DataFrame` object.
 
         Currently, the number of columns in all segments of all tables are assumed to be
         the same. The same column in all segments of all tables are concatenated. The
         trailing text column is also concatenated as a single string column.
+
+        Parameters
+        ----------
+        column_names
+            A list of column names.
+        dtype
+            Data type. Can be a single type for all columns or a dictionary mapping
+            column names to types.
+        index_col
+            Column to set as index.
 
         Returns
         -------
@@ -211,5 +226,11 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                 pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
             )
 
-        df = pd.concat(objs=vectors, axis=1)
+        df = pd.concat(objs=vectors, axis="columns")
+        if column_names is not None:  # Assign column names
+            df.columns = column_names
+        if dtype is not None:
+            df = df.astype(dtype)
+        if index_col is not None:
+            df = df.set_index(index_col)
         return df

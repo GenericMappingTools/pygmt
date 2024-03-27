@@ -1777,6 +1777,8 @@ class Session:
         vfname: str,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         column_names: list[str] | None = None,
+        dtype: type | dict[str, type] | None = None,
+        index_col: str | int | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
         Output a tabular dataset stored in a virtual file to a different format.
@@ -1796,6 +1798,11 @@ class Session:
             - ``"file"`` means the result was saved to a file and will return ``None``.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
+        dtype
+            Data type for the columns of the :class:`pandas.DataFrame` output. Can be a
+            single type for all columns or a dictionary mapping column names to types.
+        index_col
+            Column to set as the index of the :class:`pandas.DataFrame` output.
 
         Returns
         -------
@@ -1884,13 +1891,13 @@ class Session:
             return None
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
+        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
+            column_names=column_names,
+            dtype=dtype,
+            index_col=index_col,
+        )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
-
-        # Assign column names
-        if column_names is not None:
-            result.columns = column_names
         return result  # pandas.DataFrame output
 
     def extract_region(self):
