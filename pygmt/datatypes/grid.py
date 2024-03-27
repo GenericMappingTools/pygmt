@@ -194,3 +194,40 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
         grid.gmt.registration = registration
         grid.gmt.gtype = gtype
         return grid
+
+    def from_dataarray(self, dataarray: xr.DataArray):
+        """
+        Convert a :class:`xarray.DataArray` object to a _GMT_GRID object.
+
+        Parameters
+        ----------
+        dataarray : xarray.DataArray
+            A :class:`xarray.DataArray` object.
+
+        Examples
+        --------
+        >>> import xarray as xr
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="grid") as voutgrd:
+        ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
+        ...         # Read the grid from the virtual file
+        ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
+        ...         # Convert to xarray.DataArray and use it later
+        ...         da = grid.contents.to_dataarray()
+        ...         # Convert back to _GMT_GRID
+        ...         grid.contents.from_dataarray(da)
+        """
+        header = _GMT_GRID_HEADER()
+        header.n_columns = dataarray.sizes[dataarray.dims[0]]
+        header.n_rows = dataarray.sizes[dataarray.dims[1]]
+        header.registration = dataarray.gmt.registration
+
+        self.header = ctp.pointer(header)
+        self.x = (dataarray.coords[dataarray.dims[0]]).values.ctypes.data_as(
+            ctp.POINTER(ctp.c_double)
+        )
+        self.y = (dataarray.coords[dataarray.dims[1]]).values.ctypes.data_as(
+            ctp.POINTER(ctp.c_double)
+        )
+        self.data = dataarray.values.ctypes.data_as(ctp.POINTER(gmt_grdfloat))

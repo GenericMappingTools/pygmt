@@ -324,6 +324,22 @@ class Session:
             function.restype = restype
         return function
 
+    def set_allocmode(self, family, obj):
+        """
+        Set allocation mode of object to external.
+        """
+        c_set_allocmode = self.get_libgmt_func(
+            "GMT_Set_AllocMode",
+            argtypes=[ctp.c_void_p, ctp.c_uint, ctp.c_void_p],
+            restype=ctp.c_void_p,
+        )
+        family_int = self._parse_constant(family, valid=FAMILIES, valid_modifiers=VIAS)
+        status = c_set_allocmode(self.session_pointer, family_int, obj)
+        if status:
+            raise GMTCLibError(
+                f"Failed to set allocation mode of object to external:\n{self._error_message}"
+            )
+
     def create(self, name):
         """
         Create a new GMT C API session.
@@ -1564,7 +1580,7 @@ class Session:
             "file": contextlib.nullcontext,
             "arg": contextlib.nullcontext,
             "geojson": tempfile_from_geojson,
-            "grid": self.virtualfile_from_grid,
+            "grid": self.virtualfile_from_xrgrid,
             "image": tempfile_from_image,
             # Note: virtualfile_from_matrix is not used because a matrix can be
             # converted to vectors instead, and using vectors allows for better
@@ -1739,6 +1755,74 @@ class Session:
             return pointer
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
+
+    @contextlib.contextmanager
+    def virtualfile_from_gmtgrid(self, grid_pointer):
+        """
+        Create a virtual file for reading a GMT_GRID object.
+
+        Parameter
+        ---------
+        grid_pointer : ctp.POINTER(GMT_GRID)
+            Pointer to a GMT_GRID object.
+
+        Yields
+        ------
+        vfile : str
+            Name of the virtual file.
+        """
+        family = "GMT_IS_GRID"
+        geometry = "GMT_IS_SURFACE"
+        with self.open_virtual_file(family, geometry, "GMT_IN", grid_pointer) as vfile:
+            yield vfile
+
+    @contextlib.contextmanager
+    def virtualfile_from_xrgrid(self, xrgrid):
+        """
+        Create a virtual file from an xarray.DataArray object.
+        """
+
+        def _add_pad(x):
+            return np.r_[
+                np.zeros((2, x.shape[1] + 4)),
+                np.c_[np.zeros((x.shape[0], 2)), x, np.zeros((x.shape[0], 2))],
+                np.zeros((2, x.shape[1] + 4)),
+            ]
+
+        family = "GMT_IS_GRID"
+        geometry = "GMT_IS_SURFACE"
+        matrix, region, inc = dataarray_to_matrix(xrgrid)
+
+        _gtype = {0: "GMT_GRID_IS_CARTESIAN", 1: "GMT_GRID_IS_GEO"}[xrgrid.gmt.gtype]
+        _reg = {0: "GMT_GRID_NODE_REG", 1: "GMT_GRID_PIXEL_REG"}[
+            xrgrid.gmt.registration
+        ]
+
+        data = self.create_data(
+            family,
+            geometry,
+            mode=f"GMT_CONTAINER_ONLY|{_gtype}",
+            ranges=region,
+            inc=inc,
+            registration=_reg,
+            pad=0,
+        )
+        self.set_allocmode(family, data)  # No longer needed after GMT>=6.5.0
+        gmtgrid = ctp.cast(data, ctp.POINTER(_GMT_GRID))
+        gmtgrid.contents.data = matrix.ctypes.data_as(ctp.POINTER(ctp.c_float))
+        gmtgrid.contents.x = (
+            xrgrid.coords[xrgrid.dims[1]]
+            .to_numpy()
+            .ctypes.data_as(ctp.POINTER(ctp.c_double))
+        )
+        gmtgrid.contents.y = (
+            xrgrid.coords[xrgrid.dims[0]]
+            .to_numpy()
+            .ctypes.data_as(ctp.POINTER(ctp.c_double))
+        )
+
+        with self.open_virtual_file(family, geometry, "GMT_IN", gmtgrid) as vfile:
+            yield vfile
 
     def virtualfile_to_dataset(
         self,
