@@ -156,9 +156,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         the same. The same column in all segments of all tables are concatenated. The
         trailing text column is also concatenated as a single string column.
 
-        <<<<<<< HEAD
-        If the object has no data, an empty DataFrame will be returned.
-        =======
+        If the object contains no data, an empty DataFrame will be returned.
 
         Parameters
         ----------
@@ -169,7 +167,6 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             column names to types.
         index_col
             Column to set as index.
-        >>>>>>> main
 
         Returns
         -------
