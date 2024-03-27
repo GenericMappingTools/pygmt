@@ -9,7 +9,7 @@ import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -315,7 +315,7 @@ def grdtrack(
             kwargs["G"] = vingrd
             lib.call_module(
                 module="grdtrack",
-                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+                args=build_arg_list(kwargs, infile=vintbl, outfile=vouttbl),
             )
         return lib.virtualfile_to_dataset(
             vfname=vouttbl,

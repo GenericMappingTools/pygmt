@@ -5,7 +5,7 @@ inset - Create inset figures.
 import contextlib
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["inset"]
 
@@ -137,8 +137,9 @@ def inset(self, **kwargs):
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         try:
-            lib.call_module(module="inset", args=f"begin {build_arg_string(kwargs)}")
+            lib.call_module(module="inset", args=["begin", *build_arg_list(kwargs)])
             yield
         finally:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module(module="inset", args=f"end {v_arg}".strip())
+            lib.call_module(
+                module="inset", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+            )

@@ -16,6 +16,7 @@ from pygmt.helpers.tempfile import (
 )
 from pygmt.helpers.utils import (
     args_in_kwargs,
+    build_arg_list,
     build_arg_string,
     data_kind,
     is_nonstr_iter,

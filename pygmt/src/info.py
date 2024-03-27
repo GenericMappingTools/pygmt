@@ -6,7 +6,7 @@ import numpy as np
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -85,7 +85,7 @@ def info(data, **kwargs):
             with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 lib.call_module(
                     module="info",
-                    args=build_arg_string(kwargs, infile=vintbl, outfile=tmpfile.name),
+                    args=build_arg_list(kwargs, infile=vintbl, outfile=tmpfile.name),
                 )
             result = tmpfile.read()
 
