@@ -2,7 +2,6 @@
 Test pygmt.makecpt.
 """
 
-import os
 from pathlib import Path
 
 import numpy as np
@@ -11,8 +10,7 @@ from pygmt import Figure, makecpt
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="points")

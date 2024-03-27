@@ -2,9 +2,9 @@
 Utilities for dealing with temporary file management.
 """
 
-import os
 import uuid
 from contextlib import contextmanager
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import numpy as np
@@ -72,8 +72,7 @@ class GMTTempFile:
         """
         Remove the temporary file.
         """
-        if os.path.exists(self.name):
-            os.remove(self.name)
+        Path(self.name).unlink(missing_ok=True)
 
     def read(self, keep_tabs=False):
         """
@@ -89,11 +88,10 @@ class GMTTempFile:
         content : str
             Content of the temporary file as a Unicode string.
         """
-        with open(self.name, encoding="utf8") as tmpfile:
-            content = tmpfile.read()
-            if not keep_tabs:
-                content = content.replace("\t", " ")
-            return content
+        content = Path(self.name).read_text(encoding="utf8")
+        if not keep_tabs:
+            content = content.replace("\t", " ")
+        return content
 
     def loadtxt(self, **kwargs):
         """
@@ -133,7 +131,7 @@ def tempfile_from_geojson(geojson):
     with GMTTempFile(suffix=".gmt") as tmpfile:
         import geopandas as gpd
 
-        os.remove(tmpfile.name)  # ensure file is deleted first
+        Path(tmpfile.name).unlink()  # Ensure file is deleted first
         ogrgmt_kwargs = {"filename": tmpfile.name, "driver": "OGR_GMT", "mode": "w"}
         try:
             # OGR_GMT only supports 32-bit integers. We need to map int/int64
@@ -185,7 +183,7 @@ def tempfile_from_image(image):
         A temporary GeoTIFF file holding the image data. E.g. '1a2b3c4d5.tif'.
     """
     with GMTTempFile(suffix=".tif") as tmpfile:
-        os.remove(tmpfile.name)  # ensure file is deleted first
+        Path(tmpfile.name).unlink()  # Ensure file is deleted first
         try:
             image.rio.to_raster(raster_path=tmpfile.name)
         except AttributeError as e:  # object has no attribute 'rio'

@@ -2,8 +2,8 @@
 Test the behaviour of the GMTDataArrayAccessor class.
 """
 
-import os
 import sys
+from pathlib import Path
 
 import pytest
 import xarray as xr
@@ -100,27 +100,27 @@ def test_accessor_sliced_datacube():
         assert grid.gmt.registration == 0  # gridline registration
         assert grid.gmt.gtype == 1  # geographic coordinate type
     finally:
-        os.remove(fname)
+        Path(fname).unlink()
 
 
 def test_accessor_grid_source_file_not_exist():
     """
     Check that the accessor fallbacks to the default registration and gtype when the
-    grid source file (i.e., grid.encoding["source"]) doesn't exist.
+    grid doesn't have a source file or the source file doesn't exist.
     """
-    # Load the 05m earth relief grid, which is stored as tiles
     grid = load_earth_relief(
-        resolution="05m", region=[0, 5, -5, 5], registration="pixel"
+        resolution="01d", region=[0, 5, -5, 5], registration="pixel"
     )
     # Registration and gtype are correct
     assert grid.gmt.registration == 1
     assert grid.gmt.gtype == 1
-    # The source grid file is defined but doesn't exist
-    # assert grid.encoding["source"].endswith(".nc")
-    # assert not Path(grid.encoding["source"]).exists()
+    # The grid source file is not defined because grdcut uses virtualfiles.
+    assert grid.encoding.get("source") is None
+    grid.encoding["source"] = "/invalid/path/to/grid.nc"
+    assert not Path(grid.encoding["source"]).exists()
 
-    # For a sliced grid, fallback to default registration and gtype,
-    # because the source grid file doesn't exist.
+    # For a sliced grid, fallback to default registration and gtype, because the source
+    # grid file doesn't exist.
     sliced_grid = grid[1:3, 1:3]
     assert sliced_grid.gmt.registration == 0
     assert sliced_grid.gmt.gtype == 0

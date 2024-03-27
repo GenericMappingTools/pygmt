@@ -17,6 +17,7 @@ on:
     # paths:
     #  - 'pygmt/**'
     #  - '.github/workflows/ci_tests_legacy.yaml'
+  workflow_dispatch:
   # Schedule tests on Tuesday
   schedule:
     - cron: '0 0 * * 2'
@@ -82,7 +83,7 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.2
+        uses: dawidd6/action-download-artifact@v3.1.4
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success

@@ -67,10 +67,9 @@ class Figure:
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
-    >>> import os
-    >>> os.path.exists("my-figure.png")
-    True
-    >>> os.remove("my-figure.png")
+    >>> from pathlib import Path
+    >>> assert Path("my-figure.png").exists()
+    >>> Path("my-figure.png").unlink()
 
     The plot region can be specified through ISO country codes (for example,
     ``"JP"`` for Japan):
@@ -380,8 +379,8 @@ class Figure:
         # Remove the .pgw world file if exists
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff" and fname.with_suffix(".pgw").exists():
-            fname.with_suffix(".pgw").unlink()
+        if ext == "tiff":
+            fname.with_suffix(".pgw").unlink(missing_ok=True)
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:
@@ -495,12 +494,10 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
+        fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
-            with open(fname, "rb") as image:
-                preview = image.read()
-            return preview
+            return fname.read_bytes()
         return fname
 
     def _repr_png_(self):

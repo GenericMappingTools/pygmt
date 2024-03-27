@@ -2,7 +2,6 @@
 Test pygmt.grdtrack.
 """
 
-import os
 from pathlib import Path
 
 import numpy as np
@@ -14,8 +13,7 @@ from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile, data_kind
 from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "track.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "track.txt"
 
 
 @pytest.fixture(scope="module", name="dataarray")
@@ -72,7 +70,9 @@ def test_grdtrack_input_csvfile_and_dataarray(dataarray, expected_array):
     Run grdtrack by passing in a csvfile and xarray.DataArray as inputs.
     """
     with GMTTempFile() as tmpfile:
-        output = grdtrack(points=POINTS_DATA, grid=dataarray, outfile=tmpfile.name)
+        output = grdtrack(
+            points=POINTS_DATA, grid=dataarray, output_type="file", outfile=tmpfile.name
+        )
         assert output is None  # check that output is None since outfile is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outfile exists
         output = np.loadtxt(tmpfile.name)
