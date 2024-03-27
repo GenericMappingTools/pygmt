@@ -27,7 +27,7 @@ __version__ = f'v{version("pygmt")}'  # e.g. v0.1.2.dev3+g0ab3cd78
 __commit__ = __version__.split("+g")[-1] if "+g" in __version__ else ""  # 0ab3cd78
 
 # Import modules to make the high-level GMT Python API
-from pygmt import datasets
+from pygmt import datasets, param
 from pygmt.accessors import GMTDataArrayAccessor
 from pygmt.figure import Figure, set_display
 from pygmt.io import load_dataarray
