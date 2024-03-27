@@ -3,6 +3,7 @@ binstats - Bin spatial data and determine statistics per bin
 """
 
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
     build_arg_string,
@@ -31,7 +32,7 @@ from pygmt.io import load_dataarray
     r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, **kwargs):
+def binstats(data=None, quantile_value=50, **kwargs):
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -77,6 +78,8 @@ def binstats(data, **kwargs):
         - **u** for maximum (upper)
         - **U** for maximum of negative values only
         - **z** for the sum
+    quantile_value : float
+        The quantile value if ``statistic="quantile".
     empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
@@ -110,6 +113,31 @@ def binstats(data, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    # mapping 'statistic' long-name to short-name
+    lookup_statistic = {
+        "mean": "a",
+        "mad": "d",
+        "full": "g",
+        "interquartile": "i",
+        "min": "l",
+        "minpos": "L",
+        "median": "m",
+        "number": "n",
+        "lms": "o",
+        "mode": "p",
+        "quantile": "q",
+        "rms": "r",
+        "stddev": "s",
+        "max": "u",
+        "maxneg": "U",
+        "sum": "z",
+    }
+    if kwargs["C"] not in lookup_statistic.keys() + lookup_statistic.values():
+        raise GMTInvalidInput(f"Unknown 'statistic' method: {kwargs["C"]}")
+    kwargs["C"] = lookup_statistic.get(kwargs["C"], kwargs["C"])
+    if kwargs["C"] == "quantile":
+        kwargs["C"] = f"{kwargs["C"]}{quantile_value}"
+
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
             with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
