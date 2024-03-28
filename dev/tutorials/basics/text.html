@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=7b0ac292"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -200,7 +200,7 @@ to download the full example code</p>
 <span id="sphx-glr-tutorials-basics-text-py"></span><h1>Plotting text<a class="headerlink" href="#plotting-text" title="Link to this heading"></a></h1>
 <p>It is often useful to add annotations to a plot. This is handled by
 <a class="reference internal" href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.text</span></code></a>.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a>
 
 <span class="kn">import</span> <span class="nn">pygmt</span>
 </pre></div>
@@ -257,7 +257,7 @@ and <code class="docutils literal notranslate"><span class="pre">text</span></co
 <a href="../../api/generated/pygmt.Figure.coast.html#pygmt.Figure.coast" title="pygmt.Figure.coast" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">coast</span></a><span class="p">(</span><span class="n">land</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">water</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">)</span>
 
 <span class="c1"># Create space-delimited file</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;114 0.5 0 22p,Helvetica-Bold,white CM BORNEO</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;119 3.25 0 12p,Helvetica-Bold,black CM CELEBES SEA</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;112 -4.6 0 12p,Helvetica-Bold,black CM JAVA SEA</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -273,7 +273,7 @@ and <code class="docutils literal notranslate"><span class="pre">text</span></co
 <a href="../../api/generated/pygmt.Figure.text.html#pygmt.Figure.text" title="pygmt.Figure.text" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">text</span></a><span class="p">(</span><span class="n">textfiles</span><span class="o">=</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">justify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Cleanups</span>
-<a href="https://docs.python.org/3/library/os.html#os.remove" title="os.remove" class="sphx-glr-backref-module-os sphx-glr-backref-type-py-function"><span class="n">os</span><span class="o">.</span><span class="n">remove</span></a><span class="p">(</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;examples.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 
 <a href="../../api/generated/pygmt.Figure.show.html#pygmt.Figure.show" title="pygmt.Figure.show" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
@@ -331,7 +331,7 @@ rotation in degrees of the text from the horizontal.</p>
 other character sets, be sure to check out the GMT documentation
 at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/text.html">https://docs.generic-mapping-tools.org/6.5/text.html</a> and also the GMT Technical Reference at
 <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text">https://docs.generic-mapping-tools.org/6.5/reference/features.html#placement-of-text</a>. Good luck!</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.459 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.437 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-tutorials-basics-text-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/a909548a3d09923b626767cd032b88e3/text.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">text.ipynb</span></code></a></p>
@@ -357,9 +357,9 @@ at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/dbbc1684">dbbc1684</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on Mar 27, 2024.
       </span></p>
   </div>
 

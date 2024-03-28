@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=7b0ac292"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -274,12 +274,11 @@
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
             <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;contour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;contour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">)</span>
             <span class="p">)</span>
 </pre></div>
 
@@ -292,9 +291,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/dbbc1684">dbbc1684</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on Mar 27, 2024.
       </span></p>
   </div>
 

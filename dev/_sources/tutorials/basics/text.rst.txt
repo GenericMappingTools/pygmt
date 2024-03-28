@@ -28,7 +28,7 @@ It is often useful to add annotations to a plot. This is handled by
 
 .. code-block:: Python
 
-    import os
+    from pathlib import Path
 
     import pygmt
 
@@ -142,7 +142,7 @@ and ``text`` columns. Here we give a complete example.
     fig.coast(land="black", water="skyblue")
 
     # Create space-delimited file
-    with open("examples.txt", "w") as f:
+    with Path("examples.txt").open(mode="w") as f:
         f.write("114 0.5 0 22p,Helvetica-Bold,white CM BORNEO\n")
         f.write("119 3.25 0 12p,Helvetica-Bold,black CM CELEBES SEA\n")
         f.write("112 -4.6 0 12p,Helvetica-Bold,black CM JAVA SEA\n")
@@ -158,7 +158,7 @@ and ``text`` columns. Here we give a complete example.
     fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
     # Cleanups
-    os.remove("examples.txt")
+    Path("examples.txt").unlink()
 
     fig.show()
 
@@ -294,7 +294,7 @@ at :gmt-docs:`text.html` and also the GMT Technical Reference at
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.459 seconds)
+   **Total running time of the script:** (0 minutes 1.437 seconds)
 
 
 .. _sphx_glr_download_tutorials_basics_text.py:

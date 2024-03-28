@@ -28,7 +28,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/documentation_options.js?v=7b0ac292"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,8 +37,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Minimum Supported GMT/Python/NumPy Versions" href="minversions.html" />
-    <link rel="prev" title="pygmt.clib.Session.get_libgmt_func" href="api/generated/pygmt.clib.Session.get_libgmt_func.html" />
+    <link rel="next" title="Minimum Supported Versions" href="minversions.html" />
+    <link rel="prev" title="pygmt.clib.Session.virtualfile_from_vectors" href="api/generated/pygmt.clib.Session.virtualfile_from_vectors.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -497,7 +497,7 @@
 <h3>Deprecations<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Remove the unused pygmt.test() function (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2652">#2652</a>)</p></li>
-<li><p>Figure.image: Deprecate parameter “bit_color” to “bitcolor” (remove in v0.12.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2635">#2635</a>)</p></li>
+<li><p>Figure.grdimage: Deprecate parameter “bit_color” to “bitcolor” (remove in v0.12.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2635">#2635</a>)</p></li>
 <li><p>Figure.text: Remove the deprecated “incols” parameter (deprecated since v0.8.0) (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2473">#2473</a>)</p></li>
 <li><p>NEP29: Set minimum required version to Python 3.9+ (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2487">#2487</a>)</p></li>
 <li><p>NEP29: Set minimum required version to NumPy 1.22+ (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2586">#2586</a>)</p></li>
@@ -562,7 +562,7 @@
 <li><p><a class="reference external" href="https://github.com/yvonnefroehlich">Yvonne Fröhlich</a></p></li>
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
 <li><p><a class="reference external" href="https://github.com/michaelgrund">Michael Grund</a></p></li>
-<li><p><a class="reference external" href="https://github.com/JingHuiTong">Jing-Hui Tong</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jhtong33">Jing-Hui Tong</a></p></li>
 <li><p><a class="reference external" href="https://github.com/maxrjones">Max Jones</a></p></li>
 </ul>
 </section>
@@ -663,7 +663,7 @@
 <li><p><a class="reference external" href="https://github.com/weiji14">Wei Ji Leong</a></p></li>
 <li><p><a class="reference external" href="https://github.com/michaelgrund">Michael Grund</a></p></li>
 <li><p><a class="reference external" href="https://github.com/willschlitzer">Will Schlitzer</a></p></li>
-<li><p><a class="reference external" href="https://github.com/JingHuiTong">Jing-Hui Tong</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jhtong33">Jing-Hui Tong</a></p></li>
 <li><p><a class="reference external" href="https://github.com/maxrjones">Max Jones</a></p></li>
 </ul>
 </section>
@@ -744,7 +744,7 @@
 <li><p>Add instructions to install pygmt kernel for Jupyter users (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2153">#2153</a>)</p></li>
 <li><p>Improve instructions about setting GMT_LIBRARY_PATH env variable (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2136">#2136</a>)</p></li>
 <li><p>Add badges for conda package version, license, and twitter (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2081">#2081</a>)</p></li>
-<li><p>Add PyOpenSci peer reviewed badge to main README.rst (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2112">#2112</a>)</p></li>
+<li><p>Add PyOpenSci peer reviewed badge to main README (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/2112">#2112</a>)</p></li>
 </ul>
 </section>
 <section id="id22">
@@ -1189,7 +1189,7 @@
 <section id="id56">
 <h3>Documentation<a class="headerlink" href="#id56" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Combine documentation and compatibility sections in README.rst (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1415">#1415</a>)</p></li>
+<li><p>Combine documentation and compatibility sections in README (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1415">#1415</a>)</p></li>
 <li><p>Add a gallery example for grdclip (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1396">#1396</a>)</p></li>
 <li><p>Add a gallery example for different colormaps in subplots (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1394">#1394</a>)</p></li>
 <li><p>Add a gallery example for the contour method (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/1387">#1387</a>)</p></li>
@@ -1604,7 +1604,7 @@
 <ul class="simple">
 <li><p>doc: Fix the description of grdcontour -G option (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/681">#681</a>)</p></li>
 <li><p>Refresh Code of Conduct from v1.4 to v2.0 (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/673">#673</a>)</p></li>
-<li><p>Add PyGMT Zenodo BibTeX entry to main README.md (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/678">#678</a>)</p></li>
+<li><p>Add PyGMT Zenodo BibTeX entry to main README (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/678">#678</a>)</p></li>
 <li><p>Complete most of documentation for makecpt (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/676">#676</a>)</p></li>
 <li><p>Complete documentation for plot (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/666">#666</a>)</p></li>
 <li><p>Add “no_clip” to plot, text, contour and meca (<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/pull/661">#661</a>)</p></li>
@@ -1958,17 +1958,17 @@
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="api/generated/pygmt.clib.Session.get_libgmt_func.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.get_libgmt_func" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="minversions.html" class="btn btn-neutral float-right" title="Minimum Supported GMT/Python/NumPy Versions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="api/generated/pygmt.clib.Session.virtualfile_from_vectors.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.virtualfile_from_vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="minversions.html" class="btn btn-neutral float-right" title="Minimum Supported Versions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/dbbc1684">dbbc1684</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on Mar 27, 2024.
       </span></p>
   </div>
 
