@@ -238,7 +238,8 @@ class triangulate:  # noqa: N801
         """
         output_type = validate_output_table_type(output_type, outfile)
 
-        kind, data = table_kind(data, vectors=[x, y, z], ncols=2)
+        vectors = [x, y] if z is None else [x, y, z]
+        kind, data = table_kind(data, vectors=vectors, ncols=2)
 
         with Session() as lib:
             with (
