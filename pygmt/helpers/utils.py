@@ -321,6 +321,12 @@ def table_kind(data, required=True, vectors=None, ncols=2):
             f"Requires {ncols} column but only {len(vectors)} columns are given."
         )
 
+    if kind == "vectors":
+        if any(v is None for v in vectors):
+            raise GMTInvalidInput("Vectors must not contain None.")
+    elif any(v is not None for v in vectors):
+        raise GMTInvalidInput("Too much data.")
+
     if vectors is not None:  # vectors is specified.
         return kind, data
     return kind
