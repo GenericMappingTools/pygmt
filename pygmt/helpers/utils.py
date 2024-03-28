@@ -307,6 +307,9 @@ def table_kind(data, required=True, vectors=None, ncols=2):
             raise GMTInvalidInput(f"Unrecognized table data type {type(data)}")
         if isinstance(data, xr.Dataset | pd.Series) or np.array(data).ndim == 2:
             kind = "matrix"
+        elif np.array(data).ndim == 1:
+            kind = "vectors"
+            data = [data]
     elif vectors is not None or len(vectors) != 0:
         kind = "vectors"
         data = vectors
