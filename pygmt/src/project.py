@@ -243,7 +243,7 @@ def project(
 
     with Session() as lib:
         with (
-            lib.virtualfile_in(kind=kind, data=data) as vintbl,
+            lib.virtualfile_in(kind=kind, data=data, required=False) as vintbl,
             lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
         ):
             lib.call_module(
