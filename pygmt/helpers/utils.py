@@ -254,27 +254,18 @@ def _is_arg(data, disallow_none):
     Examples
     --------
 
-    >>> _is_arg("my-data-file.txt", allow_none=False)
-    False
-    >>> _is_arg(2.0, allow_none=False)
-    False
-    >>> _is_arg(True, allow_none=False)
-    False
-    >>> _is_arg(None, allow_none=False)
-    False
-    >>> _is_arg("my-data-file.txt", allow_none=True)
-    False
-    >>> _is_arg(2.0, allow_none=True)
-    False
-    >>> _is_arg(True, allow_none=True)
-    False
-    >>> _is_arg(None, allow_none=True)
-    True
+    >>> values = ["data.txt", 1, 2.0, True, False, None]
+    >>> [_is_arg(value, disallow_none=True) for value in values]
+    [True, True, True, True, True, False]
+    >>> [_is_arg(value, disallow_none=False) for value in values]
+    [True, True, True, True, True, True]
     >>> import xarray as xr
-    >>> _is_arg(xr.DataArray(np.random.rand(4, 3)), allow_none=False)
+    >>> _is_arg(xr.DataArray(np.random.rand(4, 3)), disallow_none=False)
     False
     """
-    return isinstance(data, bool | int | float) or (data is None and not disallow_none)
+    return isinstance(data, str | bool | int | float) or (
+        data is None and not disallow_none
+    )
 
 
 def raster_kind(data, required=True):
@@ -322,22 +313,12 @@ def table_kind(data, required=True, vectors=None, ncols=2):
         )
 
     if kind == "vectors":
-        if any(v is None for v in vectors):
+        if vectors is not None and any(v is None for v in vectors):
             raise GMTInvalidInput("Vectors must not contain None.")
-    elif any(v is not None for v in vectors):
+    elif vectors is not None and any(v is not None for v in vectors):
         raise GMTInvalidInput("Too much data.")
 
-    if vectors is not None:  # vectors is specified.
-        return kind, data
-    return kind
-
-
-def get_data_kind(data, required=True, check_kind="table"):
-    """
-    Table or raster kind.
-    """
-    kind_func = table_kind if check_kind == "table" else raster_kind
-    return kind_func(data, required)
+    return kind, data
 
 
 def non_ascii_to_octal(argstr):

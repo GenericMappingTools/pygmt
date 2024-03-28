@@ -34,7 +34,8 @@ from pygmt.exceptions import (
 from pygmt.helpers import (
     data_kind,
     fmt_docstring,
-    get_data_kind,
+    raster_kind,
+    table_kind,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1687,14 +1688,18 @@ class Session:
             The virtual file stored inside a context manager. Access the file name of
             this virtual file using ``with file_context as fname: ...``.
         """
-        if kind in ["table", "raster"]:
-            kind = get_data_kind(data=data, required=required, check_kind=kind)
+        match kind:
+            case "table":
+                kind, data = table_kind(data=data, required=required)
+            case "raster":
+                kind = raster_kind(data=data, required=required)
+            case "arg" | "file" | "geojson" | "grid" | "image" | "matrix" | "vectors":
+                pass
+            case _:
+                raise GMTInvalidInput(f"Unrecognized data type 'kind' for {type(data)}")
 
         if kind == "arg" and required:
             raise GMTInvalidInput("data is required and can't be of 'arg' kind.")
-
-        if kind not in ["arg", "file", "geojson", "grid", "image", "matrix", "vectors"]:
-            raise GMTInvalidInput(f"Unrecognized data type 'kind' for {type(data)}")
 
         # Decide which virtualfile_from_ function to use
         _virtualfile_from = {
