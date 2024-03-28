@@ -1694,7 +1694,7 @@ class Session:
                     warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
                 _data = (data,)
             case "vectors":
-                _data = data
+                _data = [np.atleast_1d(_) for _ in data]
             case "matrix":  # Turn 2-D arrays into list of vectors
                 if hasattr(data, "items") and not hasattr(data, "to_frame"):
                     # pandas.DataFrame or xarray.Dataset types.
