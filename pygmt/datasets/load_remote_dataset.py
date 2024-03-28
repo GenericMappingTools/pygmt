@@ -41,8 +41,6 @@ class GMTRemoteDataset(NamedTuple):
 
     Attributes
     ----------
-    title : str
-        The title of the dataset, used in error messages.
     name : str
         The name assigned as an attribute to the DataArray.
     long_name : str
@@ -55,7 +53,6 @@ class GMTRemoteDataset(NamedTuple):
         A dictionary of extra or unique attributes of the dataset.
     """
 
-    title: str
     name: str
     long_name: str
     units: str | None
@@ -65,9 +62,8 @@ class GMTRemoteDataset(NamedTuple):
 
 datasets = {
     "earth_age": GMTRemoteDataset(
-        title="seafloor age",
-        name="seafloor_age",
-        long_name="age of seafloor crust",
+        name="earth_age",
+        long_name="EarthByte Earth seafloor crustal age",
         units="Myr",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -84,10 +80,9 @@ datasets = {
             "01m": Resolution("01m", registrations=["gridline"], tiled=True),
         },
     ),
-    "earth_free_air_anomaly": GMTRemoteDataset(
-        title="free air anomaly",
-        name="free_air_anomaly",
-        long_name="IGPP Earth Free-Air Anomaly",
+    "earth_faa": GMTRemoteDataset(
+        name="earth_faa",
+        long_name="IGPP Earth free-air anomaly",
         units="mGal",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -104,71 +99,9 @@ datasets = {
             "01m": Resolution("01m", registrations=["pixel"], tiled=True),
         },
     ),
-    "earth_geoid": GMTRemoteDataset(
-        title="Earth geoid",
-        name="earth_geoid",
-        long_name="EGM2008 Earth Geoid",
-        units="m",
-        extra_attributes={"horizontal_datum": "WGS84"},
-        resolutions={
-            "01d": Resolution("01d"),
-            "30m": Resolution("30m"),
-            "20m": Resolution("20m"),
-            "15m": Resolution("15m"),
-            "10m": Resolution("10m"),
-            "06m": Resolution("06m"),
-            "05m": Resolution("05m", tiled=True),
-            "04m": Resolution("04m", tiled=True),
-            "03m": Resolution("03m", tiled=True),
-            "02m": Resolution("02m", tiled=True),
-            "01m": Resolution("01m", registrations=["gridline"], tiled=True),
-        },
-    ),
-    "earth_magnetic_anomaly": GMTRemoteDataset(
-        title="Earth magnetic anomaly",
-        name="magnetic_anomaly",
-        long_name="Earth magnetic anomaly",
-        units="nT",
-        extra_attributes={"horizontal_datum": "WGS84"},
-        resolutions={
-            "01d": Resolution("01d"),
-            "30m": Resolution("30m"),
-            "20m": Resolution("20m"),
-            "15m": Resolution("15m"),
-            "10m": Resolution("10m"),
-            "06m": Resolution("06m"),
-            "05m": Resolution("05m", tiled=True),
-            "04m": Resolution("04m", tiled=True),
-            "03m": Resolution("03m", tiled=True),
-            "02m": Resolution("02m", registrations=["pixel"], tiled=True),
-        },
-    ),
-    "earth_mask": GMTRemoteDataset(
-        title="Earth mask",
-        name="earth_mask",
-        long_name="Mask of land and water features",
-        units=None,
-        extra_attributes={"horizontal_datum": "WGS84"},
-        resolutions={
-            "01d": Resolution("01d"),
-            "30m": Resolution("30m"),
-            "20m": Resolution("20m"),
-            "15m": Resolution("15m"),
-            "10m": Resolution("10m"),
-            "06m": Resolution("06m"),
-            "05m": Resolution("05m"),
-            "04m": Resolution("04m"),
-            "03m": Resolution("03m"),
-            "02m": Resolution("02m"),
-            "01m": Resolution("01m"),
-            "30s": Resolution("30s"),
-            "15s": Resolution("15s"),
-        },
-    ),
-    "earth_relief": GMTRemoteDataset(
-        title="Earth relief",
-        name="elevation",
-        long_name="Earth elevation relative to the geoid",
+    "earth_gebco": GMTRemoteDataset(
+        name="earth_gebco",
+        long_name="GEBCO Earth relief",
         units="meters",
         extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
         resolutions={
@@ -189,10 +122,90 @@ datasets = {
             "01s": Resolution("01s", registrations=["gridline"], tiled=True),
         },
     ),
+    "earth_geoid": GMTRemoteDataset(
+        name="earth_geoid",
+        long_name="EGM2008 Earth geoid",
+        units="m",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", registrations=["gridline"], tiled=True),
+        },
+    ),
+    "earth_igpp": GMTRemoteDataset(
+        name="earth_igpp",
+        long_name="IGPP Earth relief",
+        units="meters",
+        extra_attributes={"vertical_datum": "EGM96", "horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", tiled=True),
+            "01m": Resolution("01m", tiled=True),
+            "30s": Resolution("30s", tiled=True),
+            "15s": Resolution("15s", registrations=["pixel"], tiled=True),
+            "03s": Resolution("03s", registrations=["gridline"], tiled=True),
+            "01s": Resolution("01s", registrations=["gridline"], tiled=True),
+        },
+    ),
+    "earth_mag": GMTRemoteDataset(
+        name="earth_mag",
+        long_name="EMAG2 Earth Magnetic Anomaly Model",
+        units="nT",
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m", tiled=True),
+            "04m": Resolution("04m", tiled=True),
+            "03m": Resolution("03m", tiled=True),
+            "02m": Resolution("02m", registrations=["pixel"], tiled=True),
+        },
+    ),
+    "earth_mask": GMTRemoteDataset(
+        name="earth_mask",
+        long_name="GSHHG Earth mask",
+        units=None,
+        extra_attributes={"horizontal_datum": "WGS84"},
+        resolutions={
+            "01d": Resolution("01d"),
+            "30m": Resolution("30m"),
+            "20m": Resolution("20m"),
+            "15m": Resolution("15m"),
+            "10m": Resolution("10m"),
+            "06m": Resolution("06m"),
+            "05m": Resolution("05m"),
+            "04m": Resolution("04m"),
+            "03m": Resolution("03m"),
+            "02m": Resolution("02m"),
+            "01m": Resolution("01m"),
+            "30s": Resolution("30s"),
+            "15s": Resolution("15s"),
+        },
+    ),
     "earth_vgg": GMTRemoteDataset(
-        title="Earth vertical gravity gradient",
         name="earth_vgg",
-        long_name="IGPP Earth Vertical Gravity Gradient",
+        long_name="IGPP Earth vertical gravity gradient",
         units="Eotvos",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -210,9 +223,8 @@ datasets = {
         },
     ),
     "earth_wdmam": GMTRemoteDataset(
-        title="WDMAM magnetic anomaly",
-        name="wdmam",
-        long_name="World Digital Magnetic Anomaly Map",
+        name="earth_wdmam",
+        long_name="WDMAM World Digital Magnetic Anomaly Map",
         units="nT",
         extra_attributes={"horizontal_datum": "WGS84"},
         resolutions={
@@ -228,7 +240,6 @@ datasets = {
         },
     ),
     "mars_relief": GMTRemoteDataset(
-        title="Mars relief",
         name="mars_relief",
         long_name="NASA Mars (MOLA) relief",
         units="meters",
@@ -251,7 +262,6 @@ datasets = {
         },
     ),
     "moon_relief": GMTRemoteDataset(
-        title="Moon relief",
         name="moon_relief",
         long_name="USGS Moon (LOLA) relief",
         units="meters",
@@ -274,7 +284,6 @@ datasets = {
         },
     ),
     "mercury_relief": GMTRemoteDataset(
-        title="Mercury relief",
         name="mercury_relief",
         long_name="USGS Mercury relief",
         units="meters",
@@ -295,7 +304,6 @@ datasets = {
         },
     ),
     "pluto_relief": GMTRemoteDataset(
-        title="Pluto relief",
         name="pluto_relief",
         long_name="USGS Pluto relief",
         units="meters",
@@ -316,7 +324,6 @@ datasets = {
         },
     ),
     "venus_relief": GMTRemoteDataset(
-        title="Venus relief",
         name="venus_relief",
         long_name="NASA Magellan Venus relief",
         units="meters",
@@ -382,7 +389,7 @@ def _load_remote_dataset(
 
     if resolution not in dataset.resolutions:
         raise GMTInvalidInput(
-            f"Invalid resolution '{resolution}' for {dataset.title} dataset. "
+            f"Invalid resolution '{resolution}' for {dataset.name} dataset. "
             f"Available resolutions are: {', '.join(dataset.resolutions)}."
         )
 
@@ -395,7 +402,7 @@ def _load_remote_dataset(
         if registration not in valid_registrations:
             raise GMTInvalidInput(
                 f"{registration} registration is not available for the "
-                f"{resolution} {dataset.title} dataset. Only "
+                f"{resolution} {dataset.name} dataset. Only "
                 f"{valid_registrations[0]} registration is available."
             )
     else:
@@ -412,7 +419,7 @@ def _load_remote_dataset(
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.title} resolution '{resolution}'."
+                f"'region' is required for {dataset.name} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")

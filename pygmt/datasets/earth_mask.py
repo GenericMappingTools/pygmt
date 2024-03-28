@@ -20,13 +20,13 @@ def load_earth_mask(
     registration: Literal["gridline", "pixel"] = "gridline",
 ):
     r"""
-    Load the GSHHG Earth Mask dataset in various resolutions.
+    Load the GSHHG Earth mask dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.jpg
        :width: 80 %
        :align: center
 
-       GSHHG Earth Mask dataset.
+       GSHHG Earth mask dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke

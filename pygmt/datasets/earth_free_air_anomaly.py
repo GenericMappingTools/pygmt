@@ -1,5 +1,5 @@
 """
-Function to download the IGPP Earth Free-Air Anomaly dataset from the GMT data server,
+Function to download the IGPP Earth free-air anomaly dataset from the GMT data server,
 and load as :class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
@@ -20,13 +20,13 @@ def load_earth_free_air_anomaly(
     registration: Literal["gridline", "pixel", None] = None,
 ):
     r"""
-    Load the IGPP Earth Free-Air Anomaly dataset in various resolutions.
+    Load the IGPP Earth free-air anomaly dataset in various resolutions.
 
     .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg
        :width: 80 %
        :align: center
 
-       IGPP Earth Free-Air Anomaly dataset.
+       IGPP Earth free-air anomaly dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke
@@ -102,7 +102,7 @@ def load_earth_free_air_anomaly(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="earth_free_air_anomaly",
+        dataset_name="earth_faa",
         dataset_prefix="earth_faa_",
         resolution=resolution,
         region=region,
