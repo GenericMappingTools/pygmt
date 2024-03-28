@@ -224,7 +224,7 @@ def raster_kind(data, required=True):
     raise GMTInvalidInput(f"Unrecognized raster data type {type(data)}")
 
 
-def table_kind(data, required=True, vectors=None, ncols=3):
+def table_kind(data, required=True, vectors=None, ncols=2):
     """
     Determine the kind of a tablubar data.
     """
