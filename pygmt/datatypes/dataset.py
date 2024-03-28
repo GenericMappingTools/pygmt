@@ -13,8 +13,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
     """
     GMT dataset structure for holding multiple tables (files).
 
-    This class is only meant for internal use by PyGMT and is not exposed to users.
-    See the GMT source code gmt_resources.h for the original C struct definitions.
+    This class is only meant for internal use and is not exposed to users. See the GMT
+    source code ``gmt_resources.h`` for the original C struct definitions.
 
     Examples
     --------
@@ -156,6 +156,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         the same. The same column in all segments of all tables are concatenated. The
         trailing text column is also concatenated as a single string column.
 
+        If the object contains no data, an empty DataFrame will be returned.
+
         Parameters
         ----------
         column_names
@@ -200,8 +202,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         >>> df.dtypes.to_list()
         [dtype('float64'), dtype('float64'), dtype('float64'), string[python]]
         """
-        # Deal with numeric columns
         vectors = []
+        # Deal with numeric columns
         for icol in range(self.n_columns):
             colvector = []
             for itbl in range(self.n_tables):
@@ -226,11 +228,16 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                 pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
             )
 
+        # Return an empty DataFrame if no columns are found.
+        if len(vectors) == 0:
+            return pd.DataFrame()
+
+        # Create a DataFrame object by concatenating multiple columns
         df = pd.concat(objs=vectors, axis="columns")
         if column_names is not None:  # Assign column names
             df.columns = column_names
-        if dtype is not None:
+        if dtype is not None:  # Set dtype for the whole dataset or individual columns
             df = df.astype(dtype)
-        if index_col is not None:
+        if index_col is not None:  # Use a specific column as index
             df = df.set_index(index_col)
         return df
