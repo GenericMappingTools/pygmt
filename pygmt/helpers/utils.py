@@ -201,24 +201,90 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
-def _file_or_arg(data, required):
+def _is_file(data):
     """
-    Determine if data is file-like or arg-like.
+    Check if the data is a file-like object.
+
+    Parameters
+    ----------
+    data
+        The data to check.
+
+    Returns
+    -------
+    bool
+        ``True`` if the data is a file-like object, ``False`` otherwise.
+
+    Examples
+    --------
+
+    >>> _is_file("my-data-file.txt")
+    True
+    >>> _is_file(pathlib.Path("my-data-file.txt"))
+    True
+    >>> _is_file(2.0)
+    False
+    >>> _is_file(True)
+    False
+    >>> _is_file(None)
+    False
+    >>> import xarray as xr
+    >>> _is_file(xr.DataArray(np.random.rand(4, 3)))
+    False
     """
-    kind = None
-    if isinstance(data, str | pathlib.PurePath):
-        kind = "file"
-    elif isinstance(data, bool | int | float) or (data is None and not required):
-        kind = "arg"
-    return kind
+    return isinstance(data, str | pathlib.PurePath)
+
+
+def _is_arg(data, disallow_none):
+    """
+    Check if the data is an argument-like object.
+
+    Parameters
+    ----------
+    data
+        The data to check.
+    allow_none
+        Whether to allow ``None`` as an argument-like value.
+
+    Returns
+    -------
+    bool
+        ``True`` if the data is an argument-like object, ``False`` otherwise.
+
+    Examples
+    --------
+
+    >>> _is_arg("my-data-file.txt", allow_none=False)
+    False
+    >>> _is_arg(2.0, allow_none=False)
+    False
+    >>> _is_arg(True, allow_none=False)
+    False
+    >>> _is_arg(None, allow_none=False)
+    False
+    >>> _is_arg("my-data-file.txt", allow_none=True)
+    False
+    >>> _is_arg(2.0, allow_none=True)
+    False
+    >>> _is_arg(True, allow_none=True)
+    False
+    >>> _is_arg(None, allow_none=True)
+    True
+    >>> import xarray as xr
+    >>> _is_arg(xr.DataArray(np.random.rand(4, 3)), allow_none=False)
+    False
+    """
+    return isinstance(data, bool | int | float) or (data is None and not disallow_none)
 
 
 def raster_kind(data, required=True):
     """
     Determine the kind of a raster data.
     """
-    if kind := _file_or_arg(data, required):
-        return kind
+    if _is_file(data):
+        return "file"
+    if _is_arg(data, disallow_none=required):
+        return "arg"
     if isinstance(data, xr.DataArray):
         return "image" if len(data.dims) == 3 else "grid"
     raise GMTInvalidInput(f"Unrecognized raster data type {type(data)}")
@@ -228,8 +294,10 @@ def table_kind(data, required=True, vectors=None, ncols=2):
     """
     Determine the kind of a tablubar data.
     """
-    if kind := _file_or_arg(data, required):
-        pass
+    if _is_file(data):
+        kind = "file"
+    elif _is_arg(data, disallow_none=required):
+        kind = "arg"
     elif hasattr(data, "__geo_interface__"):
         # geo-like Python object that implements ``__geo_interface__``
         # (geopandas.GeoDataFrame or shapely.geometry)
