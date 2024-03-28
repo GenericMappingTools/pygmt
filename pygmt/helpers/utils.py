@@ -13,6 +13,8 @@ import time
 import webbrowser
 from collections.abc import Iterable
 
+import numpy as np
+import pandas as pd
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
 
@@ -233,10 +235,15 @@ def table_kind(data, required=True, vectors=None, ncols=3):
         # (geopandas.GeoDataFrame or shapely.geometry)
         kind = "geojson"
     elif data is not None:
-        kind = "matrix"
-    else:
+        if isinstance(data, xr.DataArray):
+            raise GMTInvalidInput(f"Unrecognized table data type {type(data)}")
+        if isinstance(data, xr.Dataset | pd.Series) or np.array(data).ndim == 2:
+            kind = "matrix"
+    elif vectors is not None or len(vectors) != 0:
         kind = "vectors"
         data = vectors
+    else:
+        raise GMTInvalidInput(f"Unrecognized table data type {type(data)}")
 
     if vectors is not None and len(vectors) < ncols:
         raise GMTInvalidInput(
