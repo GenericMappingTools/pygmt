@@ -148,7 +148,7 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
     """
     Get dimension names, attributes, grid registration and type from the grid header.
 
-    For a 2-D grid, the dimension names are set to "x", "y", and "z" by default. The
+    For a 2-D grid, the dimension names are set to "y", "x", and "z" by default. The
     attributes for each dimension are parsed from the grid header following GMT source
     codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
     "gmtnc_grd_info" for reference.
@@ -168,7 +168,7 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
     Returns
     -------
     dims : tuple
-        The dimension names with the last dimension for the data variable.
+        The dimension names, with the last dimension being the data variable.
     attrs : dict
         The attributes for each dimension.
     registration : int
@@ -177,8 +177,8 @@ def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
         The grid type. 0 for Cartesian grid and 1 for geographic grid.
     """
     # Default dimension names. The last dimension is for the data variable.
-    dims: tuple = ("x", "y", "z")
-    nameunits = (header.x_units, header.y_units, header.z_units)
+    dims: tuple = ("y", "x", "z")
+    nameunits = (header.y_units, header.x_units, header.z_units)
 
     # Dictionary for dimension attributes with the dimension name as the key.
     attrs: dict = {dim: {} for dim in dims}
