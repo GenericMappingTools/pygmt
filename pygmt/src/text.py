@@ -7,11 +7,11 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    data_kind,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
     non_ascii_to_octal,
+    table_kind,
     use_alias,
 )
 
@@ -183,13 +183,16 @@ def text_(  # noqa: PLR0912
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Ensure inputs are either textfiles, x/y/text, or position/text
+    # Valid inputs are
+    # 1. textfiles
+    # 2. x/y and text
+    # 3. position and text
+
+    vectors = [x, y]
     if position is None:
-        if (x is not None or y is not None) and textfiles is not None:
-            raise GMTInvalidInput(
-                "Provide either position only, or x/y pairs, or textfiles."
-            )
-        kind = data_kind(textfiles, x, y, text)
+        kind, data = table_kind(data=textfiles, vectors=vectors)
+        if kind == "file" and text is not None:
+            raise GMTInvalidInput("Text can't be given for file input.")
         if kind == "vectors" and text is None:
             raise GMTInvalidInput("Must provide text with x/y pairs")
     else:
@@ -199,8 +202,7 @@ def text_(  # noqa: PLR0912
             )
         if text is None or is_nonstr_iter(text):
             raise GMTInvalidInput("Text can't be None or array.")
-        kind = None
-        textfiles = ""
+        kind, data = "arg", ""
 
     # Build the -F option in gmt text.
     if kwargs.get("F") is None and any(
@@ -208,16 +210,15 @@ def text_(  # noqa: PLR0912
     ):
         kwargs.update({"F": ""})
 
-    extra_arrays = []
     for arg, flag in [(angle, "+a"), (font, "+f"), (justify, "+j")]:
         if arg is True:
             kwargs["F"] += flag
         elif is_nonstr_iter(arg):
             kwargs["F"] += flag
             if flag == "+a":  # angle is numeric type
-                extra_arrays.append(np.atleast_1d(arg))
+                vectors.append(np.atleast_1d(arg))
             else:  # font or justify is str type
-                extra_arrays.append(np.atleast_1d(arg).astype(str))
+                vectors.append(np.atleast_1d(arg).astype(str))
         elif isinstance(arg, int | float | str):
             kwargs["F"] += f"{flag}{arg}"
 
@@ -227,17 +228,16 @@ def text_(  # noqa: PLR0912
     # If an array of transparency is given, GMT will read it from
     # the last numerical column per data record.
     if is_nonstr_iter(kwargs.get("t")):
-        extra_arrays.append(kwargs["t"])
+        vectors.append(kwargs["t"])
         kwargs["t"] = ""
 
     # Append text at last column. Text must be passed in as str type.
     if kind == "vectors":
-        extra_arrays.append(
+        vectors.append(
             np.vectorize(non_ascii_to_octal)(np.atleast_1d(text).astype(str))
         )
 
     with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="vector", data=textfiles, x=x, y=y, extra_arrays=extra_arrays
-        ) as vintbl:
+        required = kind != "arg"
+        with lib.virtualfile_in(kind=kind, data=data, required=required) as vintbl:
             lib.call_module(module="text", args=build_arg_string(kwargs, infile=vintbl))
