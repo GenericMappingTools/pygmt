@@ -22,6 +22,47 @@ GMT_GRID_REMARK_LEN160 = 160
 gmt_grdfloat = ctp.c_float
 
 
+def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
+    """
+    Get the long_name and units attributes from x_units/y_units/z_units in the grid
+    header.
+
+    In the GMT grid header, the x_units/y_units/z_units are strings in the form of
+    ``long_name [units]``, in which both ``long_name`` and ``units`` are standard
+    netCDF attributes defined by CF conventions. The ``[units]`` part is optional.
+
+    This function parses the x_units/y_units/z_units strings and gets the ``long_name``
+    and ``units`` attributes.
+
+    Parameters
+    ----------
+    nameunits
+        The x_units/y_units/z_units strings in the grid header.
+
+    Returns
+    -------
+    (long_name, units)
+        Tuple of netCDF attributes ``long_name`` and ``units``. ``units`` may be
+        ``None``.
+
+    Examples
+    --------
+    >>> _parse_nameunits("longitude [degrees_east]")
+    ('longitude', 'degrees_east')
+    >>> _parse_nameunits("latitude [degrees_north]")
+    ('latitude', 'degrees_north')
+    >>> _parse_nameunits("x")
+    ('x', None)
+    >>> _parse_nameunits("y")
+    ('y', None)
+    >>>
+    """
+    parts = nameunits.split("[")
+    long_name = parts[0].strip()
+    units = parts[1].strip("]").strip() if len(parts) > 1 else None
+    return long_name, units
+
+
 class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
     """
     GMT grid header structure for metadata about the grid.
@@ -102,127 +143,86 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
+    def _parse_header(self) -> tuple[tuple, dict, int, int]:
+        """
+        Get dimension names, attributes, grid registration and type from the grid
+        header.
 
-def _parse_nameunits(nameunits: str) -> tuple[str, str | None]:
-    """
-    Get the long_name and units attributes from x_units/y_units/z_units in the grid
-    header.
+        For a 2-D grid, the dimension names are set to "y", "x", and "z" by default. The
+        attributes for each dimension are parsed from the grid header following GMT
+        source codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
+        "gmtnc_grd_info" for reference.
 
-    In the GMT grid header, the x_units/y_units/z_units are strings in the form of
-    ``long_name [units]``, in which both ``long_name`` and ``units`` are standard
-    netCDF attributes defined by CF conventions. The ``[units]`` part is optional.
+        The last dimension is special and is the data variable name, and the attributes
+        for this dimension are global attributes for the grid.
 
-    This function parses the x_units/y_units/z_units strings and gets the ``long_name``
-    and ``units`` attributes.
+        The grid is assumed to be Cartesian by default. If the x and y units are
+        "degrees_east" and "degrees_north", respectively, then the grid is assumed to be
+        geographic.
 
-    Parameters
-    ----------
-    nameunits
-        The x_units/y_units/z_units strings in the grid header.
+        Parameters
+        ----------
+        header
+            The grid header structure.
 
-    Returns
-    -------
-    (long_name, units)
-        Tuple of netCDF attributes ``long_name`` and ``units``. ``units`` may be
-        ``None``.
+        Returns
+        -------
+        dims : tuple
+            The dimension names, with the last dimension being the data variable.
+        attrs : dict
+            The attributes for each dimension.
+        registration : int
+            The grid registration. 0 for gridline and 1 for pixel.
+        gtype : int
+            The grid type. 0 for Cartesian grid and 1 for geographic grid.
+        """
+        # Default dimension names. The last dimension is for the data variable.
+        dims: tuple = ("y", "x", "z")
+        nameunits = (self.y_units, self.x_units, self.z_units)
 
-    Examples
-    --------
-    >>> _parse_nameunits("longitude [degrees_east]")
-    ('longitude', 'degrees_east')
-    >>> _parse_nameunits("latitude [degrees_north]")
-    ('latitude', 'degrees_north')
-    >>> _parse_nameunits("x")
-    ('x', None)
-    >>> _parse_nameunits("y")
-    ('y', None)
-    >>>
-    """
-    parts = nameunits.split("[")
-    long_name = parts[0].strip()
-    units = parts[1].strip("]").strip() if len(parts) > 1 else None
-    return long_name, units
+        # Dictionary for dimension attributes with the dimension name as the key.
+        attrs: dict = {dim: {} for dim in dims}
+        # Dictionary for mapping the default dimension names to the actual names.
+        newdims = {dim: dim for dim in dims}
+        # Loop over dimensions and get the dimension name and attributes from header
+        for dim, nameunit in zip(dims, nameunits, strict=False):
+            # The long_name and units attributes.
+            long_name, units = _parse_nameunits(nameunit.decode())
+            if long_name:
+                attrs[dim]["long_name"] = long_name
+            if units:
+                attrs[dim]["units"] = units
 
+            # "degrees_east"/"degrees_north" are the units for geographic coordinates
+            # following CF-conventions
+            if units == "degrees_east":
+                attrs[dim]["standard_name"] = "longitude"
+                newdims[dim] = "lon"
+            elif units == "degrees_north":
+                attrs[dim]["standard_name"] = "latitude"
+                newdims[dim] = "lat"
 
-def _parse_header(header: _GMT_GRID_HEADER) -> tuple[tuple, dict, int, int]:
-    """
-    Get dimension names, attributes, grid registration and type from the grid header.
+            # Axis attributes are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
+            # The codes here may not work for 3-D grids.
+            if dim == dims[-1]:  # The last dimension is the data.
+                attrs[dim]["actual_range"] = np.array([self.z_min, self.z_max])
+            else:
+                attrs[dim]["axis"] = dim.upper()
+                idx = dims.index(dim) * 2
+                attrs[dim]["actual_range"] = np.array(self.wesn[idx : idx + 2])
 
-    For a 2-D grid, the dimension names are set to "y", "x", and "z" by default. The
-    attributes for each dimension are parsed from the grid header following GMT source
-    codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
-    "gmtnc_grd_info" for reference.
+        # Cartesian or Geographic grid
+        gtype = 0
+        if (
+            attrs[dims[0]].get("standard_name") == "longitude"
+            and attrs[dims[1]].get("standard_name") == "latitude"
+        ):
+            gtype = 1
+        # Registration
+        registration = self.registration
 
-    The last dimension is special and is the data variable name, and the attributes
-    for this dimension are global attributes for the grid.
-
-    The grid is assumed to be Cartesian by default. If the x and y units are
-    "degrees_east" and "degrees_north", respectively, then the grid is assumed to be
-    geographic.
-
-    Parameters
-    ----------
-    header
-        The grid header structure.
-
-    Returns
-    -------
-    dims : tuple
-        The dimension names, with the last dimension being the data variable.
-    attrs : dict
-        The attributes for each dimension.
-    registration : int
-        The grid registration. 0 for gridline and 1 for pixel.
-    gtype : int
-        The grid type. 0 for Cartesian grid and 1 for geographic grid.
-    """
-    # Default dimension names. The last dimension is for the data variable.
-    dims: tuple = ("y", "x", "z")
-    nameunits = (header.y_units, header.x_units, header.z_units)
-
-    # Dictionary for dimension attributes with the dimension name as the key.
-    attrs: dict = {dim: {} for dim in dims}
-    # Dictionary for mapping the default dimension names to the actual names.
-    newdims = {dim: dim for dim in dims}
-    # Loop over dimensions and get the dimension name and attributes from header
-    for dim, nameunit in zip(dims, nameunits, strict=False):
-        # The long_name and units attributes.
-        long_name, units = _parse_nameunits(nameunit.decode())
-        if long_name:
-            attrs[dim]["long_name"] = long_name
-        if units:
-            attrs[dim]["units"] = units
-
-        # "degrees_east"/"degrees_north" are the units for geographic coordinates
-        # following CF-conventions
-        if units == "degrees_east":
-            attrs[dim]["standard_name"] = "longitude"
-            newdims[dim] = "lon"
-        elif units == "degrees_north":
-            attrs[dim]["standard_name"] = "latitude"
-            newdims[dim] = "lat"
-
-        # Axis attributes are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
-        # The codes here may not work for 3-D grids.
-        if dim == dims[-1]:  # The last dimension is the data.
-            attrs[dim]["actual_range"] = np.array([header.z_min, header.z_max])
-        else:
-            attrs[dim]["axis"] = dim.upper()
-            idx = dims.index(dim) * 2
-            attrs[dim]["actual_range"] = np.array(header.wesn[idx : idx + 2])
-
-    # Cartesian or Geographic grid
-    gtype = 0
-    if (
-        attrs[dims[0]].get("standard_name") == "longitude"
-        and attrs[dims[1]].get("standard_name") == "latitude"
-    ):
-        gtype = 1
-    # Registration
-    registration = header.registration
-
-    # Update the attributes dictionary with new dimension names as keys
-    attrs = {newdims[dim]: attrs[dim] for dim in dims}
-    # Update the dimension names
-    dims = tuple(newdims[dim] for dim in dims)
-    return dims, attrs, registration, gtype
+        # Update the attributes dictionary with new dimension names as keys
+        attrs = {newdims[dim]: attrs[dim] for dim in dims}
+        # Update the dimension names
+        dims = tuple(newdims[dim] for dim in dims)
+        return dims, attrs, registration, gtype
