@@ -230,10 +230,10 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
         # Return an empty DataFrame if no columns are found.
         if len(vectors) == 0:
-            return pd.DataFrame()
-
-        # Create a DataFrame object by concatenating multiple columns
-        df = pd.concat(objs=vectors, axis="columns")
+            df = pd.DataFrame(columns=column_names)
+        else:
+            # Create a DataFrame object by concatenating multiple columns
+            df = pd.concat(objs=vectors, axis="columns")
         if column_names is not None:  # Assign column names
             df.columns = column_names
         if dtype is not None:  # Set dtype for the whole dataset or individual columns
