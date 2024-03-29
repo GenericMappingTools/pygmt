@@ -3,7 +3,8 @@ Wrapper for the GMT_DATASET data type.
 """
 
 import ctypes as ctp
-from typing import ClassVar
+from collections.abc import Mapping
+from typing import Any, ClassVar
 
 import numpy as np
 import pandas as pd
@@ -145,8 +146,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
 
     def to_dataframe(
         self,
-        column_names: list[str] | None = None,
-        dtype: type | dict[str, type] | None = None,
+        column_names: pd.Index | None = None,
+        dtype: type | Mapping[Any, type] | None = None,
         index_col: str | int | None = None,
     ) -> pd.DataFrame:
         """
