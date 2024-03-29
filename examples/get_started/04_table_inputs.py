@@ -27,6 +27,7 @@ import geopandas as gpd
 import numpy as np
 import pandas as pd
 import pygmt
+import xarray as xr
 
 # %%
 # ASCII table file
@@ -108,6 +109,39 @@ gdf = gpd.GeoDataFrame(
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
 fig.plot(data=gdf, style="c0.2c", fill="purple")
+fig.show()
+
+# %%
+# :class:`xarray.Dataset` with 1-D data variables
+# -----------------------------------------------
+#
+# For slightly advanced users that have tabular-like data stored in an
+# :class:`xarray.Dataset` object, it is also possible to pass this into the ``data``
+# parameter, provided that:
+#
+# 1. The :class:`xarray.Dataset` input is made up of 1-D :class:`xarray.DataArray` data
+#    variables.
+# 2. The data you want to plot or process is stored under ``data_vars``, and not under
+#    ``coords`` in the :class:`xarray.Dataset` data structure. Use
+#    :meth:`xarray.Dataset.reset_coords` if you need to convert a coordinate into a
+#    data variable.
+#
+# This is useful if you are working with data stored in file formats like HDF5 which can
+# be read using :func:`xarray.open_dataset`, but not ``pandas``
+
+# Example xr.Dataset
+index = np.arange(start=0, stop=10)
+distance = np.linspace(start=20, stop=50, num=10)
+elevation = np.logspace(start=1, stop=-3, num=10)
+
+ds = xr.Dataset(
+    data_vars={"distance": (["index"], distance), "y": (["index"], elevation)}
+)
+ds  # noqa: B018
+
+# %%
+fig = pygmt.Figure()
+fig.plot(data=ds, frame=["xaf+lDistance", "yaf+lElevation"])
 fig.show()
 
 # %%
