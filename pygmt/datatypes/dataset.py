@@ -157,7 +157,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         the same. The same column in all segments of all tables are concatenated. The
         trailing text column is also concatenated as a single string column.
 
-        If the object contains no data, an empty DataFrame will be returned.
+        If the object contains no data, an empty DataFrame will be returned (with the
+        column names and dtypes set if provided).
 
         Parameters
         ----------
@@ -229,8 +230,8 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
                 pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
             )
 
-        # Return an empty DataFrame if no columns are found.
         if len(vectors) == 0:
+            # Return an empty DataFrame if no columns are found.
             df = pd.DataFrame(columns=column_names)
         else:
             # Create a DataFrame object by concatenating multiple columns
