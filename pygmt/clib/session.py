@@ -19,7 +19,8 @@ from pygmt.clib.conversion import (
     array_to_datetime,
     as_c_contiguous,
     dataarray_to_matrix,
-    kwargs_to_ctypes_array,
+    sequence_to_ctypes_array,
+    strings_to_ctypes_array,
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
@@ -628,7 +629,17 @@ class Session:
                 f"Module '{module}' failed with status code {status}:\n{self._error_message}"
             )
 
-    def create_data(self, family, geometry, mode, **kwargs):
+    def create_data(
+        self,
+        family,
+        geometry,
+        mode,
+        dim=None,
+        ranges=None,
+        inc=None,
+        registration="GMT_GRID_NODE_REG",
+        pad=None,
+    ):
         """
         Create an empty GMT data container.
 
@@ -692,15 +703,13 @@ class Session:
             valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
-        registration_int = self._parse_constant(
-            kwargs.get("registration", "GMT_GRID_NODE_REG"), valid=REGISTRATIONS
-        )
+        registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
         # if not given to represent NULL pointers)
-        dim = kwargs_to_ctypes_array("dim", kwargs, ctp.c_uint64 * 4)
-        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctp.c_double * 4)
-        inc = kwargs_to_ctypes_array("inc", kwargs, ctp.c_double * 2)
+        dim = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
+        ranges = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
+        inc = sequence_to_ctypes_array(inc, ctp.c_double, 2)
 
         # Use a NULL pointer (None) for existing data to indicate that the
         # container should be created empty. Fill it in later using put_vector
@@ -714,7 +723,7 @@ class Session:
             ranges,
             inc,
             registration_int,
-            self._parse_pad(family, kwargs),
+            self._parse_pad(family, pad),
             None,
         )
 
@@ -723,7 +732,7 @@ class Session:
 
         return data_ptr
 
-    def _parse_pad(self, family, kwargs):
+    def _parse_pad(self, family, pad):
         """
         Parse and return an appropriate value for pad if none is given.
 
@@ -731,7 +740,6 @@ class Session:
         (row or column major). Using the default pad will set it to column major and
         mess things up with the numpy arrays.
         """
-        pad = kwargs.get("pad", None)
         if pad is None:
             pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
@@ -890,13 +898,9 @@ class Session:
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
-            vector_pointer = (ctp.c_char_p * len(vector))()
             if gmt_type == self["GMT_DATETIME"]:
-                vector_pointer[:] = np.char.encode(
-                    np.datetime_as_string(array_to_datetime(vector))
-                )
-            else:
-                vector_pointer[:] = np.char.encode(vector)
+                vector = np.datetime_as_string(array_to_datetime(vector))
+            vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
@@ -953,12 +957,11 @@ class Session:
             restype=ctp.c_int,
         )
 
-        strings_pointer = (ctp.c_char_p * len(strings))()
-        strings_pointer[:] = np.char.encode(strings)
-
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
+
+        strings_pointer = strings_to_ctypes_array(strings)
 
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
@@ -1080,7 +1083,7 @@ class Session:
             self["GMT_IS_FILE"],
             geometry_int,
             self[mode],
-            (ctp.c_double * 6)(*wesn),
+            sequence_to_ctypes_array(wesn, ctp.c_double, 6),
             output.encode(),
             data,
         )
@@ -1641,12 +1644,13 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...
         ...     # Create a virtual file for storing the output table.
@@ -1661,8 +1665,7 @@ class Session:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...         with open(vouttbl, mode="r") as fp:
-        ...             line = fp.readline()
+        ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
         if fname is not None:  # Yield the actual file name.
@@ -1692,13 +1695,14 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Read dataset from a virtual file
         >>> with Session() as lib:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
-        ...         with open(tmpfile.name, mode="w") as fp:
+        ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
@@ -1740,9 +1744,11 @@ class Session:
 
     def virtualfile_to_dataset(
         self,
-        output_type: Literal["pandas", "numpy", "file"],
         vfname: str,
+        output_type: Literal["pandas", "numpy", "file"] = "pandas",
         column_names: list[str] | None = None,
+        dtype: type | dict[str, type] | None = None,
+        index_col: str | int | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
         Output a tabular dataset stored in a virtual file to a different format.
@@ -1751,17 +1757,22 @@ class Session:
 
         Parameters
         ----------
+        vfname
+            The virtual file name that stores the result data. Required for ``"pandas"``
+            and ``"numpy"`` output type.
         output_type
             Desired output type of the result data.
 
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
-        vfname
-            The virtual file name that stores the result data. Required for ``"pandas"``
-            and ``"numpy"`` output type.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
+        dtype
+            Data type for the columns of the :class:`pandas.DataFrame` output. Can be a
+            single type for all columns or a dictionary mapping column names to types.
+        index_col
+            Column to set as the index of the :class:`pandas.DataFrame` output.
 
         Returns
         -------
@@ -1779,7 +1790,7 @@ class Session:
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -1795,7 +1806,7 @@ class Session:
         ...             ) as vouttbl:
         ...                 lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...                 result = lib.virtualfile_to_dataset(
-        ...                     output_type="file", vfname=vouttbl
+        ...                     vfname=vouttbl, output_type="file"
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
@@ -1805,7 +1816,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outnp = lib.virtualfile_to_dataset(
-        ...                 output_type="numpy", vfname=vouttbl
+        ...                 vfname=vouttbl, output_type="numpy"
         ...             )
         ...     assert isinstance(outnp, np.ndarray)
         ...
@@ -1814,7 +1825,7 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd = lib.virtualfile_to_dataset(
-        ...                 output_type="pandas", vfname=vouttbl
+        ...                 vfname=vouttbl, output_type="pandas"
         ...             )
         ...     assert isinstance(outpd, pd.DataFrame)
         ...
@@ -1823,8 +1834,8 @@ class Session:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             outpd2 = lib.virtualfile_to_dataset(
-        ...                 output_type="pandas",
         ...                 vfname=vouttbl,
+        ...                 output_type="pandas",
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
@@ -1850,13 +1861,13 @@ class Session:
             return None
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
+        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
+            column_names=column_names,
+            dtype=dtype,
+            index_col=index_col,
+        )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
-
-        # Assign column names
-        if column_names is not None:
-            result.columns = column_names
         return result  # pandas.DataFrame output
 
     def extract_region(self):

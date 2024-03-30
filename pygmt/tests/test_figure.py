@@ -5,7 +5,6 @@ Doesn't include the plotting commands which have their own test files.
 """
 
 import importlib
-import os
 from pathlib import Path
 
 import numpy as np
@@ -82,10 +81,8 @@ def test_figure_savefig_exists():
     fig.basemap(region="10/70/-300/800", projection="X3i/5i", frame="af")
     prefix = "test_figure_savefig_exists"
     for fmt in "bmp eps jpg jpeg pdf png ppm tif PNG JPG JPEG Png".split():
-        fname = f"{prefix}.{fmt}"
+        fname = Path(f"{prefix}.{fmt}")
         fig.savefig(fname)
-
-        fname = Path(fname)
         assert fname.exists()
         fname.unlink()
 
@@ -201,10 +198,10 @@ def test_figure_savefig_transparent():
         with pytest.raises(GMTInvalidInput):
             fig.savefig(fname, transparent=True)
     # png should not raise an error
-    fname = f"{prefix}.png"
+    fname = Path(f"{prefix}.png")
     fig.savefig(fname, transparent=True)
-    assert os.path.exists(fname)
-    os.remove(fname)
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_figure_savefig_filename_with_spaces():
@@ -215,8 +212,9 @@ def test_figure_savefig_filename_with_spaces():
     fig.basemap(region=[0, 1, 0, 1], projection="X1c/1c", frame=True)
     with GMTTempFile(prefix="pygmt-filename with spaces", suffix=".png") as imgfile:
         fig.savefig(fname=imgfile.name)
-        assert r"\040" not in os.path.abspath(imgfile.name)
-        assert Path(imgfile.name).stat().st_size > 0
+        imgpath = Path(imgfile.name).resolve()
+        assert r"\040" not in str(imgpath)
+        assert imgpath.stat().st_size > 0
 
 
 def test_figure_savefig():
