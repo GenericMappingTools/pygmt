@@ -394,7 +394,7 @@ def build_arg_list(
     for key, value in kwdict.items():
         if len(key) > 2:  # Raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
-        if value is None or value is False:  # Exclude arguments that are None and False
+        if value is None or value is False:  # Exclude arguments that are None or False
             pass
         elif value is True:
             gmt_args.append(f"-{key}")
