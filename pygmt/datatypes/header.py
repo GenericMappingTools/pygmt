@@ -214,13 +214,16 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attrs
             The attributes for the data variable.
         """
-        attrs = {}
+        attrs = {"Conventions": "CF-1.7"}
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
         if units:
             attrs["units"] = units
         attrs["actual_range"] = np.array([self.z_min, self.z_max])
+        attrs["title"] = self.title
+        attrs["history"] = self.command
+        attrs["description"] = self.remark
         return attrs
 
     def get_dims(self):
