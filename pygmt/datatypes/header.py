@@ -208,14 +208,14 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
                 attrs[dim]["actual_range"] = np.array([self.z_min, self.z_max])
             else:
                 attrs[dim]["axis"] = dim.upper()
-                idx = dims.index(dim) * 2
+                idx = 2 if dim == "y" else 0
                 attrs[dim]["actual_range"] = np.array(self.wesn[idx : idx + 2])
 
         # Cartesian or Geographic grid
         gtype = 0
         if (
-            attrs[dims[0]].get("standard_name") == "longitude"
-            and attrs[dims[1]].get("standard_name") == "latitude"
+            attrs[dims[1]].get("standard_name") == "longitude"
+            and attrs[dims[0]].get("standard_name") == "latitude"
         ):
             gtype = 1
         # Registration
