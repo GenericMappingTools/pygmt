@@ -3,7 +3,7 @@ Wrapper for the GMT_GRID_HEADER data structure and related utility functions.
 """
 
 import ctypes as ctp
-from typing import ClassVar
+from typing import ClassVar, Any
 
 import numpy as np
 
@@ -143,7 +143,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def _parse_dimensions(self) -> dict[str, list]:
+    def _parse_dimensions(self):
         """
         Get dimension names and attributes from the grid header.
 
@@ -151,18 +151,13 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attributes for each dimension are parsed from the grid header following GMT
         source codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
         "gmtnc_grd_info" for reference.
-
-        Returns
-        -------
-        dict
-            Dictionary containing the list of dimension names and attributes.
         """
         # Default dimension names.
-        dims: tuple = ("y", "x")
+        dims = ("y", "x")
         nameunits = (self.y_units, self.x_units)
 
         # Dictionary for dimension attributes with the dimension name as the key.
-        attrs: dict = {dim: {} for dim in dims}
+        attrs = {dim: {} for dim in dims}
         # Dictionary for mapping the default dimension names to the actual names.
         newdims = {dim: dim for dim in dims}
         # Loop over dimensions and get the dimension name and attributes from header
@@ -214,16 +209,17 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attrs
             The attributes for the data variable.
         """
-        attrs = {"Conventions": "CF-1.7"}
+        attrs : dict[str, Any] = {}
+        attrs["Conventions"] = "CF-1.7"
+        attrs["title"] = self.title
+        attrs["history"] = self.command
+        attrs["description"] = self.remark
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
         if units:
             attrs["units"] = units
         attrs["actual_range"] = np.array([self.z_min, self.z_max])
-        attrs["title"] = self.title
-        attrs["history"] = self.command
-        attrs["description"] = self.remark
         return attrs
 
     def get_dims(self):
