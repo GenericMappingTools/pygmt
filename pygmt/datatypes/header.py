@@ -143,42 +143,23 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
-    def _parse_header(self) -> tuple[tuple, dict, int, int]:
+    def _parse_dimensions(self) -> dict[str, list]:
         """
-        Get dimension names, attributes, grid registration and type from the grid
-        header.
+        Get dimension names and attributes from the grid header.
 
-        For a 2-D grid, the dimension names are set to "y", "x", and "z" by default. The
+        For a 2-D grid, the dimension names are set to "y" and "x" by default. The
         attributes for each dimension are parsed from the grid header following GMT
         source codes. See the GMT functions "gmtnc_put_units", "gmtnc_get_units" and
         "gmtnc_grd_info" for reference.
 
-        The last dimension is special and is the data variable name, and the attributes
-        for this dimension are global attributes for the grid.
-
-        The grid is assumed to be Cartesian by default. If the x and y units are
-        "degrees_east" and "degrees_north", respectively, then the grid is assumed to be
-        geographic.
-
-        Parameters
-        ----------
-        header
-            The grid header structure.
-
         Returns
         -------
-        dims : tuple
-            The dimension names, with the last dimension being the data variable.
-        attrs : dict
-            The attributes for each dimension.
-        registration : int
-            The grid registration. 0 for gridline and 1 for pixel.
-        gtype : int
-            The grid type. 0 for Cartesian grid and 1 for geographic grid.
+        dict
+            Dictionary containing the list of dimension names and attributes.
         """
-        # Default dimension names. The last dimension is for the data variable.
-        dims: tuple = ("y", "x", "z")
-        nameunits = (self.y_units, self.x_units, self.z_units)
+        # Default dimension names.
+        dims: tuple = ("y", "x")
+        nameunits = (self.y_units, self.x_units)
 
         # Dictionary for dimension attributes with the dimension name as the key.
         attrs: dict = {dim: {} for dim in dims}
@@ -203,26 +184,95 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
                 newdims[dim] = "lat"
 
             # Axis attributes are "X"/"Y"/"Z"/"T" for horizontal/vertical/time axis.
-            # The codes here may not work for 3-D grids.
-            if dim == dims[-1]:  # The last dimension is the data.
-                attrs[dim]["actual_range"] = np.array([self.z_min, self.z_max])
-            else:
-                attrs[dim]["axis"] = dim.upper()
-                idx = 2 if dim == "y" else 0
-                attrs[dim]["actual_range"] = np.array(self.wesn[idx : idx + 2])
+            attrs[dim]["axis"] = dim.upper()
+            idx = 2 if dim == "y" else 0
+            attrs[dim]["actual_range"] = np.array(self.wesn[idx : idx + 2])
 
-        # Cartesian or Geographic grid
-        gtype = 0
-        if (
-            attrs[dims[1]].get("standard_name") == "longitude"
-            and attrs[dims[0]].get("standard_name") == "latitude"
-        ):
-            gtype = 1
-        # Registration
-        registration = self.registration
+        # Save the lists of dimension names and attributes in the _nc attribute.
+        self._nc = {
+            "dims": [newdims[dim] for dim in dims],
+            "attrs": [attrs[dim] for dim in dims],
+        }
 
-        # Update the attributes dictionary with new dimension names as keys
-        attrs = {newdims[dim]: attrs[dim] for dim in dims}
-        # Update the dimension names
-        dims = tuple(newdims[dim] for dim in dims)
-        return dims, attrs, registration, gtype
+    def get_name(self) -> str:
+        """
+        Get the name of the grid from the grid header.
+
+        Returns
+        -------
+        name
+            The name of the grid.
+        """
+        return "z"
+
+    def get_data_attrs(self) -> dict:
+        """
+        Get the attributes for the data variable from the grid header.
+
+        Returns
+        -------
+        attrs
+            The attributes for the data variable.
+        """
+        attrs = {}
+        long_name, units = _parse_nameunits(self.z_units.decode())
+        if long_name:
+            attrs["long_name"] = long_name
+        if units:
+            attrs["units"] = units
+        attrs["actual_range"] = np.array([self.z_min, self.z_max])
+        return attrs
+
+    def get_dims(self):
+        """
+        Get the dimension names from the grid header.
+
+        Returns
+        -------
+        dims : tuple
+            The dimension names.
+        """
+        if not hasattr(self, "_nc"):
+            self._parse_dimensions()
+        return self._nc["dims"]
+
+    def get_dim_attrs(self) -> list:
+        """
+        Get the attributes for each dimension from the grid header.
+
+        Returns
+        -------
+        attrs
+            List of attributes for each dimension.
+        """
+        if not hasattr(self, "_nc"):
+            self._parse_dimensions()
+        return self._nc["attrs"]
+
+    def get_gtype(self) -> int:
+        """
+        Get the grid type from the grid header.
+
+        The grid is assumed to be Cartesian by default. If the x/y dimensions are named
+        "lon"/"lat" or have units "degrees_east"/"degrees_north", then the grid is
+        assumed to be geographic.
+
+        Returns
+        -------
+        gtype
+            The grid type. 0 for Cartesian grid and 1 for geographic grid.
+        """
+        dims = self.get_dims()
+        gtype = 1 if dims[0] == "lat" and dims[1] == "lon" else 0
+        return gtype
+
+    def get_registration(self) -> int:
+        """
+        Get the grid registration from the grid header.
+
+        Returns
+        -------
+        registration
+            The grid registration. 0 for gridline and 1 for pixel.
+        """
+        return self.registration
