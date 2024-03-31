@@ -636,7 +636,7 @@ class Session:
         if isinstance(args, str):
             # 'args' is a single string that contains whitespace-separated arguments.
             # In this way, we need to correctly handle option arguments that contain
-            # whitepsaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
             # longer recommended.
             mode = self["GMT_MODULE_CMD"]
             argv = args.encode()
