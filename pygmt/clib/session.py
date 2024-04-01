@@ -14,6 +14,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from packaging.version import Version
 from pygmt.clib.conversion import (
     array_to_datetime,
@@ -1899,6 +1900,53 @@ class Session:
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
         return result  # pandas.DataFrame output
+
+    def virtualfile_to_grid(
+        self, vfname: str, outgrid: str | None
+    ) -> xr.DataArray | None:
+        """
+        Output a grid stored in a virtual file to an :class:`xarray.DataArray` object.
+
+        Parameters
+        ----------
+        vfname
+            The virtual file name that stores the result grid.
+        outgrid
+            Name of the output grid. If specified, it means the grid was already saved
+            into an actual file and will return ``None``.
+
+        Returns
+        -------
+        result
+            The result grid. If ``outgrid`` is specified, return ``None``.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>> with Session() as lib:
+        ...     # file output
+        ...     with GMTTempFile(suffix=".nc") as tmpfile:
+        ...         outgrid = tmpfile.name
+        ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             result = lib.virtualfile_to_grid(
+        ...                 vfname=voutgrd, outgrid=outgrid
+        ...             )
+        ...             assert result == None
+        ...             assert Path(outgrid).stat().st_size > 0
+        ...
+        ...     # xarray.DataArray output
+        ...     outgrid = None
+        ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         result = lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+        ...         assert isinstance(result, xr.DataArray)
+        """
+        if outgrid is not None:
+            return None
+        return self.read_virtualfile(vfname, kind="grid").contents.to_dataarray()
 
     def extract_region(self):
         """
