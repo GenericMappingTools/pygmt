@@ -597,42 +597,47 @@ def is_nonstr_iter(value):
     return isinstance(value, Iterable) and not isinstance(value, str)
 
 
-def launch_external_viewer(fname, waiting=0):
+def launch_external_viewer(fname: str, waiting: float = 0.0):
     """
     Open a file in an external viewer program.
 
     Uses the ``xdg-open`` command on Linux, the ``open`` command on macOS, the
-    associated application on Windows, and the default web browser on other
-    systems.
+    associated application on Windows, and the default web browser on other systems.
 
     Parameters
     ----------
-    fname : str
+    fname
         The file name of the file (preferably a full path).
+    waiting
+        Wait for a few seconds before exiting the function, to allow the external viewer
+        open the file before it's deleted.
     """
-    # Redirect stdout and stderr to devnull so that the terminal isn't filled
-    # with noise
-    run_args = {
-        "stdout": subprocess.DEVNULL,
-        "stderr": subprocess.DEVNULL,
-    }
-
-    # Open the file with the default viewer.
-    # Fall back to the browser if can't recognize the operating system.
-    os_name = sys.platform
-    if os_name.startswith(("linux", "freebsd")) and (
-        xdgopen := shutil.which("xdg-open")
-    ):
-        subprocess.run([xdgopen, fname], check=False, **run_args)
-    elif os_name == "darwin":  # Darwin is macOS
-        subprocess.run([shutil.which("open"), fname], check=False, **run_args)
-    elif os_name == "win32":
-        os.startfile(fname)  # noqa: S606
-    else:
-        webbrowser.open_new_tab(f"file://{fname}")
+    # Open the file with the default viewer. Fall back to the browser if can't recognize
+    # the operating system.
+    match sys.platform:
+        case os_name if os_name.startswith(("linux", "freebsd")) and (
+            xdg_open := shutil.which("xdg-open")
+        ):  # Linux or FreeBSD
+            subprocess.run(
+                [xdg_open, fname],
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        case "darwin" if (opencmd := shutil.which("open")):  # macOS
+            subprocess.run(
+                [opencmd, fname],
+                check=False,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        case "win32":  # Windows
+            os.startfile(fname)  # type: ignore[attr-defined] # noqa: S606
+        case _:
+            webbrowser.open_new_tab(f"file://{fname}")
     if waiting > 0:
-        # suspend the execution for a few seconds to avoid the images being
-        # deleted when a Python script exits
+        # Suspend the execution for a few seconds to avoid the images being deleted when
+        # a Python script exits.
         time.sleep(waiting)
 
 
