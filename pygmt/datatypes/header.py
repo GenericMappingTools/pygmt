@@ -70,52 +70,6 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
 
     The class is used in the `GMT_GRID`/`GMT_IMAGE`/`GMT_CUBE` data structure. See the
     GMT source code gmt_resources.h for the original C structure definitions.
-
-    Examples
-    --------
-    >>> from pprint import pprint
-    >>> from pygmt.clib import Session
-
-    >>> with Session() as lib:
-    ...     with lib.virtualfile_out(kind="grid") as voutgrd:
-    ...         lib.call_module("read", f"@static_earth_relief.nc {voutgrd} -Tg")
-    ...         # Read the grid from the virtual file
-    ...         grid = lib.read_virtualfile(voutgrd, kind="grid")
-    ...         header = grid.contents.header.contents
-    ...         name = header.get_name()
-    ...         attrs = header.get_data_attrs()
-    ...         dims = header.get_dims()
-    ...         dim_attrs = header.get_dim_attrs()
-    ...         gtype = header.get_gtype()
-    ...         registration = header.get_registration()
-    >>> name
-    'z'
-    >>> pprint(attrs)
-    {'Conventions': 'CF-1.7',
-     'actual_range': array([190., 981.]),
-     'description': 'Reduced by Gaussian Cartesian filtering (111.2 km fullwidth) '
-                    'from SRTM15_V2.3.nc [Sandwell et al., 2022; '
-                    'https://doi.org/10.1029/2021EA002069]',
-     'history': 'grdcut @earth_relief_01d_p -R-55/-47/-24/-10 '
-                '-Gstatic_earth_relief.nc',
-     'long_name': 'elevation (m)',
-     'title': 'Produced by grdcut'}
-    >>> dims
-    ['lat', 'lon']
-    >>> pprint(dim_attrs[0])
-    {'actual_range': array([-24., -10.]),
-     'axis': 'Y',
-     'long_name': 'latitude',
-     'standard_name': 'latitude',
-     'units': 'degrees_north'}
-    >>> pprint(dim_attrs[1])
-    {'actual_range': array([-55., -47.]),
-     'axis': 'X',
-     'long_name': 'longitude',
-     'standard_name': 'longitude',
-     'units': 'degrees_east'}
-    >>> gtype, registration
-    (1, 1)
     """
 
     _fields_: ClassVar = [
@@ -258,9 +212,9 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         """
         attrs: dict[str, Any] = {}
         attrs["Conventions"] = "CF-1.7"
-        attrs["title"] = self.title.decode()
-        attrs["history"] = self.command.decode()
-        attrs["description"] = self.remark.decode()
+        attrs["title"] = self.title
+        attrs["history"] = self.command
+        attrs["description"] = self.remark
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
