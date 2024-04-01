@@ -212,9 +212,9 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         """
         attrs: dict[str, Any] = {}
         attrs["Conventions"] = "CF-1.7"
-        attrs["title"] = self.title
-        attrs["history"] = self.command
-        attrs["description"] = self.remark
+        attrs["title"] = self.title.decode()
+        attrs["history"] = self.command.decode()
+        attrs["description"] = self.remark.decode()
         long_name, units = _parse_nameunits(self.z_units.decode())
         if long_name:
             attrs["long_name"] = long_name
