@@ -3,7 +3,7 @@ Wrapper for the GMT_GRID_HEADER data structure and related utility functions.
 """
 
 import ctypes as ctp
-from typing import ClassVar, Any
+from typing import Any, ClassVar
 
 import numpy as np
 
@@ -14,6 +14,7 @@ import numpy as np
 # So we have to hardcode the values here.
 GMT_GRID_UNIT_LEN80 = 80
 GMT_GRID_TITLE_LEN80 = 80
+GMT_GRID_VARNAME_LEN80 = 80
 GMT_GRID_COMMAND_LEN320 = 320
 GMT_GRID_REMARK_LEN160 = 160
 
@@ -209,7 +210,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attrs
             The attributes for the data variable.
         """
-        attrs : dict[str, Any] = {}
+        attrs: dict[str, Any] = {}
         attrs["Conventions"] = "CF-1.7"
         attrs["title"] = self.title
         attrs["history"] = self.command
