@@ -190,25 +190,17 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
             "attrs": [attrs[dim] for dim in dims],
         }
 
-    def get_name(self) -> str:
+    @property
+    def name(self) -> str:
         """
-        Get the name of the grid from the grid header.
-
-        Returns
-        -------
-        name
-            The name of the grid.
+        Name of the grid.
         """
         return "z"
 
-    def get_data_attrs(self) -> dict:
+    @property
+    def data_attrs(self) -> dict[str, Any]:
         """
-        Get the attributes for the data variable from the grid header.
-
-        Returns
-        -------
-        attrs
-            The attributes for the data variable.
+        Attributes for the data variable from the grid header.
         """
         attrs: dict[str, Any] = {}
         attrs["Conventions"] = "CF-1.7"
@@ -223,56 +215,33 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attrs["actual_range"] = np.array([self.z_min, self.z_max])
         return attrs
 
-    def get_dims(self):
+    @property
+    def dims(self) -> list:
         """
-        Get the dimension names from the grid header.
-
-        Returns
-        -------
-        dims : tuple
-            The dimension names.
+        List of dimension names.
         """
         if not hasattr(self, "_nc"):
             self._parse_dimensions()
         return self._nc["dims"]
 
-    def get_dim_attrs(self) -> list:
+    @property
+    def dim_attrs(self) -> list[dict]:
         """
-        Get the attributes for each dimension from the grid header.
-
-        Returns
-        -------
-        attrs
-            List of attributes for each dimension.
+        List of attributes for each dimension.
         """
         if not hasattr(self, "_nc"):
             self._parse_dimensions()
         return self._nc["attrs"]
 
-    def get_gtype(self) -> int:
+    @property
+    def gtype(self) -> int:
         """
-        Get the grid type from the grid header.
+        Grid type. 0 for Cartesian grid and 1 for geographic grid.
 
         The grid is assumed to be Cartesian by default. If the x/y dimensions are named
         "lon"/"lat" or have units "degrees_east"/"degrees_north", then the grid is
         assumed to be geographic.
-
-        Returns
-        -------
-        gtype
-            The grid type. 0 for Cartesian grid and 1 for geographic grid.
         """
-        dims = self.get_dims()
+        dims = self.dims
         gtype = 1 if dims[0] == "lat" and dims[1] == "lon" else 0
         return gtype
-
-    def get_registration(self) -> int:
-        """
-        Get the grid registration from the grid header.
-
-        Returns
-        -------
-        registration
-            The grid registration. 0 for gridline and 1 for pixel.
-        """
-        return self.registration
