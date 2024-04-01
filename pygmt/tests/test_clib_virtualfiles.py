@@ -385,7 +385,7 @@ def test_inquire_virtualfile():
     """
     Test that the inquire_virtualfile method returns the correct family.
 
-    Currently, only ouptut virtualfiles are tested.
+    Currently, only output virtual files are tested.
     """
     with clib.Session() as lib:
         for family in [
