@@ -161,8 +161,8 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
         attrs = {dim: {} for dim in dims}
         # Dictionary for mapping the default dimension names to the actual names.
         newdims = {dim: dim for dim in dims}
-        # Loop over dimensions and get the dimension name and attributes from header
-        for dim, nameunit in zip(dims, nameunits, strict=False):
+        # Loop over dimensions and get the dimension name and attributes from header.
+        for dim, nameunit in zip(dims, nameunits, strict=True):
             # The long_name and units attributes.
             long_name, units = _parse_nameunits(nameunit.decode())
             if long_name:
@@ -171,7 +171,7 @@ class _GMT_GRID_HEADER(ctp.Structure):  # noqa: N801
                 attrs[dim]["units"] = units
 
             # "degrees_east"/"degrees_north" are the units for geographic coordinates
-            # following CF-conventions
+            # following CF-conventions.
             if units == "degrees_east":
                 attrs[dim]["standard_name"] = "longitude"
                 newdims[dim] = "lon"
