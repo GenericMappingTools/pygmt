@@ -12,6 +12,7 @@ import sys
 import time
 import webbrowser
 from collections.abc import Iterable
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -201,94 +202,88 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     return kind
 
 
-def _is_file(data):
+def _is_file_or_arg(arg: Any, required: bool = True) -> Literal["file", "arg", False]:
     """
-    Check if the data is a file-like object.
+    Check if an argument is file-like, argument-like or not.
+
+    A string or a :class:`pathlib.PurePath` object is recognized as file-like. A number
+    (integer or float), a bool (``True`` or ``False``), or ``None`` is regognized as
+    argument-like. If ``required=True``, ``None`` and ``False`` are not recognized as
+    argument-like.
+
+    Strictly speaking, a string can be either file-like or argument-like, but we can't
+    know the actual argument kind. So, a string is always recognized as file-like.
 
     Parameters
     ----------
-    data
-        The data to check.
+    arg
+        The argument to check.
 
     Returns
     -------
-    bool
-        ``True`` if the data is a file-like object, ``False`` otherwise.
+    kind
+        ``"file"`` or ``"arg"`` if the argument is file-like or argument-like.
+        Otherwise, return ``False``.
 
     Examples
     --------
-
-    >>> _is_file("my-data-file.txt")
-    True
-    >>> _is_file(pathlib.Path("my-data-file.txt"))
-    True
-    >>> _is_file(2.0)
-    False
-    >>> _is_file(True)
-    False
-    >>> _is_file(None)
-    False
+    >>> _is_file_or_arg("data.txt")
+    'file'
+    >>> from pathlib import Path, PurePath, PureWindowsPath
+    >>> [_is_file_or_arg(arg) for arg in (Path("data.txt"), Pure("data.txt"))]
+    ['file', 'file']
+    >>> [_is_file_or_arg(arg) for arg in (2.0, True, False, None)]
+    ['arg', 'arg', 'arg', False]
+    >>> [_is_file_or_arg(arg, required=False) for arg in (2.0, True, False, None)]
+    ['arg', 'arg', 'arg', 'arg']
     >>> import xarray as xr
-    >>> _is_file(xr.DataArray(np.random.rand(4, 3)))
+    >>> _is_file_or_arg(xr.DataArray(np.random.rand(4, 3)))
     False
     """
-    return isinstance(data, str | pathlib.PurePath)
+    if isinstance(arg, str | pathlib.PurePath):
+        return "file"
+    if isinstance(arg, int | float):
+        return "arg"
+    if (arg is None or arg is False) and not required:
+        return "arg"
+    return False
 
 
-def _is_arg(data, disallow_none):
-    """
-    Check if the data is an argument-like object.
-
-    Parameters
-    ----------
-    data
-        The data to check.
-    allow_none
-        Whether to allow ``None`` as an argument-like value.
-
-    Returns
-    -------
-    bool
-        ``True`` if the data is an argument-like object, ``False`` otherwise.
-
-    Examples
-    --------
-
-    >>> values = ["data.txt", 1, 2.0, True, False, None]
-    >>> [_is_arg(value, disallow_none=True) for value in values]
-    [True, True, True, True, True, False]
-    >>> [_is_arg(value, disallow_none=False) for value in values]
-    [True, True, True, True, True, True]
-    >>> import xarray as xr
-    >>> _is_arg(xr.DataArray(np.random.rand(4, 3)), disallow_none=False)
-    False
-    """
-    return isinstance(data, str | bool | int | float) or (
-        data is None and not disallow_none
-    )
-
-
-def raster_kind(data, required=True):
+def raster_kind(
+    data: Any, required: bool = True
+) -> Literal["file", "arg", "grid", "image"]:
     """
     Determine the kind of a raster data.
+
+    Parameters
+    ----------
+    data
+        The data to check.
+    required
+        ``True`` if the data is required, or ``False`` when dealing with optional
+        virtual files.
+
+    Returns
+    -------
+    kind
+        Data kind of the raster data.
     """
-    if _is_file(data):
-        return "file"
-    if _is_arg(data, disallow_none=required):
-        return "arg"
+    if kind := _is_file_or_arg(data, required=required):
+        return kind
     if isinstance(data, xr.DataArray):
         return "image" if len(data.dims) == 3 else "grid"
     raise GMTInvalidInput(f"Unrecognized raster data type {type(data)}")
 
 
-def table_kind(data, required=True, vectors=None, ncols=2):
+def table_kind(
+    data: Any, required: bool = True, vectors=None, ncols=2
+) -> Literal["file", "arg", "geojson", "matrix", "vectors"]:
     """
     Determine the kind of a tablubar data.
     """
-    if _is_file(data):
-        kind = "file"
-    elif _is_arg(data, disallow_none=required):
-        kind = "arg"
+    if kind := _is_file_or_arg(data, required=required):
+        # Do nothing if kind is "file" or "arg". Go to next 'elif' if False.
+        pass
     elif hasattr(data, "__geo_interface__"):
         # geo-like Python object that implements ``__geo_interface__``
         # (geopandas.GeoDataFrame or shapely.geometry)
