@@ -159,10 +159,11 @@ def test_call_module_empty_argument():
     """
     call_module should work if an empty string or an empty list is passed as argument.
     """
+    Figure()
     with clib.Session() as lib:
-        lib.call_module("defaults", "")
+        lib.call_module("logo", "")
     with clib.Session() as lib:
-        lib.call_module("defaults", [])
+        lib.call_module("logo", [])
 
 
 def test_call_module_invalid_argument_type():
