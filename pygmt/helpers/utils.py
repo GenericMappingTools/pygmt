@@ -229,8 +229,8 @@ def _is_file_or_arg(arg: Any, required: bool = True) -> Literal["file", "arg", F
     --------
     >>> _is_file_or_arg("data.txt")
     'file'
-    >>> from pathlib import Path, PurePath, PureWindowsPath
-    >>> [_is_file_or_arg(arg) for arg in (Path("data.txt"), Pure("data.txt"))]
+    >>> from pathlib import Path, PurePath
+    >>> [_is_file_or_arg(arg) for arg in (Path("data.txt"), PurePath("data.txt"))]
     ['file', 'file']
     >>> [_is_file_or_arg(arg) for arg in (2.0, True, False, None)]
     ['arg', 'arg', 'arg', False]
