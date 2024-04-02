@@ -1721,7 +1721,7 @@ class Session:
         Returns
         -------
         family
-            The family of the virtual file.
+            The integer value for the family of the virtual file.
 
         Examples
         --------
