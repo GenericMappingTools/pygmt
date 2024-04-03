@@ -52,7 +52,7 @@ jobs:
             numpy pandas xarray netcdf4 packaging \
             contextily geopandas ipython rioxarray \
             mypy pandas-stubs \
-            matplotlib pytest
+            matplotlib-base pytest
           python -m pip list
 
       - name: Static type check
