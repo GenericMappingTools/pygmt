@@ -1796,7 +1796,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
-            - ``"strings"`` will return the trailing text only as a list of strings.
+            - ``"strings"`` will return the trailing text only as an array of strings.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1904,7 +1904,7 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset
+        # Read the virtual file as a _GMT_DATASET object
         result = self.read_virtualfile(vfname, kind="dataset").contents
 
         if output_type == "strings":  # strings output
