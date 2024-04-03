@@ -64,11 +64,13 @@ def which(fname, **kwargs) -> str | list[str]:
                 module="which",
                 args=build_arg_string(kwargs, infile=fname, outfile=vouttbl),
             )
-            result = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="pandas")
+            result = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
 
-    if result.empty:
-        _fname = fname.replace(" ", "', '")
-        raise FileNotFoundError(f"File(s) '{_fname}' not found.")
-
-    path = result[0].to_list()
-    return path[0] if len(path) == 1 else path
+    match result.size:
+        case 0:
+            _fname = fname.replace(" ", "', '")
+            raise FileNotFoundError(f"File(s) '{_fname}' not found.")
+        case 1:
+            return result[0]
+        case _:
+            return result.tolist()
