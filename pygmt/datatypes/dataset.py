@@ -149,12 +149,10 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         Convert the trailing text column to an array of strings.
         """
         textvector = []
-        for itbl in range(self.n_tables):
-            dtbl = self.table[itbl].contents
-            for iseg in range(dtbl.n_segments):
-                dseg = dtbl.segment[iseg].contents
-                if dseg.text:
-                    textvector.extend(dseg.text[: dseg.n_rows])
+        for table in self.table[: self.n_tables]:
+            for segment in table.contents.segment[: table.contents.n_segments]:
+                if segment.contents.text:
+                    textvector.extend(segment.contents.text[: segment.contents.n_rows])
         return np.char.decode(textvector) if textvector else np.array([], dtype=str)
 
     def to_dataframe(
@@ -224,14 +222,13 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         vectors = []
         # Deal with numeric columns
         for icol in range(self.n_columns):
-            colvector = []
-            for itbl in range(self.n_tables):
-                dtbl = self.table[itbl].contents
-                for iseg in range(dtbl.n_segments):
-                    dseg = dtbl.segment[iseg].contents
-                    colvector.append(
-                        np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
-                    )
+            colvector = [
+                np.ctypeslib.as_array(
+                    seg.contents.data[icol], shape=(seg.contents.n_rows,)
+                )
+                for tbl in self.table[: self.n_tables]
+                for seg in tbl.contents.segment[: tbl.contents.n_segments]
+            ]
             vectors.append(pd.Series(data=np.concatenate(colvector)))
 
         # Deal with trailing text column
