@@ -592,25 +592,36 @@ class Session:
         # the function return value (i.e., 'status')
         return status
 
-    def call_module(self, module, args):
+    def call_module(self, module: str, args: str | list[str]):
         """
         Call a GMT module with the given arguments.
 
-        Makes a call to ``GMT_Call_Module`` from the C API using mode
-        ``GMT_MODULE_CMD`` (arguments passed as a single string).
+        Wraps ``GMT_Call_Module``.
 
-        Most interactions with the C API are done through this function.
+        The ``GMT_Call_Module`` API function supports passing module arguments in three
+        different ways:
+
+        1. Pass a single string that contains whitespace-separated module arguments.
+        2. Pass a list of strings and each string contains a module argument.
+        3. Pass a list of ``GMT_OPTION`` data structure.
+
+        Both options 1 and 2 are implemented in this function, but option 2 is preferred
+        because it can correctly handle special characters like whitespaces and
+        quotation marks in module arguments.
 
         Parameters
         ----------
-        module : str
-            Module name (``'coast'``, ``'basemap'``, etc).
-        args : str
-            String with the command line arguments that will be passed to the
-            module (for example, ``'-R0/5/0/10 -JM'``).
+        module
+            The GMT module name to be called (``"coast"``, ``"basemap"``, etc).
+        args
+            Module arguments that will be passed to the GMT module. It can be either
+            a single string (e.g., ``"-R0/5/0/10 -JX10c -BWSen+t'My Title'"``) or a list
+            of strings (e.g., ``["-R0/5/0/10", "-JX10c", "-BWSEN+tMy Title"]``).
 
         Raises
         ------
+        GMTInvalidInput
+            If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
@@ -620,10 +631,29 @@ class Session:
             restype=ctp.c_int,
         )
 
-        mode = self["GMT_MODULE_CMD"]
-        status = c_call_module(
-            self.session_pointer, module.encode(), mode, args.encode()
-        )
+        # 'args' can be (1) a single string or (2) a list of strings.
+        argv: bytes | ctp.Array[ctp.c_char_p] | None
+        if isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
+        elif isinstance(args, list):
+            # 'args' is a list of strings and each string contains a module argument.
+            # In this way, GMT can correctly handle option arguments with whitespaces or
+            # quotation marks. This is the preferred way to pass arguments to the GMT
+            # API and is used for PyGMT >= v0.12.0.
+            mode = len(args)  # 'mode' is the number of arguments.
+            # Pass a null pointer if no arguments are specified.
+            argv = strings_to_ctypes_array(args) if mode != 0 else None
+        else:
+            raise GMTInvalidInput(
+                "'args' must be either a string or a list of strings."
+            )
+
+        status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
             raise GMTCLibError(
                 f"Module '{module}' failed with status code {status}:\n{self._error_message}"
@@ -1747,6 +1777,8 @@ class Session:
         vfname: str,
         output_type: Literal["pandas", "numpy", "file"] = "pandas",
         column_names: list[str] | None = None,
+        dtype: type | dict[str, type] | None = None,
+        index_col: str | int | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
         Output a tabular dataset stored in a virtual file to a different format.
@@ -1766,6 +1798,11 @@ class Session:
             - ``"file"`` means the result was saved to a file and will return ``None``.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
+        dtype
+            Data type for the columns of the :class:`pandas.DataFrame` output. Can be a
+            single type for all columns or a dictionary mapping column names to types.
+        index_col
+            Column to set as the index of the :class:`pandas.DataFrame` output.
 
         Returns
         -------
@@ -1854,13 +1891,13 @@ class Session:
             return None
 
         # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
+        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
+            column_names=column_names,
+            dtype=dtype,
+            index_col=index_col,
+        )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
-
-        # Assign column names
-        if column_names is not None:
-            result.columns = column_names
         return result  # pandas.DataFrame output
 
     def extract_region(self):
