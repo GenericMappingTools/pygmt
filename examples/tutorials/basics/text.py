@@ -6,7 +6,8 @@ It is often useful to add text annotations to a plot or map. This is handled by 
 :meth:`pygmt.Figure.text` method of the :class:`pygmt.Figure` class.
 """
 
-import os
+# %%
+from pathlib import Path
 
 import pygmt
 
@@ -180,7 +181,7 @@ with open("examples.txt", "w") as f:
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
-os.remove("examples.txt")
+Path("examples.txt").unlink()
 
 fig.show()
 
