@@ -82,6 +82,7 @@ def test_blockmean_input_filename():
             data="@tut_ship.xyz",
             spacing="5m",
             region=[245, 255, 20, 30],
+            output_type="file",
             outfile=tmpfile.name,
         )
         assert output is None  # check that output is None since outfile is set

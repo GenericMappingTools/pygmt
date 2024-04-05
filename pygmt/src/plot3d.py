@@ -2,6 +2,8 @@
 plot3d - Plot in three dimensions.
 """
 
+from pathlib import Path
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
@@ -182,48 +184,51 @@ def plot3d(  # noqa: PLR0912
     kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data, x, y, z)
-
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "u0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "u0.2c"
-        except FileNotFoundError:
-            pass
-    if is_nonstr_iter(kwargs.get("G")):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or a file."
-            )
-        extra_arrays.append(size)
 
-    for flag in ["I", "t"]:
-        if is_nonstr_iter(kwargs.get(flag)):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None:
+        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
+            kwargs["S"] = "u0.2c"
+        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
+            try:
+                with Path(which(data)).open() as file:
+                    line = file.readline()
+                if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                    kwargs["S"] = "u0.2c"
+            except FileNotFoundError:
+                pass
 
     with Session() as lib:
         with lib.virtualfile_in(

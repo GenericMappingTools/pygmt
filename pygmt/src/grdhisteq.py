@@ -238,18 +238,14 @@ class grdhisteq:  # noqa: N801
                     module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
-            result = lib.virtualfile_to_dataset(
-                output_type=output_type,
+            return lib.virtualfile_to_dataset(
                 vfname=vouttbl,
+                output_type=output_type,
                 column_names=["start", "stop", "bin_id"],
+                dtype={
+                    "start": np.float32,
+                    "stop": np.float32,
+                    "bin_id": np.uint32,
+                },
+                index_col="bin_id" if output_type == "pandas" else None,
             )
-            if output_type == "pandas":
-                result = result.astype(
-                    {
-                        "start": np.float32,
-                        "stop": np.float32,
-                        "bin_id": np.uint32,
-                    }
-                )
-                return result.set_index("bin_id")
-            return result
