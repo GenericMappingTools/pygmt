@@ -1,6 +1,7 @@
 """
-Tests Figure.tilemap.
+Test Figure.tilemap.
 """
+
 import pytest
 from pygmt import Figure
 
@@ -17,21 +18,27 @@ def test_tilemap_web_mercator():
     fig.tilemap(
         region=[-20000000.0, 20000000.0, -20000000.0, 20000000.0],
         zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
         lonlat=False,
         frame="afg",
     )
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_tilemap_ogc_wgs84():
     """
-    Create a tilemap plot using longitude/latitude coordinates (OGC:WGS84),
-    centred on the international date line.
+    Create a tilemap plot using longitude/latitude coordinates (OGC:WGS84), centred on
+    the international date line.
     """
     fig = Figure()
     fig.tilemap(
-        region=[-180.0, 180.0, -90, 90], zoom=0, frame="afg", projection="R180/5c"
+        region=[-180.0, 180.0, -90, 90],
+        zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
+        frame="afg",
+        projection="R180/5c",
     )
     return fig
 
@@ -40,13 +47,14 @@ def test_tilemap_ogc_wgs84():
 @pytest.mark.parametrize("no_clip", [False, True])
 def test_tilemap_no_clip(no_clip):
     """
-    Create a tilemap plot clipped to the Southern Hemisphere when no_clip is
-    False, but for the whole globe when no_clip is True.
+    Create a tilemap plot clipped to the Southern Hemisphere when no_clip is False, but
+    for the whole globe when no_clip is True.
     """
     fig = Figure()
     fig.tilemap(
         region=[-180.0, 180.0, -90, 0.6886],
         zoom=0,
+        source=contextily.providers.OpenStreetMap.Mapnik,
         frame="afg",
         projection="H180/5c",
         no_clip=no_clip,

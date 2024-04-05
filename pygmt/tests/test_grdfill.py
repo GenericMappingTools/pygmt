@@ -1,13 +1,15 @@
 """
-Tests for grdfill.
+Test pygmt.grdfill.
 """
+
 from pathlib import Path
 
 import numpy as np
 import pytest
 import xarray as xr
 from packaging.version import Version
-from pygmt import __gmt_version__, grdfill, load_dataarray
+from pygmt import grdfill, load_dataarray
+from pygmt.clib import __gmt_version__
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.helpers.testing import load_static_earth_relief
@@ -16,8 +18,8 @@ from pygmt.helpers.testing import load_static_earth_relief
 @pytest.fixture(scope="module", name="grid")
 def fixture_grid():
     """
-    Load the grid data from the static_earth_relief file and set value(s) to
-    NaN and inf.
+    Load the grid data from the static_earth_relief file and set value(s) to NaN and
+    inf.
     """
     grid = load_static_earth_relief()
     grid[3:6, 3:5] = np.nan
@@ -70,6 +72,7 @@ def fixture_expected_grid():
     )
 
 
+@pytest.mark.benchmark
 def test_grdfill_dataarray_out(grid, expected_grid):
     """
     Test grdfill with a DataArray output.

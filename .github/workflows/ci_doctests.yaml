@@ -9,67 +9,69 @@ on:
   # push:
   #   branches: [ main ]
   # pull_request:
+  workflow_dispatch:
   # Schedule weekly tests on Sunday
   schedule:
     - cron: '0 0 * * 0'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   test:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    if: github.repository == 'GenericMappingTools/pygmt'
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     timeout-minutes: 30
     defaults:
       run:
         shell: bash -l {0}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.8.1
         with:
-          activate-environment: pygmt
-          python-version: '3.11'
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy \
-                        pandas xarray netCDF4 packaging \
-                        build make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery \
-                        contextily geopandas ipython rioxarray
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: mamba list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          create-args: >-
+            python=3.12
+            gmt=6.5.0
+            numpy
+            pandas
+            xarray
+            netCDF4
+            packaging
+            contextily
+            geopandas
+            ipython
+            pyarrow
+            rioxarray
+            build
+            make
+            pip
+            pytest
+            pytest-doctestplus
+            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.27.0
+        uses: dawidd6/action-download-artifact@v3.1.4
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -82,7 +84,7 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
       # Install the package that we want to test

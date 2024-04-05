@@ -1,14 +1,18 @@
 """
 select - Select data table subsets based on multiple spatial criteria.
 """
+
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_string,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
+    validate_output_table_type,
 )
 
 __doctest_skip__ = ["select"]
@@ -17,10 +21,13 @@ __doctest_skip__ = ["select"]
 @fmt_docstring
 @use_alias(
     A="area_thresh",
+    C="dist2pt",
     D="resolution",
+    F="polygon",
     G="gridmask",
     I="reverse",
     J="projection",
+    L="dist2line",
     N="mask",
     R="region",
     V="verbose",
@@ -37,22 +44,27 @@ __doctest_skip__ = ["select"]
     w="wrap",
 )
 @kwargs_to_strings(M="sequence", R="sequence", i="sequence_comma", o="sequence_comma")
-def select(data=None, outfile=None, **kwargs):
+def select(
+    data=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Select data table subsets based on multiple spatial criteria.
 
     This is a filter that reads (x, y) or (longitude, latitude) positions from
-    the first 2 columns of *data* and uses a combination of 1-7 criteria to
+    the first 2 columns of ``data`` and uses a combination of 1-7 criteria to
     pass or reject the records. Records can be selected based on whether or not
-    they are:
+    they:
 
-    1. inside a rectangular region (``region`` [and ``projection``])
-    2. within *dist* km of any point in *pointfile*
-    3. within *dist* km of any line in *linefile*
-    4. inside one of the polygons in the *polygonfile*
-    5. inside geographical features (based on coastlines)
-    6. has z-values within a given range, or
-    7. inside bins of a grid mask whose nodes are non-zero
+    1. are inside a rectangular region (``region`` [and ``projection``])
+    2. are within *dist* km of any point in *pointfile* (``dist2pt``)
+    3. are within *dist* km of any line in *linefile* (``dist2line``)
+    4. are inside one of the polygons in *polygonfile* (``polygon``)
+    5. are inside geographical features (based on coastlines)
+    6. have z-values within a given range
+    7. are inside bins of a grid mask whose nodes are non-zero
 
     The sense of the tests can be reversed for each of these 7 criteria by
     using the ``reverse`` parameter.
@@ -63,12 +75,47 @@ def select(data=None, outfile=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outfile : str
-        The file name for the output ASCII file.
+    {output_type}
+    {outfile}
     {area_thresh}
+    dist2pt : str
+        *pointfile*\|\ *lon*/*lat*\ **+d**\ *dist*.
+        Pass all records whose locations are within *dist* of any of the
+        points in the ASCII file *pointfile*. If *dist* is zero, the 3rd
+        column of *pointfile* must have each point's individual radius of
+        influence. If you only have a single point, you can specify
+        *lon*/*lat* instead of *pointfile*. Distances are Cartesian and in
+        user units. Alternatively, if ``region`` and ``projection`` are used,
+        the geographic coordinates are projected to map coordinates (in
+        centimeters, inches, meters, or points, as determined by
+        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are compared
+        to *dist*.
+    dist2line : str
+        *linefile*\ **+d**\ *dist*\ [**+p**].
+        Pass all records whose locations are within *dist* of any of the line
+        segments in the ASCII :gmt-docs:`multiple-segment file
+        <reference/file-formats.html#optional-segment-header-records>`
+        *linefile*. If *dist* is zero, we will scan each sub-header in
+        *linefile* for an embedded **-D**\ *dist* setting that sets each
+        line's individual distance value. Distances are Cartesian and in
+        user units. Alternatively, if ``region`` and ``projection`` are used,
+        the geographic coordinates are projected to map coordinates (in
+        centimeters, inches, meters, or points, as determined by
+        :gmt-term:`PROJ_LENGTH_UNIT`) before Cartesian distances are
+        compared to *dist*. Append **+p** to ensure only points whose
+        orthogonal projections onto the nearest line-segment fall within
+        the segment's endpoints [Default considers points "beyond" the
+        line's endpoints].
+    polygon : str
+        *polygonfile*.
+        Pass all records whose locations are within one of the closed
+        polygons in the ASCII :gmt-docs:`multiple-segment file
+        <reference/file-formats.html#optional-segment-header-records>`
+        *polygonfile*. For spherical polygons (lon, lat), make sure no
+        consecutive points are separated by 180 degrees or more in longitude.
     resolution : str
         *resolution*\ [**+f**].
         Ignored unless ``mask`` is set. Selects the resolution of the coastline
@@ -141,12 +188,13 @@ def select(data=None, outfile=None, **kwargs):
 
     Returns
     -------
-    output : pandas.DataFrame or None
-        Return type depends on whether the ``outfile`` parameter is set:
+    ret
+        Return type depends on ``outfile`` and ``output_type``:
 
-        - :class:`pandas.DataFrame` table if ``outfile`` is not set.
-        - None if ``outfile`` is set (filtered output will be stored in file
-          set by ``outfile``).
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
+          ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -157,27 +205,23 @@ def select(data=None, outfile=None, **kwargs):
     >>> # longitudes 246 and 247 and latitudes 20 and 21
     >>> out = pygmt.select(data=ship_data, region=[246, 247, 20, 21])
     """
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile(suffix=".csv") as tmpfile:
-        with Session() as lib:
-            # Choose how data will be passed into the module
-            table_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with table_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="select",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
+    column_names = None
+    if output_type == "pandas" and isinstance(data, pd.DataFrame):
+        column_names = data.columns.to_list()
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            try:
-                column_names = data.columns.to_list()
-                result = pd.read_csv(tmpfile.name, sep="\t", names=column_names)
-            except AttributeError:  # 'str' object has no attribute 'columns'
-                result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="select",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.virtualfile_to_dataset(
+            vfname=vouttbl,
+            output_type=output_type,
+            column_names=column_names,
+        )

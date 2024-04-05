@@ -1,6 +1,9 @@
 """
-Tests for legend.
+Test Figure.legend.
 """
+
+from pathlib import Path
+
 import pytest
 from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
@@ -38,6 +41,7 @@ def test_legend_default_position():
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_legend_entries():
     """
@@ -93,8 +97,7 @@ T so we may have to adjust the box height to get the right size box.
 """
 
     with GMTTempFile() as specfile:
-        with open(specfile.name, "w", encoding="utf8") as file:
-            file.write(specfile_contents)
+        Path(specfile.name).write_text(specfile_contents)
         fig = Figure()
         fig.basemap(projection="x6i", region=[0, 1, 0, 1], frame=True)
         fig.legend(specfile.name, position="JTM+jCM+w5i")

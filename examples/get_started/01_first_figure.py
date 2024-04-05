@@ -2,32 +2,22 @@
 1. Making your first figure
 ===========================
 
-This tutorial page covers the basics of creating a figure using PyGMT - a
+This tutorial covers the basics of creating a figure using PyGMT - a
 Python wrapper for the Generic Mapping Tools (GMT). It will only use
-the :meth:`pygmt.Figure.coast` method for plotting. Later examples will
+the :meth:`pygmt.Figure.coast` method for plotting. Later tutorials will
 address other PyGMT methods.
 """
 
-###############################################################################
-# Setting up the development environment
-# --------------------------------------
-#
-# PyGMT can be used in both a Python script and a notebook environment, such
-# as Jupyter. The tutorial's recommended method is to use a notebook, and the
-# code will be for a notebook environment.
-
-
-###############################################################################
+# %%
 # Loading the library
 # -------------------
 #
 # The first step is to import :mod:`pygmt`. All methods and figure generation
 # are accessible from the :mod:`pygmt` top level package.
 
-# sphinx_gallery_thumbnail_number = 4
 import pygmt
 
-###############################################################################
+# %%
 # Creating a figure
 # -----------------
 #
@@ -36,7 +26,7 @@ import pygmt
 
 fig = pygmt.Figure()
 
-###############################################################################
+# %%
 # To add elements to the figure instance or object (``fig`` in this example)
 # different methods can be called on it. This example will use the
 # :meth:`pygmt.Figure.coast` method, which can be used to create a map without
@@ -61,12 +51,13 @@ fig = pygmt.Figure()
 
 fig.coast(region=[-69, -68, 43.75, 44.75], shorelines=True)
 
-###############################################################################
+# %%
 # To see the figure, call :meth:`pygmt.Figure.show`.
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Color the land and water
 # ------------------------
 #
@@ -89,7 +80,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Set the projection
 # ------------------
 #
@@ -117,11 +109,12 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a frame
 # -----------
 #
-# While that the map's colors, projection, and size have been set, the region
+# While the map's colors, projection, and size have been set, the region
 # that is being displayed is not apparent. A frame can be added to
 # annotate the latitude and longitude of the region.
 #
@@ -139,12 +132,13 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Add a title
 # -----------
 #
 # The ``frame`` parameter can be used to add a title to the figure. The title
-# is set with by passing ``"+t"`` followed by the title (e.g. setting the map
+# is set by passing ``"+t"`` followed by the title (e.g. setting the map
 # title to "Title" would be ``"+tTitle"``).
 #
 # To pass multiple arguments to ``frame``, a list can be used, as shown in the
@@ -162,7 +156,8 @@ fig.coast(
 )
 fig.show()
 
-###############################################################################
+
+# %%
 # Additional exercises
 # --------------------
 #
@@ -172,7 +167,7 @@ fig.show()
 # 1. Make a map of Germany using its ISO country code ("DE"). Pass the ISO
 #    code as a Python string to the ``region`` parameter.
 #
-# 2. Change the color of the land to "khaki" and the water to "azure".
+# 2. Change the color of the landmass to "khaki" and the water to "azure".
 #
 # 3. Change the color of the lakes (using the ``lakes`` parameter) to "red".
 #
@@ -180,4 +175,6 @@ fig.show()
 #    Meridian or "g" to center the map at the International Date Line. When the
 #    region is set without using a list full of integers or floating numbers,
 #    the argument needs to be passed as a Python string. Create a map with a
-#    width of 15 centimeters using the Mollwide ("W") projection.
+#    width of 15 centimeters using the Mollweide ("W") projection.
+
+# sphinx_gallery_thumbnail_number = 4

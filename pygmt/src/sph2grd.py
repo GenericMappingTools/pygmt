@@ -1,6 +1,7 @@
 """
 sph2grd - Compute grid from spherical harmonic coefficients
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -41,13 +42,11 @@ def sph2grd(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in data with L, M, C[L,M], S[L,M] values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}
@@ -70,19 +69,16 @@ def sph2grd(data, **kwargs):
     -------
     >>> import pygmt
     >>> # Create a new grid from the remote file "EGM96_to_36.txt",
-    >>> # set the grid spacing to 1, and the region to "g"
-    >>> new_grid = pygmt.sph2grd(
-    ...     data="@EGM96_to_36.txt", spacing=1, region="g"
-    ... )
+    >>> # set the grid spacing to 1 arc-degree, and the region to global ("g")
+    >>> new_grid = pygmt.sph2grd(data="@EGM96_to_36.txt", spacing=1, region="g")
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="sph2grd", args=build_arg_string(kwargs, infile=infile)
+                    module="sph2grd", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

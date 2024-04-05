@@ -1,17 +1,19 @@
 """
 image - Plot an image.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    R="region",
-    J="projection",
     D="position",
     F="box",
+    G="bitcolor",
+    J="projection",
     M="monochrome",
+    R="region",
     V="verbose",
     c="panel",
     p="perspective",
@@ -42,13 +44,21 @@ def image(self, imagefile, **kwargs):
     position : str
         [**g**\|\ **j**\|\ **J**\|\ **n**\|\ **x**]\ *refpoint*\ **+r**\ *dpi*\
         **+w**\ [**-**]\ *width*\ [/*height*]\ [**+j**\ *justify*]\
-        [**+n**\ *nx*\ [/*ny*] ]\ [**+o**\ *dx*\ [/*dy*]].
+        [**+n**\ *nx*\ [/*ny*]]\ [**+o**\ *dx*\ [/*dy*]].
         Set reference point on the map for the image.
     box : bool or str
         [**+c**\ *clearances*][**+g**\ *fill*][**+i**\ [[*gap*/]\ *pen*]]\
         [**+p**\ [*pen*]][**+r**\ [*radius*]][**+s**\ [[*dx*/*dy*/][*shade*]]].
         If set to ``True``, draw a rectangular border around the image
         using :gmt-term:`MAP_FRAME_PEN`.
+    bitcolor : str or list
+        [*color*][**+b**\|\ **f**\|\ **t**].
+        Change certain pixel values to another color or make them transparent.
+        For 1-bit images you can specify an alternate *color* for the
+        background (**+b**) or the foreground (**+f**) pixels, or give no color
+        to make those pixels transparent. Can be repeated with different
+        settings. Alternatively, for color images you can select a single
+        *color* that should be made transparent instead (**+t**).
     monochrome : bool
         Convert color image to monochrome grayshades using the (television)
         YIQ-transformation.
@@ -57,6 +67,6 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
     with Session() as lib:
         lib.call_module(module="image", args=build_arg_string(kwargs, infile=imagefile))

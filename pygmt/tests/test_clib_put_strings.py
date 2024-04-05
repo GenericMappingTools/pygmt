@@ -1,6 +1,7 @@
 """
 Test the functions that put string data into GMT.
 """
+
 import numpy as np
 import numpy.testing as npt
 import pytest
@@ -9,6 +10,7 @@ from pygmt.exceptions import GMTCLibError
 from pygmt.helpers import GMTTempFile
 
 
+@pytest.mark.benchmark
 def test_put_strings():
     """
     Check that assigning a numpy array of dtype str to a dataset works.

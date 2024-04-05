@@ -6,11 +6,11 @@ Setting frame, ticks, title, etc., of the plot is handled by the ``frame``
 parameter that most plotting methods of the :class:`pygmt.Figure` class
 contain.
 """
-# sphinx_gallery_thumbnail_number = 4
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Plot frame
 # ----------
 #
@@ -21,17 +21,18 @@ fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.show()
 
-###############################################################################
+# %%
 # To add the default GMT frame style to the plot, use ``frame="f"`` in
 # :meth:`pygmt.Figure.basemap` or another plotting method (which has the
-# ``frame`` parameter, with exception of :meth:`pygmt.Figure.colorbar`):
+# ``frame`` parameter, with the exception of :meth:`pygmt.Figure.colorbar`):
 
 fig = pygmt.Figure()
 fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="f")
 fig.show()
 
-###############################################################################
+
+# %%
 # Ticks and grid lines
 # --------------------
 #
@@ -44,7 +45,7 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="af")
 fig.show()
 
-###############################################################################
+# %%
 # Add automatic grid lines to the plot by passing ``g`` through the ``frame``
 # parameter:
 
@@ -53,7 +54,7 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="ag")
 fig.show()
 
-###############################################################################
+# %%
 # To adjust the step widths of annotations, frame, and grid lines we can
 # add the desired step widths after ``a``, ``f``, or ``g``. In the example
 # below, the step widths are set to 30°, 7.5°, and 15°, respectively.
@@ -63,13 +64,14 @@ fig.coast(shorelines="1/0.5p", region=[-180, 180, -60, 60], projection="M25c")
 fig.basemap(frame="a30f7.5g15")
 fig.show()
 
-###############################################################################
+
+# %%
 # Title
 # -----
 #
 # The figure title can be set by passing **+t**\ *title* to the ``frame``
 # parameter of :meth:`pygmt.Figure.basemap`. Passing multiple arguments to
-# ``frame`` can be done by using a list, as show in the example below.
+# ``frame`` can be done by using a list, as shown in the example below.
 
 fig = pygmt.Figure()
 # region="TT" specifies Trinidad and Tobago using the ISO country code
@@ -77,7 +79,8 @@ fig.coast(shorelines="1/0.5p", region="TT", projection="M25c")
 fig.basemap(frame=["a", "+tTrinidad and Tobago"])
 fig.show()
 
-###############################################################################
+
+# %%
 # Axis labels
 # -----------
 #
@@ -108,3 +111,5 @@ fig.basemap(
     frame=["WSne", "xaf+lx-axis", "yaf+ly-axis"],
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 4

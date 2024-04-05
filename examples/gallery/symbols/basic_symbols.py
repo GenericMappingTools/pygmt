@@ -1,6 +1,6 @@
 """
 Basic geometric symbols
------------------------
+=======================
 
 The :meth:`pygmt.Figure.plot` method can plot individual geometric symbols
 by passing the corresponding shortcuts to the ``style`` parameter. The 14 basic
@@ -12,6 +12,7 @@ the remaining symbols we may define a linewidth as well as a color fill.
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

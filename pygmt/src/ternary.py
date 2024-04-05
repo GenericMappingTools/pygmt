@@ -1,10 +1,10 @@
 """
 ternary - Plot data on ternary diagrams.
 """
+
 import pandas as pd
 from packaging.version import Version
-from pygmt import __gmt_version__
-from pygmt.clib import Session
+from pygmt.clib import Session, __gmt_version__
 from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
 
 
@@ -41,7 +41,7 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
 
     Parameters
     ----------
-    data : str or list or {table-like}
+    data : str, list, {table-like}
         Pass in either a file name to an ASCII data table, a Python list, a 2-D
         {table-classes}.
     width : str
@@ -73,13 +73,13 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if alabel or blabel or clabel:
         alabel = str(alabel) if alabel is not None else "-"
         blabel = str(blabel) if blabel is not None else "-"
         clabel = str(clabel) if clabel is not None else "-"
-        kwargs["L"] = "/".join([alabel, blabel, clabel])
+        kwargs["L"] = f"{alabel}/{blabel}/{clabel}"
 
     # Patch for GMT < 6.5.0.
     # See https://github.com/GenericMappingTools/pygmt/pull/2138
@@ -87,9 +87,8 @@ def ternary(self, data, alabel=None, blabel=None, clabel=None, **kwargs):
         data = data.to_numpy()
 
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
                 module="ternary",
-                args=build_arg_string(kwargs, infile=infile),
+                args=build_arg_string(kwargs, infile=vintbl),
             )

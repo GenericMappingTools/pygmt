@@ -11,6 +11,8 @@ and hence non-conformal. All meridians and parallels are straight lines.
 The projection is set with **y** or **Y**. The projection center is set by
 *lon0/lat0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

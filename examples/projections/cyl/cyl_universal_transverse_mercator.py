@@ -14,7 +14,7 @@ not needed to specify the projection for most cases. See Figure
 
 .. _GMT_utm_zones:
 
-.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png # noqa: W505
+.. figure:: https://docs.generic-mapping-tools.org/latest/_images/GMT_utm_zones.png
    :width: 700 px
    :align: center
 
@@ -35,6 +35,8 @@ conformal latitude in the general spherical formulae instead.
 The projection is set with **u** or **U**. *zone* sets the zone for the figure,
 and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

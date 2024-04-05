@@ -1,7 +1,8 @@
 """
 Test Figure.grdcontour.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -9,8 +10,7 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import load_static_earth_relief
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-TEST_CONTOUR_FILE = os.path.join(TEST_DATA_DIR, "contours.txt")
+TEST_CONTOUR_FILE = Path(__file__).parent / "data" / "contours.txt"
 
 
 @pytest.fixture(scope="module", name="grid")
@@ -33,11 +33,11 @@ def test_grdcontour(grid):
     return fig
 
 
+@pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdcontour_labels(grid):
     """
-    Plot a contour image using a xarray grid with contour labels and alternate
-    colors.
+    Plot a contour image using a xarray grid with contour labels and alternate colors.
     """
     fig = Figure()
     fig.grdcontour(

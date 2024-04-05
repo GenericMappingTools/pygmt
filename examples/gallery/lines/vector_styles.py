@@ -1,13 +1,13 @@
 """
 Cartesian, circular, and geographic vectors
--------------------------------------------
+===========================================
 
 The :meth:`pygmt.Figure.plot` method can plot Cartesian, circular, and
 geographic vectors. The ``style`` parameter controls vector attributes.
-See also
-:doc:`Vector attributes documentation </gallery/lines/vector_heads_tails>`.
-
+See also :doc:`Vector attributes example </gallery/lines/vector_heads_tails>`.
 """
+
+# %%
 import numpy as np
 import pygmt
 
@@ -28,7 +28,7 @@ x = np.linspace(-116, -116, 12)  # x vector coordinates
 y = np.linspace(33.5, 42.5, 12)  # y vector coordinates
 direction = np.zeros(x.shape)  # direction of vectors
 length = np.linspace(0.5, 2.4, 12)  # length of vectors
-# Cartesian vectors (v) with red pen and fill (+g, +p), vector head at
+# Cartesian vectors (v) with red fill and pen (+g, +p), vector head at
 # end (+e), and 40 degree angle (+a) with no indentation for vector head (+h)
 style = "v0.2c+e+a40+gred+h0+p1p,red"
 fig.plot(x=x, y=y, style=style, pen="1p,red", direction=[direction, length])

@@ -1,0 +1,5 @@
+outs:
+- md5: a7c9e10a59030c98581d91c6e92a9f35
+  size: 9988
+  path: test_meca_offset.png
+  hash: md5

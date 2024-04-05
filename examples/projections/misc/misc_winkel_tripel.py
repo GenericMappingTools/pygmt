@@ -22,6 +22,8 @@ map into straight lines 0.4 times the length of equator.
 The projection is set with **r** or **R**. The central meridian is set with the
 optional *lon0*, and the figure size is set with *scale* or *width*.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

@@ -48,6 +48,7 @@ The following customizing modifiers are available:
 
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

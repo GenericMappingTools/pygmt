@@ -1,6 +1,6 @@
 """
 Plotting a surface
-------------------
+==================
 
 The :meth:`pygmt.Figure.grdview()` method can plot 3-D surfaces with
 ``surftype="s"``. Here, we supply the data as an :class:`xarray.DataArray` with
@@ -14,6 +14,7 @@ ensures equal axis scaling. The ``shading`` parameter specifies illumination;
 here we choose an azimuth of 45° with ``shading="+a45"``.
 """
 
+# %%
 import numpy as np
 import pygmt
 import xarray as xr
@@ -22,6 +23,9 @@ import xarray as xr
 # Define an interesting function of two variables, see:
 # https://en.wikipedia.org/wiki/Ackley_function
 def ackley(x, y):
+    """
+    Ackley function.
+    """
     return (
         -20 * np.exp(-0.2 * np.sqrt(0.5 * (x**2 + y**2)))
         - np.exp(0.5 * (np.cos(2 * np.pi * x) + np.cos(2 * np.pi * y)))

@@ -1,12 +1,19 @@
 """
 filter1d - Time domain filtering of 1-D data tables
 """
-import warnings
 
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alias
+from pygmt.helpers import (
+    build_arg_string,
+    fmt_docstring,
+    use_alias,
+    validate_output_table_type,
+)
 
 
 @fmt_docstring
@@ -15,7 +22,12 @@ from pygmt.helpers import GMTTempFile, build_arg_string, fmt_docstring, use_alia
     F="filter_type",
     N="time_col",
 )
-def filter1d(data, output_type="pandas", outfile=None, **kwargs):
+def filter1d(
+    data,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Time domain filtering of 1-D data tables.
 
@@ -33,6 +45,8 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
 
     Parameters
     ----------
+    {output_type}
+    {outfile}
     filter_type : str
         **type**\ *width*\ [**+h**].
         Set the filter **type**. Choose among convolution and non-convolution
@@ -86,59 +100,27 @@ def filter1d(data, output_type="pandas", outfile=None, **kwargs):
         left-most column is 0, while the right-most is (*n_cols* - 1)
         [Default is ``0``].
 
-    output_type : str
-        Determine the format the xyz data will be returned in [Default is
-        ``pandas``]:
-
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``- :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
-
     Returns
     -------
-    ret : pandas.DataFrame or numpy.ndarray or None
+    ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by
-          ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is
-          not set (depends on ``output_type`` [Default is
-          :class:`pandas.DataFrame`])
+        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
     """
     if kwargs.get("F") is None:
         raise GMTInvalidInput("Pass a required argument to 'filter_type'.")
-    if output_type not in ["numpy", "pandas", "file"]:
-        raise GMTInvalidInput("Must specify format as either numpy, pandas, or file.")
-    if outfile is not None and output_type != "file":
-        msg = (
-            f"Changing `output_type` of filter1d from '{output_type}' to 'file' "
-            "since `outfile` parameter is set. Please use `output_type='file'` "
-            "to silence this warning."
-        )
-        warnings.warn(msg, category=RuntimeWarning, stacklevel=2)
-        output_type = "file"
-    elif output_type == "file" and outfile is None:
-        raise GMTInvalidInput("Must specify outfile for ASCII output.")
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="filter1d",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
+    output_type = validate_output_table_type(output_type, outfile=outfile)
 
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="filter1d",
+                args=build_arg_string(kwargs, infile=vintbl, outfile=vouttbl),
+            )
+        return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

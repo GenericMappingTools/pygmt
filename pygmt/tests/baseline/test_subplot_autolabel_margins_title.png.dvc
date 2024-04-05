@@ -1,4 +1,5 @@
 outs:
-- md5: e1e6312073c2ca423d2034d193858929
-  size: 23036
+- md5: a4af27ae0468c63a8d6200c6a7f9908f
+  size: 22646
   path: test_subplot_autolabel_margins_title.png
+  hash: md5

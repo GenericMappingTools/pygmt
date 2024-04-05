@@ -4,11 +4,11 @@ Coastlines and borders
 
 Plotting coastlines and borders is handled by :meth:`pygmt.Figure.coast`.
 """
-# sphinx_gallery_thumbnail_number = 5
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Shorelines
 # ----------
 #
@@ -19,7 +19,7 @@ fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=True)
 fig.show()
 
-###############################################################################
+# %%
 # The shorelines are divided in 4 levels:
 #
 # 1. coastline
@@ -36,7 +36,7 @@ fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines="1/0.5p,black")
 fig.show()
 
-###############################################################################
+# %%
 # You can specify multiple levels (with their own pens) by passing a list to
 # ``shorelines``:
 
@@ -45,7 +45,8 @@ fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(shorelines=["1/1p,black", "2/0.5p,red"])
 fig.show()
 
-###############################################################################
+
+# %%
 # Resolutions
 # -----------
 #
@@ -65,7 +66,8 @@ for res in ["c", "l", "i", "h", "f"]:
     fig.shift_origin(xshift="5c")
 fig.show()
 
-###############################################################################
+
+# %%
 # Land and water
 # --------------
 #
@@ -77,3 +79,5 @@ fig = pygmt.Figure()
 fig.basemap(region="g", projection="W15c", frame=True)
 fig.coast(land="#666666", water="skyblue")
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 5

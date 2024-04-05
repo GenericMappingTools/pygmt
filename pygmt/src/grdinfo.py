@@ -1,6 +1,7 @@
 """
 grdinfo - Retrieve info about grid file.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -37,9 +38,7 @@ def grdinfo(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-        This is the only required parameter.
+    {grid}
     {region}
     per_column : str or bool
         **n**\|\ **t**.
@@ -63,7 +62,7 @@ def grdinfo(grid, **kwargs):
         xmin xmax ymin ymax per tile, or use ``per_column="t"`` to also have
         the region string appended as trailing text.
     geographic : bool
-        Report grid domain and x/y-increments in world mapping format
+        Report grid domain and x/y-increments in world mapping format.
         The default value is ``False``. This cannot be called if
         ``per_column`` is also set.
     spacing : str or list
@@ -113,11 +112,10 @@ def grdinfo(grid, **kwargs):
     """
     with GMTTempFile() as outfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 lib.call_module(
                     module="grdinfo",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile.name),
+                    args=build_arg_string(kwargs, infile=vingrd, outfile=outfile.name),
                 )
         result = outfile.read()
     return result

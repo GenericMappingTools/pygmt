@@ -4,11 +4,11 @@ Plotting lines
 
 Plotting lines is handled by :meth:`pygmt.Figure.plot`.
 """
-# sphinx_gallery_thumbnail_number = 3
 
+# %%
 import pygmt
 
-###############################################################################
+# %%
 # Plot lines
 # ----------
 #
@@ -27,7 +27,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # Additional line segments can be added by including additional values for
 # ``x`` and ``y``.
 
@@ -42,7 +42,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # To plot multiple lines, :meth:`pygmt.Figure.plot` needs to be used for each
 # additional line. Parameters such as ``region``, ``projection``, and ``frame``
 # do not need to be repeated in subsequent uses.
@@ -59,7 +59,8 @@ fig.plot(
 fig.plot(x=[2, 4, 10], y=[3, 8, 9], pen="2p,red")
 fig.show()
 
-###############################################################################
+
+# %%
 # Change line attributes
 # ----------------------
 #
@@ -80,7 +81,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The line color can be set and is added after the line width to the ``pen``
 # parameter. In the example below, the line color is set to ``red``.
 
@@ -95,7 +96,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The line style can be set and is added after the line width or color to the
 # ``pen`` parameter.  In the example below, the line style is set to
 # ``..-`` (*dot dot dash*), and the default color ``black`` is used.
@@ -111,7 +112,7 @@ fig.plot(
 )
 fig.show()
 
-###############################################################################
+# %%
 # The line width, color, and style can all be set in the same ``pen``
 # parameter. In the example below, the line width is set to ``7p``, the color
 # is set to ``green``, and the line style is ``-.-`` (*dash dot dash*).
@@ -129,3 +130,5 @@ fig.plot(
     pen="7p,green,-.-",
 )
 fig.show()
+
+# sphinx_gallery_thumbnail_number = 3

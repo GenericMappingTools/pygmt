@@ -1,6 +1,6 @@
 """
 Line styles
------------
+===========
 
 The :meth:`pygmt.Figure.plot` method can plot lines in different styles.
 The default line style is a 0.25-point wide, black, solid line, and can be
@@ -8,15 +8,16 @@ customized with the ``pen`` parameter.
 
 A *pen* in GMT has three attributes: *width*, *color*, and *style*.
 The *style* attribute controls the appearance of the line.
-Giving "dotted" or "." yields a dotted line, whereas a dashed pen is requested
-with "dashed" or "-". Also combinations of dots and dashes, like ".-" for a
-dot-dashed line, are allowed.
+Giving ``"dotted"`` or ``"."`` yields a dotted line, whereas a dashed pen is
+requested with ``"dashed"`` or ``"-"``. Also combinations of dots and dashes,
+like ``".-"`` for a dot-dashed line, are allowed.
 
-For more advanced *pen* attributes, see the GMT cookbook
-:gmt-docs:`cookbook/features.html#wpen-attrib`.
+For more advanced *pen* attributes, see the GMT Technical Reference
+:gmt-docs:`reference/features.html#wpen-attrib`.
 
 """
 
+# %%
 import numpy as np
 import pygmt
 

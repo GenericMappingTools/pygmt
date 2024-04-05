@@ -19,15 +19,13 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.5.2
+      uses: actions/checkout@v4.1.1
 
     - name: Setup data version control (DVC)
-      uses: iterative/setup-dvc@v1.1.1
+      uses: iterative/setup-dvc@v1.1.2
 
     - name: Pull baseline image data from dvc remote
-      run: |
-        dvc pull
-        ls -lhR pygmt/tests/baseline/
+      run: dvc pull && ls -lhR pygmt/tests/baseline/
 
     - name: Create the baseline image asset in zip format
       run: |
@@ -37,7 +35,7 @@ jobs:
         shasum -a 256 baseline-images.zip
 
     - name: Upload baseline image as a release asset
-      uses: shogo82148/actions-upload-release-asset@v1.6.4
+      uses: shogo82148/actions-upload-release-asset@v1.7.4
       with:
         upload_url: ${{ github.event.release.upload_url }}
         asset_path: baseline-images.zip

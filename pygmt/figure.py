@@ -1,6 +1,7 @@
 """
 Define the Figure class that handles all plotting.
 """
+
 import base64
 import os
 from pathlib import Path
@@ -8,8 +9,10 @@ from tempfile import TemporaryDirectory
 
 try:
     import IPython
+
+    _HAS_IPYTHON = True
 except ImportError:
-    IPython = None  # pylint: disable=invalid-name
+    _HAS_IPYTHON = False
 
 
 from pygmt.clib import Session
@@ -33,8 +36,8 @@ SHOW_CONFIG = {
 }
 
 # Show figures in Jupyter notebooks if available
-if IPython:
-    get_ipython = IPython.get_ipython()  # pylint: disable=invalid-name
+if _HAS_IPYTHON:
+    get_ipython = IPython.get_ipython()
     if get_ipython and "IPKernelApp" in get_ipython.config:  # Jupyter Notebook enabled
         SHOW_CONFIG["method"] = "notebook"
 
@@ -64,10 +67,9 @@ class Figure:
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
-    >>> import os
-    >>> os.path.exists("my-figure.png")
-    True
-    >>> os.remove("my-figure.png")
+    >>> from pathlib import Path
+    >>> assert Path("my-figure.png").exists()
+    >>> Path("my-figure.png").unlink()
 
     The plot region can be specified through ISO country codes (for example,
     ``"JP"`` for Japan):
@@ -82,13 +84,13 @@ class Figure:
 
     def __init__(self):
         self._name = unique_name()
-        self._preview_dir = TemporaryDirectory(  # pylint: disable=consider-using-with
-            prefix=f"{self._name}-preview-"
-        )
+        self._preview_dir = TemporaryDirectory(prefix=f"{self._name}-preview-")
         self._activate_figure()
 
     def __del__(self):
-        # Clean up the temporary directory that stores the previews
+        """
+        Clean up the temporary directory that stores the previews.
+        """
         if hasattr(self, "_preview_dir"):
             self._preview_dir.cleanup()
 
@@ -110,8 +112,8 @@ class Figure:
 
     def _preprocess(self, **kwargs):
         """
-        Call the ``figure`` module before each plotting command to ensure we're
-        plotting to this particular figure.
+        Call the ``figure`` module before each plotting command to ensure we're plotting
+        to this particular figure.
         """
         self._activate_figure()
         return kwargs
@@ -226,6 +228,9 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
+        # is not recognized. So remove it before calling `Figure.psconvert`.
+        kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
@@ -251,18 +256,38 @@ class Figure:
                 module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
             )
 
-    def savefig(
-        self, fname, transparent=False, crop=True, anti_alias=True, show=False, **kwargs
+    def savefig(  # noqa: PLR0912
+        self,
+        fname,
+        transparent=False,
+        crop=True,
+        anti_alias=True,
+        show=False,
+        worldfile=False,
+        **kwargs,
     ):
         """
-        Save the figure to a file.
+        Save the figure to an image file.
 
-        This method implements a matplotlib-like interface for
-        :meth:`pygmt.Figure.psconvert`.
+        Supported image formats and their extensions:
 
-        Supported formats: PNG (``.png``), JPEG (``.jpg``), PDF (``.pdf``),
-        BMP (``.bmp``), TIFF (``.tif``), EPS (``.eps``), and KML (``.kml``).
-        The KML output generates a companion PNG file.
+        **Raster image formats**
+
+        - BMP (``.bmp``)
+        - JPEG (``.jpg`` or ``.jpeg``)
+        - GeoTIFF (``.tiff``)
+        - PNG (``.png``)
+        - PPM (``.ppm``)
+        - TIFF (``.tif``)
+
+        **Vector image formats**
+
+        - EPS (``.eps``)
+        - PDF (``.pdf``)
+
+        Beside the above formats, you can also save the figure to a KML file
+        (``.kml``), with a companion PNG file generated automatically. The KML
+        file can be viewed in Google Earth.
 
         You can pass in any keyword arguments that
         :meth:`pygmt.Figure.psconvert` accepts.
@@ -278,13 +303,20 @@ class Figure:
         crop : bool
             If ``True``, will crop the figure canvas (page) to the plot area.
         anti_alias: bool
-            If ``True``, will use anti-aliasing when creating raster images
-            (PNG, JPG, TIFF). More specifically, it passes arguments ``t2``
-            and ``g2`` to the ``anti_aliasing`` parameter of
-            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector
-            graphics.
+            If ``True``, will use anti-aliasing when creating raster images.
+            More specifically, it passes the arguments ``"t2"`` and ``"g2"``
+            to the ``anti_aliasing`` parameter of
+            :meth:`pygmt.Figure.psconvert`. Ignored if creating vector images.
         show: bool
             If ``True``, will open the figure in an external viewer.
+        worldfile : bool
+            If ``True``, will create a companion
+            `world file <https://en.wikipedia.org/wiki/World_file>`__ for the
+            figure. The world file will have the same name as the figure file
+            but with different extension (e.g. tfw for tif). See
+            https://en.wikipedia.org/wiki/World_file#Filename_extension
+            for the convention of world file extensions. This parameter only
+            works for raster image formats (except GeoTIFF).
         dpi : int
             Set raster resolution in dpi [Default is ``720`` for PDF, ``300``
             for others].
@@ -295,17 +327,28 @@ class Figure:
         """
         # All supported formats
         fmts = {
-            "png": "g",
-            "pdf": "f",
-            "jpg": "j",
             "bmp": "b",
             "eps": "e",
-            "tif": "t",
+            "jpg": "j",
             "kml": "g",
+            "pdf": "f",
+            "png": "g",
+            "ppm": "m",
+            "tif": "t",
+            "tiff": None,  # GeoTIFF doesn't need the -T option
         }
 
-        prefix, ext = os.path.splitext(fname)
-        ext = ext[1:]  # Remove the .
+        fname = Path(fname)
+        prefix, suffix = fname.with_suffix("").as_posix(), fname.suffix
+        ext = suffix[1:].lower()  # Remove the . and normalize to lowercase
+
+        if ext == "jpeg":  # Alias jpeg to jpg
+            ext = "jpg"
+        elif ext == "tiff":  # GeoTIFF
+            kwargs["W"] = "+g"
+        elif ext == "kml":  # KML
+            kwargs["W"] = "+k"
+
         if ext not in fmts:
             if ext == "ps":
                 raise GMTInvalidInput(
@@ -323,10 +366,26 @@ class Figure:
         if anti_alias:
             kwargs["Qt"] = 2
             kwargs["Qg"] = 2
-        if ext == "kml":
-            kwargs["W"] = "+k"
+
+        if worldfile:
+            if ext in ["eps", "kml", "pdf", "tiff"]:
+                raise GMTInvalidInput(
+                    f"Saving a world file is not supported for '{ext}' format."
+                )
+            kwargs["W"] = True
 
         self.psconvert(prefix=prefix, fmt=fmt, crop=crop, **kwargs)
+
+        # Remove the .pgw world file if exists
+        # Not necessary after GMT 6.5.0.
+        # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
+        if ext == "tiff":
+            fname.with_suffix(".pgw").unlink(missing_ok=True)
+
+        # Rename if file extension doesn't match the input file suffix
+        if ext != suffix[1:]:
+            fname.with_suffix("." + ext).rename(fname)
+
         if show:
             launch_external_viewer(fname)
 
@@ -392,20 +451,16 @@ class Figure:
 
         if method not in ["external", "notebook", "none"]:
             raise GMTInvalidInput(
-                (
-                    f"Invalid display method '{method}', "
-                    "should be either 'notebook', 'external', or 'none'."
-                )
+                f"Invalid display method '{method}', "
+                "should be either 'notebook', 'external', or 'none'."
             )
 
         if method == "notebook":
-            if IPython is None:
+            if not _HAS_IPYTHON:
                 raise GMTError(
-                    (
-                        "Notebook display is selected, but IPython is not available. "
-                        "Make sure you have IPython installed, "
-                        "or run the script in a Jupyter notebook."
-                    )
+                    "Notebook display is selected, but IPython is not available. "
+                    "Make sure you have IPython installed, "
+                    "or run the script in a Jupyter notebook."
                 )
             png = self._preview(
                 fmt="png", dpi=dpi, anti_alias=True, as_bytes=True, **kwargs
@@ -439,12 +494,10 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
+        fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
-            with open(fname, "rb") as image:
-                preview = image.read()
-            return preview
+            return fname.read_bytes()
         return fname
 
     def _repr_png_(self):
@@ -467,7 +520,7 @@ class Figure:
         html = '<img src="data:image/png;base64,{image}" width="{width}px">'
         return html.format(image=base64_png.decode("utf-8"), width=500)
 
-    from pygmt.src import (  # pylint: disable=import-outside-toplevel
+    from pygmt.src import (  # type: ignore [misc]
         basemap,
         coast,
         colorbar,
@@ -539,8 +592,6 @@ def set_display(method=None):
         SHOW_CONFIG["method"] = method
     elif method is not None:
         raise GMTInvalidInput(
-            (
-                f"Invalid display mode '{method}', "
-                "should be either 'notebook', 'external', 'none' or None."
-            )
+            f"Invalid display mode '{method}', "
+            "should be either 'notebook', 'external', 'none' or None."
         )

@@ -1,4 +1,4 @@
-# Tests PyGMT on Linux/macOS/Windows
+# Test PyGMT on Linux/macOS/Windows
 #
 # This workflow runs regular PyGMT tests and uploads test coverage reports stored
 # in `.coverage.xml` to https://app.codecov.io/gh/GenericMappingTools/pygmt
@@ -17,7 +17,7 @@
 # In draft pull request, only two jobs on Linux are triggered to save on
 # Continuous Integration resources:
 #
-# - Minimum [NEP29](https://numpy.org/neps/nep-0029-deprecation_policy) Python/NumPy versions
+# - Minimum supported Python/NumPy/Pandas/Xarray versions following [SPEC 0](https://scientific-python.org/specs/spec-0000/)
 # - Latest Python/NumPy versions + optional packages (e.g. GeoPandas)
 #
 name: Tests
@@ -25,21 +25,25 @@ name: Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
   pull_request:
     types: [opened, reopened, synchronize, ready_for_review]
-    paths-ignore:
-      - 'doc/**'
-      - 'examples/**'
-      - '*.md'
-      - 'README.rst'
-      - 'LICENSE.txt'
-      - '.gitignore'
+    paths:
+      - 'pygmt/**'
+      - '.github/workflows/ci_tests.yaml'
+  workflow_dispatch:
   release:
     types:
       - published
   # Schedule daily tests
   schedule:
     - cron: '0 0 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   test:
@@ -48,26 +52,32 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.9', '3.11']
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        python-version: ['3.10', '3.12']
+        os: [ubuntu-latest, macos-latest, windows-latest]
         # Is it a draft Pull Request (true or false)?
         isDraft:
           - ${{ github.event.pull_request.draft }}
-        # Only run two jobs (Ubuntu + Python 3.9/3.11) for draft PRs
+        # Only run two jobs (Ubuntu + Python 3.10/3.12) for draft PRs
         exclude:
-          - os: macOS-latest
+          - os: macos-latest
             isDraft: true
           - os: windows-latest
             isDraft: true
-        # Pair Python 3.9 with NumPy 1.21 and Python 3.11 with NumPy 1.24
-        # Only install optional packages on Python 3.11/NumPy 1.24
+        # Pair Python 3.10 with the minimum supported versions of NumPy/Pandas/Xarray
+        # and Python 3.12 with the latest versions of NumPy/Pandas/Xarray
+        # Only install optional packages on Python 3.12
         include:
-          - python-version: '3.9'
-            numpy-version: '1.21'
+          - python-version: '3.10'
+            numpy-version: '1.23'
+            pandas-version: '=1.5'
+            xarray-version: '=2022.06'
             optional-packages: ''
-          - python-version: '3.11'
-            numpy-version: '1.24'
-            optional-packages: 'contextily geopandas ipython rioxarray'
+          - python-version: '3.12'
+            numpy-version: '1.26'
+            pandas-version: ''
+            xarray-version: ''
+            optional-packages: ' contextily geopandas ipython pyarrow rioxarray sphinx-gallery'
+
     timeout-minutes: 30
     defaults:
       run:
@@ -80,49 +90,45 @@ jobs:
       NUMPY: ${{ matrix.numpy-version }}
 
     steps:
-      # Cancel previous runs that are not completed
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          access_token: ${{ github.token }}
-
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.1.1
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      # Install Mambaforge with conda-forge dependencies
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2.2.0
+      # Install Micromamba with conda-forge dependencies
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v1.8.1
         with:
-          activate-environment: pygmt
-          python-version: ${{ matrix.python-version }}
-          channels: conda-forge,nodefaults
-          channel-priority: strict
-          miniforge-version: latest
-          miniforge-variant: Mambaforge
-          mamba-version: "*"
-          run-post: false
-          use-mamba: true
-
-      # Install GMT and other required dependencies from conda-forge
-      - name: Install dependencies
-        run: |
-          mamba install gmt=6.4.0 numpy=${{ matrix.numpy-version }} \
-                        pandas xarray netCDF4 packaging \
-                        ${{ matrix.optional-packages }} \
-                        build dvc make 'pytest>=6.0' \
-                        pytest-cov pytest-doctestplus pytest-mpl sphinx-gallery
-
-      # Show installed pkg information for postmortem diagnostic
-      - name: List installed packages
-        run: mamba list
+          environment-name: pygmt
+          condarc: |
+            channels:
+              - conda-forge
+              - nodefaults
+          cache-downloads: false
+          cache-environment: true
+          create-args: >-
+            python=${{ matrix.python-version }}${{ matrix.optional-packages }}
+            gmt=6.5.0
+            ghostscript=10.03.0
+            numpy=${{ matrix.numpy-version }}
+            pandas${{ matrix.pandas-version }}
+            xarray${{ matrix.xarray-version }}
+            netCDF4
+            packaging
+            build
+            dvc
+            make
+            pip
+            pytest
+            pytest-cov
+            pytest-doctestplus
+            pytest-mpl
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v2.27.0
+        uses: dawidd6/action-download-artifact@v3.1.4
         with:
           workflow: cache_data.yaml
           workflow_conclusion: success
@@ -135,14 +141,12 @@ jobs:
           mkdir -p ~/.gmt
           mv .gmt/* ~/.gmt
           # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
+          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
 
       # Pull baseline image data from dvc remote (DAGsHub)
       - name: Pull baseline image data from dvc remote
-        run: |
-          dvc pull --verbose
-          ls -lhR pygmt/tests/baseline/
+        run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
 
       # Install the package that we want to test
       - name: Install the package
@@ -154,7 +158,7 @@ jobs:
 
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
@@ -162,8 +166,10 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3.1.2
+        uses: codecov/codecov-action@v4.1.1
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

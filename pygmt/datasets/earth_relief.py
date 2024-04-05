@@ -1,9 +1,12 @@
 """
-Function to download the Earth relief datasets from the GMT data server, and
-load as :class:`xarray.DataArray`.
+Function to download the Earth relief datasets from the GMT data server, and load as
+:class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import kwargs_to_strings
@@ -15,12 +18,18 @@ __doctest_skip__ = ["load_earth_relief"]
 def load_earth_relief(
     resolution="01d",
     region=None,
-    registration=None,
-    data_source="igpp",
+    registration: Literal["gridline", "pixel", None] = None,
+    data_source: Literal["igpp", "gebco", "gebcosi", "synbath"] = "igpp",
     use_srtm=False,
 ):
     r"""
-    Load Earth relief grids (topography and bathymetry) in various resolutions.
+    Load the Earth relief datasets (topography and bathymetry) in various resolutions.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_gebco.jpg
+       :width: 80 %
+       :align: center
+
+       Earth relief datasets (topography and bathymetry).
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_relief``,
@@ -31,11 +40,18 @@ def load_earth_relief(
 
     This module downloads the grids that can also be accessed by
     passing in the file name **@**\ *earth_relief_type*\_\ *res*\[_\ *reg*] to
-    any grid plotting/processing function. *earth_relief_type* is the GMT name
-    for the dataset. The available options are **earth_relief**\,
+    any grid processing function or plotting method. *earth_relief_type* is
+    the GMT name for the dataset. The available options are **earth_relief**\,
     **earth_gebco**\, **earth_gebcosi**\, and **earth_synbath**\. *res* is the
-    grid resolution (see below), and *reg* is grid registration type
+    grid resolution (see below), and *reg* is the grid registration type
     (**p** for pixel registration or **g** for gridline registration).
+
+    The default color palette table (CPT) for this dataset is *geo*.
+    It's implicitly used when passing in the file name of the dataset to any
+    grid plotting method if no CPT is explicitly specified. When the dataset
+    is loaded and plotted as an :class:`xarray.DataArray` object, the default
+    CPT is ignored, and GMT's default CPT (*turbo*) is used. To use the
+    dataset-specific CPT, you need to explicitly set ``cmap="geo"``.
 
     Refer to :gmt-datasets:`earth-relief.html` for more details about available
     datasets, including version information and references.
@@ -55,27 +71,24 @@ def load_earth_relief(
         Required for Earth relief grids with resolutions higher than 5
         arc-minutes (i.e., ``"05m"``).
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``
-        for all resolutions except ``"15s"`` which is ``"pixel"`` only.
+        ``"gridline"`` for gridline registration. Default is ``None``, means
+        ``"gridline"`` for all resolutions except ``"15s"`` which is
+        ``"pixel"`` only.
 
-    data_source : str
+    data_source
         Select the source for the Earth relief data. Available options are:
 
-        - ``"igpp"``: IGPP Global Earth Relief [Default option]. See
+        - ``"igpp"``: IGPP Earth Relief. See
           :gmt-datasets:`earth-relief.html`.
-
-        - ``"synbath"``: IGPP Global Earth Relief dataset that uses
-          stastical properties of young seafloor to provide a more realistic
-          relief of young areas with small seamounts.
-
-        - ``"gebco"``: GEBCO Global Earth Relief with only observed relief and
+        - ``"synbath"``: IGPP Earth Relief dataset that uses stastical
+          properties of young seafloor to provide a more realistic relief
+          of young areas with small seamounts.
+        - ``"gebco"``: GEBCO Earth Relief with only observed relief and
           inferred relief via altimetric gravity. See
           :gmt-datasets:`earth-gebco.html`.
-
-        - ``"gebcosi"``: GEBCO Global Earth Relief that gives sub-ice (si)
-          elevations.
+        - ``"gebcosi"``: GEBCO Earth Relief that gives sub-ice (si) elevations.
 
     use_srtm : bool
         By default, the land-only SRTM tiles from NASA are used to generate the

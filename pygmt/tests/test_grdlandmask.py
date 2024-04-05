@@ -1,6 +1,7 @@
 """
-Tests for grdlandmask.
+Test pygmt.grdlandmask.
 """
+
 from pathlib import Path
 
 import pytest
@@ -44,11 +45,12 @@ def test_grdlandmask_outgrid(expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdlandmask_no_outgrid(expected_grid):
     """
     Test grdlandmask with no set outgrid.
     """
-    result = grdlandmask(spacing=1, region=[125, 130, 30, 35])
+    result = grdlandmask(spacing=1, region=[125, 130, 30, 35], cores=2)
     # check information of the output grid
     assert isinstance(result, xr.DataArray)
     assert result.gmt.gtype == 1  # Geographic grid
@@ -59,8 +61,7 @@ def test_grdlandmask_no_outgrid(expected_grid):
 
 def test_grdlandmask_fails():
     """
-    Check that grdlandmask fails correctly when region and spacing are not
-    given.
+    Check that grdlandmask fails correctly when region and spacing are not given.
     """
     with pytest.raises(GMTInvalidInput):
         grdlandmask()

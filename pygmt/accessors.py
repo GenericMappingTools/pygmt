@@ -1,6 +1,7 @@
 """
 GMT accessor for :class:`xarray.DataArray`.
 """
+
 from pathlib import Path
 
 import xarray as xr
@@ -57,9 +58,7 @@ class GMTDataArrayAccessor:
     >>> lon = np.arange(0, 360 + interval, interval)
     >>> longrid, latgrid = np.meshgrid(lon, lat)
     >>> data = np.sin(np.deg2rad(longrid)) * np.cos(np.deg2rad(latgrid))
-    >>> grid = xr.DataArray(
-    ...     data, coords=[("latitude", lat), ("longitude", lon)]
-    ... )
+    >>> grid = xr.DataArray(data, coords=[("latitude", lat), ("longitude", lon)])
     >>> # default to a gridline-registrated Cartesian grid
     >>> grid.gmt.registration, grid.gmt.gtype
     (0, 0)
@@ -94,7 +93,7 @@ class GMTDataArrayAccessor:
     >>> grid2.gmt.registration, grid2.gmt.gtype
     (0, 1)
 
-    Accesing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always
+    Accessing a :class:`xarray.DataArray` from a :class:`xarray.Dataset` always
     creates new instances, so these properties are always lost. The workaround
     is to assign the :class:`xarray.DataArray` into a variable:
 
@@ -152,8 +151,7 @@ class GMTDataArrayAccessor:
     @property
     def gtype(self):
         """
-        Coordinate system type of the grid, either 0 (Cartesian) or 1
-        (Geographic).
+        Coordinate system type of the grid, either 0 (Cartesian) or 1 (Geographic).
         """
         return self._gtype
 

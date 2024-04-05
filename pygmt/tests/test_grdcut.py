@@ -1,6 +1,7 @@
 """
-Tests for grdcut.
+Test pygmt.grdcut.
 """
+
 import numpy as np
 import pytest
 import xarray as xr
@@ -44,7 +45,7 @@ def fixture_expected_grid():
 
 def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output to a grid file.
+    Test grdcut on an input DataArray, and output to a grid file.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdcut(grid, outgrid=tmpfile.name, region=region)
@@ -53,9 +54,10 @@ def test_grdcut_dataarray_in_file_out(grid, expected_grid, region):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 def test_grdcut_dataarray_in_dataarray_out(grid, expected_grid, region):
     """
-    grdcut an input DataArray, and output as DataArray.
+    Test grdcut on an input DataArray, and output as DataArray.
     """
     outgrid = grdcut(grid, region=region)
     assert isinstance(outgrid, xr.DataArray)

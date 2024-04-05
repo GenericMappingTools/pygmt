@@ -27,6 +27,8 @@ The example shows the coast of Northern Europe viewed from 250 km above sea
 level looking 30° from north at a tilt of 45°. The height and width of the
 viewing angle is both 60°, which imitates viewing with naked eye.
 """
+
+# %%
 import pygmt
 
 fig = pygmt.Figure()

@@ -1,12 +1,14 @@
 """
 plot3d - Plot in three dimensions.
 """
+
+from pathlib import Path
+
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
     data_kind,
-    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -16,7 +18,6 @@ from pygmt.src.which import which
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
 @use_alias(
     A="straight_line",
     B="frame",
@@ -50,7 +51,7 @@ from pygmt.src.which import which
     w="wrap",
 )
 @kwargs_to_strings(R="sequence", c="sequence_comma", i="sequence_comma", p="sequence")
-def plot3d(
+def plot3d(  # noqa: PLR0912
     self, data=None, x=None, y=None, z=None, size=None, direction=None, **kwargs
 ):
     r"""
@@ -80,7 +81,7 @@ def plot3d(
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Either a data file name, a 2-D {table-classes}.
         Optionally, use parameter ``incols`` to specify which columns are x, y,
         z, fill, and size, respectively.
@@ -120,7 +121,7 @@ def plot3d(
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
-    intensity : float or bool or 1-D array
+    intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
         ``intensity=True``, we will instead read *intensity* from the first
@@ -180,56 +181,57 @@ def plot3d(
         ``x``/``y``/``z``.
     {wrap}
     """
-    # pylint: disable=too-many-locals
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     kind = data_kind(data, x, y, z)
-
     extra_arrays = []
-    if kwargs.get("S") is not None and kwargs["S"][0] in "vV" and direction is not None:
-        extra_arrays.extend(direction)
-    elif (
-        kwargs.get("S") is None
-        and kind == "geojson"
-        and data.geom_type.isin(["Point", "MultiPoint"]).all()
-    ):  # checking if the geometry of a geoDataFrame is Point or MultiPoint
-        kwargs["S"] = "u0.2c"
-    elif kwargs.get("S") is None and kind == "file" and str(data).endswith(".gmt"):
-        # checking that the data is a file path to set default style
-        try:
-            with open(which(data), mode="r", encoding="utf8") as file:
-                line = file.readline()
-            if "@GMULTIPOINT" in line or "@GPOINT" in line:
-                # if the file is gmt style and geometry is set to Point
-                kwargs["S"] = "u0.2c"
-        except FileNotFoundError:
-            pass
-    if kwargs.get("G") is not None and is_nonstr_iter(kwargs["G"]):
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for fill if data is matrix or file."
-            )
-        extra_arrays.append(kwargs["G"])
-        del kwargs["G"]
-    if size is not None:
-        if kind != "vectors":
-            raise GMTInvalidInput(
-                "Can't use arrays for 'size' if data is a matrix or a file."
-            )
-        extra_arrays.append(size)
 
-    for flag in ["I", "t"]:
-        if kwargs.get(flag) is not None and is_nonstr_iter(kwargs[flag]):
-            if kind != "vectors":
-                raise GMTInvalidInput(
-                    f"Can't use arrays for {plot3d.aliases[flag]} if data is matrix or file."
-                )
-            extra_arrays.append(kwargs[flag])
-            kwargs[flag] = ""
+    if kind == "vectors":  # Add more columns for vectors input
+        # Parameters for vector styles
+        if (
+            kwargs.get("S") is not None
+            and kwargs["S"][0] in "vV"
+            and is_nonstr_iter(direction)
+        ):
+            extra_arrays.extend(direction)
+        # Fill
+        if is_nonstr_iter(kwargs.get("G")):
+            extra_arrays.append(kwargs.get("G"))
+            del kwargs["G"]
+        # Size
+        if is_nonstr_iter(size):
+            extra_arrays.append(size)
+        # Intensity and transparency
+        for flag in ["I", "t"]:
+            if is_nonstr_iter(kwargs.get(flag)):
+                extra_arrays.append(kwargs.get(flag))
+                kwargs[flag] = ""
+    else:
+        for name, value in [
+            ("direction", direction),
+            ("fill", kwargs.get("G")),
+            ("size", size),
+            ("intensity", kwargs.get("I")),
+            ("transparency", kwargs.get("t")),
+        ]:
+            if is_nonstr_iter(value):
+                raise GMTInvalidInput(f"'{name}' can't be 1-D array if 'data' is used.")
+
+    # Set the default style if data has a geometry of Point or MultiPoint
+    if kwargs.get("S") is None:
+        if kind == "geojson" and data.geom_type.isin(["Point", "MultiPoint"]).all():
+            kwargs["S"] = "u0.2c"
+        elif kind == "file" and str(data).endswith(".gmt"):  # OGR_GMT file
+            try:
+                with Path(which(data)).open() as file:
+                    line = file.readline()
+                if "@GMULTIPOINT" in line or "@GPOINT" in line:
+                    kwargs["S"] = "u0.2c"
+            except FileNotFoundError:
+                pass
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(
+        with lib.virtualfile_in(
             check_kind="vector",
             data=data,
             x=x,
@@ -237,9 +239,7 @@ def plot3d(
             z=z,
             extra_arrays=extra_arrays,
             required_z=True,
-        )
-
-        with file_context as fname:
+        ) as vintbl:
             lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=fname)
+                module="plot3d", args=build_arg_string(kwargs, infile=vintbl)
             )

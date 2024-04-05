@@ -1,6 +1,7 @@
 """
-Tests for grdproject.
+Test pygmt.grdproject.
 """
+
 from pathlib import Path
 
 import pytest
@@ -42,7 +43,7 @@ def fixture_expected_grid():
 
 def test_grdproject_file_out(grid, expected_grid):
     """
-    grdproject with an outgrid set.
+    Test grdproject with an outgrid set.
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         result = grdproject(
@@ -58,6 +59,7 @@ def test_grdproject_file_out(grid, expected_grid):
         xr.testing.assert_allclose(a=temp_grid, b=expected_grid)
 
 
+@pytest.mark.benchmark
 @pytest.mark.parametrize(
     "projection",
     ["M10c", "EPSG:3395 +width=10", "+proj=merc +ellps=WGS84 +units=m +width=10"],
@@ -66,8 +68,7 @@ def test_grdproject_no_outgrid(grid, projection, expected_grid):
     """
     Test grdproject with no set outgrid.
 
-    Also check that providing the projection as an EPSG code or PROJ4 string
-    works.
+    Also check that providing the projection as an EPSG code or PROJ4 string works.
     """
     assert grid.gmt.gtype == 1  # Geographic grid
     result = grdproject(

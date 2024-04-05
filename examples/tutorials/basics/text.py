@@ -5,13 +5,13 @@ Plotting text
 It is often useful to add annotations to a plot. This is handled by
 :meth:`pygmt.Figure.text`.
 """
-# sphinx_gallery_thumbnail_number = 3
 
-import os
+# %%
+from pathlib import Path
 
 import pygmt
 
-###############################################################################
+# %%
 # Basic map annotation
 # --------------------
 #
@@ -36,14 +36,16 @@ fig.text(text=["CELEBES SEA", "JAVA SEA"], x=[119, 112], y=[3.25, -4.6])
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Changing font style
 # -------------------
+#
 # The size, family/weight, and color of an annotation can be specified using
 # the ``font`` parameter.
 #
 # A list of all recognized fonts can be found at
-# :gmt-docs:`PostScript Fonts Used by GMT <cookbook/postscript-fonts.html>`,
+# :gmt-docs:`PostScript Fonts Used by GMT <reference/postscript-fonts.html>`,
 # including details of how to use non-default fonts.
 
 fig = pygmt.Figure()
@@ -56,7 +58,8 @@ fig.text(text="BORNEO", x=114.0, y=0.5, font="22p,Helvetica-Bold,white")
 
 fig.show()
 
-###############################################################################
+
+# %%
 # Plotting from a text file
 # -------------------------
 #
@@ -69,7 +72,7 @@ with pygmt.config(MAP_FRAME_TYPE="plain"):
 fig.coast(land="black", water="skyblue")
 
 # Create space-delimited file
-with open("examples.txt", "w") as f:
+with Path("examples.txt").open(mode="w") as f:
     f.write("114 0.5 0 22p,Helvetica-Bold,white CM BORNEO\n")
     f.write("119 3.25 0 12p,Helvetica-Bold,black CM CELEBES SEA\n")
     f.write("112 -4.6 0 12p,Helvetica-Bold,black CM JAVA SEA\n")
@@ -85,11 +88,12 @@ with open("examples.txt", "w") as f:
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
-os.remove("examples.txt")
+Path("examples.txt").unlink()
 
 fig.show()
 
-###############################################################################
+
+# %%
 # ``justify`` parameter
 # ---------------------
 #
@@ -114,9 +118,11 @@ for position in ("TL", "TC", "TR", "ML", "MC", "MR", "BL", "BC", "BR"):
     )
 fig.show()
 
-###############################################################################
+
+# %%
 # ``angle`` parameter
 # -------------------
+#
 # ``angle`` is an optional parameter used to specify the counter-clockwise
 # rotation in degrees of the text from the horizontal.
 
@@ -126,7 +132,8 @@ for i in range(0, 360, 30):
     fig.text(text=f"`          {i}@.", x=2, y=2, justify="LM", angle=i)
 fig.show()
 
-###############################################################################
+
+# %%
 # ``fill`` parameter
 # ------------------
 #
@@ -137,11 +144,14 @@ fig.basemap(region=[0, 1, 0, 1], projection="X5c", frame="WSen")
 fig.text(text="Green", x=0.5, y=0.5, fill="green")
 fig.show()
 
-###############################################################################
+
+# %%
 # Advanced configuration
 # ----------------------
 #
 # For crafting more advanced styles, including using special symbols and
 # other character sets, be sure to check out the GMT documentation
-# at :gmt-docs:`text.html` and also the cookbook at
-# :gmt-docs:`cookbook/features.html#placement-of-text`. Good luck!
+# at :gmt-docs:`text.html` and also the GMT Technical Reference at
+# :gmt-docs:`reference/features.html#placement-of-text`. Good luck!
+
+# sphinx_gallery_thumbnail_number = 3

@@ -1,4 +1,5 @@
 outs:
-- md5: 9317080021b0ce6f3b9ea6d17feece00
-  size: 23275
+- md5: e55d9848135fc14c9cfc3d2c85bd82bb
+  size: 16472
   path: test_tilemap_no_clip_False.png
+  hash: md5

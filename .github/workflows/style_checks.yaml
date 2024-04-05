@@ -24,27 +24,36 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v4.1.1
 
       # Setup Python
       - name: Set up Python
-        uses: actions/setup-python@v4.5.0
+        uses: actions/setup-python@v5.1.0
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install packages
         run: |
-          python -m pip install black blackdoc docformatter==1.5.1 flakeheaven pylint isort
+          python -m pip install ruff
+          python -m pip list
           sudo apt-get install dos2unix
 
-      - name: Formatting check (black, blackdoc, docformatter, flakeheaven and isort)
+      - name: Formatting check (ruff)
         run: make check
-
-      - name: Linting (pylint)
-        run: make lint
 
       - name: Ensure files use UNIX line breaks and have 644 permission
         run: |
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec dos2unix --quiet {} \;
-          find . -type f -not -path '*/\.git/*' -exec grep -Iq . {} \; -exec chmod 644 {} \;
+          git ls-files -z | xargs -0 dos2unix --quiet
+          git ls-files -z | xargs -0 chmod 644
           if [[ $(git ls-files -m) ]]; then git --no-pager diff HEAD; exit 1; fi
+
+      - name: Ensure example scripts have at least one code block separator
+        run: |
+          git ls-files 'examples/**/*.py' | xargs grep --files-without-match '# %%' > output.txt
+          nfiles=$(wc --lines output.txt | awk '{print $1}')
+          if [[ $nfiles > 0 ]]; then
+            echo "Code block separator '# %%' is required in following example files:"
+            cat output.txt
+            rm output.txt
+            exit $nfiles
+          fi

@@ -2,6 +2,7 @@
 surface - Grid table data using adjustable tension continuous curvature
 splines.
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -74,7 +75,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
@@ -84,10 +85,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     {spacing}
 
     {region}
-
-    outgrid : str
-        Optional. The file name for the output netcdf file with extension .nc
-        to store the grid in.
+    {outgrid}
     convergence : float
         Optional. Convergence limit. Iteration is assumed to have converged
         when the maximum absolute change in any grid value is less than
@@ -98,7 +96,7 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
         This is the final convergence limit at the desired grid spacing;
         for intermediate (coarser) grids the effective convergence limit is
         divided by the grid spacing multiplier.
-    maxradius : int or str
+    maxradius : float or str
         Optional. After solving for the surface, apply a mask so that nodes
         farther than ``maxradius`` away from a data constraint are set to NaN
         [Default is no masking]. Append a distance unit (see
@@ -156,23 +154,19 @@ def surface(data=None, x=None, y=None, z=None, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a sample table of topography
-    >>> topography = pygmt.datasets.load_sample_data(
-    ...     name="notre_dame_topography"
-    ... )
+    >>> topography = pygmt.datasets.load_sample_data(name="notre_dame_topography")
     >>> # Perform gridding of topography data
     >>> grid = pygmt.surface(data=topography, spacing=1, region=[0, 4, 0, 8])
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            # Choose how data will be passed into the module
-            file_context = lib.virtualfile_from_data(
+            with lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            )
-            with file_context as infile:
+            ) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="surface", args=build_arg_string(kwargs, infile=infile)
+                    module="surface", args=build_arg_string(kwargs, infile=vintbl)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

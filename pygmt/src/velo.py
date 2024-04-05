@@ -1,13 +1,13 @@
 """
 velo - Plot velocity vectors, crosses, anisotropy bars, and wedges.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    deprecate_parameter,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -15,10 +15,6 @@ from pygmt.helpers import (
 
 
 @fmt_docstring
-@deprecate_parameter("color", "fill", "v0.8.0", remove_version="v0.12.0")
-@deprecate_parameter(
-    "uncertaintycolor", "uncertaintyfill", "v0.8.0", remove_version="v0.12.0"
-)
 @use_alias(
     A="vector",
     B="frame",
@@ -64,7 +60,7 @@ def velo(self, data=None, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in either a file name to an ASCII data table, a 2-D
         {table-classes}.
         Note that text columns are only supported with file or
@@ -87,7 +83,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``fill``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or pattern
           specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -120,7 +116,7 @@ def velo(self, data=None, **kwargs):
           [Default is 9p,Helvetica,black]; give **+f**\ 0 to deactivate
           labeling. The arrow will be drawn with the pen attributes specified
           by the ``pen`` parameter and the arrow-head can be colored via
-          ``fill``. The ellipse will be filled with the color or shade
+          ``fill``. The ellipse will be filled with the color or pattern
           specified by the ``uncertaintyfill`` parameter [Default is
           transparent], and its outline will be drawn if ``line`` is selected
           using the pen selected (by ``pen`` if not given by ``line``).
@@ -140,9 +136,9 @@ def velo(self, data=None, **kwargs):
           extra column. Rotation values are multiplied by *wedgemag* before
           plotting. For example, setting *wedgemag* to 1.e7 works well for
           rotations of the order of 100 nanoradians/yr. Use ``fill`` to set
-          the fill color or shade for the wedge, and ``uncertaintyfill`` to
-          set the color or shade for the uncertainty. Parameters are expected
-          to be in the following columns:
+          the fill color or pattern for the wedge, and ``uncertaintyfill`` to
+          set the color or pattern for the uncertainty. Parameters are
+          expected to be in the following columns:
 
             - **1**,\ **2**: longitude, latitude of station
             - **3**: rotation in radians
@@ -181,13 +177,13 @@ def velo(self, data=None, **kwargs):
         will be transparent. **Note**: Using ``cmap`` and ``zvalue="+e"``
         will update the uncertainty fill color based on the selected measure
         in ``zvalue`` [Default is magnitude error]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     fill : str
         Set color or pattern for filling symbols [Default is no fill].
         **Note**: Using ``cmap`` (and optionally ``zvalue``) will update the
         symbol fill color based on the selected measure in ``zvalue``
         [Default is magnitude]. More details at
-        :gmt-docs:`cookbook/features.html#gfill-attrib`.
+        :gmt-docs:`reference/features.html#gfill-attrib`.
     scale : float or bool
         [*scale*].
         Scale symbol sizes and pen widths on a per-record basis using the
@@ -242,7 +238,7 @@ def velo(self, data=None, **kwargs):
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if kwargs.get("S") is None or (
         kwargs.get("S") is not None and not isinstance(kwargs["S"], str)
@@ -258,8 +254,5 @@ def velo(self, data=None, **kwargs):
         )
 
     with Session() as lib:
-        # Choose how data will be passed in to the module
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-
-        with file_context as fname:
-            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
+            lib.call_module(module="velo", args=build_arg_string(kwargs, infile=vintbl))

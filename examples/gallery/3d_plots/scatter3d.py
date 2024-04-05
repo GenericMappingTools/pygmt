@@ -1,6 +1,6 @@
 """
-3-D Scatter plots
------------------
+3-D scatter plots
+=================
 
 The :meth:`pygmt.Figure.plot3d` method can be used to plot symbols in 3-D.
 In the example below, we show how the
@@ -14,11 +14,13 @@ control the azimuth and elevation angle of the view, and ``zscale`` to adjust
 the vertical exaggeration factor.
 """
 
+# %%
 import pandas as pd
 import pygmt
 
 # Load sample iris data
 df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
+
 # Convert 'species' column to categorical dtype
 # By default, pandas sorts the individual categories in an alphabetical order.
 # For a non-alphabetical order, you have to manually adjust the list of
@@ -26,6 +28,7 @@ df = pd.read_csv("https://github.com/mwaskom/seaborn-data/raw/master/iris.csv")
 # have a look at:
 # https://pandas.pydata.org/docs/user_guide/categorical.html
 df.species = df.species.astype(dtype="category")
+
 # Make a list of the individual categories of the 'species' column
 # ['setosa', 'versicolor', 'virginica']
 # They are (corresponding to the categorical number code) by default in
@@ -36,8 +39,8 @@ labels = list(df.species.cat.categories)
 # The below example will return a numpy array [0.0, 3.0, 4.0, 8.0, 1.0, 7.0]
 region = pygmt.info(
     data=df[["petal_width", "sepal_length", "petal_length"]],  # x, y, z columns
-    per_column=True,  # report the min/max values per column as a numpy array
-    # round the min/max values of the first three columns to the nearest
+    per_column=True,  # Report the min/max values per column as a numpy array
+    # Round the min/max values of the first three columns to the nearest
     # multiple of 1, 2 and 0.5, respectively
     spacing=(1, 2, 0.5),
 )
@@ -45,7 +48,7 @@ region = pygmt.info(
 # Make a 3-D scatter plot, coloring each of the 3 species differently
 fig = pygmt.Figure()
 
-# Define a colormap to be used for three categories, define the range of the
+# Define a colormap for three categories, define the range of the
 # new discrete CPT using series=(lowest_value, highest_value, interval),
 # use color_model="+csetosa,versicolor,virginica" to write the discrete color
 # palette "cubhelix" in categorical format and add the species names as
@@ -55,7 +58,7 @@ pygmt.makecpt(
     # Use the minimum and maximum of the categorical number code
     # to set the lowest_value and the highest_value of the CPT
     series=(df.species.cat.codes.min(), df.species.cat.codes.max(), 1),
-    # convert ['setosa', 'versicolor', 'virginica'] to
+    # Convert ['setosa', 'versicolor', 'virginica'] to
     # 'setosa,versicolor,virginica'
     color_model="+c" + ",".join(labels),
 )
@@ -66,12 +69,11 @@ fig.plot3d(
     x=df.petal_width,
     y=df.sepal_length,
     z=df.petal_length,
-    # Vary each symbol size according to another feature (sepal width, scaled
-    # by 0.1)
+    # Vary each symbol size according to the sepal width, scaled by 0.1
     size=0.1 * df.sepal_width,
     # Use 3-D cubes ("u") as symbols with size in centimeters ("c")
     style="uc",
-    # Points colored by categorical number code
+    # Points colored by categorical number code (refers to the species)
     fill=df.species.cat.codes.astype(int),
     # Use colormap created by makecpt
     cmap=True,
@@ -91,7 +93,7 @@ fig.plot3d(
 )
 
 # Shift plot origin in x direction
-fig.shift_origin(xshift=3.1)
+fig.shift_origin(xshift="3.1c")
 # Add colorbar legend
 fig.colorbar()
 

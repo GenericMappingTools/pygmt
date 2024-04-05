@@ -1,12 +1,11 @@
 """
 grdimage - Plot grids or images.
 """
-import contextlib
 
 from pygmt.clib import Session
+from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     build_arg_string,
-    data_kind,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -17,12 +16,11 @@ __doctest_skip__ = ["grdimage"]
 
 @fmt_docstring
 @use_alias(
-    A="img_out",
     B="frame",
     C="cmap",
     D="img_in",
     E="dpi",
-    G="bit_color",
+    G="bitcolor",
     I="shading",
     J="projection",
     M="monochrome",
@@ -49,11 +47,11 @@ def grdimage(self, grid, **kwargs):
     instructions to derive intensities from the input data grid. Values outside
     this range will be clipped. Such intensity files can be created from the
     grid using :func:`pygmt.grdgradient` and, optionally, modified by
-    :gmt-docs:`grdmath.html` or :class:`pygmt.grdhisteq`. If GMT is built
-    with GDAL support, ``grid`` can be an image file (geo-referenced or not).
-    In this case the image can optionally be illuminated with the file
-    provided via the ``shading`` parameter. Here, if image has no coordinates
-    then those of the intensity file will be used.
+    :gmt-docs:`grdmath.html` or :class:`pygmt.grdhisteq`. Alternatively, pass
+    *image* which can be an image file (geo-referenced or not). In this case
+    the image can optionally be illuminated with the file provided via the
+    ``shading`` parameter. Here, if image has no coordinates then those of the
+    intensity file will be used.
 
     When using map projections, the grid is first resampled on a new
     rectangular grid with the same dimensions. Higher resolution images can
@@ -76,28 +74,7 @@ def grdimage(self, grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name or a DataArray containing the input 2-D gridded data
-        set or image to be plotted (See GRID FILE FORMATS at
-        :gmt-docs:`grdimage.html#grid-file-formats`).
-    img_out : str
-        *out_img*\[=\ *driver*].
-        Save an image in a raster format instead of PostScript. Use
-        extension .ppm for a Portable Pixel Map format which is the only
-        raster format GMT can natively write. For GMT installations
-        configured with GDAL support there are more choices: Append
-        *out_img* to select the image file name and extension. If the
-        extension is one of .bmp, .gif, .jpg, .png, or .tif then no driver
-        information is required. For other output formats you must append
-        the required GDAL driver. The *driver* is the driver code name used
-        by GDAL; see your GDAL installation's documentation for available
-        drivers. Append a **+c**\ *args* string where *args* is a list
-        of one or more concatenated number of GDAL **-co** arguments. For
-        example, to write a GeoPDF with the TerraGo format use
-        ``=PDF+cGEO_ENCODING=OGC_BP``. **Notes**: (1) If a tiff file (.tif)
-        is selected then we will write a GeoTiff image if the GMT
-        projection syntax translates into a PROJ syntax, otherwise a plain
-        tiff file is produced. (2) Any vector elements will be lost.
+    {grid}
     {frame}
     {cmap}
     img_in : str
@@ -118,7 +95,7 @@ def grdimage(self, grid, **kwargs):
         same size (rows and columns) as the input file. Specify **i** to
         use the PostScript image operator to interpolate the image at the
         device resolution.
-    bit_color : str
+    bitcolor : str
         *color*\ [**+b**\|\ **f**\].
         This parameter only applies when a resulting 1-bit image otherwise
         would consist of only two colors: black (0) and white (255). If so,
@@ -139,8 +116,8 @@ def grdimage(self, grid, **kwargs):
         :func:`pygmt.grdgradient` separately first. If we should derive
         intensities from another file than grid, specify the file with
         suitable modifiers [Default is no illumination]. **Note**: If the
-        input data is an *image* then an *intensfile* or constant *intensity*
-        must be provided.
+        input data represent an *image* then an *intensfile* or constant
+        *intensity* must be provided.
     {projection}
     monochrome : bool
         Force conversion to monochrome image using the (television) YIQ
@@ -152,10 +129,9 @@ def grdimage(self, grid, **kwargs):
         [**+z**\ *value*][*color*]
         Make grid nodes with z = NaN transparent, using the color-masking
         feature in PostScript Level 3 (the PS device must support PS Level
-        3). If the input is a grid, use **+z** with a *value* to select
-        another grid value than NaN. If the input is instead an image,
-        append an alternate *color* to select another pixel value to be
-        transparent [Default is ``"black"``].
+        3). If the input is a grid, use **+z** to select another grid value
+        than NaN. If input is instead an image, append an alternate *color* to
+        select another pixel value to be transparent [Default is ``"black"``].
     {region}
     {verbose}
     {panel}
@@ -178,18 +154,23 @@ def grdimage(self, grid, **kwargs):
     >>> # show the plot
     >>> fig.show()
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
-    with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with contextlib.ExitStack() as stack:
-            # shading using an xr.DataArray
-            if kwargs.get("I") is not None and data_kind(kwargs["I"]) == "grid":
-                shading_context = lib.virtualfile_from_data(
-                    check_kind="raster", data=kwargs["I"]
-                )
-                kwargs["I"] = stack.enter_context(shading_context)
+    kwargs = self._preprocess(**kwargs)
 
-            fname = stack.enter_context(file_context)
+    # Do not support -A option
+    if any(kwargs.get(arg) is not None for arg in ["A", "img_out"]):
+        raise GMTInvalidInput(
+            "Parameter 'img_out'/'A' is not implemented. "
+            "Please consider submitting a feature request to us."
+        )
+
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="raster", data=kwargs.get("I"), required_data=False
+            ) as vshadegrid,
+        ):
+            kwargs["I"] = vshadegrid
             lib.call_module(
-                module="grdimage", args=build_arg_string(kwargs, infile=fname)
+                module="grdimage", args=build_arg_string(kwargs, infile=vingrd)
             )

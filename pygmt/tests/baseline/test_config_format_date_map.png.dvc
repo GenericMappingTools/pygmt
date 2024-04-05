@@ -1,4 +1,5 @@
 outs:
-- md5: 18c2886462bdeeb6c941a54185206302
-  size: 1376
+- md5: 589f1a3cefee9dc8d46f51650d7e14c7
+  size: 1416
   path: test_config_format_date_map.png
+  hash: md5

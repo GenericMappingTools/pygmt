@@ -91,6 +91,17 @@ Andre Belem
 +++
 Andre Belem
 ::::
+
+::::{grid-item-card} PyGMT-HOWTO
+:link: https://tktmyd.github.io/pygmt-howto-jp/pygmt
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/tktmyd/pygmt-howto-jp/raw/main/docs/_images/inf_on_map_12_0.png)
++++
+Takuto Maeda
+::::
+
 :::::
 
 ## Examples from Publications and Posters

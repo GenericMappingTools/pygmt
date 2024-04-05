@@ -1,6 +1,7 @@
 """
 sphinterpolate - Spherical gridding in tension of data on a sphere
 """
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     GMTTempFile,
@@ -38,13 +39,11 @@ def sphinterpolate(data, **kwargs):
 
     Parameters
     ----------
-    data : str or {table-like}
+    data : str, {table-like}
         Pass in (x, y, z) or (longitude, latitude, elevation) values by
         providing a file name to an ASCII data table, a 2-D
         {table-classes}.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {outgrid}
     {spacing}
     {region}
     {verbose}
@@ -69,13 +68,12 @@ def sphinterpolate(data, **kwargs):
     """
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="vector", data=data)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
                     module="sphinterpolate",
-                    args=build_arg_string(kwargs, infile=infile),
+                    args=build_arg_string(kwargs, infile=vintbl),
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

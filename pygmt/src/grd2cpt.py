@@ -35,9 +35,13 @@ def grd2cpt(grid, **kwargs):
     r"""
     Make GMT color palette tables from a grid file.
 
-    This is a function that will help you make static color palette tables
-    (CPTs). By default, the CPT will simply be saved to the current session,
-    but you can use ``output`` to save it to a file. The CPT is based on an
+    This function will help you to make static color palette tables (CPTs).
+    By default, the CPT will be saved as the current CPT of the session,
+    figure, subplot, panel, or inset depending on which level
+    :func:`pygmt.grd2cpt` is called (for details on how GMT modern mode
+    maintains different levels of colormaps please see
+    :gmt-docs:`reference/features.html#gmt-modern-mode-hierarchical-levels`).
+    You can use ``output`` to save the CPT to a file. The CPT is based on an
     existing dynamic master CPT of your choice, and the mapping from data value
     to colors is through the data's cumulative distribution function (CDF), so
     that the colors are histogram equalized. Thus if the grid(s) and the
@@ -75,8 +79,7 @@ def grd2cpt(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
+    {grid}
     transparency : int or float or str
         Set a constant level of transparency (0-100) for all color slices.
         Append **+a** to also affect the foreground, background, and NaN
@@ -84,7 +87,7 @@ def grd2cpt(grid, **kwargs):
     cmap : str
         Select the master color palette table (CPT) to use in the
         interpolation. Full list of built-in color palette tables can be found
-        at :gmt-docs:`cookbook/cpts.html#built-in-color-palette-tables-cpt`.
+        at :gmt-docs:`reference/cpts.html#built-in-color-palette-tables-cpt`.
     background : bool or str
         Select the back- and foreground colors to match the colors for lowest
         and highest *z*-values in the output CPT [Default (``background=True``
@@ -93,8 +96,9 @@ def grd2cpt(grid, **kwargs):
         :gmt-term:`COLOR_FOREGROUND`, and :gmt-term:`COLOR_NAN`]. Use
         ``background="i"`` to match the colors for the lowest and highest
         values in the input (instead of the output) CPT.
-    color_model :
-        [**R**\|\ **r**\|\ **h**\|\ **c**][**+c**\ [*label*]].
+    color_model : str
+        [**R**\|\ **r**\|\ **h**\|\ **c**]\
+        [**+c**\ [*label*\|\ *start*\ [**-**]]].
         Force output CPT to be written with r/g/b codes, gray-scale values or
         color name (**R**, default) or r/g/b codes only (**r**), or h-s-v codes
         (**h**), or c/m/y/k codes (**c**).  Optionally or alternatively, append
@@ -102,10 +106,10 @@ def grd2cpt(grid, **kwargs):
         appended then we create labels for each category to be used when the
         CPT is plotted. The *label* may be a comma-separated list of category
         names (you can skip a category by not giving a name), or give
-        *start*\[-], where we automatically build monotonically increasing
-        labels from *start* (a single letter or an integer). Append ``-`` to
-        build ranges *start*-*start+1* instead.
-    nlevels : bool or int or str
+        *start*, where we automatically build monotonically increasing
+        labels from *start* (a single letter or an integer). Additionally
+        append **-** to build ranges *start*-*start+1* as labels instead.
+    nlevels : bool, int, or str
         Set to ``True`` to create a linear color table by using the grid
         z-range as the new limits in the CPT. Alternatively, set *nlevels*
         to resample the color table into *nlevels* equidistant slices.
@@ -119,22 +123,23 @@ def grd2cpt(grid, **kwargs):
         For details on array creation, see
         :gmt-docs:`makecpt.html#generate-1d-array`.
     truncate : list or str
-        *zlo/zhi*.
+        *zlow/zhigh*.
         Truncate the incoming CPT so that the lowest and highest z-levels are
-        to *zlo* and *zhi*. If one of these equal NaN then we leave that end of
-        the CPT alone. The truncation takes place before any resampling. See
-        also :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        to *zlow* and *zhigh*. If one of these equal NaN then we leave that
+        end of the CPT alone. The truncation takes place before any resampling.
+        See also :gmt-docs:`reference/features.html#manipulating-cpts`.
     output : str
-        Optional parameter to set the file name with extension .cpt to store
-        the generated CPT file. If not given or False [Default], saves the CPT
-        as the session current CPT.
+        Optional. The file name with extension .cpt to store the generated CPT
+        file. If not given or ``False`` [Default], saves the CPT as the current
+        CPT of the session, figure, subplot, panel, or inset depending on which
+        level :func:`pygmt.grd2cpt` is called.
     reverse : str
-        Set this to True or c [Default] to reverse the sense of color
-        progression in the master CPT. Set this to z to reverse the sign of
-        z-values in the color table. Note that this change of z-direction
-        happens before *truncate* and *series* values are used so the latter
-        must be compatible with the changed *z*-range. See also
-        :gmt-docs:`cookbook/features.html#manipulating-cpts`.
+        Set this to ``True`` or **c** [Default] to reverse the sense of color
+        progression in the master CPT. Set this to **z** to reverse the sign
+        of z-values in the color table. Note that this change of z-direction
+        happens before ``truncate`` and ``series`` values are used so the
+        latter must be compatible with the changed z-range. See also
+        :gmt-docs:`reference/features.html#manipulating-cpts`.
     overrule_bg : str
         Overrule background, foreground, and NaN colors specified in the master
         CPT with the values of the parameters :gmt-term:`COLOR_BACKGROUND`,
@@ -179,13 +184,12 @@ def grd2cpt(grid, **kwargs):
     if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
         raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-        with file_context as infile:
+        with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             if kwargs.get("H") is None:  # if no output is set
-                arg_str = build_arg_string(kwargs, infile=infile)
+                arg_str = build_arg_string(kwargs, infile=vingrd)
             else:  # if output is set
                 outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = build_arg_string(kwargs, infile=infile, outfile=outfile)
+                arg_str = build_arg_string(kwargs, infile=vingrd, outfile=outfile)
             lib.call_module(module="grd2cpt", args=arg_str)

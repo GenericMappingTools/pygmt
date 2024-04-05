@@ -1,6 +1,7 @@
 r"""
 Vertical or horizontal bars
----------------------------
+===========================
+
 The :meth:`pygmt.Figure.plot` method can plot vertical (**b**) or
 horizontal (**B**) bars by passing the corresponding shortcut to
 the ``style`` parameter. By default, *base* = 0 meaning that the
@@ -18,6 +19,7 @@ side-by-side, individual and thinner bars. Multi-band bars require
 ``cmap=True`` with one color per band.
 """
 
+# %%
 import pygmt
 
 fig = pygmt.Figure()

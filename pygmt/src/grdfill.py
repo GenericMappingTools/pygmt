@@ -20,6 +20,7 @@ __doctest_skip__ = ["grdfill"]
 @use_alias(
     A="mode",
     G="outgrid",
+    N="no_data",
     R="region",
     V="verbose",
 )
@@ -28,10 +29,10 @@ def grdfill(grid, **kwargs):
     r"""
     Fill blank areas from a grid file.
 
-    Read a grid that presumably has unfilled holes that the user
-    wants to fill in some fashion. Holes are identified by NaN values but
-    this criteria can be changed. There are several different algorithms that
-    can be used to replace the hole values.
+    Read a grid that presumably has unfilled holes that the user wants to
+    fill in some fashion. Holes are identified by NaN values but this
+    criteria can be changed via the ``no_data`` parameter. There are several
+    different algorithms that can be used to replace the hole values.
 
     Full option list at :gmt-docs:`grdfill.html`
 
@@ -39,11 +40,8 @@ def grdfill(grid, **kwargs):
 
     Parameters
     ----------
-    grid : str or xarray.DataArray
-        The file name of the input grid or the grid loaded as a DataArray.
-    outgrid : str or None
-        The name of the output netCDF file with extension .nc to store the grid
-        in.
+    {grid}
+    {outgrid}
     mode : str
         Specify the hole-filling algorithm to use.  Choose from **c** for
         constant fill and append the constant value, **n** for nearest
@@ -52,6 +50,9 @@ def grdfill(grid, **kwargs):
         where (*X,Y*) are the node dimensions of the grid]), or
         **s** for bicubic spline (optionally append a *tension*
         parameter [Default is no tension]).
+    no_data : float
+        Set the node value used to identify a point as a member of a hole
+        [Default is NaN].
 
     {region}
     {verbose}
@@ -69,9 +70,7 @@ def grdfill(grid, **kwargs):
     -------
     >>> import pygmt
     >>> # Load a bathymetric grid with missing data
-    >>> earth_relief_holes = pygmt.datasets.load_sample_data(
-    ...     name="earth_relief_holes"
-    ... )
+    >>> earth_relief_holes = pygmt.datasets.load_sample_data(name="earth_relief_holes")
     >>> # Perform grid filling operations on the sample grid
     >>> # Set all empty values to "20"
     >>> filled_grid = pygmt.grdfill(grid=earth_relief_holes, mode="c20")
@@ -80,12 +79,11 @@ def grdfill(grid, **kwargs):
         raise GMTInvalidInput("At least parameter 'mode' or 'L' must be specified.")
     with GMTTempFile(suffix=".nc") as tmpfile:
         with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
+            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
                 if (outgrid := kwargs.get("G")) is None:
                     kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
                 lib.call_module(
-                    module="grdfill", args=build_arg_string(kwargs, infile=infile)
+                    module="grdfill", args=build_arg_string(kwargs, infile=vingrd)
                 )
 
         return load_dataarray(outgrid) if outgrid == tmpfile.name else None

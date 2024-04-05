@@ -33,7 +33,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     legend-related information from an input file, or automatically creates
     legend entries from plotted symbols that have labels. Unless otherwise
     noted, annotations will be made using the primary annotation font and
-    size in effect (i.e., FONT_ANNOT_PRIMARY).
+    size in effect (i.e., :gmt-term:`FONT_ANNOT_PRIMARY`).
 
     Full option list at :gmt-docs:`legend.html`
 
@@ -67,7 +67,7 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     {perspective}
     {transparency}
     """
-    kwargs = self._preprocess(**kwargs)  # pylint: disable=protected-access
+    kwargs = self._preprocess(**kwargs)
 
     if kwargs.get("D") is None:
         kwargs["D"] = position

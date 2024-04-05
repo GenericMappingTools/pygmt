@@ -1,6 +1,7 @@
 """
-Tests for nearneighbor.
+Test pygmt.nearneighbor.
 """
+
 from pathlib import Path
 
 import numpy as np
@@ -37,6 +38,7 @@ def test_nearneighbor_input_data(array_func, ship_data):
     npt.assert_allclose(output.mean(), -2378.2385)
 
 
+@pytest.mark.benchmark
 def test_nearneighbor_input_xyz(ship_data):
     """
     Run nearneighbor by passing in x, y, z numpy.ndarrays individually.
@@ -81,6 +83,6 @@ def test_nearneighbor_with_outgrid_param(ship_data):
         assert output is None  # check that output is None since outgrid is set
         assert Path(tmpfile.name).stat().st_size > 0  # check that outgrid exists
         with xr.open_dataarray(tmpfile.name) as grid:
-            assert isinstance(grid, xr.DataArray)  # ensure netcdf grid loads ok
+            assert isinstance(grid, xr.DataArray)  # ensure netCDF grid loads ok
             assert grid.shape == (121, 121)
             npt.assert_allclose(grid.mean(), -2378.2385)

@@ -1,9 +1,12 @@
 """
-Function to download the GSHHG Global Earth Mask from the GMT data server, and
-load as :class:`xarray.DataArray`.
+Function to download the GSHHG Earth Mask dataset from the GMT data server, and load as
+:class:`xarray.DataArray`.
 
 The grids are available in various resolutions.
 """
+
+from typing import Literal
+
 from pygmt.datasets.load_remote_dataset import _load_remote_dataset
 from pygmt.helpers import kwargs_to_strings
 
@@ -11,9 +14,19 @@ __doctest_skip__ = ["load_earth_mask"]
 
 
 @kwargs_to_strings(region="sequence")
-def load_earth_mask(resolution="01d", region=None, registration=None):
+def load_earth_mask(
+    resolution="01d",
+    region=None,
+    registration: Literal["gridline", "pixel"] = "gridline",
+):
     r"""
-    Load the GSHHG Global Earth Mask in various resolutions.
+    Load the GSHHG Earth Mask dataset in various resolutions.
+
+    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_mask.jpg
+       :width: 80 %
+       :align: center
+
+       GSHHG Earth Mask dataset.
 
     The grids are downloaded to a user data directory
     (usually ``~/.gmt/server/earth/earth_mask/``) the first time you invoke
@@ -21,12 +34,13 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
     So you'll need an internet connection the first time around.
 
     These grids can also be accessed by passing in the file name
-    **@earth_mask**\_\ *res*\[_\ *reg*] to any grid plotting/processing
-    function. *res* is the grid resolution (see below), and *reg* is grid
-    registration type (**p** for pixel registration or **g** for gridline
-    registration).
+    **@earth_mask**\_\ *res*\[_\ *reg*] to any grid processing function or
+    plotting method. *res* is the grid resolution (see below), and *reg* is
+    the grid registration type (**p** for pixel registration or **g** for
+    gridline registration).
 
-    Refer to :gmt-datasets:`earth-mask.html` for more details.
+    Refer to :gmt-datasets:`earth-mask.html` for more details about available
+    datasets, including version information and references.
 
     Parameters
     ----------
@@ -40,9 +54,9 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         The subregion of the grid to load, in the form of a list
         [*xmin*, *xmax*, *ymin*, *ymax*] or a string *xmin/xmax/ymin/ymax*.
 
-    registration : str
+    registration
         Grid registration type. Either ``"pixel"`` for pixel registration or
-        ``"gridline"`` for gridline registration. Default is ``"gridline"``.
+        ``"gridline"`` for gridline registration.
 
     Returns
     -------
@@ -89,4 +103,7 @@ def load_earth_mask(resolution="01d", region=None, registration=None):
         region=region,
         registration=registration,
     )
-    return grid.astype("int8")
+    # `return grid.astype("int8")` doesn't work because grid encoding is lost.
+    # See https://github.com/GenericMappingTools/pygmt/issues/2629.
+    grid.data = grid.data.astype("int8")
+    return grid

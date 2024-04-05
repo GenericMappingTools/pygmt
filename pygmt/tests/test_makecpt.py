@@ -1,7 +1,7 @@
 """
-Tests for makecpt.
+Test pygmt.makecpt.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
@@ -10,8 +10,7 @@ from pygmt import Figure, makecpt
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="points")
@@ -62,8 +61,7 @@ def test_makecpt_plot_colorbar(position):
 @pytest.mark.mpl_image_compare
 def test_makecpt_plot_colorbar_scaled_with_series(position):
     """
-    Use static color palette table scaled to a min/max series and plot it on a
-    colorbar.
+    Use static color palette table scaled to a min/max series and plot it on a colorbar.
     """
     fig = Figure()
     makecpt(cmap="oleron", series=[0, 1000])
@@ -71,6 +69,7 @@ def test_makecpt_plot_colorbar_scaled_with_series(position):
     return fig
 
 
+@pytest.mark.benchmark
 def test_makecpt_output_cpt_file():
     """
     Save the generated static color palette table to a .cpt file.
@@ -121,8 +120,7 @@ def test_makecpt_reverse_color_only(position):
 @pytest.mark.mpl_image_compare
 def test_makecpt_reverse_color_and_zsign(position):
     """
-    Use static color palette table with both its colors and z-value sign
-    reversed.
+    Use static color palette table with both its colors and z-value sign reversed.
     """
     fig = Figure()
     makecpt(cmap="earth", reverse="cz", series=[0, 1000])
@@ -133,8 +131,8 @@ def test_makecpt_reverse_color_and_zsign(position):
 @pytest.mark.mpl_image_compare
 def test_makecpt_continuous(position):
     """
-    Use static color palette table that is continuous from blue to white and
-    scaled from 0 to 1000 m.
+    Use static color palette table that is continuous from blue to white and scaled from
+    0 to 1000 m.
     """
     fig = Figure()
     makecpt(cmap="blue,white", continuous=True, series=[0, 1000])
