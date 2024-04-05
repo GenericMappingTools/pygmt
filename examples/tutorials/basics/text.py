@@ -166,7 +166,7 @@ fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
 fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
 # Create space-delimited file
-with open("examples.txt", "w") as f:
+with Path.open("examples.txt", "w") as f:
     f.write("114.00  0.50   0 15p,Helvetica-Bold,white CM BORNEO\n")
     f.write("119.00  3.25   0  8p,Helvetica-Bold,black CM CELEBES SEA\n")
     f.write("112.00 -4.60   0  8p,Helvetica-Bold,black CM JAVA SEA\n")
