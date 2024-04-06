@@ -64,13 +64,13 @@ def which(fname, **kwargs) -> str | list[str]:
                 module="which",
                 args=build_arg_string(kwargs, infile=fname, outfile=vouttbl),
             )
-            result = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
+            paths = lib.virtualfile_to_dataset(vfname=vouttbl, output_type="strings")
 
-    match result.size:
+    match paths.size:
         case 0:
             _fname = fname.replace(" ", "', '")
             raise FileNotFoundError(f"File(s) '{_fname}' not found.")
         case 1:
-            return result[0]
+            return paths[0]
         case _:
-            return result.tolist()
+            return paths.tolist()
