@@ -1710,6 +1710,35 @@ class Session:
             with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
 
+    def inquire_virtualfile(self, vfname: str) -> int:
+        """
+        Get the family of a virtual file.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to inquire.
+
+        Returns
+        -------
+        family
+            The integer value for the family of the virtual file.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="dataset") as vfile:
+        ...         family = lib.inquire_virtualfile(vfile)
+        ...         assert family == lib["GMT_IS_DATASET"]
+        """
+        c_inquire_virtualfile = self.get_libgmt_func(
+            "GMT_Inquire_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_uint,
+        )
+        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
     def read_virtualfile(
         self, vfname: str, kind: Literal["dataset", "grid", None] = None
     ):
@@ -1776,7 +1805,7 @@ class Session:
     def virtualfile_to_dataset(
         self,
         vfname: str,
-        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
@@ -1797,6 +1826,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+            - ``"strings"`` will return the trailing text only as an array of strings.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1842,6 +1872,16 @@ class Session:
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
+        ...     # strings output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outstr = lib.virtualfile_to_dataset(
+        ...                 vfname=vouttbl, output_type="strings"
+        ...             )
+        ...     assert isinstance(outstr, np.ndarray)
+        ...     assert outstr.dtype.kind in ("S", "U")
+        ...
         ...     # numpy output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
@@ -1870,6 +1910,9 @@ class Session:
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
+        >>> outstr
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> outnp
         array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
                [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
@@ -1891,11 +1934,14 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            column_names=column_names,
-            dtype=dtype,
-            index_col=index_col,
+        # Read the virtual file as a _GMT_DATASET object
+        result = self.read_virtualfile(vfname, kind="dataset").contents
+
+        if output_type == "strings":  # strings output
+            return result.to_strings()
+
+        result = result.to_dataframe(
+            column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
