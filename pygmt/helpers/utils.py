@@ -413,7 +413,7 @@ def build_arg_list(
         else:
             gmt_args = [str(_file) for _file in infile] + gmt_args
     if outfile:
-        gmt_args.append("->" + str(outfile))
+        gmt_args.append(f"->{outfile}")
     return gmt_args
 
 
