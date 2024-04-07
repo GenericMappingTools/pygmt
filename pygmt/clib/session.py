@@ -592,25 +592,36 @@ class Session:
         # the function return value (i.e., 'status')
         return status
 
-    def call_module(self, module, args):
+    def call_module(self, module: str, args: str | list[str]):
         """
         Call a GMT module with the given arguments.
 
-        Makes a call to ``GMT_Call_Module`` from the C API using mode
-        ``GMT_MODULE_CMD`` (arguments passed as a single string).
+        Wraps ``GMT_Call_Module``.
 
-        Most interactions with the C API are done through this function.
+        The ``GMT_Call_Module`` API function supports passing module arguments in three
+        different ways:
+
+        1. Pass a single string that contains whitespace-separated module arguments.
+        2. Pass a list of strings and each string contains a module argument.
+        3. Pass a list of ``GMT_OPTION`` data structure.
+
+        Both options 1 and 2 are implemented in this function, but option 2 is preferred
+        because it can correctly handle special characters like whitespaces and
+        quotation marks in module arguments.
 
         Parameters
         ----------
-        module : str
-            Module name (``'coast'``, ``'basemap'``, etc).
-        args : str
-            String with the command line arguments that will be passed to the
-            module (for example, ``'-R0/5/0/10 -JM'``).
+        module
+            The GMT module name to be called (``"coast"``, ``"basemap"``, etc).
+        args
+            Module arguments that will be passed to the GMT module. It can be either
+            a single string (e.g., ``"-R0/5/0/10 -JX10c -BWSen+t'My Title'"``) or a list
+            of strings (e.g., ``["-R0/5/0/10", "-JX10c", "-BWSEN+tMy Title"]``).
 
         Raises
         ------
+        GMTInvalidInput
+            If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
@@ -620,10 +631,29 @@ class Session:
             restype=ctp.c_int,
         )
 
-        mode = self["GMT_MODULE_CMD"]
-        status = c_call_module(
-            self.session_pointer, module.encode(), mode, args.encode()
-        )
+        # 'args' can be (1) a single string or (2) a list of strings.
+        argv: bytes | ctp.Array[ctp.c_char_p] | None
+        if isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
+        elif isinstance(args, list):
+            # 'args' is a list of strings and each string contains a module argument.
+            # In this way, GMT can correctly handle option arguments with whitespaces or
+            # quotation marks. This is the preferred way to pass arguments to the GMT
+            # API and is used for PyGMT >= v0.12.0.
+            mode = len(args)  # 'mode' is the number of arguments.
+            # Pass a null pointer if no arguments are specified.
+            argv = strings_to_ctypes_array(args) if mode != 0 else None
+        else:
+            raise GMTInvalidInput(
+                "'args' must be either a string or a list of strings."
+            )
+
+        status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
             raise GMTCLibError(
                 f"Module '{module}' failed with status code {status}:\n{self._error_message}"
@@ -1745,7 +1775,7 @@ class Session:
     def virtualfile_to_dataset(
         self,
         vfname: str,
-        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
         header: int | None = None,
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
@@ -1767,6 +1797,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+            - ``"strings"`` will return the trailing text only as an array of strings.
         header
             Row number containing column names for the :class:`pandas.DataFrame` output.
             ``header=None`` means not to parse the column names from table header.
@@ -1816,6 +1847,16 @@ class Session:
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
+        ...     # strings output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outstr = lib.virtualfile_to_dataset(
+        ...                 vfname=vouttbl, output_type="strings"
+        ...             )
+        ...     assert isinstance(outstr, np.ndarray)
+        ...     assert outstr.dtype.kind in ("S", "U")
+        ...
         ...     # numpy output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
@@ -1844,6 +1885,9 @@ class Session:
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
+        >>> outstr
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> outnp
         array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
                [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
@@ -1865,12 +1909,14 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            header=header,
-            column_names=column_names,
-            dtype=dtype,
-            index_col=index_col,
+        # Read the virtual file as a _GMT_DATASET object
+        result = self.read_virtualfile(vfname, kind="dataset").contents
+
+        if output_type == "strings":  # strings output
+            return result.to_strings()
+
+        result = result.to_dataframe(
+            header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
