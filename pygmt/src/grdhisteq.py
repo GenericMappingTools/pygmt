@@ -129,7 +129,7 @@ class grdhisteq:  # noqa: N801
                 lib.call_module(
                     module="grdhisteq", args=build_arg_string(kwargs, infile=vingrd)
                 )
-                return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+                return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
 
     @staticmethod
     @fmt_docstring

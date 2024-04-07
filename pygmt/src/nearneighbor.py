@@ -148,4 +148,4 @@ def nearneighbor(
             lib.call_module(
                 module="nearneighbor", args=build_arg_string(kwargs, infile=vintbl)
             )
-            return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

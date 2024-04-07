@@ -1947,24 +1947,34 @@ class Session:
             return result.to_numpy()
         return result  # pandas.DataFrame output
 
-    def virtualfile_to_grid(
-        self, vfname: str, outgrid: str | None
+    def virtualfile_to_raster(
+        self,
+        vfname: str,
+        kind: Literal["grid", "image", "cube", None] = None,
+        outgrid: str | None = None,
     ) -> xr.DataArray | None:
         """
-        Output a grid stored in a virtual file to an :class:`xarray.DataArray` object.
+        Output a raster data stored in a virtual file to an :class:`xarray.DataArray`
+        object.
+
+        The raster data can be a grid, an image or a cube.
 
         Parameters
         ----------
         vfname
             The virtual file name that stores the result grid.
+        kind
+            Type of the raster data. Valid values are ``"grid"``, ``"image"``,
+            ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
+            virtual file name.
         outgrid
-            Name of the output grid. If specified, it means the grid was already saved
-            into an actual file and will return ``None``.
+            Name of the output grid/image/cube. If specified, it means the raster data
+            was already saved into an actual file and will return ``None``.
 
         Returns
         -------
         result
-            The result grid. If ``outgrid`` is specified, return ``None``.
+            The result grid/image/cube. If ``outgrid`` is specified, return ``None``.
 
         Examples
         --------
@@ -1977,7 +1987,7 @@ class Session:
         ...         outgrid = tmpfile.name
         ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
         ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...             result = lib.virtualfile_to_grid(
+        ...             result = lib.virtualfile_to_raster(
         ...                 vfname=voutgrd, outgrid=outgrid
         ...             )
         ...             assert result == None
@@ -1987,12 +1997,19 @@ class Session:
         ...     outgrid = None
         ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
         ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
-        ...         result = lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
         ...         assert isinstance(result, xr.DataArray)
         """
         if outgrid is not None:
             return None
-        return self.read_virtualfile(vfname, kind="grid").contents.to_dataarray()
+        if kind is None:  # Inquire the data family from the virtualfile
+            family = self.inquire_virtualfile(vfname)
+            kind = {
+                self["GMT_IS_GRID"]: "grid",
+                self["GMT_IS_IMAGE"]: "image",
+                self["GMT_IS_CUBE"]: "cube",
+            }[family]
+        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
         """

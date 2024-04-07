@@ -173,4 +173,4 @@ def grdgradient(grid, outgrid: str | None = None, **kwargs):
             lib.call_module(
                 module="grdgradient", args=build_arg_string(kwargs, infile=vingrd)
             )
-            return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

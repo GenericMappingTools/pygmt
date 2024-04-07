@@ -292,7 +292,7 @@ Python objects to and from GMT virtual files:
     clib.Session.virtualfile_in
     clib.Session.virtualfile_out
     clib.Session.virtualfile_to_dataset
-    clib.Session.virtualfile_to_grid
+    clib.Session.virtualfile_to_raster
 
 Low level access (these are mostly used by the :mod:`pygmt.clib` package):
 

@@ -161,4 +161,4 @@ def surface(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwa
             lib.call_module(
                 module="surface", args=build_arg_string(kwargs, infile=vintbl)
             )
-            return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

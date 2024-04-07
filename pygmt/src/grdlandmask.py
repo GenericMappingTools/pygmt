@@ -101,4 +101,4 @@ def grdlandmask(outgrid: str | None = None, **kwargs):
         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
             kwargs["G"] = voutgrd
             lib.call_module(module="grdlandmask", args=build_arg_string(kwargs))
-            return lib.virtualfile_to_grid(vfname=voutgrd, outgrid=outgrid)
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
