@@ -67,4 +67,6 @@ def sphinterpolate(data, outgrid: str | None = None, **kwargs):
             lib.call_module(
                 module="sphinterpolate", args=build_arg_string(kwargs, infile=vintbl)
             )
-            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+            return lib.virtualfile_to_raster(
+                vfname=voutgrd, kind="grid", outgrid=outgrid
+            )
