@@ -1740,7 +1740,9 @@ class Session:
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
@@ -1799,6 +1801,8 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
+        if kind in ["image", "cube"]:
+            raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
@@ -2004,7 +2008,7 @@ class Session:
             return None
         if kind is None:  # Inquire the data family from the virtualfile
             family = self.inquire_virtualfile(vfname)
-            kind = {
+            kind = {  # type: ignore[assignment]
                 self["GMT_IS_GRID"]: "grid",
                 self["GMT_IS_IMAGE"]: "image",
                 self["GMT_IS_CUBE"]: "cube",
