@@ -27,7 +27,7 @@ dependencies:
     - codespell
     - ruff>=0.3.0
     # Dev dependencies (unit testing)
-    - matplotlib
+    - matplotlib-base
     - pytest-cov
     - pytest-doctestplus
     - pytest-mpl
