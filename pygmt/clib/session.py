@@ -1709,6 +1709,35 @@ class Session:
             with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
 
+    def inquire_virtualfile(self, vfname: str) -> int:
+        """
+        Get the family of a virtual file.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to inquire.
+
+        Returns
+        -------
+        family
+            The integer value for the family of the virtual file.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="dataset") as vfile:
+        ...         family = lib.inquire_virtualfile(vfile)
+        ...         assert family == lib["GMT_IS_DATASET"]
+        """
+        c_inquire_virtualfile = self.get_libgmt_func(
+            "GMT_Inquire_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_uint,
+        )
+        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
     def read_virtualfile(
         self, vfname: str, kind: Literal["dataset", "grid", None] = None
     ):
