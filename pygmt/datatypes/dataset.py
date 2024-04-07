@@ -214,15 +214,11 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
-        <<<<<<< HEAD
-        ...             df = ds.contents.to_dataframe(header=0)
-        =======
         ...             text = ds.contents.to_strings()
-        ...             df = ds.contents.to_dataframe()
+        ...             df = ds.contents.to_dataframe(header=0)
         >>> text
         array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
            'TEXT123 TEXT456789'], dtype='<U18')
-        >>>>>>> main
         >>> df
            col1  col2  col3              colstr
         0   1.0   2.0   3.0        TEXT1 TEXT23
