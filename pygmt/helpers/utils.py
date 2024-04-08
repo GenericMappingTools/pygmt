@@ -11,7 +11,8 @@ import subprocess
 import sys
 import time
 import webbrowser
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
+from typing import Any
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
