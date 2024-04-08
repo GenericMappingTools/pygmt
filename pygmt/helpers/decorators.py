@@ -624,7 +624,7 @@ def kwargs_to_strings(**conversions):
     The strings are what GMT expects from command line arguments.
 
     Boolean arguments and None are not converted and will be processed in the
-    ``build_arg_string`` function.
+    ``build_arg_list`` function.
 
     You can also specify other conversions to specific arguments.
 
