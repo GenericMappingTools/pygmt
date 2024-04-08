@@ -316,9 +316,9 @@ def non_ascii_to_octal(argstr):
 
 
 def build_arg_list(
-    kwdict: dict,
-    confdict: dict | None = None,
-    infile: str | pathlib.PurePath | list[str | pathlib.PurePath] | None = None,
+    kwdict: dict[str, Any],
+    confdict: dict[str, str] | None = None,
+    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
     outfile: str | pathlib.PurePath | None = None,
 ) -> list[str]:
     r"""
@@ -328,8 +328,8 @@ def build_arg_list(
     representation using the ``kwargs_to_strings`` decorator. The only exceptions are
     ``True``, ``False`` and ``None``.
 
-    Any lists or tuples left will be interpreted as multiple entries for the same
-    command line option. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    Any remaining lists or tuples will be interpreted as multiple entries for the same
+    parameter. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
     converted to ``["-Bxa", "-Byaf"]``.
 
     Parameters
