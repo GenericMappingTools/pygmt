@@ -192,7 +192,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             if grid[dim][0] > grid[dim][1]:
                 grid = grid.isel({dim: slice(None, None, -1)})
 
-        # Set the gmt accesssor.
+        # Set the gmt accessor.
         # Must put at the end. The information get lost after specific grid operation.
         grid.gmt.registration = header.registration
         grid.gmt.gtype = header.gtype
