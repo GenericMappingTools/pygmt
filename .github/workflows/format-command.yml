@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Generate token from GenericMappingTools bot
-      - uses: tibdex/github-app-token@v2
+      - uses: actions/create-github-app-token@v1.9.3
         id: generate-token
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       # Checkout the pull request branch
       - uses: actions/checkout@v4.1.1
