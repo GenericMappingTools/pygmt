@@ -144,6 +144,17 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ("hidden", ctp.c_void_p),
     ]
 
+    def to_strings(self) -> np.ndarray[Any, np.dtype[np.str_]]:
+        """
+        Convert the trailing text column to an array of strings.
+        """
+        textvector = []
+        for table in self.table[: self.n_tables]:
+            for segment in table.contents.segment[: table.contents.n_segments]:
+                if segment.contents.text:
+                    textvector.extend(segment.contents.text[: segment.contents.n_rows])
+        return np.char.decode(textvector) if textvector else np.array([], dtype=str)
+
     def to_dataframe(
         self,
         column_names: pd.Index | None = None,
@@ -194,7 +205,11 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
         ...             ds = lib.read_virtualfile(vouttbl, kind="dataset")
+        ...             text = ds.contents.to_strings()
         ...             df = ds.contents.to_dataframe()
+        >>> text
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> df
               0     1     2                   3
         0   1.0   2.0   3.0        TEXT1 TEXT23
@@ -207,28 +222,19 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
         vectors = []
         # Deal with numeric columns
         for icol in range(self.n_columns):
-            colvector = []
-            for itbl in range(self.n_tables):
-                dtbl = self.table[itbl].contents
-                for iseg in range(dtbl.n_segments):
-                    dseg = dtbl.segment[iseg].contents
-                    colvector.append(
-                        np.ctypeslib.as_array(dseg.data[icol], shape=(dseg.n_rows,))
-                    )
+            colvector = [
+                np.ctypeslib.as_array(
+                    seg.contents.data[icol], shape=(seg.contents.n_rows,)
+                )
+                for tbl in self.table[: self.n_tables]
+                for seg in tbl.contents.segment[: tbl.contents.n_segments]
+            ]
             vectors.append(pd.Series(data=np.concatenate(colvector)))
 
         # Deal with trailing text column
-        textvector = []
-        for itbl in range(self.n_tables):
-            dtbl = self.table[itbl].contents
-            for iseg in range(dtbl.n_segments):
-                dseg = dtbl.segment[iseg].contents
-                if dseg.text:
-                    textvector.extend(dseg.text[: dseg.n_rows])
-        if textvector:
-            vectors.append(
-                pd.Series(data=np.char.decode(textvector), dtype=pd.StringDtype())
-            )
+        textvector = self.to_strings()
+        if len(textvector) != 0:
+            vectors.append(pd.Series(data=textvector, dtype=pd.StringDtype()))
 
         if len(vectors) == 0:
             # Return an empty DataFrame if no columns are found.
