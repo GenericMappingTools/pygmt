@@ -68,7 +68,8 @@ jobs:
 
     - name: Create Issue From File
       if: env.lychee_exit_code != 0
-      uses: peter-evans/create-issue-from-file@v5
-      with:
-        title: Link Checker Report on ${{ steps.date.outputs.date }}
-        content-filepath: ./lychee/out.md
+      run: |
+        title="Link Checker Report on ${{ steps.date.outputs.date }}"
+        gh issue create --title "$title" --body-file ./lychee/out.md
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
