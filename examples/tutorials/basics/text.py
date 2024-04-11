@@ -224,7 +224,7 @@ fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE"
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
     position="TC",  # Top Center
-    justify="MC",   # Middle Center
+    justify="MC",  # Middle Center
     offset="0c/0.2c",
     no_clip=True,  # Allow plotting outside of the map or plot frame
 )
