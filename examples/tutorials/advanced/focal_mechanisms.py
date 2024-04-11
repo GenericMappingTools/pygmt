@@ -5,6 +5,7 @@ Plotting focal mechanisms
 Focal mechanisms can be plotted with the :meth:`pygmt.Figure.meca` method.
 
 TODO: Check GMT
+
 - issue #7777 and PR #7778
 - issue #8053
 - PR #8059 ->  T pen
@@ -12,9 +13,9 @@ TODO: Check GMT
 Beside an external file containing the input data, PyGMT allows for different
 input types:
 
-- 1-D (single event) and 2-D array (multiple events)
-- dictionary
-- pandas DataFrame
+- a 1-D (single event) and 2-D array (multiple events)
+- a dictionary
+- a pandas DataFrame
 
 Different conventions are supported:
 TODO - input file and array, this only is for dictionary and DataFrame
@@ -41,12 +42,12 @@ to the chosen input type and convention.
 
 This tutorial shows how to adjust the display of the beachballs:
 
-- Adjust outline
+- Adjust the outline
 - Fill quadrants with colors and patterns
-- Highlight nodal plane
+- Highlight the nodal planes
 - Offset from event location
 - Size-coding and color-coding
-- Add label
+- Add a label
 """
 
 # %%
@@ -96,7 +97,7 @@ fig.show()
 
 
 # %%
-# Adjust outline
+# Adjust the outline
 # --------------
 #
 # parameters ``pen`` and ``outline``
@@ -116,8 +117,8 @@ fig.meca(
     pen="1.5p,red,solid",
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+# Shift plot origin by the width of the last plot plus 1 centimeter to the right
+fig.shift_origin(xshift="+w+1c")
 
 fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
 
@@ -154,8 +155,7 @@ fig.meca(
     extensionfill="gold",
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+fig.shift_origin(xshift="+w+1c")
 
 fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
 
@@ -174,8 +174,8 @@ fig.show()
 
 
 # %%
-# Highlight nodal planes
-# ----------------------
+# Highlight the nodal planes
+# --------------------------
 #
 # parameter ``nodal``
 # Use stacking concept of GMT - plot on top of each other
@@ -194,8 +194,7 @@ fig.meca(
     nodal="0/1p,black,solid",
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+fig.shift_origin(xshift="+w+1c")
 
 fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
 
@@ -242,8 +241,7 @@ fig.meca(
     offset=True,
 )
 
-# Shift plot origin 11 centimeters to the right
-fig.shift_origin(xshift="11c")
+fig.shift_origin(xshift="+w+1c")
 
 fig.coast(region=study_area, projection="M10c", land="lightgray", frame=["af", "wSnE"])
 
@@ -330,8 +328,8 @@ fig.show()
 
 
 # %%
-# Add label
-# ---------
+# Add a label
+# -----------
 #
 # ``event_name`` as parameter or as column
 # ``labelbox``
