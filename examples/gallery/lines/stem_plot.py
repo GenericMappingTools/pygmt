@@ -5,13 +5,16 @@ Stem plot
 The :class:`pygmt.Figure` class does not provide a built-in or high-level method
 to create stem plots. But users can accomplish this in PyGMT via
 
-- adding NaN lines to separate the single records
+- adding NaN to separate the single records
 - using decorated lines (``"~"``) with ``"N+1"`` to get only a symbol at the end
 
-The Stem symbol (fill, outline) and stem line (color, thickness, style) as well as the
-baseline (color, thickness, style) can be adjusted all independently of each other
-using the ``style``, ``fill``, and ``pen`` parameters of :meth:`pygmt.Figure.plot`.
-Here, a basic example is provided showing how to prepare the data and plot it afterward.
+The stem symbol (fill, outline) and stem line (color, thickness, style) as well as the
+baseline (color, thickness, style) can be adjusted independently of each other using
+the ``style``, ``fill``, and ``pen`` parameters of :meth:`pygmt.Figure.plot`. Here, a
+basic example is provided showing how to prepare the data and plot it afterward.
+
+For details on decorated lines please see the
+:doc:`Decorated lines example </gallery/lines/decorated_lines>`.
 """
 
 # %%
@@ -25,19 +28,19 @@ def make_stem_data_from_xy(x, y, base=0):
     """
     Parameters
     ----------
-    x : TYPE
-        DESCRIPTION.
-    y : TYPE
-        DESCRIPTION.
-    base : TYPE, optional
-        DESCRIPTION. The default is 0.
+    x : numpy array
+        x values.
+    y : numpy array
+        y values.
+    base : float, optional
+        Baseline of the baseline [Default is 0].
 
     Returns
     -------
-    x_stem : TYPE
-        DESCRIPTION.
-    y_stem : TYPE
-        DESCRIPTION.
+    x_stem : numpy array
+        x values usable for stemp plot in PyGMT.
+    y_stem : numpy array
+        y values usable for stemp plot in PyGMT.
     """
     x_stem = []
     y_stem = []
@@ -79,8 +82,11 @@ fig.plot(
 fig.plot(
     x=x_stem,
     y=y_stem,
+    # Use circles with a diameter of 0.1 centimeters as stem symbol
+    # Use white as fill and a 1-point thick, steelblue pen for the outline
     style="~N+1:+sc0.1c+gwhite+p1p,steelblue",
-    pen="0.5p,black,dotted",
+    # Use a 0.5-points thick, black, solid line as stem line
+    pen="0.5p,black,solid",
     label="baseline at y=0",
 )
 
@@ -97,7 +103,10 @@ fig.plot(
 fig.plot(
     x=x_stem,
     y=y_stem,
+    # Use squares with a size of 0.15 centimeters as stem symbol
+    # Use orange as fill and a 0.5-points thick, darkred pen for the outline
     style="~N+1:+ss0.15c+gorange+p0.5p,darkred",
+    # Use a 0.5-points thick, black, dashed line as stem line
     pen="0.5p,black,dashed",
     label="baseline at y=-3",
 )
