@@ -165,7 +165,10 @@ fig = pygmt.Figure()
 fig.basemap(region=[108, 121, -5, 8], projection="M10c", frame="a2f1")
 fig.coast(land="darkgray", water="steelblue", shorelines="1/0.1p,gray30")
 
-# Create space-delimited file
+# Create space-delimited file with region / sea names:
+# - longitude (x) and latitude (y) coordinates are in the first two columns
+# - angle, font, and justify muss be present in this order in the next three columns
+# - the text to be printed is given in the last column
 with Path.open("examples.txt", "w") as f:
     f.write("114.00  0.50   0 15p,Helvetica-Bold,white CM BORNEO\n")
     f.write("119.00  3.25   0  8p,Helvetica-Bold,black CM CELEBES SEA\n")
@@ -174,10 +177,8 @@ with Path.open("examples.txt", "w") as f:
     f.write("119.12  7.25 -40  8p,Helvetica-Bold,black CM SULU SEA\n")
     f.write("118.40 -1.00  65  8p,Helvetica-Bold,black CM MAKASSAR STRAIT\n")
 
-# Plot region names / sea names from a text file, where the longitude (x) and latitude
-# (y) coordinates are in the first two columns. Setting angle/font/justify to True
-# will indicate that those columns are present in the text file too (Please note: must
-# be in that order). Finally, the text to be printed will be in the last column
+# Setting the angle, font, and justify parameters to True indicates that those columns
+# are present in the text file
 fig.text(textfiles="examples.txt", angle=True, font=True, justify=True)
 
 # Cleanups
@@ -190,10 +191,10 @@ fig.show()
 # Using the position parameter
 # ----------------------------
 #
-# Instead of using ``x`` and ``y``, the ``position`` parameter can be specified to set
-# the reference point for the text on the plot. As for the ``justify`` parameter, the
-# ``position`` parameter is specified by a two-letter (order independent) code, chosen
-# from:
+# Instead of using the ``x`` and ``y`` parameters, the ``position`` parameter can be
+# specified to set the reference point for the text on the plot. As for the ``justify``
+# parameter, the ``position`` parameter is specified by a two-letter (order independent)
+# code, chosen from:
 #
 # * Vertical: **T**\(op), **M**\(iddle), **B**\(ottom)
 # * Horizontal: **L**\(eft), **C**\(entre), **R**\(ight)
@@ -209,21 +210,21 @@ fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=["WStr", "af"])
 
 fig.text(
     text="(a)",
-    position="TL",
+    position="TL",  # Top Left
+    justify="TL",  # Top Left
     offset="0.1c/-0.1c",
-    justify="TL",
 )
 
 fig.shift_origin(xshift="w+1c")
 
 # -----------------------------------------------------------------------------
 # Right: Add a text label outside of the plot or map frame
-fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["lStE", "af"])
+fig.basemap(region=[-30, 30, 10, 60], projection="L0/35/23/47/5c", frame=["wSnE", "af"])
 
 fig.text(
     text="@@100 km",  # "@@" gives "@" in GMT or PyGMT
-    position="TC",
-    justify="MC",
+    position="TC",  # Top Center
+    justify="MC",   # Middle Center
     offset="0c/0.2c",
     no_clip=True,  # Allow plotting outside of the map or plot frame
 )
