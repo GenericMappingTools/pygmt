@@ -14,7 +14,7 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
     """
     GMT grid structure for holding a grid and its header.
 
-    The class is only meant for internal use and is not exposed to users. See the GMT
+    This class is only meant for internal use and is not exposed to users. See the GMT
     source code gmt_resources.h for the original C structure definitions.
 
     Examples
@@ -192,8 +192,8 @@ class _GMT_GRID(ctp.Structure):  # noqa: N801
             if grid[dim][0] > grid[dim][1]:
                 grid = grid.isel({dim: slice(None, None, -1)})
 
-        # Set the gmt accessor.
-        # Must put at the end. The information get lost after specific grid operation.
+        # Set GMT accessors.
+        # Must put at the end, otherwise info gets lost after certain grid operations.
         grid.gmt.registration = header.registration
         grid.gmt.gtype = header.gtype
         return grid

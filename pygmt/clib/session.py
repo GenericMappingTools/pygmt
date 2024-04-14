@@ -1958,7 +1958,7 @@ class Session:
         outgrid: str | None = None,
     ) -> xr.DataArray | None:
         """
-        Output a raster data stored in a virtual file to an :class:`xarray.DataArray`
+        Output raster data stored in a virtual file to an :class:`xarray.DataArray`
         object.
 
         The raster data can be a grid, an image or a cube.
@@ -1966,7 +1966,7 @@ class Session:
         Parameters
         ----------
         vfname
-            The virtual file name that stores the result grid.
+            The virtual file name that stores the result grid/image/cube.
         kind
             Type of the raster data. Valid values are ``"grid"``, ``"image"``,
             ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
