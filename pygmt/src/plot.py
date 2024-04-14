@@ -30,6 +30,7 @@ from pygmt.src.which import which
     J="projection",
     L="close",
     N="no_clip",
+    M="fillcurves",
     R="region",
     S="style",
     V="verbose",
@@ -150,6 +151,9 @@ def plot(  # noqa: PLR0912
     {fill}
         *fill* can be a 1-D array, but it is only valid if using ``x``/``y``
         and ``cmap=True`` is also required.
+    fill_curves : str
+        [**c**\|\ **s**][**+l**\ *seclabel*][**+g**\ *fill*][**p**\ *pen*][**+r**\ *pen*][**+y**\ [*level*]].
+        Fill the middle area between two curves :math:`y_0(x)` and :math:`y_1(x)`.
     intensity : float, bool, or 1-D array
         Provide an *intensity* value (nominally in the -1 to +1 range) to
         modulate the fill color by simulating illumination. If using
