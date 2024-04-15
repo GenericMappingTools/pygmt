@@ -13,8 +13,8 @@
 name: GMT Dev Tests
 
 on:
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main, debug/which ]
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
     paths:
@@ -38,7 +38,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-22.04, macos-14, windows-2022]
-        gmt_git_ref: [master]
+        gmt_git_ref: [which-path]
     timeout-minutes: 30
     defaults:
       run:
@@ -133,27 +133,17 @@ jobs:
       - name: Pull baseline image data from dvc remote
         run: dvc pull --verbose && ls -lhR pygmt/tests/baseline/
 
-      # Download cached remote files (artifacts) from GitHub
-      - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.1.4
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
-        run: |
-          mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
-          # Change modification times of the two files, so GMT won't refresh it
-          touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
-          ls -lhR ~/.gmt
-
       # Install the package that we want to test
       - name: Install the package
         run: make install
+
+      # Download remote files
+      - name: Download remote data
+        run: |
+          python -c "from pygmt.helpers.caching import cache_data; cache_data()"
+
+      - name: List downloaded remote files
+        run: ls -lhR ~/.gmt
 
       # Run the tests
       - name: Test with pytest
