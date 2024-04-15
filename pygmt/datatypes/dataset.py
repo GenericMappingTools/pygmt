@@ -153,6 +153,7 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             for segment in table.contents.segment[: table.contents.n_segments]:
                 if segment.contents.text:
                     textvector.extend(segment.contents.text[: segment.contents.n_rows])
+        print(textvector)
         return np.char.decode(textvector) if textvector else np.array([], dtype=str)
 
     def to_dataframe(
