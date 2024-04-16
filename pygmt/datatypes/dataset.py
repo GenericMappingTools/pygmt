@@ -158,11 +158,13 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             # Workaround for upstream GMT bug reported in
             # https://github.com/GenericMappingTools/pygmt/issues/3170.
             msg = (
-                "The trailing text column contains `None' values, "
-                "likely due to upstream GMT API bug. Please consider reporting to us."
+                "The trailing text column contains `None' values and has been replace "
+                "with an empty string to avoid TypeError exceptions. "
+                "It's likely caused by an upstream GMT API bug. "
+                "Please consider reporting to us."
             )
-            raise warnings.warn(msg, stacklevel=2)
-            textvector = np.where(textvector == None, b"", textvector)  # noqa: E711
+            warnings.warn(msg, category=RuntimeWarning, stacklevel=1)
+            textvector = [item if item is not None else b"" for item in textvector]
         return np.char.decode(textvector) if textvector else np.array([], dtype=str)
 
     def to_dataframe(
