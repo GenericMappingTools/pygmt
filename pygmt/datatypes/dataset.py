@@ -3,6 +3,7 @@ Wrapper for the GMT_DATASET data type.
 """
 
 import ctypes as ctp
+import warnings
 from collections.abc import Mapping
 from typing import Any, ClassVar
 
@@ -153,6 +154,15 @@ class _GMT_DATASET(ctp.Structure):  # noqa: N801
             for segment in table.contents.segment[: table.contents.n_segments]:
                 if segment.contents.text:
                     textvector.extend(segment.contents.text[: segment.contents.n_rows])
+        if None in textvector:
+            # Workaround for upstream GMT bug reported in
+            # https://github.com/GenericMappingTools/pygmt/issues/3170.
+            msg = (
+                "The trailing text column contains `None' values, "
+                "likely due to upstream GMT API bug. Please consider reporting to us."
+            )
+            raise warnings.warn(msg, stacklevel=2)
+            textvector = np.where(textvector == None, b"", textvector)  # noqa: E711
         return np.char.decode(textvector) if textvector else np.array([], dtype=str)
 
     def to_dataframe(
