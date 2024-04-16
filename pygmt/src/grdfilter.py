@@ -3,21 +3,13 @@ grdfilter - Filter a grid in the space (or time) domain.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_list,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
     D="distance",
     F="filter",
-    G="outgrid",
     I="spacing",
     N="nans",
     R="region",
@@ -28,7 +20,7 @@ from pygmt.io import load_dataarray
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdfilter(grid, **kwargs):
+def grdfilter(grid, outgrid: str | None = None, **kwargs):
     r"""
     Filter a grid in the space (or time) domain.
 
@@ -132,13 +124,13 @@ def grdfilter(grid, **kwargs):
     >>> grid = pygmt.datasets.load_earth_relief()
     >>> smooth_field = pygmt.grdfilter(grid=grid, filter="g600", distance="4")
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdfilter", args=build_arg_list(kwargs, infile=vingrd)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdfilter", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
