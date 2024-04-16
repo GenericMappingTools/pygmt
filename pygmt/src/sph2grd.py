@@ -73,6 +73,4 @@ def sph2grd(data, outgrid: str | None = None, **kwargs):
             lib.call_module(
                 module="sph2grd", args=build_arg_string(kwargs, infile=vintbl)
             )
-            return lib.virtualfile_to_raster(
-                vfname=voutgrd, kind="grid", outgrid=outgrid
-            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

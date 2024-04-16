@@ -117,6 +117,4 @@ def sphdistance(data=None, x=None, y=None, outgrid: str | None = None, **kwargs)
             lib.call_module(
                 module="sphdistance", args=build_arg_string(kwargs, infile=vintbl)
             )
-            return lib.virtualfile_to_raster(
-                vfname=voutgrd, kind="grid", outgrid=outgrid
-            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

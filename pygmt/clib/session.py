@@ -1954,7 +1954,7 @@ class Session:
     def virtualfile_to_raster(
         self,
         vfname: str,
-        kind: Literal["grid", "image", "cube", None] = None,
+        kind: Literal["grid", "image", "cube", None] = "grid",
         outgrid: str | None = None,
     ) -> xr.DataArray | None:
         """
