@@ -267,10 +267,12 @@ COMMON_DOCSTRINGS = {
             - ``file`` will save the result to the file specified by the ``outfile``
               parameter.""",
     "outgrid": """
-        outgrid : str or None
-            Name of the output netCDF grid file. For writing a specific grid
-            file format or applying basic data operations to the output grid,
-            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
+        outgrid
+            Name of the output netCDF grid file. If not specified, will return an
+            :class:`xarray.DataArray` object. For writing a specific grid file format or
+            applying basic data operations to the output grid, see
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
+        """,
     "panel": r"""
         panel : bool, int, or list
             [*row,col*\|\ *index*].
@@ -622,7 +624,7 @@ def kwargs_to_strings(**conversions):
     The strings are what GMT expects from command line arguments.
 
     Boolean arguments and None are not converted and will be processed in the
-    ``build_arg_string`` function.
+    ``build_arg_list`` function.
 
     You can also specify other conversions to specific arguments.
 

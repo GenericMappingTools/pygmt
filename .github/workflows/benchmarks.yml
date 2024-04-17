@@ -44,7 +44,7 @@ jobs:
 
       # Install Miniconda with conda-forge dependencies
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3.0.1
+        uses: conda-incubator/setup-miniconda@v3.0.3
         with:
           auto-activate-base: true
           activate-environment: ""  # base environment
@@ -86,7 +86,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2.2.1
+        uses: CodSpeedHQ/action@v2.3.0
         with:
           run: |
             python -c "import pygmt; pygmt.show_versions()"
