@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import pytest
+from pygmt import which
 from pygmt.clib import Session
 from pygmt.helpers import GMTTempFile
 
@@ -82,7 +83,6 @@ def test_dataset_empty():
         expected_df = dataframe_from_pandas(tmpfile.name)
         pd.testing.assert_frame_equal(df, expected_df)
 
-
 def test_dataset_header():
     """
     Test parsing column names from dataset header.
@@ -138,3 +138,27 @@ def test_dataset_header_too_many_names():
         expected_df = dataframe_from_pandas(tmpfile.name, header=None)
         expected_df.columns = df.columns.tolist()
         pd.testing.assert_frame_equal(df, expected_df)
+
+def test_dataset_to_strings_with_none_values():
+    """
+    Test that None values in the trailing text doesn't raise an excetion.
+
+    Due to a likely upstream bug, the trailing texts sometimes can be ``None`` when
+    downloading tiled grids. The temporary workaround is to replace any None values with
+    an empty string.
+
+    See the bug report at https://github.com/GenericMappingTools/pygmt/issues/3170.
+    """
+    tiles = ["@N30W120.earth_relief_15s_p.nc", "@N00E000.earth_relief_15s_p.nc"]
+    paths = which(fname=tiles, download="a")
+    assert len(paths) == 2
+    # 'paths' may contain an empty string or not, depending on if the tiles are cached.
+    if "" not in paths:  # Contains two valid paths.
+        # Delete the cached tiles and try again.
+        for path in paths:
+            Path(path).unlink()
+        with pytest.warns(expected_warning=RuntimeWarning) as record:
+            paths = which(fname=tiles, download="a")
+            assert len(record) == 1
+        assert len(paths) == 2
+        assert "" in paths
