@@ -83,6 +83,7 @@ def test_dataset_empty():
         expected_df = dataframe_from_pandas(tmpfile.name)
         pd.testing.assert_frame_equal(df, expected_df)
 
+
 def test_dataset_header():
     """
     Test parsing column names from dataset header.
@@ -138,6 +139,7 @@ def test_dataset_header_too_many_names():
         expected_df = dataframe_from_pandas(tmpfile.name, header=None)
         expected_df.columns = df.columns.tolist()
         pd.testing.assert_frame_equal(df, expected_df)
+
 
 def test_dataset_to_strings_with_none_values():
     """
