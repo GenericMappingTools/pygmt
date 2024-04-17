@@ -9,8 +9,9 @@ def cache_data():
     """
     Download GMT remote data files used in PyGMT tests and docs to cache folder.
     """
-    # List of GMT remote datasets.
+    # List of data files to download.
     datasets = [
+        # List of GMT remote datasets.
         "@earth_age_01d_g",
         "@earth_day_01d_p",
         "@earth_faa_01d_g",
@@ -37,11 +38,9 @@ def cache_data():
         "@moon_relief_01d_g",
         "@pluto_relief_01d_g",
         "@venus_relief_01d_g",
-    ]
-    # List of tiled remote datasets.
-    # Names like @N35E135.earth_relief_03s_g.nc are for internal use only. The naming
-    # scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
-    tiles = [
+        # List of tiled remote datasets.
+        # Names like @N35E135.earth_relief_03s_g.nc are for internal use only.
+        # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
         "@N00W030.earth_age_01m_g.nc",
         "@N00W030.earth_faa_01m_p.nc",
         "@N00W030.earth_geoid_01m_g.nc",
@@ -62,9 +61,7 @@ def cache_data():
         "@N00W030.moon_relief_01m_p.nc",
         "@N00W030.pluto_relief_01m_p.nc",
         "@N00W030.venus_relief_01m_g.nc",
-    ]
-    # List of cache files to download.
-    caches = [
+        # List of cache files.
         "@EGM96_to_36.txt",
         "@MaunaLoa_CO2.txt",
         "@RidgeTest.dbf",
@@ -89,5 +86,4 @@ def cache_data():
         "@tut_ship.xyz",
         "@usgs_quakes_22.txt",
     ]
-
-    which(fname=datasets + caches + tiles, download="a")
+    which(fname=datasets, download="a")
