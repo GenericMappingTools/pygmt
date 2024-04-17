@@ -319,3 +319,4 @@ Low level access (these are mostly used by the :mod:`pygmt.clib` package):
     clib.Session.virtualfile_from_grid
     clib.Session.virtualfile_from_matrix
     clib.Session.virtualfile_from_vectors
+    clib.Session.virtualfile_from_xrgrid
