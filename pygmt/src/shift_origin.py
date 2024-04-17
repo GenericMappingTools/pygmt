@@ -4,12 +4,12 @@ shift_origin - Shift plot origin in x and/or y directions.
 
 from __future__ import annotations
 
+from pygmt import Figure
 from pygmt.clib import Session
+from pygmt.helpers import build_arg_string
 
 
-def shift_origin(
-    self, xshift: float | str | None = None, yshift: float | str | None = None
-):
+class shift_origin(Figure):  # noqa: N801
     r"""
     Shift plot origin in x and/or y directions.
 
@@ -57,12 +57,36 @@ def shift_origin(
     >>> fig.shift_origin(xshift="w+2c")
     >>> fig.show()
     """
-    self._preprocess()
-    args = ["-T"]
-    if xshift:
-        args.append(f"-X{xshift}")
-    if yshift:
-        args.append(f"-Y{yshift}")
 
-    with Session() as lib:
-        lib.call_module(module="plot", args=" ".join(args))
+    def __init__(
+        self, xshift: float | str | None = None, yshift: float | str | None = None
+    ):
+        # self._preprocess()  # pylint: disable=protected-access
+
+        kwargs = {"T": True}
+        if xshift:
+            kwargs["X"] = xshift
+        if yshift:
+            kwargs["Y"] = yshift
+        with Session() as lib:
+            lib.call_module(module="plot", args=build_arg_string(kwargs))
+            self.saved_xshift = lib.get_common("X")  # False or xshift in inches
+            self.saved_yshift = lib.get_common("Y")  # False or yshift in inches
+
+    def __enter__(self):
+        """
+        Enter the context manager.
+        """
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """
+        Exit the context manager.
+        """
+        kwargs = {"T": True}
+        if self.saved_xshift:
+            kwargs["X"] = f"{-1.0 * self.saved_xshift}i"
+        if self.saved_yshift:
+            kwargs["Y"] = f"{-1.0 * self.saved_yshift}i"
+        with Session() as lib:
+            lib.call_module(module="plot", args=build_arg_string(kwargs))
