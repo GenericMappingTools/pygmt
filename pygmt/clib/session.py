@@ -14,12 +14,14 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from packaging.version import Version
 from pygmt.clib.conversion import (
     array_to_datetime,
     as_c_contiguous,
     dataarray_to_matrix,
-    kwargs_to_ctypes_array,
+    sequence_to_ctypes_array,
+    strings_to_ctypes_array,
     vectors_to_arrays,
 )
 from pygmt.clib.loading import load_libgmt
@@ -591,25 +593,36 @@ class Session:
         # the function return value (i.e., 'status')
         return status
 
-    def call_module(self, module, args):
+    def call_module(self, module: str, args: str | list[str]):
         """
         Call a GMT module with the given arguments.
 
-        Makes a call to ``GMT_Call_Module`` from the C API using mode
-        ``GMT_MODULE_CMD`` (arguments passed as a single string).
+        Wraps ``GMT_Call_Module``.
 
-        Most interactions with the C API are done through this function.
+        The ``GMT_Call_Module`` API function supports passing module arguments in three
+        different ways:
+
+        1. Pass a single string that contains whitespace-separated module arguments.
+        2. Pass a list of strings and each string contains a module argument.
+        3. Pass a list of ``GMT_OPTION`` data structure.
+
+        Both options 1 and 2 are implemented in this function, but option 2 is preferred
+        because it can correctly handle special characters like whitespaces and
+        quotation marks in module arguments.
 
         Parameters
         ----------
-        module : str
-            Module name (``'coast'``, ``'basemap'``, etc).
-        args : str
-            String with the command line arguments that will be passed to the
-            module (for example, ``'-R0/5/0/10 -JM'``).
+        module
+            The GMT module name to be called (``"coast"``, ``"basemap"``, etc).
+        args
+            Module arguments that will be passed to the GMT module. It can be either
+            a single string (e.g., ``"-R0/5/0/10 -JX10c -BWSen+t'My Title'"``) or a list
+            of strings (e.g., ``["-R0/5/0/10", "-JX10c", "-BWSEN+tMy Title"]``).
 
         Raises
         ------
+        GMTInvalidInput
+            If the ``args`` argument is not a string or a list of strings.
         GMTCLibError
             If the returned status code of the function is non-zero.
         """
@@ -619,16 +632,45 @@ class Session:
             restype=ctp.c_int,
         )
 
-        mode = self["GMT_MODULE_CMD"]
-        status = c_call_module(
-            self.session_pointer, module.encode(), mode, args.encode()
-        )
+        # 'args' can be (1) a single string or (2) a list of strings.
+        argv: bytes | ctp.Array[ctp.c_char_p] | None
+        if isinstance(args, str):
+            # 'args' is a single string that contains whitespace-separated arguments.
+            # In this way, we need to correctly handle option arguments that contain
+            # whitespaces or quotation marks. It's used in PyGMT <= v0.11.0 but is no
+            # longer recommended.
+            mode = self["GMT_MODULE_CMD"]
+            argv = args.encode()
+        elif isinstance(args, list):
+            # 'args' is a list of strings and each string contains a module argument.
+            # In this way, GMT can correctly handle option arguments with whitespaces or
+            # quotation marks. This is the preferred way to pass arguments to the GMT
+            # API and is used for PyGMT >= v0.12.0.
+            mode = len(args)  # 'mode' is the number of arguments.
+            # Pass a null pointer if no arguments are specified.
+            argv = strings_to_ctypes_array(args) if mode != 0 else None
+        else:
+            raise GMTInvalidInput(
+                "'args' must be either a string or a list of strings."
+            )
+
+        status = c_call_module(self.session_pointer, module.encode(), mode, argv)
         if status != 0:
             raise GMTCLibError(
                 f"Module '{module}' failed with status code {status}:\n{self._error_message}"
             )
 
-    def create_data(self, family, geometry, mode, **kwargs):
+    def create_data(
+        self,
+        family,
+        geometry,
+        mode,
+        dim=None,
+        ranges=None,
+        inc=None,
+        registration="GMT_GRID_NODE_REG",
+        pad=None,
+    ):
         """
         Create an empty GMT data container.
 
@@ -692,15 +734,13 @@ class Session:
             valid_modifiers=["GMT_GRID_IS_CARTESIAN", "GMT_GRID_IS_GEO"],
         )
         geometry_int = self._parse_constant(geometry, valid=GEOMETRIES)
-        registration_int = self._parse_constant(
-            kwargs.get("registration", "GMT_GRID_NODE_REG"), valid=REGISTRATIONS
-        )
+        registration_int = self._parse_constant(registration, valid=REGISTRATIONS)
 
         # Convert dim, ranges, and inc to ctypes arrays if given (will be None
         # if not given to represent NULL pointers)
-        dim = kwargs_to_ctypes_array("dim", kwargs, ctp.c_uint64 * 4)
-        ranges = kwargs_to_ctypes_array("ranges", kwargs, ctp.c_double * 4)
-        inc = kwargs_to_ctypes_array("inc", kwargs, ctp.c_double * 2)
+        dim = sequence_to_ctypes_array(dim, ctp.c_uint64, 4)
+        ranges = sequence_to_ctypes_array(ranges, ctp.c_double, 4)
+        inc = sequence_to_ctypes_array(inc, ctp.c_double, 2)
 
         # Use a NULL pointer (None) for existing data to indicate that the
         # container should be created empty. Fill it in later using put_vector
@@ -714,7 +754,7 @@ class Session:
             ranges,
             inc,
             registration_int,
-            self._parse_pad(family, kwargs),
+            self._parse_pad(family, pad),
             None,
         )
 
@@ -723,7 +763,7 @@ class Session:
 
         return data_ptr
 
-    def _parse_pad(self, family, kwargs):
+    def _parse_pad(self, family, pad):
         """
         Parse and return an appropriate value for pad if none is given.
 
@@ -731,7 +771,6 @@ class Session:
         (row or column major). Using the default pad will set it to column major and
         mess things up with the numpy arrays.
         """
-        pad = kwargs.get("pad", None)
         if pad is None:
             pad = 0 if "MATRIX" in family else self["GMT_PAD_DEFAULT"]
         return pad
@@ -890,13 +929,9 @@ class Session:
 
         gmt_type = self._check_dtype_and_dim(vector, ndim=1)
         if gmt_type in (self["GMT_TEXT"], self["GMT_DATETIME"]):
-            vector_pointer = (ctp.c_char_p * len(vector))()
             if gmt_type == self["GMT_DATETIME"]:
-                vector_pointer[:] = np.char.encode(
-                    np.datetime_as_string(array_to_datetime(vector))
-                )
-            else:
-                vector_pointer[:] = np.char.encode(vector)
+                vector = np.datetime_as_string(array_to_datetime(vector))
+            vector_pointer = strings_to_ctypes_array(vector)
         else:
             vector_pointer = vector.ctypes.data_as(ctp.c_void_p)
         status = c_put_vector(
@@ -953,12 +988,11 @@ class Session:
             restype=ctp.c_int,
         )
 
-        strings_pointer = (ctp.c_char_p * len(strings))()
-        strings_pointer[:] = np.char.encode(strings)
-
         family_int = self._parse_constant(
             family, valid=FAMILIES, valid_modifiers=METHODS
         )
+
+        strings_pointer = strings_to_ctypes_array(strings)
 
         status = c_put_strings(
             self.session_pointer, family_int, dataset, strings_pointer
@@ -1080,7 +1114,7 @@ class Session:
             self["GMT_IS_FILE"],
             geometry_int,
             self[mode],
-            (ctp.c_double * 6)(*wesn),
+            sequence_to_ctypes_array(wesn, ctp.c_double, 6),
             output.encode(),
             data,
         )
@@ -1643,12 +1677,13 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.datatypes import _GMT_DATASET
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print("1.0 2.0 3.0 TEXT", file=fp)
         ...
         ...     # Create a virtual file for storing the output table.
@@ -1663,8 +1698,7 @@ class Session:
         ...         with lib.virtualfile_out(fname=tmpfile.name) as vouttbl:
         ...             assert vouttbl == tmpfile.name
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
-        ...         with open(vouttbl, mode="r") as fp:
-        ...             line = fp.readline()
+        ...         line = Path(vouttbl).read_text()
         ...         assert line == "1\t2\t3\tTEXT\n"
         """
         if fname is not None:  # Yield the actual file name.
@@ -1681,8 +1715,39 @@ class Session:
             ) as vfile:
                 yield vfile
 
+    def inquire_virtualfile(self, vfname: str) -> int:
+        """
+        Get the family of a virtual file.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to inquire.
+
+        Returns
+        -------
+        family
+            The integer value for the family of the virtual file.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="dataset") as vfile:
+        ...         family = lib.inquire_virtualfile(vfile)
+        ...         assert family == lib["GMT_IS_DATASET"]
+        """
+        c_inquire_virtualfile = self.get_libgmt_func(
+            "GMT_Inquire_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_uint,
+        )
+        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", "image", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
@@ -1698,13 +1763,14 @@ class Session:
 
         Examples
         --------
+        >>> from pathlib import Path
         >>> from pygmt.clib import Session
         >>> from pygmt.helpers import GMTTempFile
         >>>
         >>> # Read dataset from a virtual file
         >>> with Session() as lib:
         ...     with GMTTempFile(suffix=".txt") as tmpfile:
-        ...         with open(tmpfile.name, mode="w") as fp:
+        ...         with Path(tmpfile.name).open(mode="w") as fp:
         ...             print("1.0 2.0 3.0 TEXT", file=fp)
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
         ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
@@ -1741,14 +1807,18 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
+        if kind == "cube":
+            raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID, "image": _GMT_IMAGE}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
         self,
         vfname: str,
-        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
         column_names: list[str] | None = None,
+        dtype: type | dict[str, type] | None = None,
+        index_col: str | int | None = None,
     ) -> pd.DataFrame | np.ndarray | None:
         """
         Output a tabular dataset stored in a virtual file to a different format.
@@ -1766,8 +1836,14 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+            - ``"strings"`` will return the trailing text only as an array of strings.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
+        dtype
+            Data type for the columns of the :class:`pandas.DataFrame` output. Can be a
+            single type for all columns or a dictionary mapping column names to types.
+        index_col
+            Column to set as the index of the :class:`pandas.DataFrame` output.
 
         Returns
         -------
@@ -1785,7 +1861,7 @@ class Session:
         >>>
         >>> with GMTTempFile(suffix=".txt") as tmpfile:
         ...     # prepare the sample data file
-        ...     with open(tmpfile.name, mode="w") as fp:
+        ...     with Path(tmpfile.name).open(mode="w") as fp:
         ...         print(">", file=fp)
         ...         print("1.0 2.0 3.0 TEXT1 TEXT23", file=fp)
         ...         print("4.0 5.0 6.0 TEXT4 TEXT567", file=fp)
@@ -1805,6 +1881,16 @@ class Session:
         ...                 )
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
+        ...
+        ...     # strings output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outstr = lib.virtualfile_to_dataset(
+        ...                 vfname=vouttbl, output_type="strings"
+        ...             )
+        ...     assert isinstance(outstr, np.ndarray)
+        ...     assert outstr.dtype.kind in ("S", "U")
         ...
         ...     # numpy output
         ...     with Session() as lib:
@@ -1834,6 +1920,9 @@ class Session:
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
+        >>> outstr
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> outnp
         array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
                [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
@@ -1855,15 +1944,82 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe()
+        # Read the virtual file as a _GMT_DATASET object
+        result = self.read_virtualfile(vfname, kind="dataset").contents
+
+        if output_type == "strings":  # strings output
+            return result.to_strings()
+
+        result = result.to_dataframe(
+            column_names=column_names, dtype=dtype, index_col=index_col
+        )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
-
-        # Assign column names
-        if column_names is not None:
-            result.columns = column_names
         return result  # pandas.DataFrame output
+
+    def virtualfile_to_raster(
+        self,
+        vfname: str,
+        kind: Literal["grid", "image", "cube", None] = "grid",
+        outgrid: str | None = None,
+    ) -> xr.DataArray | None:
+        """
+        Output raster data stored in a virtual file to an :class:`xarray.DataArray`
+        object.
+
+        The raster data can be a grid, an image or a cube.
+
+        Parameters
+        ----------
+        vfname
+            The virtual file name that stores the result grid/image/cube.
+        kind
+            Type of the raster data. Valid values are ``"grid"``, ``"image"``,
+            ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
+            virtual file name.
+        outgrid
+            Name of the output grid/image/cube. If specified, it means the raster data
+            was already saved into an actual file and will return ``None``.
+
+        Returns
+        -------
+        result
+            The result grid/image/cube. If ``outgrid`` is specified, return ``None``.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>> with Session() as lib:
+        ...     # file output
+        ...     with GMTTempFile(suffix=".nc") as tmpfile:
+        ...         outgrid = tmpfile.name
+        ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             result = lib.virtualfile_to_raster(
+        ...                 vfname=voutgrd, outgrid=outgrid
+        ...             )
+        ...             assert result == None
+        ...             assert Path(outgrid).stat().st_size > 0
+        ...
+        ...     # xarray.DataArray output
+        ...     outgrid = None
+        ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+        ...         assert isinstance(result, xr.DataArray)
+        """
+        if outgrid is not None:
+            return None
+        if kind is None:  # Inquire the data family from the virtualfile
+            family = self.inquire_virtualfile(vfname)
+            kind = {  # type: ignore[assignment]
+                self["GMT_IS_GRID"]: "grid",
+                self["GMT_IS_IMAGE"]: "image",
+                self["GMT_IS_CUBE"]: "cube",
+            }[family]
+        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
         """

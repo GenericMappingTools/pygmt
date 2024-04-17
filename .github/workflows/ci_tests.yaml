@@ -33,6 +33,7 @@ on:
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
+  workflow_dispatch:
   release:
     types:
       - published
@@ -69,7 +70,7 @@ jobs:
           - python-version: '3.10'
             numpy-version: '1.23'
             pandas-version: '=1.5'
-            xarray-version: '=2022.03'
+            xarray-version: '=2022.06'
             optional-packages: ''
           - python-version: '3.12'
             numpy-version: '1.26'
@@ -165,7 +166,7 @@ jobs:
 
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v4.1.0
+        uses: codecov/codecov-action@v4.3.0
         with:
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY

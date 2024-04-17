@@ -2,9 +2,8 @@
 Test pygmt.info.
 """
 
-import os
-import pathlib
 import sys
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 import numpy as np
 import numpy.testing as npt
@@ -15,8 +14,7 @@ from pygmt import info
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers.testing import skip_if_no
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 def test_info():
@@ -36,16 +34,16 @@ def test_info():
 @pytest.mark.parametrize(
     "table",
     [
-        pathlib.Path(POINTS_DATA),
+        Path(POINTS_DATA),
         pytest.param(
-            pathlib.PureWindowsPath(POINTS_DATA),
+            PureWindowsPath(POINTS_DATA),
             marks=pytest.mark.skipif(
                 sys.platform != "win32",
                 reason="PureWindowsPath is only available on Windows",
             ),
         ),
         pytest.param(
-            pathlib.PurePosixPath(POINTS_DATA),
+            PurePosixPath(POINTS_DATA),
             marks=pytest.mark.skipif(
                 sys.platform == "win32",
                 reason="PurePosixPath is not available on Windows",

@@ -2,9 +2,9 @@
 Test the C API functions related to virtual files.
 """
 
-import os
 from importlib.util import find_spec
 from itertools import product
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -15,8 +15,7 @@ from pygmt.exceptions import GMTCLibError, GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 from pygmt.tests.test_clib import mock
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -380,3 +379,31 @@ def test_virtualfile_from_vectors_arraylike():
         bounds = "\t".join([f"<{min(i):.0f}/{max(i):.0f}>" for i in (x, y, z)])
         expected = f"<vector memory>: N = {size}\t{bounds}\n"
         assert output == expected
+
+
+def test_inquire_virtualfile():
+    """
+    Test that the inquire_virtualfile method returns the correct family.
+
+    Currently, only output virtual files are tested.
+    """
+    with clib.Session() as lib:
+        for family in [
+            "GMT_IS_DATASET",
+            "GMT_IS_DATASET|GMT_VIA_MATRIX",
+            "GMT_IS_DATASET|GMT_VIA_VECTOR",
+        ]:
+            with lib.open_virtualfile(
+                family, "GMT_IS_PLP", "GMT_OUT|GMT_IS_REFERENCE", None
+            ) as vfile:
+                assert lib.inquire_virtualfile(vfile) == lib["GMT_IS_DATASET"]
+
+        for family, geometry in [
+            ("GMT_IS_GRID", "GMT_IS_SURFACE"),
+            ("GMT_IS_IMAGE", "GMT_IS_SURFACE"),
+            ("GMT_IS_CUBE", "GMT_IS_VOLUME"),
+            ("GMT_IS_PALETTE", "GMT_IS_NONE"),
+            ("GMT_IS_POSTSCRIPT", "GMT_IS_NONE"),
+        ]:
+            with lib.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
+                assert lib.inquire_virtualfile(vfile) == lib[family]
