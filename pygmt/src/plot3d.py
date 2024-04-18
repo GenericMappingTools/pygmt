@@ -7,7 +7,7 @@ from pathlib import Path
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -240,6 +240,4 @@ def plot3d(  # noqa: PLR0912
             extra_arrays=extra_arrays,
             required_z=True,
         ) as vintbl:
-            lib.call_module(
-                module="plot3d", args=build_arg_string(kwargs, infile=vintbl)
-            )
+            lib.call_module(module="plot3d", args=build_arg_list(kwargs, infile=vintbl))
