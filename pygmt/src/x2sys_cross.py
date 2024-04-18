@@ -12,7 +12,7 @@ from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
     GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
@@ -223,9 +223,7 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
                     outfile = tmpfile.name
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_string(
-                        kwargs, infile=" ".join(fnames), outfile=outfile
-                    ),
+                    args=build_arg_list(kwargs, infile=fnames, outfile=outfile),
                 )
 
             # Read temporary csv output to a pandas table

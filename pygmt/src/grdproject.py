@@ -4,14 +4,7 @@ grdproject - Forward and inverse map transformation of grids.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
@@ -22,7 +15,6 @@ __doctest_skip__ = ["grdproject"]
     D="spacing",
     E="dpi",
     F="scaling",
-    G="outgrid",
     J="projection",
     I="inverse",
     M="unit",
@@ -32,7 +24,7 @@ __doctest_skip__ = ["grdproject"]
     r="registration",
 )
 @kwargs_to_strings(C="sequence", D="sequence", R="sequence")
-def grdproject(grid, **kwargs):
+def grdproject(grid, outgrid: str | None = None, **kwargs):
     r"""
     Change projection of gridded data between geographical and rectangular.
 
@@ -111,13 +103,14 @@ def grdproject(grid, **kwargs):
     """
     if kwargs.get("J") is None:
         raise GMTInvalidInput("The projection must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdproject", args=build_arg_string(kwargs, infile=vingrd)
-                )
 
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

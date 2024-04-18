@@ -14,6 +14,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from packaging.version import Version
 from pygmt.clib.conversion import (
     array_to_datetime,
@@ -1739,7 +1740,9 @@ class Session:
         return c_inquire_virtualfile(self.session_pointer, vfname.encode())
 
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
@@ -1798,6 +1801,8 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
+        if kind in ["image", "cube"]:
+            raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
@@ -1945,6 +1950,70 @@ class Session:
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
         return result  # pandas.DataFrame output
+
+    def virtualfile_to_raster(
+        self,
+        vfname: str,
+        kind: Literal["grid", "image", "cube", None] = "grid",
+        outgrid: str | None = None,
+    ) -> xr.DataArray | None:
+        """
+        Output raster data stored in a virtual file to an :class:`xarray.DataArray`
+        object.
+
+        The raster data can be a grid, an image or a cube.
+
+        Parameters
+        ----------
+        vfname
+            The virtual file name that stores the result grid/image/cube.
+        kind
+            Type of the raster data. Valid values are ``"grid"``, ``"image"``,
+            ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
+            virtual file name.
+        outgrid
+            Name of the output grid/image/cube. If specified, it means the raster data
+            was already saved into an actual file and will return ``None``.
+
+        Returns
+        -------
+        result
+            The result grid/image/cube. If ``outgrid`` is specified, return ``None``.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>> with Session() as lib:
+        ...     # file output
+        ...     with GMTTempFile(suffix=".nc") as tmpfile:
+        ...         outgrid = tmpfile.name
+        ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             result = lib.virtualfile_to_raster(
+        ...                 vfname=voutgrd, outgrid=outgrid
+        ...             )
+        ...             assert result == None
+        ...             assert Path(outgrid).stat().st_size > 0
+        ...
+        ...     # xarray.DataArray output
+        ...     outgrid = None
+        ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+        ...         assert isinstance(result, xr.DataArray)
+        """
+        if outgrid is not None:
+            return None
+        if kind is None:  # Inquire the data family from the virtualfile
+            family = self.inquire_virtualfile(vfname)
+            kind = {  # type: ignore[assignment]
+                self["GMT_IS_GRID"]: "grid",
+                self["GMT_IS_IMAGE"]: "image",
+                self["GMT_IS_CUBE"]: "cube",
+            }[family]
+        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
         """
