@@ -4,7 +4,7 @@ grdproject - Forward and inverse map transformation of grids.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdproject"]
 
@@ -111,6 +111,6 @@ def grdproject(grid, outgrid: str | None = None, **kwargs):
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="grdproject", args=build_arg_string(kwargs, infile=vingrd)
+                module="grdproject", args=build_arg_list(kwargs, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

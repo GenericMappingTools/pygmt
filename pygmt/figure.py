@@ -18,7 +18,7 @@ except ImportError:
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     launch_external_viewer,
@@ -108,7 +108,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module(module="figure", args=f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=[self._name, fmt])
 
     def _preprocess(self, **kwargs):
         """
@@ -234,15 +234,12 @@ class Figure:
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-        # Manually handle prefix -F argument so spaces aren't converted to \040
-        # by build_arg_string function. For more information, see
-        # https://github.com/GenericMappingTools/pygmt/pull/1487
-        prefix = kwargs.pop("F", None)
+
+        prefix = kwargs.get("F")
         if prefix in ["", None, False, True]:
             raise GMTInvalidInput(
                 "The 'prefix' parameter must be specified with a valid value."
             )
-        prefix_arg = f'-F"{prefix}"'
 
         # check if the parent directory exists
         prefix_path = Path(prefix).parent
@@ -252,9 +249,7 @@ class Figure:
             )
 
         with Session() as lib:
-            lib.call_module(
-                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
-            )
+            lib.call_module(module="psconvert", args=build_arg_list(kwargs))
 
     def savefig(  # noqa: PLR0912
         self,

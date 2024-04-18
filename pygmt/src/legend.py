@@ -5,9 +5,10 @@ legend - Plot a legend.
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
+    is_nonstr_iter,
     kwargs_to_strings,
     use_alias,
 )
@@ -77,8 +78,9 @@ def legend(self, spec=None, position="JTR+jTR+o0.2c", box="+gwhite+p1p", **kwarg
     with Session() as lib:
         if spec is None:
             specfile = ""
-        elif data_kind(spec) == "file":
+        elif data_kind(spec) == "file" and not is_nonstr_iter(spec):
+            # Is a file but not a list of files
             specfile = spec
         else:
             raise GMTInvalidInput(f"Unrecognized data type: {type(spec)}")
-        lib.call_module(module="legend", args=build_arg_string(kwargs, infile=specfile))
+        lib.call_module(module="legend", args=build_arg_list(kwargs, infile=specfile))

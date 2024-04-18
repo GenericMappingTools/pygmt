@@ -7,7 +7,7 @@ from pathlib import Path
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     is_nonstr_iter,
@@ -258,4 +258,4 @@ def plot(  # noqa: PLR0912
         with lib.virtualfile_in(
             check_kind="vector", data=data, x=x, y=y, extra_arrays=extra_arrays
         ) as vintbl:
-            lib.call_module(module="plot", args=build_arg_string(kwargs, infile=vintbl))
+            lib.call_module(module="plot", args=build_arg_list(kwargs, infile=vintbl))
