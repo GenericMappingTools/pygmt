@@ -4,7 +4,7 @@ makecpt - Make GMT color palette tables.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -157,10 +157,10 @@ def makecpt(**kwargs):
         if kwargs.get("W") is not None and kwargs.get("Ww") is not None:
             raise GMTInvalidInput("Set only categorical or cyclic to True, not both.")
         if kwargs.get("H") is None:  # if no output is set
-            arg_str = build_arg_string(kwargs)
+            arg_str = build_arg_list(kwargs)
         else:  # if output is set
             outfile, kwargs["H"] = kwargs.pop("H"), True
             if not outfile or not isinstance(outfile, str):
                 raise GMTInvalidInput("'output' should be a proper file name.")
-            arg_str = build_arg_string(kwargs, outfile=outfile)
+            arg_str = build_arg_list(kwargs, outfile=outfile)
         lib.call_module(module="makecpt", args=arg_str)

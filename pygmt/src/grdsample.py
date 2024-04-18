@@ -3,7 +3,7 @@ grdsample - Resample a grid onto a new lattice
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdsample"]
 
@@ -86,6 +86,6 @@ def grdsample(grid, outgrid: str | None = None, **kwargs):
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="grdsample", args=build_arg_string(kwargs, infile=vingrd)
+                module="grdsample", args=build_arg_list(kwargs, infile=vingrd)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

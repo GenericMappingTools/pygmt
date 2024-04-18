@@ -3,7 +3,7 @@ sph2grd - Compute grid from spherical harmonic coefficients
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["sph2grd"]
 
@@ -71,6 +71,6 @@ def sph2grd(data, outgrid: str | None = None, **kwargs):
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="sph2grd", args=build_arg_string(kwargs, infile=vintbl)
+                module="sph2grd", args=build_arg_list(kwargs, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
