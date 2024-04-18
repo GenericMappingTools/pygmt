@@ -3,27 +3,19 @@ sphinterpolate - Spherical gridding in tension of data on a sphere
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["sphinterpolate"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     I="spacing",
     R="region",
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphinterpolate(data, **kwargs):
+def sphinterpolate(data, outgrid: str | None = None, **kwargs):
     r"""
     Create spherical grid files in tension of data.
 
@@ -66,14 +58,13 @@ def sphinterpolate(data, **kwargs):
     >>> # to produce a grid with a 1 arc-degree spacing
     >>> grid = pygmt.sphinterpolate(data=mars_shape, spacing=1, region="g")
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="sphinterpolate",
-                    args=build_arg_string(kwargs, infile=vintbl),
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="sphinterpolate", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

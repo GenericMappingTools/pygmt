@@ -65,4 +65,4 @@ def shift_origin(
         args.append(f"-Y{yshift}")
 
     with Session() as lib:
-        lib.call_module(module="plot", args=" ".join(args))
+        lib.call_module(module="plot", args=args)

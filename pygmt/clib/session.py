@@ -14,6 +14,7 @@ from typing import Literal
 
 import numpy as np
 import pandas as pd
+import xarray as xr
 from packaging.version import Version
 from pygmt.clib.conversion import (
     array_to_datetime,
@@ -1709,8 +1710,39 @@ class Session:
             with self.open_virtualfile(family, geometry, "GMT_OUT", None) as vfile:
                 yield vfile
 
+    def inquire_virtualfile(self, vfname: str) -> int:
+        """
+        Get the family of a virtual file.
+
+        Parameters
+        ----------
+        vfname
+            Name of the virtual file to inquire.
+
+        Returns
+        -------
+        family
+            The integer value for the family of the virtual file.
+
+        Examples
+        --------
+        >>> from pygmt.clib import Session
+        >>> with Session() as lib:
+        ...     with lib.virtualfile_out(kind="dataset") as vfile:
+        ...         family = lib.inquire_virtualfile(vfile)
+        ...         assert family == lib["GMT_IS_DATASET"]
+        """
+        c_inquire_virtualfile = self.get_libgmt_func(
+            "GMT_Inquire_VirtualFile",
+            argtypes=[ctp.c_void_p, ctp.c_char_p],
+            restype=ctp.c_uint,
+        )
+        return c_inquire_virtualfile(self.session_pointer, vfname.encode())
+
     def read_virtualfile(
-        self, vfname: str, kind: Literal["dataset", "grid", None] = None
+        self,
+        vfname: str,
+        kind: Literal["dataset", "grid", "image", "cube", None] = None,
     ):
         """
         Read data from a virtual file and optionally cast into a GMT data container.
@@ -1769,13 +1801,15 @@ class Session:
         # _GMT_DATASET).
         if kind is None:  # Return the ctypes void pointer
             return pointer
+        if kind in ["image", "cube"]:
+            raise NotImplementedError(f"kind={kind} is not supported yet.")
         dtype = {"dataset": _GMT_DATASET, "grid": _GMT_GRID}[kind]
         return ctp.cast(pointer, ctp.POINTER(dtype))
 
     def virtualfile_to_dataset(
         self,
         vfname: str,
-        output_type: Literal["pandas", "numpy", "file"] = "pandas",
+        output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
@@ -1796,6 +1830,7 @@ class Session:
             - ``"pandas"`` will return a :class:`pandas.DataFrame` object.
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
+            - ``"strings"`` will return the trailing text only as an array of strings.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1841,6 +1876,16 @@ class Session:
         ...                 assert result is None
         ...                 assert Path(outtmp.name).stat().st_size > 0
         ...
+        ...     # strings output
+        ...     with Session() as lib:
+        ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
+        ...             lib.call_module("read", f"{tmpfile.name} {vouttbl} -Td")
+        ...             outstr = lib.virtualfile_to_dataset(
+        ...                 vfname=vouttbl, output_type="strings"
+        ...             )
+        ...     assert isinstance(outstr, np.ndarray)
+        ...     assert outstr.dtype.kind in ("S", "U")
+        ...
         ...     # numpy output
         ...     with Session() as lib:
         ...         with lib.virtualfile_out(kind="dataset") as vouttbl:
@@ -1869,6 +1914,9 @@ class Session:
         ...                 column_names=["col1", "col2", "col3", "coltext"],
         ...             )
         ...     assert isinstance(outpd2, pd.DataFrame)
+        >>> outstr
+        array(['TEXT1 TEXT23', 'TEXT4 TEXT567', 'TEXT8 TEXT90',
+           'TEXT123 TEXT456789'], dtype='<U18')
         >>> outnp
         array([[1.0, 2.0, 3.0, 'TEXT1 TEXT23'],
                [4.0, 5.0, 6.0, 'TEXT4 TEXT567'],
@@ -1890,15 +1938,82 @@ class Session:
         if output_type == "file":  # Already written to file, so return None
             return None
 
-        # Read the virtual file as a GMT dataset and convert to pandas.DataFrame
-        result = self.read_virtualfile(vfname, kind="dataset").contents.to_dataframe(
-            column_names=column_names,
-            dtype=dtype,
-            index_col=index_col,
+        # Read the virtual file as a _GMT_DATASET object
+        result = self.read_virtualfile(vfname, kind="dataset").contents
+
+        if output_type == "strings":  # strings output
+            return result.to_strings()
+
+        result = result.to_dataframe(
+            column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
         return result  # pandas.DataFrame output
+
+    def virtualfile_to_raster(
+        self,
+        vfname: str,
+        kind: Literal["grid", "image", "cube", None] = "grid",
+        outgrid: str | None = None,
+    ) -> xr.DataArray | None:
+        """
+        Output raster data stored in a virtual file to an :class:`xarray.DataArray`
+        object.
+
+        The raster data can be a grid, an image or a cube.
+
+        Parameters
+        ----------
+        vfname
+            The virtual file name that stores the result grid/image/cube.
+        kind
+            Type of the raster data. Valid values are ``"grid"``, ``"image"``,
+            ``"cube"`` or ``None``. If ``None``, will inquire the data type from the
+            virtual file name.
+        outgrid
+            Name of the output grid/image/cube. If specified, it means the raster data
+            was already saved into an actual file and will return ``None``.
+
+        Returns
+        -------
+        result
+            The result grid/image/cube. If ``outgrid`` is specified, return ``None``.
+
+        Examples
+        --------
+        >>> from pathlib import Path
+        >>> from pygmt.clib import Session
+        >>> from pygmt.helpers import GMTTempFile
+        >>> with Session() as lib:
+        ...     # file output
+        ...     with GMTTempFile(suffix=".nc") as tmpfile:
+        ...         outgrid = tmpfile.name
+        ...         with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...             lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...             result = lib.virtualfile_to_raster(
+        ...                 vfname=voutgrd, outgrid=outgrid
+        ...             )
+        ...             assert result == None
+        ...             assert Path(outgrid).stat().st_size > 0
+        ...
+        ...     # xarray.DataArray output
+        ...     outgrid = None
+        ...     with lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd:
+        ...         lib.call_module("read", f"@earth_relief_01d_g {voutgrd} -Tg")
+        ...         result = lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
+        ...         assert isinstance(result, xr.DataArray)
+        """
+        if outgrid is not None:
+            return None
+        if kind is None:  # Inquire the data family from the virtualfile
+            family = self.inquire_virtualfile(vfname)
+            kind = {  # type: ignore[assignment]
+                self["GMT_IS_GRID"]: "grid",
+                self["GMT_IS_IMAGE"]: "image",
+                self["GMT_IS_CUBE"]: "cube",
+            }[family]
+        return self.read_virtualfile(vfname, kind=kind).contents.to_dataarray()
 
     def extract_region(self):
         """
