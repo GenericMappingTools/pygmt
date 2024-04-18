@@ -3,21 +3,13 @@ grdsample - Resample a grid onto a new lattice
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdsample"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     I="spacing",
     R="region",
     T="translate",
@@ -28,7 +20,7 @@ __doctest_skip__ = ["grdsample"]
     x="cores",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def grdsample(grid, **kwargs):
+def grdsample(grid, outgrid: str | None = None, **kwargs):
     r"""
     Change the registration, spacing, or nodes in a grid file.
 
@@ -87,13 +79,13 @@ def grdsample(grid, **kwargs):
     >>> # and set both x- and y-spacing to 0.5 arc-degrees
     >>> new_grid = pygmt.grdsample(grid=grid, translate=True, spacing=[0.5, 0.5])
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdsample", args=build_arg_string(kwargs, infile=vingrd)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdsample", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
