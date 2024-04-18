@@ -86,7 +86,7 @@ def test_dataset_empty():
 
 def test_dataset_to_strings_with_none_values():
     """
-    Test that None values in the trailing text doesn't raise an excetion.
+    Test that None values in the trailing text doesn't raise an exception.
 
     Due to a likely upstream bug, the trailing texts sometimes can be ``None`` when
     downloading tiled grids. The temporary workaround is to replace any None values with
