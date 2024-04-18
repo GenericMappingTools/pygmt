@@ -174,7 +174,11 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'image'
     """
     # determine the data kind
-    if isinstance(data, str | pathlib.PurePath):
+    if isinstance(data, str | pathlib.PurePath) or (
+        isinstance(data, list | tuple)
+        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
+    ):
+        # One or more files
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required_data):
         kind = "arg"

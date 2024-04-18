@@ -4,14 +4,7 @@ xyz2grd - Convert data table to a grid.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["xyz2grd"]
 
@@ -19,7 +12,6 @@ __doctest_skip__ = ["xyz2grd"]
 @fmt_docstring
 @use_alias(
     A="duplicate",
-    G="outgrid",
     I="spacing",
     J="projection",
     R="region",
@@ -35,7 +27,7 @@ __doctest_skip__ = ["xyz2grd"]
     w="wrap",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
+def xyz2grd(data=None, x=None, y=None, z=None, outgrid: str | None = None, **kwargs):
     r"""
     Create a grid file from table data.
 
@@ -150,15 +142,15 @@ def xyz2grd(data=None, x=None, y=None, z=None, **kwargs):
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
 
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(
                 check_kind="vector", data=data, x=x, y=y, z=z, required_z=True
-            ) as vintbl:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="xyz2grd", args=build_arg_string(kwargs, infile=vintbl)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            ) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="xyz2grd", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
