@@ -98,7 +98,7 @@ fig.show()
 
 # %%
 # Adjust the outline
-# --------------
+# ------------------
 #
 # parameters ``pen`` and ``outline``
 
