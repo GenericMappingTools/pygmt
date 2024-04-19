@@ -4,7 +4,7 @@ grd2cpt - Create a CPT from a grid file.
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grd2cpt"]
 
@@ -186,10 +186,10 @@ def grd2cpt(grid, **kwargs):
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
             if kwargs.get("H") is None:  # if no output is set
-                arg_str = build_arg_string(kwargs, infile=vingrd)
+                arg_str = build_arg_list(kwargs, infile=vingrd)
             else:  # if output is set
                 outfile, kwargs["H"] = kwargs["H"], True
                 if not outfile or not isinstance(outfile, str):
                     raise GMTInvalidInput("'output' should be a proper file name.")
-                arg_str = build_arg_string(kwargs, infile=vingrd, outfile=outfile)
+                arg_str = build_arg_list(kwargs, infile=vingrd, outfile=outfile)
             lib.call_module(module="grd2cpt", args=arg_str)

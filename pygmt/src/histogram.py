@@ -3,7 +3,7 @@ Histogram - Create a histogram
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -137,5 +137,5 @@ def histogram(self, data, **kwargs):
     with Session() as lib:
         with lib.virtualfile_in(check_kind="vector", data=data) as vintbl:
             lib.call_module(
-                module="histogram", args=build_arg_string(kwargs, infile=vintbl)
+                module="histogram", args=build_arg_list(kwargs, infile=vintbl)
             )

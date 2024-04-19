@@ -5,14 +5,7 @@ or natural nearest-neighbor grid on a sphere
 
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["sphdistance"]
 
@@ -22,7 +15,6 @@ __doctest_skip__ = ["sphdistance"]
     C="single_form",
     D="duplicate",
     E="quantity",
-    G="outgrid",
     I="spacing",
     L="unit",
     N="node_table",
@@ -31,7 +23,7 @@ __doctest_skip__ = ["sphdistance"]
     V="verbose",
 )
 @kwargs_to_strings(I="sequence", R="sequence")
-def sphdistance(data=None, x=None, y=None, **kwargs):
+def sphdistance(data=None, x=None, y=None, outgrid: str | None = None, **kwargs):
     r"""
     Create Voronoi distance, node, or natural nearest-neighbor grid on a sphere.
 
@@ -116,13 +108,13 @@ def sphdistance(data=None, x=None, y=None, **kwargs):
     """
     if kwargs.get("I") is None or kwargs.get("R") is None:
         raise GMTInvalidInput("Both 'region' and 'spacing' must be specified.")
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="sphdistance", args=build_arg_string(kwargs, infile=vintbl)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="vector", data=data, x=x, y=y) as vintbl,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="sphdistance", args=build_arg_list(kwargs, infile=vintbl)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
