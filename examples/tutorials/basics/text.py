@@ -15,7 +15,7 @@ import pygmt
 # Adding a single text label
 # --------------------------
 #
-# To add a single text label to a plot the ``text`` and ``x`` and ``y`` parameters to
+# To add a single text label to a plot, use the ``text`` and ``x`` and ``y`` parameters to
 # specify the text and position.
 
 fig = pygmt.Figure()
