@@ -99,13 +99,15 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
     >>> new_grid = pygmt.grdcut(grid=grid, region=[12, 15, 21, 24])
     """
     inkind = data_kind(grid)
-    outkind = "image" if inkind == "image" else "grid"
-    if inkind == "file":
-        realpath = which(str(grid))
-        if isinstance(realpath, list):
-            realpath = realpath[0]
-        if realpath.endswith(".tif"):
-            outkind = "image"
+    match inkind:
+        case "image" | "grid":
+            outkind = inkind
+        case "file":
+            realpath = which(str(grid))
+            if isinstance(realpath, list):
+                realpath = realpath[0]
+            if realpath.endswith(".tif"):
+                outkind = "image"
 
     with Session() as lib:
         with (
