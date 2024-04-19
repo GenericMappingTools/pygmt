@@ -3,7 +3,7 @@ nearneighbor - Grid table data using a "Nearest neighbor" algorithm.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["nearneighbor"]
 
@@ -146,6 +146,6 @@ def nearneighbor(
         ):
             kwargs["G"] = voutgrd
             lib.call_module(
-                module="nearneighbor", args=build_arg_string(kwargs, infile=vintbl)
+                module="nearneighbor", args=build_arg_list(kwargs, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

@@ -4,7 +4,7 @@ grdcut - Extract subregion from a grid.
 
 from pygmt.clib import Session
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
