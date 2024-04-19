@@ -1,7 +1,7 @@
 """
 Test Figure.plot3d.
 """
-import os
+
 from pathlib import Path
 
 import numpy as np
@@ -10,8 +10,7 @@ from pygmt import Figure
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import GMTTempFile
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")
@@ -445,8 +444,7 @@ def test_plot3d_ogrgmt_file_multipoint_default_style(func):
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file)
         fig = Figure()
         fig.plot3d(
             data=func(tmpfile.name),
@@ -471,8 +469,7 @@ def test_plot3d_ogrgmt_file_multipoint_non_default_style():
 >
 1 1 2
 1.5 1.5 1"""
-        with open(tmpfile.name, "w", encoding="utf8") as file:
-            file.write(gmt_file)
+        Path(tmpfile.name).write_text(gmt_file)
         fig = Figure()
         fig.plot3d(
             data=tmpfile.name,

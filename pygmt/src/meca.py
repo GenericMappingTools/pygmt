@@ -1,11 +1,12 @@
 """
 meca - Plot focal mechanisms.
 """
+
 import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 def convention_code(convention, component="full"):
@@ -488,6 +489,5 @@ def meca(  # noqa: PLR0912, PLR0913, PLR0915
     # Assemble -S flag
     kwargs["S"] = f"{data_format}{scale}"
     with Session() as lib:
-        file_context = lib.virtualfile_from_data(check_kind="vector", data=spec)
-        with file_context as fname:
-            lib.call_module(module="meca", args=build_arg_string(kwargs, infile=fname))
+        with lib.virtualfile_in(check_kind="vector", data=spec) as vintbl:
+            lib.call_module(module="meca", args=build_arg_list(kwargs, infile=vintbl))

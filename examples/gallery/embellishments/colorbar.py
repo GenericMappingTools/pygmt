@@ -6,7 +6,7 @@ The :meth:`pygmt.Figure.colorbar` method creates a color scalebar.
 The colormap is set via the ``cmap`` parameter. A full list of available
 color palette tables can be found at :gmt-docs:`reference/cpts.html`.
 Use the ``frame`` parameter to add labels to the **x** and **y** axes
-of the colorbar by appending **+l** followed by the desired text. To Add
+of the colorbar by appending **+l** followed by the desired text. To add
 and adjust the annotations (**a**) and ticks (**f**) append the letter
 followed by the desired interval. The placement of the colorbar is set
 via the ``position`` parameter. There are the following options:

@@ -1,0 +1,5 @@
+outs:
+- md5: 90d08c5a11c606abed51b84eafcdea04
+  size: 1662
+  hash: md5
+  path: test_text_quotation_marks.png

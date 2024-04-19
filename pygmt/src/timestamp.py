@@ -1,6 +1,7 @@
 """
 timestamp - Plot the GMT timestamp logo.
 """
+
 from __future__ import annotations
 
 import warnings
@@ -8,7 +9,7 @@ from typing import TYPE_CHECKING
 
 from packaging.version import Version
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_string, deprecate_parameter, kwargs_to_strings
+from pygmt.helpers import build_arg_list, deprecate_parameter, kwargs_to_strings
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -113,7 +114,7 @@ def timestamp(
     with Session() as lib:
         lib.call_module(
             module="plot",
-            args=build_arg_string(
+            args=build_arg_list(
                 kwdict, confdict={"FONT_LOGO": font, "FORMAT_TIME_STAMP": timefmt}
             ),
         )

@@ -1,6 +1,7 @@
 """
 Test pygmt.dimfilter.
 """
+
 from pathlib import Path
 
 import pytest

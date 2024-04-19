@@ -3,7 +3,7 @@ colorbar - Plot a colorbar.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["colorbar"]
 
@@ -146,4 +146,4 @@ def colorbar(self, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="colorbar", args=build_arg_string(kwargs))
+        lib.call_module(module="colorbar", args=build_arg_list(kwargs))

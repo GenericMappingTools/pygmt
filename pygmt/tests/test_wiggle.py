@@ -1,6 +1,7 @@
 """
 Test Figure.wiggle.
 """
+
 import numpy as np
 import pytest
 from pygmt import Figure

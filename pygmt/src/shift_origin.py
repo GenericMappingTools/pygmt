@@ -1,6 +1,7 @@
 """
 shift_origin - Shift plot origin in x and/or y directions.
 """
+
 from __future__ import annotations
 
 from pygmt.clib import Session
@@ -64,4 +65,4 @@ def shift_origin(
         args.append(f"-Y{yshift}")
 
     with Session() as lib:
-        lib.call_module(module="plot", args=" ".join(args))
+        lib.call_module(module="plot", args=args)
