@@ -113,9 +113,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
             lib.virtualfile_out(kind=outkind, fname=outgrid) as voutgrd,
         ):
             kwargs["G"] = voutgrd
-            lib.call_module(
-                module="grdcut", args=build_arg_string(kwargs, infile=vingrd)
-            )
+            lib.call_module(module="grdcut", args=build_arg_list(kwargs, infile=vingrd))
             return lib.virtualfile_to_raster(
                 outgrid=outgrid, kind=outkind, vfname=voutgrd
             )
