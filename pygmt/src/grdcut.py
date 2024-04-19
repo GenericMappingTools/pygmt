@@ -103,7 +103,7 @@ def grdcut(grid, outgrid: str | None = None, **kwargs):
         case "image" | "grid":
             outkind = inkind
         case "file":
-            realpath = which(str(grid))
+            realpath = which(grid, download="a")
             if isinstance(realpath, list):
                 realpath = realpath[0]
             if realpath.endswith(".tif"):
