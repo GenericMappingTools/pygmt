@@ -21,7 +21,6 @@ import pygmt
 fig = pygmt.Figure()
 fig.basemap(region=[-5, 5, -5, 5], projection="X5c", frame=True)
 fig.text(x=0, y=0, text="My text")
-
 fig.show()
 
 
