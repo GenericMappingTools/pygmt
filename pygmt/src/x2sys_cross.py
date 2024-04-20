@@ -234,5 +234,7 @@ def x2sys_cross(
                 # "t_1"/"t_2" means they are datetimes and should be converted.
                 # "i_1"/"i_2" means they are dummy times (i.e., floating-point values).
                 if output_type == "pandas" and result.columns[2] == "t_1":
-                    result.iloc[:, 2:4] = result.iloc[:, 2:4].apply(pd.to_datetime)
+                    result[result.columns[2:4]] = result[result.columns[2:4]].apply(
+                        pd.to_datetime, unit="s"
+                    )
                 return result
