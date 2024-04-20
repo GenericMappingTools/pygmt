@@ -10,6 +10,7 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
 from typing import Any
@@ -439,6 +440,10 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
     See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
 
+    .. deprecated:: 0.12.0
+
+       Use :func:`build_arg_list` instead.
+
     Parameters
     ----------
     kwdict : dict
@@ -513,8 +518,13 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ... )
     input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
-    gmt_args = []
+    msg = (
+        "Utility function `build_arg_string()' is deprecated in v0.12.0 and will be "
+        "removed in v0.14.0. Uease `build_arg_list()' instead."
+    )
+    warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
+    gmt_args = []
     for key in kwdict:
         if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
