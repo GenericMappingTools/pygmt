@@ -195,30 +195,30 @@ def x2sys_cross(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
+    file_contexts = []
+    for track in tracks:
+        kind = data_kind(track)
+        if kind == "file":
+            file_contexts.append(contextlib.nullcontext(track))
+        elif kind == "matrix":
+            # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
+            # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
+            lastline = (
+                Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
+                .read_text(encoding="utf8")
+                .strip()
+                .split("\n")[-1]
+            )  # e.g. "-Dxyz -Etsv -I1/1"
+            for item in sorted(lastline.split()):  # sort list alphabetically
+                if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
+                    suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
+
+            # Save pandas.DataFrame track data to temporary file
+            file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
+        else:
+            raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
+
     with Session() as lib:
-        file_contexts = []
-        for track in tracks:
-            kind = data_kind(track)
-            if kind == "file":
-                file_contexts.append(contextlib.nullcontext(track))
-            elif kind == "matrix":
-                # find suffix (-E) of trackfiles used (e.g. xyz, csv, etc) from
-                # $X2SYS_HOME/TAGNAME/TAGNAME.tag file
-                lastline = (
-                    Path(os.environ["X2SYS_HOME"], kwargs["T"], f"{kwargs['T']}.tag")
-                    .read_text(encoding="utf8")
-                    .strip()
-                    .split("\n")[-1]
-                )  # e.g. "-Dxyz -Etsv -I1/1"
-                for item in sorted(lastline.split()):  # sort list alphabetically
-                    if item.startswith(("-E", "-D")):  # prefer -Etsv over -Dxyz
-                        suffix = item[2:]  # e.g. tsv (1st choice) or xyz (2nd choice)
-
-                # Save pandas.DataFrame track data to temporary file
-                file_contexts.append(tempfile_from_dftrack(track=track, suffix=suffix))
-            else:
-                raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
-
         with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
             with contextlib.ExitStack() as stack:
                 fnames = [stack.enter_context(c) for c in file_contexts]
