@@ -49,7 +49,11 @@ def test_x2sys_cross_input_file_output_file():
         x2sys_init(tag=tag, fmtfile="xyz", force=True)
         outfile = tmpdir_p / "tmp_coe.txt"
         output = x2sys_cross(
-            tracks=["@tut_ship.xyz"], tag=tag, coe="i", outfile=outfile
+            tracks=["@tut_ship.xyz"],
+            tag=tag,
+            coe="i",
+            outfile=outfile,
+            output_type="file",
         )
 
         assert output is None  # check that output is None since outfile is set
@@ -97,8 +101,8 @@ def test_x2sys_cross_input_dataframe_output_dataframe(tracks):
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.object_
-        assert output.dtypes["i_2"].type == np.object_
+        assert output.dtypes["i_1"].type == np.float64
+        assert output.dtypes["i_2"].type == np.float64
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -158,8 +162,8 @@ def test_x2sys_cross_input_dataframe_with_nan(tracks):
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.object_
-        assert output.dtypes["i_2"].type == np.object_
+        assert output.dtypes["i_1"].type == np.float64
+        assert output.dtypes["i_2"].type == np.float64
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")

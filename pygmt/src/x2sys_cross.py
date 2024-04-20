@@ -5,19 +5,19 @@ x2sys_cross - Calculate crossovers between track data files.
 import contextlib
 import os
 from pathlib import Path
+from typing import Literal
 
 import pandas as pd
-from packaging.version import Version
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     build_arg_list,
     data_kind,
     fmt_docstring,
     kwargs_to_strings,
     unique_name,
     use_alias,
+    validate_output_table_type,
 )
 
 
@@ -71,7 +71,12 @@ def tempfile_from_dftrack(track, suffix):
     Z="trackvalues",
 )
 @kwargs_to_strings(R="sequence")
-def x2sys_cross(tracks=None, outfile=None, **kwargs):
+def x2sys_cross(
+    tracks=None,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+):
     r"""
     Calculate crossovers between track data files.
 
@@ -102,11 +107,8 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
         set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
         will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
         files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
-
-    outfile : str
-        Optional. The file name for the output ASCII txt file to store the
-        table in.
-
+    {output_type}
+    {outfile}
     tag : str
         Specify the x2sys TAG which identifies the attributes of this data
         type.
@@ -183,15 +185,16 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
 
     Returns
     -------
-    crossover_errors : :class:`pandas.DataFrame` or None
-        Table containing crossover error information.
-        Return type depends on whether the ``outfile`` parameter is set:
+    crossover_errors
+        Table containing crossover error information. Return type depends on ``outfile``
+        and ``output_type``:
 
-        - :class:`pandas.DataFrame` with (x, y, ..., etc) if ``outfile`` is not
-          set
-        - None if ``outfile`` is set (track output will be stored in the set in
-          ``outfile``)
+        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
     """
+    output_type = validate_output_table_type(output_type, outfile=outfile)
+
     with Session() as lib:
         file_contexts = []
         for track in tracks:
@@ -216,35 +219,21 @@ def x2sys_cross(tracks=None, outfile=None, **kwargs):
             else:
                 raise GMTInvalidInput(f"Unrecognized data type: {type(track)}")
 
-        with GMTTempFile(suffix=".txt") as tmpfile:
+        with lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl:
             with contextlib.ExitStack() as stack:
                 fnames = [stack.enter_context(c) for c in file_contexts]
-                if outfile is None:
-                    outfile = tmpfile.name
                 lib.call_module(
                     module="x2sys_cross",
-                    args=build_arg_list(kwargs, infile=fnames, outfile=outfile),
+                    args=build_arg_list(kwargs, infile=fnames, outfile=vouttbl),
+                )
+                result = lib.virtualfile_to_dataset(
+                    vfname=vouttbl, output_type=output_type, header=2
                 )
 
-            # Read temporary csv output to a pandas table
-            if outfile == tmpfile.name:  # if outfile isn't set, return pd.DataFrame
-                # Read the tab-separated ASCII table
-                date_format_kwarg = (
-                    {"date_format": "ISO8601"}
-                    if Version(pd.__version__) >= Version("2.0.0")
-                    else {}
-                )
-                table = pd.read_csv(
-                    tmpfile.name,
-                    sep="\t",
-                    header=2,  # Column names are on 2nd row
-                    comment=">",  # Skip the 3rd row with a ">"
-                    parse_dates=[2, 3],  # Datetimes on 3rd and 4th column
-                    **date_format_kwarg,  # Parse dates in ISO8601 format on pandas>=2
-                )
-                # Remove the "# " from "# x" in the first column
-                table = table.rename(columns={table.columns[0]: table.columns[0][2:]})
-            elif outfile != tmpfile.name:  # if outfile is set, output in outfile only
-                table = None
-
-    return table
+                # Convert 3rd and 4th columns to datetimes.
+                # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
+                # "t_1"/"t_2" means they are datetimes and should be converted.
+                # "i_1"/"i_2" means they are dummy times (i.e., floating-point values).
+                if output_type == "pandas" and result.columns[2] == "t_1":
+                    result.iloc[:, 2:4] = result.iloc[:, 2:4].apply(pd.to_datetime)
+                return result
