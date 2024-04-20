@@ -5,7 +5,7 @@ x2sys_cross - Calculate crossovers between track data files.
 import contextlib
 import os
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 import pandas as pd
 from pygmt.clib import Session
@@ -195,7 +195,7 @@ def x2sys_cross(
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    file_contexts = []
+    file_contexts: list[contextlib.AbstractContextManager[Any]] = []
     for track in tracks:
         match data_kind(track):
             case "file":
