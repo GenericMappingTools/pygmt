@@ -12,7 +12,7 @@ For the remaining symbols see the GMT Technical Reference
 :gmt-docs:`reference/custom-symbols.html`.
 
 Beside these built-in custom symbols GMT allows users to define their own custom
-symbols. For this a specific macro language is used. A detailed introduction can
+symbols. For this, a specific macro language is used. A detailed introduction can
 be found at :gmt-docs:`reference/custom-symbols.html#the-macro-language`. After
 defining such a symbol it can be used in the same way as a built-in custom symbol.
 
