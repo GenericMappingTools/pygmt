@@ -43,9 +43,9 @@ class GMTRemoteDataset(NamedTuple):
     ----------
     name : str
         Always ``"z"``.
-    long_name : str
+    long_name : str, None
         The long name assigned as an attribute to the DataArray.
-    description : str, None
+    description : str
        The name assigned as an attribute to the DataArray.
     units : str, None
         The units of the values in the DataArray.
@@ -56,8 +56,8 @@ class GMTRemoteDataset(NamedTuple):
     """
 
     name: str
-    long_name: str
-    description: str | None
+    long_name: str | None
+    description: str
     units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict
