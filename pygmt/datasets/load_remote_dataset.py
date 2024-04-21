@@ -419,7 +419,7 @@ def _load_remote_dataset(
         if registration not in valid_registrations:
             raise GMTInvalidInput(
                 f"{registration} registration is not available for the "
-                f"{resolution} {dataset.name} dataset. Only "
+                f"{resolution} {dataset.description} dataset. Only "
                 f"{valid_registrations[0]} registration is available."
             )
     else:
@@ -436,7 +436,7 @@ def _load_remote_dataset(
     if region is None:
         if dataset.resolutions[resolution].tiled:
             raise GMTInvalidInput(
-                f"'region' is required for {dataset.name} resolution '{resolution}'."
+                f"'region' is required for {dataset.description} resolution '{resolution}'."
             )
         fname = which(f"@{dataset_prefix}{resolution}{reg}", download="a")
         grid = load_dataarray(fname, engine="netcdf4")
@@ -445,7 +445,9 @@ def _load_remote_dataset(
 
     # Add some metadata to the grid
     grid.name = dataset.name
-    grid.attrs["long_name"] = dataset.long_name
+    grid.attrs["description"] = dataset.description
+    if dataset.long_name:
+        grid.attrs["long_name"] = dataset.long_name
     if dataset.units:
         grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
