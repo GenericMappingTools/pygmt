@@ -14,7 +14,7 @@ Reference :gmt-docs:`reference/custom-symbols.html`.
 Beside these built-in custom symbols GMT allows users to define their own
 custom symbols. For this a specific macro language is used. An detailed
 introduction can be found at
-https://docs.generic-mapping-tools.org/6.5/reference/custom-symbols.html#the-macro-language.
+:gmt-docs:`reference/custom-symbols.html#the-macro-language`
 After defining such a symbol it can be used in the same way as a built-in
 custom symbol.
 
