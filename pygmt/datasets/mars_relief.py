@@ -96,7 +96,7 @@ def load_mars_relief(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="z",
+        dataset_name="mars_relief",
         dataset_prefix="mars_relief_",
         resolution=resolution,
         region=region,

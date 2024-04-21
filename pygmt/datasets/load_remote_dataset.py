@@ -190,7 +190,7 @@ datasets = {
     ),
     "earth_mask": GMTRemoteDataset(
         name="z",
-        long_name=None,
+        long_name="",
         description="GSHHG Earth mask",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
@@ -403,7 +403,7 @@ def _load_remote_dataset(
 
     if resolution not in dataset.resolutions:
         raise GMTInvalidInput(
-            f"Invalid resolution '{resolution}' for {dataset.name} dataset. "
+            f"Invalid resolution '{resolution}' for {dataset.description} dataset. "
             f"Available resolutions are: {', '.join(dataset.resolutions)}."
         )
 
