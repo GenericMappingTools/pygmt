@@ -161,7 +161,7 @@ def load_earth_relief(
             )
     else:
         dataset_prefix = earth_relief_sources[data_source]
-    # Choose earth relief dataset
+        # Choose earth relief dataset
         if data_source in ["igpp", "synbath"]:
             dataset_name = "earth_igpp"
         elif data_source in ["gebco", "gebcosi"]:
