@@ -93,7 +93,7 @@ def load_earth_geoid(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="earth_geoid",
+        dataset_name="z",
         dataset_prefix="earth_geoid_",
         resolution=resolution,
         region=region,

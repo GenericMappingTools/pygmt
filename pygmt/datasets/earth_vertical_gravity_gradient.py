@@ -104,7 +104,7 @@ def load_earth_vertical_gravity_gradient(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="earth_vgg",
+        dataset_name="z",
         dataset_prefix="earth_vgg_",
         resolution=resolution,
         region=region,
