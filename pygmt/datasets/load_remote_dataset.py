@@ -175,9 +175,11 @@ datasets = {
     "earth_mag": GMTRemoteDataset(
         name="z",
         long_name="magntic_field_nT",
-        description="EMAG2 Earth Magnetic Anomaly Model",
         units="nT",
-        extra_attributes={"horizontal_datum": "WGS84"},
+        extra_attributes={
+            "horizontal_datum": "WGS84",
+            "description": "EMAG2 Earth Magnetic Anomaly Model",
+        },
         resolutions={
             "01d": Resolution("01d"),
             "30m": Resolution("30m"),
@@ -236,9 +238,11 @@ datasets = {
     "earth_wdmam": GMTRemoteDataset(
         name="z",
         long_name="magnetic_field_nT",
-        description="WDMAM World Digital Magnetic Anomaly Map",
         units="nT",
-        extra_attributes={"horizontal_datum": "WGS84"},
+        extra_attributes={
+            "horizontal_datum": "WGS84",
+            "description": "WDMAM World Digital Magnetic Anomaly Map",
+        },
         resolutions={
             "01d": Resolution("01d"),
             "30m": Resolution("30m"),
