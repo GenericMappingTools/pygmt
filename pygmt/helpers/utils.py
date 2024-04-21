@@ -520,7 +520,7 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     """
     msg = (
         "Utility function `build_arg_string()' is deprecated in v0.12.0 and will be "
-        "removed in v0.14.0. Uease `build_arg_list()' instead."
+        "removed in v0.14.0. Use `build_arg_list()' instead."
     )
     warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
