@@ -42,10 +42,12 @@ class GMTRemoteDataset(NamedTuple):
     Attributes
     ----------
     name : str
-        The name assigned as an attribute to the DataArray.
+        Always ``"z"``.
     long_name : str
         The long name assigned as an attribute to the DataArray.
-    units : str
+    description : str, None
+       The name assigned as an attribute to the DataArray.
+    units : str, None
         The units of the values in the DataArray.
     resolutions : dict
         Dictionary of available resolution as keys and Resolution objects as values.
@@ -55,6 +57,7 @@ class GMTRemoteDataset(NamedTuple):
 
     name: str
     long_name: str
+    description: str | None
     units: str | None
     resolutions: dict[str, Resolution]
     extra_attributes: dict
@@ -190,7 +193,7 @@ datasets = {
     ),
     "earth_mask": GMTRemoteDataset(
         name="z",
-        long_name="",
+        long_name=None,
         description="GSHHG Earth mask",
         units=None,
         extra_attributes={"horizontal_datum": "WGS84"},
