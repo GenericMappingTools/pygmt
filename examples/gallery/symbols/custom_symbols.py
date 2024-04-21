@@ -4,10 +4,21 @@ Custom symbols
 
 The :meth:`pygmt.Figure.plot` method can plot individual custom symbols
 by passing the corresponding symbol name together with the **k** shortcut to
-the ``style`` parameter. In total 41 custom symbols are already included of
-which the following plot shows five exemplary ones. The symbols are shown
-underneath their corresponding names. For the remaining symbols see the GMT
-Technical Reference :gmt-docs:`reference/custom-symbols.html`.
+the ``style`` parameter.
+
+In total 41 custom symbols are already included of which the following plot
+shows five exemplary ones. The symbols are shown underneath their
+corresponding names. For the remaining symbols see the GMT Technical
+Reference :gmt-docs:`reference/custom-symbols.html`.
+
+Beside these built-in custom symbols GMT allows users to define their own
+custom symbols. For this a specific macro language is used. An detailed
+introduction can be found at
+https://docs.generic-mapping-tools.org/6.5/reference/custom-symbols.html#the-macro-language.
+After defining such a symbol it can be used in the same way as a built-in
+custom symbol.
+
+*Please note*: Custom symbols can not be used in auto-legends yet.
 """
 
 # %%
