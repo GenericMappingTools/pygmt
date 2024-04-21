@@ -1810,6 +1810,7 @@ class Session:
         self,
         vfname: str,
         output_type: Literal["pandas", "numpy", "file", "strings"] = "pandas",
+        header: int | None = None,
         column_names: list[str] | None = None,
         dtype: type | dict[str, type] | None = None,
         index_col: str | int | None = None,
@@ -1831,6 +1832,10 @@ class Session:
             - ``"numpy"`` will return a :class:`numpy.ndarray` object.
             - ``"file"`` means the result was saved to a file and will return ``None``.
             - ``"strings"`` will return the trailing text only as an array of strings.
+        header
+            Row number containing column names for the :class:`pandas.DataFrame` output.
+            ``header=None`` means not to parse the column names from table header.
+            Ignored if the row number is larger than the number of headers in the table.
         column_names
             The column names for the :class:`pandas.DataFrame` output.
         dtype
@@ -1945,7 +1950,7 @@ class Session:
             return result.to_strings()
 
         result = result.to_dataframe(
-            column_names=column_names, dtype=dtype, index_col=index_col
+            header=header, column_names=column_names, dtype=dtype, index_col=index_col
         )
         if output_type == "numpy":  # numpy.ndarray output
             return result.to_numpy()
