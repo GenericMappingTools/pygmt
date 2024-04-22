@@ -229,12 +229,14 @@ def x2sys_cross(
                     vfname=vouttbl, output_type=output_type, header=2
                 )
 
-                # Convert 3rd and 4th columns to datetimes.
+                # Convert 3rd and 4th columns to datetime or timedelta.
                 # These two columns have names "t_1"/"t_2" or "i_1"/"i_2".
-                # "t_1"/"t_2" means they are datetimes and should be converted.
-                # "i_1"/"i_2" means they are dummy times (i.e., floating-point values).
-                if output_type == "pandas" and result.columns[2] == "t_1":
+                # "t_1"/"t_2" means they are absolute datetimes.
+                # "i_1"/"i_2" means they are dummy times relative to unix epoch.
+                if output_type == "pandas":
+                    t_or_i = result.columns[2][0]
+                    to_func = {"t": pd.to_datetime, "i": pd.to_timedelta}[t_or_i]
                     result[result.columns[2:4]] = result[result.columns[2:4]].apply(
-                        pd.to_datetime, unit="s"
+                        to_func, unit="s"
                     )
                 return result

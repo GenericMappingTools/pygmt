@@ -101,8 +101,8 @@ def test_x2sys_cross_input_dataframe_output_dataframe(tracks):
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.float64
-        assert output.dtypes["i_2"].type == np.float64
+        assert output.dtypes["i_1"].type == np.timedelta64
+        assert output.dtypes["i_2"].type == np.timedelta64
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
@@ -162,8 +162,8 @@ def test_x2sys_cross_input_dataframe_with_nan(tracks):
         columns = list(output.columns)
         assert columns[:6] == ["x", "y", "i_1", "i_2", "dist_1", "dist_2"]
         assert columns[6:] == ["head_1", "head_2", "vel_1", "vel_2", "z_X", "z_M"]
-        assert output.dtypes["i_1"].type == np.float64
-        assert output.dtypes["i_2"].type == np.float64
+        assert output.dtypes["i_1"].type == np.timedelta64
+        assert output.dtypes["i_2"].type == np.timedelta64
 
 
 @pytest.mark.usefixtures("mock_x2sys_home")
