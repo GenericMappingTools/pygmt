@@ -419,3 +419,16 @@ def test_text_nonascii():
     fig.text(x=1, y=1, text="xytext:°α")  # noqa: RUF001
     fig.text(x=[5, 5], y=[3, 5], text=["xytext1:αζΔ❡", "xytext2:∑π∇✉"])
     return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_text_quotation_marks():
+    """
+    Test typesetting quotation marks.
+
+    See https://github.com/GenericMappingTools/pygmt/issues/3104.
+    """
+    fig = Figure()
+    fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
+    fig.text(x=2, y=1, text="\\234 \\140 ' \" \\216 \\217", font="20p")
+    return fig
