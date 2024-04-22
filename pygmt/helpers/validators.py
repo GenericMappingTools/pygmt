@@ -46,7 +46,7 @@ def validate_output_table_type(
     >>> validate_output_table_type(output_type="invalid-type")
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' as 'pandas' or ...
+    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' as 'pandas', ...
     >>> validate_output_table_type("file", outfile=None)
     Traceback (most recent call last):
         ...
@@ -54,14 +54,18 @@ def validate_output_table_type(
     >>> validate_output_table_type(output_type="numpy", valid_types=("pandas", "file"))
     Traceback (most recent call last):
         ...
-    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' as 'pandas' or 'file'.
+    pygmt.exceptions.GMTInvalidInput: Must specify 'output_type' as 'pandas', or 'file'.
     >>> with warnings.catch_warnings(record=True) as w:
     ...     validate_output_table_type("pandas", outfile="not-none.txt")
     ...     assert len(w) == 1
     'file'
     """
     if output_type not in valid_types:
-        msg = f"Must specify 'output_type' as '{"' or '".join(valid_types)}'."
+        msg = (
+            "Must specify 'output_type' as "
+            + ", ".join(f"'{v}'" for v in valid_types[:-1])
+            + f", or '{valid_types[-1]}'."
+        )
         raise GMTInvalidInput(msg)
     if output_type == "file" and outfile is None:
         raise GMTInvalidInput("Must specify 'outfile' for output_type='file'.")
