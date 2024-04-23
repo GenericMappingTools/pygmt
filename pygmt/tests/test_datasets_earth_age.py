@@ -13,7 +13,7 @@ def test_earth_age_01d():
     """
     data = load_earth_age(resolution="01d")
     assert data.name == "z"
-    assert data.attrs["long_name"] == "age_Myr"
+    assert data.attrs["long_name"] == "ages (Myr)"
     assert data.attrs["description"] == "EarthByte Earth seafloor crustal age"
     assert data.attrs["units"] == "Myr"
     assert data.attrs["horizontal_datum"] == "WGS84"
