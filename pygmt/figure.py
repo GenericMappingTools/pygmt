@@ -1,6 +1,7 @@
 """
 Define the Figure class that handles all plotting.
 """
+
 import base64
 import os
 from pathlib import Path
@@ -17,7 +18,7 @@ except ImportError:
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     launch_external_viewer,
@@ -66,10 +67,9 @@ class Figure:
     >>> fig.basemap(region=[0, 360, -90, 90], projection="W15c", frame=True)
     >>> fig.savefig("my-figure.png")
     >>> # Make sure the figure file is generated and clean it up
-    >>> import os
-    >>> os.path.exists("my-figure.png")
-    True
-    >>> os.remove("my-figure.png")
+    >>> from pathlib import Path
+    >>> assert Path("my-figure.png").exists()
+    >>> Path("my-figure.png").unlink()
 
     The plot region can be specified through ISO country codes (for example,
     ``"JP"`` for Japan):
@@ -108,7 +108,7 @@ class Figure:
         # Passing format '-' tells pygmt.end to not produce any files.
         fmt = "-"
         with Session() as lib:
-            lib.call_module(module="figure", args=f"{self._name} {fmt}")
+            lib.call_module(module="figure", args=[self._name, fmt])
 
     def _preprocess(self, **kwargs):
         """
@@ -228,18 +228,18 @@ class Figure:
         {verbose}
         """
         kwargs = self._preprocess(**kwargs)
+        # pytest-mpl v0.17.0 added the "metadata" parameter to `Figure.savefig`, which
+        # is not recognized. So remove it before calling `Figure.psconvert`.
+        kwargs.pop("metadata", None)
         # Default cropping the figure to True
         if kwargs.get("A") is None:
             kwargs["A"] = ""
-        # Manually handle prefix -F argument so spaces aren't converted to \040
-        # by build_arg_string function. For more information, see
-        # https://github.com/GenericMappingTools/pygmt/pull/1487
-        prefix = kwargs.pop("F", None)
+
+        prefix = kwargs.get("F")
         if prefix in ["", None, False, True]:
             raise GMTInvalidInput(
                 "The 'prefix' parameter must be specified with a valid value."
             )
-        prefix_arg = f'-F"{prefix}"'
 
         # check if the parent directory exists
         prefix_path = Path(prefix).parent
@@ -249,9 +249,7 @@ class Figure:
             )
 
         with Session() as lib:
-            lib.call_module(
-                module="psconvert", args=f"{prefix_arg} {build_arg_string(kwargs)}"
-            )
+            lib.call_module(module="psconvert", args=build_arg_list(kwargs))
 
     def savefig(  # noqa: PLR0912
         self,
@@ -376,8 +374,8 @@ class Figure:
         # Remove the .pgw world file if exists
         # Not necessary after GMT 6.5.0.
         # See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865
-        if ext == "tiff" and fname.with_suffix(".pgw").exists():
-            fname.with_suffix(".pgw").unlink()
+        if ext == "tiff":
+            fname.with_suffix(".pgw").unlink(missing_ok=True)
 
         # Rename if file extension doesn't match the input file suffix
         if ext != suffix[1:]:
@@ -491,12 +489,10 @@ class Figure:
             If ``as_bytes=False``, this is the file name of the preview image
             file. Else, it is the file content loaded as a bytes string.
         """
-        fname = os.path.join(self._preview_dir.name, f"{self._name}.{fmt}")
+        fname = Path(self._preview_dir.name) / f"{self._name}.{fmt}"
         self.savefig(fname, dpi=dpi, **kwargs)
         if as_bytes:
-            with open(fname, "rb") as image:
-                preview = image.read()
-            return preview
+            return fname.read_bytes()
         return fname
 
     def _repr_png_(self):

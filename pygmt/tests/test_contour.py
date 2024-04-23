@@ -1,7 +1,8 @@
 """
 Test Figure.contour.
 """
-import os
+
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -9,8 +10,7 @@ import pytest
 import xarray as xr
 from pygmt import Figure
 
-TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
-POINTS_DATA = os.path.join(TEST_DATA_DIR, "points.txt")
+POINTS_DATA = Path(__file__).parent / "data" / "points.txt"
 
 
 @pytest.fixture(scope="module", name="data")

@@ -1,6 +1,7 @@
 """
 Test pygmt.xyz2grd.
 """
+
 from pathlib import Path
 
 import numpy as np

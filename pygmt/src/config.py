@@ -1,6 +1,7 @@
 """
 config - set GMT defaults globally or locally.
 """
+
 from inspect import Parameter, Signature
 from typing import ClassVar
 
@@ -198,9 +199,10 @@ class config:  # noqa: N801
                     self.old_defaults[key] = lib.get_default(key)
 
         # call gmt set to change GMT defaults
-        arg_str = " ".join([f'{key}="{value}"' for key, value in kwargs.items()])
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set", args=[f"{key}={value}" for key, value in kwargs.items()]
+            )
 
     def __enter__(self):
         """
@@ -212,8 +214,8 @@ class config:  # noqa: N801
         """
         Revert GMT configurations to initial values.
         """
-        arg_str = " ".join(
-            [f'{key}="{value}"' for key, value in self.old_defaults.items()]
-        )
         with Session() as lib:
-            lib.call_module(module="set", args=arg_str)
+            lib.call_module(
+                module="set",
+                args=[f"{key}={value}" for key, value in self.old_defaults.items()],
+            )

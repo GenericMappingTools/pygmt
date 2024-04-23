@@ -20,6 +20,7 @@ on:
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests_dev.yaml'
+  workflow_dispatch:
   # Schedule tests on Monday/Wednesday/Friday
   schedule:
     - cron: '0 0 * * 1,3,5'
@@ -53,7 +54,7 @@ jobs:
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.8.0
+        uses: mamba-org/setup-micromamba@v1.8.1
         with:
           environment-name: pygmt
           condarc: |
@@ -69,7 +70,7 @@ jobs:
             ninja
             curl
             fftw
-            ghostscript=10.02.1
+            ghostscript=10.03.0
             glib
             hdf5
             libblas
@@ -134,21 +135,17 @@ jobs:
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
-        uses: dawidd6/action-download-artifact@v3.0.0
-        with:
-          workflow: cache_data.yaml
-          workflow_conclusion: success
-          name: gmt-cache
-          path: .gmt
-
-      # Move downloaded files to ~/.gmt directory and list them
-      - name: Move and list downloaded remote files
         run: |
+          gh run download -n gmt-cache -D gmt-cache
+          # Move downloaded files to ~/.gmt directory and list them
           mkdir -p ~/.gmt
-          mv .gmt/* ~/.gmt
+          mv gmt-cache/* ~/.gmt
+          rmdir gmt-cache
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       # Install the package that we want to test
       - name: Install the package

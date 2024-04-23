@@ -1,6 +1,7 @@
 """
 Test Figure.grdview.
 """
+
 import pytest
 from pygmt import Figure, grdcut
 from pygmt.exceptions import GMTInvalidInput

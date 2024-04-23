@@ -16,7 +16,7 @@ assignees: ''
 - [ ] Wrap Y ()
 
 **Before release**:
-- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of Python and core package dependencies (NumPy/Pandas/Xarray)
+- [ ] Check [SPEC 0](https://scientific-python.org/specs/spec-0000/) to see if we need to bump the minimum supported versions of GMT, Python and core package dependencies (NumPy/Pandas/Xarray)
 - [ ] Run `make codespell` to check common misspellings. If there are any, either fix them or add them to `ignore-words-list` in `pyproject.toml`
 - [ ] Check to ensure that:
   - [ ] All tests pass in the ["GMT Legacy Tests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_tests_legacy.yaml)
@@ -31,8 +31,8 @@ assignees: ''
     - [ ] Update DOI (and url for BibTeX)
     - [ ] Update version
     - [ ] Update date released
-  - [ ] Add the documentation link `doc/minversions.rst`
-  - [ ] Add minimum required version information `doc/minversions.rst`
+  - [ ] Add the documentation link `doc/minversions.md`
+  - [ ] Add minimum required version information `doc/minversions.md`
   - [ ] Copy draft changelog from Release Drafter and edit it to look nice ([see maintainers guide for details](https://www.pygmt.org/dev/maintenance.html#updating-the-changelog))
 
 **Release**:

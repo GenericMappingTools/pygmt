@@ -1,8 +1,9 @@
 """
 grdview - Create a three-dimensional plot from a grid.
 """
+
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdview"]
 
@@ -62,8 +63,8 @@ def grdview(self, grid, **kwargs):
         The name of the color palette table to use.
     drapegrid : str or xarray.DataArray
         The file name or a DataArray of the image grid to be draped on top
-        of the relief provided by grid. [Default determines colors from
-        grid]. Note that ``zscale`` and ``plane`` always refers to the grid.
+        of the relief provided by ``grid`` [Default determines colors from grid].
+        Note that ``zscale`` and ``plane`` always refer to the grid.
         The drapegrid only provides the information pertaining to colors, which
         (if drapegrid is a grid) will be looked-up via the CPT (see ``cmap``).
     plane : float or str
@@ -144,12 +145,13 @@ def grdview(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        with lib.virtualfile_from_data(
-            check_kind="raster", data=grid
-        ) as fname, lib.virtualfile_from_data(
-            check_kind="raster", data=kwargs.get("G"), required_data=False
-        ) as drapegrid:
-            kwargs["G"] = drapegrid
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_in(
+                check_kind="raster", data=kwargs.get("G"), required_data=False
+            ) as vdrapegrid,
+        ):
+            kwargs["G"] = vdrapegrid
             lib.call_module(
-                module="grdview", args=build_arg_string(kwargs, infile=fname)
+                module="grdview", args=build_arg_list(kwargs, infile=vingrd)
             )

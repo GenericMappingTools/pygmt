@@ -1,11 +1,14 @@
 """
 grdvolume - Calculate grid volume and area constrained by a contour.
 """
+
+from typing import Literal
+
+import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -23,7 +26,12 @@ __doctest_skip__ = ["grdvolume"]
     V="verbose",
 )
 @kwargs_to_strings(C="sequence", R="sequence")
-def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
+def grdvolume(
+    grid,
+    output_type: Literal["pandas", "numpy", "file"] = "pandas",
+    outfile: str | None = None,
+    **kwargs,
+) -> pd.DataFrame | np.ndarray | None:
     r"""
     Determine the volume between the surface of a grid and a plane.
 
@@ -40,15 +48,8 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     Parameters
     ----------
     {grid}
-    output_type : str
-        Determine the format the output data will be returned in [Default is
-        ``pandas``]:
-
-            - ``numpy`` - :class:`numpy.ndarray`
-            - ``pandas``-  :class:`pandas.DataFrame`
-            - ``file`` - ASCII file (requires ``outfile``)
-    outfile : str
-        The file name for the output ASCII file.
+    {output_type}
+    {outfile}
     contour : str, float, or list
         *cval*\|\ *low/high/delta*\|\ **r**\ *low/high*\|\ **r**\ *cval*.
         Find area, volume and mean height (volume/area) inside and above the
@@ -68,14 +69,13 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
 
     Returns
     -------
-    ret : pandas.DataFrame or numpy.ndarray or None
+    ret
         Return type depends on ``outfile`` and ``output_type``:
 
-        - None if ``outfile`` is set (output will be stored in file set by
+        - ``None`` if ``outfile`` is set (output will be stored in file set by
           ``outfile``)
-        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile``
-          is not set (depends on ``output_type`` [Default is
-          :class:`pandas.DataFrame`])
+        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set
+          (depends on ``output_type``)
 
     Example
     -------
@@ -93,32 +93,22 @@ def grdvolume(grid, output_type="pandas", outfile=None, **kwargs):
     ...     grid=grid, contour=[200, 400, 50], output_type="pandas"
     ... )
     >>> print(output_dataframe)
-        0             1             2           3
-    0  200  2.323600e+12  8.523815e+14  366.836554
-    1  250  2.275864e+12  7.371655e+14  323.905736
-    2  300  2.166707e+12  6.258570e+14  288.851699
-    3  350  2.019284e+12  5.207732e+14  257.899955
-    4  400  1.870441e+12  4.236191e+14  226.480847
+           0             1             2           3
+    0  200.0  2.323600e+12  8.523815e+14  366.836554
+    1  250.0  2.275864e+12  7.371655e+14  323.905736
+    2  300.0  2.166707e+12  6.258570e+14  288.851699
+    3  350.0  2.019284e+12  5.207732e+14  257.899955
+    4  400.0  1.870441e+12  4.236191e+14  226.480847
     """
     output_type = validate_output_table_type(output_type, outfile=outfile)
 
-    with GMTTempFile() as tmpfile:
-        with Session() as lib:
-            file_context = lib.virtualfile_from_data(check_kind="raster", data=grid)
-            with file_context as infile:
-                if outfile is None:
-                    outfile = tmpfile.name
-                lib.call_module(
-                    module="grdvolume",
-                    args=build_arg_string(kwargs, infile=infile, outfile=outfile),
-                )
-
-        # Read temporary csv output to a pandas table
-        if outfile == tmpfile.name:  # if user did not set outfile, return pd.DataFrame
-            result = pd.read_csv(tmpfile.name, sep="\t", header=None, comment=">")
-        elif outfile != tmpfile.name:  # return None if outfile set, output in outfile
-            result = None
-
-        if output_type == "numpy":
-            result = result.to_numpy()
-    return result
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="dataset", fname=outfile) as vouttbl,
+        ):
+            lib.call_module(
+                module="grdvolume",
+                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
+            )
+            return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)

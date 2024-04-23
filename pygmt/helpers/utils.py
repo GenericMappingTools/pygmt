@@ -1,6 +1,7 @@
 """
 Utilities and common tasks for wrapping the GMT modules.
 """
+
 # ruff: noqa: RUF001
 import os
 import pathlib
@@ -9,8 +10,10 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
+from typing import Any
 
 import xarray as xr
 from pygmt.exceptions import GMTInvalidInput
@@ -172,7 +175,11 @@ def data_kind(data=None, x=None, y=None, z=None, required_z=False, required_data
     'image'
     """
     # determine the data kind
-    if isinstance(data, str | pathlib.PurePath):
+    if isinstance(data, str | pathlib.PurePath) or (
+        isinstance(data, list | tuple)
+        and all(isinstance(_file, str | pathlib.PurePath) for _file in data)
+    ):
+        # One or more files
         kind = "file"
     elif isinstance(data, bool | int | float) or (data is None and not required_data):
         kind = "arg"
@@ -314,6 +321,108 @@ def non_ascii_to_octal(argstr):
     return argstr.translate(str.maketrans(mapping))
 
 
+def build_arg_list(
+    kwdict: dict[str, Any],
+    confdict: dict[str, str] | None = None,
+    infile: str | pathlib.PurePath | Sequence[str | pathlib.PurePath] | None = None,
+    outfile: str | pathlib.PurePath | None = None,
+) -> list[str]:
+    r"""
+    Convert keyword dictionaries and input/output files into a list of GMT arguments.
+
+    Make sure all values in ``kwdict`` have been previously converted to a string
+    representation using the ``kwargs_to_strings`` decorator. The only exceptions are
+    ``True``, ``False`` and ``None``.
+
+    Any remaining lists or tuples will be interpreted as multiple entries for the same
+    parameter. For example, the kwargs entry ``"B": ["xa", "yaf"]`` will be
+    converted to ``["-Bxa", "-Byaf"]``.
+
+    Parameters
+    ----------
+    kwdict
+        A dictionary containing parsed keyword arguments.
+    confdict
+        A dictionary containing configurable GMT parameters.
+    infile
+        The input file or a list of input files.
+    outfile
+        The output file.
+
+    Returns
+    -------
+    args
+        The list of command line arguments that will be passed to GMT modules. The
+        keyword arguments are sorted alphabetically, followed by GMT configuration
+        key-value pairs, with optional input file(s) at the beginning and optional
+        output file at the end.
+
+    Examples
+    --------
+    >>> build_arg_list(dict(A=True, B=False, C=None, D=0, E=200, F="", G="1/2/3/4"))
+    ['-A', '-D0', '-E200', '-F', '-G1/2/3/4']
+    >>> build_arg_list(dict(A="1/2/3/4", B=["xaf", "yaf", "WSen"], C=("1p", "2p")))
+    ['-A1/2/3/4', '-BWSen', '-Bxaf', '-Byaf', '-C1p', '-C2p']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(
+    ...             B=["af", "WSne+tBlank Space"],
+    ...             F='+t"Empty Spaces"',
+    ...             l="'Void Space'",
+    ...         )
+    ...     )
+    ... )
+    ['-BWSne+tBlank Space', '-Baf', '-F+t"Empty Spaces"', "-l'Void Space'"]
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True, C="rainbow"),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile="input.txt",
+    ...         outfile="output.txt",
+    ...     )
+    ... )
+    ['input.txt', '-A0', '-B', '-Crainbow', '--FORMAT_DATE_MAP=o dd', '->output.txt']
+    >>> print(
+    ...     build_arg_list(
+    ...         dict(A="0", B=True),
+    ...         confdict=dict(FORMAT_DATE_MAP="o dd"),
+    ...         infile=["f1.txt", "f2.txt"],
+    ...         outfile="out.txt",
+    ...     )
+    ... )
+    ['f1.txt', 'f2.txt', '-A0', '-B', '--FORMAT_DATE_MAP=o dd', '->out.txt']
+    >>> print(build_arg_list(dict(R="1/2/3/4", J="X4i", watre=True)))
+    Traceback (most recent call last):
+      ...
+    pygmt.exceptions.GMTInvalidInput: Unrecognized parameter 'watre'.
+    """
+    gmt_args = []
+    for key, value in kwdict.items():
+        if len(key) > 2:  # Raise an exception for unrecognized options
+            raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
+        if value is None or value is False:  # Exclude arguments that are None or False
+            pass
+        elif value is True:
+            gmt_args.append(f"-{key}")
+        elif is_nonstr_iter(value):
+            gmt_args.extend(non_ascii_to_octal(f"-{key}{_value}") for _value in value)
+        else:
+            gmt_args.append(non_ascii_to_octal(f"-{key}{value}"))
+    gmt_args = sorted(gmt_args)
+
+    if confdict:
+        gmt_args.extend(f"--{key}={value}" for key, value in confdict.items())
+
+    if infile:  # infile can be a single file or a list of files
+        if isinstance(infile, str | pathlib.PurePath):
+            gmt_args = [str(infile), *gmt_args]
+        else:
+            gmt_args = [str(_file) for _file in infile] + gmt_args
+    if outfile:
+        gmt_args.append(f"->{outfile}")
+    return gmt_args
+
+
 def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     r"""
     Convert keyword dictionaries and input/output files into a GMT argument string.
@@ -330,6 +439,10 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     code ``\040``, except in the case of -J (projection) arguments where PROJ4
     strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
     See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
+
+    .. deprecated:: 0.12.0
+
+       Use :func:`build_arg_list` instead.
 
     Parameters
     ----------
@@ -405,8 +518,13 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ... )
     input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
-    gmt_args = []
+    msg = (
+        "Utility function 'build_arg_string()' is deprecated in v0.12.0 and will be "
+        "removed in v0.14.0. Use 'build_arg_list()' instead."
+    )
+    warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
+    gmt_args = []
     for key in kwdict:
         if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
