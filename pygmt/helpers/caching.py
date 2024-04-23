@@ -57,9 +57,9 @@ def cache_data():
         "@N00W030.earth_vgg_01m_p.nc",
         "@S90E000.earth_wdmam_03m_g.nc",
         "@N00W030.mars_relief_01m_g.nc",
-        "@N00W030.mercury_relief_01m_p.nc",
-        "@N00W030.moon_relief_01m_p.nc",
-        "@N00W030.pluto_relief_01m_p.nc",
+        "@N00W030.mercury_relief_01m_g.nc",
+        "@N00W030.moon_relief_01m_g.nc",
+        "@N00W030.pluto_relief_01m_g.nc",
         "@N00W030.venus_relief_01m_g.nc",
         # List of cache files.
         "@EGM96_to_36.txt",
