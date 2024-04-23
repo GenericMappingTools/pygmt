@@ -41,10 +41,6 @@ class GMTRemoteDataset(NamedTuple):
 
     Attributes
     ----------
-    name : str
-        Always ``"z"``.
-    long_name : str, None
-        The long name assigned as an attribute to the DataArray.
     description : str
        The name assigned as an attribute to the DataArray.
     units : str, None
@@ -55,8 +51,6 @@ class GMTRemoteDataset(NamedTuple):
         A dictionary of extra or unique attributes of the dataset.
     """
 
-    name: str
-    long_name: str | None
     description: str
     units: str | None
     resolutions: dict[str, Resolution]
@@ -432,8 +426,6 @@ def _load_remote_dataset(
     # Add some metadata to the grid
     grid.name = dataset.name
     grid.attrs["description"] = dataset.description
-    if dataset.long_name:
-        grid.attrs["long_name"] = dataset.long_name
     if dataset.units:
         grid.attrs["units"] = dataset.units
     for key, value in dataset.extra_attributes.items():
