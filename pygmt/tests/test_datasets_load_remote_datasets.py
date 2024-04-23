@@ -27,7 +27,7 @@ def test_load_remote_dataset_benchmark_with_region():
     """
     data = load_remote_dataset_wrapper(resolution="01d", region=[-10, 10, -5, 5])
     assert data.name == "z"
-    assert data.attrs["long_name"] == "age (Myr)"
+    assert data.attrs["long_name"] == "ages (Myr)"
     assert data.attrs["units"] == "Myr"
     assert data.attrs["horizontal_datum"] == "WGS84"
     assert data.gmt.registration == 0
