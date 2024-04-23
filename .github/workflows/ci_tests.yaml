@@ -92,7 +92,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.3
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
