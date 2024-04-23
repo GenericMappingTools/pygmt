@@ -424,7 +424,6 @@ def _load_remote_dataset(
         grid.encoding["source"] = source
 
     # Add some metadata to the grid
-    grid.name = dataset.name
     grid.attrs["description"] = dataset.description
     if dataset.units:
         grid.attrs["units"] = dataset.units
