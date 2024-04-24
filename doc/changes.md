@@ -1,5 +1,88 @@
 # Changelog
 
+## Release v0.12.0 (2024/05/01)
+
+[![Digital Object Identifier for PyGMT v0.12.0](https://zenodo.org/badge/DOI/10.5281/zenodo.3781524.svg)](https://doi.org/10.5281/zenodo.3781524)
+
+### Highlights
+
+*
+
+### Enhancements
+
+* pygmt.project: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3110](https://github.com/GenericMappingTools/pygmt/pull/3110))
+* pygmt.grdtrack: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3106](https://github.com/GenericMappingTools/pygmt/pull/3106))
+* pygmt.blockm*: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3103](https://github.com/GenericMappingTools/pygmt/pull/3103))
+* clib: Wrap the GMT API function GMT_Read_VirtualFile ([#2993](https://github.com/GenericMappingTools/pygmt/pull/2993))
+* clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset ([#3083](https://github.com/GenericMappingTools/pygmt/pull/3083))
+* clib: Add the virtualfile_out method for creating output virtualfile ([#3057](https://github.com/GenericMappingTools/pygmt/pull/3057))
+* Wrap GMT_Inquire_VirtualFile to get the family of virtualfiles ([#3152](https://github.com/GenericMappingTools/pygmt/pull/3152))
+* Wrap GMT's standard data type GMT_GRID for grids ([#2398](https://github.com/GenericMappingTools/pygmt/pull/2398))
+* Wrap GMT's standard data type GMT_DATASET for table inputs ([#2729](https://github.com/GenericMappingTools/pygmt/pull/2729))
+* Wrap GMT's data structure GMT_GRID_HEADER for grid/image/cube headers ([#3127](https://github.com/GenericMappingTools/pygmt/pull/3127))
+* Session.virtualfile_to_dataset: Add new parameters 'dtype'/'index_col' for pandas output ([#3140](https://github.com/GenericMappingTools/pygmt/pull/3140))
+* Session.virtualfile_to_dataset: Add 'strings' output type for the array of trailing texts ([#3157](https://github.com/GenericMappingTools/pygmt/pull/3157))
+* Session.virtualfile_to_dataset: Add 'header' parameter to parse column names from table header ([#3117](https://github.com/GenericMappingTools/pygmt/pull/3117))
+* Session.call_module: Support passing a list of argument strings ([#3139](https://github.com/GenericMappingTools/pygmt/pull/3139))
+* Refactor the _load_remote_dataset function to load tiled and non-tiled grids in a consistent way ([#3120](https://github.com/GenericMappingTools/pygmt/pull/3120))
+* Refactor all wrappers to pass an argument list to Session.call_module ([#3132](https://github.com/GenericMappingTools/pygmt/pull/3132))
+* GMT_GRID_HEADER: Parse grid header and add grid properties ([#3134](https://github.com/GenericMappingTools/pygmt/pull/3134))
+* GMT_DATASET.to_dataframe: Return an empty DataFrame if a file contains no data ([#3131](https://github.com/GenericMappingTools/pygmt/pull/3131))
+* Add function build_arg_list for building arguments list from keyword dictionaries ([#3149](https://github.com/GenericMappingTools/pygmt/pull/3149))
+
+### Deprecations
+
+* clib: Rename the virtualfile_from_data method to virtualfile_in ([#3068](https://github.com/GenericMappingTools/pygmt/pull/3068))
+* Figure: Remove deprecated "xshift" ("X") and "yshift" ("Y") parameters, use "Figure.shift_origin" instead (deprecated since v0.8.0) ([#3044](https://github.com/GenericMappingTools/pygmt/pull/3044))
+* Figure: Remove deprecated "timestamp" ("U") parameter, use "Figure.timestamp" instead (deprecated since v0.9.0) ([#3045](https://github.com/GenericMappingTools/pygmt/pull/3045))
+* Figure.wiggle: Remove deprecated parameter 'color', use fillpositive/fillnegative instead (deprecated since v0.8.0) ([#3035](https://github.com/GenericMappingTools/pygmt/pull/3035))
+* Figure.velo: Remove deprecated parameters color/uncertaintycolor, use fill/uncertaintyfill (deprecated since v0.8.0) ([#3034](https://github.com/GenericMappingTools/pygmt/pull/3034))
+* Figure.plot/plot3d/rose: Remove deprecated 'color' parameter, use 'fill' instead (deprecated since v0.8.0) ([#3032](https://github.com/GenericMappingTools/pygmt/pull/3032))
+* Figure.grdimage: Remove deprecated parameter 'bit_color', use 'bitcolor' instead (deprecated since v0.8.0) ([#3036](https://github.com/GenericMappingTools/pygmt/pull/3036))
+* Deprecate the build_arg_string function in v0.12.0 (will be removed in v0.14.0) and use build_arg_list instead ([#3184](https://github.com/GenericMappingTools/pygmt/pull/3184))
+
+### Documentation
+
+* Tutorial "Plotting text": Rewrite to improve structure, add parameters, add list input ([#2760](https://github.com/GenericMappingTools/pygmt/pull/2760))
+* Gallery example "Custom symbols": Mention own coustom symbols ([#3186](https://github.com/GenericMappingTools/pygmt/pull/3186))
+
+### Maintenance
+
+* pygmt.which: Refactor to get rid of temporary files ([#3148](https://github.com/GenericMappingTools/pygmt/pull/3148))
+* pygmt.triangulate.delaunay_triples: Improve performance by storing output in virtual files ([#3107](https://github.com/GenericMappingTools/pygmt/pull/3107))
+* pygmt.select: Improve performance by storing output in virtual files ([#3108](https://github.com/GenericMappingTools/pygmt/pull/3108))
+* pygmt.grdvolume: Refactor to store output in virtual files instead of temporary files ([#3102](https://github.com/GenericMappingTools/pygmt/pull/3102))
+* pygmt.grdhisteq.compute_bins: Refactor to store output in virtual files instead of temporary files ([#3109](https://github.com/GenericMappingTools/pygmt/pull/3109))
+* pygmt.grd2xyz: Improve performance by storing output in virtual files ([#3097](https://github.com/GenericMappingTools/pygmt/pull/3097))
+* pygmt.filter1d: Improve performance by storing output in virtual files ([#3085](https://github.com/GenericMappingTools/pygmt/pull/3085))
+* Use consistent names (vintbl and vingrd) for input virtual files ([#3082](https://github.com/GenericMappingTools/pygmt/pull/3082))
+* Switch to official GitHub action for managing app tokens ([#3165](https://github.com/GenericMappingTools/pygmt/pull/3165))
+* SPEC 0: Set minimum supported versions to pandas>=1.5 and xarray>=2022.03 ([#3043](https://github.com/GenericMappingTools/pygmt/pull/3043))
+* SPEC 0: Set minimum supported version to Python 3.10+ ([#3039](https://github.com/GenericMappingTools/pygmt/pull/3039))
+* SPEC 0: Bump minimum supported versions to xarray 2022.06 ([#3151](https://github.com/GenericMappingTools/pygmt/pull/3151))
+* Remote Datasets: Adjust attributes - remove "title", use default of "name" and "long_name", introduce "description" ([#3048](https://github.com/GenericMappingTools/pygmt/pull/3048))
+* Migrate from os.path to pathlib ([#3119](https://github.com/GenericMappingTools/pygmt/pull/3119))
+* GMT_DATASET: Add workaround for None values in the trailing text ([#3174](https://github.com/GenericMappingTools/pygmt/pull/3174))
+* Figure.psconvert: Ignore the unrecognized 'metadata' parameter added by pytest-mpl v0.17.0 ([#3054](https://github.com/GenericMappingTools/pygmt/pull/3054))
+* Enable ruff's PTH (flake8-use-pathlib) rules and fix violations ([#3129](https://github.com/GenericMappingTools/pygmt/pull/3129))
+* Document the support policy for minimum required GMT versions ([#3070](https://github.com/GenericMappingTools/pygmt/pull/3070))
+* Change the dev dependency 'matplotlib' to 'matplotlib-base' to reduce environment size ([#3158](https://github.com/GenericMappingTools/pygmt/pull/3158))
+* CI: Use 'gh release' to upload assets to release ([#3187](https://github.com/GenericMappingTools/pygmt/pull/3187))
+* CI: Consistently use github.token instead of secrets.GITHUB_TOKEN ([#3189](https://github.com/GenericMappingTools/pygmt/pull/3189))
+* CI: Configure workflows to run on 'workflow_dispatch' event ([#3133](https://github.com/GenericMappingTools/pygmt/pull/3133))
+* Bump to ruff 0.3.0 ([#3081](https://github.com/GenericMappingTools/pygmt/pull/3081))
+* Bump to ruff 0.2.0 ([#3031](https://github.com/GenericMappingTools/pygmt/pull/3031))
+* Bump to ghostscript 10.03.0 ([#3112](https://github.com/GenericMappingTools/pygmt/pull/3112))
+* Adopt SPEC 0 policy and drop NEP 29 policy ([#3037](https://github.com/GenericMappingTools/pygmt/pull/3037))
+* Add strings_to_ctypes_array to convert a sequence of strings into a ctypes array ([#3137](https://github.com/GenericMappingTools/pygmt/pull/3137))
+* Add sequence_to_ctypes_array to convert a sequence to a ctypes array ([#3136](https://github.com/GenericMappingTools/pygmt/pull/3136))
+
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.11.0...v0.11.1>
+
+### Contributors
+
+[Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+
 ## Release v0.11.0 (2024/02/01)
 
 [![Digital Object Identifier for PyGMT v0.11.0](https://zenodo.org/badge/DOI/10.5281/zenodo.10578540.svg)](https://doi.org/10.5281/zenodo.10578540)
