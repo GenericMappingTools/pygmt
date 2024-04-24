@@ -33,6 +33,32 @@ def test_grdcontour(grid):
     return fig
 
 
+def test_grdcontour_one_contour(grid):
+    """
+    Plot a contour image using an xarray grid with one fixed contour.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid, interval=[50], annotation=[200], projection="M10c", frame=True
+    )
+    return fig
+
+
+def test_grdcontour_specific_contours(grid):
+    """
+    Plot a contour image using an xarray grid with specific fixed contours.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        interval=[200, 300, 350, 400],
+        annotation=[300, 400],
+        projection="M10c",
+        frame=True,
+    )
+    return fig
+
+
 @pytest.mark.benchmark
 @pytest.mark.mpl_image_compare
 def test_grdcontour_labels(grid):
