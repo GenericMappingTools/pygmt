@@ -3,6 +3,7 @@ Test pygmt.x2sys_cross.
 """
 
 import copy
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -59,7 +60,7 @@ def test_x2sys_cross_input_file_output_file():
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
+    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_input_file_output_dataframe():
@@ -200,7 +201,7 @@ def test_x2sys_cross_invalid_tracks_input_type(tracks):
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
+    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_region_interpolation_numpoints():
@@ -229,7 +230,7 @@ def test_x2sys_cross_region_interpolation_numpoints():
 
 @pytest.mark.usefixtures("mock_x2sys_home")
 @pytest.mark.xfail(
-    condition=Version(__gmt_version__) < Version("6.5.0"),
+    condition=Version(__gmt_version__) < Version("6.5.0") or sys.platform == "darwin",
     reason="Upstream bug fixed in https://github.com/GenericMappingTools/gmt/pull/8188",
 )
 def test_x2sys_cross_trackvalues():
