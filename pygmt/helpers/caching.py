@@ -42,6 +42,8 @@ def cache_data():
         # Names like @N35E135.earth_relief_03s_g.nc are for internal use only.
         # The naming scheme may change. DO NOT USE IT IN YOUR SCRIPTS.
         "@N00W030.earth_age_01m_g.nc",
+        "@N30E060.earth_age_01m_g.nc",
+        "@N30E090.earth_age_01m_g.nc",
         "@N00W030.earth_faa_01m_p.nc",
         "@N00W030.earth_geoid_01m_g.nc",
         "@S30W060.earth_mag_02m_p.nc",
