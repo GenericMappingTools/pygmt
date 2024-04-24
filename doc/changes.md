@@ -77,11 +77,14 @@
 * Add strings_to_ctypes_array to convert a sequence of strings into a ctypes array ([#3137](https://github.com/GenericMappingTools/pygmt/pull/3137))
 * Add sequence_to_ctypes_array to convert a sequence to a ctypes array ([#3136](https://github.com/GenericMappingTools/pygmt/pull/3136))
 
-**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.11.0...v0.11.1>
+**Full Changelog**: <https://github.com/GenericMappingTools/pygmt/compare/v0.11.0...v0.12.0>
 
 ### Contributors
 
-[Michael Grund](https://github.com/michaelgrund), [Dongdong Tian](https://github.com/seisman), [Wei Ji Leong](https://github.com/weiji14) and [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Dongdong Tian](https://github.com/seisman)
+* [Yvonne Fröhlich](https://github.com/yvonnefroehlich)
+* [Michael Grund](https://github.com/michaelgrund)
+* [Wei Ji Leong](https://github.com/weiji14)
 
 ## Release v0.11.0 (2024/02/01)
 
