@@ -13,6 +13,7 @@ after their initial release.
 | PyGMT Version | GMT | Python | NumPy | Pandas | Xarray |
 |---|---|---|---|---|---|
 | [Dev][]* [[Docs][Docs Dev]] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.06 |
+| [v0.12.0][]* [[Docs][Docs v0.12.0]] | >=6.3.0 | >=3.10 | >=1.23 | >=1.5 | >=2022.06 |
 | [v0.11.0][] [[Docs][Docs v0.11.0]] | >=6.3.0 | >=3.9 | >=1.23 |  |  |
 | [v0.10.0][] [[Docs][Docs v0.10.0]] | >=6.3.0 | >=3.9 | >=1.22 |  |  |
 | [v0.9.0][] [[Docs][Docs v0.9.0]] | >=6.3.0 | >=3.8 | >=1.21 |  |  |
@@ -34,6 +35,7 @@ after their initial release.
 *Dev reflects the main branch and is for the upcoming release.
 
 [Dev]: https://github.com/GenericMappingTools/pygmt/milestones
+[v0.12.0]: https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0
 [v0.11.0]: https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0
 [v0.10.0]: https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0
 [v0.9.0]: https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0
@@ -53,6 +55,7 @@ after their initial release.
 [v0.1.0]: https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0
 
 [Docs Dev]: https://www.pygmt.org/dev
+[Docs v0.12.0]: https://www.pygmt.org/v0.12.0
 [Docs v0.11.0]: https://www.pygmt.org/v0.11.0
 [Docs v0.10.0]: https://www.pygmt.org/v0.10.0
 [Docs v0.9.0]: https://www.pygmt.org/v0.9.0
