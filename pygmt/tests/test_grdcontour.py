@@ -33,6 +33,7 @@ def test_grdcontour(grid):
     return fig
 
 
+@pytest.mark.mpl_image_compare
 def test_grdcontour_one_contour(grid):
     """
     Plot a contour image using an xarray grid with one fixed contour.
