@@ -135,7 +135,7 @@ def grdcontour(self, grid, **kwargs):
 
     if is_nonstr_iter(kwargs.get("C")):
         if len(kwargs["C"]) == 1:
-            kwargs["C"] = str(kwargs["C"]) + ","
+            kwargs["C"] = str(kwargs["C"][0]) + ","
         else:
             kwargs["C"] = ",".join(f"{item}" for item in kwargs["C"])
 
