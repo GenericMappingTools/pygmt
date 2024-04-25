@@ -29,6 +29,8 @@
 * GMT_GRID_HEADER: Parse grid header and add grid properties ([#3134](https://github.com/GenericMappingTools/pygmt/pull/3134))
 * GMT_DATASET.to_dataframe: Return an empty DataFrame if a file contains no data ([#3131](https://github.com/GenericMappingTools/pygmt/pull/3131))
 * Add function build_arg_list for building arguments list from keyword dictionaries ([#3149](https://github.com/GenericMappingTools/pygmt/pull/3149))
+* Support left/right single quotation marks in text and arguments ([#3192](https://github.com/GenericMappingTools/pygmt/pull/3192))
+* non_ascii_to_octal: Return the input string if it only contains printable ASCII characters ([#3199](https://github.com/GenericMappingTools/pygmt/pull/3199))
 
 ### Deprecations
 
