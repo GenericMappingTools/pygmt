@@ -430,5 +430,5 @@ def test_text_quotation_marks():
     """
     fig = Figure()
     fig.basemap(projection="X4c/2c", region=[0, 4, 0, 2], frame=0)
-    fig.text(x=2, y=1, text="\\234 \\140 ' \" \\216 \\217", font="20p")
+    fig.text(x=2, y=1, text='\\234 ‘ ’ " “ ”', font="20p")  # noqa: RUF001
     return fig
