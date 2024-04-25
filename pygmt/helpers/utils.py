@@ -233,6 +233,10 @@ def non_ascii_to_octal(argstr):
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     """  # noqa: RUF002
+    # Return the string if it only contains printable ASCII characters from 32 to 126.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return argstr
+
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
@@ -305,10 +309,11 @@ def non_ascii_to_octal(argstr):
             c: "\\" + format(i, "o")
             for c, i in zip(
                 "•…™—–ﬁž"  # \03x. \030 is undefined
+                "’‘"  # \047 and \140
                 "š"  # \177
                 "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
                 "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
-                [*range(25, 32), *range(127, 160)],
+                [*range(25, 32), 39, 96, *range(127, 160)],
                 strict=True,
             )
         }
