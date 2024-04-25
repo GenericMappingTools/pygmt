@@ -127,17 +127,12 @@ def grdcontour(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    if is_nonstr_iter(kwargs.get("A")):
-        if len(kwargs["A"]) == 1:
-            kwargs["A"] = str(kwargs["A"][0]) + ","
-        else:
-            kwargs["A"] = ",".join(f"{item}" for item in kwargs["A"])
-
-    if is_nonstr_iter(kwargs.get("C")):
-        if len(kwargs["C"]) == 1:
-            kwargs["C"] = str(kwargs["C"][0]) + ","
-        else:
-            kwargs["C"] = ",".join(f"{item}" for item in kwargs["C"])
+    for arg in ["A", "C"]:
+        if is_nonstr_iter(kwargs.get(arg)):
+            if len(kwargs[ar]) == 1:
+                kwargs[arg] = str(kwargs[arg][0]) + ","
+            else:
+                kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     with Session() as lib:
         with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
