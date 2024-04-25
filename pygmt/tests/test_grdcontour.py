@@ -44,6 +44,7 @@ def test_grdcontour_one_contour(grid):
     )
     return fig
 
+
 @pytest.mark.mpl_image_compare
 def test_grdcontour_specific_contours(grid):
     """
