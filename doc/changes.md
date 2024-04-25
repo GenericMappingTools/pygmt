@@ -14,14 +14,12 @@
 * pygmt.grdtrack: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3106](https://github.com/GenericMappingTools/pygmt/pull/3106))
 * pygmt.blockm*: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3103](https://github.com/GenericMappingTools/pygmt/pull/3103))
 * clib: Wrap the GMT API function GMT_Read_VirtualFile ([#2993](https://github.com/GenericMappingTools/pygmt/pull/2993))
-* clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset ([#3083](https://github.com/GenericMappingTools/pygmt/pull/3083))
+* clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset ([#3083](https://github.com/GenericMappingTools/pygmt/pull/3083), [#3140](https://github.com/GenericMappingTools/pygmt/pull/3140), [#3157](https://github.com/GenericMappingTools/pygmt/pull/3157))
 * clib: Add the virtualfile_out method for creating output virtualfile ([#3057](https://github.com/GenericMappingTools/pygmt/pull/3057))
 * Wrap GMT_Inquire_VirtualFile to get the family of virtualfiles ([#3152](https://github.com/GenericMappingTools/pygmt/pull/3152))
 * Wrap GMT's standard data type GMT_GRID for grids ([#2398](https://github.com/GenericMappingTools/pygmt/pull/2398))
 * Wrap GMT's standard data type GMT_DATASET for table inputs ([#2729](https://github.com/GenericMappingTools/pygmt/pull/2729))
 * Wrap GMT's data structure GMT_GRID_HEADER for grid/image/cube headers ([#3127](https://github.com/GenericMappingTools/pygmt/pull/3127))
-* Session.virtualfile_to_dataset: Add new parameters 'dtype'/'index_col' for pandas output ([#3140](https://github.com/GenericMappingTools/pygmt/pull/3140))
-* Session.virtualfile_to_dataset: Add 'strings' output type for the array of trailing texts ([#3157](https://github.com/GenericMappingTools/pygmt/pull/3157))
 * Session.virtualfile_to_dataset: Add 'header' parameter to parse column names from table header ([#3117](https://github.com/GenericMappingTools/pygmt/pull/3117))
 * Session.call_module: Support passing a list of argument strings ([#3139](https://github.com/GenericMappingTools/pygmt/pull/3139))
 * Refactor the _load_remote_dataset function to load tiled and non-tiled grids in a consistent way ([#3120](https://github.com/GenericMappingTools/pygmt/pull/3120))
@@ -34,14 +32,14 @@
 
 ### Deprecations
 
-* clib: Rename the virtualfile_from_data method to virtualfile_in ([#3068](https://github.com/GenericMappingTools/pygmt/pull/3068))
+* Figure.plot/plot3d/rose: Remove deprecated parameter "color", use "fill" instead (deprecated since v0.8.0) ([#3032](https://github.com/GenericMappingTools/pygmt/pull/3032))
+* Figure.velo: Remove deprecated parameters "color"/"uncertaintycolor", use "fill"/"uncertaintyfill" instead (deprecated since v0.8.0) ([#3034](https://github.com/GenericMappingTools/pygmt/pull/3034))
+* Figure.wiggle: Remove deprecated parameter "color", use "fillpositive"/"fillnegative" instead (deprecated since v0.8.0) ([#3035](https://github.com/GenericMappingTools/pygmt/pull/3035))
+* Figure.grdimage: Remove deprecated parameter "bit_color", use "bitcolor" instead (deprecated since v0.8.0) ([#3036](https://github.com/GenericMappingTools/pygmt/pull/3036))
 * Figure: Remove deprecated "xshift" ("X") and "yshift" ("Y") parameters, use "Figure.shift_origin" instead (deprecated since v0.8.0) ([#3044](https://github.com/GenericMappingTools/pygmt/pull/3044))
 * Figure: Remove deprecated "timestamp" ("U") parameter, use "Figure.timestamp" instead (deprecated since v0.9.0) ([#3045](https://github.com/GenericMappingTools/pygmt/pull/3045))
-* Figure.wiggle: Remove deprecated parameter 'color', use fillpositive/fillnegative instead (deprecated since v0.8.0) ([#3035](https://github.com/GenericMappingTools/pygmt/pull/3035))
-* Figure.velo: Remove deprecated parameters color/uncertaintycolor, use fill/uncertaintyfill (deprecated since v0.8.0) ([#3034](https://github.com/GenericMappingTools/pygmt/pull/3034))
-* Figure.plot/plot3d/rose: Remove deprecated 'color' parameter, use 'fill' instead (deprecated since v0.8.0) ([#3032](https://github.com/GenericMappingTools/pygmt/pull/3032))
-* Figure.grdimage: Remove deprecated parameter 'bit_color', use 'bitcolor' instead (deprecated since v0.8.0) ([#3036](https://github.com/GenericMappingTools/pygmt/pull/3036))
-* Deprecate the build_arg_string function in v0.12.0 (will be removed in v0.14.0) and use build_arg_list instead ([#3184](https://github.com/GenericMappingTools/pygmt/pull/3184))
+* clib: Rename the "virtualfile_from_data" method to "virtualfile_in" ([#3068](https://github.com/GenericMappingTools/pygmt/pull/3068))
+* Deprecate the "build_arg_string" function, use build_arg_list instead (deprecated since v0.12.0, will be removed in v0.14.0) ([#3184](https://github.com/GenericMappingTools/pygmt/pull/3184))
 
 ### Documentation
 
