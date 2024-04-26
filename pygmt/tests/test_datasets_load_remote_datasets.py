@@ -13,7 +13,7 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
     """
     return _load_remote_dataset(
         name="earth_age",
-        prefix="earth_age_",
+        prefix="earth_age",
         resolution=resolution,
         region=region,
         registration=registration,
