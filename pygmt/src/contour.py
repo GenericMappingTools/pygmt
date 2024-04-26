@@ -3,7 +3,13 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
