@@ -12,8 +12,8 @@ def load_remote_dataset_wrapper(resolution="01d", region=None, registration=None
     Wrapper for _load_remote_dataset using the earth age dataset as an example.
     """
     return _load_remote_dataset(
-        dataset_name="earth_age",
-        dataset_prefix="earth_age_",
+        name="earth_age",
+        prefix="earth_age_",
         resolution=resolution,
         region=region,
         registration=registration,

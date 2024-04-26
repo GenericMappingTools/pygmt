@@ -168,8 +168,8 @@ def load_earth_relief(
         case "gebco" | "gebcosi":
             dataset_name = "earth_gebco"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        name=dataset_name,
+        prefix=dataset_prefix,
         resolution=resolution,
         region=region,
         registration=registration,

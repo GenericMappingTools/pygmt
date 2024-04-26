@@ -149,8 +149,8 @@ def load_earth_magnetic_anomaly(
     dataset_prefix = magnetic_anomaly_sources[data_source]
     dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_mag"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        name=dataset_name,
+        prefix=dataset_prefix,
         resolution=resolution,
         region=region,
         registration=registration,

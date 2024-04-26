@@ -330,8 +330,8 @@ datasets = {
 
 @kwargs_to_strings(region="sequence")
 def _load_remote_dataset(
-    dataset_name: str,
-    dataset_prefix: str,
+    name: str,
+    prefix: str,
     resolution: str,
     region: str | list,
     registration: Literal["gridline", "pixel", None],
@@ -341,9 +341,9 @@ def _load_remote_dataset(
 
     Parameters
     ----------
-    dataset_name
+    name
         The name for the dataset in the 'datasets' dictionary.
-    dataset_prefix
+    prefix
         The prefix for the dataset that will be passed to the GMT C API.
     resolution
         The grid resolution. The suffix ``d``, ``m``, and ``s`` stand for arc-degrees,
@@ -373,7 +373,7 @@ def _load_remote_dataset(
     plotting functions. Refer to :class:`pygmt.GMTDataArrayAccessor` for detailed
     explanations and workarounds.
     """
-    dataset = datasets[dataset_name]
+    dataset = datasets[name]
 
     # Check resolution
     if resolution not in dataset.resolutions:
@@ -401,7 +401,7 @@ def _load_remote_dataset(
             "returned unless only the pixel-registered grid is available."
         )
 
-    fname = f"@{dataset_prefix}{resolution}_{registration[0]}"
+    fname = f"@{prefix}{resolution}_{registration[0]}"
     if resinfo.tiled and region is None:
         raise GMTInvalidInput(
             f"'region' is required for {dataset.description} resolution '{resolution}'."
