@@ -6,7 +6,7 @@
 
 ### Highlights
 
-* 🎉 **Twelveth minor release of PyGMT** 🎉
+* 🎉 **Twelfth minor release of PyGMT** 🎉
 * 🚀 Almost all module wrappers (with a few exceptions) now use in-memory GMT *virtual files* instead of intermediate temporary files to improve performance ([#2730](https://github.com/GenericMappingTools/pygmt/issues/2730)) 
 * Almost all module wrappers (with a few exceptions) now have consistent behavior for table-like output ([#1318](https://github.com/GenericMappingTools/pygmt/issues/1318))
 * Adopt [SPEC 0](https://scientific-python.org/specs/spec-0000/) policy for minimum supported versions of GMT, Python, and other core dependencies 
