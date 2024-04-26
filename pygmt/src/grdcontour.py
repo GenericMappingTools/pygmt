@@ -51,17 +51,17 @@ def grdcontour(self, grid, **kwargs):
         Specify the contour lines to generate.
 
         - The file name of a CPT file where the color boundaries will be used as
-          contour levels
+          contour levels.
         - The file name of a 2 (or 3) column file containing the contour levels (col 0),
-          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2)
-        - A fixed contour interval
-        - A list of contour levels
+          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2).
+        - A fixed contour interval.
+        - A list of contour levels.
     annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``interval``.
 
-        - Specify a fixed annotation interval
-        - Specify a list of annotation levels
+        - Specify a fixed annotation interval.
+        - Specify a list of annotation levels.
         - Disable all annotations by setting ``annotation="n"``.
         - Adjust the appearance by appending different modifiers, e.g.,
           ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points
