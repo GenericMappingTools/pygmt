@@ -5,14 +5,12 @@ grdgradient - Compute directional gradients from a grid.
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    GMTTempFile,
     args_in_kwargs,
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
 )
-from pygmt.io import load_dataarray
 
 __doctest_skip__ = ["grdgradient"]
 
@@ -22,7 +20,6 @@ __doctest_skip__ = ["grdgradient"]
     A="azimuth",
     D="direction",
     E="radiance",
-    G="outgrid",
     N="normalize",
     Q="tiles",
     R="region",
@@ -32,7 +29,7 @@ __doctest_skip__ = ["grdgradient"]
     n="interpolation",
 )
 @kwargs_to_strings(A="sequence", E="sequence", R="sequence")
-def grdgradient(grid, **kwargs):
+def grdgradient(grid, outgrid: str | None = None, **kwargs):
     r"""
     Compute the directional derivative of the vector gradient of the data.
 
@@ -160,20 +157,20 @@ def grdgradient(grid, **kwargs):
     >>> # Create a new grid from an input grid, set the azimuth to 10 degrees,
     >>> new_grid = pygmt.grdgradient(grid=grid, azimuth=10)
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        if kwargs.get("Q") is not None and kwargs.get("N") is None:
-            raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
-        if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
-            raise GMTInvalidInput(
-                """At least one of the following parameters must be specified:
-                azimuth, direction, or radiance"""
+    if kwargs.get("Q") is not None and kwargs.get("N") is None:
+        raise GMTInvalidInput("""Must specify normalize if tiles is specified.""")
+    if not args_in_kwargs(args=["A", "D", "E"], kwargs=kwargs):
+        raise GMTInvalidInput(
+            "At least one of the following parameters must be specified: "
+            "azimuth, direction, or radiance."
+        )
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdgradient", args=build_arg_list(kwargs, infile=vingrd)
             )
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdgradient", args=build_arg_string(kwargs, infile=vingrd)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

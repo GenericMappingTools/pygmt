@@ -3,7 +3,7 @@ x2sys_init - Initialize a new x2sys track database.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_string, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
@@ -111,4 +111,4 @@ def x2sys_init(tag, **kwargs):
     {distcalc}
     """
     with Session() as lib:
-        lib.call_module(module="x2sys_init", args=build_arg_string(kwargs, infile=tag))
+        lib.call_module(module="x2sys_init", args=build_arg_list(kwargs, infile=tag))

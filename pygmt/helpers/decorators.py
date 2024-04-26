@@ -267,10 +267,12 @@ COMMON_DOCSTRINGS = {
             - ``file`` will save the result to the file specified by the ``outfile``
               parameter.""",
     "outgrid": """
-        outgrid : str or None
-            Name of the output netCDF grid file. For writing a specific grid
-            file format or applying basic data operations to the output grid,
-            see :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.""",
+        outgrid
+            Name of the output netCDF grid file. If not specified, will return an
+            :class:`xarray.DataArray` object. For writing a specific grid file format or
+            applying basic data operations to the output grid, see
+            :gmt-docs:`gmt.html#grd-inout-full` for the available modifiers.
+        """,
     "panel": r"""
         panel : bool, int, or list
             [*row,col*\|\ *index*].
@@ -622,7 +624,7 @@ def kwargs_to_strings(**conversions):
     The strings are what GMT expects from command line arguments.
 
     Boolean arguments and None are not converted and will be processed in the
-    ``build_arg_string`` function.
+    ``build_arg_list`` function.
 
     You can also specify other conversions to specific arguments.
 
@@ -632,7 +634,6 @@ def kwargs_to_strings(**conversions):
       string
     * 'sequence_comma': transforms a sequence into a ``','`` separated string
     * 'sequence_plus': transforms a sequence into a ``'+'`` separated string
-    * 'sequence_space': transforms a sequence into a ``' '`` separated string
 
     Parameters
     ----------
@@ -643,7 +644,7 @@ def kwargs_to_strings(**conversions):
 
     Examples
     --------
-    >>> @kwargs_to_strings(R="sequence", i="sequence_comma", files="sequence_space")
+    >>> @kwargs_to_strings(R="sequence", i="sequence_comma")
     ... def module(*args, **kwargs):
     ...     "A module that prints the arguments it received"
     ...     print("{", end="")
@@ -668,7 +669,7 @@ def kwargs_to_strings(**conversions):
     >>> module(i=[1, 2])
     {'i': '1,2'}
     >>> module(files=["data1.txt", "data2.txt"])
-    {'files': 'data1.txt data2.txt'}
+    {'files': ['data1.txt', 'data2.txt']}
     >>> # Other non-boolean arguments are passed along as they are
     >>> module(123, bla=(1, 2, 3), foo=True, A=False, i=(5, 6))
     {'A': False, 'bla': (1, 2, 3), 'foo': True, 'i': '5,6'}
@@ -693,7 +694,6 @@ def kwargs_to_strings(**conversions):
     >>> # Here is a more realistic example
     >>> # See https://github.com/GenericMappingTools/pygmt/issues/2361
     >>> @kwargs_to_strings(
-    ...     files="sequence_space",
     ...     offset="sequence",
     ...     R="sequence",
     ...     i="sequence_comma",
@@ -709,21 +709,20 @@ def kwargs_to_strings(**conversions):
     ...     )
     ...     print("}")
     >>> module(files=["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(["data1.txt", "data2.txt"])
-    data1.txt data2.txt -54p/-54p {}
+    ['data1.txt', 'data2.txt'] -54p/-54p {}
     >>> module(files=["data1.txt", "data2.txt"], offset=("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"))
-    data1.txt data2.txt 20p/20p {}
+    ['data1.txt', 'data2.txt'] 20p/20p {}
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
-    data1.txt data2.txt 20p/20p {'R': '1/2/3/4'}
+    ['data1.txt', 'data2.txt'] 20p/20p {'R': '1/2/3/4'}
     """
     separators = {
         "sequence": "/",
         "sequence_comma": ",",
         "sequence_plus": "+",
-        "sequence_space": " ",
     }
 
     for arg, fmt in conversions.items():

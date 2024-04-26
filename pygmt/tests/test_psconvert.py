@@ -2,7 +2,7 @@
 Test Figure.psconvert.
 """
 
-import os
+from pathlib import Path
 
 import pytest
 from pygmt import Figure
@@ -18,9 +18,9 @@ def test_psconvert():
     fig.basemap(region="10/70/-3/8", projection="X4i/3i", frame="a")
     prefix = "test_psconvert"
     fig.psconvert(prefix=prefix, fmt="f", crop=True)
-    fname = prefix + ".pdf"
-    assert os.path.exists(fname)
-    os.remove(fname)
+    fname = Path(prefix + ".pdf")
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_psconvert_twice():
@@ -32,14 +32,14 @@ def test_psconvert_twice():
     prefix = "test_psconvert_twice"
     # Make a PDF
     fig.psconvert(prefix=prefix, fmt="f")
-    fname = prefix + ".pdf"
-    assert os.path.exists(fname)
-    os.remove(fname)
+    fname = Path(prefix + ".pdf")
+    assert fname.exists()
+    fname.unlink()
     # Make a PNG
     fig.psconvert(prefix=prefix, fmt="g")
-    fname = prefix + ".png"
-    assert os.path.exists(fname)
-    os.remove(fname)
+    fname = Path(prefix + ".png")
+    assert fname.exists()
+    fname.unlink()
 
 
 def test_psconvert_without_prefix():

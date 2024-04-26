@@ -3,21 +3,13 @@ grdclip - Change the range and extremes of grid values.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import (
-    GMTTempFile,
-    build_arg_string,
-    fmt_docstring,
-    kwargs_to_strings,
-    use_alias,
-)
-from pygmt.io import load_dataarray
+from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 __doctest_skip__ = ["grdclip"]
 
 
 @fmt_docstring
 @use_alias(
-    G="outgrid",
     R="region",
     Sa="above",
     Sb="below",
@@ -32,7 +24,7 @@ __doctest_skip__ = ["grdclip"]
     Si="sequence",
     Sr="sequence",
 )
-def grdclip(grid, **kwargs):
+def grdclip(grid, outgrid: str | None = None, **kwargs):
     r"""
     Set values in a grid that meet certain criteria to a new value.
 
@@ -95,13 +87,13 @@ def grdclip(grid, **kwargs):
     >>> [new_grid.data.min(), new_grid.data.max()]
     [0.0, 10000.0]
     """
-    with GMTTempFile(suffix=".nc") as tmpfile:
-        with Session() as lib:
-            with lib.virtualfile_in(check_kind="raster", data=grid) as vingrd:
-                if (outgrid := kwargs.get("G")) is None:
-                    kwargs["G"] = outgrid = tmpfile.name  # output to tmpfile
-                lib.call_module(
-                    module="grdclip", args=build_arg_string(kwargs, infile=vingrd)
-                )
-
-        return load_dataarray(outgrid) if outgrid == tmpfile.name else None
+    with Session() as lib:
+        with (
+            lib.virtualfile_in(check_kind="raster", data=grid) as vingrd,
+            lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
+        ):
+            kwargs["G"] = voutgrd
+            lib.call_module(
+                module="grdclip", args=build_arg_list(kwargs, infile=vingrd)
+            )
+            return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)

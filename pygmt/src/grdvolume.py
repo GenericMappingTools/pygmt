@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from pygmt.clib import Session
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -109,6 +109,6 @@ def grdvolume(
         ):
             lib.call_module(
                 module="grdvolume",
-                args=build_arg_string(kwargs, infile=vingrd, outfile=vouttbl),
+                args=build_arg_list(kwargs, infile=vingrd, outfile=vouttbl),
             )
             return lib.virtualfile_to_dataset(vfname=vouttbl, output_type=output_type)
