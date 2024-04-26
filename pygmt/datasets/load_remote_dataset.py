@@ -401,7 +401,7 @@ def _load_remote_dataset(
             "returned unless only the pixel-registered grid is available."
         )
 
-    fname = f"@{prefix}{resolution}_{registration[0]}"
+    fname = f"@{prefix}_{resolution}_{registration[0]}"
     if resinfo.tiled and region is None:
         raise GMTInvalidInput(
             f"'region' is required for {dataset.description} resolution '{resolution}'."

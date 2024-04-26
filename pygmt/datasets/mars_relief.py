@@ -97,7 +97,7 @@ def load_mars_relief(
     """
     grid = _load_remote_dataset(
         name="mars_relief",
-        prefix="mars_relief_",
+        prefix="mars_relief",
         resolution=resolution,
         region=region,
         registration=registration,

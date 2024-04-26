@@ -103,7 +103,7 @@ def load_earth_free_air_anomaly(
     """
     grid = _load_remote_dataset(
         name="earth_faa",
-        prefix="earth_faa_",
+        prefix="earth_faa",
         resolution=resolution,
         region=region,
         registration=registration,

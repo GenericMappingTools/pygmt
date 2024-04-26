@@ -97,7 +97,7 @@ def load_moon_relief(
     """
     grid = _load_remote_dataset(
         name="moon_relief",
-        prefix="moon_relief_",
+        prefix="moon_relief",
         resolution=resolution,
         region=region,
         registration=registration,

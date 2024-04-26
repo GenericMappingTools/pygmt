@@ -94,7 +94,7 @@ def load_venus_relief(
     """
     grid = _load_remote_dataset(
         name="venus_relief",
-        prefix="venus_relief_",
+        prefix="venus_relief",
         resolution=resolution,
         region=region,
         registration=registration,

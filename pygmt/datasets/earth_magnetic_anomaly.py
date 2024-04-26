@@ -137,9 +137,9 @@ def load_earth_magnetic_anomaly(
     ... )
     """
     magnetic_anomaly_sources = {
-        "emag2": "earth_mag_",
-        "emag2_4km": "earth_mag4km_",
-        "wdmam": "earth_wdmam_",
+        "emag2": "earth_mag",
+        "emag2_4km": "earth_mag4km",
+        "wdmam": "earth_wdmam",
     }
     if data_source not in magnetic_anomaly_sources:
         raise GMTInvalidInput(

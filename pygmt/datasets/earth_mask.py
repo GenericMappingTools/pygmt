@@ -98,7 +98,7 @@ def load_earth_mask(
     """
     grid = _load_remote_dataset(
         name="earth_mask",
-        prefix="earth_mask_",
+        prefix="earth_mask",
         resolution=resolution,
         region=region,
         registration=registration,

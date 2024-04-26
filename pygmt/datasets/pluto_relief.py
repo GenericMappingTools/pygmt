@@ -97,7 +97,7 @@ def load_pluto_relief(
     """
     grid = _load_remote_dataset(
         name="pluto_relief",
-        prefix="pluto_relief_",
+        prefix="pluto_relief",
         resolution=resolution,
         region=region,
         registration=registration,
