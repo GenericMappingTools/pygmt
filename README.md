@@ -133,8 +133,8 @@ research using the following BibTeX:
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
-                  Schlitzer, William and
                   Fröhlich, Yvonne and
+                  Schlitzer, William and
                   Grund, Michael and
                   Jones, Max and
                   Toney, Liam and

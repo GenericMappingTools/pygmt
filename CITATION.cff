@@ -16,14 +16,14 @@ authors:
   family-names: Leong
   affiliation: Development Seed, USA
   orcid: https://orcid.org/0000-0003-2354-1988
-- given-names: William
-  family-names: Schlitzer
-  affiliation: Unaffiliated
-  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Yvonne
   family-names: Fröhlich
   affiliation: Karlsruhe Institute of Technology, Germany
   orcid: https://orcid.org/0000-0002-8566-0619
+- given-names: William
+  family-names: Schlitzer
+  affiliation: Unaffiliated
+  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Michael
   family-names: Grund
   affiliation: SNP Innovation Lab GmbH, Germany
