@@ -127,10 +127,10 @@ def grdcontour(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Specify levels for contours or annotations
+    # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
-    # specifying an interval
-    # Multiple levels are concatenated to a comma-separated string
+    # specifying an interval.
+    # Multiple levels are concatenated to a comma-separated string.
     for arg in ["A", "C"]:
         if is_nonstr_iter(kwargs.get(arg)):
             if len(kwargs[arg]) == 1:  # One level
