@@ -57,7 +57,7 @@ def test_grdcontour_old_annotations(grid):
     fig.grdcontour(
         grid=grid,
         interval=[400],
-        annotation=[570, "pblack"],
+        annotation=["570,", "gwhite"],
         projection="M10c",
         frame=True,
     )
