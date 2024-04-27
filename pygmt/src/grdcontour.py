@@ -2,6 +2,8 @@
 grdcontour - Plot a contour figure.
 """
 
+import warnings
+
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
