@@ -126,6 +126,19 @@ def grdcontour(self, grid, **kwargs):
     >>> fig.show()
     """
     kwargs = self._preprocess(**kwargs)
+    
+    # Backward compatibility with the old syntax like (100, "e", "f10p", "gred").
+    if is_nonstr_iter(kwargs.get("A")) and any(
+        i[0] in "acdefgijlLnoprtuvwx=" for i in kwargs("A") if isinstance(i, str)
+    ):
+        msg = (
+            "Argument of the parameter 'annotation'/'A' is using the old, deprecated "
+            "syntax. Please refer to the PyGMT documentation for the new syntax. "
+            "The warning will be removed in v0.14.0 and the old syntax will no longer "
+            "be supported. "
+        )
+        warnings.warn(msg, catalog=FutureWarning, stacklevel=2)
+        kwargs["A"] = "+".join(f"{item}" for item in kwargs["A"])
 
     # Specify levels for contours or annotations.
     # One level is converted to a string with a trailing comma to separate it from
