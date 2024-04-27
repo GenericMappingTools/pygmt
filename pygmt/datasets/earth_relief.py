@@ -139,7 +139,8 @@ def load_earth_relief(
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
 
-    prefix = {  # Map data source to prefix
+    # Map data source to prefix
+    prefix = { 
         "igpp": "earth_relief",
         "gebco": "earth_gebco",
         "gebcosi": "earth_gebcosi",
@@ -148,7 +149,7 @@ def load_earth_relief(
     if prefix is None:
         raise GMTInvalidInput(
             f"Invalid earth relief data source '{data_source}'. "
-            "Valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
+            "Valid values are 'igpp', 'gebco', 'gebcosi', and 'synbath'."
         )
     # Use SRTM or not.
     if use_srtm and resolution in land_only_srtm_resolutions:
