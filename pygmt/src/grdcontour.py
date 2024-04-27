@@ -129,7 +129,8 @@ def grdcontour(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Backward compatibility with the old syntax like (100, "e", "f10p", "gred").
+    # Backward compatibility with the old syntax for annotations like
+    # [100, "e", "f10p", "gred"].
     if is_nonstr_iter(kwargs.get("A")) and any(
         i[0] in "acdefgijlLnoprtuvwx=" for i in kwargs["A"] if isinstance(i, str)
     ):
