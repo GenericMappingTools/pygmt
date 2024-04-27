@@ -129,7 +129,7 @@ def grdcontour(self, grid, **kwargs):
     """
     kwargs = self._preprocess(**kwargs)
 
-    # Backward compatibility with the old syntax for annotations like
+    # Backward compatibility with the old syntax for the annotation parameter, e.g.,
     # [100, "e", "f10p", "gred"].
     if is_nonstr_iter(kwargs.get("A")) and any(
         i[0] in "acdefgijlLnoprtuvwx=" for i in kwargs["A"] if isinstance(i, str)
@@ -143,7 +143,7 @@ def grdcontour(self, grid, **kwargs):
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
         kwargs["A"] = "+".join(f"{item}" for item in kwargs["A"])
 
-    # Specify levels for contours or annotations.
+    # Specify levels for the annotation and interval parameters.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
     # Multiple levels are concatenated to a comma-separated string.

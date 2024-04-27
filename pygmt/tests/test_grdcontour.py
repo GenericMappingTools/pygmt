@@ -50,7 +50,7 @@ def test_grdcontour_one_level(grid):
 @pytest.mark.mpl_image_compare(filename="test_grdcontour_one_level.png")
 def test_grdcontour_old_annotations(grid):
     """
-    Test the old syntax for the annotations parameter using "sequence_plus".
+    Test the old syntax for the annotation parameter using "sequence_plus".
     Modified from the "test_grdcontour_one_level()" test. Can be removed in v0.14.0.
     """
     fig = Figure()
