@@ -140,7 +140,7 @@ def grdcontour(self, grid, **kwargs):
             "The warning will be removed in v0.14.0 and the old syntax will no longer "
             "be supported. "
         )
-        warnings.warn(msg, catalog=FutureWarning, stacklevel=2)
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
         kwargs["A"] = "+".join(f"{item}" for item in kwargs["A"])
 
     # Specify levels for contours or annotations.
