@@ -131,7 +131,7 @@ def grdcontour(self, grid, **kwargs):
 
     # Backward compatibility with the old syntax like (100, "e", "f10p", "gred").
     if is_nonstr_iter(kwargs.get("A")) and any(
-        i[0] in "acdefgijlLnoprtuvwx=" for i in kwargs("A") if isinstance(i, str)
+        i[0] in "acdefgijlLnoprtuvwx=" for i in kwargs["A"] if isinstance(i, str)
     ):
         msg = (
             "Argument of the parameter 'annotation'/'A' is using the old, deprecated "
