@@ -80,6 +80,8 @@ jobs:
             pytest
             pytest-doctestplus
             pytest-mpl
+            pytest-rerunfailures
+            pytest-xdist
 
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub

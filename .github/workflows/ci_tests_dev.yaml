@@ -122,7 +122,7 @@ jobs:
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
                         numpy pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
-                        'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
+                        pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
 
       # Show installed pkg information for postmortem diagnostic
