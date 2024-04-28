@@ -24,7 +24,7 @@ def fixture_grid():
 @pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
-    Plot a contour image using an xarray grid with fixed (different) levels and
+    Plot a contour image using an xarray grid with fixed (different) contour and
     annotation intervals.
     """
     fig = Figure()
@@ -35,7 +35,7 @@ def test_grdcontour(grid):
 @pytest.mark.mpl_image_compare
 def test_grdcontour_one_level(grid):
     """
-    Plot a contour image using an xarray grid with one levels level and one
+    Plot a contour image using an xarray grid with one contour level and one
     (different) annotation level.
     """
     fig = Figure()
