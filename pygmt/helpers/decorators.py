@@ -633,7 +633,6 @@ def kwargs_to_strings(**conversions):
     * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
       string
     * 'sequence_comma': transforms a sequence into a ``','`` separated string
-    * 'sequence_plus': transforms a sequence into a ``'+'`` separated string
 
     Parameters
     ----------
@@ -719,11 +718,7 @@ def kwargs_to_strings(**conversions):
     >>> module(["data1.txt", "data2.txt"], ("20p", "20p"), R=[1, 2, 3, 4])
     ['data1.txt', 'data2.txt'] 20p/20p {'R': '1/2/3/4'}
     """
-    separators = {
-        "sequence": "/",
-        "sequence_comma": ",",
-        "sequence_plus": "+",
-    }
+    separators = {"sequence": "/", "sequence_comma": ","}
 
     for arg, fmt in conversions.items():
         if fmt not in separators:
