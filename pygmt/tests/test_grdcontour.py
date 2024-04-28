@@ -28,9 +28,7 @@ def test_grdcontour(grid):
     annotation intervals.
     """
     fig = Figure()
-    fig.grdcontour(
-        grid=grid, levels=50, annotation=200, projection="M10c", frame=True
-    )
+    fig.grdcontour(grid=grid, levels=50, annotation=200, projection="M10c", frame=True)
     return fig
 
 
