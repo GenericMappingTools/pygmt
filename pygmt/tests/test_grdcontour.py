@@ -24,12 +24,12 @@ def fixture_grid():
 @pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
-    Plot a contour image using an xarray grid with fixed (different) contour and
+    Plot a contour image using an xarray grid with fixed (different) levels and
     annotation intervals.
     """
     fig = Figure()
     fig.grdcontour(
-        grid=grid, interval=50, annotation=200, projection="M10c", frame=True
+        grid=grid, levels=50, annotation=200, projection="M10c", frame=True
     )
     return fig
 
@@ -37,12 +37,12 @@ def test_grdcontour(grid):
 @pytest.mark.mpl_image_compare
 def test_grdcontour_one_level(grid):
     """
-    Plot a contour image using an xarray grid with one contour level and one
+    Plot a contour image using an xarray grid with one levels level and one
     (different) annotation level.
     """
     fig = Figure()
     fig.grdcontour(
-        grid=grid, interval=[400], annotation=[570], projection="M10c", frame=True
+        grid=grid, levels=[400], annotation=[570], projection="M10c", frame=True
     )
     return fig
 
@@ -56,7 +56,7 @@ def test_grdcontour_old_annotations(grid):
     fig = Figure()
     fig.grdcontour(
         grid=grid,
-        interval=[400],
+        levels=[400],
         annotation=["570,", "gwhite"],
         projection="M10c",
         frame=True,
@@ -73,7 +73,7 @@ def test_grdcontour_multiple_levels(grid):
     fig = Figure()
     fig.grdcontour(
         grid=grid,
-        interval=[400, 450, 500],
+        levels=[400, 450, 500],
         annotation=[400, 570],
         projection="M10c",
         frame=True,
@@ -90,7 +90,7 @@ def test_grdcontour_labels(grid):
     fig = Figure()
     fig.grdcontour(
         grid=grid,
-        interval=50,
+        levels=50,
         annotation=200,
         projection="M10c",
         pen=["a1p,red", "c0.5p,black"],
@@ -108,7 +108,7 @@ def test_grdcontour_slice(grid):
     grid_ = grid.sel(lat=slice(-20, -10))
 
     fig = Figure()
-    fig.grdcontour(grid=grid_, interval=100, projection="M10c", frame=True)
+    fig.grdcontour(grid=grid_, levels=100, projection="M10c", frame=True)
     return fig
 
 
@@ -121,7 +121,7 @@ def test_grdcontour_interval_file_full_opts(grid):
 
     comargs = {
         "region": [-53, -49, -20, -17],
-        "interval": TEST_CONTOUR_FILE,
+        "levels": TEST_CONTOUR_FILE,
         "grid": grid,
         "resample": 100,
         "projection": "M10c",
