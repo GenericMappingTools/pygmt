@@ -16,6 +16,8 @@
 * pygmt.project: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3110](https://github.com/GenericMappingTools/pygmt/pull/3110))
 * pygmt.grdtrack: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3106](https://github.com/GenericMappingTools/pygmt/pull/3106))
 * pygmt.blockm*: Add 'output_type' parameter for output in pandas/numpy/file formats ([#3103](https://github.com/GenericMappingTools/pygmt/pull/3103))
+* Figure.grdcontour: Adjust processing arguments passed to "annotation" and "interval" parameters ([#3116](https://github.com/GenericMappingTools/pygmt/pull/3116))
+* Figure.contour: Adjust processing arguments passed to "annotation" and "levels" parameters ([#2706](https://github.com/GenericMappingTools/pygmt/pull/2706))
 * clib: Wrap the GMT API function GMT_Read_VirtualFile ([#2993](https://github.com/GenericMappingTools/pygmt/pull/2993))
 * clib: Add virtualfile_to_dataset method for converting virtualfile to a dataset ([#3083](https://github.com/GenericMappingTools/pygmt/pull/3083), [#3140](https://github.com/GenericMappingTools/pygmt/pull/3140), [#3157](https://github.com/GenericMappingTools/pygmt/pull/3157),
 [#3117](https://github.com/GenericMappingTools/pygmt/pull/3117))
