@@ -630,9 +630,8 @@ def kwargs_to_strings(**conversions):
 
     Conversions available:
 
-    * 'sequence': transforms a sequence (list, tuple) into a ``'/'`` separated
-      string
-    * 'sequence_comma': transforms a sequence into a ``','`` separated string
+    * "sequence": transform a sequence (list, tuple) into a ``"/"`` separated string
+    * "sequence_comma": transform a sequence into a ``","`` separated string
 
     Parameters
     ----------
