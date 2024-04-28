@@ -140,7 +140,7 @@ def load_earth_relief(
     land_only_srtm_resolutions = ["03s", "01s"]
 
     # Map data source to prefix
-    prefix = { 
+    prefix = {
         "igpp": "earth_relief",
         "gebco": "earth_gebco",
         "gebcosi": "earth_gebcosi",

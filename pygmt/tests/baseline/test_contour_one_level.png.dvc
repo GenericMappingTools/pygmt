@@ -1,0 +1,6 @@
+outs:
+- md5: 8c1ed221788e3af76279a7765640ea43
+  size: 28882
+  isexec: true
+  hash: md5
+  path: test_contour_one_level.png
