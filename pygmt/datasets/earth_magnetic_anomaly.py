@@ -136,21 +136,20 @@ def load_earth_magnetic_anomaly(
     ...     resolution="20m", registration="gridline", data_source="wdmam"
     ... )
     """
-    magnetic_anomaly_sources = {
-        "emag2": "earth_mag_",
-        "emag2_4km": "earth_mag4km_",
-        "wdmam": "earth_wdmam_",
-    }
-    if data_source not in magnetic_anomaly_sources:
+    # Map data source to prefix
+    prefix = {
+        "emag2": "earth_mag",
+        "emag2_4km": "earth_mag4km",
+        "wdmam": "earth_wdmam",
+    }.get(data_source)
+    if prefix is None:
         raise GMTInvalidInput(
             f"Invalid earth magnetic anomaly data source '{data_source}'. "
             "Valid values are 'emag2', 'emag2_4km', and 'wdmam'."
         )
-    dataset_prefix = magnetic_anomaly_sources[data_source]
-    dataset_name = "earth_wdmam" if data_source == "wdmam" else "earth_mag"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        name="earth_wdmam" if data_source == "wdmam" else "earth_mag",
+        prefix=prefix,
         resolution=resolution,
         region=region,
         registration=registration,

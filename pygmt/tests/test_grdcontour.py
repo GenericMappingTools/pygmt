@@ -24,11 +24,59 @@ def fixture_grid():
 @pytest.mark.mpl_image_compare
 def test_grdcontour(grid):
     """
-    Plot a contour image using an xarray grid with fixed contour interval.
+    Plot a contour image using an xarray grid with fixed (different) contour and
+    annotation intervals.
     """
     fig = Figure()
     fig.grdcontour(
         grid=grid, interval=50, annotation=200, projection="M10c", frame=True
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdcontour_one_level(grid):
+    """
+    Plot a contour image using an xarray grid with one contour level and one
+    (different) annotation level.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid, interval=[400], annotation=[570], projection="M10c", frame=True
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare(filename="test_grdcontour_one_level.png")
+def test_grdcontour_old_annotations(grid):
+    """
+    Test the old syntax for the annotation parameter using "sequence_plus".
+    Modified from the "test_grdcontour_one_level()" test. Can be removed in v0.14.0.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        interval=[400],
+        annotation=["570,", "gwhite"],
+        projection="M10c",
+        frame=True,
+    )
+    return fig
+
+
+@pytest.mark.mpl_image_compare
+def test_grdcontour_multiple_levels(grid):
+    """
+    Plot a contour image using an xarray grid with multiple (different) contour
+    and annotation levels.
+    """
+    fig = Figure()
+    fig.grdcontour(
+        grid=grid,
+        interval=[400, 450, 500],
+        annotation=[400, 570],
+        projection="M10c",
+        frame=True,
     )
     return fig
 
