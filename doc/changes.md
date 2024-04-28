@@ -43,7 +43,7 @@
 * Figure: Remove deprecated "timestamp" ("U") parameter, use "Figure.timestamp" instead (deprecated since v0.9.0) ([#3045](https://github.com/GenericMappingTools/pygmt/pull/3045))
 * clib: Rename the "virtualfile_from_data" method to "virtualfile_in" ([#3068](https://github.com/GenericMappingTools/pygmt/pull/3068))
 * Deprecate the "build_arg_string" function, use build_arg_list instead (deprecated since v0.12.0, will be removed in v0.14.0) ([#3184](https://github.com/GenericMappingTools/pygmt/pull/3184))
-
+* Figure.grdcontour: Deprecate "sequence_plus", only used for the "annotation" parameter (deprecated since v0.12.0, will be removed in v0.14.0) ([#3116](https://github.com/GenericMappingTools/pygmt/pull/3116))
 ### Documentation
 
 * Tutorial "Plotting text": Rewrite to improve structure, add parameters, add list input ([#2760](https://github.com/GenericMappingTools/pygmt/pull/2760))
