@@ -86,7 +86,16 @@ def grdcontour(self, grid, **kwargs):
         five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for
         details.
     {verbose}
-    {pen}
+    pen : str or list
+        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].
+        *type*, if present, can be **a** for annotated contours or **c** for regular
+        contours [Default]. The pen sets the attributes for the particular line.
+        Default pen for annotated contours is ``"0.75p,black"`` and for regular
+        contours ``"0.25p,black"``. Normally, all contours are drawn with a fixed
+        color determined by the pen setting. If **+cl** is appended the colors of the
+        contour lines are taken from the CPT (see ``interval``). If **+cf** is
+        appended the colors from the CPT file are applied to the contour annotations.
+        Select **+c** for both effects.
     {panel}
     {coltypes}
     label : str

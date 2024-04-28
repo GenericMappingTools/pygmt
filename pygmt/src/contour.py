@@ -102,7 +102,16 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     skip : bool or str
         [**p**\|\ **t**].
         Skip input points outside region.
-    {pen}
+    pen : str or list
+        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].
+        *type*, if present, can be **a** for annotated contours or **c** for regular
+        contours [Default]. The pen sets the attributes for the particular line.
+        Default pen for annotated contours is ``"0.75p,black"`` and for regular
+        contours ``"0.25p,black"``. Normally, all contours are drawn with a fixed
+        color determined by the pen setting. If **+cl** is appended the colors of the
+        contour lines are taken from the CPT (see ``interval``). If **+cf** is
+        appended the colors from the CPT file are applied to the contour annotations.
+        Select **+c** for both effects.
     label : str
         Add a legend entry for the contour being plotted. Normally, the
         annotated contour is selected for the legend. You can select the
