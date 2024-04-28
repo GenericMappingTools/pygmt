@@ -7,6 +7,7 @@ import warnings
 from pygmt.clib import Session
 from pygmt.helpers import (
     build_arg_list,
+    deprecate_parameter,
     fmt_docstring,
     is_nonstr_iter,
     kwargs_to_strings,
@@ -17,10 +18,11 @@ __doctest_skip__ = ["grdcontour"]
 
 
 @fmt_docstring
+@deprecate_parameter("interval", "levels", "v0.12.0", remove_version="v0.16.0")
 @use_alias(
     A="annotation",
     B="frame",
-    C="interval",
+    C="levels",
     G="label_placement",
     J="projection",
     L="limit",
@@ -49,7 +51,7 @@ def grdcontour(self, grid, **kwargs):
     Parameters
     ----------
     {grid}
-    interval : float, list, or str
+    levels : float, list, or str
         Specify the contour lines to generate.
 
         - The file name of a CPT file where the color boundaries will be used as
@@ -60,7 +62,7 @@ def grdcontour(self, grid, **kwargs):
         - A list of contour levels.
     annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
-        contours specified in ``interval``.
+        contours specified in ``levels``.
 
         - Specify a fixed annotation interval.
         - Specify a list of annotation levels.
@@ -116,7 +118,7 @@ def grdcontour(self, grid, **kwargs):
     ...     # Pass in the grid downloaded above
     ...     grid=grid,
     ...     # Set the interval for contour lines at 250 meters
-    ...     interval=250,
+    ...     levels=250,
     ...     # Set the interval for annotated contour lines at 1,000 meters
     ...     annotation=1000,
     ...     # Add a frame for the plot
@@ -143,7 +145,7 @@ def grdcontour(self, grid, **kwargs):
         warnings.warn(msg, category=FutureWarning, stacklevel=2)
         kwargs["A"] = "+".join(f"{item}" for item in kwargs["A"])
 
-    # Specify levels for the annotation and interval parameters.
+    # Specify levels for the annotation and levels parameters.
     # One level is converted to a string with a trailing comma to separate it from
     # specifying an interval.
     # Multiple levels are concatenated to a comma-separated string.
