@@ -3,7 +3,13 @@ contour - Plot contour table data.
 """
 
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import (
+    build_arg_list,
+    fmt_docstring,
+    is_nonstr_iter,
+    kwargs_to_strings,
+    use_alias,
+)
 
 
 @fmt_docstring
@@ -54,23 +60,26 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
         Arrays of x and y coordinates and values z of the data points.
     {projection}
     {region}
-    annotation : str or int
+    annotation : float, list, or str
         Specify or disable annotated contour levels, modifies annotated
         contours specified in ``levels``.
 
-        - Specify a fixed annotation interval *annot_int* or a
-          single annotation level +\ *annot_int*.
+        - Specify a fixed annotation interval.
+        - Specify a list of annotation levels.
+        - Disable all annotations by setting ``annotation="n"``.
+        - Adjust the appearance by appending different modifiers, e.g.,
+          ``"annot_int+f10p+gred"`` gives annotations with a font size of 10 points and
+          a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.
     {frame}
-    levels : str or int
+    levels : float, list, or str
         Specify the contour lines to generate.
 
-        - The file name of a CPT file where the color boundaries will
-          be used as contour levels.
-        - The file name of a 2 (or 3) column file containing the contour
-          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional
-          angle (col 3).
-        - A fixed contour interval *cont_int* or a single contour with
-          +\ *cont_int*.
+        - The file name of a CPT file where the color boundaries will be used as
+          contour levels.
+        - The file name of a 2 (or 3) column file containing the contour levels (col 0),
+          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2).
+        - A fixed contour interval.
+        - A list of contour levels.
     D : str
         Dump contour coordinates.
     E : str
@@ -113,6 +122,17 @@ def contour(self, data=None, x=None, y=None, z=None, **kwargs):
     {transparency}
     """
     kwargs = self._preprocess(**kwargs)
+
+    # Specify levels for contours or annotations.
+    # One level is converted to a string with a trailing comma to separate it from
+    # specifying an interval.
+    # Multiple levels are concatenated to a comma-separated string.
+    for arg in ["A", "C"]:
+        if is_nonstr_iter(kwargs.get(arg)):
+            if len(kwargs[arg]) == 1:  # One level
+                kwargs[arg] = str(kwargs[arg][0]) + ","
+            else:  # Multiple levels
+                kwargs[arg] = ",".join(f"{item}" for item in kwargs[arg])
 
     with Session() as lib:
         with lib.virtualfile_in(

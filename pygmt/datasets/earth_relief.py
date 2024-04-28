@@ -139,37 +139,35 @@ def load_earth_relief(
     # resolutions of original land-only SRTM tiles from NASA
     land_only_srtm_resolutions = ["03s", "01s"]
 
-    earth_relief_sources = {
-        "igpp": "earth_relief_",
-        "gebco": "earth_gebco_",
-        "gebcosi": "earth_gebcosi_",
-        "synbath": "earth_synbath_",
-    }
-    if data_source not in earth_relief_sources:
+    # Map data source to prefix
+    prefix = {
+        "igpp": "earth_relief",
+        "gebco": "earth_gebco",
+        "gebcosi": "earth_gebcosi",
+        "synbath": "earth_synbath",
+    }.get(data_source)
+    if prefix is None:
         raise GMTInvalidInput(
             f"Invalid earth relief data source '{data_source}'. "
-            "Valid values are 'igpp', 'gebco', 'gebcosi' and 'synbath'."
+            "Valid values are 'igpp', 'gebco', 'gebcosi', and 'synbath'."
         )
-    # Choose earth relief data prefix
+    # Use SRTM or not.
     if use_srtm and resolution in land_only_srtm_resolutions:
-        if data_source == "igpp":
-            dataset_prefix = "srtm_relief_"
-        else:
+        if data_source != "igpp":
             raise GMTInvalidInput(
                 f"Option 'use_srtm=True' doesn't work with data source '{data_source}'."
                 " Please set 'data_source' to 'igpp'."
             )
-    else:
-        dataset_prefix = earth_relief_sources[data_source]
+        prefix = "srtm_relief"
     # Choose earth relief dataset
     match data_source:
         case "igpp" | "synbath":
-            dataset_name = "earth_igpp"
+            name = "earth_igpp"
         case "gebco" | "gebcosi":
-            dataset_name = "earth_gebco"
+            name = "earth_gebco"
     grid = _load_remote_dataset(
-        dataset_name=dataset_name,
-        dataset_prefix=dataset_prefix,
+        name=name,
+        prefix=prefix,
         resolution=resolution,
         region=region,
         registration=registration,
