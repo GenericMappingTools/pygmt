@@ -93,7 +93,7 @@ def grdcontour(self, grid, **kwargs):
         Default pen for annotated contours is ``"0.75p,black"`` and for regular
         contours ``"0.25p,black"``. Normally, all contours are drawn with a fixed
         color determined by the pen setting. If **+cl** is appended the colors of the
-        contour lines are taken from the CPT (see ``interval``). If **+cf** is
+        contour lines are taken from the CPT (see ``levels``). If **+cf** is
         appended the colors from the CPT file are applied to the contour annotations.
         Select **+c** for both effects.
     {panel}
