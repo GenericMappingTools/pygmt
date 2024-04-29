@@ -120,7 +120,7 @@ jobs:
         run: |
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
-                        numpy pandas xarray netCDF4 packaging \
+                        'numpy<2' pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
