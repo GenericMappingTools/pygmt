@@ -33,16 +33,12 @@ fig.show()
 # Contour line settings
 # ---------------------
 #
-# Use the ``annotation`` and ``interval`` parameters to adjust contour line
+# Use the ``annotation`` and ``levels`` parameters to adjust contour line
 # intervals. In the example below, there are contour intervals every 250 meters
 # and annotated contour lines every 1,000 meters.
 
 fig = pygmt.Figure()
-fig.grdcontour(
-    annotation=1000,
-    interval=250,
-    grid=grid,
-)
+fig.grdcontour(annotation=1000, levels=250, grid=grid)
 fig.show()
 
 
@@ -57,7 +53,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdcontour(
     annotation=1000,
-    interval=250,
+    levels=250,
     grid=grid,
     limit=[-4000, -2000],
 )
@@ -74,7 +70,7 @@ fig.show()
 fig = pygmt.Figure()
 fig.grdcontour(
     annotation=1000,
-    interval=250,
+    levels=250,
     grid=grid,
     limit=[-4000, -2000],
     projection="M10c",
@@ -104,7 +100,7 @@ fig.grdimage(
 )
 fig.grdcontour(
     annotation=1000,
-    interval=250,
+    levels=250,
     grid=grid,
     limit=[-4000, -2000],
 )

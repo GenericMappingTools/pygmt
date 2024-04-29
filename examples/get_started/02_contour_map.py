@@ -82,7 +82,7 @@ fig.show()
 # :meth:`pygmt.Figure.grdcontour` method is used. The ``frame`` and
 # ``projection`` are already set using :meth:`pygmt.Figure.grdimage` and are
 # not needed again. However, the same input for ``grid`` (in this case, the
-# variable named "grid") must be input again. The ``interval`` parameter sets
+# variable named "grid") must be input again. The ``levels`` parameter sets
 # the spacing between adjacent contour lines (in this case, 500 meters). The
 # ``annotation`` parameter annotates the contour lines corresponding to the
 # given interval (in this case, 1,000 meters) with the related values, here
@@ -93,7 +93,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
-fig.grdcontour(grid=grid, interval=500, annotation=1000)
+fig.grdcontour(grid=grid, levels=500, annotation=1000)
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
 
@@ -109,7 +109,7 @@ fig.show()
 
 fig = pygmt.Figure()
 fig.grdimage(grid=grid, frame="a", projection="M10c", cmap="oleron")
-fig.grdcontour(grid=grid, interval=500, annotation=1000)
+fig.grdcontour(grid=grid, levels=500, annotation=1000)
 fig.coast(shorelines="2p", land="lightgray")
 fig.colorbar(frame=["a1000", "x+lElevation", "y+lm"])
 fig.show()
