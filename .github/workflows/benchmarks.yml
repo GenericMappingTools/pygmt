@@ -44,7 +44,7 @@ jobs:
 
       # Install Miniconda with conda-forge dependencies
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3.0.3
+        uses: conda-incubator/setup-miniconda@v3.0.4
         with:
           auto-activate-base: true
           activate-environment: ""  # base environment
