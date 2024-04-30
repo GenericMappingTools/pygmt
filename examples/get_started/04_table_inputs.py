@@ -59,7 +59,7 @@ Path("input_data.dat").unlink()
 #   data server.
 #
 # Additionally, PyGMT also supports a list of file names, :class:`pathlib.Path` objects,
-# URLs, or remote files, providing more flexibility in specifying input files.
+# URLs, or remote files, to provide more flexibility in specifying input files.
 
 # %%
 # 2-D array: `list`, `numpy.ndarray`, and `pandas.DataFrame`
