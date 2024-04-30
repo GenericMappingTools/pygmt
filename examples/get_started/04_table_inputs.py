@@ -59,6 +59,9 @@ Path("input_data.dat").unlink()
 # - A file name prefixed with ``@`` (e.g., ``data="@input_data.dat"``), which
 #   is a special syntax in GMT to indicate that the file is a remote file
 #   hosted on the GMT data server.
+#
+# Additionally, PyGMT also supports a list of file names, :class:`pathlib.Path` objects,
+# URLs, or remote files, providing more flexibility in specifying input files.
 
 # %%
 # 2-D array: `list`, `numpy.ndarray`, and `pandas.DataFrame`
