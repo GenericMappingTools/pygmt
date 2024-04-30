@@ -947,7 +947,7 @@
 * Improve the DVC image diff workflow to support side-by-side comparison of modified images ([#1219](https://github.com/GenericMappingTools/pygmt/pull/1219))
 * Document the deprecation policy and add the deprecate_parameter decorator to deprecate parameters ([#1160](https://github.com/GenericMappingTools/pygmt/pull/1160))
 * Convert booleans arguments in build_arg_string, not in kwargs_to_strings ([#1125](https://github.com/GenericMappingTools/pygmt/pull/1125))
-* Create Github Action workflow for reporting DVC image diffs ([#1104](https://github.com/GenericMappingTools/pygmt/pull/1104))
+* Create GitHub Action workflow for reporting DVC image diffs ([#1104](https://github.com/GenericMappingTools/pygmt/pull/1104))
 * Update "GMT Dev Tests" workflow to test macOS-11.0 and pre-release Python packages ([#1105](https://github.com/GenericMappingTools/pygmt/pull/1105))
 * Initialize data version control for managing test images ([#1036](https://github.com/GenericMappingTools/pygmt/pull/1036))
 * Separate workflows for running tests and building documentation ([#1033](https://github.com/GenericMappingTools/pygmt/pull/1033))
