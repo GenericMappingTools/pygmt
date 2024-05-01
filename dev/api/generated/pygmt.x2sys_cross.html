@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -217,7 +217,7 @@ of the map projections prior to calculating the COE.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>tracks</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <p>A table or a list of tables with (x, y) or (lon, lat) values in the
+<li><p><strong>tracks</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <p>A table or a list of tables with (x, y) or (lon, lat) values in the
 first two columns. Track(s) can be provided as pandas DataFrame tables
 or file names. Supported file formats are ASCII, native binary, or
 COARDS netCDF 1-D data. More columns may also be present.</p>
@@ -301,10 +301,10 @@ crossover value and the mean value].</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><p><strong>crossover_errors</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or None) – Table containing crossover error information.
+<dd class="field-even"><p><p><strong>crossover_errors</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or None) – Table containing crossover error information.
 Return type depends on whether the <code class="docutils literal notranslate"><span class="pre">outfile</span></code> parameter is set:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with (x, y, …, etc) if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not
+<li><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> with (x, y, …, etc) if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is not
 set</p></li>
 <li><p>None if <code class="docutils literal notranslate"><span class="pre">outfile</span></code> is set (track output will be stored in the set in
 <code class="docutils literal notranslate"><span class="pre">outfile</span></code>)</p></li>
@@ -329,9 +329,9 @@ set</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

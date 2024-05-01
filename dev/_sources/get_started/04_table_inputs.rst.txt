@@ -23,22 +23,21 @@
 
 Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
-- A table is a 2-D array with rows and columns. Each column represents a
-  different variable (e.g., *x*, *y* and *z*) and each row represents a
-  different record.
-- A grid is a 2-D array of data that is regularly spaced in the x and y
-  directions (or longitude and latitude).
+- A table is a 2-D array with rows and columns. Each column represents a different
+  variable (e.g., *x*, *y* and *z*) and each row represents a different record.
+- A grid is a 2-D array of data that is regularly spaced in the x and y directions (or
+  longitude and latitude).
 
-In this tutorial, we'll focus on working with table inputs, and cover grid
-inputs in a separate tutorial.
+In this tutorial, we'll focus on working with table inputs, and cover grid inputs in a
+separate tutorial.
 
-PyGMT supports a variety of table input types that allow you to work with data
-in a format that suits your needs. In this tutorial, we'll explore the
-different table input types available in PyGMT and provide examples for each.
-By understanding the different table input types, you can choose the one that
-best fits your data and analysis needs, and work more efficiently with PyGMT.
+PyGMT supports a variety of table input types that allow you to work with data in a
+format that suits your needs. In this tutorial, we'll explore the different table input
+types available in PyGMT and provide examples for each. By understanding the different
+table input types, you can choose the one that best fits your data and analysis needs,
+and work more efficiently with PyGMT.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-31
+.. GENERATED FROM PYTHON SOURCE LINES 23-30
 
 .. code-block:: Python
 
@@ -56,17 +55,17 @@ best fits your data and analysis needs, and work more efficiently with PyGMT.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-39
+.. GENERATED FROM PYTHON SOURCE LINES 31-38
 
 ASCII table file
 ----------------
 
-Most PyGMT functions/methods that accept table input data have a ``data``
-parameter. The easiest way to provide table input data to PyGMT is by
-specifying the file name of an ASCII table (e.g., ``data="input_data.dat"``).
-This is useful when your data is stored in a separate text file.
+Most PyGMT functions/methods that accept table input data have a ``data`` parameter.
+The easiest way to provide table input data to PyGMT is by specifying the file name of
+an ASCII table (e.g., ``data="input_data.dat"``). This is useful when your data is
+stored in a separate text file.
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-53
+.. GENERATED FROM PYTHON SOURCE LINES 38-52
 
 .. code-block:: Python
 
@@ -96,18 +95,20 @@ This is useful when your data is stored in a separate text file.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-62
+.. GENERATED FROM PYTHON SOURCE LINES 53-63
 
-Besides a plain string to a table file, the following variants are also
-accepted:
+Besides a plain string to a table file, the following variants are also accepted:
 
 - A :class:`pathlib.Path` object.
 - A full URL. PyGMT will download the file to the current directory first.
-- A file name prefixed with ``@`` (e.g., ``data="@input_data.dat"``), which
-  is a special syntax in GMT to indicate that the file is a remote file
-  hosted on the GMT data server.
+- A file name prefixed with ``@`` (e.g., ``data="@input_data.dat"``), which is a
+  special syntax in GMT to indicate that the file is a remote file hosted on the GMT
+  data server.
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-74
+Additionally, PyGMT also supports a list of file names, :class:`pathlib.Path` objects,
+URLs, or remote files, to provide more flexibility in specifying input files.
+
+.. GENERATED FROM PYTHON SOURCE LINES 65-75
 
 2-D array: `list`, `numpy.ndarray`, and `pandas.DataFrame`
 ----------------------------------------------------------
@@ -120,7 +121,7 @@ The ``data`` parameter also accepts a 2-D array, e.g.,
 
 This is useful when you want to plot data that is already in memory.
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-90
+.. GENERATED FROM PYTHON SOURCE LINES 75-91
 
 .. code-block:: Python
 
@@ -152,17 +153,17 @@ This is useful when you want to plot data that is already in memory.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-98
+.. GENERATED FROM PYTHON SOURCE LINES 92-99
 
 :class:`geopandas.GeoDataFrame`
 -------------------------------
 
 If you're working with geospatial data, you can read your data as a
-:class:`geopandas.GeoDataFrame` object and pass it to the ``data``
-parameter. This is useful if your data is stored in a geospatial data format
-(e.g., GeoJSON, etc.) that GMT and PyGMT do not support natively.
+:class:`geopandas.GeoDataFrame` object and pass it to the ``data`` parameter. This is
+useful if your data is stored in a geospatial data format (e.g., GeoJSON, etc.) that
+GMT and PyGMT do not support natively.
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-113
+.. GENERATED FROM PYTHON SOURCE LINES 99-114
 
 .. code-block:: Python
 
@@ -193,17 +194,17 @@ parameter. This is useful if your data is stored in a geospatial data format
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-121
+.. GENERATED FROM PYTHON SOURCE LINES 115-122
 
 Scalar values or 1-D arrays
 ---------------------------
 
-In addition to the ``data`` parameter, some PyGMT functions/methods also
-provide individual parameters (e.g., ``x`` and ``y`` for data coordinates)
-which allow you to specify the data. These parameters accept individual
-scalar values or 1-D arrays (lists or 1-D numpy arrays).
+In addition to the ``data`` parameter, some PyGMT functions/methods also provide
+individual parameters (e.g., ``x`` and ``y`` for data coordinates) which allow you to
+specify the data. These parameters accept individual scalar values or 1-D arrays
+(lists or 1-D numpy arrays).
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-138
+.. GENERATED FROM PYTHON SOURCE LINES 122-139
 
 .. code-block:: Python
 
@@ -236,21 +237,21 @@ scalar values or 1-D arrays (lists or 1-D numpy arrays).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-147
+.. GENERATED FROM PYTHON SOURCE LINES 140-148
 
 Conclusion
 ----------
 
-In PyGMT, you have the flexibility to provide data in various table input
-types, including file names, 2-D arrays (2-D :class:`list`,
-:class:`numpy.ndarray`, :class:`pandas.DataFrames`), scalar values or a
-series of 1-D arrays, and :class:`geopandas.GeoDataFrame`. Choose the input
-type that best suits your data source and analysis requirements.
+In PyGMT, you have the flexibility to provide data in various table input types,
+including file names, 2-D arrays (2-D :class:`list`, :class:`numpy.ndarray`,
+:class:`pandas.DataFrames`), scalar values or a series of 1-D arrays, and
+:class:`geopandas.GeoDataFrame`. Choose the input type that best suits your data
+source and analysis requirements.
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.468 seconds)
+   **Total running time of the script:** (0 minutes 0.448 seconds)
 
 
 .. _sphx_glr_download_get_started_04_table_inputs.py:

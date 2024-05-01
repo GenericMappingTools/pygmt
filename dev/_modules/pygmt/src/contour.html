@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -162,7 +162,13 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">is_nonstr_iter</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <span class="nd">@fmt_docstring</span>
@@ -213,23 +219,26 @@
 <span class="sd">        Arrays of x and y coordinates and values z of the data points.</span>
 <span class="sd">    {projection}</span>
 <span class="sd">    {region}</span>
-<span class="sd">    annotation : str or int</span>
+<span class="sd">    annotation : float, list, or str</span>
 <span class="sd">        Specify or disable annotated contour levels, modifies annotated</span>
 <span class="sd">        contours specified in ``levels``.</span>
 
-<span class="sd">        - Specify a fixed annotation interval *annot_int* or a</span>
-<span class="sd">          single annotation level +\ *annot_int*.</span>
+<span class="sd">        - Specify a fixed annotation interval.</span>
+<span class="sd">        - Specify a list of annotation levels.</span>
+<span class="sd">        - Disable all annotations by setting ``annotation=&quot;n&quot;``.</span>
+<span class="sd">        - Adjust the appearance by appending different modifiers, e.g.,</span>
+<span class="sd">          ``&quot;annot_int+f10p+gred&quot;`` gives annotations with a font size of 10 points and</span>
+<span class="sd">          a red filled box. For all available modifiers see :gmt-docs:`contour.html#a`.</span>
 <span class="sd">    {frame}</span>
-<span class="sd">    levels : str or int</span>
+<span class="sd">    levels : float, list, or str</span>
 <span class="sd">        Specify the contour lines to generate.</span>
 
-<span class="sd">        - The file name of a CPT file where the color boundaries will</span>
-<span class="sd">          be used as contour levels.</span>
-<span class="sd">        - The file name of a 2 (or 3) column file containing the contour</span>
-<span class="sd">          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional</span>
-<span class="sd">          angle (col 3).</span>
-<span class="sd">        - A fixed contour interval *cont_int* or a single contour with</span>
-<span class="sd">          +\ *cont_int*.</span>
+<span class="sd">        - The file name of a CPT file where the color boundaries will be used as</span>
+<span class="sd">          contour levels.</span>
+<span class="sd">        - The file name of a 2 (or 3) column file containing the contour levels (col 0),</span>
+<span class="sd">          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2).</span>
+<span class="sd">        - A fixed contour interval.</span>
+<span class="sd">        - A list of contour levels.</span>
 <span class="sd">    D : str</span>
 <span class="sd">        Dump contour coordinates.</span>
 <span class="sd">    E : str</span>
@@ -252,7 +261,16 @@
 <span class="sd">    skip : bool or str</span>
 <span class="sd">        [**p**\|\ **t**].</span>
 <span class="sd">        Skip input points outside region.</span>
-<span class="sd">    {pen}</span>
+<span class="sd">    pen : str or list</span>
+<span class="sd">        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].</span>
+<span class="sd">        *type*, if present, can be **a** for annotated contours or **c** for regular</span>
+<span class="sd">        contours [Default]. The pen sets the attributes for the particular line.</span>
+<span class="sd">        Default pen for annotated contours is ``&quot;0.75p,black&quot;`` and for regular</span>
+<span class="sd">        contours ``&quot;0.25p,black&quot;``. Normally, all contours are drawn with a fixed</span>
+<span class="sd">        color determined by the pen setting. If **+cl** is appended the colors of the</span>
+<span class="sd">        contour lines are taken from the CPT (see ``levels``). If **+cf** is</span>
+<span class="sd">        appended the colors from the CPT file are applied to the contour annotations.</span>
+<span class="sd">        Select **+c** for both effects.</span>
 <span class="sd">    label : str</span>
 <span class="sd">        Add a legend entry for the contour being plotted. Normally, the</span>
 <span class="sd">        annotated contour is selected for the legend. You can select the</span>
@@ -273,13 +291,23 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="c1"># Specify levels for contours or annotations.</span>
+    <span class="c1"># One level is converted to a string with a trailing comma to separate it from</span>
+    <span class="c1"># specifying an interval.</span>
+    <span class="c1"># Multiple levels are concatenated to a comma-separated string.</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># One level</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Multiple levels</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span>
+
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
             <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">True</span>
-        <span class="p">)</span>
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;contour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;contour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">)</span>
             <span class="p">)</span>
 </pre></div>
 
@@ -292,9 +320,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

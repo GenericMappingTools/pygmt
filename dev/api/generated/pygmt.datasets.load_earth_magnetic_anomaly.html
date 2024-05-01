@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -244,7 +244,7 @@ registration or <strong>g</strong> for gridline registration).</p>
 <code class="docutils literal notranslate"><span class="pre">data_source=&quot;wdmam&quot;</span></code>. The dataset-specific CPT is implicitly used when
 passing in the file name of the dataset to any grid plotting method if no
 CPT is explicitly specified. When the dataset is loaded and plotted as an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default CPT is ignored, and GMT’s
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object, the default CPT is ignored, and GMT’s
 default CPT (<em>turbo</em>) is used. To use the dataset-specific CPT, you need to
 explicitly set <code class="docutils literal notranslate"><span class="pre">cmap=&quot;&#64;earth_mag.cpt&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">cmap=&quot;&#64;earth_wdmam.cpt&quot;</span></code>.</p>
 <p>Refer to <a class="reference external" href="https://www.generic-mapping-tools.org/remote-datasets/earth-mag.html">https://www.generic-mapping-tools.org/remote-datasets/earth-mag.html</a>
@@ -282,14 +282,14 @@ See <a class="reference external" href="https://www.generic-mapping-tools.org/re
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth magnetic anomaly grid. Coordinates are latitude and
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth magnetic anomaly grid. Coordinates are latitude and
 longitude in degrees. Units are in nano Tesla (nT).</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -336,9 +336,9 @@ workarounds.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,17 +160,20 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">tilemap - Plot XYZ tile maps.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.datasets.tile_map</span> <span class="kn">import</span> <span class="n">load_tile_map</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">rioxarray</span>  <span class="c1"># noqa: F401</span>
+    <span class="kn">from</span> <span class="nn">xyzservices</span> <span class="kn">import</span> <span class="n">TileProvider</span>
 
     <span class="n">_HAS_RIOXARRAY</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">TileProvider</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_HAS_RIOXARRAY</span> <span class="o">=</span> <span class="kc">False</span>
 
 
@@ -192,12 +195,12 @@
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>  <span class="c1"># R=&quot;sequence&quot;,</span>
 <span class="k">def</span> <span class="nf">tilemap</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">region</span><span class="p">,</span>
-    <span class="n">zoom</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">lonlat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">max_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">region</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">TileProvider</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">lonlat</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">wait</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
     <span class="n">zoom_adjust</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
@@ -205,73 +208,59 @@
 <span class="sd">    Plot an XYZ tile map.</span>
 
 <span class="sd">    This method loads XYZ tile maps from a tile server or local file using</span>
-<span class="sd">    :func:`pygmt.datasets.load_tile_map` into a georeferenced form, and plots</span>
-<span class="sd">    the tiles as a basemap or overlay using :meth:`pygmt.Figure.grdimage`.</span>
+<span class="sd">    :func:`pygmt.datasets.load_tile_map` into a georeferenced form, and plots the tiles</span>
+<span class="sd">    as a basemap or overlay using :meth:`pygmt.Figure.grdimage`.</span>
 
 <span class="sd">    **Note**: By default, standard web map tiles served in a Spherical Mercator</span>
 <span class="sd">    (EPSG:3857) Cartesian format will be reprojected to a geographic coordinate</span>
-<span class="sd">    reference system (OGC:WGS84) and plotted with longitude/latitude bounds</span>
-<span class="sd">    when ``lonlat=True``. If reprojection is not desired, please set</span>
-<span class="sd">    ``lonlat=False`` and provide Spherical Mercator (EPSG:3857) coordinates to</span>
-<span class="sd">    the ``region`` parameter.</span>
+<span class="sd">    reference system (OGC:WGS84) and plotted with longitude/latitude bounds when</span>
+<span class="sd">    ``lonlat=True``. If reprojection is not desired, please set ``lonlat=False`` and</span>
+<span class="sd">    provide Spherical Mercator (EPSG:3857) coordinates to the ``region`` parameter.</span>
 
 <span class="sd">    {aliases}</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    region : list</span>
-<span class="sd">        The bounding box of the map in the form of a list [*xmin*, *xmax*,</span>
-<span class="sd">        *ymin*, *ymax*]. These coordinates should be in longitude/latitude if</span>
-<span class="sd">        ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.</span>
-
-<span class="sd">    zoom : int or str</span>
-<span class="sd">        Optional. Level of detail. Higher levels (e.g. ``22``) mean a zoom</span>
-<span class="sd">        level closer to the Earth&#39;s surface, with more tiles covering a smaller</span>
-<span class="sd">        geographical area and thus more detail. Lower levels (e.g. ``0``) mean</span>
-<span class="sd">        a zoom level further from the Earth&#39;s surface, with less tiles covering</span>
-<span class="sd">        a larger geographical area and thus less detail [Default is</span>
-<span class="sd">        ``&quot;auto&quot;`` to automatically determine the zoom level based on the</span>
-<span class="sd">        bounding box region extent].</span>
+<span class="sd">    region</span>
+<span class="sd">        The bounding box of the map in the form of a list [*xmin*, *xmax*, *ymin*,</span>
+<span class="sd">        *ymax*]. These coordinates should be in longitude/latitude if ``lonlat=True`` or</span>
+<span class="sd">        Spherical Mercator (EPSG:3857) if ``lonlat=False``.</span>
+<span class="sd">    zoom</span>
+<span class="sd">        Level of detail. Higher levels (e.g. ``22``) mean a zoom level closer to the</span>
+<span class="sd">        Earth&#39;s surface, with more tiles covering a smaller geographical area and thus</span>
+<span class="sd">        more detail. Lower levels (e.g. ``0``) mean a zoom level further from the</span>
+<span class="sd">        Earth&#39;s surface, with less tiles covering a larger geographical area and thus</span>
+<span class="sd">        less detail. Default is ``&quot;auto&quot;`` to automatically determine the zoom level</span>
+<span class="sd">        based on the bounding box region extent.</span>
 
 <span class="sd">        .. note::</span>
 <span class="sd">           The maximum possible zoom level may be smaller than ``22``, and depends on</span>
 <span class="sd">           what is supported by the chosen web tile provider source.</span>
+<span class="sd">    source</span>
+<span class="sd">        The tile source: web tile provider or path to a local file. Provide either:</span>
 
-<span class="sd">    source : xyzservices.TileProvider or str</span>
-<span class="sd">        Optional. The tile source: web tile provider or path to a local file.</span>
-<span class="sd">        Provide either:</span>
-
-<span class="sd">        - A web tile provider in the form of a</span>
-<span class="sd">          :class:`xyzservices.TileProvider` object. See</span>
-<span class="sd">          :doc:`Contextily providers &lt;contextily:providers_deepdive&gt;` for a</span>
-<span class="sd">          list of tile providers [Default is</span>
-<span class="sd">          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap</span>
-<span class="sd">          Humanitarian web tiles].</span>
-<span class="sd">        - A web tile provider in the form of a URL. The placeholders for the</span>
-<span class="sd">          XYZ in the URL need to be {{x}}, {{y}}, {{z}}, respectively. E.g.</span>
+<span class="sd">        - A web tile provider in the form of a :class:`xyzservices.TileProvider` object.</span>
+<span class="sd">          See :doc:`Contextily providers &lt;contextily:providers_deepdive&gt;` for a list of</span>
+<span class="sd">          tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.</span>
+<span class="sd">          OpenStreetMap Humanitarian web tiles.</span>
+<span class="sd">        - A web tile provider in the form of a URL. The placeholders for the XYZ in the</span>
+<span class="sd">          URL need to be ``{{x}}``, ``{{y}}``, ``{{z}}``, respectively. E.g.</span>
 <span class="sd">          ``https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png``.</span>
-<span class="sd">        - A local file path. The file is read with</span>
-<span class="sd">          :doc:`rasterio &lt;rasterio:index&gt;` and all bands are loaded into the</span>
-<span class="sd">          basemap. See</span>
+<span class="sd">        - A local file path. The file is read with :doc:`rasterio &lt;rasterio:index&gt;` and</span>
+<span class="sd">          all bands are loaded into the basemap. See</span>
 <span class="sd">          :doc:`contextily:working_with_local_files`.</span>
 
 <span class="sd">        .. important::</span>
 <span class="sd">           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).</span>
-
-<span class="sd">    lonlat : bool</span>
-<span class="sd">        Optional. If ``False``, coordinates in ``region`` are assumed to be</span>
-<span class="sd">        Spherical Mercator as opposed to longitude/latitude [Default is</span>
-<span class="sd">        ``True``].</span>
-
-<span class="sd">    wait : int</span>
-<span class="sd">        Optional. If the tile API is rate-limited, the number of seconds to</span>
-<span class="sd">        wait between a failed request and the next try [Default is ``0``].</span>
-
-<span class="sd">    max_retries : int</span>
-<span class="sd">        Optional. Total number of rejected requests allowed before contextily</span>
-<span class="sd">        will stop trying to fetch more tiles from a rate-limited API [Default</span>
-<span class="sd">        is ``2``].</span>
-
+<span class="sd">    lonlat</span>
+<span class="sd">        If ``False``, coordinates in ``region`` are assumed to be Spherical Mercator as</span>
+<span class="sd">        opposed to longitude/latitude.</span>
+<span class="sd">    wait</span>
+<span class="sd">        If the tile API is rate-limited, the number of seconds to wait between a failed</span>
+<span class="sd">        request and the next try.</span>
+<span class="sd">    max_retries</span>
+<span class="sd">        Total number of rejected requests allowed before contextily will stop trying to</span>
+<span class="sd">        fetch more tiles from a rate-limited API.</span>
 <span class="sd">    zoom_adjust</span>
 <span class="sd">        The amount to adjust a chosen zoom level if it is chosen automatically. Values</span>
 <span class="sd">        outside of -1 to 1 are not recommended as they can lead to slow execution.</span>
@@ -286,9 +275,8 @@
 <span class="sd">    ------</span>
 <span class="sd">    ImportError</span>
 <span class="sd">        If ``rioxarray`` is not installed. Follow</span>
-<span class="sd">        :doc:`install instructions for rioxarray &lt;rioxarray:installation&gt;`,</span>
-<span class="sd">        (e.g. via ``python -m pip install rioxarray``) before using this</span>
-<span class="sd">        function.</span>
+<span class="sd">        :doc:`install instructions for rioxarray &lt;rioxarray:installation&gt;`, (e.g. via</span>
+<span class="sd">        ``python -m pip install rioxarray``) before using this function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -296,8 +284,7 @@
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
             <span class="s2">&quot;Package `rioxarray` is required to be installed to use this function. &quot;</span>
             <span class="s2">&quot;Please use `python -m pip install rioxarray` or &quot;</span>
-            <span class="s2">&quot;`mamba install -c conda-forge rioxarray` &quot;</span>
-            <span class="s2">&quot;to install the package.&quot;</span>
+            <span class="s2">&quot;`mamba install -c conda-forge rioxarray` to install the package.&quot;</span>
         <span class="p">)</span>
 
     <span class="n">raster</span> <span class="o">=</span> <span class="n">load_tile_map</span><span class="p">(</span>
@@ -310,22 +297,21 @@
         <span class="n">zoom_adjust</span><span class="o">=</span><span class="n">zoom_adjust</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># Reproject raster from Spherical Mercator (EPSG:3857) to</span>
-    <span class="c1"># lonlat (OGC:CRS84) if bounding box region was provided in lonlat</span>
+    <span class="c1"># Reproject raster from Spherical Mercator (EPSG:3857) to lonlat (OGC:CRS84) if</span>
+    <span class="c1"># bounding box region was provided in lonlat</span>
     <span class="k">if</span> <span class="n">lonlat</span> <span class="ow">and</span> <span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="s2">&quot;EPSG:3857&quot;</span><span class="p">:</span>
         <span class="n">raster</span> <span class="o">=</span> <span class="n">raster</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span><span class="n">dst_crs</span><span class="o">=</span><span class="s2">&quot;OGC:CRS84&quot;</span><span class="p">)</span>
         <span class="n">raster</span><span class="o">.</span><span class="n">gmt</span><span class="o">.</span><span class="n">gtype</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># set to geographic type</span>
 
-    <span class="c1"># Only set region if no_clip is None or False, so that plot is clipped to</span>
-    <span class="c1"># exact bounding box region</span>
+    <span class="c1"># Only set region if no_clip is None or False, so that plot is clipped to exact</span>
+    <span class="c1"># bounding box region</span>
     <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">]:</span>
         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span> <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="n">region</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">raster</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">raster</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdimage&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdimage&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
             <span class="p">)</span>
 </pre></div>
 
@@ -338,9 +324,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

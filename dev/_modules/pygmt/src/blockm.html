@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -158,23 +158,28 @@
              
   <h1>Source code for pygmt.src.blockm</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">blockm - Block average (x, y, z) data tables by mean, median, or mode</span>
-<span class="sd">estimation.</span>
+<span class="sd">blockm - Block average (x, y, z) data tables by mean, median, or mode estimation.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
+    <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;blockmean&quot;</span><span class="p">,</span> <span class="s2">&quot;blockmedian&quot;</span><span class="p">,</span> <span class="s2">&quot;blockmode&quot;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">_blockm</span><span class="p">(</span><span class="n">block_method</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_blockm</span><span class="p">(</span>
+    <span class="n">block_method</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block average (x, y, z) data tables by mean, median, or mode estimation.</span>
 
@@ -192,39 +197,34 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    output : pandas.DataFrame or None</span>
-<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
+<span class="sd">    ret</span>
+<span class="sd">        Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``</span>
-<span class="sd">          is not set</span>
-<span class="sd">        - None if ``outfile`` is set (filtered output will be stored in file</span>
-<span class="sd">          set by ``outfile``)</span>
+<span class="sd">        - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">          ``outfile``)</span>
+<span class="sd">        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set</span>
+<span class="sd">          (depends on ``output_type``)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+    <span class="n">output_type</span> <span class="o">=</span> <span class="n">validate_output_table_type</span><span class="p">(</span><span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
+
+    <span class="n">column_names</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+        <span class="n">column_names</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="p">(</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
                 <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">vouttbl</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="n">block_method</span><span class="p">,</span>
+                <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">),</span>
             <span class="p">)</span>
-            <span class="c1"># Run blockm* on data table</span>
-            <span class="k">with</span> <span class="n">table_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">outfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                    <span class="n">module</span><span class="o">=</span><span class="n">block_method</span><span class="p">,</span>
-                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">),</span>
-                <span class="p">)</span>
-
-        <span class="c1"># Read temporary csv output to a pandas table</span>
-        <span class="k">if</span> <span class="n">outfile</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># if user did not set outfile, return pd.DataFrame</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">column_names</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># &#39;str&#39; object has no attribute &#39;columns&#39;</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s2">&quot;&gt;&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">outfile</span> <span class="o">!=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>  <span class="c1"># return None if outfile set, output in outfile</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">return</span> <span class="n">result</span>
+            <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_dataset</span><span class="p">(</span>
+                <span class="n">vfname</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span> <span class="n">column_names</span><span class="o">=</span><span class="n">column_names</span>
+            <span class="p">)</span>
 
 
 <div class="viewcode-block" id="blockmean">
@@ -247,7 +247,15 @@
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">blockmean</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">blockmean</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block average (x, y, z) data tables by mean estimation.</span>
 
@@ -272,9 +280,9 @@
 <span class="sd">        {table-classes}.</span>
 <span class="sd">    x/y/z : 1-D arrays</span>
 <span class="sd">        Arrays of x and y coordinates and values z of the data points.</span>
-
+<span class="sd">    {output_type}</span>
+<span class="sd">    {outfile}</span>
 <span class="sd">    {spacing}</span>
-
 <span class="sd">    summary : str</span>
 <span class="sd">        [**m**\|\ **n**\|\ **s**\|\ **w**].</span>
 <span class="sd">        Type of summary values calculated by blockmean.</span>
@@ -283,12 +291,7 @@
 <span class="sd">        - **n** - report the number of input points inside each block</span>
 <span class="sd">        - **s** - report the sum of all z-values inside a block</span>
 <span class="sd">        - **w** - report the sum of weights</span>
-
 <span class="sd">    {region}</span>
-
-<span class="sd">    outfile : str</span>
-<span class="sd">        The file name for the output ASCII file.</span>
-
 <span class="sd">    {verbose}</span>
 <span class="sd">    {aspatial}</span>
 <span class="sd">    {binary}</span>
@@ -303,13 +306,13 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    output : pandas.DataFrame or None</span>
-<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
+<span class="sd">    ret</span>
+<span class="sd">        Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``</span>
-<span class="sd">          is not set.</span>
-<span class="sd">        - None if ``outfile`` is set (filtered output will be stored in file</span>
-<span class="sd">          set by ``outfile``).</span>
+<span class="sd">        - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">          ``outfile``)</span>
+<span class="sd">        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set</span>
+<span class="sd">          (depends on ``output_type``)</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -320,7 +323,14 @@
 <span class="sd">    &gt;&gt;&gt; data_bmean = pygmt.blockmean(data=data, region=[245, 255, 20, 30], spacing=&quot;5m&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_blockm</span><span class="p">(</span>
-        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmean&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmean&quot;</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+        <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -344,7 +354,15 @@
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">blockmedian</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">blockmedian</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block average (x, y, z) data tables by median estimation.</span>
 
@@ -369,14 +387,10 @@
 <span class="sd">        {table-classes}.</span>
 <span class="sd">    x/y/z : 1-D arrays</span>
 <span class="sd">        Arrays of x and y coordinates and values z of the data points.</span>
-
+<span class="sd">    {output_type}</span>
+<span class="sd">    {outfile}</span>
 <span class="sd">    {spacing}</span>
-
 <span class="sd">    {region}</span>
-
-<span class="sd">    outfile : str</span>
-<span class="sd">        The file name for the output ASCII file.</span>
-
 <span class="sd">    {verbose}</span>
 <span class="sd">    {aspatial}</span>
 <span class="sd">    {binary}</span>
@@ -391,13 +405,13 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    output : pandas.DataFrame or None</span>
-<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
+<span class="sd">    ret</span>
+<span class="sd">        Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``</span>
-<span class="sd">          is not set.</span>
-<span class="sd">        - None if ``outfile`` is set (filtered output will be stored in file</span>
-<span class="sd">          set by ``outfile``).</span>
+<span class="sd">        - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">          ``outfile``)</span>
+<span class="sd">        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set</span>
+<span class="sd">          (depends on ``output_type``)</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -410,7 +424,14 @@
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_blockm</span><span class="p">(</span>
-        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmedian&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmedian&quot;</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+        <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
@@ -434,7 +455,15 @@
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">o</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">blockmode</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">blockmode</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
+    <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block average (x, y, z) data tables by mode estimation.</span>
 
@@ -459,14 +488,10 @@
 <span class="sd">        {table-classes}.</span>
 <span class="sd">    x/y/z : 1-D arrays</span>
 <span class="sd">        Arrays of x and y coordinates and values z of the data points.</span>
-
+<span class="sd">    {output_type}</span>
+<span class="sd">    {outfile}</span>
 <span class="sd">    {spacing}</span>
-
 <span class="sd">    {region}</span>
-
-<span class="sd">    outfile : str</span>
-<span class="sd">        The file name for the output ASCII file.</span>
-
 <span class="sd">    {verbose}</span>
 <span class="sd">    {aspatial}</span>
 <span class="sd">    {binary}</span>
@@ -481,13 +506,13 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    output : pandas.DataFrame or None</span>
-<span class="sd">        Return type depends on whether the ``outfile`` parameter is set:</span>
+<span class="sd">    ret</span>
+<span class="sd">        Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">        - :class:`pandas.DataFrame` table with (x, y, z) columns if ``outfile``</span>
-<span class="sd">          is not set.</span>
-<span class="sd">        - None if ``outfile`` is set (filtered output will be stored in file</span>
-<span class="sd">          set by ``outfile``).</span>
+<span class="sd">        - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">          ``outfile``)</span>
+<span class="sd">        - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not set</span>
+<span class="sd">          (depends on ``output_type``)</span>
 
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
@@ -498,7 +523,14 @@
 <span class="sd">    &gt;&gt;&gt; data_bmode = pygmt.blockmode(data=data, region=[245, 255, 20, 30], spacing=&quot;5m&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_blockm</span><span class="p">(</span>
-        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmode&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="n">block_method</span><span class="o">=</span><span class="s2">&quot;blockmode&quot;</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+        <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 </pre></div>
@@ -512,9 +544,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

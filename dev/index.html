@@ -28,7 +28,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/documentation_options.js?v=b483e97e"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -149,7 +149,7 @@
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/index.rst"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/index.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -162,28 +162,28 @@
            <div itemprop="articleBody">
              
   <div class="banner">
-    <h1>PyGMT</h1>
+    <h1>PyGMT<h1>
     <h2>
         A Python interface for the
         <a href="https://www.generic-mapping-tools.org/">Generic Mapping Tools</a>
     </h2>
-</div><section id="why-pygmt">
+</div>
+<section id="why-pygmt">
 <h1>Why PyGMT?<a class="headerlink" href="#why-pygmt" title="Link to this heading"></a></h1>
-<p>A beautiful map is worth a thousand words.
-To truly understand how powerful PyGMT is, play with it online on <a class="reference external" href="https://github.com/GenericMappingTools/try-gmt">Binder</a>!
-For a quicker introduction, check out our <a class="reference external" href="https://youtu.be/4iPnITXrxVU">3 minute overview</a>!</p>
-<p>Afterwards, feel free to look at our <a class="reference external" href="https://www.pygmt.org/latest/tutorials">Tutorials</a>,
-visit the <a class="reference external" href="https://www.pygmt.org/latest/gallery">Gallery</a>, and check out
-some <a class="reference external" href="https://www.pygmt.org/latest/external_resources.html">external PyGMT examples</a>!</p>
-<a class="reference external image-reference" href="https://youtu.be/4iPnITXrxVU"><img alt="Quick Introduction to PyGMT YouTube Video" class="align-center" src="https://user-images.githubusercontent.com/14077947/155809878-48b8f235-141b-460a-80ec-08bbf6c36e40.png" style="width: 80%;" /></a>
+<p>A beautiful map is worth a thousand words. To truly understand how powerful PyGMT is, play with it online on
+<a class="reference external" href="https://github.com/GenericMappingTools/try-gmt">Binder</a>! For a quicker introduction, check out our
+<a class="reference external" href="https://youtu.be/4iPnITXrxVU">3 minute overview</a>!</p>
+<p>Afterwards, feel free to look at our <a class="reference external" href="https://www.pygmt.org/latest/tutorials">Tutorials</a>, visit the
+<a class="reference external" href="https://www.pygmt.org/latest/gallery">Gallery</a>, and check out some
+<a class="reference external" href="https://www.pygmt.org/latest/external_resources.html">external PyGMT examples</a>!</p>
+<p><img alt="Quick Introduction to PyGMT YouTube Video" src="_images/scipy2022-youtube-thumbnail.jpg" /></p>
 </section>
 <section id="about">
 <h1>About<a class="headerlink" href="#about" title="Link to this heading"></a></h1>
-<p>PyGMT is a library for processing geospatial and geophysical data and making
-publication-quality maps and figures. It provides a Pythonic interface for the
-<a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>, a
-command-line program widely used across the Earth, Ocean, and Planetary sciences
-and beyond.</p>
+<p>PyGMT is a library for processing geospatial and geophysical data and making publication-quality
+maps and figures. It provides a Pythonic interface for the
+<a class="reference external" href="https://github.com/GenericMappingTools/gmt">Generic Mapping Tools (GMT)</a>, a command-line program
+widely used across the Earth, Ocean, and Planetary sciences and beyond.</p>
 </section>
 <section id="project-goals">
 <h1>Project goals<a class="headerlink" href="#project-goals" title="Link to this heading"></a></h1>
@@ -192,10 +192,8 @@ and beyond.</p>
 <li><p>Build a Pythonic API for GMT.</p></li>
 <li><p>Interface with the GMT C API directly using ctypes (no system calls).</p></li>
 <li><p>Support for rich display in the Jupyter notebook.</p></li>
-<li><p>Integration with the <a class="reference external" href="https://pydata.org/">PyData</a> ecosystem:
-<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> for data tables,
-<code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> for grids and <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code>
-for geographical data.</p></li>
+<li><p>Integration with the <a class="reference external" href="https://pydata.org/">PyData ecosystem</a>: <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> or <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> for
+data tables, <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> for grids, and <code class="docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code> for geographical data.</p></li>
 </ul>
 </section>
 <section id="quickstart">
@@ -203,11 +201,11 @@ for geographical data.</p></li>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
 <p>Simple installation using <a class="reference external" href="https://mamba.readthedocs.org/">mamba</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mamba</span> <span class="n">install</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>--channel<span class="w"> </span>conda-forge<span class="w"> </span>pygmt
 </pre></div>
 </div>
 <p>If you use <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/index.html">conda</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">--</span><span class="n">channel</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">pygmt</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>--channel<span class="w"> </span>conda-forge<span class="w"> </span>pygmt
 </pre></div>
 </div>
 <p>For other ways to install <code class="docutils literal notranslate"><span class="pre">pygmt</span></code>, see the <a class="reference external" href="https://www.pygmt.org/latest/install.html">full installation instructions</a>.</p>
@@ -216,21 +214,22 @@ for geographical data.</p></li>
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
 <p>As a starting point, you can open a <a class="reference external" href="https://docs.python.org/3/tutorial/interpreter.html">Python interpreter</a>
 or a <a class="reference external" href="https://docs.jupyter.org/en/latest/running.html">Jupyter notebook</a>, and try the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmt</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">coast</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;H10c&quot;</span><span class="p">,</span> <span class="n">region</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">land</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>For more examples, please have a look at the <a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a>
-and <a class="reference external" href="https://www.pygmt.org/latest/tutorials/index.html">Tutorials</a>.</p>
+<p>For more examples, please have a look at the <a class="reference external" href="https://www.pygmt.org/latest/gallery/index.html">Gallery</a> and
+<a class="reference external" href="https://www.pygmt.org/latest/tutorials/index.html">Tutorials</a>.</p>
 </section>
 </section>
 <section id="contacting-us">
-<h1>Contacting Us<a class="headerlink" href="#contacting-us" title="Link to this heading"></a></h1>
+<h1>Contacting us<a class="headerlink" href="#contacting-us" title="Link to this heading"></a></h1>
 <ul class="simple">
-<li><p>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on GitHub</a>. Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any
-open issue or pull request.</p></li>
+<li><p>Most discussion happens <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">on GitHub</a>.
+Feel free to <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/issues/new">open an issue</a> or comment on any open
+issue or pull request.</p></li>
 <li><p>We have a <a class="reference external" href="https://forum.generic-mapping-tools.org/c/questions/pygmt-q-a">Discourse forum</a> where you can ask
 questions and leave comments.</p></li>
 </ul>
@@ -239,45 +238,43 @@ questions and leave comments.</p></li>
 <h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h1>
 <section id="code-of-conduct">
 <h2>Code of conduct<a class="headerlink" href="#code-of-conduct" title="Link to this heading"></a></h2>
-<p>Please note that this project is released with a <a class="reference external" href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
+<p>Please note that this project is released with a
+<a class="reference external" href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md">Contributor Code of Conduct</a>.
 By participating in this project you agree to abide by its terms.</p>
 </section>
 <section id="contributing-guidelines">
-<h2>Contributing Guidelines<a class="headerlink" href="#contributing-guidelines" title="Link to this heading"></a></h2>
-<p>Please read our <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a> to
-see how you can help and give feedback.</p>
+<h2>Contributing guidelines<a class="headerlink" href="#contributing-guidelines" title="Link to this heading"></a></h2>
+<p>Please read our <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/CONTRIBUTING.md">Contributing Guide</a>
+to see how you can help and give feedback.</p>
 </section>
 <section id="imposter-syndrome-disclaimer">
 <h2>Imposter syndrome disclaimer<a class="headerlink" href="#imposter-syndrome-disclaimer" title="Link to this heading"></a></h2>
 <p><strong>We want your help.</strong> No, really.</p>
-<p>There may be a little voice inside your head that is telling you that you’re not ready
-to be an open source contributor; that your skills aren’t nearly good enough to
-contribute. What could you possibly offer?</p>
+<p>There may be a little voice inside your head that is telling you that you’re not ready to be an open source
+contributor; that your skills aren’t nearly good enough to contribute. What could you possibly offer?</p>
 <p>We assure you that the little voice in your head is wrong.</p>
-<p><strong>Being a contributor doesn’t just mean writing code</strong>.
-Equally important contributions include: writing or proof-reading documentation,
-suggesting or implementing tests, or even giving feedback about the project (including
-giving feedback about the contribution process). If you’re coming to the project with
-fresh eyes, you might see the errors and assumptions that seasoned contributors have
-glossed over. If you can write any code at all, you can contribute code to open source.
-We are constantly trying out new skills, making mistakes, and learning from those
-mistakes. That’s how we all improve and we are happy to help others learn.</p>
-<p><em>This disclaimer was adapted from the</em>
-<a class="reference external" href="https://github.com/Unidata/MetPy">MetPy project</a>.</p>
+<p><strong>Being a contributor doesn’t just mean writing code.</strong> Equally important contributions include: writing or
+proof-reading documentation, suggesting or implementing tests, or even giving feedback about the project
+(including giving feedback about the contribution process). If you’re coming to the project with fresh eyes,
+you might see the errors and assumptions that seasoned contributors have glossed over. If you can write any
+code at all, you can contribute code to open source. We are constantly trying out new skills, making mistakes,
+and learning from those mistakes. That’s how we all improve and we are happy to help others learn.</p>
+<p><em>This disclaimer was adapted from the</em> <a class="reference external" href="https://github.com/Unidata/MetPy">MetPy project</a>.</p>
 </section>
 </section>
 <section id="citing-pygmt">
 <h1>Citing PyGMT<a class="headerlink" href="#citing-pygmt" title="Link to this heading"></a></h1>
 <p>PyGMT is a community developed project. See the
-<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md">AUTHORS.md</a>
-file on GitHub for a list of the people involved and a definition of the term “PyGMT
-Developers”. Feel free to cite our work in your research using the following BibTeX:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span><span class="n">pygmt_2024_10578540</span><span class="p">,</span>
+<a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORS.md">AUTHORS.md</a> file on GitHub for a list of
+the people involved and a definition of the term “PyGMT Developers”. Feel free to cite our work in your
+research using the following BibTeX:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@software</span><span class="p">{</span>
+  <span class="n">pygmt_2024_11062720</span><span class="p">,</span>
   <span class="n">author</span>       <span class="o">=</span> <span class="p">{</span><span class="n">Tian</span><span class="p">,</span> <span class="n">Dongdong</span> <span class="ow">and</span>
                   <span class="n">Uieda</span><span class="p">,</span> <span class="n">Leonardo</span> <span class="ow">and</span>
                   <span class="n">Leong</span><span class="p">,</span> <span class="n">Wei</span> <span class="n">Ji</span> <span class="ow">and</span>
-                  <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
                   <span class="n">Fröhlich</span><span class="p">,</span> <span class="n">Yvonne</span> <span class="ow">and</span>
+                  <span class="n">Schlitzer</span><span class="p">,</span> <span class="n">William</span> <span class="ow">and</span>
                   <span class="n">Grund</span><span class="p">,</span> <span class="n">Michael</span> <span class="ow">and</span>
                   <span class="n">Jones</span><span class="p">,</span> <span class="n">Max</span> <span class="ow">and</span>
                   <span class="n">Toney</span><span class="p">,</span> <span class="n">Liam</span> <span class="ow">and</span>
@@ -292,27 +289,25 @@ Developers”. Feel free to cite our work in your research using the following B
                   <span class="n">Quinn</span><span class="p">,</span> <span class="n">Jamie</span> <span class="ow">and</span>
                   <span class="n">Wessel</span><span class="p">,</span> <span class="n">Paul</span><span class="p">},</span>
   <span class="n">title</span>        <span class="o">=</span> <span class="p">{{</span><span class="n">PyGMT</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">interface</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Generic</span> <span class="n">Mapping</span> <span class="n">Tools</span><span class="p">}},</span>
-  <span class="n">month</span>        <span class="o">=</span> <span class="n">feb</span><span class="p">,</span>
+  <span class="n">month</span>        <span class="o">=</span> <span class="n">may</span><span class="p">,</span>
   <span class="n">year</span>         <span class="o">=</span> <span class="mi">2024</span><span class="p">,</span>
   <span class="n">publisher</span>    <span class="o">=</span> <span class="p">{</span><span class="n">Zenodo</span><span class="p">},</span>
-  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">0.11.0</span><span class="p">},</span>
-  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.10578540</span><span class="p">},</span>
-  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.10578540</span><span class="p">}</span>
+  <span class="n">version</span>      <span class="o">=</span> <span class="p">{</span><span class="mf">0.12.0</span><span class="p">},</span>
+  <span class="n">doi</span>          <span class="o">=</span> <span class="p">{</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.11062720</span><span class="p">},</span>
+  <span class="n">url</span>          <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">doi</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="mf">10.5281</span><span class="o">/</span><span class="n">zenodo</span><span class="mf">.11062720</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>To cite a specific version of PyGMT, go to our Zenodo page at
-<a class="reference external" href="https://doi.org/10.5281/zenodo.3781524">https://doi.org/10.5281/zenodo.3781524</a> and use the “Export to BibTeX” function there.
-It is also strongly recommended to cite the
-<a class="reference external" href="https://doi.org/10.1029/2019GC008515">GMT 6 paper</a> (which PyGMT wraps around).
-Note that some modules like <code class="docutils literal notranslate"><span class="pre">dimfilter</span></code>, <code class="docutils literal notranslate"><span class="pre">surface</span></code>, and <code class="docutils literal notranslate"><span class="pre">x2sys</span></code> also have their
-dedicated citations. Further information for all these can be found at
-<a class="reference external" href="https://www.generic-mapping-tools.org/cite">https://www.generic-mapping-tools.org/cite</a>.</p>
+<p>To cite a specific version of PyGMT, go to our Zenodo page at <a class="reference external" href="https://doi.org/10.5281/zenodo.3781524">https://doi.org/10.5281/zenodo.3781524</a>
+and use the “Export to BibTeX” function there. It is also strongly recommended to cite the
+<a class="reference external" href="https://doi.org/10.1029/2019GC008515">GMT 6 paper</a> (which PyGMT wraps around). Note that some modules
+like <code class="docutils literal notranslate"><span class="pre">dimfilter</span></code>, <code class="docutils literal notranslate"><span class="pre">surface</span></code>, and <code class="docutils literal notranslate"><span class="pre">x2sys</span></code> also have their dedicated citations. Further information for
+all these can be found at <a class="reference external" href="https://www.generic-mapping-tools.org/cite">https://www.generic-mapping-tools.org/cite</a>.</p>
 </section>
 <section id="license">
 <h1>License<a class="headerlink" href="#license" title="Link to this heading"></a></h1>
-<p>PyGMT is free software: you can redistribute it and/or modify it under the terms of
-the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
+<p>PyGMT is free software: you can redistribute it and/or modify it under the terms of the
+<strong>BSD 3-clause License</strong>. A copy of this license is provided in
 <a class="reference external" href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt">LICENSE.txt</a>.</p>
 </section>
 <section id="support">
@@ -326,14 +321,13 @@ the <strong>BSD 3-clause License</strong>. A copy of this license is provided in
 <p>Other official wrappers for GMT:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/GenericMappingTools/GMT.jl">GMT.jl</a>: A Julia wrapper for GMT.</p></li>
-<li><p><a class="reference external" href="https://github.com/GenericMappingTools/gmtmex">gmtmex</a>: A Matlab/Octave wrapper
-for GMT.</p></li>
+<li><p><a class="reference external" href="https://github.com/GenericMappingTools/gmtmex">gmtmex</a>: A Matlab/Octave wrapper for GMT.</p></li>
 </ul>
 <p>Other non-official Python wrappers for GMT (not maintained):</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/emolch/gmtpy">gmtpy</a> by <a class="reference external" href="https://github.com/emolch">Sebastian Heimann</a></p></li>
 <li><p><a class="reference external" href="https://github.com/ian-r-rose/pygmt">pygmt</a> by <a class="reference external" href="https://github.com/ian-r-rose">Ian Rose</a></p></li>
-<li><p><a class="reference external" href="https://github.com/glimmer-cism/PyGMT">PyGMT</a>  by <a class="reference external" href="https://github.com/mhagdorn">Magnus Hagdorn</a></p></li>
+<li><p><a class="reference external" href="https://github.com/glimmer-cism/PyGMT">PyGMT</a> by <a class="reference external" href="https://github.com/mhagdorn">Magnus Hagdorn</a></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
@@ -357,9 +351,9 @@ for GMT.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

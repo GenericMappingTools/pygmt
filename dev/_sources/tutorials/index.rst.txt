@@ -98,7 +98,7 @@ Basics
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add annotations to a plot. This is handled by pygmt.Figure.text.">
+    <div class="sphx-glr-thumbcontainer" tooltip="It is often useful to add text annotations to a plot or map. This is handled by the pygmt.Figur...">
 
 .. only:: html
 

@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,11 +160,12 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">info - Get information about data tables.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GMTTempFile</span><span class="p">,</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
@@ -241,12 +242,11 @@
 <span class="sd">        - str if none of the above parameters are used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
                 <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
                     <span class="n">module</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
-                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span><span class="p">),</span>
                 <span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
@@ -274,9 +274,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

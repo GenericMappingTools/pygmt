@@ -28,7 +28,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -192,19 +192,18 @@ to download the full example code</p>
 <span id="sphx-glr-get-started-04-table-inputs-py"></span><h1>4. PyGMT I/O: Table inputs<a class="headerlink" href="#pygmt-i-o-table-inputs" title="Link to this heading"></a></h1>
 <p>Generally, PyGMT accepts two different types of data inputs: tables and grids.</p>
 <ul class="simple">
-<li><p>A table is a 2-D array with rows and columns. Each column represents a
-different variable (e.g., <em>x</em>, <em>y</em> and <em>z</em>) and each row represents a
-different record.</p></li>
-<li><p>A grid is a 2-D array of data that is regularly spaced in the x and y
-directions (or longitude and latitude).</p></li>
+<li><p>A table is a 2-D array with rows and columns. Each column represents a different
+variable (e.g., <em>x</em>, <em>y</em> and <em>z</em>) and each row represents a different record.</p></li>
+<li><p>A grid is a 2-D array of data that is regularly spaced in the x and y directions (or
+longitude and latitude).</p></li>
 </ul>
-<p>In this tutorial, we’ll focus on working with table inputs, and cover grid
-inputs in a separate tutorial.</p>
-<p>PyGMT supports a variety of table input types that allow you to work with data
-in a format that suits your needs. In this tutorial, we’ll explore the
-different table input types available in PyGMT and provide examples for each.
-By understanding the different table input types, you can choose the one that
-best fits your data and analysis needs, and work more efficiently with PyGMT.</p>
+<p>In this tutorial, we’ll focus on working with table inputs, and cover grid inputs in a
+separate tutorial.</p>
+<p>PyGMT supports a variety of table input types that allow you to work with data in a
+format that suits your needs. In this tutorial, we’ll explore the different table input
+types available in PyGMT and provide examples for each. By understanding the different
+table input types, you can choose the one that best fits your data and analysis needs,
+and work more efficiently with PyGMT.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a>
 
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
@@ -215,10 +214,10 @@ best fits your data and analysis needs, and work more efficiently with PyGMT.</p
 </div>
 <section id="ascii-table-file">
 <h2>ASCII table file<a class="headerlink" href="#ascii-table-file" title="Link to this heading"></a></h2>
-<p>Most PyGMT functions/methods that accept table input data have a <code class="docutils literal notranslate"><span class="pre">data</span></code>
-parameter. The easiest way to provide table input data to PyGMT is by
-specifying the file name of an ASCII table (e.g., <code class="docutils literal notranslate"><span class="pre">data=&quot;input_data.dat&quot;</span></code>).
-This is useful when your data is stored in a separate text file.</p>
+<p>Most PyGMT functions/methods that accept table input data have a <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter.
+The easiest way to provide table input data to PyGMT is by specifying the file name of
+an ASCII table (e.g., <code class="docutils literal notranslate"><span class="pre">data=&quot;input_data.dat&quot;</span></code>). This is useful when your data is
+stored in a separate text file.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create an example file with 3 rows and 2 columns</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
 <a href="https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html#numpy.savetxt" title="numpy.savetxt" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">savetxt</span></a><span class="p">(</span><span class="s2">&quot;input_data.dat&quot;</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">data</span></a><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -233,15 +232,16 @@ This is useful when your data is stored in a separate text file.</p>
 <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="pathlib.Path" class="sphx-glr-backref-module-pathlib sphx-glr-backref-type-py-class"><span class="n">Path</span></a><span class="p">(</span><span class="s2">&quot;input_data.dat&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_04_table_inputs_001.png" srcset="../_images/sphx_glr_04_table_inputs_001.png" alt="04 table inputs" class = "sphx-glr-single-img"/><p>Besides a plain string to a table file, the following variants are also
-accepted:</p>
+<img src="../_images/sphx_glr_04_table_inputs_001.png" srcset="../_images/sphx_glr_04_table_inputs_001.png" alt="04 table inputs" class = "sphx-glr-single-img"/><p>Besides a plain string to a table file, the following variants are also accepted:</p>
 <ul class="simple">
 <li><p>A <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object.</p></li>
 <li><p>A full URL. PyGMT will download the file to the current directory first.</p></li>
-<li><p>A file name prefixed with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">data=&quot;&#64;input_data.dat&quot;</span></code>), which
-is a special syntax in GMT to indicate that the file is a remote file
-hosted on the GMT data server.</p></li>
+<li><p>A file name prefixed with <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> (e.g., <code class="docutils literal notranslate"><span class="pre">data=&quot;&#64;input_data.dat&quot;</span></code>), which is a
+special syntax in GMT to indicate that the file is a remote file hosted on the GMT
+data server.</p></li>
 </ul>
+<p>Additionally, PyGMT also supports a list of file names, <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> objects,
+URLs, or remote files, to provide more flexibility in specifying input files.</p>
 </section>
 <section id="d-array-list-numpy-ndarray-and-pandas-dataframe">
 <h2>2-D array: <cite>list</cite>, <cite>numpy.ndarray</cite>, and <cite>pandas.DataFrame</cite><a class="headerlink" href="#d-array-list-numpy-ndarray-and-pandas-dataframe" title="Link to this heading"></a></h2>
@@ -249,7 +249,7 @@ hosted on the GMT data server.</p></li>
 <ul class="simple">
 <li><p>A 2-D <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> (i.e., a list of lists)</p></li>
 <li><p>A <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> object with with a dimension of 2</p></li>
-<li><p>A <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object</p></li>
+<li><p>A <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> object</p></li>
 </ul>
 <p>This is useful when you want to plot data that is already in memory.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
@@ -270,11 +270,11 @@ hosted on the GMT data server.</p></li>
 </div>
 <img src="../_images/sphx_glr_04_table_inputs_002.png" srcset="../_images/sphx_glr_04_table_inputs_002.png" alt="04 table inputs" class = "sphx-glr-single-img"/></section>
 <section id="geopandas-geodataframe">
-<h2><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.dev+untagged)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a><a class="headerlink" href="#geopandas-geodataframe" title="Link to this heading"></a></h2>
+<h2><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a><a class="headerlink" href="#geopandas-geodataframe" title="Link to this heading"></a></h2>
 <p>If you’re working with geospatial data, you can read your data as a
-<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.dev+untagged)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object and pass it to the <code class="docutils literal notranslate"><span class="pre">data</span></code>
-parameter. This is useful if your data is stored in a geospatial data format
-(e.g., GeoJSON, etc.) that GMT and PyGMT do not support natively.</p>
+<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> object and pass it to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter. This is
+useful if your data is stored in a geospatial data format (e.g., GeoJSON, etc.) that
+GMT and PyGMT do not support natively.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example GeoDataFrame</span>
 <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="geopandas.GeoDataFrame" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">gdf</span></a> <span class="o">=</span> <a href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="geopandas.GeoDataFrame" class="sphx-glr-backref-module-geopandas sphx-glr-backref-type-py-class"><span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span></a><span class="p">(</span>
     <span class="p">{</span>
@@ -293,10 +293,10 @@ parameter. This is useful if your data is stored in a geospatial data format
 <img src="../_images/sphx_glr_04_table_inputs_003.png" srcset="../_images/sphx_glr_04_table_inputs_003.png" alt="04 table inputs" class = "sphx-glr-single-img"/></section>
 <section id="scalar-values-or-1-d-arrays">
 <h2>Scalar values or 1-D arrays<a class="headerlink" href="#scalar-values-or-1-d-arrays" title="Link to this heading"></a></h2>
-<p>In addition to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter, some PyGMT functions/methods also
-provide individual parameters (e.g., <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> for data coordinates)
-which allow you to specify the data. These parameters accept individual
-scalar values or 1-D arrays (lists or 1-D numpy arrays).</p>
+<p>In addition to the <code class="docutils literal notranslate"><span class="pre">data</span></code> parameter, some PyGMT functions/methods also provide
+individual parameters (e.g., <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> for data coordinates) which allow you to
+specify the data. These parameters accept individual scalar values or 1-D arrays
+(lists or 1-D numpy arrays).</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../api/generated/pygmt.Figure.html#pygmt.Figure" title="pygmt.Figure" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-class"><span class="n">pygmt</span><span class="o">.</span><span class="n">Figure</span></a><span class="p">()</span>
 <a href="../api/generated/pygmt.Figure.basemap.html#pygmt.Figure.basemap" title="pygmt.Figure.basemap" class="sphx-glr-backref-module-pygmt sphx-glr-backref-type-py-method"><span class="n">fig</span><span class="o">.</span><span class="n">basemap</span></a><span class="p">(</span><span class="n">region</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;X10c/5c&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -317,12 +317,12 @@ scalar values or 1-D arrays (lists or 1-D numpy arrays).</p>
 <img src="../_images/sphx_glr_04_table_inputs_004.png" srcset="../_images/sphx_glr_04_table_inputs_004.png" alt="04 table inputs" class = "sphx-glr-single-img"/></section>
 <section id="conclusion">
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
-<p>In PyGMT, you have the flexibility to provide data in various table input
-types, including file names, 2-D arrays (2-D <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>,
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrames</span></code>), scalar values or a
-series of 1-D arrays, and <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.dev+untagged)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>. Choose the input
-type that best suits your data source and analysis requirements.</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.468 seconds)</p>
+<p>In PyGMT, you have the flexibility to provide data in various table input types,
+including file names, 2-D arrays (2-D <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>,
+<code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrames</span></code>), scalar values or a series of 1-D arrays, and
+<a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a>. Choose the input type that best suits your data
+source and analysis requirements.</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.448 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-get-started-04-table-inputs-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ebb8102d253b409edd5fd59972fd26dc/04_table_inputs.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">04_table_inputs.ipynb</span></code></a></p>
@@ -348,9 +348,9 @@ type that best suits your data source and analysis requirements.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

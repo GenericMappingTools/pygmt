@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -115,10 +115,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.html">pygmt.clib.Session</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.call_module.html">pygmt.clib.Session.call_module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_in.html">pygmt.clib.Session.virtualfile_in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_out.html">pygmt.clib.Session.virtualfile_out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_dataset.html">pygmt.clib.Session.virtualfile_to_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html">pygmt.clib.Session.virtualfile_to_raster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.create.html">pygmt.clib.Session.create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.destroy.html">pygmt.clib.Session.destroy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__getitem__.html">pygmt.clib.Session.__getitem__</a></li>
@@ -135,8 +135,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html">pygmt.clib.Session.read_virtualfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.extract_region.html">pygmt.clib.Session.extract_region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
 </ul>
 </li>
 </ul>
@@ -207,7 +212,7 @@
 <h1>pygmt.clib.Session.create_data<a class="headerlink" href="#pygmt-clib-session-create-data" title="Link to this heading"></a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="pygmt.clib.Session.create_data">
-<span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">create_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.create_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.create_data" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">create_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ranges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'GMT_GRID_NODE_REG'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.create_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.create_data" title="Link to this definition"></a></dt>
 <dd><p>Create an empty GMT data container.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -255,9 +260,9 @@ object.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

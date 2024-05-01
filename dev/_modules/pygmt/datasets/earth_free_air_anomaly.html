@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -158,11 +158,12 @@
              
   <h1>Source code for pygmt.datasets.earth_free_air_anomaly</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Function to download the IGPP Earth Free-Air Anomaly dataset from the GMT data server,</span>
+<span class="sd">Function to download the IGPP Earth free-air anomaly dataset from the GMT data server,</span>
 <span class="sd">and load as :class:`xarray.DataArray`.</span>
 
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
@@ -180,13 +181,13 @@
     <span class="n">registration</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;gridline&quot;</span><span class="p">,</span> <span class="s2">&quot;pixel&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Load the IGPP Earth Free-Air Anomaly dataset in various resolutions.</span>
+<span class="sd">    Load the IGPP Earth free-air anomaly dataset in various resolutions.</span>
 
 <span class="sd">    .. figure:: https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_faa.jpg</span>
 <span class="sd">       :width: 80 %</span>
 <span class="sd">       :align: center</span>
 
-<span class="sd">       IGPP Earth Free-Air Anomaly dataset.</span>
+<span class="sd">       IGPP Earth free-air anomaly dataset.</span>
 
 <span class="sd">    The grids are downloaded to a user data directory</span>
 <span class="sd">    (usually ``~/.gmt/server/earth/earth_faa/``) the first time you invoke</span>
@@ -262,8 +263,8 @@
 <span class="sd">    ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
-        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;earth_free_air_anomaly&quot;</span><span class="p">,</span>
-        <span class="n">dataset_prefix</span><span class="o">=</span><span class="s2">&quot;earth_faa_&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;earth_faa&quot;</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;earth_faa&quot;</span><span class="p">,</span>
         <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
@@ -281,9 +282,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

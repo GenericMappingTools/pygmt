@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.884** total execution time for 4 files **from projections/conic**:
+**00:00.871** total execution time for 4 files **from projections/conic**:
 
 .. container::
 
@@ -33,14 +33,14 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_projections_conic_conic_albers.py` (``conic_albers.py``)
-     - 00:00.303
+     - 00:00.297
      - 0.0
    * - :ref:`sphx_glr_projections_conic_conic_lambert.py` (``conic_lambert.py``)
-     - 00:00.220
+     - 00:00.217
      - 0.0
    * - :ref:`sphx_glr_projections_conic_polyconic.py` (``polyconic.py``)
-     - 00:00.192
+     - 00:00.191
      - 0.0
    * - :ref:`sphx_glr_projections_conic_conic_equidistant.py` (``conic_equidistant.py``)
-     - 00:00.169
+     - 00:00.167
      - 0.0

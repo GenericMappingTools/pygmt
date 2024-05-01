@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,11 +160,12 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">text - Plot text on a figure.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">is_nonstr_iter</span><span class="p">,</span>
@@ -195,12 +196,7 @@
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
     <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span>
-    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>
-    <span class="n">textfiles</span><span class="o">=</span><span class="s2">&quot;sequence_space&quot;</span><span class="p">,</span>
-    <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span>
-    <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">text_</span><span class="p">(</span>  <span class="c1"># noqa: PLR0912</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">textfiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -376,7 +372,7 @@
                 <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">arg</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># font or justify is str type</span>
                 <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;F&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">flag</span><span class="si">}{</span><span class="n">arg</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -395,11 +391,10 @@
         <span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
             <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">textfiles</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">extra_arrays</span><span class="o">=</span><span class="n">extra_arrays</span>
-        <span class="p">)</span>
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">))</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">))</span>
 </pre></div>
 
            </div>
@@ -411,9 +406,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

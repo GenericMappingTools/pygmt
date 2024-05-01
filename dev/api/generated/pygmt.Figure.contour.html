@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -235,35 +235,38 @@ lines, polygons, or symbols at those locations on a map.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.1.2.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.dev+untagged)"><em>geopandas.GeoDataFrame</em></a>) – Pass in (x, y, z) or (longitude, latitude, elevation) values by
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>numpy.ndarray</em></a><em>, </em><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><em>pandas.DataFrame</em></a><em>, </em><a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.3.1.dev0)"><em>xarray.Dataset</em></a><em>, or </em><a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><em>geopandas.GeoDataFrame</em></a>) – Pass in (x, y, z) or (longitude, latitude, elevation) values by
 providing a file name to an ASCII data table, a 2-D
-<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
-data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.dev+untagged)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>, an
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> made up of 1-D <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>
+data variables, or a <a class="reference external" href="https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.html#geopandas.GeoDataFrame" title="(in GeoPandas v0.14.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">geopandas.GeoDataFrame</span></code></a> containing the
 tabular data.</p></li>
 <li><p><strong>x/y/z</strong> (<em>1-D arrays</em>) – Arrays of x and y coordinates and values z of the data points.</p></li>
 <li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
 Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
 <li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
 Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
-<li><p><strong>annotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>Specify or disable annotated contour levels, modifies annotated
+<li><p><strong>annotation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Specify or disable annotated contour levels, modifies annotated
 contours specified in <code class="docutils literal notranslate"><span class="pre">levels</span></code>.</p>
 <ul>
-<li><p>Specify a fixed annotation interval <em>annot_int</em> or a
-single annotation level +<em>annot_int</em>.</p></li>
+<li><p>Specify a fixed annotation interval.</p></li>
+<li><p>Specify a list of annotation levels.</p></li>
+<li><p>Disable all annotations by setting <code class="docutils literal notranslate"><span class="pre">annotation=&quot;n&quot;</span></code>.</p></li>
+<li><p>Adjust the appearance by appending different modifiers, e.g.,
+<code class="docutils literal notranslate"><span class="pre">&quot;annot_int+f10p+gred&quot;</span></code> gives annotations with a font size of 10 points and
+a red filled box. For all available modifiers see <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/contour.html#a">https://docs.generic-mapping-tools.org/6.5/contour.html#a</a>.</p></li>
 </ul>
 </p></li>
 <li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Set map boundary
 <a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
-<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – <p>Specify the contour lines to generate.</p>
+<li><p><strong>levels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Specify the contour lines to generate.</p>
 <ul>
-<li><p>The file name of a CPT file where the color boundaries will
-be used as contour levels.</p></li>
-<li><p>The file name of a 2 (or 3) column file containing the contour
-levels (col 1), (<strong>C</strong>)ontour or (<strong>A</strong>)nnotate (col 2), and optional
-angle (col 3).</p></li>
-<li><p>A fixed contour interval <em>cont_int</em> or a single contour with
-+<em>cont_int</em>.</p></li>
+<li><p>The file name of a CPT file where the color boundaries will be used as
+contour levels.</p></li>
+<li><p>The file name of a 2 (or 3) column file containing the contour levels (col 0),
+(<strong>C</strong>)ontour or (<strong>A</strong>)nnotate (col 1), and optional angle (col 2).</p></li>
+<li><p>A fixed contour interval.</p></li>
+<li><p>A list of contour levels.</p></li>
 </ul>
 </p></li>
 <li><p><strong>D</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Dump contour coordinates.</p></li>
@@ -280,7 +283,15 @@ details.</p></li>
 Do not draw contours with less than <em>cut</em> number of points.</p></li>
 <li><p><strong>skip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<strong>p</strong>|<strong>t</strong>].
 Skip input points outside region.</p></li>
-<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set pen attributes for lines or the outline of symbols.</p></li>
+<li><p><strong>pen</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<em>type</em>]<em>pen</em>[<strong>+c</strong>[<strong>l</strong>|<strong>f</strong>]].
+<em>type</em>, if present, can be <strong>a</strong> for annotated contours or <strong>c</strong> for regular
+contours [Default]. The pen sets the attributes for the particular line.
+Default pen for annotated contours is <code class="docutils literal notranslate"><span class="pre">&quot;0.75p,black&quot;</span></code> and for regular
+contours <code class="docutils literal notranslate"><span class="pre">&quot;0.25p,black&quot;</span></code>. Normally, all contours are drawn with a fixed
+color determined by the pen setting. If <strong>+cl</strong> is appended the colors of the
+contour lines are taken from the CPT (see <code class="docutils literal notranslate"><span class="pre">levels</span></code>). If <strong>+cf</strong> is
+appended the colors from the CPT file are applied to the contour annotations.
+Select <strong>+c</strong> for both effects.</p></li>
 <li><p><strong>label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Add a legend entry for the contour being plotted. Normally, the
 annotated contour is selected for the legend. You can select the
 regular contour instead, or both of them, by considering the label
@@ -444,9 +455,9 @@ in the image (for further processing).</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

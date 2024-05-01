@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,8 +37,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pygmt.clib.Session.create" href="pygmt.clib.Session.create.html" />
-    <link rel="prev" title="pygmt.clib.Session.virtualfile_from_vectors" href="pygmt.clib.Session.virtualfile_from_vectors.html" />
+    <link rel="next" title="pygmt.clib.Session.virtualfile_from_matrix" href="pygmt.clib.Session.virtualfile_from_matrix.html" />
+    <link rel="prev" title="pygmt.clib.Session.virtualfile_from_data" href="pygmt.clib.Session.virtualfile_from_data.html" />
     <!-- Google Analytics tracking code -->
     <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
     <!-- 'storage': 'none' disables cookies -->
@@ -115,13 +115,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.html">pygmt.clib.Session</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.call_module.html">pygmt.clib.Session.call_module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.clib.Session.virtualfile_from_grid</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pygmt.clib.Session.virtualfile_from_grid"><code class="docutils literal notranslate"><span class="pre">Session.virtualfile_from_grid</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_in.html">pygmt.clib.Session.virtualfile_in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_out.html">pygmt.clib.Session.virtualfile_out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_dataset.html">pygmt.clib.Session.virtualfile_to_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html">pygmt.clib.Session.virtualfile_to_raster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.create.html">pygmt.clib.Session.create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.destroy.html">pygmt.clib.Session.destroy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__getitem__.html">pygmt.clib.Session.__getitem__</a></li>
@@ -135,8 +132,16 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html">pygmt.clib.Session.read_virtualfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.extract_region.html">pygmt.clib.Session.extract_region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pygmt.clib.Session.virtualfile_from_grid</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pygmt.clib.Session.virtualfile_from_grid"><code class="docutils literal notranslate"><span class="pre">Session.virtualfile_from_grid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
 </ul>
 </li>
 </ul>
@@ -210,7 +215,7 @@
 <span class="sig-prename descclassname"><span class="pre">Session.</span></span><span class="sig-name descname"><span class="pre">virtualfile_from_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/clib/session.html#Session.virtualfile_from_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.clib.Session.virtualfile_from_grid" title="Link to this definition"></a></dt>
 <dd><p>Store a grid in a virtual file.</p>
 <p>Use the virtual file name to pass in the data in your grid to a GMT
-module. Grids must be <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instances.</p>
+module. Grids must be <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> instances.</p>
 <p>Context manager (use in a <code class="docutils literal notranslate"><span class="pre">with</span></code> block). Yields the virtual file name
 that you can pass as an argument to a GMT module call. Closes the
 virtual file upon exit of the <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p>
@@ -225,7 +230,7 @@ with <a class="reference internal" href="pygmt.clib.Session.create_data.html#pyg
 make sure it is.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The grid that will be included in the virtual file.</p>
+<dd class="field-odd"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The grid that will be included in the virtual file.</p>
 </dd>
 <dt class="field-even">Yields<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>fname</strong> (<em>str</em>) – The name of virtual file. Pass this as a file name argument to a
@@ -264,17 +269,17 @@ GMT module.</p>
           </div>
           
 <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pygmt.clib.Session.virtualfile_from_vectors.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.virtualfile_from_vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pygmt.clib.Session.create.html" class="btn btn-neutral float-right" title="pygmt.clib.Session.create" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pygmt.clib.Session.virtualfile_from_data.html" class="btn btn-neutral float-left" title="pygmt.clib.Session.virtualfile_from_data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.clib.Session.virtualfile_from_matrix.html" class="btn btn-neutral float-right" title="pygmt.clib.Session.virtualfile_from_matrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

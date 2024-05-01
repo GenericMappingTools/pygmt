@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,19 +161,19 @@
 <span class="sd">grdhisteq - Perform histogram equalization for a grid.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdhisteq.*&quot;</span><span class="p">]</span>
 
@@ -211,12 +211,12 @@
 <span class="sd">    their place in the cumulative distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="grdhisteq.equalize_grid">
+<a class="viewcode-back" href="../../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
         <span class="n">C</span><span class="o">=</span><span class="s2">&quot;divisions&quot;</span><span class="p">,</span>
-        <span class="n">D</span><span class="o">=</span><span class="s2">&quot;outfile&quot;</span><span class="p">,</span>
-        <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
         <span class="n">N</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>
         <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;quadratic&quot;</span><span class="p">,</span>
@@ -224,91 +224,7 @@
         <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_grdhisteq</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">output_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform histogram equalization for a grid.</span>
-
-<span class="sd">        Must provide ``outfile`` or ``outgrid``.</span>
-
-<span class="sd">        Full option list at :gmt-docs:`grdhisteq.html`</span>
-
-<span class="sd">        {aliases}</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        {grid}</span>
-<span class="sd">        {outgrid}</span>
-<span class="sd">        outfile : str, bool, or None</span>
-<span class="sd">            The name of the output ASCII file to store the results of the</span>
-<span class="sd">            histogram equalization in.</span>
-<span class="sd">        output_type: str</span>
-<span class="sd">            Determine the output type. Use &quot;file&quot;, &quot;xarray&quot;, &quot;pandas&quot;, or</span>
-<span class="sd">            &quot;numpy&quot;.</span>
-<span class="sd">        divisions : int</span>
-<span class="sd">            Set the number of divisions of the data range [Default is ``16``].</span>
-
-<span class="sd">        {region}</span>
-<span class="sd">        {verbose}</span>
-<span class="sd">        {header}</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        ret: pandas.DataFrame or xarray.DataArray or None</span>
-<span class="sd">            Return type depends on whether the ``outgrid`` parameter is set:</span>
-
-<span class="sd">            - xarray.DataArray if ``output_type`` is &quot;xarray&quot;&quot;</span>
-<span class="sd">            - numpy.ndarray if ``output_type`` is &quot;numpy&quot;</span>
-<span class="sd">            - pandas.DataFrame if ``output_type`` is &quot;pandas&quot;</span>
-<span class="sd">            - None if ``output_type`` is &quot;file&quot; (output is stored in</span>
-<span class="sd">              ``outgrid`` or ``outfile``)</span>
-
-<span class="sd">        See Also</span>
-<span class="sd">        --------</span>
-<span class="sd">        :func:`pygmt.grd2cpt`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
-                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdhisteq&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;xarray&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">])</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-            <span class="n">filepath_or_buffer</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">],</span>
-            <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;bin_id&quot;</span><span class="p">],</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
-                <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
-                <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
-                <span class="s2">&quot;bin_id&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span>
-            <span class="p">},</span>
-        <span class="p">)</span>
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;numpy&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-
-        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;bin_id&quot;</span><span class="p">)</span>
-
-<div class="viewcode-block" id="grdhisteq.equalize_grid">
-<a class="viewcode-back" href="../../../api/generated/pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="nd">@fmt_docstring</span>
-    <span class="k">def</span> <span class="nf">equalize_grid</span><span class="p">(</span>
-        <span class="n">grid</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">outgrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">divisions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">gaussian</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">quadratic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="k">def</span> <span class="nf">equalize_grid</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform histogram equalization for a grid.</span>
 
@@ -319,6 +235,8 @@
 <span class="sd">        cumulative distribution.</span>
 
 <span class="sd">        Full option list at :gmt-docs:`grdhisteq.html`</span>
+
+<span class="sd">        {aliases}</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -365,42 +283,37 @@
 <span class="sd">        This method does a weighted histogram equalization for geographic</span>
 <span class="sd">        grids to account for node area varying with latitude.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Return an xarray.DataArray if ``outgrid`` is not set</span>
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span>
-            <span class="k">elif</span> <span class="n">outgrid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;xarray&quot;</span>
-                <span class="n">outgrid</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Must specify &#39;outgrid&#39; as a string or None.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">grdhisteq</span><span class="o">.</span><span class="n">_grdhisteq</span><span class="p">(</span>
-                <span class="n">grid</span><span class="o">=</span><span class="n">grid</span><span class="p">,</span>
-                <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
-                <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">,</span>
-                <span class="n">divisions</span><span class="o">=</span><span class="n">divisions</span><span class="p">,</span>
-                <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
-                <span class="n">gaussian</span><span class="o">=</span><span class="n">gaussian</span><span class="p">,</span>
-                <span class="n">quadratic</span><span class="o">=</span><span class="n">quadratic</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-            <span class="p">)</span></div>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">with</span> <span class="p">(</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdhisteq&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="grdhisteq.compute_bins">
 <a class="viewcode-back" href="../../../api/generated/pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
+    <span class="nd">@use_alias</span><span class="p">(</span>
+        <span class="n">C</span><span class="o">=</span><span class="s2">&quot;divisions&quot;</span><span class="p">,</span>
+        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+        <span class="n">N</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span>
+        <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;quadratic&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">compute_bins</span><span class="p">(</span>
         <span class="n">grid</span><span class="p">,</span>
-        <span class="o">*</span><span class="p">,</span>
-        <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
-        <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">divisions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">quadratic</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform histogram equalization for a grid.</span>
 
@@ -420,19 +333,13 @@
 
 <span class="sd">        Full option list at :gmt-docs:`grdhisteq.html`</span>
 
+<span class="sd">        {aliases}</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        {grid}</span>
-<span class="sd">        outfile : str or bool or None</span>
-<span class="sd">            The name of the output ASCII file to store the results of the</span>
-<span class="sd">            histogram equalization in.</span>
-<span class="sd">        output_type : str</span>
-<span class="sd">            Determine the format the xyz data will be returned in [Default is</span>
-<span class="sd">            ``pandas``]:</span>
-
-<span class="sd">                - ``numpy`` - :class:`numpy.ndarray`</span>
-<span class="sd">                - ``pandas``- :class:`pandas.DataFrame`</span>
-<span class="sd">                - ``file`` - ASCII file (requires ``outfile``)</span>
+<span class="sd">        {output_type}</span>
+<span class="sd">        {outfile}</span>
 <span class="sd">        divisions : int</span>
 <span class="sd">            Set the number of divisions of the data range.</span>
 <span class="sd">        quadratic : bool</span>
@@ -443,13 +350,13 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        ret : pandas.DataFrame or numpy.ndarray or None</span>
+<span class="sd">        ret</span>
 <span class="sd">            Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">            - None if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">            - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
 <span class="sd">              ``outfile``)</span>
-<span class="sd">            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if</span>
-<span class="sd">              ``outfile`` is not set (depends on ``output_type``)</span>
+<span class="sd">            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not</span>
+<span class="sd">              set (depends on ``output_type``)</span>
 
 <span class="sd">        Example</span>
 <span class="sd">        -------</span>
@@ -482,21 +389,29 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output_type</span> <span class="o">=</span> <span class="n">validate_output_table_type</span><span class="p">(</span><span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">output_type</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&#39;header&#39; is only allowed with output_type=&#39;file&#39;.&quot;</span><span class="p">)</span>
 
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">output_type</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-                <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">return</span> <span class="n">grdhisteq</span><span class="o">.</span><span class="n">_grdhisteq</span><span class="p">(</span>
-                <span class="n">grid</span><span class="p">,</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">with</span> <span class="p">(</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">vouttbl</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;D&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vouttbl</span>  <span class="c1"># -D for output file name</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdhisteq&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_dataset</span><span class="p">(</span>
+                <span class="n">vfname</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">,</span>
                 <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
-                <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span>
-                <span class="n">divisions</span><span class="o">=</span><span class="n">divisions</span><span class="p">,</span>
-                <span class="n">quadratic</span><span class="o">=</span><span class="n">quadratic</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
-                <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                <span class="n">column_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="s2">&quot;bin_id&quot;</span><span class="p">],</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                    <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                    <span class="s2">&quot;bin_id&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;bin_id&quot;</span> <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pandas&quot;</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span></div>
 </div>
 
@@ -511,9 +426,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

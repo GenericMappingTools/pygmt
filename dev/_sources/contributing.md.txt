@@ -664,7 +664,7 @@ summarized as follows:
     mv baseline/*.png pygmt/tests/baseline/
 
     # Generate hash for baseline image and stage the *.dvc file in git
-    dvc status  # check which files need to be added to dvc
+    dvc status  # Check which files need to be added to dvc
     dvc add pygmt/tests/baseline/test_logo.png
     git add pygmt/tests/baseline/test_logo.png.dvc
 

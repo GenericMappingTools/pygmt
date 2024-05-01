@@ -69,7 +69,7 @@ The standard parallel is typically one of these (but can be any value):
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.204 seconds)
+   **Total running time of the script:** (0 minutes 0.202 seconds)
 
 
 .. _sphx_glr_download_projections_cyl_cyl_stereographic.py:

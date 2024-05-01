@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,12 +160,14 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">plot - Plot in two dimensions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">data_kind</span><span class="p">,</span>
-    <span class="n">deprecate_parameter</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">is_nonstr_iter</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
@@ -175,7 +177,6 @@
 
 
 <span class="nd">@fmt_docstring</span>
-<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.8.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.12.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;straight_line&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
@@ -367,56 +368,56 @@
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">kind</span> <span class="o">=</span> <span class="n">data_kind</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
     <span class="n">extra_arrays</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;vV&quot;</span> <span class="ow">and</span> <span class="n">direction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">extra_arrays</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="p">(</span>
-        <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
-        <span class="ow">and</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;geojson&quot;</span>
-        <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;Point&quot;</span><span class="p">,</span> <span class="s2">&quot;MultiPoint&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-    <span class="p">):</span>  <span class="c1"># checking if the geometry of a geoDataFrame is Point or MultiPoint</span>
-        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;s0.2c&quot;</span>
-    <span class="k">elif</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gmt&quot;</span><span class="p">):</span>
-        <span class="c1"># checking that the data is a file path to set default style</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-            <span class="k">if</span> <span class="s2">&quot;@GMULTIPOINT&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;@GPOINT&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="c1"># if the file is gmt style and geometry is set to Point</span>
-                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;s0.2c&quot;</span>
-        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>
-    <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Can&#39;t use arrays for fill if data is matrix or file.&quot;</span>
-            <span class="p">)</span>
-        <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">])</span>
-        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                <span class="s2">&quot;Can&#39;t use arrays for &#39;size&#39; if data is a matrix or file.&quot;</span>
-            <span class="p">)</span>
-        <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>  <span class="c1"># Add more columns for vectors input</span>
+        <span class="c1"># Parameters for vector styles</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;vV&quot;</span>
+            <span class="ow">and</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
+        <span class="c1"># Fill</span>
+        <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)):</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">))</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span>
+        <span class="c1"># Size</span>
+        <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="c1"># Intensity and transparency</span>
+        <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flag</span><span class="p">)):</span>
+                <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flag</span><span class="p">))</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="n">direction</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;intensity&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)),</span>
+        <span class="p">]:</span>
+            <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; can&#39;t be 1-D array if &#39;data&#39; is used.&quot;</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">]:</span>
-        <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">flag</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">kind</span> <span class="o">!=</span> <span class="s2">&quot;vectors&quot;</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Can&#39;t use arrays for </span><span class="si">{</span><span class="n">plot</span><span class="o">.</span><span class="n">aliases</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span><span class="si">}</span><span class="s2"> if data is matrix or file.&quot;</span>
-                <span class="p">)</span>
-            <span class="n">extra_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">flag</span><span class="p">])</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="n">flag</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># Set the default style if data has a geometry of Point or MultiPoint</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;geojson&quot;</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">geom_type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;Point&quot;</span><span class="p">,</span> <span class="s2">&quot;MultiPoint&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;s0.2c&quot;</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.gmt&quot;</span><span class="p">):</span>  <span class="c1"># OGR_GMT file</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="n">data</span><span class="p">))</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+                <span class="k">if</span> <span class="s2">&quot;@GMULTIPOINT&quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">or</span> <span class="s2">&quot;@GPOINT&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;s0.2c&quot;</span>
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="k">pass</span>
 
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
             <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">extra_arrays</span><span class="o">=</span><span class="n">extra_arrays</span>
-        <span class="p">)</span>
-
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">))</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;plot&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">))</span>
 </pre></div>
 
            </div>
@@ -428,9 +429,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

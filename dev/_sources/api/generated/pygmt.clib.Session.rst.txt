@@ -60,6 +60,10 @@ pygmt.clib.Session
     
     
     
+    Session.inquire_virtualfile
+    
+    
+    
     Session.open_virtual_file
     
     
@@ -80,6 +84,10 @@ pygmt.clib.Session
     
     
     
+    Session.read_virtualfile
+    
+    
+    
     Session.virtualfile_from_data
     
     
@@ -93,6 +101,22 @@ pygmt.clib.Session
     
     
     Session.virtualfile_from_vectors
+    
+    
+    
+    Session.virtualfile_in
+    
+    
+    
+    Session.virtualfile_out
+    
+    
+    
+    Session.virtualfile_to_dataset
+    
+    
+    
+    Session.virtualfile_to_raster
     
     
     

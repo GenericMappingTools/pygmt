@@ -6,7 +6,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-        <title>Minimum Supported GMT/Python/NumPy Versions &mdash; PyGMT</title>
+        <title>Minimum Supported Versions &mdash; PyGMT</title>
     
 
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -28,7 +28,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=0865ea32"></script>
+        <script src="_static/documentation_options.js?v=b483e97e"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -146,11 +146,11 @@
 <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Minimum Supported GMT/Python/NumPy Versions</li>
+      <li class="breadcrumb-item active">Minimum Supported Versions</li>
     <li class="source-link">
         
             
-                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/minversions.rst"
+                <a href="https://github.com/GenericMappingTools/pygmt/edit/main/doc/minversions.md"
                    class="fa fa-github"> Improve this page</a>
             
         
@@ -162,143 +162,164 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="minimum-supported-gmt-python-numpy-versions">
-<h1>Minimum Supported GMT/Python/NumPy Versions<a class="headerlink" href="#minimum-supported-gmt-python-numpy-versions" title="Link to this heading"></a></h1>
-<p>PyGMT has adopted <a class="reference external" href="https://numpy.org/neps/nep-0029-deprecation_policy">NEP29</a>
-alongside the rest of the Scientific Python ecosystem, and therefore supports:</p>
+  <section id="minimum-supported-versions">
+<h1>Minimum Supported Versions<a class="headerlink" href="#minimum-supported-versions" title="Link to this heading"></a></h1>
+<p>PyGMT has adopted <a class="reference external" href="https://scientific-python.org/specs/spec-0000/">SPEC 0</a> alongside the
+rest of the Scientific Python ecosystem, and therefore:</p>
 <ul class="simple">
-<li><p>All minor versions of Python released 42 months prior to the project, and at minimum
-the two latest minor versions.</p></li>
-<li><p>All minor versions of NumPy released in the 24 months prior to the project, and at
-minimum the last three minor versions.</p></li>
+<li><p>Support for Python versions be dropped 3 years after their initial release.</p></li>
+<li><p>Support for core package dependencies (NumPy/Pandas/Xarray) be dropped 2 years after
+their initial release.</p></li>
 </ul>
+<p>Similarly, the PyGMT team has decided to discontinue support for GMT versions 3 years
+after their initial release.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 23.8%" />
-<col style="width: 28.6%" />
-<col style="width: 14.3%" />
-<col style="width: 19.0%" />
-<col style="width: 14.3%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>PyGMT Version</p></th>
-<th class="head"><p>Documentation</p></th>
 <th class="head"><p>GMT</p></th>
 <th class="head"><p>Python</p></th>
 <th class="head"><p>NumPy</p></th>
+<th class="head"><p>Pandas</p></th>
+<th class="head"><p>Xarray</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/milestones">Dev</a> (upcoming release)</p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/dev">Dev Documentation</a> (reflects <a class="reference external" href="https://github.com/GenericMappingTools/pygmt">main branch</a>)</p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/milestones">Dev</a>* [<a class="reference external" href="https://www.pygmt.org/dev">Docs</a>]</p></td>
+<td><p>&gt;=6.3.0</p></td>
+<td><p>&gt;=3.10</p></td>
+<td><p>&gt;=1.23</p></td>
+<td><p>&gt;=1.5</p></td>
+<td><p>&gt;=2022.06</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a>* [<a class="reference external" href="https://www.pygmt.org/v0.12.0">Docs</a>]</p></td>
+<td><p>&gt;=6.3.0</p></td>
+<td><p>&gt;=3.10</p></td>
+<td><p>&gt;=1.23</p></td>
+<td><p>&gt;=1.5</p></td>
+<td><p>&gt;=2022.06</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0">v0.11.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.11.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.9</p></td>
 <td><p>&gt;=1.23</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.11.0">v0.11.0</a> (latest release)</p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.11.0">v0.11.0 Documentation</a></p></td>
-<td><p>&gt;=6.3.0</p></td>
-<td><p>&gt;=3.9</p></td>
-<td><p>&gt;=1.23</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0">v0.10.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.10.0">v0.10.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.10.0">v0.10.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.10.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.9</p></td>
 <td><p>&gt;=1.22</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0">v0.9.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.9.0">v0.9.0 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.9.0">v0.9.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.9.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.21</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0">v0.8.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.8.0">v0.8.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.8.0">v0.8.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.8.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.20</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0">v0.7.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.7.0">v0.7.0 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.7.0">v0.7.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.7.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.20</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1">v0.6.1</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.6.1">v0.6.1 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.1">v0.6.1</a> [<a class="reference external" href="https://www.pygmt.org/v0.6.1">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.19</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0">v0.6.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.6.0">v0.6.0 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.6.0">v0.6.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.6.0">Docs</a>]</p></td>
 <td><p>&gt;=6.3.0</p></td>
 <td><p>&gt;=3.8</p></td>
 <td><p>&gt;=1.19</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0">v0.5.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.5.0">v0.5.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.5.0">v0.5.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.5.0">Docs</a>]</p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.18</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1">v0.4.1</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.4.1">v0.4.1 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.1">v0.4.1</a> [<a class="reference external" href="https://www.pygmt.org/v0.4.1">Docs</a>]</p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.17</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0">v0.4.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.4.0">v0.4.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.4.0">v0.4.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.4.0">Docs</a>]</p></td>
 <td><p>&gt;=6.2.0</p></td>
 <td><p>&gt;=3.7</p></td>
 <td><p>&gt;=1.17</p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1">v0.3.1</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.3.1">v0.3.1 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.1">v0.3.1</a> [<a class="reference external" href="https://www.pygmt.org/v0.3.1">Docs</a>]</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0">v0.3.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.3.0">v0.3.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.3.0">v0.3.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.3.0">Docs</a>]</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.7</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1">v0.2.1</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.2.1">v0.2.1 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.1">v0.2.1</a> [<a class="reference external" href="https://www.pygmt.org/v0.2.1">Docs</a>]</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>&gt;=3.6</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0">v0.2.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.2.0">v0.2.0 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.2.0">v0.2.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.2.0">Docs</a>]</p></td>
 <td><p>&gt;=6.1.1</p></td>
 <td><p>3.6 - 3.8</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2">v0.1.2</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.1.2">v0.1.2 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.2">v0.1.2</a> [<a class="reference external" href="https://www.pygmt.org/v0.1.2">Docs</a>]</p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1">v0.1.1</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.1.1">v0.1.1 Documentation</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.1">v0.1.1</a> [<a class="reference external" href="https://www.pygmt.org/v0.1.1">Docs</a>]</p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0">v0.1.0</a></p></td>
-<td><p><a class="reference external" href="https://www.pygmt.org/v0.1.0">v0.1.0 Documentation</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.1.0">v0.1.0</a> [<a class="reference external" href="https://www.pygmt.org/v0.1.0">Docs</a>]</p></td>
 <td><p>&gt;=6.0.0</p></td>
 <td><p>3.6 - 3.8</p></td>
-<td></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
+<p>*Dev reflects the main branch and is for the upcoming release.</p>
 </section>
 
 
@@ -314,9 +335,9 @@ minimum the last three minor versions.</p></li>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

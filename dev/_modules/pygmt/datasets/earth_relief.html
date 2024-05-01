@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -163,6 +163,7 @@
 
 <span class="sd">The grids are available in various resolutions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span> <span class="nn">pygmt.datasets.load_remote_dataset</span> <span class="kn">import</span> <span class="n">_load_remote_dataset</span>
@@ -299,32 +300,35 @@
     <span class="c1"># resolutions of original land-only SRTM tiles from NASA</span>
     <span class="n">land_only_srtm_resolutions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;03s&quot;</span><span class="p">,</span> <span class="s2">&quot;01s&quot;</span><span class="p">]</span>
 
-    <span class="n">earth_relief_sources</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;igpp&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_relief_&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;gebco&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebco_&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;gebcosi&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebcosi_&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;synbath&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_synbath_&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="n">data_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">earth_relief_sources</span><span class="p">:</span>
+    <span class="c1"># Map data source to prefix</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;igpp&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_relief&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gebco&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebco&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gebcosi&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_gebcosi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;synbath&quot;</span><span class="p">:</span> <span class="s2">&quot;earth_synbath&quot;</span><span class="p">,</span>
+    <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_source</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Invalid earth relief data source &#39;</span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
-            <span class="s2">&quot;Valid values are &#39;igpp&#39;, &#39;gebco&#39;, &#39;gebcosi&#39; and &#39;synbath&#39;.&quot;</span>
+            <span class="s2">&quot;Valid values are &#39;igpp&#39;, &#39;gebco&#39;, &#39;gebcosi&#39;, and &#39;synbath&#39;.&quot;</span>
         <span class="p">)</span>
-    <span class="c1"># Choose earth relief data prefix</span>
+    <span class="c1"># Use SRTM or not.</span>
     <span class="k">if</span> <span class="n">use_srtm</span> <span class="ow">and</span> <span class="n">resolution</span> <span class="ow">in</span> <span class="n">land_only_srtm_resolutions</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">data_source</span> <span class="o">==</span> <span class="s2">&quot;igpp&quot;</span><span class="p">:</span>
-            <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief_&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data_source</span> <span class="o">!=</span> <span class="s2">&quot;igpp&quot;</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;Option &#39;use_srtm=True&#39; doesn&#39;t work with data source &#39;</span><span class="si">{</span><span class="n">data_source</span><span class="si">}</span><span class="s2">&#39;.&quot;</span>
                 <span class="s2">&quot; Please set &#39;data_source&#39; to &#39;igpp&#39;.&quot;</span>
             <span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">dataset_prefix</span> <span class="o">=</span> <span class="n">earth_relief_sources</span><span class="p">[</span><span class="n">data_source</span><span class="p">]</span>
-
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;srtm_relief&quot;</span>
+    <span class="c1"># Choose earth relief dataset</span>
+    <span class="k">match</span> <span class="n">data_source</span><span class="p">:</span>
+        <span class="k">case</span> <span class="s2">&quot;igpp&quot;</span> <span class="o">|</span> <span class="s2">&quot;synbath&quot;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;earth_igpp&quot;</span>
+        <span class="k">case</span> <span class="s2">&quot;gebco&quot;</span> <span class="o">|</span> <span class="s2">&quot;gebcosi&quot;</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;earth_gebco&quot;</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">_load_remote_dataset</span><span class="p">(</span>
-        <span class="n">dataset_name</span><span class="o">=</span><span class="s2">&quot;earth_relief&quot;</span><span class="p">,</span>
-        <span class="n">dataset_prefix</span><span class="o">=</span><span class="n">dataset_prefix</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+        <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span>
         <span class="n">resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span>
         <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
         <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
@@ -342,9 +346,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

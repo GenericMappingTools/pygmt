@@ -79,7 +79,7 @@ For all supported octal codes and fonts see the GMT Technical Reference
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.138 seconds)
+   **Total running time of the script:** (0 minutes 0.132 seconds)
 
 
 .. _sphx_glr_download_gallery_symbols_text_symbols.py:

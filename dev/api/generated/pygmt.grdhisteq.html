@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -219,7 +219,7 @@ graytone will result in most of the image being very dark gray, with the
 mountain being almost white. <a class="reference internal" href="pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.grdhisteq.compute_bins</span></code></a> can
 provide a list of data values that divide the data range into divisions
 which have an equal area in the image [Default is 16 if <code class="docutils literal notranslate"><span class="pre">divisions</span></code> is
-not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file output can be used to
+not set]. The <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or ASCII file output can be used to
 make a colormap with <a class="reference internal" href="pygmt.makecpt.html#pygmt.makecpt" title="pygmt.makecpt"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygmt.makecpt</span></code></a> and an image with
 <a class="reference internal" href="pygmt.Figure.grdimage.html#pygmt.Figure.grdimage" title="pygmt.Figure.grdimage"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pygmt.Figure.grdimage</span></code></a> that has all levels of gray occurring
 equally.</p>
@@ -233,10 +233,10 @@ their place in the cumulative distribution.</p>
 <p class="rubric">Methods Summary</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdhisteq.compute_bins</span></code></a>(grid, *[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.grdhisteq.compute_bins.html#pygmt.grdhisteq.compute_bins" title="pygmt.grdhisteq.compute_bins"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdhisteq.compute_bins</span></code></a>(grid[, output_type, ...])</p></td>
 <td><p>Perform histogram equalization for a grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdhisteq.equalize_grid</span></code></a>(grid, *[, outgrid, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.grdhisteq.equalize_grid.html#pygmt.grdhisteq.equalize_grid" title="pygmt.grdhisteq.equalize_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grdhisteq.equalize_grid</span></code></a>(grid[, outgrid])</p></td>
 <td><p>Perform histogram equalization for a grid.</p></td>
 </tr>
 </tbody>
@@ -256,9 +256,9 @@ their place in the cumulative distribution.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

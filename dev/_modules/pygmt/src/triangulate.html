@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -162,18 +162,18 @@
 <span class="sd">Cartesian data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
     <span class="n">validate_output_table_type</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 
 
 <div class="viewcode-block" id="triangulate">
@@ -206,10 +206,11 @@
 <span class="sd">    unaware of periodic or polar boundary conditions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+<div class="viewcode-block" id="triangulate.regular_grid">
+<a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.regular_grid.html#pygmt.triangulate.regular_grid">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
     <span class="nd">@use_alias</span><span class="p">(</span>
-        <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
         <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
         <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
         <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
@@ -225,110 +226,8 @@
         <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">_triangulate</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-    <span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Delaunay triangulation or Voronoi partitioning and gridding of Cartesian data.</span>
-
-<span class="sd">        Must provide ``outfile`` or ``outgrid``.</span>
-
-<span class="sd">        Full option list at :gmt-docs:`triangulate.html`</span>
-
-<span class="sd">        {aliases}</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        x/y/z : np.ndarray</span>
-<span class="sd">            Arrays of x and y coordinates and values z of the data points.</span>
-<span class="sd">        data : str, {table-like}</span>
-<span class="sd">            Pass in (x, y, z) or (longitude, latitude, elevation) values by</span>
-<span class="sd">            providing a file name to an ASCII data table, a 2-D</span>
-<span class="sd">            {table-classes}.</span>
-<span class="sd">        {projection}</span>
-<span class="sd">        {region}</span>
-<span class="sd">        {spacing}</span>
-<span class="sd">        {outgrid}</span>
-<span class="sd">            The interpolation is performed in the original coordinates, so if</span>
-<span class="sd">            your triangles are close to the poles you are better off projecting</span>
-<span class="sd">            all data to a local coordinate system before using ``triangulate``</span>
-<span class="sd">            (this is true of all gridding routines) or instead select</span>
-<span class="sd">            :gmt-docs:`sphtriangulate &lt;sphtriangulate.html&gt;`.</span>
-<span class="sd">        outfile : str, bool or None</span>
-<span class="sd">            The name of the output ASCII file to store the results of the</span>
-<span class="sd">            histogram equalization in.</span>
-<span class="sd">        output_type: str</span>
-<span class="sd">            Determine the output type. Use &quot;file&quot;, &quot;xarray&quot;, &quot;pandas&quot;, or</span>
-<span class="sd">            &quot;numpy&quot;.</span>
-<span class="sd">        {verbose}</span>
-<span class="sd">        {binary}</span>
-<span class="sd">        {nodata}</span>
-<span class="sd">        {find}</span>
-<span class="sd">        {coltypes}</span>
-<span class="sd">        {header}</span>
-<span class="sd">        {incols}</span>
-<span class="sd">        {registration}</span>
-<span class="sd">            Only valid with ``outgrid``.</span>
-<span class="sd">        {skiprows}</span>
-<span class="sd">        {wrap}</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        ret: numpy.ndarray or pandas.DataFrame or xarray.DataArray or None</span>
-<span class="sd">            Return type depends on the ``output_type`` parameter:</span>
-
-<span class="sd">            - numpy.ndarray if ``output_type`` is &quot;numpy&quot;</span>
-<span class="sd">            - pandas.DataFrame if ``output_type`` is &quot;pandas&quot;</span>
-<span class="sd">            - xarray.DataArray if ``output_type`` is &quot;xarray&quot;&quot;</span>
-<span class="sd">            - None if ``output_type`` is &quot;file&quot; (output is stored in</span>
-<span class="sd">              ``outgrid`` or ``outfile``)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">table_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span>
-                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span>
-            <span class="p">)</span>
-            <span class="k">with</span> <span class="n">table_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
-                <span class="c1"># table output if outgrid is unset, else output to outgrid</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">outgrid</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;&gt;&quot;</span><span class="p">:</span> <span class="n">outfile</span><span class="p">})</span>
-                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;triangulate&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;xarray&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">outgrid</span><span class="p">)</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;numpy&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">result</span>
-
-<div class="viewcode-block" id="triangulate.regular_grid">
-<a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.regular_grid.html#pygmt.triangulate.regular_grid">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="nd">@fmt_docstring</span>
-    <span class="k">def</span> <span class="nf">regular_grid</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
-        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">outgrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">spacing</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">region</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">binary</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">nodata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">find</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">coltypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">incols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">registration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">skiprows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">regular_grid</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delaunay triangle based gridding of Cartesian data.</span>
@@ -352,6 +251,8 @@
 <span class="sd">        Must provide ``region`` and ``spacing``.</span>
 
 <span class="sd">        Full option list at :gmt-docs:`triangulate.html`</span>
+
+<span class="sd">        {aliases}</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -397,65 +298,50 @@
 <span class="sd">        ``triangulate`` is a Cartesian or small-geographic area operator and is</span>
 <span class="sd">        unaware of periodic or polar boundary conditions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Return an xarray.DataArray if ``outgrid`` is not set</span>
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outgrid</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;file&quot;</span>
-            <span class="k">elif</span> <span class="n">outgrid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">output_type</span> <span class="o">=</span> <span class="s2">&quot;xarray&quot;</span>
-                <span class="n">outgrid</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-                    <span class="s2">&quot;&#39;outgrid&#39; should be a proper file name or `None`&quot;</span>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">with</span> <span class="p">(</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+                    <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">,</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;triangulate&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">)</span>
                 <span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">triangulate</span><span class="o">.</span><span class="n">_triangulate</span><span class="p">(</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
-                <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
-                <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
-                <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">,</span>
-                <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span>
-                <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
-                <span class="n">region</span><span class="o">=</span><span class="n">region</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                <span class="n">binary</span><span class="o">=</span><span class="n">binary</span><span class="p">,</span>
-                <span class="n">nodata</span><span class="o">=</span><span class="n">nodata</span><span class="p">,</span>
-                <span class="n">find</span><span class="o">=</span><span class="n">find</span><span class="p">,</span>
-                <span class="n">coltypes</span><span class="o">=</span><span class="n">coltypes</span><span class="p">,</span>
-                <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
-                <span class="n">incols</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
-                <span class="n">registration</span><span class="o">=</span><span class="n">registration</span><span class="p">,</span>
-                <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
-                <span class="n">wrap</span><span class="o">=</span><span class="n">wrap</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-            <span class="p">)</span></div>
+                <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="triangulate.delaunay_triples">
 <a class="viewcode-back" href="../../../api/generated/pygmt.triangulate.delaunay_triples.html#pygmt.triangulate.delaunay_triples">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="nd">@fmt_docstring</span>
-    <span class="k">def</span> <span class="nf">delaunay_triples</span><span class="p">(</span>  <span class="c1"># noqa: PLR0913</span>
+    <span class="nd">@use_alias</span><span class="p">(</span>
+        <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
+        <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+        <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+        <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+        <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+        <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
+        <span class="n">e</span><span class="o">=</span><span class="s2">&quot;find&quot;</span><span class="p">,</span>
+        <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
+        <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
+        <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
+        <span class="n">s</span><span class="o">=</span><span class="s2">&quot;skiprows&quot;</span><span class="p">,</span>
+        <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">delaunay_triples</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">output_type</span><span class="o">=</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
-        <span class="n">outfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">projection</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">binary</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">nodata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">find</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">coltypes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">incols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">skiprows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">wrap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">output_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;pandas&quot;</span><span class="p">,</span> <span class="s2">&quot;numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pandas&quot;</span><span class="p">,</span>
+        <span class="n">outfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delaunay triangle based gridding of Cartesian data.</span>
 
@@ -472,6 +358,8 @@
 
 <span class="sd">        Full option list at :gmt-docs:`triangulate.html`</span>
 
+<span class="sd">        {aliases}</span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        x/y/z : np.ndarray</span>
@@ -482,16 +370,8 @@
 <span class="sd">            {table-classes}.</span>
 <span class="sd">        {projection}</span>
 <span class="sd">        {region}</span>
-<span class="sd">        outfile : str or bool or None</span>
-<span class="sd">            The name of the output ASCII file to store the results of the</span>
-<span class="sd">            histogram equalization in.</span>
-<span class="sd">        output_type : str</span>
-<span class="sd">            Determine the format the xyz data will be returned in [Default is</span>
-<span class="sd">            ``pandas``]:</span>
-
-<span class="sd">                - ``numpy`` - :class:`numpy.ndarray`</span>
-<span class="sd">                - ``pandas``- :class:`pandas.DataFrame`</span>
-<span class="sd">                - ``file`` - ASCII file (requires ``outfile``)</span>
+<span class="sd">        {output_type}</span>
+<span class="sd">        {outfile}</span>
 <span class="sd">        {verbose}</span>
 <span class="sd">        {binary}</span>
 <span class="sd">        {nodata}</span>
@@ -504,13 +384,13 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        ret : pandas.DataFrame or numpy.ndarray or None</span>
+<span class="sd">        ret</span>
 <span class="sd">            Return type depends on ``outfile`` and ``output_type``:</span>
 
-<span class="sd">            - None if ``outfile`` is set (output will be stored in file set by</span>
+<span class="sd">            - ``None`` if ``outfile`` is set (output will be stored in file set by</span>
 <span class="sd">              ``outfile``)</span>
-<span class="sd">            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if</span>
-<span class="sd">              ``outfile`` is not set (depends on ``output_type``)</span>
+<span class="sd">            - :class:`pandas.DataFrame` or :class:`numpy.ndarray` if ``outfile`` is not</span>
+<span class="sd">              set (depends on ``output_type``)</span>
 
 <span class="sd">        Note</span>
 <span class="sd">        ----</span>
@@ -521,29 +401,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">output_type</span> <span class="o">=</span> <span class="n">validate_output_table_type</span><span class="p">(</span><span class="n">output_type</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
 
-        <span class="c1"># Return a pandas.DataFrame if ``outfile`` is not set</span>
-        <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">output_type</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
-                <span class="n">outfile</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>
-            <span class="k">return</span> <span class="n">triangulate</span><span class="o">.</span><span class="n">_triangulate</span><span class="p">(</span>
-                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-                <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
-                <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
-                <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
-                <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">,</span>
-                <span class="n">outfile</span><span class="o">=</span><span class="n">outfile</span><span class="p">,</span>
-                <span class="n">projection</span><span class="o">=</span><span class="n">projection</span><span class="p">,</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                <span class="n">binary</span><span class="o">=</span><span class="n">binary</span><span class="p">,</span>
-                <span class="n">nodata</span><span class="o">=</span><span class="n">nodata</span><span class="p">,</span>
-                <span class="n">find</span><span class="o">=</span><span class="n">find</span><span class="p">,</span>
-                <span class="n">coltypes</span><span class="o">=</span><span class="n">coltypes</span><span class="p">,</span>
-                <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
-                <span class="n">incols</span><span class="o">=</span><span class="n">incols</span><span class="p">,</span>
-                <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
-                <span class="n">wrap</span><span class="o">=</span><span class="n">wrap</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-            <span class="p">)</span></div>
+        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+            <span class="k">with</span> <span class="p">(</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+                    <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">,</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outfile</span><span class="p">)</span> <span class="k">as</span> <span class="n">vouttbl</span><span class="p">,</span>
+            <span class="p">):</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;triangulate&quot;</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">,</span> <span class="n">outfile</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_dataset</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">vouttbl</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="n">output_type</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
@@ -557,9 +426,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

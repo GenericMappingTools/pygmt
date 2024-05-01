@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -118,10 +118,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.call_module.html">pygmt.clib.Session.call_module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_in.html">pygmt.clib.Session.virtualfile_in</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_out.html">pygmt.clib.Session.virtualfile_out</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_dataset.html">pygmt.clib.Session.virtualfile_to_dataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html">pygmt.clib.Session.virtualfile_to_raster</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.create.html">pygmt.clib.Session.create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.destroy.html">pygmt.clib.Session.destroy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.__getitem__.html">pygmt.clib.Session.__getitem__</a></li>
@@ -135,8 +135,13 @@
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.put_vector.html">pygmt.clib.Session.put_vector</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.write_data.html">pygmt.clib.Session.write_data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html">pygmt.clib.Session.open_virtualfile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html">pygmt.clib.Session.read_virtualfile</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.extract_region.html">pygmt.clib.Session.extract_region</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html">pygmt.clib.Session.get_libgmt_func</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html">pygmt.clib.Session.virtualfile_from_data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_grid.html">pygmt.clib.Session.virtualfile_from_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_matrix.html">pygmt.clib.Session.virtualfile_from_matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html">pygmt.clib.Session.virtualfile_from_vectors</a></li>
 </ul>
 </li>
 </ul>
@@ -283,7 +288,7 @@ open session.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.create.html#pygmt.clib.Session.create" title="pygmt.clib.Session.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.create</span></code></a>(name)</p></td>
 <td><p>Create a new GMT C API session.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.create_data</span></code></a>(family, geometry, mode, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.create_data.html#pygmt.clib.Session.create_data" title="pygmt.clib.Session.create_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.create_data</span></code></a>(family, geometry, mode)</p></td>
 <td><p>Create an empty GMT data container.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.destroy.html#pygmt.clib.Session.destroy" title="pygmt.clib.Session.destroy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.destroy</span></code></a>()</p></td>
@@ -301,20 +306,26 @@ open session.</p>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.get_libgmt_func.html#pygmt.clib.Session.get_libgmt_func" title="pygmt.clib.Session.get_libgmt_func"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.get_libgmt_func</span></code></a>(name[, argtypes, ...])</p></td>
 <td><p>Get a ctypes function from the libgmt shared library.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtual_file</span></code>(family, geometry, ...)</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.inquire_virtualfile</span></code>(vfname)</p></td>
+<td><p>Get the family of a virtual file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtual_file</span></code>(family, geometry, ...)</p></td>
 <td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html#pygmt.clib.Session.open_virtualfile" title="pygmt.clib.Session.open_virtualfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtualfile</span></code></a>(family, geometry, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.open_virtualfile.html#pygmt.clib.Session.open_virtualfile" title="pygmt.clib.Session.open_virtualfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.open_virtualfile</span></code></a>(family, geometry, ...)</p></td>
 <td><p>Open a GMT virtual file to pass data to and from a module.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_matrix.html#pygmt.clib.Session.put_matrix" title="pygmt.clib.Session.put_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_matrix</span></code></a>(dataset, matrix[, pad])</p></td>
 <td><p>Attach a numpy 2-D array to a GMT dataset.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_strings</span></code></a>(dataset, family, strings)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_strings.html#pygmt.clib.Session.put_strings" title="pygmt.clib.Session.put_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_strings</span></code></a>(dataset, family, strings)</p></td>
 <td><p>Attach a numpy 1-D array of dtype str as a column on a GMT dataset.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.put_vector.html#pygmt.clib.Session.put_vector" title="pygmt.clib.Session.put_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.put_vector</span></code></a>(dataset, column, vector)</p></td>
 <td><p>Attach a numpy 1-D array as a column on a GMT dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.read_virtualfile.html#pygmt.clib.Session.read_virtualfile" title="pygmt.clib.Session.read_virtualfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.read_virtualfile</span></code></a>(vfname[, kind])</p></td>
+<td><p>Read data from a virtual file and optionally cast into a GMT data container.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_data.html#pygmt.clib.Session.virtualfile_from_data" title="pygmt.clib.Session.virtualfile_from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_data</span></code></a>([check_kind, ...])</p></td>
 <td><p>Store any data inside a virtual file.</p></td>
@@ -327,6 +338,18 @@ open session.</p>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_from_vectors.html#pygmt.clib.Session.virtualfile_from_vectors" title="pygmt.clib.Session.virtualfile_from_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_from_vectors</span></code></a>(*vectors)</p></td>
 <td><p>Store 1-D arrays as columns of a table inside a virtual file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_in.html#pygmt.clib.Session.virtualfile_in" title="pygmt.clib.Session.virtualfile_in"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_in</span></code></a>([check_kind, data, ...])</p></td>
+<td><p>Store any data inside a virtual file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_out.html#pygmt.clib.Session.virtualfile_out" title="pygmt.clib.Session.virtualfile_out"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_out</span></code></a>([kind, fname])</p></td>
+<td><p>Create a virtual file or an actual file for storing output data.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_dataset.html#pygmt.clib.Session.virtualfile_to_dataset" title="pygmt.clib.Session.virtualfile_to_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_to_dataset</span></code></a>(vfname[, ...])</p></td>
+<td><p>Output a tabular dataset stored in a virtual file to a different format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pygmt.clib.Session.virtualfile_to_raster.html#pygmt.clib.Session.virtualfile_to_raster" title="pygmt.clib.Session.virtualfile_to_raster"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.virtualfile_to_raster</span></code></a>(vfname[, ...])</p></td>
+<td><p>Output raster data stored in a virtual file to an <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> object.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="pygmt.clib.Session.write_data.html#pygmt.clib.Session.write_data" title="pygmt.clib.Session.write_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.write_data</span></code></a>(family, geometry, mode, ...)</p></td>
 <td><p>Write a GMT data container to a file.</p></td>
@@ -348,9 +371,9 @@ open session.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

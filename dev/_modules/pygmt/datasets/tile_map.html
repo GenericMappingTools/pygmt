@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -161,15 +161,18 @@
 <span class="sd">Function to load raster tile maps from XYZ tile providers, and load as</span>
 <span class="sd">:class:`xarray.DataArray`.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">contextily</span>
+    <span class="kn">from</span> <span class="nn">xyzservices</span> <span class="kn">import</span> <span class="n">TileProvider</span>
 
     <span class="n">_HAS_CONTEXTILY</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">TileProvider</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_HAS_CONTEXTILY</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -181,76 +184,63 @@
 <div class="viewcode-block" id="load_tile_map">
 <a class="viewcode-back" href="../../../api/generated/pygmt.datasets.load_tile_map.html#pygmt.datasets.load_tile_map">[docs]</a>
 <span class="k">def</span> <span class="nf">load_tile_map</span><span class="p">(</span>
-    <span class="n">region</span><span class="p">,</span>
-    <span class="n">zoom</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
-    <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">lonlat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">wait</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">max_retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">region</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">zoom</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">TileProvider</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">lonlat</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">wait</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
     <span class="n">zoom_adjust</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load a georeferenced raster tile map from XYZ tile providers.</span>
 
 <span class="sd">    The tiles that compose the map are merged and georeferenced into an</span>
-<span class="sd">    :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned</span>
-<span class="sd">    image is in a Spherical Mercator (EPSG:3857) coordinate reference system.</span>
+<span class="sd">    :class:`xarray.DataArray` image with 3 bands (RGB). Note that the returned image is</span>
+<span class="sd">    in a Spherical Mercator (EPSG:3857) coordinate reference system.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    region : list</span>
-<span class="sd">        The bounding box of the map in the form of a list [*xmin*, *xmax*,</span>
-<span class="sd">        *ymin*, *ymax*]. These coordinates should be in longitude/latitude if</span>
-<span class="sd">        ``lonlat=True`` or Spherical Mercator (EPSG:3857) if ``lonlat=False``.</span>
-
-<span class="sd">    zoom : int or str</span>
-<span class="sd">        Optional. Level of detail. Higher levels (e.g. ``22``) mean a zoom</span>
-<span class="sd">        level closer to the Earth&#39;s surface, with more tiles covering a smaller</span>
-<span class="sd">        geographical area and thus more detail. Lower levels (e.g. ``0``) mean</span>
-<span class="sd">        a zoom level further from the Earth&#39;s surface, with less tiles covering</span>
-<span class="sd">        a larger geographical area and thus less detail [Default is</span>
-<span class="sd">        ``&quot;auto&quot;`` to automatically determine the zoom level based on the</span>
-<span class="sd">        bounding box region extent].</span>
+<span class="sd">    region</span>
+<span class="sd">        The bounding box of the map in the form of a list [*xmin*, *xmax*, *ymin*,</span>
+<span class="sd">        *ymax*]. These coordinates should be in longitude/latitude if ``lonlat=True`` or</span>
+<span class="sd">        Spherical Mercator (EPSG:3857) if ``lonlat=False``.</span>
+<span class="sd">    zoom</span>
+<span class="sd">        Level of detail. Higher levels (e.g. ``22``) mean a zoom level closer to the</span>
+<span class="sd">        Earth&#39;s surface, with more tiles covering a smaller geographical area and thus</span>
+<span class="sd">        more detail. Lower levels (e.g. ``0``) mean a zoom level further from the</span>
+<span class="sd">        Earth&#39;s surface, with less tiles covering a larger geographical area and thus</span>
+<span class="sd">        less detail. Default is ``&quot;auto&quot;`` to automatically determine the zoom level</span>
+<span class="sd">        based on the bounding box region extent.</span>
 
 <span class="sd">        .. note::</span>
 <span class="sd">           The maximum possible zoom level may be smaller than ``22``, and depends on</span>
 <span class="sd">           what is supported by the chosen web tile provider source.</span>
+<span class="sd">    source</span>
+<span class="sd">        The tile source: web tile provider or path to a local file. Provide either:</span>
 
-<span class="sd">    source : xyzservices.TileProvider or str</span>
-<span class="sd">        Optional. The tile source: web tile provider or path to a local file.</span>
-<span class="sd">        Provide either:</span>
-
-<span class="sd">        - A web tile provider in the form of a</span>
-<span class="sd">          :class:`xyzservices.TileProvider` object. See</span>
-<span class="sd">          :doc:`Contextily providers &lt;contextily:providers_deepdive&gt;` for a</span>
-<span class="sd">          list of tile providers [Default is</span>
-<span class="sd">          ``xyzservices.providers.OpenStreetMap.HOT``, i.e. OpenStreetMap</span>
-<span class="sd">          Humanitarian web tiles].</span>
-<span class="sd">        - A web tile provider in the form of a URL. The placeholders for the</span>
-<span class="sd">          XYZ in the URL need to be {x}, {y}, {z}, respectively. E.g.</span>
+<span class="sd">        - A web tile provider in the form of a :class:`xyzservices.TileProvider` object.</span>
+<span class="sd">          See :doc:`Contextily providers &lt;contextily:providers_deepdive&gt;` for a list of</span>
+<span class="sd">          tile providers. Default is ``xyzservices.providers.OpenStreetMap.HOT``, i.e.</span>
+<span class="sd">          OpenStreetMap Humanitarian web tiles.</span>
+<span class="sd">        - A web tile provider in the form of a URL. The placeholders for the XYZ in the</span>
+<span class="sd">          URL need to be {x}, {y}, {z}, respectively. E.g.</span>
 <span class="sd">          ``https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png``.</span>
-<span class="sd">        - A local file path. The file is read with</span>
-<span class="sd">          :doc:`rasterio &lt;rasterio:index&gt;` and all bands are loaded into the</span>
-<span class="sd">          basemap. See</span>
+<span class="sd">        - A local file path. The file is read with :doc:`rasterio &lt;rasterio:index&gt;` and</span>
+<span class="sd">          all bands are loaded into the basemap. See</span>
 <span class="sd">          :doc:`contextily:working_with_local_files`.</span>
 
 <span class="sd">        .. important::</span>
 <span class="sd">           Tiles are assumed to be in the Spherical Mercator projection (EPSG:3857).</span>
-
-<span class="sd">    lonlat : bool</span>
-<span class="sd">        Optional. If ``False``, coordinates in ``region`` are assumed to be</span>
-<span class="sd">        Spherical Mercator as opposed to longitude/latitude [Default is</span>
-<span class="sd">        ``True``].</span>
-
-<span class="sd">    wait : int</span>
-<span class="sd">        Optional. If the tile API is rate-limited, the number of seconds to</span>
-<span class="sd">        wait between a failed request and the next try [Default is ``0``].</span>
-
-<span class="sd">    max_retries : int</span>
-<span class="sd">        Optional. Total number of rejected requests allowed before contextily</span>
-<span class="sd">        will stop trying to fetch more tiles from a rate-limited API [Default</span>
-<span class="sd">        is ``2``].</span>
-
+<span class="sd">    lonlat</span>
+<span class="sd">        If ``False``, coordinates in ``region`` are assumed to be Spherical Mercator as</span>
+<span class="sd">        opposed to longitude/latitude.</span>
+<span class="sd">    wait</span>
+<span class="sd">        If the tile API is rate-limited, the number of seconds to wait between a failed</span>
+<span class="sd">        request and the next try.</span>
+<span class="sd">    max_retries</span>
+<span class="sd">        Total number of rejected requests allowed before contextily will stop trying to</span>
+<span class="sd">        fetch more tiles from a rate-limited API.</span>
 <span class="sd">    zoom_adjust</span>
 <span class="sd">        The amount to adjust a chosen zoom level if it is chosen automatically. Values</span>
 <span class="sd">        outside of -1 to 1 are not recommended as they can lead to slow execution.</span>
@@ -260,15 +250,15 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    raster : xarray.DataArray</span>
+<span class="sd">    raster</span>
 <span class="sd">        Georeferenced 3-D data array of RGB values.</span>
 
 <span class="sd">    Raises</span>
 <span class="sd">    ------</span>
 <span class="sd">    ImportError</span>
-<span class="sd">        If ``contextily`` is not installed or can&#39;t be imported. Follow</span>
-<span class="sd">        :doc:`install instructions for contextily &lt;contextily:index&gt;`, (e.g.</span>
-<span class="sd">        via ``python -m pip install contextily``) before using this function.</span>
+<span class="sd">        If ``contextily`` is not installed or can&#39;t be imported. Follow the</span>
+<span class="sd">        :doc:`install instructions for contextily &lt;contextily:index&gt;`, (e.g. via</span>
+<span class="sd">        ``python -m pip install contextily``) before using this function.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -282,11 +272,11 @@
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; raster.sizes</span>
 <span class="sd">    Frozen({&#39;band&#39;: 3, &#39;y&#39;: 256, &#39;x&#39;: 512})</span>
-<span class="sd">    &gt;&gt;&gt; raster.coords</span>
+<span class="sd">    &gt;&gt;&gt; raster.coords  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE</span>
 <span class="sd">    Coordinates:</span>
-<span class="sd">      * band         (band) uint8 0 1 2</span>
-<span class="sd">      * y            (y) float64 -7.081e-10 -7.858e+04 ... -1.996e+07 ...</span>
-<span class="sd">      * x            (x) float64 -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
+<span class="sd">      * band    (band) uint8 ... 0 1 2</span>
+<span class="sd">      * y       (y) float64 ... -7.081e-10 -7.858e+04 ... -1.996e+07 ...</span>
+<span class="sd">      * x       (x) float64 ... -2.004e+07 -1.996e+07 ... 1.996e+07 2.004e+07</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_CONTEXTILY</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
@@ -352,9 +342,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

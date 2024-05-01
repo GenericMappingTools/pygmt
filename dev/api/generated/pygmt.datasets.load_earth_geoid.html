@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -202,11 +202,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="pygmt.datasets.load_earth_geoid">
 <span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_earth_geoid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'01d'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gridline'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/earth_geoid.html#load_earth_geoid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_earth_geoid" title="Link to this definition"></a></dt>
-<dd><p>Load the EGM2008 Earth Geoid dataset in various resolutions.</p>
+<dd><p>Load the EGM2008 Earth geoid dataset in various resolutions.</p>
 <figure class="align-center" id="id1">
 <a class="reference internal image-reference" href="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_geoid.jpg"><img alt="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_geoid.jpg" src="https://www.generic-mapping-tools.org/remote-datasets/_images/GMT_earth_geoid.jpg" style="width: 80%;" /></a>
 <figcaption>
-<p><span class="caption-text">EGM2008 Earth Geoid dataset.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">EGM2008 Earth geoid dataset.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 <p>The grids are downloaded to a user data directory
@@ -236,14 +236,14 @@ arc-minutes (i.e., <code class="docutils literal notranslate"><span class="pre">
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth geoid grid. Coordinates are latitude and
+<dd class="field-even"><p><strong>grid</strong> (<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>) – The Earth geoid grid. Coordinates are latitude and
 longitude in degrees. Units are in meters.</p>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The registration and coordinate system type of the returned
-<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> grid can be accessed via the GMT accessors
 (i.e., <code class="docutils literal notranslate"><span class="pre">grid.gmt.registration</span></code> and <code class="docutils literal notranslate"><span class="pre">grid.gmt.gtype</span></code> respectively).
 However, these properties may be lost after specific grid operations (such
 as slicing) and will need to be manually set before passing the grid to any
@@ -282,9 +282,9 @@ workarounds.</p>
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

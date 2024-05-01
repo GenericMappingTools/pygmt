@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -164,14 +164,12 @@
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">GMTTempFile</span><span class="p">,</span>
     <span class="n">args_in_kwargs</span><span class="p">,</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">use_alias</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pygmt.io</span> <span class="kn">import</span> <span class="n">load_dataarray</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdgradient&quot;</span><span class="p">]</span>
 
@@ -183,7 +181,6 @@
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;azimuth&quot;</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span>
     <span class="n">E</span><span class="o">=</span><span class="s2">&quot;radiance&quot;</span><span class="p">,</span>
-    <span class="n">G</span><span class="o">=</span><span class="s2">&quot;outgrid&quot;</span><span class="p">,</span>
     <span class="n">N</span><span class="o">=</span><span class="s2">&quot;normalize&quot;</span><span class="p">,</span>
     <span class="n">Q</span><span class="o">=</span><span class="s2">&quot;tiles&quot;</span><span class="p">,</span>
     <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
@@ -193,7 +190,7 @@
     <span class="n">n</span><span class="o">=</span><span class="s2">&quot;interpolation&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">E</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">grdgradient</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">grdgradient</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the directional derivative of the vector gradient of the data.</span>
 
@@ -321,24 +318,23 @@
 <span class="sd">    &gt;&gt;&gt; # Create a new grid from an input grid, set the azimuth to 10 degrees,</span>
 <span class="sd">    &gt;&gt;&gt; new_grid = pygmt.grdgradient(grid=grid, azimuth=10)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="n">GMTTempFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.nc&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpfile</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Must specify normalize if tiles is specified.&quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;At least one of the following parameters must be specified:</span>
-<span class="sd">                azimuth, direction, or radiance&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;Must specify normalize if tiles is specified.&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">args_in_kwargs</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">],</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
+            <span class="s2">&quot;At least one of the following parameters must be specified: &quot;</span>
+            <span class="s2">&quot;azimuth, direction, or radiance.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="p">(</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdgradient&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">outgrid</span> <span class="o">:=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;G&quot;</span><span class="p">))</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">outgrid</span> <span class="o">=</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span>  <span class="c1"># output to tmpfile</span>
-                <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                    <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdgradient&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">infile</span><span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">load_dataarray</span><span class="p">(</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">if</span> <span class="n">outgrid</span> <span class="o">==</span> <span class="n">tmpfile</span><span class="o">.</span><span class="n">name</span> <span class="k">else</span> <span class="kc">None</span></div>
+            <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -351,9 +347,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

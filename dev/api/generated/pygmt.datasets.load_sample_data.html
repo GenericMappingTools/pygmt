@@ -28,7 +28,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -204,16 +204,19 @@
 <dt class="sig sig-object py" id="pygmt.datasets.load_sample_data">
 <span class="sig-prename descclassname"><span class="pre">pygmt.datasets.</span></span><span class="sig-name descname"><span class="pre">load_sample_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pygmt/datasets/samples.html#load_sample_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygmt.datasets.load_sample_data" title="Link to this definition"></a></dt>
 <dd><p>Load an example dataset from the GMT server.</p>
-<p>The data are downloaded to a cache directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>) the
-first time you invoke this function. Afterwards, it will load the data from
-the cache. So you’ll need an internet connection the first time around.</p>
+<p>The data are downloaded to a cache directory (usually <code class="docutils literal notranslate"><span class="pre">~/.gmt/cache</span></code>) the first
+time you invoke this function. Afterwards, it will load the data from the cache. So
+you’ll need an internet connection the first time around.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.12)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code></a>[<code class="docutils literal notranslate"><span class="pre">'bathymetry'</span></code>, <code class="docutils literal notranslate"><span class="pre">'earth_relief_holes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'fractures'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hotspots'</span></code>, <code class="docutils literal notranslate"><span class="pre">'japan_quakes'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mars_shape'</span></code>, <code class="docutils literal notranslate"><span class="pre">'maunaloa_co2'</span></code>, <code class="docutils literal notranslate"><span class="pre">'notre_dame_topography'</span></code>, <code class="docutils literal notranslate"><span class="pre">'ocean_ridge_points'</span></code>, <code class="docutils literal notranslate"><span class="pre">'rock_compositions'</span></code>, <code class="docutils literal notranslate"><span class="pre">'usgs_quakes'</span></code>]</span>) – Name of the dataset to load.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data
-or <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.1.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></a> | <a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataArray</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>data</em> – Sample dataset loaded as a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.2.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a> for tabular data or
+<a class="reference external" href="https://docs.xarray.dev/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v2024.3.1.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> for raster data.</p>
 </dd>
 </dl>
 <div class="admonition seealso">
@@ -278,9 +281,9 @@ or <a class="reference external" href="https://docs.xarray.dev/en/stable/generat
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

@@ -27,7 +27,7 @@
   
         <script src="../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
         <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,6 +160,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Define the Figure class that handles all plotting.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -176,7 +177,7 @@
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
 <span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTError</span><span class="p">,</span> <span class="n">GMTInvalidInput</span>
 <span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">build_arg_string</span><span class="p">,</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
     <span class="n">fmt_docstring</span><span class="p">,</span>
     <span class="n">kwargs_to_strings</span><span class="p">,</span>
     <span class="n">launch_external_viewer</span><span class="p">,</span>
@@ -227,10 +228,9 @@
 <span class="sd">    &gt;&gt;&gt; fig.basemap(region=[0, 360, -90, 90], projection=&quot;W15c&quot;, frame=True)</span>
 <span class="sd">    &gt;&gt;&gt; fig.savefig(&quot;my-figure.png&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; # Make sure the figure file is generated and clean it up</span>
-<span class="sd">    &gt;&gt;&gt; import os</span>
-<span class="sd">    &gt;&gt;&gt; os.path.exists(&quot;my-figure.png&quot;)</span>
-<span class="sd">    True</span>
-<span class="sd">    &gt;&gt;&gt; os.remove(&quot;my-figure.png&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; from pathlib import Path</span>
+<span class="sd">    &gt;&gt;&gt; assert Path(&quot;my-figure.png&quot;).exists()</span>
+<span class="sd">    &gt;&gt;&gt; Path(&quot;my-figure.png&quot;).unlink()</span>
 
 <span class="sd">    The plot region can be specified through ISO country codes (for example,</span>
 <span class="sd">    ``&quot;JP&quot;`` for Japan):</span>
@@ -269,7 +269,7 @@
         <span class="c1"># Passing format &#39;-&#39; tells pygmt.end to not produce any files.</span>
         <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;-&quot;</span>
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="n">fmt</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -391,18 +391,18 @@
 <span class="sd">        {verbose}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># pytest-mpl v0.17.0 added the &quot;metadata&quot; parameter to `Figure.savefig`, which</span>
+        <span class="c1"># is not recognized. So remove it before calling `Figure.psconvert`.</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="c1"># Default cropping the figure to True</span>
         <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="c1"># Manually handle prefix -F argument so spaces aren&#39;t converted to \040</span>
-        <span class="c1"># by build_arg_string function. For more information, see</span>
-        <span class="c1"># https://github.com/GenericMappingTools/pygmt/pull/1487</span>
-        <span class="n">prefix</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span>
                 <span class="s2">&quot;The &#39;prefix&#39; parameter must be specified with a valid value.&quot;</span>
             <span class="p">)</span>
-        <span class="n">prefix_arg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;-F&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
 
         <span class="c1"># check if the parent directory exists</span>
         <span class="n">prefix_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
@@ -412,9 +412,7 @@
             <span class="p">)</span>
 
         <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix_arg</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span></div>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="s2">&quot;psconvert&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Figure.savefig">
@@ -542,8 +540,8 @@
         <span class="c1"># Remove the .pgw world file if exists</span>
         <span class="c1"># Not necessary after GMT 6.5.0.</span>
         <span class="c1"># See upstream fix https://github.com/GenericMappingTools/gmt/pull/7865</span>
-        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;tiff&quot;</span> <span class="ow">and</span> <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s2">&quot;tiff&quot;</span><span class="p">:</span>
+            <span class="n">fname</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.pgw&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">missing_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Rename if file extension doesn&#39;t match the input file suffix</span>
         <span class="k">if</span> <span class="n">ext</span> <span class="o">!=</span> <span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
@@ -661,12 +659,10 @@
 <span class="sd">            If ``as_bytes=False``, this is the file name of the preview image</span>
 <span class="sd">            file. Else, it is the file content loaded as a bytes string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">fname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preview_dir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">as_bytes</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">image</span><span class="p">:</span>
-                <span class="n">preview</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">preview</span>
+            <span class="k">return</span> <span class="n">fname</span><span class="o">.</span><span class="n">read_bytes</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">fname</span>
 
     <span class="k">def</span> <span class="nf">_repr_png_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -779,9 +775,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:15.064** total execution time for 11 files **from tutorials/advanced**:
+**00:14.100** total execution time for 11 files **from tutorials/advanced**:
 
 .. container::
 
@@ -33,35 +33,35 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_tutorials_advanced_vectors.py` (``vectors.py``)
-     - 00:02.525
-     - 0.0
-   * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
-     - 00:02.120
+     - 00:02.483
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_working_with_panel.py` (``working_with_panel.py``)
-     - 00:01.933
+     - 00:02.032
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_contour_map.py` (``contour_map.py``)
-     - 00:01.485
+     - 00:01.432
+     - 0.0
+   * - :ref:`sphx_glr_tutorials_advanced_grid_equalization.py` (``grid_equalization.py``)
+     - 00:01.289
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_cartesian_histograms.py` (``cartesian_histograms.py``)
-     - 00:01.293
+     - 00:01.270
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_date_time_charts.py` (``date_time_charts.py``)
-     - 00:01.285
+     - 00:01.266
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_earth_relief.py` (``earth_relief.py``)
-     - 00:01.232
+     - 00:01.215
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_insets.py` (``insets.py``)
-     - 00:01.022
+     - 00:01.008
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_3d_perspective_image.py` (``3d_perspective_image.py``)
-     - 00:00.973
+     - 00:00.962
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_subplots.py` (``subplots.py``)
-     - 00:00.628
+     - 00:00.594
      - 0.0
    * - :ref:`sphx_glr_tutorials_advanced_configuration.py` (``configuration.py``)
-     - 00:00.569
+     - 00:00.548
      - 0.0

@@ -25,7 +25,7 @@ The :meth:`pygmt.Figure.colorbar` method creates a color scalebar.
 The colormap is set via the ``cmap`` parameter. A full list of available
 color palette tables can be found at :gmt-docs:`reference/cpts.html`.
 Use the ``frame`` parameter to add labels to the **x** and **y** axes
-of the colorbar by appending **+l** followed by the desired text. To Add
+of the colorbar by appending **+l** followed by the desired text. To add
 and adjust the annotations (**a**) and ticks (**f**) append the letter
 followed by the desired interval. The placement of the colorbar is set
 via the ``position`` parameter. There are the following options:
@@ -124,7 +124,7 @@ to ``position`` to get a horizontal colorbar instead of a vertical one
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.168 seconds)
+   **Total running time of the script:** (0 minutes 0.161 seconds)
 
 
 .. _sphx_glr_download_gallery_embellishments_colorbar.py:

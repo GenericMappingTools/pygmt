@@ -43,7 +43,7 @@ the image.
 
 .. code-block:: Python
 
-    import os
+    from pathlib import Path
 
     import pygmt
 
@@ -60,14 +60,14 @@ the image.
     )
 
     # clean up the downloaded image in the current directory
-    os.remove("gmt-logo.png")
+    Path("gmt-logo.png").unlink()
 
     fig.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.377 seconds)
+   **Total running time of the script:** (0 minutes 0.476 seconds)
 
 
 .. _sphx_glr_download_gallery_images_image.py:

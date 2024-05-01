@@ -27,7 +27,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=0865ea32"></script>
+        <script src="../../../_static/documentation_options.js?v=b483e97e"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -160,17 +160,28 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">grdcontour - Plot a contour figure.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
-<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_string</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">build_arg_list</span><span class="p">,</span>
+    <span class="n">deprecate_parameter</span><span class="p">,</span>
+    <span class="n">fmt_docstring</span><span class="p">,</span>
+    <span class="n">is_nonstr_iter</span><span class="p">,</span>
+    <span class="n">kwargs_to_strings</span><span class="p">,</span>
+    <span class="n">use_alias</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;grdcontour&quot;</span><span class="p">]</span>
 
 
 <span class="nd">@fmt_docstring</span>
+<span class="nd">@deprecate_parameter</span><span class="p">(</span><span class="s2">&quot;interval&quot;</span><span class="p">,</span> <span class="s2">&quot;levels&quot;</span><span class="p">,</span> <span class="s2">&quot;v0.12.0&quot;</span><span class="p">,</span> <span class="n">remove_version</span><span class="o">=</span><span class="s2">&quot;v0.16.0&quot;</span><span class="p">)</span>
 <span class="nd">@use_alias</span><span class="p">(</span>
     <span class="n">A</span><span class="o">=</span><span class="s2">&quot;annotation&quot;</span><span class="p">,</span>
     <span class="n">B</span><span class="o">=</span><span class="s2">&quot;frame&quot;</span><span class="p">,</span>
-    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;interval&quot;</span><span class="p">,</span>
+    <span class="n">C</span><span class="o">=</span><span class="s2">&quot;levels&quot;</span><span class="p">,</span>
     <span class="n">G</span><span class="o">=</span><span class="s2">&quot;label_placement&quot;</span><span class="p">,</span>
     <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
     <span class="n">L</span><span class="o">=</span><span class="s2">&quot;limit&quot;</span><span class="p">,</span>
@@ -185,9 +196,7 @@
     <span class="n">p</span><span class="o">=</span><span class="s2">&quot;perspective&quot;</span><span class="p">,</span>
     <span class="n">t</span><span class="o">=</span><span class="s2">&quot;transparency&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="nd">@kwargs_to_strings</span><span class="p">(</span>
-    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="s2">&quot;sequence_plus&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span>
-<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">L</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;sequence_comma&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">grdcontour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert grids or images to contours and plot them on maps.</span>
@@ -201,26 +210,26 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    {grid}</span>
-<span class="sd">    interval : str or int</span>
+<span class="sd">    levels : float, list, or str</span>
 <span class="sd">        Specify the contour lines to generate.</span>
 
-<span class="sd">        - The file name of a CPT file where the color boundaries will</span>
-<span class="sd">          be used as contour levels.</span>
-<span class="sd">        - The file name of a 2 (or 3) column file containing the contour</span>
-<span class="sd">          levels (col 1), (**C**)ontour or (**A**)nnotate (col 2), and optional</span>
-<span class="sd">          angle (col 3).</span>
-<span class="sd">        - A fixed contour interval *cont_int* or a single contour with</span>
-<span class="sd">          +\ *cont_int*.</span>
-<span class="sd">    annotation : str, int, or list</span>
+<span class="sd">        - The file name of a CPT file where the color boundaries will be used as</span>
+<span class="sd">          contour levels.</span>
+<span class="sd">        - The file name of a 2 (or 3) column file containing the contour levels (col 0),</span>
+<span class="sd">          (**C**)ontour or (**A**)nnotate (col 1), and optional angle (col 2).</span>
+<span class="sd">        - A fixed contour interval.</span>
+<span class="sd">        - A list of contour levels.</span>
+<span class="sd">    annotation : float, list, or str</span>
 <span class="sd">        Specify or disable annotated contour levels, modifies annotated</span>
-<span class="sd">        contours specified in ``interval``.</span>
+<span class="sd">        contours specified in ``levels``.</span>
 
-<span class="sd">        - Specify a fixed annotation interval *annot_int* or a</span>
-<span class="sd">          single annotation level +\ *annot_int*.</span>
-<span class="sd">        - Disable all annotation with  **-**.</span>
-<span class="sd">        - Optional label modifiers can be specified as a single string</span>
-<span class="sd">          ``&quot;[annot_int]+e&quot;``  or with a list of arguments</span>
-<span class="sd">          ``([annot_int], &quot;e&quot;, &quot;f10p&quot;, &quot;gred&quot;)``.</span>
+<span class="sd">        - Specify a fixed annotation interval.</span>
+<span class="sd">        - Specify a list of annotation levels.</span>
+<span class="sd">        - Disable all annotations by setting ``annotation=&quot;n&quot;``.</span>
+<span class="sd">        - Adjust the appearance by appending different modifiers, e.g.,</span>
+<span class="sd">          ``&quot;annot_int+f10p+gred&quot;`` gives annotations with a font size of 10 points</span>
+<span class="sd">          and a red filled box. For all available modifiers see</span>
+<span class="sd">          :gmt-docs:`grdcontour.html#a`.</span>
 <span class="sd">    limit : str or list of 2 ints</span>
 <span class="sd">        *low*/*high*.</span>
 <span class="sd">        Do no draw contours below `low` or above `high`, specify as string</span>
@@ -238,7 +247,16 @@
 <span class="sd">        five controlling algorithms. See :gmt-docs:`grdcontour.html#g` for</span>
 <span class="sd">        details.</span>
 <span class="sd">    {verbose}</span>
-<span class="sd">    {pen}</span>
+<span class="sd">    pen : str or list</span>
+<span class="sd">        [*type*]\ *pen*\ [**+c**\ [**l**\|\ **f**]].</span>
+<span class="sd">        *type*, if present, can be **a** for annotated contours or **c** for regular</span>
+<span class="sd">        contours [Default]. The pen sets the attributes for the particular line.</span>
+<span class="sd">        Default pen for annotated contours is ``&quot;0.75p,black&quot;`` and for regular</span>
+<span class="sd">        contours ``&quot;0.25p,black&quot;``. Normally, all contours are drawn with a fixed</span>
+<span class="sd">        color determined by the pen setting. If **+cl** is appended the colors of the</span>
+<span class="sd">        contour lines are taken from the CPT (see ``levels``). If **+cf** is</span>
+<span class="sd">        appended the colors from the CPT file are applied to the contour annotations.</span>
+<span class="sd">        Select **+c** for both effects.</span>
 <span class="sd">    {panel}</span>
 <span class="sd">    {coltypes}</span>
 <span class="sd">    label : str</span>
@@ -254,37 +272,62 @@
 <span class="sd">    Example</span>
 <span class="sd">    -------</span>
 <span class="sd">    &gt;&gt;&gt; import pygmt</span>
-<span class="sd">    &gt;&gt;&gt; # load the 15 arc-minutes grid with &quot;gridline&quot; registration</span>
-<span class="sd">    &gt;&gt;&gt; # in a specified region</span>
+<span class="sd">    &gt;&gt;&gt; # Load the 15 arc-minutes grid with &quot;gridline&quot; registration in the</span>
+<span class="sd">    &gt;&gt;&gt; # specified region</span>
 <span class="sd">    &gt;&gt;&gt; grid = pygmt.datasets.load_earth_relief(</span>
 <span class="sd">    ...     resolution=&quot;15m&quot;,</span>
 <span class="sd">    ...     region=[-92.5, -82.5, -3, 7],</span>
 <span class="sd">    ...     registration=&quot;gridline&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # create a new plot with pygmt.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; # Create a new plot with pygmt.Figure()</span>
 <span class="sd">    &gt;&gt;&gt; fig = pygmt.Figure()</span>
-<span class="sd">    &gt;&gt;&gt; # create the contour plot</span>
+<span class="sd">    &gt;&gt;&gt; # Create the contour plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.grdcontour(</span>
-<span class="sd">    ...     # pass in the grid downloaded above</span>
+<span class="sd">    ...     # Pass in the grid downloaded above</span>
 <span class="sd">    ...     grid=grid,</span>
-<span class="sd">    ...     # set the interval for contour lines at 250 meters</span>
-<span class="sd">    ...     interval=250,</span>
-<span class="sd">    ...     # set the interval for annotated contour lines at 1,000 meters</span>
+<span class="sd">    ...     # Set the interval for contour lines at 250 meters</span>
+<span class="sd">    ...     levels=250,</span>
+<span class="sd">    ...     # Set the interval for annotated contour lines at 1,000 meters</span>
 <span class="sd">    ...     annotation=1000,</span>
-<span class="sd">    ...     # add a frame for the plot</span>
+<span class="sd">    ...     # Add a frame for the plot</span>
 <span class="sd">    ...     frame=&quot;a&quot;,</span>
-<span class="sd">    ...     # set the projection to Mercator for the 10 cm figure</span>
+<span class="sd">    ...     # Set the projection to Mercator for the 10 cm figure</span>
 <span class="sd">    ...     projection=&quot;M10c&quot;,</span>
 <span class="sd">    ... )</span>
-<span class="sd">    &gt;&gt;&gt; # show the plot</span>
+<span class="sd">    &gt;&gt;&gt; # Show the plot</span>
 <span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Backward compatibility with the old syntax for the annotation parameter, e.g.,</span>
+    <span class="c1"># [100, &quot;e&quot;, &quot;f10p&quot;, &quot;gred&quot;].</span>
+    <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span>
+        <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="s2">&quot;acdefgijlLnoprtuvwx=&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;Argument of the parameter &#39;annotation&#39;/&#39;A&#39; is using the old, deprecated &quot;</span>
+            <span class="s2">&quot;syntax. Please refer to the PyGMT documentation for the new syntax. &quot;</span>
+            <span class="s2">&quot;The warning will be removed in v0.14.0 and the old syntax will no longer &quot;</span>
+            <span class="s2">&quot;be supported. &quot;</span>
+        <span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Specify levels for the annotation and levels parameters.</span>
+    <span class="c1"># One level is converted to a string with a trailing comma to separate it from</span>
+    <span class="c1"># specifying an interval.</span>
+    <span class="c1"># Multiple levels are concatenated to a comma-separated string.</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">is_nonstr_iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arg</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># One level</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Multiple levels</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span>
+
     <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
-        <span class="n">file_context</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_from_data</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">file_context</span> <span class="k">as</span> <span class="n">fname</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span><span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;raster&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">grid</span><span class="p">)</span> <span class="k">as</span> <span class="n">vingrd</span><span class="p">:</span>
             <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
-                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdcontour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_string</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;grdcontour&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vingrd</span><span class="p">)</span>
             <span class="p">)</span>
 </pre></div>
 
@@ -297,9 +340,9 @@
 
   <div role="contentinfo">
     <p>&#169; Copyright 2017-2024, The PyGMT Developers.
-      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/198e2785">198e2785</a></code>.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/commit/3986056b">3986056b</a></code>.
       </span>
-      <span class="lastupdated">Last updated on Feb 01, 2024.
+      <span class="lastupdated">Last updated on May 01, 2024.
       </span></p>
   </div>
 

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:10.498** total execution time for 6 files **from gallery/maps**:
+**00:10.182** total execution time for 6 files **from gallery/maps**:
 
 .. container::
 
@@ -33,20 +33,20 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_gallery_maps_country_polygons.py` (``country_polygons.py``)
-     - 00:07.236
+     - 00:07.159
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_tilemaps.py` (``tilemaps.py``)
-     - 00:01.555
+     - 00:01.424
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_choropleth_map.py` (``choropleth_map.py``)
-     - 00:00.823
+     - 00:00.784
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_borders.py` (``borders.py``)
-     - 00:00.361
+     - 00:00.357
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_shorelines.py` (``shorelines.py``)
-     - 00:00.290
+     - 00:00.230
      - 0.0
    * - :ref:`sphx_glr_gallery_maps_land_and_water.py` (``land_and_water.py``)
-     - 00:00.233
+     - 00:00.228
      - 0.0
