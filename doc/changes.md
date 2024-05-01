@@ -50,7 +50,7 @@
 
 * External Resources: Add repository "gmt-pygmt-plotting" ([#3213](https://github.com/GenericMappingTools/pygmt/pull/3213))
 * Gallery example "Custom symbols": Mention own custom symbols ([#3186](https://github.com/GenericMappingTools/pygmt/pull/3186))
-* Intro "04 Tabel inputs": Document that a list of file names, pathlib.Path objects, URLs, or remote files is supported ([3214](https://github.com/GenericMappingTools/pygmt/pull/3214))
+* Intro "04 Table inputs": Document that a list of file names, pathlib.Path objects, URLs, or remote files is supported ([3214](https://github.com/GenericMappingTools/pygmt/pull/3214))
 * Tutorial "Plotting text": Rewrite to improve structure, explain more parameters, show list input ([#2760](https://github.com/GenericMappingTools/pygmt/pull/2760))
 
 ### Maintenance
