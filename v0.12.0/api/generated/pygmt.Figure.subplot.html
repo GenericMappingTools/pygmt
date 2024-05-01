@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.Figure.subplot &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/api/generated/pygmt.Figure.subplot.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pygmt.Figure.savefig" href="pygmt.Figure.savefig.html" />
+    <link rel="prev" title="pygmt.Figure.shift_origin" href="pygmt.Figure.shift_origin.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../index.html#main-features">Main Features</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#plotting">Plotting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../index.html#figure-class-overview">Figure class overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-map-elements">Plotting map elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-tabular-data">Plotting tabular data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#plotting-raster-data">Plotting raster data</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html#configuring-layout">Configuring layout</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.set_panel.html">pygmt.Figure.set_panel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pygmt.Figure.shift_origin.html">pygmt.Figure.shift_origin</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pygmt.Figure.subplot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#saving-and-displaying-the-figure">Saving and displaying the figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#configuring-the-display-settings">Configuring the display settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../index.html#color-palette-table-generation">Color palette table generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#input-output">Input/output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-defaults">GMT Defaults</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#metadata">Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#datasets">Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#gmt-c-api">GMT C API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">pygmt.Figure.subplot</li>
+    <li class="source-link">
+        
+            
+                
+                
+                <a href="https://github.com/GenericMappingTools/pygmt/issues/new?title=Suggested%20improvement%20for%20api/generated/pygmt.Figure.subplot&body=Please%20describe%20what%20could%20be%20improved%20about%20this%20page%20or%20the%20typo/mistake%20that%20you%20found%3A"
+                   class="fa fa-github"> Improve this page</a>
+            
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pygmt-figure-subplot">
+<h1>pygmt.Figure.subplot<a class="headerlink" href="#pygmt-figure-subplot" title="Link to this heading"></a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygmt.Figure.subplot">
+<span class="sig-prename descclassname"><span class="pre">Figure.</span></span><span class="sig-name descname"><span class="pre">subplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autolabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clearance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">margins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sharey</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygmt.Figure.subplot" title="Link to this definition"></a></dt>
+<dd><p>Create multi-panel subplot figures.</p>
+<p>This method is used to split the current figure into a rectangular layout
+of subplots that each may contain a single self-contained figure. Begin by
+defining the layout of the entire multi-panel illustration. Several
+parameters are available to specify the systematic layout, labeling,
+dimensions, and more for the subplots.</p>
+<p>Full option list at <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/subplot.html#synopsis-begin-mode">https://docs.generic-mapping-tools.org/6.5/subplot.html#synopsis-begin-mode</a></p>
+<p><strong>Aliases:</strong></p>
+<ul class="simple">
+<li><p>A = autolabel</p></li>
+<li><p>B = frame</p></li>
+<li><p>C = clearance</p></li>
+<li><p>Ff = figsize</p></li>
+<li><p>Fs = subsize</p></li>
+<li><p>J = projection</p></li>
+<li><p>M = margins</p></li>
+<li><p>R = region</p></li>
+<li><p>SC = sharex</p></li>
+<li><p>SR = sharey</p></li>
+<li><p>T = title</p></li>
+<li><p>V = verbose</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nrows</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of vertical rows of the subplot grid.</p></li>
+<li><p><strong>ncols</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – Number of horizontal columns of the subplot grid.</p></li>
+<li><p><strong>figsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Specify the final figure dimensions as [<em>width</em>, <em>height</em>].</p></li>
+<li><p><strong>subsize</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Specify the dimensions of each subplot directly as [<em>width</em>, <em>height</em>].
+Note that only one of <code class="docutils literal notranslate"><span class="pre">figsize</span></code> or <code class="docutils literal notranslate"><span class="pre">subsize</span></code> can be provided at
+once.</p></li>
+<li><p><strong>autolabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – [<em>autolabel</em>][<strong>+c</strong><em>dx</em>[/<em>dy</em>]][<strong>+g</strong><em>fill</em>][<strong>+j</strong>|<strong>J</strong><em>refpoint</em>][<strong>+o</strong><em>dx</em>[/<em>dy</em>]][<strong>+p</strong><em>pen</em>][<strong>+r</strong>|<strong>R</strong>]
+[<strong>+v</strong>].
+Specify automatic tagging of each subplot. Append either a number or
+letter [a]. This sets the tag of the first, top-left subplot and others
+follow sequentially. Surround the number or letter by parentheses on
+any side if these should be typeset as part of the tag. Use
+<strong>+j</strong>|<strong>J</strong><em>refpoint</em> to specify where the tag should be placed
+in the subplot [TL]. <strong>Note</strong>: <strong>+j</strong> sets the justification of the
+tag to <em>refpoint</em> (suitable for interior tags) while <strong>+J</strong> instead
+selects the mirror opposite (suitable for exterior tags). Append
+<strong>+c</strong><em>dx</em>[/<em>dy</em>] to set the clearance between the tag and a
+surrounding text box requested via <strong>+g</strong> or <strong>+p</strong> [3p/3p, i.e., 15%
+of the <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-FONT_TAG">FONT_TAG</a> size dimension]. Append <strong>+g</strong><em>fill</em> to
+paint the tag’s text box with <em>fill</em> [no painting]. Append
+<strong>+o</strong><em>dx</em>[/<em>dy</em>] to offset the tag’s reference point in the
+direction implied by the justification [4p/4p, i.e., 20% of the
+<a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-FONT_TAG">FONT_TAG</a> size]. Append <strong>+p</strong><em>pen</em> to draw the outline of
+the tag’s text box using selected <em>pen</em> [no outline]. Append <strong>+r</strong> to
+typeset your tag numbers using lowercase Roman numerals; use <strong>+R</strong> for
+uppercase Roman numerals [Arabic numerals]. Append <strong>+v</strong> to increase
+tag numbers vertically down columns [horizontally across rows].</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – Set map boundary
+<a class="reference internal" href="../../tutorials/basics/frames.html"><span class="doc">frame and axes attributes</span></a>.</p></li>
+<li><p><strong>clearance</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – [<em>side</em>]<em>clearance</em>.
+Reserve a space of dimension <em>clearance</em> between the margin and the
+subplot on the specified side, using <em>side</em> values from <strong>w</strong>, <strong>e</strong>,
+<strong>s</strong>, or <strong>n</strong>; or <strong>x</strong> for both <strong>w</strong> and <strong>e</strong>; or <strong>y</strong> for both
+<strong>s</strong> and <strong>n</strong>. No <em>side</em> means all sides (i.e. <code class="docutils literal notranslate"><span class="pre">clearance=&quot;1c&quot;</span></code>
+would set a clearance of 1 cm on all sides). The option is repeatable
+to set aside space on more than one side (e.g.
+<code class="docutils literal notranslate"><span class="pre">clearance=[&quot;w1c&quot;,</span> <span class="pre">&quot;s2c&quot;]</span></code> would set a clearance of 1 cm on west
+side and 2 cm on south side). Such space will be left untouched by
+the main map plotting but can be accessed by methods that plot
+scales, bars, text, etc.</p></li>
+<li><p><strong>projection</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <em>projcode</em>[<em>projparams</em>/]<em>width</em>|<em>scale</em>.
+Select map <a class="reference internal" href="../../projections/index.html"><span class="doc">projection</span></a>.</p></li>
+<li><p><strong>margins</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <p>This is margin space that is added between neighboring subplots (i.e.,
+the interior margins) in addition to the automatic space added for tick
+marks, annotations, and labels. The margins can be specified as either:</p>
+<ul>
+<li><p>a single value (for same margin on all sides). E.g. <code class="docutils literal notranslate"><span class="pre">&quot;5c&quot;</span></code>.</p></li>
+<li><p>a pair of values (for setting separate horizontal and vertical
+margins). E.g. <code class="docutils literal notranslate"><span class="pre">[&quot;5c&quot;,</span> <span class="pre">&quot;3c&quot;]</span></code>.</p></li>
+<li><p>a set of four values (for setting separate left, right, bottom, and
+top margins). E.g. <code class="docutils literal notranslate"><span class="pre">[&quot;1c&quot;,</span> <span class="pre">&quot;2c&quot;,</span> <span class="pre">&quot;3c&quot;,</span> <span class="pre">&quot;4c&quot;]</span></code>.</p></li>
+</ul>
+<p>The actual gap created is always a sum of the margins for the two
+opposing sides (e.g., east plus west or south plus north margins)
+[Default is half the primary annotation font size, giving the full
+annotation font size as the default gap].</p>
+</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.12)"><em>list</em></a>) – <em>xmin/xmax/ymin/ymax</em>[<strong>+r</strong>][<strong>+u</strong><em>unit</em>].
+Specify the <a class="reference internal" href="../../tutorials/basics/regions.html"><span class="doc">region</span></a> of interest.</p></li>
+<li><p><strong>sharex</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – Set subplot layout for shared x-axes. Use when all subplots in a column
+share a common <em>x</em>-range. If <code class="docutils literal notranslate"><span class="pre">sharex=True</span></code>, the first (i.e.,
+<strong>t</strong>op) and the last (i.e., <strong>b</strong>ottom) rows will have
+<em>x</em>-annotations; use <code class="docutils literal notranslate"><span class="pre">sharex=&quot;t&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">sharex=&quot;b&quot;</span></code> to select only
+one of those two rows [both]. Append <strong>+l</strong> if annotated <em>x</em>-axes
+should have a label [none]; optionally append the label if it is the
+same for the entire subplot. Append <strong>+t</strong> to make space for subplot
+titles for each row; use <strong>+tc</strong> for top row titles only [no subplot
+titles].</p></li>
+<li><p><strong>sharey</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Set subplot layout for shared y-axes. Use when all subplots in a row
+share a common <em>y</em>-range. If <code class="docutils literal notranslate"><span class="pre">sharey=True</span></code>, the first (i.e.,
+<strong>l</strong>eft) and the last (i.e., <strong>r</strong>ight) columns will have
+<em>y</em>-annotations; use <code class="docutils literal notranslate"><span class="pre">sharey=&quot;l&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">sharey=&quot;r&quot;</span></code> to select only
+one of those two columns [both]. Append <strong>+l</strong> if annotated <em>y</em>-axes
+will have a label [none]; optionally, append the label if it is the
+same for the entire subplot. Append <strong>+p</strong> to make all annotations
+axis-parallel [horizontal]; if not used you may have to set
+<code class="docutils literal notranslate"><span class="pre">clearance</span></code> to secure extra space for long horizontal annotations.</p>
+<p>Notes for <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code>:</p>
+<ul>
+<li><p>Labels and titles that depends on which row or column are specified
+as usual via a subplot’s own <code class="docutils literal notranslate"><span class="pre">frame</span></code> setting.</p></li>
+<li><p>Append <strong>+w</strong> to the <code class="docutils literal notranslate"><span class="pre">figsize</span></code> or <code class="docutils literal notranslate"><span class="pre">subsize</span></code> parameter to draw
+horizontal and vertical lines between interior panels using selected
+pen [no lines].</p></li>
+</ul>
+</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – While individual subplots can have titles (see <code class="docutils literal notranslate"><span class="pre">sharex</span></code>/<code class="docutils literal notranslate"><span class="pre">sharey</span></code> or
+<code class="docutils literal notranslate"><span class="pre">frame</span></code>), the entire figure may also have an overarching <em>heading</em>
+[no heading]. Font is determined by setting <a class="reference external" href="https://docs.generic-mapping-tools.org/6.5/gmt.conf#term-FONT_HEADING">FONT_HEADING</a>.</p></li>
+<li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a>) – <p>Select verbosity level [Default is <strong>w</strong>], which modulates the messages
+written to stderr. Choose among 7 levels of verbosity:</p>
+<ul>
+<li><p><strong>q</strong> - Quiet, not even fatal error messages are produced</p></li>
+<li><p><strong>e</strong> - Error messages only</p></li>
+<li><p><strong>w</strong> - Warnings [Default]</p></li>
+<li><p><strong>t</strong> - Timings (report runtimes for time-intensive algorithms)</p></li>
+<li><p><strong>i</strong> - Informational messages (same as <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code>)</p></li>
+<li><p><strong>c</strong> - Compatibility warnings</p></li>
+<li><p><strong>d</strong> - Debugging messages</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<section id="examples-using-pygmt-figure-subplot">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">pygmt.Figure.subplot</span></code><a class="headerlink" href="#examples-using-pygmt-figure-subplot" title="Link to this heading"></a></h2>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.Figure.plot method can plot vertical (b) or horizontal (B) bars by passing the corres..."><img alt="" src="../../_images/sphx_glr_bars_thumb.png" />
+<p><a class="reference internal" href="../../gallery/symbols/bars.html#sphx-glr-gallery-symbols-bars-py"><span class="std std-ref">Vertical or horizontal bars</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Vertical or horizontal bars</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdgradient function calculates the gradient of a grid file. As input, pygmt.grdgradi..."><img alt="" src="../../_images/sphx_glr_grdgradient_shading_thumb.png" />
+<p><a class="reference internal" href="../../gallery/images/grdgradient_shading.html#sphx-glr-gallery-images-grdgradient-shading-py"><span class="std std-ref">Calculating grid gradient with custom azimuth and normalize parameters</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calculating grid gradient with custom azimuth and normalize parameters</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This gallery example shows how to create multiple colormaps for different subplots. To better u..."><img alt="" src="../../_images/sphx_glr_colorbars_multiple_thumb.png" />
+<p><a class="reference internal" href="../../gallery/embellishments/colorbars_multiple.html#sphx-glr-gallery-embellishments-colorbars-multiple-py"><span class="std std-ref">Multiple colormaps</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Multiple colormaps</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="When you&#x27;re preparing a figure for a paper, there will often be times when you&#x27;ll need to put m..."><img alt="" src="../../_images/sphx_glr_subplots_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/subplots.html#sphx-glr-tutorials-advanced-subplots-py"><span class="std std-ref">Making subplots</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Making subplots</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="The pygmt.grdhisteq.equalize_grid method creates a grid using statistics based on a cumulative ..."><img alt="" src="../../_images/sphx_glr_grid_equalization_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/advanced/grid_equalization.html#sphx-glr-tutorials-advanced-grid-equalization-py"><span class="std std-ref">Performing grid histogram equalization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Performing grid histogram equalization</div>
+</div></div><div style='clear:both'></div></section>
+</section>
+
+
+           </div>
+          </div>
+          
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pygmt.Figure.shift_origin.html" class="btn btn-neutral float-left" title="pygmt.Figure.shift_origin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pygmt.Figure.savefig.html" class="btn btn-neutral float-right" title="pygmt.Figure.savefig" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

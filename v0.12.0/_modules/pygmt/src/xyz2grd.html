@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+        <title>pygmt.src.xyz2grd &mdash; PyGMT</title>
+    
+
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css?v=61a4c737" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/style.css?v=902da76c" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+    <link rel="canonical" href="https://pygmt.org/latest/_modules/pygmt/src/xyz2grd.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=cae63847"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=ccdb6887"></script>
+        <script src="../../../_static/design-tabs.js?v=36754332"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <!-- Google Analytics tracking code -->
+    <!-- See https://developers.google.com/analytics/devguides/collection/analyticsjs/ for documentation. -->
+    <!-- 'storage': 'none' disables cookies -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+            Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-38125837-7', 'auto', {'storage': 'none'});
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Documentation switcher -->
+    <!-- Point to the *dev* version switcher. This will allow the latest versions to appear on older documentation. -->
+    <script type="text/javascript" src="/dev/_static/version_switch.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+    <a href="../../../index.html"><h2 class="sidebar-title">PyGMT</h2></a>
+
+    
+        
+        
+            <div class="version">
+                v0.12.0
+            </div>
+        
+    
+
+    
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/index.html">Intro to PyGMT</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../projections/index.html">Projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_resources.html">External Resources</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../minversions.html">Minimum Supported Versions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../team.html">Team Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributors Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../maintenance.html">Maintainers Guide</a></li>
+</ul>
+
+
+    
+        <p class="caption">
+            <span class="caption-text">Getting help and contributing</span>
+        </p>
+        <ul>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/.github/blob/main/CODE_OF_CONDUCT.md"><i class="fa fa-gavel fa-fw"></i> Code of Conduct</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt/blob/main/LICENSE.txt"><i class="fa fa-book fa-fw"></i> License</a></li>
+            
+                <li class="toctree-l1"><a href="https://forum.generic-mapping-tools.org"><i class="fa fa-comment fa-fw"></i> Contact</a></li>
+            
+                <li class="toctree-l1"><a href="https://github.com/GenericMappingTools/pygmt"><i class="fa fa-github fa-fw"></i> Source Code</a></li>
+            
+        </ul>
+    
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyGMT</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+<div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../pygmt.html">pygmt</a></li>
+      <li class="breadcrumb-item active">pygmt.src.xyz2grd</li>
+    <li class="source-link">
+        
+    </li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pygmt.src.xyz2grd</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">xyz2grd - Convert data table to a grid.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pygmt.clib</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">pygmt.exceptions</span> <span class="kn">import</span> <span class="n">GMTInvalidInput</span>
+<span class="kn">from</span> <span class="nn">pygmt.helpers</span> <span class="kn">import</span> <span class="n">build_arg_list</span><span class="p">,</span> <span class="n">fmt_docstring</span><span class="p">,</span> <span class="n">kwargs_to_strings</span><span class="p">,</span> <span class="n">use_alias</span>
+
+<span class="n">__doctest_skip__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;xyz2grd&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="xyz2grd">
+<a class="viewcode-back" href="../../../api/generated/pygmt.xyz2grd.html#pygmt.xyz2grd">[docs]</a>
+<span class="nd">@fmt_docstring</span>
+<span class="nd">@use_alias</span><span class="p">(</span>
+    <span class="n">A</span><span class="o">=</span><span class="s2">&quot;duplicate&quot;</span><span class="p">,</span>
+    <span class="n">I</span><span class="o">=</span><span class="s2">&quot;spacing&quot;</span><span class="p">,</span>
+    <span class="n">J</span><span class="o">=</span><span class="s2">&quot;projection&quot;</span><span class="p">,</span>
+    <span class="n">R</span><span class="o">=</span><span class="s2">&quot;region&quot;</span><span class="p">,</span>
+    <span class="n">V</span><span class="o">=</span><span class="s2">&quot;verbose&quot;</span><span class="p">,</span>
+    <span class="n">Z</span><span class="o">=</span><span class="s2">&quot;convention&quot;</span><span class="p">,</span>
+    <span class="n">b</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
+    <span class="n">d</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span>
+    <span class="n">e</span><span class="o">=</span><span class="s2">&quot;find&quot;</span><span class="p">,</span>
+    <span class="n">f</span><span class="o">=</span><span class="s2">&quot;coltypes&quot;</span><span class="p">,</span>
+    <span class="n">h</span><span class="o">=</span><span class="s2">&quot;header&quot;</span><span class="p">,</span>
+    <span class="n">i</span><span class="o">=</span><span class="s2">&quot;incols&quot;</span><span class="p">,</span>
+    <span class="n">r</span><span class="o">=</span><span class="s2">&quot;registration&quot;</span><span class="p">,</span>
+    <span class="n">w</span><span class="o">=</span><span class="s2">&quot;wrap&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nd">@kwargs_to_strings</span><span class="p">(</span><span class="n">I</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="s2">&quot;sequence&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">xyz2grd</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outgrid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a grid file from table data.</span>
+
+<span class="sd">    Reads one or more tables with *x, y, z* columns and creates a binary grid</span>
+<span class="sd">    file. :func:`pygmt.xyz2grd` will report if some of the nodes are not filled</span>
+<span class="sd">    in with data. Such unconstrained nodes are set to a value specified by the</span>
+<span class="sd">    user [Default is NaN]. Nodes with more than one value will be set to the</span>
+<span class="sd">    mean value.</span>
+
+<span class="sd">    Full option list at :gmt-docs:`xyz2grd.html`</span>
+
+<span class="sd">    {aliases}</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : str, {table-like}</span>
+<span class="sd">        Pass in (x, y, z) or (longitude, latitude, elevation) values by</span>
+<span class="sd">        providing a file name to an ASCII data table, a 2-D {table-classes}.</span>
+<span class="sd">    x/y/z : 1-D arrays</span>
+<span class="sd">        The arrays of x and y coordinates and z data points.</span>
+<span class="sd">    {outgrid}</span>
+<span class="sd">    duplicate : str</span>
+<span class="sd">        [**d**\|\ **f**\|\ **l**\|\ **m**\|\ **n**\|\</span>
+<span class="sd">        **r**\|\ **S**\|\ **s**\|\ **u**\|\ **z**].</span>
+<span class="sd">        By default we will calculate mean values if multiple entries fall on</span>
+<span class="sd">        the same node. Use ``duplicate`` to change this behavior, except it is</span>
+<span class="sd">        ignored if ``convention`` is given. Append **f** or **s** to simply</span>
+<span class="sd">        keep the first or last data point that was assigned to each node.</span>
+<span class="sd">        Append **l** or **u** or **d** to find the lowest (minimum) or upper</span>
+<span class="sd">        (maximum) value or the difference between the maximum and minimum</span>
+<span class="sd">        values at each node, respectively. Append **m** or **r** or **S** to</span>
+<span class="sd">        compute mean or RMS value or standard deviation at each node,</span>
+<span class="sd">        respectively. Append **n** to simply count the number of data points</span>
+<span class="sd">        that were assigned to each node (this only requires two input columns</span>
+<span class="sd">        *x* and *y* as *z* is not consulted). Append **z** to sum multiple</span>
+<span class="sd">        values that belong to the same node.</span>
+<span class="sd">    {spacing}</span>
+<span class="sd">    {projection}</span>
+<span class="sd">    {region}</span>
+<span class="sd">    {verbose}</span>
+<span class="sd">    convention : str</span>
+<span class="sd">        [*flags*].</span>
+<span class="sd">        Read a 1-column ASCII [or binary] table. This assumes that all the</span>
+<span class="sd">        nodes are present and sorted according to specified ordering</span>
+<span class="sd">        convention contained in *flags*. If incoming data represents rows,</span>
+<span class="sd">        make *flags* start with **T**\ (op) if first row is y</span>
+<span class="sd">        = ymax or **B**\ (ottom) if first row is y = ymin.</span>
+<span class="sd">        Then, append **L** or **R** to indicate that first element is at</span>
+<span class="sd">        left or right end of row. Likewise for column formats: start with</span>
+<span class="sd">        **L** or **R** to position first column, and then append **T** or</span>
+<span class="sd">        **B** to position first element in a row. **Note**: These two</span>
+<span class="sd">        row/column indicators are only required for grids; for other tables</span>
+<span class="sd">        they do not apply. For gridline registered grids: If data are periodic</span>
+<span class="sd">        in x but the incoming data do not contain the (redundant) column at</span>
+<span class="sd">        x = xmax, append **x**. For data periodic in y without redundant row at</span>
+<span class="sd">        y = ymax, append **y**. Append **s**\ *n* to skip the first *n* number</span>
+<span class="sd">        of bytes (probably a header). If the byte-order or the words needs</span>
+<span class="sd">        to be swapped, append **w**. Select one of several data types (all</span>
+<span class="sd">        binary except **a**):</span>
+
+<span class="sd">        - **A** ASCII representation of one or more floating point values per</span>
+<span class="sd">          record</span>
+<span class="sd">        - **a** ASCII representation of a single item per record</span>
+<span class="sd">        - **c** int8_t, signed 1-byte character</span>
+<span class="sd">        - **u** uint8_t, unsigned 1-byte character</span>
+<span class="sd">        - **h** int16_t, signed 2-byte integer</span>
+<span class="sd">        - **H** uint16_t, unsigned 2-byte integer</span>
+<span class="sd">        - **i** int32_t, signed 4-byte integer</span>
+<span class="sd">        - **I** uint32_t, unsigned 4-byte integer</span>
+<span class="sd">        - **l** int64_t, long (8-byte) integer</span>
+<span class="sd">        - **L** uint64_t, unsigned long (8-byte) integer</span>
+<span class="sd">        - **f** 4-byte floating point single precision</span>
+<span class="sd">        - **d** 8-byte floating point double precision</span>
+
+<span class="sd">        [Default format is scanline orientation of ASCII numbers: **La**].</span>
+<span class="sd">        The difference between **A** and **a** is that the latter can decode</span>
+<span class="sd">        both *date*\ **T**\ *clock* and *ddd:mm:ss[.xx]* formats but expects</span>
+<span class="sd">        each input record to have a single value, while the former can handle</span>
+<span class="sd">        multiple values per record but can only parse regular floating point</span>
+<span class="sd">        values. Translate incoming *z*-values via the ``incols`` parameter.</span>
+<span class="sd">    {binary}</span>
+<span class="sd">    {nodata}</span>
+<span class="sd">    {find}</span>
+<span class="sd">    {coltypes}</span>
+<span class="sd">    {header}</span>
+<span class="sd">    {incols}</span>
+<span class="sd">    {registration}</span>
+<span class="sd">    {wrap}</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret: xarray.DataArray or None</span>
+<span class="sd">        Return type depends on whether the ``outgrid`` parameter is set:</span>
+
+<span class="sd">        - :class:`xarray.DataArray`: if ``outgrid`` is not set</span>
+<span class="sd">        - None if ``outgrid`` is set (grid output will be stored in file set by</span>
+<span class="sd">          ``outgrid``)</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import pygmt</span>
+<span class="sd">    &gt;&gt;&gt; # generate a grid for z=x**2+y**2, with an x-range of 0 to 3,</span>
+<span class="sd">    &gt;&gt;&gt; # and a y-range of 10.5 to 12.5. The x- and y-spacings are 1.0 and 0.5.</span>
+<span class="sd">    &gt;&gt;&gt; x, y = np.meshgrid([0, 1, 2, 3], [10.5, 11.0, 11.5, 12.0, 12.5])</span>
+<span class="sd">    &gt;&gt;&gt; z = x**2 + y**2</span>
+<span class="sd">    &gt;&gt;&gt; xx, yy, zz = x.flatten(), y.flatten(), z.flatten()</span>
+<span class="sd">    &gt;&gt;&gt; grid = pygmt.xyz2grd(</span>
+<span class="sd">    ...     x=xx, y=yy, z=zz, spacing=(1.0, 0.5), region=[0, 3, 10, 13]</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">GMTInvalidInput</span><span class="p">(</span><span class="s2">&quot;Both &#39;region&#39; and &#39;spacing&#39; must be specified.&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">lib</span><span class="p">:</span>
+        <span class="k">with</span> <span class="p">(</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_in</span><span class="p">(</span>
+                <span class="n">check_kind</span><span class="o">=</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">required_z</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">vintbl</span><span class="p">,</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_out</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;grid&quot;</span><span class="p">,</span> <span class="n">fname</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span> <span class="k">as</span> <span class="n">voutgrd</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;G&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voutgrd</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">call_module</span><span class="p">(</span>
+                <span class="n">module</span><span class="o">=</span><span class="s2">&quot;xyz2grd&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">build_arg_list</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">vintbl</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">virtualfile_to_raster</span><span class="p">(</span><span class="n">vfname</span><span class="o">=</span><span class="n">voutgrd</span><span class="p">,</span> <span class="n">outgrid</span><span class="o">=</span><span class="n">outgrid</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          
+<footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2024, The PyGMT Developers.
+      <span class="commit">Revision <code><a href="https://github.com/GenericMappingTools/pygmt/releases/tag/v0.12.0">v0.12.0</a></code>.
+      </span>
+      <span class="lastupdated">Last updated on May 01, 2024.
+      </span></p>
+  </div>
+
+  
+<p>
+Built with <a href="http://sphinx-doc.org/">Sphinx</a>
+using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+provided by <a href="https://readthedocs.org">Read the Docs</a>
+</p>
+<p>
+This website uses Google Analytics to gather usage statistics.
+However, it does not use cookies or track you across different websites.
+Page view data are used to help us improve the site and provide an estimate of the
+software usage.
+</p>
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

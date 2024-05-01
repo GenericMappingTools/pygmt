@@ -1,0 +1,133 @@
+pygmt.clib.Session
+==================
+
+.. currentmodule:: pygmt.clib
+
+.. autoclass:: Session
+
+
+.. rubric:: Attributes
+
+
+.. autoproperty::
+    Session.info
+
+.. autoproperty::
+    Session.required_version
+
+.. autoproperty::
+    Session.session_pointer
+
+
+
+
+.. rubric:: Methods Summary
+
+.. autosummary::
+    
+    
+    
+    
+    Session.call_module
+    
+    
+    
+    Session.create
+    
+    
+    
+    Session.create_data
+    
+    
+    
+    Session.destroy
+    
+    
+    
+    Session.extract_region
+    
+    
+    
+    Session.get_common
+    
+    
+    
+    Session.get_default
+    
+    
+    
+    Session.get_libgmt_func
+    
+    
+    
+    Session.inquire_virtualfile
+    
+    
+    
+    Session.open_virtual_file
+    
+    
+    
+    Session.open_virtualfile
+    
+    
+    
+    Session.put_matrix
+    
+    
+    
+    Session.put_strings
+    
+    
+    
+    Session.put_vector
+    
+    
+    
+    Session.read_virtualfile
+    
+    
+    
+    Session.virtualfile_from_data
+    
+    
+    
+    Session.virtualfile_from_grid
+    
+    
+    
+    Session.virtualfile_from_matrix
+    
+    
+    
+    Session.virtualfile_from_vectors
+    
+    
+    
+    Session.virtualfile_in
+    
+    
+    
+    Session.virtualfile_out
+    
+    
+    
+    Session.virtualfile_to_dataset
+    
+    
+    
+    Session.virtualfile_to_raster
+    
+    
+    
+    Session.write_data
+    
+    
+
+
+.. minigallery:: pygmt.clib.Session
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

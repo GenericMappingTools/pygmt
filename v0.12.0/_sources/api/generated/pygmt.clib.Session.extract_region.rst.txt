@@ -1,0 +1,13 @@
+pygmt.clib.Session.extract\_region
+==================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.extract_region
+
+.. minigallery:: pygmt.clib.Session.extract_region
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

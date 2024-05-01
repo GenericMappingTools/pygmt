@@ -1,0 +1,13 @@
+pygmt.clib.Session.virtualfile\_to\_raster
+==========================================
+
+.. currentmodule:: pygmt.clib
+
+.. automethod:: Session.virtualfile_to_raster
+
+.. minigallery:: pygmt.clib.Session.virtualfile_to_raster
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>

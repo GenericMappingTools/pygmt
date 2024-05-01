@@ -1,0 +1,13 @@
+pygmt.Figure.shift\_origin
+==========================
+
+.. currentmodule:: pygmt
+
+.. automethod:: Figure.shift_origin
+
+.. minigallery:: pygmt.Figure.shift_origin
+    :add-heading:
+
+.. raw:: html
+
+     <div style='clear:both'></div>
