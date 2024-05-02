@@ -12,9 +12,10 @@ def test_pluto_relief_01d():
     Test some properties of the Pluto relief 01d data.
     """
     data = load_pluto_relief(resolution="01d")
-    assert data.name == "pluto_relief"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "elevation (m)"
+    assert data.attrs["description"] == "USGS Pluto relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "USGS Pluto relief"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))

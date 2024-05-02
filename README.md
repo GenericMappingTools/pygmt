@@ -129,12 +129,12 @@ research using the following BibTeX:
 
 ```
 @software{
-  pygmt_2024_10578540,
+  pygmt_2024_11062720,
   author       = {Tian, Dongdong and
                   Uieda, Leonardo and
                   Leong, Wei Ji and
-                  Schlitzer, William and
                   Fröhlich, Yvonne and
+                  Schlitzer, William and
                   Grund, Michael and
                   Jones, Max and
                   Toney, Liam and
@@ -149,12 +149,12 @@ research using the following BibTeX:
                   Quinn, Jamie and
                   Wessel, Paul},
   title        = {{PyGMT: A Python interface for the Generic Mapping Tools}},
-  month        = feb,
+  month        = may,
   year         = 2024,
   publisher    = {Zenodo},
-  version      = {0.11.0},
-  doi          = {10.5281/zenodo.10578540},
-  url          = {https://doi.org/10.5281/zenodo.10578540}
+  version      = {0.12.0},
+  doi          = {10.5281/zenodo.11062720},
+  url          = {https://doi.org/10.5281/zenodo.11062720}
 }
 ```
 

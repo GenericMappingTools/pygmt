@@ -100,8 +100,8 @@ def load_earth_age(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="earth_age",
-        dataset_prefix="earth_age_",
+        name="earth_age",
+        prefix="earth_age",
         resolution=resolution,
         region=region,
         registration=registration,

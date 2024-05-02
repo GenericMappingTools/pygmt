@@ -7,7 +7,7 @@ import contextlib
 from pygmt.clib import Session
 from pygmt.exceptions import GMTInvalidInput
 from pygmt.helpers import (
-    build_arg_string,
+    build_arg_list,
     fmt_docstring,
     kwargs_to_strings,
     use_alias,
@@ -160,13 +160,16 @@ def subplot(self, nrows=1, ncols=1, **kwargs):
     # See https://github.com/GenericMappingTools/pygmt/issues/2426.
     try:
         with Session() as lib:
-            arg_str = " ".join(["begin", f"{nrows}x{ncols}", build_arg_string(kwargs)])
-            lib.call_module(module="subplot", args=arg_str)
+            lib.call_module(
+                module="subplot",
+                args=["begin", f"{nrows}x{ncols}", *build_arg_list(kwargs)],
+            )
             yield
     finally:
         with Session() as lib:
-            v_arg = build_arg_string({"V": kwargs.get("V")})
-            lib.call_module(module="subplot", args=f"end {v_arg}")
+            lib.call_module(
+                module="subplot", args=["end", *build_arg_list({"V": kwargs.get("V")})]
+            )
 
 
 @fmt_docstring
@@ -224,6 +227,7 @@ def set_panel(self, panel=None, **kwargs):
     kwargs = self._preprocess(**kwargs)
 
     with Session() as lib:
-        arg_str = " ".join(["set", f"{panel}", build_arg_string(kwargs)])
-        lib.call_module(module="subplot", args=arg_str)
+        lib.call_module(
+            module="subplot", args=["set", str(panel), *build_arg_list(kwargs)]
+        )
         yield

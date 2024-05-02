@@ -12,9 +12,10 @@ def test_mars_relief_01d():
     Test some properties of the Mars relief 01d data.
     """
     data = load_mars_relief(resolution="01d")
-    assert data.name == "mars_relief"
+    assert data.name == "z"
+    assert data.attrs["long_name"] == "elevation (m)"
+    assert data.attrs["description"] == "NASA Mars (MOLA) relief"
     assert data.attrs["units"] == "meters"
-    assert data.attrs["long_name"] == "NASA Mars (MOLA) relief"
     assert data.shape == (181, 361)
     assert data.gmt.registration == 0
     npt.assert_allclose(data.lat, np.arange(-90, 91, 1))
