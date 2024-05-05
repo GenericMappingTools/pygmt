@@ -1644,8 +1644,41 @@ class Session:
 
         return file_context
 
-    # virtualfile_from_data was renamed to virtualfile_in since v0.12.0.
-    virtualfile_from_data = virtualfile_in
+    def virtualfile_from_data(
+        self,
+        check_kind=None,
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        extra_arrays=None,
+        required_z=False,
+        required_data=True,
+    ):
+        """
+        Store any data inside a virtual file.
+
+        .. deprecated: 0.13.0
+
+           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
+           instead.
+        """
+        msg = (
+            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
+            "instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        return self.virtualfile_in(
+            check_kind=check_kind,
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            extra_arrays=extra_arrays,
+            required_z=required_z,
+            required_data=required_data,
+        )
 
     @contextlib.contextmanager
     def virtualfile_out(
