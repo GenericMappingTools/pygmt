@@ -15,7 +15,7 @@ on:
   # Run in PRs but only if the PR has the 'run/benchmark' label
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
+  # 'workflow_dispatch' allows CodSpeed to trigger backtest
   # performance analysis in order to generate initial data.
   workflow_dispatch:
 
