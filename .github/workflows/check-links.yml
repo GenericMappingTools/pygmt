@@ -71,5 +71,5 @@ jobs:
       run: |
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
         gh issue create --title "$title" --body-file ./lychee/out.md
-        env:
-          GH_TOKEN: ${{ github.token }}
+      env:
+        GH_TOKEN: ${{ github.token }}
