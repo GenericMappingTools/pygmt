@@ -120,7 +120,7 @@ jobs:
         run: |
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
-                        numpy pandas xarray netCDF4 packaging \
+                        'numpy<2' pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
                         pytest pytest-cov pytest-doctestplus pytest-mpl pytest-rerunfailures pytest-xdist\
                         sphinx-gallery
@@ -136,11 +136,8 @@ jobs:
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
         run: |
-          gh run download -n gmt-cache -D gmt-cache
-          # Move downloaded files to ~/.gmt directory and list them
-          mkdir -p ~/.gmt
-          mv gmt-cache/* ~/.gmt
-          rmdir gmt-cache
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
