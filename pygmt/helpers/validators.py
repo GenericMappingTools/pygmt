@@ -20,10 +20,10 @@ def validate_output_table_type(
     Parameters
     ----------
     output_type
-        Desired output type of tabular data. Valid values are ``"pandas"``, ``"numpy"``
-        and ``"file"``.
+        Desired output type of tabular data. Default valid values are ``"pandas"``,
+        ``"numpy"`` and ``"file"``, but can be configured by parameter ``valid_types``.
     valid_types
-        Valid desired output types.
+        Tuple of valid desired output types.
     outfile
         File name for saving the result data. Required if ``output_type`` is ``"file"``.
         If specified, ``output_type`` will be forced to be ``"file"``.
