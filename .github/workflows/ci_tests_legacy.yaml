@@ -84,14 +84,12 @@ jobs:
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
         run: |
-          gh run download -n gmt-cache -D gmt-cache
-          # Move downloaded files to ~/.gmt directory and list them
-          mkdir -p ~/.gmt
-          mv gmt-cache/* ~/.gmt
-          rmdir gmt-cache
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           # The two files are in the `~/.gmt/server` directory for GMT<=6.4, and
           # in the `~/.gmt` directory for GMT>=6.5.
+          mkdir -p ~/.gmt/server/
           mv ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt ~/.gmt/server/
           touch ~/.gmt/server/gmt_data_server.txt ~/.gmt/server/gmt_hash_server.txt
           ls -lhR ~/.gmt
