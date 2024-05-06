@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 @dataclass
 class _State:
-    pass
+    current_figure: str | None = None  # Figure name of current figure
 
 
 _state = _State()

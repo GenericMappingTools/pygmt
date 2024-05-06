@@ -15,6 +15,7 @@ except ImportError:
     _HAS_IPYTHON = False
 
 
+from pygmt._state import _state
 from pygmt.clib import Session
 from pygmt.exceptions import GMTError, GMTInvalidInput
 from pygmt.helpers import (
@@ -105,10 +106,13 @@ class Figure:
         :meth:`pygmt.Figure.savefig` or :meth:`pygmt.Figure.psconvert` must be
         made in order to get a file.
         """
-        # Passing format '-' tells pygmt.end to not produce any files.
-        fmt = "-"
-        with Session() as lib:
-            lib.call_module(module="figure", args=[self._name, fmt])
+        # Activate the figure if it's not already activated (i.e., not current figure)
+        if _state.current_figure != self._name:
+            # Passing format '-' tells pygmt.end to not produce any files.
+            fmt = "-"
+            with Session() as lib:
+                lib.call_module(module="figure", args=[self._name, fmt])
+            _state.current_figure = self._name
 
     def _preprocess(self, **kwargs):
         """
