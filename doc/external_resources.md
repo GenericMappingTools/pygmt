@@ -128,4 +128,14 @@ Michael Grund
 Wei Ji Leong
 ::::
 
+::::{grid-item-card} PyGMT plotting examples
+:link: https://github.com/yvonnefroehlich/gmt-pygmt-plotting
+:text-align: center
+:margin: 0 3 0 0
+
+![](https://github.com/yvonnefroehlich/gmt-pygmt-plotting/raw/main/_images/github_maps_readme_main.png)
++++
+Yvonne Fröhlich
+::::
+
 :::::

@@ -1,7 +1,7 @@
 # Run performance benchmarks
 #
-# Continuous benchmarking using pytest-codspeed. Measures the execution speed
-# of tests marked with @pytest.mark.benchmark decorator.
+# Continuous benchmarking using pytest-codspeed. Measures the execution speed of tests
+# marked with @pytest.mark.benchmark decorator.
 
 name: Benchmarks
 
@@ -15,12 +15,9 @@ on:
   # Run in PRs but only if the PR has the 'run/benchmark' label
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
-  # `workflow_dispatch` allows CodSpeed to trigger backtest
-  # performance analysis in order to generate initial data.
+  # 'workflow_dispatch' allows CodSpeed to trigger backtest performance analysis
+  # in order to generate initial data.
   workflow_dispatch:
-  release:
-    types:
-      - published
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -37,14 +34,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.4
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
       # Install Miniconda with conda-forge dependencies
       - name: Setup Miniconda
-        uses: conda-incubator/setup-miniconda@v3.0.3
+        uses: conda-incubator/setup-miniconda@v3.0.4
         with:
           auto-activate-base: true
           activate-environment: ""  # base environment
@@ -82,7 +79,7 @@ jobs:
 
       # Run the benchmark tests
       - name: Run benchmarks
-        uses: CodSpeedHQ/action@v2.3.0
+        uses: CodSpeedHQ/action@v2.4.1
         with:
           run: |
             python -c "import pygmt; pygmt.show_versions()"

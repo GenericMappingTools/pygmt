@@ -69,7 +69,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.4
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -135,7 +135,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.4
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
@@ -158,7 +158,7 @@ jobs:
           # to get the right commit hash.
           message="Deploy $version from $(git rev-parse --short HEAD)"
           cd deploy
-          # Need to have this file so that Github doesn't try to run Jekyll
+          # Need to have this file so that GitHub doesn't try to run Jekyll
           touch .nojekyll
           # Delete all the files and replace with our new  set
           echo -e "\nRemoving old files from previous builds of ${version}:"
