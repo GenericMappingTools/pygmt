@@ -130,7 +130,7 @@ jobs:
       - name: Download remote data from GitHub
         run: |
           # Download files to ~/.gmt directory and list them
-          gh run download -n gmt-cache -D ~/.gmt/
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
