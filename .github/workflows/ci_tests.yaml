@@ -106,7 +106,7 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: false
+          cache-downloads: true
           cache-environment: false
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
