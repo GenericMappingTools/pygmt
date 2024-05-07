@@ -97,9 +97,9 @@ jobs:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
 
-      - name: Get current date
+      - name: Get current week number of year
         id: date
-        run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
@@ -112,7 +112,7 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: true
-          # environment cache is persistent on the same day.
+          # environment cache is persistent in one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
