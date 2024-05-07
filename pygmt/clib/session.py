@@ -457,7 +457,7 @@ class Session:
         """
         Get the value of a GMT configuration parameter or a GMT API parameter.
 
-        In addition to the long list of GMT configuration parameters, following API
+        In addition to the long list of GMT configuration parameters, the following API
         parameter names are also supported:
 
         * ``"API_VERSION"``: The GMT API version
