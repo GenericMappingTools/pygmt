@@ -23,19 +23,19 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.1.4
       with:
         path: repository
 
     - name: Checkout the documentation
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.1.4
       with:
         ref: gh-pages
         path: documentation
 
     - name: Link Checker
       id: lychee
-      uses: lycheeverse/lychee-action@v1.9.3
+      uses: lycheeverse/lychee-action@v1.10.0
       with:
         # 429: Too many requests
         args: >
@@ -71,5 +71,5 @@ jobs:
       run: |
         title="Link Checker Report on ${{ steps.date.outputs.date }}"
         gh issue create --title "$title" --body-file ./lychee/out.md
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      env:
+        GH_TOKEN: ${{ github.token }}

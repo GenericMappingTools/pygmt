@@ -10,6 +10,7 @@ import string
 import subprocess
 import sys
 import time
+import warnings
 import webbrowser
 from collections.abc import Iterable, Sequence
 from typing import Any
@@ -232,6 +233,10 @@ def non_ascii_to_octal(argstr):
     >>> non_ascii_to_octal("ABC ±120° DEF α ♥")
     'ABC \\261120\\260 DEF @~\\141@~ @%34%\\252@%%'
     """  # noqa: RUF002
+    # Return the string if it only contains printable ASCII characters from 32 to 126.
+    if all(32 <= ord(c) <= 126 for c in argstr):
+        return argstr
+
     # Dictionary mapping non-ASCII characters to octal codes
     mapping = {}
 
@@ -304,10 +309,11 @@ def non_ascii_to_octal(argstr):
             c: "\\" + format(i, "o")
             for c, i in zip(
                 "•…™—–ﬁž"  # \03x. \030 is undefined
+                "’‘"  # \047 and \140
                 "š"  # \177
                 "Œ†‡Ł⁄‹Š›œŸŽł‰„“”"  # \20x-\21x
                 "ı`´ˆ˜¯˘˙¨‚˚¸'˝˛ˇ",  # \22x-\23x
-                [*range(25, 32), *range(127, 160)],
+                [*range(25, 32), 39, 96, *range(127, 160)],
                 strict=True,
             )
         }
@@ -439,6 +445,10 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     strings (e.g. "+proj=longlat +datum=WGS84") will have their spaces removed.
     See https://github.com/GenericMappingTools/pygmt/pull/1487 for more info.
 
+    .. deprecated:: 0.12.0
+
+       Use :func:`build_arg_list` instead.
+
     Parameters
     ----------
     kwdict : dict
@@ -513,8 +523,13 @@ def build_arg_string(kwdict, confdict=None, infile=None, outfile=None):
     ... )
     input.txt -A0 -B -Crainbow --FORMAT_DATE_MAP="o dd" ->output.txt
     """
-    gmt_args = []
+    msg = (
+        "Utility function 'build_arg_string()' is deprecated in v0.12.0 and will be "
+        "removed in v0.14.0. Use 'build_arg_list()' instead."
+    )
+    warnings.warn(msg, category=FutureWarning, stacklevel=2)
 
+    gmt_args = []
     for key in kwdict:
         if len(key) > 2:  # raise an exception for unrecognized options
             raise GMTInvalidInput(f"Unrecognized parameter '{key}'.")
