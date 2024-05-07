@@ -233,7 +233,7 @@ class triangulate:  # noqa: N801
         ``triangulate`` is a Cartesian or small-geographic area operator and is
         unaware of periodic or polar boundary conditions.
         """
-        output_type = validate_output_table_type(output_type, outfile=outfile)
+        output_type = validate_output_table_type(output_type, outfile)
 
         with Session() as lib:
             with (
