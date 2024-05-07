@@ -107,7 +107,7 @@ jobs:
               - conda-forge
               - nodefaults
           cache-downloads: false
-          cache-environment: true
+          cache-environment: false
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
             gmt=6.5.0
