@@ -54,7 +54,6 @@ def test_x2sys_cross_input_file_output_file():
             tag=tag,
             coe="i",
             outfile=outfile,
-            output_type="file",
         )
 
         assert output is None  # check that output is None since outfile is set
