@@ -5,7 +5,7 @@ x2sys_cross - Calculate crossovers between track data files.
 import contextlib
 import os
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any
 
 import pandas as pd
 from pygmt.clib import Session
@@ -17,7 +17,6 @@ from pygmt.helpers import (
     kwargs_to_strings,
     unique_name,
     use_alias,
-    validate_output_table_type,
 )
 
 
@@ -73,7 +72,6 @@ def tempfile_from_dftrack(track, suffix):
 @kwargs_to_strings(R="sequence")
 def x2sys_cross(
     tracks=None,
-    output_type: Literal["pandas", "file"] = "pandas",
     outfile: str | None = None,
     **kwargs,
 ):
@@ -107,12 +105,6 @@ def x2sys_cross(
         set it will default to $GMT_SHAREDIR/x2sys]. (**Note**: MGD77 files
         will also be looked for via $MGD77_HOME/mgd77_paths.txt and .gmt
         files will be searched for via $GMT_SHAREDIR/mgg/gmtfile_paths).
-    output_type
-        Desired output type of the result data.
-
-        - ``pandas`` will return a :class:`pandas.DataFrame` object.
-        - ``file`` will save the result to the file specified by the ``outfile``
-          parameter.
     {outfile}
     tag : str
         Specify the x2sys TAG which identifies the attributes of this data
@@ -191,15 +183,12 @@ def x2sys_cross(
     Returns
     -------
     crossover_errors
-        Table containing crossover error information. Return type depends on ``outfile``
-        and ``output_type``:
-
-        - None if ``outfile`` is set (output will be stored in file set by ``outfile``)
-        - :class:`pandas.DataFrame` if ``output_type`` is set to ``"pandas"``
+        Table containing crossover error information. A :class:`pandas.DataFrame` object
+        is returned if ``outfile`` is not set, otherwise ``None`` is returned and output
+        will be stored in file set by ``outfile``.
     """
-    output_type = validate_output_table_type(
-        output_type, valid_types=("pandas", "file"), outfile=outfile
-    )
+    # Determine output type based on 'outfile' parameter
+    output_type = "pandas" if outfile is None else "file"
 
     file_contexts: list[contextlib.AbstractContextManager[Any]] = []
     for track in tracks:
