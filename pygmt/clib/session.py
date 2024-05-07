@@ -453,11 +453,12 @@ class Session:
 
         self.session_pointer = None
 
-    def get_default(self, name):
+    def get_default(self, name: str) -> str:
         """
-        Get the value of a GMT default parameter (library version, paths, etc).
+        Get the value of a GMT configuration parameter or a GMT API parameter.
 
-        Possible default parameter names include:
+        In addtional to the long list of GMT configuration parameters, following API
+        parameter names are also supported:
 
         * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
@@ -473,13 +474,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
-            The name of the default parameter (e.g., ``"API_VERSION"``)
+        name
+            The name of the GMT configuration parameter (e.g., ``"PROJ_LENGTH_UNIT"``)
+            or a GMT API parameter (e.g., ``"API_VERSION"``).
 
         Returns
         -------
-        value : str
-            The default value for the parameter.
+        value
+            The current value for the parameter.
 
         Raises
         ------
@@ -493,15 +495,11 @@ class Session:
         )
 
         # Make a string buffer to get a return value
-        value = ctp.create_string_buffer(10000)
-
+        value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
-
         if status != 0:
-            raise GMTCLibError(
-                f"Error getting default value for '{name}' (error code {status})."
-            )
-
+            msg = f"Error getting value for '{name}' (error code {status})."
+            raise GMTCLibError(msg)
         return value.value.decode()
 
     def get_common(self, option):
