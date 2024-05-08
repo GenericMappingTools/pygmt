@@ -69,7 +69,7 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.5
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
@@ -132,7 +132,7 @@ jobs:
         run: make -C doc clean all
 
       - name: Checkout the gh-pages branch
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.5
         with:
           ref: gh-pages
           # Checkout to this folder instead of the current one
