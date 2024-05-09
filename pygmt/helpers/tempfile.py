@@ -154,14 +154,12 @@ def tempfile_from_geojson(geojson):
             # Other 'geo' formats which implement __geo_interface__
             import json
 
-            import fiona
+            import pyogrio
 
-            with fiona.Env():
-                jsontext = json.dumps(geojson.__geo_interface__)
-                # Do Input/Output via Fiona virtual memory
-                with fiona.io.MemoryFile(file_or_bytes=jsontext.encode()) as memfile:
-                    geoseries = gpd.GeoSeries.from_file(filename=memfile)
-                    geoseries.to_file(**ogrgmt_kwargs)
+            jsontext = json.dumps(geojson.__geo_interface__)
+            # Do Input/Output via Pyogrio (GDAL) virtual memory
+            geodataframe = pyogrio.read_dataframe(jsontext)
+            geodataframe.to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
 
