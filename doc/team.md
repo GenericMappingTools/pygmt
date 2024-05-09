@@ -87,7 +87,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 :::::
 
 
-## Inactive Maintainers
+## Distinguished Contributors
 
 :::::{grid} 2 3 3 4
 
