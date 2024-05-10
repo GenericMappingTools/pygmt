@@ -17,7 +17,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Founders
 
-:::::{grid} 2 3 3 4
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Leonardo Uieda
 :margin: 0 3 0 0
