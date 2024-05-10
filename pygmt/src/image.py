@@ -2,24 +2,12 @@
 image - Plot an image.
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
-from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
+from pygmt.helpers import build_arg_list, fmt_docstring
 
 
 @fmt_docstring
-@use_alias(
-    D="position",
-    F="box",
-    G="bitcolor",
-    J="projection",
-    M="monochrome",
-    R="region",
-    V="verbose",
-    c="panel",
-    p="perspective",
-    t="transparency",
-)
-@kwargs_to_strings(R="sequence", c="sequence_comma", p="sequence")
 def image(self, imagefile, **kwargs):
     r"""
     Place images or EPS files on maps.
@@ -28,8 +16,6 @@ def image(self, imagefile, **kwargs):
     it on a map.
 
     Full option list at :gmt-docs:`image.html`
-
-    {aliases}
 
     Parameters
     ----------
@@ -67,6 +53,21 @@ def image(self, imagefile, **kwargs):
     {perspective}
     {transparency}
     """
+    alias = AliasSystem(
+        R=Alias("region", separator="/"),
+        J="projection",
+        D="position",
+        F="box",
+        G="bitcolor",
+        M="monochrome",
+        V="verbose",
+        c=Alias("panel", separator=","),
+        p=Alias("perspective", separator="/"),
+        t="transparency",
+    )
+
     kwargs = self._preprocess(**kwargs)
     with Session() as lib:
-        lib.call_module(module="image", args=build_arg_list(kwargs, infile=imagefile))
+        lib.call_module(
+            module="image", args=build_arg_list(alias.kwdict, infile=imagefile)
+        )
