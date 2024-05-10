@@ -6,13 +6,15 @@ Tools (GMT).
 All are welcome to become involved with the PyGMT project! For more information about how
 to get involved, see the {doc}`contributing`.
 
-PyGMT Distinguished Contributors are recognized for their substantial contributions to PyGMT,
+Distinguished Contributors are recognized for their substantial contributions to PyGMT,
 which may include code, documentation, pull request review, triaging, forum responses,
-community building and engagement, outreach, and inclusion and diversity. New Distinguished
-Contributors are selected twice per year by those listed below. Distinguished Contributors
-include current or inactive contributors and inactive maintainers, so is not meant as a means
-of conveying responsibilities. Distinguished Contributors who are also active maintainers of
-the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
+community building and engagement, outreach, and inclusion and diversity. Maintainers
+are recognized for their responsibilities in maintaining the project, as detailed in
+{doc}`maintenance`.
+
+New Distinguished Contributors and Active Maintainers are selected and voted by current
+Active Maintainers before each release. Maintainers that are inactive for more than one
+year will be moved to Distinguished Contributors.
 
 
 ## Founders
