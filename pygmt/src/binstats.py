@@ -2,13 +2,13 @@
 binstats - Bin spatial data and determine statistics per bin
 """
 
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session
 from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_alias
 
 
 @fmt_docstring
 @use_alias(
-    C="statistic",
     E="empty",
     I="spacing",
     N="normalize",
@@ -23,7 +23,13 @@ from pygmt.helpers import build_arg_list, fmt_docstring, kwargs_to_strings, use_
     r="registration",
 )
 @kwargs_to_strings(I="sequence", R="sequence", i="sequence_comma")
-def binstats(data, outgrid: str | None = None, **kwargs):
+def binstats(
+    data,
+    outgrid: str | None = None,
+    statistic=None,
+    quantile_value=50,
+    **kwargs,  # noqa: ARG001
+):
     r"""
     Bin spatial data and determine statistics per bin.
 
@@ -69,6 +75,8 @@ def binstats(data, outgrid: str | None = None, **kwargs):
         - **u** for maximum (upper)
         - **U** for maximum of negative values only
         - **z** for the sum
+    quantile_value : float
+        The quantile value if ``statistic="quantile".
     empty : float
         Set the value assigned to empty nodes [Default is NaN].
     normalize : bool
@@ -102,13 +110,41 @@ def binstats(data, outgrid: str | None = None, **kwargs):
         - None if ``outgrid`` is set (grid output will be stored in file set by
           ``outgrid``)
     """
+    alias = AliasSystem(
+        C=Alias(
+            "statistic",
+            mapping={
+                "mean": "a",
+                "mad": "d",
+                "full": "g",
+                "interquartile": "i",
+                "min": "l",
+                "minpos": "L",
+                "median": "m",
+                "number": "n",
+                "lms": "o",
+                "mode": "p",
+                "quantile": "q",
+                "rms": "r",
+                "stddev": "s",
+                "max": "u",
+                "maxneg": "U",
+                "sum": "z",
+            },
+        ),
+        G="outgrid",
+    )
+    if statistic == "quantile":
+        statistic += str(quantile_value)
+
+    kwdict = alias.kwdict
     with Session() as lib:
         with (
             lib.virtualfile_in(check_kind="vector", data=data) as vintbl,
             lib.virtualfile_out(kind="grid", fname=outgrid) as voutgrd,
         ):
-            kwargs["G"] = voutgrd
+            kwdict["G"] = voutgrd
             lib.call_module(
-                module="binstats", args=build_arg_list(kwargs, infile=vintbl)
+                module="binstats", args=build_arg_list(kwdict, infile=vintbl)
             )
             return lib.virtualfile_to_raster(vfname=voutgrd, outgrid=outgrid)
