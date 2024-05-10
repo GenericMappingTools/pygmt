@@ -40,7 +40,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Active Maintainers
 
-:::::{grid} 2 3 3 4
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Dongdong Tian
 :margin: 0 3 0 0
@@ -87,7 +87,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Distinguished Contributors
 
-:::::{grid} 2 3 3 4
+:::::{grid} 2 3 3 5
 
 ::::{grid-item-card} Max Jones
 :margin: 0 3 0 0
