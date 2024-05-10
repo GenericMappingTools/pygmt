@@ -17,10 +17,10 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Founders
 
-:::::{grid} 2 3 3 5
+:::::{grid} 5
 
 ::::{grid-item-card} Leonardo Uieda
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/290082?v=4
 
@@ -28,7 +28,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Paul Wessel
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/26473567?v=4
 
@@ -40,10 +40,10 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Active Maintainers
 
-:::::{grid} 2 3 3 5
+:::::{grid} 5
 
 ::::{grid-item-card} Dongdong Tian
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/3974108?v=4
 
@@ -51,7 +51,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Wei Ji Leong
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/23487320?v=4
 
@@ -59,7 +59,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Michael Grund
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/23025878?v=4
 
@@ -67,7 +67,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Will Schlitzer
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/29518865?v=4
 
@@ -75,7 +75,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Yvonne Fröhlich
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/94163266?v=4
 
@@ -87,10 +87,10 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 
 ## Distinguished Contributors
 
-:::::{grid} 2 3 3 5
+:::::{grid} 5
 
 ::::{grid-item-card} Max Jones
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/14077947?v=4
 
@@ -98,7 +98,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Jiayuan Yao
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/50591376?v=4
 
@@ -106,7 +106,7 @@ the PyGMT project have responsibilities detailed in the {doc}`maintenance`.
 ::::
 
 ::::{grid-item-card} Liam Toney
-:margin: 0 3 0 0
+:padding: 1
 :text-align: center
 :img-top: https://avatars.githubusercontent.com/u/38269494?v=4
 
