@@ -2,23 +2,18 @@
 timestamp - Plot the GMT timestamp logo.
 """
 
-from __future__ import annotations
-
 import warnings
-from typing import TYPE_CHECKING
+from collections.abc import Sequence
 
 from packaging.version import Version
+from pygmt.alias import Alias, AliasSystem
 from pygmt.clib import Session, __gmt_version__
-from pygmt.helpers import build_arg_list, kwargs_to_strings
-
-if TYPE_CHECKING:
-    from collections.abc import Sequence
-
+from pygmt.helpers import build_arg_list, is_nonstr_iter
 
 __doctest_skip__ = ["timestamp"]
 
 
-@kwargs_to_strings(offset="sequence")
+# ruff: noqa: ARG001
 def timestamp(
     self,
     text: str | None = None,
@@ -81,35 +76,39 @@ def timestamp(
     >>> fig.timestamp(label="Powered by PyGMT")
     >>> fig.show()
     """
+    alias = AliasSystem(
+        U=[
+            Alias("label"),
+            Alias("justify", prefix="+j"),
+            Alias("offset", prefix="+o", separator="/"),
+            Alias("text", prefix="+t"),
+        ]
+    )
+
     self._preprocess()
 
-    # Build the options passed to the "plot" module
-    kwdict: dict = {"T": True, "U": ""}
-    if label is not None:
-        kwdict["U"] += f"{label}"
-    kwdict["U"] += f"+j{justify}"
-
-    if Version(__gmt_version__) <= Version("6.4.0") and "/" not in str(offset):
-        # Giving a single offset doesn't work in GMT <= 6.4.0.
+    # Workarounds for bugs/missing features for GMT<=6.4.0
+    if Version(__gmt_version__) <= Version("6.4.0"):
+        # Giving a single offset doesn't work.
         # See https://github.com/GenericMappingTools/gmt/issues/7107.
-        offset = f"{offset}/{offset}"
-    kwdict["U"] += f"+o{offset}"
-
-    # The +t modifier was added in GMT 6.5.0.
-    # See https://github.com/GenericMappingTools/gmt/pull/7127.
-    if text is not None:
-        if len(str(text)) > 64:
-            msg = (
-                "Argument of 'text' must be no longer than 64 characters. "
-                "The given text string will be truncated to 64 characters."
-            )
-            warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
-        if Version(__gmt_version__) <= Version("6.4.0"):
-            # workaround for GMT<=6.4.0 by overriding the 'timefmt' parameter
+        if (is_nonstr_iter(offset) and len(offset) == 1) or "/" not in str(offset):  # type: ignore[arg-type]
+            offset = f"{offset}/{offset}"
+        # The +t modifier was added in GMT 6.5.0.
+        # See https://github.com/GenericMappingTools/gmt/pull/7127.
+        if text is not None:
+            # Overriding the 'timefmt' parameter and set 'text' to None
             timefmt = text[:64]
-        else:
-            kwdict["U"] += f"+t{text}"
+            text = None
 
+    if text is not None and len(text) > 64:
+        msg = (
+            "Argument of 'text' must be no longer than 64 characters. "
+            "The given text string will be truncated to 64 characters."
+        )
+        warnings.warn(message=msg, category=RuntimeWarning, stacklevel=2)
+        text = text[:64]
+
+    kwdict: dict = {"T": True, "U": True} | alias.kwdict
     with Session() as lib:
         lib.call_module(
             module="plot",
