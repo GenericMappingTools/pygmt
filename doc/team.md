@@ -1,9 +1,7 @@
 # PyGMT Team
 
 We are an international team dedicated to building a Pythonic API for the Generic Mapping
-Tools (GMT). Our goal is to improve GMT's accessibility for new and experienced users by
-creating user-friendly interfaces with the GMT C API, supporting rich display in Jupyter
-notebooks, and integrating with the PyData ecosystem.
+Tools (GMT).
 
 All are welcome to become involved with the PyGMT project! For more information about how
 to get involved, see the {doc}`contributing`.
