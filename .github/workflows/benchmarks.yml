@@ -80,7 +80,9 @@ jobs:
         uses: CodSpeedHQ/action@v2.4.1
         with:
           run: |
+            ls /usr/share/miniconda/share/proj
             python -c "import pygmt; pygmt.show_versions()"
             PYGMT_USE_EXTERNAL_DISPLAY="false" python -m pytest -r P --pyargs pygmt --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
+          PROJ_LIB: /usr/share/miniconda/share/proj
