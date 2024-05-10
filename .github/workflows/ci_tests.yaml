@@ -112,7 +112,7 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: true
-          # environment cache is persistent in one week.
+          # environment cache is persistent for one week.
           cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=${{ matrix.python-version }}${{ matrix.optional-packages }}
