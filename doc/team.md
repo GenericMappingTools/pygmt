@@ -10,7 +10,7 @@ Distinguished Contributors are recognized for their substantial contributions to
 which may include code, documentation, pull request review, triaging, forum responses,
 community building and engagement, outreach, and inclusion and diversity. Maintainers
 are recognized for their responsibilities in maintaining the project, as detailed in
-{doc}`maintenance`.
+the {doc}`maintenance`.
 
 New Distinguished Contributors and Active Maintainers are selected and voted by current
 Active Maintainers before each release. Maintainers that are inactive for more than one
