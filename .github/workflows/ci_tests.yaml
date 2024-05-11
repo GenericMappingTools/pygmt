@@ -49,6 +49,8 @@ jobs:
   test:
     name: ${{ matrix.os }} - Python ${{ matrix.python-version }} / NumPy ${{ matrix.numpy-version }}
     runs-on: ${{ matrix.os }}
+    permissions:
+      id-token: write  # This is required for requesting OIDC token for codecov
     strategy:
       fail-fast: false
       matrix:
@@ -161,7 +163,7 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.3.1
         with:
+          use_oidc: true
           file: ./coverage.xml # optional
           env_vars: OS,PYTHON,NUMPY
           fail_ci_if_error: false
-          token: ${{ secrets.CODECOV_TOKEN }}
