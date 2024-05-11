@@ -2,12 +2,12 @@
 Velocity arrows and confidence ellipses
 =======================================
 
-The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrows
-and confidence ellipses. The example below plots red velocity arrows with
-light-blue confidence ellipses outlined in red with the east_velocity x
-north_velocity used for the station names. Note that the velocity arrows are
-scaled by 0.2 and the 39% confidence limit will give an ellipse which fits
-inside a rectangle of dimension east_sigma by north_sigma.
+The :meth:`pygmt.Figure.velo` method can be used to plot mean velocity arrows and
+confidence ellipses. The example below plots red velocity arrows with lightblue
+confidence ellipses outlined in red with the east_velocity x north_velocity used for
+the station names. Note that the velocity arrows are scaled by 0.2 and the 39%
+confidence limit will give an ellipse which fits inside a rectangle of dimension
+east_sigma by north_sigma.
 """
 
 # %%
