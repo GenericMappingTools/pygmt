@@ -30,12 +30,12 @@ df = pd.DataFrame(
 fig.velo(
     data=df,
     region=[-10, 8, -10, 6],
-    pen="0.6p,red",
-    uncertaintyfill="lightblue1",
-    line=True,
-    spec="e0.2/0.39+f18",
-    frame=["WSne", "2g2f"],
     projection="x0.8c",
+    frame=["WSne", "2g2f"],
+    spec="e0.2/0.39+f18",
+    uncertaintyfill="lightblue1",
+    pen="0.6p,red",
+    line=True,
     vector="0.3c+p1p+e+gred",
 )
 
