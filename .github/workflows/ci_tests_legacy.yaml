@@ -58,8 +58,6 @@ jobs:
             channels:
               - conda-forge
               - nodefaults
-          cache-downloads: false
-          cache-environment: true
           create-args: >-
             python=3.10
             gmt=${{ matrix.gmt_version }}
