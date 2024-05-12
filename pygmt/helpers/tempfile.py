@@ -2,6 +2,7 @@
 Utilities for dealing with temporary file management.
 """
 
+import io
 import uuid
 from contextlib import contextmanager
 from pathlib import Path
@@ -154,14 +155,8 @@ def tempfile_from_geojson(geojson):
             # Other 'geo' formats which implement __geo_interface__
             import json
 
-            import fiona
-
-            with fiona.Env():
-                jsontext = json.dumps(geojson.__geo_interface__)
-                # Do Input/Output via Fiona virtual memory
-                with fiona.io.MemoryFile(file_or_bytes=jsontext.encode()) as memfile:
-                    geoseries = gpd.GeoSeries.from_file(filename=memfile)
-                    geoseries.to_file(**ogrgmt_kwargs)
+            jsontext = json.dumps(geojson.__geo_interface__)
+            gpd.read_file(io.StringIO(jsontext)).to_file(**ogrgmt_kwargs)
 
         yield tmpfile.name
 
