@@ -83,3 +83,4 @@ jobs:
             PYGMT_USE_EXTERNAL_DISPLAY="false" python -m pytest -r P --pyargs pygmt --codspeed
         env:
           GMT_LIBRARY_PATH: /usr/share/miniconda/lib/
+          PROJ_LIB: /usr/share/miniconda/share/proj
