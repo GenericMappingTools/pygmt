@@ -453,11 +453,12 @@ class Session:
 
         self.session_pointer = None
 
-    def get_default(self, name):
+    def get_default(self, name: str) -> str:
         """
-        Get the value of a GMT default parameter (library version, paths, etc).
+        Get the value of a GMT configuration parameter or a GMT API parameter.
 
-        Possible default parameter names include:
+        In addition to the long list of GMT configuration parameters, the following API
+        parameter names are also supported:
 
         * ``"API_VERSION"``: The GMT API version
         * ``"API_PAD"``: The grid padding setting
@@ -473,13 +474,14 @@ class Session:
 
         Parameters
         ----------
-        name : str
-            The name of the default parameter (e.g., ``"API_VERSION"``)
+        name
+            The name of the GMT configuration parameter (e.g., ``"PROJ_LENGTH_UNIT"``)
+            or a GMT API parameter (e.g., ``"API_VERSION"``).
 
         Returns
         -------
-        value : str
-            The default value for the parameter.
+        value
+            The current value for the parameter.
 
         Raises
         ------
@@ -493,15 +495,11 @@ class Session:
         )
 
         # Make a string buffer to get a return value
-        value = ctp.create_string_buffer(10000)
-
+        value = ctp.create_string_buffer(4096)
         status = c_get_default(self.session_pointer, name.encode(), value)
-
         if status != 0:
-            raise GMTCLibError(
-                f"Error getting default value for '{name}' (error code {status})."
-            )
-
+            msg = f"Error getting value for '{name}' (error code {status})."
+            raise GMTCLibError(msg)
         return value.value.decode()
 
     def get_common(self, option):
@@ -1644,8 +1642,41 @@ class Session:
 
         return file_context
 
-    # virtualfile_from_data was renamed to virtualfile_in since v0.12.0.
-    virtualfile_from_data = virtualfile_in
+    def virtualfile_from_data(
+        self,
+        check_kind=None,
+        data=None,
+        x=None,
+        y=None,
+        z=None,
+        extra_arrays=None,
+        required_z=False,
+        required_data=True,
+    ):
+        """
+        Store any data inside a virtual file.
+
+        .. deprecated: 0.13.0
+
+           Will be removed in v0.15.0. Use :meth:`pygmt.clib.Session.virtualfile_in`
+           instead.
+        """
+        msg = (
+            "API function 'Session.virtualfile_from_datae()' has been deprecated since "
+            "v0.13.0 and will be removed in v0.15.0. Use 'Session.virtualfile_in()' "
+            "instead."
+        )
+        warnings.warn(msg, category=FutureWarning, stacklevel=2)
+        return self.virtualfile_in(
+            check_kind=check_kind,
+            data=data,
+            x=x,
+            y=y,
+            z=z,
+            extra_arrays=extra_arrays,
+            required_z=required_z,
+            required_data=required_data,
+        )
 
     @contextlib.contextmanager
     def virtualfile_out(

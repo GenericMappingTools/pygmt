@@ -42,7 +42,7 @@ dynamic = ["version"]
 all = [
     "contextily",
     "geopandas",
-    "ipython",
+    "IPython",  # 'ipython' is not the correct module name.
     "rioxarray",
 ]
 

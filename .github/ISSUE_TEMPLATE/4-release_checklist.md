@@ -24,6 +24,7 @@ assignees: ''
   - [ ] All tests pass in the ["Doctests" workflow](https://github.com/GenericMappingTools/pygmt/actions/workflows/ci_doctests.yaml)
   - [ ] Deprecations and related tests are removed for this version by running `grep --include="*.py" -r 'remove_version="vX.Y.Z"' pygmt` from the base of the repository
 - [ ] Reserve a DOI on [Zenodo](https://zenodo.org) by clicking on "New Version"
+- [ ] Review the ["PyGMT Team" page](https://www.pygmt.org/dev/team.html)
 - [ ] Finish up 'Changelog entry for v0.x.x' Pull Request:
   - [ ] Add a new entry in `doc/_static/version_switch.js` for documentation switcher
   - [ ] Update `CITATION.cff` and BibTeX at https://github.com/GenericMappingTools/pygmt#citing-pygmt
