@@ -96,8 +96,8 @@ def load_mercury_relief(
     ... )
     """
     grid = _load_remote_dataset(
-        dataset_name="mercury_relief",
-        dataset_prefix="mercury_relief_",
+        name="mercury_relief",
+        prefix="mercury_relief",
         resolution=resolution,
         region=region,
         registration=registration,

@@ -16,14 +16,14 @@ authors:
   family-names: Leong
   affiliation: Development Seed, USA
   orcid: https://orcid.org/0000-0003-2354-1988
-- given-names: William
-  family-names: Schlitzer
-  affiliation: Unaffiliated
-  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Yvonne
   family-names: Fröhlich
   affiliation: Karlsruhe Institute of Technology, Germany
   orcid: https://orcid.org/0000-0002-8566-0619
+- given-names: William
+  family-names: Schlitzer
+  affiliation: Unaffiliated
+  orcid: https://orcid.org/0000-0002-5843-2282
 - given-names: Michael
   family-names: Grund
   affiliation: SNP Innovation Lab GmbH, Germany
@@ -76,9 +76,9 @@ authors:
   family-names: Wessel
   affiliation: University of Hawaiʻi at Mānoa, USA
   orcid: https://orcid.org/0000-0001-5708-7336
-date-released: 2024-02-01
-doi: 10.5281/zenodo.10578540
+date-released: 2024-05-01
+doi: 10.5281/zenodo.11062720
 license: BSD-3-Clause
 repository-code: https://github.com/GenericMappingTools/pygmt
 type: software
-version: 0.11.0
+version: 0.12.0

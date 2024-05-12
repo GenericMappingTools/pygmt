@@ -4,20 +4,19 @@
 
 Generally, PyGMT accepts two different types of data inputs: tables and grids.
 
-- A table is a 2-D array with rows and columns. Each column represents a
-  different variable (e.g., *x*, *y* and *z*) and each row represents a
-  different record.
-- A grid is a 2-D array of data that is regularly spaced in the x and y
-  directions (or longitude and latitude).
+- A table is a 2-D array with rows and columns. Each column represents a different
+  variable (e.g., *x*, *y* and *z*) and each row represents a different record.
+- A grid is a 2-D array of data that is regularly spaced in the x and y directions (or
+  longitude and latitude).
 
-In this tutorial, we'll focus on working with table inputs, and cover grid
-inputs in a separate tutorial.
+In this tutorial, we'll focus on working with table inputs, and cover grid inputs in a
+separate tutorial.
 
-PyGMT supports a variety of table input types that allow you to work with data
-in a format that suits your needs. In this tutorial, we'll explore the
-different table input types available in PyGMT and provide examples for each.
-By understanding the different table input types, you can choose the one that
-best fits your data and analysis needs, and work more efficiently with PyGMT.
+PyGMT supports a variety of table input types that allow you to work with data in a
+format that suits your needs. In this tutorial, we'll explore the different table input
+types available in PyGMT and provide examples for each. By understanding the different
+table input types, you can choose the one that best fits your data and analysis needs,
+and work more efficiently with PyGMT.
 """
 
 # %%
@@ -32,10 +31,10 @@ import pygmt
 # ASCII table file
 # ----------------
 #
-# Most PyGMT functions/methods that accept table input data have a ``data``
-# parameter. The easiest way to provide table input data to PyGMT is by
-# specifying the file name of an ASCII table (e.g., ``data="input_data.dat"``).
-# This is useful when your data is stored in a separate text file.
+# Most PyGMT functions/methods that accept table input data have a ``data`` parameter.
+# The easiest way to provide table input data to PyGMT is by specifying the file name of
+# an ASCII table (e.g., ``data="input_data.dat"``). This is useful when your data is
+# stored in a separate text file.
 
 # Create an example file with 3 rows and 2 columns
 data = np.array([[1.0, 2.0], [5.0, 4.0], [8.0, 3.0]])
@@ -51,14 +50,16 @@ fig.show()
 Path("input_data.dat").unlink()
 
 # %%
-# Besides a plain string to a table file, the following variants are also
-# accepted:
+# Besides a plain string to a table file, the following variants are also accepted:
 #
 # - A :class:`pathlib.Path` object.
 # - A full URL. PyGMT will download the file to the current directory first.
-# - A file name prefixed with ``@`` (e.g., ``data="@input_data.dat"``), which
-#   is a special syntax in GMT to indicate that the file is a remote file
-#   hosted on the GMT data server.
+# - A file name prefixed with ``@`` (e.g., ``data="@input_data.dat"``), which is a
+#   special syntax in GMT to indicate that the file is a remote file hosted on the GMT
+#   data server.
+#
+# Additionally, PyGMT also supports a list of file names, :class:`pathlib.Path` objects,
+# URLs, or remote files, to provide more flexibility in specifying input files.
 
 # %%
 # 2-D array: `list`, `numpy.ndarray`, and `pandas.DataFrame`
@@ -92,9 +93,9 @@ fig.show()
 # -------------------------------
 #
 # If you're working with geospatial data, you can read your data as a
-# :class:`geopandas.GeoDataFrame` object and pass it to the ``data``
-# parameter. This is useful if your data is stored in a geospatial data format
-# (e.g., GeoJSON, etc.) that GMT and PyGMT do not support natively.
+# :class:`geopandas.GeoDataFrame` object and pass it to the ``data`` parameter. This is
+# useful if your data is stored in a geospatial data format (e.g., GeoJSON, etc.) that
+# GMT and PyGMT do not support natively.
 
 # Example GeoDataFrame
 gdf = gpd.GeoDataFrame(
@@ -114,10 +115,10 @@ fig.show()
 # Scalar values or 1-D arrays
 # ---------------------------
 #
-# In addition to the ``data`` parameter, some PyGMT functions/methods also
-# provide individual parameters (e.g., ``x`` and ``y`` for data coordinates)
-# which allow you to specify the data. These parameters accept individual
-# scalar values or 1-D arrays (lists or 1-D numpy arrays).
+# In addition to the ``data`` parameter, some PyGMT functions/methods also provide
+# individual parameters (e.g., ``x`` and ``y`` for data coordinates) which allow you to
+# specify the data. These parameters accept individual scalar values or 1-D arrays
+# (lists or 1-D numpy arrays).
 
 fig = pygmt.Figure()
 fig.basemap(region=[0, 10, 0, 5], projection="X10c/5c", frame=True)
@@ -139,8 +140,8 @@ fig.show()
 # Conclusion
 # ----------
 #
-# In PyGMT, you have the flexibility to provide data in various table input
-# types, including file names, 2-D arrays (2-D :class:`list`,
-# :class:`numpy.ndarray`, :class:`pandas.DataFrames`), scalar values or a
-# series of 1-D arrays, and :class:`geopandas.GeoDataFrame`. Choose the input
-# type that best suits your data source and analysis requirements.
+# In PyGMT, you have the flexibility to provide data in various table input types,
+# including file names, 2-D arrays (2-D :class:`list`, :class:`numpy.ndarray`,
+# :class:`pandas.DataFrames`), scalar values or a series of 1-D arrays, and
+# :class:`geopandas.GeoDataFrame`. Choose the input type that best suits your data
+# source and analysis requirements.

@@ -47,10 +47,14 @@ jobs:
     steps:
       # Checkout current git repository
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4.1.5
         with:
           # fetch all history so that setuptools-scm works
           fetch-depth: 0
+
+      - name: Get current week number of year
+        id: date
+        run: echo "date=$(date +%Y-W%W)" >> $GITHUB_OUTPUT  # e.g., 2024-W19
 
       # Install Micromamba with conda-forge dependencies
       - name: Setup Micromamba
@@ -63,6 +67,8 @@ jobs:
               - nodefaults
           cache-downloads: false
           cache-environment: true
+          # environment cache is persistent for one week.
+          cache-environment-key: micromamba-environment-${{ steps.date.outputs.date }}
           create-args: >-
             python=3.12
             cmake
@@ -120,7 +126,7 @@ jobs:
         run: |
           python -m pip install --pre --prefer-binary \
                         --extra-index https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
-                        numpy pandas xarray netCDF4 packaging \
+                        'numpy<2' pandas xarray netCDF4 packaging \
                         build contextily dvc geopandas ipython pyarrow rioxarray \
                         'pytest>=6.0' pytest-cov pytest-doctestplus pytest-mpl \
                         sphinx-gallery
@@ -136,11 +142,8 @@ jobs:
       # Download cached remote files (artifacts) from GitHub
       - name: Download remote data from GitHub
         run: |
-          gh run download -n gmt-cache -D gmt-cache
-          # Move downloaded files to ~/.gmt directory and list them
-          mkdir -p ~/.gmt
-          mv gmt-cache/* ~/.gmt
-          rmdir gmt-cache
+          # Download cached files to ~/.gmt directory and list them
+          gh run download --name gmt-cache --dir ~/.gmt/
           # Change modification times of the two files, so GMT won't refresh it
           touch ~/.gmt/gmt_data_server.txt ~/.gmt/gmt_hash_server.txt
           ls -lhR ~/.gmt
