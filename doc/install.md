@@ -284,3 +284,13 @@ jupyter kernelspec list --json
 
 After that, you need to restart Jupyter, open your notebook, select the `pygmt` kernel
 and then import pygmt.
+
+
+### Not working transparency
+
+It is known that some combinations of GMT and ghostscript versions cause issues, especially
+regarding transparency:
+
+- ghostscript 9.53-9.56: work
+- ghostscript 10.00-10.01: doesn't work
+- ghostscript 10.02-10.03: work, but requires GMT<=6.4
