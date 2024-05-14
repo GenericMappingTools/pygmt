@@ -238,11 +238,16 @@ import pygmt
 pygmt.show_versions()
 
 fig = pygmt.Figure()
-fig.coast(region="g", frame=True, shorelines=1)
+fig.coast(projection="N10c", region="g", frame=True, land="tan", water="lightblue")
+# Add a semi-transparent text element
+fig.text(position="MC", text="PyGMT", font="60p,Helvetica-Bold,red@75")
 fig.show()
 ```
 
-If you see a global map with shorelines, then you're all set.
+You should see a global map with land and water masses colored in tan and lightblue, respectively. On top, there
+should be the semi-transparent text "PyGMT". If the semi-transparency does not show up, there is  probably an
+incompatibility between your GMT and ghostscript versions. For details, please run `pygmt.show_versions()` and
+see [Not working transparency](https://www.pygmt.org/dev/install.html#not-working-transparency).
 
 ## Common installation issues
 
