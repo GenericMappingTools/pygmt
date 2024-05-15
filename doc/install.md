@@ -244,7 +244,7 @@ fig.show()
 ```
 
 You should see a global map with land and water masses colored in tan and lightblue, respectively. On top, there
-should be the semi-transparent text "PyGMT". If the semi-transparency does not show up, there is  probably an
+should be the semi-transparent text "PyGMT". If the semi-transparency does not show up, there is probably an
 incompatibility between your GMT and ghostscript versions. For details, please run `pygmt.show_versions()` and
 see [Not working transparency](#not-working-transparency).
 
