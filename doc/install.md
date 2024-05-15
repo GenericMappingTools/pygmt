@@ -245,7 +245,7 @@ fig.show()
 
 You should see a global map with land and water masses colored in tan and lightblue, respectively. On top, there
 should be the semi-transparent text "PyGMT". If the semi-transparency does not show up, there is probably an
-incompatibility between your GMT and ghostscript versions. For details, please run `pygmt.show_versions()` and
+incompatibility between your GMT and Ghostscript versions. For details, please run `pygmt.show_versions()` and
 see [Not working transparency](#not-working-transparency).
 
 ## Common installation issues
@@ -292,8 +292,8 @@ and then import pygmt.
 
 ### Not working transparency
 
-It is known that some combinations of GMT and ghostscript versions cause issues, especially
+It is known that some combinations of GMT and Ghostscript versions cause issues, especially
 regarding transparency:
 
-- Use ghostscript 9.53-9.56 for GMT 6.3/6.4
-- Use ghostscript 10.03 or later for GMT 6.5
+- Use Ghostscript 9.53-9.56 for GMT 6.3/6.4
+- Use Ghostscript 10.03 or later for GMT 6.5
