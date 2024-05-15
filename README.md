@@ -75,7 +75,6 @@ or a [Jupyter notebook](https://docs.jupyter.org/en/latest/running.html), and tr
 import pygmt
 fig = pygmt.Figure()
 fig.coast(projection="N10c", region="g", frame=True, land="tan", water="lightblue")
-# Add a semi-transparent text element
 fig.text(position="MC", text="PyGMT", font="60p,Helvetica-Bold,red@75")
 fig.show()
 ```
