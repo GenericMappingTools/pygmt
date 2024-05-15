@@ -105,7 +105,7 @@ If you have [PyArrow](https://arrow.apache.org/docs/python/index.html) installed
 does have some initial support for `pandas.Series` and `pandas.DataFrame` objects with
 Apache Arrow-backed arrays. Specifically, only uint/int/float and date32/date64 dtypes
 are supported for now. Support for string Arrow dtypes is still a work in progress.
-For  more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
+For more details, see [issue #2800](https://github.com/GenericMappingTools/pygmt/issues/2800).
 :::
 
 ## Installing GMT and other dependencies
