@@ -295,6 +295,5 @@ and then import pygmt.
 It is known that some combinations of GMT and ghostscript versions cause issues, especially
 regarding transparency:
 
-- ghostscript 9.53-9.56: work
-- ghostscript 10.00-10.01: doesn't work
-- ghostscript 10.02-10.03: work, but requires GMT<=6.4
+- Use ghostscript 9.53-9.56 for GMT 6.3/6.4
+- Use ghostscript 10.03 or later for GMT 6.5
