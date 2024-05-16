@@ -299,5 +299,5 @@ especially regarding transparency. If the transparency doesn't work in your figu
 please check your GMT and Ghostscript versions (you can run `pygmt.show_versions()`).
 We recommend:
 
-- Use Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0
-- Use Ghostscript 10.03 or later for GMT 6.5.0
+- Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0
+- Ghostscript 10.03 or later for GMT 6.5.0
