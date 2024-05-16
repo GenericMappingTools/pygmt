@@ -24,7 +24,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, stats ]
     paths:
       - 'pygmt/**'
       - '.github/workflows/ci_tests.yaml'
