@@ -294,9 +294,10 @@ and then import pygmt.
 
 ### Not working transparency
 
-It is known that some combinations of GMT and Ghostscript versions cause issues, especially
-regarding transparency. If transparency doesn't work in your figures, please
-check your GMT and Ghostscript versions. We recommend:
+It is known that some combinations of GMT and Ghostscript versions cause issues,
+especially regarding transparency. If transparency doesn't work in your figures,
+please check your GMT and Ghostscript versions (you can run `pygmt.show_versions()`).
+We recommend:
 
-- Use Ghostscript 9.53-9.56 for GMT 6.3/6.4
-- Use Ghostscript 10.03 or later for GMT 6.5
+- Use Ghostscript 9.53-9.56 for GMT 6.3.0/6.4.0
+- Use Ghostscript 10.03 or later for GMT 6.5.0
