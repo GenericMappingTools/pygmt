@@ -295,7 +295,7 @@ and then import pygmt.
 ### Not working transparency
 
 It is known that some combinations of GMT and Ghostscript versions cause issues,
-especially regarding transparency. If transparency doesn't work in your figures,
+especially regarding transparency. If the transparency doesn't work in your figures,
 please check your GMT and Ghostscript versions (you can run `pygmt.show_versions()`).
 We recommend:
 
