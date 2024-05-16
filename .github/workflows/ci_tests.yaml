@@ -162,7 +162,7 @@ jobs:
       # Upload diff images on test failure
       - name: Upload diff images if any test fails
         uses: actions/upload-artifact@v4
-        if: ${{ failure() }}
+        if: failure()
         with:
           name: artifact-${{ runner.os }}-${{ matrix.python-version }}
           path: tmp-test-dir-with-unique-name
@@ -170,6 +170,7 @@ jobs:
       # Upload coverage to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4.4.0
+        if: success() || failure()
         with:
           use_oidc: true
           file: ./coverage.xml # optional
