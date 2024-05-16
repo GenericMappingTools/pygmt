@@ -242,7 +242,7 @@ fig.coast(projection="N15c", region="g", frame=True, land="tan", water="lightblu
 fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
-
+![pygmt-get-started](https://github.com/GenericMappingTools/pygmt/assets/3974108/f7f51484-8640-4b58-ae5b-6c71e7150f7a)
 You should see a global map with land and water masses colored in tan and lightblue, respectively. On top, there
 should be the semi-transparent text "PyGMT". If the semi-transparency does not show up, there is probably an
 incompatibility between your GMT and Ghostscript versions. For details, please run `pygmt.show_versions()` and
