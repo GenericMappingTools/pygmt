@@ -34,7 +34,6 @@ from pygmt.exceptions import (
 )
 from pygmt.helpers import (
     data_kind,
-    fmt_docstring,
     tempfile_from_geojson,
     tempfile_from_image,
 )
@@ -1512,7 +1511,6 @@ class Session:
         with self.open_virtualfile(*args) as vfile:
             yield vfile
 
-    @fmt_docstring
     def virtualfile_in(  # noqa: PLR0912
         self,
         check_kind=None,
