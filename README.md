@@ -79,8 +79,8 @@ fig.text(position="MC", text="PyGMT", font="80p,Helvetica-Bold,red@75")
 fig.show()
 ```
 
-You should see a global map with land and water masses colored in tan and lightblue, respectively, with the
-semi-transparent text "PyGMT" on top. For more examples, please have a look at the
+You should see a global map with land and water masses colored in tan and lightblue, respectively. On top,
+there should be the semi-transparent text "PyGMT". For more examples, please have a look at the
 [Gallery](https://www.pygmt.org/latest/gallery/index.html) and
 [Tutorials](https://www.pygmt.org/latest/tutorials/index.html).
 
